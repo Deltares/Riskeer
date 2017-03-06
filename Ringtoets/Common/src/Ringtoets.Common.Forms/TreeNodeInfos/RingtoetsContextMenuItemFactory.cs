@@ -353,7 +353,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             var checkboxImage = isRelevant ? Resources.Checkbox_ticked : Resources.Checkbox_empty;
             return new StrictContextMenuItem(
                 Resources.FailureMechanismContextMenuStrip_Is_relevant,
-                Resources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip,
+                Resources.FailureMechanism_IsRelevant_Description,
                 checkboxImage,
                 (sender, args) =>
                 {

@@ -41,16 +41,17 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
-        private const int gravitationalAccelerationPropertyIndex = 3;
+        private const int isRelevantPropertyIndex = 3;
+        private const int gravitationalAccelerationPropertyIndex = 4;
 
-        private const int cPropertyIndex = 4;
-        private const int n2APropertyIndex = 5;
-        private const int lengthEffectPropertyIndex = 6;
+        private const int cPropertyIndex = 5;
+        private const int n2APropertyIndex = 6;
+        private const int lengthEffectPropertyIndex = 7;
 
-        private const int modelFactorOvertoppingFlowPropertyIndex = 7;
-        private const int modelFactorStorageVolumePropertyIndex = 8;
-        private const int modelFactorSubCriticalFlowPropertyIndex = 9;
-        private const int modelFactorInflowVolumePropertyIndex = 10;
+        private const int modelFactorOvertoppingFlowPropertyIndex = 8;
+        private const int modelFactorStorageVolumePropertyIndex = 9;
+        private const int modelFactorSubCriticalFlowPropertyIndex = 10;
+        private const int modelFactorInflowVolumePropertyIndex = 11;
 
         private readonly IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism> propertyChangeHandler;
 
@@ -76,6 +77,16 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             propertyChangeHandler = handler;
         }
 
+        [DynamicVisibleValidationMethod]
+        public bool DynamicVisibleValidationMethod(string propertyName)
+        {
+            if (!data.IsRelevant && ShouldHideProperty(propertyName))
+            {
+                return false;
+            }
+            return true;
+        }
+
         private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
         {
             foreach (var affectedObject in affectedObjects)
@@ -84,8 +95,21 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
         }
 
+        private bool ShouldHideProperty(string propertyName)
+        {
+            return nameof(GravitationalAcceleration).Equals(propertyName)
+                   || nameof(ModelFactorOvertoppingFlow).Equals(propertyName)
+                   || nameof(ModelFactorStorageVolume).Equals(propertyName)
+                   || nameof(ModelFactorSubCriticalFlow).Equals(propertyName)
+                   || nameof(ModelFactorInflowVolume).Equals(propertyName)
+                   || nameof(C).Equals(propertyName)
+                   || nameof(N2A).Equals(propertyName)
+                   || nameof(LengthEffect).Equals(propertyName);
+        }
+
         #region Length effect parameters
 
+        [DynamicVisible]
         [PropertyOrder(cPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ClosingStructuresFailureMechanismContextProperties_C_DisplayName))]
@@ -98,6 +122,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(n2APropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ClosingStructuresFailureMechanismContextProperties_N2A_DisplayName))]
@@ -119,6 +144,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(lengthEffectPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_DisplayName))]
@@ -159,6 +185,19 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
         }
 
+        [PropertyOrder(isRelevantPropertyIndex)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_IsRelevant_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_IsRelevant_Description))]
+        public bool IsRelevant
+        {
+            get
+            {
+                return data.IsRelevant;
+            }
+        }
+
+        [DynamicVisible]
         [PropertyOrder(gravitationalAccelerationPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.GravitationalAcceleration_DisplayName))]
@@ -175,6 +214,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
 
         #region Model settings
 
+        [DynamicVisible]
         [PropertyOrder(modelFactorOvertoppingFlowPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
@@ -188,6 +228,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(modelFactorStorageVolumePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
@@ -201,6 +242,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(modelFactorSubCriticalFlowPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
@@ -214,6 +256,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(modelFactorInflowVolumePropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StructuresInputFailureMechanismContext_ModelFactorInflowVolume_DisplayName))]

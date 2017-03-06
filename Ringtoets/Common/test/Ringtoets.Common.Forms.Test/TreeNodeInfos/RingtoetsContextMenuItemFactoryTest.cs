@@ -33,8 +33,6 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
-using BaseResources = Core.Common.Base.Properties.Resources;
-using RingtoetsDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
@@ -52,8 +50,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var toolStripItem = RingtoetsContextMenuItemFactory.CreateAddCalculationGroupItem(calculationGroup);
 
             // Assert
-            Assert.AreEqual(RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup, toolStripItem.Text);
-            Assert.AreEqual(RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup_Tooltip, toolStripItem.ToolTipText);
+            Assert.AreEqual("&Map toevoegen", toolStripItem.Text);
+            Assert.AreEqual("Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.AddFolderIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
         }
@@ -83,7 +81,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             var newGroup = calculationGroup.Children[1] as CalculationGroup;
             Assert.IsNotNull(newGroup);
-            Assert.AreEqual(string.Format("{0} (1)", RingtoetsDataResources.CalculationGroup_DefaultName), newGroup.Name);
+            Assert.AreEqual("Nieuwe map (1)", newGroup.Name);
         }
 
         [Test]
@@ -102,8 +100,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var toolStripItem = RingtoetsContextMenuItemFactory.CreateAddCalculationItem(calculationGroupContext, context => { });
 
             // Assert
-            Assert.AreEqual(RingtoetsFormsResources.CalculationGroup_Add_Calculation, toolStripItem.Text);
-            Assert.AreEqual(RingtoetsFormsResources.CalculationGroup_Add_Calculation_Tooltip, toolStripItem.ToolTipText);
+            Assert.AreEqual("Berekening &toevoegen", toolStripItem.Text);
+            Assert.AreEqual("Voeg een nieuwe berekening toe aan deze berekeningsmap.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.FailureMechanismIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
 
@@ -156,8 +154,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var toolStripItem = RingtoetsContextMenuItemFactory.CreateClearAllCalculationOutputInGroupItem(calculationGroup);
 
             // Assert
-            Assert.AreEqual(RingtoetsFormsResources.Clear_all_output, toolStripItem.Text);
-            Assert.AreEqual(RingtoetsFormsResources.CalculationGroup_ClearOutput_ToolTip, toolStripItem.ToolTipText);
+            Assert.AreEqual("&Wis alle uitvoer...", toolStripItem.Text);
+            Assert.AreEqual("Wis de uitvoer van alle berekeningen binnen deze berekeningsmap.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ClearIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
 
@@ -187,8 +185,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var toolStripItem = RingtoetsContextMenuItemFactory.CreateClearAllCalculationOutputInGroupItem(calculationGroup);
 
             // Assert
-            Assert.AreEqual(RingtoetsFormsResources.Clear_all_output, toolStripItem.Text);
-            Assert.AreEqual(RingtoetsFormsResources.CalculationGroup_ClearOutput_No_calculation_with_output_to_clear, toolStripItem.ToolTipText);
+            Assert.AreEqual("&Wis alle uitvoer...", toolStripItem.Text);
+            Assert.AreEqual("Er zijn geen berekeningen met uitvoer om te wissen.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ClearIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
 
@@ -247,8 +245,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             toolStripItem.PerformClick();
 
             // Assert
-            Assert.AreEqual(BaseResources.Confirm, messageBoxTitle);
-            Assert.AreEqual(RingtoetsFormsResources.CalculationGroup_ClearOutput_Are_you_sure_clear_all_output, messageBoxText);
+            Assert.AreEqual("Bevestigen", messageBoxTitle);
+            Assert.AreEqual("Weet u zeker dat u alle uitvoer wilt wissen?", messageBoxText);
 
             mocks.VerifyAll();
         }
@@ -318,8 +316,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var toolStripItem = RingtoetsContextMenuItemFactory.CreateClearAllCalculationOutputInFailureMechanismItem(failureMechanismMock);
 
             // Assert
-            Assert.AreEqual(RingtoetsFormsResources.Clear_all_output, toolStripItem.Text);
-            Assert.AreEqual(RingtoetsFormsResources.Clear_all_output_ToolTip, toolStripItem.ToolTipText);
+            Assert.AreEqual("&Wis alle uitvoer...", toolStripItem.Text);
+            Assert.AreEqual("Wis de uitvoer van alle berekeningen binnen dit toetsspoor.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ClearIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
 
@@ -344,8 +342,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var toolStripItem = RingtoetsContextMenuItemFactory.CreateClearAllCalculationOutputInFailureMechanismItem(failureMechanismMock);
 
             // Assert
-            Assert.AreEqual(RingtoetsFormsResources.Clear_all_output, toolStripItem.Text);
-            Assert.AreEqual(RingtoetsFormsResources.CalculationGroup_ClearOutput_No_calculation_with_output_to_clear, toolStripItem.ToolTipText);
+            Assert.AreEqual("&Wis alle uitvoer...", toolStripItem.Text);
+            Assert.AreEqual("Er zijn geen berekeningen met uitvoer om te wissen.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ClearIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
 
@@ -454,8 +452,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var toolStripItem = RingtoetsContextMenuItemFactory.CreateToggleRelevancyOfFailureMechanismItem(failureMechanismContext, null);
 
             // Assert
-            Assert.AreEqual(RingtoetsFormsResources.FailureMechanismContextMenuStrip_Is_relevant, toolStripItem.Text);
-            Assert.AreEqual(RingtoetsFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip, toolStripItem.ToolTipText);
+            Assert.AreEqual("I&s relevant", toolStripItem.Text);
+            Assert.AreEqual("Geeft aan of dit toetsspoor relevant is of niet.", toolStripItem.ToolTipText);
             var checkboxIcon = isRelevant ? RingtoetsFormsResources.Checkbox_ticked : RingtoetsFormsResources.Checkbox_empty;
             TestHelper.AssertImagesAreEqual(checkboxIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
@@ -503,8 +501,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var toolStripItem = RingtoetsContextMenuItemFactory.CreateClearCalculationOutputItem(calculationWithOutputMock);
 
             // Assert
-            Assert.AreEqual(RingtoetsFormsResources.Clear_output, toolStripItem.Text);
-            Assert.AreEqual(RingtoetsFormsResources.Clear_output_ToolTip, toolStripItem.ToolTipText);
+            Assert.AreEqual("&Wis uitvoer...", toolStripItem.Text);
+            Assert.AreEqual("Wis de uitvoer van deze berekening.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ClearIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
 
@@ -526,8 +524,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var toolStripItem = RingtoetsContextMenuItemFactory.CreateClearCalculationOutputItem(calculationWithOutputMock);
 
             // Assert
-            Assert.AreEqual(RingtoetsFormsResources.Clear_output, toolStripItem.Text);
-            Assert.AreEqual(RingtoetsFormsResources.ClearOutput_No_output_to_clear, toolStripItem.ToolTipText);
+            Assert.AreEqual("&Wis uitvoer...", toolStripItem.Text);
+            Assert.AreEqual("Deze berekening heeft geen uitvoer om te wissen.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ClearIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
 
@@ -563,8 +561,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             toolStripItem.PerformClick();
 
             // Assert
-            Assert.AreEqual(BaseResources.Confirm, messageBoxTitle);
-            Assert.AreEqual(RingtoetsFormsResources.Calculation_ContextMenuStrip_Are_you_sure_clear_output, messageBoxText);
+            Assert.AreEqual("Bevestigen", messageBoxTitle);
+            Assert.AreEqual("Weet u zeker dat u de uitvoer van deze berekening wilt wissen?", messageBoxText);
 
             mocks.VerifyAll();
         }
@@ -612,8 +610,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformCalculationItem(calculation, calculationContext, null, context => null);
 
             // Assert
-            Assert.AreEqual(RingtoetsFormsResources.Calculate, toolStripItem.Text);
-            Assert.AreEqual(RingtoetsFormsResources.Calculate_ToolTip, toolStripItem.ToolTipText);
+            Assert.AreEqual("Be&rekenen", toolStripItem.Text);
+            Assert.AreEqual("Voer deze berekening uit.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
 
@@ -638,7 +636,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformCalculationItem(calculation, calculationContext, null, context => errorMessage);
 
             // Assert
-            Assert.AreEqual(RingtoetsFormsResources.Calculate, toolStripItem.Text);
+            Assert.AreEqual("Be&rekenen", toolStripItem.Text);
             Assert.AreEqual(errorMessage, toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
@@ -689,8 +687,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateCalculationItem(calculationContext, null, c => null);
 
             // Assert
-            Assert.AreEqual(RingtoetsFormsResources.Validate, toolStripItem.Text);
-            Assert.AreEqual(RingtoetsFormsResources.Validate_ToolTip, toolStripItem.ToolTipText);
+            Assert.AreEqual("&Valideren", toolStripItem.Text);
+            Assert.AreEqual("Valideer de invoer voor deze berekening.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ValidateIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
 
@@ -714,7 +712,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateCalculationItem(calculationContext, null, c => errorMessage);
 
             // Assert
-            Assert.AreEqual(RingtoetsFormsResources.Validate, toolStripItem.Text);
+            Assert.AreEqual("&Valideren", toolStripItem.Text);
             Assert.AreEqual(errorMessage, toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ValidateIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
@@ -773,8 +771,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => null);
 
             // Assert
-            Assert.AreEqual(RingtoetsFormsResources.Calculate_all, toolStripItem.Text);
-            Assert.AreEqual(RingtoetsFormsResources.CalculationGroup_CalculateAll_ToolTip, toolStripItem.ToolTipText);
+            Assert.AreEqual("Alles be&rekenen", toolStripItem.Text);
+            Assert.AreEqual("Voer alle berekeningen binnen deze berekeningsmap uit.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
         }
@@ -799,8 +797,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => null);
 
             // Assert
-            Assert.AreEqual(RingtoetsFormsResources.Calculate_all, toolStripItem.Text);
-            Assert.AreEqual(RingtoetsFormsResources.CalculationGroup_CalculateAll_No_calculations_to_run, toolStripItem.ToolTipText);
+            Assert.AreEqual("Alles be&rekenen", toolStripItem.Text);
+            Assert.AreEqual("Er zijn geen berekeningen om uit te voeren.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
         }
@@ -831,7 +829,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => errorMessage);
 
             // Assert
-            Assert.AreEqual(RingtoetsFormsResources.Calculate_all, toolStripItem.Text);
+            Assert.AreEqual("Alles be&rekenen", toolStripItem.Text);
             Assert.AreEqual(errorMessage, toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
@@ -852,8 +850,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => errorMessage);
 
             // Assert
-            Assert.AreEqual(RingtoetsFormsResources.Calculate_all, toolStripItem.Text);
-            Assert.AreEqual(RingtoetsFormsResources.CalculationGroup_CalculateAll_No_calculations_to_run, toolStripItem.ToolTipText);
+            Assert.AreEqual("Alles be&rekenen", toolStripItem.Text);
+            Assert.AreEqual("Er zijn geen berekeningen om uit te voeren.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
         }
@@ -916,8 +914,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateAllCalculationsInGroupItem(calculationGroupContext, null, context => null);
 
             // Assert
-            Assert.AreEqual(RingtoetsFormsResources.Validate_all, toolStripItem.Text);
-            Assert.AreEqual(RingtoetsFormsResources.CalculationGroup_Validate_all_ToolTip, toolStripItem.ToolTipText);
+            Assert.AreEqual("Alles &valideren", toolStripItem.Text);
+            Assert.AreEqual("Valideer alle berekeningen binnen deze berekeningsmap.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ValidateAllIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
         }
@@ -942,8 +940,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateAllCalculationsInGroupItem(calculationGroupContext, null, context => null);
 
             // Assert
-            Assert.AreEqual(RingtoetsFormsResources.Validate_all, toolStripItem.Text);
-            Assert.AreEqual(RingtoetsFormsResources.ValidateAll_No_calculations_to_validate, toolStripItem.ToolTipText);
+            Assert.AreEqual("Alles &valideren", toolStripItem.Text);
+            Assert.AreEqual("Er zijn geen berekeningen om te valideren.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ValidateAllIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
         }
@@ -974,7 +972,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateAllCalculationsInGroupItem(calculationGroupContext, null, context => errorMessage);
 
             // Assert
-            Assert.AreEqual(RingtoetsFormsResources.Validate_all, toolStripItem.Text);
+            Assert.AreEqual("Alles &valideren", toolStripItem.Text);
             Assert.AreEqual(errorMessage, toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ValidateAllIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
@@ -995,8 +993,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateAllCalculationsInGroupItem(calculationGroupContext, null, context => errorMessage);
 
             // Assert
-            Assert.AreEqual(RingtoetsFormsResources.Validate_all, toolStripItem.Text);
-            Assert.AreEqual(RingtoetsFormsResources.ValidateAll_No_calculations_to_validate, toolStripItem.ToolTipText);
+            Assert.AreEqual("Alles &valideren", toolStripItem.Text);
+            Assert.AreEqual("Er zijn geen berekeningen om te valideren.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ValidateAllIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
         }
@@ -1057,8 +1055,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContext, null, context => null);
 
             // Assert
-            Assert.AreEqual(RingtoetsFormsResources.Calculate_all, toolStripItem.Text);
-            Assert.AreEqual(RingtoetsFormsResources.Calculate_all_ToolTip, toolStripItem.ToolTipText);
+            Assert.AreEqual("Alles be&rekenen", toolStripItem.Text);
+            Assert.AreEqual("Voer alle berekeningen binnen dit toetsspoor uit.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
             mocks.VerifyAll();
@@ -1080,8 +1078,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContext, null, context => null);
 
             // Assert
-            Assert.AreEqual(RingtoetsFormsResources.Calculate_all, toolStripItem.Text);
-            Assert.AreEqual(RingtoetsFormsResources.FailureMechanism_CreateCalculateAllItem_No_calculations_to_run, toolStripItem.ToolTipText);
+            Assert.AreEqual("Alles be&rekenen", toolStripItem.Text);
+            Assert.AreEqual("Er zijn geen berekeningen om uit te voeren.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
             mocks.VerifyAll();
@@ -1109,7 +1107,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContext, null, context => errorMessage);
 
             // Assert
-            Assert.AreEqual(RingtoetsFormsResources.Calculate_all, toolStripItem.Text);
+            Assert.AreEqual("Alles be&rekenen", toolStripItem.Text);
             Assert.AreEqual(errorMessage, toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
@@ -1133,8 +1131,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContext, null, context => errorMessage);
 
             // Assert
-            Assert.AreEqual(RingtoetsFormsResources.Calculate_all, toolStripItem.Text);
-            Assert.AreEqual(RingtoetsFormsResources.FailureMechanism_CreateCalculateAllItem_No_calculations_to_run, toolStripItem.ToolTipText);
+            Assert.AreEqual("Alles be&rekenen", toolStripItem.Text);
+            Assert.AreEqual("Er zijn geen berekeningen om uit te voeren.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
             mocks.VerifyAll();
@@ -1191,8 +1189,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 fm => null);
 
             // Assert
-            Assert.AreEqual(RingtoetsFormsResources.Validate_all, toolStripItem.Text);
-            Assert.AreEqual(RingtoetsFormsResources.FailureMechanism_Validate_all_ToolTip, toolStripItem.ToolTipText);
+            Assert.AreEqual("Alles &valideren", toolStripItem.Text);
+            Assert.AreEqual("Valideer alle berekeningen binnen dit toetsspoor.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ValidateAllIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
             mocks.VerifyAll();
@@ -1213,8 +1211,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateAllCalculationsInFailureMechanismItem(failureMechanismContext, null, fm => null);
 
             // Assert
-            Assert.AreEqual(RingtoetsFormsResources.Validate_all, toolStripItem.Text);
-            Assert.AreEqual(RingtoetsFormsResources.ValidateAll_No_calculations_to_validate, toolStripItem.ToolTipText);
+            Assert.AreEqual("Alles &valideren", toolStripItem.Text);
+            Assert.AreEqual("Er zijn geen berekeningen om te valideren.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ValidateAllIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
             mocks.VerifyAll();
@@ -1245,7 +1243,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 fm => errorMessage);
 
             // Assert
-            Assert.AreEqual(RingtoetsFormsResources.Validate_all, toolStripItem.Text);
+            Assert.AreEqual("Alles &valideren", toolStripItem.Text);
             Assert.AreEqual(errorMessage, toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ValidateAllIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
@@ -1272,8 +1270,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 fm => errorMessage);
 
             // Assert
-            Assert.AreEqual(RingtoetsFormsResources.Validate_all, toolStripItem.Text);
-            Assert.AreEqual(RingtoetsFormsResources.ValidateAll_No_calculations_to_validate, toolStripItem.ToolTipText);
+            Assert.AreEqual("Alles &valideren", toolStripItem.Text);
+            Assert.AreEqual("Er zijn geen berekeningen om te valideren.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ValidateAllIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
             mocks.VerifyAll();
@@ -1326,9 +1324,9 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 FailureMechanism = failureMechanism;
             }
 
-            public CalculationGroup WrappedData { get; private set; }
+            public CalculationGroup WrappedData { get; }
 
-            public IFailureMechanism FailureMechanism { get; private set; }
+            public IFailureMechanism FailureMechanism { get; }
         }
 
         private class TestCalculationContext : Observable, ICalculationContext<TestCalculation, IFailureMechanism>
@@ -1339,9 +1337,9 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 FailureMechanism = failureMechanism;
             }
 
-            public TestCalculation WrappedData { get; private set; }
+            public TestCalculation WrappedData { get; }
 
-            public IFailureMechanism FailureMechanism { get; private set; }
+            public IFailureMechanism FailureMechanism { get; }
         }
 
         private class TestCalculation : Observable, ICalculation

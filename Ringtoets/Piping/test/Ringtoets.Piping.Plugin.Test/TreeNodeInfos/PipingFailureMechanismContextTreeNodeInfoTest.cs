@@ -341,18 +341,54 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     // Assert
                     Assert.AreEqual(13, menu.Items.Count);
 
-                    TestHelper.AssertContextMenuStripContainsItem(menu, 0, CoreCommonGuiResources.Open, CoreCommonGuiResources.Open_ToolTip, CoreCommonGuiResources.OpenIcon, false);
+                    TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                                  0,
+                                                                  "&Openen",
+                                                                  "Open de gegevens in een nieuw documentvenster.",
+                                                                  CoreCommonGuiResources.OpenIcon,
+                                                                  false);
 
-                    TestHelper.AssertContextMenuStripContainsItem(menu, 2, RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant, RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip, RingtoetsCommonFormsResources.Checkbox_ticked);
+                    TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                                  2,
+                                                                  "I&s relevant",
+                                                                  "Geeft aan of dit toetsspoor relevant is of niet.",
+                                                                  RingtoetsCommonFormsResources.Checkbox_ticked);
 
-                    TestHelper.AssertContextMenuStripContainsItem(menu, 4, RingtoetsCommonFormsResources.Validate_all, RingtoetsCommonFormsResources.FailureMechanism_Validate_all_ToolTip, RingtoetsCommonFormsResources.ValidateAllIcon);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, 5, RingtoetsCommonFormsResources.Calculate_all, RingtoetsCommonFormsResources.Calculate_all_ToolTip, RingtoetsCommonFormsResources.CalculateAllIcon);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, 7, RingtoetsCommonFormsResources.Clear_all_output, RingtoetsCommonFormsResources.Clear_all_output_ToolTip, RingtoetsCommonFormsResources.ClearIcon);
+                    TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                                  4,
+                                                                  "Alles &valideren",
+                                                                  "Valideer alle berekeningen binnen dit toetsspoor.",
+                                                                  RingtoetsCommonFormsResources.ValidateAllIcon);
+                    TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                                  5,
+                                                                  "Alles be&rekenen",
+                                                                  "Voer alle berekeningen binnen dit toetsspoor uit.",
+                                                                  RingtoetsCommonFormsResources.CalculateAllIcon);
+                    TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                                  7,
+                                                                  "&Wis alle uitvoer...",
+                                                                  "Wis de uitvoer van alle berekeningen binnen dit toetsspoor.",
+                                                                  RingtoetsCommonFormsResources.ClearIcon);
 
-                    TestHelper.AssertContextMenuStripContainsItem(menu, 9, CoreCommonGuiResources.Collapse_all, CoreCommonGuiResources.Collapse_all_ToolTip, CoreCommonGuiResources.CollapseAllIcon, false);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, 10, CoreCommonGuiResources.Expand_all, CoreCommonGuiResources.Expand_all_ToolTip, CoreCommonGuiResources.ExpandAllIcon, false);
+                    TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                                  9,
+                                                                  "Alles i&nklappen",
+                                                                  "Klap dit element en alle onderliggende elementen in.",
+                                                                  CoreCommonGuiResources.CollapseAllIcon,
+                                                                  false);
+                    TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                                  10,
+                                                                  "Alles ui&tklappen",
+                                                                  "Klap dit element en alle onderliggende elementen uit.",
+                                                                  CoreCommonGuiResources.ExpandAllIcon,
+                                                                  false);
 
-                    TestHelper.AssertContextMenuStripContainsItem(menu, 12, CoreCommonGuiResources.Properties, CoreCommonGuiResources.Properties_ToolTip, CoreCommonGuiResources.PropertiesHS, false);
+                    TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                                  12,
+                                                                  "Ei&genschappen",
+                                                                  "Toon de eigenschappen in het Eigenschappenpaneel.",
+                                                                  CoreCommonGuiResources.PropertiesHS,
+                                                                  false);
 
                     CollectionAssert.AllItemsAreInstancesOfType(new[]
                     {
@@ -430,7 +466,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     // Assert
                     ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIndex];
                     Assert.IsTrue(clearOutputItem.Enabled);
-                    Assert.AreEqual(RingtoetsCommonFormsResources.Clear_all_output_ToolTip, clearOutputItem.ToolTipText);
+                    Assert.AreEqual("Wis de uitvoer van alle berekeningen binnen dit toetsspoor.", clearOutputItem.ToolTipText);
                 }
             }
         }

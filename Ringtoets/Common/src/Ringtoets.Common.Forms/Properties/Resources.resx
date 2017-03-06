@@ -274,7 +274,7 @@
   <data name="FailureMechanismContextMenuStrip_Is_relevant" xml:space="preserve">
     <value>I&amp;s relevant</value>
   </data>
-  <data name="FailureMechanismContextMenuStrip_Is_relevant_Tooltip" xml:space="preserve">
+  <data name="FailureMechanism_IsRelevant_Description" xml:space="preserve">
     <value>Geeft aan of dit toetsspoor relevant is of niet.</value>
   </data>
   <data name="CalculationGroup_Add_Calculation_Tooltip" xml:space="preserve">
@@ -922,5 +922,8 @@ Weet u zeker dat u wilt doorgaan?</value>
   </data>
   <data name="UpdateItemIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\update.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FailureMechanism_IsRelevant_DisplayName" xml:space="preserve">
+    <value>Is relevant</value>
   </data>
 </root>

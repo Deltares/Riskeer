@@ -340,7 +340,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 var checkboxIcon = isRelevant ? RingtoetsFormsResources.Checkbox_ticked : RingtoetsFormsResources.Checkbox_empty;
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               RingtoetsFormsResources.FailureMechanismContextMenuStrip_Is_relevant,
-                                                              RingtoetsFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip,
+                                                              RingtoetsFormsResources.FailureMechanism_IsRelevant_Description,
                                                               checkboxIcon);
             }
             mocks.VerifyAll();

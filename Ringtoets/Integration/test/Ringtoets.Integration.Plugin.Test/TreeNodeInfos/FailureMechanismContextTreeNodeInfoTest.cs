@@ -382,8 +382,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeView))
                     {
                         TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenRelevant,
-                                                                      RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant,
-                                                                      RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip,
+                                                                      "I&s relevant",
+                                                                      "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                       RingtoetsCommonFormsResources.Checkbox_ticked);
                     }
                 }

@@ -884,6 +884,24 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Geeft aan of dit toetsspoor relevant is of niet..
+        /// </summary>
+        public static string FailureMechanism_IsRelevant_Description {
+            get {
+                return ResourceManager.GetString("FailureMechanism_IsRelevant_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is relevant.
+        /// </summary>
+        public static string FailureMechanism_IsRelevant_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanism_IsRelevant_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De parameter &apos;N&apos; die gebruikt wordt om het lengte-effect mee te nemen in een semi-probabilistische beoordeling..
         /// </summary>
         public static string FailureMechanism_N_Description {
@@ -952,15 +970,6 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string FailureMechanismContextMenuStrip_Is_relevant {
             get {
                 return ResourceManager.GetString("FailureMechanismContextMenuStrip_Is_relevant", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Geeft aan of dit toetsspoor relevant is of niet..
-        /// </summary>
-        public static string FailureMechanismContextMenuStrip_Is_relevant_Tooltip {
-            get {
-                return ResourceManager.GetString("FailureMechanismContextMenuStrip_Is_relevant_Tooltip", resourceCulture);
             }
         }
         

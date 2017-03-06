@@ -44,7 +44,6 @@ using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 {
@@ -279,25 +278,25 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual(13, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenRelevant,
-                                                                  RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant,
-                                                                  RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip,
+                                                                  "I&s relevant",
+                                                                  "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                   RingtoetsCommonFormsResources.Checkbox_ticked);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndex,
-                                                                  RingtoetsCommonFormsResources.Validate_all,
-                                                                  RingtoetsCommonFormsResources.ValidateAll_No_calculations_to_validate,
+                                                                  "Alles &valideren",
+                                                                  "Er zijn geen berekeningen om te valideren.",
                                                                   RingtoetsCommonFormsResources.ValidateAllIcon,
                                                                   false);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
-                                                                  RingtoetsCommonFormsResources.Calculate_all,
-                                                                  RingtoetsCommonFormsResources.FailureMechanism_CreateCalculateAllItem_No_calculations_to_run,
+                                                                  "Alles be&rekenen",
+                                                                  "Er zijn geen berekeningen om uit te voeren.",
                                                                   RingtoetsCommonFormsResources.CalculateAllIcon,
                                                                   false);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearAllIndex,
-                                                                  RingtoetsCommonFormsResources.Clear_all_output,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_ClearOutput_No_calculation_with_output_to_clear,
+                                                                  "&Wis alle uitvoer...",
+                                                                  "Er zijn geen berekeningen met uitvoer om te wissen.",
                                                                   RingtoetsCommonFormsResources.ClearIcon,
                                                                   false);
                 }
@@ -333,8 +332,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual(4, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenNotRelevant,
-                                                                  RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant,
-                                                                  RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip,
+                                                                  "I&s relevant",
+                                                                  "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                   RingtoetsCommonFormsResources.Checkbox_empty);
                 }
             }

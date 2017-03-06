@@ -41,7 +41,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism> changeHandler = 
+            IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism> changeHandler =
                 mocks.Stub<IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism>>();
             mocks.ReplayAll();
 
@@ -59,7 +59,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             // Call
             TestDelegate test = () => new ClosingStructuresFailureMechanismProperties(
-                new ClosingStructuresFailureMechanism(), 
+                new ClosingStructuresFailureMechanism(),
                 null);
 
             // Assert
@@ -68,7 +68,9 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_ValidValues_ExpectedValues()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Constructor_ValidValues_ExpectedValues(bool isRelevant)
         {
             // Setup
             MockRepository mocks = new MockRepository();
@@ -76,7 +78,10 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                 mocks.Stub<IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism>>();
             mocks.ReplayAll();
 
-            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism
+            {
+                IsRelevant = isRelevant
+            };
 
             // Call
             var properties = new ClosingStructuresFailureMechanismProperties(failureMechanism, changeHandler);
@@ -89,6 +94,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                             properties.Name);
             Assert.AreEqual("BSKW",
                             properties.Code);
+            Assert.AreEqual(isRelevant, properties.IsRelevant);
 
             GeneralClosingStructuresInput generalInput = failureMechanism.GeneralInput;
             Assert.AreEqual(generalInput.GravitationalAcceleration.Value,
@@ -110,7 +116,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_IsRelevantTrue_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
             var mocks = new MockRepository();
@@ -120,7 +126,10 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
             // Call
             var properties = new ClosingStructuresFailureMechanismProperties(
-                new ClosingStructuresFailureMechanism(), 
+                new ClosingStructuresFailureMechanism
+                {
+                    IsRelevant = true
+                },
                 changeHandler);
 
             // Assert
@@ -129,7 +138,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             var modelSettingsCategory = "Modelinstellingen";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(10, dynamicProperties.Count);
+            Assert.AreEqual(11, dynamicProperties.Count);
 
             PropertyDescriptor nameProperty = dynamicProperties[0];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -145,34 +154,41 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "Het label van het toetsspoor.",
                                                                             true);
 
-            PropertyDescriptor gravitationalAccelerationProperty = dynamicProperties[2];
+            PropertyDescriptor isRelevantProperty = dynamicProperties[2];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
+                                                                            generalCategory,
+                                                                            "Is relevant",
+                                                                            "Geeft aan of dit toetsspoor relevant is of niet.",
+                                                                            true);
+
+            PropertyDescriptor gravitationalAccelerationProperty = dynamicProperties[3];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(gravitationalAccelerationProperty,
                                                                             generalCategory,
                                                                             "Valversnelling [m/s²]",
                                                                             "Valversnelling.",
                                                                             true);
 
-            PropertyDescriptor cProperty = dynamicProperties[3];
+            PropertyDescriptor cProperty = dynamicProperties[4];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(cProperty,
                                                                             lengthEffectCategory,
                                                                             "C [-]",
                                                                             "De parameter 'C' die gebruikt wordt om het lengte-effect te berekenen.",
                                                                             true);
 
-            PropertyDescriptor n2AProperty = dynamicProperties[4];
+            PropertyDescriptor n2AProperty = dynamicProperties[5];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(n2AProperty,
                                                                             lengthEffectCategory,
                                                                             "2NA [-]",
                                                                             "De parameter '2NA' die gebruikt wordt om het lengte-effect te berekenen.");
 
-            PropertyDescriptor lengthEffectProperty = dynamicProperties[5];
+            PropertyDescriptor lengthEffectProperty = dynamicProperties[6];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(lengthEffectProperty,
                                                                             lengthEffectCategory,
                                                                             "N [-]",
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in een semi-probabilistische beoordeling.",
                                                                             true);
 
-            PropertyDescriptor modelFactorOvertoppingFlowProperty = dynamicProperties[6];
+            PropertyDescriptor modelFactorOvertoppingFlowProperty = dynamicProperties[7];
             Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorOvertoppingFlowProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(modelFactorOvertoppingFlowProperty,
                                                                             modelSettingsCategory,
@@ -180,7 +196,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "Modelfactor voor het overslagdebiet.",
                                                                             true);
 
-            PropertyDescriptor modelFactorStorageVolumeProperty = dynamicProperties[7];
+            PropertyDescriptor modelFactorStorageVolumeProperty = dynamicProperties[8];
             Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorStorageVolumeProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(modelFactorStorageVolumeProperty,
                                                                             modelSettingsCategory,
@@ -188,7 +204,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "Modelfactor kombergend vermogen.",
                                                                             true);
 
-            PropertyDescriptor modelFactorSubCriticalFlowProperty = dynamicProperties[8];
+            PropertyDescriptor modelFactorSubCriticalFlowProperty = dynamicProperties[9];
             Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorSubCriticalFlowProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(modelFactorSubCriticalFlowProperty,
                                                                             modelSettingsCategory,
@@ -196,11 +212,57 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "Modelfactor voor onvolkomen stroming.",
                                                                             true);
 
-            PropertyDescriptor modelFactorInflowVolumeProperty = dynamicProperties[9];
+            PropertyDescriptor modelFactorInflowVolumeProperty = dynamicProperties[10];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(modelFactorInflowVolumeProperty,
                                                                             modelSettingsCategory,
                                                                             "Modelfactor instromend volume [-]",
                                                                             "Modelfactor instromend volume.",
+                                                                            true);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_IsRelevantFalse_PropertiesHaveExpectedAttributesValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism> changeHandler =
+                mocks.Stub<IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism>>();
+            mocks.ReplayAll();
+
+            // Call
+            var properties = new ClosingStructuresFailureMechanismProperties(
+                new ClosingStructuresFailureMechanism
+                {
+                    IsRelevant = false
+                },
+                changeHandler);
+
+            // Assert
+            var generalCategory = "Algemeen";
+
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(3, dynamicProperties.Count);
+
+            PropertyDescriptor nameProperty = dynamicProperties[0];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
+                                                                            generalCategory,
+                                                                            "Naam",
+                                                                            "De naam van het toetsspoor.",
+                                                                            true);
+
+            PropertyDescriptor codeProperty = dynamicProperties[1];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(codeProperty,
+                                                                            generalCategory,
+                                                                            "Label",
+                                                                            "Het label van het toetsspoor.",
+                                                                            true);
+
+            PropertyDescriptor isRelevantProperty = dynamicProperties[2];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
+                                                                            generalCategory,
+                                                                            "Is relevant",
+                                                                            "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                             true);
             mocks.VerifyAll();
         }
@@ -270,6 +332,70 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(value, failureMechanism.GeneralInput.N2A);
             Assert.IsTrue(changeHandler.Called);
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void DynamicVisibleValidationMethod_ForRelevantFailureMechanism_ReturnExpectedVisibility()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism> changeHandler =
+                mocks.Stub<IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism>>();
+            mocks.ReplayAll();
+
+            var properties = new ClosingStructuresFailureMechanismProperties(
+                new ClosingStructuresFailureMechanism
+                {
+                    IsRelevant = true
+                },
+                changeHandler);
+
+            // Call & Assert
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.C)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.N2A)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.LengthEffect)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.GravitationalAcceleration)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorOvertoppingFlow)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorStorageVolume)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorSubCriticalFlow)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorInflowVolume)));
+
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
+        }
+
+        [Test]
+        public void DynamicVisibleValidationMethod_ForIrrelevantFailureMechanism_ReturnExpectedVisibility()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism> changeHandler =
+                mocks.Stub<IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism>>();
+            mocks.ReplayAll();
+
+            var properties = new ClosingStructuresFailureMechanismProperties(
+                new ClosingStructuresFailureMechanism
+                {
+                    IsRelevant = false
+                },
+                changeHandler);
+
+            // Call & Assert
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.C)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.N2A)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.LengthEffect)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.GravitationalAcceleration)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorOvertoppingFlow)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorStorageVolume)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorSubCriticalFlow)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorInflowVolume)));
+
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
         }
     }
 }
