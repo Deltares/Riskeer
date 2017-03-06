@@ -57,10 +57,6 @@ namespace Core.Common.TestUtil
 
             public static class Components
             {
-                public static class DotSpatial
-                {
-                    public static readonly TestDataPath Forms = System.IO.Path.Combine("Core", "Components", "test", "Core.Components.DotSpatial.Forms.Test");
-                }
                 public static class Gis
                 {
                     public static readonly TestDataPath IO = System.IO.Path.Combine("Core", "Components", "test", "Core.Components.Gis.IO.Test");

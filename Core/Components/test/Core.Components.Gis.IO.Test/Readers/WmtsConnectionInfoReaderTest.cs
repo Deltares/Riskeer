@@ -34,7 +34,7 @@ namespace Core.Components.Gis.IO.Test.Readers
     [TestFixture]
     public class WmtsConnectionInfoReaderTest
     {
-        private static readonly string testPath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.DotSpatial.Forms, "WmtsConnectionInfo");
+        private static readonly string testPath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "WmtsConnectionInfo");
 
         [Test]
         [TestCase("")]

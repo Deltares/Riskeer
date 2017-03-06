@@ -50,7 +50,7 @@ namespace Core.Components.Gis.Forms.Test.Views
         private const int mapLayerCoordinateSystemColumnIndex = 3;
         private const string wmtsconnectioninfoConfigFile = "wmtsConnectionInfo.config";
 
-        private static readonly TestDataPath testPath = TestDataPath.Core.Components.DotSpatial.Forms;
+        private static readonly TestDataPath testPath = TestDataPath.Core.Components.Gis.IO;
 
         private MockRepository mockRepository;
         private ITileSourceFactory tileFactory;
