@@ -55,7 +55,7 @@ namespace Core.Components.BruTile.Configurations
         {
             if (!IOUtils.IsValidFolderPath(persistentCacheDirectoryPath))
             {
-                throw new ArgumentException(string.Format((string) Resources.PersistentCacheConfiguration_Invalid_path_for_persistent_cache,
+                throw new ArgumentException(string.Format(Resources.PersistentCacheConfiguration_Invalid_path_for_persistent_cache,
                                                           persistentCacheDirectoryPath),
                                             nameof(persistentCacheDirectoryPath));
             }
@@ -87,11 +87,13 @@ namespace Core.Components.BruTile.Configurations
 
             if (disposing)
             {
-                if (fileCache != null)
-                {
-                    FileCacheManager.Instance.UnsubscribeFileCache(fileCache);
-                }
                 TileFetcher?.Dispose();
+            }
+
+            if (fileCache != null)
+            {
+                FileCacheManager.Instance.UnsubscribeFileCache(fileCache);
+                fileCache = null;
             }
 
             IsDisposed = true;
@@ -179,6 +181,11 @@ namespace Core.Components.BruTile.Configurations
                    || exception is UnauthorizedAccessException
                    || exception is ArgumentException
                    || exception is NotSupportedException;
+        }
+
+        ~PersistentCacheConfiguration()
+        {
+            Dispose(false);
         }
     }
 }

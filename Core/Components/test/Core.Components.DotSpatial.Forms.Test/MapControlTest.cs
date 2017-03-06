@@ -2795,7 +2795,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         /// <summary>
-        /// Generates <see cref="TestCaseData"/> containing problematic <see cref="Core.Components.BruTile.Configurations.ITileSourceFactory"/>.
+        /// Generates <see cref="TestCaseData"/> containing problematic <see cref="ITileSourceFactory"/>.
         /// </summary>
         /// <param name="prefix">The test-name prefix.</param>
         /// <returns>The data for the test cases.</returns>

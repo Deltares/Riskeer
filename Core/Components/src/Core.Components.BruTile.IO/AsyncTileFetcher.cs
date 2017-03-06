@@ -182,6 +182,14 @@ namespace Core.Components.BruTile.IO
             }
         }
 
+        /// <summary>
+        /// Gets the tile from the cache.
+        /// </summary>
+        /// <param name="tileInfo">The <see cref="TileInfo"/> to get the tile for.</param>
+        /// <returns>An <see cref="Array"/> of <see cref="byte"/> which represent the tile.</returns>
+        /// <exception cref="IOException">Thrown when an I/O error occurred while opening the file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown when this operation is not supported on the current platform.
+        /// -or- path specified a directory.-or- The caller does not have the required permission.</exception>
         private byte[] GetTileFromCache(TileInfo tileInfo)
         {
             TileIndex index = tileInfo.Index;

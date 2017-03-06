@@ -21,14 +21,13 @@
 
 using System;
 using BruTile;
-using BruTile.Wms;
 using Core.Components.BruTile.IO;
 using Core.Components.Gis.Exceptions;
 
 namespace Core.Components.BruTile.Configurations
 {
     /// <summary>
-    /// Interface for all classes that can configure a <see cref="Layer.BruTile.BruTileLayer"/>.
+    /// Interface for all classes that can configure a BruTile layer.
     /// </summary>
     /// <remarks>
     /// Original source: https://github.com/FObermaier/DotSpatial.Plugins/blob/master/DotSpatial.Plugins.BruTileLayer/Configuration/IConfiguration.cs

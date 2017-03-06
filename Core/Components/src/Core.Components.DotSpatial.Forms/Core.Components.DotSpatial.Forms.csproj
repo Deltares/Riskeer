@@ -34,10 +34,6 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BruTile, Version=0.19.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\BruTile.0.19.0\lib\net40\BruTile.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="DotSpatial.Controls, Version=1.8.0.0, Culture=neutral, PublicKeyToken=4d9e49339a7d240c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\lib\DotSpatial.1.8\DotSpatial.Controls.dll</HintPath>
@@ -71,7 +67,6 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\..\Common\src\Core.Common.Version\GlobalAssembly.cs">
@@ -95,31 +90,6 @@
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj">
       <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
       <Name>Core.Common.Base</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
-      <Project>{9A2D67E6-26AC-4D17-B11A-2B4372F2F572}</Project>
-      <Name>Core.Common.Controls</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Gui\Core.Common.Gui.csproj">
-      <Project>{30E4C2AE-719E-4D70-9FA9-668A9767FBFA}</Project>
-      <Name>Core.Common.Gui</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.IO\Core.Common.IO.csproj">
-      <Project>{E344867E-9AC9-44C8-88A5-8185681679A9}</Project>
-      <Name>Core.Common.IO</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
-      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
-      <Name>Core.Common.Utils</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Core.Components.BruTile.Forms\Core.Components.BruTile.Forms.csproj">
-      <Project>{1BA9EBD0-AA64-4BE3-9791-B2EE344EC938}</Project>
-      <Name>Core.Components.BruTile.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Core.Components.BruTile\Core.Components.BruTile.csproj">

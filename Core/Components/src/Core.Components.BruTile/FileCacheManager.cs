@@ -116,13 +116,19 @@ namespace Core.Components.BruTile
                     registeredFileCaches.Remove(fileCacheToRemove);
                     fileCacheToRemove.Dispose();
                 }
-
-                fileCachesToRemove.Clear();
             }
         }
 
+        /// <summary>
+        /// Lookup class for administration related to file caches that are used.
+        /// </summary>
         private class RegisteredFileCache : IDisposable
         {
+            /// <summary>
+            /// Creates a new <see cref="RegisteredFileCache"/>.
+            /// </summary>
+            /// <param name="fileChache">The <see cref="FileChache"/> to register.</param>
+            /// <param name="cacheDirectoryPath">The directory path used by the <see cref="FileCache"/>.</param>
             public RegisteredFileCache(FileCache fileChache, string cacheDirectoryPath)
             {
                 FileChache = fileChache;
@@ -130,16 +136,24 @@ namespace Core.Components.BruTile
                 CallCount = 1;
             }
 
+            /// <summary>
+            /// Gets or sets the number of times this registered file cache is used.
+            /// </summary>
             public int CallCount { get; set; }
 
+            /// <summary>
+            /// Gets the <see cref="FileCache"/>.
+            /// </summary>
             public FileCache FileChache { get; private set; }
 
-            public string CacheDirectoryPath { get; private set; }
-
+            /// <summary>
+            /// Gets the directory path used by the <see cref="FileCache"/>.
+            /// </summary>
+            public string CacheDirectoryPath { get; }
+            
             public void Dispose()
             {
                 FileChache = null;
-                CacheDirectoryPath = null;
             }
         }
     }
