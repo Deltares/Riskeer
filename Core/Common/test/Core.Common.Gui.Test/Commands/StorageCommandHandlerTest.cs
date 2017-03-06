@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
