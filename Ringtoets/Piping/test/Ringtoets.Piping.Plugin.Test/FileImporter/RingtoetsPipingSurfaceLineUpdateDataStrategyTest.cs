@@ -465,7 +465,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Assert
             Assert.AreEqual(1, surfaceLineCollection.Count);
             Assert.AreSame(readSurfaceLine, surfaceLineCollection[0]);
-            Assert.AreEqual(readSurfaceLine, surfaceLineCollection[0]);
 
             CollectionAssert.AreEqual(new[]
             {
@@ -1165,13 +1164,13 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         /// <summary>
-        /// Makes a deepclone of <paramref name="surfaceLine"/> 
+        /// Makes a deep clone of <paramref name="surfaceLine"/> 
         /// and only copies the name <see cref="RingtoetsPipingSurfaceLine.Name"/>
         /// property.
         /// </summary>
         /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> 
-        /// which needs to be deeplconed.</param>
-        /// <returns>A deepclone of <paramref name="surfaceLine"/> with
+        /// which needs to be deep cloned.</param>
+        /// <returns>A deep clone of <paramref name="surfaceLine"/> with
         /// only the name property copied.</returns>
         private static RingtoetsPipingSurfaceLine DeepCloneName(RingtoetsPipingSurfaceLine surfaceLine)
         {
@@ -1182,13 +1181,13 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         /// <summary>
-        /// Makes a deepclone of the <paramref name="surfaceLine"/> and sets a 
+        /// Makes a deep clone of the <paramref name="surfaceLine"/> and sets a 
         /// new geometry and characteristic points.
         /// </summary>
         /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> 
-        /// which needs to be deepcloned and modified.</param>
-        /// <returns>A deepclone of <paramref name="surfaceLine"/> with modified 
-        /// geometric and characteristic points</returns>
+        /// which needs to be deep cloned and modified.</param>
+        /// <returns>A deep clone of <paramref name="surfaceLine"/> with modified 
+        /// geometric and characteristic points.</returns>
         private static RingtoetsPipingSurfaceLine DeepCloneAndModifyPoints(RingtoetsPipingSurfaceLine surfaceLine)
         {
             var copiedLine = new RingtoetsPipingSurfaceLine
