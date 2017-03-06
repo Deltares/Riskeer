@@ -24,6 +24,7 @@ using System.IO;
 using System.Windows.Forms;
 using Application.Ringtoets.Migration.Core;
 using Application.Ringtoets.Migration.Properties;
+using Core.Common.Base.Storage;
 using Core.Common.Gui;
 using Core.Common.Utils;
 using log4net;
@@ -37,7 +38,7 @@ namespace Application.Ringtoets.Migration
     /// <summary>
     /// A GUI implementation to migrate a Ringtoets database file to a newer version.
     /// </summary>
-    public class RingtoetsProjectMigrator
+    public class RingtoetsProjectMigrator : IMigrateProject
     {
         private static readonly string currentProjectVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
@@ -63,18 +64,6 @@ namespace Application.Ringtoets.Migration
                                                  Resources.RingtoetsProject_FileExtension);
         }
 
-        /// <summary>
-        /// Indicates if the project <paramref name="sourceFilePath"/> needs to be 
-        /// updated to the newest version.
-        /// </summary>
-        /// <param name="sourceFilePath">The file path of the project which needs to be checked.</param>
-        /// <returns><c>true</c> if the file needs to be migrated, <c>false</c> if:</returns>
-        /// <list type="bullet">
-        /// <item>The file does not need to be migrated.</item>
-        /// <item>The file is not supported for the migration.</item>
-        /// </list>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sourceFilePath"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="sourceFilePath"/> is an invalid file path.</exception>
         public bool ShouldMigrate(string sourceFilePath)
         {
             if (sourceFilePath == null)
@@ -102,18 +91,6 @@ namespace Application.Ringtoets.Migration
             return isVersionSupported;
         }
 
-        /// <summary>
-        /// Migrates an outdated project file from <paramref name="sourceFilePath"/>
-        /// to the newest project version version at a user defined target filepath.
-        /// </summary>
-        /// <param name="sourceFilePath">The project file which needs to be migrated.</param>
-        /// <returns>A filepath to the updated project file. <c>null</c> if:
-        /// <list type="bullet">
-        /// <item>The user cancelled.</item>
-        /// <item>The migration failed.</item>
-        /// </list></returns>
-        /// <exception cref="ArgumentNullException">Thrown when <see cref="sourceFilePath"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <see cref="sourceFilePath"/> is an invalid file path.</exception>
         public string Migrate(string sourceFilePath)
         {
             if (sourceFilePath == null)
