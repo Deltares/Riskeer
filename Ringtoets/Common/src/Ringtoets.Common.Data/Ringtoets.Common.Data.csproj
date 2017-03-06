@@ -40,6 +40,7 @@
     </Compile>
     <Compile Include="AssessmentSection\AssessmentSectionComposition.cs" />
     <Compile Include="AssessmentSection\BackgroundMapData.cs" />
+    <Compile Include="AssessmentSection\BackgroundMapDataType.cs" />
     <Compile Include="AssessmentSection\IAssessmentSection.cs" />
     <Compile Include="AssessmentSection\ReferenceLine.cs" />
     <Compile Include="AssessmentSection\ReferenceLineMeta.cs" />

@@ -19,25 +19,21 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using NUnit.Framework;
-using Ringtoets.Common.Data.AssessmentSection;
-
-namespace Ringtoets.Common.Data.Test.AssessmentSection
+namespace Ringtoets.Common.Data.AssessmentSection
 {
-    [TestFixture]
-    public class BackgroundMapDataTest
+    /// <summary>
+    /// Enumeration that defines the possible types of a <see cref="BackgroundMapData"/>.
+    /// </summary>
+    public enum BackgroundMapDataType
     {
-        [Test]
-        public void Constructor_ExpectedValues()
-        {
-            // Call 
-            var backgroundMapData = new BackgroundMapData();
+        /// <summary>
+        /// Web Map Tile Service background map data type.
+        /// </summary>
+        Wmts,
 
-            // Assert
-            Assert.IsTrue(backgroundMapData.IsVisible);
-            Assert.AreEqual(2, backgroundMapData.Transparency.NumberOfDecimalPlaces);
-            Assert.AreEqual(0, backgroundMapData.Transparency.Value);
-            Assert.AreEqual(BackgroundMapDataType.Wmts, backgroundMapData.BackgroundMapDataType);
-        }
+        /// <summary>
+        /// Well known tile source background map data type.
+        /// </summary>
+        WellKnown
     }
 }

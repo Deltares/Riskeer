@@ -46,5 +46,10 @@ namespace Ringtoets.Common.Data.AssessmentSection
         /// Gets or sets the transparency of the background.
         /// </summary>
         public RoundedDouble Transparency { get; set; }
+
+        /// <summary>
+        /// Gets or sets the type of the background map data.
+        /// </summary>
+        public BackgroundMapDataType BackgroundMapDataType { get; set; }
     }
 }
