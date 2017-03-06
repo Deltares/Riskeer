@@ -29,7 +29,6 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Data.Properties;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 
@@ -40,11 +39,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
-        private const int lengthEffectPropertyIndex = 2;
-        private const int frunupModelFactorPropertyIndex = 3;
-        private const int fbFactorPropertyIndex = 4;
-        private const int fnFactorPropertyIndex = 5;
-        private const int fshallowModelFactorPropertyIndex = 6;
+        private const int isRelevantPropertyIndex = 2;
+        private const int lengthEffectPropertyIndex = 3;
+        private const int frunupModelFactorPropertyIndex = 4;
+        private const int fbFactorPropertyIndex = 5;
+        private const int fnFactorPropertyIndex = 6;
+        private const int fshallowModelFactorPropertyIndex = 7;
         private MockRepository mockRepository;
 
         [SetUp]
@@ -88,7 +88,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_ExpectedValues()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Constructor_ExpectedValues(bool isRelevant)
         {
             // Setup
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
@@ -96,14 +98,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             mockRepository.ReplayAll();
 
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
+            {
+                IsRelevant = isRelevant
+            };
             var properties = new GrassCoverErosionInwardsFailureMechanismContextProperties(
                 new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection),
                 handler);
 
             // Assert
-            Assert.AreEqual(Resources.GrassCoverErosionInwardsFailureMechanism_DisplayName, properties.Name);
-            Assert.AreEqual(Resources.GrassCoverErosionInwardsFailureMechanism_DisplayCode, properties.Code);
+            Assert.AreEqual("Dijken en dammen - Grasbekleding erosie kruin en binnentalud", properties.Name);
+            Assert.AreEqual("GEKB", properties.Code);
+            Assert.AreEqual(isRelevant, properties.IsRelevant);
             Assert.AreEqual(2, properties.LengthEffect);
             var generalInput = new GeneralGrassCoverErosionInwardsInput();
 
@@ -122,14 +128,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_IsRelevantTrue_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var handler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism>>();
             mockRepository.ReplayAll();
 
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
+            {
+                IsRelevant = true
+            };
 
             // Call
             var properties = new GrassCoverErosionInwardsFailureMechanismContextProperties(
@@ -142,7 +151,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var modelSettingsCategory = "Modelinstellingen";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(7, dynamicProperties.Count);
+            Assert.AreEqual(8, dynamicProperties.Count);
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -156,6 +165,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                             generalCategory,
                                                                             "Label",
                                                                             "Het label van het toetsspoor.",
+                                                                            true);
+
+            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
+                                                                            generalCategory,
+                                                                            "Is relevant",
+                                                                            "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                             true);
 
             PropertyDescriptor lengthEffectProperty = dynamicProperties[lengthEffectPropertyIndex];
@@ -194,6 +210,54 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                             modelSettingsCategory,
                                                                             "Modelfactor Fondiep [-]",
                                                                             "De parameter 'Fondiep' die gebruikt wordt in de berekening.",
+                                                                            true);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_IsRelevantFalse_PropertiesHaveExpectedAttributesValues()
+        {
+            // Setup
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            var handler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism>>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
+            {
+                IsRelevant = false
+            };
+
+            // Call
+            var properties = new GrassCoverErosionInwardsFailureMechanismContextProperties(
+                new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection),
+                handler);
+
+            // Assert
+            var generalCategory = "Algemeen";
+
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(3, dynamicProperties.Count);
+
+            PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
+                                                                            generalCategory,
+                                                                            "Naam",
+                                                                            "De naam van het toetsspoor.",
+                                                                            true);
+
+            PropertyDescriptor codeProperty = dynamicProperties[codePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(codeProperty,
+                                                                            generalCategory,
+                                                                            "Label",
+                                                                            "Het label van het toetsspoor.",
+                                                                            true);
+
+            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
+                                                                            generalCategory,
+                                                                            "Is relevant",
+                                                                            "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                             true);
 
             mockRepository.VerifyAll();
@@ -266,6 +330,66 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(newLengthEffect, failureMechanism.GeneralInput.N);
             Assert.IsTrue(changeHandler.Called);
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void DynamicVisibleValidationMethod_ForRelevantFailureMechanism_ReturnExpectedVisibility()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism>>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
+            {
+                IsRelevant = true
+            };
+            var context = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+
+            var properties = new GrassCoverErosionInwardsFailureMechanismContextProperties(context, changeHandler);
+
+            // Call & Assert
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.LengthEffect)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.FrunupModelFactor)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.FbFactor)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.FnFactor)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.FshallowModelFactor)));
+
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
+        }
+
+        [Test]
+        public void DynamicVisibleValidationMethod_ForIrrelevantFailureMechanism_ReturnExpectedVisibility()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism>>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
+            {
+                IsRelevant = false
+            };
+            var context = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+
+            var properties = new GrassCoverErosionInwardsFailureMechanismContextProperties(context, changeHandler);
+
+            // Call & Assert
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.LengthEffect)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.FrunupModelFactor)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.FbFactor)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.FnFactor)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.FshallowModelFactor)));
+
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
         }
     }
 }

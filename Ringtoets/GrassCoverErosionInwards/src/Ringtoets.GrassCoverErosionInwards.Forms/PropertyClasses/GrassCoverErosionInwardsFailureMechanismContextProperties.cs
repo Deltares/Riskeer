@@ -39,14 +39,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
     /// </summary>
     public class GrassCoverErosionInwardsFailureMechanismContextProperties : ObjectProperties<GrassCoverErosionInwardsFailureMechanismContext>
     {
-        private readonly IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism> propertyChangeHandler;
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
-        private const int lengthEffectPropertyIndex = 3;
-        private const int frunupModelFactorPropertyIndex = 4;
-        private const int fbFactorPropertyIndex = 5;
-        private const int fnFactorPropertyIndex = 6;
-        private const int fshallowModelFactorPropertyIndex = 7;
+        private const int isRelevantPropertyIndex = 3;
+        private const int lengthEffectPropertyIndex = 4;
+        private const int frunupModelFactorPropertyIndex = 5;
+        private const int fbFactorPropertyIndex = 6;
+        private const int fnFactorPropertyIndex = 7;
+        private const int fshallowModelFactorPropertyIndex = 8;
+        private readonly IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism> propertyChangeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismContextProperties"/>.
@@ -55,7 +56,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         /// <param name="handler">Handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public GrassCoverErosionInwardsFailureMechanismContextProperties(
-            GrassCoverErosionInwardsFailureMechanismContext data, 
+            GrassCoverErosionInwardsFailureMechanismContext data,
             IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism> handler)
         {
             if (data == null)
@@ -72,6 +73,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         #region Length effect parameters
 
+        [DynamicVisible]
         [PropertyOrder(lengthEffectPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_DisplayName))]
@@ -94,6 +96,33 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         #endregion
+
+        [DynamicVisibleValidationMethod]
+        public bool DynamicVisibleValidationMethod(string propertyName)
+        {
+            if (!data.WrappedData.IsRelevant && ShouldHidePropertyWhenFailureMechanismIrrelevant(propertyName))
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
+        {
+            foreach (var affectedObject in affectedObjects)
+            {
+                affectedObject.NotifyObservers();
+            }
+        }
+
+        private bool ShouldHidePropertyWhenFailureMechanismIrrelevant(string propertyName)
+        {
+            return nameof(LengthEffect).Equals(propertyName)
+                   || nameof(FrunupModelFactor).Equals(propertyName)
+                   || nameof(FbFactor).Equals(propertyName)
+                   || nameof(FnFactor).Equals(propertyName)
+                   || nameof(FshallowModelFactor).Equals(propertyName);
+        }
 
         #region General
 
@@ -121,10 +150,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
         }
 
+        [PropertyOrder(isRelevantPropertyIndex)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_IsRelevant_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_IsRelevant_Description))]
+        public bool IsRelevant
+        {
+            get
+            {
+                return data.WrappedData.IsRelevant;
+            }
+        }
+
         #endregion
 
         #region Model settings
 
+        [DynamicVisible]
         [PropertyOrder(frunupModelFactorPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
@@ -138,6 +180,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(fbFactorPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
@@ -151,6 +194,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(fnFactorPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
@@ -164,6 +208,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(fshallowModelFactorPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
@@ -178,13 +223,5 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         #endregion
-
-        private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
-        {
-            foreach (var affectedObject in affectedObjects)
-            {
-                affectedObject.NotifyObservers();
-            }
-        }
     }
 }
