@@ -883,10 +883,8 @@ namespace Core.Components.Gis.Forms.Test.Views
         public void GivenWmtsLocationControlAndConnectClicked_WhenCannotFindTileSourceException_ThenErrorMessageShown()
         {
             // Given
-            const string exceptionMessage = "fail";
-
             wmtsCapabilityFactory.Expect(wcf => wcf.GetWmtsCapabilities(null)).IgnoreArguments().Return(Enumerable.Empty<WmtsCapability>());
-            wmtsCapabilityFactory.Expect(wcf => wcf.GetWmtsCapabilities(null)).IgnoreArguments().Throw(new CannotFindTileSourceException(exceptionMessage));
+            wmtsCapabilityFactory.Expect(wcf => wcf.GetWmtsCapabilities(null)).IgnoreArguments().Throw(new CannotFindTileSourceException("error"));
             mockRepository.ReplayAll();
 
             string messageBoxTitle = null;
@@ -911,7 +909,7 @@ namespace Core.Components.Gis.Forms.Test.Views
 
                 // Then
                 Assert.AreEqual("Fout", messageBoxTitle);
-                Assert.AreEqual(exceptionMessage, messageBoxText);
+                Assert.AreEqual("Gegevens ophalen van de locatie (URL) 'PDOK achtergrondkaart' is mislukt.", messageBoxText);
             }
         }
 
