@@ -193,8 +193,8 @@ namespace Core.Components.Gis.Forms.Test.Views
 
                 var urlLocations = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
                 Assert.AreEqual(ComboBoxStyle.DropDownList, urlLocations.DropDownStyle);
-                var connectionInfos = (WmtsConnectionInfo[]) urlLocations.DataSource;
-                Assert.Contains(activeWmtsConnectionInfo, connectionInfos);
+                var connectionInfos = (IList<WmtsConnectionInfo>) urlLocations.DataSource;
+                Assert.Contains(activeWmtsConnectionInfo, connectionInfos.ToArray());
 
                 Assert.AreEqual("Name", urlLocations.DisplayMember);
                 Assert.AreEqual("Url", urlLocations.ValueMember);
@@ -471,8 +471,8 @@ namespace Core.Components.Gis.Forms.Test.Views
 
                     // Then
                     var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
-                    var dataSource = (WmtsConnectionInfo[]) comboBox.DataSource;
-                    Assert.AreEqual(2, dataSource.Length);
+                    var dataSource = (IList<WmtsConnectionInfo>) comboBox.DataSource;
+                    Assert.AreEqual(2, dataSource.Count);
 
                     var firstWmtsConnectionInfo = (WmtsConnectionInfo) comboBox.Items[0];
                     Assert.AreEqual("Actueel Hoogtebestand Nederland (AHN1)", firstWmtsConnectionInfo.Name);
@@ -512,8 +512,8 @@ namespace Core.Components.Gis.Forms.Test.Views
 
                         // Then
                         var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
-                        var dataSource = (WmtsConnectionInfo[]) comboBox.DataSource;
-                        Assert.AreEqual(0, dataSource.Length);
+                        var dataSource = (IList<WmtsConnectionInfo>) comboBox.DataSource;
+                        Assert.AreEqual(0, dataSource.Count);
                     }
                 };
 
@@ -557,8 +557,8 @@ namespace Core.Components.Gis.Forms.Test.Views
 
                 // Then
                 var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
-                var dataSource = (WmtsConnectionInfo[]) comboBox.DataSource;
-                Assert.AreEqual(0, dataSource.Length);
+                var dataSource = (IList<WmtsConnectionInfo>) comboBox.DataSource;
+                Assert.AreEqual(0, dataSource.Count);
             }
         }
 
@@ -609,8 +609,8 @@ namespace Core.Components.Gis.Forms.Test.Views
 
                 // Then
                 var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
-                var dataSource = (WmtsConnectionInfo[]) comboBox.DataSource;
-                Assert.AreEqual(1, dataSource.Length);
+                var dataSource = (IList<WmtsConnectionInfo>) comboBox.DataSource;
+                Assert.AreEqual(1, dataSource.Count);
                 var item = (WmtsConnectionInfo) comboBox.Items[0];
                 Assert.AreEqual(name, item.Name);
                 Assert.AreEqual(url, item.Url);
@@ -658,8 +658,8 @@ namespace Core.Components.Gis.Forms.Test.Views
 
                 // Then
                 var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
-                var dataSource = (WmtsConnectionInfo[]) comboBox.DataSource;
-                Assert.AreEqual(0, dataSource.Length);
+                var dataSource = (IList<WmtsConnectionInfo>) comboBox.DataSource;
+                Assert.AreEqual(0, dataSource.Count);
 
                 var connectToButton = (Button) new ButtonTester("connectToButton", form).TheObject;
                 Assert.IsFalse(connectToButton.Enabled);
@@ -720,8 +720,8 @@ namespace Core.Components.Gis.Forms.Test.Views
                     string exceptionMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{configFilePath}'.";
                     TestHelper.AssertLogMessageWithLevelIsGenerated(action, Tuple.Create(exceptionMessage, LogLevelConstant.Error));
                     var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
-                    var dataSource = (WmtsConnectionInfo[]) comboBox.DataSource;
-                    Assert.AreEqual(1, dataSource.Length);
+                    var dataSource = (IList<WmtsConnectionInfo>) comboBox.DataSource;
+                    Assert.AreEqual(1, dataSource.Count);
                 }
             }
         }
@@ -731,8 +731,9 @@ namespace Core.Components.Gis.Forms.Test.Views
         public void GivenWmtsLocationControlAndEditLocationClicked_WhenDialogCanceled_ThenWmtsLocationsNotUpdated()
         {
             // Given
-            wmtsCapabilityFactory.Expect(wcf => wcf.GetWmtsCapabilities(null))
-                                 .IgnoreArguments()
+            const string capabilitiesName = "oldName";
+            const string capabilitiesUrl = "oldUrl";
+            wmtsCapabilityFactory.Expect(wcf => wcf.GetWmtsCapabilities(capabilitiesUrl))
                                  .Return(Enumerable.Empty<WmtsCapability>());
             mockRepository.ReplayAll();
 
@@ -743,33 +744,35 @@ namespace Core.Components.Gis.Forms.Test.Views
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
+                ApplicationLocalUserSettingsDirectory = TestHelper.GetScratchPadPath(nameof(GivenWmtsLocationControlAndEditLocationClicked_WhenDialogCanceled_ThenWmtsLocationsNotUpdated))
             }))
-            using (new UseCustomTileSourceFactoryConfig(tileFactory))
-            using (var form = new Form())
-            using (var control = new WmtsLocationControl(null, wmtsCapabilityFactory))
+            using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(GivenWmtsLocationControlAndEditLocationClicked_WhenDialogCanceled_ThenWmtsLocationsNotUpdated)))
             {
-                form.Controls.Add(control);
-                form.Show();
+                string filePath = Path.Combine(SettingsHelper.Instance.GetApplicationLocalUserSettingsDirectory(),
+                                               wmtsconnectioninfoConfigFile);
 
-                var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
-                comboBox.DataSource = new[]
+                WriteToFile(filePath, new WmtsConnectionInfo(capabilitiesName, capabilitiesUrl));
+
+                using (new UseCustomTileSourceFactoryConfig(tileFactory))
+                using (var form = new Form())
+                using (var control = new WmtsLocationControl(null, wmtsCapabilityFactory))
                 {
-                    new WmtsConnectionInfo("oldName", "oldUrl")
-                };
+                    form.Controls.Add(control);
+                    form.Show();
 
-                var editLocationButton = new ButtonTester("editLocationButton", form);
-                ((Button) editLocationButton.TheObject).Enabled = true;
+                    var editLocationButton = new ButtonTester("editLocationButton", form);
 
-                // When
-                editLocationButton.Click();
+                    // When
+                    editLocationButton.Click();
 
-                // Then
-                var dataSource = (WmtsConnectionInfo[]) comboBox.DataSource;
-                Assert.AreEqual(1, dataSource.Length);
-                var item = (WmtsConnectionInfo) comboBox.Items[0];
-                Assert.AreEqual("oldName", item.Name);
-                Assert.AreEqual("oldUrl", item.Url);
+                    // Then
+                    var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
+                    var dataSource = (IList<WmtsConnectionInfo>) comboBox.DataSource;
+                    Assert.AreEqual(1, dataSource.Count);
+                    var item = (WmtsConnectionInfo) comboBox.Items[0];
+                    Assert.AreEqual(capabilitiesName, item.Name);
+                    Assert.AreEqual(capabilitiesUrl, item.Url);
+                }
             }
         }
 
@@ -778,10 +781,11 @@ namespace Core.Components.Gis.Forms.Test.Views
         public void GivenWmtsLocationControlAndEditLocationClicked_WhenValidDataInDialog_ThenWmtsLocationsUpdated()
         {
             // Given
-            const string newName = @"newName";
-            const string newUrl = @"newUrl";
+            const string newName = "newName";
+            const string newUrl = "newUrl";
+            const string oldUrl = "oldUrl";
 
-            wmtsCapabilityFactory.Expect(wcf => wcf.GetWmtsCapabilities("oldUrl")).Return(Enumerable.Empty<WmtsCapability>());
+            wmtsCapabilityFactory.Expect(wcf => wcf.GetWmtsCapabilities(oldUrl)).Return(Enumerable.Empty<WmtsCapability>());
             wmtsCapabilityFactory.Expect(wcf => wcf.GetWmtsCapabilities(newUrl)).Return(Enumerable.Empty<WmtsCapability>());
             mockRepository.ReplayAll();
 
@@ -803,35 +807,37 @@ namespace Core.Components.Gis.Forms.Test.Views
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
+                ApplicationLocalUserSettingsDirectory = TestHelper.GetScratchPadPath(nameof(GivenWmtsLocationControlAndEditLocationClicked_WhenValidDataInDialog_ThenWmtsLocationsUpdated))
             }))
-            using (new FileDisposeHelper(Path.Combine(SettingsHelper.Instance.GetApplicationLocalUserSettingsDirectory(),
-                                                      wmtsconnectioninfoConfigFile)))
-            using (new UseCustomTileSourceFactoryConfig(tileFactory))
-            using (var form = new Form())
-            using (var control = new WmtsLocationControl(null, wmtsCapabilityFactory))
             {
-                form.Controls.Add(control);
-                form.Show();
-
-                var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
-                comboBox.DataSource = new List<WmtsConnectionInfo>
+                using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(GivenWmtsLocationControlAndEditLocationClicked_WhenValidDataInDialog_ThenWmtsLocationsUpdated)))
                 {
-                    new WmtsConnectionInfo("oldName", "oldUrl")
-                };
+                    string filePath = Path.Combine(SettingsHelper.Instance.GetApplicationLocalUserSettingsDirectory(),
+                                                   wmtsconnectioninfoConfigFile);
 
-                var editLocationButton = new ButtonTester("editLocationButton", form);
-                ((Button) editLocationButton.TheObject).Enabled = true;
+                    WriteToFile(filePath, new WmtsConnectionInfo("oldName", oldUrl));
 
-                // When
-                editLocationButton.Click();
+                    using (new UseCustomTileSourceFactoryConfig(tileFactory))
+                    using (var form = new Form())
+                    using (var control = new WmtsLocationControl(null, wmtsCapabilityFactory))
+                    {
+                        form.Controls.Add(control);
+                        form.Show();
 
-                // Then
-                var dataSource = (WmtsConnectionInfo[]) comboBox.DataSource;
-                Assert.AreEqual(1, dataSource.Length);
-                var item = (WmtsConnectionInfo) comboBox.Items[0];
-                Assert.AreEqual(newName, item.Name);
-                Assert.AreEqual(newUrl, item.Url);
+                        var editLocationButton = new ButtonTester("editLocationButton", form);
+
+                        // When
+                        editLocationButton.Click();
+
+                        // Then
+                        var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
+                        var dataSource = (IList<WmtsConnectionInfo>) comboBox.DataSource;
+                        Assert.AreEqual(1, dataSource.Count);
+                        var item = (WmtsConnectionInfo) comboBox.Items[0];
+                        Assert.AreEqual(newName, item.Name);
+                        Assert.AreEqual(newUrl, item.Url);
+                    }
+                }
             }
         }
 
@@ -981,6 +987,14 @@ namespace Core.Components.Gis.Forms.Test.Views
             var connectToButton = (Button) new ButtonTester("connectToButton", form).TheObject;
             connectToButton.Enabled = true;
             return control;
+        }
+
+        private static void WriteToFile(string filePath, WmtsConnectionInfo wmtsConnectionInfo)
+        {
+            File.WriteAllText(filePath, "<?xml version=\"1.0\" encoding=\"utf-8\"?><WmtsConnections><WmtsConnection>" +
+                                        $"<Name>{wmtsConnectionInfo.Name}</Name><URL>{wmtsConnectionInfo.Url}</URL>" +
+                                        "</WmtsConnection></WmtsConnections>")
+                ;
         }
     }
 }

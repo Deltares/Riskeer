@@ -49,6 +49,8 @@ namespace Core.Components.Gis.Forms.Views
         private readonly List<WmtsCapability> capabilities;
         private string wmtsConnectionInfoFilePath;
 
+        private bool urlLocationComboBoxUpdating;
+
         /// <summary>
         /// Creates a new instance of <see cref="WmtsLocationControl"/>.
         /// </summary>
@@ -70,7 +72,7 @@ namespace Core.Components.Gis.Forms.Views
             InitializeComponent();
             InitializeWmtsConnectionInfos();
             InitializeDataGridView();
-            UpdateComboBoxDataSource();
+            InitializeComboBox();
             InitializeEventHandlers();
 
             PreselectForMapData(activeWmtsMapData);
@@ -259,22 +261,27 @@ namespace Core.Components.Gis.Forms.Views
 
         #region ComboBox
 
-        private void UpdateComboBoxDataSource()
+        private void InitializeComboBox()
         {
-            UpdateComboBoxDataSource(urlLocationComboBox.SelectedItem);
+            urlLocationComboBox.ValueMember = nameof(WmtsConnectionInfo.Url);
+            UpdateComboBoxDataSource(wmtsConnectionInfos.FirstOrDefault());
+
         }
 
         private void UpdateComboBoxDataSource(object selectedItem)
         {
-            urlLocationComboBox.DataSource = null;
+            urlLocationComboBox.BeginUpdate();
+            
+            urlLocationComboBoxUpdating = true;
+            urlLocationComboBox.DataSource = wmtsConnectionInfos.OrderBy(i => i.Name).ToList();
             urlLocationComboBox.DisplayMember = nameof(WmtsConnectionInfo.Name);
-            urlLocationComboBox.ValueMember = nameof(WmtsConnectionInfo.Url);
-            urlLocationComboBox.DataSource = wmtsConnectionInfos.ToArray();
+            urlLocationComboBox.SelectedItem = null;
+            urlLocationComboBoxUpdating = false;
 
-            if (selectedItem != null)
-            {
-                urlLocationComboBox.SelectedItem = selectedItem;
-            }
+            urlLocationComboBox.EndUpdate();
+
+            urlLocationComboBox.SelectedItem = selectedItem;
+
             UpdateButtons();
         }
 
@@ -292,8 +299,12 @@ namespace Core.Components.Gis.Forms.Views
             dataGridViewControl.AddCurrentCellChangedHandler(DataGridViewCurrentCellChangedHandler);
         }
 
-        private void OnUrlLocationSelectedIndexChanged(object sender, EventArgs e)
+        private void OnUrlLocationSelectedValueChanged(object sender, EventArgs e)
         {
+            if (urlLocationComboBoxUpdating || urlLocationComboBox.SelectedIndex == -1)
+            {
+                return;
+            }
             ClearDataGridViewDataSource();
 
             var selectedWmtsConnectionInfo = urlLocationComboBox.SelectedItem as WmtsConnectionInfo;

@@ -78,7 +78,7 @@ namespace Core.Components.Gis.Forms.Views
             this.urlLocationComboBox.FormattingEnabled = true;
             this.urlLocationComboBox.Name = "urlLocationComboBox";
             this.urlLocationComboBox.Sorted = true;
-            this.urlLocationComboBox.SelectedIndexChanged += new System.EventHandler(this.OnUrlLocationSelectedIndexChanged);
+            this.urlLocationComboBox.SelectedValueChanged += new System.EventHandler(this.OnUrlLocationSelectedValueChanged);
             // 
             // flowLayoutPanel2
             // 

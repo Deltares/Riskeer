@@ -334,7 +334,7 @@
     <value>dataGridViewControl</value>
   </data>
   <data name="&gt;&gt;dataGridViewControl.Type" xml:space="preserve">
-    <value>Core.Common.Controls.DataGrid.DataGridViewControl, Core.Common.Controls, Version=17.1.1.8459, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.DataGrid.DataGridViewControl, Core.Common.Controls, Version=17.1.1.8553, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewControl.Parent" xml:space="preserve">
     <value>tableLayoutPanel1</value>
