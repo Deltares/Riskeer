@@ -56,7 +56,7 @@ namespace Application.Ringtoets.Storage.Test
             string temporaryFilePath = filePath + "~";
             const string testContent = "Some test text to write into file.";
 
-            using (new DirectoryDisposeHelper(writableDirectory, nameof(Perform_ValidFile_TemporaryFileCreatedFromOriginalAndDeletedAfterwards)))
+            using (new DirectoryDisposeHelper(testWorkDir, nameof(Perform_ValidFile_TemporaryFileCreatedFromOriginalAndDeletedAfterwards)))
             using (new FileDisposeHelper(filePath))
             using (new FileDisposeHelper(temporaryFilePath))
             {
@@ -85,7 +85,7 @@ namespace Application.Ringtoets.Storage.Test
             string temporaryFilePath = filePath + "~";
             const string testContent = "Some test text to write into file.";
 
-            using (new DirectoryDisposeHelper(writableDirectory, nameof(Perform_ActionThrowsExceptionValidPathFileExists_OriginalFileRevertedAndExceptionThrown)))
+            using (new DirectoryDisposeHelper(testWorkDir, nameof(Perform_ActionThrowsExceptionValidPathFileExists_OriginalFileRevertedAndExceptionThrown)))
             {
                 File.WriteAllText(filePath, testContent);
 
