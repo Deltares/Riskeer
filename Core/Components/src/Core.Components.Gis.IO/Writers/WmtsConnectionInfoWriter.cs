@@ -80,7 +80,13 @@ namespace Core.Components.Gis.IO.Writers
         private void WriteWmtsConnectionInfosToXml(IEnumerable<WmtsConnectionInfo> wmtsConnectionInfos)
         {
             EnsureParentDirectoryExists();
-            using (XmlWriter writer = XmlWriter.Create(filePath))
+
+            var settings = new XmlWriterSettings
+            {
+                Indent = true
+            };
+
+            using (XmlWriter writer = XmlWriter.Create(filePath, settings))
             {
                 writer.WriteStartDocument();
                 writer.WriteStartElement(WmtsConnectionInfoXmlDefinitions.RootElement);

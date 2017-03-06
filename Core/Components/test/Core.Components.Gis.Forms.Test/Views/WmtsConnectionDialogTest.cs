@@ -83,7 +83,7 @@ namespace Core.Components.Gis.Forms.Test.Views
                 Assert.AreEqual("URL:", urlLabel.Text);
 
                 var actionButton = (Button) new ButtonTester("actionButton", dialog).TheObject;
-                Assert.AreEqual("Toevoegen", actionButton.Text);
+                Assert.AreEqual("Opslaan", actionButton.Text);
                 Assert.IsFalse(actionButton.Enabled);
 
                 var cancelButton = new ButtonTester("cancelButton", dialog);
@@ -127,7 +127,7 @@ namespace Core.Components.Gis.Forms.Test.Views
                 Assert.AreEqual("URL:", urlLabel.Text);
 
                 var actionButton = (Button) new ButtonTester("actionButton", dialog).TheObject;
-                Assert.AreEqual("Bewerken", actionButton.Text);
+                Assert.AreEqual("Opslaan", actionButton.Text);
                 Assert.IsTrue(actionButton.Enabled);
 
                 var cancelButton = new ButtonTester("cancelButton", dialog);

@@ -340,7 +340,7 @@
     <value>3</value>
   </data>
   <data name="actionButton.Text" xml:space="preserve">
-    <value>Toevoegen</value>
+    <value>Opslaan</value>
   </data>
   <data name="&gt;&gt;actionButton.Name" xml:space="preserve">
     <value>actionButton</value>
@@ -381,12 +381,12 @@
   <data name="&gt;&gt;flowLayoutPanel1.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <metadata name="urlTooltipErrorProvider.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <data name="urlTooltipErrorProvider.TrayLocation" type="System.Drawing.Point, System.Drawing">
     <value>123, 17</value>
-  </metadata>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  </data>
+  <data name="$this.Localizable" type="System.Boolean, mscorlib">
     <value>True</value>
-  </metadata>
+  </data>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 13</value>
   </data>

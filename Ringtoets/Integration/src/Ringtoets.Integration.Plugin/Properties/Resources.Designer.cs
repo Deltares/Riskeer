@@ -113,7 +113,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Selecteer een kaartlaag..
+        ///   Looks up a localized string similar to Selecteer een achtergrondkaart..
         /// </summary>
         public static string BackgroundMapData_SelectMapData_Tooltip {
             get {

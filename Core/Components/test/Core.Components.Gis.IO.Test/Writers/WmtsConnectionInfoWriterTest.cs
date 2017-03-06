@@ -161,9 +161,16 @@ namespace Core.Components.Gis.IO.Test.Writers
 
                 // Assert
                 string actualContent = GetFileContent(filePath);
-                string expectedContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><WmtsConnections>" +
-                                         "<WmtsConnection><Name>name1</Name><URL>url1</URL></WmtsConnection>" +
-                                         "<WmtsConnection><Name>name2</Name><URL>url2</URL></WmtsConnection>" +
+                string expectedContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" + Environment.NewLine +
+                                         "<WmtsConnections>" + Environment.NewLine +
+                                         "  <WmtsConnection>" + Environment.NewLine +
+                                         "    <Name>name1</Name>" + Environment.NewLine +
+                                         "    <URL>url1</URL>" + Environment.NewLine +
+                                         "  </WmtsConnection>" + Environment.NewLine +
+                                         "  <WmtsConnection>" + Environment.NewLine +
+                                         "    <Name>name2</Name>" + Environment.NewLine +
+                                         "    <URL>url2</URL>" + Environment.NewLine +
+                                         "  </WmtsConnection>" + Environment.NewLine +
                                          "</WmtsConnections>";
                 Assert.AreEqual(expectedContent, actualContent);
             }

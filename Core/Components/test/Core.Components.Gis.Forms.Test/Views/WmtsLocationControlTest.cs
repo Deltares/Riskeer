@@ -25,6 +25,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using BruTile;
 using BruTile.Wmts;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Gui.Settings;
@@ -879,7 +880,7 @@ namespace Core.Components.Gis.Forms.Test.Views
         }
 
         [Test]
-        public void GivenWmtsLocationControlAndConnectClicked_WhenCannotFindTileSourceException_ThenErrorMessageShownAndLogGenerated()
+        public void GivenWmtsLocationControlAndConnectClicked_WhenCannotFindTileSourceException_ThenErrorMessageShown()
         {
             // Given
             const string exceptionMessage = "fail";
@@ -906,10 +907,9 @@ namespace Core.Components.Gis.Forms.Test.Views
                 var connectToButton = new ButtonTester("connectToButton", form);
 
                 // When
-                Action action = () => connectToButton.Click();
+                connectToButton.Click();
 
                 // Then
-                TestHelper.AssertLogMessageWithLevelIsGenerated(action, Tuple.Create(exceptionMessage, LogLevelConstant.Error));
                 Assert.AreEqual("Fout", messageBoxTitle);
                 Assert.AreEqual(exceptionMessage, messageBoxText);
             }
@@ -937,7 +937,7 @@ namespace Core.Components.Gis.Forms.Test.Views
             }
         }
 
-        private static WmtsCapability CreateWmtsCapability(TestWmtsTileSource tileSource)
+        private static WmtsCapability CreateWmtsCapability(ITileSource tileSource)
         {
             var wmtsTileSchema = (WmtsTileSchema) tileSource.Schema;
             return new WmtsCapability(wmtsTileSchema.Identifier, wmtsTileSchema.Format,
@@ -993,8 +993,7 @@ namespace Core.Components.Gis.Forms.Test.Views
         {
             File.WriteAllText(filePath, "<?xml version=\"1.0\" encoding=\"utf-8\"?><WmtsConnections><WmtsConnection>" +
                                         $"<Name>{wmtsConnectionInfo.Name}</Name><URL>{wmtsConnectionInfo.Url}</URL>" +
-                                        "</WmtsConnection></WmtsConnections>")
-                ;
+                                        "</WmtsConnection></WmtsConnections>");
         }
     }
 }

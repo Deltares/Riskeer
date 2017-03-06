@@ -136,16 +136,16 @@
   <data name="WmtsCapability_MapLayer_Title" xml:space="preserve">
     <value>Titel</value>
   </data>
-  <data name="WmtsConnectionDialog_ActionButton_Edit" xml:space="preserve">
-    <value>Bewerken</value>
-  </data>
   <data name="WmtsConnectionDialog_Text_Edit" xml:space="preserve">
     <value>WMTS locatie aanpassen</value>
   </data>
   <data name="WmtsConnectionDialog_UrlErrorProvider_HelpText" xml:space="preserve">
-    <value>URL naar het WMTS dataservice inclusief 'capabilities'.</value>
+    <value>URL naar 'capabilities' van de webservice.</value>
   </data>
   <data name="WmtsLocationControl_DisplayName" xml:space="preserve">
     <value>Web Map Tile Service (WMTS)</value>
+  </data>
+  <data name="WmtsLocationControl_Unable_to_connect_to_0" xml:space="preserve">
+    <value>Gegevens ophalen van de locatie (URL) '{0}' is mislukt.</value>
   </data>
 </root>

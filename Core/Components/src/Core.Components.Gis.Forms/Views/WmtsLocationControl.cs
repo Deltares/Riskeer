@@ -265,13 +265,12 @@ namespace Core.Components.Gis.Forms.Views
         {
             urlLocationComboBox.ValueMember = nameof(WmtsConnectionInfo.Url);
             UpdateComboBoxDataSource(wmtsConnectionInfos.FirstOrDefault());
-
         }
 
         private void UpdateComboBoxDataSource(object selectedItem)
         {
             urlLocationComboBox.BeginUpdate();
-            
+
             urlLocationComboBoxUpdating = true;
             urlLocationComboBox.DataSource = wmtsConnectionInfos.OrderBy(i => i.Name).ToList();
             urlLocationComboBox.DisplayMember = nameof(WmtsConnectionInfo.Name);
@@ -328,12 +327,11 @@ namespace Core.Components.Gis.Forms.Views
                 IEnumerable<WmtsCapability> wmtsCapabilities = wmtsCapabilityFactory.GetWmtsCapabilities(selectedWmtsConnectionInfo.Url).ToArray();
                 UpdateDataGridViewDataSource(wmtsCapabilities);
             }
-            catch (CannotFindTileSourceException exception)
+            catch (CannotFindTileSourceException)
             {
                 Form parentForm = FindForm();
-                MessageBox.Show(parentForm, exception.Message, BaseResources.Error, MessageBoxButtons.OK,
-                                MessageBoxIcon.Error);
-                log.Error(exception.Message, exception);
+                MessageBox.Show(parentForm, string.Format(Resources.WmtsLocationControl_Unable_to_connect_to_0, selectedWmtsConnectionInfo.Name),
+                                BaseResources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

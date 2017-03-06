@@ -173,6 +173,6 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Selecteren...</value>
   </data>
   <data name="BackgroundMapData_SelectMapData_Tooltip" xml:space="preserve">
-    <value>Selecteer een kaartlaag.</value>
+    <value>Selecteer een achtergrondkaart.</value>
   </data>
 </root>

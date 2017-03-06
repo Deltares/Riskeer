@@ -81,7 +81,6 @@ namespace Core.Components.Gis.Forms.Views
         {
             nameTextBox.Text = wmtsConnectionInfo.Name;
             urlTextBox.Text = wmtsConnectionInfo.Url;
-            actionButton.Text = Resources.WmtsConnectionDialog_ActionButton_Edit;
             Text = Resources.WmtsConnectionDialog_Text_Edit;
         }
 
