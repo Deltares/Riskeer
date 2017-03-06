@@ -29,7 +29,6 @@ using Rhino.Mocks;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.GrassCoverErosionOutwards.Data.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
@@ -39,10 +38,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
-        private const int lengthEffectPropertyIndex = 2;
-        private const int aPropertyIndex = 3;
-        private const int bPropertyIndex = 4;
-        private const int cPropertyIndex = 5;
+        private const int isRelevantPropertyIndex = 2;
+        private const int lengthEffectPropertyIndex = 3;
+        private const int aPropertyIndex = 4;
+        private const int bPropertyIndex = 5;
+        private const int cPropertyIndex = 6;
 
         [Test]
         public void Constructor_WithoutFailureMechanism_ThrowsArgumentNullException()
@@ -72,14 +72,19 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_WithFailureMechanism_ExpectedValues()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Constructor_WithFailureMechanism_ExpectedValues(bool isRelevant)
         {
             // Setup
             var mockRepository = new MockRepository();
             var changeHandler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism>>();
             mockRepository.ReplayAll();
 
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
+            {
+                IsRelevant = isRelevant
+            };
 
             // Call
             var properties = new GrassCoverErosionOutwardsFailureMechanismProperties(failureMechanism, changeHandler);
@@ -87,8 +92,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             // Assert
             Assert.IsInstanceOf<ObjectProperties<GrassCoverErosionOutwardsFailureMechanism>>(properties);
             Assert.AreSame(failureMechanism, properties.Data);
-            Assert.AreEqual(Resources.GrassCoverErosionOutwardsFailureMechanism_DisplayName, properties.Name);
-            Assert.AreEqual(Resources.GrassCoverErosionOutwardsFailureMechanism_Code, properties.Code);
+            Assert.AreEqual("Dijken en dammen - Grasbekleding erosie buitentalud", properties.Name);
+            Assert.AreEqual("GEBU", properties.Code);
+            Assert.AreEqual(isRelevant, properties.IsRelevant);
             Assert.AreEqual(failureMechanism.GeneralInput.GeneralWaveConditionsInput.A, properties.A);
             Assert.AreEqual(failureMechanism.GeneralInput.GeneralWaveConditionsInput.B, properties.B);
             Assert.AreEqual(failureMechanism.GeneralInput.GeneralWaveConditionsInput.C, properties.C);
@@ -96,7 +102,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_IsRelevantTrue_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -105,54 +111,113 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 
             // Call
             var properties = new GrassCoverErosionOutwardsFailureMechanismProperties(
-                new GrassCoverErosionOutwardsFailureMechanism(),
+                new GrassCoverErosionOutwardsFailureMechanism
+                {
+                    IsRelevant = true
+                },
                 changeHandler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(6, dynamicProperties.Count);
+            Assert.AreEqual(7, dynamicProperties.Count);
+
+            const string generalCategory = "Algemeen";
+            const string modelSettingsCategory = "Modelinstellingen";
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
-            Assert.IsNotNull(nameProperty);
-            Assert.IsTrue(nameProperty.IsReadOnly);
-            Assert.AreEqual("Algemeen", nameProperty.Category);
-            Assert.AreEqual("Naam", nameProperty.DisplayName);
-            Assert.AreEqual("De naam van het toetsspoor.", nameProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
+                                                                            generalCategory,
+                                                                            "Naam",
+                                                                            "De naam van het toetsspoor.",
+                                                                            true);
 
             PropertyDescriptor codeProperty = dynamicProperties[codePropertyIndex];
-            Assert.IsNotNull(codeProperty);
-            Assert.IsTrue(codeProperty.IsReadOnly);
-            Assert.AreEqual("Algemeen", codeProperty.Category);
-            Assert.AreEqual("Label", codeProperty.DisplayName);
-            Assert.AreEqual("Het label van het toetsspoor.", codeProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(codeProperty,
+                                                                            generalCategory,
+                                                                            "Label",
+                                                                            "Het label van het toetsspoor.",
+                                                                            true);
+
+            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
+                                                                            generalCategory,
+                                                                            "Is relevant",
+                                                                            "Geeft aan of dit toetsspoor relevant is of niet.",
+                                                                            true);
 
             PropertyDescriptor lengthEffectProperty = dynamicProperties[lengthEffectPropertyIndex];
-            Assert.IsNotNull(lengthEffectProperty);
-            Assert.IsFalse(lengthEffectProperty.IsReadOnly);
-            Assert.AreEqual("Lengte-effect parameters", lengthEffectProperty.Category);
-            Assert.AreEqual("N [-]", lengthEffectProperty.DisplayName);
-            Assert.AreEqual("De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in een semi-probabilistische beoordeling.", lengthEffectProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(lengthEffectProperty,
+                                                                            "Lengte-effect parameters",
+                                                                            "N [-]",
+                                                                            "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in een semi-probabilistische beoordeling.");
 
             PropertyDescriptor aProperty = dynamicProperties[aPropertyIndex];
-            Assert.IsNotNull(aProperty);
-            Assert.IsTrue(aProperty.IsReadOnly);
-            Assert.AreEqual("Modelinstellingen", aProperty.Category);
-            Assert.AreEqual("a", aProperty.DisplayName);
-            Assert.AreEqual("De waarde van de parameter 'a' in de berekening voor golf condities.", aProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(aProperty,
+                                                                            modelSettingsCategory,
+                                                                            "a",
+                                                                            "De waarde van de parameter 'a' in de berekening voor golf condities.",
+                                                                            true);
 
             PropertyDescriptor bProperty = dynamicProperties[bPropertyIndex];
-            Assert.IsNotNull(bProperty);
-            Assert.IsTrue(bProperty.IsReadOnly);
-            Assert.AreEqual("Modelinstellingen", bProperty.Category);
-            Assert.AreEqual("b", bProperty.DisplayName);
-            Assert.AreEqual("De waarde van de parameter 'b' in de berekening voor golf condities.", bProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(bProperty,
+                                                                            modelSettingsCategory,
+                                                                            "b",
+                                                                            "De waarde van de parameter 'b' in de berekening voor golf condities.",
+                                                                            true);
 
             PropertyDescriptor cProperty = dynamicProperties[cPropertyIndex];
-            Assert.IsNotNull(cProperty);
-            Assert.IsTrue(cProperty.IsReadOnly);
-            Assert.AreEqual("Modelinstellingen", cProperty.Category);
-            Assert.AreEqual("c", cProperty.DisplayName);
-            Assert.AreEqual("De waarde van de parameter 'c' in de berekening voor golf condities.", cProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(cProperty,
+                                                                            modelSettingsCategory,
+                                                                            "c",
+                                                                            "De waarde van de parameter 'c' in de berekening voor golf condities.",
+                                                                            true);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_IsRelevantFalse_PropertiesHaveExpectedAttributesValues()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var changeHandler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism>>();
+            mockRepository.ReplayAll();
+
+            // Call
+            var properties = new GrassCoverErosionOutwardsFailureMechanismProperties(
+                new GrassCoverErosionOutwardsFailureMechanism
+                {
+                    IsRelevant = false
+                },
+                changeHandler);
+
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(3, dynamicProperties.Count);
+
+            const string generalCategory = "Algemeen";
+
+            PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
+                                                                            generalCategory,
+                                                                            "Naam",
+                                                                            "De naam van het toetsspoor.",
+                                                                            true);
+
+            PropertyDescriptor codeProperty = dynamicProperties[codePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(codeProperty,
+                                                                            generalCategory,
+                                                                            "Label",
+                                                                            "Het label van het toetsspoor.",
+                                                                            true);
+
+            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
+                                                                            generalCategory,
+                                                                            "Is relevant",
+                                                                            "Geeft aan of dit toetsspoor relevant is of niet.",
+                                                                            true);
+
             mockRepository.VerifyAll();
         }
 
@@ -217,6 +282,60 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual(newLengthEffect, failureMechanism.GeneralInput.N);
             Assert.IsTrue(changeHandler.Called);
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void DynamicVisibleValidationMethod_ForRelevantFailureMechanism_ReturnExpectedVisibility()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism>>();
+            mocks.ReplayAll();
+
+            var properties = new GrassCoverErosionOutwardsFailureMechanismProperties(
+                new GrassCoverErosionOutwardsFailureMechanism
+                {
+                    IsRelevant = true
+                },
+                changeHandler);
+
+            // Call & Assert
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.A)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.B)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.C)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.LengthEffect)));
+
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
+        }
+
+        [Test]
+        public void DynamicVisibleValidationMethod_ForIrrelevantFailureMechanism_ReturnExpectedVisibility()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism>>();
+            mocks.ReplayAll();
+
+            var properties = new GrassCoverErosionOutwardsFailureMechanismProperties(
+                new GrassCoverErosionOutwardsFailureMechanism
+                {
+                    IsRelevant = false
+                },
+                changeHandler);
+
+            // Call & Assert
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.A)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.B)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.C)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.LengthEffect)));
+
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
         }
     }
 }
