@@ -258,6 +258,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
         }
 
+        [DynamicReadOnly]
         [PropertyOrder(inflowModelTypePropertyIndex)]
         [TypeConverter(typeof(EnumTypeConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
@@ -313,6 +314,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
         }
 
+        [DynamicReadOnly]
         [PropertyOrder(failureProbabilityOpenStructurePropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureProbabilityOpenStructure_DisplayName))]
@@ -332,6 +334,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
         }
 
+        [DynamicReadOnly]
         [PropertyOrder(failureProbabilityReparationPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureProbabilityReparation_DisplayName))]
@@ -351,6 +354,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
         }
 
+        [DynamicReadOnly]
         [PropertyOrder(identicalAperturesPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.IdenticalApertures_DisplayName))]
@@ -386,6 +390,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
         }
 
+        [DynamicReadOnly]
         [PropertyOrder(probabilityOrFrequencyOpenStructureBeforeFloodingPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ProbabilityOrFrequencyOpenStructureBeforeFlooding_DisplayName))]
@@ -406,5 +411,31 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         }
 
         #endregion
+
+        public override bool IsReadOnly(string property)
+        {
+            if (property == nameof(InflowModelType))
+            {
+                return !HasStructure();
+            }
+            if (property == nameof(IdenticalApertures))
+            {
+                return !HasStructure();
+            }
+            if (property == nameof(ProbabilityOrFrequencyOpenStructureBeforeFlooding))
+            {
+                return !HasStructure();
+            }
+            if (property == nameof(FailureProbabilityOpenStructure))
+            {
+                return !HasStructure();
+            }
+            if (property == nameof(FailureProbabilityReparation))
+            {
+                return !HasStructure();
+            }
+
+            return base.IsReadOnly(property);
+        }
     }
 }

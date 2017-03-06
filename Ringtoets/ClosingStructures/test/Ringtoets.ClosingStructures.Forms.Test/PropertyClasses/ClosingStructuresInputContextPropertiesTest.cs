@@ -471,19 +471,19 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
 
-            PropertyDescriptor inflowModelType = dynamicProperties[5];
+            PropertyDescriptor inflowModelType = dynamicProperties[6];
             Assert.IsTrue(inflowModelType.IsReadOnly);
 
-            PropertyDescriptor identicalApertures = dynamicProperties[8];
+            PropertyDescriptor identicalApertures = dynamicProperties[9];
             Assert.IsTrue(identicalApertures.IsReadOnly);
 
-            PropertyDescriptor probabilityOrFrequencyOpenStructureBeforeFlooding = dynamicProperties[15];
+            PropertyDescriptor probabilityOrFrequencyOpenStructureBeforeFlooding = dynamicProperties[16];
             Assert.IsTrue(probabilityOrFrequencyOpenStructureBeforeFlooding.IsReadOnly);
 
-            PropertyDescriptor failureProbabilityOpenStructure = dynamicProperties[16];
+            PropertyDescriptor failureProbabilityOpenStructure = dynamicProperties[17];
             Assert.IsTrue(failureProbabilityOpenStructure.IsReadOnly);
 
-            PropertyDescriptor failureProbabilityReparation = dynamicProperties[17];
+            PropertyDescriptor failureProbabilityReparation = dynamicProperties[18];
             Assert.IsTrue(failureProbabilityReparation.IsReadOnly);
 
             AssertPropertiesInState(properties.ThresholdHeightOpenWeir, true);

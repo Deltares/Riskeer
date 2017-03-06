@@ -193,6 +193,45 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Constructor_WithOrWithoutStructure_CorrectReadOnlyForStructureDependentProperties(bool hasStructure)
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<HeightStructuresInput>();
+            var inputContext = new HeightStructuresInputContext(calculation.InputParameters,
+                                                                calculation,
+                                                                failureMechanism,
+                                                                assessmentSectionStub);
+            if (hasStructure)
+            {
+                calculation.InputParameters.Structure = new TestHeightStructure();
+            }
+
+            // Call
+            var properties = new HeightStructuresInputContextProperties(inputContext, handler);
+
+            // Assert
+            AssertPropertiesInState(properties.LevelCrestStructure, !hasStructure);
+
+            mockRepository.VerifyAll();
+        }
+
+        private static void AssertPropertiesInState(object properties, bool expectedReadOnly)
+        {
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(3, dynamicProperties.Count);
+
+            Assert.AreEqual(expectedReadOnly, dynamicProperties[1].IsReadOnly);
+            Assert.AreEqual(expectedReadOnly, dynamicProperties[2].IsReadOnly);
+        }
+
+        [Test]
         public void GetAvailableForeshoreProfiles_SetInputContextInstanceWithForeshoreProfiles_ReturnForeshoreProfiles()
         {
             // Setup
@@ -305,6 +344,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             var calculation = new StructuresCalculation<HeightStructuresInput>();
             HeightStructuresInput input = calculation.InputParameters;
             input.ForeshoreProfile = new TestForeshoreProfile();
+            input.Structure = new TestHeightStructure();
 
             var customHandler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
                 {

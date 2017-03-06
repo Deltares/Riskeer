@@ -99,7 +99,9 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
             get
             {
                 return new NormalDistributionProperties(
-                    DistributionPropertiesReadOnly.None,
+                    HasStructure()
+                        ? DistributionPropertiesReadOnly.None
+                        : DistributionPropertiesReadOnly.All,
                     data.WrappedData.LevelCrestStructure,
                     PropertyChangeHandler);
             }

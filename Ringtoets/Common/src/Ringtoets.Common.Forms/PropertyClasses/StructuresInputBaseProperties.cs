@@ -568,7 +568,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         }
 
         [DynamicReadOnlyValidationMethod]
-        public bool IsReadOnly(string property)
+        public virtual bool IsReadOnly(string property)
         {
             if (property == nameof(StructureNormalOrientation))
             {
