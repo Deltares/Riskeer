@@ -39,7 +39,8 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
-        private const int lengthEffectPropertyIndex = 3;
+        private const int isRelevantPropertyIndex = 3;
+        private const int lengthEffectPropertyIndex = 4;
         private readonly IFailureMechanismPropertyChangeHandler<DuneErosionFailureMechanism> propertyChangeHandler;
 
         /// <summary>
@@ -66,6 +67,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
 
         #region Length effect parameters
 
+        [DynamicVisible]
         [PropertyOrder(lengthEffectPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_DisplayName))]
@@ -89,12 +91,27 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
 
         #endregion
 
+        [DynamicVisibleValidationMethod]
+        public bool DynamicVisibleValidationMethod(string propertyName)
+        {
+            if (!data.IsRelevant && ShouldHidePropertyWhenFailureMechanismIrrelevant(propertyName))
+            {
+                return false;
+            }
+            return true;
+        }
+
         private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
         {
             foreach (var affectedObject in affectedObjects)
             {
                 affectedObject.NotifyObservers();
             }
+        }
+
+        private bool ShouldHidePropertyWhenFailureMechanismIrrelevant(string propertyName)
+        {
+            return nameof(LengthEffect).Equals(propertyName);
         }
 
         #region General
@@ -120,6 +137,18 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
             get
             {
                 return data.Code;
+            }
+        }
+
+        [PropertyOrder(isRelevantPropertyIndex)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_IsRelevant_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_IsRelevant_Description))]
+        public bool IsRelevant
+        {
+            get
+            {
+                return data.IsRelevant;
             }
         }
 

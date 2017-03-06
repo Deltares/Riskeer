@@ -80,7 +80,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
-            if (!data.IsRelevant && ShouldHideProperty(propertyName))
+            if (!data.IsRelevant && ShouldHidePropertyWhenFailureMechanismIrrelevant(propertyName))
             {
                 return false;
             }
@@ -95,7 +95,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
         }
 
-        private bool ShouldHideProperty(string propertyName)
+        private bool ShouldHidePropertyWhenFailureMechanismIrrelevant(string propertyName)
         {
             return nameof(GravitationalAcceleration).Equals(propertyName)
                    || nameof(ModelFactorOvertoppingFlow).Equals(propertyName)
