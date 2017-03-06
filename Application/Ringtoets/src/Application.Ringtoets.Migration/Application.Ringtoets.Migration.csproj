@@ -34,20 +34,10 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Application.Ringtoets.Migration.Core, Version=17.1.1.8515, Culture=neutral, processorArchitecture=x86">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Application.Ringtoets.Storage, Version=17.1.1.8515, Culture=neutral, processorArchitecture=x86" />
-    <Reference Include="Core.Common.Utils, Version=17.1.1.8515, Culture=neutral, processorArchitecture=x86">
-      <Private>False</Private>
-    </Reference>
     <Reference Include="log4net, Version=1.2.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\log4net.2.0.4\lib\net40-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Migration.Core.Storage, Version=17.1.1.8515, Culture=neutral, processorArchitecture=x86" />
-    <Reference Include="Migration.Scripts.Data, Version=17.1.1.8515, Culture=neutral, processorArchitecture=x86" />
-    <Reference Include="Ringtoets.Common.Utils, Version=17.1.1.8515, Culture=neutral, processorArchitecture=x86" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms" />
@@ -68,16 +58,42 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj">
-      <Project>{30e4c2ae-719e-4d70-9fa9-668a9767fbfa}</Project>
-      <Name>Core.Common.Gui</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj">
+      <Project>{30e4c2ae-719e-4d70-9fa9-668a9767fbfa}</Project>
+      <Name>Core.Common.Gui</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
+      <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
+      <Name>Core.Common.Utils</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Migration\Core\src\Migration.Core.Storage\Migration.Core.Storage.csproj">
+      <Project>{efd7e662-5b69-4b71-a448-565b64e9c033}</Project>
+      <Name>Migration.Core.Storage</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Migration\Scripts\src\Migration.Scripts.Data\Migration.Scripts.Data.csproj">
+      <Project>{d08db9e2-6861-44c8-a725-71a70274cc77}</Project>
+      <Name>Migration.Scripts.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\Common\src\Ringtoets.Common.Utils\Ringtoets.Common.Utils.csproj">
+      <Project>{6a074d65-a81c-4c1c-8e24-f36c916e4ed7}</Project>
+      <Name>Ringtoets.Common.Utils</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Application.Ringtoets.Migration.Core\Application.Ringtoets.Migration.Core.csproj">
+      <Project>{fac55b92-e259-43d6-b9a1-5bda6c834359}</Project>
+      <Name>Application.Ringtoets.Migration.Core</Name>
+      <Private>False</Private>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
