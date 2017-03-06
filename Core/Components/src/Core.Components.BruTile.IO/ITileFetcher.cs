@@ -52,8 +52,8 @@ namespace Core.Components.BruTile.IO
         /// request has been served.</remarks>
         /// <exception cref="ObjectDisposedException">Thrown when calling this method while
         /// this instance is disposed.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown when this operation is not supported on the current platform.
-        /// -or- path specified a directory.-or- The caller does not have the required permission.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown when this operation is not 
+        /// supported on the current platform or the caller does not have the required permission.</exception>
         byte[] GetTile(TileInfo tileInfo);
 
         /// <summary>
