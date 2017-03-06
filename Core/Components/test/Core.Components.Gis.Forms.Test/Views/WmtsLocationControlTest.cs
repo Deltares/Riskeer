@@ -211,42 +211,45 @@ namespace Core.Components.Gis.Forms.Test.Views
         [Test]
         public void Constructor_NullMapData_DataGridViewCorrectlyInitialized()
         {
-            // Call
+            // Setup
             mockRepository.ReplayAll();
 
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
-            using (var control = new WmtsLocationControl(null, wmtsCapabilityFactory))
-            using (var form = new Form())
             {
-                form.Controls.Add(control);
+                // Call
+                using (var control = new WmtsLocationControl(null, wmtsCapabilityFactory))
+                using (var form = new Form())
+                {
+                    form.Controls.Add(control);
 
-                // Assert
-                var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", form).TheObject;
-                var dataGridView = dataGridViewControl.Controls.OfType<DataGridView>().First();
+                    // Assert
+                    var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", form).TheObject;
+                    var dataGridView = dataGridViewControl.Controls.OfType<DataGridView>().First();
 
-                Assert.AreEqual(DataGridViewSelectionMode.FullRowSelect, dataGridViewControl.SelectionMode);
-                Assert.IsFalse(dataGridViewControl.MultiSelect);
-                Assert.AreEqual(4, dataGridView.ColumnCount);
+                    Assert.AreEqual(DataGridViewSelectionMode.FullRowSelect, dataGridViewControl.SelectionMode);
+                    Assert.IsFalse(dataGridViewControl.MultiSelect);
+                    Assert.AreEqual(4, dataGridView.ColumnCount);
 
-                var mapLayerIdColumn = (DataGridViewTextBoxColumn) dataGridViewControl.GetColumnFromIndex(mapLayerIdColumnIndex);
-                Assert.AreEqual("Kaartlaag", mapLayerIdColumn.HeaderText);
-                Assert.AreEqual("Id", mapLayerIdColumn.DataPropertyName);
-                Assert.IsTrue(mapLayerIdColumn.ReadOnly);
+                    var mapLayerIdColumn = (DataGridViewTextBoxColumn) dataGridViewControl.GetColumnFromIndex(mapLayerIdColumnIndex);
+                    Assert.AreEqual("Kaartlaag", mapLayerIdColumn.HeaderText);
+                    Assert.AreEqual("Id", mapLayerIdColumn.DataPropertyName);
+                    Assert.IsTrue(mapLayerIdColumn.ReadOnly);
 
-                var mapLayerFormatColumn = (DataGridViewTextBoxColumn) dataGridViewControl.GetColumnFromIndex(mapLayerFormatColumnIndex);
-                Assert.AreEqual("Formaat", mapLayerFormatColumn.HeaderText);
-                Assert.AreEqual("Format", mapLayerFormatColumn.DataPropertyName);
-                Assert.IsTrue(mapLayerFormatColumn.ReadOnly);
+                    var mapLayerFormatColumn = (DataGridViewTextBoxColumn) dataGridViewControl.GetColumnFromIndex(mapLayerFormatColumnIndex);
+                    Assert.AreEqual("Formaat", mapLayerFormatColumn.HeaderText);
+                    Assert.AreEqual("Format", mapLayerFormatColumn.DataPropertyName);
+                    Assert.IsTrue(mapLayerFormatColumn.ReadOnly);
 
-                var mapLayerTitleColumn = (DataGridViewTextBoxColumn) dataGridViewControl.GetColumnFromIndex(mapLayerTitleColumnIndex);
-                Assert.AreEqual("Titel", mapLayerTitleColumn.HeaderText);
-                Assert.AreEqual("Title", mapLayerTitleColumn.DataPropertyName);
-                Assert.IsTrue(mapLayerTitleColumn.ReadOnly);
+                    var mapLayerTitleColumn = (DataGridViewTextBoxColumn) dataGridViewControl.GetColumnFromIndex(mapLayerTitleColumnIndex);
+                    Assert.AreEqual("Titel", mapLayerTitleColumn.HeaderText);
+                    Assert.AreEqual("Title", mapLayerTitleColumn.DataPropertyName);
+                    Assert.IsTrue(mapLayerTitleColumn.ReadOnly);
 
-                var mapLayerCoordinateSystemColumn = (DataGridViewTextBoxColumn) dataGridViewControl.GetColumnFromIndex(mapLayerCoordinateSystemColumnIndex);
-                Assert.AreEqual("Coördinatenstelsel", mapLayerCoordinateSystemColumn.HeaderText);
-                Assert.AreEqual("CoordinateSystem", mapLayerCoordinateSystemColumn.DataPropertyName);
-                Assert.IsTrue(mapLayerCoordinateSystemColumn.ReadOnly);
+                    var mapLayerCoordinateSystemColumn = (DataGridViewTextBoxColumn) dataGridViewControl.GetColumnFromIndex(mapLayerCoordinateSystemColumnIndex);
+                    Assert.AreEqual("Coördinatenstelsel", mapLayerCoordinateSystemColumn.HeaderText);
+                    Assert.AreEqual("CoordinateSystem", mapLayerCoordinateSystemColumn.DataPropertyName);
+                    Assert.IsTrue(mapLayerCoordinateSystemColumn.ReadOnly);
+                }
             }
         }
 
@@ -532,7 +535,7 @@ namespace Core.Components.Gis.Forms.Test.Views
         [Apartment(ApartmentState.STA)]
         public void GivenWmtsLocationControlAndAddLocationClicked_WhenDialogCanceled_ThenWmtsLocationsNotUpdated()
         {
-            // 
+            // Given
             mockRepository.ReplayAll();
 
             DialogBoxHandler = (formName, wnd) =>
