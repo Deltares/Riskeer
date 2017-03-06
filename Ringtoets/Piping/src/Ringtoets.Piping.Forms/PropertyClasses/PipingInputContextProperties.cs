@@ -124,9 +124,13 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         [DynamicReadOnlyValidationMethod]
         public bool DynamicReadOnlyValidationMethod(string propertyName)
         {
-            if (propertyName == TypeUtils.GetMemberName<PipingInputContextProperties>(p => p.AssessmentLevel))
+            if (propertyName == nameof(AssessmentLevel))
             {
                 return !data.WrappedData.UseAssessmentLevelManualInput;
+            }
+            if (propertyName == nameof(EntryPointL) || propertyName == nameof(ExitPointL))
+            {
+                return data.WrappedData.SurfaceLine == null;
             }
 
             return true;
@@ -135,7 +139,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
-            if (propertyName == TypeUtils.GetMemberName<PipingInputContextProperties>(p => p.SelectedHydraulicBoundaryLocation))
+            if (propertyName == nameof(SelectedHydraulicBoundaryLocation))
             {
                 return !data.WrappedData.UseAssessmentLevelManualInput;
             }
@@ -325,6 +329,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
+        [DynamicReadOnly]
         [PropertyOrder(entryPointLPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_EntryPointL_DisplayName))]
@@ -341,6 +346,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
+        [DynamicReadOnly]
         [PropertyOrder(exitPointLPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_ExitPointL_DisplayName))]

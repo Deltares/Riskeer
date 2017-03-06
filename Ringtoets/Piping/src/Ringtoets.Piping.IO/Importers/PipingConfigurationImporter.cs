@@ -259,7 +259,15 @@ namespace Ringtoets.Piping.IO.Importers
         /// <exception cref="CriticalFileValidationException">Thrown when the entry point or exit point is invalid.</exception>
         private static void ReadEntryExitPoint(ReadPipingCalculation readCalculation, PipingCalculationScenario pipingCalculation)
         {
-            if (readCalculation.EntryPointL.HasValue)
+            bool hasEntryPoint = readCalculation.EntryPointL.HasValue;
+            bool hasExitPoint = readCalculation.ExitPointL.HasValue;
+
+            if (readCalculation.SurfaceLine == null && (hasEntryPoint || hasExitPoint))
+            {
+                throw new CriticalFileValidationException(Resources.PipingConfigurationImporter_ReadSurfaceLine_EntryPointL_or_ExitPointL_defined_without_SurfaceLine);
+            }
+
+            if (hasEntryPoint)
             {
                 var entryPoint = (double) readCalculation.EntryPointL;
 
@@ -268,7 +276,7 @@ namespace Ringtoets.Piping.IO.Importers
                     string.Format(Resources.PipingConfigurationImporter_ReadEntryExitPoint_Entry_point_invalid, entryPoint));
             }
 
-            if (readCalculation.ExitPointL.HasValue)
+            if (hasExitPoint)
             {
                 var exitPoint = (double) readCalculation.ExitPointL;
 

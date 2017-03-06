@@ -340,4 +340,7 @@ Er is geen berekeningenconfiguratie geïmporteerd.</value>
   <data name="PipingConfigurationImporter_ReadStochasticSoilProfile_No_soil_model_provided_for_soil_profile_with_name_0" xml:space="preserve">
     <value>Er is geen stochastisch ondergrondmodel opgegeven bij ondergrondschematisatie '{0}'.</value>
   </data>
+  <data name="PipingConfigurationImporter_ReadSurfaceLine_EntryPointL_or_ExitPointL_defined_without_SurfaceLine" xml:space="preserve">
+    <value>Er is geen profielschematisatie, maar wel een intrede- of uittredepunt opgegeven.</value>
+  </data>
 </root>

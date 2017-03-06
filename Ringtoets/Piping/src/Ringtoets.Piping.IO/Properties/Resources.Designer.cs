@@ -329,6 +329,16 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er is geen profielschematisatie, maar wel een intrede- of uittredepunt opgegeven..
+        /// </summary>
+        public static string PipingConfigurationImporter_ReadSurfaceLine_EntryPointL_or_ExitPointL_defined_without_SurfaceLine {
+            get {
+                return ResourceManager.GetString("PipingConfigurationImporter_ReadSurfaceLine_EntryPointL_or_ExitPointL_defined_wit" +
+                        "hout_SurfaceLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De profielschematisatie &apos;{0}&apos; bestaat niet..
         /// </summary>
         public static string PipingConfigurationImporter_ReadSurfaceLine_SurfaceLine_0_does_not_exist {

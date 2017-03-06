@@ -42,22 +42,6 @@ namespace Ringtoets.Piping.IO.Test.Importers
         private readonly string readerPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "PipingConfigurationReader");
         private readonly string importerPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "PipingConfigurationImporter");
 
-        private static IEnumerable<TestCaseData> ValidConfigurationsWithValidData
-        {
-            get
-            {
-                yield return new TestCaseData("validConfigurationNesting.xml",
-                                              GetExpectedNestedData())
-                    .SetName("validConfigurationNesting");
-                yield return new TestCaseData("validConfigurationCalculationContainingNaNs.xml",
-                                              GetExpectedNaNData())
-                    .SetName("validConfigurationCalculationContainingNaNs");
-                yield return new TestCaseData("validConfigurationCalculationContainingInfinities.xml",
-                                              GetExpectedInfinityData())
-                    .SetName("validConfigurationCalculationContainingInfinities");
-            }
-        }
-
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -249,6 +233,10 @@ namespace Ringtoets.Piping.IO.Test.Importers
             "Een waarde van '200,2' als uittredepunt is ongeldig. Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 10,0]).")]
         [TestCase("validConfigurationEntryPointNotOnSurfaceLine.xml",
             "Een waarde van '-10' als intredepunt is ongeldig. Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 10,0]).")]
+        [TestCase("validConfigurationCalculationContainingInfinityEntryPoint.xml",
+            "Een waarde van '-Infinity' als intredepunt is ongeldig. Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 10,0]).")]
+        [TestCase("validConfigurationCalculationContainingInfinityExitPoint.xml",
+            "Een waarde van 'Infinity' als uittredepunt is ongeldig. Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 10,0]).")]
         [TestCase("validConfigurationInvalidStandardDeviationPhreaticLevelExit.xml",
             "Een standaardafwijking van '-1' is ongeldig voor stochast 'polderpeil'. Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.")]
         [TestCase("validConfigurationInvalidMeanDampingFactorExit.xml",
@@ -489,6 +477,34 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
+        [TestCase("validConfigurationCalculationContainingEntryPointWithoutSurfaceLine.xml")]
+        [TestCase("validConfigurationCalculationContainingExitPointWithoutSurfaceLine.xml")]
+        [TestCase("validConfigurationCalculationContainingEntryPointAndExitPointWithoutSurfaceLine.xml")]
+        [TestCase("validConfigurationCalculationContainingNaNs.xml")]
+        public void Import_EntryAndOrExitPointDefinedWithoutSurfaceLine_LogMessageAndContinueImport(string file)
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, file);
+
+            var calculationGroup = new CalculationGroup();
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            var importer = new PipingConfigurationImporter(filePath,
+                                                           calculationGroup,
+                                                           new HydraulicBoundaryLocation[0],
+                                                           pipingFailureMechanism);
+
+            // Call
+            var successful = false;
+            Action call = () => successful = importer.Import();
+
+            // Assert
+            const string expectedMessage = "Er is geen profielschematisatie, maar wel een intrede- of uittredepunt opgegeven. Berekening 'Calculation' is overgeslagen.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            Assert.IsTrue(successful);
+            CollectionAssert.IsEmpty(calculationGroup.Children);
+        }
+
+        [Test]
         [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml", false)]
         [TestCase("validConfigurationFullCalculationContainingAssessmentLevel.xml", true)]
         public void Import_ValidConfigurationWithValidHydraulicBoundaryData_DataAddedToModel(string file, bool manualAssessmentLevel)
@@ -587,11 +603,10 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
-        [TestCaseSource(nameof(ValidConfigurationsWithValidData))]
-        public void Import_ValidConfigurationWithValidData_DataAddedToModel(string file, CalculationGroup expectedCalculationGroup)
+        public void Import_ValidConfigurationWithValidData_DataAddedToModel()
         {
             // Setup
-            string filePath = Path.Combine(readerPath, file);
+            string filePath = Path.Combine(readerPath, "validConfigurationNesting.xml");
 
             var calculationGroup = new CalculationGroup();
             var pipingFailureMechanism = new PipingFailureMechanism();
@@ -606,7 +621,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
 
             // Assert
             Assert.IsTrue(successful);
-            AssertCalculationGroup(expectedCalculationGroup, calculationGroup);
+            AssertCalculationGroup(GetExpectedNestedData(), calculationGroup);
         }
 
         private static CalculationGroup GetExpectedNestedData()
@@ -654,68 +669,6 @@ namespace Ringtoets.Piping.IO.Test.Importers
                         Name = "Calculation 2"
                     },
                     new CalculationGroup("Group 3", false)
-                }
-            };
-        }
-
-        private static CalculationGroup GetExpectedNaNData()
-        {
-            return new CalculationGroup("Root", false)
-            {
-                Children =
-                {
-                    new PipingCalculationScenario(new GeneralPipingInput())
-                    {
-                        Name = "Calculation",
-                        InputParameters =
-                        {
-                            UseAssessmentLevelManualInput = true,
-                            AssessmentLevel = RoundedDouble.NaN,
-                            EntryPointL = RoundedDouble.NaN,
-                            ExitPointL = RoundedDouble.NaN,
-                            PhreaticLevelExit =
-                            {
-                                Mean = RoundedDouble.NaN,
-                                StandardDeviation = RoundedDouble.NaN
-                            },
-                            DampingFactorExit =
-                            {
-                                Mean = RoundedDouble.NaN,
-                                StandardDeviation = RoundedDouble.NaN
-                            }
-                        }
-                    }
-                }
-            };
-        }
-
-        private static CalculationGroup GetExpectedInfinityData()
-        {
-            return new CalculationGroup("Root", false)
-            {
-                Children =
-                {
-                    new PipingCalculationScenario(new GeneralPipingInput())
-                    {
-                        Name = "Calculation",
-                        InputParameters =
-                        {
-                            UseAssessmentLevelManualInput = true,
-                            AssessmentLevel = (RoundedDouble) double.NegativeInfinity,
-                            EntryPointL = (RoundedDouble) double.NegativeInfinity,
-                            ExitPointL = (RoundedDouble) double.PositiveInfinity,
-                            PhreaticLevelExit =
-                            {
-                                Mean = (RoundedDouble) double.NegativeInfinity,
-                                StandardDeviation = (RoundedDouble) double.PositiveInfinity
-                            },
-                            DampingFactorExit =
-                            {
-                                Mean = (RoundedDouble) double.PositiveInfinity,
-                                StandardDeviation = (RoundedDouble) double.PositiveInfinity
-                            }
-                        }
-                    }
                 }
             };
         }

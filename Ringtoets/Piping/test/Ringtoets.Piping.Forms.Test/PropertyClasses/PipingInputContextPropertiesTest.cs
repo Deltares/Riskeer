@@ -243,20 +243,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual("Ondergrondschematisatie", stochasticSoilProfileProperty.DisplayName);
             Assert.AreEqual("De opbouw van de ondergrond.", stochasticSoilProfileProperty.Description);
 
-            PropertyDescriptor entryPointLProperty = dynamicProperties[expectedEntryPointLPropertyIndex];
-            Assert.IsNotNull(entryPointLProperty);
-            Assert.IsFalse(entryPointLProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, entryPointLProperty.Category);
-            Assert.AreEqual("Intredepunt", entryPointLProperty.DisplayName);
-            Assert.AreEqual("De positie in het dwarsprofiel van het intredepunt.", entryPointLProperty.Description);
-
-            PropertyDescriptor exitPointLProperty = dynamicProperties[expectedExitPointLPropertyIndex];
-            Assert.IsNotNull(exitPointLProperty);
-            Assert.IsFalse(exitPointLProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, exitPointLProperty.Category);
-            Assert.AreEqual("Uittredepunt", exitPointLProperty.DisplayName);
-            Assert.AreEqual("De positie in het dwarsprofiel van het uittredepunt.", exitPointLProperty.Description);
-
             PropertyDescriptor seepageLengthProperty = dynamicProperties[expectedSeepageLengthPropertyIndex];
             Assert.IsNotNull(seepageLengthProperty);
             Assert.IsInstanceOf<ExpandableObjectConverter>(seepageLengthProperty.Converter);
@@ -312,6 +298,66 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(schematizationCategory, saturatedVolumicWeightOfCoverageLayerProperty.Category);
             Assert.AreEqual("Verzadigd gewicht deklaag [kN/m³]", saturatedVolumicWeightOfCoverageLayerProperty.DisplayName);
             Assert.AreEqual("Verzadigd gewicht deklaag.", saturatedVolumicWeightOfCoverageLayerProperty.Description);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Constructor_WithOrWithoutSurfaceLine_EntryAndExitPointPropertyReadOnlyWithoutSurfaceLine(bool withSurfaceLine)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            PipingCalculationScenario calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
+            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
+
+            PipingInput inputParameters = new PipingInput(new GeneralPipingInput());
+
+            if (withSurfaceLine)
+            {
+                var surfaceLine = new RingtoetsPipingSurfaceLine();
+                surfaceLine.SetGeometry(new[]
+                {
+                    new Point3D(0, 0, 0),
+                    new Point3D(2, 0, 2)
+                });
+                inputParameters.SurfaceLine = surfaceLine;
+            }
+
+            // Call
+            var context = new PipingInputContext(inputParameters,
+                                                 calculationItem,
+                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                 Enumerable.Empty<StochasticSoilModel>(),
+                                                 failureMechanism,
+                                                 assessmentSection);
+
+            var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
+
+            PipingInputContextProperties properties = new PipingInputContextProperties(context, handler);
+
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+
+            var schematizationCategory = "Schematisatie";
+
+            PropertyDescriptor entryPointLProperty = dynamicProperties[expectedEntryPointLPropertyIndex];
+            Assert.IsNotNull(entryPointLProperty);
+            Assert.AreEqual(!withSurfaceLine, entryPointLProperty.IsReadOnly);
+            Assert.AreEqual(schematizationCategory, entryPointLProperty.Category);
+            Assert.AreEqual("Intredepunt", entryPointLProperty.DisplayName);
+            Assert.AreEqual("De positie in het dwarsprofiel van het intredepunt.", entryPointLProperty.Description);
+
+            PropertyDescriptor exitPointLProperty = dynamicProperties[expectedExitPointLPropertyIndex];
+            Assert.IsNotNull(exitPointLProperty);
+            Assert.AreEqual(!withSurfaceLine, exitPointLProperty.IsReadOnly);
+            Assert.AreEqual(schematizationCategory, exitPointLProperty.Category);
+            Assert.AreEqual("Uittredepunt", exitPointLProperty.DisplayName);
+            Assert.AreEqual("De positie in het dwarsprofiel van het uittredepunt.", exitPointLProperty.Description);
 
             mocks.VerifyAll();
         }
