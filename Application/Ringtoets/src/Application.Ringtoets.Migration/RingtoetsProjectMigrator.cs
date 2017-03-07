@@ -38,7 +38,7 @@ namespace Application.Ringtoets.Migration
     /// </summary>
     public class RingtoetsProjectMigrator : IMigrateProject
     {
-        private static readonly string currentProjectVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
+        private static readonly string currentDatabaseVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
         private readonly ILog log = LogManager.GetLogger(typeof(RingtoetsProjectMigrator));
         private readonly RingtoetsSqLiteDatabaseFileMigrator fileMigrator;
@@ -74,7 +74,7 @@ namespace Application.Ringtoets.Migration
             var versionedFile = new RingtoetsVersionedFile(filePath);
             string version = versionedFile.GetVersion();
 
-            if (version.Equals(currentProjectVersion))
+            if (version.Equals(currentDatabaseVersion))
             {
                 return false;
             }
@@ -83,7 +83,7 @@ namespace Application.Ringtoets.Migration
             if (!isVersionSupported)
             {
                 string errorMessage = string.Format(MigrationCoreStorageResources.Migrate_From_Version_0_To_Version_1_Not_Supported,
-                                                    version, currentProjectVersion);
+                                                    version, currentDatabaseVersion);
                 log.Error(errorMessage);
             }
             return isVersionSupported;
@@ -98,7 +98,9 @@ namespace Application.Ringtoets.Migration
 
             ValidateProjectPath(filePath);
 
-            string query = Resources.RingtoetsProjectMigrator_Migrate_Outdated_project_file_update_to_current_version_inquire;
+            string query = string.Format(
+                Resources.RingtoetsProjectMigrator_Migrate_Outdated_project_file_update_to_current_version_0_inquire,
+                currentDatabaseVersion);
             if (inquiryHelper.InquireContinuation(query))
             {
                 string suggestedFileName = GetSuggestedFileName(filePath);
@@ -119,10 +121,10 @@ namespace Application.Ringtoets.Migration
             try
             {
                 var versionedFile = new RingtoetsVersionedFile(sourceFilePath);
-                fileMigrator.Migrate(versionedFile, currentProjectVersion, targetLocation);
+                fileMigrator.Migrate(versionedFile, currentDatabaseVersion, targetLocation);
 
                 string message = string.Format(Resources.RingtoetsProjectMigrator_MigrateToTargetLocation_Outdated_projectfile_0_succesfully_updated_to_target_filepath_1_version_2_,
-                                               sourceFilePath, targetLocation, currentProjectVersion);
+                                               sourceFilePath, targetLocation, currentDatabaseVersion);
                 log.Info(message);
 
                 return targetLocation;
@@ -139,7 +141,7 @@ namespace Application.Ringtoets.Migration
         private static string GetSuggestedFileName(string sourceFilePath)
         {
             string fileName = Path.GetFileNameWithoutExtension(sourceFilePath);
-            string versionSuffix = currentProjectVersion.Replace(".", "-");
+            string versionSuffix = currentDatabaseVersion.Replace(".", "-");
             string suggestedFileName = $"{fileName}_{versionSuffix}";
 
             return suggestedFileName;

@@ -49,7 +49,7 @@ namespace Core.Common.Base.Storage
         /// <param name="filePath">The filepath of the project which needs to be migrated.</param>
         /// <returns>A filepath to the updated project file. <c>null</c> if:
         /// <list type="bullet">
-        /// <item>The user cancelled.</item>
+        /// <item>The user did not provide a target filepath.</item>
         /// <item>The migration failed.</item>
         /// </list></returns>
         /// <exception cref="ArgumentNullException">Thrown when <see cref="filePath"/> is <c>null</c>.</exception>
