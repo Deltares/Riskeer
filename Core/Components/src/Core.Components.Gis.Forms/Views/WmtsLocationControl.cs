@@ -75,7 +75,13 @@ namespace Core.Components.Gis.Forms.Views
             InitializeComboBox();
             InitializeEventHandlers();
 
-            PreselectForMapData(activeWmtsMapData);
+            WmtsConnectionInfo selectedWmtsConnectionInfo = PreSelectComboBox(activeWmtsMapData);
+            UpdateComboBoxDataSource(selectedWmtsConnectionInfo ?? wmtsConnectionInfos.FirstOrDefault());
+
+            if (selectedWmtsConnectionInfo != null)
+            {
+                PreSelectDataGridView(activeWmtsMapData);
+            }
 
             UpdateButtons();
         }
@@ -125,13 +131,13 @@ namespace Core.Components.Gis.Forms.Views
             base.Dispose(disposing);
         }
 
-        private void PreselectForMapData(WmtsMapData activeWmtsMapData)
+        private WmtsConnectionInfo PreSelectComboBox(WmtsMapData activeWmtsMapData)
         {
             WmtsConnectionInfo suggestedInfo = TryCreateWmtsConnectionInfo(activeWmtsMapData?.Name,
                                                                            activeWmtsMapData?.SourceCapabilitiesUrl);
             if (activeWmtsMapData == null || suggestedInfo == null)
             {
-                return;
+                return null;
             }
 
             if (!wmtsConnectionInfos.Any(wi => wi.Equals(suggestedInfo)))
@@ -139,8 +145,11 @@ namespace Core.Components.Gis.Forms.Views
                 wmtsConnectionInfos.Add(suggestedInfo);
             }
 
-            UpdateComboBoxDataSource(suggestedInfo);
+            return suggestedInfo;
+        }
 
+        private void PreSelectDataGridView(WmtsMapData activeWmtsMapData)
+        {
             DataGridViewRow dataGridViewRow = dataGridViewControl.Rows.OfType<DataGridViewRow>()
                                                                  .FirstOrDefault(row => IsMatch(
                                                                                      (WmtsCapability) row.DataBoundItem,
@@ -264,7 +273,6 @@ namespace Core.Components.Gis.Forms.Views
         private void InitializeComboBox()
         {
             urlLocationComboBox.ValueMember = nameof(WmtsConnectionInfo.Url);
-            UpdateComboBoxDataSource(wmtsConnectionInfos.FirstOrDefault());
         }
 
         private void UpdateComboBoxDataSource(object selectedItem)
