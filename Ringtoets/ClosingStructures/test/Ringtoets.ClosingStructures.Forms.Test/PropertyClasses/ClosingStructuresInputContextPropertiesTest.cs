@@ -37,6 +37,7 @@ using Ringtoets.ClosingStructures.Forms.PropertyClasses;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
@@ -199,6 +200,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(schematizationCategory, levelCrestStructureNotClosingProperty.Category);
             Assert.AreEqual("Kruinhoogte niet gesloten kering [m+NAP]", levelCrestStructureNotClosingProperty.DisplayName);
             Assert.AreEqual("Niveau kruin bij niet gesloten maximaal kerende keermiddelen.", levelCrestStructureNotClosingProperty.Description);
+            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.LevelCrestStructureNotClosing, false, false);
 
             PropertyDescriptor probabilityOrFrequencyOpenStructureBeforeFloodingProperty = dynamicProperties[verticalWallProbabilityOrFrequencyOpenStructureBeforeFloodingPropertyIndex];
             Assert.IsFalse(probabilityOrFrequencyOpenStructureBeforeFloodingProperty.IsReadOnly);
@@ -280,6 +282,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(hydraulicDataCategory, insideWaterLevelProperty.Category);
             Assert.AreEqual("Binnenwaterstand [m+NAP]", insideWaterLevelProperty.DisplayName);
             Assert.AreEqual("Binnenwaterstand.", insideWaterLevelProperty.Description);
+            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.InsideWaterLevel, false, false);
 
             PropertyDescriptor inflowModelTypeProperty = dynamicProperties[floodedCulvertInflowModelTypePropertyIndex];
             Assert.IsInstanceOf<EnumConverter>(inflowModelTypeProperty.Converter);
@@ -292,6 +295,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(schematizationCategory, areaFlowAperturesProperty.Category);
             Assert.AreEqual("Doorstroomoppervlak [m²]", areaFlowAperturesProperty.DisplayName);
             Assert.AreEqual("Doorstroomoppervlak van doorstroomopeningen.", areaFlowAperturesProperty.Description);
+            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.AreaFlowApertures, false, false);
 
             PropertyDescriptor identicalAperturesProperty = dynamicProperties[floodedCulvertIdenticalAperturesPropertyIndex];
             Assert.IsFalse(identicalAperturesProperty.IsReadOnly);
@@ -322,6 +326,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(modelSettingsCategory, drainCoefficientProperty.Category);
             Assert.AreEqual("Afvoercoëfficiënt [-]", drainCoefficientProperty.DisplayName);
             Assert.AreEqual("Afvoercoëfficiënt.", drainCoefficientProperty.Description);
+            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.DrainCoefficient, false, true);
 
             PropertyDescriptor factorStormDurationOpenStructureProperty = dynamicProperties[floodedCulvertFactorStormDurationOpenStructurePropertyIndex];
             Assert.IsFalse(factorStormDurationOpenStructureProperty.IsReadOnly);
@@ -382,6 +387,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(hydraulicDataCategory, insideWaterLevelProperty.Category);
             Assert.AreEqual("Binnenwaterstand [m+NAP]", insideWaterLevelProperty.DisplayName);
             Assert.AreEqual("Binnenwaterstand.", insideWaterLevelProperty.Description);
+            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.InsideWaterLevel, false, false);
 
             PropertyDescriptor inflowModelTypeProperty = dynamicProperties[lowSillInflowModelTypePropertyIndex];
             Assert.IsInstanceOf<EnumConverter>(inflowModelTypeProperty.Converter);
@@ -400,6 +406,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(schematizationCategory, thresholdHeightOpenWeirProperty.Category);
             Assert.AreEqual("Drempelhoogte [m+NAP]", thresholdHeightOpenWeirProperty.DisplayName);
             Assert.AreEqual("Drempelhoogte niet gesloten kering of hoogte van de onderkant van de wand/drempel.", thresholdHeightOpenWeirProperty.Description);
+            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.ThresholdHeightOpenWeir, false, false);
 
             PropertyDescriptor probabilityOrFrequencyOpenStructureBeforeFloodingProperty = dynamicProperties[lowSillProbabilityOrFrequencyOpenStructureBeforeFloodingPropertyIndex];
             Assert.IsFalse(probabilityOrFrequencyOpenStructureBeforeFloodingProperty.IsReadOnly);
@@ -480,10 +487,10 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             PropertyDescriptor failureProbabilityReparation = dynamicProperties[failureProbabilityReparationPropertyIndex];
             Assert.IsTrue(failureProbabilityReparation.IsReadOnly);
 
-            AssertPropertiesInState(properties.ThresholdHeightOpenWeir, true);
-            AssertPropertiesInState(properties.AreaFlowApertures, true);
-            AssertPropertiesInState(properties.LevelCrestStructureNotClosing, true);
-            AssertPropertiesInState(properties.InsideWaterLevel, true);
+            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.ThresholdHeightOpenWeir, true, true);
+            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.AreaFlowApertures, true, true);
+            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.LevelCrestStructureNotClosing, true, true);
+            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.InsideWaterLevel, true, true);
         }
 
         [Test]
@@ -1136,15 +1143,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.IsFalse(calculation.HasOutput);
 
             mockRepository.VerifyAll();
-        }
-
-        private static void AssertPropertiesInState(object properties, bool expectedReadOnly)
-        {
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(3, dynamicProperties.Count);
-
-            Assert.AreEqual(expectedReadOnly, dynamicProperties[1].IsReadOnly);
-            Assert.AreEqual(expectedReadOnly, dynamicProperties[2].IsReadOnly);
         }
 
         #region Property indices

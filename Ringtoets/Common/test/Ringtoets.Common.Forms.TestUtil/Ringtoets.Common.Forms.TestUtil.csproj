@@ -53,6 +53,7 @@
     </Compile>
     <Compile Include="CalculationInputSetPropertyValueAfterConfirmationParameterTester.cs" />
     <Compile Include="CalculationTestHelper.cs" />
+    <Compile Include="DistributionPropertiesTestHelper.cs" />
     <Compile Include="FailureMechanismSetPropertyValueAfterConfirmationParameterTester.cs" />
     <Compile Include="MapDataTestHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -74,6 +75,10 @@
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Geometry\Core.Common.Geometry.csproj">
       <Project>{88665510-CE20-4EF5-BE4A-39800720AA2C}</Project>
       <Name>Core.Common.Geometry</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
+      <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
+      <Name>Core.Common.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
       <Project>{318BA582-88C9-4816-A54A-A7E431461DE3}</Project>
