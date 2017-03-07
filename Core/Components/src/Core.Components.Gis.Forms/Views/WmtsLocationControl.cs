@@ -94,7 +94,7 @@ namespace Core.Components.Gis.Forms.Views
             }
         }
 
-        public WmtsMapData SelectedMapData
+        public ImageBasedMapData SelectedMapData
         {
             get
             {

@@ -437,7 +437,7 @@ namespace Core.Components.Gis.Forms.Test.Views
                 dataGridViewControl.SetCurrentCell(dataGridViewControl.GetCell(1, 0));
 
                 // Call
-                WmtsMapData selectedMapData = control.SelectedMapData;
+                WmtsMapData selectedMapData = control.SelectedMapData as WmtsMapData;
 
                 // Assert
                 Assert.IsNotNull(selectedMapData);
@@ -945,17 +945,18 @@ namespace Core.Components.Gis.Forms.Test.Views
                                       tileSource.Name, wmtsTileSchema.Srs);
         }
 
-        private static void AssertAreEqual(WmtsMapData expected, WmtsMapData actual)
+        private static void AssertAreEqual(WmtsMapData expected, ImageBasedMapData actual)
         {
             if (expected == null)
             {
                 Assert.IsNull(actual);
                 return;
             }
-            Assert.AreEqual(expected.Name, actual.Name);
-            Assert.AreEqual(expected.PreferredFormat, actual.PreferredFormat);
-            Assert.AreEqual(expected.SelectedCapabilityIdentifier, actual.SelectedCapabilityIdentifier);
-            Assert.AreEqual(expected.SourceCapabilitiesUrl, actual.SourceCapabilitiesUrl);
+            var actualWmtsMapData = (WmtsMapData) actual;
+            Assert.AreEqual(expected.Name, actualWmtsMapData.Name);
+            Assert.AreEqual(expected.PreferredFormat, actualWmtsMapData.PreferredFormat);
+            Assert.AreEqual(expected.SelectedCapabilityIdentifier, actualWmtsMapData.SelectedCapabilityIdentifier);
+            Assert.AreEqual(expected.SourceCapabilitiesUrl, actualWmtsMapData.SourceCapabilitiesUrl);
         }
 
         private static WmtsLocationControl ShowFullyConfiguredWmtsLocationControl(Form form, IWmtsCapabilityFactory wmtsCapabilityFactory)

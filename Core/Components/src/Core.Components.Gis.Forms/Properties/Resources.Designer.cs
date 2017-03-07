@@ -102,6 +102,24 @@ namespace Core.Components.Gis.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bekende kaartlagen.
+        /// </summary>
+        public static string WellKnownMapDataControl_DisplayName {
+            get {
+                return ResourceManager.GetString("WellKnownMapDataControl_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Omschrijving.
+        /// </summary>
+        public static string WellKnownTileSourceMapData_Description {
+            get {
+                return ResourceManager.GetString("WellKnownTileSourceMapData_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Coördinatenstelsel.
         /// </summary>
         public static string WmtsCapability_MapLayer_CoordinateSystem {

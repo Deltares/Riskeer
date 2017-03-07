@@ -41,9 +41,9 @@ namespace Core.Components.Gis.Forms.Views
         string DisplayName { get; }
 
         /// <summary>
-        /// Gets the selected <see cref="WmtsMapData"/> or <c>null</c> if none selected.
+        /// Gets the selected <see cref="ImageBasedMapData"/> or <c>null</c> if none selected.
         /// </summary>
-        WmtsMapData SelectedMapData { get; }
+        ImageBasedMapData SelectedMapData { get; }
 
         /// <summary>
         /// Gets the user control.

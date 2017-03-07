@@ -55,6 +55,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Views\IBackgroundMapDataSelectionControl.cs" />
+    <Compile Include="Views\WellKnownMapDataControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\WellKnownMapDataControl.Designer.cs">
+      <DependentUpon>WellKnownMapDataControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\WmtsConnectionDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -111,6 +117,9 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\WellKnownMapDataControl.resx">
+      <DependentUpon>WellKnownMapDataControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\WmtsConnectionDialog.resx">
       <DependentUpon>WmtsConnectionDialog.cs</DependentUpon>

@@ -62,9 +62,9 @@ namespace Ringtoets.Integration.Forms
         }
 
         /// <summary>
-        /// Gets the selected <see cref="WmtsMapData"/> or <c>null</c> if none selected.
+        /// Gets the selected <see cref="ImageBasedMapData"/> or <c>null</c> if none selected.
         /// </summary>
-        public WmtsMapData SelectedMapData { get; private set; }
+        public ImageBasedMapData SelectedMapData { get; private set; }
 
         protected override void Dispose(bool disposing)
         {
