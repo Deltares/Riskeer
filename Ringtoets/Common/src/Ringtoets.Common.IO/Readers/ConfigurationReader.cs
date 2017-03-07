@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml;
@@ -39,8 +40,9 @@ namespace Ringtoets.Common.IO.Readers
     /// </summary>
     /// <typeparam name="TCalculationItem">The type of calculation items read from XML.</typeparam>
     public abstract class ConfigurationReader<TCalculationItem>
+        where TCalculationItem : IReadCalculationItem
     {
-        protected readonly XDocument xmlDocument;
+        private readonly XDocument xmlDocument;
 
         /// <summary>
         /// Creates a new instance of <see cref="ConfigurationReader{TCalculationItem}"/>.
@@ -67,6 +69,22 @@ namespace Ringtoets.Common.IO.Readers
 
             ValidateNotEmpty(xmlDocument, xmlFilePath);
         }
+
+        /// <summary>
+        /// Reads the configuration from the XML and creates a collection of corresponding <see cref="IReadCalculationItem"/>.
+        /// </summary>
+        /// <returns>A collection of read <see cref="IReadCalculationItem"/>.</returns>
+        public IEnumerable<IReadCalculationItem> Read()
+        {
+            return ParseReadCalculationItems(xmlDocument.Root?.Elements());
+        }
+
+        /// <summary>
+        /// Parses a read calculation element.
+        /// </summary>
+        /// <param name="calculationElement">The read calculation element to parse.</param>
+        /// <returns>A parsed <see cref="TCalculationItem"/>.</returns>
+        protected abstract TCalculationItem ParseReadCalculation(XElement calculationElement);
 
         /// <summary>
         /// Validates whether a file exists at the provided <paramref name="xmlFilePath"/>.
@@ -151,6 +169,28 @@ namespace Ringtoets.Common.IO.Readers
 
                 throw new CriticalFileReadException(message);
             }
+        }
+
+        private IEnumerable<IReadCalculationItem> ParseReadCalculationItems(IEnumerable<XElement> elements)
+        {
+            foreach (XElement element in elements)
+            {
+                if (element.Name == ConfigurationSchemaIdentifiers.CalculationElement)
+                {
+                    yield return ParseReadCalculation(element);
+                }
+
+                if (element.Name == ConfigurationSchemaIdentifiers.FolderElement)
+                {
+                    yield return ParseReadCalculationGroup(element);
+                }
+            }
+        }
+
+        private ReadCalculationGroup ParseReadCalculationGroup(XElement folderElement)
+        {
+            return new ReadCalculationGroup(folderElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute)?.Value,
+                                            ParseReadCalculationItems(folderElement.Elements()));
         }
     }
 }

@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
@@ -52,38 +51,7 @@ namespace Ringtoets.Piping.IO.Readers
         internal PipingConfigurationReader(string xmlFilePath)
             : base(xmlFilePath, Resources.PipingConfigurationSchema) {}
 
-        /// <summary>
-        /// Reads the piping configuration from the XML and creates a collection of corresponding <see cref="IReadCalculationItem"/>.
-        /// </summary>
-        /// <returns>A collection of read <see cref="IReadCalculationItem"/>.</returns>
-        internal IEnumerable<IReadCalculationItem> Read()
-        {
-            return ParseReadPipingCalculationItems(xmlDocument.Root?.Elements());
-        }
-
-        private static IEnumerable<IReadCalculationItem> ParseReadPipingCalculationItems(IEnumerable<XElement> elements)
-        {
-            foreach (XElement element in elements)
-            {
-                if (element.Name == ConfigurationSchemaIdentifiers.CalculationElement)
-                {
-                    yield return ParseReadPipingCalculation(element);
-                }
-
-                if (element.Name == ConfigurationSchemaIdentifiers.FolderElement)
-                {
-                    yield return ParseReadPipingCalculationGroup(element);
-                }
-            }
-        }
-
-        private static ReadCalculationGroup ParseReadPipingCalculationGroup(XElement folderElement)
-        {
-            return new ReadCalculationGroup(folderElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute)?.Value,
-                                            ParseReadPipingCalculationItems(folderElement.Elements()));
-        }
-
-        private static ReadPipingCalculation ParseReadPipingCalculation(XElement calculationElement)
+        protected override IReadCalculationItem ParseReadCalculation(XElement calculationElement)
         {
             var constructionProperties = new ReadPipingCalculation.ConstructionProperties
             {
