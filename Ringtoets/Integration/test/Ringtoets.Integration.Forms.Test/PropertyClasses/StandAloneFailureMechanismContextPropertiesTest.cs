@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.ComponentModel;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -44,14 +46,19 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Data_SetNewSimpleFailureMechanismContextInstance_ReturnCorrectPropertyValues()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Data_SetNewSimpleFailureMechanismContextInstance_ReturnCorrectPropertyValues(bool isRelevant)
         {
             // Setup
             var mockRepository = new MockRepository();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            var failureMechanism = new TestFailureMechanism();
+            var failureMechanism = new TestFailureMechanism
+            {
+                IsRelevant = isRelevant
+            };
             var properties = new StandAloneFailureMechanismContextProperties();
 
             // Call
@@ -60,6 +67,58 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
+            Assert.AreEqual(isRelevant, properties.IsRelevant);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Constructor_IsRelevantTrue_PropertiesHaveExpectedAttributesValues(bool isRelevant)
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new TestFailureMechanism
+            {
+                IsRelevant = isRelevant
+            };
+
+            // Call
+            var properties = new StandAloneFailureMechanismContextProperties
+            {
+                Data = new FailureMechanismContext<IFailureMechanism>(failureMechanism, assessmentSection)
+            };
+
+            // Assert
+            const string generalCategory = "Algemeen";
+
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(11, dynamicProperties.Count);
+
+            PropertyDescriptor nameProperty = dynamicProperties[0];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
+                                                                            generalCategory,
+                                                                            "Naam",
+                                                                            "De naam van het toetsspoor.",
+                                                                            true);
+
+            PropertyDescriptor codeProperty = dynamicProperties[1];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(codeProperty,
+                                                                            generalCategory,
+                                                                            "Label",
+                                                                            "Het label van het toetsspoor.",
+                                                                            true);
+
+            PropertyDescriptor isRelevantProperty = dynamicProperties[2];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
+                                                                            generalCategory,
+                                                                            "Is relevant",
+                                                                            "Geeft aan of dit toetsspoor relevant is of niet.",
+                                                                            true);
+
             mockRepository.VerifyAll();
         }
     }

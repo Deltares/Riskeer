@@ -59,6 +59,18 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
         }
 
+        [PropertyOrder(3)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_IsRelevant_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_IsRelevant_Description))]
+        public bool IsRelevant
+        {
+            get
+            {
+                return data.WrappedData.IsRelevant;
+            }
+        }
+
         #endregion
     }
 }
