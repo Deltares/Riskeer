@@ -358,15 +358,6 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het XML-document dat de configuratie voor de berekeningen beschrijft bevat geen berekeningselementen..
-        /// </summary>
-        public static string PipingConfigurationReader_No_calculation_items_found {
-            get {
-                return ResourceManager.GetString("PipingConfigurationReader_No_calculation_items_found", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
         ///&lt;!--
         ///Copyright (C) Stichting Deltares 2016. All rights reserved.

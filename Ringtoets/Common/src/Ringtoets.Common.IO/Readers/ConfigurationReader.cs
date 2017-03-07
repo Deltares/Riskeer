@@ -21,6 +21,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Schema;
@@ -28,6 +29,7 @@ using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
 using Ringtoets.Common.IO.Properties;
+using Ringtoets.Common.IO.Schema;
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Ringtoets.Common.IO.Readers
@@ -62,6 +64,8 @@ namespace Ringtoets.Common.IO.Readers
             xmlDocument = LoadDocument(xmlFilePath);
 
             ValidateToSchema(xmlDocument, schemaResXFileRef, xmlFilePath);
+
+            ValidateNotEmpty(xmlDocument, xmlFilePath);
         }
 
         /// <summary>
@@ -127,6 +131,25 @@ namespace Ringtoets.Common.IO.Readers
                                                exception.Message);
 
                 throw new CriticalFileReadException(new FileReaderErrorMessageBuilder(xmlFilePath).Build(message), exception);
+            }
+        }
+
+        /// <summary>
+        /// Validates whether or not the provided XML document is empty.
+        /// </summary>
+        /// <param name="document">The XML document to validate.</param>
+        /// <param name="xmlFilePath">The file path the XML document is loaded from.</param>
+        /// <exception cref="CriticalFileReadException">Thrown when the provided XML document does not contain calculation items.</exception>
+        private static void ValidateNotEmpty(XDocument document, string xmlFilePath)
+        {
+            if (!document.Descendants()
+                         .Any(d => d.Name == ConfigurationSchemaIdentifiers.CalculationElement
+                                   || d.Name == ConfigurationSchemaIdentifiers.FolderElement))
+            {
+                string message = new FileReaderErrorMessageBuilder(xmlFilePath)
+                    .Build(Resources.ConfigurationReader_No_calculation_items_found);
+
+                throw new CriticalFileReadException(message);
             }
         }
     }

@@ -504,4 +504,7 @@ Er is geen vakindeling geïmporteerd.</value>
   <data name="ConfigurationReader_Configuration_contains_no_valid_xml_line_0_position_1_reason_2" xml:space="preserve">
     <value>Het XML-document dat de configuratie voor de berekeningen beschrijft is niet geldig. De validatie geeft de volgende melding op regel {0}, positie {1}: {2}</value>
   </data>
+  <data name="ConfigurationReader_No_calculation_items_found" xml:space="preserve">
+    <value>Het XML-document dat de configuratie voor de berekeningen beschrijft bevat geen berekeningselementen.</value>
+  </data>
 </root>

@@ -25,7 +25,6 @@ using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
 using Core.Common.IO.Exceptions;
-using Core.Common.Utils.Builders;
 using Ringtoets.Common.IO.Readers;
 using Ringtoets.Common.IO.Schema;
 using Ringtoets.Piping.IO.Properties;
@@ -51,10 +50,7 @@ namespace Ringtoets.Piping.IO.Readers
         /// </list>
         /// </exception>
         internal PipingConfigurationReader(string xmlFilePath)
-            : base(xmlFilePath, Resources.PipingConfigurationSchema)
-        {
-            ValidateNotEmpty(xmlDocument, xmlFilePath);
-        }
+            : base(xmlFilePath, Resources.PipingConfigurationSchema) {}
 
         /// <summary>
         /// Reads the piping configuration from the XML and creates a collection of corresponding <see cref="IReadPipingCalculationItem"/>.
@@ -63,25 +59,6 @@ namespace Ringtoets.Piping.IO.Readers
         internal IEnumerable<IReadPipingCalculationItem> Read()
         {
             return ParseReadPipingCalculationItems(xmlDocument.Root?.Elements());
-        }
-
-        /// <summary>
-        /// Validates whether or not the provided XML document is empty.
-        /// </summary>
-        /// <param name="document">The XML document to validate.</param>
-        /// <param name="xmlFilePath">The file path the XML document is loaded from.</param>
-        /// <exception cref="CriticalFileReadException">Thrown when the provided XML document does not contain calculation items.</exception>
-        private static void ValidateNotEmpty(XDocument document, string xmlFilePath)
-        {
-            if (!document.Descendants()
-                         .Any(d => d.Name == ConfigurationSchemaIdentifiers.CalculationElement
-                                   || d.Name == ConfigurationSchemaIdentifiers.FolderElement))
-            {
-                string message = new FileReaderErrorMessageBuilder(xmlFilePath)
-                    .Build(Resources.PipingConfigurationReader_No_calculation_items_found);
-
-                throw new CriticalFileReadException(message);
-            }
         }
 
         private static IEnumerable<IReadPipingCalculationItem> ParseReadPipingCalculationItems(IEnumerable<XElement> elements)
