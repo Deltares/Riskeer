@@ -107,8 +107,6 @@ namespace Application.Ringtoets.Migration
                 {
                     return MigrateToTargetLocation(filePath, targetLocation);
                 }
-
-                GenerateMigrationCancelledLogMessage(filePath);
             }
 
             GenerateMigrationCancelledLogMessage(filePath);

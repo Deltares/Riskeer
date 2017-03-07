@@ -76,6 +76,7 @@ namespace Core.Common.Gui.Test
             // Setup
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
             var project = mocks.Stub<IProject>();
             projectFactory.Stub(pf => pf.CreateNewProject()).Return(project);
@@ -85,7 +86,7 @@ namespace Core.Common.Gui.Test
 
             // Call
             using (var mainWindow = new MainWindow())
-            using (var gui = new GuiCore(mainWindow, projectStore, projectFactory, guiCoreSettings))
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, guiCoreSettings))
             {
                 // Assert
                 Assert.AreEqual(null, gui.PropertyResolver);
@@ -133,22 +134,25 @@ namespace Core.Common.Gui.Test
         [TestCase(0)]
         [TestCase(1)]
         [TestCase(2)]
+        [TestCase(3)]
         public void ParameteredConstructor_SomeArgumentIsNull_ThrowsArgumentNullException(int nullArgumentIndex)
         {
             // Setup
             var mocks = new MockRepository();
             IStoreProject projectStore = nullArgumentIndex == 1 ? null : mocks.Stub<IStoreProject>();
+            IMigrateProject projectMigrator = nullArgumentIndex == 2 ? null : mocks.Stub<IMigrateProject>();
             var projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
-            GuiCoreSettings guiCoreSettings = nullArgumentIndex == 2 ? null : new GuiCoreSettings();
+            GuiCoreSettings guiCoreSettings = nullArgumentIndex == 3 ? null : new GuiCoreSettings();
 
             // Call
             using (var mainWindow = new MainWindow())
 
             {
                 // Call
-                TestDelegate call = () => new GuiCore(nullArgumentIndex == 0 ? null : mainWindow, projectStore, projectFactory, guiCoreSettings);
+                TestDelegate call = () => new GuiCore(nullArgumentIndex == 0 ? null : mainWindow,
+                                                      projectStore, projectMigrator, projectFactory, guiCoreSettings);
 
                 // Assert
                 const string expectedMessage = "Value cannot be null.";
@@ -164,24 +168,25 @@ namespace Core.Common.Gui.Test
             // Setup
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             var guiCoreSettings = new GuiCoreSettings();
 
             using (var mainWindow = new MainWindow())
-            using (new GuiCore(mainWindow, projectStore, projectFactory, guiCoreSettings))
+            using (new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, guiCoreSettings))
             {
                 // Call
                 TestDelegate call = () =>
                 {
-                    using (new GuiCore(mainWindow, projectStore, projectFactory, guiCoreSettings)) {}
+                    using (new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, guiCoreSettings)) {}
                 };
 
                 // Assert
                 Assert.Throws<InvalidOperationException>(call);
             }
-            
+
             mocks.VerifyAll();
         }
 
@@ -191,13 +196,14 @@ namespace Core.Common.Gui.Test
         {
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             var pluginMock = mocks.Stub<PluginBase>();
             pluginMock.Expect(p => p.Deactivate());
             pluginMock.Expect(p => p.Dispose());
             var projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Plugins.Add(pluginMock);
 
@@ -217,13 +223,14 @@ namespace Core.Common.Gui.Test
             // Setup
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             var pluginMock = mocks.Stub<PluginBase>();
             pluginMock.Expect(p => p.Deactivate());
             pluginMock.Expect(p => p.Dispose());
             var projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
-            var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings());
+            var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings());
             gui.Plugins.Add(pluginMock);
 
             // Call
@@ -241,13 +248,14 @@ namespace Core.Common.Gui.Test
             // Setup
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             var pluginMock = mocks.Stub<PluginBase>();
             pluginMock.Expect(p => p.Deactivate()).Throw(new Exception("Bad stuff happening!"));
             pluginMock.Expect(p => p.Dispose());
             var projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
-            var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings());
+            var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings());
             gui.Plugins.Add(pluginMock);
 
             // Call
@@ -266,10 +274,11 @@ namespace Core.Common.Gui.Test
             // Setup
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
-            var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings())
+            var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings())
             {
                 Selection = new object()
             };
@@ -289,12 +298,13 @@ namespace Core.Common.Gui.Test
             // Setup
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             using (var mainWindow = new MainWindow())
             {
-                var gui = new GuiCore(mainWindow, projectStore, projectFactory, new GuiCoreSettings());
+                var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings());
 
                 // Call
                 gui.Dispose();
@@ -313,6 +323,7 @@ namespace Core.Common.Gui.Test
             // Setup
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
@@ -323,7 +334,7 @@ namespace Core.Common.Gui.Test
 
             try
             {
-                using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
+                using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
                 {
                     gui.Run();
 
@@ -354,11 +365,12 @@ namespace Core.Common.Gui.Test
             // Setup
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             using (var toolView = new TestView())
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
 
@@ -381,11 +393,12 @@ namespace Core.Common.Gui.Test
             // Setup
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             using (var documentView = new TestView())
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
 
@@ -409,6 +422,7 @@ namespace Core.Common.Gui.Test
             // Setup
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
@@ -418,7 +432,7 @@ namespace Core.Common.Gui.Test
 
             try
             {
-                using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
+                using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
                 {
                     // Call
                     gui.Run();
@@ -451,6 +465,7 @@ namespace Core.Common.Gui.Test
             // Setup
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
@@ -464,7 +479,7 @@ namespace Core.Common.Gui.Test
 
             try
             {
-                using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
+                using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
                 {
                     // Call
                     gui.Run();
@@ -499,6 +514,7 @@ namespace Core.Common.Gui.Test
 
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             var deserializedProject = mocks.Stub<IProject>();
             projectStore.Expect(ps => ps.LoadProject(testFile)).Return(deserializedProject);
             var projectFactory = CreateProjectFactory(mocks);
@@ -510,7 +526,7 @@ namespace Core.Common.Gui.Test
             };
 
             using (var mainWindow = new MainWindow())
-            using (var gui = new GuiCore(mainWindow, projectStore, projectFactory, fixedSettings))
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, fixedSettings))
             {
                 // Call
                 Action call = () => gui.Run(testFile);
@@ -545,6 +561,7 @@ namespace Core.Common.Gui.Test
 
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             projectStore.Expect(ps => ps.LoadProject(testFile)).Throw(new StorageException(storageExceptionText));
             const string expectedProjectName = "Project";
             var project = mocks.Stub<IProject>();
@@ -560,7 +577,7 @@ namespace Core.Common.Gui.Test
             };
 
             using (var mainWindow = new MainWindow())
-            using (var gui = new GuiCore(mainWindow, projectStore, projectFactory, fixedSettings))
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, fixedSettings))
             {
                 // Call
                 Action call = () => gui.Run(testFile);
@@ -591,6 +608,7 @@ namespace Core.Common.Gui.Test
             // Setup
             var mocks = new MockRepository();
             var projectStore = mocks.StrictMock<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
 
             const string expectedProjectName = "Project";
             var project = mocks.Stub<IProject>();
@@ -605,7 +623,7 @@ namespace Core.Common.Gui.Test
             };
 
             using (var mainWindow = new MainWindow())
-            using (var gui = new GuiCore(mainWindow, projectStore, projectFactory, fixedSettings))
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, fixedSettings))
             {
                 // Call
                 gui.Run(path);
@@ -625,6 +643,7 @@ namespace Core.Common.Gui.Test
         {
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             var plugin = mocks.Stub<PluginBase>();
             plugin.Stub(p => p.Deactivate());
             plugin.Stub(p => p.Dispose());
@@ -635,7 +654,7 @@ namespace Core.Common.Gui.Test
             mocks.ReplayAll();
 
             // Setup
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Plugins.Add(plugin);
 
@@ -654,6 +673,7 @@ namespace Core.Common.Gui.Test
         {
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             var plugin = mocks.Stub<PluginBase>();
             plugin.Stub(p => p.GetViewInfos()).Return(Enumerable.Empty<ViewInfo>());
             plugin.Stub(p => p.GetPropertyInfos()).Return(Enumerable.Empty<PropertyInfo>());
@@ -664,7 +684,7 @@ namespace Core.Common.Gui.Test
             mocks.ReplayAll();
 
             // Setup
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Plugins.Add(plugin);
 
@@ -681,6 +701,7 @@ namespace Core.Common.Gui.Test
         {
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             var plugin = mocks.Stub<PluginBase>();
             plugin.Stub(p => p.GetViewInfos()).Return(Enumerable.Empty<ViewInfo>());
             plugin.Stub(p => p.GetPropertyInfos()).Return(Enumerable.Empty<PropertyInfo>());
@@ -691,7 +712,7 @@ namespace Core.Common.Gui.Test
             mocks.ReplayAll();
 
             // Setup
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Plugins.Add(plugin);
 
@@ -712,10 +733,11 @@ namespace Core.Common.Gui.Test
             // Setup
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 // Call
                 gui.Run();
@@ -741,10 +763,11 @@ namespace Core.Common.Gui.Test
             // Setup
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 var rootData = new object();
 
@@ -766,6 +789,7 @@ namespace Core.Common.Gui.Test
 
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
 
             var plugin1 = mocks.StrictMock<PluginBase>();
             plugin1.Expect(p => p.GetChildDataWithViewDefinitions(rootData)).Return(new[]
@@ -784,7 +808,7 @@ namespace Core.Common.Gui.Test
             var projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Plugins.Add(plugin1);
                 gui.Plugins.Add(plugin2);
@@ -812,6 +836,7 @@ namespace Core.Common.Gui.Test
 
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             var plugin1 = mocks.StrictMock<PluginBase>();
             plugin1.Expect(p => p.GetChildDataWithViewDefinitions(rootData)).Return(new[]
             {
@@ -839,7 +864,7 @@ namespace Core.Common.Gui.Test
             var projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Plugins.Add(plugin1);
                 gui.Plugins.Add(plugin2);
@@ -865,10 +890,11 @@ namespace Core.Common.Gui.Test
             // Setup
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 // Call
                 var result = gui.GetTreeNodeInfos();
@@ -903,6 +929,7 @@ namespace Core.Common.Gui.Test
 
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
 
             var pluginA = mocks.Stub<PluginBase>();
             pluginA.Stub(p => p.GetTreeNodeInfos()).Return(nodesPluginA);
@@ -919,7 +946,7 @@ namespace Core.Common.Gui.Test
             var projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Plugins.Add(pluginA);
                 gui.Plugins.Add(pluginB);
@@ -943,11 +970,12 @@ namespace Core.Common.Gui.Test
             // Setup
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             using (var treeView = new TreeViewControl())
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 // Call
                 TestDelegate call = () => gui.Get(new object(), treeView);
@@ -966,11 +994,12 @@ namespace Core.Common.Gui.Test
             // Setup
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             using (var treeView = new TreeViewControl())
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
 
@@ -1000,13 +1029,14 @@ namespace Core.Common.Gui.Test
             // Setup
             var mocks = new MockRepository();
             var storeProject = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             var oldProject = mocks.Stub<IProject>();
             var newProject = mocks.Stub<IProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
             projectFactory.Stub(pf => pf.CreateNewProject()).Return(oldProject);
             mocks.ReplayAll();
 
-            using (var gui = new GuiCore(new MainWindow(), storeProject, projectFactory, new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), storeProject, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 int openedCallCount = 0;
                 int beforeOpenCallCount = 0;
@@ -1038,12 +1068,13 @@ namespace Core.Common.Gui.Test
             // Given
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             var selectionProvider = new TestSelectionProvider();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
 
@@ -1066,12 +1097,13 @@ namespace Core.Common.Gui.Test
             // Given
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             var selectionProvider = new TestSelectionProvider();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
 
@@ -1093,12 +1125,13 @@ namespace Core.Common.Gui.Test
             // Given
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             var selection = new object();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
 
@@ -1120,12 +1153,13 @@ namespace Core.Common.Gui.Test
             // Given
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             var selectionProvider = new TestSelectionProvider();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
                 gui.ViewHost.AddDocumentView(selectionProvider);
@@ -1148,13 +1182,14 @@ namespace Core.Common.Gui.Test
             // Given
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             var selection = new object();
             var selectionProvider = new TestSelectionProvider();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
                 gui.ViewHost.AddDocumentView(selectionProvider);
@@ -1178,12 +1213,13 @@ namespace Core.Common.Gui.Test
             // Given
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             var selectionProvider = new TestSelectionProvider();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
                 gui.ViewHost.AddDocumentView(selectionProvider);
@@ -1207,13 +1243,14 @@ namespace Core.Common.Gui.Test
             // Given
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             var testView = new TestView();
             var selection = new object();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
                 gui.ViewHost.AddDocumentView(testView);
@@ -1236,13 +1273,14 @@ namespace Core.Common.Gui.Test
             // Given
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             var testView = new TestView();
             var selection = new object();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
                 gui.ViewHost.AddDocumentView(testView);
@@ -1265,12 +1303,13 @@ namespace Core.Common.Gui.Test
             // Given
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             var selectionProvider = new TestSelectionProvider();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
                 gui.ViewHost.AddDocumentView(selectionProvider);
@@ -1294,12 +1333,13 @@ namespace Core.Common.Gui.Test
             // Given
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             var selectionProvider = new TestSelectionProvider();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
                 gui.ViewHost.AddDocumentView(selectionProvider);

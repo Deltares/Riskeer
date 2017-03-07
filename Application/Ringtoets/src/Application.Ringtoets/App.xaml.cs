@@ -33,9 +33,9 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
+using Application.Ringtoets.Migration;
 using Application.Ringtoets.Storage;
 using Core.Common.Gui;
-using Core.Common.Gui.Appenders;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Settings;
 using Core.Common.Utils;
@@ -153,7 +153,8 @@ namespace Application.Ringtoets
                 ManualFilePath = "..\\Gebruikershandleiding Ringtoets 16.4.4.pdf"
             };
             var mainWindow = new MainWindow();
-            gui = new GuiCore(mainWindow, new StorageSqLite(), new RingtoetsProjectFactory(), settings)
+            var projectMigrator = new RingtoetsProjectMigrator(new DialogBasedInquiryHelper(mainWindow));
+            gui = new GuiCore(mainWindow, new StorageSqLite(), projectMigrator, new RingtoetsProjectFactory(), settings)
             {
                 Plugins =
                 {

@@ -111,11 +111,12 @@ namespace Core.Plugins.Chart.Test
             // Given
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
             projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 var plugin = new ChartPlugin();
                 var testChartView = new TestChartView();

@@ -27,7 +27,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
-using System.Windows.Forms;
+using System.Windows;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
@@ -47,7 +47,6 @@ using Core.Common.Utils.Extensions;
 using log4net;
 using log4net.Appender;
 using log4net.Repository.Hierarchy;
-using Application = System.Windows.Application;
 using SplashScreen = Core.Common.Gui.Forms.SplashScreen.SplashScreen;
 using WindowsApplication = System.Windows.Forms.Application;
 
@@ -75,12 +74,13 @@ namespace Core.Common.Gui
         /// </summary>
         /// <param name="mainWindow">The main window.</param>
         /// <param name="projectStore">The project store.</param>
+        /// <param name="projectMigrator">The project migrator.</param>
         /// <param name="projectFactory">The project factory.</param>
         /// <param name="fixedSettings">The fixed settings.</param>
         /// <exception cref="InvalidOperationException">Thrown when another <see cref="GuiCore"/>
         /// instance is running.</exception>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public GuiCore(IMainWindow mainWindow, IStoreProject projectStore, IProjectFactory projectFactory, GuiCoreSettings fixedSettings)
+        public GuiCore(IMainWindow mainWindow, IStoreProject projectStore, IMigrateProject projectMigrator, IProjectFactory projectFactory, GuiCoreSettings fixedSettings)
         {
             // error detection code, make sure we use only a single instance of GuiCore at a time
             if (isAlreadyRunningInstanceOfIGui)
@@ -100,6 +100,10 @@ namespace Core.Common.Gui
             {
                 throw new ArgumentNullException(nameof(projectStore));
             }
+            if (projectMigrator == null)
+            {
+                throw new ArgumentNullException(nameof(projectMigrator));
+            }
             if (projectFactory == null)
             {
                 throw new ArgumentNullException(nameof(projectFactory));
@@ -118,8 +122,9 @@ namespace Core.Common.Gui
             Plugins = new List<PluginBase>();
 
             viewCommandHandler = new ViewCommandHandler(this, this, this);
-            storageCommandHandler = new StorageCommandHandler(projectStore, projectFactory, this, MainWindow);
-            
+
+            StorageCommands = new StorageCommandHandler(projectStore, projectMigrator, projectFactory, this, MainWindow);
+
             importCommandHandler = new GuiImportHandler(MainWindow, Plugins.SelectMany(p => p.GetImportInfos()), dialogBasedInquiryHelper);
             exportCommandHandler = new GuiExportHandler(MainWindow, Plugins.SelectMany(p => p.GetExportInfos()));
             updateCommandHandler = new GuiUpdateHandler(MainWindow, Plugins.SelectMany(p => p.GetUpdateInfos()), dialogBasedInquiryHelper);
@@ -181,7 +186,7 @@ namespace Core.Common.Gui
             }
 
             // Store project?
-            if (!storageCommandHandler.HandleUnsavedChanges())
+            if (!StorageCommands.HandleUnsavedChanges())
             {
                 // User pressed cancel
                 return;
@@ -206,7 +211,7 @@ namespace Core.Common.Gui
 
             return new ContextMenuBuilder(applicationFeatureCommands,
                                           importCommandHandler,
-                                          exportCommandHandler, 
+                                          exportCommandHandler,
                                           updateCommandHandler,
                                           ViewCommands,
                                           value,
@@ -356,7 +361,7 @@ namespace Core.Common.Gui
             var isPathGiven = !string.IsNullOrWhiteSpace(projectPath);
             if (isPathGiven)
             {
-                storageCommandHandler.OpenExistingProject(projectPath);
+                StorageCommands.OpenExistingProject(projectPath);
             }
         }
 
@@ -696,7 +701,6 @@ namespace Core.Common.Gui
         private readonly GuiImportHandler importCommandHandler;
         private readonly GuiExportHandler exportCommandHandler;
         private readonly GuiUpdateHandler updateCommandHandler;
-        private readonly IStorageCommands storageCommandHandler;
 
         public IApplicationFeatureCommands ApplicationCommands
         {
@@ -706,13 +710,7 @@ namespace Core.Common.Gui
             }
         }
 
-        public IStorageCommands StorageCommands
-        {
-            get
-            {
-                return storageCommandHandler;
-            }
-        }
+        public IStorageCommands StorageCommands { get; }
 
         public IViewCommands ViewCommands
         {

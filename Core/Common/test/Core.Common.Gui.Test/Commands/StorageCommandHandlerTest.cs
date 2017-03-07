@@ -54,6 +54,7 @@ namespace Core.Common.Gui.Test.Commands
             var newProject = mocks.Stub<IProject>();
 
             var projectStorage = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectOwner = mocks.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(oldProject);
             projectOwner.Stub(po => po.ProjectFilePath).Return(savedProjectPath);
@@ -67,6 +68,7 @@ namespace Core.Common.Gui.Test.Commands
 
             var storageCommandHandler = new StorageCommandHandler(
                 projectStorage,
+                projectMigrator,
                 projectFactory,
                 projectOwner,
                 mainWindowController);
@@ -103,6 +105,8 @@ namespace Core.Common.Gui.Test.Commands
                 projectStorage.Expect(ps => ps.SaveProjectAs(someValidFilePath)).
                                Throw(new StorageException(exceptionMessage, new Exception("l33t h4xor!")));
 
+                var projectMigrator = mocks.Stub<IMigrateProject>();
+
                 var mainWindowController = mocks.StrictMock<IWin32Window>();
                 var projectOwner = mocks.Stub<IProjectOwner>();
                 projectOwner.Stub(po => po.Project).Return(projectStub);
@@ -111,6 +115,7 @@ namespace Core.Common.Gui.Test.Commands
 
                 var storageCommandHandler = new StorageCommandHandler(
                     projectStorage,
+                    projectMigrator,
                     projectFactory,
                     projectOwner,
                     mainWindowController);
@@ -146,6 +151,8 @@ namespace Core.Common.Gui.Test.Commands
                 projectStorage.Expect(ps => ps.HasStagedProject).Return(false);
                 projectStorage.Expect(ps => ps.SaveProjectAs(someValidFilePath));
 
+                var projectMigrator = mocks.Stub<IMigrateProject>();
+
                 var mainWindowController = mocks.StrictMock<IWin32Window>();
                 var projectOwner = mocks.Stub<IProjectOwner>();
                 projectOwner.Stub(po => po.Project).Return(projectStub);
@@ -154,6 +161,7 @@ namespace Core.Common.Gui.Test.Commands
 
                 var storageCommandHandler = new StorageCommandHandler(
                     projectStorage,
+                    projectMigrator,
                     projectFactory,
                     projectOwner,
                     mainWindowController);
@@ -171,6 +179,197 @@ namespace Core.Common.Gui.Test.Commands
         }
 
         [Test]
+        public void OpenExistingProject_MigrationNeeded_MigratesFileAndSetNewlyLoadedProjectAtMigratedFileAndReturnTrue()
+        {
+            // Setup
+            const string fileName = "newProject";
+            string pathToSomeValidFile = $"C://folder/directory/{fileName}.rtd";
+            string pathToMigratedFile = $"C://folder/directory/{fileName}-newerVersion.rtd";
+            var loadedProject = mocks.Stub<IProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+
+            var projectStorage = mocks.Stub<IStoreProject>();
+            projectStorage.Stub(ps => ps.LoadProject(pathToMigratedFile))
+                          .Return(loadedProject);
+
+            var projectMigrator = mocks.StrictMock<IMigrateProject>();
+            projectMigrator.Expect(pm => pm.ShouldMigrate(pathToSomeValidFile)).Return(true);
+            projectMigrator.Expect(pm => pm.Migrate(pathToSomeValidFile)).Return(pathToMigratedFile);
+
+            var mainWindowController = mocks.Stub<IWin32Window>();
+
+            var projectOwner = mocks.Stub<IProjectOwner>();
+            projectOwner.Stub(po => po.SetProject(loadedProject, pathToMigratedFile));
+            mocks.ReplayAll();
+
+            var storageCommandHandler = new StorageCommandHandler(
+                projectStorage,
+                projectMigrator,
+                projectFactory,
+                projectOwner,
+                mainWindowController);
+
+            // Call
+            bool result = false;
+            Action call = () => result = storageCommandHandler.OpenExistingProject(pathToSomeValidFile);
+
+            // Assert
+            var expectedMessages = new[]
+            {
+                "Openen van bestaand Ringtoetsproject...",
+                "Bestaand Ringtoetsproject succesvol geopend."
+            };
+            TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages, 2);
+            Assert.IsTrue(result);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void OpenExistingProject_MigrationNeededButCancelled_LogFailureAndCreateNewProjectAndReturnsFalse()
+        {
+            // Setup
+            const string fileName = "newProject";
+            string pathToSomeValidFile = $"C://folder/directory/{fileName}.rtd";
+
+            var projectStorage = mocks.StrictMock<IStoreProject>();
+
+            var projectMigrator = mocks.StrictMock<IMigrateProject>();
+            projectMigrator.Expect(pm => pm.ShouldMigrate(pathToSomeValidFile)).Return(true);
+            projectMigrator.Expect(pm => pm.Migrate(pathToSomeValidFile)).Return(null);
+
+            var project = mocks.Stub<IProject>();
+            var projectFactory = mocks.StrictMock<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject()).Return(project);
+
+            var projectOwner = mocks.Stub<IProjectOwner>();
+            projectOwner.Stub(po => po.Project).Return(project);
+            projectOwner.Stub(po => po.SetProject(project, null));
+
+            var mainWindowController = mocks.Stub<IWin32Window>();
+            mocks.ReplayAll();
+
+            var storageCommandHandler = new StorageCommandHandler(
+                projectStorage,
+                projectMigrator,
+                projectFactory,
+                projectOwner,
+                mainWindowController);
+
+            // Call
+            bool result = true;
+            Action call = () => result = storageCommandHandler.OpenExistingProject(pathToSomeValidFile);
+
+            // Assert
+            var expectedMessages = new[]
+            {
+                "Openen van bestaand Ringtoetsproject...",
+                "Het is niet gelukt om het Ringtoetsproject te laden."
+            };
+            TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages, 2);
+            Assert.IsFalse(result);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void OpenExistingProject_ShouldMigrateThrowsArgumentException_LogFailureAndCreateNewProjectAndReturnsFalse()
+        {
+            // Setup
+            const string errorMessage = "I am an error message.";
+            const string pathToSomeValidFile = " ";
+
+            var projectStorage = mocks.StrictMock<IStoreProject>();
+
+            var projectMigrator = mocks.StrictMock<IMigrateProject>();
+            projectMigrator.Expect(pm => pm.ShouldMigrate(pathToSomeValidFile))
+                           .Throw(new ArgumentException(errorMessage));
+
+            var project = mocks.Stub<IProject>();
+            var projectFactory = mocks.StrictMock<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject()).Return(project);
+
+            var projectOwner = mocks.Stub<IProjectOwner>();
+            projectOwner.Stub(po => po.Project).Return(project);
+            projectOwner.Stub(po => po.SetProject(project, null));
+
+            var mainWindowController = mocks.Stub<IWin32Window>();
+            mocks.ReplayAll();
+
+            var storageCommandHandler = new StorageCommandHandler(
+                projectStorage,
+                projectMigrator,
+                projectFactory,
+                projectOwner,
+                mainWindowController);
+
+            // Call
+            bool result = true;
+            Action call = () => result = storageCommandHandler.OpenExistingProject(pathToSomeValidFile);
+
+            // Assert
+            var expectedMessages = new[]
+            {
+                "Openen van bestaand Ringtoetsproject...",
+                errorMessage,
+                "Het is niet gelukt om het Ringtoetsproject te laden."
+            };
+            TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages, 3);
+            Assert.IsFalse(result);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void OpenExistingProject_ShouldMigrateTrueAndMigrateThrowsArgumentException_LogFailureAndCreateNewProjectAndReturnsFalse()
+        {
+            // Setup
+            const string errorMessage = "I am an error message.";
+            const string pathToSomeValidFile = " ";
+
+            var projectStorage = mocks.StrictMock<IStoreProject>();
+
+            var projectMigrator = mocks.StrictMock<IMigrateProject>();
+            projectMigrator.Expect(pm => pm.ShouldMigrate(pathToSomeValidFile)).Return(true);
+            projectMigrator.Expect(pm => pm.Migrate(pathToSomeValidFile))
+                           .Throw(new ArgumentException(errorMessage));
+
+            var project = mocks.Stub<IProject>();
+            var projectFactory = mocks.StrictMock<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject()).Return(project);
+
+            var projectOwner = mocks.Stub<IProjectOwner>();
+            projectOwner.Stub(po => po.Project).Return(project);
+            projectOwner.Stub(po => po.SetProject(project, null));
+
+            var mainWindowController = mocks.Stub<IWin32Window>();
+            mocks.ReplayAll();
+
+            var storageCommandHandler = new StorageCommandHandler(
+                projectStorage,
+                projectMigrator,
+                projectFactory,
+                projectOwner,
+                mainWindowController);
+
+            // Call
+            bool result = true;
+            Action call = () => result = storageCommandHandler.OpenExistingProject(pathToSomeValidFile);
+
+            // Assert
+            var expectedMessages = new[]
+            {
+                "Openen van bestaand Ringtoetsproject...",
+                errorMessage,
+                "Het is niet gelukt om het Ringtoetsproject te laden."
+            };
+            TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages, 3);
+            Assert.IsFalse(result);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void OpenExistingProject_LoadingProjectThrowsStorageException_LogFailureCreateNewProjectAndReturnFalse()
         {
             // Setup
@@ -181,6 +380,7 @@ namespace Core.Common.Gui.Test.Commands
             var projectStorage = mocks.Stub<IStoreProject>();
             projectStorage.Stub(ps => ps.LoadProject(pathToSomeInvalidFile))
                           .Throw(new StorageException(goodErrorMessageText, new Exception("H@X!")));
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
             projectFactory.Stub(pf => pf.CreateNewProject()).Return(project);
             var mainWindowController = mocks.Stub<IWin32Window>();
@@ -191,6 +391,7 @@ namespace Core.Common.Gui.Test.Commands
 
             var storageCommandHandler = new StorageCommandHandler(
                 projectStorage,
+                projectMigrator,
                 projectFactory,
                 projectOwner,
                 mainWindowController);
@@ -222,6 +423,7 @@ namespace Core.Common.Gui.Test.Commands
             var projectStorage = mocks.Stub<IStoreProject>();
             projectStorage.Stub(ps => ps.LoadProject(pathToSomeInvalidFile))
                           .Return(null);
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
             projectFactory.Stub(pf => pf.CreateNewProject()).Return(project);
             var mainWindowController = mocks.Stub<IWin32Window>();
@@ -232,6 +434,7 @@ namespace Core.Common.Gui.Test.Commands
 
             var storageCommandHandler = new StorageCommandHandler(
                 projectStorage,
+                projectMigrator,
                 projectFactory,
                 projectOwner,
                 mainWindowController);
@@ -265,6 +468,9 @@ namespace Core.Common.Gui.Test.Commands
             projectStorage.Stub(ps => ps.LoadProject(pathToSomeValidFile))
                           .Return(loadedProject);
 
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            projectMigrator.Stub(pm => pm.ShouldMigrate(pathToSomeValidFile)).Return(false);
+
             var mainWindowController = mocks.Stub<IWin32Window>();
 
             var projectOwner = mocks.Stub<IProjectOwner>();
@@ -273,6 +479,7 @@ namespace Core.Common.Gui.Test.Commands
 
             var storageCommandHandler = new StorageCommandHandler(
                 projectStorage,
+                projectMigrator,
                 projectFactory,
                 projectOwner,
                 mainWindowController);
@@ -306,6 +513,10 @@ namespace Core.Common.Gui.Test.Commands
             var projectStorage = mocks.Stub<IStoreProject>();
             projectStorage.Stub(ps => ps.LoadProject(pathToSomeValidFile))
                           .Return(loadedProject);
+
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            projectMigrator.Stub(pm => pm.ShouldMigrate(pathToSomeValidFile)).Return(false);
+
             var applicationSelection = mocks.Stub<IApplicationSelection>();
             applicationSelection.Selection = originalProject;
 
@@ -320,6 +531,7 @@ namespace Core.Common.Gui.Test.Commands
 
             var storageCommandHandler = new StorageCommandHandler(
                 projectStorage,
+                projectMigrator,
                 projectFactory,
                 projectOwner,
                 mainWindowController);
@@ -348,6 +560,7 @@ namespace Core.Common.Gui.Test.Commands
             var mainWindowController = mocks.Stub<IWin32Window>();
             var projectFactory = mocks.Stub<IProjectFactory>();
             var projectStorage = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectOwner = mocks.Stub<IProjectOwner>();
             var project = mocks.Stub<IProject>();
 
@@ -364,6 +577,7 @@ namespace Core.Common.Gui.Test.Commands
             {
                 var storageCommandHandler = new StorageCommandHandler(
                     projectStorage,
+                    projectMigrator,
                     projectFactory,
                     projectOwner,
                     mainWindowController);
@@ -390,11 +604,13 @@ namespace Core.Common.Gui.Test.Commands
             var mainWindowController = mocks.Stub<IWin32Window>();
             var projectFactory = mocks.Stub<IProjectFactory>();
             var projectStorage = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectOwner = mocks.Stub<IProjectOwner>();
             mocks.ReplayAll();
 
             var storageCommandHandler = new StorageCommandHandler(
                 projectStorage,
+                projectMigrator,
                 projectFactory,
                 projectOwner,
                 mainWindowController);
@@ -422,14 +638,16 @@ namespace Core.Common.Gui.Test.Commands
             var mainWindowController = mocks.Stub<IWin32Window>();
             var project = mocks.Stub<IProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            var projectStorageMock = mocks.Stub<IStoreProject>();
+            var projectStorage = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectOwner = mocks.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
             projectOwner.Stub(po => po.ProjectFilePath).Return("");
             mocks.ReplayAll();
 
             var storageCommandHandler = new StorageCommandHandler(
-                projectStorageMock,
+                projectStorage,
+                projectMigrator,
                 projectFactory,
                 projectOwner,
                 mainWindowController);
@@ -455,11 +673,13 @@ namespace Core.Common.Gui.Test.Commands
             const string projectName = "Project";
             project.Name = projectName;
 
-            var projectStorageMock = mocks.StrictMock<IStoreProject>();
-            projectStorageMock.Expect(ps => ps.StageProject(project));
-            projectStorageMock.Expect(ps => ps.HasStagedProject).Return(true);
-            projectStorageMock.Expect(ps => ps.HasStagedProjectChanges(null)).IgnoreArguments().Return(true);
-            projectStorageMock.Expect(ps => ps.UnstageProject());
+            var projectStorage = mocks.StrictMock<IStoreProject>();
+            projectStorage.Expect(ps => ps.StageProject(project));
+            projectStorage.Expect(ps => ps.HasStagedProject).Return(true);
+            projectStorage.Expect(ps => ps.HasStagedProjectChanges(null)).IgnoreArguments().Return(true);
+            projectStorage.Expect(ps => ps.UnstageProject());
+
+            var projectMigrator = mocks.Stub<IMigrateProject>();
 
             var projectOwnerStub = mocks.Stub<IProjectOwner>();
             projectOwnerStub.Stub(po => po.Project).Return(project);
@@ -470,7 +690,8 @@ namespace Core.Common.Gui.Test.Commands
             string expectedMessage = $"Sla wijzigingen in het project op: {projectName}?";
 
             var storageCommandHandler = new StorageCommandHandler(
-                projectStorageMock,
+                projectStorage,
+                projectMigrator,
                 projectFactory,
                 projectOwnerStub,
                 mainWindowController);
@@ -504,11 +725,13 @@ namespace Core.Common.Gui.Test.Commands
             const string projectName = "Project";
             project.Name = projectName;
 
-            var projectStorageMock = mocks.StrictMock<IStoreProject>();
-            projectStorageMock.Expect(ps => ps.StageProject(project));
-            projectStorageMock.Expect(ps => ps.HasStagedProject).Return(true);
-            projectStorageMock.Expect(ps => ps.HasStagedProjectChanges(null)).IgnoreArguments().Return(true);
-            projectStorageMock.Expect(ps => ps.UnstageProject());
+            var projectStorage = mocks.StrictMock<IStoreProject>();
+            projectStorage.Expect(ps => ps.StageProject(project));
+            projectStorage.Expect(ps => ps.HasStagedProject).Return(true);
+            projectStorage.Expect(ps => ps.HasStagedProjectChanges(null)).IgnoreArguments().Return(true);
+            projectStorage.Expect(ps => ps.UnstageProject());
+
+            var projectMigrator = mocks.Stub<IMigrateProject>();
 
             var projectOwnerStub = mocks.Stub<IProjectOwner>();
             projectOwnerStub.Stub(po => po.Project).Return(project);
@@ -519,7 +742,8 @@ namespace Core.Common.Gui.Test.Commands
             string expectedMessage = $"Sla wijzigingen in het project op: {projectName}?";
 
             var storageCommandHandler = new StorageCommandHandler(
-                projectStorageMock,
+                projectStorage,
+                projectMigrator,
                 projectFactory,
                 projectOwnerStub,
                 mainWindowController);
@@ -557,12 +781,14 @@ namespace Core.Common.Gui.Test.Commands
                 var project = mocks.Stub<IProject>();
                 project.Name = projectName;
 
-                var projectStorageMock = mocks.StrictMock<IStoreProject>();
-                projectStorageMock.Expect(ps => ps.StageProject(project));
-                projectStorageMock.Expect(ps => ps.HasStagedProject).Return(true).Repeat.Twice();
-                projectStorageMock.Expect(ps => ps.HasStagedProjectChanges(null)).IgnoreArguments().Return(true);
-                projectStorageMock.Expect(ps => ps.UnstageProject());
-                projectStorageMock.Expect(p => p.SaveProjectAs(someValidFilePath));
+                var projectStorage = mocks.StrictMock<IStoreProject>();
+                projectStorage.Expect(ps => ps.StageProject(project));
+                projectStorage.Expect(ps => ps.HasStagedProject).Return(true).Repeat.Twice();
+                projectStorage.Expect(ps => ps.HasStagedProjectChanges(null)).IgnoreArguments().Return(true);
+                projectStorage.Expect(ps => ps.UnstageProject());
+                projectStorage.Expect(p => p.SaveProjectAs(someValidFilePath));
+
+                var projectMigrator = mocks.Stub<IMigrateProject>();
 
                 var projectOwnerStub = mocks.Stub<IProjectOwner>();
                 projectOwnerStub.Stub(po => po.Project).Return(project);
@@ -570,7 +796,8 @@ namespace Core.Common.Gui.Test.Commands
                 mocks.ReplayAll();
 
                 var storageCommandHandler = new StorageCommandHandler(
-                    projectStorageMock,
+                    projectStorage,
+                    projectMigrator,
                     projectFactory,
                     projectOwnerStub,
                     mainWindowController);
@@ -609,13 +836,15 @@ namespace Core.Common.Gui.Test.Commands
             var project = mocks.Stub<IProject>();
             project.Name = projectName;
 
-            var projectStorageMock = mocks.StrictMock<IStoreProject>();
-            projectStorageMock.Expect(ps => ps.StageProject(project));
-            projectStorageMock.Stub(ps => ps.HasStagedProject).Return(true);
-            projectStorageMock.Expect(ps => ps.HasStagedProjectChanges(someValidFilePath)).Return(true);
-            projectStorageMock.Expect(ps => ps.UnstageProject());
-            projectStorageMock.Stub(ps => ps.FileFilter).Return(string.Empty);
-            projectStorageMock.Expect(p => p.SaveProjectAs(someValidFilePath));
+            var projectStorage = mocks.StrictMock<IStoreProject>();
+            projectStorage.Expect(ps => ps.StageProject(project));
+            projectStorage.Stub(ps => ps.HasStagedProject).Return(true);
+            projectStorage.Expect(ps => ps.HasStagedProjectChanges(someValidFilePath)).Return(true);
+            projectStorage.Expect(ps => ps.UnstageProject());
+            projectStorage.Stub(ps => ps.FileFilter).Return(string.Empty);
+            projectStorage.Expect(p => p.SaveProjectAs(someValidFilePath));
+
+            var projectMigrator = mocks.Stub<IMigrateProject>();
 
             var projectOwnerStub = mocks.Stub<IProjectOwner>();
             projectOwnerStub.Stub(po => po.Project).Return(project);
@@ -624,7 +853,8 @@ namespace Core.Common.Gui.Test.Commands
             mocks.ReplayAll();
 
             var storageCommandHandler = new StorageCommandHandler(
-                projectStorageMock,
+                projectStorage,
+                projectMigrator,
                 projectFactory,
                 projectOwnerStub,
                 mainWindowController);

@@ -53,7 +53,6 @@ using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using Ringtoets.Integration.Forms;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.Views;
@@ -85,9 +84,10 @@ namespace Ringtoets.Integration.Plugin.Test
             // Given
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             mocks.ReplayAll();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new RingtoetsProjectFactory(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RingtoetsProjectFactory(), new GuiCoreSettings()))
             {
                 using (var plugin = new RingtoetsPlugin())
                 {
@@ -113,12 +113,13 @@ namespace Ringtoets.Integration.Plugin.Test
             // Given
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             mocks.ReplayAll();
 
             var testDataDir = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
             var testFilePath = Path.Combine(testDataDir, "complete.sqlite");
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new RingtoetsProjectFactory(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RingtoetsProjectFactory(), new GuiCoreSettings()))
             {
                 using (var plugin = new RingtoetsPlugin())
                 {
@@ -154,9 +155,10 @@ namespace Ringtoets.Integration.Plugin.Test
             // Given
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             mocks.ReplayAll();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new RingtoetsProjectFactory(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RingtoetsProjectFactory(), new GuiCoreSettings()))
             {
                 using (var plugin = new RingtoetsPlugin())
                 {

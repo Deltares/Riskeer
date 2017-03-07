@@ -41,19 +41,26 @@ namespace Core.Common.Gui.Commands
         private readonly IProjectOwner projectOwner;
         private readonly IStoreProject projectPersistor;
         private readonly IProjectFactory projectFactory;
+        private readonly IMigrateProject projectMigrator;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StorageCommandHandler"/> class.
         /// </summary>
         /// <param name="projectStorage">Class responsible to storing and loading the application project.</param>
+        /// <param name="projectMigrator">Class responsible for the migration of the application projects.</param>
         /// <param name="projectFactory">The factory to use when creating new projects.</param>
         /// <param name="projectOwner">The class owning the application project.</param>
         /// <param name="dialogParent">Controller for UI.</param>
-        public StorageCommandHandler(IStoreProject projectStorage, IProjectFactory projectFactory, IProjectOwner projectOwner, IWin32Window dialogParent)
+        public StorageCommandHandler(IStoreProject projectStorage,
+                                     IMigrateProject projectMigrator,
+                                     IProjectFactory projectFactory,
+                                     IProjectOwner projectOwner,
+                                     IWin32Window dialogParent)
         {
             this.dialogParent = dialogParent;
             this.projectOwner = projectOwner;
             projectPersistor = projectStorage;
+            this.projectMigrator = projectMigrator;
             this.projectFactory = projectFactory;
         }
 
@@ -123,14 +130,21 @@ namespace Core.Common.Gui.Commands
         {
             log.Info(Resources.StorageCommandHandler_OpenExistingProject_Opening_existing_project);
 
-            var newProject = LoadProjectFromStorage(filePath);
-            var isOpenProjectSuccessful = newProject != null;
+            string migratedProjectFilePath = TryMigrateProject(filePath);
 
+            var isOpenProjectSuccessful = false;
+            IProject newProject = null;
+            if (!string.IsNullOrEmpty(migratedProjectFilePath))
+            {
+                newProject = LoadProjectFromStorage(migratedProjectFilePath);
+                isOpenProjectSuccessful = newProject != null;
+            }
+            
             if (isOpenProjectSuccessful)
             {
                 log.Info(Resources.StorageCommandHandler_OpeningExistingProject_Opening_existing_project_successful);
-                projectOwner.SetProject(newProject, filePath);
-                newProject.Name = Path.GetFileNameWithoutExtension(filePath);
+                projectOwner.SetProject(newProject, migratedProjectFilePath);
+                newProject.Name = Path.GetFileNameWithoutExtension(migratedProjectFilePath);
                 newProject.NotifyObservers();
             }
             else
@@ -286,6 +300,26 @@ namespace Core.Common.Gui.Commands
                 log.Error(Resources.StorageCommandHandler_Saving_project_failed);
                 return false;
             }
+        }
+
+        private string TryMigrateProject(string filePath)
+        {
+            string migratedProjectFilePath = filePath;
+
+            try
+            {
+                if (projectMigrator.ShouldMigrate(filePath))
+                {
+                    migratedProjectFilePath = projectMigrator.Migrate(filePath);
+                }
+            }
+            catch (ArgumentException e)
+            {
+                migratedProjectFilePath = null;
+                log.Error(e.Message, e);
+            }
+
+            return migratedProjectFilePath;
         }
     }
 }

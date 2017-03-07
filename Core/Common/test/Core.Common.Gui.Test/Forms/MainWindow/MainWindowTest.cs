@@ -422,12 +422,13 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
             // Setup
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
             projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
-            using (var gui = new GuiCore(mainWindow, projectStore, projectFactory, new GuiCoreSettings()))
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
 
@@ -453,12 +454,13 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
             // Setup
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
             projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
-            using (var gui = new GuiCore(mainWindow, projectStore, projectFactory, new GuiCoreSettings()))
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
 

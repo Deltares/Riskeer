@@ -291,7 +291,7 @@ namespace Application.Ringtoets.Migration.Test
 
                 // Then
                 string expectedMessage = $"Het projectbestand '{sourceFilePath}' is succesvol gemigreerd naar '{targetFilePath}' (versie {expectedVersion}).";
-                TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
+                TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
 
                 Assert.AreEqual(targetFilePath, actualTargetFilePath);
                 var toVersionedFile = new RingtoetsVersionedFile(targetFilePath);
@@ -324,7 +324,7 @@ namespace Application.Ringtoets.Migration.Test
 
             // Then
             string expectedMessage = $"Het migreren van het projectbestand '{sourceFilePath}' is geannuleerd.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsNull(actualTargetFilePath);
 
             mocks.VerifyAll();
@@ -354,7 +354,7 @@ namespace Application.Ringtoets.Migration.Test
 
             // Then
             string expectedMessage = $"Het migreren van het projectbestand '{sourceFilePath}' is geannuleerd.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsNull(actualTargetFilePath);
 
             mocks.VerifyAll();

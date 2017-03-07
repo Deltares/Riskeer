@@ -30,6 +30,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
+using Core.Common.Base.Storage;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Settings;
@@ -37,6 +38,7 @@ using Core.Common.TestUtil;
 using Core.Components.Gis;
 using Core.Components.Gis.Data;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -154,12 +156,16 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         [TestCase(null)]
         [TestCase("")]
         [TestCase("  ")]
-        public void GivenRingtoetsGuiWithStorageSql_WhenRunWithEmptyFile_DefaultProjectStillSet(string testFile)
+        public void GivenRingtoetsGuiWithStorageSqlAndMigrator_WhenRunWithEmptyFile_DefaultProjectStillSet(string testFile)
         {
             // Given
+            var mocks = new MockRepository();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            mocks.ReplayAll();
+
             var projectStore = new StorageSqLite();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new RingtoetsProjectFactory(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RingtoetsProjectFactory(), new GuiCoreSettings()))
             {
                 // When
                 gui.Run(testFile);
@@ -172,14 +178,21 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 Assert.IsInstanceOf<RingtoetsProject>(gui.Project);
                 CollectionAssert.IsEmpty(((RingtoetsProject) gui.Project).AssessmentSections);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenRingtoetsGuiWithStorageSql_WhenRunWithValidFile_ProjectSet()
+        public void GivenRingtoetsGuiWithStorageSqlAndMigrator_WhenRunWithValidFile_ProjectSet()
         {
             // Given
+            var mocks = new MockRepository();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            mocks.ReplayAll();
+
             var projectStore = new StorageSqLite();
+
             RingtoetsProject fullProject = RingtoetsProjectTestHelper.GetFullTestProject();
             string tempRingtoetsFile = GetRandomRingtoetsFile();
             var expectedProjectName = Path.GetFileNameWithoutExtension(tempRingtoetsFile);
@@ -188,7 +201,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             // Precondition
             SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempRingtoetsFile, fullProject);
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new RingtoetsProjectFactory(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RingtoetsProjectFactory(), new GuiCoreSettings()))
             {
                 // When
                 Action action = () => gui.Run(tempRingtoetsFile);
@@ -208,6 +221,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 Assert.IsInstanceOf<RingtoetsProject>(gui.Project);
                 AssertProjectsAreEqual(fullProject, (RingtoetsProject) gui.Project);
             }
+
+            mocks.VerifyAll();
         }
 
         [OneTimeTearDown]

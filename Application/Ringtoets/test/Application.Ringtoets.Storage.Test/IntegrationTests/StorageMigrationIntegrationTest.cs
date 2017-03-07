@@ -23,11 +23,13 @@ using System;
 using System.IO;
 using System.Threading;
 using Application.Ringtoets.Migration.Core;
+using Core.Common.Base.Storage;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Settings;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Utils;
 using Ringtoets.Integration.Data;
 
@@ -49,7 +51,11 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 // Given
                 var projectStore = new StorageSqLite();
 
-                using (var gui = new GuiCore(new MainWindow(), projectStore, new RingtoetsProjectFactory(), new GuiCoreSettings()))
+                var mocks = new MockRepository();
+                var projectMigrator = mocks.Stub<IMigrateProject>();
+                mocks.ReplayAll();
+
+                using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RingtoetsProjectFactory(), new GuiCoreSettings()))
                 {
                     // When
                     gui.Run(targetFilePath);
@@ -63,6 +69,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     Assert.IsInstanceOf<RingtoetsProject>(gui.Project);
                 }
                 GC.WaitForPendingFinalizers();
+
+                mocks.VerifyAll();
             }
         }
 
