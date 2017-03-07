@@ -182,122 +182,136 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var schematizationCategory = "Schematisatie";
 
             PropertyDescriptor hydraulicBoundaryLocationProperty = dynamicProperties[expectedSelectedHydraulicBoundaryLocationPropertyIndex];
-            Assert.IsNotNull(hydraulicBoundaryLocationProperty);
-            Assert.IsFalse(hydraulicBoundaryLocationProperty.IsReadOnly);
-            Assert.AreEqual(hydraulicDataCategory, hydraulicBoundaryLocationProperty.Category);
-            Assert.AreEqual("Locatie met hydraulische randvoorwaarden", hydraulicBoundaryLocationProperty.DisplayName);
-            Assert.AreEqual("De locatie met hydraulische randvoorwaarden waarvan het berekende toetspeil wordt gebruikt.", hydraulicBoundaryLocationProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                hydraulicBoundaryLocationProperty,
+                hydraulicDataCategory,
+                "Locatie met hydraulische randvoorwaarden",
+                "De locatie met hydraulische randvoorwaarden waarvan het berekende toetspeil wordt gebruikt.");
 
             PropertyDescriptor assessmentLevelProperty = dynamicProperties[expectedAssessmentLevelPropertyIndex];
-            Assert.IsNotNull(assessmentLevelProperty);
-            Assert.IsTrue(assessmentLevelProperty.IsReadOnly);
-            Assert.AreEqual(hydraulicDataCategory, assessmentLevelProperty.Category);
-            Assert.AreEqual("Toetspeil [m+NAP]", assessmentLevelProperty.DisplayName);
-            Assert.AreEqual("Waterstand met een overschrijdingsfrequentie gelijk aan de trajectnorm.", assessmentLevelProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                assessmentLevelProperty,
+                hydraulicDataCategory,
+                "Toetspeil [m+NAP]",
+                "Waterstand met een overschrijdingsfrequentie gelijk aan de trajectnorm.",
+                true);
 
             PropertyDescriptor useHydraulicBoundaryLocationProperty = dynamicProperties[expectedUseHydraulicBoundaryLocationPropertyIndex];
-            Assert.IsNotNull(useHydraulicBoundaryLocationProperty);
-            Assert.AreEqual(hydraulicDataCategory, useHydraulicBoundaryLocationProperty.Category);
-            Assert.AreEqual("Handmatig toetspeil invoeren", useHydraulicBoundaryLocationProperty.DisplayName);
-            Assert.AreEqual("Sta toe om het toetspeil handmatig te specificeren?", useHydraulicBoundaryLocationProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                useHydraulicBoundaryLocationProperty,
+                hydraulicDataCategory,
+                "Handmatig toetspeil invoeren",
+                "Sta toe om het toetspeil handmatig te specificeren?");
 
             PropertyDescriptor dampingsFactorExitProperty = dynamicProperties[expectedDampingFactorExitPropertyIndex];
-            Assert.IsNotNull(dampingsFactorExitProperty);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                dampingsFactorExitProperty,
+                hydraulicDataCategory,
+                "Dempingsfactor bij uittredepunt [-]",
+                "Dempingsfactor relateert respons van stijghoogte bij binnenteen aan buitenwaterstand.",
+                true);
             Assert.IsInstanceOf<ExpandableObjectConverter>(dampingsFactorExitProperty.Converter);
-            Assert.AreEqual(hydraulicDataCategory, dampingsFactorExitProperty.Category);
-            Assert.AreEqual("Dempingsfactor bij uittredepunt [-]", dampingsFactorExitProperty.DisplayName);
-            Assert.AreEqual("Dempingsfactor relateert respons van stijghoogte bij binnenteen aan buitenwaterstand.", dampingsFactorExitProperty.Description);
 
             PropertyDescriptor phreaticLevelExitProperty = dynamicProperties[expectedPhreaticLevelExitPropertyIndex];
-            Assert.IsNotNull(phreaticLevelExitProperty);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                phreaticLevelExitProperty,
+                hydraulicDataCategory,
+                "Polderpeil [m+NAP]",
+                "Polderpeil.",
+                true);
             Assert.IsInstanceOf<ExpandableObjectConverter>(phreaticLevelExitProperty.Converter);
-            Assert.AreEqual(hydraulicDataCategory, phreaticLevelExitProperty.Category);
-            Assert.AreEqual("Polderpeil [m+NAP]", phreaticLevelExitProperty.DisplayName);
-            Assert.AreEqual("Polderpeil.", phreaticLevelExitProperty.Description);
 
             PropertyDescriptor piezometricHeadExitProperty = dynamicProperties[expectedPiezometricHeadExitPropertyIndex];
-            Assert.IsNotNull(piezometricHeadExitProperty);
-            Assert.IsTrue(piezometricHeadExitProperty.IsReadOnly);
-            Assert.AreEqual(hydraulicDataCategory, piezometricHeadExitProperty.Category);
-            Assert.AreEqual("Stijghoogte bij uittredepunt [m+NAP]", piezometricHeadExitProperty.DisplayName);
-            Assert.AreEqual("Stijghoogte bij uittredepunt.", piezometricHeadExitProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                piezometricHeadExitProperty,
+                hydraulicDataCategory,
+                "Stijghoogte bij uittredepunt [m+NAP]",
+                "Stijghoogte bij uittredepunt.",
+                true);
 
             PropertyDescriptor surfaceLineProperty = dynamicProperties[expectedSurfaceLinePropertyIndex];
-            Assert.IsNotNull(surfaceLineProperty);
-            Assert.IsFalse(surfaceLineProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, surfaceLineProperty.Category);
-            Assert.AreEqual("Profielschematisatie", surfaceLineProperty.DisplayName);
-            Assert.AreEqual("De schematisatie van de hoogte van het dwarsprofiel.", surfaceLineProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                surfaceLineProperty,
+                schematizationCategory,
+                "Profielschematisatie",
+                "De schematisatie van de hoogte van het dwarsprofiel.");
 
             PropertyDescriptor stochasticSoilModelProperty = dynamicProperties[expectedStochasticSoilModelPropertyIndex];
-            Assert.IsNotNull(stochasticSoilModelProperty);
-            Assert.IsFalse(stochasticSoilModelProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, stochasticSoilModelProperty.Category);
-            Assert.AreEqual("Stochastisch ondergrondmodel", stochasticSoilModelProperty.DisplayName);
-            Assert.AreEqual("De verschillende opbouwen van de ondergrond en hun respectieve kansen van voorkomen.", stochasticSoilModelProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                stochasticSoilModelProperty,
+                schematizationCategory,
+                "Stochastisch ondergrondmodel",
+                "De verschillende opbouwen van de ondergrond en hun respectieve kansen van voorkomen.");
 
             PropertyDescriptor stochasticSoilProfileProperty = dynamicProperties[expectedStochasticSoilProfilePropertyIndex];
-            Assert.IsNotNull(stochasticSoilProfileProperty);
-            Assert.IsFalse(stochasticSoilProfileProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, stochasticSoilProfileProperty.Category);
-            Assert.AreEqual("Ondergrondschematisatie", stochasticSoilProfileProperty.DisplayName);
-            Assert.AreEqual("De opbouw van de ondergrond.", stochasticSoilProfileProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                stochasticSoilProfileProperty,
+                schematizationCategory,
+                "Ondergrondschematisatie",
+                "De opbouw van de ondergrond.");
 
             PropertyDescriptor seepageLengthProperty = dynamicProperties[expectedSeepageLengthPropertyIndex];
-            Assert.IsNotNull(seepageLengthProperty);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                seepageLengthProperty,
+                schematizationCategory,
+                "Kwelweglengte [m]",
+                "De horizontale afstand tussen intrede- en uittredepunt die het kwelwater ondergronds aflegt voordat het weer aan de oppervlakte komt.",
+                true);
             Assert.IsInstanceOf<ExpandableObjectConverter>(seepageLengthProperty.Converter);
-            Assert.IsTrue(seepageLengthProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, seepageLengthProperty.Category);
-            Assert.AreEqual("Kwelweglengte [m]", seepageLengthProperty.DisplayName);
-            Assert.AreEqual("De horizontale afstand tussen intrede- en uittredepunt die het kwelwater ondergronds aflegt voordat het weer aan de oppervlakte komt.", seepageLengthProperty.Description);
 
             PropertyDescriptor thicknessCoverageLayerProperty = dynamicProperties[expectedThicknessCoverageLayerPropertyIndex];
-            Assert.IsNotNull(thicknessCoverageLayerProperty);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                thicknessCoverageLayerProperty,
+                schematizationCategory,
+                "Totale deklaagdikte bij uittredepunt [m]",
+                "Totale deklaagdikte bij uittredepunt.",
+                true);
             Assert.IsInstanceOf<ExpandableObjectConverter>(thicknessCoverageLayerProperty.Converter);
-            Assert.IsTrue(thicknessCoverageLayerProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, thicknessCoverageLayerProperty.Category);
-            Assert.AreEqual("Totale deklaagdikte bij uittredepunt [m]", thicknessCoverageLayerProperty.DisplayName);
-            Assert.AreEqual("Totale deklaagdikte bij uittredepunt.", thicknessCoverageLayerProperty.Description);
 
             PropertyDescriptor effectiveThicknessCoverageLayerProperty = dynamicProperties[expectedEffectiveThicknessCoverageLayerPropertyIndex];
-            Assert.IsNotNull(effectiveThicknessCoverageLayerProperty);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                effectiveThicknessCoverageLayerProperty,
+                schematizationCategory,
+                "Effectieve deklaagdikte bij uittredepunt [m]",
+                "Effectieve deklaagdikte bij uittredepunt.",
+                true);
             Assert.IsInstanceOf<ExpandableObjectConverter>(effectiveThicknessCoverageLayerProperty.Converter);
-            Assert.IsTrue(effectiveThicknessCoverageLayerProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, effectiveThicknessCoverageLayerProperty.Category);
-            Assert.AreEqual("Effectieve deklaagdikte bij uittredepunt [m]", effectiveThicknessCoverageLayerProperty.DisplayName);
-            Assert.AreEqual("Effectieve deklaagdikte bij uittredepunt.", effectiveThicknessCoverageLayerProperty.Description);
 
             PropertyDescriptor thicknessAquiferLayerProperty = dynamicProperties[expectedThicknessAquiferLayerPropertyIndex];
-            Assert.IsNotNull(thicknessAquiferLayerProperty);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                thicknessAquiferLayerProperty,
+                schematizationCategory,
+                "Dikte watervoerend pakket [m]",
+                "De dikte van de bovenste voor doorlatendheid te onderscheiden zandlaag of combinatie van zandlagen.",
+                true);
             Assert.IsInstanceOf<ExpandableObjectConverter>(thicknessAquiferLayerProperty.Converter);
-            Assert.IsTrue(thicknessAquiferLayerProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, thicknessAquiferLayerProperty.Category);
-            Assert.AreEqual("Dikte watervoerend pakket [m]", thicknessAquiferLayerProperty.DisplayName);
-            Assert.AreEqual("De dikte van de bovenste voor doorlatendheid te onderscheiden zandlaag of combinatie van zandlagen.", thicknessAquiferLayerProperty.Description);
 
             PropertyDescriptor darcyPermeabilityProperty = dynamicProperties[expectedDarcyPermeabilityPropertyIndex];
-            Assert.IsNotNull(darcyPermeabilityProperty);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                darcyPermeabilityProperty,
+                schematizationCategory,
+                "Doorlatendheid aquifer [m/s]",
+                "Darcy-snelheid waarmee water door de eerste voor doorlatendheid te onderscheiden zandlaag loopt.",
+                true);
             Assert.IsInstanceOf<ExpandableObjectConverter>(darcyPermeabilityProperty.Converter);
-            Assert.IsTrue(darcyPermeabilityProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, darcyPermeabilityProperty.Category);
-            Assert.AreEqual("Doorlatendheid aquifer [m/s]", darcyPermeabilityProperty.DisplayName);
-            Assert.AreEqual("Darcy-snelheid waarmee water door de eerste voor doorlatendheid te onderscheiden zandlaag loopt.", darcyPermeabilityProperty.Description);
 
             PropertyDescriptor diameter70Property = dynamicProperties[expectedDiameter70PropertyIndex];
-            Assert.IsNotNull(diameter70Property);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                diameter70Property,
+                schematizationCategory,
+                "De d70 in de bovenste zandlaag [m]",
+                "Zeefmaat waar 70 gewichtsprocent van de korrels uit een zandlaag doorheen gaat. Hier de korreldiameter van het bovenste gedeelte van de voor doorlatendheid te onderscheiden zandlaag, bepaald zonder fijne fractie (< 63µm).",
+                true);
             Assert.IsInstanceOf<ExpandableObjectConverter>(diameter70Property.Converter);
-            Assert.IsTrue(diameter70Property.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, diameter70Property.Category);
-            Assert.AreEqual("De d70 in de bovenste zandlaag [m]", diameter70Property.DisplayName);
-            Assert.AreEqual("Zeefmaat waar 70 gewichtsprocent van de korrels uit een zandlaag doorheen gaat. Hier de korreldiameter van het bovenste gedeelte van de voor doorlatendheid te onderscheiden zandlaag, bepaald zonder fijne fractie (< 63µm).", diameter70Property.Description);
 
             PropertyDescriptor saturatedVolumicWeightOfCoverageLayerProperty = dynamicProperties[expectedSaturatedVolumicWeightOfCoverageLayerPropertyIndex];
-            Assert.IsNotNull(saturatedVolumicWeightOfCoverageLayerProperty);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                saturatedVolumicWeightOfCoverageLayerProperty,
+                schematizationCategory,
+                "Verzadigd gewicht deklaag [kN/m³]",
+                "Verzadigd gewicht deklaag.",
+                true);
             Assert.IsInstanceOf<ExpandableObjectConverter>(saturatedVolumicWeightOfCoverageLayerProperty.Converter);
-            Assert.IsTrue(saturatedVolumicWeightOfCoverageLayerProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, saturatedVolumicWeightOfCoverageLayerProperty.Category);
-            Assert.AreEqual("Verzadigd gewicht deklaag [kN/m³]", saturatedVolumicWeightOfCoverageLayerProperty.DisplayName);
-            Assert.AreEqual("Verzadigd gewicht deklaag.", saturatedVolumicWeightOfCoverageLayerProperty.Description);
 
             mocks.VerifyAll();
         }
@@ -343,21 +357,23 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
 
-            var schematizationCategory = "Schematisatie";
+            const string schematizationCategory = "Schematisatie";
 
             PropertyDescriptor entryPointLProperty = dynamicProperties[expectedEntryPointLPropertyIndex];
-            Assert.IsNotNull(entryPointLProperty);
-            Assert.AreEqual(!withSurfaceLine, entryPointLProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, entryPointLProperty.Category);
-            Assert.AreEqual("Intredepunt", entryPointLProperty.DisplayName);
-            Assert.AreEqual("De positie in het dwarsprofiel van het intredepunt.", entryPointLProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                entryPointLProperty,
+                schematizationCategory,
+                "Intredepunt",
+                "De positie in het dwarsprofiel van het intredepunt.",
+                !withSurfaceLine);
 
             PropertyDescriptor exitPointLProperty = dynamicProperties[expectedExitPointLPropertyIndex];
-            Assert.IsNotNull(exitPointLProperty);
-            Assert.AreEqual(!withSurfaceLine, exitPointLProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, exitPointLProperty.Category);
-            Assert.AreEqual("Uittredepunt", exitPointLProperty.DisplayName);
-            Assert.AreEqual("De positie in het dwarsprofiel van het uittredepunt.", exitPointLProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                exitPointLProperty,
+                schematizationCategory,
+                "Uittredepunt",
+                "De positie in het dwarsprofiel van het uittredepunt.",
+                !withSurfaceLine);
 
             mocks.VerifyAll();
         }
@@ -401,29 +417,30 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 Assert.AreEqual(18, dynamicProperties.Count);
 
                 PropertyDescriptor hydraulicBoundaryLocationProperty = dynamicProperties[expectedSelectedHydraulicBoundaryLocationPropertyIndex];
-                Assert.IsNotNull(hydraulicBoundaryLocationProperty);
-                Assert.IsFalse(hydraulicBoundaryLocationProperty.IsReadOnly);
-                Assert.AreEqual(hydraulicDataCategory, hydraulicBoundaryLocationProperty.Category);
-                Assert.AreEqual("Locatie met hydraulische randvoorwaarden", hydraulicBoundaryLocationProperty.DisplayName);
-                Assert.AreEqual("De locatie met hydraulische randvoorwaarden waarvan het berekende toetspeil wordt gebruikt.", hydraulicBoundaryLocationProperty.Description);
+                PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                    hydraulicBoundaryLocationProperty,
+                    hydraulicDataCategory,
+                    "Locatie met hydraulische randvoorwaarden",
+                    "De locatie met hydraulische randvoorwaarden waarvan het berekende toetspeil wordt gebruikt.");
 
                 PropertyDescriptor assessmentLevelProperty = dynamicProperties[expectedAssessmentLevelPropertyIndex];
-                Assert.IsNotNull(assessmentLevelProperty);
-                Assert.IsTrue(assessmentLevelProperty.IsReadOnly);
-                Assert.AreEqual(hydraulicDataCategory, assessmentLevelProperty.Category);
-                Assert.AreEqual("Toetspeil [m+NAP]", assessmentLevelProperty.DisplayName);
-                Assert.AreEqual("Waterstand met een overschrijdingsfrequentie gelijk aan de trajectnorm.", assessmentLevelProperty.Description);
+                PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                    assessmentLevelProperty,
+                    hydraulicDataCategory,
+                    "Toetspeil [m+NAP]",
+                    "Waterstand met een overschrijdingsfrequentie gelijk aan de trajectnorm.",
+                    true);
             }
             else
             {
                 Assert.AreEqual(17, dynamicProperties.Count);
 
                 PropertyDescriptor assessmentLevelProperty = dynamicProperties[0];
-                Assert.IsNotNull(assessmentLevelProperty);
-                Assert.IsFalse(assessmentLevelProperty.IsReadOnly);
-                Assert.AreEqual(hydraulicDataCategory, assessmentLevelProperty.Category);
-                Assert.AreEqual("Toetspeil [m+NAP]", assessmentLevelProperty.DisplayName);
-                Assert.AreEqual("Waterstand met een overschrijdingsfrequentie gelijk aan de trajectnorm.", assessmentLevelProperty.Description);
+                PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                    assessmentLevelProperty,
+                    hydraulicDataCategory,
+                    "Toetspeil [m+NAP]",
+                    "Waterstand met een overschrijdingsfrequentie gelijk aan de trajectnorm.");
             }
         }
 

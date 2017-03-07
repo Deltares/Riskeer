@@ -647,37 +647,16 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
 
         #endregion
 
-        public override bool IsReadOnly(string property)
+        protected override bool ShouldPropertyBeReadOnlyInAbsenseOfStructure(string property)
         {
-            if (property == nameof(InflowModelType))
-            {
-                return !HasStructure();
-            }
-            if (property == nameof(LoadSchematizationType))
-            {
-                return !HasStructure();
-            }
-            if (property == nameof(LevellingCount))
-            {
-                return !HasStructure();
-            }
-            if (property == nameof(EvaluationLevel))
-            {
-                return !HasStructure();
-            }
-            if (property == nameof(VerticalDistance))
-            {
-                return !HasStructure();
-            }
-            if (property == nameof(FailureProbabilityRepairClosure))
-            {
-                return !HasStructure();
-            }
-            if (property == nameof(ProbabilityCollisionSecondaryStructure))
-            {
-                return !HasStructure();
-            }
-            return base.IsReadOnly(property);
+            return nameof(InflowModelType).Equals(property)
+                   || nameof(LoadSchematizationType).Equals(property)
+                   || nameof(LevellingCount).Equals(property)
+                   || nameof(EvaluationLevel).Equals(property)
+                   || nameof(VerticalDistance).Equals(property)
+                   || nameof(FailureProbabilityRepairClosure).Equals(property)
+                   || nameof(ProbabilityCollisionSecondaryStructure).Equals(property)
+                   || base.ShouldPropertyBeReadOnlyInAbsenseOfStructure(property);
         }
     }
 }

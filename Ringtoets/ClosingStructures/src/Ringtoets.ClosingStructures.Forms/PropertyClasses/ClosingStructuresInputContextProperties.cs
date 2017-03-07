@@ -412,30 +412,14 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
 
         #endregion
 
-        public override bool IsReadOnly(string property)
+        protected override bool ShouldPropertyBeReadOnlyInAbsenseOfStructure(string property)
         {
-            if (property == nameof(InflowModelType))
-            {
-                return !HasStructure();
-            }
-            if (property == nameof(IdenticalApertures))
-            {
-                return !HasStructure();
-            }
-            if (property == nameof(ProbabilityOrFrequencyOpenStructureBeforeFlooding))
-            {
-                return !HasStructure();
-            }
-            if (property == nameof(FailureProbabilityOpenStructure))
-            {
-                return !HasStructure();
-            }
-            if (property == nameof(FailureProbabilityReparation))
-            {
-                return !HasStructure();
-            }
-
-            return base.IsReadOnly(property);
+            return nameof(InflowModelType).Equals(property)
+                   || nameof(IdenticalApertures).Equals(property)
+                   || nameof(ProbabilityOrFrequencyOpenStructureBeforeFlooding).Equals(property)
+                   || nameof(FailureProbabilityOpenStructure).Equals(property)
+                   || nameof(FailureProbabilityReparation).Equals(property)
+                   || base.ShouldPropertyBeReadOnlyInAbsenseOfStructure(property);
         }
     }
 }
