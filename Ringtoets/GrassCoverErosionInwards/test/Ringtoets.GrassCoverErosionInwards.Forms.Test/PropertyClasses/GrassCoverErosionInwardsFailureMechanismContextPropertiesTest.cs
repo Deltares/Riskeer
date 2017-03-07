@@ -360,6 +360,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.FshallowModelFactor)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -390,6 +392,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.FshallowModelFactor)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
+
+            mocks.VerifyAll();
         }
     }
 }

@@ -309,6 +309,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.LengthEffect)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -336,6 +338,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.LengthEffect)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
+
+            mocks.VerifyAll();
         }
     }
 }

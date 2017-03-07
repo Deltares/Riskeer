@@ -35,6 +35,22 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
     /// </summary>
     public class StabilityStoneCoverFailureMechanismProperties : ObjectProperties<StabilityStoneCoverFailureMechanism>
     {
+        [DynamicVisibleValidationMethod]
+        public bool DynamicVisibleValidationMethod(string propertyName)
+        {
+            if (!data.IsRelevant && ShouldHidePropertyWhenFailureMechanismIrrelevant(propertyName))
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private bool ShouldHidePropertyWhenFailureMechanismIrrelevant(string propertyName)
+        {
+            return nameof(Blocks).Equals(propertyName)
+                   || nameof(Columns).Equals(propertyName);
+        }
+
         #region General
 
         [PropertyOrder(1)]
@@ -61,11 +77,24 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
             }
         }
 
+        [PropertyOrder(3)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_IsRelevant_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_IsRelevant_Description))]
+        public bool IsRelevant
+        {
+            get
+            {
+                return data.IsRelevant;
+            }
+        }
+
         #endregion
 
         #region Model settings
 
-        [PropertyOrder(3)]
+        [DynamicVisible]
+        [PropertyOrder(4)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.StabilityStoneCoverWaveConditions_Blocks_DisplayName))]
@@ -81,7 +110,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(4)]
+        [DynamicVisible]
+        [PropertyOrder(5)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.StabilityStoneCoverWaveConditions_Columns_DisplayName))]

@@ -345,6 +345,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorLoadEffect)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -374,6 +376,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorLoadEffect)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
+
+            mocks.VerifyAll();
         }
     }
 }

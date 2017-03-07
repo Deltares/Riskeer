@@ -42,10 +42,15 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Data_SetNewStabilityStoneCoverFailureMechanismContext_ReturnCorrectPropertyValues()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Data_SetNewStabilityStoneCoverFailureMechanismContext_ReturnCorrectPropertyValues(bool isRelevant)
         {
             // Setup
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var failureMechanism = new StabilityStoneCoverFailureMechanism
+            {
+                IsRelevant = isRelevant
+            };
             var properties = new StabilityStoneCoverFailureMechanismProperties();
 
             // Call
@@ -54,48 +59,150 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
+            Assert.AreEqual(isRelevant, properties.IsRelevant);
             Assert.AreSame(failureMechanism.GeneralInput.GeneralBlocksWaveConditionsInput, properties.Blocks.Data);
             Assert.AreSame(failureMechanism.GeneralInput.GeneralColumnsWaveConditionsInput, properties.Columns.Data);
         }
 
         [Test]
-        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_IsRelevantTrue_PropertiesHaveExpectedAttributesValues()
         {
             // Call
             var properties = new StabilityStoneCoverFailureMechanismProperties
             {
-                Data = new StabilityStoneCoverFailureMechanism()
+                Data = new StabilityStoneCoverFailureMechanism
+                {
+                    IsRelevant = true
+                }
             };
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(4, dynamicProperties.Count);
+            Assert.AreEqual(5, dynamicProperties.Count);
+
+            const string generalCategory = "Algemeen";
+            const string modelSettingsCateogry = "Modelinstellingen";
 
             PropertyDescriptor nameProperty = dynamicProperties[0];
-            Assert.IsTrue(nameProperty.IsReadOnly);
-            Assert.AreEqual("Algemeen", nameProperty.Category);
-            Assert.AreEqual("Naam", nameProperty.DisplayName);
-            Assert.AreEqual("De naam van het toetsspoor.", nameProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
+                                                                            generalCategory,
+                                                                            "Naam",
+                                                                            "De naam van het toetsspoor.",
+                                                                            true);
 
             PropertyDescriptor codeProperty = dynamicProperties[1];
-            Assert.IsTrue(codeProperty.IsReadOnly);
-            Assert.AreEqual("Algemeen", codeProperty.Category);
-            Assert.AreEqual("Label", codeProperty.DisplayName);
-            Assert.AreEqual("Het label van het toetsspoor.", codeProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(codeProperty,
+                                                                            generalCategory,
+                                                                            "Label",
+                                                                            "Het label van het toetsspoor.",
+                                                                            true);
 
-            PropertyDescriptor blocksProperty = dynamicProperties[2];
-            Assert.IsTrue(blocksProperty.IsReadOnly);
+            PropertyDescriptor isRelevantProperty = dynamicProperties[2];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
+                                                                            generalCategory,
+                                                                            "Is relevant",
+                                                                            "Geeft aan of dit toetsspoor relevant is of niet.",
+                                                                            true);
+
+            PropertyDescriptor blocksProperty = dynamicProperties[3];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(blocksProperty,
+                                                                            modelSettingsCateogry,
+                                                                            "Blokken",
+                                                                            "De modelinstellingen voor het berekenen van golfcondities voor blokken.",
+                                                                            true);
             Assert.IsInstanceOf<ExpandableObjectConverter>(blocksProperty.Converter);
-            Assert.AreEqual("Modelinstellingen", blocksProperty.Category);
-            Assert.AreEqual("Blokken", blocksProperty.DisplayName);
-            Assert.AreEqual("De modelinstellingen voor het berekenen van golfcondities voor blokken.", blocksProperty.Description);
 
-            PropertyDescriptor columnsProperty = dynamicProperties[3];
-            Assert.IsTrue(columnsProperty.IsReadOnly);
+            PropertyDescriptor columnsProperty = dynamicProperties[4];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(columnsProperty,
+                                                                            modelSettingsCateogry,
+                                                                            "Zuilen",
+                                                                            "De modelinstellingen voor het berekenen van golfcondities voor zuilen.",
+                                                                            true);
             Assert.IsInstanceOf<ExpandableObjectConverter>(columnsProperty.Converter);
-            Assert.AreEqual("Modelinstellingen", columnsProperty.Category);
-            Assert.AreEqual("Zuilen", columnsProperty.DisplayName);
-            Assert.AreEqual("De modelinstellingen voor het berekenen van golfcondities voor zuilen.", columnsProperty.Description);
+        }
+
+        [Test]
+        public void Constructor_IsRelevantFalse_PropertiesHaveExpectedAttributesValues()
+        {
+            // Call
+            var properties = new StabilityStoneCoverFailureMechanismProperties
+            {
+                Data = new StabilityStoneCoverFailureMechanism
+                {
+                    IsRelevant = false
+                }
+            };
+
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(3, dynamicProperties.Count);
+
+            const string generalCategory = "Algemeen";
+
+            PropertyDescriptor nameProperty = dynamicProperties[0];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
+                                                                            generalCategory,
+                                                                            "Naam",
+                                                                            "De naam van het toetsspoor.",
+                                                                            true);
+
+            PropertyDescriptor codeProperty = dynamicProperties[1];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(codeProperty,
+                                                                            generalCategory,
+                                                                            "Label",
+                                                                            "Het label van het toetsspoor.",
+                                                                            true);
+
+            PropertyDescriptor isRelevantProperty = dynamicProperties[2];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
+                                                                            generalCategory,
+                                                                            "Is relevant",
+                                                                            "Geeft aan of dit toetsspoor relevant is of niet.",
+                                                                            true);
+        }
+
+        [Test]
+        public void DynamicVisibleValidationMethod_ForRelevantFailureMechanism_ReturnExpectedVisibility()
+        {
+            // Setup
+            var properties = new StabilityStoneCoverFailureMechanismProperties
+            {
+                Data = new StabilityStoneCoverFailureMechanism
+                {
+                    IsRelevant = true
+                }
+            };
+
+            // Call & Assert
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Blocks)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Columns)));
+
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
+        }
+
+        [Test]
+        public void DynamicVisibleValidationMethod_ForIrrelevantFailureMechanism_ReturnExpectedVisibility()
+        {
+            // Setup
+            var properties = new StabilityStoneCoverFailureMechanismProperties
+            {
+                Data = new StabilityStoneCoverFailureMechanism
+                {
+                    IsRelevant = false
+                }
+            };
+
+            // Call & Assert
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.Blocks)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.Columns)));
+
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
         }
     }
 }

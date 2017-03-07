@@ -329,6 +329,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorStorageVolume)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -356,6 +358,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorStorageVolume)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
+
+            mocks.VerifyAll();
         }
     }
 }

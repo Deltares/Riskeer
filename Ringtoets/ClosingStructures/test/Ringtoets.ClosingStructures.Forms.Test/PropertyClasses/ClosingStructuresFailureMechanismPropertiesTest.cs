@@ -339,8 +339,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism> changeHandler =
-                mocks.Stub<IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism>>();
+            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism>>();
             mocks.ReplayAll();
 
             var properties = new ClosingStructuresFailureMechanismProperties(
@@ -364,6 +363,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorInflowVolume)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -371,8 +372,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism> changeHandler =
-                mocks.Stub<IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism>>();
+            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism>>();
             mocks.ReplayAll();
 
             var properties = new ClosingStructuresFailureMechanismProperties(
@@ -396,6 +396,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorInflowVolume)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
+
+            mocks.VerifyAll();
         }
     }
 }

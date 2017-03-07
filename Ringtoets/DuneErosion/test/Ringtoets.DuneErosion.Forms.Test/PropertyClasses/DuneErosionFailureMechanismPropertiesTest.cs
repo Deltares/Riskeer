@@ -294,8 +294,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            IFailureMechanismPropertyChangeHandler<DuneErosionFailureMechanism> changeHandler =
-                mocks.Stub<IFailureMechanismPropertyChangeHandler<DuneErosionFailureMechanism>>();
+            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<DuneErosionFailureMechanism>>();
             mocks.ReplayAll();
 
             var properties = new DuneErosionFailureMechanismProperties(
@@ -312,6 +311,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -319,8 +320,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            IFailureMechanismPropertyChangeHandler<DuneErosionFailureMechanism> changeHandler =
-                mocks.Stub<IFailureMechanismPropertyChangeHandler<DuneErosionFailureMechanism>>();
+            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<DuneErosionFailureMechanism>>();
             mocks.ReplayAll();
 
             var properties = new DuneErosionFailureMechanismProperties(
@@ -337,6 +337,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
+
+            mocks.VerifyAll();
         }
     }
 }
