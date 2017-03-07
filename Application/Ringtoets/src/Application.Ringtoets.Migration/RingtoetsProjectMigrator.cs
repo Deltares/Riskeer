@@ -21,7 +21,6 @@
 
 using System;
 using System.IO;
-using System.Windows.Forms;
 using Application.Ringtoets.Migration.Core;
 using Application.Ringtoets.Migration.Properties;
 using Core.Common.Base.Storage;
@@ -30,7 +29,6 @@ using Core.Common.Utils;
 using log4net;
 using Migration.Scripts.Data.Exceptions;
 using Ringtoets.Common.Utils;
-using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 using MigrationCoreStorageResources = Migration.Core.Storage.Properties.Resources;
 
 namespace Application.Ringtoets.Migration
@@ -61,7 +59,7 @@ namespace Application.Ringtoets.Migration
             this.inquiryHelper = inquiryHelper;
             fileMigrator = new RingtoetsSqLiteDatabaseFileMigrator();
             fileFilter = new FileFilterGenerator(Resources.RingtoetsProject_FileExtension,
-                                                 Resources.RingtoetsProject_FileExtension);
+                                                 Resources.RingtoetsProject_TypeDescription);
         }
 
         public bool ShouldMigrate(string filePath)
@@ -153,25 +151,6 @@ namespace Application.Ringtoets.Migration
         {
             string warningMessage = string.Format(Resources.RingtoetsProjectMigrator_GenerateMigrationCancelledLogMessage_Updating_projectfile_0_was_cancelled, sourceFilePath);
             log.Warn(warningMessage);
-        }
-
-        private string GetTargetFileLocation(string suggestedFileName)
-        {
-            string filePath = null;
-            using (var dialog = new SaveFileDialog
-            {
-                Title = CoreCommonGuiResources.SaveFileDialog_Title,
-                Filter = fileFilter.Filter,
-                FileName = suggestedFileName
-            })
-            {
-                DialogResult result = dialog.ShowDialog();
-                if (result == DialogResult.OK)
-                {
-                    filePath = dialog.FileName;
-                }
-            }
-            return filePath;
         }
 
         private static void ValidateProjectPath(string sourceFilePath)
