@@ -19,15 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Piping.IO.Readers
+namespace Ringtoets.Common.IO.Readers
 {
     /// <summary>
-    /// Interface for piping calculation items that are read via <see cref="PipingConfigurationReader"/>.
+    /// Interface for calculation items that are read via <see cref="ConfigurationReader{T}"/>.
     /// </summary>
-    public interface IReadPipingCalculationItem
+    public interface IReadCalculationItem
     {
         /// <summary>
-        /// Gets the name of the read piping calculation item.
+        /// Gets the name of the read calculation item.
         /// </summary>
         string Name { get; }
     }

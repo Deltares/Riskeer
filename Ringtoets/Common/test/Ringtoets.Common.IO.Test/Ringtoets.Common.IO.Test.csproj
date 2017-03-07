@@ -76,6 +76,7 @@
     <Compile Include="HydraRing\NumericsSettingsProviderTest.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryLocationsExporterTest.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryLocationsWriterTest.cs" />
+    <Compile Include="Readers\ReadCalculationGroupTest.cs" />
     <Compile Include="ReferenceLines\ReferenceLineExporterTest.cs" />
     <Compile Include="ReferenceLines\ReferenceLineMetaImporterTest.cs" />
     <Compile Include="ReferenceLines\ReferenceLinesMetaReaderTest.cs" />

@@ -77,6 +77,8 @@
     <Compile Include="Hydraulics\HydraulicBoundaryLocationsWriter.cs" />
     <Compile Include="IConfirmDataChangeHandler.cs" />
     <Compile Include="Readers\ConfigurationReader.cs" />
+    <Compile Include="Readers\IReadCalculationItem.cs" />
+    <Compile Include="Readers\ReadCalculationGroup.cs" />
     <Compile Include="ReferenceLines\IReferenceLineReplaceHandler.cs" />
     <Compile Include="ReferenceLines\ReferenceLineExporter.cs" />
     <Compile Include="ReferenceLines\ReferenceLineMetaImporter.cs" />

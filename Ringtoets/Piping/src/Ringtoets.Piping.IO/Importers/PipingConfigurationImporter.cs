@@ -31,6 +31,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.IO.Exceptions;
+using Ringtoets.Common.IO.Readers;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.IO.Readers;
@@ -88,7 +89,7 @@ namespace Ringtoets.Piping.IO.Importers
         {
             NotifyProgress(Resources.PipingConfigurationImporter_ProgressText_Reading_configuration, 1, 3);
 
-            ReadResult<IReadPipingCalculationItem> readResult = ReadConfiguration();
+            ReadResult<IReadCalculationItem> readResult = ReadConfiguration();
             if (readResult.CriticalErrorOccurred || Canceled)
             {
                 return false;
@@ -98,7 +99,7 @@ namespace Ringtoets.Piping.IO.Importers
 
             var validCalculationItems = new List<ICalculationBase>();
 
-            foreach (IReadPipingCalculationItem readItem in readResult.Items)
+            foreach (IReadCalculationItem readItem in readResult.Items)
             {
                 if (Canceled)
                 {
@@ -118,11 +119,11 @@ namespace Ringtoets.Piping.IO.Importers
             return true;
         }
 
-        private ReadResult<IReadPipingCalculationItem> ReadConfiguration()
+        private ReadResult<IReadCalculationItem> ReadConfiguration()
         {
             try
             {
-                return new ReadResult<IReadPipingCalculationItem>(false)
+                return new ReadResult<IReadCalculationItem>(false)
                 {
                     Items = new PipingConfigurationReader(FilePath).Read().ToList()
                 };
@@ -133,13 +134,13 @@ namespace Ringtoets.Piping.IO.Importers
                 string errorMessage = string.Format(Resources.PipingConfigurationImporter_HandleCriticalFileReadError_Error_0_no_configuration_imported,
                                                     exception.Message);
                 log.Error(errorMessage, exception);
-                return new ReadResult<IReadPipingCalculationItem>(true);
+                return new ReadResult<IReadCalculationItem>(true);
             }
         }
 
-        private ICalculationBase ProcessReadItem(IReadPipingCalculationItem readItem)
+        private ICalculationBase ProcessReadItem(IReadCalculationItem readItem)
         {
-            var readCalculationGroup = readItem as ReadPipingCalculationGroup;
+            var readCalculationGroup = readItem as ReadCalculationGroup;
             if (readCalculationGroup != null)
             {
                 return ProcessCalculationGroup(readCalculationGroup);
@@ -154,11 +155,11 @@ namespace Ringtoets.Piping.IO.Importers
             return null;
         }
 
-        private CalculationGroup ProcessCalculationGroup(ReadPipingCalculationGroup readCalculationGroup)
+        private CalculationGroup ProcessCalculationGroup(ReadCalculationGroup readCalculationGroup)
         {
             var group = new CalculationGroup(readCalculationGroup.Name, true);
 
-            foreach (IReadPipingCalculationItem item in readCalculationGroup.Items)
+            foreach (IReadCalculationItem item in readCalculationGroup.Items)
             {
                 ICalculationBase processedItem = ProcessReadItem(item);
                 if (processedItem != null)

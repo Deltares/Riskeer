@@ -33,9 +33,9 @@ using Ringtoets.Piping.IO.Schema;
 namespace Ringtoets.Piping.IO.Readers
 {
     /// <summary>
-    /// This class reads a piping configuration from XML and creates a collection of corresponding <see cref="IReadPipingCalculationItem"/>.
+    /// This class reads a piping configuration from XML and creates a collection of corresponding <see cref="IReadCalculationItem"/>.
     /// </summary>
-    internal class PipingConfigurationReader : ConfigurationReader<IReadPipingCalculationItem>
+    internal class PipingConfigurationReader : ConfigurationReader<IReadCalculationItem>
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingConfigurationReader"/>.
@@ -53,15 +53,15 @@ namespace Ringtoets.Piping.IO.Readers
             : base(xmlFilePath, Resources.PipingConfigurationSchema) {}
 
         /// <summary>
-        /// Reads the piping configuration from the XML and creates a collection of corresponding <see cref="IReadPipingCalculationItem"/>.
+        /// Reads the piping configuration from the XML and creates a collection of corresponding <see cref="IReadCalculationItem"/>.
         /// </summary>
-        /// <returns>A collection of read <see cref="IReadPipingCalculationItem"/>.</returns>
-        internal IEnumerable<IReadPipingCalculationItem> Read()
+        /// <returns>A collection of read <see cref="IReadCalculationItem"/>.</returns>
+        internal IEnumerable<IReadCalculationItem> Read()
         {
             return ParseReadPipingCalculationItems(xmlDocument.Root?.Elements());
         }
 
-        private static IEnumerable<IReadPipingCalculationItem> ParseReadPipingCalculationItems(IEnumerable<XElement> elements)
+        private static IEnumerable<IReadCalculationItem> ParseReadPipingCalculationItems(IEnumerable<XElement> elements)
         {
             foreach (XElement element in elements)
             {
@@ -77,10 +77,10 @@ namespace Ringtoets.Piping.IO.Readers
             }
         }
 
-        private static ReadPipingCalculationGroup ParseReadPipingCalculationGroup(XElement folderElement)
+        private static ReadCalculationGroup ParseReadPipingCalculationGroup(XElement folderElement)
         {
-            return new ReadPipingCalculationGroup(folderElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute)?.Value,
-                                                  ParseReadPipingCalculationItems(folderElement.Elements()));
+            return new ReadCalculationGroup(folderElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute)?.Value,
+                                            ParseReadPipingCalculationItems(folderElement.Elements()));
         }
 
         private static ReadPipingCalculation ParseReadPipingCalculation(XElement calculationElement)

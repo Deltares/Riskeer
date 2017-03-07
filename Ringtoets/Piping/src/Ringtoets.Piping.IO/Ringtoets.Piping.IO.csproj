@@ -66,10 +66,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Readers\PipingConfigurationReader.cs" />
-    <Compile Include="Readers\IReadPipingCalculationItem.cs" />
     <Compile Include="Schema\PipingConfigurationSchemaIdentifiers.cs" />
     <Compile Include="Readers\ReadPipingCalculation.cs" />
-    <Compile Include="Readers\ReadPipingCalculationGroup.cs" />
     <Compile Include="SoilProfile\LayerProperties.cs" />
     <Compile Include="SoilProfile\Schema\MechanismPointLocationTableColumns.cs" />
     <Compile Include="SoilProfile\Schema\MechanismTableColumns.cs" />

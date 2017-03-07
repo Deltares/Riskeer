@@ -19,32 +19,31 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using NUnit.Framework;
-using Ringtoets.Piping.IO.Readers;
 using System.Collections.Generic;
-using System.Linq;
 
-namespace Ringtoets.Piping.IO.Test.Readers
+namespace Ringtoets.Common.IO.Readers
 {
-    [TestFixture]
-    public class ReadPipingCalculationGroupTest
+    /// <summary>
+    /// Class that represents a calculation group that is read via <see cref="ConfigurationReader{T}"/>.
+    /// </summary>
+    public class ReadCalculationGroup : IReadCalculationItem
     {
-        [Test]
-        public void Constructor_ExpectedValues()
+        /// <summary>
+        /// Creates a new instance of <see cref="ReadCalculationGroup"/>.
+        /// </summary>
+        /// <param name="name">The name of the calculation group.</param>
+        /// <param name="items">The collection of nested <see cref="IReadCalculationItem"/>.</param>
+        public ReadCalculationGroup(string name, IEnumerable<IReadCalculationItem> items)
         {
-            // Setup
-            var nestedItems = new List<IReadPipingCalculationItem>
-            {
-                new ReadPipingCalculation(new ReadPipingCalculation.ConstructionProperties()),
-                new ReadPipingCalculationGroup("Nested calculation group", Enumerable.Empty<IReadPipingCalculationItem>())
-            };
-
-            // Call
-            var readPipingCalculationGroup = new ReadPipingCalculationGroup("Calculation group", nestedItems);
-
-            // Assert
-            Assert.IsInstanceOf<IReadPipingCalculationItem>(readPipingCalculationGroup);
-            Assert.AreSame(nestedItems, readPipingCalculationGroup.Items);
+            Name = name;
+            Items = items;
         }
+
+        /// <summary>
+        /// Gets the collection of nested <see cref="IReadCalculationItem"/>.
+        /// </summary>
+        public IEnumerable<IReadCalculationItem> Items { get; private set; }
+
+        public string Name { get; }
     }
 }
