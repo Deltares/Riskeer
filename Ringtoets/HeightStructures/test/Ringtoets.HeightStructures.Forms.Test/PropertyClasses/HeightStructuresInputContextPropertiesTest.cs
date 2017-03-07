@@ -162,9 +162,12 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
 
             PropertyDescriptor levelCrestStructureProperty = dynamicProperties[levelCrestStructurePropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(levelCrestStructureProperty.Converter);
-            Assert.AreEqual(schematizationCategory, levelCrestStructureProperty.Category);
-            Assert.AreEqual("Kerende hoogte [m+NAP]", levelCrestStructureProperty.DisplayName);
-            Assert.AreEqual("Kerende hoogte van het kunstwerk.", levelCrestStructureProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                levelCrestStructureProperty,
+                schematizationCategory,
+                "Kerende hoogte [m+NAP]",
+                "Kerende hoogte van het kunstwerk.",
+                true);
 
             // Only check the order of the base properties
             Assert.AreEqual("Kunstwerk", dynamicProperties[structurePropertyIndex].DisplayName);
