@@ -331,7 +331,9 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void DynamicVisibleValidationMethod_ForRelevantFailureMechanism_ReturnExpectedVisibility()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void DynamicVisibleValidationMethod_DependingOnRelevancy_ReturnExpectedVisibility(bool isRelevant)
         {
             // Setup
             var mocks = new MockRepository();
@@ -341,55 +343,23 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             var properties = new ClosingStructuresFailureMechanismProperties(
                 new ClosingStructuresFailureMechanism
                 {
-                    IsRelevant = true
+                    IsRelevant = isRelevant
                 },
                 changeHandler);
 
             // Call & Assert
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.C)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.N2A)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.LengthEffect)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.GravitationalAcceleration)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorOvertoppingFlow)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorStorageVolume)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorSubCriticalFlow)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorInflowVolume)));
 
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void DynamicVisibleValidationMethod_ForIrrelevantFailureMechanism_ReturnExpectedVisibility()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism>>();
-            mocks.ReplayAll();
-
-            var properties = new ClosingStructuresFailureMechanismProperties(
-                new ClosingStructuresFailureMechanism
-                {
-                    IsRelevant = false
-                },
-                changeHandler);
-
-            // Call & Assert
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.C)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.N2A)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.LengthEffect)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.GravitationalAcceleration)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorOvertoppingFlow)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorStorageVolume)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorSubCriticalFlow)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorInflowVolume)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.C)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.N2A)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.LengthEffect)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.GravitationalAcceleration)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorOvertoppingFlow)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorStorageVolume)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorSubCriticalFlow)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorInflowVolume)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
 

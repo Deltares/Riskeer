@@ -76,8 +76,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 Assert.AreEqual(1, result.Items.Count);
 
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                              RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup,
-                                                              RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup_Tooltip,
+                                                              "&Map toevoegen",
+                                                              "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
                                                               RingtoetsFormsResources.AddFolderIcon);
             }
             mocks.VerifyAll();
@@ -118,8 +118,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 Assert.AreEqual(1, result.Items.Count);
 
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                              RingtoetsFormsResources.CalculationGroup_Add_Calculation,
-                                                              RingtoetsFormsResources.CalculationGroup_Add_Calculation_Tooltip,
+                                                              "Berekening &toevoegen",
+                                                              "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
                                                               RingtoetsFormsResources.FailureMechanismIcon);
             }
             mocks.VerifyAll();
@@ -166,8 +166,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 Assert.AreEqual(1, result.Items.Count);
 
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                              RingtoetsFormsResources.Clear_all_output,
-                                                              RingtoetsFormsResources.CalculationGroup_ClearOutput_ToolTip,
+                                                              "&Wis alle uitvoer...",
+                                                              "Wis de uitvoer van alle berekeningen binnen deze berekeningsmap.",
                                                               RingtoetsFormsResources.ClearIcon);
             }
             mocks.VerifyAll();
@@ -207,8 +207,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 Assert.AreEqual(1, result.Items.Count);
 
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                              RingtoetsFormsResources.Clear_all_output,
-                                                              RingtoetsFormsResources.CalculationGroup_ClearOutput_No_calculation_with_output_to_clear,
+                                                              "&Wis alle uitvoer...",
+                                                              "Er zijn geen berekeningen met uitvoer om te wissen.",
                                                               RingtoetsFormsResources.ClearIcon,
                                                               false);
             }
@@ -253,8 +253,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 Assert.AreEqual(1, result.Items.Count);
 
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                              RingtoetsFormsResources.Clear_all_output,
-                                                              RingtoetsFormsResources.Clear_all_output_ToolTip,
+                                                              "&Wis alle uitvoer...",
+                                                              "Wis de uitvoer van alle berekeningen binnen dit toetsspoor.",
                                                               RingtoetsFormsResources.ClearIcon);
             }
             mocks.VerifyAll();
@@ -294,8 +294,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 Assert.AreEqual(1, result.Items.Count);
 
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                              RingtoetsFormsResources.Clear_all_output,
-                                                              RingtoetsFormsResources.CalculationGroup_ClearOutput_No_calculation_with_output_to_clear,
+                                                              "&Wis alle uitvoer...",
+                                                              "Er zijn geen berekeningen met uitvoer om te wissen.",
                                                               RingtoetsFormsResources.ClearIcon,
                                                               false);
             }
@@ -339,8 +339,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 Assert.AreEqual(1, result.Items.Count);
                 var checkboxIcon = isRelevant ? RingtoetsFormsResources.Checkbox_ticked : RingtoetsFormsResources.Checkbox_empty;
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                              RingtoetsFormsResources.FailureMechanismContextMenuStrip_Is_relevant,
-                                                              RingtoetsFormsResources.FailureMechanism_IsRelevant_Description,
+                                                              "I&s relevant",
+                                                              "Geeft aan of dit toetsspoor relevant is of niet.",
                                                               checkboxIcon);
             }
             mocks.VerifyAll();
@@ -381,8 +381,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 Assert.AreEqual(1, result.Items.Count);
 
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                              RingtoetsFormsResources.Clear_output,
-                                                              RingtoetsFormsResources.Clear_output_ToolTip,
+                                                              "&Wis uitvoer...",
+                                                              "Wis de uitvoer van deze berekening.",
                                                               RingtoetsFormsResources.ClearIcon);
             }
             mocks.VerifyAll();
@@ -423,8 +423,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 Assert.AreEqual(1, result.Items.Count);
 
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                              RingtoetsFormsResources.Clear_output,
-                                                              RingtoetsFormsResources.ClearOutput_No_output_to_clear,
+                                                              "&Wis uitvoer...",
+                                                              "Deze berekening heeft geen uitvoer om te wissen.",
                                                               RingtoetsFormsResources.ClearIcon,
                                                               false);
             }
@@ -690,8 +690,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 Assert.AreEqual(1, result.Items.Count);
 
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                              RingtoetsFormsResources.Calculate,
-                                                              RingtoetsFormsResources.Calculate_ToolTip,
+                                                              "Be&rekenen",
+                                                              "Voer deze berekening uit.",
                                                               RingtoetsFormsResources.CalculateIcon);
             }
             mocks.VerifyAll();
@@ -725,7 +725,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                                 treeViewControl);
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
-                var errorMessage = "No valid data";
+                const string errorMessage = "No valid data";
 
                 // Call
                 ContextMenuStrip result = ringtoetsContextMenuBuilder.AddPerformCalculationItem(calculation, calculationContext, null, context => errorMessage).Build();
@@ -735,7 +735,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 Assert.AreEqual(1, result.Items.Count);
 
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                              RingtoetsFormsResources.Calculate,
+                                                              "Be&rekenen",
                                                               errorMessage,
                                                               RingtoetsFormsResources.CalculateIcon,
                                                               false);
@@ -783,8 +783,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 Assert.AreEqual(1, result.Items.Count);
 
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                              RingtoetsFormsResources.Validate,
-                                                              RingtoetsFormsResources.Validate_ToolTip,
+                                                              "&Valideren",
+                                                              "Valideer de invoer voor deze berekening.",
                                                               RingtoetsFormsResources.ValidateIcon);
             }
             mocks.VerifyAll();
@@ -818,7 +818,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                                 treeViewControl);
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
-                var errorMessage = "No valid data";
+                const string errorMessage = "No valid data";
 
                 // Call
                 ContextMenuStrip result = ringtoetsContextMenuBuilder.AddValidateCalculationItem(calculationContext, null, c => errorMessage).Build();
@@ -828,7 +828,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 Assert.AreEqual(1, result.Items.Count);
 
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                              RingtoetsFormsResources.Validate,
+                                                              "&Valideren",
                                                               errorMessage,
                                                               RingtoetsFormsResources.ValidateIcon,
                                                               false);
@@ -887,8 +887,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 Assert.AreEqual(1, result.Items.Count);
 
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                              RingtoetsFormsResources.Calculate_all,
-                                                              RingtoetsFormsResources.CalculationGroup_CalculateAll_ToolTip,
+                                                              "Alles be&rekenen",
+                                                              "Voer alle berekeningen binnen deze berekeningsmap uit.",
                                                               RingtoetsFormsResources.CalculateAllIcon);
             }
             mocks.VerifyAll();
@@ -930,8 +930,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 Assert.AreEqual(1, result.Items.Count);
 
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                              RingtoetsFormsResources.Calculate_all,
-                                                              RingtoetsFormsResources.CalculationGroup_CalculateAll_No_calculations_to_run,
+                                                              "Alles be&rekenen",
+                                                              "Er zijn geen berekeningen om uit te voeren.",
                                                               RingtoetsFormsResources.CalculateAllIcon,
                                                               false);
             }
@@ -977,7 +977,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                                 treeViewControl);
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
-                var errorMessage = "Additional validation failed.";
+                const string errorMessage = "Additional validation failed.";
 
                 // Call
                 ContextMenuStrip result = ringtoetsContextMenuBuilder.AddPerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => errorMessage).Build();
@@ -987,7 +987,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 Assert.AreEqual(1, result.Items.Count);
 
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                              RingtoetsFormsResources.Calculate_all,
+                                                              "Alles be&rekenen",
                                                               errorMessage,
                                                               RingtoetsFormsResources.CalculateAllIcon,
                                                               false);
@@ -1023,7 +1023,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                                 treeViewControl);
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
-                var errorMessage = "Additional validation failed.";
+                const string errorMessage = "Additional validation failed.";
 
                 // Call
                 ContextMenuStrip result = ringtoetsContextMenuBuilder.AddPerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => errorMessage).Build();
@@ -1033,8 +1033,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 Assert.AreEqual(1, result.Items.Count);
 
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                              RingtoetsFormsResources.Calculate_all,
-                                                              RingtoetsFormsResources.CalculationGroup_CalculateAll_No_calculations_to_run,
+                                                              "Alles be&rekenen",
+                                                              "Er zijn geen berekeningen om uit te voeren.",
                                                               RingtoetsFormsResources.CalculateAllIcon,
                                                               false);
             }
@@ -1092,8 +1092,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 Assert.AreEqual(1, result.Items.Count);
 
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                              RingtoetsFormsResources.Validate_all,
-                                                              RingtoetsFormsResources.CalculationGroup_Validate_all_ToolTip,
+                                                              "Alles &valideren",
+                                                              "Valideer alle berekeningen binnen deze berekeningsmap.",
                                                               RingtoetsFormsResources.ValidateAllIcon);
             }
             mocks.VerifyAll();
@@ -1135,8 +1135,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 Assert.AreEqual(1, result.Items.Count);
 
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                              RingtoetsFormsResources.Validate_all,
-                                                              RingtoetsFormsResources.ValidateAll_No_calculations_to_validate,
+                                                              "Alles &valideren",
+                                                              "Er zijn geen berekeningen om te valideren.",
                                                               RingtoetsFormsResources.ValidateAllIcon,
                                                               false);
             }
@@ -1182,7 +1182,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                                 treeViewControl);
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
-                var errorMessage = "Additional validation failed.";
+                const string errorMessage = "Additional validation failed.";
 
                 // Call
                 ContextMenuStrip result = ringtoetsContextMenuBuilder.AddValidateAllCalculationsInGroupItem(calculationGroupContext, null, context => errorMessage).Build();
@@ -1192,7 +1192,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 Assert.AreEqual(1, result.Items.Count);
 
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                              RingtoetsFormsResources.Validate_all,
+                                                              "Alles &valideren",
                                                               errorMessage,
                                                               RingtoetsFormsResources.ValidateAllIcon,
                                                               false);
@@ -1228,7 +1228,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                                 treeViewControl);
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
-                var errorMessage = "Additional validation failed.";
+                const string errorMessage = "Additional validation failed.";
 
                 // Call
                 ContextMenuStrip result = ringtoetsContextMenuBuilder.AddValidateAllCalculationsInGroupItem(calculationGroupContext, null, context => errorMessage).Build();
@@ -1238,8 +1238,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 Assert.AreEqual(1, result.Items.Count);
 
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                              RingtoetsFormsResources.Validate_all,
-                                                              RingtoetsFormsResources.ValidateAll_No_calculations_to_validate,
+                                                              "Alles &valideren",
+                                                              "Er zijn geen berekeningen om te valideren.",
                                                               RingtoetsFormsResources.ValidateAllIcon,
                                                               false);
             }
@@ -1288,8 +1288,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
                 Assert.AreEqual(1, result.Items.Count);
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                              RingtoetsFormsResources.Calculate_all,
-                                                              RingtoetsFormsResources.Calculate_all_ToolTip,
+                                                              "Alles be&rekenen",
+                                                              "Voer alle berekeningen binnen dit toetsspoor uit.",
                                                               RingtoetsFormsResources.CalculateAllIcon);
             }
             mocks.VerifyAll();
@@ -1330,8 +1330,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
                 Assert.AreEqual(1, result.Items.Count);
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                              RingtoetsFormsResources.Calculate_all,
-                                                              RingtoetsFormsResources.FailureMechanism_CreateCalculateAllItem_No_calculations_to_run,
+                                                              "Alles be&rekenen",
+                                                              "Er zijn geen berekeningen om uit te voeren.",
                                                               RingtoetsFormsResources.CalculateAllIcon,
                                                               false);
             }
@@ -1369,7 +1369,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                                 treeViewControl);
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
-                var errorMessage = "Additional validation failed.";
+                const string errorMessage = "Additional validation failed.";
 
                 // Call
                 ContextMenuStrip result = ringtoetsContextMenuBuilder.AddPerformAllCalculationsInFailureMechanismItem(failureMechanismContext, null, context => errorMessage).Build();
@@ -1378,7 +1378,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
                 Assert.AreEqual(1, result.Items.Count);
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                              RingtoetsFormsResources.Calculate_all,
+                                                              "Alles be&rekenen",
                                                               errorMessage,
                                                               RingtoetsFormsResources.CalculateAllIcon,
                                                               false);
@@ -1414,7 +1414,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                                 treeViewControl);
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
-                var errorMessage = "Additional validation failed.";
+                const string errorMessage = "Additional validation failed.";
 
                 // Call
                 ContextMenuStrip result = ringtoetsContextMenuBuilder.AddPerformAllCalculationsInFailureMechanismItem(failureMechanismContext, null, context => errorMessage).Build();
@@ -1423,8 +1423,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
                 Assert.AreEqual(1, result.Items.Count);
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                              RingtoetsFormsResources.Calculate_all,
-                                                              RingtoetsFormsResources.FailureMechanism_CreateCalculateAllItem_No_calculations_to_run,
+                                                              "Alles be&rekenen",
+                                                              "Er zijn geen berekeningen om uit te voeren.",
                                                               RingtoetsFormsResources.CalculateAllIcon,
                                                               false);
             }
@@ -1473,8 +1473,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
                 Assert.AreEqual(1, result.Items.Count);
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                              RingtoetsFormsResources.Validate_all,
-                                                              RingtoetsFormsResources.FailureMechanism_Validate_all_ToolTip,
+                                                              "Alles &valideren",
+                                                              "Valideer alle berekeningen binnen dit toetsspoor.",
                                                               RingtoetsFormsResources.ValidateAllIcon);
             }
             mocks.VerifyAll();
@@ -1515,8 +1515,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
                 Assert.AreEqual(1, result.Items.Count);
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                              RingtoetsFormsResources.Validate_all,
-                                                              RingtoetsFormsResources.ValidateAll_No_calculations_to_validate,
+                                                              "Alles &valideren",
+                                                              "Er zijn geen berekeningen om te valideren.",
                                                               RingtoetsFormsResources.ValidateAllIcon,
                                                               false);
             }
@@ -1554,7 +1554,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                                 treeViewControl);
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
-                var errorMessage = "Additional validation failed.";
+                const string errorMessage = "Additional validation failed.";
 
                 // Call
                 ContextMenuStrip result = ringtoetsContextMenuBuilder.AddValidateAllCalculationsInFailureMechanismItem(
@@ -1566,7 +1566,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
                 Assert.AreEqual(1, result.Items.Count);
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                              RingtoetsFormsResources.Validate_all,
+                                                              "Alles &valideren",
                                                               errorMessage,
                                                               RingtoetsFormsResources.ValidateAllIcon,
                                                               false);
@@ -1602,7 +1602,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                                 treeViewControl);
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
-                var errorMessage = "Additional validation failed.";
+                const string errorMessage = "Additional validation failed.";
 
                 // Call
                 ContextMenuStrip result = ringtoetsContextMenuBuilder.AddValidateAllCalculationsInFailureMechanismItem(
@@ -1614,8 +1614,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
                 Assert.AreEqual(1, result.Items.Count);
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                              RingtoetsFormsResources.Validate_all,
-                                                              RingtoetsFormsResources.ValidateAll_No_calculations_to_validate,
+                                                              "Alles &valideren",
+                                                              "Er zijn geen berekeningen om te valideren.",
                                                               RingtoetsFormsResources.ValidateAllIcon,
                                                               false);
             }
@@ -1640,9 +1640,9 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 FailureMechanism = failureMechanism;
             }
 
-            public CalculationGroup WrappedData { get; private set; }
+            public CalculationGroup WrappedData { get; }
 
-            public IFailureMechanism FailureMechanism { get; private set; }
+            public IFailureMechanism FailureMechanism { get; }
         }
 
         private class TestCalculationContext : Observable, ICalculationContext<TestCalculation, IFailureMechanism>
@@ -1653,9 +1653,9 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 FailureMechanism = failureMechanism;
             }
 
-            public TestCalculation WrappedData { get; private set; }
+            public TestCalculation WrappedData { get; }
 
-            public IFailureMechanism FailureMechanism { get; private set; }
+            public IFailureMechanism FailureMechanism { get; }
         }
 
         private class TestCalculation : Observable, ICalculation

@@ -333,7 +333,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void DynamicVisibleValidationMethod_ForRelevantFailureMechanism_ReturnExpectedVisibility()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void DynamicVisibleValidationMethod_DependingOnRelevancy_ReturnExpectedVisibility(bool isRelevant)
         {
             // Setup
             var mocks = new MockRepository();
@@ -343,53 +345,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
             {
-                IsRelevant = true
+                IsRelevant = isRelevant
             };
             var context = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             var properties = new GrassCoverErosionInwardsFailureMechanismContextProperties(context, changeHandler);
 
             // Call & Assert
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.LengthEffect)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.FrunupModelFactor)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.FbFactor)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.FnFactor)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.FshallowModelFactor)));
 
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void DynamicVisibleValidationMethod_ForIrrelevantFailureMechanism_ReturnExpectedVisibility()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism>>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
-            {
-                IsRelevant = false
-            };
-            var context = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
-
-            var properties = new GrassCoverErosionInwardsFailureMechanismContextProperties(context, changeHandler);
-
-            // Call & Assert
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.LengthEffect)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.FrunupModelFactor)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.FbFactor)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.FnFactor)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.FshallowModelFactor)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.LengthEffect)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.FrunupModelFactor)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.FbFactor)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.FnFactor)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.FshallowModelFactor)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
 

@@ -168,47 +168,27 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void DynamicVisibleValidationMethod_ForRelevantFailureMechanism_ReturnExpectedVisibility()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void DynamicVisibleValidationMethod_DependingOnRelevancy_ReturnExpectedVisibility(bool isRelevant)
         {
             // Setup
             var properties = new WaveImpactAsphaltCoverFailureMechanismProperties
             {
                 Data = new WaveImpactAsphaltCoverFailureMechanism
                 {
-                    IsRelevant = true
+                    IsRelevant = isRelevant
                 }
             };
 
             // Call & Assert
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.A)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.B)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.C)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
 
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
-        }
-
-        [Test]
-        public void DynamicVisibleValidationMethod_ForIrrelevantFailureMechanism_ReturnExpectedVisibility()
-        {
-            // Setup
-            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties
-            {
-                Data = new WaveImpactAsphaltCoverFailureMechanism
-                {
-                    IsRelevant = false
-                }
-            };
-
-            // Call & Assert
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.A)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.B)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.C)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.A)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.B)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.C)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
         }

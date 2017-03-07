@@ -478,7 +478,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void DynamicVisibleValidationMethod_ForRelevantFailureMechanism_ReturnExpectedVisibility()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void DynamicVisibleValidationMethod_DependingOnRelevancy_ReturnExpectedVisibility(bool isRelevant)
         {
             // Setup
             var mocks = new MockRepository();
@@ -488,69 +490,30 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             var pipingFailureMechanism = new PipingFailureMechanism
             {
-                IsRelevant = true
+                IsRelevant = isRelevant
             };
             var properties = new PipingFailureMechanismContextProperties(
                 new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSection),
                 changeHandler);
 
             // Call & Assert
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.CriticalHeaveGradient)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.WaterVolumetricWeight)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.A)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.B)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.SandParticlesVolumicWeight)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.WhitesDragCoefficient)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.BeddingAngle)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.WaterKinematicViscosity)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Gravity)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.MeanDiameter70)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.SellmeijerReductionFactor)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.UpliftModelFactor)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.SellmeijerModelFactor)));
 
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void DynamicVisibleValidationMethod_ForIrrelevantFailureMechanism_ReturnExpectedVisibility()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<PipingFailureMechanism>>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var pipingFailureMechanism = new PipingFailureMechanism
-            {
-                IsRelevant = false
-            };
-            var properties = new PipingFailureMechanismContextProperties(
-                new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSection),
-                changeHandler);
-
-            // Call & Assert
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.CriticalHeaveGradient)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.WaterVolumetricWeight)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.A)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.B)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.SandParticlesVolumicWeight)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.WhitesDragCoefficient)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.BeddingAngle)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.WaterKinematicViscosity)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.Gravity)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.MeanDiameter70)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.SellmeijerReductionFactor)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.UpliftModelFactor)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.SellmeijerModelFactor)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.CriticalHeaveGradient)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.WaterVolumetricWeight)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.A)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.B)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.SandParticlesVolumicWeight)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.WhitesDragCoefficient)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.BeddingAngle)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.WaterKinematicViscosity)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.Gravity)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.MeanDiameter70)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.SellmeijerReductionFactor)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.UpliftModelFactor)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.SellmeijerModelFactor)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
 

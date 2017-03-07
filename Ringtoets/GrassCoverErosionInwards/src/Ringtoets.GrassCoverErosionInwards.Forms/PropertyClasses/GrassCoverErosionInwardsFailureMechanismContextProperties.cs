@@ -109,7 +109,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
         {
-            foreach (var affectedObject in affectedObjects)
+            foreach (IObservable affectedObject in affectedObjects)
             {
                 affectedObject.NotifyObservers();
             }

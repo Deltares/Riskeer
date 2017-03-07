@@ -74,7 +74,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Constructor_IsRelevantTrue_PropertiesHaveExpectedAttributesValues(bool isRelevant)
+        public void Constructor_Always_PropertiesHaveExpectedAttributesValues(bool isRelevant)
         {
             // Setup
             var mockRepository = new MockRepository();
