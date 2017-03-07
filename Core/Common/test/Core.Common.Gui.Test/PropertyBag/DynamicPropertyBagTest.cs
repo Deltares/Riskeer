@@ -84,11 +84,11 @@ namespace Core.Common.Gui.Test.PropertyBag
             var dynamicPropertyBag = new DynamicPropertyBag(propertyObject);
 
             // Assert
-            var namePropertySpec = dynamicPropertyBag.Properties.First(ps => ps.Name == "Name");
+            PropertySpec namePropertySpec = dynamicPropertyBag.Properties.First(ps => ps.Name == "Name");
             CollectionAssert.Contains(namePropertySpec.Attributes, new CategoryAttribute("General"),
                                       "Should have initialized Attributes of the property spec with declared Category(\"General\").");
 
-            var descriptionPropertySpec = dynamicPropertyBag.Properties.First(ps => ps.Name == "Description");
+            PropertySpec descriptionPropertySpec = dynamicPropertyBag.Properties.First(ps => ps.Name == "Description");
             CollectionAssert.Contains(descriptionPropertySpec.Attributes, ReadOnlyAttribute.Yes,
                                       "Should have initialized Attributes of the property spec with declared ReadOnlyAttribute.");
         }
@@ -101,7 +101,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             var dynamicPropertyBag = new DynamicPropertyBag(target);
 
             // Call
-            var text = dynamicPropertyBag.ToString();
+            string text = dynamicPropertyBag.ToString();
 
             // Assert
             Assert.AreEqual(target.ToString(), text);
@@ -115,7 +115,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             var dynamicPropertyBag = new DynamicPropertyBag(target);
 
             // Call
-            var attributes = dynamicPropertyBag.GetAttributes();
+            AttributeCollection attributes = dynamicPropertyBag.GetAttributes();
 
             // Assert
             CollectionAssert.IsEmpty(attributes);
@@ -129,7 +129,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             var dynamicPropertyBag = new DynamicPropertyBag(target);
 
             // Call
-            var className = dynamicPropertyBag.GetClassName();
+            string className = dynamicPropertyBag.GetClassName();
 
             // Assert
             Assert.AreEqual(dynamicPropertyBag.GetType().FullName, className);
@@ -143,7 +143,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             var dynamicPropertyBag = new DynamicPropertyBag(target);
 
             // Call
-            var componentName = dynamicPropertyBag.GetComponentName();
+            string componentName = dynamicPropertyBag.GetComponentName();
 
             // Assert
             Assert.IsNull(componentName);
@@ -157,7 +157,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             var dynamicPropertyBag = new DynamicPropertyBag(target);
 
             // Call
-            var typeConverter = dynamicPropertyBag.GetConverter();
+            TypeConverter typeConverter = dynamicPropertyBag.GetConverter();
 
             // Assert
             Assert.AreEqual(TypeDescriptor.GetConverter(dynamicPropertyBag, true), typeConverter);
@@ -171,7 +171,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             var dynamicPropertyBag = new DynamicPropertyBag(target);
 
             // Call
-            var eventDescriptor = dynamicPropertyBag.GetDefaultEvent();
+            EventDescriptor eventDescriptor = dynamicPropertyBag.GetDefaultEvent();
 
             // Assert
             Assert.IsNull(eventDescriptor);
@@ -185,7 +185,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             var dynamicPropertyBag = new DynamicPropertyBag(target);
 
             // Call
-            var events = dynamicPropertyBag.GetEvents();
+            EventDescriptorCollection events = dynamicPropertyBag.GetEvents();
 
             // Assert
             CollectionAssert.IsEmpty(events);
@@ -199,7 +199,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             var dynamicPropertyBag = new DynamicPropertyBag(target);
 
             // Call
-            var events = dynamicPropertyBag.GetEvents(new Attribute[0]);
+            EventDescriptorCollection events = dynamicPropertyBag.GetEvents(new Attribute[0]);
 
             // Assert
             CollectionAssert.IsEmpty(events);
@@ -213,7 +213,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             var dynamicPropertyBag = new DynamicPropertyBag(target);
 
             // Call
-            var editor = dynamicPropertyBag.GetEditor(typeof(UITypeEditor));
+            object editor = dynamicPropertyBag.GetEditor(typeof(UITypeEditor));
 
             // Assert
             Assert.IsNull(editor);
@@ -226,7 +226,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             var dynamicPropertyBag = new DynamicPropertyBag(new object());
 
             // Call
-            var defaultProperty = dynamicPropertyBag.GetDefaultProperty();
+            PropertyDescriptor defaultProperty = dynamicPropertyBag.GetDefaultProperty();
 
             // Assert
             Assert.IsNull(defaultProperty);
@@ -240,7 +240,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             var dynamicPropertyBag = new DynamicPropertyBag(target);
 
             // Call
-            var defaultProperty = dynamicPropertyBag.GetDefaultProperty();
+            PropertyDescriptor defaultProperty = dynamicPropertyBag.GetDefaultProperty();
 
             // Assert
             Assert.NotNull(defaultProperty);
@@ -255,20 +255,20 @@ namespace Core.Common.Gui.Test.PropertyBag
             {
                 Visible = true
             };
-            var dynamicPropertyBag = new DynamicPropertyBag(propertyObject);
 
-            var propertyDescriptorCollection = ((ICustomTypeDescriptor) dynamicPropertyBag).GetProperties(new Attribute[]
+            var dynamicPropertyBag = new DynamicPropertyBag(propertyObject);
+            PropertyDescriptorCollection propertyDescriptorCollection = dynamicPropertyBag.GetProperties(new Attribute[]
             {
                 new BrowsableAttribute(true)
             });
 
             // When
-            var dynamicallyVisiblePropertyName = TypeUtils.GetMemberName<TestProperties>(tp => tp.Name);
-            var namePropertyDescriptor = propertyDescriptorCollection.Find(dynamicallyVisiblePropertyName, false);
+            string dynamicallyVisiblePropertyName = TypeUtils.GetMemberName<TestProperties>(tp => tp.Name);
+            PropertyDescriptor namePropertyDescriptor = propertyDescriptorCollection.Find(dynamicallyVisiblePropertyName, false);
 
             // Then
             Assert.IsTrue(namePropertyDescriptor.IsBrowsable,
-                          string.Format("{0} should be visible", dynamicallyVisiblePropertyName));
+                          $"{dynamicallyVisiblePropertyName} should be visible");
         }
 
         [Test]
@@ -279,20 +279,19 @@ namespace Core.Common.Gui.Test.PropertyBag
             {
                 Visible = false
             };
-            var dynamicPropertyBag = new DynamicPropertyBag(propertyObject);
 
-            var propertyDescriptorCollection = ((ICustomTypeDescriptor) dynamicPropertyBag).GetProperties(new Attribute[]
+            var dynamicPropertyBag = new DynamicPropertyBag(propertyObject);
+            PropertyDescriptorCollection propertyDescriptorCollection = dynamicPropertyBag.GetProperties(new Attribute[]
             {
                 new BrowsableAttribute(true)
             });
 
             // Call
-            var dynamicallyVisiblePropertyName = TypeUtils.GetMemberName<TestProperties>(tp => tp.Name);
-            var namePropertyDescriptor = propertyDescriptorCollection.Find(dynamicallyVisiblePropertyName, false);
+            string dynamicallyVisiblePropertyName = TypeUtils.GetMemberName<TestProperties>(tp => tp.Name);
+            PropertyDescriptor namePropertyDescriptor = propertyDescriptorCollection.Find(dynamicallyVisiblePropertyName, false);
 
             // Assert
-            Assert.IsNull(namePropertyDescriptor,
-                          string.Format("{0} should not be visible anymore", dynamicallyVisiblePropertyName));
+            Assert.IsNull(namePropertyDescriptor, $"{dynamicallyVisiblePropertyName} should not be visible anymore");
         }
 
         [Test]
@@ -302,7 +301,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             var dynamicPropertyBag = new DynamicPropertyBag(new TestOrderedProperties());
 
             // Call
-            var propertyDescriptorCollection = dynamicPropertyBag.GetProperties();
+            PropertyDescriptorCollection propertyDescriptorCollection = dynamicPropertyBag.GetProperties();
 
             // Assert
             var index = 0;
@@ -314,10 +313,10 @@ namespace Core.Common.Gui.Test.PropertyBag
             Assert.AreEqual("PropFive", propertyDescriptorCollection[index++].DisplayName);
             Assert.AreEqual("Name", propertyDescriptorCollection[index++].DisplayName);
 
-            var propThreeDescriptor = propertyDescriptorCollection.Find("PropThree", false);
+            PropertyDescriptor propThreeDescriptor = propertyDescriptorCollection.Find("PropThree", false);
             Assert.GreaterOrEqual(propertyDescriptorCollection.IndexOf(propThreeDescriptor), index,
                                   "PropThree is not decorated with PropertyOrderAttribute or DynamicPropertyOrderAttribute, therefore should come after those that are.");
-            var propSevenDescriptor = propertyDescriptorCollection.Find("PropSeven", false);
+            PropertyDescriptor propSevenDescriptor = propertyDescriptorCollection.Find("PropSeven", false);
             Assert.GreaterOrEqual(propertyDescriptorCollection.IndexOf(propSevenDescriptor), index,
                                   "PropSeven is not decorated with PropertyOrderAttribute or DynamicPropertyOrderAttribute, therefore should come after those that are.");
         }
@@ -337,7 +336,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             var dynamicPropertyBag = new DynamicPropertyBag(testProperties);
 
             // Call
-            var propertiesCollection = dynamicPropertyBag.GetProperties();
+            PropertyDescriptorCollection propertiesCollection = dynamicPropertyBag.GetProperties();
 
             // Assert
             var bag = propertiesCollection[0].GetValue(dynamicPropertyBag.WrappedObject) as DynamicPropertyBag;
@@ -371,7 +370,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             var dynamicPropertyBag = new DynamicPropertyBag(new TestWithoutSetterPropertyClassProperties());
 
             // Call
-            var propertyDescriptorCollection = dynamicPropertyBag.GetProperties();
+            PropertyDescriptorCollection propertyDescriptorCollection = dynamicPropertyBag.GetProperties();
 
             // Assert
             Assert.IsTrue(propertyDescriptorCollection[0].Attributes.Matches(ReadOnlyAttribute.Yes));
@@ -386,12 +385,12 @@ namespace Core.Common.Gui.Test.PropertyBag
 
             var dynamicPropertyBag = new DynamicPropertyBag(propertyObject);
 
-            var originalProperties = dynamicPropertyBag.GetProperties();
+            PropertyDescriptorCollection originalProperties = dynamicPropertyBag.GetProperties();
 
             // Call
-            for (int i = 0; i < 100; i++)
+            for (var i = 0; i < 100; i++)
             {
-                var currentProperties = dynamicPropertyBag.GetProperties();
+                PropertyDescriptorCollection currentProperties = dynamicPropertyBag.GetProperties();
 
                 // Assert
                 CollectionAssert.AreEqual(originalProperties, currentProperties);
@@ -404,12 +403,12 @@ namespace Core.Common.Gui.Test.PropertyBag
             // Setup
             var propertyObject = new TestOrderedProperties();
 
-            var originalProperties = new DynamicPropertyBag(propertyObject).GetProperties();
+            PropertyDescriptorCollection originalProperties = new DynamicPropertyBag(propertyObject).GetProperties();
 
             // Call
-            for (int i = 0; i < 100; i++)
+            for (var i = 0; i < 100; i++)
             {
-                var currentProperties = new DynamicPropertyBag(propertyObject).GetProperties();
+                PropertyDescriptorCollection currentProperties = new DynamicPropertyBag(propertyObject).GetProperties();
 
                 // Assert
                 CollectionAssert.AreEqual(originalProperties, currentProperties);
@@ -450,7 +449,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             var dynamicPropertyBag = new DynamicPropertyBag(propertyObject);
 
             // Call
-            var properties = dynamicPropertyBag.GetProperties(new Attribute[]
+            PropertyDescriptorCollection properties = dynamicPropertyBag.GetProperties(new Attribute[]
             {
                 BrowsableAttribute.No
             });
@@ -473,7 +472,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             var dynamicPropertyBag = new DynamicPropertyBag(propertyObject);
 
             // Call
-            var owner = dynamicPropertyBag.GetPropertyOwner(null);
+            object owner = dynamicPropertyBag.GetPropertyOwner(null);
 
             // Assert
             Assert.AreSame(propertyObject, owner);

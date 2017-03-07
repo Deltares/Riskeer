@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PropertyClasses;
@@ -83,21 +84,16 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void GetProperties_Always_ReturnsTwoProperties()
         {
             // Setup
-            var data = new RingtoetsProject();
-
-            var bag = new DynamicPropertyBag(new RingtoetsProjectProperties
+            var properties = new RingtoetsProjectProperties
             {
-                Data = data
-            });
+                Data = new RingtoetsProject()
+            };
 
             // Call
-            var properties = bag.GetProperties(new Attribute[]
-            {
-                new BrowsableAttribute(true)
-            });
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
 
             // Assert
-            Assert.AreEqual(2, properties.Count);
+            Assert.AreEqual(2, dynamicProperties.Count);
         }
     }
 }

@@ -109,15 +109,10 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
 
             // Assert
             TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
-            var propertyBag = new DynamicPropertyBag(properties);
-
-            PropertyDescriptorCollection dynamicProperties = propertyBag.GetProperties(new Attribute[]
-            {
-                new BrowsableAttribute(true)
-            });
-
-            Assert.AreEqual(10, dynamicProperties.Count);
             Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
+
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(10, dynamicProperties.Count);
 
             PropertyDescriptor waterLevelProperty = dynamicProperties[requiredWaterLevelPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waterLevelProperty,

@@ -159,11 +159,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             // Assert
             const string schematizationCategory = "Schematisatie";
 
-            var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
-                                                                                              {
-                                                                                                  new BrowsableAttribute(true)
-                                                                                              });
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(16, dynamicProperties.Count);
 
             PropertyDescriptor levelCrestStructureProperty = dynamicProperties[levelCrestStructurePropertyIndex];

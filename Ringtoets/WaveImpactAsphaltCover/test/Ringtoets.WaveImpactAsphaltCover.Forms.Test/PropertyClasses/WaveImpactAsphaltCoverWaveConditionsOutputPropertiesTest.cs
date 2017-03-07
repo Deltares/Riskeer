@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.TestUtil;
 using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
@@ -109,12 +110,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             };
 
             // Assert
-            var propertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = propertyBag.GetProperties(new Attribute[]
-            {
-                new BrowsableAttribute(true)
-            });
-
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(1, dynamicProperties.Count);
 
             PropertyDescriptor itemsProperty = dynamicProperties[0];

@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.TestUtil;
 using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
@@ -135,19 +136,15 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             };
 
             var stabilityStoneCoverWaveConditionsOutput = new StabilityStoneCoverWaveConditionsOutput(columnsOutput, blocksOutput);
-            var properties = new StabilityStoneCoverWaveConditionsOutputProperties()
+
+            // Call
+            var properties = new StabilityStoneCoverWaveConditionsOutputProperties
             {
                 Data = stabilityStoneCoverWaveConditionsOutput
             };
 
-            // Call
-            var propertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = propertyBag.GetProperties(new Attribute[]
-            {
-                new BrowsableAttribute(true)
-            });
-
             // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(2, dynamicProperties.Count);
 
             PropertyDescriptor blocksProperty = dynamicProperties[requiredBlockPropertyIndex];

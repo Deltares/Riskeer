@@ -60,11 +60,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var properties = new UseBreakWaterProperties();
 
             // Assert
-            var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
-            {
-                new BrowsableAttribute(true)
-            });
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(3, dynamicProperties.Count);
 
             PropertyDescriptor useBreakWaterProperty = dynamicProperties[0];
@@ -110,11 +106,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var properties = new UseBreakWaterProperties(testUseBreakWater, handler);
 
             // Assert
-            var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
-            {
-                new BrowsableAttribute(true)
-            });
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(3, dynamicProperties.Count);
 
             PropertyDescriptor useBreakWaterProperty = dynamicProperties[0];
