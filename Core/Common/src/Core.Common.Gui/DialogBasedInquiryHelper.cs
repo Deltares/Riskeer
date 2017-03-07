@@ -75,10 +75,17 @@ namespace Core.Common.Gui
 
         public string GetTargetFileLocation()
         {
+            return GetTargetFileLocation(new FileFilterGenerator(), null);
+        }
+
+        public string GetTargetFileLocation(FileFilterGenerator filter, string suggestedFileName)
+        {
             string filePath = null;
             using (SaveFileDialog dialog = new SaveFileDialog
             {
-                Title = Resources.SaveFileDialog_Title
+                Title = Resources.SaveFileDialog_Title,
+                Filter = filter.Filter,
+                FileName = suggestedFileName
             })
             {
                 DialogResult result = dialog.ShowDialog();

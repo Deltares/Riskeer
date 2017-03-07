@@ -64,16 +64,16 @@ namespace Application.Ringtoets.Migration
                                                  Resources.RingtoetsProject_FileExtension);
         }
 
-        public bool ShouldMigrate(string sourceFilePath)
+        public bool ShouldMigrate(string filePath)
         {
-            if (sourceFilePath == null)
+            if (filePath == null)
             {
-                throw new ArgumentNullException(nameof(sourceFilePath));
+                throw new ArgumentNullException(nameof(filePath));
             }
 
-            ValidateProjectPath(sourceFilePath);
+            ValidateProjectPath(filePath);
 
-            var versionedFile = new RingtoetsVersionedFile(sourceFilePath);
+            var versionedFile = new RingtoetsVersionedFile(filePath);
             string version = versionedFile.GetVersion();
 
             if (version.Equals(currentProjectVersion))
@@ -91,29 +91,29 @@ namespace Application.Ringtoets.Migration
             return isVersionSupported;
         }
 
-        public string Migrate(string sourceFilePath)
+        public string Migrate(string filePath)
         {
-            if (sourceFilePath == null)
+            if (filePath == null)
             {
-                throw new ArgumentNullException(nameof(sourceFilePath));
+                throw new ArgumentNullException(nameof(filePath));
             }
 
-            ValidateProjectPath(sourceFilePath);
+            ValidateProjectPath(filePath);
 
             string query = Resources.RingtoetsProjectMigrator_Migrate_Outdated_project_file_update_to_current_version_inquire;
             if (inquiryHelper.InquireContinuation(query))
             {
-                string suggestedFileName = GetSuggestedFileName(sourceFilePath);
-                string targetLocation = GetTargetFileLocation(suggestedFileName);
+                string suggestedFileName = GetSuggestedFileName(filePath);
+                string targetLocation = inquiryHelper.GetTargetFileLocation(fileFilter, suggestedFileName);
                 if (!string.IsNullOrEmpty(targetLocation))
                 {
-                    return MigrateToTargetLocation(sourceFilePath, targetLocation);
+                    return MigrateToTargetLocation(filePath, targetLocation);
                 }
 
-                GenerateMigrationCancelledLogMessage(sourceFilePath);
+                GenerateMigrationCancelledLogMessage(filePath);
             }
 
-            GenerateMigrationCancelledLogMessage(sourceFilePath);
+            GenerateMigrationCancelledLogMessage(filePath);
 
             return null;
         }

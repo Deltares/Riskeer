@@ -48,6 +48,15 @@ namespace Core.Common.Gui
         string GetTargetFileLocation();
 
         /// <summary>
+        /// Returns the path to a file, which may or may not exist yet, that the user has chosen.
+        /// </summary>
+        /// <param  name="filter">A filter to which the path returned complies.</param>
+        /// <param name="suggestedName">The initial name the user can choose.</param>
+        /// <returns>A path to a file, which may or may not exist yet, or <c>null</c> if no location
+        /// was chosen.</returns>
+        string GetTargetFileLocation(FileFilterGenerator filter, string suggestedName);
+
+        /// <summary>
         /// Gets the confirmation of a user.
         /// </summary>
         /// <param name="query">The query to which the user needs to answer.</param>

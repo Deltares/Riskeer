@@ -29,31 +29,31 @@ namespace Core.Common.Base.Storage
     public interface IMigrateProject
     {
         /// <summary>
-        /// Indicates if the project from <paramref name="sourceFilePath"/> needs to be 
+        /// Indicates if the project from <paramref name="filePath"/> needs to be 
         /// updated to the newest version.
         /// </summary>
-        /// <param name="sourceFilePath">The file path of the project which needs to be checked.</param>
+        /// <param name="filePath">The filepath of the project which needs to be checked.</param>
         /// <returns><c>true</c> if the file needs to be migrated, <c>false</c> if:
         /// <list type="bullet">
         /// <item>The file does not need to be migrated.</item>
         /// <item>The file is not supported for the migration.</item>
         /// </list></returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sourceFilePath"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="sourceFilePath"/> is an invalid file path.</exception>
-        bool ShouldMigrate(string sourceFilePath);
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="filePath"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is an invalid file path.</exception>
+        bool ShouldMigrate(string filePath);
 
         /// <summary>
-        /// Migrates an outdated project file from <paramref name="sourceFilePath"/>
+        /// Migrates an outdated project file from <paramref name="filePath"/>
         /// to the newest project version version at a user defined target filepath.
         /// </summary>
-        /// <param name="sourceFilePath">The project file which needs to be migrated.</param>
+        /// <param name="filePath">The filepath of the project which needs to be migrated.</param>
         /// <returns>A filepath to the updated project file. <c>null</c> if:
         /// <list type="bullet">
         /// <item>The user cancelled.</item>
         /// <item>The migration failed.</item>
         /// </list></returns>
-        /// <exception cref="ArgumentNullException">Thrown when <see cref="sourceFilePath"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <see cref="sourceFilePath"/> is an invalid file path.</exception>
-        string Migrate(string sourceFilePath);
+        /// <exception cref="ArgumentNullException">Thrown when <see cref="filePath"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <see cref="filePath"/> is an invalid file path.</exception>
+        string Migrate(string filePath);
     }
 }
