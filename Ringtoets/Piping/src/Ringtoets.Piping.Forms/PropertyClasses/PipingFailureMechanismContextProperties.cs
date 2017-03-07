@@ -65,6 +65,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         #region Heave
 
+        [DynamicVisible]
         [PropertyOrder(31)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Heave))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_CriticalHeaveGradient_DisplayName))]
@@ -78,6 +79,53 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         #endregion
+
+        [DynamicVisibleValidationMethod]
+        public bool DynamicVisibleValidationMethod(string propertyName)
+        {
+            if (!data.WrappedData.IsRelevant && ShouldHidePropertyWhenFailureMechanismIrrelevant(propertyName))
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private void ChangePropertyValueAndNotifyAffectedObjects<TValue>(
+            SetFailureMechanismPropertyValueDelegate<PipingFailureMechanism, TValue> setPropertyValue,
+            TValue value)
+        {
+            IEnumerable<IObservable> affectedObjects = propertyChangeHandler.SetPropertyValueAfterConfirmation(
+                data.WrappedData,
+                value,
+                setPropertyValue);
+
+            NotifyAffectedObjects(affectedObjects);
+        }
+
+        private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
+        {
+            foreach (var affectedObject in affectedObjects)
+            {
+                affectedObject.NotifyObservers();
+            }
+        }
+
+        private bool ShouldHidePropertyWhenFailureMechanismIrrelevant(string propertyName)
+        {
+            return nameof(CriticalHeaveGradient).Equals(propertyName)
+                   || nameof(WaterVolumetricWeight).Equals(propertyName)
+                   || nameof(A).Equals(propertyName)
+                   || nameof(B).Equals(propertyName)
+                   || nameof(SandParticlesVolumicWeight).Equals(propertyName)
+                   || nameof(WhitesDragCoefficient).Equals(propertyName)
+                   || nameof(BeddingAngle).Equals(propertyName)
+                   || nameof(WaterKinematicViscosity).Equals(propertyName)
+                   || nameof(Gravity).Equals(propertyName)
+                   || nameof(MeanDiameter70).Equals(propertyName)
+                   || nameof(SellmeijerReductionFactor).Equals(propertyName)
+                   || nameof(UpliftModelFactor).Equals(propertyName)
+                   || nameof(SellmeijerModelFactor).Equals(propertyName);
+        }
 
         #region General
 
@@ -107,6 +155,19 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         [PropertyOrder(3)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_IsRelevant_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_IsRelevant_Description))]
+        public bool IsRelevant
+        {
+            get
+            {
+                return data.WrappedData.IsRelevant;
+            }
+        }
+
+        [DynamicVisible]
+        [PropertyOrder(4)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_WaterVolumetricWeight_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_WaterVolumetricWeight_Description))]
         public RoundedDouble WaterVolumetricWeight
@@ -125,6 +186,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         #region Semi-probabilistic parameters
 
+        [DynamicVisible]
         [PropertyOrder(21)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_SemiProbabilisticParameters))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_A_DisplayName))]
@@ -141,6 +203,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(22)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_SemiProbabilisticParameters))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_B_DisplayName))]
@@ -157,6 +220,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         #region Sellmeijer
 
+        [DynamicVisible]
         [PropertyOrder(51)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Sellmeijer))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_SandParticlesVolumicWeight_DisplayName))]
@@ -169,6 +233,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(52)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Sellmeijer))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_WhitesDragCoefficient_DisplayName))]
@@ -181,6 +246,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(53)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Sellmeijer))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_BeddingAngle_DisplayName))]
@@ -193,6 +259,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(54)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Sellmeijer))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_WaterKinematicViscosity_DisplayName))]
@@ -205,6 +272,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(55)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Sellmeijer))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.GravitationalAcceleration_DisplayName))]
@@ -217,6 +285,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(56)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Sellmeijer))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_MeanDiameter70_DisplayName))]
@@ -229,6 +298,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(57)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Sellmeijer))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_SellmeijerReductionFactor_DisplayName))]
@@ -245,6 +315,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         #region Model factors
 
+        [DynamicVisible]
         [PropertyOrder(11)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_UpliftModelFactor_DisplayName))]
@@ -257,6 +328,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(12)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_SellmeijerModelFactor_DisplayName))]
@@ -270,25 +342,5 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         #endregion
-
-        private void ChangePropertyValueAndNotifyAffectedObjects<TValue>(
-            SetFailureMechanismPropertyValueDelegate<PipingFailureMechanism, TValue> setPropertyValue,
-            TValue value)
-        {
-            IEnumerable<IObservable> affectedObjects = propertyChangeHandler.SetPropertyValueAfterConfirmation(
-                data.WrappedData,
-                value,
-                setPropertyValue);
-
-            NotifyAffectedObjects(affectedObjects);
-        }
-
-        private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
-        {
-            foreach (var affectedObject in affectedObjects)
-            {
-                affectedObject.NotifyObservers();
-            }
-        }
     }
 }
