@@ -148,6 +148,7 @@ SELECT
     [StochasticSoilProfileEntityId],
     [SoilProfileEntityId],
     [StochasticSoilmodelEntityId], 
+	1,
     CASE
         WHEN [Probability] BETWEEN 0 AND 1 THEN [Probability]
         ELSE 0

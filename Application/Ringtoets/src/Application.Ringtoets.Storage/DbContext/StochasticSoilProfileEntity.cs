@@ -44,6 +44,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public long StochasticSoilProfileEntityId { get; set; }
         public long SoilProfileEntityId { get; set; }
         public long StochasticSoilModelEntityId { get; set; }
+        public byte Type { get; set; }
         public double Probability { get; set; }
         public int Order { get; set; }
 
