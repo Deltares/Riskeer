@@ -33,21 +33,21 @@ namespace Ringtoets.Common.IO.Test.Readers
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var nestedItems = new List<IReadCalculationItem>
+            var nestedItems = new List<IReadConfigurationItem>
             {
-                new TestReadCalculationItem(),
-                new ReadCalculationGroup("Nested calculation group", Enumerable.Empty<IReadCalculationItem>())
+                new TestReadConfigurationItem(),
+                new ReadCalculationGroup("Nested calculation group", Enumerable.Empty<IReadConfigurationItem>())
             };
 
             // Call
             var readCalculationGroup = new ReadCalculationGroup("Calculation group", nestedItems);
 
             // Assert
-            Assert.IsInstanceOf<IReadCalculationItem>(readCalculationGroup);
+            Assert.IsInstanceOf<IReadConfigurationItem>(readCalculationGroup);
             Assert.AreSame(nestedItems, readCalculationGroup.Items);
         }
 
-        private class TestReadCalculationItem : IReadCalculationItem
+        private class TestReadConfigurationItem : IReadConfigurationItem
         {
             public string Name
             {

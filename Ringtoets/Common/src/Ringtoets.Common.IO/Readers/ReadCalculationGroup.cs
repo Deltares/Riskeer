@@ -26,23 +26,23 @@ namespace Ringtoets.Common.IO.Readers
     /// <summary>
     /// Class that represents a calculation group that is read via <see cref="ConfigurationReader{T}"/>.
     /// </summary>
-    public class ReadCalculationGroup : IReadCalculationItem
+    public class ReadCalculationGroup : IReadConfigurationItem
     {
         /// <summary>
         /// Creates a new instance of <see cref="ReadCalculationGroup"/>.
         /// </summary>
         /// <param name="name">The name of the calculation group.</param>
-        /// <param name="items">The collection of nested <see cref="IReadCalculationItem"/>.</param>
-        public ReadCalculationGroup(string name, IEnumerable<IReadCalculationItem> items)
+        /// <param name="items">The collection of nested <see cref="IReadConfigurationItem"/>.</param>
+        public ReadCalculationGroup(string name, IEnumerable<IReadConfigurationItem> items)
         {
             Name = name;
             Items = items;
         }
 
         /// <summary>
-        /// Gets the collection of nested <see cref="IReadCalculationItem"/>.
+        /// Gets the collection of nested <see cref="IReadConfigurationItem"/>.
         /// </summary>
-        public IEnumerable<IReadCalculationItem> Items { get; private set; }
+        public IEnumerable<IReadConfigurationItem> Items { get; private set; }
 
         public string Name { get; }
     }

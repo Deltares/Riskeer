@@ -27,7 +27,7 @@ namespace Ringtoets.Piping.IO.Readers
     /// <summary>
     /// Class that represents a piping calculation that is read via <see cref="PipingConfigurationReader"/>.
     /// </summary>
-    public class ReadPipingCalculation : IReadCalculationItem
+    public class ReadPipingCalculation : IReadConfigurationItem
     {
         /// <summary>
         /// Creates a new instance of <see cref="ReadPipingCalculation"/>.

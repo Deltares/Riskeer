@@ -40,7 +40,7 @@ namespace Ringtoets.Common.IO.Readers
     /// </summary>
     /// <typeparam name="TCalculationItem">The type of calculation items read from XML.</typeparam>
     public abstract class ConfigurationReader<TCalculationItem>
-        where TCalculationItem : IReadCalculationItem
+        where TCalculationItem : IReadConfigurationItem
     {
         private readonly XDocument xmlDocument;
 
@@ -71,12 +71,12 @@ namespace Ringtoets.Common.IO.Readers
         }
 
         /// <summary>
-        /// Reads the configuration from the XML and creates a collection of corresponding <see cref="IReadCalculationItem"/>.
+        /// Reads the configuration from the XML and creates a collection of corresponding <see cref="IReadConfigurationItem"/>.
         /// </summary>
-        /// <returns>A collection of read <see cref="IReadCalculationItem"/>.</returns>
-        public IEnumerable<IReadCalculationItem> Read()
+        /// <returns>A collection of read <see cref="IReadConfigurationItem"/>.</returns>
+        public IEnumerable<IReadConfigurationItem> Read()
         {
-            return ParseReadCalculationItems(xmlDocument.Root?.Elements());
+            return ParseReadConfigurationItems(xmlDocument.Root?.Elements());
         }
 
         /// <summary>
@@ -171,7 +171,7 @@ namespace Ringtoets.Common.IO.Readers
             }
         }
 
-        private IEnumerable<IReadCalculationItem> ParseReadCalculationItems(IEnumerable<XElement> elements)
+        private IEnumerable<IReadConfigurationItem> ParseReadConfigurationItems(IEnumerable<XElement> elements)
         {
             foreach (XElement element in elements)
             {
@@ -190,7 +190,7 @@ namespace Ringtoets.Common.IO.Readers
         private ReadCalculationGroup ParseReadCalculationGroup(XElement folderElement)
         {
             return new ReadCalculationGroup(folderElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute)?.Value,
-                                            ParseReadCalculationItems(folderElement.Elements()));
+                                            ParseReadConfigurationItems(folderElement.Elements()));
         }
     }
 }

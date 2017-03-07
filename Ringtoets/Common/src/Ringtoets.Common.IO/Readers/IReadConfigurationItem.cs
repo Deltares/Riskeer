@@ -22,12 +22,12 @@
 namespace Ringtoets.Common.IO.Readers
 {
     /// <summary>
-    /// Interface for calculation items that are read via <see cref="ConfigurationReader{T}"/>.
+    /// Interface for configuration items that are read via <see cref="ConfigurationReader{T}"/>.
     /// </summary>
-    public interface IReadCalculationItem
+    public interface IReadConfigurationItem
     {
         /// <summary>
-        /// Gets the name of the read calculation item.
+        /// Gets the name of the read configuration item.
         /// </summary>
         string Name { get; }
     }

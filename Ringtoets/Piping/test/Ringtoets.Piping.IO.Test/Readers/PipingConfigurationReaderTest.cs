@@ -318,12 +318,12 @@ namespace Ringtoets.Piping.IO.Test.Readers
             var pipingConfigurationReader = new PipingConfigurationReader(filePath);
 
             // Call
-            IList<IReadCalculationItem> readPipingCalculationItems = pipingConfigurationReader.Read().ToList();
+            IList<IReadConfigurationItem> readConfigurationItems = pipingConfigurationReader.Read().ToList();
 
             // Assert
-            Assert.AreEqual(1, readPipingCalculationItems.Count);
+            Assert.AreEqual(1, readConfigurationItems.Count);
 
-            var group = readPipingCalculationItems[0] as ReadCalculationGroup;
+            var group = readConfigurationItems[0] as ReadCalculationGroup;
             Assert.IsNotNull(group);
             Assert.AreEqual("Calculation group", group.Name);
             CollectionAssert.IsEmpty(group.Items);
@@ -337,12 +337,12 @@ namespace Ringtoets.Piping.IO.Test.Readers
             var pipingConfigurationReader = new PipingConfigurationReader(filePath);
 
             // Call
-            IList<IReadCalculationItem> readPipingCalculationItems = pipingConfigurationReader.Read().ToList();
+            IList<IReadConfigurationItem> readConfigurationItems = pipingConfigurationReader.Read().ToList();
 
             // Assert
-            Assert.AreEqual(1, readPipingCalculationItems.Count);
+            Assert.AreEqual(1, readConfigurationItems.Count);
 
-            var calculation = readPipingCalculationItems[0] as ReadPipingCalculation;
+            var calculation = readConfigurationItems[0] as ReadPipingCalculation;
             Assert.IsNotNull(calculation);
             Assert.AreEqual("Calculation", calculation.Name);
             Assert.IsNull(calculation.AssessmentLevel);
@@ -366,12 +366,12 @@ namespace Ringtoets.Piping.IO.Test.Readers
             var pipingConfigurationReader = new PipingConfigurationReader(filePath);
 
             // Call
-            IList<IReadCalculationItem> readPipingCalculationItems = pipingConfigurationReader.Read().ToList();
+            IList<IReadConfigurationItem> readConfigurationItems = pipingConfigurationReader.Read().ToList();
 
             // Assert
-            Assert.AreEqual(1, readPipingCalculationItems.Count);
+            Assert.AreEqual(1, readConfigurationItems.Count);
 
-            var calculation = readPipingCalculationItems[0] as ReadPipingCalculation;
+            var calculation = readConfigurationItems[0] as ReadPipingCalculation;
             Assert.IsNotNull(calculation);
             Assert.IsNull(calculation.PhreaticLevelExitMean);
             Assert.IsNull(calculation.PhreaticLevelExitStandardDeviation);
@@ -380,46 +380,46 @@ namespace Ringtoets.Piping.IO.Test.Readers
         }
 
         [Test]
-        public void Read_ValidConfigurationWithNesting_ReturnExpectedReadPipingCalculationItems()
+        public void Read_ValidConfigurationWithNesting_ReturnExpectedReadConfigurationItems()
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, "validConfigurationNesting.xml");
             var pipingConfigurationReader = new PipingConfigurationReader(filePath);
 
             // Call
-            IList<IReadCalculationItem> readPipingCalculationItems = pipingConfigurationReader.Read().ToList();
+            IList<IReadConfigurationItem> readConfigurationItems = pipingConfigurationReader.Read().ToList();
 
             // Assert
-            Assert.AreEqual(5, readPipingCalculationItems.Count);
+            Assert.AreEqual(5, readConfigurationItems.Count);
 
-            var group1 = readPipingCalculationItems[0] as ReadCalculationGroup;
+            var group1 = readConfigurationItems[0] as ReadCalculationGroup;
             Assert.IsNotNull(group1);
             Assert.AreEqual("Group 1", group1.Name);
 
-            var calculation1 = readPipingCalculationItems[1] as ReadPipingCalculation;
+            var calculation1 = readConfigurationItems[1] as ReadPipingCalculation;
             Assert.IsNotNull(calculation1);
             Assert.AreEqual("Calculation 1", calculation1.Name);
 
-            var group2 = readPipingCalculationItems[2] as ReadCalculationGroup;
+            var group2 = readConfigurationItems[2] as ReadCalculationGroup;
             Assert.IsNotNull(group2);
             Assert.AreEqual("Group 2", group2.Name);
 
-            var calculation2 = readPipingCalculationItems[3] as ReadPipingCalculation;
+            var calculation2 = readConfigurationItems[3] as ReadPipingCalculation;
             Assert.IsNotNull(calculation2);
             Assert.AreEqual("Calculation 2", calculation2.Name);
 
-            var group3 = readPipingCalculationItems[4] as ReadCalculationGroup;
+            var group3 = readConfigurationItems[4] as ReadCalculationGroup;
             Assert.IsNotNull(group3);
             Assert.AreEqual("Group 3", group3.Name);
 
-            List<IReadCalculationItem> group1Items = group1.Items.ToList();
+            List<IReadConfigurationItem> group1Items = group1.Items.ToList();
             Assert.AreEqual(1, group1Items.Count);
 
             var calculation3 = group1Items[0] as ReadPipingCalculation;
             Assert.IsNotNull(calculation3);
             Assert.AreEqual("Calculation 3", calculation3.Name);
 
-            List<IReadCalculationItem> group2Items = group2.Items.ToList();
+            List<IReadConfigurationItem> group2Items = group2.Items.ToList();
             Assert.AreEqual(2, group2Items.Count);
 
             var group4 = group2Items[0] as ReadCalculationGroup;
@@ -430,10 +430,10 @@ namespace Ringtoets.Piping.IO.Test.Readers
             Assert.IsNotNull(calculation4);
             Assert.AreEqual("Calculation 4", calculation4.Name);
 
-            List<IReadCalculationItem> group3Items = group3.Items.ToList();
+            List<IReadConfigurationItem> group3Items = group3.Items.ToList();
             Assert.AreEqual(0, group3Items.Count);
 
-            List<IReadCalculationItem> group4Items = group4.Items.ToList();
+            List<IReadConfigurationItem> group4Items = group4.Items.ToList();
             Assert.AreEqual(1, group4Items.Count);
 
             var calculation5 = group4Items[0] as ReadPipingCalculation;
@@ -449,12 +449,12 @@ namespace Ringtoets.Piping.IO.Test.Readers
             var pipingConfigurationReader = new PipingConfigurationReader(filePath);
 
             // Call
-            IList<IReadCalculationItem> readPipingCalculationItems = pipingConfigurationReader.Read().ToList();
+            IList<IReadConfigurationItem> readConfigurationItems = pipingConfigurationReader.Read().ToList();
 
             // Assert
-            Assert.AreEqual(1, readPipingCalculationItems.Count);
+            Assert.AreEqual(1, readConfigurationItems.Count);
 
-            var calculation = readPipingCalculationItems[0] as ReadPipingCalculation;
+            var calculation = readConfigurationItems[0] as ReadPipingCalculation;
             Assert.IsNotNull(calculation);
             Assert.IsNaN(calculation.AssessmentLevel);
             Assert.IsNaN(calculation.EntryPointL);
@@ -473,12 +473,12 @@ namespace Ringtoets.Piping.IO.Test.Readers
             var pipingConfigurationReader = new PipingConfigurationReader(filePath);
 
             // Call
-            IList<IReadCalculationItem> readPipingCalculationItems = pipingConfigurationReader.Read().ToList();
+            IList<IReadConfigurationItem> readConfigurationItems = pipingConfigurationReader.Read().ToList();
 
             // Assert
-            Assert.AreEqual(1, readPipingCalculationItems.Count);
+            Assert.AreEqual(1, readConfigurationItems.Count);
 
-            var calculation = readPipingCalculationItems[0] as ReadPipingCalculation;
+            var calculation = readConfigurationItems[0] as ReadPipingCalculation;
             Assert.IsNotNull(calculation);
             Assert.IsTrue(calculation.AssessmentLevel != null && double.IsNegativeInfinity((double) calculation.AssessmentLevel));
             Assert.IsTrue(calculation.EntryPointL != null && double.IsNegativeInfinity((double) calculation.EntryPointL));
@@ -497,12 +497,12 @@ namespace Ringtoets.Piping.IO.Test.Readers
             var pipingConfigurationReader = new PipingConfigurationReader(filePath);
 
             // Call
-            IList<IReadCalculationItem> readPipingCalculationItems = pipingConfigurationReader.Read().ToList();
+            IList<IReadConfigurationItem> readConfigurationItems = pipingConfigurationReader.Read().ToList();
 
             // Assert
-            Assert.AreEqual(1, readPipingCalculationItems.Count);
+            Assert.AreEqual(1, readConfigurationItems.Count);
 
-            var calculation = readPipingCalculationItems[0] as ReadPipingCalculation;
+            var calculation = readConfigurationItems[0] as ReadPipingCalculation;
             Assert.IsNotNull(calculation);
             Assert.AreEqual("Calculation", calculation.Name);
             Assert.IsNull(calculation.AssessmentLevel);
@@ -526,12 +526,12 @@ namespace Ringtoets.Piping.IO.Test.Readers
             var pipingConfigurationReader = new PipingConfigurationReader(filePath);
 
             // Call
-            IList<IReadCalculationItem> readPipingCalculationItems = pipingConfigurationReader.Read().ToList();
+            IList<IReadConfigurationItem> readConfigurationItems = pipingConfigurationReader.Read().ToList();
 
             // Assert
-            Assert.AreEqual(1, readPipingCalculationItems.Count);
+            Assert.AreEqual(1, readConfigurationItems.Count);
 
-            var calculation = readPipingCalculationItems[0] as ReadPipingCalculation;
+            var calculation = readConfigurationItems[0] as ReadPipingCalculation;
             Assert.IsNotNull(calculation);
             Assert.AreEqual("Calculation", calculation.Name);
             Assert.AreEqual(1.1, calculation.AssessmentLevel);
@@ -555,12 +555,12 @@ namespace Ringtoets.Piping.IO.Test.Readers
             var pipingConfigurationReader = new PipingConfigurationReader(filePath);
 
             // Call
-            IList<IReadCalculationItem> readPipingCalculationItems = pipingConfigurationReader.Read().ToList();
+            IList<IReadConfigurationItem> readConfigurationItems = pipingConfigurationReader.Read().ToList();
 
             // Assert
-            Assert.AreEqual(1, readPipingCalculationItems.Count);
+            Assert.AreEqual(1, readConfigurationItems.Count);
 
-            var calculation = readPipingCalculationItems[0] as ReadPipingCalculation;
+            var calculation = readConfigurationItems[0] as ReadPipingCalculation;
             Assert.IsNotNull(calculation);
             Assert.AreEqual("Calculation", calculation.Name);
             Assert.AreEqual(1.1, calculation.AssessmentLevel);
