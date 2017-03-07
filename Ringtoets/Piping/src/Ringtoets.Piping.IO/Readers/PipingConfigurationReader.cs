@@ -21,18 +21,15 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
-using System.Xml.Schema;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils.Builders;
 using Ringtoets.Common.IO.Readers;
 using Ringtoets.Common.IO.Schema;
 using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.IO.Schema;
-using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Ringtoets.Piping.IO.Readers
 {
@@ -53,10 +50,9 @@ namespace Ringtoets.Piping.IO.Readers
         /// <item><paramref name="xmlFilePath"/> points to a file that does not pass the schema validation.</item>
         /// </list>
         /// </exception>
-        internal PipingConfigurationReader(string xmlFilePath) : base(xmlFilePath)
+        internal PipingConfigurationReader(string xmlFilePath)
+            : base(xmlFilePath, Resources.PipingConfigurationSchema)
         {
-            ValidateToSchema(xmlDocument, xmlFilePath);
-
             ValidateNotEmpty(xmlDocument, xmlFilePath);
         }
 
@@ -67,38 +63,6 @@ namespace Ringtoets.Piping.IO.Readers
         internal IEnumerable<IReadPipingCalculationItem> Read()
         {
             return ParseReadPipingCalculationItems(xmlDocument.Root?.Elements());
-        }
-
-        /// <summary>
-        /// Validates the provided XML document based on a predefined XML Schema Definition (XSD).
-        /// </summary>
-        /// <param name="document">The XML document to validate.</param>
-        /// <param name="xmlFilePath">The file path the XML document is loaded from.</param>
-        /// <exception cref="CriticalFileReadException">Thrown when the provided XML document does not match the predefined XML Schema Definition (XSD).</exception>
-        private static void ValidateToSchema(XDocument document, string xmlFilePath)
-        {
-            XmlSchemaSet schema = LoadXmlSchema();
-
-            try
-            {
-                document.Validate(schema, null);
-            }
-            catch (XmlSchemaValidationException exception)
-            {
-                string message = string.Format(Resources.PipingConfigurationReader_Configuration_contains_no_valid_xml_line_0_position_1_reason_2,
-                                               exception.LineNumber,
-                                               exception.LinePosition,
-                                               exception.Message);
-
-                throw new CriticalFileReadException(new FileReaderErrorMessageBuilder(xmlFilePath).Build(message), exception);
-            }
-        }
-
-        private static XmlSchemaSet LoadXmlSchema()
-        {
-            var xmlSchemaSet = new XmlSchemaSet();
-            xmlSchemaSet.Add(XmlSchema.Read(new StringReader(Resources.PipingConfigurationSchema), null));
-            return xmlSchemaSet;
         }
 
         /// <summary>

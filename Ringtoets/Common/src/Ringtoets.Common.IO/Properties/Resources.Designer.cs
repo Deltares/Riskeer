@@ -82,6 +82,16 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het XML-document dat de configuratie voor de berekeningen beschrijft is niet geldig. De validatie geeft de volgende melding op regel {0}, positie {1}: {2}.
+        /// </summary>
+        public static string ConfigurationReader_Configuration_contains_no_valid_xml_line_0_position_1_reason_2 {
+            get {
+                return ResourceManager.GetString("ConfigurationReader_Configuration_contains_no_valid_xml_line_0_position_1_reason_" +
+                        "2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De regel (&apos;{0}&apos;) bevat ongeldige tekst..
         /// </summary>
         public static string DikeProfileDataReader_HandleUnexpectedText_Line_0_is_invalid {

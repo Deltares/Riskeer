@@ -23,9 +23,11 @@ using System;
 using System.IO;
 using System.Xml;
 using System.Xml.Linq;
+using System.Xml.Schema;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
+using Ringtoets.Common.IO.Properties;
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Ringtoets.Common.IO.Readers
@@ -42,6 +44,7 @@ namespace Ringtoets.Common.IO.Readers
         /// Creates a new instance of <see cref="ConfigurationReader{TCalculationItem}"/>.
         /// </summary>
         /// <param name="xmlFilePath">The file path to the XML file.</param>
+        /// <param name="schemaResXFileRef">A file reference towards an XML Schema Definition (XSD).</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="xmlFilePath"/> is invalid.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
@@ -50,13 +53,15 @@ namespace Ringtoets.Common.IO.Readers
         /// <item><paramref name="xmlFilePath"/> points to a file that does not pass the schema validation.</item>
         /// </list>
         /// </exception>
-        protected ConfigurationReader(string xmlFilePath)
+        protected ConfigurationReader(string xmlFilePath, string schemaResXFileRef)
         {
             IOUtils.ValidateFilePath(xmlFilePath);
 
             ValidateFileExists(xmlFilePath);
 
             xmlDocument = LoadDocument(xmlFilePath);
+
+            ValidateToSchema(xmlDocument, schemaResXFileRef, xmlFilePath);
         }
 
         /// <summary>
@@ -95,6 +100,33 @@ namespace Ringtoets.Common.IO.Readers
                     .Build(CoreCommonUtilsResources.Error_General_IO_Import_ErrorMessage);
 
                 throw new CriticalFileReadException(message, exception);
+            }
+        }
+
+        /// <summary>
+        /// Validates the provided XML document based on the provided XML Schema Definition (XSD).
+        /// </summary>
+        /// <param name="document">The XML document to validate.</param>
+        /// <param name="schemaResXFileRef">A file reference towards the XML Schema Definition (XSD) to use for the validation.</param>
+        /// <param name="xmlFilePath">The file path the XML document is loaded from.</param>
+        /// <exception cref="CriticalFileReadException">Thrown when the provided XML document does not match the provided XML Schema Definition (XSD).</exception>
+        private static void ValidateToSchema(XDocument document, string schemaResXFileRef, string xmlFilePath)
+        {
+            var xmlSchemaSet = new XmlSchemaSet();
+            xmlSchemaSet.Add(XmlSchema.Read(new StringReader(schemaResXFileRef), null));
+
+            try
+            {
+                document.Validate(xmlSchemaSet, null);
+            }
+            catch (XmlSchemaValidationException exception)
+            {
+                string message = string.Format(Resources.ConfigurationReader_Configuration_contains_no_valid_xml_line_0_position_1_reason_2,
+                                               exception.LineNumber,
+                                               exception.LinePosition,
+                                               exception.Message);
+
+                throw new CriticalFileReadException(new FileReaderErrorMessageBuilder(xmlFilePath).Build(message), exception);
             }
         }
     }
