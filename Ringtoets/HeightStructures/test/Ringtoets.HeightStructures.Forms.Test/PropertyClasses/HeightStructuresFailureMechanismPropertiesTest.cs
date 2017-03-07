@@ -38,10 +38,11 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
-        private const int gravitationalAccelerationPropertyIndex = 2;
-        private const int lengthEffectPropertyIndex = 3;
-        private const int modelFactorOvertoppingFlowPropertyIndex = 4;
-        private const int modelFactorStorageVolumePropertyIndex = 5;
+        private const int isRelevantPropertyIndex = 2;
+        private const int gravitationalAccelerationPropertyIndex = 3;
+        private const int lengthEffectPropertyIndex = 4;
+        private const int modelFactorOvertoppingFlowPropertyIndex = 5;
+        private const int modelFactorStorageVolumePropertyIndex = 6;
 
         [Test]
         public void Constructor_DataIsNull_ThrowArgumentNullException()
@@ -75,7 +76,9 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_ValidValues_ExpectedValues()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Constructor_ValidValues_ExpectedValues(bool isRelevant)
         {
             // Setup
             MockRepository mocks = new MockRepository();
@@ -83,7 +86,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
                 mocks.Stub<IFailureMechanismPropertyChangeHandler<HeightStructuresFailureMechanism>>();
             mocks.ReplayAll();
 
-            var failureMechanism = new HeightStructuresFailureMechanism();
+            var failureMechanism = new HeightStructuresFailureMechanism
+            {
+                IsRelevant = isRelevant
+            };
 
             // Call
             var properties = new HeightStructuresFailureMechanismProperties(failureMechanism, changeHandler);
@@ -94,6 +100,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
 
             Assert.AreEqual("Kunstwerken - Hoogte kunstwerk", properties.Name);
             Assert.AreEqual("HTKW", properties.Code);
+            Assert.AreEqual(isRelevant, properties.IsRelevant);
             Assert.AreEqual(failureMechanism.GeneralInput.N, properties.LengthEffect);
 
             GeneralHeightStructuresInput generalInput = failureMechanism.GeneralInput;
@@ -108,7 +115,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_IsRelevantTrue_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
             MockRepository mocks = new MockRepository();
@@ -118,7 +125,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
 
             // Call
             var properties = new HeightStructuresFailureMechanismProperties(
-                new HeightStructuresFailureMechanism(),
+                new HeightStructuresFailureMechanism
+                {
+                    IsRelevant = true
+                },
                 changeHandler);
 
             // Assert
@@ -127,7 +137,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             var modelSettingsCategory = "Modelinstellingen";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(6, dynamicProperties.Count);
+            Assert.AreEqual(7, dynamicProperties.Count);
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -141,6 +151,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
                                                                             generalCategory,
                                                                             "Label",
                                                                             "Het label van het toetsspoor.",
+                                                                            true);
+
+            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
+                                                                            generalCategory,
+                                                                            "Is relevant",
+                                                                            "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                             true);
 
             PropertyDescriptor gravitationalAccelerationProperty = dynamicProperties[gravitationalAccelerationPropertyIndex];
@@ -170,6 +187,53 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
                                                                             modelSettingsCategory,
                                                                             "Modelfactor kombergend vermogen [-]",
                                                                             "Modelfactor kombergend vermogen.",
+                                                                            true);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_IsRelevantFalse_PropertiesHaveExpectedAttributesValues()
+        {
+            // Setup
+            MockRepository mocks = new MockRepository();
+            IFailureMechanismPropertyChangeHandler<HeightStructuresFailureMechanism> changeHandler =
+                mocks.Stub<IFailureMechanismPropertyChangeHandler<HeightStructuresFailureMechanism>>();
+            mocks.ReplayAll();
+
+            // Call
+            var properties = new HeightStructuresFailureMechanismProperties(
+                new HeightStructuresFailureMechanism
+                {
+                    IsRelevant = false
+                },
+                changeHandler);
+
+            // Assert
+            var generalCategory = "Algemeen";
+
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(3, dynamicProperties.Count);
+
+            PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
+                                                                            generalCategory,
+                                                                            "Naam",
+                                                                            "De naam van het toetsspoor.",
+                                                                            true);
+
+            PropertyDescriptor codeProperty = dynamicProperties[codePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(codeProperty,
+                                                                            generalCategory,
+                                                                            "Label",
+                                                                            "Het label van het toetsspoor.",
+                                                                            true);
+
+            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
+                                                                            generalCategory,
+                                                                            "Is relevant",
+                                                                            "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                             true);
 
             mocks.VerifyAll();
@@ -238,6 +302,60 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(value, failureMechanism.GeneralInput.N);
             Assert.IsTrue(changeHandler.Called);
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void DynamicVisibleValidationMethod_ForRelevantFailureMechanism_ReturnExpectedVisibility()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<HeightStructuresFailureMechanism>>();
+            mocks.ReplayAll();
+
+            var properties = new HeightStructuresFailureMechanismProperties(
+                new HeightStructuresFailureMechanism
+                {
+                    IsRelevant = true
+                },
+                changeHandler);
+
+            // Call & Assert
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.LengthEffect)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.GravitationalAcceleration)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorOvertoppingFlow)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorStorageVolume)));
+
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
+        }
+
+        [Test]
+        public void DynamicVisibleValidationMethod_ForIrrelevantFailureMechanism_ReturnExpectedVisibility()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<HeightStructuresFailureMechanism>>();
+            mocks.ReplayAll();
+
+            var properties = new HeightStructuresFailureMechanismProperties(
+                new HeightStructuresFailureMechanism
+                {
+                    IsRelevant = false
+                },
+                changeHandler);
+
+            // Call & Assert
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.LengthEffect)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.GravitationalAcceleration)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorOvertoppingFlow)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorStorageVolume)));
+
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
         }
     }
 }

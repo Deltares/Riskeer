@@ -40,10 +40,11 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
-        private const int gravitationalAccelerationPropertyIndex = 3;
-        private const int lengthEffectPropertyIndex = 4;
-        private const int modelFactorOvertoppingFlowPropertyIndex = 5;
-        private const int modelFactorStorageVolumePropertyIndex = 6;
+        private const int isRelevantPropertyIndex = 3;
+        private const int gravitationalAccelerationPropertyIndex = 4;
+        private const int lengthEffectPropertyIndex = 5;
+        private const int modelFactorOvertoppingFlowPropertyIndex = 6;
+        private const int modelFactorStorageVolumePropertyIndex = 7;
 
         private readonly IFailureMechanismPropertyChangeHandler<HeightStructuresFailureMechanism> propertyChangeHandler;
 
@@ -71,6 +72,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         #region Length effect parameters
 
+        [DynamicVisible]
         [PropertyOrder(lengthEffectPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_DisplayName))]
@@ -120,6 +122,19 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
             }
         }
 
+        [PropertyOrder(isRelevantPropertyIndex)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_IsRelevant_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_IsRelevant_Description))]
+        public bool IsRelevant
+        {
+            get
+            {
+                return data.IsRelevant;
+            }
+        }
+
+        [DynamicVisible]
         [PropertyOrder(gravitationalAccelerationPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.GravitationalAcceleration_DisplayName))]
@@ -136,6 +151,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         #region Model settings
 
+        [DynamicVisible]
         [PropertyOrder(modelFactorOvertoppingFlowPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
@@ -149,6 +165,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(modelFactorStorageVolumePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
@@ -170,6 +187,24 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
             {
                 affectedObject.NotifyObservers();
             }
+        }
+
+        [DynamicVisibleValidationMethod]
+        public bool DynamicVisibleValidationMethod(string propertyName)
+        {
+            if (!data.IsRelevant && ShouldHidePropertyWhenFailureMechanismIrrelevant(propertyName))
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private bool ShouldHidePropertyWhenFailureMechanismIrrelevant(string propertyName)
+        {
+            return nameof(LengthEffect).Equals(propertyName)
+                   || nameof(GravitationalAcceleration).Equals(propertyName)
+                   || nameof(ModelFactorOvertoppingFlow).Equals(propertyName)
+                   || nameof(ModelFactorStorageVolume).Equals(propertyName);
         }
     }
 }
