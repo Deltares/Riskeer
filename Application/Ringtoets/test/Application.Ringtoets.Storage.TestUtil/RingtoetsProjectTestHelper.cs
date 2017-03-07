@@ -665,7 +665,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                         {
                             SoilProfile = pipingSoilProfile
                         },
-                        new StochasticSoilProfile(0.8, SoilProfileType.SoilProfile1D, -1)
+                        new StochasticSoilProfile(0.8, SoilProfileType.SoilProfile2D, -1)
                         {
                             SoilProfile = new TestPipingSoilProfile()
                         }

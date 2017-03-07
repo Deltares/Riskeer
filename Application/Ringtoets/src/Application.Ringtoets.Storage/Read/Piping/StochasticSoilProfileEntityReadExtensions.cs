@@ -50,7 +50,7 @@ namespace Application.Ringtoets.Storage.Read.Piping
                 return collector.Get(entity);
             }
 
-            var profile = new StochasticSoilProfile(entity.Probability, SoilProfileType.SoilProfile1D, -1);
+            var profile = new StochasticSoilProfile(entity.Probability, (SoilProfileType)entity.Type, -1);
             entity.ReadSoilProfile(profile, collector);
 
             collector.Read(entity, profile);

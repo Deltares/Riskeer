@@ -44,6 +44,7 @@ namespace Application.Ringtoets.Storage.Create.Piping
             var entity = new StochasticSoilProfileEntity
             {
                 Probability = profile.Probability,
+                Type = Convert.ToByte(profile.SoilProfileType),
                 SoilProfileEntity = profile.SoilProfile.Create(registry),
                 Order = order
             };

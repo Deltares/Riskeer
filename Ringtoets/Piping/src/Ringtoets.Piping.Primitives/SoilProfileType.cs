@@ -29,11 +29,11 @@ namespace Ringtoets.Piping.Primitives
         /// <summary>
         /// One dimensional soil profile.
         /// </summary>
-        SoilProfile1D,
+        SoilProfile1D = 1,
 
         /// <summary>
         /// One dimensional soil profile.
         /// </summary>
-        SoilProfile2D
+        SoilProfile2D = 2
     }
 }

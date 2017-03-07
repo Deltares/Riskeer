@@ -25,6 +25,7 @@ using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Read.Piping;
 using NUnit.Framework;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Test.Read.Piping
 {
@@ -46,7 +47,9 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         }
 
         [Test]
-        public void Read_WithCollector_ReturnsNewStochasticSoilProfileWithPropertiesSetAndEntityRegistered()
+        [TestCase(1)]
+        [TestCase(2)]
+        public void Read_WithCollector_ReturnsNewStochasticSoilProfileWithPropertiesSetAndEntityRegistered(byte soilProfileType)
         {
             // Setup
             var random = new Random(21);
@@ -54,6 +57,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var entity = new StochasticSoilProfileEntity
             {
                 Probability = probability,
+                Type = soilProfileType,
                 SoilProfileEntity = new SoilProfileEntity
                 {
                     SoilLayerEntities =
@@ -70,7 +74,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             // Assert
             Assert.IsNotNull(profile);
             Assert.AreEqual(probability, profile.Probability, 1e-6);
-
+            Assert.AreEqual((SoilProfileType)soilProfileType, profile.SoilProfileType);
             Assert.IsTrue(collector.Contains(entity));
         }
 

@@ -100,7 +100,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.AreEqual(-1, stochasticSoilProfile1.SoilProfileId);
             StochasticSoilProfile stochasticSoilProfile2 = soilModel.StochasticSoilProfiles[1];
             Assert.AreEqual(0.8, stochasticSoilProfile2.Probability);
-            Assert.AreEqual(SoilProfileType.SoilProfile1D, stochasticSoilProfile2.SoilProfileType);
+            Assert.AreEqual(SoilProfileType.SoilProfile2D, stochasticSoilProfile2.SoilProfileType);
             Assert.AreEqual(-1, stochasticSoilProfile2.SoilProfileId);
 
             Assert.AreEqual("some/path/to/surfaceLineFile", failureMechanism.SurfaceLines.SourcePath);

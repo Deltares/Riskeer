@@ -23,6 +23,7 @@ using System;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.Piping;
 using Application.Ringtoets.Storage.DbContext;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
@@ -48,13 +49,15 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         }
 
         [Test]
-        public void Create_WithCollector_ReturnsStochasticSoilProfileEntityWithPropertiesSet()
+        [TestCase(SoilProfileType.SoilProfile1D)]
+        [TestCase(SoilProfileType.SoilProfile2D)]
+        public void Create_WithCollector_ReturnsStochasticSoilProfileEntityWithPropertiesSet(SoilProfileType type)
         {
             // Setup
             var random = new Random(21);
             double probability = random.NextDouble();
             int order = random.Next();
-            var stochasticSoilProfile = new StochasticSoilProfile(probability, SoilProfileType.SoilProfile1D, -1)
+            var stochasticSoilProfile = new StochasticSoilProfile(probability, type, -1)
             {
                 SoilProfile = new TestPipingSoilProfile()
             };
@@ -66,6 +69,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreEqual(probability, entity.Probability);
+            Assert.AreEqual(Convert.ToByte(type), entity.Type);
             Assert.AreEqual(order, entity.Order);
         }
 
