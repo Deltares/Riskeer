@@ -42,10 +42,15 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Data_SetNewWaveImpactAsphaltCoverFailureMechanismContext_ReturnCorrectPropertyValues()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Data_SetNewWaveImpactAsphaltCoverFailureMechanismContext_ReturnCorrectPropertyValues(bool isRelevant)
         {
             // Setup
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
+            {
+                IsRelevant = isRelevant
+            };
             var properties = new WaveImpactAsphaltCoverFailureMechanismProperties();
 
             // Call
@@ -54,56 +59,158 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
+            Assert.AreEqual(isRelevant, properties.IsRelevant);
             Assert.AreEqual(failureMechanism.GeneralInput.A, properties.A);
             Assert.AreEqual(failureMechanism.GeneralInput.B, properties.B);
             Assert.AreEqual(failureMechanism.GeneralInput.C, properties.C);
         }
 
         [Test]
-        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_IsRelevantTrue_PropertiesHaveExpectedAttributesValues()
         {
             // Call
             var properties = new WaveImpactAsphaltCoverFailureMechanismProperties
             {
-                Data = new WaveImpactAsphaltCoverFailureMechanism()
+                Data = new WaveImpactAsphaltCoverFailureMechanism
+                {
+                    IsRelevant = true
+                }
             };
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(5, dynamicProperties.Count);
+            Assert.AreEqual(6, dynamicProperties.Count);
+
+            const string generalCategory = "Algemeen";
+            const string modelSettingsCategory = "Modelinstellingen";
 
             PropertyDescriptor nameProperty = dynamicProperties[0];
-            Assert.IsTrue(nameProperty.IsReadOnly);
-            Assert.AreEqual("Algemeen", nameProperty.Category);
-            Assert.AreEqual("Naam", nameProperty.DisplayName);
-            Assert.AreEqual("De naam van het toetsspoor.", nameProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
+                                                                            generalCategory,
+                                                                            "Naam",
+                                                                            "De naam van het toetsspoor.",
+                                                                            true);
 
             PropertyDescriptor codeProperty = dynamicProperties[1];
-            Assert.IsTrue(codeProperty.IsReadOnly);
-            Assert.AreEqual("Algemeen", codeProperty.Category);
-            Assert.AreEqual("Label", codeProperty.DisplayName);
-            Assert.AreEqual("Het label van het toetsspoor.", codeProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(codeProperty,
+                                                                            generalCategory,
+                                                                            "Label",
+                                                                            "Het label van het toetsspoor.",
+                                                                            true);
 
-            PropertyDescriptor aProperty = dynamicProperties[2];
-            Assert.IsNotNull(aProperty);
-            Assert.IsTrue(aProperty.IsReadOnly);
-            Assert.AreEqual("Modelinstellingen", aProperty.Category);
-            Assert.AreEqual("a", aProperty.DisplayName);
-            Assert.AreEqual("De waarde van de parameter 'a' in de berekening voor golf condities.", aProperty.Description);
+            PropertyDescriptor isRelevantProperty = dynamicProperties[2];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
+                                                                            generalCategory,
+                                                                            "Is relevant",
+                                                                            "Geeft aan of dit toetsspoor relevant is of niet.",
+                                                                            true);
 
-            PropertyDescriptor bProperty = dynamicProperties[3];
-            Assert.IsNotNull(bProperty);
-            Assert.IsTrue(bProperty.IsReadOnly);
-            Assert.AreEqual("Modelinstellingen", bProperty.Category);
-            Assert.AreEqual("b", bProperty.DisplayName);
-            Assert.AreEqual("De waarde van de parameter 'b' in de berekening voor golf condities.", bProperty.Description);
+            PropertyDescriptor aProperty = dynamicProperties[3];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(aProperty,
+                                                                            modelSettingsCategory,
+                                                                            "a",
+                                                                            "De waarde van de parameter 'a' in de berekening voor golf condities.",
+                                                                            true);
 
-            PropertyDescriptor cProperty = dynamicProperties[4];
-            Assert.IsNotNull(cProperty);
-            Assert.IsTrue(cProperty.IsReadOnly);
-            Assert.AreEqual("Modelinstellingen", cProperty.Category);
-            Assert.AreEqual("c", cProperty.DisplayName);
-            Assert.AreEqual("De waarde van de parameter 'c' in de berekening voor golf condities.", cProperty.Description);
+            PropertyDescriptor bProperty = dynamicProperties[4];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(bProperty,
+                                                                            modelSettingsCategory,
+                                                                            "b",
+                                                                            "De waarde van de parameter 'b' in de berekening voor golf condities.",
+                                                                            true);
+
+            PropertyDescriptor cProperty = dynamicProperties[5];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(cProperty,
+                                                                            modelSettingsCategory,
+                                                                            "c",
+                                                                            "De waarde van de parameter 'c' in de berekening voor golf condities.",
+                                                                            true);
+        }
+
+        [Test]
+        public void Constructor_IsRelevantFalse_PropertiesHaveExpectedAttributesValues()
+        {
+            // Call
+            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties
+            {
+                Data = new WaveImpactAsphaltCoverFailureMechanism
+                {
+                    IsRelevant = false
+                }
+            };
+
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(3, dynamicProperties.Count);
+
+            const string generalCategory = "Algemeen";
+
+            PropertyDescriptor nameProperty = dynamicProperties[0];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
+                                                                            generalCategory,
+                                                                            "Naam",
+                                                                            "De naam van het toetsspoor.",
+                                                                            true);
+
+            PropertyDescriptor codeProperty = dynamicProperties[1];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(codeProperty,
+                                                                            generalCategory,
+                                                                            "Label",
+                                                                            "Het label van het toetsspoor.",
+                                                                            true);
+
+            PropertyDescriptor isRelevantProperty = dynamicProperties[2];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
+                                                                            generalCategory,
+                                                                            "Is relevant",
+                                                                            "Geeft aan of dit toetsspoor relevant is of niet.",
+                                                                            true);
+        }
+
+        [Test]
+        public void DynamicVisibleValidationMethod_ForRelevantFailureMechanism_ReturnExpectedVisibility()
+        {
+            // Setup
+            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties
+            {
+                Data = new WaveImpactAsphaltCoverFailureMechanism
+                {
+                    IsRelevant = true
+                }
+            };
+
+            // Call & Assert
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.A)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.B)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.C)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
+
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
+        }
+
+        [Test]
+        public void DynamicVisibleValidationMethod_ForIrrelevantFailureMechanism_ReturnExpectedVisibility()
+        {
+            // Setup
+            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties
+            {
+                Data = new WaveImpactAsphaltCoverFailureMechanism
+                {
+                    IsRelevant = false
+                }
+            };
+
+            // Call & Assert
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.A)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.B)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.C)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
+
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
         }
     }
 }
