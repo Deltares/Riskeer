@@ -41,12 +41,13 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
-        private const int gravitationalAccelerationPropertyIndex = 3;
-        private const int lengthEffectPropertyIndex = 4;
-        private const int modelFactorStorageVolumePropertyIndex = 5;
-        private const int modelFactorSubCriticalFlowPropertyIndex = 6;
-        private const int modelFactorCollisionLoadPropertyIndex = 7;
-        private const int modelFactorLoadEffectPropertyIndex = 8;
+        private const int isRelevantPropertyIndex = 3;
+        private const int gravitationalAccelerationPropertyIndex = 4;
+        private const int lengthEffectPropertyIndex = 5;
+        private const int modelFactorStorageVolumePropertyIndex = 6;
+        private const int modelFactorSubCriticalFlowPropertyIndex = 7;
+        private const int modelFactorCollisionLoadPropertyIndex = 8;
+        private const int modelFactorLoadEffectPropertyIndex = 9;
 
         private readonly IFailureMechanismPropertyChangeHandler<StabilityPointStructuresFailureMechanism> propertyChangeHandler;
 
@@ -74,6 +75,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
 
         #region Length effect parameters
 
+        [DynamicVisible]
         [PropertyOrder(lengthEffectPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_DisplayName))]
@@ -97,12 +99,32 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
 
         #endregion
 
+        [DynamicVisibleValidationMethod]
+        public bool DynamicVisibleValidationMethod(string propertyName)
+        {
+            if (!data.IsRelevant && ShouldHidePropertyWhenFailureMechanismIrrelevant(propertyName))
+            {
+                return false;
+            }
+            return true;
+        }
+
         private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
         {
             foreach (var affectedObject in affectedObjects)
             {
                 affectedObject.NotifyObservers();
             }
+        }
+
+        private bool ShouldHidePropertyWhenFailureMechanismIrrelevant(string propertyName)
+        {
+            return nameof(LengthEffect).Equals(propertyName)
+                   || nameof(GravitationalAcceleration).Equals(propertyName)
+                   || nameof(ModelFactorStorageVolume).Equals(propertyName)
+                   || nameof(ModelFactorSubCriticalFlow).Equals(propertyName)
+                   || nameof(ModelFactorCollisionLoad).Equals(propertyName)
+                   || nameof(ModelFactorLoadEffect).Equals(propertyName);
         }
 
         #region General
@@ -131,6 +153,19 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             }
         }
 
+        [PropertyOrder(isRelevantPropertyIndex)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_IsRelevant_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_IsRelevant_Description))]
+        public bool IsRelevant
+        {
+            get
+            {
+                return data.IsRelevant;
+            }
+        }
+
+        [DynamicVisible]
         [PropertyOrder(gravitationalAccelerationPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.GravitationalAcceleration_DisplayName))]
@@ -147,6 +182,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
 
         #region Model settings
 
+        [DynamicVisible]
         [PropertyOrder(modelFactorStorageVolumePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
@@ -160,6 +196,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(modelFactorSubCriticalFlowPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
@@ -173,6 +210,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(modelFactorCollisionLoadPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
@@ -186,6 +224,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(modelFactorLoadEffectPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]

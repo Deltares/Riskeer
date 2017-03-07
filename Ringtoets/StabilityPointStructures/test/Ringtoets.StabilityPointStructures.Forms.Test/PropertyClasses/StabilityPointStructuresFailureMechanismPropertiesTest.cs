@@ -38,12 +38,13 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
-        private const int gravitationalAccelerationPropertyIndex = 2;
-        private const int lengthEffectPropertyIndex = 3;
-        private const int modelFactorStorageVolumePropertyIndex = 4;
-        private const int modelFactorSubCriticalFlowPropertyIndex = 5;
-        private const int modelFactorCollisionLoadPropertyIndex = 6;
-        private const int modelFactorLoadEffectPropertyIndex = 7;
+        private const int isRelevantPropertyIndex = 2;
+        private const int gravitationalAccelerationPropertyIndex = 3;
+        private const int lengthEffectPropertyIndex = 4;
+        private const int modelFactorStorageVolumePropertyIndex = 5;
+        private const int modelFactorSubCriticalFlowPropertyIndex = 6;
+        private const int modelFactorCollisionLoadPropertyIndex = 7;
+        private const int modelFactorLoadEffectPropertyIndex = 8;
 
         [Test]
         public void Constructor_DataIsNull_ThrowArgumentNullException()
@@ -77,15 +78,19 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_ValidValues_ExpectedValues()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Constructor_ValidValues_ExpectedValues(bool isRelevant)
         {
             // Setup
             var mocks = new MockRepository();
-            IFailureMechanismPropertyChangeHandler<StabilityPointStructuresFailureMechanism> changeHandler =
-                mocks.Stub<IFailureMechanismPropertyChangeHandler<StabilityPointStructuresFailureMechanism>>();
+            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<StabilityPointStructuresFailureMechanism>>();
             mocks.ReplayAll();
 
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism
+            {
+                IsRelevant = isRelevant
+            };
 
             // Call
             var properties = new StabilityPointStructuresFailureMechanismProperties(failureMechanism, changeHandler);
@@ -96,6 +101,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
 
             Assert.AreEqual("Kunstwerken - Sterkte en stabiliteit puntconstructies", properties.Name);
             Assert.AreEqual("STKWp", properties.Code);
+            Assert.AreEqual(isRelevant, properties.IsRelevant);
 
             GeneralStabilityPointStructuresInput generalInput = failureMechanism.GeneralInput;
             Assert.AreEqual(generalInput.N, properties.LengthEffect);
@@ -111,15 +117,17 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_IsRelevantTrue_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
             var mocks = new MockRepository();
-            IFailureMechanismPropertyChangeHandler<StabilityPointStructuresFailureMechanism> changeHandler =
-                mocks.Stub<IFailureMechanismPropertyChangeHandler<StabilityPointStructuresFailureMechanism>>();
+            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<StabilityPointStructuresFailureMechanism>>();
             mocks.ReplayAll();
 
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism
+            {
+                IsRelevant = true
+            };
 
             // Call
             var properties = new StabilityPointStructuresFailureMechanismProperties(failureMechanism, changeHandler);
@@ -130,7 +138,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             var modelSettingsCategory = "Modelinstellingen";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(8, dynamicProperties.Count);
+            Assert.AreEqual(9, dynamicProperties.Count);
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -144,6 +152,13 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                             generalCategory,
                                                                             "Label",
                                                                             "Het label van het toetsspoor.",
+                                                                            true);
+
+            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
+                                                                            generalCategory,
+                                                                            "Is relevant",
+                                                                            "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                             true);
 
             PropertyDescriptor gravitationalAccelerationProperty = dynamicProperties[gravitationalAccelerationPropertyIndex];
@@ -190,6 +205,52 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                             "Modelfactor belastingeffect [-]",
                                                                             "Modelfactor belastingeffect.",
                                                                             true);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_IsRelevantFalse_PropertiesHaveExpectedAttributesValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<StabilityPointStructuresFailureMechanism>>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism
+            {
+                IsRelevant = false
+            };
+
+            // Call
+            var properties = new StabilityPointStructuresFailureMechanismProperties(failureMechanism, changeHandler);
+
+            // Assert
+            var generalCategory = "Algemeen";
+
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(3, dynamicProperties.Count);
+
+            PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
+                                                                            generalCategory,
+                                                                            "Naam",
+                                                                            "De naam van het toetsspoor.",
+                                                                            true);
+
+            PropertyDescriptor codeProperty = dynamicProperties[codePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(codeProperty,
+                                                                            generalCategory,
+                                                                            "Label",
+                                                                            "Het label van het toetsspoor.",
+                                                                            true);
+
+            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
+                                                                            generalCategory,
+                                                                            "Is relevant",
+                                                                            "Geeft aan of dit toetsspoor relevant is of niet.",
+                                                                            true);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -255,6 +316,64 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(value, failureMechanism.GeneralInput.N);
             Assert.IsTrue(changeHandler.Called);
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void DynamicVisibleValidationMethod_ForRelevantFailureMechanism_ReturnExpectedVisibility()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<StabilityPointStructuresFailureMechanism>>();
+            mocks.ReplayAll();
+
+            var properties = new StabilityPointStructuresFailureMechanismProperties(
+                new StabilityPointStructuresFailureMechanism
+                {
+                    IsRelevant = true
+                },
+                changeHandler);
+
+            // Call & Assert
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.LengthEffect)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.GravitationalAcceleration)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorStorageVolume)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorSubCriticalFlow)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorCollisionLoad)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorLoadEffect)));
+
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
+        }
+
+        [Test]
+        public void DynamicVisibleValidationMethod_ForIrrelevantFailureMechanism_ReturnExpectedVisibility()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<StabilityPointStructuresFailureMechanism>>();
+            mocks.ReplayAll();
+
+            var properties = new StabilityPointStructuresFailureMechanismProperties(
+                new StabilityPointStructuresFailureMechanism
+                {
+                    IsRelevant = false
+                },
+                changeHandler);
+
+            // Call & Assert
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.LengthEffect)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.GravitationalAcceleration)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorStorageVolume)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorSubCriticalFlow)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorCollisionLoad)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorLoadEffect)));
+
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
         }
     }
 }
