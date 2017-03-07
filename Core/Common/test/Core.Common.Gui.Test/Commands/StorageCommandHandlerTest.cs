@@ -469,8 +469,6 @@ namespace Core.Common.Gui.Test.Commands
                           .Return(loadedProject);
 
             var projectMigrator = mocks.Stub<IMigrateProject>();
-            projectMigrator.Stub(pm => pm.ShouldMigrate(pathToSomeValidFile)).Return(false);
-
             var mainWindowController = mocks.Stub<IWin32Window>();
 
             var projectOwner = mocks.Stub<IProjectOwner>();
@@ -515,7 +513,6 @@ namespace Core.Common.Gui.Test.Commands
                           .Return(loadedProject);
 
             var projectMigrator = mocks.Stub<IMigrateProject>();
-            projectMigrator.Stub(pm => pm.ShouldMigrate(pathToSomeValidFile)).Return(false);
 
             var applicationSelection = mocks.Stub<IApplicationSelection>();
             applicationSelection.Selection = originalProject;

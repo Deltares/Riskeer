@@ -510,7 +510,7 @@ namespace Core.Common.Gui.Test
         {
             // Setup
             const string fileName = "SomeFile";
-            string testFile = string.Format("{0}.rtd", fileName);
+            string testFile = $"{fileName}.rtd";
 
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
@@ -551,11 +551,165 @@ namespace Core.Common.Gui.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
+        public void Run_LoadingFromOutdatedFileAndMigrationCancelled_LogErrorAndLoadDefaultProjectInstead()
+        {
+            // Setup
+            const string fileName = "SomeFile";
+            string testFile = $"{fileName}.rtd";
+
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            projectMigrator.Stub(pm => pm.ShouldMigrate(testFile)).Return(true);
+            projectMigrator.Stub(pm => pm.Migrate(testFile)).Return(null);
+
+            const string expectedProjectName = "Project";
+            var project = mocks.Stub<IProject>();
+            project.Name = expectedProjectName;
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(ph => ph.CreateNewProject()).Return(project);
+
+            mocks.ReplayAll();
+
+            var fixedSettings = new GuiCoreSettings
+            {
+                MainWindowTitle = "<main window title part>"
+            };
+
+            using (var mainWindow = new MainWindow())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, fixedSettings))
+            {
+                // Call
+                Action call = () => gui.Run(testFile);
+
+                // Assert
+                var expectedMessages = new[]
+                {
+                    "Openen van bestaand Ringtoetsproject...",
+                    "Het is niet gelukt om het Ringtoetsproject te laden.",
+                };
+                TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
+
+                Assert.IsNull(gui.ProjectFilePath);
+                var expectedTitle = $"{expectedProjectName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
+                Assert.AreEqual(expectedTitle, mainWindow.Title);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void Run_LoadingFromOutdatedAndShouldMigrateThrowsArgumentException_LogErrorAndLoadDefaultProjectInstead()
+        {
+            // Setup
+            const string fileName = "SomeFile";
+            string testFile = $"{fileName}.rtd";
+
+            const string expectedErrorMessage = "You shall not migrate!";
+
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            projectMigrator.Stub(pm => pm.ShouldMigrate(testFile))
+                           .Throw(new ArgumentException(expectedErrorMessage));
+
+            const string expectedProjectName = "Project";
+            var project = mocks.Stub<IProject>();
+            project.Name = expectedProjectName;
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(ph => ph.CreateNewProject()).Return(project);
+
+            mocks.ReplayAll();
+
+            var fixedSettings = new GuiCoreSettings
+            {
+                MainWindowTitle = "<main window title part>"
+            };
+
+            using (var mainWindow = new MainWindow())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, fixedSettings))
+            {
+                // Call
+                Action call = () => gui.Run(testFile);
+
+                // Assert
+                var expectedMessages = new[]
+                {
+                    "Openen van bestaand Ringtoetsproject...",
+                    expectedErrorMessage,
+                    "Het is niet gelukt om het Ringtoetsproject te laden.",
+                };
+                TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
+
+                Assert.IsNull(gui.ProjectFilePath);
+                var expectedTitle = $"{expectedProjectName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
+                Assert.AreEqual(expectedTitle, mainWindow.Title);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void Run_LoadingFromOutdatedAndMigrateThrowsArgumentException_LogErrorAndLoadDefaultProjectInstead()
+        {
+            // Setup
+            const string fileName = "SomeFile";
+            string testFile = $"{fileName}.rtd";
+
+            const string expectedErrorMessage = "You shall not migrate!";
+
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            projectMigrator.Stub(pm => pm.ShouldMigrate(testFile)).Return(true);
+            projectMigrator.Stub(pm => pm.Migrate(testFile))
+                           .Throw(new ArgumentException(expectedErrorMessage));
+
+            const string expectedProjectName = "Project";
+            var project = mocks.Stub<IProject>();
+            project.Name = expectedProjectName;
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(ph => ph.CreateNewProject()).Return(project);
+
+            mocks.ReplayAll();
+
+            var fixedSettings = new GuiCoreSettings
+            {
+                MainWindowTitle = "<main window title part>"
+            };
+
+            using (var mainWindow = new MainWindow())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, fixedSettings))
+            {
+                // Call
+                Action call = () => gui.Run(testFile);
+
+                // Assert
+                var expectedMessages = new[]
+                {
+                    "Openen van bestaand Ringtoetsproject...",
+                    expectedErrorMessage,
+                    "Het is niet gelukt om het Ringtoetsproject te laden.",
+                };
+                TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
+
+                Assert.IsNull(gui.ProjectFilePath);
+                var expectedTitle = $"{expectedProjectName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
+                Assert.AreEqual(expectedTitle, mainWindow.Title);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
         public void Run_LoadingFromFileThrowsStorageException_LogErrorAndLoadDefaultProjectInstead()
         {
             // Setup
             const string fileName = "SomeFile";
-            string testFile = string.Format("{0}.rtd", fileName);
+            string testFile = $"{fileName}.rtd";
 
             const string storageExceptionText = "<Some error preventing the project from being opened>";
 
