@@ -27,8 +27,8 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Schema;
 using Core.Common.IO.Exceptions;
-using Core.Common.Utils;
 using Core.Common.Utils.Builders;
+using Ringtoets.Common.IO.Readers;
 using Ringtoets.Common.IO.Schema;
 using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.IO.Schema;
@@ -39,7 +39,7 @@ namespace Ringtoets.Piping.IO.Readers
     /// <summary>
     /// This class reads a piping configuration from XML and creates a collection of corresponding <see cref="IReadPipingCalculationItem"/>.
     /// </summary>
-    internal class PipingConfigurationReader
+    internal class PipingConfigurationReader : ConfigurationReader<IReadPipingCalculationItem>
     {
         private readonly XDocument xmlDocument;
 
@@ -55,12 +55,8 @@ namespace Ringtoets.Piping.IO.Readers
         /// <item><paramref name="xmlFilePath"/> points to a file that does not pass the schema validation.</item>
         /// </list>
         /// </exception>
-        internal PipingConfigurationReader(string xmlFilePath)
+        internal PipingConfigurationReader(string xmlFilePath) : base(xmlFilePath)
         {
-            IOUtils.ValidateFilePath(xmlFilePath);
-
-            ValidateFileExists(xmlFilePath);
-
             xmlDocument = LoadDocument(xmlFilePath);
 
             ValidateToSchema(xmlDocument, xmlFilePath);
@@ -75,22 +71,6 @@ namespace Ringtoets.Piping.IO.Readers
         internal IEnumerable<IReadPipingCalculationItem> Read()
         {
             return ParseReadPipingCalculationItems(xmlDocument.Root?.Elements());
-        }
-
-        /// <summary>
-        /// Validates whether a file exists at the provided <paramref name="xmlFilePath"/>.
-        /// </summary>
-        /// <param name="xmlFilePath">The file path to validate.</param>
-        /// <exception cref="CriticalFileReadException">Thrown when no existing file is found.</exception>
-        private static void ValidateFileExists(string xmlFilePath)
-        {
-            if (!File.Exists(xmlFilePath))
-            {
-                string message = new FileReaderErrorMessageBuilder(xmlFilePath)
-                    .Build(CoreCommonUtilsResources.Error_File_does_not_exist);
-
-                throw new CriticalFileReadException(message);
-            }
         }
 
         /// <summary>
