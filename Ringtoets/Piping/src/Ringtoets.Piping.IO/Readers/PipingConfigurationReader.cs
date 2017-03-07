@@ -41,8 +41,6 @@ namespace Ringtoets.Piping.IO.Readers
     /// </summary>
     internal class PipingConfigurationReader : ConfigurationReader<IReadPipingCalculationItem>
     {
-        private readonly XDocument xmlDocument;
-
         /// <summary>
         /// Creates a new instance of <see cref="PipingConfigurationReader"/>.
         /// </summary>
@@ -57,8 +55,6 @@ namespace Ringtoets.Piping.IO.Readers
         /// </exception>
         internal PipingConfigurationReader(string xmlFilePath) : base(xmlFilePath)
         {
-            xmlDocument = LoadDocument(xmlFilePath);
-
             ValidateToSchema(xmlDocument, xmlFilePath);
 
             ValidateNotEmpty(xmlDocument, xmlFilePath);
@@ -71,29 +67,6 @@ namespace Ringtoets.Piping.IO.Readers
         internal IEnumerable<IReadPipingCalculationItem> Read()
         {
             return ParseReadPipingCalculationItems(xmlDocument.Root?.Elements());
-        }
-
-        /// <summary>
-        /// Loads an XML document from the provided <see cref="xmlFilePath"/>.
-        /// </summary>
-        /// <param name="xmlFilePath">The file path to load the XML document from.</param>
-        /// <exception cref="CriticalFileReadException">Thrown when the XML document cannot be loaded.</exception>
-        private static XDocument LoadDocument(string xmlFilePath)
-        {
-            try
-            {
-                return XDocument.Load(xmlFilePath, LoadOptions.PreserveWhitespace | LoadOptions.SetLineInfo | LoadOptions.SetBaseUri);
-            }
-            catch (Exception exception)
-                when (exception is InvalidOperationException
-                      || exception is XmlException
-                      || exception is IOException)
-            {
-                string message = new FileReaderErrorMessageBuilder(xmlFilePath)
-                    .Build(CoreCommonUtilsResources.Error_General_IO_Import_ErrorMessage);
-
-                throw new CriticalFileReadException(message, exception);
-            }
         }
 
         /// <summary>

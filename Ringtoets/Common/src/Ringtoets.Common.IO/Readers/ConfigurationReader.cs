@@ -21,6 +21,8 @@
 
 using System;
 using System.IO;
+using System.Xml;
+using System.Xml.Linq;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
@@ -34,6 +36,8 @@ namespace Ringtoets.Common.IO.Readers
     /// <typeparam name="TCalculationItem">The type of calculation items read from XML.</typeparam>
     public abstract class ConfigurationReader<TCalculationItem>
     {
+        protected readonly XDocument xmlDocument;
+
         /// <summary>
         /// Creates a new instance of <see cref="ConfigurationReader{TCalculationItem}"/>.
         /// </summary>
@@ -51,6 +55,8 @@ namespace Ringtoets.Common.IO.Readers
             IOUtils.ValidateFilePath(xmlFilePath);
 
             ValidateFileExists(xmlFilePath);
+
+            xmlDocument = LoadDocument(xmlFilePath);
         }
 
         /// <summary>
@@ -66,6 +72,29 @@ namespace Ringtoets.Common.IO.Readers
                     .Build(CoreCommonUtilsResources.Error_File_does_not_exist);
 
                 throw new CriticalFileReadException(message);
+            }
+        }
+
+        /// <summary>
+        /// Loads an XML document from the provided <see cref="xmlFilePath"/>.
+        /// </summary>
+        /// <param name="xmlFilePath">The file path to load the XML document from.</param>
+        /// <exception cref="CriticalFileReadException">Thrown when the XML document cannot be loaded.</exception>
+        private static XDocument LoadDocument(string xmlFilePath)
+        {
+            try
+            {
+                return XDocument.Load(xmlFilePath, LoadOptions.PreserveWhitespace | LoadOptions.SetLineInfo | LoadOptions.SetBaseUri);
+            }
+            catch (Exception exception)
+                when (exception is InvalidOperationException
+                      || exception is XmlException
+                      || exception is IOException)
+            {
+                string message = new FileReaderErrorMessageBuilder(xmlFilePath)
+                    .Build(CoreCommonUtilsResources.Error_General_IO_Import_ErrorMessage);
+
+                throw new CriticalFileReadException(message, exception);
             }
         }
     }
