@@ -24,6 +24,7 @@ using System.Xml;
 using Core.Common.IO.Exceptions;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.IO.Schema;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Schema;
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
@@ -64,7 +65,7 @@ namespace Ringtoets.Piping.IO.Exporters
                 using (XmlWriter writer = XmlWriter.Create(filePath, settings))
                 {
                     writer.WriteStartDocument();
-                    writer.WriteStartElement(PipingConfigurationSchemaIdentifiers.ConfigurationElement);
+                    writer.WriteStartElement(ConfigurationSchemaIdentifiers.ConfigurationElement);
 
                     WriteConfiguration(rootCalculationGroup, writer);
 
@@ -98,8 +99,8 @@ namespace Ringtoets.Piping.IO.Exporters
 
         private static void WriteCalculationGroup(CalculationGroup calculationGroup, XmlWriter writer)
         {
-            writer.WriteStartElement(PipingConfigurationSchemaIdentifiers.FolderElement);
-            writer.WriteAttributeString(PipingConfigurationSchemaIdentifiers.NameAttribute, calculationGroup.Name);
+            writer.WriteStartElement(ConfigurationSchemaIdentifiers.FolderElement);
+            writer.WriteAttributeString(ConfigurationSchemaIdentifiers.NameAttribute, calculationGroup.Name);
 
             WriteConfiguration(calculationGroup, writer);
 
@@ -108,8 +109,8 @@ namespace Ringtoets.Piping.IO.Exporters
 
         private static void WriteCalculation(PipingCalculation calculation, XmlWriter writer)
         {
-            writer.WriteStartElement(PipingConfigurationSchemaIdentifiers.CalculationElement);
-            writer.WriteAttributeString(PipingConfigurationSchemaIdentifiers.NameAttribute, calculation.Name);
+            writer.WriteStartElement(ConfigurationSchemaIdentifiers.CalculationElement);
+            writer.WriteAttributeString(ConfigurationSchemaIdentifiers.NameAttribute, calculation.Name);
 
             PipingInput calculationInputParameters = calculation.InputParameters;
 
@@ -120,7 +121,7 @@ namespace Ringtoets.Piping.IO.Exporters
             }
             else if (calculationInputParameters.HydraulicBoundaryLocation != null)
             {
-                writer.WriteElementString(PipingConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
+                writer.WriteElementString(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
                                           calculationInputParameters.HydraulicBoundaryLocation.Name);
             }
 
@@ -153,7 +154,7 @@ namespace Ringtoets.Piping.IO.Exporters
 
         private static void WriteDistributions(PipingInput calculationInputParameters, XmlWriter writer)
         {
-            writer.WriteStartElement(PipingConfigurationSchemaIdentifiers.StochastsElement);
+            writer.WriteStartElement(ConfigurationSchemaIdentifiers.StochastsElement);
 
             WriteDistribution(calculationInputParameters.PhreaticLevelExit,
                               PipingConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName, writer);
@@ -165,12 +166,12 @@ namespace Ringtoets.Piping.IO.Exporters
 
         private static void WriteDistribution(IDistribution distribution, string elementName, XmlWriter writer)
         {
-            writer.WriteStartElement(PipingConfigurationSchemaIdentifiers.StochastElement);
-            writer.WriteAttributeString(PipingConfigurationSchemaIdentifiers.NameAttribute, elementName);
+            writer.WriteStartElement(ConfigurationSchemaIdentifiers.StochastElement);
+            writer.WriteAttributeString(ConfigurationSchemaIdentifiers.NameAttribute, elementName);
 
-            writer.WriteElementString(PipingConfigurationSchemaIdentifiers.MeanElement,
+            writer.WriteElementString(ConfigurationSchemaIdentifiers.MeanElement,
                                       XmlConvert.ToString(distribution.Mean));
-            writer.WriteElementString(PipingConfigurationSchemaIdentifiers.StandardDeviationElement,
+            writer.WriteElementString(ConfigurationSchemaIdentifiers.StandardDeviationElement,
                                       XmlConvert.ToString(distribution.StandardDeviation));
 
             writer.WriteEndElement();

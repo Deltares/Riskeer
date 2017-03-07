@@ -27,34 +27,9 @@ namespace Ringtoets.Piping.IO.Schema
     internal static class PipingConfigurationSchemaIdentifiers
     {
         /// <summary>
-        /// The identifier for configuration elements.
-        /// </summary>
-        internal const string ConfigurationElement = "configuratie";
-
-        /// <summary>
-        /// The identifier for calculation elements.
-        /// </summary>
-        internal const string CalculationElement = "berekening";
-
-        /// <summary>
-        /// The identifier for folder elements.
-        /// </summary>
-        internal const string FolderElement = "map";
-
-        /// <summary>
-        /// The identifier for name attributes.
-        /// </summary>
-        internal const string NameAttribute = "naam";
-
-        /// <summary>
         /// The identifier for assessment level elements.
         /// </summary>
         internal const string AssessmentLevelElement = "toetspeil";
-
-        /// <summary>
-        /// The identifier for hydraulic boundary location elements.
-        /// </summary>
-        internal const string HydraulicBoundaryLocationElement = "hrlocatie";
 
         /// <summary>
         /// The identifier for surface line elements.
@@ -80,26 +55,6 @@ namespace Ringtoets.Piping.IO.Schema
         /// The identifier for stochastic soil profile elements.
         /// </summary>
         internal const string StochasticSoilProfileElement = "ondergrondschematisatie";
-
-        /// <summary>
-        /// The identifier for stochasts elements.
-        /// </summary>
-        internal const string StochastsElement = "stochasten";
-
-        /// <summary>
-        /// The identifier for stochast elements.
-        /// </summary>
-        internal const string StochastElement = "stochast";
-
-        /// <summary>
-        /// The identifier for mean elements.
-        /// </summary>
-        internal const string MeanElement = "verwachtingswaarde";
-
-        /// <summary>
-        /// The identifier for standard deviation elements.
-        /// </summary>
-        internal const string StandardDeviationElement = "standaardafwijking";
 
         /// <summary>
         /// The identifier for the phreatic level exit stochast names.

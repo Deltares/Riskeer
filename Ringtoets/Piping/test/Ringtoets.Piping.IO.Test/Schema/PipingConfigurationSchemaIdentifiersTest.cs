@@ -30,21 +30,12 @@ namespace Ringtoets.Piping.IO.Test.Schema
         [Test]
         public void PipingConfigurationSchemaIdentifiers_ExpectedValues()
         {
-            Assert.AreEqual("configuratie", PipingConfigurationSchemaIdentifiers.ConfigurationElement);
-            Assert.AreEqual("berekening", PipingConfigurationSchemaIdentifiers.CalculationElement);
-            Assert.AreEqual("map", PipingConfigurationSchemaIdentifiers.FolderElement);
-            Assert.AreEqual("naam", PipingConfigurationSchemaIdentifiers.NameAttribute);
             Assert.AreEqual("toetspeil", PipingConfigurationSchemaIdentifiers.AssessmentLevelElement);
-            Assert.AreEqual("hrlocatie", PipingConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement);
             Assert.AreEqual("profielschematisatie", PipingConfigurationSchemaIdentifiers.SurfaceLineElement);
             Assert.AreEqual("intredepunt", PipingConfigurationSchemaIdentifiers.EntryPointLElement);
             Assert.AreEqual("uittredepunt", PipingConfigurationSchemaIdentifiers.ExitPointLElement);
             Assert.AreEqual("ondergrondmodel", PipingConfigurationSchemaIdentifiers.StochasticSoilModelElement);
             Assert.AreEqual("ondergrondschematisatie", PipingConfigurationSchemaIdentifiers.StochasticSoilProfileElement);
-            Assert.AreEqual("stochasten", PipingConfigurationSchemaIdentifiers.StochastsElement);
-            Assert.AreEqual("stochast", PipingConfigurationSchemaIdentifiers.StochastElement);
-            Assert.AreEqual("verwachtingswaarde", PipingConfigurationSchemaIdentifiers.MeanElement);
-            Assert.AreEqual("standaardafwijking", PipingConfigurationSchemaIdentifiers.StandardDeviationElement);
             Assert.AreEqual("polderpeil", PipingConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName);
             Assert.AreEqual("dempingsfactor", PipingConfigurationSchemaIdentifiers.DampingFactorExitStochastName);
         }

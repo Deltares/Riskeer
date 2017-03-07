@@ -89,6 +89,7 @@
     <Compile Include="ReferenceLines\ReferenceLineImporter.cs" />
     <Compile Include="ReferenceLines\ReferenceLineReader.cs" />
     <Compile Include="ReferenceLines\ReferenceLineWriter.cs" />
+    <Compile Include="Schema\ConfigurationSchemaIdentifiers.cs" />
     <Compile Include="Structures\StructureFilesKeywords.cs" />
     <Compile Include="Structures\StructuresCharacteristicsCsvReader.cs" />
     <Compile Include="Structures\StructureLocation.cs" />

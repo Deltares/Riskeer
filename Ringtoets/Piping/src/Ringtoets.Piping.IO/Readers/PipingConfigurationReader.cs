@@ -29,6 +29,7 @@ using System.Xml.Schema;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
+using Ringtoets.Common.IO.Schema;
 using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.IO.Schema;
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
@@ -156,8 +157,8 @@ namespace Ringtoets.Piping.IO.Readers
         private static void ValidateNotEmpty(XDocument document, string xmlFilePath)
         {
             if (!document.Descendants()
-                         .Any(d => d.Name == PipingConfigurationSchemaIdentifiers.CalculationElement
-                                   || d.Name == PipingConfigurationSchemaIdentifiers.FolderElement))
+                         .Any(d => d.Name == ConfigurationSchemaIdentifiers.CalculationElement
+                                   || d.Name == ConfigurationSchemaIdentifiers.FolderElement))
             {
                 string message = new FileReaderErrorMessageBuilder(xmlFilePath)
                     .Build(Resources.PipingConfigurationReader_No_calculation_items_found);
@@ -170,12 +171,12 @@ namespace Ringtoets.Piping.IO.Readers
         {
             foreach (XElement element in elements)
             {
-                if (element.Name == PipingConfigurationSchemaIdentifiers.CalculationElement)
+                if (element.Name == ConfigurationSchemaIdentifiers.CalculationElement)
                 {
                     yield return ParseReadPipingCalculation(element);
                 }
 
-                if (element.Name == PipingConfigurationSchemaIdentifiers.FolderElement)
+                if (element.Name == ConfigurationSchemaIdentifiers.FolderElement)
                 {
                     yield return ParseReadPipingCalculationGroup(element);
                 }
@@ -184,7 +185,7 @@ namespace Ringtoets.Piping.IO.Readers
 
         private static ReadPipingCalculationGroup ParseReadPipingCalculationGroup(XElement folderElement)
         {
-            return new ReadPipingCalculationGroup(folderElement.Attribute(PipingConfigurationSchemaIdentifiers.NameAttribute)?.Value,
+            return new ReadPipingCalculationGroup(folderElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute)?.Value,
                                                   ParseReadPipingCalculationItems(folderElement.Elements()));
         }
 
@@ -192,11 +193,11 @@ namespace Ringtoets.Piping.IO.Readers
         {
             var constructionProperties = new ReadPipingCalculation.ConstructionProperties
             {
-                Name = calculationElement.Attribute(PipingConfigurationSchemaIdentifiers.NameAttribute)?.Value,
+                Name = calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute)?.Value,
                 AssessmentLevel = GetDoubleValueFromChildElement(calculationElement,
                                                                  PipingConfigurationSchemaIdentifiers.AssessmentLevelElement),
                 HydraulicBoundaryLocation = GetStringValueFromChildElement(calculationElement,
-                                                                           PipingConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement),
+                                                                           ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement),
                 SurfaceLine = GetStringValueFromChildElement(calculationElement,
                                                              PipingConfigurationSchemaIdentifiers.SurfaceLineElement),
                 EntryPointL = GetDoubleValueFromChildElement(calculationElement,
@@ -213,18 +214,18 @@ namespace Ringtoets.Piping.IO.Readers
             if (phreaticLevelExitElement != null)
             {
                 constructionProperties.PhreaticLevelExitMean = GetDoubleValueFromChildElement(phreaticLevelExitElement,
-                                                                                              PipingConfigurationSchemaIdentifiers.MeanElement);
+                                                                                              ConfigurationSchemaIdentifiers.MeanElement);
                 constructionProperties.PhreaticLevelExitStandardDeviation = GetDoubleValueFromChildElement(phreaticLevelExitElement,
-                                                                                                           PipingConfigurationSchemaIdentifiers.StandardDeviationElement);
+                                                                                                           ConfigurationSchemaIdentifiers.StandardDeviationElement);
             }
 
             XElement dampingFactorExitElement = GetStochastChildElement(calculationElement, PipingConfigurationSchemaIdentifiers.DampingFactorExitStochastName);
             if (dampingFactorExitElement != null)
             {
                 constructionProperties.DampingFactorExitMean = GetDoubleValueFromChildElement(dampingFactorExitElement,
-                                                                                              PipingConfigurationSchemaIdentifiers.MeanElement);
+                                                                                              ConfigurationSchemaIdentifiers.MeanElement);
                 constructionProperties.DampingFactorExitStandardDeviation = GetDoubleValueFromChildElement(dampingFactorExitElement,
-                                                                                                           PipingConfigurationSchemaIdentifiers.StandardDeviationElement);
+                                                                                                           ConfigurationSchemaIdentifiers.StandardDeviationElement);
             }
 
             return new ReadPipingCalculation(constructionProperties);
@@ -248,10 +249,10 @@ namespace Ringtoets.Piping.IO.Readers
 
         private static XElement GetStochastChildElement(XElement parentElement, string stochastName)
         {
-            return parentElement.Elements(PipingConfigurationSchemaIdentifiers.StochastsElement)
+            return parentElement.Elements(ConfigurationSchemaIdentifiers.StochastsElement)
                                 .FirstOrDefault()?
-                                .Elements(PipingConfigurationSchemaIdentifiers.StochastElement)
-                                .FirstOrDefault(e => e.Attribute(PipingConfigurationSchemaIdentifiers.NameAttribute)?.Value == stochastName);
+                                .Elements(ConfigurationSchemaIdentifiers.StochastElement)
+                                .FirstOrDefault(e => e.Attribute(ConfigurationSchemaIdentifiers.NameAttribute)?.Value == stochastName);
         }
     }
 }
