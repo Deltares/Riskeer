@@ -41,8 +41,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism> changeHandler =
-                mocks.Stub<IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism>>();
+            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism>>();
             mocks.ReplayAll();
 
             // Call
@@ -74,8 +73,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             // Setup
             MockRepository mocks = new MockRepository();
-            IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism> changeHandler =
-                mocks.Stub<IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism>>();
+            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism>>();
             mocks.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism
@@ -120,8 +118,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism> changeHandler =
-                mocks.Stub<IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism>>();
+            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism>>();
             mocks.ReplayAll();
 
             // Call
@@ -226,8 +223,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism> changeHandler =
-                mocks.Stub<IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism>>();
+            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism>>();
             mocks.ReplayAll();
 
             // Call

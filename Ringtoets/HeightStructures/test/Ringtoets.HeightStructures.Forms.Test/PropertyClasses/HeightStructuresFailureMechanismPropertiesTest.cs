@@ -49,8 +49,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            IFailureMechanismPropertyChangeHandler<HeightStructuresFailureMechanism> changeHandler =
-                mocks.Stub<IFailureMechanismPropertyChangeHandler<HeightStructuresFailureMechanism>>();
+            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<HeightStructuresFailureMechanism>>();
             mocks.ReplayAll();
 
             // Call
@@ -82,8 +81,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         {
             // Setup
             MockRepository mocks = new MockRepository();
-            IFailureMechanismPropertyChangeHandler<HeightStructuresFailureMechanism> changeHandler =
-                mocks.Stub<IFailureMechanismPropertyChangeHandler<HeightStructuresFailureMechanism>>();
+            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<HeightStructuresFailureMechanism>>();
             mocks.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism
@@ -119,8 +117,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         {
             // Setup
             MockRepository mocks = new MockRepository();
-            IFailureMechanismPropertyChangeHandler<HeightStructuresFailureMechanism> changeHandler =
-                mocks.Stub<IFailureMechanismPropertyChangeHandler<HeightStructuresFailureMechanism>>();
+            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<HeightStructuresFailureMechanism>>();
             mocks.ReplayAll();
 
             // Call
@@ -197,8 +194,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         {
             // Setup
             MockRepository mocks = new MockRepository();
-            IFailureMechanismPropertyChangeHandler<HeightStructuresFailureMechanism> changeHandler =
-                mocks.Stub<IFailureMechanismPropertyChangeHandler<HeightStructuresFailureMechanism>>();
+            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<HeightStructuresFailureMechanism>>();
             mocks.ReplayAll();
 
             // Call
