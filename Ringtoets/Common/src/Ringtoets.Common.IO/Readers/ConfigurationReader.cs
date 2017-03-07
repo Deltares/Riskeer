@@ -36,7 +36,8 @@ using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 namespace Ringtoets.Common.IO.Readers
 {
     /// <summary>
-    /// Base class for reading a configuration from XML and creating a collection of corresponding <see cref="TCalculationItem"/>.
+    /// Base class for reading a configuration from XML and creating a collection of corresponding
+    /// <see cref="IReadConfigurationItem"/>, possibly containing one or more <see cref="TCalculationItem"/>.
     /// </summary>
     /// <typeparam name="TCalculationItem">The type of calculation items read from XML.</typeparam>
     public abstract class ConfigurationReader<TCalculationItem>
@@ -48,7 +49,7 @@ namespace Ringtoets.Common.IO.Readers
         /// Creates a new instance of <see cref="ConfigurationReader{TCalculationItem}"/>.
         /// </summary>
         /// <param name="xmlFilePath">The file path to the XML file.</param>
-        /// <param name="schemaResXFileRef">A file reference towards an XML Schema Definition (XSD).</param>
+        /// <param name="schemaString">A string representing an XML Schema Definition (XSD).</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="xmlFilePath"/> is invalid.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
@@ -57,7 +58,7 @@ namespace Ringtoets.Common.IO.Readers
         /// <item><paramref name="xmlFilePath"/> points to a file that does not pass the schema validation.</item>
         /// </list>
         /// </exception>
-        protected ConfigurationReader(string xmlFilePath, string schemaResXFileRef)
+        protected ConfigurationReader(string xmlFilePath, string schemaString)
         {
             IOUtils.ValidateFilePath(xmlFilePath);
 
@@ -65,7 +66,7 @@ namespace Ringtoets.Common.IO.Readers
 
             xmlDocument = LoadDocument(xmlFilePath);
 
-            ValidateToSchema(xmlDocument, schemaResXFileRef, xmlFilePath);
+            ValidateToSchema(xmlDocument, schemaString, xmlFilePath);
 
             ValidateNotEmpty(xmlDocument, xmlFilePath);
         }
@@ -129,13 +130,13 @@ namespace Ringtoets.Common.IO.Readers
         /// Validates the provided XML document based on the provided XML Schema Definition (XSD).
         /// </summary>
         /// <param name="document">The XML document to validate.</param>
-        /// <param name="schemaResXFileRef">A file reference towards the XML Schema Definition (XSD) to use for the validation.</param>
+        /// <param name="schemaString">A string representing the XML Schema Definition (XSD) to use for the validation.</param>
         /// <param name="xmlFilePath">The file path the XML document is loaded from.</param>
         /// <exception cref="CriticalFileReadException">Thrown when the provided XML document does not match the provided XML Schema Definition (XSD).</exception>
-        private static void ValidateToSchema(XDocument document, string schemaResXFileRef, string xmlFilePath)
+        private static void ValidateToSchema(XDocument document, string schemaString, string xmlFilePath)
         {
             var xmlSchemaSet = new XmlSchemaSet();
-            xmlSchemaSet.Add(XmlSchema.Read(new StringReader(schemaResXFileRef), null));
+            xmlSchemaSet.Add(XmlSchema.Read(new StringReader(schemaString), null));
 
             try
             {

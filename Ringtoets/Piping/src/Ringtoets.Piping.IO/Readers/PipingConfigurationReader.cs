@@ -32,9 +32,10 @@ using Ringtoets.Piping.IO.Schema;
 namespace Ringtoets.Piping.IO.Readers
 {
     /// <summary>
-    /// This class reads a piping configuration from XML and creates a collection of corresponding <see cref="IReadConfigurationItem"/>.
+    /// This class reads a piping configuration from XML and creates a collection of corresponding
+    /// <see cref="IReadConfigurationItem"/>, possibly containing one or more <see cref="ReadPipingCalculation"/>.
     /// </summary>
-    internal class PipingConfigurationReader : ConfigurationReader<IReadConfigurationItem>
+    internal class PipingConfigurationReader : ConfigurationReader<ReadPipingCalculation>
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingConfigurationReader"/>.
@@ -51,7 +52,7 @@ namespace Ringtoets.Piping.IO.Readers
         internal PipingConfigurationReader(string xmlFilePath)
             : base(xmlFilePath, Resources.PipingConfigurationSchema) {}
 
-        protected override IReadConfigurationItem ParseReadCalculation(XElement calculationElement)
+        protected override ReadPipingCalculation ParseReadCalculation(XElement calculationElement)
         {
             var constructionProperties = new ReadPipingCalculation.ConstructionProperties
             {
