@@ -102,6 +102,7 @@
     <Compile Include="Structures\StructureLocationReader.cs" />
     <Compile Include="Structures\VarianceType.cs" />
     <Compile Include="Structures\ValidationResult.cs" />
+    <Compile Include="Writers\CalculationConfigurationWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

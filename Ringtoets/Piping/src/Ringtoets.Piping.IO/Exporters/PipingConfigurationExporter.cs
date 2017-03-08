@@ -63,7 +63,7 @@ namespace Ringtoets.Piping.IO.Exporters
         {
             try
             {
-                PipingConfigurationWriter.Write(calculationGroup, filePath);
+                new PipingConfigurationWriter().Write(calculationGroup, filePath);
             }
             catch (CriticalFileWriteException e)
             {

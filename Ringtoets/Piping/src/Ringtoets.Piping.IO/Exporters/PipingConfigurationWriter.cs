@@ -20,94 +20,22 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Xml;
-using Core.Common.IO.Exceptions;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.IO.Schema;
+using Ringtoets.Common.IO.Writers;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Schema;
-using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Ringtoets.Piping.IO.Exporters
 {
     /// <summary>
     /// Writer for writing a piping configuration to XML.
     /// </summary>
-    internal static class PipingConfigurationWriter
+    internal class PipingConfigurationWriter : CalculationConfigurationWriter<PipingCalculation>
     {
-        /// <summary>
-        /// Writes a piping configuration to an XML file.
-        /// </summary>
-        /// <param name="rootCalculationGroup">The root calculation group containing the piping configuration to write.</param>
-        /// <param name="filePath">The path to the target XML file.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="CriticalFileWriteException">Thrown when unable to write to <paramref name="filePath"/>.</exception>
-        /// <remarks>The <paramref name="rootCalculationGroup"/> itself will not be part of the written XML, only its children.</remarks>
-        internal static void Write(CalculationGroup rootCalculationGroup, string filePath)
-        {
-            if (rootCalculationGroup == null)
-            {
-                throw new ArgumentNullException(nameof(rootCalculationGroup));
-            }
-            if (filePath == null)
-            {
-                throw new ArgumentNullException(nameof(filePath));
-            }
-
-            try
-            {
-                var settings = new XmlWriterSettings
-                {
-                    Indent = true
-                };
-
-                using (XmlWriter writer = XmlWriter.Create(filePath, settings))
-                {
-                    writer.WriteStartDocument();
-                    writer.WriteStartElement(ConfigurationSchemaIdentifiers.ConfigurationElement);
-
-                    WriteConfiguration(rootCalculationGroup, writer);
-
-                    writer.WriteEndElement();
-                    writer.WriteEndDocument();
-                }
-            }
-            catch (SystemException e)
-            {
-                throw new CriticalFileWriteException(string.Format(CoreCommonUtilsResources.Error_General_output_error_0, filePath), e);
-            }
-        }
-
-        private static void WriteConfiguration(CalculationGroup calculationGroup, XmlWriter writer)
-        {
-            foreach (ICalculationBase child in calculationGroup.Children)
-            {
-                var innerGroup = child as CalculationGroup;
-                if (innerGroup != null)
-                {
-                    WriteCalculationGroup(innerGroup, writer);
-                }
-
-                var calculation = child as PipingCalculation;
-                if (calculation != null)
-                {
-                    WriteCalculation(calculation, writer);
-                }
-            }
-        }
-
-        private static void WriteCalculationGroup(CalculationGroup calculationGroup, XmlWriter writer)
-        {
-            writer.WriteStartElement(ConfigurationSchemaIdentifiers.FolderElement);
-            writer.WriteAttributeString(ConfigurationSchemaIdentifiers.NameAttribute, calculationGroup.Name);
-
-            WriteConfiguration(calculationGroup, writer);
-
-            writer.WriteEndElement();
-        }
-
-        private static void WriteCalculation(PipingCalculation calculation, XmlWriter writer)
+        protected override void WriteCalculation(PipingCalculation calculation, XmlWriter writer)
         {
             writer.WriteStartElement(ConfigurationSchemaIdentifiers.CalculationElement);
             writer.WriteAttributeString(ConfigurationSchemaIdentifiers.NameAttribute, calculation.Name);
@@ -147,34 +75,20 @@ namespace Ringtoets.Piping.IO.Exporters
                 }
             }
 
-            WriteDistributions(calculationInputParameters, writer);
+            WriteDistributions(CreateInputDistributions(calculationInputParameters), writer);
 
             writer.WriteEndElement();
         }
 
-        private static void WriteDistributions(PipingInput calculationInputParameters, XmlWriter writer)
+        private static IEnumerable<Tuple<string, IDistribution>> CreateInputDistributions(PipingInput calculationInputParameters)
         {
-            writer.WriteStartElement(ConfigurationSchemaIdentifiers.StochastsElement);
+            yield return Tuple.Create<string, IDistribution>(
+                PipingConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName,
+                calculationInputParameters.PhreaticLevelExit);
 
-            WriteDistribution(calculationInputParameters.PhreaticLevelExit,
-                              PipingConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName, writer);
-            WriteDistribution(calculationInputParameters.DampingFactorExit,
-                              PipingConfigurationSchemaIdentifiers.DampingFactorExitStochastName, writer);
-
-            writer.WriteEndElement();
-        }
-
-        private static void WriteDistribution(IDistribution distribution, string elementName, XmlWriter writer)
-        {
-            writer.WriteStartElement(ConfigurationSchemaIdentifiers.StochastElement);
-            writer.WriteAttributeString(ConfigurationSchemaIdentifiers.NameAttribute, elementName);
-
-            writer.WriteElementString(ConfigurationSchemaIdentifiers.MeanElement,
-                                      XmlConvert.ToString(distribution.Mean));
-            writer.WriteElementString(ConfigurationSchemaIdentifiers.StandardDeviationElement,
-                                      XmlConvert.ToString(distribution.StandardDeviation));
-
-            writer.WriteEndElement();
+            yield return Tuple.Create<string, IDistribution>(
+                PipingConfigurationSchemaIdentifiers.DampingFactorExitStochastName,
+                calculationInputParameters.DampingFactorExit);
         }
     }
 }

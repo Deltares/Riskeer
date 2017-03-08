@@ -114,7 +114,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
         #endregion
 
         [Test]
-        [TestCaseSource(typeof(DistributionPropertiesTestHelperTest), nameof(distributionTestCases))]
+        [TestCaseSource(nameof(distributionTestCases))]
         public void AssertPropertiesInState_DifferentDistributions_ExpectedAssertionsCalled(
             DistributionPropertiesBase<SimpleDistribution> distribution,
             bool expectedMeanReadOnly,
@@ -136,7 +136,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
         }
 
         [Test]
-        [TestCaseSource(typeof(DistributionPropertiesTestHelperTest), nameof(variationCoefficientDistributionTestCases))]
+        [TestCaseSource(nameof(variationCoefficientDistributionTestCases))]
         public void AssertPropertiesInState_DifferentVariationCoefficientDistributions_ExpectedAssertionsCalled(
             VariationCoefficientDistributionPropertiesBase<SimpleDistribution> distribution,
             bool expectedMeanReadOnly,
