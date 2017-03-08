@@ -19,11 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Xml;
 using System.Xml.Schema;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
@@ -157,107 +155,6 @@ namespace Ringtoets.Piping.IO.Test.Readers
                 yield return new TestCaseData("invalidConfigurationCalculationContainingEmptySoilProfile.xml",
                                               "The 'ondergrondschematisatie' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
                     .SetName("invalidConfigurationCalculationContainingEmptySoilProfile");
-            }
-        }
-
-        [Test]
-        [TestCase("")]
-        [TestCase("      ")]
-        [TestCase(null)]
-        public void Constructor_NoFilePath_ThrowArgumentException(string invalidFilePath)
-        {
-            // Call
-            TestDelegate call = () => new PipingConfigurationReader(invalidFilePath);
-
-            // Assert
-            string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet leeg of ongedefinieerd zijn.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-        }
-
-        [Test]
-        public void Constructor_FilePathHasInvalidPathCharacter_ThrowArgumentException()
-        {
-            // Setup
-            char[] invalidPathChars = Path.GetInvalidPathChars();
-
-            string validFilePath = Path.Combine(testDirectoryPath, "validPipingConfiguration.xml");
-            string invalidFilePath = validFilePath.Replace("Piping", invalidPathChars[3].ToString());
-
-            // Call
-            TestDelegate call = () => new PipingConfigurationReader(invalidFilePath);
-
-            // Assert
-            string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': "
-                                     + "er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-        }
-
-        [Test]
-        public void Constructor_FilePathIsActuallyDirectoryPath_ThrowArgumentException()
-        {
-            // Setup
-            string invalidFilePath = Path.Combine(testDirectoryPath, Path.DirectorySeparatorChar.ToString());
-
-            // Call
-            TestDelegate call = () => new PipingConfigurationReader(invalidFilePath);
-
-            // Assert
-            string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet verwijzen naar een lege bestandsnaam.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-        }
-
-        [Test]
-        public void Constructor_FileDoesNotExist_ThrowCriticalFileReadException()
-        {
-            // Setup
-            string invalidFilePath = Path.Combine(testDirectoryPath, "notExisting.xml");
-
-            // Call
-            TestDelegate call = () => new PipingConfigurationReader(invalidFilePath);
-
-            // Assert
-            string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': het bestand bestaat niet.";
-            string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            Assert.AreEqual(expectedMessage, message);
-        }
-
-        [Test]
-        [TestCase("empty.xml")]
-        [TestCase("textContent.xml")]
-        [TestCase("invalidXmlContent.xml")]
-        public void Constructor_FileDoesNotContainValidXml_ThrowCriticalFileReadException(string fileName)
-        {
-            // Setup
-            string filePath = Path.Combine(testDirectoryPath, fileName);
-
-            // Call
-            TestDelegate call = () => new PipingConfigurationReader(filePath);
-
-            // Assert
-            string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.";
-            var exception = Assert.Throws<CriticalFileReadException>(call);
-            Assert.AreEqual(expectedMessage, exception.Message);
-            Assert.IsInstanceOf<XmlException>(exception.InnerException);
-        }
-
-        [Test]
-        public void Constructor_FileInUse_ThrowCriticalFileReadException()
-        {
-            // Setup
-            string path = TestHelper.GetScratchPadPath($"{nameof(PipingConfigurationReaderTest)}.{nameof(Constructor_FileInUse_ThrowCriticalFileReadException)}");
-
-            using (var fileDisposeHelper = new FileDisposeHelper(path))
-            {
-                fileDisposeHelper.LockFiles();
-
-                // Call
-                TestDelegate call = () => new PipingConfigurationReader(path);
-
-                // Assert
-                string expectedMessage = $"Fout bij het lezen van bestand '{path}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.";
-                var exception = Assert.Throws<CriticalFileReadException>(call);
-                Assert.AreEqual(expectedMessage, exception.Message);
-                Assert.IsInstanceOf<IOException>(exception.InnerException);
             }
         }
 

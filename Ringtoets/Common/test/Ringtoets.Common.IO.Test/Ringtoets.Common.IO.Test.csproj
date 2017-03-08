@@ -50,6 +50,8 @@
       <HintPath>..\..\..\..\packages\System.Data.SQLite.Core.1.0.104.0\lib\net40\System.Data.SQLite.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
@@ -76,6 +78,7 @@
     <Compile Include="HydraRing\NumericsSettingsProviderTest.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryLocationsExporterTest.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryLocationsWriterTest.cs" />
+    <Compile Include="Readers\ConfigurationReaderTest.cs" />
     <Compile Include="Readers\ReadCalculationGroupTest.cs" />
     <Compile Include="ReferenceLines\ReferenceLineExporterTest.cs" />
     <Compile Include="ReferenceLines\ReferenceLineMetaImporterTest.cs" />
