@@ -33,7 +33,7 @@ using Ringtoets.Piping.Plugin.ChangeHandlers;
 namespace Ringtoets.Piping.Plugin.Test.ChangeHandlers
 {
     [TestFixture]
-    public class UpdateCharacteristicPointsOfCalculationsChangeHandlerTest
+    public class UpdateEntryAndExitPointsOfCalculationsChangeHandlerTest
     {
         [Test]
         public void Constructor_WithoutCalculations_ThrowsArgumentNullException()

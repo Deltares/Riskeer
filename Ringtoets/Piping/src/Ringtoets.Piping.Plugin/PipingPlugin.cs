@@ -106,7 +106,7 @@ namespace Ringtoets.Piping.Plugin
                 FileFilterGenerator = RingtoetsPipingSurfaceLineFileFilter,
                 IsEnabled = IsSurfaceLineImporterEnabled,
                 CreateFileImporter = (context, filePath) => PipingSurfaceLinesCsvImporter(context, filePath, new RingtoetsPipingSurfaceLineReplaceDataStrategy(context.FailureMechanism)),
-                VerifyUpdates = VerifyPipingSurfaceLineUpdates
+                VerifyUpdates = context => VerifyPipingSurfaceLineUpdates(context, Resources.PipingPlugin_VerifyRingtoetsPipingSurfaceLineImport_When_importing_surfacelines_calculation_output_will_be_cleared_confirm)
             };
 
             yield return new ImportInfo<StochasticSoilModelCollectionContext>
@@ -155,7 +155,7 @@ namespace Ringtoets.Piping.Plugin
                 IsEnabled = IsSurfaceLineImporterEnabled,
                 CurrentPath = context => context.WrappedData.SourcePath,
                 CreateFileImporter = (context, filePath) => PipingSurfaceLinesCsvImporter(context, filePath, new RingtoetsPipingSurfaceLineUpdateDataStrategy(context.FailureMechanism)),
-                VerifyUpdates = VerifyPipingSurfaceLineUpdates
+                VerifyUpdates = context => VerifyPipingSurfaceLineUpdates(context, Resources.PipingPlugin_VerifyRingtoetsPipingSurfaceLineUpdates_When_updating_surfacelines_definitions_assigned_to_calculation_output_will_be_cleared_confirm)
             };
 
             yield return new UpdateInfo<StochasticSoilModelCollectionContext>
@@ -1122,9 +1122,9 @@ namespace Ringtoets.Piping.Plugin
             }
         }
 
-        private bool VerifyPipingSurfaceLineUpdates(RingtoetsPipingSurfaceLinesContext context)
+        private bool VerifyPipingSurfaceLineUpdates(RingtoetsPipingSurfaceLinesContext context, string query)
         {
-            var changeHandler = new RingtoetsPipingSurfaceLineChangeHandler(context.FailureMechanism,
+            var changeHandler = new RingtoetsPipingSurfaceLineChangeHandler(context.FailureMechanism, query,
                                                                             new DialogBasedInquiryHelper(Gui.MainWindow));
 
             return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();

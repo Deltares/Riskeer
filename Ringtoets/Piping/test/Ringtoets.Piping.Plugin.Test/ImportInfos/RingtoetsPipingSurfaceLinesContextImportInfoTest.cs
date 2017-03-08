@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base.IO;
@@ -26,18 +27,20 @@ using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
+using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Plugin.FileImporter;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin.Test.ImportInfos
 {
     [TestFixture]
-    public class RingtoetsPipingSurfaceLinesContextImportInfoTest
+    public class RingtoetsPipingSurfaceLinesContextImportInfoTest : NUnitFormTest
     {
         private ImportInfo importInfo;
         private PipingPlugin plugin;
@@ -50,7 +53,7 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
         }
 
         [TearDown]
-        public void TearDown()
+        public override void TearDown()
         {
             plugin.Dispose();
         }
@@ -165,6 +168,61 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
 
             // Assert
             Assert.IsTrue(requiresUpdateConfirmation);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void VerifyUpdates_CalculationWithOutputs_AlwaysReturnsExpectedInquiryMessage(bool isActionConfirmed)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.ReferenceLine = new ReferenceLine();
+
+            var mainWindow = mocks.Stub<IMainWindow>();
+            var gui = mocks.Stub<IGui>();
+            gui.Stub(g => g.MainWindow).Return(mainWindow);
+            mocks.ReplayAll();
+
+            plugin.Gui = gui;
+
+            var failureMechanism = new PipingFailureMechanism();
+            var calculationWithOutput = new PipingCalculationScenario(new GeneralPipingInput())
+            {
+                Output = new TestPipingOutput()
+            };
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
+
+            var surfaceLines = new RingtoetsPipingSurfaceLineCollection();
+            var context = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
+
+            string textBoxMessage = null;
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var helper = new MessageBoxTester(wnd);
+                textBoxMessage = helper.Text;
+
+                if (isActionConfirmed)
+                {
+                    helper.ClickOk();
+                }
+                else
+                {
+                    helper.ClickCancel();
+                }
+            };
+
+            // Call
+            bool requiresUpdateConfirmation = importInfo.VerifyUpdates(context);
+
+            // Assert
+            string expectedInquiryMessage = "Als u profielschematisaties importeert, " +
+                                            "dan worden alle rekenresultaten van dit toetsspoor verwijderd." +
+                                            $"{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
+            Assert.AreEqual(expectedInquiryMessage, textBoxMessage);
+            Assert.AreEqual(isActionConfirmed, requiresUpdateConfirmation);
             mocks.VerifyAll();
         }
 

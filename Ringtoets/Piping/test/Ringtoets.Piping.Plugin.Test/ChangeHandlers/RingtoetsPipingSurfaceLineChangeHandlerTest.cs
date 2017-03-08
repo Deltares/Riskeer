@@ -42,7 +42,7 @@ namespace Ringtoets.Piping.Plugin.Test.ChangeHandlers
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => new RingtoetsPipingSurfaceLineChangeHandler(null, inquiryHandler);
+            TestDelegate test = () => new RingtoetsPipingSurfaceLineChangeHandler(null, string.Empty, inquiryHandler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -51,10 +51,27 @@ namespace Ringtoets.Piping.Plugin.Test.ChangeHandlers
         }
 
         [Test]
+        public void Constructor_WithoutQuery_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var inquiryHandler = mockRepository.StrictMock<IInquiryHelper>();
+            mockRepository.ReplayAll();
+
+            // Call
+            TestDelegate test = () => new RingtoetsPipingSurfaceLineChangeHandler(new PipingFailureMechanism(), null, inquiryHandler);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("query", paramName);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
         public void Constructor_WithoutInquiryHandler_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new RingtoetsPipingSurfaceLineChangeHandler(new PipingFailureMechanism(), null);
+            TestDelegate test = () => new RingtoetsPipingSurfaceLineChangeHandler(new PipingFailureMechanism(), string.Empty, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -70,7 +87,7 @@ namespace Ringtoets.Piping.Plugin.Test.ChangeHandlers
             mockRepository.ReplayAll();
 
             // Call
-            var handler = new RingtoetsPipingSurfaceLineChangeHandler(new PipingFailureMechanism(), inquiryHandler);
+            var handler = new RingtoetsPipingSurfaceLineChangeHandler(new PipingFailureMechanism(), string.Empty, inquiryHandler);
 
             // Assert
             Assert.IsInstanceOf<IConfirmDataChangeHandler>(handler);
@@ -88,7 +105,7 @@ namespace Ringtoets.Piping.Plugin.Test.ChangeHandlers
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new PipingCalculationScenario(new GeneralPipingInput()));
 
-            var handler = new RingtoetsPipingSurfaceLineChangeHandler(failureMechanism, inquiryHandler);
+            var handler = new RingtoetsPipingSurfaceLineChangeHandler(failureMechanism, string.Empty, inquiryHandler);
 
             // Call
             bool requireConfirmation = handler.RequireConfirmation();
@@ -112,7 +129,7 @@ namespace Ringtoets.Piping.Plugin.Test.ChangeHandlers
                 Output = new TestPipingOutput()
             });
 
-            var handler = new RingtoetsPipingSurfaceLineChangeHandler(failureMechanism, inquiryHandler);
+            var handler = new RingtoetsPipingSurfaceLineChangeHandler(failureMechanism, string.Empty, inquiryHandler);
 
             // Call
             bool requireConfirmation = handler.RequireConfirmation();
@@ -123,21 +140,21 @@ namespace Ringtoets.Piping.Plugin.Test.ChangeHandlers
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void InquireConfirmation_Always_ShowsConfirmationDialogReturnResultOfInquiry(bool expectedResult)
+        [TestCase("I am a query", true)]
+        [TestCase("I am a query", false)]
+        [TestCase("", true)]
+        [TestCase("", false)]
+        [TestCase("     ", true)]
+        [TestCase("     ", false)]
+        public void InquireConfirmation_Always_ShowsConfirmationDialogReturnResultOfInquiry(string message, bool expectedResult)
         {
             // Setup
-            string message = "Wanneer profielschematisaties wijzigen als gevolg van het bijwerken, " +
-                                   "zullen de resultaten van berekeningen die deze profielschematisaties gebruiken, worden " +
-                                   $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
-
             var mockRepository = new MockRepository();
             var inquiryHandler = mockRepository.StrictMock<IInquiryHelper>();
             inquiryHandler.Expect(ih => ih.InquireContinuation(message)).Return(expectedResult);
             mockRepository.ReplayAll();
 
-            var handler = new RingtoetsPipingSurfaceLineChangeHandler(new PipingFailureMechanism(), inquiryHandler);
+            var handler = new RingtoetsPipingSurfaceLineChangeHandler(new PipingFailureMechanism(), message, inquiryHandler);
 
             // Call
             bool result = handler.InquireConfirmation();

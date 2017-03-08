@@ -246,6 +246,30 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Als u profielschematisaties importeert, dan worden alle rekenresultaten van dit toetsspoor verwijderd.
+        ///
+        ///Weet u zeker dat u wilt doorgaan?.
+        /// </summary>
+        public static string PipingPlugin_VerifyRingtoetsPipingSurfaceLineImport_When_importing_surfacelines_calculation_output_will_be_cleared_confirm {
+            get {
+                return ResourceManager.GetString("PipingPlugin_VerifyRingtoetsPipingSurfaceLineImport_When_importing_surfacelines_c" +
+                        "alculation_output_will_be_cleared_confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Als profielschematisaties wijzigen door het bijwerken, dan worden de resultaten van berekeningen die deze profielschematisaties gebruiken verwijderd.
+        ///
+        ///Weet u zeker dat u wilt doorgaan?.
+        /// </summary>
+        public static string PipingPlugin_VerifyRingtoetsPipingSurfaceLineUpdates_When_updating_surfacelines_definitions_assigned_to_calculation_output_will_be_cleared_confirm {
+            get {
+                return ResourceManager.GetString("PipingPlugin_VerifyRingtoetsPipingSurfaceLineUpdates_When_updating_surfacelines_d" +
+                        "efinitions_assigned_to_calculation_output_will_be_cleared_confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Karakteristieke punten gevonden zonder bijbehorende profielschematisatie voor locatie &apos;{0}&apos;..
         /// </summary>
         public static string PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Characteristic_points_found_for_unknown_SurfaceLine_0_ {
@@ -469,19 +493,6 @@ namespace Ringtoets.Piping.Plugin.Properties {
             get {
                 return ResourceManager.GetString("PipingSurfaceLinesCsvImporter_SurfaceLine_0_has_multiple_duplicate_geometry_point" +
                         "s_and_is_ignored", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Wanneer profielschematisaties wijzigen als gevolg van het bijwerken, zullen de resultaten van berekeningen die deze profielschematisaties gebruiken, worden verwijderd.
-        ///
-        ///Weet u zeker dat u wilt doorgaan?.
-        /// </summary>
-        public static string RingtoetsPipingSurfaceLineChangeHandler_InquireConfirmation_When_updating_RingtoetsSurfaceLines_definitions_assigned_to_calculations_output_will_be_cleared_confirm {
-            get {
-                return ResourceManager.GetString("RingtoetsPipingSurfaceLineChangeHandler_InquireConfirmation_When_updating_Ringtoe" +
-                        "tsSurfaceLines_definitions_assigned_to_calculations_output_will_be_cleared_confi" +
-                        "rm", resourceCulture);
             }
         }
         
