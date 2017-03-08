@@ -47,18 +47,18 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         private const int wmtsPreferredFormatPropertyIndex = 5;
 
         [Test]
-        public void Constructor_ContainerNull_ThrowArgumentNullException()
+        public void Constructor_BackgroundDataNull_ThrowArgumentNullException()
         {
             // Call
             TestDelegate call = () => new BackgroundDataProperties(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("backgroundMapData", paramName);
+            Assert.AreEqual("backgroundData", paramName);
         }
 
         [Test]
-        public void Constructor_ValidContainer_ExpectedValues()
+        public void Constructor_ValidBackgroundData_ExpectedValues()
         {
             // Setup
             var backgroundMapData = new BackgroundData();
@@ -72,7 +72,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetProperties_ContainerWithoutMapData_ReturnExpectedValues()
+        public void GetProperties_EmptyBackgroundData_ReturnExpectedValues()
         {
             // Setup
             var backgroundMapData = new BackgroundData();
@@ -90,7 +90,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetProperties_ContainerWithConfiguredMapData_ReturnExpectedValues()
+        public void GetProperties_ConfiguredBackgroundData_ReturnExpectedValues()
         {
             // Setup
             const string name = "A";
@@ -118,7 +118,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetProperties_ContainerWithWmtsMapData_ReturnExpectedValues()
+        public void GetProperties_BackgroundDataWmts_ReturnExpectedValues()
         {
             // Setup
             var mapData = WmtsMapData.CreateDefaultPdokMapData();
@@ -151,7 +151,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetProperties_ContainerWithUnconfiguredMapData_ReturnExpectedValues()
+        public void GetProperties_BackgroundDataWithoutParameters_ReturnExpectedValues()
         {
             // Setup
             const string name = "A";

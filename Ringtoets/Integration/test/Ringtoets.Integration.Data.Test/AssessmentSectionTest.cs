@@ -148,6 +148,11 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(0.0, section.BackgroundMapData.Transparency.Value);
             var mapData = (WmtsMapData)section.BackgroundMapData.MapData;
             Assert.IsFalse(mapData.IsConfigured);
+
+            Assert.IsFalse(section.BackgroundData.IsVisible);
+            Assert.AreEqual(0.0, section.BackgroundData.Transparency.Value);
+            Assert.IsFalse(section.BackgroundData.IsConfigured);
+            Assert.AreEqual("<niet bepaald>", section.BackgroundData.Name);
         }
 
         [Test]

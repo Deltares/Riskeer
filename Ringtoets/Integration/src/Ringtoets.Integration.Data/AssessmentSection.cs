@@ -71,6 +71,7 @@ namespace Ringtoets.Integration.Data
 
             BackgroundData = new BackgroundData
             {
+                Name = mapData.Name,
                 IsVisible = mapData.IsVisible,
                 Transparency = mapData.Transparency,
                 IsConfigured = mapData.IsConfigured

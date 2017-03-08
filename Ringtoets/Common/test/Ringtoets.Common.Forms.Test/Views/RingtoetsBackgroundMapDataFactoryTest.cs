@@ -40,7 +40,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("backgroundMapData", exception.ParamName);
+            Assert.AreEqual("backgroundData", exception.ParamName);
         }
 
         [Test]
@@ -115,7 +115,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("backgroundMapData", exception.ParamName);
+            Assert.AreEqual("backgroundData", exception.ParamName);
         }
 
         [Test]
