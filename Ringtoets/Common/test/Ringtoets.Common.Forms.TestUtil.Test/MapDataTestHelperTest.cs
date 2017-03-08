@@ -38,6 +38,43 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
     [TestFixture]
     public class MapDataTestHelperTest
     {
+        private static IEnumerable<TestCaseData> NotEqualToDefaultPdokMapData()
+        {
+            var defaultMapData = WmtsMapData.CreateDefaultPdokMapData();
+
+            var otherName = new WmtsMapData("otherName",
+                                            defaultMapData.SourceCapabilitiesUrl,
+                                            defaultMapData.SelectedCapabilityIdentifier,
+                                            defaultMapData.PreferredFormat);
+            yield return new TestCaseData(otherName);
+
+            var otherPreferredFormat = new WmtsMapData(defaultMapData.Name,
+                                                       defaultMapData.SourceCapabilitiesUrl,
+                                                       defaultMapData.SelectedCapabilityIdentifier,
+                                                       "image/otherPreferredFormat");
+            yield return new TestCaseData(otherPreferredFormat);
+
+            var otherSelectedCapabilityIdentifier = new WmtsMapData(defaultMapData.Name,
+                                                                    defaultMapData.SourceCapabilitiesUrl,
+                                                                    "otherSelectedCapabilityIdentifier",
+                                                                    defaultMapData.PreferredFormat);
+            yield return new TestCaseData(otherSelectedCapabilityIdentifier);
+
+            var otherSourceCapabilitiesUrl = new WmtsMapData(defaultMapData.Name,
+                                                             "otherSourceCapabilitiesUrl",
+                                                             defaultMapData.SelectedCapabilityIdentifier,
+                                                             defaultMapData.PreferredFormat);
+            yield return new TestCaseData(otherSourceCapabilitiesUrl);
+
+            WmtsMapData otherVisibility = defaultMapData;
+            otherVisibility.IsVisible = !otherVisibility.IsVisible;
+            yield return new TestCaseData(otherVisibility);
+
+            WmtsMapData otherTransparency = defaultMapData;
+            otherTransparency.Transparency = (RoundedDouble) ((otherVisibility.Transparency + 0.5) % 1);
+            yield return new TestCaseData(otherTransparency);
+        }
+
         #region AssertFailureMechanismSectionsMapData
 
         [Test]
@@ -427,11 +464,11 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
 
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(new[]
-                                      {
-                                          new Point2D(0.0, 0.0),
-                                          new Point2D(1.0, 1.0),
-                                          new Point2D(2.0, 2.0)
-                                      });
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(1.0, 1.0),
+                new Point2D(2.0, 2.0)
+            });
 
             // Call
             TestDelegate test = () => MapDataTestHelper.AssertReferenceLineMapData(referenceLine, mapData);
@@ -452,7 +489,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
                     {
                         new MapGeometry(new[]
                         {
-                            new []
+                            new[]
                             {
                                 new Point2D(0.0, 0.0),
                                 new Point2D(2.0, 2.0),
@@ -465,11 +502,11 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
 
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(new[]
-                                      {
-                                          new Point2D(0.0, 0.0),
-                                          new Point2D(1.0, 1.0),
-                                          new Point2D(2.0, 2.0)
-                                      });
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(1.0, 1.0),
+                new Point2D(2.0, 2.0)
+            });
 
             // Call
             TestDelegate test = () => MapDataTestHelper.AssertReferenceLineMapData(referenceLine, mapData);
@@ -517,7 +554,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
                     {
                         new MapGeometry(new[]
                         {
-                            new []
+                            new[]
                             {
                                 new Point2D(0.0, 0.0),
                                 new Point2D(1.0, 1.0),
@@ -530,11 +567,11 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
 
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(new[]
-                                      {
-                                          new Point2D(0.0, 0.0),
-                                          new Point2D(1.0, 1.0),
-                                          new Point2D(2.0, 2.0)
-                                      });
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(1.0, 1.0),
+                new Point2D(2.0, 2.0)
+            });
 
             // Call
             TestDelegate test = () => MapDataTestHelper.AssertReferenceLineMapData(referenceLine, mapData);
@@ -614,7 +651,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
                     {
                         new MapGeometry(new[]
                         {
-                            new []
+                            new[]
                             {
                                 new Point2D(1, 1)
                             }
@@ -642,7 +679,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
                     {
                         new MapGeometry(new[]
                         {
-                            new []
+                            new[]
                             {
                                 new Point2D(1, 1)
                             }
@@ -720,7 +757,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
                     {
                         new MapGeometry(new[]
                         {
-                            new []
+                            new[]
                             {
                                 new Point2D(0, 0)
                             }
@@ -817,7 +854,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
                     {
                         new MapGeometry(new[]
                         {
-                            new []
+                            new[]
                             {
                                 new Point2D(1, 1)
                             }
@@ -845,7 +882,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
                     {
                         new MapGeometry(new[]
                         {
-                            new []
+                            new[]
                             {
                                 new Point2D(1, 1)
                             }
@@ -923,7 +960,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
                     {
                         new MapGeometry(new[]
                         {
-                            new []
+                            new[]
                             {
                                 new Point2D(2, 2)
                             }
@@ -972,7 +1009,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             // Setup
             var mapData = new MapLineData("Voorlandprofielen")
             {
-                Features = new []
+                Features = new[]
                 {
                     new MapFeature(Enumerable.Empty<MapGeometry>())
                 }
@@ -999,25 +1036,25 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
                 Features = new[]
                 {
                     new MapFeature(new[]
-                                   {
-                                       new MapGeometry(new []
-                                                       {
-                                                           new []
-                                                           {
-                                                               new Point2D(0, 1), 
-                                                               new Point2D(0, -2)
-                                                           }
-                                                       })
-                                   })
+                    {
+                        new MapGeometry(new[]
+                        {
+                            new[]
+                            {
+                                new Point2D(0, 1),
+                                new Point2D(0, -2)
+                            }
+                        })
+                    })
                 }
             };
             var foreshoreProfiles = new[]
             {
-                new TestForeshoreProfile(new []
-                                         {
-                                             new Point2D(0, 0), 
-                                             new Point2D(1, 1)
-                                         })
+                new TestForeshoreProfile(new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 1)
+                })
             };
 
             // Call
@@ -1036,25 +1073,25 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
                 Features = new[]
                 {
                     new MapFeature(new[]
-                                   {
-                                       new MapGeometry(new []
-                                                       {
-                                                           new []
-                                                           {
-                                                               new Point2D(0, 0),
-                                                               new Point2D(0, -1)
-                                                           }
-                                                       })
-                                   })
+                    {
+                        new MapGeometry(new[]
+                        {
+                            new[]
+                            {
+                                new Point2D(0, 0),
+                                new Point2D(0, -1)
+                            }
+                        })
+                    })
                 }
             };
             var foreshoreProfiles = new[]
             {
-                new TestForeshoreProfile(new []
-                                         {
-                                             new Point2D(0, 0),
-                                             new Point2D(1, 1)
-                                         })
+                new TestForeshoreProfile(new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 1)
+                })
             };
 
             // Call
@@ -1073,25 +1110,25 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
                 Features = new[]
                 {
                     new MapFeature(new[]
-                                   {
-                                       new MapGeometry(new []
-                                                       {
-                                                           new []
-                                                           {
-                                                               new Point2D(0, 0), 
-                                                               new Point2D(0, -1)
-                                                           }
-                                                       })
-                                   })
+                    {
+                        new MapGeometry(new[]
+                        {
+                            new[]
+                            {
+                                new Point2D(0, 0),
+                                new Point2D(0, -1)
+                            }
+                        })
+                    })
                 }
             };
             var foreshoreProfiles = new[]
             {
-                new TestForeshoreProfile(new []
-                                         {
-                                             new Point2D(0, 0),
-                                             new Point2D(1, 1)
-                                         })
+                new TestForeshoreProfile(new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 1)
+                })
             };
 
             // Call
@@ -1157,39 +1194,116 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             Assert.Throws<AssertionException>(test);
         }
 
-        private static IEnumerable<TestCaseData> NotEqualToDefaultPdokMapData()
-        {
-            var defaultMapData = WmtsMapData.CreateDefaultPdokMapData();
+        #endregion
 
-            var otherName = new WmtsMapData("otherName",
-                                            defaultMapData.SourceCapabilitiesUrl,
-                                            defaultMapData.SelectedCapabilityIdentifier,
-                                            defaultMapData.PreferredFormat);
+        #region AssertImageBasedMapData
+
+        [Test]
+        public void AssertImageBasedMapData_MapDataNotImageBasedMapData_ThrowAssertionException()
+        {
+            // Setup
+            var mapData = new MapPointData("MapPointData");
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertImageBasedMapData(WmtsMapData.CreateUnconnectedMapData(),
+                                                                                mapData);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertImageBasedMapData_ImageBasedMapDataNotSupported_ThrowAssertionException()
+        {
+            // Setup
+            var mapData = new MapPointData("MapPointData");
+            var imageBasedMapData = new SimpleImageBasedMapData();
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertImageBasedMapData(imageBasedMapData, mapData);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertImageBasedMapData_ImageBasedMapDataNull_ThrowAssertionException()
+        {
+            // Setup
+            var mapData = new MapPointData("MapPointData");
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertImageBasedMapData(null, mapData);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertImageBasedMapData_DataNull_ThrowAssertionException()
+        {
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertImageBasedMapData(WmtsMapData.CreateUnconnectedMapData(),
+                                                                                null);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(NotEqualToDefaultPdokMapData))]
+        public void AssertImageBasedMapData_WmtsMapDataNotEqual_ThrowAssertionException(WmtsMapData wmtsMapData)
+        {
+            // Setup
+            var mapData = WmtsMapData.CreateDefaultPdokMapData();
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertImageBasedMapData(wmtsMapData, mapData);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(NotEqualToBingAerial))]
+        public void AssertImageBasedMapData_WellKnownTileSourceMapDataNotEqual_ThrowAssertionException(WellKnownTileSourceMapData wellKnownTileSourceMapData)
+        {
+            // Setup
+            var mapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial);
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertImageBasedMapData(wellKnownTileSourceMapData, mapData);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        private class SimpleImageBasedMapData : ImageBasedMapData
+        {
+            public SimpleImageBasedMapData() : base("name") {}
+        }
+
+        private static IEnumerable<TestCaseData> NotEqualToBingAerial()
+        {
+            var defaultMapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial);
+
+            var otherName = new WellKnownTileSourceMapData(defaultMapData.TileSource)
+            {
+                Name = "otherName"
+            };
             yield return new TestCaseData(otherName);
 
-            var otherPreferredFormat = new WmtsMapData(defaultMapData.Name,
-                                                       defaultMapData.SourceCapabilitiesUrl,
-                                                       defaultMapData.SelectedCapabilityIdentifier,
-                                                       "image/otherPreferredFormat");
+            var otherPreferredFormat = new WellKnownTileSourceMapData(WellKnownTileSource.EsriWorldShadedRelief)
+            {
+                Name = "Bing Maps - Satelliet"
+            };
             yield return new TestCaseData(otherPreferredFormat);
 
-            var otherSelectedCapabilityIdentifier = new WmtsMapData(defaultMapData.Name,
-                                                                    defaultMapData.SourceCapabilitiesUrl,
-                                                                    "otherSelectedCapabilityIdentifier",
-                                                                    defaultMapData.PreferredFormat);
-            yield return new TestCaseData(otherSelectedCapabilityIdentifier);
-
-            var otherSourceCapabilitiesUrl = new WmtsMapData(defaultMapData.Name,
-                                                             "otherSourceCapabilitiesUrl",
-                                                             defaultMapData.SelectedCapabilityIdentifier,
-                                                             defaultMapData.PreferredFormat);
-            yield return new TestCaseData(otherSourceCapabilitiesUrl);
-
-            WmtsMapData otherVisibility = defaultMapData;
+            WellKnownTileSourceMapData otherVisibility = defaultMapData;
             otherVisibility.IsVisible = !otherVisibility.IsVisible;
             yield return new TestCaseData(otherVisibility);
 
-            WmtsMapData otherTransparency = defaultMapData;
+            WellKnownTileSourceMapData otherTransparency = defaultMapData;
             otherTransparency.Transparency = (RoundedDouble) ((otherVisibility.Transparency + 0.5) % 1);
             yield return new TestCaseData(otherTransparency);
         }

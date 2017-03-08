@@ -221,14 +221,55 @@ namespace Ringtoets.Common.Forms.TestUtil
             Assert.IsInstanceOf<WmtsMapData>(mapData);
             Assert.IsNotNull(wmtsMapData);
             Assert.AreEqual(wmtsMapData.Name, mapData.Name);
+            Assert.AreEqual(wmtsMapData.IsVisible, mapData.IsVisible);
 
-            var actualMapData = (WmtsMapData)mapData;
+            var actualMapData = (WmtsMapData) mapData;
             Assert.AreEqual(wmtsMapData.PreferredFormat, actualMapData.PreferredFormat);
             Assert.AreEqual(wmtsMapData.SelectedCapabilityIdentifier, actualMapData.SelectedCapabilityIdentifier);
             Assert.AreEqual(wmtsMapData.SourceCapabilitiesUrl, actualMapData.SourceCapabilitiesUrl);
             Assert.AreEqual(wmtsMapData.IsConfigured, actualMapData.IsConfigured);
-            Assert.AreEqual(wmtsMapData.IsVisible, actualMapData.IsVisible);
             Assert.AreEqual(wmtsMapData.Transparency, actualMapData.Transparency);
+        }
+
+        /// <summary>
+        /// Asserts whether the <paramref name="mapData"/> is equivalent to <paramref name="imageBasedMapData"/>
+        /// </summary>
+        /// <param name="imageBasedMapData">The original image based map data.</param>
+        /// <param name="mapData">The <see cref="MapData"/> that needs to be asserted.</param>
+        /// <exception cref="AssertionException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="mapData"/> is no <see cref="ImageBasedMapData"/>;</item>
+        /// <item>One of the properties of <paramref name="imageBasedMapData"/> is not equal to <paramref name="mapData"/>.</item>
+        /// </list></exception>
+        public static void AssertImageBasedMapData(ImageBasedMapData imageBasedMapData, MapData mapData)
+        {
+            var wmtsMapData = imageBasedMapData as WmtsMapData;
+            if (wmtsMapData != null)
+            {
+                AssertWmtsMapData(wmtsMapData, mapData);
+                return;
+            }
+
+            var wellKnownTileSourceMapData = imageBasedMapData as WellKnownTileSourceMapData;
+            if (wellKnownTileSourceMapData != null)
+            {
+                AssertWellKnownTileSourceMapData(wellKnownTileSourceMapData, mapData);
+            }
+            Assert.IsInstanceOf<ImageBasedMapData>(imageBasedMapData);
+            Assert.Fail($"unknown type of {nameof(ImageBasedMapData)}");
+        }
+
+        private static void AssertWellKnownTileSourceMapData(WellKnownTileSourceMapData wellKnownTileSourceMapData, MapData mapData)
+        {
+            Assert.IsInstanceOf<WellKnownTileSourceMapData>(mapData);
+            Assert.IsNotNull(wellKnownTileSourceMapData);
+            Assert.AreEqual(wellKnownTileSourceMapData.Name, mapData.Name);
+            Assert.AreEqual(wellKnownTileSourceMapData.IsVisible, mapData.IsVisible);
+
+            var actualMapData = (WellKnownTileSourceMapData) mapData;
+            Assert.AreEqual(wellKnownTileSourceMapData.IsConfigured, actualMapData.IsConfigured);
+            Assert.AreEqual(wellKnownTileSourceMapData.Transparency, actualMapData.Transparency);
+            Assert.AreEqual(wellKnownTileSourceMapData.TileSource, actualMapData.TileSource);
         }
 
         private static Point2D[] GetWorldPoints(ForeshoreProfile foreshoreProfile)
