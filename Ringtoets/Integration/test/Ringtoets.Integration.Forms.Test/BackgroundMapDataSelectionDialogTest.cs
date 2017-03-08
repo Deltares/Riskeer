@@ -20,18 +20,20 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using BruTile;
+using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Dialogs;
+using Core.Common.Gui.TestUtil.Settings;
 using Core.Common.TestUtil;
 using Core.Components.BruTile.Configurations;
 using Core.Components.BruTile.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms.Views;
+using Core.Components.Gis.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -64,10 +66,10 @@ namespace Ringtoets.Integration.Forms.Test
         {
             // Setup
             mockRepository.ReplayAll();
-            WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
+            var imageBasedMapData = new TestImageBasedMapData("someMapData", true);
 
             // Call
-            TestDelegate test = () => new BackgroundMapDataSelectionDialog(null, mapData);
+            TestDelegate test = () => new BackgroundMapDataSelectionDialog(null, imageBasedMapData);
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -85,7 +87,28 @@ namespace Ringtoets.Integration.Forms.Test
             using (var dialog = new BackgroundMapDataSelectionDialog(dialogParent, null))
             {
                 // Assert
+                Assert.IsInstanceOf<DialogBase>(dialog);
+                Assert.AreEqual("Selecteer achtergrondkaart", dialog.Text);
                 Assert.IsNull(dialog.SelectedMapData);
+
+                Icon icon = BitmapToIcon(RingtoetsCommonFormsResources.SelectionDialogIcon);
+                Bitmap expectedImage = icon.ToBitmap();
+                Bitmap actualImage = dialog.Icon.ToBitmap();
+                TestHelper.AssertImagesAreEqual(expectedImage, actualImage);
+
+                var mapLayers = (ComboBox) new ComboBoxTester("mapLayerComboBox", dialog).TheObject;
+                Assert.AreEqual(ComboBoxStyle.DropDownList, mapLayers.DropDownStyle);
+                Assert.AreEqual("DisplayName", mapLayers.DisplayMember);
+                Assert.IsTrue(mapLayers.Sorted);
+
+                var backgroundMapDataSelectionControls = (IBackgroundMapDataSelectionControl[]) mapLayers.DataSource;
+                Assert.AreEqual(2, backgroundMapDataSelectionControls.Length);
+                Assert.IsInstanceOf<WellKnownMapDataControl>(backgroundMapDataSelectionControls[0]);
+                Assert.IsInstanceOf<WmtsLocationControl>(backgroundMapDataSelectionControls[1]);
+
+                var groupBoxProperties = (GroupBox) new ControlTester("propertiesGroupBox", dialog).TheObject;
+                Assert.AreEqual(1, groupBoxProperties.Controls.Count);
+                Assert.AreSame(backgroundMapDataSelectionControls[0], groupBoxProperties.Controls[0]);
             }
         }
 
@@ -94,10 +117,10 @@ namespace Ringtoets.Integration.Forms.Test
         {
             // Setup
             mockRepository.ReplayAll();
-            WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
+            var imageBasedMapData = new TestImageBasedMapData("someMapData", true);
 
             // Call
-            TestDelegate test = () => new BackgroundMapDataSelectionDialog(null, mapData);
+            TestDelegate test = () => new BackgroundMapDataSelectionDialog(null, imageBasedMapData);
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -105,34 +128,58 @@ namespace Ringtoets.Integration.Forms.Test
         }
 
         [Test]
-        public void MapDataConstructor_WithParents_DefaultProperties()
+        public void MapDataConstructor_WithWmtsMapData_DefaultProperties()
         {
             // Setup
+            var dialogParent = mockRepository.Stub<IWin32Window>();
             WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
             tileFactory.Expect(tf => tf.GetWmtsTileSources(mapData.SourceCapabilitiesUrl)).Return(Enumerable.Empty<ITileSource>());
             mockRepository.ReplayAll();
 
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
-            using (var dialogParent = new Form())
             {
                 // Call
                 using (var dialog = new BackgroundMapDataSelectionDialog(dialogParent, mapData))
                 {
                     // Assert
-                    Assert.IsInstanceOf<DialogBase>(dialog);
-                    Assert.AreEqual("Selecteer achtergrondkaart", dialog.Text);
                     Assert.AreSame(mapData, dialog.SelectedMapData);
+                    var mapLayers = (ComboBox) new ComboBoxTester("mapLayerComboBox", dialog).TheObject;
+                    Assert.IsInstanceOf<WmtsLocationControl>(mapLayers.SelectedItem);
 
-                    Icon icon = BitmapToIcon(RingtoetsCommonFormsResources.SelectionDialogIcon);
-                    Bitmap expectedImage = icon.ToBitmap();
-                    Bitmap actualImage = dialog.Icon.ToBitmap();
-                    TestHelper.AssertImagesAreEqual(expectedImage, actualImage);
+                    var groupBoxProperties = (GroupBox) new ControlTester("propertiesGroupBox", dialog).TheObject;
+                    Assert.AreEqual(1, groupBoxProperties.Controls.Count);
+                    Assert.AreSame(mapLayers.SelectedItem, groupBoxProperties.Controls[0]);
+                }
+            }
+        }
 
+        [Test]
+        public void MapDataConstructor_WithWellKnownMapData_DefaultProperties()
+        {
+            // Setup
+            var dialogParent = mockRepository.Stub<IWin32Window>();
+            mockRepository.ReplayAll();
+
+            var random = new Random(124);
+            var mapData = new WellKnownTileSourceMapData(random.NextEnumValue<WellKnownTileSource>());
+
+            using (new UseCustomTileSourceFactoryConfig(tileFactory))
+            {
+                // Call
+                using (var dialog = new BackgroundMapDataSelectionDialog(dialogParent, mapData))
+                {
+                    // Assert
+                    Assert.AreSame(mapData, dialog.SelectedMapData);
                     var mapLayers = (ComboBox) new ComboBoxTester("mapLayerComboBox", dialog).TheObject;
                     Assert.AreEqual(ComboBoxStyle.DropDownList, mapLayers.DropDownStyle);
-                    Assert.IsInstanceOf<List<IBackgroundMapDataSelectionControl>>(mapLayers.DataSource);
+                    Assert.IsInstanceOf<IBackgroundMapDataSelectionControl[]>(mapLayers.DataSource);
                     Assert.AreEqual("DisplayName", mapLayers.DisplayMember);
                     Assert.IsTrue(mapLayers.Sorted);
+                    Assert.IsInstanceOf<WellKnownMapDataControl>(mapLayers.SelectedItem);
+
+                    var groupBoxProperties = (GroupBox) new ControlTester("propertiesGroupBox", dialog).TheObject;
+                    Assert.AreEqual(1, groupBoxProperties.Controls.Count);
+                    Assert.AreSame(mapLayers.SelectedItem, groupBoxProperties.Controls[0]);
                 }
             }
         }
@@ -159,14 +206,14 @@ namespace Ringtoets.Integration.Forms.Test
                 Assert.AreEqual("Type kaartlaag", mapLayerLabel.Text);
 
                 var mapLayers = (ComboBox) new ComboBoxTester("mapLayerComboBox", dialog).TheObject;
-                Assert.IsFalse(mapLayers.Enabled);
+                Assert.IsTrue(mapLayers.Enabled);
 
                 var groupBoxProperties = new ControlTester("propertiesGroupBox", dialog);
                 Assert.AreEqual("Eigenschappen", groupBoxProperties.Text);
 
                 Button buttonSelect = (Button) new ButtonTester("selectButton", dialog).TheObject;
                 Assert.AreEqual("Selecteren", buttonSelect.Text);
-                Assert.IsFalse(buttonSelect.Enabled);
+                Assert.IsTrue(buttonSelect.Enabled);
 
                 Button buttonCancel = (Button) new ButtonTester("cancelButton", dialog).TheObject;
                 Assert.AreEqual("Annuleren", buttonCancel.Text);
@@ -198,11 +245,131 @@ namespace Ringtoets.Integration.Forms.Test
             using (var dialog = new BackgroundMapDataSelectionDialog(dialogParent, null))
             {
                 // When
-                dialog.ShowDialog();
+                DialogResult dialogResult = dialog.ShowDialog();
 
                 // Then
+                Assert.AreEqual(DialogResult.Cancel, dialogResult);
                 Assert.IsNull(dialog.SelectedMapData);
                 Assert.AreEqual(dialog.CancelButton, cancelButton);
+            }
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenValidDialog_WhenSelectPressed_ThenSelectedMapDataSet()
+        {
+            // Given
+            mockRepository.ReplayAll();
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                using (new FormTester(name))
+                {
+                    var button = new ButtonTester("selectButton", name);
+                    button.Click();
+                }
+            };
+
+            using (var dialogParent = new Form())
+            using (var dialog = new BackgroundMapDataSelectionDialog(dialogParent, null))
+            {
+                // When
+                DialogResult dialogResult = dialog.ShowDialog();
+
+                // Then
+                Assert.AreEqual(DialogResult.OK, dialogResult);
+                Assert.IsNotNull(dialog.SelectedMapData);
+            }
+        }
+
+        [Test]
+        public void GivenValidDialog_WhenControlSwitched_ThenDoesNotListenToEventOfOldControl()
+        {
+            // Given
+            WmtsMapData activeWmtsMapData = WmtsMapData.CreateDefaultPdokMapData();
+
+            var capabilities = new[]
+            {
+                new TestWmtsTileSource(WmtsMapData.CreateAlternativePdokMapData()),
+                new TestWmtsTileSource(activeWmtsMapData)
+            };
+
+            tileFactory.Expect(tf => tf.GetWmtsTileSources(activeWmtsMapData.SourceCapabilitiesUrl)).Return(capabilities);
+            mockRepository.ReplayAll();
+
+            var wmtsLocationControlSelectedMapDataChanged = 0;
+
+            using (new UseCustomSettingsHelper(new TestSettingsHelper
+            {
+                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "noConfig")
+            }))
+            using (new UseCustomTileSourceFactoryConfig(tileFactory))
+            using (var dialogParent = new Form())
+            using (var dialog = new BackgroundMapDataSelectionDialog(dialogParent, activeWmtsMapData))
+            {
+                dialog.Show();
+
+                var comboBox = (ComboBox) new ComboBoxTester("mapLayerComboBox", dialog).TheObject;
+                var wmtsLocationControl = (WmtsLocationControl) comboBox.SelectedItem;
+                var wmtsDataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", dialog).TheObject;
+                wmtsLocationControl.SelectedMapDataChanged += (sender, args) => { wmtsLocationControlSelectedMapDataChanged++; };
+
+                comboBox.SelectedItem = GetComboBoxItem<WellKnownMapDataControl>(comboBox);
+
+                // When
+                wmtsDataGridViewControl.SetCurrentCell(wmtsDataGridViewControl.GetCell(0, 0));
+                var button = new ButtonTester("selectButton", dialog);
+                button.Click();
+
+                // Then
+                Assert.IsInstanceOf<WellKnownTileSourceMapData>(dialog.SelectedMapData);
+                Assert.AreEqual(1, wmtsLocationControlSelectedMapDataChanged);
+            }
+        }
+
+        [Test]
+        public void GivenValidDialog_WhenControlSwitched_ThenListenToEventOfNewControl()
+        {
+            // Given
+            WmtsMapData activeWmtsMapData = WmtsMapData.CreateDefaultPdokMapData();
+
+            var capabilities = new[]
+            {
+                new TestWmtsTileSource(WmtsMapData.CreateAlternativePdokMapData()),
+                new TestWmtsTileSource(activeWmtsMapData)
+            };
+
+            tileFactory.Expect(tf => tf.GetWmtsTileSources(activeWmtsMapData.SourceCapabilitiesUrl)).Return(capabilities);
+            mockRepository.ReplayAll();
+
+            var wellKnownSelectedMapDataChanged = 0;
+
+            using (new UseCustomSettingsHelper(new TestSettingsHelper
+            {
+                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "noConfig")
+            }))
+            using (new UseCustomTileSourceFactoryConfig(tileFactory))
+            using (var dialogParent = new Form())
+            using (var dialog = new BackgroundMapDataSelectionDialog(dialogParent, activeWmtsMapData))
+            {
+                dialog.Show();
+
+                var comboBox = (ComboBox) new ComboBoxTester("mapLayerComboBox", dialog).TheObject;
+                var wellKnownControl = GetComboBoxItem<WellKnownMapDataControl>(comboBox);
+
+                comboBox.SelectedItem = wellKnownControl;
+
+                var wellKnownDataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", dialog).TheObject;
+                wellKnownControl.SelectedMapDataChanged += (sender, args) => { wellKnownSelectedMapDataChanged++; };
+
+                // When
+                wellKnownDataGridViewControl.SetCurrentCell(wellKnownDataGridViewControl.GetCell(4, 0));
+                var button = new ButtonTester("selectButton", dialog);
+                button.Click();
+
+                // Then
+                Assert.IsInstanceOf<WellKnownTileSourceMapData>(dialog.SelectedMapData);
+                Assert.AreEqual(1, wellKnownSelectedMapDataChanged);
             }
         }
 
@@ -224,6 +391,11 @@ namespace Ringtoets.Integration.Forms.Test
 
             // Assert
             Assert.DoesNotThrow(call);
+        }
+
+        private static T GetComboBoxItem<T>(ComboBox comboBox)
+        {
+            return ((IBackgroundMapDataSelectionControl[]) comboBox.DataSource).OfType<T>().First();
         }
 
         private static Icon BitmapToIcon(Bitmap icon)

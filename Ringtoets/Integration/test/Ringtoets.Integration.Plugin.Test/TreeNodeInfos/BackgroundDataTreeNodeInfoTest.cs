@@ -23,6 +23,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
@@ -31,6 +32,7 @@ using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Forms.Views;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -347,7 +349,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenMapDataSet_WhenSelectingValidMapDataFromContextMenu_ThenMapDataSetAndNotifiesObserver()
+        public void GivenMapDataSet_WhenSelectingValidWmtsMapDataFromContextMenu_ThenMapDataSetAndNotifiesObserver()
         {
             // Given
             var mockRepository = new MockRepository();
@@ -406,6 +408,71 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                     // Then
                     AssertBackgroundMapDataProperties(newMapData, assessmentSection.BackgroundData);
+                }
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void GivenMapDataSet_WhenSelectingValidWellKnownMapDataFromContextMenu_ThenMapDataNotSetAndNoNotifiesObserver()
+        {
+            // Given
+            var mockRepository = new MockRepository();
+            var assessmentSectionObserver = mockRepository.StrictMock<IObserver>();
+            var backgroundMapDataObserver = mockRepository.StrictMock<IObserver>();
+
+            WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
+
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+
+            using (var treeViewControl = new TreeViewControl())
+            using (var plugin = new RingtoetsPlugin())
+            {
+                var viewCommands = mockRepository.Stub<IViewCommands>();
+                var mainWindow = mockRepository.Stub<IMainWindow>();
+
+                var gui = mockRepository.Stub<IGui>();
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                gui.Stub(g => g.ViewCommands).Return(viewCommands);
+                gui.Stub(cmp => cmp.Get(assessmentSection.BackgroundData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                mockRepository.ReplayAll();
+
+                assessmentSection.Attach(assessmentSectionObserver);
+                assessmentSection.BackgroundData.Attach(backgroundMapDataObserver);
+                assessmentSection.BackgroundData.Name = mapData.Name;
+                assessmentSection.BackgroundData.IsVisible = mapData.IsVisible;
+                assessmentSection.BackgroundData.IsConfigured = mapData.IsConfigured;
+                assessmentSection.BackgroundData.Transparency = mapData.Transparency;
+                assessmentSection.BackgroundData.BackgroundMapDataType = BackgroundMapDataType.Wmts;
+                assessmentSection.BackgroundData.Parameters["SourceCapabilitiesUrl"] = mapData.SourceCapabilitiesUrl;
+                assessmentSection.BackgroundData.Parameters["SelectedCapabilityIdentifier"] = mapData.SelectedCapabilityIdentifier;
+                assessmentSection.BackgroundData.Parameters["PreferredFormat"] = mapData.PreferredFormat;
+
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var dialog = (BackgroundMapDataSelectionDialog)new FormTester(name).TheObject;
+
+                    var comboBox = (ComboBox)new ComboBoxTester("mapLayerComboBox", dialog).TheObject;
+                    comboBox.SelectedItem = ((IBackgroundMapDataSelectionControl[])comboBox.DataSource).OfType<WellKnownMapDataControl>().First();
+                    var wmtsDataGridViewControl = (DataGridViewControl)new ControlTester("dataGridViewControl", dialog).TheObject;
+                    wmtsDataGridViewControl.SetCurrentCell(wmtsDataGridViewControl.GetCell(1, 0));
+
+                    var button = new ButtonTester("selectButton", dialog);
+                    button.Click();
+                    dialog.Close();
+                };
+
+                TreeNodeInfo info = GetInfo(plugin);
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(assessmentSection.BackgroundData, assessmentSection, treeViewControl))
+                {
+                    // When
+                    contextMenuStrip.Items[selectContextMenuIndex].PerformClick();
+
+                    // Then
                 }
             }
             mockRepository.VerifyAll();

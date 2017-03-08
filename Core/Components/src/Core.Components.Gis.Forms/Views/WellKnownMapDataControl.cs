@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Components.Gis.Data;
@@ -74,8 +73,8 @@ namespace Core.Components.Gis.Forms.Views
                 return;
             }
             DataGridViewRow dataGridViewRow = dataGridViewControl.Rows.OfType<DataGridViewRow>()
-                                                                 .FirstOrDefault(row => IsMatch((WellKnownTileSourceMapData) row.DataBoundItem, 
-                                                                 activeWellKnownTileSourceMapData));
+                                                                 .FirstOrDefault(row => IsMatch((WellKnownTileSourceMapData) row.DataBoundItem,
+                                                                                                activeWellKnownTileSourceMapData));
             if (dataGridViewRow == null)
             {
                 return;
@@ -86,15 +85,24 @@ namespace Core.Components.Gis.Forms.Views
 
         private static bool IsMatch(WellKnownTileSourceMapData mapData, WellKnownTileSourceMapData otherMapData)
         {
-            return mapData.TileSource == otherMapData.TileSource && string.Equals(mapData.Name,otherMapData.Name);
+            return mapData.TileSource == otherMapData.TileSource && string.Equals(mapData.Name, otherMapData.Name);
         }
+
+        #region Event handlers
+
+        private void InitializeEventHandlers()
+        {
+            dataGridViewControl.AddCurrentCellChangedHandler(DataGridViewCurrentCellChangedHandler);
+        }
+
+        #endregion
 
         #region DataGridView
 
         private void InitializeDataGridView()
         {
-            dataGridViewControl.AddTextBoxColumn(nameof(WellKnownTileSourceMapData.Name), Resources.WellKnownTileSourceMapData_Description, 
-                true, DataGridViewAutoSizeColumnMode.Fill);
+            dataGridViewControl.AddTextBoxColumn(nameof(WellKnownTileSourceMapData.Name), Resources.WellKnownTileSourceMapData_Description,
+                                                 true, DataGridViewAutoSizeColumnMode.Fill);
             UpdateDataGridViewDataSource();
         }
 
@@ -109,7 +117,7 @@ namespace Core.Components.Gis.Forms.Views
         private static WellKnownTileSourceMapData[] GetSortedWellKnownTileSourceMapDatas()
         {
             var enumValues = (WellKnownTileSource[]) Enum.GetValues(typeof(WellKnownTileSource));
-           return enumValues.Select(enumValue => new WellKnownTileSourceMapData(enumValue)).ToList().OrderBy(w => w.Name).ToArray();
+            return enumValues.Select(enumValue => new WellKnownTileSourceMapData(enumValue)).ToList().OrderBy(w => w.Name).ToArray();
         }
 
         private void DataGridViewCurrentCellChangedHandler(object sender, EventArgs e)
@@ -118,14 +126,5 @@ namespace Core.Components.Gis.Forms.Views
         }
 
         #endregion
-
-        #region Event handlers
-
-        private void InitializeEventHandlers()
-        {
-            dataGridViewControl.AddCurrentCellChangedHandler(DataGridViewCurrentCellChangedHandler);
-        }
-        #endregion
-
     }
 }

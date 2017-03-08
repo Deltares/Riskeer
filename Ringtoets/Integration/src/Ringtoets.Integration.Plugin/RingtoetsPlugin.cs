@@ -918,6 +918,10 @@ namespace Ringtoets.Integration.Plugin
 
         private static void SetSelectedMapData(IAssessmentSection assessmentSection, ImageBasedMapData selectedMapData)
         {
+            if (selectedMapData is WellKnownTileSourceMapData)
+            {
+                return;
+            }
             assessmentSection.BackgroundData.Name = string.Empty;
             assessmentSection.BackgroundData.IsVisible = false;
             assessmentSection.BackgroundData.Parameters.Clear();
