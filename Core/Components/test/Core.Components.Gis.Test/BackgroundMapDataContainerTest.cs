@@ -82,27 +82,6 @@ namespace Core.Components.Gis.Test
         }
 
         [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(-123.56)]
-        [TestCase(0.0 - 1e-2)]
-        [TestCase(1.0 + 1e-2)]
-        [TestCase(456.876)]
-        [TestCase(double.NaN)]
-        public void Transparency_SetInvalidValue_ThrowArgumentOutOfRangeException(double invalidTransparency)
-        {
-            // Setup
-            var container = new BackgroundMapDataContainer();
-
-            // Call
-            TestDelegate call = () => container.Transparency = (RoundedDouble) invalidTransparency;
-
-            // Assert
-            var message = "De transparantie moet in het bereik [0,00, 1,00] liggen.";
-            string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, message).ParamName;
-            Assert.AreEqual("value", paramName);
-        }
-
-        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void IsVisible_SetNewValue_GetNewlySetValue(bool newValue)

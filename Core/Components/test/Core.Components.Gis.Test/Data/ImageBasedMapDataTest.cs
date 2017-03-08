@@ -64,42 +64,17 @@ namespace Core.Components.Gis.Test.Data
         }
 
         [Test]
-        [TestCase(0)]
-        [TestCase(0.8)]
-        [TestCase(1)]
-        public void Transparency_ValidValues_ReturnNewlySetValue(double newValue)
-        {
-            // Setup
-            var mapData = new SimpleImageBasedMapData("A");
-            var originalNumberOfDecimals = mapData.Transparency.NumberOfDecimalPlaces;
-
-            // Call
-            mapData.Transparency = (RoundedDouble)newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, mapData.Transparency.Value);
-            Assert.AreEqual(originalNumberOfDecimals, mapData.Transparency.NumberOfDecimalPlaces);
-        }
-
-        [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(-123.56)]
-        [TestCase(0.0 - 1e-2)]
-        [TestCase(1.0 + 1e-2)]
-        [TestCase(456.876)]
-        [TestCase(double.NaN)]
-        public void Transparency_SetInvalidValue_ThrowArgumentOutOfRangeException(double invalidTransparency)
+        public void Transparency_SetValue_ValueRounded()
         {
             // Setup
             var mapData = new SimpleImageBasedMapData("A");
 
             // Call
-            TestDelegate call = () => mapData.Transparency = (RoundedDouble)invalidTransparency;
+            mapData.Transparency = (RoundedDouble) 0.9938;
 
             // Assert
-            var message = "De transparantie moet in het bereik [0,00, 1,00] liggen.";
-            string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, message).ParamName;
-            Assert.AreEqual("value", paramName);
+            Assert.AreEqual(2, mapData.Transparency.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.99, mapData.Transparency.Value);
         }
 
         private class SimpleImageBasedMapData : ImageBasedMapData

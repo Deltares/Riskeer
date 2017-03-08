@@ -261,4 +261,7 @@
   <data name="AssessmentSectionComposition_Dune" xml:space="preserve">
     <value>Duin</value>
   </data>
+  <data name="BackgroundData_Transparency_Value_must_be_in_Range_0_" xml:space="preserve">
+    <value>De transparantie moet in het bereik {0} liggen.</value>
+  </data>
 </root>

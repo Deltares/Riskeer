@@ -120,41 +120,6 @@ namespace Core.Components.Gis.Test.Data
         }
 
         [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(-123.56)]
-        [TestCase(0.0 - 1e-2)]
-        [TestCase(1.0 + 1e-2)]
-        [TestCase(456.876)]
-        [TestCase(double.NaN)]
-        public void Transparency_SetInvalidValue_ThrowArgumentOutOfRangeException(double invalidTransparency)
-        {
-            // Setup
-            var mapData = new WmtsMapData("A", url, capabilityIdentifier, imageFormat);
-
-            // Call
-            TestDelegate call = () => mapData.Transparency = (RoundedDouble) invalidTransparency;
-
-            // Assert
-            var message = "De transparantie moet in het bereik [0,00, 1,00] liggen.";
-            string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, message).ParamName;
-            Assert.AreEqual("value", paramName);
-        }
-
-        [Test]
-        public void Transparency_SetNewValue_GetNewlySetValueRounded()
-        {
-            // Setup
-            var mapData = new WmtsMapData("A", url, capabilityIdentifier, imageFormat);
-
-            // Call
-            mapData.Transparency = (RoundedDouble) 0.5678;
-
-            // Assert
-            Assert.AreEqual(2, mapData.Transparency.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.57, mapData.Transparency.Value);
-        }
-
-        [Test]
         public void CreateDefaultPdokMapData_ReturnsInitializedWmtsMapData()
         {
             // Call

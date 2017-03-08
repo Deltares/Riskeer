@@ -19,9 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Common.Data.AssessmentSection
 {
@@ -29,15 +31,21 @@ namespace Ringtoets.Common.Data.AssessmentSection
     /// Class that holds information about configured background data.
     /// </summary>
     public class BackgroundData : Observable
-
     {
+        private const int transparencyNumberOfDecimals = 2;
+
+        private static readonly Range<RoundedDouble> transparencyValidityRange = new Range<RoundedDouble>(new RoundedDouble(transparencyNumberOfDecimals),
+                                                                                                          new RoundedDouble(transparencyNumberOfDecimals, 1));
+
+        private RoundedDouble transparency;
+
         /// <summary>
         /// Creates a new <see cref="BackgroundData"/>.
         /// </summary>
         public BackgroundData()
         {
             IsVisible = true;
-            Transparency = new RoundedDouble(2);
+            transparency = new RoundedDouble(transparencyNumberOfDecimals);
             Parameters = new Dictionary<string, string>();
         }
 
@@ -51,7 +59,27 @@ namespace Ringtoets.Common.Data.AssessmentSection
         /// <summary>
         /// Gets or sets the transparency of the background.
         /// </summary>
-        public RoundedDouble Transparency { get; set; }
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when setting a new value
+        /// that is not in the range [0.0, 1.0].</exception>
+        public RoundedDouble Transparency
+        {
+            get
+            {
+                return transparency;
+            }
+            set
+            {
+                var newValue = value.ToPrecision(transparency.NumberOfDecimalPlaces);
+                if (!transparencyValidityRange.InRange(newValue))
+                {
+                    throw new ArgumentOutOfRangeException(nameof(value),
+                                                          string.Format(Resources.BackgroundData_Transparency_Value_must_be_in_Range_0_,
+                                                                        transparencyValidityRange));
+                }
+
+                transparency = newValue;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the type of the background map data.

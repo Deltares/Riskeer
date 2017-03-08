@@ -173,6 +173,15 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De transparantie moet in het bereik {0} liggen..
+        /// </summary>
+        public static string BackgroundData_Transparency_Value_must_be_in_Range_0_ {
+            get {
+                return ResourceManager.GetString("BackgroundData_Transparency_Value_must_be_in_Range_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Vak &apos;{0}&apos; sluit niet aan op de al gedefinieerde vakken van het toetsspoor..
         /// </summary>
         public static string BaseFailureMechanism_AddSection_Section_0_must_connect_to_existing_sections {

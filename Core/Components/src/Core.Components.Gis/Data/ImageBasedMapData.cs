@@ -30,11 +30,6 @@ namespace Core.Components.Gis.Data
     /// </summary>
     public abstract class ImageBasedMapData : MapData
     {
-        private const int transparencyNumberOfDecimals = 2;
-
-        private static readonly Range<RoundedDouble> transparencyValidityRange = new Range<RoundedDouble>(new RoundedDouble(transparencyNumberOfDecimals),
-                                                                                                          new RoundedDouble(transparencyNumberOfDecimals, 1));
-
         private RoundedDouble transparency;
 
         /// <summary>
@@ -44,14 +39,12 @@ namespace Core.Components.Gis.Data
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is <c>null</c> or only whitespace.</exception>
         protected ImageBasedMapData(string name) : base(name)
         {
-            transparency = new RoundedDouble(transparencyNumberOfDecimals);
+            transparency = new RoundedDouble(2);
         }
 
         /// <summary>
         /// Gets or sets the transparency of the map data.
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when setting a new value
-        /// that is not in the range [0.0, 1.0].</exception>
+        /// </summary>>
         public RoundedDouble Transparency
         {
             get
@@ -60,15 +53,7 @@ namespace Core.Components.Gis.Data
             }
             set
             {
-                var newValue = value.ToPrecision(transparency.NumberOfDecimalPlaces);
-                if (!transparencyValidityRange.InRange(newValue))
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value),
-                                                          string.Format(Resources.ImageBasedMapData_Transparency_Value_must_be_in_Range_0_,
-                                                                        transparencyValidityRange));
-                }
-
-                transparency = newValue;
+                transparency = value.ToPrecision(transparency.NumberOfDecimalPlaces);
             }
         }
 
