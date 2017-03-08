@@ -120,6 +120,7 @@
     </Compile>
     <Compile Include="Forms\ViewHost\DocumentViewControllerTest.cs" />
     <Compile Include="DialogBasedInquiryHelperTest.cs" />
+    <Compile Include="OpenProjectActivityTest.cs" />
     <Compile Include="Plugin\ExportInfoTest.cs" />
     <Compile Include="Forms\ViewHost\ViewChangeEventArgsTest.cs" />
     <Compile Include="Plugin\UpdateInfoTest.cs" />

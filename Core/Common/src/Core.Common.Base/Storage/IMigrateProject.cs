@@ -53,8 +53,10 @@ namespace Core.Common.Base.Storage
         /// <param name="sourceFilePath">The filepath of the project which needs to be migrated.</param>
         /// <param name="targetFilePath">The filepath where the migrated project is written to.</param>
         /// <returns>Returns <c>true</c> if the migration was successful; return <c>false</c> otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref cref="sourceFilePath"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref cref="sourceFilePath"/> is an invalid file path.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when either <paramref name="sourceFilePath"/>
+        /// or <paramref name="targetFilePath"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when either <paramref name="sourceFilePath"/>
+        /// or <paramref name="targetFilePath"/> is an invalid file path.</exception>
         bool Migrate(string sourceFilePath, string targetFilePath);
     }
 }
