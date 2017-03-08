@@ -117,7 +117,7 @@ namespace Ringtoets.Piping.Plugin
                 FileFilterGenerator = StochasticSoilModelFileFilter,
                 IsEnabled = StochasticSoilModelImporterEnabled,
                 CreateFileImporter = (context, filePath) => StochasticSoilModelImporter(context, filePath, new StochasticSoilModelReplaceDataStrategy(context.FailureMechanism)),
-                VerifyUpdates = VerifyStochasticSoilModelUpdates
+                VerifyUpdates = context => VerifyStochasticSoilModelUpdates(context, Resources.PipingPlugin_VerifyStochasticSoilModelImport_When_importing_StochasticSoilModels_calculation_output_will_be_cleared_confirm)
             };
 
             yield return new ImportInfo<PipingCalculationGroupContext>
@@ -167,7 +167,7 @@ namespace Ringtoets.Piping.Plugin
                 IsEnabled = StochasticSoilModelImporterEnabled,
                 CurrentPath = context => context.WrappedData.SourcePath,
                 CreateFileImporter = (context, filePath) => StochasticSoilModelImporter(context, filePath, new StochasticSoilModelUpdateDataStrategy(context.FailureMechanism)),
-                VerifyUpdates = VerifyStochasticSoilModelUpdates
+                VerifyUpdates = context => VerifyStochasticSoilModelUpdates(context, Resources.PipingPlugin_VerifyStochasticSoilModelUpdates_When_updating_StochasticSoilModel_definitions_assigned_to_calculation_output_will_be_cleared_confirm)
             };
         }
 
@@ -381,9 +381,9 @@ namespace Ringtoets.Piping.Plugin
             return context.AssessmentSection.ReferenceLine != null;
         }
 
-        private bool VerifyStochasticSoilModelUpdates(StochasticSoilModelCollectionContext context)
+        private bool VerifyStochasticSoilModelUpdates(StochasticSoilModelCollectionContext context, string query)
         {
-            var changeHandler = new StochasticSoilModelChangeHandler(context.FailureMechanism, new DialogBasedInquiryHelper(Gui.MainWindow));
+            var changeHandler = new StochasticSoilModelChangeHandler(context.FailureMechanism, query, new DialogBasedInquiryHelper(Gui.MainWindow));
             return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
         }
 

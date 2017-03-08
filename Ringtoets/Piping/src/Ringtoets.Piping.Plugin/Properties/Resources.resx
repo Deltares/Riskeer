@@ -219,8 +219,8 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="StochasticSoilModelUpdateDataStrategy_UpdateModelWithImportedData_Update_of_StochasticSoilModel_failed" xml:space="preserve">
     <value>Het bijwerken van de stochastische ondergrondmodellen is mislukt.</value>
   </data>
-  <data name="StochasticSoilModelChangeHandler_When_updating_StochasticSoilModel_definitions_assigned_to_calculations_output_will_be_cleared_confirm" xml:space="preserve">
-    <value>Wanneer ondergrondschematisaties wijzigen als gevolg van het bijwerken, zullen de resultaten van berekeningen die deze ondergrondschematisaties gebruiken, worden verwijderd.
+  <data name="PipingPlugin_VerifyStochasticSoilModelImport_When_importing_StochasticSoilModels_calculation_output_will_be_cleared_confirm" xml:space="preserve">
+    <value>Als u stochastische ondergrondmodellen importeert, dan worden all rekenresultaten van dit toetsspoor verwijderd.
 
 Weet u zeker dat u wilt doorgaan?</value>
   </data>
@@ -271,6 +271,11 @@ Weet u zeker dat u wilt doorgaan?</value>
   </data>
   <data name="PipingPlugin_VerifyRingtoetsPipingSurfaceLineImport_When_importing_surfacelines_calculation_output_will_be_cleared_confirm" xml:space="preserve">
     <value>Als u profielschematisaties importeert, dan worden alle rekenresultaten van dit toetsspoor verwijderd.
+
+Weet u zeker dat u wilt doorgaan?</value>
+  </data>
+  <data name="PipingPlugin_VerifyStochasticSoilModelUpdates_When_updating_StochasticSoilModel_definitions_assigned_to_calculation_output_will_be_cleared_confirm" xml:space="preserve">
+    <value>Als ondergrondschematisaties wijzigen door het bijwerken, dan worden de resultaten van berekeningen die deze ondergrondschematisaties gebruiken verwijderd.
 
 Weet u zeker dat u wilt doorgaan?</value>
   </data>

@@ -270,6 +270,30 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Als u stochastische ondergrondmodellen importeert, dan worden all rekenresultaten van dit toetsspoor verwijderd.
+        ///
+        ///Weet u zeker dat u wilt doorgaan?.
+        /// </summary>
+        public static string PipingPlugin_VerifyStochasticSoilModelImport_When_importing_StochasticSoilModels_calculation_output_will_be_cleared_confirm {
+            get {
+                return ResourceManager.GetString("PipingPlugin_VerifyStochasticSoilModelImport_When_importing_StochasticSoilModels_" +
+                        "calculation_output_will_be_cleared_confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Als ondergrondschematisaties wijzigen door het bijwerken, dan worden de resultaten van berekeningen die deze ondergrondschematisaties gebruiken verwijderd.
+        ///
+        ///Weet u zeker dat u wilt doorgaan?.
+        /// </summary>
+        public static string PipingPlugin_VerifyStochasticSoilModelUpdates_When_updating_StochasticSoilModel_definitions_assigned_to_calculation_output_will_be_cleared_confirm {
+            get {
+                return ResourceManager.GetString("PipingPlugin_VerifyStochasticSoilModelUpdates_When_updating_StochasticSoilModel_d" +
+                        "efinitions_assigned_to_calculation_output_will_be_cleared_confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Karakteristieke punten gevonden zonder bijbehorende profielschematisatie voor locatie &apos;{0}&apos;..
         /// </summary>
         public static string PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Characteristic_points_found_for_unknown_SurfaceLine_0_ {
@@ -521,18 +545,6 @@ namespace Ringtoets.Piping.Plugin.Properties {
         public static string Soil_file_Extension {
             get {
                 return ResourceManager.GetString("Soil_file_Extension", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Wanneer ondergrondschematisaties wijzigen als gevolg van het bijwerken, zullen de resultaten van berekeningen die deze ondergrondschematisaties gebruiken, worden verwijderd.
-        ///
-        ///Weet u zeker dat u wilt doorgaan?.
-        /// </summary>
-        public static string StochasticSoilModelChangeHandler_When_updating_StochasticSoilModel_definitions_assigned_to_calculations_output_will_be_cleared_confirm {
-            get {
-                return ResourceManager.GetString("StochasticSoilModelChangeHandler_When_updating_StochasticSoilModel_definitions_as" +
-                        "signed_to_calculations_output_will_be_cleared_confirm", resourceCulture);
             }
         }
         
