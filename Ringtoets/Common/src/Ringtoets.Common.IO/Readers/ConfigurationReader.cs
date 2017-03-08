@@ -37,11 +37,11 @@ namespace Ringtoets.Common.IO.Readers
 {
     /// <summary>
     /// Base class for reading a configuration from XML and creating a collection of corresponding
-    /// <see cref="IReadConfigurationItem"/>, possibly containing one or more <see cref="TCalculationItem"/>.
+    /// <see cref="IReadConfigurationItem"/>, typically containing one or more <see cref="TReadCalculation"/>.
     /// </summary>
-    /// <typeparam name="TCalculationItem">The type of calculation items read from XML.</typeparam>
-    public abstract class ConfigurationReader<TCalculationItem>
-        where TCalculationItem : IReadConfigurationItem
+    /// <typeparam name="TReadCalculation">The type of calculation items read from XML.</typeparam>
+    public abstract class ConfigurationReader<TReadCalculation>
+        where TReadCalculation : IReadConfigurationItem
     {
         private readonly XDocument xmlDocument;
 
@@ -77,15 +77,15 @@ namespace Ringtoets.Common.IO.Readers
         /// <returns>A collection of read <see cref="IReadConfigurationItem"/>.</returns>
         public IEnumerable<IReadConfigurationItem> Read()
         {
-            return ParseReadConfigurationItems(xmlDocument.Root?.Elements());
+            return ParseElements(xmlDocument.Root?.Elements());
         }
 
         /// <summary>
         /// Parses a read calculation element.
         /// </summary>
         /// <param name="calculationElement">The read calculation element to parse.</param>
-        /// <returns>A parsed <see cref="TCalculationItem"/>.</returns>
-        protected abstract TCalculationItem ParseReadCalculation(XElement calculationElement);
+        /// <returns>A parsed <see cref="TReadCalculation"/>.</returns>
+        protected abstract TReadCalculation ParseCalculationElement(XElement calculationElement);
 
         /// <summary>
         /// Validates whether a file exists at the provided <paramref name="xmlFilePath"/>.
@@ -158,7 +158,7 @@ namespace Ringtoets.Common.IO.Readers
         /// </summary>
         /// <param name="document">The XML document to validate.</param>
         /// <param name="xmlFilePath">The file path the XML document is loaded from.</param>
-        /// <exception cref="CriticalFileReadException">Thrown when the provided XML document does not contain calculation items.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when the provided XML document does not contain configuration items.</exception>
         private static void ValidateNotEmpty(XDocument document, string xmlFilePath)
         {
             if (!document.Descendants()
@@ -166,32 +166,32 @@ namespace Ringtoets.Common.IO.Readers
                                    || d.Name == ConfigurationSchemaIdentifiers.FolderElement))
             {
                 string message = new FileReaderErrorMessageBuilder(xmlFilePath)
-                    .Build(Resources.ConfigurationReader_No_calculation_items_found);
+                    .Build(Resources.ConfigurationReader_No_configuration_items_found);
 
                 throw new CriticalFileReadException(message);
             }
         }
 
-        private IEnumerable<IReadConfigurationItem> ParseReadConfigurationItems(IEnumerable<XElement> elements)
+        private IEnumerable<IReadConfigurationItem> ParseElements(IEnumerable<XElement> elements)
         {
             foreach (XElement element in elements)
             {
                 if (element.Name == ConfigurationSchemaIdentifiers.CalculationElement)
                 {
-                    yield return ParseReadCalculation(element);
+                    yield return ParseCalculationElement(element);
                 }
 
                 if (element.Name == ConfigurationSchemaIdentifiers.FolderElement)
                 {
-                    yield return ParseReadCalculationGroup(element);
+                    yield return ParseFolderElement(element);
                 }
             }
         }
 
-        private ReadCalculationGroup ParseReadCalculationGroup(XElement folderElement)
+        private ReadCalculationGroup ParseFolderElement(XElement folderElement)
         {
             return new ReadCalculationGroup(folderElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute)?.Value,
-                                            ParseReadConfigurationItems(folderElement.Elements()));
+                                            ParseElements(folderElement.Elements()));
         }
     }
 }

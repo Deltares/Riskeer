@@ -94,9 +94,9 @@ namespace Ringtoets.Common.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Het XML-document dat de configuratie voor de berekeningen beschrijft bevat geen berekeningselementen..
         /// </summary>
-        public static string ConfigurationReader_No_calculation_items_found {
+        public static string ConfigurationReader_No_configuration_items_found {
             get {
-                return ResourceManager.GetString("ConfigurationReader_No_calculation_items_found", resourceCulture);
+                return ResourceManager.GetString("ConfigurationReader_No_configuration_items_found", resourceCulture);
             }
         }
         

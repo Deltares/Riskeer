@@ -44,6 +44,7 @@ namespace Ringtoets.Common.IO.Test.Readers
 
             // Assert
             Assert.IsInstanceOf<IReadConfigurationItem>(readCalculationGroup);
+            Assert.AreEqual("Calculation group", readCalculationGroup.Name);
             Assert.AreSame(nestedItems, readCalculationGroup.Items);
         }
 

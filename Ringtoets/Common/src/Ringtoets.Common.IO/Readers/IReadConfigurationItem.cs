@@ -22,7 +22,7 @@
 namespace Ringtoets.Common.IO.Readers
 {
     /// <summary>
-    /// Interface for configuration items that are read via <see cref="ConfigurationReader{T}"/>.
+    /// Interface for configuration items that are read via <see cref="ConfigurationReader{TCalculationItem}"/>.
     /// </summary>
     public interface IReadConfigurationItem
     {
