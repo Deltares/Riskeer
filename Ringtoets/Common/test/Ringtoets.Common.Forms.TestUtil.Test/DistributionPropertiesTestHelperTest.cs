@@ -115,14 +115,14 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
 
         [Test]
         [TestCaseSource(nameof(distributionTestCases))]
-        public void AssertPropertiesInState_DifferentDistributions_ExpectedAssertionsCalled(
+        public void AssertPropertiesAreReadOnly_DifferentDistributions_ExpectedAssertionsCalled(
             DistributionPropertiesBase<SimpleDistribution> distribution,
             bool expectedMeanReadOnly,
             bool expectedDeviationReadOnly,
             bool assertionShouldSucceed)
         {
             // Call
-            TestDelegate assertion = () => DistributionPropertiesTestHelper.AssertPropertiesInState(distribution, expectedMeanReadOnly, expectedDeviationReadOnly);
+            TestDelegate assertion = () => DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(distribution, expectedMeanReadOnly, expectedDeviationReadOnly);
 
             // Assert
             if (assertionShouldSucceed)
@@ -137,14 +137,14 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
 
         [Test]
         [TestCaseSource(nameof(variationCoefficientDistributionTestCases))]
-        public void AssertPropertiesInState_DifferentVariationCoefficientDistributions_ExpectedAssertionsCalled(
+        public void AssertPropertiesAreReadOnly_DifferentVariationCoefficientDistributions_ExpectedAssertionsCalled(
             VariationCoefficientDistributionPropertiesBase<SimpleDistribution> distribution,
             bool expectedMeanReadOnly,
             bool expectedDeviationReadOnly,
             bool assertionShouldSucceed)
         {
             // Call
-            TestDelegate assertion = () => DistributionPropertiesTestHelper.AssertPropertiesInState(distribution, expectedMeanReadOnly, expectedDeviationReadOnly);
+            TestDelegate assertion = () => DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(distribution, expectedMeanReadOnly, expectedDeviationReadOnly);
 
             // Assert
             if (assertionShouldSucceed)

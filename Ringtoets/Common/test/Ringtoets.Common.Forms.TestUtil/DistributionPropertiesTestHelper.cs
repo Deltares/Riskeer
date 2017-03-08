@@ -41,7 +41,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <c>false</c> otherwise.</param>
         /// <param name="deviationReadOnly"><c>true</c> if the <see cref="IDistribution.StandardDeviation"/> property should 
         /// be read-only, <c>false</c> otherwise.</param>
-        public static void AssertPropertiesInState<T>(
+        public static void AssertPropertiesAreReadOnly<T>(
             DistributionPropertiesBase<T> properties, 
             bool meanReadOnly,
             bool deviationReadOnly) where T : IDistribution
@@ -68,7 +68,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <param name="variationCoefficientReadOnly"><c>true</c> if the 
         /// <see cref="IVariationCoefficientDistribution.CoefficientOfVariation"/> property should be read-only,
         /// <c>false</c> otherwise.</param>
-        public static void AssertPropertiesInState<T>(
+        public static void AssertPropertiesAreReadOnly<T>(
             VariationCoefficientDistributionPropertiesBase<T> properties, 
             bool meanReadOnly,
             bool variationCoefficientReadOnly) where T : IVariationCoefficientDistribution

@@ -202,7 +202,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "Kruinhoogte niet gesloten kering [m+NAP]",
                                                                             "Niveau kruin bij niet gesloten maximaal kerende keermiddelen.",
                                                                             true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.LevelCrestStructureNotClosing, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.LevelCrestStructureNotClosing, false, false);
 
             PropertyDescriptor probabilityOrFrequencyOpenStructureBeforeFloodingProperty = dynamicProperties[verticalWallProbabilityOrFrequencyOpenStructureBeforeFloodingPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityOrFrequencyOpenStructureBeforeFloodingProperty,
@@ -286,7 +286,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "Binnenwaterstand [m+NAP]",
                                                                             "Binnenwaterstand.",
                                                                             true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.InsideWaterLevel, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.InsideWaterLevel, false, false);
 
             PropertyDescriptor inflowModelTypeProperty = dynamicProperties[floodedCulvertInflowModelTypePropertyIndex];
             Assert.IsInstanceOf<EnumConverter>(inflowModelTypeProperty.Converter);
@@ -302,7 +302,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "Doorstroomoppervlak [m²]",
                                                                             "Doorstroomoppervlak van doorstroomopeningen.",
                                                                             true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.AreaFlowApertures, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.AreaFlowApertures, false, false);
 
             PropertyDescriptor identicalAperturesProperty = dynamicProperties[floodedCulvertIdenticalAperturesPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(identicalAperturesProperty,
@@ -335,7 +335,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "Afvoercoëfficiënt [-]",
                                                                             "Afvoercoëfficiënt.",
                                                                             true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.DrainCoefficient, false, true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.DrainCoefficient, false, true);
 
             PropertyDescriptor factorStormDurationOpenStructureProperty = dynamicProperties[floodedCulvertFactorStormDurationOpenStructurePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(factorStormDurationOpenStructureProperty,
@@ -398,7 +398,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "Binnenwaterstand [m+NAP]",
                                                                             "Binnenwaterstand.",
                                                                             true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.InsideWaterLevel, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.InsideWaterLevel, false, false);
 
             PropertyDescriptor inflowModelTypeProperty = dynamicProperties[lowSillInflowModelTypePropertyIndex];
             Assert.IsInstanceOf<EnumConverter>(inflowModelTypeProperty.Converter);
@@ -420,7 +420,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "Drempelhoogte [m+NAP]",
                                                                             "Drempelhoogte niet gesloten kering of hoogte van de onderkant van de wand/drempel.",
                                                                             true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.ThresholdHeightOpenWeir, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ThresholdHeightOpenWeir, false, false);
 
             PropertyDescriptor probabilityOrFrequencyOpenStructureBeforeFloodingProperty = dynamicProperties[lowSillProbabilityOrFrequencyOpenStructureBeforeFloodingPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityOrFrequencyOpenStructureBeforeFloodingProperty,
@@ -501,10 +501,10 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             PropertyDescriptor failureProbabilityReparation = dynamicProperties[failureProbabilityReparationPropertyIndex];
             Assert.IsTrue(failureProbabilityReparation.IsReadOnly);
 
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.ThresholdHeightOpenWeir, true, true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.AreaFlowApertures, true, true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.LevelCrestStructureNotClosing, true, true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.InsideWaterLevel, true, true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ThresholdHeightOpenWeir, true, true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.AreaFlowApertures, true, true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.LevelCrestStructureNotClosing, true, true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.InsideWaterLevel, true, true);
         }
 
         [Test]

@@ -219,7 +219,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             PropertyDescriptor failureProbabilityStructureWithErosionProperty = dynamicProperties[failureProbabilityStructureWithErosionPropertyIndex];
             Assert.AreEqual(expectedReadOnly, failureProbabilityStructureWithErosionProperty.IsReadOnly);
 
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.LevelCrestStructure, expectedReadOnly, expectedReadOnly);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.LevelCrestStructure, expectedReadOnly, expectedReadOnly);
 
             mockRepository.VerifyAll();
         }

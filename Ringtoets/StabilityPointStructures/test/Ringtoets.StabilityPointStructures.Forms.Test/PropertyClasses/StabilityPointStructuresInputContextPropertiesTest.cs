@@ -206,7 +206,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Binnenwaterstand [m+NAP]",
                 "Binnenwaterstand.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.InsideWaterLevel, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.InsideWaterLevel, false, false);
 
             PropertyDescriptor insideWaterLevelFailureConstructionProperty = dynamicProperties[linearLowSillInsideWaterLevelFailureConstructionPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(insideWaterLevelFailureConstructionProperty.Converter);
@@ -216,7 +216,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Binnenwaterstand bij constructief falen [m+NAP]",
                 "Binnenwaterstand bij constructief falen.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.InsideWaterLevelFailureConstruction, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.InsideWaterLevelFailureConstruction, false, false);
 
             PropertyDescriptor flowVelocityStructureClosableProperty = dynamicProperties[linearLowSillFlowVelocityStructureClosablePropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(flowVelocityStructureClosableProperty.Converter);
@@ -226,7 +226,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Kritieke stroomsnelheid sluiting eerste keermiddel [m/s]",
                 "Stroomsnelheid waarbij na aanvaring het eerste keermiddel nog net kan worden gesloten.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.FlowVelocityStructureClosable, false, true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.FlowVelocityStructureClosable, false, true);
 
             PropertyDescriptor factorStormDurationOpenStructureProperty = dynamicProperties[linearLowSillFactorStormDurationOpenStructurePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -259,7 +259,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Kerende hoogte [m+NAP]",
                 "Kerende hoogte van het kunstwerk.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.LevelCrestStructure, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.LevelCrestStructure, false, false);
 
             PropertyDescriptor thresholdHeightOpenWeirProperty = dynamicProperties[linearLowSillThresholdHeightOpenWeirPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(thresholdHeightOpenWeirProperty.Converter);
@@ -269,7 +269,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Drempelhoogte [m+NAP]",
                 "Drempelhoogte niet gesloten kering of hoogte van de onderkant van de wand/drempel.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.ThresholdHeightOpenWeir, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ThresholdHeightOpenWeir, false, false);
 
             PropertyDescriptor constructiveStrengthLinearLoadModelProperty = dynamicProperties[linearLowSillConstructiveStrengthLinearLoadModelPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(constructiveStrengthLinearLoadModelProperty.Converter);
@@ -279,7 +279,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Lineaire belastingschematisering constructieve sterkte [kN/m²]",
                 "Kritieke sterkte constructie volgens de lineaire belastingschematisatie.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.ConstructiveStrengthLinearLoadModel, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ConstructiveStrengthLinearLoadModel, false, false);
 
             PropertyDescriptor bankWidthProperty = dynamicProperties[linearLowSillBankWidthPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(bankWidthProperty.Converter);
@@ -289,7 +289,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Bermbreedte [m]",
                 "Bermbreedte.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.BankWidth, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.BankWidth, false, false);
 
             PropertyDescriptor evaluationLevelProperty = dynamicProperties[linearLowSillEvaluationLevelPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -320,7 +320,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Bezwijkwaarde aanvaarenergie [kN m]",
                 "Bezwijkwaarde aanvaarenergie.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.FailureCollisionEnergy, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.FailureCollisionEnergy, false, false);
 
             PropertyDescriptor shipMassProperty = dynamicProperties[linearLowSillShipMassPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(shipMassProperty.Converter);
@@ -330,7 +330,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Massa van het schip [ton]",
                 "Massa van het schip.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.ShipMass, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ShipMass, false, false);
 
             PropertyDescriptor shipVelocityProperty = dynamicProperties[linearLowSillShipVelocityPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(shipVelocityProperty.Converter);
@@ -340,7 +340,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Aanvaarsnelheid [m/s]",
                 "Aanvaarsnelheid.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.ShipVelocity, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ShipVelocity, false, false);
 
             PropertyDescriptor levellingCountProperty = dynamicProperties[linearLowSillLevellingCountPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -364,7 +364,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Lineaire belastingschematisering stabiliteit [kN/m²]",
                 "Kritieke stabiliteit constructie volgens de lineaire belastingschematisatie.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.StabilityLinearLoadModel, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.StabilityLinearLoadModel, false, false);
 
             // Only check the order of the base properties
             Assert.AreEqual("Kunstwerk", dynamicProperties[linearLowSillStructurePropertyIndex].DisplayName);
@@ -434,7 +434,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Binnenwaterstand [m+NAP]",
                 "Binnenwaterstand.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.InsideWaterLevel, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.InsideWaterLevel, false, false);
 
             PropertyDescriptor insideWaterLevelFailureConstructionProperty = dynamicProperties[quadraticLowSillInsideWaterLevelFailureConstructionPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(insideWaterLevelFailureConstructionProperty.Converter);
@@ -444,7 +444,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Binnenwaterstand bij constructief falen [m+NAP]",
                 "Binnenwaterstand bij constructief falen.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.InsideWaterLevelFailureConstruction, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.InsideWaterLevelFailureConstruction, false, false);
 
             PropertyDescriptor flowVelocityStructureClosableProperty = dynamicProperties[quadraticLowSillFlowVelocityStructureClosablePropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(flowVelocityStructureClosableProperty.Converter);
@@ -454,7 +454,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Kritieke stroomsnelheid sluiting eerste keermiddel [m/s]",
                 "Stroomsnelheid waarbij na aanvaring het eerste keermiddel nog net kan worden gesloten.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.FlowVelocityStructureClosable, false, true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.FlowVelocityStructureClosable, false, true);
 
             PropertyDescriptor factorStormDurationOpenStructureProperty = dynamicProperties[quadraticLowSillFactorStormDurationOpenStructurePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -487,7 +487,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Kerende hoogte [m+NAP]",
                 "Kerende hoogte van het kunstwerk.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.LevelCrestStructure, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.LevelCrestStructure, false, false);
 
             PropertyDescriptor thresholdHeightOpenWeirProperty = dynamicProperties[quadraticLowSillThresholdHeightOpenWeirPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(thresholdHeightOpenWeirProperty.Converter);
@@ -497,7 +497,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Drempelhoogte [m+NAP]",
                 "Drempelhoogte niet gesloten kering of hoogte van de onderkant van de wand/drempel.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.ThresholdHeightOpenWeir, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ThresholdHeightOpenWeir, false, false);
 
             PropertyDescriptor constructiveStrengthQuadraticLoadModelProperty = dynamicProperties[quadraticLowSillConstructiveStrengthQuadraticLoadModelPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(constructiveStrengthQuadraticLoadModelProperty.Converter);
@@ -507,7 +507,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Kwadratische belastingschematisering constructieve sterkte [kN/m]",
                 "Kritieke sterkte constructie volgens de kwadratische belastingschematisatie.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.ConstructiveStrengthQuadraticLoadModel, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ConstructiveStrengthQuadraticLoadModel, false, false);
 
             PropertyDescriptor bankWidthProperty = dynamicProperties[quadraticLowSillBankWidthPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(bankWidthProperty.Converter);
@@ -517,7 +517,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Bermbreedte [m]",
                 "Bermbreedte.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.BankWidth, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.BankWidth, false, false);
 
             PropertyDescriptor evaluationLevelProperty = dynamicProperties[quadraticLowSillEvaluationLevelPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -548,7 +548,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Bezwijkwaarde aanvaarenergie [kN m]",
                 "Bezwijkwaarde aanvaarenergie.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.FailureCollisionEnergy, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.FailureCollisionEnergy, false, false);
 
             PropertyDescriptor shipMassProperty = dynamicProperties[quadraticLowSillShipMassPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(shipMassProperty.Converter);
@@ -558,7 +558,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Massa van het schip [ton]",
                 "Massa van het schip.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.ShipMass, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ShipMass, false, false);
 
             PropertyDescriptor shipVelocityProperty = dynamicProperties[quadraticLowSillShipVelocityPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(shipVelocityProperty.Converter);
@@ -568,7 +568,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Aanvaarsnelheid [m/s]",
                 "Aanvaarsnelheid.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.ShipVelocity, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ShipVelocity, false, false);
 
             PropertyDescriptor levellingCountProperty = dynamicProperties[quadraticLowSillLevellingCountPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -592,7 +592,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Kwadratische belastingschematisering stabiliteit [kN/m]",
                 "Kritieke stabiliteit constructie volgens de kwadratische belastingschematisatie.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.StabilityQuadraticLoadModel, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.StabilityQuadraticLoadModel, false, false);
 
             // Only check the order of the base properties
             Assert.AreEqual("Kunstwerk", dynamicProperties[quadraticLowSillStructurePropertyIndex].DisplayName);
@@ -662,7 +662,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Binnenwaterstand [m+NAP]",
                 "Binnenwaterstand.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.InsideWaterLevel, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.InsideWaterLevel, false, false);
 
             PropertyDescriptor insideWaterLevelFailureConstructionProperty = dynamicProperties[linearFloodedCulvertInsideWaterLevelFailureConstructionPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(insideWaterLevelFailureConstructionProperty.Converter);
@@ -672,7 +672,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Binnenwaterstand bij constructief falen [m+NAP]",
                 "Binnenwaterstand bij constructief falen.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.InsideWaterLevelFailureConstruction, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.InsideWaterLevelFailureConstruction, false, false);
 
             PropertyDescriptor flowVelocityStructureClosableProperty = dynamicProperties[linearFloodedCulvertFlowVelocityStructureClosablePropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(flowVelocityStructureClosableProperty.Converter);
@@ -682,7 +682,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Kritieke stroomsnelheid sluiting eerste keermiddel [m/s]",
                 "Stroomsnelheid waarbij na aanvaring het eerste keermiddel nog net kan worden gesloten.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.FlowVelocityStructureClosable, false, true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.FlowVelocityStructureClosable, false, true);
 
             PropertyDescriptor drainCoefficientProperty = dynamicProperties[linearFloodedCulvertDrainCoefficientPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(drainCoefficientProperty.Converter);
@@ -692,7 +692,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Afvoercoëfficiënt [-]",
                 "Afvoercoëfficiënt.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.DrainCoefficient, false, true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.DrainCoefficient, false, true);
 
             PropertyDescriptor factorStormDurationOpenStructureProperty = dynamicProperties[linearFloodedCulvertFactorStormDurationOpenStructurePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -725,7 +725,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Doorstroomoppervlak [m²]",
                 "Doorstroomoppervlak van doorstroomopeningen.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.AreaFlowApertures, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.AreaFlowApertures, false, false);
 
             PropertyDescriptor levelCrestStructureProperty = dynamicProperties[linearFloodedCulvertLevelCrestStructurePropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(levelCrestStructureProperty.Converter);
@@ -735,7 +735,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Kerende hoogte [m+NAP]",
                 "Kerende hoogte van het kunstwerk.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.LevelCrestStructure, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.LevelCrestStructure, false, false);
 
             PropertyDescriptor thresholdHeightOpenWeirProperty = dynamicProperties[linearFloodedCulvertThresholdHeightOpenWeirPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(thresholdHeightOpenWeirProperty.Converter);
@@ -745,7 +745,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Drempelhoogte [m+NAP]",
                 "Drempelhoogte niet gesloten kering of hoogte van de onderkant van de wand/drempel.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.ThresholdHeightOpenWeir, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ThresholdHeightOpenWeir, false, false);
 
             PropertyDescriptor constructiveStrengthLinearLoadModelProperty = dynamicProperties[linearFloodedCulvertConstructiveStrengthLinearLoadModelPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(constructiveStrengthLinearLoadModelProperty.Converter);
@@ -755,7 +755,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Lineaire belastingschematisering constructieve sterkte [kN/m²]",
                 "Kritieke sterkte constructie volgens de lineaire belastingschematisatie.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.ConstructiveStrengthLinearLoadModel, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ConstructiveStrengthLinearLoadModel, false, false);
 
             PropertyDescriptor bankWidthProperty = dynamicProperties[linearFloodedCulvertBankWidthPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(bankWidthProperty.Converter);
@@ -765,7 +765,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Bermbreedte [m]",
                 "Bermbreedte.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.BankWidth, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.BankWidth, false, false);
 
             PropertyDescriptor evaluationLevelProperty = dynamicProperties[linearFloodedCulvertEvaluationLevelPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -796,7 +796,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Bezwijkwaarde aanvaarenergie [kN m]",
                 "Bezwijkwaarde aanvaarenergie.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.FailureCollisionEnergy, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.FailureCollisionEnergy, false, false);
 
             PropertyDescriptor shipMassProperty = dynamicProperties[linearFloodedCulvertShipMassPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(shipMassProperty.Converter);
@@ -806,7 +806,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Massa van het schip [ton]",
                 "Massa van het schip.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.ShipMass, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ShipMass, false, false);
 
             PropertyDescriptor shipVelocityProperty = dynamicProperties[linearFloodedCulvertShipVelocityPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(shipVelocityProperty.Converter);
@@ -816,7 +816,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Aanvaarsnelheid [m/s]",
                 "Aanvaarsnelheid.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.ShipVelocity, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ShipVelocity, false, false);
 
             PropertyDescriptor levellingCountProperty = dynamicProperties[linearFloodedCulvertLevellingCountPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -840,7 +840,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Lineaire belastingschematisering stabiliteit [kN/m²]",
                 "Kritieke stabiliteit constructie volgens de lineaire belastingschematisatie.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.StabilityLinearLoadModel, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.StabilityLinearLoadModel, false, false);
 
             // Only check the order of the base properties
             Assert.AreEqual("Kunstwerk", dynamicProperties[linearFloodedCulvertStructurePropertyIndex].DisplayName);
@@ -908,7 +908,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Binnenwaterstand [m+NAP]",
                 "Binnenwaterstand.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.InsideWaterLevel, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.InsideWaterLevel, false, false);
 
             PropertyDescriptor insideWaterLevelFailureConstructionProperty = dynamicProperties[quadraticFloodedCulvertInsideWaterLevelFailureConstructionPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(insideWaterLevelFailureConstructionProperty.Converter);
@@ -918,7 +918,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Binnenwaterstand bij constructief falen [m+NAP]",
                 "Binnenwaterstand bij constructief falen.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.InsideWaterLevelFailureConstruction, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.InsideWaterLevelFailureConstruction, false, false);
 
             PropertyDescriptor flowVelocityStructureClosableProperty = dynamicProperties[quadraticFloodedCulvertFlowVelocityStructureClosablePropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(flowVelocityStructureClosableProperty.Converter);
@@ -928,7 +928,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Kritieke stroomsnelheid sluiting eerste keermiddel [m/s]",
                 "Stroomsnelheid waarbij na aanvaring het eerste keermiddel nog net kan worden gesloten.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.FlowVelocityStructureClosable, false, true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.FlowVelocityStructureClosable, false, true);
 
             PropertyDescriptor drainCoefficientProperty = dynamicProperties[quadraticFloodedCulvertDrainCoefficientPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(drainCoefficientProperty.Converter);
@@ -938,7 +938,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Afvoercoëfficiënt [-]",
                 "Afvoercoëfficiënt.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.DrainCoefficient, false, true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.DrainCoefficient, false, true);
 
             PropertyDescriptor factorStormDurationOpenStructureProperty = dynamicProperties[quadraticFloodedCulvertFactorStormDurationOpenStructurePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -971,7 +971,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Doorstroomoppervlak [m²]",
                 "Doorstroomoppervlak van doorstroomopeningen.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.AreaFlowApertures, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.AreaFlowApertures, false, false);
 
             PropertyDescriptor levelCrestStructureProperty = dynamicProperties[quadraticFloodedCulvertLevelCrestStructurePropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(levelCrestStructureProperty.Converter);
@@ -981,7 +981,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Kerende hoogte [m+NAP]",
                 "Kerende hoogte van het kunstwerk.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.LevelCrestStructure, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.LevelCrestStructure, false, false);
 
             PropertyDescriptor thresholdHeightOpenWeirProperty = dynamicProperties[quadraticFloodedCulvertThresholdHeightOpenWeirPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(thresholdHeightOpenWeirProperty.Converter);
@@ -991,7 +991,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Drempelhoogte [m+NAP]",
                 "Drempelhoogte niet gesloten kering of hoogte van de onderkant van de wand/drempel.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.ThresholdHeightOpenWeir, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ThresholdHeightOpenWeir, false, false);
 
             PropertyDescriptor constructiveStrengthQuadraticLoadModelProperty = dynamicProperties[quadraticFloodedCulvertConstructiveStrengthQuadraticLoadModelPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(constructiveStrengthQuadraticLoadModelProperty.Converter);
@@ -1001,7 +1001,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Kwadratische belastingschematisering constructieve sterkte [kN/m]",
                 "Kritieke sterkte constructie volgens de kwadratische belastingschematisatie.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.ConstructiveStrengthQuadraticLoadModel, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ConstructiveStrengthQuadraticLoadModel, false, false);
 
             PropertyDescriptor bankWidthProperty = dynamicProperties[quadraticFloodedCulvertBankWidthPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(bankWidthProperty.Converter);
@@ -1011,7 +1011,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Bermbreedte [m]",
                 "Bermbreedte.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.BankWidth, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.BankWidth, false, false);
 
             PropertyDescriptor evaluationLevelProperty = dynamicProperties[quadraticFloodedCulvertEvaluationLevelPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -1042,7 +1042,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Bezwijkwaarde aanvaarenergie [kN m]",
                 "Bezwijkwaarde aanvaarenergie.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.FailureCollisionEnergy, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.FailureCollisionEnergy, false, false);
 
             PropertyDescriptor shipMassProperty = dynamicProperties[quadraticFloodedCulvertShipMassPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(shipMassProperty.Converter);
@@ -1052,7 +1052,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Massa van het schip [ton]",
                 "Massa van het schip.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.ShipMass, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ShipMass, false, false);
 
             PropertyDescriptor shipVelocityProperty = dynamicProperties[quadraticFloodedCulvertShipVelocityPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(shipVelocityProperty.Converter);
@@ -1062,7 +1062,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Aanvaarsnelheid [m/s]",
                 "Aanvaarsnelheid.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.ShipVelocity, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ShipVelocity, false, false);
 
             PropertyDescriptor levellingCountProperty = dynamicProperties[quadraticFloodedCulvertLevellingCountPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -1086,7 +1086,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 "Kwadratische belastingschematisering stabiliteit [kN/m]",
                 "Kritieke stabiliteit constructie volgens de kwadratische belastingschematisatie.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.StabilityQuadraticLoadModel, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.StabilityQuadraticLoadModel, false, false);
 
             // Only check the order of the base properties
             Assert.AreEqual("Kunstwerk", dynamicProperties[quadraticFloodedCulvertStructurePropertyIndex].DisplayName);
@@ -1152,21 +1152,21 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             PropertyDescriptor probabilityCollisionSecondaryStructure = dynamicProperties[probabilityCollisionSecondaryStructurePropertyIndex];
             Assert.IsTrue(probabilityCollisionSecondaryStructure.IsReadOnly);
 
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.DrainCoefficient, true, true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.LevelCrestStructure, true, true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.ThresholdHeightOpenWeir, true, true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.AreaFlowApertures, true, true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.ConstructiveStrengthLinearLoadModel, true, true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.ConstructiveStrengthQuadraticLoadModel, true, true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.StabilityLinearLoadModel, true, true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.StabilityQuadraticLoadModel, true, true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.FailureCollisionEnergy, true, true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.ShipMass, true, true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.ShipVelocity, true, true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.BankWidth, true, true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.InsideWaterLevel, true, true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.InsideWaterLevelFailureConstruction, true, true);
-            DistributionPropertiesTestHelper.AssertPropertiesInState(properties.FlowVelocityStructureClosable, true, true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.DrainCoefficient, true, true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.LevelCrestStructure, true, true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ThresholdHeightOpenWeir, true, true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.AreaFlowApertures, true, true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ConstructiveStrengthLinearLoadModel, true, true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ConstructiveStrengthQuadraticLoadModel, true, true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.StabilityLinearLoadModel, true, true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.StabilityQuadraticLoadModel, true, true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.FailureCollisionEnergy, true, true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ShipMass, true, true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ShipVelocity, true, true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.BankWidth, true, true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.InsideWaterLevel, true, true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.InsideWaterLevelFailureConstruction, true, true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.FlowVelocityStructureClosable, true, true);
         }
 
         [Test]
