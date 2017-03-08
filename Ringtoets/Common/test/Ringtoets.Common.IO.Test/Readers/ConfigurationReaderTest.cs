@@ -23,6 +23,7 @@ using System;
 using System.IO;
 using System.Xml;
 using System.Xml.Linq;
+using System.Xml.Schema;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -33,6 +34,8 @@ namespace Ringtoets.Common.IO.Test.Readers
     [TestFixture]
     public class ConfigurationReaderTest
     {
+        private readonly string schemaString;
+
         private readonly string testDirectoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                                                "ConfigurationReader");
 
@@ -43,7 +46,7 @@ namespace Ringtoets.Common.IO.Test.Readers
         public void Constructor_NoFilePath_ThrowArgumentException(string invalidFilePath)
         {
             // Call
-            TestDelegate call = () => new TestConfigurationReader(invalidFilePath, "");
+            TestDelegate call = () => new TestConfigurationReader(invalidFilePath, schemaString);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet leeg of ongedefinieerd zijn.";
@@ -60,7 +63,7 @@ namespace Ringtoets.Common.IO.Test.Readers
             string invalidFilePath = validFilePath.Replace("Config", invalidPathChars[3].ToString());
 
             // Call
-            TestDelegate call = () => new TestConfigurationReader(invalidFilePath, "");
+            TestDelegate call = () => new TestConfigurationReader(invalidFilePath, schemaString);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': "
@@ -75,7 +78,7 @@ namespace Ringtoets.Common.IO.Test.Readers
             string invalidFilePath = Path.Combine(testDirectoryPath, Path.DirectorySeparatorChar.ToString());
 
             // Call
-            TestDelegate call = () => new TestConfigurationReader(invalidFilePath, "");
+            TestDelegate call = () => new TestConfigurationReader(invalidFilePath, schemaString);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet verwijzen naar een lege bestandsnaam.";
@@ -89,12 +92,51 @@ namespace Ringtoets.Common.IO.Test.Readers
             string invalidFilePath = Path.Combine(testDirectoryPath, "notExisting.xml");
 
             // Call
-            TestDelegate call = () => new TestConfigurationReader(invalidFilePath, "");
+            TestDelegate call = () => new TestConfigurationReader(invalidFilePath, schemaString);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': het bestand bestaat niet.";
             string message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
+        [TestCase("")]
+        [TestCase("      ")]
+        [TestCase(null)]
+        public void Constructor_NoSchemaString_ThrowArgumentException(string invalidSchemaString)
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "validConfiguration.xml");
+
+            // Call
+            TestDelegate call = () => new TestConfigurationReader(filePath, invalidSchemaString);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(call);
+            Assert.AreEqual("schemaString", exception.Message);
+        }
+
+        [Test]
+        [TestCase("textContent.xsd",
+            "Invalid 'schemaString': Data at the root level is invalid. Line 1, position 1.",
+            typeof(XmlException))]
+        [TestCase("invalidXsdContent.xsd",
+            "Invalid 'schemaString': The root element of a W3C XML Schema should be <schema> and its namespace should be 'http://www.w3.org/2001/XMLSchema'.",
+            typeof(XmlSchemaException))]
+        public void Constructor_InvalidSchemaString_ThrowArgumentException(string fileName, string expectedMessage, Type expectedExceptionType)
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "validConfiguration.xml");
+            string xsdPath = Path.Combine(testDirectoryPath, fileName);
+
+            // Call
+            TestDelegate call = () => new TestConfigurationReader(filePath, File.ReadAllText(xsdPath));
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(call);
+            Assert.AreEqual(expectedMessage, exception.Message);
+            Assert.IsInstanceOf(expectedExceptionType, exception.InnerException);
         }
 
         [Test]
@@ -107,7 +149,7 @@ namespace Ringtoets.Common.IO.Test.Readers
             string filePath = Path.Combine(testDirectoryPath, fileName);
 
             // Call
-            TestDelegate call = () => new TestConfigurationReader(filePath, "");
+            TestDelegate call = () => new TestConfigurationReader(filePath, schemaString);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.";
@@ -127,7 +169,7 @@ namespace Ringtoets.Common.IO.Test.Readers
                 fileDisposeHelper.LockFiles();
 
                 // Call
-                TestDelegate call = () => new TestConfigurationReader(path, "");
+                TestDelegate call = () => new TestConfigurationReader(path, schemaString);
 
                 // Assert
                 string expectedMessage = $"Fout bij het lezen van bestand '{path}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.";
@@ -135,6 +177,11 @@ namespace Ringtoets.Common.IO.Test.Readers
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<IOException>(exception.InnerException);
             }
+        }
+
+        public ConfigurationReaderTest()
+        {
+            schemaString = File.ReadAllText(Path.Combine(testDirectoryPath, "ConfiguratieSchema.xsd"));
         }
 
         private class TestConfigurationReader : ConfigurationReader<TestReadConfigurationItem>

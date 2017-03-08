@@ -50,7 +50,13 @@ namespace Ringtoets.Common.IO.Readers
         /// </summary>
         /// <param name="xmlFilePath">The file path to the XML file.</param>
         /// <param name="schemaString">A string representing an XML Schema Definition (XSD).</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="xmlFilePath"/> is invalid.</exception>
+        /// <exception cref="ArgumentException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="xmlFilePath"/> is invalid.</item>
+        /// <item><paramref name="schemaString"/> is <c>null</c> or empty.</item>
+        /// <item><paramref name="schemaString"/> contains an invalid schema definition.</item>
+        /// </list>
+        /// </exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
         /// <item><paramref name="xmlFilePath"/> points to a file that does not exist.</item>
@@ -61,6 +67,11 @@ namespace Ringtoets.Common.IO.Readers
         protected ConfigurationReader(string xmlFilePath, string schemaString)
         {
             IOUtils.ValidateFilePath(xmlFilePath);
+
+            if (string.IsNullOrWhiteSpace(schemaString))
+            {
+                throw new ArgumentException(nameof(schemaString));
+            }
 
             ValidateFileExists(xmlFilePath);
 
@@ -136,7 +147,16 @@ namespace Ringtoets.Common.IO.Readers
         private static void ValidateToSchema(XDocument document, string schemaString, string xmlFilePath)
         {
             var xmlSchemaSet = new XmlSchemaSet();
-            xmlSchemaSet.Add(XmlSchema.Read(new StringReader(schemaString), null));
+
+            try
+            {
+                xmlSchemaSet.Add(XmlSchema.Read(new StringReader(schemaString), null));
+            }
+            catch (Exception exception) when (exception is XmlException
+                                              || exception is XmlSchemaException)
+            {
+                throw new ArgumentException($"Invalid 'schemaString': {exception.Message}", exception);
+            }
 
             try
             {
