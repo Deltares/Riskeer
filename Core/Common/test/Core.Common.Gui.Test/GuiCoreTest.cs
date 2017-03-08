@@ -563,7 +563,7 @@ namespace Core.Common.Gui.Test
 
             var projectMigrator = mocks.Stub<IMigrateProject>();
             projectMigrator.Stub(pm => pm.ShouldMigrate(testFile)).Return(MigrationNeeded.Yes);
-            projectMigrator.Stub(pm => pm.Migrate(testFile)).Return(null);
+            projectMigrator.Stub(pm => pm.DetermineMigrationLocation(testFile)).Return(null);
 
             const string expectedProjectName = "Project";
             var project = mocks.Stub<IProject>();
@@ -658,6 +658,7 @@ namespace Core.Common.Gui.Test
             // Setup
             const string fileName = "SomeFile";
             string testFile = $"{fileName}.rtd";
+            string targetFile = $"{fileName}_17_1.rtd";
 
             const string expectedErrorMessage = "You shall not migrate!";
 
@@ -666,7 +667,8 @@ namespace Core.Common.Gui.Test
 
             var projectMigrator = mocks.Stub<IMigrateProject>();
             projectMigrator.Stub(pm => pm.ShouldMigrate(testFile)).Return(MigrationNeeded.Yes);
-            projectMigrator.Stub(pm => pm.Migrate(testFile))
+            projectMigrator.Stub(pm => pm.DetermineMigrationLocation(testFile)).Return(targetFile);
+            projectMigrator.Stub(pm => pm.Migrate(testFile, targetFile))
                            .Throw(new ArgumentException(expectedErrorMessage));
 
             const string expectedProjectName = "Project";

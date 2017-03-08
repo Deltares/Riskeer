@@ -131,26 +131,32 @@ namespace Core.Common.Gui.Commands
             log.Info(Resources.StorageCommandHandler_OpenExistingProject_Opening_existing_project);
 
             string migratedProjectFilePath = filePath;
+            var isOpenProjectSuccessful = false;
 
             try
             {
                 MigrationNeeded migrationNeeded = projectMigrator.ShouldMigrate(filePath);
                 if (migrationNeeded == MigrationNeeded.Yes)
                 {
-                    migratedProjectFilePath = projectMigrator.Migrate(filePath);
+                    migratedProjectFilePath = projectMigrator.DetermineMigrationLocation(filePath);
+                    if (!string.IsNullOrWhiteSpace(migratedProjectFilePath))
+                    {
+                        isOpenProjectSuccessful = projectMigrator.Migrate(filePath, migratedProjectFilePath);
+                    }
                 }
                 else if (migrationNeeded == MigrationNeeded.Aborted)
                 {
                     migratedProjectFilePath = null;
+                    isOpenProjectSuccessful = false;
                 }
             }
             catch (ArgumentException e)
             {
                 migratedProjectFilePath = null;
+                isOpenProjectSuccessful = false;
                 log.Error(e.Message, e);
             }
 
-            var isOpenProjectSuccessful = false;
             IProject newProject = null;
             if (!string.IsNullOrEmpty(migratedProjectFilePath))
             {

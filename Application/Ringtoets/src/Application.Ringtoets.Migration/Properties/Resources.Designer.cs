@@ -140,12 +140,30 @@ namespace Application.Ringtoets.Migration.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bronprojectpad moet een geldig projectpad zijn..
+        ///   Looks up a localized string similar to Bron.
         /// </summary>
-        internal static string RingtoetsProjectMigrator_ValidateProjectPath_Source_filepath_must_be_a_valid_path {
+        internal static string RingtoetsProjectMigrator_Source_Descriptor {
             get {
-                return ResourceManager.GetString("RingtoetsProjectMigrator_ValidateProjectPath_Source_filepath_must_be_a_valid_path" +
-                        "", resourceCulture);
+                return ResourceManager.GetString("RingtoetsProjectMigrator_Source_Descriptor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Doel.
+        /// </summary>
+        internal static string RingtoetsProjectMigrator_Target_Descriptor {
+            get {
+                return ResourceManager.GetString("RingtoetsProjectMigrator_Target_Descriptor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}projectpad moet een geldig projectpad zijn..
+        /// </summary>
+        internal static string RingtoetsProjectMigrator_ValidateProjectPath_TypeDescriptor_0_filepath_must_be_a_valid_path {
+            get {
+                return ResourceManager.GetString("RingtoetsProjectMigrator_ValidateProjectPath_TypeDescriptor_0_filepath_must_be_a_" +
+                        "valid_path", resourceCulture);
             }
         }
     }

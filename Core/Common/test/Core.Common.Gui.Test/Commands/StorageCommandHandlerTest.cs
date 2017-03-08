@@ -193,8 +193,12 @@ namespace Core.Common.Gui.Test.Commands
                           .Return(loadedProject);
 
             var projectMigrator = mocks.StrictMock<IMigrateProject>();
-            projectMigrator.Expect(pm => pm.ShouldMigrate(pathToSomeValidFile)).Return(MigrationNeeded.Yes);
-            projectMigrator.Expect(pm => pm.Migrate(pathToSomeValidFile)).Return(pathToMigratedFile);
+            using (mocks.Ordered())
+            {
+                projectMigrator.Expect(pm => pm.ShouldMigrate(pathToSomeValidFile)).Return(MigrationNeeded.Yes);
+                projectMigrator.Expect(pm => pm.DetermineMigrationLocation(pathToSomeValidFile)).Return(pathToMigratedFile);
+                projectMigrator.Expect(pm => pm.Migrate(pathToSomeValidFile, pathToMigratedFile)).Return(true);
+            }
 
             var mainWindowController = mocks.Stub<IWin32Window>();
 
@@ -235,16 +239,19 @@ namespace Core.Common.Gui.Test.Commands
             var projectStorage = mocks.StrictMock<IStoreProject>();
 
             var projectMigrator = mocks.StrictMock<IMigrateProject>();
-            projectMigrator.Expect(pm => pm.ShouldMigrate(pathToSomeValidFile)).Return(MigrationNeeded.Yes);
-            projectMigrator.Expect(pm => pm.Migrate(pathToSomeValidFile)).Return(null);
+            using (mocks.Ordered())
+            {
+                projectMigrator.Expect(pm => pm.ShouldMigrate(pathToSomeValidFile)).Return(MigrationNeeded.Yes);
+                projectMigrator.Expect(pm => pm.DetermineMigrationLocation(pathToSomeValidFile)).Return(null);
+            }
 
             var project = mocks.Stub<IProject>();
             var projectFactory = mocks.StrictMock<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject()).Return(project);
+            projectFactory.Expect(pf => pf.CreateNewProject()).Return(project);
 
-            var projectOwner = mocks.Stub<IProjectOwner>();
+            var projectOwner = mocks.StrictMock<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
-            projectOwner.Stub(po => po.SetProject(project, null));
+            projectOwner.Expect(po => po.SetProject(project, null));
 
             var mainWindowController = mocks.Stub<IWin32Window>();
             mocks.ReplayAll();
@@ -321,26 +328,84 @@ namespace Core.Common.Gui.Test.Commands
         }
 
         [Test]
-        public void OpenExistingProject_ShouldMigrateTrueAndMigrateThrowsArgumentException_LogFailureAndCreateNewProjectAndReturnsFalse()
+        public void OpenExistingProject_ShouldMigrateYesAndDetermineMigrationLocationThrowsArgumentException_LogFailureAndCreateNewProjectAndReturnsFalse()
         {
             // Setup
             const string errorMessage = "I am an error message.";
-            const string pathToSomeValidFile = " ";
+            const string pathToSomeValidFile = "C://folder/directory/newProject.rtd";
 
             var projectStorage = mocks.StrictMock<IStoreProject>();
 
             var projectMigrator = mocks.StrictMock<IMigrateProject>();
-            projectMigrator.Expect(pm => pm.ShouldMigrate(pathToSomeValidFile)).Return(MigrationNeeded.Yes);
-            projectMigrator.Expect(pm => pm.Migrate(pathToSomeValidFile))
-                           .Throw(new ArgumentException(errorMessage));
+            using (mocks.Ordered())
+            {
+                projectMigrator.Expect(pm => pm.ShouldMigrate(pathToSomeValidFile)).Return(MigrationNeeded.Yes);
+                projectMigrator.Expect(pm => pm.DetermineMigrationLocation(pathToSomeValidFile))
+                    .Throw(new ArgumentException(errorMessage));
+            }
 
             var project = mocks.Stub<IProject>();
             var projectFactory = mocks.StrictMock<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject()).Return(project);
+            projectFactory.Expect(pf => pf.CreateNewProject()).Return(project);
 
-            var projectOwner = mocks.Stub<IProjectOwner>();
+            var projectOwner = mocks.StrictMock<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
-            projectOwner.Stub(po => po.SetProject(project, null));
+            projectOwner.Expect(po => po.SetProject(project, null));
+
+            var mainWindowController = mocks.Stub<IWin32Window>();
+            mocks.ReplayAll();
+
+            var storageCommandHandler = new StorageCommandHandler(
+                projectStorage,
+                projectMigrator,
+                projectFactory,
+                projectOwner,
+                mainWindowController);
+
+            // Call
+            bool result = true;
+            Action call = () => result = storageCommandHandler.OpenExistingProject(pathToSomeValidFile);
+
+            // Assert
+            var expectedMessages = new[]
+            {
+                "Openen van bestaand Ringtoetsproject...",
+                errorMessage,
+                "Het is niet gelukt om het Ringtoetsproject te laden."
+            };
+            TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages, 3);
+            Assert.IsFalse(result);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void OpenExistingProject_ShouldMigrateTrueAndMigrateThrowsArgumentException_LogFailureAndCreateNewProjectAndReturnsFalse()
+        {
+            // Setup
+            const string errorMessage = "I am an error message.";
+            const string fileName = "newProject";
+            string pathToSomeValidFile = $"C://folder/directory/{fileName}.rtd";
+            string pathToMigratedFile = $"C://folder/directory/{fileName}-newerVersion.rtd";
+
+            var projectStorage = mocks.StrictMock<IStoreProject>();
+
+            var projectMigrator = mocks.StrictMock<IMigrateProject>();
+            using (mocks.Ordered())
+            {
+                projectMigrator.Expect(pm => pm.ShouldMigrate(pathToSomeValidFile)).Return(MigrationNeeded.Yes);
+                projectMigrator.Expect(pm => pm.DetermineMigrationLocation(pathToSomeValidFile)).Return(pathToMigratedFile);
+                projectMigrator.Expect(pm => pm.Migrate(pathToSomeValidFile, pathToMigratedFile))
+                               .Throw(new ArgumentException(errorMessage));
+            }
+            
+            var project = mocks.Stub<IProject>();
+            var projectFactory = mocks.StrictMock<IProjectFactory>();
+            projectFactory.Expect(pf => pf.CreateNewProject()).Return(project);
+
+            var projectOwner = mocks.StrictMock<IProjectOwner>();
+            projectOwner.Stub(po => po.Project).Return(project);
+            projectOwner.Expect(po => po.SetProject(project, null));
 
             var mainWindowController = mocks.Stub<IWin32Window>();
             mocks.ReplayAll();

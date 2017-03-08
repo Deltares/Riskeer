@@ -105,7 +105,7 @@ namespace Application.Ringtoets.Migration.Test
             // Assert
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
                 call, "Bronprojectpad moet een geldig projectpad zijn.").ParamName;
-            Assert.AreEqual("sourceFilePath", paramName);
+            Assert.AreEqual("filePath", paramName);
 
             mocks.VerifyAll();
         }
@@ -203,6 +203,80 @@ namespace Application.Ringtoets.Migration.Test
         }
 
         [Test]
+        public void DetermineMigrationLocation_FilePathNull_ThrownArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            mocks.ReplayAll();
+
+            var migrator = new RingtoetsProjectMigrator(inquiryHelper);
+
+            // Call
+            TestDelegate call = () => migrator.DetermineMigrationLocation(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("originalFilePath", paramName);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase("")]
+        [TestCase("    ")]
+        public void DetermineMigrationLocation_InvalidFilePath_ThrowsArgumentException(string invalidFilePath)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            mocks.ReplayAll();
+
+            var migrator = new RingtoetsProjectMigrator(inquiryHelper);
+
+            // Call
+            TestDelegate call = () => migrator.DetermineMigrationLocation(invalidFilePath);
+
+            // Assert
+            string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
+                call, "Bronprojectpad moet een geldig projectpad zijn.").ParamName;
+            Assert.AreEqual("originalFilePath", paramName);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void DetermineMigrationLocation_ValidPath_AsksUserForTargetPathAndReturnsIt()
+        {
+            // Setup
+            const string originalFileName = "Im_a_valid_file_path";
+            const string expectedFileExtension = "rtd";
+
+            string validFilePath = TestHelper.GetScratchPadPath($"{originalFileName}.{expectedFileExtension}");
+
+            string versionWithUnderscores = RingtoetsVersionHelper.GetCurrentDatabaseVersion().Replace('.', '-');
+            var expectedFileFilter = new FileFilterGenerator(expectedFileExtension, "Ringtoets project");
+            string expectedSuggestedFileName = $"{originalFileName}_{versionWithUnderscores}";
+
+            string expectedReturnPath = TestHelper.GetScratchPadPath("Im_a_file_path_to_the_migrated_file.rtd");
+
+            var mocks = new MockRepository();
+            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
+            inquiryHelper.Expect(h => h.GetTargetFileLocation(expectedFileFilter, expectedSuggestedFileName))
+                         .Return(expectedReturnPath);
+            mocks.ReplayAll();
+
+            var migrator = new RingtoetsProjectMigrator(inquiryHelper);
+
+            // Call
+            string targetFilePath = migrator.DetermineMigrationLocation(validFilePath);
+
+            // Assert
+            Assert.AreEqual(expectedReturnPath, targetFilePath);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void Migrate_SourcePathNull_ThrowsArgumentNullException()
         {
             // Setup
@@ -212,18 +286,20 @@ namespace Application.Ringtoets.Migration.Test
 
             var migrator = new RingtoetsProjectMigrator(inquiryHelper);
 
+            string targetFileName = $"{nameof(RingtoetsProjectMigratorTest)}." +
+                                    $"{nameof(Migrate_SourcePathNull_ThrowsArgumentNullException)}.rtd";
+            string targetFilePath = TestHelper.GetScratchPadPath(targetFileName);
+
             // Call
-            TestDelegate call = () => migrator.Migrate(null);
+            TestDelegate call = () => migrator.Migrate(null, targetFilePath);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("filePath", paramName);
+            Assert.AreEqual("sourceFilePath", paramName);
         }
 
         [Test]
-        [TestCase("")]
-        [TestCase("    ")]
-        public void Migrate_InvalidFilePath_ThrowsArgumentException(string invalidFilePath)
+        public void Migrate_TargetPathNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -232,8 +308,34 @@ namespace Application.Ringtoets.Migration.Test
 
             var migrator = new RingtoetsProjectMigrator(inquiryHelper);
 
+            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "FullTestProject164.rtd");
+
             // Call
-            TestDelegate call = () => migrator.Migrate(invalidFilePath);
+            TestDelegate call = () => migrator.Migrate(sourceFilePath, null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("targetFilePath", paramName);
+        }
+
+        [Test]
+        [TestCase("")]
+        [TestCase("    ")]
+        public void Migrate_InvalidSourceFilePath_ThrowsArgumentException(string invalidFilePath)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            mocks.ReplayAll();
+
+            var migrator = new RingtoetsProjectMigrator(inquiryHelper);
+
+            string targetFileName = $"{nameof(RingtoetsProjectMigratorTest)}." +
+                                    $"{nameof(Migrate_InvalidSourceFilePath_ThrowsArgumentException)}.rtd";
+            string targetFilePath = TestHelper.GetScratchPadPath(targetFileName);
+
+            // Call
+            TestDelegate call = () => migrator.Migrate(invalidFilePath, targetFilePath);
 
             // Assert
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
@@ -244,28 +346,28 @@ namespace Application.Ringtoets.Migration.Test
         }
 
         [Test]
-        public void Migrate_Always_ReturnsSuggestedFileNameAndFileFilter()
+        [TestCase("")]
+        [TestCase("    ")]
+        public void Migrate_InvalidTargetFilePath_ThrowsArgumentException(string invalidFilePath)
         {
             // Setup
-            const string projectName = "FullTestProject164";
-            string sourceFilePath = $"Some/Path/{projectName}.rtd";
-
-            string versionSuffix = currentDatabaseVersion.Replace(".", "-");
-            string expectedSuggestedFileName = $"{projectName}_{versionSuffix}";
-
             var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            inquiryHelper.Expect(helper => helper.GetTargetFileLocation(new FileFilterGenerator("rtd", "Ringtoets project"),
-                                                                        expectedSuggestedFileName))
-                         .Return(null);
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
             var migrator = new RingtoetsProjectMigrator(inquiryHelper);
 
-            // Call 
-            migrator.Migrate(sourceFilePath);
+            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration,
+                                                               "FullTestProject164.rtd");
+
+            // Call
+            TestDelegate call = () => migrator.Migrate(sourceFilePath, invalidFilePath);
 
             // Assert
+            string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
+                call, "Doelprojectpad moet een geldig projectpad zijn.").ParamName;
+            Assert.AreEqual("targetFilePath", paramName);
+
             mocks.VerifyAll();
         }
 
@@ -280,58 +382,27 @@ namespace Application.Ringtoets.Migration.Test
             string targetFilePath = Path.Combine(TestHelper.GetScratchPadPath(), targetFile);
 
             var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-
-            inquiryHelper.Expect(helper => helper.GetTargetFileLocation(null, null))
-                         .IgnoreArguments()
-                         .Return(targetFilePath);
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
             var migrator = new RingtoetsProjectMigrator(inquiryHelper);
 
             using (new FileDisposeHelper(targetFilePath))
             {
-                string actualTargetFilePath = null;
+                bool migrationSuccessful = false;
 
                 // When 
-                Action call = () => actualTargetFilePath = migrator.Migrate(sourceFilePath);
+                Action call = () => migrationSuccessful = migrator.Migrate(sourceFilePath, targetFilePath);
 
                 // Then
                 string expectedMessage = $"Het projectbestand '{sourceFilePath}' is succesvol gemigreerd naar '{targetFilePath}' (versie {currentDatabaseVersion}).";
                 TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
 
-                Assert.AreEqual(targetFilePath, actualTargetFilePath);
+                Assert.IsTrue(migrationSuccessful);
+
                 var toVersionedFile = new RingtoetsVersionedFile(targetFilePath);
                 Assert.AreEqual(currentDatabaseVersion, toVersionedFile.GetVersion());
             }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GivenMigratorAndSupportedFile_WhenCancelledSaveFileDialog_ThenFileMigrationCancelledAndLogsMessage()
-        {
-            // Given
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "FullTestProject164.rtd");
-
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-
-            inquiryHelper.Expect(helper => helper.GetTargetFileLocation(null, null))
-                         .IgnoreArguments()
-                         .Return(null);
-            mocks.ReplayAll();
-
-            var migrator = new RingtoetsProjectMigrator(inquiryHelper);
-            string actualTargetFilePath = string.Empty;
-
-            // When
-            Action call = () => actualTargetFilePath = migrator.Migrate(sourceFilePath);
-
-            // Then
-            string expectedMessage = $"Het migreren van het projectbestand '{sourceFilePath}' is geannuleerd.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
-            Assert.IsNull(actualTargetFilePath);
 
             mocks.VerifyAll();
         }
@@ -345,11 +416,7 @@ namespace Application.Ringtoets.Migration.Test
                                     $"{nameof(Migrate_UnableToSaveAtTargetFilePath_MigrationFailsAndLogsError)}.rtd";
 
             var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-
-            inquiryHelper.Expect(helper => helper.GetTargetFileLocation(null, null))
-                         .IgnoreArguments()
-                         .Return(sourceFilePath);
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
             var migrator = new RingtoetsProjectMigrator(inquiryHelper);
@@ -359,10 +426,10 @@ namespace Application.Ringtoets.Migration.Test
             {
                 fileDisposeHelper.LockFiles();
 
-                string actualTargetFilePath = string.Empty;
+                bool migrationSuccessful = true;
 
                 // Call 
-                Action call = () => actualTargetFilePath = migrator.Migrate(sourceFilePath);
+                Action call = () => migrationSuccessful = migrator.Migrate(sourceFilePath, targetFilePath);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -371,7 +438,7 @@ namespace Application.Ringtoets.Migration.Test
                     Assert.AreEqual(1, msgs.Length);
                     StringAssert.StartsWith($"Het migreren van het projectbestand '{sourceFilePath}' is mislukt: ", msgs[0]);
                 });
-                Assert.IsNull(actualTargetFilePath);
+                Assert.IsFalse(migrationSuccessful);
             }
 
             mocks.VerifyAll();
@@ -387,21 +454,17 @@ namespace Application.Ringtoets.Migration.Test
             string targetFilePath = Path.Combine(TestHelper.GetScratchPadPath(), targetFile);
 
             var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-
-            inquiryHelper.Expect(helper => helper.GetTargetFileLocation(null, null))
-                         .IgnoreArguments()
-                         .Return(targetFilePath);
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
             var migrator = new RingtoetsProjectMigrator(inquiryHelper);
 
             using (new FileDisposeHelper(targetFilePath))
             {
-                string actualTargetFilePath = string.Empty;
+                bool migrationSuccessful = true;
 
                 // Call 
-                Action call = () => actualTargetFilePath = migrator.Migrate(sourceFilePath);
+                Action call = () => migrationSuccessful = migrator.Migrate(sourceFilePath, targetFilePath);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -410,7 +473,7 @@ namespace Application.Ringtoets.Migration.Test
                     Assert.AreEqual(1, msgs.Length);
                     StringAssert.StartsWith($"Het migreren van het projectbestand '{sourceFilePath}' is mislukt: ", msgs[0]);
                 });
-                Assert.IsNull(actualTargetFilePath);
+                Assert.IsFalse(migrationSuccessful);
             }
 
             mocks.VerifyAll();
@@ -423,19 +486,15 @@ namespace Application.Ringtoets.Migration.Test
             string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "FullTestProject164.rtd");
 
             var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-
-            inquiryHelper.Expect(helper => helper.GetTargetFileLocation(null, null))
-                         .IgnoreArguments()
-                         .Return(sourceFilePath);
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
             var migrator = new RingtoetsProjectMigrator(inquiryHelper);
 
-            string actualTargetFilePath = string.Empty;
+            bool migrationSuccessful = true;
 
             // Call 
-            Action call = () => actualTargetFilePath = migrator.Migrate(sourceFilePath);
+            Action call = () => migrationSuccessful = migrator.Migrate(sourceFilePath, sourceFilePath);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -444,7 +503,7 @@ namespace Application.Ringtoets.Migration.Test
                 Assert.AreEqual(1, msgs.Length);
                 StringAssert.StartsWith($"Het migreren van het projectbestand '{sourceFilePath}' is mislukt: ", msgs[0]);
             });
-            Assert.IsNull(actualTargetFilePath);
+            Assert.IsFalse(migrationSuccessful);
 
             mocks.VerifyAll();
         }

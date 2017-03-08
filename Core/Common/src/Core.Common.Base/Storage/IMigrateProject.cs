@@ -39,17 +39,22 @@ namespace Core.Common.Base.Storage
         MigrationNeeded ShouldMigrate(string filePath);
 
         /// <summary>
-        /// Migrates an outdated project file from <paramref name="filePath"/>
+        /// Determines the target filepath to place the migrated Ringtoets project based
+        /// on it's original filepath.
+        /// </summary>
+        /// <returns>The filepath to be used as location for the migration result. Value
+        /// will be <c>null</c> if no target filepath an be provided.</returns>
+        string DetermineMigrationLocation(string originalFilePath);
+
+        /// <summary>
+        /// Migrates an outdated project file from <paramref name="sourceFilePath"/>
         /// to the newest project version version at a user defined target filepath.
         /// </summary>
-        /// <param name="filePath">The filepath of the project which needs to be migrated.</param>
-        /// <returns>A filepath to the updated project file. <c>null</c> if:
-        /// <list type="bullet">
-        /// <item>The user did not provide a target filepath.</item>
-        /// <item>The migration failed.</item>
-        /// </list></returns>
-        /// <exception cref="ArgumentNullException">Thrown when <see cref="filePath"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <see cref="filePath"/> is an invalid file path.</exception>
-        string Migrate(string filePath);
+        /// <param name="sourceFilePath">The filepath of the project which needs to be migrated.</param>
+        /// <param name="targetFilePath">The filepath where the migrated project is written to.</param>
+        /// <returns>Returns <c>true</c> if the migration was successful; return <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref cref="sourceFilePath"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref cref="sourceFilePath"/> is an invalid file path.</exception>
+        bool Migrate(string sourceFilePath, string targetFilePath);
     }
 }

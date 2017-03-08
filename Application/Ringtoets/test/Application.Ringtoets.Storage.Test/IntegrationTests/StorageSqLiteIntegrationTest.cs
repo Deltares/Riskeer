@@ -187,15 +187,17 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         public void GivenRingtoetsGuiWithStorageSqlAndMigrator_WhenRunWithValidFile_ProjectSet()
         {
             // Given
+            string tempRingtoetsFile = GetRandomRingtoetsFile();
+            var expectedProjectName = Path.GetFileNameWithoutExtension(tempRingtoetsFile);
+
             var mocks = new MockRepository();
             var projectMigrator = mocks.Stub<IMigrateProject>();
+            projectMigrator.Stub(pm => pm.ShouldMigrate(tempRingtoetsFile)).Return(MigrationNeeded.No);
             mocks.ReplayAll();
 
             var projectStore = new StorageSqLite();
 
             RingtoetsProject fullProject = RingtoetsProjectTestHelper.GetFullTestProject();
-            string tempRingtoetsFile = GetRandomRingtoetsFile();
-            var expectedProjectName = Path.GetFileNameWithoutExtension(tempRingtoetsFile);
             var expectedProjectDescription = fullProject.Description;
 
             // Precondition

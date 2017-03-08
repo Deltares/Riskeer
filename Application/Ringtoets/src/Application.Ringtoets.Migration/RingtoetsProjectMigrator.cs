@@ -69,7 +69,7 @@ namespace Application.Ringtoets.Migration
                 throw new ArgumentNullException(nameof(filePath));
             }
 
-            ValidateProjectPath(filePath);
+            ValidateProjectPath(filePath, nameof(filePath), Resources.RingtoetsProjectMigrator_Source_Descriptor);
 
             var versionedFile = new RingtoetsVersionedFile(filePath);
             string version = versionedFile.GetVersion();
@@ -93,34 +93,42 @@ namespace Application.Ringtoets.Migration
             {
                 return MigrationNeeded.Yes;
             }
-            else
-            {
-                GenerateMigrationCancelledLogMessage(filePath);
-                return MigrationNeeded.Aborted;
-            }
-        }
-
-        public string Migrate(string filePath)
-        {
-            if (filePath == null)
-            {
-                throw new ArgumentNullException(nameof(filePath));
-            }
-
-            ValidateProjectPath(filePath);
-
-            string suggestedFileName = GetSuggestedFileName(filePath);
-            string targetLocation = inquiryHelper.GetTargetFileLocation(fileFilter, suggestedFileName);
-            if (!string.IsNullOrEmpty(targetLocation))
-            {
-                return MigrateToTargetLocation(filePath, targetLocation);
-            }
 
             GenerateMigrationCancelledLogMessage(filePath);
-            return null;
+            return MigrationNeeded.Aborted;
         }
 
-        private string MigrateToTargetLocation(string sourceFilePath, string targetLocation)
+        public string DetermineMigrationLocation(string originalFilePath)
+        {
+            if (originalFilePath == null)
+            {
+                throw new ArgumentNullException(nameof(originalFilePath));
+            }
+
+            ValidateProjectPath(originalFilePath, nameof(originalFilePath), Resources.RingtoetsProjectMigrator_Source_Descriptor);
+
+            string suggestedFileName = GetSuggestedFileName(originalFilePath);
+            return inquiryHelper.GetTargetFileLocation(fileFilter, suggestedFileName);
+        }
+
+        public bool Migrate(string sourceFilePath, string targetFilePath)
+        {
+            if (sourceFilePath == null)
+            {
+                throw new ArgumentNullException(nameof(sourceFilePath));
+            }
+            if (targetFilePath == null)
+            {
+                throw new ArgumentNullException(nameof(targetFilePath));
+            }
+
+            ValidateProjectPath(sourceFilePath, nameof(sourceFilePath), Resources.RingtoetsProjectMigrator_Source_Descriptor);
+            ValidateProjectPath(targetFilePath, nameof(targetFilePath), Resources.RingtoetsProjectMigrator_Target_Descriptor);
+
+            return MigrateToTargetLocation(sourceFilePath, targetFilePath);
+        }
+
+        private bool MigrateToTargetLocation(string sourceFilePath, string targetLocation)
         {
             try
             {
@@ -131,14 +139,14 @@ namespace Application.Ringtoets.Migration
                                                sourceFilePath, targetLocation, currentDatabaseVersion);
                 log.Info(message);
 
-                return targetLocation;
+                return true;
             }
             catch (CriticalMigrationException e)
             {
                 string errorMessage = string.Format(Resources.RingtoetsProjectMigrator_MigrateToTargetLocation_Updating_outdated_projectfile_0_failed_with_exception_1_,
                                                     sourceFilePath, e.Message);
                 log.Error(errorMessage, e);
-                return null;
+                return false;
             }
         }
 
@@ -157,12 +165,14 @@ namespace Application.Ringtoets.Migration
             log.Warn(warningMessage);
         }
 
-        private static void ValidateProjectPath(string sourceFilePath)
+        private static void ValidateProjectPath(string filePath, string argumentName, string pathDescription)
         {
-            if (!IOUtils.IsValidFilePath(sourceFilePath))
+            if (!IOUtils.IsValidFilePath(filePath))
             {
-                throw new ArgumentException(Resources.RingtoetsProjectMigrator_ValidateProjectPath_Source_filepath_must_be_a_valid_path,
-                                            nameof(sourceFilePath));
+                string message = string.Format(Resources.RingtoetsProjectMigrator_ValidateProjectPath_TypeDescriptor_0_filepath_must_be_a_valid_path,
+                                               pathDescription);
+                throw new ArgumentException(message,
+                                            argumentName);
             }
         }
     }

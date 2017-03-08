@@ -53,6 +53,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
                 var mocks = new MockRepository();
                 var projectMigrator = mocks.Stub<IMigrateProject>();
+                projectMigrator.Stub(pm => pm.ShouldMigrate(targetFilePath)).Return(MigrationNeeded.No);
                 mocks.ReplayAll();
 
                 using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RingtoetsProjectFactory(), new GuiCoreSettings()))
