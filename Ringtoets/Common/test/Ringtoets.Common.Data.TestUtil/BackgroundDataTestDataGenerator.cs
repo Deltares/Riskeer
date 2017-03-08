@@ -24,8 +24,16 @@ using Ringtoets.Common.Data.AssessmentSection;
 
 namespace Ringtoets.Common.Data.TestUtil
 {
+    /// <summary>
+    /// Class responsible for generating test data of <see cref="BackgroundData"/>.
+    /// </summary>
     public static class BackgroundDataTestDataGenerator
     {
+        /// <summary>
+        /// Gets the <see cref="BackgroundData"/> with the given data of <see cref="WmtsMapData"/>.
+        /// </summary>
+        /// <param name="wmtsMapData">The <see cref="WmtsMapData"/> to create the background data for.</param>
+        /// <returns>The created <see cref="BackgroundData"/>.</returns>
         public static BackgroundData GetWmtsBackgroundMapData(WmtsMapData wmtsMapData)
         {
             var backgroundMapData = new BackgroundData
@@ -34,7 +42,7 @@ namespace Ringtoets.Common.Data.TestUtil
                 IsVisible = wmtsMapData.IsVisible,
                 IsConfigured = wmtsMapData.IsConfigured,
                 Transparency = wmtsMapData.Transparency,
-                BackgroundMapDataType = BackgroundMapDataType.Wmts                
+                BackgroundMapDataType = BackgroundMapDataType.Wmts
             };
 
             if (wmtsMapData.IsConfigured)
@@ -47,6 +55,10 @@ namespace Ringtoets.Common.Data.TestUtil
             return backgroundMapData;
         }
 
+        /// <summary>
+        /// Gets the <see cref="BackgroundData"/> with <see cref="BackgroundMapDataType.WellKnown"/>.
+        /// </summary>
+        /// <returns>The created <see cref="BackgroundData"/>.</returns>
         public static BackgroundData GetWellKnownBackgroundMapData()
         {
             return new BackgroundData

@@ -19,12 +19,67 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Components.Gis.Data;
 using NUnit.Framework;
+using Ringtoets.Common.Data.AssessmentSection;
 
 namespace Ringtoets.Common.Data.TestUtil.Test
 {
     [TestFixture]
     public class BackgroundDataTestDataGeneratorTest
     {
+        [Test]
+        public void GetWmtsBackgroundMapData_ConfiguredWmtsMapData_ReturnBackgroundDataWithParametersSet()
+        {
+            // Setup
+            WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
+
+            // Call
+            BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(mapData);
+
+            // Assert
+            Assert.AreEqual(BackgroundMapDataType.Wmts, backgroundData.BackgroundMapDataType);
+            Assert.AreEqual(mapData.Name, backgroundData.Name);
+            Assert.AreEqual(mapData.IsConfigured, backgroundData.IsConfigured);
+            Assert.AreEqual(mapData.IsVisible, backgroundData.IsVisible);
+            Assert.AreEqual(mapData.Transparency, backgroundData.Transparency);
+            Assert.AreEqual(3, backgroundData.Parameters.Count);
+            Assert.AreEqual(mapData.SourceCapabilitiesUrl, backgroundData.Parameters["SourceCapabilitiesUrl"]);
+            Assert.AreEqual(mapData.SelectedCapabilityIdentifier, backgroundData.Parameters["SelectedCapabilityIdentifier"]);
+            Assert.AreEqual(mapData.PreferredFormat, backgroundData.Parameters["PreferredFormat"]);
+        }
+
+        [Test]
+        public void GetWmtsBackgroundMapData_NotConfiguredWmtsMapData_ReturnBackgroundDataWithoutParametersSet()
+        {
+            // Setup
+            WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
+
+            // Call
+            BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(mapData);
+
+            // Assert
+            Assert.AreEqual(BackgroundMapDataType.Wmts, backgroundData.BackgroundMapDataType);
+            Assert.AreEqual(mapData.Name, backgroundData.Name);
+            Assert.AreEqual(mapData.IsConfigured, backgroundData.IsConfigured);
+            Assert.AreEqual(mapData.IsVisible, backgroundData.IsVisible);
+            Assert.AreEqual(mapData.Transparency, backgroundData.Transparency);
+            CollectionAssert.IsEmpty(backgroundData.Parameters);
+        }
+
+        [Test]
+        public void GetWellKnownBackgroundMapData_Always_ReturnBackgroundDataWithTypeSetToWellKnown()
+        {
+            // Call
+            BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData();
+
+            // Assert
+            Assert.AreEqual(BackgroundMapDataType.WellKnown, backgroundData.BackgroundMapDataType);
+            Assert.IsNull(backgroundData.Name);
+            Assert.IsFalse(backgroundData.IsConfigured);
+            Assert.IsTrue(backgroundData.IsVisible);
+            Assert.AreEqual(0, backgroundData.Transparency.Value);
+            CollectionAssert.IsEmpty(backgroundData.Parameters);
+        }
     }
 }
