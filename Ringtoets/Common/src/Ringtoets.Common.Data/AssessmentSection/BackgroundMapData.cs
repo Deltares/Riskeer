@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 
 namespace Ringtoets.Common.Data.AssessmentSection
@@ -26,7 +28,8 @@ namespace Ringtoets.Common.Data.AssessmentSection
     /// <summary>
     /// Class that holds information about configured background data.
     /// </summary>
-    public class BackgroundMapData
+    public class BackgroundMapData : Observable
+
     {
         /// <summary>
         /// Creates a new <see cref="BackgroundMapData"/>.
@@ -35,7 +38,10 @@ namespace Ringtoets.Common.Data.AssessmentSection
         {
             IsVisible = true;
             Transparency = new RoundedDouble(2);
+            Parameters = new Dictionary<string, string>();
         }
+
+        public string Name { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the background is visible.
@@ -51,5 +57,15 @@ namespace Ringtoets.Common.Data.AssessmentSection
         /// Gets or sets the type of the background map data.
         /// </summary>
         public BackgroundMapDataType BackgroundMapDataType { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether a background map data is configured.
+        /// </summary>
+        public bool IsConfigured { get; set; }
+
+        /// <summary>
+        /// Gets the parameters that are configured for a background map data.
+        /// </summary>
+        public IDictionary<string, string> Parameters { get; }
     }
 }

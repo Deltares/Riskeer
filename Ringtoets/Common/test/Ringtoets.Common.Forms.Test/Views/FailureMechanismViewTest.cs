@@ -107,7 +107,8 @@ namespace Ringtoets.Common.Forms.Test.Views
                 view.Data = failureMechanismContext;
 
                 // Assert
-                Assert.AreSame(assessmentSection.BackgroundMapData, view.Map.BackgroundMapData);
+                WmtsMapData expectedWmtsBackgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(assessmentSection.BackgroundMapData2);
+                MapDataTestHelper.AssertWmtsMapData(expectedWmtsBackgroundMapData, view.Map.BackgroundMapData);
             }
         }
 
@@ -156,7 +157,8 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Setup
             using (var view = new FailureMechanismView<TestFailureMechanism>())
             {
-                var failureMechanismContext = new FailureMechanismContext<TestFailureMechanism>(new TestFailureMechanism(), new ObservableTestAssessmentSectionStub());
+                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var failureMechanismContext = new FailureMechanismContext<TestFailureMechanism>(new TestFailureMechanism(), assessmentSection);
 
                 // Call
                 view.Data = failureMechanismContext;
@@ -164,6 +166,9 @@ namespace Ringtoets.Common.Forms.Test.Views
                 // Assert
                 Assert.AreSame(failureMechanismContext, view.Data);
                 AssertEmptyMapData(view.Map.Data);
+                WmtsMapData expectedWmtsBackgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(
+                    assessmentSection.BackgroundMapData2);
+                MapDataTestHelper.AssertWmtsMapData(expectedWmtsBackgroundMapData, view.Map.BackgroundMapData);
             }
         }
 
@@ -358,6 +363,32 @@ namespace Ringtoets.Common.Forms.Test.Views
 
                 // Then
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(newHydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
+            }
+        }
+
+        [Test]
+        public void GivenChangedBackgroundMapData_WhenBackgroundMapDataObserversNotified_MapDataUpdated()
+        {
+            // Given
+            using (var view = new FailureMechanismView<TestFailureMechanism>())
+            {
+                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                view.Data = new FailureMechanismContext<TestFailureMechanism>(new TestFailureMechanism(), assessmentSection);
+
+                BackgroundMapData backgroundMapData = assessmentSection.BackgroundMapData2;
+
+                backgroundMapData.Name = "some Name";
+                backgroundMapData.Parameters["SourceCapabilitiesUrl"] = "some URL";
+                backgroundMapData.Parameters["SelectedCapabilityIdentifier"] = "some Identifier";
+                backgroundMapData.Parameters["PreferredFormat"] = "image/some Format";
+                backgroundMapData.IsConfigured = true;
+
+                // When
+                backgroundMapData.NotifyObservers();
+
+                // Then
+                WmtsMapData expectedWmtsBackgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(backgroundMapData);
+                MapDataTestHelper.AssertWmtsMapData(expectedWmtsBackgroundMapData, view.Map.BackgroundMapData);
             }
         }
 

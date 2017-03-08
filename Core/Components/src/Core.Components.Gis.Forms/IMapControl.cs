@@ -52,7 +52,7 @@ namespace Core.Components.Gis.Forms
         /// <summary>
         /// Gets or sets the data to show in the background of the <see cref="IMapControl"/>.
         /// </summary>
-        BackgroundMapDataContainer BackgroundMapData { get; set; }
+        WmtsMapData BackgroundMapData { get; set; }
 
         /// <summary>
         /// Zooms to a level so that all visible layers are in view.

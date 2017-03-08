@@ -47,6 +47,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
         private readonly Observer assessmentSectionObserver;
         private readonly Observer hydraulicBoundaryLocationsObserver;
         private readonly Observer foreshoreProfilesObserver;
+        private readonly Observer backgroundMapDataObserver;
 
         private readonly RecursiveObserver<CalculationGroup, WaveConditionsInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
@@ -61,6 +62,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
         private readonly MapLineData foreshoreProfilesMapData;
         private readonly MapLineData calculationsMapData;
 
+        private WmtsMapData backgroundMapData;
+
         private GrassCoverErosionOutwardsFailureMechanismContext data;
 
         /// <summary>
@@ -74,6 +77,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             assessmentSectionObserver = new Observer(UpdateMapData);
             hydraulicBoundaryLocationsObserver = new Observer(UpdateMapData);
             foreshoreProfilesObserver = new Observer(UpdateMapData);
+            backgroundMapDataObserver = new Observer(UpdateBackgroundMapData);
 
             calculationInputObserver = new RecursiveObserver<CalculationGroup, WaveConditionsInput>(
                 UpdateMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<GrassCoverErosionOutwardsWaveConditionsCalculation>().Select(pc => pc.InputParameters)));
@@ -118,6 +122,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
                     calculationGroupObserver.Observable = null;
                     calculationObserver.Observable = null;
 
+                    backgroundMapDataObserver.Observable = null;
+
                     Map.Data = null;
                     Map.BackgroundMapData = null;
                 }
@@ -131,10 +137,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
                     calculationGroupObserver.Observable = data.WrappedData.WaveConditionsCalculationGroup;
                     calculationObserver.Observable = data.WrappedData.WaveConditionsCalculationGroup;
 
+                    backgroundMapDataObserver.Observable = data.Parent.BackgroundMapData2;
+
                     SetMapDataFeatures();
 
+                    backgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(data.Parent.BackgroundMapData2);
+
                     Map.Data = mapDataCollection;
-                    Map.BackgroundMapData = data.Parent.BackgroundMapData;
+                    Map.BackgroundMapData = backgroundMapData;
                 }
             }
         }
@@ -162,6 +172,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
                 components.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private void UpdateBackgroundMapData()
+        {
+            RingtoetsBackgroundMapDataFactory.UpdateBackgroundMapData(backgroundMapData, data.Parent.BackgroundMapData2);
+            backgroundMapData.NotifyObservers();
         }
 
         private void UpdateMapData()

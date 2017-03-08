@@ -46,6 +46,7 @@ namespace Ringtoets.Piping.Forms.Views
         private readonly Observer assessmentSectionObserver;
         private readonly Observer surfaceLinesObserver;
         private readonly Observer stochasticSoilModelsObserver;
+        private readonly Observer backgroundMapDataObserver;
 
         private readonly RecursiveObserver<CalculationGroup, PipingInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
@@ -60,6 +61,8 @@ namespace Ringtoets.Piping.Forms.Views
         private readonly MapPointData sectionsEndPointMapData;
         private readonly MapPointData hydraulicBoundaryLocationsMapData;
         private readonly MapLineData calculationsMapData;
+
+        private WmtsMapData backgroundMapData;
 
         private PipingFailureMechanismContext data;
 
@@ -83,6 +86,7 @@ namespace Ringtoets.Piping.Forms.Views
             hydraulicBoundaryDatabaseObserver = new Observer(UpdateMapData);
             surfaceLinesObserver = new Observer(UpdateMapData);
             stochasticSoilModelsObserver = new Observer(UpdateMapData);
+            backgroundMapDataObserver = new Observer(UpdateBackgroundMapData);
 
             calculationInputObserver = new RecursiveObserver<CalculationGroup, PipingInput>(
                 UpdateMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<PipingCalculationScenario>().Select(pc => pc.InputParameters)));
@@ -130,6 +134,8 @@ namespace Ringtoets.Piping.Forms.Views
                     calculationGroupObserver.Observable = null;
                     calculationObserver.Observable = null;
 
+                    backgroundMapDataObserver.Observable = null;
+
                     Map.Data = null;
                     Map.BackgroundMapData = null;
                 }
@@ -144,10 +150,14 @@ namespace Ringtoets.Piping.Forms.Views
                     calculationGroupObserver.Observable = data.WrappedData.CalculationsGroup;
                     calculationObserver.Observable = data.WrappedData.CalculationsGroup;
 
+                    backgroundMapDataObserver.Observable = data.Parent.BackgroundMapData2;
+
                     SetMapDataFeatures();
 
+                    backgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(data.Parent.BackgroundMapData2);
+
                     Map.Data = mapDataCollection;
-                    Map.BackgroundMapData = data.Parent.BackgroundMapData;
+                    Map.BackgroundMapData = backgroundMapData;
                 }
             }
         }
@@ -176,6 +186,12 @@ namespace Ringtoets.Piping.Forms.Views
                 components.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private void UpdateBackgroundMapData()
+        {
+            RingtoetsBackgroundMapDataFactory.UpdateBackgroundMapData(backgroundMapData, data.Parent.BackgroundMapData2);
+            backgroundMapData.NotifyObservers();
         }
 
         private void UpdateMapData()

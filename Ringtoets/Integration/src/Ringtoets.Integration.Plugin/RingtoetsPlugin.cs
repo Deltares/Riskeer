@@ -94,7 +94,6 @@ using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
-using RingtoetsCommonIoResources = Ringtoets.Common.IO.Properties.Resources;
 using RingtoetsIntegrationPluginResources = Ringtoets.Integration.Plugin.Properties.Resources;
 using BaseResources = Core.Common.Base.Properties.Resources;
 using GuiResources = Core.Common.Gui.Properties.Resources;
@@ -275,9 +274,9 @@ namespace Ringtoets.Integration.Plugin
         {
             yield return new PropertyInfo<IProject, RingtoetsProjectProperties>();
             yield return new PropertyInfo<IAssessmentSection, AssessmentSectionProperties>();
-            yield return new PropertyInfo<BackgroundMapDataContainer, BackgroundMapDataContainerProperties>
+            yield return new PropertyInfo<BackgroundMapData, BackgroundMapDataProperties>
             {
-                CreateInstance = container => new BackgroundMapDataContainerProperties(container)
+                CreateInstance = container => new BackgroundMapDataProperties(container)
             };
             yield return new PropertyInfo<HydraulicBoundaryDatabaseContext, HydraulicBoundaryDatabaseProperties>();
             yield return new PropertyInfo<FailureMechanismContributionContext, FailureMechanismContributionProperties>
@@ -515,14 +514,14 @@ namespace Ringtoets.Integration.Plugin
                 OnNodeRemoved = AssessmentSectionOnNodeRemoved
             };
 
-            yield return new TreeNodeInfo<BackgroundMapDataContainer>
+            yield return new TreeNodeInfo<BackgroundMapData>
             {
                 Text = container => RingtoetsIntegrationPluginResources.RingtoetsPlugin_BackgroundMapDataContext_Text,
                 Image = container => RingtoetsFormsResources.Map,
-                ContextMenuStrip = BackgroundMapDataContainerMenuStrip,
-                ForeColor = container => container.MapData != null && container.MapData.IsConfigured ?
-                                             Color.FromKnownColor(KnownColor.ControlText) :
-                                             Color.FromKnownColor(KnownColor.GrayText)
+                ContextMenuStrip = BackgroundMapDataMenuStrip,
+                ForeColor = data => data.IsConfigured ?
+                                        Color.FromKnownColor(KnownColor.ControlText) :
+                                        Color.FromKnownColor(KnownColor.GrayText)
             };
 
             yield return new TreeNodeInfo<ReferenceLineContext>
@@ -884,16 +883,16 @@ namespace Ringtoets.Integration.Plugin
             }
         }
 
-        #region BackgroundMapDataContext treeNodeInfo
+        #region BackgroundMapData treeNodeInfo
 
-        private ContextMenuStrip BackgroundMapDataContainerMenuStrip(BackgroundMapDataContainer nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip BackgroundMapDataMenuStrip(BackgroundMapData nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var assessmentSection = parentData as IAssessmentSection;
 
             var mapDataItem = new StrictContextMenuItem(
                 RingtoetsIntegrationPluginResources.BackgroundMapData_SelectMapData,
                 RingtoetsIntegrationPluginResources.BackgroundMapData_SelectMapData_Tooltip,
-                RingtoetsCommonFormsResources.MapsIcon, (sender, args) => SelectMapData(assessmentSection, nodeData));
+                RingtoetsCommonFormsResources.MapsIcon, (sender, args) => { SelectMapData(assessmentSection, nodeData); });
 
             return Gui.Get(nodeData, treeViewControl)
                       .AddCustomItem(mapDataItem)
@@ -901,15 +900,15 @@ namespace Ringtoets.Integration.Plugin
                       .Build();
         }
 
-        private void SelectMapData(IAssessmentSection assessmentSection, BackgroundMapDataContainer container)
+        private void SelectMapData(IAssessmentSection assessmentSection, BackgroundMapData backgroundMapData)
         {
             if (assessmentSection == null)
             {
                 return;
             }
 
-            WmtsMapData currentMapData = container.MapData as WmtsMapData;
-            using (var dialog = new BackgroundMapDataSelectionDialog(Gui.MainWindow, currentMapData))
+            WmtsMapData currentData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(backgroundMapData);
+            using (var dialog = new BackgroundMapDataSelectionDialog(Gui.MainWindow, currentData))
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
@@ -920,9 +919,27 @@ namespace Ringtoets.Integration.Plugin
 
         private static void SetSelectedMapData(IAssessmentSection assessmentSection, ImageBasedMapData selectedMapData)
         {
-            assessmentSection.BackgroundMapData.MapData = selectedMapData;
-            assessmentSection.BackgroundMapData.IsVisible = selectedMapData != null;
-            assessmentSection.BackgroundMapData.NotifyObservers();
+            assessmentSection.BackgroundMapData2.Name = string.Empty;
+            assessmentSection.BackgroundMapData2.IsVisible = false;
+            assessmentSection.BackgroundMapData2.Parameters.Clear();
+
+            if (selectedMapData != null)
+            {
+                selectedMapData.IsVisible = true;
+                assessmentSection.BackgroundMapData2.IsVisible = selectedMapData.IsVisible;
+                assessmentSection.BackgroundMapData2.IsConfigured = selectedMapData.IsConfigured;
+                assessmentSection.BackgroundMapData2.Name = selectedMapData.Name;
+
+                var selectedWmtsMapData = selectedMapData as WmtsMapData;
+                if (selectedWmtsMapData != null)
+                {
+                    assessmentSection.BackgroundMapData2.Parameters["SourceCapabilitiesUrl"] = selectedWmtsMapData.SourceCapabilitiesUrl;
+                    assessmentSection.BackgroundMapData2.Parameters["SelectedCapabilityIdentifier"] = selectedWmtsMapData.SelectedCapabilityIdentifier;
+                    assessmentSection.BackgroundMapData2.Parameters["PreferredFormat"] = selectedWmtsMapData.PreferredFormat;
+                }
+            }
+
+            assessmentSection.BackgroundMapData2.NotifyObservers();
             assessmentSection.NotifyObservers();
         }
 
@@ -1101,7 +1118,7 @@ namespace Ringtoets.Integration.Plugin
         {
             var childNodes = new List<object>
             {
-                nodeData.BackgroundMapData,
+                nodeData.BackgroundMapData2,
                 new ReferenceLineContext(nodeData),
                 new FailureMechanismContributionContext(nodeData.FailureMechanismContribution, nodeData),
                 new HydraulicBoundaryDatabaseContext(nodeData),

@@ -23,31 +23,38 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
-using Core.Components.Gis;
 using Core.Components.Gis.Data;
 using NUnit.Framework;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Forms.PropertyClasses;
 
 namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class BackgroundMapDataContainerPropertyInfoTest
+    public class BackgroundMapDataPropertyInfoTest
     {
         private RingtoetsPlugin plugin;
         private PropertyInfo info;
 
-        private static IEnumerable<TestCaseData> ValidBackgroundMapDataContainers
+        private static readonly WellKnownTileSourceMapData wellKnownMapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingRoads);
+        private static readonly WmtsMapData wmtsMapData = WmtsMapData.CreateDefaultPdokMapData();
+
+        private static IEnumerable<TestCaseData> ValidBackgroundMapDatas
         {
             get
             {
-                yield return new TestCaseData(new BackgroundMapDataContainer());
-                yield return new TestCaseData(new BackgroundMapDataContainer
+                yield return new TestCaseData(new BackgroundMapData());
+                yield return new TestCaseData(new BackgroundMapData
                 {
-                    MapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingRoads)
+                    Name = wellKnownMapData.Name,
+                    BackgroundMapDataType = BackgroundMapDataType.WellKnown,
+                    IsConfigured = wellKnownMapData.IsConfigured
                 });
-                yield return new TestCaseData(new BackgroundMapDataContainer
+                yield return new TestCaseData(new BackgroundMapData
                 {
-                    MapData = WmtsMapData.CreateDefaultPdokMapData()
+                    Name = wmtsMapData.Name,
+                    BackgroundMapDataType = BackgroundMapDataType.Wmts,
+                    IsConfigured = wmtsMapData.IsConfigured
                 });
             }
         }
@@ -56,7 +63,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new RingtoetsPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(BackgroundMapDataContainerProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(BackgroundMapDataProperties));
         }
 
         [TearDown]
@@ -69,20 +76,20 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(BackgroundMapDataContainer), info.DataType);
-            Assert.AreEqual(typeof(BackgroundMapDataContainerProperties), info.PropertyObjectType);
+            Assert.AreEqual(typeof(BackgroundMapData), info.DataType);
+            Assert.AreEqual(typeof(BackgroundMapDataProperties), info.PropertyObjectType);
         }
 
         [Test]
-        [TestCaseSource(nameof(ValidBackgroundMapDataContainers))]
-        public void CreateInstance_ValidContainerData_ReturnBackgroundMapDataContainerProperties(BackgroundMapDataContainer container)
+        [TestCaseSource(nameof(ValidBackgroundMapDatas))]
+        public void CreateInstance_ValidBackgroundMapData_ReturnBackgroundMapDataProperties(BackgroundMapData backgroundMapData)
         {
             // Call
-            IObjectProperties objectProperties = info.CreateInstance(container);
+            IObjectProperties objectProperties = info.CreateInstance(backgroundMapData);
 
             // Assert
-            Assert.IsInstanceOf<BackgroundMapDataContainerProperties>(objectProperties);
-            Assert.AreSame(container, objectProperties.Data);
+            Assert.IsInstanceOf<BackgroundMapDataProperties>(objectProperties);
+            Assert.AreSame(backgroundMapData, objectProperties.Data);
         }
     }
 }

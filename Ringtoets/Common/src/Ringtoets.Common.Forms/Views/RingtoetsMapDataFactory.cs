@@ -91,9 +91,7 @@ namespace Ringtoets.Common.Forms.Views
         /// <returns>The created <see cref="MapPointData"/>.</returns>
         public static MapPointData CreateFailureMechanismSectionsStartPointMapData()
         {
-            var mapDataName = String.Format("{0} ({1})",
-                                            Resources.FailureMechanism_Sections_DisplayName,
-                                            Resources.FailureMechanismSections_StartPoints_DisplayName);
+            var mapDataName = $"{Resources.FailureMechanism_Sections_DisplayName} ({Resources.FailureMechanismSections_StartPoints_DisplayName})";
 
             return new MapPointData(mapDataName)
             {
@@ -107,9 +105,7 @@ namespace Ringtoets.Common.Forms.Views
         /// <returns>The created <see cref="MapPointData"/>.</returns>
         public static MapPointData CreateFailureMechanismSectionsEndPointMapData()
         {
-            var mapDataName = String.Format("{0} ({1})",
-                                            Resources.FailureMechanism_Sections_DisplayName,
-                                            Resources.FailureMechanismSections_EndPoints_DisplayName);
+            var mapDataName = $"{Resources.FailureMechanism_Sections_DisplayName} ({Resources.FailureMechanismSections_EndPoints_DisplayName})";
 
             return new MapPointData(mapDataName)
             {

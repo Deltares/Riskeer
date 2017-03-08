@@ -34,6 +34,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TestUtil;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
@@ -131,7 +132,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 view.Data = failureMechanismContext;
 
                 // Assert
-                Assert.AreSame(assessmentSection.BackgroundMapData, view.Map.BackgroundMapData);
+                WmtsMapData expectedWmtsBackgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(assessmentSection.BackgroundMapData2);
+                MapDataTestHelper.AssertWmtsMapData(expectedWmtsBackgroundMapData, view.Map.BackgroundMapData);
             }
         }
 
@@ -178,6 +180,9 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 // Assert
                 Assert.AreSame(failureMechanismContext, view.Data);
                 AssertEmptyMapData(view.Map.Data);
+                WmtsMapData expectedWmtsBackgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(
+                    assessmentSection.BackgroundMapData2);
+                MapDataTestHelper.AssertWmtsMapData(expectedWmtsBackgroundMapData, view.Map.BackgroundMapData);
             }
         }
 
@@ -414,6 +419,32 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
 
                 // Then
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(newHydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
+            }
+        }
+
+        [Test]
+        public void GivenChangedBackgroundMapData_WhenBackgroundMapDataObserversNotified_MapDataUpdated()
+        {
+            // Given
+            using (var view = new HeightStructuresFailureMechanismView())
+            {
+                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                view.Data = new HeightStructuresFailureMechanismContext(new HeightStructuresFailureMechanism(), assessmentSection);
+
+                BackgroundMapData backgroundMapData = assessmentSection.BackgroundMapData2;
+
+                backgroundMapData.Name = "some Name";
+                backgroundMapData.Parameters["SourceCapabilitiesUrl"] = "some URL";
+                backgroundMapData.Parameters["SelectedCapabilityIdentifier"] = "some Identifier";
+                backgroundMapData.Parameters["PreferredFormat"] = "image/some Format";
+                backgroundMapData.IsConfigured = true;
+
+                // When
+                backgroundMapData.NotifyObservers();
+
+                // Then
+                WmtsMapData expectedWmtsBackgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(backgroundMapData);
+                MapDataTestHelper.AssertWmtsMapData(expectedWmtsBackgroundMapData, view.Map.BackgroundMapData);
             }
         }
 

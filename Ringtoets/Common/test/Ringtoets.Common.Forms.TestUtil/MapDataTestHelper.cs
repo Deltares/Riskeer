@@ -206,6 +206,31 @@ namespace Ringtoets.Common.Forms.TestUtil
             }
         }
 
+        /// <summary>
+        /// Asserts whether the <paramref name="mapData"/> is equivalent to <paramref name="wmtsMapData"/>
+        /// </summary>
+        /// <param name="wmtsMapData">The original WMTS map data.</param>
+        /// <param name="mapData">The <see cref="MapData"/> that needs to be asserted.</param>
+        /// <exception cref="AssertionException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="mapData"/> is no <see cref="WmtsMapData"/>;</item>
+        /// <item>One of the properties of <paramref name="wmtsMapData"/> is not equal to <paramref name="mapData"/>.</item>
+        /// </list></exception>
+        public static void AssertWmtsMapData(WmtsMapData wmtsMapData, MapData mapData)
+        {
+            Assert.IsInstanceOf<WmtsMapData>(mapData);
+            Assert.IsNotNull(wmtsMapData);
+            Assert.AreEqual(wmtsMapData.Name, mapData.Name);
+
+            var actualMapData = (WmtsMapData)mapData;
+            Assert.AreEqual(wmtsMapData.PreferredFormat, actualMapData.PreferredFormat);
+            Assert.AreEqual(wmtsMapData.SelectedCapabilityIdentifier, actualMapData.SelectedCapabilityIdentifier);
+            Assert.AreEqual(wmtsMapData.SourceCapabilitiesUrl, actualMapData.SourceCapabilitiesUrl);
+            Assert.AreEqual(wmtsMapData.IsConfigured, actualMapData.IsConfigured);
+            Assert.AreEqual(wmtsMapData.IsVisible, actualMapData.IsVisible);
+            Assert.AreEqual(wmtsMapData.Transparency, actualMapData.Transparency);
+        }
+
         private static Point2D[] GetWorldPoints(ForeshoreProfile foreshoreProfile)
         {
             return AdvancedMath2D.FromXToXY(

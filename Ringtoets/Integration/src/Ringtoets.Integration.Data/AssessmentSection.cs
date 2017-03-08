@@ -69,6 +69,13 @@ namespace Ringtoets.Integration.Data
                 MapData = mapData
             };
 
+            BackgroundMapData2 = new BackgroundMapData
+            {
+                IsVisible = mapData.IsVisible,
+                Transparency = mapData.Transparency,
+                IsConfigured = mapData.IsConfigured
+            };
+
             PipingFailureMechanism = new PipingFailureMechanism();
             GrassCoverErosionInwards = new GrassCoverErosionInwardsFailureMechanism();
 
@@ -213,6 +220,8 @@ namespace Ringtoets.Integration.Data
         public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; set; }
 
         public BackgroundMapDataContainer BackgroundMapData { get; }
+
+        public BackgroundMapData BackgroundMapData2 { get; }
 
         public IEnumerable<IFailureMechanism> GetFailureMechanisms()
         {

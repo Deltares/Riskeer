@@ -71,7 +71,7 @@
     <Compile Include="BackgroundMapDataSelectionDialogTest.cs" />
     <Compile Include="Commands\AddAssessmentSectionCommandTest.cs" />
     <Compile Include="Commands\AssessmentSectionFromFileCommandHandlerTest.cs" />
-    <Compile Include="PropertyClasses\BackgroundMapDataContainerPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\BackgroundMapDataPropertiesTest.cs" />
     <Compile Include="PropertyClasses\FailureMechanismContributionPropertiesIntegrationTest.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelLocationContextTest.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelLocationsContextTest.cs" />
@@ -172,6 +172,10 @@
     <ProjectReference Include="..\..\..\..\Core\Components\test\Core.Components.Gis.TestUtils\Core.Components.Gis.TestUtils.csproj">
       <Project>{f0fb401a-3494-4237-9e6d-02cdf77912a8}</Project>
       <Name>Core.Components.Gis.TestUtils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Forms.TestUtil\Ringtoets.Common.Forms.TestUtil.csproj">
+      <Project>{D24FA2F7-28A7-413B-AFD3-EE10E985630B}</Project>
+      <Name>Ringtoets.Common.Forms.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\GrassCoverErosionInwards\test\Ringtoets.GrassCoverErosionInwards.Data.TestUtil\Ringtoets.GrassCoverErosionInwards.Data.TestUtil.csproj">
       <Project>{BF753DB5-973B-4ADF-B0F6-9437325C3466}</Project>

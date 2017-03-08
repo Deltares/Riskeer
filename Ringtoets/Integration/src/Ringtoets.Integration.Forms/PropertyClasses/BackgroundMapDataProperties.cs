@@ -26,8 +26,7 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
-using Core.Components.Gis;
-using Core.Components.Gis.Data;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using GisFormsResources = Core.Components.Gis.Forms.Properties.Resources;
@@ -35,24 +34,24 @@ using GisFormsResources = Core.Components.Gis.Forms.Properties.Resources;
 namespace Ringtoets.Integration.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of the <see cref="BackgroundMapDataContainer"/> for properties panel.
+    /// ViewModel of the <see cref="BackgroundMapData"/> for properties panel.
     /// </summary>
-    public class BackgroundMapDataContainerProperties : ObjectProperties<BackgroundMapDataContainer>
+    public class BackgroundMapDataProperties : ObjectProperties<BackgroundMapData>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="BackgroundMapDataContainer"/>.
+        /// Creates a new instance of <see cref="BackgroundMapDataProperties"/>.
         /// </summary>
-        /// <param name="container">The data for which the properties are shown.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="container"/>
+        /// <param name="backgroundMapData">The data for which the properties are shown.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="backgroundMapData"/>
         /// is <c>null</c>.</exception>
-        public BackgroundMapDataContainerProperties(BackgroundMapDataContainer container)
+        public BackgroundMapDataProperties(BackgroundMapData backgroundMapData)
         {
-            if (container == null)
+            if (backgroundMapData == null)
             {
-                throw new ArgumentNullException(nameof(container));
+                throw new ArgumentNullException(nameof(backgroundMapData));
             }
 
-            Data = container;
+            Data = backgroundMapData;
         }
 
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
@@ -62,7 +61,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return HasConfiguredMapData() ? data.MapData.Name : string.Empty;
+                return data.IsConfigured ? data.Name : string.Empty;
             }
         }
 
@@ -101,12 +100,9 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
-            return data.MapData != null && data.MapData.IsConfigured && data.MapData is WmtsMapData && WmtsProperties.Contains(propertyName);
-        }
-
-        private bool HasConfiguredMapData()
-        {
-            return data.MapData != null && data.MapData.IsConfigured;
+            return data.IsConfigured
+                   && data.BackgroundMapDataType == BackgroundMapDataType.Wmts
+                   && WmtsProperties.Contains(propertyName);
         }
 
         #region Wmts MapData
@@ -115,11 +111,11 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.BackgroundWmtsMapDataContainerProperties_WMTS_Category))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.BackgroundWmtsMapDataContainerProperties_Url_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.BackgroundWmtsMapDataContainerProperties_Url_Description))]
-        public string Url
+        public string SourceCapabilitiesUrl
         {
             get
             {
-                return (data.MapData as WmtsMapData)?.SourceCapabilitiesUrl ?? string.Empty;
+                return GetBackgroundMapDataParameter(data, nameof(SourceCapabilitiesUrl));
             }
         }
 
@@ -131,7 +127,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return (data.MapData as WmtsMapData)?.SelectedCapabilityIdentifier ?? string.Empty;
+                return GetBackgroundMapDataParameter(data, nameof(SelectedCapabilityIdentifier));
             }
         }
 
@@ -143,15 +139,28 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return (data.MapData as WmtsMapData)?.PreferredFormat ?? string.Empty;
+                return GetBackgroundMapDataParameter(data, nameof(PreferredFormat));
             }
+        }
+
+        private string GetBackgroundMapDataParameter(BackgroundMapData backgroundMapData, string parameterName)
+        {
+            if (backgroundMapData.IsConfigured
+                && backgroundMapData.BackgroundMapDataType == BackgroundMapDataType.Wmts
+                && WmtsProperties.Contains(parameterName)
+                && backgroundMapData.Parameters.ContainsKey(parameterName))
+            {
+                return backgroundMapData.Parameters[parameterName];
+            }
+
+            return string.Empty;
         }
 
         private IEnumerable<string> WmtsProperties
         {
             get
             {
-                yield return nameof(Url);
+                yield return nameof(SourceCapabilitiesUrl);
                 yield return nameof(SelectedCapabilityIdentifier);
                 yield return nameof(PreferredFormat);
             }

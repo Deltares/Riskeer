@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Components.Gis;
-using Core.Components.Gis.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -40,8 +39,12 @@ namespace Ringtoets.Common.Data.TestUtil
     {
         public ObservableTestAssessmentSectionStub()
         {
-            FailureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 0, 1.0/300000);
+            FailureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 0, 1.0 / 300000);
             BackgroundMapData = new BackgroundMapDataContainer();
+            BackgroundMapData2 = new BackgroundMapData
+            {
+                Name = "Background data"
+            };
         }
 
         public string Id { get; }
@@ -52,6 +55,7 @@ namespace Ringtoets.Common.Data.TestUtil
         public FailureMechanismContribution FailureMechanismContribution { get; }
         public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; set; }
         public BackgroundMapDataContainer BackgroundMapData { get; }
+        public BackgroundMapData BackgroundMapData2 { get; }
 
         public IEnumerable<IFailureMechanism> GetFailureMechanisms()
         {

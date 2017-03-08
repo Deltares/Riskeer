@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
@@ -1097,6 +1099,99 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
 
             // Assert
             Assert.DoesNotThrow(test);
+        }
+
+        #endregion
+
+        #region AssertWmtsMapData
+
+        [Test]
+        public void AssertWmtsMapData_MapDataNotWmtsMapData_ThrowAssertionException()
+        {
+            // Setup
+            var mapData = new MapPointData("MapPointData");
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertWmtsMapData(WmtsMapData.CreateUnconnectedMapData(),
+                                                                          mapData);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertWmtsMapData_WmtsMapDataNull_ThrowAssertionException()
+        {
+            // Setup
+            var mapData = new MapPointData("MapPointData");
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertWmtsMapData(null, mapData);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertWmtsMapData_DataNull_ThrowAssertionException()
+        {
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertWmtsMapData(WmtsMapData.CreateUnconnectedMapData(),
+                                                                          null);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(NotEqualToDefaultPdokMapData))]
+        public void AssertWmtsMapData_MapDataNotEqual_ThrowAssertionException(WmtsMapData wmtsMapData)
+        {
+            // Setup
+            var mapData = WmtsMapData.CreateDefaultPdokMapData();
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertWmtsMapData(wmtsMapData, mapData);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        private static IEnumerable<TestCaseData> NotEqualToDefaultPdokMapData()
+        {
+            var defaultMapData = WmtsMapData.CreateDefaultPdokMapData();
+
+            var otherName = new WmtsMapData("otherName",
+                                            defaultMapData.SourceCapabilitiesUrl,
+                                            defaultMapData.SelectedCapabilityIdentifier,
+                                            defaultMapData.PreferredFormat);
+            yield return new TestCaseData(otherName);
+
+            var otherPreferredFormat = new WmtsMapData(defaultMapData.Name,
+                                                       defaultMapData.SourceCapabilitiesUrl,
+                                                       defaultMapData.SelectedCapabilityIdentifier,
+                                                       "image/otherPreferredFormat");
+            yield return new TestCaseData(otherPreferredFormat);
+
+            var otherSelectedCapabilityIdentifier = new WmtsMapData(defaultMapData.Name,
+                                                                    defaultMapData.SourceCapabilitiesUrl,
+                                                                    "otherSelectedCapabilityIdentifier",
+                                                                    defaultMapData.PreferredFormat);
+            yield return new TestCaseData(otherSelectedCapabilityIdentifier);
+
+            var otherSourceCapabilitiesUrl = new WmtsMapData(defaultMapData.Name,
+                                                             "otherSourceCapabilitiesUrl",
+                                                             defaultMapData.SelectedCapabilityIdentifier,
+                                                             defaultMapData.PreferredFormat);
+            yield return new TestCaseData(otherSourceCapabilitiesUrl);
+
+            WmtsMapData otherVisibility = defaultMapData;
+            otherVisibility.IsVisible = !otherVisibility.IsVisible;
+            yield return new TestCaseData(otherVisibility);
+
+            WmtsMapData otherTransparency = defaultMapData;
+            otherTransparency.Transparency = (RoundedDouble) ((otherVisibility.Transparency + 0.5) % 1);
+            yield return new TestCaseData(otherTransparency);
         }
 
         #endregion

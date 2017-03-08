@@ -36,10 +36,13 @@ namespace Ringtoets.Integration.Forms.Views
     {
         private readonly Observer assessmentSectionObserver;
         private readonly Observer hydraulicBoundaryDatabaseObserver;
+        private readonly Observer backgroundMapDataObserver;
 
         private readonly MapDataCollection mapDataCollection;
         private readonly MapLineData referenceLineMapData;
         private readonly MapPointData hydraulicBoundaryLocationsMapData;
+
+        private WmtsMapData backgroundMapData;
 
         private IAssessmentSection data;
 
@@ -60,6 +63,7 @@ namespace Ringtoets.Integration.Forms.Views
                 UpdateMapData();
             });
             hydraulicBoundaryDatabaseObserver = new Observer(UpdateMapData);
+            backgroundMapDataObserver = new Observer(UpdateBackgroundMapData);
 
             mapDataCollection = new MapDataCollection(Resources.AssessmentSectionMap_DisplayName);
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
@@ -80,7 +84,8 @@ namespace Ringtoets.Integration.Forms.Views
                 data = value as IAssessmentSection;
 
                 assessmentSectionObserver.Observable = data;
-                hydraulicBoundaryDatabaseObserver.Observable = data != null ? data.HydraulicBoundaryDatabase : null;
+                hydraulicBoundaryDatabaseObserver.Observable = data?.HydraulicBoundaryDatabase;
+                backgroundMapDataObserver.Observable = data?.BackgroundMapData2;
 
                 if (data == null)
                 {
@@ -91,8 +96,10 @@ namespace Ringtoets.Integration.Forms.Views
                 {
                     SetMapDataFeatures();
 
+                    backgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(data.BackgroundMapData2);
+
                     Map.Data = mapDataCollection;
-                    Map.BackgroundMapData = data.BackgroundMapData;
+                    Map.BackgroundMapData = backgroundMapData;
                 }
             }
         }
@@ -115,6 +122,12 @@ namespace Ringtoets.Integration.Forms.Views
                 components.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private void UpdateBackgroundMapData()
+        {
+            RingtoetsBackgroundMapDataFactory.UpdateBackgroundMapData(backgroundMapData, data.BackgroundMapData2);
+            backgroundMapData.NotifyObservers();
         }
 
         private void UpdateMapData()

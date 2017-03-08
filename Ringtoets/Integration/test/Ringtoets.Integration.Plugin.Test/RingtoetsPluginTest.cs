@@ -217,8 +217,8 @@ namespace Ringtoets.Integration.Plugin.Test
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(BackgroundMapDataContainer),
-                    typeof(BackgroundMapDataContainerProperties));
+                    typeof(BackgroundMapData),
+                    typeof(BackgroundMapDataProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -406,7 +406,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 // Assert
                 Assert.AreEqual(26, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(AssessmentSection)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(BackgroundMapDataContainer)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(BackgroundMapData)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ReferenceLineContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismContext<IFailureMechanism>)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(CategoryTreeFolder)));

@@ -41,6 +41,7 @@ namespace Ringtoets.Common.Forms.Views
         private readonly Observer failureMechanismObserver;
         private readonly Observer assessmentSectionObserver;
         private readonly Observer hydraulicBoundaryDatabaseObserver;
+        private readonly Observer backgroundMapDataObserver;
 
         private readonly MapDataCollection mapDataCollection;
         private readonly MapLineData referenceLineMapData;
@@ -48,6 +49,8 @@ namespace Ringtoets.Common.Forms.Views
         private readonly MapPointData sectionsStartPointMapData;
         private readonly MapPointData sectionsEndPointMapData;
         private readonly MapPointData hydraulicBoundaryLocationsMapData;
+
+        private WmtsMapData backgroundMapData;
 
         private FailureMechanismContext<T> data;
 
@@ -69,6 +72,7 @@ namespace Ringtoets.Common.Forms.Views
                 UpdateMapData();
             });
             hydraulicBoundaryDatabaseObserver = new Observer(UpdateMapData);
+            backgroundMapDataObserver = new Observer(UpdateBackgroundMapData);
 
             mapDataCollection = new MapDataCollection(defaultMapDataCollectionName);
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
@@ -100,6 +104,8 @@ namespace Ringtoets.Common.Forms.Views
                     assessmentSectionObserver.Observable = null;
                     hydraulicBoundaryDatabaseObserver.Observable = null;
 
+                    backgroundMapDataObserver.Observable = null;
+
                     mapDataCollection.Name = defaultMapDataCollectionName;
 
                     Map.Data = null;
@@ -113,10 +119,14 @@ namespace Ringtoets.Common.Forms.Views
                     mapDataCollection.Name = data.WrappedData.Name;
                     hydraulicBoundaryDatabaseObserver.Observable = data.Parent.HydraulicBoundaryDatabase;
 
+                    backgroundMapDataObserver.Observable = data.Parent.BackgroundMapData2;
+
                     SetMapDataFeatures();
 
+                    backgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(data.Parent.BackgroundMapData2);
+
                     Map.Data = mapDataCollection;
-                    Map.BackgroundMapData = data.Parent.BackgroundMapData;
+                    Map.BackgroundMapData = backgroundMapData;
                 }
             }
         }
@@ -140,6 +150,12 @@ namespace Ringtoets.Common.Forms.Views
                 components.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private void UpdateBackgroundMapData()
+        {
+            RingtoetsBackgroundMapDataFactory.UpdateBackgroundMapData(backgroundMapData, data.Parent.BackgroundMapData2);
+            backgroundMapData.NotifyObservers();
         }
 
         private void UpdateMapData()

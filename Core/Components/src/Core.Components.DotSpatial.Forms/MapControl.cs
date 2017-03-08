@@ -29,7 +29,6 @@ using Core.Components.DotSpatial.Forms.Properties;
 using Core.Components.DotSpatial.Layer;
 using Core.Components.DotSpatial.Layer.BruTile;
 using Core.Components.DotSpatial.MapFunctions;
-using Core.Components.Gis;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Exceptions;
 using Core.Components.Gis.Forms;
@@ -50,7 +49,6 @@ namespace Core.Components.DotSpatial.Forms
         private readonly Cursor defaultCursor = Cursors.Default;
         private readonly RecursiveObserver<MapDataCollection, MapDataCollection> mapDataCollectionObserver;
         private readonly Observer backGroundMapDataObserver;
-        private readonly Observer mapDataContainerObserver;
         private readonly IList<DrawnMapData> drawnMapDataList = new List<DrawnMapData>();
         private readonly WmtsBackgroundLayerStatus backgroundLayerStatus = new WmtsBackgroundLayerStatus();
 
@@ -60,7 +58,6 @@ namespace Core.Components.DotSpatial.Forms
         private RdNewMouseCoordinatesMapExtension mouseCoordinatesMapExtension;
         private MapDataCollection data;
 
-        private BackgroundMapDataContainer backgroundMapDataContainer;
         private WmtsMapData backgroundMapData;
 
         /// <summary>
@@ -73,7 +70,6 @@ namespace Core.Components.DotSpatial.Forms
 
             mapDataCollectionObserver = new RecursiveObserver<MapDataCollection, MapDataCollection>(HandleMapDataCollectionChange, mdc => mdc.Collection);
             backGroundMapDataObserver = new Observer(HandleBackgroundMapDataChange);
-            mapDataContainerObserver = new Observer(HandleMapDataContainerChange);
         }
 
         public bool IsPanningEnabled { get; private set; }
@@ -106,11 +102,11 @@ namespace Core.Components.DotSpatial.Forms
             }
         }
 
-        public BackgroundMapDataContainer BackgroundMapData
+        public WmtsMapData BackgroundMapData
         {
             get
             {
-                return backgroundMapDataContainer;
+                return backgroundMapData;
             }
             set
             {
@@ -119,11 +115,8 @@ namespace Core.Components.DotSpatial.Forms
                     ClearAllMapData(false);
                 }
 
-                backgroundMapDataContainer = value;
-                backgroundMapData = (WmtsMapData) backgroundMapDataContainer?.MapData;
-
+                backgroundMapData = value;
                 backGroundMapDataObserver.Observable = backgroundMapData;
-                mapDataContainerObserver.Observable = backgroundMapDataContainer;
 
                 if (HasMapData)
                 {
@@ -195,28 +188,6 @@ namespace Core.Components.DotSpatial.Forms
             get
             {
                 return backgroundMapData != null || data != null;
-            }
-        }
-
-        private void HandleMapDataContainerChange()
-        {
-            if (!ReferenceEquals(backgroundMapData, backgroundMapDataContainer.MapData))
-            {
-                backgroundMapData = (WmtsMapData) backgroundMapDataContainer.MapData;
-                backGroundMapDataObserver.Observable = backgroundMapData;
-
-                if (backgroundMapData != null)
-                {
-                    HandleBackgroundMapDataChange();
-                }
-                else
-                {
-                    map.Layers.Remove(backgroundLayerStatus.BackgroundLayer);
-                    backgroundLayerStatus.ClearConfiguration();
-
-                    map.Projection = MapDataConstants.FeatureBasedMapDataCoordinateSystem;
-                    ReprojectLayers(map.Layers);
-                }
             }
         }
 
