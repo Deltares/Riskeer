@@ -33,14 +33,10 @@ namespace Core.Common.Base.Storage
         /// updated to the newest version.
         /// </summary>
         /// <param name="filePath">The filepath of the project which needs to be checked.</param>
-        /// <returns><c>true</c> if the file needs to be migrated, <c>false</c> if:
-        /// <list type="bullet">
-        /// <item>The file does not need to be migrated.</item>
-        /// <item>The file is not supported for the migration.</item>
-        /// </list></returns>
+        /// <returns>The indicator if migration is required or not.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="filePath"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is an invalid file path.</exception>
-        bool ShouldMigrate(string filePath);
+        MigrationNeeded ShouldMigrate(string filePath);
 
         /// <summary>
         /// Migrates an outdated project file from <paramref name="filePath"/>

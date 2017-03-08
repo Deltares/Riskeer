@@ -107,6 +107,7 @@
     <Compile Include="RecursiveObserver.cs" />
     <Compile Include="ObservableUniqueItemCollectionWithSourcePath.cs" />
     <Compile Include="Storage\IMigrateProject.cs" />
+    <Compile Include="Storage\MigrationNeeded.cs" />
     <Compile Include="Storage\StorageException.cs" />
     <Compile Include="Storage\StorageValidationException.cs" />
     <Compile Include="Storage\CouldNotConnectException.cs" />

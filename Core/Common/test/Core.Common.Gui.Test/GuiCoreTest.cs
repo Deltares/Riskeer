@@ -515,6 +515,7 @@ namespace Core.Common.Gui.Test
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
+            projectMigrator.Stub(m => m.ShouldMigrate(testFile)).Return(MigrationNeeded.No);
             var deserializedProject = mocks.Stub<IProject>();
             projectStore.Expect(ps => ps.LoadProject(testFile)).Return(deserializedProject);
             var projectFactory = CreateProjectFactory(mocks);
@@ -561,7 +562,7 @@ namespace Core.Common.Gui.Test
             var projectStore = mocks.Stub<IStoreProject>();
 
             var projectMigrator = mocks.Stub<IMigrateProject>();
-            projectMigrator.Stub(pm => pm.ShouldMigrate(testFile)).Return(true);
+            projectMigrator.Stub(pm => pm.ShouldMigrate(testFile)).Return(MigrationNeeded.Yes);
             projectMigrator.Stub(pm => pm.Migrate(testFile)).Return(null);
 
             const string expectedProjectName = "Project";
@@ -664,7 +665,7 @@ namespace Core.Common.Gui.Test
             var projectStore = mocks.Stub<IStoreProject>();
 
             var projectMigrator = mocks.Stub<IMigrateProject>();
-            projectMigrator.Stub(pm => pm.ShouldMigrate(testFile)).Return(true);
+            projectMigrator.Stub(pm => pm.ShouldMigrate(testFile)).Return(MigrationNeeded.Yes);
             projectMigrator.Stub(pm => pm.Migrate(testFile))
                            .Throw(new ArgumentException(expectedErrorMessage));
 
@@ -716,6 +717,7 @@ namespace Core.Common.Gui.Test
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
+            projectMigrator.Stub(m => m.ShouldMigrate(testFile)).Return(MigrationNeeded.No);
             projectStore.Expect(ps => ps.LoadProject(testFile)).Throw(new StorageException(storageExceptionText));
             const string expectedProjectName = "Project";
             var project = mocks.Stub<IProject>();

@@ -62,7 +62,7 @@ namespace Application.Ringtoets.Migration
                                                  Resources.RingtoetsProject_TypeDescription);
         }
 
-        public bool ShouldMigrate(string filePath)
+        public MigrationNeeded ShouldMigrate(string filePath)
         {
             if (filePath == null)
             {
@@ -76,17 +76,28 @@ namespace Application.Ringtoets.Migration
 
             if (version.Equals(currentDatabaseVersion))
             {
-                return false;
+                return MigrationNeeded.No;
             }
 
-            bool isVersionSupported = fileMigrator.IsVersionSupported(version);
-            if (!isVersionSupported)
+            if (!fileMigrator.IsVersionSupported(version))
             {
                 string errorMessage = string.Format(MigrationCoreStorageResources.Migrate_From_Version_0_To_Version_1_Not_Supported,
                                                     version, currentDatabaseVersion);
                 log.Error(errorMessage);
+                return MigrationNeeded.Aborted;
             }
-            return isVersionSupported;
+
+            string query = string.Format(Resources.RingtoetsProjectMigrator_Migrate_Outdated_project_file_update_to_current_version_0_inquire,
+                                         currentDatabaseVersion);
+            if (inquiryHelper.InquireContinuation(query))
+            {
+                return MigrationNeeded.Yes;
+            }
+            else
+            {
+                GenerateMigrationCancelledLogMessage(filePath);
+                return MigrationNeeded.Aborted;
+            }
         }
 
         public string Migrate(string filePath)
@@ -98,21 +109,14 @@ namespace Application.Ringtoets.Migration
 
             ValidateProjectPath(filePath);
 
-            string query = string.Format(
-                Resources.RingtoetsProjectMigrator_Migrate_Outdated_project_file_update_to_current_version_0_inquire,
-                currentDatabaseVersion);
-            if (inquiryHelper.InquireContinuation(query))
+            string suggestedFileName = GetSuggestedFileName(filePath);
+            string targetLocation = inquiryHelper.GetTargetFileLocation(fileFilter, suggestedFileName);
+            if (!string.IsNullOrEmpty(targetLocation))
             {
-                string suggestedFileName = GetSuggestedFileName(filePath);
-                string targetLocation = inquiryHelper.GetTargetFileLocation(fileFilter, suggestedFileName);
-                if (!string.IsNullOrEmpty(targetLocation))
-                {
-                    return MigrateToTargetLocation(filePath, targetLocation);
-                }
+                return MigrateToTargetLocation(filePath, targetLocation);
             }
 
             GenerateMigrationCancelledLogMessage(filePath);
-
             return null;
         }
 

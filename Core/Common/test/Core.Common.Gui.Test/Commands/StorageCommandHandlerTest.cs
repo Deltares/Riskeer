@@ -193,7 +193,7 @@ namespace Core.Common.Gui.Test.Commands
                           .Return(loadedProject);
 
             var projectMigrator = mocks.StrictMock<IMigrateProject>();
-            projectMigrator.Expect(pm => pm.ShouldMigrate(pathToSomeValidFile)).Return(true);
+            projectMigrator.Expect(pm => pm.ShouldMigrate(pathToSomeValidFile)).Return(MigrationNeeded.Yes);
             projectMigrator.Expect(pm => pm.Migrate(pathToSomeValidFile)).Return(pathToMigratedFile);
 
             var mainWindowController = mocks.Stub<IWin32Window>();
@@ -235,7 +235,7 @@ namespace Core.Common.Gui.Test.Commands
             var projectStorage = mocks.StrictMock<IStoreProject>();
 
             var projectMigrator = mocks.StrictMock<IMigrateProject>();
-            projectMigrator.Expect(pm => pm.ShouldMigrate(pathToSomeValidFile)).Return(true);
+            projectMigrator.Expect(pm => pm.ShouldMigrate(pathToSomeValidFile)).Return(MigrationNeeded.Yes);
             projectMigrator.Expect(pm => pm.Migrate(pathToSomeValidFile)).Return(null);
 
             var project = mocks.Stub<IProject>();
@@ -330,7 +330,7 @@ namespace Core.Common.Gui.Test.Commands
             var projectStorage = mocks.StrictMock<IStoreProject>();
 
             var projectMigrator = mocks.StrictMock<IMigrateProject>();
-            projectMigrator.Expect(pm => pm.ShouldMigrate(pathToSomeValidFile)).Return(true);
+            projectMigrator.Expect(pm => pm.ShouldMigrate(pathToSomeValidFile)).Return(MigrationNeeded.Yes);
             projectMigrator.Expect(pm => pm.Migrate(pathToSomeValidFile))
                            .Throw(new ArgumentException(errorMessage));
 
@@ -381,6 +381,7 @@ namespace Core.Common.Gui.Test.Commands
             projectStorage.Stub(ps => ps.LoadProject(pathToSomeInvalidFile))
                           .Throw(new StorageException(goodErrorMessageText, new Exception("H@X!")));
             var projectMigrator = mocks.Stub<IMigrateProject>();
+            projectMigrator.Stub(m => m.ShouldMigrate(pathToSomeInvalidFile)).Return(MigrationNeeded.No);
             var projectFactory = mocks.Stub<IProjectFactory>();
             projectFactory.Stub(pf => pf.CreateNewProject()).Return(project);
             var mainWindowController = mocks.Stub<IWin32Window>();
@@ -469,6 +470,7 @@ namespace Core.Common.Gui.Test.Commands
                           .Return(loadedProject);
 
             var projectMigrator = mocks.Stub<IMigrateProject>();
+            projectMigrator.Stub(m => m.ShouldMigrate(pathToSomeValidFile)).Return(MigrationNeeded.No);
             var mainWindowController = mocks.Stub<IWin32Window>();
 
             var projectOwner = mocks.Stub<IProjectOwner>();
@@ -513,6 +515,7 @@ namespace Core.Common.Gui.Test.Commands
                           .Return(loadedProject);
 
             var projectMigrator = mocks.Stub<IMigrateProject>();
+            projectMigrator.Stub(m => m.ShouldMigrate(pathToSomeValidFile)).Return(MigrationNeeded.No);
 
             var applicationSelection = mocks.Stub<IApplicationSelection>();
             applicationSelection.Selection = originalProject;

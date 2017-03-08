@@ -130,7 +130,25 @@ namespace Core.Common.Gui.Commands
         {
             log.Info(Resources.StorageCommandHandler_OpenExistingProject_Opening_existing_project);
 
-            string migratedProjectFilePath = TryMigrateProject(filePath);
+            string migratedProjectFilePath = filePath;
+
+            try
+            {
+                MigrationNeeded migrationNeeded = projectMigrator.ShouldMigrate(filePath);
+                if (migrationNeeded == MigrationNeeded.Yes)
+                {
+                    migratedProjectFilePath = projectMigrator.Migrate(filePath);
+                }
+                else if (migrationNeeded == MigrationNeeded.Aborted)
+                {
+                    migratedProjectFilePath = null;
+                }
+            }
+            catch (ArgumentException e)
+            {
+                migratedProjectFilePath = null;
+                log.Error(e.Message, e);
+            }
 
             var isOpenProjectSuccessful = false;
             IProject newProject = null;
@@ -300,26 +318,6 @@ namespace Core.Common.Gui.Commands
                 log.Error(Resources.StorageCommandHandler_Saving_project_failed);
                 return false;
             }
-        }
-
-        private string TryMigrateProject(string filePath)
-        {
-            string migratedProjectFilePath = filePath;
-
-            try
-            {
-                if (projectMigrator.ShouldMigrate(filePath))
-                {
-                    migratedProjectFilePath = projectMigrator.Migrate(filePath);
-                }
-            }
-            catch (ArgumentException e)
-            {
-                migratedProjectFilePath = null;
-                log.Error(e.Message, e);
-            }
-
-            return migratedProjectFilePath;
         }
     }
 }
