@@ -117,14 +117,14 @@ namespace Demo.Ringtoets.Commands
                                         targetConfiguration.SelectedCapabilityIdentifier,
                                         targetConfiguration.PreferredFormat);
 
-            demoAssessmentSection.BackgroundMapData2.Name = targetConfiguration.Name;
-            demoAssessmentSection.BackgroundMapData2.BackgroundMapDataType = BackgroundMapDataType.Wmts;
-            demoAssessmentSection.BackgroundMapData2.IsVisible = targetConfiguration.IsVisible;
-            demoAssessmentSection.BackgroundMapData2.Transparency = targetConfiguration.Transparency;
-            demoAssessmentSection.BackgroundMapData2.IsConfigured = targetConfiguration.IsConfigured;
-            demoAssessmentSection.BackgroundMapData2.Parameters.Add("SourceCapabilitiesUrl", targetConfiguration.SourceCapabilitiesUrl);
-            demoAssessmentSection.BackgroundMapData2.Parameters.Add("SelectedCapabilityIdentifier", targetConfiguration.SelectedCapabilityIdentifier);
-            demoAssessmentSection.BackgroundMapData2.Parameters.Add("PreferredFormat", targetConfiguration.PreferredFormat);
+            demoAssessmentSection.BackgroundData.Name = targetConfiguration.Name;
+            demoAssessmentSection.BackgroundData.BackgroundMapDataType = BackgroundMapDataType.Wmts;
+            demoAssessmentSection.BackgroundData.IsVisible = targetConfiguration.IsVisible;
+            demoAssessmentSection.BackgroundData.Transparency = targetConfiguration.Transparency;
+            demoAssessmentSection.BackgroundData.IsConfigured = targetConfiguration.IsConfigured;
+            demoAssessmentSection.BackgroundData.Parameters.Add("SourceCapabilitiesUrl", targetConfiguration.SourceCapabilitiesUrl);
+            demoAssessmentSection.BackgroundData.Parameters.Add("SelectedCapabilityIdentifier", targetConfiguration.SelectedCapabilityIdentifier);
+            demoAssessmentSection.BackgroundData.Parameters.Add("PreferredFormat", targetConfiguration.PreferredFormat);
         }
 
         private void InitializeDemoReferenceLine(AssessmentSection demoAssessmentSection)

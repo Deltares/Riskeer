@@ -31,7 +31,7 @@ using Ringtoets.Integration.Forms.PropertyClasses;
 namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class BackgroundMapDataPropertyInfoTest
+    public class BackgroundDataPropertyInfoTest
     {
         private RingtoetsPlugin plugin;
         private PropertyInfo info;
@@ -43,14 +43,14 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         {
             get
             {
-                yield return new TestCaseData(new BackgroundMapData());
-                yield return new TestCaseData(new BackgroundMapData
+                yield return new TestCaseData(new BackgroundData());
+                yield return new TestCaseData(new BackgroundData
                 {
                     Name = wellKnownMapData.Name,
                     BackgroundMapDataType = BackgroundMapDataType.WellKnown,
                     IsConfigured = wellKnownMapData.IsConfigured
                 });
-                yield return new TestCaseData(new BackgroundMapData
+                yield return new TestCaseData(new BackgroundData
                 {
                     Name = wmtsMapData.Name,
                     BackgroundMapDataType = BackgroundMapDataType.Wmts,
@@ -63,7 +63,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new RingtoetsPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(BackgroundMapDataProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(BackgroundDataProperties));
         }
 
         [TearDown]
@@ -76,20 +76,20 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(BackgroundMapData), info.DataType);
-            Assert.AreEqual(typeof(BackgroundMapDataProperties), info.PropertyObjectType);
+            Assert.AreEqual(typeof(BackgroundData), info.DataType);
+            Assert.AreEqual(typeof(BackgroundDataProperties), info.PropertyObjectType);
         }
 
         [Test]
         [TestCaseSource(nameof(ValidBackgroundMapDatas))]
-        public void CreateInstance_ValidBackgroundMapData_ReturnBackgroundMapDataProperties(BackgroundMapData backgroundMapData)
+        public void CreateInstance_ValidBackgroundMapData_ReturnBackgroundMapDataProperties(BackgroundData backgroundData)
         {
             // Call
-            IObjectProperties objectProperties = info.CreateInstance(backgroundMapData);
+            IObjectProperties objectProperties = info.CreateInstance(backgroundData);
 
             // Assert
-            Assert.IsInstanceOf<BackgroundMapDataProperties>(objectProperties);
-            Assert.AreSame(backgroundMapData, objectProperties.Data);
+            Assert.IsInstanceOf<BackgroundDataProperties>(objectProperties);
+            Assert.AreSame(backgroundData, objectProperties.Data);
         }
     }
 }

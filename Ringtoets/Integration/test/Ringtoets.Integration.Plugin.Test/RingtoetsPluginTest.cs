@@ -35,7 +35,6 @@ using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Settings;
 using Core.Common.Gui.TestUtil;
 using Core.Common.TestUtil;
-using Core.Components.Gis;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -217,8 +216,8 @@ namespace Ringtoets.Integration.Plugin.Test
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(BackgroundMapData),
-                    typeof(BackgroundMapDataProperties));
+                    typeof(BackgroundData),
+                    typeof(BackgroundDataProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -406,7 +405,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 // Assert
                 Assert.AreEqual(26, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(AssessmentSection)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(BackgroundMapData)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(BackgroundData)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ReferenceLineContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismContext<IFailureMechanism>)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(CategoryTreeFolder)));

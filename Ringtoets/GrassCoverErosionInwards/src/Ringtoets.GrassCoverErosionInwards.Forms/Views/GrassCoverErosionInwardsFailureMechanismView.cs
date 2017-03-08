@@ -147,11 +147,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                     calculationGroupObserver.Observable = data.WrappedData.CalculationsGroup;
                     calculationObserver.Observable = data.WrappedData.CalculationsGroup;
 
-                    backgroundMapDataObserver.Observable = data.Parent.BackgroundMapData2;
+                    backgroundMapDataObserver.Observable = data.Parent.BackgroundData;
 
                     SetMapDataFeatures();
 
-                    backgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(data.Parent.BackgroundMapData2);
+                    backgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(data.Parent.BackgroundData);
 
                     Map.Data = mapDataCollection;
                     Map.BackgroundMapData = backgroundMapData;
@@ -186,7 +186,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
         private void UpdateBackgroundMapData()
         {
-            RingtoetsBackgroundMapDataFactory.UpdateBackgroundMapData(backgroundMapData, data.Parent.BackgroundMapData2);
+            RingtoetsBackgroundMapDataFactory.UpdateBackgroundMapData(backgroundMapData, data.Parent.BackgroundData);
             backgroundMapData.NotifyObservers();
         }
 

@@ -55,7 +55,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="AssessmentSection\AssessmentSectionCompositionTest.cs" />
-    <Compile Include="AssessmentSection\BackgroundMapDataTest.cs" />
+    <Compile Include="AssessmentSection\BackgroundDataTest.cs" />
     <Compile Include="AssessmentSection\ReferenceLineMetaTest.cs" />
     <Compile Include="AssessmentSection\ReferenceLineTest.cs" />
     <Compile Include="CommentTest.cs" />

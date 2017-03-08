@@ -36,7 +36,7 @@ using Ringtoets.Integration.Forms.PropertyClasses;
 namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class BackgroundMapDataPropertiesTest
+    public class BackgroundDataPropertiesTest
     {
         private const int requiredNamePropertyIndex = 0;
         private const int requiredTransparencyPropertyIndex = 1;
@@ -50,7 +50,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void Constructor_ContainerNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new BackgroundMapDataProperties(null);
+            TestDelegate call = () => new BackgroundDataProperties(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -61,13 +61,13 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void Constructor_ValidContainer_ExpectedValues()
         {
             // Setup
-            var backgroundMapData = new BackgroundMapData();
+            var backgroundMapData = new BackgroundData();
 
             // Call
-            var properties = new BackgroundMapDataProperties(backgroundMapData);
+            var properties = new BackgroundDataProperties(backgroundMapData);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<BackgroundMapData>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<BackgroundData>>(properties);
             Assert.AreSame(backgroundMapData, properties.Data);
         }
 
@@ -75,10 +75,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void GetProperties_ContainerWithoutMapData_ReturnExpectedValues()
         {
             // Setup
-            var backgroundMapData = new BackgroundMapData();
+            var backgroundMapData = new BackgroundData();
 
             // Call
-            var properties = new BackgroundMapDataProperties(backgroundMapData);
+            var properties = new BackgroundDataProperties(backgroundMapData);
 
             // Assert
             Assert.AreEqual(backgroundMapData.IsVisible, properties.IsVisible);
@@ -97,7 +97,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             var mapData = new TestImageBasedMapData(name, true);
 
-            var backGroundMapData = new BackgroundMapData
+            var backGroundMapData = new BackgroundData
             {
                 Name = mapData.Name,
                 IsVisible = false,
@@ -106,7 +106,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new BackgroundMapDataProperties(backGroundMapData);
+            var properties = new BackgroundDataProperties(backGroundMapData);
 
             // Assert
             Assert.AreEqual(backGroundMapData.IsVisible, properties.IsVisible);
@@ -123,7 +123,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Setup
             var mapData = WmtsMapData.CreateDefaultPdokMapData();
 
-            var backgroundMapData = new BackgroundMapData
+            var backgroundMapData = new BackgroundData
             {
                 IsVisible = false,
                 Transparency = (RoundedDouble)0.5,
@@ -139,7 +139,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new BackgroundMapDataProperties(backgroundMapData);
+            var properties = new BackgroundDataProperties(backgroundMapData);
 
             // Assert
             Assert.AreEqual(backgroundMapData.IsVisible, properties.IsVisible);
@@ -158,7 +158,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             var mapData = new TestImageBasedMapData(name, false);
 
-            var backgroundMapData = new BackgroundMapData
+            var backgroundMapData = new BackgroundData
             {
                 Name = mapData.Name,
                 Transparency = mapData.Transparency,
@@ -167,7 +167,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new BackgroundMapDataProperties(backgroundMapData);
+            var properties = new BackgroundDataProperties(backgroundMapData);
 
             // Assert
             Assert.AreEqual(backgroundMapData.IsVisible, properties.IsVisible);
@@ -186,10 +186,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             observer.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             mockRepository.ReplayAll();
 
-            var backgroundMapData = new BackgroundMapData();
+            var backgroundMapData = new BackgroundData();
             backgroundMapData.Attach(observer);
 
-            var properties = new BackgroundMapDataProperties(backgroundMapData);
+            var properties = new BackgroundDataProperties(backgroundMapData);
 
             var random = new Random(123);
             bool newVisibility = random.NextBoolean();
@@ -210,10 +210,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void Constructor_WithoutMapData_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var backgroundMapData = new BackgroundMapData();
+            var backgroundMapData = new BackgroundData();
 
             // Call
-            var properties = new BackgroundMapDataProperties(backgroundMapData);
+            var properties = new BackgroundDataProperties(backgroundMapData);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -244,7 +244,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             var testImageBasedMapData = new TestImageBasedMapData("name", false);
-            var backgroundMapData = new BackgroundMapData
+            var backgroundMapData = new BackgroundData
             {
                 Name = testImageBasedMapData.Name,
                 IsVisible = testImageBasedMapData.IsVisible,
@@ -253,7 +253,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new BackgroundMapDataProperties(backgroundMapData);
+            var properties = new BackgroundDataProperties(backgroundMapData);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -284,7 +284,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             WmtsMapData defaultPdokMapData = WmtsMapData.CreateDefaultPdokMapData();
-            var backgroundMapData = new BackgroundMapData
+            var backgroundMapData = new BackgroundData
             {
                 Name = defaultPdokMapData.Name,
                 Transparency = defaultPdokMapData.Transparency,
@@ -300,7 +300,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new BackgroundMapDataProperties(backgroundMapData);
+            var properties = new BackgroundDataProperties(backgroundMapData);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);

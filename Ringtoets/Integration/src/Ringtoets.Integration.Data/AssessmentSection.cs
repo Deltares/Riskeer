@@ -69,7 +69,7 @@ namespace Ringtoets.Integration.Data
                 MapData = mapData
             };
 
-            BackgroundMapData2 = new BackgroundMapData
+            BackgroundData = new BackgroundData
             {
                 IsVisible = mapData.IsVisible,
                 Transparency = mapData.Transparency,
@@ -221,7 +221,7 @@ namespace Ringtoets.Integration.Data
 
         public BackgroundMapDataContainer BackgroundMapData { get; }
 
-        public BackgroundMapData BackgroundMapData2 { get; }
+        public BackgroundData BackgroundData { get; }
 
         public IEnumerable<IFailureMechanism> GetFailureMechanisms()
         {

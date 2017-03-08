@@ -28,13 +28,13 @@ namespace Ringtoets.Common.Data.AssessmentSection
     /// <summary>
     /// Class that holds information about configured background data.
     /// </summary>
-    public class BackgroundMapData : Observable
+    public class BackgroundData : Observable
 
     {
         /// <summary>
-        /// Creates a new <see cref="BackgroundMapData"/>.
+        /// Creates a new <see cref="BackgroundData"/>.
         /// </summary>
-        public BackgroundMapData()
+        public BackgroundData()
         {
             IsVisible = true;
             Transparency = new RoundedDouble(2);

@@ -34,24 +34,24 @@ using GisFormsResources = Core.Components.Gis.Forms.Properties.Resources;
 namespace Ringtoets.Integration.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of the <see cref="BackgroundMapData"/> for properties panel.
+    /// ViewModel of the <see cref="BackgroundData"/> for properties panel.
     /// </summary>
-    public class BackgroundMapDataProperties : ObjectProperties<BackgroundMapData>
+    public class BackgroundDataProperties : ObjectProperties<BackgroundData>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="BackgroundMapDataProperties"/>.
+        /// Creates a new instance of <see cref="BackgroundDataProperties"/>.
         /// </summary>
-        /// <param name="backgroundMapData">The data for which the properties are shown.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="backgroundMapData"/>
+        /// <param name="backgroundData">The data for which the properties are shown.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="backgroundData"/>
         /// is <c>null</c>.</exception>
-        public BackgroundMapDataProperties(BackgroundMapData backgroundMapData)
+        public BackgroundDataProperties(BackgroundData backgroundData)
         {
-            if (backgroundMapData == null)
+            if (backgroundData == null)
             {
-                throw new ArgumentNullException(nameof(backgroundMapData));
+                throw new ArgumentNullException(nameof(backgroundData));
             }
 
-            Data = backgroundMapData;
+            Data = backgroundData;
         }
 
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
@@ -143,14 +143,14 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
         }
 
-        private string GetBackgroundMapDataParameter(BackgroundMapData backgroundMapData, string parameterName)
+        private string GetBackgroundMapDataParameter(BackgroundData backgroundData, string parameterName)
         {
-            if (backgroundMapData.IsConfigured
-                && backgroundMapData.BackgroundMapDataType == BackgroundMapDataType.Wmts
+            if (backgroundData.IsConfigured
+                && backgroundData.BackgroundMapDataType == BackgroundMapDataType.Wmts
                 && WmtsProperties.Contains(parameterName)
-                && backgroundMapData.Parameters.ContainsKey(parameterName))
+                && backgroundData.Parameters.ContainsKey(parameterName))
             {
-                return backgroundMapData.Parameters[parameterName];
+                return backgroundData.Parameters[parameterName];
             }
 
             return string.Empty;

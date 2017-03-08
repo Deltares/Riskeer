@@ -31,23 +31,23 @@ namespace Ringtoets.Common.Forms.Views
     public static class RingtoetsBackgroundMapDataFactory
     {
         /// <summary>
-        /// Creates <see cref="WmtsMapData"/> from a <see cref="BackgroundMapData"/>.
+        /// Creates <see cref="WmtsMapData"/> from a <see cref="BackgroundData"/>.
         /// </summary>
-        /// <param name="backgroundMapData">The <see cref="BackgroundMapData"/> to create
+        /// <param name="backgroundData">The <see cref="BackgroundData"/> to create
         /// the <see cref="WmtsMapData"/> for.</param>
         /// <returns>The created <see cref="WmtsMapData"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="backgroundMapData"/>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="backgroundData"/>
         /// is <c>null</c>.</exception>
-        public static WmtsMapData CreateBackgroundMapData(BackgroundMapData backgroundMapData)
+        public static WmtsMapData CreateBackgroundMapData(BackgroundData backgroundData)
         {
-            if (backgroundMapData == null)
+            if (backgroundData == null)
             {
-                throw new ArgumentNullException(nameof(backgroundMapData));
+                throw new ArgumentNullException(nameof(backgroundData));
             }
 
-            if (backgroundMapData.BackgroundMapDataType == BackgroundMapDataType.Wmts)
+            if (backgroundData.BackgroundMapDataType == BackgroundMapDataType.Wmts)
             {
-                return CreateWmtsBackgroundMapData(backgroundMapData);
+                return CreateWmtsBackgroundMapData(backgroundData);
             }
 
             return null;
@@ -57,24 +57,24 @@ namespace Ringtoets.Common.Forms.Views
         /// Updates an existing <see cref="WmtsMapData"/>.
         /// </summary>
         /// <param name="mapData">The <see cref="WmtsMapData"/> to update.</param>
-        /// <param name="backgroundMapData">The <see cref="BackgroundMapData"/> used
+        /// <param name="backgroundData">The <see cref="BackgroundData"/> used
         /// to update the map data.</param>
         /// <returns>The updated <see cref="WmtsMapData"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static void UpdateBackgroundMapData(WmtsMapData mapData, BackgroundMapData backgroundMapData)
+        public static void UpdateBackgroundMapData(WmtsMapData mapData, BackgroundData backgroundData)
         {
             if (mapData == null)
             {
                 throw new ArgumentNullException(nameof(mapData));
             }
-            if (backgroundMapData == null)
+            if (backgroundData == null)
             {
-                throw new ArgumentNullException(nameof(backgroundMapData));
+                throw new ArgumentNullException(nameof(backgroundData));
             }
 
-            if (backgroundMapData.BackgroundMapDataType == BackgroundMapDataType.Wmts)
+            if (backgroundData.BackgroundMapDataType == BackgroundMapDataType.Wmts)
             {
-                WmtsMapData newMapData = CreateWmtsBackgroundMapData(backgroundMapData);
+                WmtsMapData newMapData = CreateWmtsBackgroundMapData(backgroundData);
 
                 if (newMapData.IsConfigured)
                 {
@@ -93,7 +93,7 @@ namespace Ringtoets.Common.Forms.Views
             }
         }
 
-        private static WmtsMapData CreateWmtsBackgroundMapData(BackgroundMapData backgroundData)
+        private static WmtsMapData CreateWmtsBackgroundMapData(BackgroundData backgroundData)
         {
             WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
             mapData.Name = backgroundData.Name;

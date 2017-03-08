@@ -50,8 +50,8 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.IsNull(assessmentSection.ReferenceLine);
             Assert.IsNull(assessmentSection.HydraulicBoundaryDatabase);
             Assert.IsNull(assessmentSection.BackgroundMapData.MapData);
-            Assert.IsNotNull(assessmentSection.BackgroundMapData2);
-            Assert.AreEqual("Background data", assessmentSection.BackgroundMapData2.Name);
+            Assert.IsNotNull(assessmentSection.BackgroundData);
+            Assert.AreEqual("Background data", assessmentSection.BackgroundData.Name);
 
             Assert.AreEqual(1.0 / 300000.0, assessmentSection.FailureMechanismContribution.Norm);
             FailureMechanismContributionItem[] contributionItems = assessmentSection.FailureMechanismContribution.Distribution.ToArray();

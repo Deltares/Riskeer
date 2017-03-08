@@ -43,7 +43,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class BackgroundMapDataTreeNodeInfoTest : NUnitFormTest
+    public class BackgroundDataTreeNodeInfoTest : NUnitFormTest
     {
         private const int selectContextMenuIndex = 0;
 
@@ -81,7 +81,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnsName()
         {
             // Setup
-            var backgroundMapData = new BackgroundMapData();
+            var backgroundMapData = new BackgroundData();
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -99,7 +99,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var backgroundMapData = new BackgroundMapData();
+            var backgroundMapData = new BackgroundData();
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -117,14 +117,14 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void ForeColor_ConnectedMapData_ReturnControlText()
         {
             WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
-            BackgroundMapData backgroundMapData = BackgroundMapDataTestDataGenerator.GetWmtsBackgroundMapData(mapData);
+            BackgroundData backgroundData = BackgroundMapDataTestDataGenerator.GetWmtsBackgroundMapData(mapData);
 
             using (var plugin = new RingtoetsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                Color image = info.ForeColor(backgroundMapData);
+                Color image = info.ForeColor(backgroundData);
 
                 // Assert
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), image);
@@ -135,14 +135,14 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void ForeColor_UnconnectedMapData_ReturnGrayText()
         {
             WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
-            BackgroundMapData backgroundMapData = BackgroundMapDataTestDataGenerator.GetWmtsBackgroundMapData(mapData);
+            BackgroundData backgroundData = BackgroundMapDataTestDataGenerator.GetWmtsBackgroundMapData(mapData);
 
             using (var plugin = new RingtoetsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                Color image = info.ForeColor(backgroundMapData);
+                Color image = info.ForeColor(backgroundData);
 
                 // Assert
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), image);
@@ -152,7 +152,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         [Test]
         public void ForeColor_MapDataNull_ReturnGrayText()
         {
-            var backgroundMapData = new BackgroundMapData();
+            var backgroundMapData = new BackgroundData();
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -206,7 +206,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var mockRepository = new MockRepository();
-            var backgroundMapData = new BackgroundMapData();
+            var backgroundMapData = new BackgroundData();
 
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             using (var treeViewControl = new TreeViewControl())
@@ -249,7 +249,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             backgroundMapDataObserver.Expect(o => o.UpdateObserver());
 
             WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
-            BackgroundMapData backgroundMapData = BackgroundMapDataTestDataGenerator.GetWmtsBackgroundMapData(mapData);
+            BackgroundData backgroundData = BackgroundMapDataTestDataGenerator.GetWmtsBackgroundMapData(mapData);
 
             using (var treeViewControl = new TreeViewControl())
             using (var plugin = new RingtoetsPlugin())
@@ -262,12 +262,12 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(cmp => cmp.Get(backgroundMapData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(cmp => cmp.Get(backgroundData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mockRepository.ReplayAll();
 
                 var assessmentSection = new ObservableTestAssessmentSectionStub();
                 assessmentSection.Attach(assessmentSectionObserver);
-                assessmentSection.BackgroundMapData2.Attach(backgroundMapDataObserver);
+                assessmentSection.BackgroundData.Attach(backgroundMapDataObserver);
 
                 DialogBoxHandler = (name, wnd) =>
                 {
@@ -279,13 +279,13 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 TreeNodeInfo info = GetInfo(plugin);
                 plugin.Gui = gui;
 
-                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(backgroundMapData, assessmentSection, treeViewControl))
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(backgroundData, assessmentSection, treeViewControl))
                 {
                     // When
                     contextMenuStrip.Items[selectContextMenuIndex].PerformClick();
 
                     // Then
-                    AssertBackgroundMapDataProperties(mapData, assessmentSection.BackgroundMapData2);
+                    AssertBackgroundMapDataProperties(mapData, assessmentSection.BackgroundData);
                 }
             }
             mockRepository.VerifyAll();
@@ -299,7 +299,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSectionObserver = mockRepository.StrictMock<IObserver>();
             var backgroundMapDataObserver = mockRepository.StrictMock<IObserver>();
 
-            var backgroundMapData = new BackgroundMapData
+            var backgroundMapData = new BackgroundData
             {
                 Name = "background map data"
             };
@@ -320,9 +320,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                 var assessmentSection = new ObservableTestAssessmentSectionStub();
                 assessmentSection.Attach(assessmentSectionObserver);
-                assessmentSection.BackgroundMapData2.Attach(backgroundMapDataObserver);
+                assessmentSection.BackgroundData.Attach(backgroundMapDataObserver);
                 
-                BackgroundMapData oldBackgroundMapData = assessmentSection.BackgroundMapData2;
+                BackgroundData oldBackgroundData = assessmentSection.BackgroundData;
 
                 DialogBoxHandler = (name, wnd) =>
                 {
@@ -340,7 +340,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     contextMenuStrip.Items[selectContextMenuIndex].PerformClick();
 
                     // Then
-                    AssertBackgroundMapDataProperties(oldBackgroundMapData, assessmentSection.BackgroundMapData2);
+                    AssertBackgroundMapDataProperties(oldBackgroundData, assessmentSection.BackgroundData);
                 }
             }
             mockRepository.VerifyAll();
@@ -379,15 +379,15 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 mockRepository.ReplayAll();
 
                 assessmentSection.Attach(assessmentSectionObserver);
-                assessmentSection.BackgroundMapData2.Attach(backgroundMapDataObserver);
-                assessmentSection.BackgroundMapData2.Name = mapData.Name;
-                assessmentSection.BackgroundMapData2.IsVisible = mapData.IsVisible;
-                assessmentSection.BackgroundMapData2.IsConfigured = mapData.IsConfigured;
-                assessmentSection.BackgroundMapData2.Transparency = mapData.Transparency;
-                assessmentSection.BackgroundMapData2.BackgroundMapDataType = BackgroundMapDataType.Wmts;
-                assessmentSection.BackgroundMapData2.Parameters["SourceCapabilitiesUrl"] = mapData.SourceCapabilitiesUrl;
-                assessmentSection.BackgroundMapData2.Parameters["SelectedCapabilityIdentifier"] = mapData.SelectedCapabilityIdentifier;
-                assessmentSection.BackgroundMapData2.Parameters["PreferredFormat"] = mapData.PreferredFormat;
+                assessmentSection.BackgroundData.Attach(backgroundMapDataObserver);
+                assessmentSection.BackgroundData.Name = mapData.Name;
+                assessmentSection.BackgroundData.IsVisible = mapData.IsVisible;
+                assessmentSection.BackgroundData.IsConfigured = mapData.IsConfigured;
+                assessmentSection.BackgroundData.Transparency = mapData.Transparency;
+                assessmentSection.BackgroundData.BackgroundMapDataType = BackgroundMapDataType.Wmts;
+                assessmentSection.BackgroundData.Parameters["SourceCapabilitiesUrl"] = mapData.SourceCapabilitiesUrl;
+                assessmentSection.BackgroundData.Parameters["SelectedCapabilityIdentifier"] = mapData.SelectedCapabilityIdentifier;
+                assessmentSection.BackgroundData.Parameters["PreferredFormat"] = mapData.PreferredFormat;
 
                 DialogBoxHandler = (name, wnd) =>
                 {
@@ -405,7 +405,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     contextMenuStrip.Items[selectContextMenuIndex].PerformClick();
 
                     // Then
-                    AssertBackgroundMapDataProperties(newMapData, assessmentSection.BackgroundMapData2);
+                    AssertBackgroundMapDataProperties(newMapData, assessmentSection.BackgroundData);
                 }
             }
             mockRepository.VerifyAll();
@@ -420,8 +420,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var backgroundMapDataObserver = mockRepository.StrictMock<IObserver>();
 
             WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
-            BackgroundMapData backgroundMapData = BackgroundMapDataTestDataGenerator.GetWmtsBackgroundMapData(mapData);
-            BackgroundMapData newBackgroundMapData = BackgroundMapDataTestDataGenerator.GetWmtsBackgroundMapData(WmtsMapData.CreateDefaultPdokMapData());
+            BackgroundData backgroundData = BackgroundMapDataTestDataGenerator.GetWmtsBackgroundMapData(mapData);
+            BackgroundData newBackgroundData = BackgroundMapDataTestDataGenerator.GetWmtsBackgroundMapData(WmtsMapData.CreateDefaultPdokMapData());
 
             using (var treeViewControl = new TreeViewControl())
             using (var plugin = new RingtoetsPlugin())
@@ -434,18 +434,18 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(cmp => cmp.Get(newBackgroundMapData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(cmp => cmp.Get(newBackgroundData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mockRepository.ReplayAll();
 
                 var assessmentSection = new ObservableTestAssessmentSectionStub();
                 assessmentSection.Attach(assessmentSectionObserver);
-                assessmentSection.BackgroundMapData2.Attach(backgroundMapDataObserver);
+                assessmentSection.BackgroundData.Attach(backgroundMapDataObserver);
 
-                assessmentSection.BackgroundMapData2.Name = backgroundMapData.Name;
-                assessmentSection.BackgroundMapData2.IsVisible = backgroundMapData.IsVisible;
-                assessmentSection.BackgroundMapData2.IsConfigured = backgroundMapData.IsConfigured;
-                assessmentSection.BackgroundMapData2.Transparency = backgroundMapData.Transparency;
-                assessmentSection.BackgroundMapData2.BackgroundMapDataType = backgroundMapData.BackgroundMapDataType;
+                assessmentSection.BackgroundData.Name = backgroundData.Name;
+                assessmentSection.BackgroundData.IsVisible = backgroundData.IsVisible;
+                assessmentSection.BackgroundData.IsConfigured = backgroundData.IsConfigured;
+                assessmentSection.BackgroundData.Transparency = backgroundData.Transparency;
+                assessmentSection.BackgroundData.BackgroundMapDataType = backgroundData.BackgroundMapDataType;
 
                 DialogBoxHandler = (name, wnd) =>
                 {
@@ -457,41 +457,41 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 TreeNodeInfo info = GetInfo(plugin);
                 plugin.Gui = gui;
 
-                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(newBackgroundMapData, assessmentSection, treeViewControl))
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(newBackgroundData, assessmentSection, treeViewControl))
                 {
                     // When
                     contextMenuStrip.Items[selectContextMenuIndex].PerformClick();
 
                     // Then
-                    AssertBackgroundMapDataProperties(backgroundMapData, assessmentSection.BackgroundMapData2);
+                    AssertBackgroundMapDataProperties(backgroundData, assessmentSection.BackgroundData);
                 }
             }
             mockRepository.VerifyAll();
         }
 
-        private static void AssertBackgroundMapDataProperties(WmtsMapData mapData, BackgroundMapData backgroundMapData)
+        private static void AssertBackgroundMapDataProperties(WmtsMapData mapData, BackgroundData backgroundData)
         {
-            Assert.AreEqual(mapData.Name, backgroundMapData.Name);
-            Assert.IsTrue(backgroundMapData.IsVisible);
-            Assert.AreEqual(mapData.IsConfigured, backgroundMapData.IsConfigured);
-            Assert.AreEqual(mapData.Transparency, backgroundMapData.Transparency);
-            Assert.AreEqual(mapData.SourceCapabilitiesUrl, backgroundMapData.Parameters["SourceCapabilitiesUrl"]);
-            Assert.AreEqual(mapData.SelectedCapabilityIdentifier, backgroundMapData.Parameters["SelectedCapabilityIdentifier"]);
-            Assert.AreEqual(mapData.PreferredFormat, backgroundMapData.Parameters["PreferredFormat"]);
+            Assert.AreEqual(mapData.Name, backgroundData.Name);
+            Assert.IsTrue(backgroundData.IsVisible);
+            Assert.AreEqual(mapData.IsConfigured, backgroundData.IsConfigured);
+            Assert.AreEqual(mapData.Transparency, backgroundData.Transparency);
+            Assert.AreEqual(mapData.SourceCapabilitiesUrl, backgroundData.Parameters["SourceCapabilitiesUrl"]);
+            Assert.AreEqual(mapData.SelectedCapabilityIdentifier, backgroundData.Parameters["SelectedCapabilityIdentifier"]);
+            Assert.AreEqual(mapData.PreferredFormat, backgroundData.Parameters["PreferredFormat"]);
         }
 
-        private static void AssertBackgroundMapDataProperties(BackgroundMapData expectedBackgroundMapData, BackgroundMapData actualBackgroundMapData)
+        private static void AssertBackgroundMapDataProperties(BackgroundData expectedBackgroundData, BackgroundData actualBackgroundData)
         {
-            Assert.AreEqual(expectedBackgroundMapData.Name, actualBackgroundMapData.Name);
-            Assert.AreEqual(expectedBackgroundMapData.IsVisible, actualBackgroundMapData.IsVisible);
-            Assert.AreEqual(expectedBackgroundMapData.IsConfigured, actualBackgroundMapData.IsConfigured);
-            Assert.AreEqual(expectedBackgroundMapData.Transparency, actualBackgroundMapData.Transparency);
-            CollectionAssert.AreEquivalent(expectedBackgroundMapData.Parameters, actualBackgroundMapData.Parameters);
+            Assert.AreEqual(expectedBackgroundData.Name, actualBackgroundData.Name);
+            Assert.AreEqual(expectedBackgroundData.IsVisible, actualBackgroundData.IsVisible);
+            Assert.AreEqual(expectedBackgroundData.IsConfigured, actualBackgroundData.IsConfigured);
+            Assert.AreEqual(expectedBackgroundData.Transparency, actualBackgroundData.Transparency);
+            CollectionAssert.AreEquivalent(expectedBackgroundData.Parameters, actualBackgroundData.Parameters);
         }
 
         private static TreeNodeInfo GetInfo(RingtoetsPlugin plugin)
         {
-            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(BackgroundMapData));
+            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(BackgroundData));
         }
     }
 }

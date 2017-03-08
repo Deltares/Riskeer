@@ -158,7 +158,7 @@ Wilt u doorgaan?</value>
 
 Weet u zeker dat u wilt doorgaan?</value>
   </data>
-  <data name="RingtoetsPlugin_BackgroundMapDataContext_Text" xml:space="preserve">
+  <data name="RingtoetsPlugin_BackgroundDataContext_Text" xml:space="preserve">
     <value>Achtergrondkaart</value>
   </data>
   <data name="AssessmentSectionCompositionChangeHandler_Waveheight_and_design_water_level_results_cleared" xml:space="preserve">
@@ -169,10 +169,10 @@ Weet u zeker dat u wilt doorgaan?</value>
 
 Weet u zeker dat u wilt doorgaan?</value>
   </data>
-  <data name="BackgroundMapData_SelectMapData" xml:space="preserve">
+  <data name="BackgroundData_SelectMapData" xml:space="preserve">
     <value>Selecteren...</value>
   </data>
-  <data name="BackgroundMapData_SelectMapData_Tooltip" xml:space="preserve">
+  <data name="BackgroundData_SelectMapData_Tooltip" xml:space="preserve">
     <value>Selecteer een achtergrondkaart.</value>
   </data>
 </root>

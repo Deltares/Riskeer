@@ -127,7 +127,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 view.Data = failureMechanismContext;
 
                 // Assert
-                WmtsMapData expectedWmtsBackgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(assessmentSection.BackgroundMapData2);
+                WmtsMapData expectedWmtsBackgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(assessmentSection.BackgroundData);
                 MapDataTestHelper.AssertWmtsMapData(expectedWmtsBackgroundMapData, view.Map.BackgroundMapData);
             }
         }
@@ -176,7 +176,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 Assert.AreSame(failureMechanismContext, view.Data);
                 AssertEmptyMapData(view.Map.Data);
                 WmtsMapData expectedWmtsBackgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(
-                    assessmentSection.BackgroundMapData2);
+                    assessmentSection.BackgroundData);
                 MapDataTestHelper.AssertWmtsMapData(expectedWmtsBackgroundMapData, view.Map.BackgroundMapData);
             }
         }
@@ -315,19 +315,19 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 var assessmentSection = new ObservableTestAssessmentSectionStub();
                 view.Data = new GrassCoverErosionOutwardsFailureMechanismContext(new GrassCoverErosionOutwardsFailureMechanism(), assessmentSection);
 
-                BackgroundMapData backgroundMapData = assessmentSection.BackgroundMapData2;
+                BackgroundData backgroundData = assessmentSection.BackgroundData;
 
-                backgroundMapData.Name = "some Name";
-                backgroundMapData.Parameters["SourceCapabilitiesUrl"] = "some URL";
-                backgroundMapData.Parameters["SelectedCapabilityIdentifier"] = "some Identifier";
-                backgroundMapData.Parameters["PreferredFormat"] = "image/some Format";
-                backgroundMapData.IsConfigured = true;
+                backgroundData.Name = "some Name";
+                backgroundData.Parameters["SourceCapabilitiesUrl"] = "some URL";
+                backgroundData.Parameters["SelectedCapabilityIdentifier"] = "some Identifier";
+                backgroundData.Parameters["PreferredFormat"] = "image/some Format";
+                backgroundData.IsConfigured = true;
 
                 // When
-                backgroundMapData.NotifyObservers();
+                backgroundData.NotifyObservers();
 
                 // Then
-                WmtsMapData expectedWmtsBackgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(backgroundMapData);
+                WmtsMapData expectedWmtsBackgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(backgroundData);
                 MapDataTestHelper.AssertWmtsMapData(expectedWmtsBackgroundMapData, view.Map.BackgroundMapData);
             }
         }

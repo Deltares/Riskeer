@@ -76,7 +76,7 @@ namespace Ringtoets.Common.Data.AssessmentSection
         /// </summary>
         BackgroundMapDataContainer BackgroundMapData { get; }
 
-        BackgroundMapData BackgroundMapData2 { get; }
+        BackgroundData BackgroundData { get; }
 
         /// <summary>
         /// Gets the failure mechanisms corresponding to the assessment section.

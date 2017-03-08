@@ -26,9 +26,9 @@ namespace Ringtoets.Common.Data.TestUtil
 {
     public static class BackgroundMapDataTestDataGenerator
     {
-        public static BackgroundMapData GetWmtsBackgroundMapData(WmtsMapData wmtsMapData)
+        public static BackgroundData GetWmtsBackgroundMapData(WmtsMapData wmtsMapData)
         {
-            var backgroundMapData = new BackgroundMapData
+            var backgroundMapData = new BackgroundData
             {
                 Name = wmtsMapData.Name,
                 IsVisible = wmtsMapData.IsVisible,
@@ -47,9 +47,9 @@ namespace Ringtoets.Common.Data.TestUtil
             return backgroundMapData;
         }
 
-        public static BackgroundMapData GetWellKnownBackgroundMapData()
+        public static BackgroundData GetWellKnownBackgroundMapData()
         {
-            return new BackgroundMapData
+            return new BackgroundData
             {
                 BackgroundMapDataType = BackgroundMapDataType.WellKnown
             };

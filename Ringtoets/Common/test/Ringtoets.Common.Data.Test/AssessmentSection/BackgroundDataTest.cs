@@ -25,13 +25,13 @@ using Ringtoets.Common.Data.AssessmentSection;
 namespace Ringtoets.Common.Data.Test.AssessmentSection
 {
     [TestFixture]
-    public class BackgroundMapDataTest
+    public class BackgroundDataTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call 
-            var backgroundMapData = new BackgroundMapData();
+            var backgroundMapData = new BackgroundData();
 
             // Assert
             Assert.IsTrue(backgroundMapData.IsVisible);

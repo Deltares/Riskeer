@@ -22,7 +22,7 @@
 namespace Ringtoets.Common.Data.AssessmentSection
 {
     /// <summary>
-    /// Enumeration that defines the possible types of a <see cref="BackgroundMapData"/>.
+    /// Enumeration that defines the possible types of a <see cref="BackgroundData"/>.
     /// </summary>
     public enum BackgroundMapDataType
     {

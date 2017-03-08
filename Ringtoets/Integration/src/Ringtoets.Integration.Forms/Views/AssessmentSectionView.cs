@@ -85,7 +85,7 @@ namespace Ringtoets.Integration.Forms.Views
 
                 assessmentSectionObserver.Observable = data;
                 hydraulicBoundaryDatabaseObserver.Observable = data?.HydraulicBoundaryDatabase;
-                backgroundMapDataObserver.Observable = data?.BackgroundMapData2;
+                backgroundMapDataObserver.Observable = data?.BackgroundData;
 
                 if (data == null)
                 {
@@ -96,7 +96,7 @@ namespace Ringtoets.Integration.Forms.Views
                 {
                     SetMapDataFeatures();
 
-                    backgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(data.BackgroundMapData2);
+                    backgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(data.BackgroundData);
 
                     Map.Data = mapDataCollection;
                     Map.BackgroundMapData = backgroundMapData;
@@ -126,7 +126,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void UpdateBackgroundMapData()
         {
-            RingtoetsBackgroundMapDataFactory.UpdateBackgroundMapData(backgroundMapData, data.BackgroundMapData2);
+            RingtoetsBackgroundMapDataFactory.UpdateBackgroundMapData(backgroundMapData, data.BackgroundData);
             backgroundMapData.NotifyObservers();
         }
 

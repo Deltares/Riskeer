@@ -41,7 +41,7 @@ namespace Ringtoets.Common.Data.TestUtil
         {
             FailureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 0, 1.0 / 300000);
             BackgroundMapData = new BackgroundMapDataContainer();
-            BackgroundMapData2 = new BackgroundMapData
+            BackgroundData = new BackgroundData
             {
                 Name = "Background data"
             };
@@ -55,7 +55,7 @@ namespace Ringtoets.Common.Data.TestUtil
         public FailureMechanismContribution FailureMechanismContribution { get; }
         public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; set; }
         public BackgroundMapDataContainer BackgroundMapData { get; }
-        public BackgroundMapData BackgroundMapData2 { get; }
+        public BackgroundData BackgroundData { get; }
 
         public IEnumerable<IFailureMechanism> GetFailureMechanisms()
         {

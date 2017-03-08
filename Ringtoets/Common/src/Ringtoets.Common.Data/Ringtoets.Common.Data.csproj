@@ -39,7 +39,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="AssessmentSection\AssessmentSectionComposition.cs" />
-    <Compile Include="AssessmentSection\BackgroundMapData.cs" />
+    <Compile Include="AssessmentSection\BackgroundData.cs" />
     <Compile Include="AssessmentSection\BackgroundMapDataType.cs" />
     <Compile Include="AssessmentSection\IAssessmentSection.cs" />
     <Compile Include="AssessmentSection\ReferenceLine.cs" />
