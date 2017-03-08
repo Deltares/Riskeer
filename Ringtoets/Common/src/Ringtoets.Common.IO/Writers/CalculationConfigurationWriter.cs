@@ -41,6 +41,7 @@ namespace Ringtoets.Common.IO.Writers
         /// </summary>
         /// <param name="calculation">The calculation to write.</param>
         /// <param name="writer">The writer to use for writing.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is closed.</exception>
         protected abstract void WriteCalculation(T calculation, XmlWriter writer);
 
         /// <summary>
@@ -48,6 +49,7 @@ namespace Ringtoets.Common.IO.Writers
         /// </summary>
         /// <param name="distributions">The distributions, as tuples of name and distribution, to write.</param>
         /// <param name="writer">The writer to use for writing.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is closed.</exception>
         protected static void WriteDistributions(IEnumerable<Tuple<string, IDistribution>> distributions, XmlWriter writer)
         {
             writer.WriteStartElement(ConfigurationSchemaIdentifiers.StochastsElement);

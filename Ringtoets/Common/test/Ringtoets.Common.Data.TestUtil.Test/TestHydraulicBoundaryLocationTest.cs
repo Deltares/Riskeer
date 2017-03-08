@@ -49,6 +49,29 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
+        public void Constructor_WithName_ExpectedValues()
+        {
+            // Setup
+            const string name = "some name";
+
+            // Call
+            var testLocation = new TestHydraulicBoundaryLocation(name);
+
+            // Assert
+            Assert.IsInstanceOf<HydraulicBoundaryLocation>(testLocation);
+            Assert.AreEqual(0, testLocation.Id);
+            Assert.AreEqual(name, testLocation.Name);
+            Assert.AreEqual(new Point2D(0, 0), testLocation.Location);
+
+            Assert.IsNull(testLocation.DesignWaterLevelOutput);
+            Assert.IsNull(testLocation.WaveHeightOutput);
+            Assert.IsNaN(testLocation.DesignWaterLevel);
+            Assert.IsNaN(testLocation.WaveHeight);
+            Assert.AreEqual(CalculationConvergence.NotCalculated, testLocation.DesignWaterLevelCalculationConvergence);
+            Assert.AreEqual(CalculationConvergence.NotCalculated, testLocation.WaveHeightCalculationConvergence);
+        }
+
+        [Test]
         public void CreateDesignWaterLevelCalculated_DesignWaterLevel_ExpectedValues()
         {
             // Setup

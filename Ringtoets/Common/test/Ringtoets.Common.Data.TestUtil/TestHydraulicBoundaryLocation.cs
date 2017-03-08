@@ -30,6 +30,13 @@ namespace Ringtoets.Common.Data.TestUtil
     public class TestHydraulicBoundaryLocation : HydraulicBoundaryLocation
     {
         /// <summary>
+        /// Creates a new instance of <see cref="TestHydraulicBoundaryLocation"/>
+        /// with the given name.
+        /// </summary>
+        /// <param name="name">The name for the <see cref="TestHydraulicBoundaryLocation"/>.</param>
+        public TestHydraulicBoundaryLocation(string name) : base(0, name, 0, 0) {}
+
+        /// <summary>
         /// Creates a new instance of <see cref="TestHydraulicBoundaryLocation"/>.
         /// </summary>
         public TestHydraulicBoundaryLocation() : this(null, null) {}
@@ -41,7 +48,7 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <param name="designWaterLevel">The design water level result to set in the output.</param>
         /// <param name="waveHeight">The wave height result to set in the output.</param>
         private TestHydraulicBoundaryLocation(double? designWaterLevel, double? waveHeight)
-            : base(0, string.Empty, 0, 0)
+            : this(string.Empty)
         {
             if (designWaterLevel.HasValue)
             {

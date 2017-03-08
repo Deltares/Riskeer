@@ -138,7 +138,7 @@ namespace Ringtoets.Common.IO.Test.Writers
             string filePath = TestHelper.GetScratchPadPath("test_distributions_write.xml");
             string expectedXmlFilePath = TestHelper.GetTestDataPath(
                 TestDataPath.Ringtoets.Common.IO,
-                Path.Combine("CalculationConfigurationWriter", "distributions.xml"));
+                Path.Combine(nameof(CalculationConfigurationWriter<ICalculation>), "distributions.xml"));
 
             var distributions = new List<Tuple<string, IDistribution>>
             {
