@@ -455,7 +455,11 @@ namespace Core.Components.Gis.Forms.Test.Views
         {
             // Given
             const string url = "https://geodata.nationaalgeoregister.nl/tiles/service/wmts/ahn1?request=GetCapabilities";
-            wmtsCapabilityFactory.Expect(wcf => wcf.GetWmtsCapabilities(url)).Return(Enumerable.Empty<WmtsCapability>());
+            var mapData = new WmtsMapData("name", url, "capability", "image/png");
+            wmtsCapabilityFactory.Expect(wcf => wcf.GetWmtsCapabilities(url)).Return(new[]
+            {
+                CreateWmtsCapability(new TestWmtsTileSource(mapData))
+            });
             mockRepository.ReplayAll();
 
             var settingsHelper = new TestSettingsHelper
@@ -472,6 +476,7 @@ namespace Core.Components.Gis.Forms.Test.Views
                 using (var form = new Form())
                 {
                     form.Controls.Add(control);
+                    form.Show();
 
                     // Then
                     var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
@@ -486,6 +491,63 @@ namespace Core.Components.Gis.Forms.Test.Views
                     Assert.AreEqual("Zeegraskartering", secondWmtsConnectionInfo.Name);
                     Assert.AreEqual("https://geodata.nationaalgeoregister.nl/zeegraskartering/wfs?request=GetCapabilities",
                                     secondWmtsConnectionInfo.Url);
+
+                    Assert.AreSame(comboBox.SelectedItem, firstWmtsConnectionInfo);
+
+                    var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", form).TheObject;
+                    Assert.AreSame(dataGridViewControl.Rows[0], dataGridViewControl.CurrentRow);
+                }
+            }
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenValidWmtsConnectionInfos_WhenConstructedWithMapData_ThenExpectedProperties()
+        {
+            // Given
+            const string mapDataName = "Zeegraskartering";
+            const string mapDataUrl = "https://geodata.nationaalgeoregister.nl/zeegraskartering/wfs?request=GetCapabilities";
+            var mapData = new WmtsMapData(mapDataName, mapDataUrl, "capability", "image/png");
+            wmtsCapabilityFactory.Expect(wcf => wcf.GetWmtsCapabilities(mapDataUrl)).Return(new[]
+            {
+                CreateWmtsCapability(new TestWmtsTileSource(mapData))
+            });
+            mockRepository.ReplayAll();
+
+            var settingsHelper = new TestSettingsHelper
+            {
+                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath)
+            };
+            settingsHelper.SetApplicationVersion("twoValidWmtsConnectionInfos");
+
+            using (new UseCustomTileSourceFactoryConfig(tileFactory))
+            using (new UseCustomSettingsHelper(settingsHelper))
+            {
+                // When
+                using (var control = new WmtsLocationControl(mapData, wmtsCapabilityFactory))
+                using (var form = new Form())
+                {
+                    form.Controls.Add(control);
+                    form.Show();
+
+                    // Then
+                    var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
+                    var dataSource = (IList<WmtsConnectionInfo>) comboBox.DataSource;
+                    Assert.AreEqual(2, dataSource.Count);
+
+                    var firstWmtsConnectionInfo = (WmtsConnectionInfo) comboBox.Items[0];
+                    Assert.AreEqual("Actueel Hoogtebestand Nederland (AHN1)", firstWmtsConnectionInfo.Name);
+                    Assert.AreEqual("https://geodata.nationaalgeoregister.nl/tiles/service/wmts/ahn1?request=GetCapabilities",
+                                    firstWmtsConnectionInfo.Url);
+
+                    var secondWmtsConnectionInfo = (WmtsConnectionInfo) comboBox.Items[1];
+                    Assert.AreEqual(mapDataName, secondWmtsConnectionInfo.Name);
+                    Assert.AreEqual(mapDataUrl, secondWmtsConnectionInfo.Url);
+
+                    Assert.AreSame(comboBox.SelectedItem, secondWmtsConnectionInfo);
+
+                    var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", form).TheObject;
+                    Assert.AreSame(dataGridViewControl.Rows[0], dataGridViewControl.CurrentRow);
                 }
             }
         }
