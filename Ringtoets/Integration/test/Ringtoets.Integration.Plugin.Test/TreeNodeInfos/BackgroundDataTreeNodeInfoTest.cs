@@ -119,7 +119,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void ForeColor_ConnectedMapData_ReturnControlText()
         {
             WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
-            BackgroundData backgroundData = BackgroundMapDataTestDataGenerator.GetWmtsBackgroundMapData(mapData);
+            BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(mapData);
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -137,7 +137,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void ForeColor_UnconnectedMapData_ReturnGrayText()
         {
             WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
-            BackgroundData backgroundData = BackgroundMapDataTestDataGenerator.GetWmtsBackgroundMapData(mapData);
+            BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(mapData);
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -251,7 +251,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             backgroundMapDataObserver.Expect(o => o.UpdateObserver());
 
             WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
-            BackgroundData backgroundData = BackgroundMapDataTestDataGenerator.GetWmtsBackgroundMapData(mapData);
+            BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(mapData);
 
             using (var treeViewControl = new TreeViewControl())
             using (var plugin = new RingtoetsPlugin())
@@ -362,7 +362,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
 
             WmtsMapData newMapData = WmtsMapData.CreateDefaultPdokMapData();
-            var newBackgroundMapdata = BackgroundMapDataTestDataGenerator.GetWmtsBackgroundMapData(newMapData);
+            var newBackgroundMapdata = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(newMapData);
 
             var assessmentSection = new ObservableTestAssessmentSectionStub();
 
@@ -487,8 +487,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var backgroundMapDataObserver = mockRepository.StrictMock<IObserver>();
 
             WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
-            BackgroundData backgroundData = BackgroundMapDataTestDataGenerator.GetWmtsBackgroundMapData(mapData);
-            BackgroundData newBackgroundData = BackgroundMapDataTestDataGenerator.GetWmtsBackgroundMapData(WmtsMapData.CreateDefaultPdokMapData());
+            BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(mapData);
+            BackgroundData newBackgroundData = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(WmtsMapData.CreateDefaultPdokMapData());
 
             using (var treeViewControl = new TreeViewControl())
             using (var plugin = new RingtoetsPlugin())

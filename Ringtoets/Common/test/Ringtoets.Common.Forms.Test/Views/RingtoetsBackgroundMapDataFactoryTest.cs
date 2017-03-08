@@ -47,7 +47,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void CreateBackgroundMapData_BackgroundMapDataTypeWellKnown_ReturnNull()
         {
             // Setup
-            BackgroundData backgroundData = BackgroundMapDataTestDataGenerator.GetWellKnownBackgroundMapData();
+            BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData();
 
             // Call
             WmtsMapData mapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(backgroundData);
@@ -61,7 +61,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Setup
             WmtsMapData wmtsMapData = WmtsMapData.CreateDefaultPdokMapData();
-            BackgroundData backgroundData = BackgroundMapDataTestDataGenerator.GetWmtsBackgroundMapData(wmtsMapData);
+            BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(wmtsMapData);
 
             // Call
             WmtsMapData mapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(backgroundData);
@@ -81,7 +81,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Setup
             WmtsMapData wmtsMapData = WmtsMapData.CreateUnconnectedMapData();
-            BackgroundData backgroundData = BackgroundMapDataTestDataGenerator.GetWmtsBackgroundMapData(wmtsMapData);
+            BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(wmtsMapData);
 
             // Call
             WmtsMapData mapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(backgroundData);
@@ -123,7 +123,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Setup
             WmtsMapData wmtsMapData = WmtsMapData.CreateDefaultPdokMapData();
-            BackgroundData backgroundData = BackgroundMapDataTestDataGenerator.GetWellKnownBackgroundMapData();
+            BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData();
 
             string originalName = wmtsMapData.Name;
             bool originalVisibility = wmtsMapData.IsVisible;
@@ -147,7 +147,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Setup
             WmtsMapData wmtsMapData = WmtsMapData.CreateDefaultPdokMapData();
-            BackgroundData backgroundData = BackgroundMapDataTestDataGenerator.GetWmtsBackgroundMapData(wmtsMapData);
+            BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(wmtsMapData);
 
             string originalSourceCapabilitiesUrl = backgroundData.Parameters["SourceCapabilitiesUrl"];
             string originalSelectedCapabilityIdentifier = backgroundData.Parameters["SelectedCapabilityIdentifier"];
@@ -171,7 +171,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Given
             WmtsMapData wmtsMapData = WmtsMapData.CreateDefaultPdokMapData();
-            BackgroundData backgroundData = BackgroundMapDataTestDataGenerator.GetWmtsBackgroundMapData(wmtsMapData);
+            BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(wmtsMapData);
 
             // Precondition
             Assert.IsNotNull(wmtsMapData.SourceCapabilitiesUrl);

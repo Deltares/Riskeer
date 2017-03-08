@@ -54,6 +54,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="AssessmentSectionHelperTest.cs" />
+    <Compile Include="BackgroundDataTestDataGeneratorTest.cs" />
     <Compile Include="LimitedPrecisionHelperTest.cs" />
     <Compile Include="ObservableTestAssessmentSectionStubTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

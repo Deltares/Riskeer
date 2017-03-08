@@ -54,7 +54,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="AssessmentSectionHelper.cs" />
-    <Compile Include="BackgroundMapDataTestDataGenerator.cs" />
+    <Compile Include="BackgroundDataTestDataGenerator.cs" />
     <Compile Include="CalculationType.cs" />
     <Compile Include="LimitedPrecisionHelper.cs" />
     <Compile Include="DistributionAssert.cs" />

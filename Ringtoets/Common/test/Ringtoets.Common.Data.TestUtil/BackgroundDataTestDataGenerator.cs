@@ -24,7 +24,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 
 namespace Ringtoets.Common.Data.TestUtil
 {
-    public static class BackgroundMapDataTestDataGenerator
+    public static class BackgroundDataTestDataGenerator
     {
         public static BackgroundData GetWmtsBackgroundMapData(WmtsMapData wmtsMapData)
         {
