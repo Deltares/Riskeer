@@ -26,23 +26,23 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO;
 
-namespace Ringtoets.GrassCoverErosionOutwards.IO.Test
+namespace Ringtoets.StabilityStoneCover.IO.Test
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsConfigurationWriterTest
+    public class StabilityStoneCoverConfigurationWriterTest
     {
         [Test]
         public void Constructor_Always_CreateWaveConditionsInputWriter()
         {
             // Call
-            var writer = new GrassCoverErosionOutwardsConfigurationWriter();
+            var writer = new StabilityStoneCoverConfigurationWriter();
 
             // Assert
-            Assert.IsInstanceOf<WaveConditionsInputConfigurationWriter<GrassCoverErosionOutwardsWaveConditionsCalculation>>(writer);
+            Assert.IsInstanceOf<WaveConditionsInputConfigurationWriter<StabilityStoneCoverWaveConditionsCalculation>>(writer);
         }
 
         [Test]
@@ -51,10 +51,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test
             // Setup
             string filePath = TestHelper.GetScratchPadPath("Write_GroupWithCalculationAndOtherGroup.xml");
             string expectedXmlFilePath = TestHelper.GetTestDataPath(
-                TestDataPath.Ringtoets.GrassCoverErosionOutwards.IO,
-                Path.Combine(nameof(GrassCoverErosionOutwardsConfigurationWriter), "calculationAndGroupWithNesting.xml"));
+                TestDataPath.Ringtoets.StabilityStoneCover.IO,
+                Path.Combine(nameof(StabilityStoneCoverConfigurationWriter), "calculationAndGroupWithNesting.xml"));
 
-            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
                 Name = "Berekening 1",
                 InputParameters =
@@ -88,7 +88,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test
             };
             try
             {
-                var writer = new GrassCoverErosionOutwardsConfigurationWriter();
+                var writer = new StabilityStoneCoverConfigurationWriter();
 
                 // Call
                 writer.Write(rootGroup, filePath);

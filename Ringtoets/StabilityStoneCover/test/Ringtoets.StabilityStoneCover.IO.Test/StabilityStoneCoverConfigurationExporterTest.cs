@@ -26,24 +26,24 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.Exporters;
-using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.StabilityStoneCover.Data;
 
-namespace Ringtoets.GrassCoverErosionOutwards.IO.Test
+namespace Ringtoets.StabilityStoneCover.IO.Test
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsConfigurationExporterTest
+    public class StabilityStoneCoverConfigurationExporterTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var exporter = new GrassCoverErosionOutwardsConfigurationExporter(new CalculationGroup(), "test.xml");
+            var exporter = new StabilityStoneCoverConfigurationExporter(new CalculationGroup(), "test.xml");
 
             // Assert
             Assert.IsInstanceOf<
                 ConfigurationExporter<
-                    GrassCoverErosionOutwardsConfigurationWriter,
-                    GrassCoverErosionOutwardsWaveConditionsCalculation>>(exporter);
+                    StabilityStoneCoverConfigurationWriter,
+                    StabilityStoneCoverWaveConditionsCalculation>>(exporter);
         }
 
         [Test]
@@ -52,7 +52,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test
             // Setup
             string filePath = TestHelper.GetScratchPadPath($"{nameof(Export_ValidData_ReturnTrueAndWritesFile)}.xml");
 
-            var calculation1 = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            var calculation1 = new StabilityStoneCoverWaveConditionsCalculation
             {
                 Name = "Calculation A",
                 InputParameters =
@@ -61,7 +61,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test
                 }
             };
 
-            var calculation2 = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            var calculation2 = new StabilityStoneCoverWaveConditionsCalculation
             {
                 Name = "PK001_0002 W1-6_4_1D1",
                 InputParameters =
@@ -96,7 +96,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test
                 }
             };
 
-            var exporter = new GrassCoverErosionOutwardsConfigurationExporter(rootGroup, filePath);
+            var exporter = new StabilityStoneCoverConfigurationExporter(rootGroup, filePath);
 
             try
             {
@@ -108,8 +108,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test
                 Assert.IsTrue(File.Exists(filePath));
 
                 string actualXml = File.ReadAllText(filePath);
-                string testDirSubPath = Path.Combine(nameof(GrassCoverErosionOutwardsConfigurationExporter), "fullValidConfiguration.xml");
-                string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionOutwards.IO,
+                string testDirSubPath = Path.Combine(nameof(StabilityStoneCoverConfigurationExporter), "fullValidConfiguration.xml");
+                string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.StabilityStoneCover.IO,
                                                                         testDirSubPath);
                 string expectedXml = File.ReadAllText(expectedXmlFilePath);
 

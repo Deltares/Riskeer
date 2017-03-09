@@ -22,24 +22,24 @@
 using System;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.IO.Exporters;
-using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.StabilityStoneCover.Data;
 
-namespace Ringtoets.GrassCoverErosionOutwards.IO
+namespace Ringtoets.StabilityStoneCover.IO
 {
     /// <summary>
-    /// Exports a grass cover erosion outwards configuration and stores it as an XML file.
+    /// Exports a stability stone cover configuration and stores it as an XML file.
     /// </summary>
-    public class GrassCoverErosionOutwardsConfigurationExporter
-        : ConfigurationExporter<GrassCoverErosionOutwardsConfigurationWriter, GrassCoverErosionOutwardsWaveConditionsCalculation>
+    public class StabilityStoneCoverConfigurationExporter
+        : ConfigurationExporter<StabilityStoneCoverConfigurationWriter, StabilityStoneCoverWaveConditionsCalculation>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsConfigurationExporter"/>.
+        /// Creates a new instance of <see cref="StabilityStoneCoverConfigurationExporter"/>.
         /// </summary>
         /// <param name="calculationGroup">The calculation group to export.</param>
         /// <param name="filePath">The path of the XML file to export to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationGroup"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        public GrassCoverErosionOutwardsConfigurationExporter(CalculationGroup calculationGroup, string filePath)
+        public StabilityStoneCoverConfigurationExporter(CalculationGroup calculationGroup, string filePath)
             : base(calculationGroup, filePath) {}
     }
 }
