@@ -109,15 +109,6 @@ namespace Demo.Ringtoets.Commands
         private static void InitializeBackgroundMapData(AssessmentSection demoAssessmentSection)
         {
             WmtsMapData targetConfiguration = WmtsMapData.CreateDefaultPdokMapData();
-            demoAssessmentSection.BackgroundMapData.IsVisible = targetConfiguration.IsVisible;
-            demoAssessmentSection.BackgroundMapData.Transparency = targetConfiguration.Transparency;
-
-            var backgroundMapData = (WmtsMapData) demoAssessmentSection.BackgroundMapData.MapData;
-            backgroundMapData.Name = targetConfiguration.Name;
-            backgroundMapData.Configure(targetConfiguration.SourceCapabilitiesUrl,
-                                        targetConfiguration.SelectedCapabilityIdentifier,
-                                        targetConfiguration.PreferredFormat);
-
             demoAssessmentSection.BackgroundData.Name = targetConfiguration.Name;
             demoAssessmentSection.BackgroundData.BackgroundMapDataType = BackgroundMapDataType.Wmts;
             demoAssessmentSection.BackgroundData.IsVisible = targetConfiguration.IsVisible;

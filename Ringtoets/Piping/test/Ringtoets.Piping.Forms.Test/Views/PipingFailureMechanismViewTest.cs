@@ -193,10 +193,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
             var assessmentSection = new ObservableTestAssessmentSectionStub
             {
-                BackgroundMapData =
-                {
-                    MapData = backgroundMapData
-                }
+                BackgroundData = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(backgroundMapData)
             };
 
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))

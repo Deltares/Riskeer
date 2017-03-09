@@ -62,12 +62,6 @@ namespace Ringtoets.Integration.Data
             Comments = new Comment();
 
             WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
-            BackgroundMapData = new BackgroundMapDataContainer
-            {
-                IsVisible = mapData.IsVisible,
-                Transparency = mapData.Transparency,
-                MapData = mapData
-            };
 
             BackgroundData = new BackgroundData
             {
@@ -219,8 +213,6 @@ namespace Ringtoets.Integration.Data
         public FailureMechanismContribution FailureMechanismContribution { get; private set; }
 
         public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; set; }
-
-        public BackgroundMapDataContainer BackgroundMapData { get; }
 
         public BackgroundData BackgroundData { get; }
 

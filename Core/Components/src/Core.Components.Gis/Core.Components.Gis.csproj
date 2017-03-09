@@ -40,7 +40,6 @@
     <Compile Include="..\..\..\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="BackgroundMapDataContainer.cs" />
     <Compile Include="Data\ImageBasedMapData.cs" />
     <Compile Include="Data\MapData.cs" />
     <Compile Include="Data\MapDataCollection.cs" />

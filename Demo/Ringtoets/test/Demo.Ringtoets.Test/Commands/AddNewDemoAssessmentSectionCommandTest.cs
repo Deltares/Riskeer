@@ -34,6 +34,7 @@ using Demo.Ringtoets.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probabilistics;
@@ -102,16 +103,14 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual("Demo traject", demoAssessmentSection.Name);
             Assert.AreEqual("6-3", demoAssessmentSection.Id);
 
-            Assert.IsTrue(demoAssessmentSection.BackgroundMapData.IsVisible);
-            Assert.AreEqual(0.0, demoAssessmentSection.BackgroundMapData.Transparency.Value);
+            Assert.IsTrue(demoAssessmentSection.BackgroundData.IsVisible);
+            Assert.AreEqual(0.0, demoAssessmentSection.BackgroundData.Transparency.Value);
 
-            var mapData = (WmtsMapData)demoAssessmentSection.BackgroundMapData.MapData;
-            Assert.IsTrue(mapData.IsConfigured);
             WmtsMapData expectedWmtsMapData = WmtsMapData.CreateDefaultPdokMapData();
-            Assert.AreEqual(expectedWmtsMapData.Name, mapData.Name);
-            Assert.AreEqual(expectedWmtsMapData.SourceCapabilitiesUrl, mapData.SourceCapabilitiesUrl);
-            Assert.AreEqual(expectedWmtsMapData.SelectedCapabilityIdentifier, mapData.SelectedCapabilityIdentifier);
-            Assert.AreEqual(expectedWmtsMapData.PreferredFormat, mapData.PreferredFormat);
+            Assert.AreEqual(expectedWmtsMapData.Name, demoAssessmentSection.BackgroundData.Name);
+            Assert.AreEqual(expectedWmtsMapData.SourceCapabilitiesUrl, demoAssessmentSection.BackgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl]);
+            Assert.AreEqual(expectedWmtsMapData.SelectedCapabilityIdentifier, demoAssessmentSection.BackgroundData.Parameters[BackgroundDataIdentifiers.SelectedCapabilityIdentifier]);
+            Assert.AreEqual(expectedWmtsMapData.PreferredFormat, demoAssessmentSection.BackgroundData.Parameters[BackgroundDataIdentifiers.PreferredFormat]);
 
             AssertHydraulicBoundaryDatabase(demoAssessmentSection);
 

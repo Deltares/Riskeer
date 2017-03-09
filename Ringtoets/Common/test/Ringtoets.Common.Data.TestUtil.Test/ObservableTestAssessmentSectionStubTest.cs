@@ -49,7 +49,6 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreEqual(0, Convert.ToInt32(assessmentSection.Composition));
             Assert.IsNull(assessmentSection.ReferenceLine);
             Assert.IsNull(assessmentSection.HydraulicBoundaryDatabase);
-            Assert.IsNull(assessmentSection.BackgroundMapData.MapData);
             Assert.IsNotNull(assessmentSection.BackgroundData);
             Assert.AreEqual("Background data", assessmentSection.BackgroundData.Name);
 
