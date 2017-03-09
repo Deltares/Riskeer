@@ -155,6 +155,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
         {
             yield return new ExportInfo<WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext>
             {
+                Name = RingtoetsCommonFormsResources.WaveConditionsExporter_DisplayName,
                 CreateFileExporter = (context, filePath) =>
                 {
                     var calculations = context.WrappedData.GetCalculations().Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>();
@@ -163,6 +164,18 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                 IsEnabled = context => context.WrappedData.GetCalculations().Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>().Any(c => c.HasOutput),
                 FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
                                                               RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
+            };
+
+            yield return new ExportInfo<WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext>
+            {
+                Name = RingtoetsCommonFormsResources.ConfigurationExporter_DisplayName,
+                CreateFileExporter = (context, filePath) =>
+                {
+                    return new WaveImpactAsphaltCoverConfigurationExporter(context.WrappedData, filePath);
+                },
+                IsEnabled = context => context.WrappedData.Children.Any(),
+                FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Extension,
+                                                              RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Description)
             };
 
             yield return new ExportInfo<WaveImpactAsphaltCoverWaveConditionsCalculationContext>

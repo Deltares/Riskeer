@@ -132,8 +132,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test
                 ExportInfo[] exportInfos = plugin.GetExportInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(2, exportInfos.Length);
-                Assert.IsTrue(exportInfos.Any(ei => ei.DataType == typeof(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext)));
+                Assert.AreEqual(3, exportInfos.Length);
+                Assert.AreEqual(2, exportInfos.Count(ei => ei.DataType == typeof(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext)));
                 Assert.IsTrue(exportInfos.Any(ei => ei.DataType == typeof(WaveImpactAsphaltCoverWaveConditionsCalculationContext)));
             }
         }

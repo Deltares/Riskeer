@@ -63,6 +63,8 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="ExportInfos\WaveImpactAsphaltCoverWaveConditionsCalculationContextExportInfoTest.cs" />
+    <Compile Include="ExportInfos\WaveImpactAsphaltCoverWaveConditionsCalculationGroupContextExportInfoTest.cs" />
     <Compile Include="PropertyInfos\WaveImpactAsphaltCoverFailureMechanismContextPropertyInfoTest.cs" />
     <Compile Include="TreeNodeInfos\EmptyWaveImpactAsphaltCoverOutputTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\WaveImpactAsphaltCoverFailureMechanismContextTreeNodeInfoTest.cs" />
@@ -136,6 +138,14 @@
       <Project>{AF1ACFA2-AEE5-4DB7-98CA-8B3720E46AD9}</Project>
       <Name>Ringtoets.Revetment.Forms</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.IO\Ringtoets.Revetment.IO.csproj">
+      <Project>{E3347B16-BB18-41C1-8D34-FBCBF20DB695}</Project>
+      <Name>Ringtoets.Revetment.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Revetment\test\Ringtoets.Revetment.Data.TestUtil\Ringtoets.Revetment.Data.TestUtil.csproj">
+      <Project>{3706200E-48C6-4B86-B48C-4E45C69ABE95}</Project>
+      <Name>Ringtoets.Revetment.Data.TestUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.WaveImpactAsphaltCover.Data\Ringtoets.WaveImpactAsphaltCover.Data.csproj">
       <Project>{567E0B69-5280-41CE-ADD6-443725A61C86}</Project>
       <Name>Ringtoets.WaveImpactAsphaltCover.Data</Name>
@@ -143,6 +153,10 @@
     <ProjectReference Include="..\..\src\Ringtoets.WaveImpactAsphaltCover.Forms\Ringtoets.WaveImpactAsphaltCover.Forms.csproj">
       <Project>{1AC97B51-88C2-437D-89E6-65C69AB3CCAD}</Project>
       <Name>Ringtoets.WaveImpactAsphaltCover.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.WaveImpactAsphaltCover.IO\Ringtoets.WaveImpactAsphaltCover.IO.csproj">
+      <Project>{B388D2BA-FC6E-4EE2-B9B5-38D35F340FF5}</Project>
+      <Name>Ringtoets.WaveImpactAsphaltCover.IO</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.WaveImpactAsphaltCover.Plugin\Ringtoets.WaveImpactAsphaltCover.Plugin.csproj">
       <Project>{83A782F1-BA78-4D5C-B213-39066605AFD8}</Project>

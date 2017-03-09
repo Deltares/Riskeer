@@ -75,8 +75,6 @@
     </Compile>
     <Compile Include="ExportInfos\HydraulicBoundaryDatabaseContextExportInfoTest.cs" />
     <Compile Include="ExportInfos\ReferenceLineContextExportInfoTest.cs" />
-    <Compile Include="ExportInfos\WaveImpactAsphaltCoverWaveConditionsCalculationContextExportInfoTest.cs" />
-    <Compile Include="ExportInfos\WaveImpactAsphaltCoverWaveConditionsCalculationGroupContextExportInfoTest.cs" />
     <Compile Include="Handlers\AssessmentSectionCompositionChangeHandlerTest.cs" />
     <Compile Include="Handlers\FailureMechanismContributionNormChangeHandlerTest.cs" />
     <Compile Include="Handlers\ReferenceLineReplacementHandlerTest.cs" />
