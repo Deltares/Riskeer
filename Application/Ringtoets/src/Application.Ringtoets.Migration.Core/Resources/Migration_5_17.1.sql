@@ -200,15 +200,19 @@ INSERT INTO DuneErosionFailureMechanismMetaEntity (
 SELECT FailureMechanismEntityId,
 		2.0 
 		FROM FailureMechanismEntity WHERE FailureMechanismType = 8;
-INSERT INTO BackgroundMapDataEntity (
+INSERT INTO BackgroundDataEntity (
 		[AssessmentSectionEntityId],
 		[Name],
 		[IsVisible],
-		[Transparency])
+		[Transparency],
+		[IsConfigured],
+		[BackgroundDataType])
 SELECT AssessmentSectionEntityId,
 		"<niet bepaald>",
 		0,
-		0.0
+		0.0,
+		0,
+		0
 		FROM AssessmentSectionEntity;
 
 DETACH SOURCEPROJECT;
