@@ -75,6 +75,7 @@ namespace Core.Common.Gui.Test
         public void GetSourceFileLocation_Always_ShowsOpenFileDialog()
         {
             // Setup
+            dialogParent.Expect(d => d.Handle).Repeat.AtLeastOnce().Return(default(IntPtr));
             mocks.ReplayAll();
 
             var helper = new DialogBasedInquiryHelper(dialogParent);
@@ -99,6 +100,7 @@ namespace Core.Common.Gui.Test
         public void GetSourceFileLocation_CancelClicked_ResultFileSelectedIsFalse()
         {
             // Setup
+            dialogParent.Expect(d => d.Handle).Repeat.AtLeastOnce().Return(default(IntPtr));
             mocks.ReplayAll();
 
             var helper = new DialogBasedInquiryHelper(dialogParent);
@@ -121,6 +123,7 @@ namespace Core.Common.Gui.Test
         public void GetSourceFileLocation_ExistingFileSelected_ResultFileSelectedIsTrueFileNameSet()
         {
             // Setup
+            dialogParent.Expect(d => d.Handle).Repeat.AtLeastOnce().Return(default(IntPtr));
             mocks.ReplayAll();
 
             var helper = new DialogBasedInquiryHelper(dialogParent);
@@ -147,6 +150,7 @@ namespace Core.Common.Gui.Test
         public void GetTargetFileLocation_Always_ShowsOpenFileDialog()
         {
             // Setup
+            dialogParent.Expect(d => d.Handle).Repeat.AtLeastOnce().Return(default(IntPtr));
             mocks.ReplayAll();
 
             var helper = new DialogBasedInquiryHelper(dialogParent);
@@ -171,6 +175,7 @@ namespace Core.Common.Gui.Test
         public void GetTargetFileLocation_CancelClicked_ResultFileSelectedIsFalse()
         {
             // Setup
+            dialogParent.Expect(d => d.Handle).Repeat.AtLeastOnce().Return(default(IntPtr));
             mocks.ReplayAll();
 
             var helper = new DialogBasedInquiryHelper(dialogParent);
@@ -193,6 +198,7 @@ namespace Core.Common.Gui.Test
         public void GetTargetFileLocation_FileSelected_ResultFileSelectedIsTrueFileNameSet()
         {
             // Setup
+            dialogParent.Expect(d => d.Handle).Repeat.AtLeastOnce().Return(default(IntPtr));
             mocks.ReplayAll();
 
             var helper = new DialogBasedInquiryHelper(dialogParent);

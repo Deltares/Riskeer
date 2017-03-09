@@ -57,14 +57,14 @@ namespace Core.Common.Gui
         public string GetSourceFileLocation(FileFilterGenerator filter)
         {
             string filePath = null;
-            using (OpenFileDialog dialog = new OpenFileDialog
+            using (var dialog = new OpenFileDialog
             {
                 Multiselect = false,
                 Title = Resources.OpenFileDialog_Title,
                 Filter = filter.Filter
             })
             {
-                DialogResult result = dialog.ShowDialog();
+                DialogResult result = dialog.ShowDialog(dialogParent);
                 if (result == DialogResult.OK)
                 {
                     filePath = dialog.FileName;
@@ -81,14 +81,14 @@ namespace Core.Common.Gui
         public string GetTargetFileLocation(FileFilterGenerator filter, string suggestedFileName)
         {
             string filePath = null;
-            using (SaveFileDialog dialog = new SaveFileDialog
+            using (var dialog = new SaveFileDialog
             {
                 Title = Resources.SaveFileDialog_Title,
                 Filter = filter.Filter,
                 FileName = suggestedFileName
             })
             {
-                DialogResult result = dialog.ShowDialog();
+                DialogResult result = dialog.ShowDialog(dialogParent);
                 if (result == DialogResult.OK)
                 {
                     filePath = dialog.FileName;

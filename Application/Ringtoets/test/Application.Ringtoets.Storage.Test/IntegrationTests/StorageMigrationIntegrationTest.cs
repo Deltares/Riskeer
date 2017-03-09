@@ -22,6 +22,7 @@
 using System;
 using System.IO;
 using System.Threading;
+using Application.Ringtoets.Migration;
 using Application.Ringtoets.Migration.Core;
 using Core.Common.Base.Storage;
 using Core.Common.Gui;
@@ -73,6 +74,79 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
                 mocks.VerifyAll();
             }
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenRingtoetsGui_WhenRunWithUnmigratedFileAndInquireContinuation_MigratedProjectSet()
+        {
+            // Given
+            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "FullTestProject164.rtd");
+            string targetFilePath = TestHelper.GetScratchPadPath(nameof(GivenRingtoetsGui_WhenRunWithUnmigratedFileAndInquireContinuation_MigratedProjectSet));
+            using (new FileDisposeHelper(targetFilePath))
+            {
+                var projectStore = new StorageSqLite();
+
+                var mocks = new MockRepository();
+                var inquiryHelper = mocks.Stub<IInquiryHelper>();
+                inquiryHelper.Expect(helper => helper.InquireContinuation(null))
+                             .IgnoreArguments()
+                             .Return(true);
+                inquiryHelper.Expect(helper => helper.GetTargetFileLocation(null, null))
+                             .IgnoreArguments()
+                             .Return(targetFilePath);
+                mocks.ReplayAll();
+
+                var projectMigrator = new RingtoetsProjectMigrator(inquiryHelper);
+
+                using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RingtoetsProjectFactory(), new GuiCoreSettings()))
+                {
+                    // When
+                    gui.Run(sourceFilePath);
+
+                    // Then
+                    Assert.AreEqual(targetFilePath, gui.ProjectFilePath);
+                    string expectedProjectName = Path.GetFileNameWithoutExtension(targetFilePath);
+                    Assert.AreEqual(expectedProjectName, gui.Project.Name);
+                    Assert.AreEqual("description", gui.Project.Description);
+                    Assert.IsInstanceOf<RingtoetsProject>(gui.Project);
+                }
+                GC.WaitForPendingFinalizers();
+
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenRingtoetsGui_WhenRunWithUnmigratedFileAndNoInquireContinuation_MigratedProjectSet()
+        {
+            // Given
+            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "FullTestProject164.rtd");
+            var projectStore = new StorageSqLite();
+
+            var mocks = new MockRepository();
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            inquiryHelper.Expect(helper => helper.InquireContinuation(null))
+                         .IgnoreArguments()
+                         .Return(false);
+            mocks.ReplayAll();
+
+            var projectMigrator = new RingtoetsProjectMigrator(inquiryHelper);
+
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RingtoetsProjectFactory(), new GuiCoreSettings()))
+            {
+                // When
+                gui.Run(sourceFilePath);
+
+                // Then
+                Assert.IsNull(gui.ProjectFilePath);
+                Assert.AreEqual("Project", gui.Project.Name);
+                Assert.IsEmpty(gui.Project.Description);
+            }
+            GC.WaitForPendingFinalizers();
+
+            mocks.VerifyAll();
         }
 
         private static void MigrateFile(string sourceFilePath, string targetFilePath)

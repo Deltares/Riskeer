@@ -535,10 +535,10 @@ namespace Core.Common.Gui.Test
                 // Assert
                 var expectedMessages = new[]
                 {
-                    "Openen van bestaand Ringtoetsproject...",
-                    "Bestaand Ringtoetsproject succesvol geopend."
+                    Tuple.Create("Openen van bestaand Ringtoetsproject...", LogLevelConstant.Info),
+                    Tuple.Create("Bestaand Ringtoetsproject succesvol geopend.", LogLevelConstant.Info)
                 };
-                TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
+                TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages);
                 Assert.AreEqual(testFile, gui.ProjectFilePath);
                 Assert.AreSame(deserializedProject, gui.Project);
                 Assert.AreEqual(fileName, gui.Project.Name,
@@ -587,10 +587,10 @@ namespace Core.Common.Gui.Test
                 // Assert
                 var expectedMessages = new[]
                 {
-                    "Openen van bestaand Ringtoetsproject...",
-                    "Het is niet gelukt om het Ringtoetsproject te laden.",
+                    Tuple.Create("Openen van bestaand Ringtoetsproject...", LogLevelConstant.Info),
+                    Tuple.Create("Het is niet gelukt om het Ringtoetsproject te laden.", LogLevelConstant.Error)
                 };
-                TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
+                TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages);
 
                 Assert.IsNull(gui.ProjectFilePath);
                 var expectedTitle = $"{expectedProjectName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
@@ -638,11 +638,11 @@ namespace Core.Common.Gui.Test
                 // Assert
                 var expectedMessages = new[]
                 {
-                    "Openen van bestaand Ringtoetsproject...",
-                    expectedErrorMessage,
-                    "Het is niet gelukt om het Ringtoetsproject te laden.",
+                    Tuple.Create("Openen van bestaand Ringtoetsproject...", LogLevelConstant.Info),
+                    Tuple.Create(expectedErrorMessage, LogLevelConstant.Error),
+                    Tuple.Create("Het is niet gelukt om het Ringtoetsproject te laden.", LogLevelConstant.Error)
                 };
-                TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
+                TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages);
 
                 Assert.IsNull(gui.ProjectFilePath);
                 var expectedTitle = $"{expectedProjectName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
@@ -693,11 +693,11 @@ namespace Core.Common.Gui.Test
                 // Assert
                 var expectedMessages = new[]
                 {
-                    "Openen van bestaand Ringtoetsproject...",
-                    expectedErrorMessage,
-                    "Het is niet gelukt om het Ringtoetsproject te laden.",
+                    Tuple.Create("Openen van bestaand Ringtoetsproject...", LogLevelConstant.Info),
+                    Tuple.Create(expectedErrorMessage, LogLevelConstant.Error),
+                    Tuple.Create("Het is niet gelukt om het Ringtoetsproject te laden.", LogLevelConstant.Error)
                 };
-                TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
+                TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages);
 
                 Assert.IsNull(gui.ProjectFilePath);
                 var expectedTitle = $"{expectedProjectName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
@@ -743,11 +743,11 @@ namespace Core.Common.Gui.Test
                 // Assert
                 var expectedMessages = new[]
                 {
-                    "Openen van bestaand Ringtoetsproject...",
-                    storageExceptionText,
-                    "Het is niet gelukt om het Ringtoetsproject te laden.",
+                    Tuple.Create("Openen van bestaand Ringtoetsproject...", LogLevelConstant.Info),
+                    Tuple.Create(storageExceptionText, LogLevelConstant.Error),
+                    Tuple.Create("Het is niet gelukt om het Ringtoetsproject te laden.", LogLevelConstant.Error)
                 };
-                TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
+                TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages);
 
                 Assert.IsNull(gui.ProjectFilePath);
                 var expectedTitle = $"{expectedProjectName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
@@ -879,7 +879,8 @@ namespace Core.Common.Gui.Test
 
                 // Assert
                 var expectedMessage = "Kritieke fout opgetreden tijdens deactivering van de grafische interface plugin.";
-                TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
+                Tuple<string, LogLevelConstant> expectedMessageAndLogLevel = Tuple.Create(expectedMessage, LogLevelConstant.Error);
+                TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessageAndLogLevel);
             }
             mocks.VerifyAll(); // Expect Dispose call on plugin
         }
