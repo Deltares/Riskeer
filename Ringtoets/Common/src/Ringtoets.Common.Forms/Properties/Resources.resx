@@ -926,4 +926,10 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="FailureMechanism_IsRelevant_DisplayName" xml:space="preserve">
     <value>Is relevant</value>
   </data>
+  <data name="DataTypeDisplayName_xml_file_filter_Extension" xml:space="preserve">
+    <value>xml</value>
+  </data>
+  <data name="DataTypeDisplayName_xml_file_filter_Description" xml:space="preserve">
+    <value>Ringtoets berekeningenconfiguratie</value>
+  </data>
 </root>

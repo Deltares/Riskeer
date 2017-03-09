@@ -123,7 +123,7 @@ namespace Ringtoets.Piping.Plugin
 
             yield return new ImportInfo<PipingCalculationGroupContext>
             {
-                Name = Resources.PipingPlugin_PipingConfigurationFileFilter_description,
+                Name = RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Description,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = RingtoetsCommonFormsResources.GeneralFolderIcon,
                 FileFilterGenerator = PipingConfigurationFileFilter,
@@ -350,8 +350,8 @@ namespace Ringtoets.Piping.Plugin
         {
             get
             {
-                return new FileFilterGenerator(Resources.PipingPlugin_PipingConfigurationFileFilter_xml_extension,
-                                               Resources.PipingPlugin_PipingConfigurationFileFilter_description);
+                return new FileFilterGenerator(RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Extension,
+                                               RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Description);
             }
         }
 

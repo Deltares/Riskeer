@@ -167,6 +167,10 @@
       <Project>{41B829C1-630F-40B0-8BEE-B1C4C94EC8C4}</Project>
       <Name>Ringtoets.GrassCoverErosionOutwards.Forms</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.GrassCoverErosionOutwards.IO\Ringtoets.GrassCoverErosionOutwards.IO.csproj">
+      <Project>{6EAEEC05-E564-45FC-AE7E-912F3612CC9D}</Project>
+      <Name>Ringtoets.GrassCoverErosionOutwards.IO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.GrassCoverErosionOutwards.Plugin\Ringtoets.GrassCoverErosionOutwards.Plugin.csproj">
       <Project>{9B3ED064-E29F-4D38-85E0-3A82B77BA702}</Project>
       <Name>Ringtoets.GrassCoverErosionOutwards.Plugin</Name>

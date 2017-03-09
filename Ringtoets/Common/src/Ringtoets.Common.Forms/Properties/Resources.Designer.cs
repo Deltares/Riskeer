@@ -729,6 +729,24 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ringtoets berekeningenconfiguratie.
+        /// </summary>
+        public static string DataTypeDisplayName_xml_file_filter_Description {
+            get {
+                return ResourceManager.GetString("DataTypeDisplayName_xml_file_filter_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to xml.
+        /// </summary>
+        public static string DataTypeDisplayName_xml_file_filter_Extension {
+            get {
+                return ResourceManager.GetString("DataTypeDisplayName_xml_file_filter_Extension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dijkhoogte [m+NAP].
         /// </summary>
         public static string DikeHeight_DisplayName {

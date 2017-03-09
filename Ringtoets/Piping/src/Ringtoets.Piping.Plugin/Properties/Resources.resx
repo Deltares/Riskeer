@@ -227,12 +227,6 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="RingtoetsPipingSurfaceLineUpdateDataStrategy_UpdateSurfaceLinesWithImportedData_Update_of_RingtoetsPipingSurfaceLine_has_failed" xml:space="preserve">
     <value>Het bijwerken van de profielschematisaties is mislukt.</value>
   </data>
-  <data name="PipingPlugin_PipingConfigurationFileFilter_xml_extension" xml:space="preserve">
-    <value>xml</value>
-  </data>
-  <data name="PipingPlugin_PipingConfigurationFileFilter_description" xml:space="preserve">
-    <value>Ringtoets berekeningenconfiguratie</value>
-  </data>
   <data name="PipingPlugin_VerifyRingtoetsPipingSurfaceLineUpdates_When_updating_surfacelines_definitions_assigned_to_calculation_output_will_be_cleared_confirm" xml:space="preserve">
     <value>Als profielschematisaties wijzigen door het bijwerken, dan worden de resultaten van berekeningen die deze profielschematisaties gebruiken verwijderd.
 
