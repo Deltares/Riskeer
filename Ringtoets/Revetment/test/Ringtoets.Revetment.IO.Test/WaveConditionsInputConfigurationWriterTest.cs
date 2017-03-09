@@ -28,7 +28,6 @@ using NUnit.Framework;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.Writers;
 using Ringtoets.Revetment.Data;
@@ -74,22 +73,23 @@ namespace Ringtoets.Revetment.IO.Test
                     UseBreakWater = true,
                     BreakWater =
                     {
-                        Height = (RoundedDouble) 1.234,
+                        Height = (RoundedDouble) 1.23,
                         Type = BreakWaterType.Dam
                     }
                 }
             };
 
-            // Call
             try
             {
-                using (XmlWriter writer = XmlWriter.Create(filePath, new XmlWriterSettings
+                using (XmlWriter xmlWriter = XmlWriter.Create(filePath, new XmlWriterSettings
                 {
                     Indent = true
                 }))
                 {
+                    var writer = new SimpleWaveConditionsInputConfigurationWriter();
+
                     // Call
-                    new SimpleWaveConditionsInputConfigurationWriter().PublicWriteCalculation(calculation, writer);
+                    writer.PublicWriteCalculation(calculation, xmlWriter);
                 }
 
                 // Assert
@@ -102,8 +102,6 @@ namespace Ringtoets.Revetment.IO.Test
             {
                 File.Delete(filePath);
             }
-
-            // Assert
         }
     }
 

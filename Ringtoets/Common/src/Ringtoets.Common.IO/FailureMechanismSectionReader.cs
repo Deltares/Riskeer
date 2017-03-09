@@ -30,7 +30,6 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.IO.Readers;
 using Ringtoets.Common.Data.FailureMechanism;
-using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.Common.IO

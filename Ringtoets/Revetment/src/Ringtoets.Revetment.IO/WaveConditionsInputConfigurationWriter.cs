@@ -103,11 +103,11 @@ namespace Ringtoets.Revetment.IO
             switch (type)
             {
                 case BreakWaterType.Caisson:
-                    return "caisson";
+                    return WaveConditionsInputConfigurationSchemaIdentifiers.BreakWaterCaisson;
                 case BreakWaterType.Dam:
-                    return "havendam";
+                    return WaveConditionsInputConfigurationSchemaIdentifiers.BreakWaterDam;
                 case BreakWaterType.Wall:
-                    return "verticalewand";
+                    return WaveConditionsInputConfigurationSchemaIdentifiers.BreakWaterWall;
                 default:
                     throw new InvalidEnumArgumentException(nameof(type), (int) type, typeof(BreakWaterType));
             }

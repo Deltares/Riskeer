@@ -90,5 +90,24 @@ namespace Ringtoets.Revetment.IO
         /// The tag of elements containing the value indicating whether to use break water.
         /// </summary>
         internal const string UseForeshore = "voorlandgebruiken";
+
+        /// <summary>
+        /// The possible content of the <see cref="BreakWaterType"/> element indicating a
+        /// caisson type of break water.
+        /// </summary>
+        internal const string BreakWaterCaisson = "caisson";
+
+        /// <summary>
+        /// The possible content of the <see cref="BreakWaterType"/> element indicating a
+        /// dam type of break water.
+        /// </summary>
+        internal const string BreakWaterDam = "havendam";
+
+        /// <summary>
+        /// The possible content of the <see cref="BreakWaterType"/> element indicating a
+        /// wall type of break water.
+        /// </summary>
+        internal const string BreakWaterWall = "verticalewand";
+
     }
 }
