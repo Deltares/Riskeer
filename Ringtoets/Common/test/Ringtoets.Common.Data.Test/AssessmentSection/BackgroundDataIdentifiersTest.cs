@@ -33,6 +33,7 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
             Assert.AreEqual("SourceCapabilitiesUrl", BackgroundDataIdentifiers.SourceCapabilitiesUrl);
             Assert.AreEqual("SelectedCapabilityIdentifier", BackgroundDataIdentifiers.SelectedCapabilityIdentifier);
             Assert.AreEqual("PreferredFormat", BackgroundDataIdentifiers.PreferredFormat);
+            Assert.AreEqual("WellKnownTileSource", BackgroundDataIdentifiers.WellKnownTileSource);
         }
     }
 }

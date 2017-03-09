@@ -46,7 +46,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Read_WithEntity_ReturnBackgroundData()
+        public void Read_EntityWithWmtsData_ReturnBackgroundData()
         {
             // Setup
             const string name = "map data";
@@ -56,7 +56,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             const bool isVisible = false;
             const double transparancy = 0.4;
             const bool isConfigured = true;
-            const BackgroundMapDataType backgroundMapDataType = BackgroundMapDataType.Wmts;
+
+            BackgroundMapDataType backgroundMapDataType = BackgroundMapDataType.Wmts;
 
             var entity = new BackgroundDataEntity
             {
@@ -101,6 +102,48 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
+        public void Read_EntityWithWellKnownData_ReturnBackgroundData()
+        {
+            // Setup
+            const string name = "map data";
+            const bool isVisible = false;
+            const double transparancy = 0.4;
+            const bool isConfigured = true;
+
+            BackgroundMapDataType backgroundMapDataType = BackgroundMapDataType.WellKnown;
+            var enumNumber = (int) backgroundMapDataType;
+
+            var entity = new BackgroundDataEntity
+            {
+                Name = name,
+                BackgroundDataMetaEntities = new List<BackgroundDataMetaEntity>
+                {
+                    new BackgroundDataMetaEntity
+                    {
+                        Key = BackgroundDataIdentifiers.WellKnownTileSource,
+                        Value = enumNumber.ToString()
+                    }
+                },
+                IsVisible = Convert.ToByte(isVisible),
+                Transparency = transparancy,
+                IsConfigured = Convert.ToByte(isConfigured),
+                BackgroundDataType = Convert.ToByte(backgroundMapDataType)
+            };
+
+            // Call
+             BackgroundData backgroundData = entity.Read();
+
+            // Assert
+            Assert.AreEqual(isVisible, backgroundData.IsVisible);
+            Assert.AreEqual(transparancy, backgroundData.Transparency.Value);
+
+            Assert.AreEqual(name, backgroundData.Name);
+            Assert.AreEqual(enumNumber, Convert.ToInt32(backgroundData.Parameters[BackgroundDataIdentifiers.WellKnownTileSource]));
+            Assert.AreEqual(isConfigured, backgroundData.IsConfigured);
+            Assert.AreEqual(backgroundMapDataType, backgroundData.BackgroundMapDataType);
+        }
+
+        [Test]
         public void Read_IsConfiguredFalse_NoParametersAdded()
         {
             // Setup
@@ -138,33 +181,72 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Read_BackgroundDataMetaEntityKeyNotValid_MetaDataNotAddedToBackgroundData()
+        [TestCase(BackgroundMapDataType.Wmts)]
+        [TestCase(BackgroundMapDataType.WellKnown)]
+        public void Read_BackgroundDataMetaEntityKeyNotValid_MetaDataNotAddedToBackgroundData(BackgroundMapDataType backgroundMapDataType)
         {
             // Setup
+            const string invalidKey = "some key";
+
             var entity = new BackgroundDataEntity
             {
                 BackgroundDataMetaEntities = new List<BackgroundDataMetaEntity>
                 {
                     new BackgroundDataMetaEntity
                     {
-                        Key = "some key",
+                        Key = invalidKey,
                         Value = "//url"
                     },
                     new BackgroundDataMetaEntity
                     {
                         Key = BackgroundDataIdentifiers.SelectedCapabilityIdentifier,
-                        Value = "capability name"
+                        Value = "SelectedCapabilityIdentifier"
+                    },
+                    new BackgroundDataMetaEntity
+                    {
+                        Key = BackgroundDataIdentifiers.SourceCapabilitiesUrl,
+                        Value = "SourceCapabilitiesUrl"
+                    },
+                    new BackgroundDataMetaEntity
+                    {
+                        Key = BackgroundDataIdentifiers.PreferredFormat,
+                        Value = "PreferredFormat"
+                    },
+                    new BackgroundDataMetaEntity
+                    {
+                        Key = BackgroundDataIdentifiers.WellKnownTileSource,
+                        Value = "WellKnownTileSource"
                     }
                 },
-                IsConfigured = Convert.ToByte(true)
+                IsConfigured = Convert.ToByte(true),
+                BackgroundDataType = Convert.ToByte(backgroundMapDataType)
             };
 
             // Call
             BackgroundData backgroundData = entity.Read();
 
             // Assert
-            Assert.AreEqual(1, backgroundData.Parameters.Count);
-            CollectionAssert.DoesNotContain(backgroundData.Parameters, "some key");
+            var addedKeys = new List<string>();
+            foreach (KeyValuePair<string, string> backgroundDataParameter in backgroundData.Parameters)
+            {
+                addedKeys.Add(backgroundDataParameter.Key);
+            }
+
+            if (backgroundMapDataType == BackgroundMapDataType.Wmts)
+            {
+                Assert.AreEqual(3, backgroundData.Parameters.Count);
+
+                CollectionAssert.Contains(addedKeys, BackgroundDataIdentifiers.SourceCapabilitiesUrl);
+                CollectionAssert.Contains(addedKeys, BackgroundDataIdentifiers.SelectedCapabilityIdentifier);
+                CollectionAssert.Contains(addedKeys, BackgroundDataIdentifiers.PreferredFormat);
+            }
+            else if (backgroundMapDataType == BackgroundMapDataType.WellKnown)
+            {
+                Assert.AreEqual(1, backgroundData.Parameters.Count);
+                CollectionAssert.Contains(addedKeys, BackgroundDataIdentifiers.WellKnownTileSource);
+            }
+
+            CollectionAssert.DoesNotContain(addedKeys, invalidKey);
         }
     }
 }

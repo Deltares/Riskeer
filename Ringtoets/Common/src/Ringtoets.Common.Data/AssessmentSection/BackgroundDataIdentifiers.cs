@@ -40,5 +40,10 @@ namespace Ringtoets.Common.Data.AssessmentSection
         /// The identifier for the preferred format.
         /// </summary>
         public const string PreferredFormat = "PreferredFormat";
+
+        /// <summary>
+        /// The identifier for the well known tile source.
+        /// </summary>
+        public const string WellKnownTileSource = "WellKnownTileSource";
     }
 }

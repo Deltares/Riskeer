@@ -25,7 +25,6 @@ using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.TestUtil;
 
 namespace Application.Ringtoets.Storage.Test.Create
 {
@@ -49,7 +48,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Create_BackgroundDataWithTypeWmts_ReturnsBackgroundMapDataEntity(bool isConfigured)
+        public void Create_Always_ReturnsBackgroundMapDataEntity(bool isConfigured)
         {
             // Setup
             const string name = "background";
@@ -108,19 +107,6 @@ namespace Application.Ringtoets.Storage.Test.Create
             {
                 CollectionAssert.IsEmpty(entity.BackgroundDataMetaEntities);
             }
-        }
-
-        [Test]
-        public void Create_BackgroundDataTypeWellKnown_ReturnsNull()
-        {
-            // Setup
-            var backgroundData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData();
-
-            // Call
-            BackgroundDataEntity entity = backgroundData.Create();
-
-            // Assert
-            Assert.IsNull(entity); // TODO: WTI-1141
         }
     }
 }

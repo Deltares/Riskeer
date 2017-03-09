@@ -38,23 +38,14 @@ namespace Application.Ringtoets.Storage.Create
         /// <see cref="BackgroundData"/>.
         /// </summary>
         /// <param name="backgroundData">The container to create a <see cref="BackgroundDataEntity"/> for.</param>
-        /// <returns>The entity, or <c>null</c> if <see cref="BackgroundData.BackgroundMapDataType"/> is not supported.</returns>
+        /// <returns>The created <see cref="BackgroundDataEntity"/>.</returns>
         internal static BackgroundDataEntity Create(this BackgroundData backgroundData)
         {
             if (backgroundData == null)
             {
                 throw new ArgumentNullException(nameof(backgroundData));
             }
-            
-            if (backgroundData.BackgroundMapDataType == BackgroundMapDataType.Wmts)
-            {
-                return CreateWithWmtsData(backgroundData);
-            }
-            return null; // TODO: WTI-1141
-        }
 
-        private static BackgroundDataEntity CreateWithWmtsData(BackgroundData backgroundData)
-        {
             var entity = new BackgroundDataEntity
             {
                 Name = backgroundData.Name.DeepClone(),
@@ -67,7 +58,6 @@ namespace Application.Ringtoets.Storage.Create
             {
                 AddEntitiesForBackgroundDataMeta(backgroundData, entity);
             }
-
             return entity;
         }
 

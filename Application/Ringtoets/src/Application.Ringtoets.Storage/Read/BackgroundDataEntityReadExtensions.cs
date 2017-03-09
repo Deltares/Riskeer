@@ -64,7 +64,7 @@ namespace Application.Ringtoets.Storage.Read
                 {
                     KeyValuePair<string, string> parameter = backgroundDataMetaEntity.Read();
 
-                    if (ValidKey(parameter.Key))
+                    if (ValidKey(parameter.Key, backgroundData.BackgroundMapDataType))
                     {
                         backgroundData.Parameters[parameter.Key] = parameter.Value;
                     }
@@ -74,11 +74,13 @@ namespace Application.Ringtoets.Storage.Read
             return backgroundData;
         }
 
-        private static bool ValidKey(string keyToValidate)
+        private static bool ValidKey(string keyToValidate, BackgroundMapDataType backgroundMapDataType)
         {
-            return keyToValidate == BackgroundDataIdentifiers.SourceCapabilitiesUrl
-                   || keyToValidate == BackgroundDataIdentifiers.SelectedCapabilityIdentifier
-                   || keyToValidate == BackgroundDataIdentifiers.PreferredFormat;
+            return backgroundMapDataType == BackgroundMapDataType.Wmts
+                       ? keyToValidate == BackgroundDataIdentifiers.SourceCapabilitiesUrl
+                         || keyToValidate == BackgroundDataIdentifiers.SelectedCapabilityIdentifier
+                         || keyToValidate == BackgroundDataIdentifiers.PreferredFormat
+                       : keyToValidate == BackgroundDataIdentifiers.WellKnownTileSource;
         }
     }
 }
