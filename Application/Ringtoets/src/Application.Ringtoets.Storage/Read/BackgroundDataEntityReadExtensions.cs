@@ -54,7 +54,8 @@ namespace Application.Ringtoets.Storage.Read
                 IsVisible = Convert.ToBoolean(entity.IsVisible),
                 Transparency = (RoundedDouble) entity.Transparency,
                 Name = entity.Name,
-                IsConfigured = Convert.ToBoolean(entity.IsConfigured)
+                IsConfigured = Convert.ToBoolean(entity.IsConfigured),
+                BackgroundMapDataType = (BackgroundMapDataType) entity.BackgroundDataType
             };
 
             if (backgroundData.IsConfigured)

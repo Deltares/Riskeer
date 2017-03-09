@@ -56,6 +56,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             const bool isVisible = false;
             const double transparancy = 0.4;
             const bool isConfigured = true;
+            const BackgroundMapDataType backgroundMapDataType = BackgroundMapDataType.Wmts;
 
             var entity = new BackgroundDataEntity
             {
@@ -80,7 +81,8 @@ namespace Application.Ringtoets.Storage.Test.Read
                 },
                 IsVisible = Convert.ToByte(isVisible),
                 Transparency = transparancy,
-                IsConfigured = Convert.ToByte(isConfigured)
+                IsConfigured = Convert.ToByte(isConfigured),
+                BackgroundDataType = Convert.ToByte(backgroundMapDataType)
             };
 
             // Call
@@ -95,6 +97,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(capabilityName, backgroundData.Parameters[BackgroundDataIdentifiers.SelectedCapabilityIdentifier]);
             Assert.AreEqual(preferredFormat, backgroundData.Parameters[BackgroundDataIdentifiers.PreferredFormat]);
             Assert.AreEqual(isConfigured, backgroundData.IsConfigured);
+            Assert.AreEqual(backgroundMapDataType, backgroundData.BackgroundMapDataType);
         }
 
         [Test]

@@ -46,7 +46,6 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual("backgroundData", exception.ParamName);
         }
 
-
         [Test]
         [TestCase(true)]
         [TestCase(false)]
@@ -58,7 +57,8 @@ namespace Application.Ringtoets.Storage.Test.Create
             const string selectedCapabilityName = "selectedName";
             const string preferredFormat = "image/png";
             const bool isVisible = true;
-            RoundedDouble transparancy = (RoundedDouble)0.3;
+            const BackgroundMapDataType backgroundDataType = BackgroundMapDataType.Wmts;
+            RoundedDouble transparancy = (RoundedDouble) 0.3;
 
             var backgroundData = new BackgroundData
             {
@@ -72,7 +72,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                     { BackgroundDataIdentifiers.SelectedCapabilityIdentifier, selectedCapabilityName },
                     { BackgroundDataIdentifiers.PreferredFormat, preferredFormat }
                 },
-                BackgroundMapDataType = BackgroundMapDataType.Wmts
+                BackgroundMapDataType = backgroundDataType
             };
 
             // Call
@@ -82,6 +82,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(name, entity.Name);            
             Assert.AreEqual(Convert.ToByte(isVisible), entity.IsVisible);
             Assert.AreEqual(transparancy, entity.Transparency);
+            Assert.AreEqual(Convert.ToByte(backgroundDataType), entity.BackgroundDataType);
 
             if (isConfigured)
             {
