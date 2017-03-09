@@ -155,11 +155,22 @@ namespace Ringtoets.StabilityStoneCover.Plugin
         {
             yield return new ExportInfo<StabilityStoneCoverWaveConditionsCalculationGroupContext>
             {
+                Name = "Golfcondities (*.csv).",
                 CreateFileExporter = (context, filePath) => new StabilityStoneCoverWaveConditionsExporter(context.WrappedData.GetCalculations().Cast<StabilityStoneCoverWaveConditionsCalculation>(), filePath),
                 IsEnabled = context => context.WrappedData.GetCalculations().Cast<StabilityStoneCoverWaveConditionsCalculation>().Any(c => c.HasOutput),
                 FileFilterGenerator = new FileFilterGenerator(
                     RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
                     RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
+            };
+
+            yield return new ExportInfo<StabilityStoneCoverWaveConditionsCalculationGroupContext>
+            {
+                Name = "Configuratie van de berekeningen (*.xml).",
+                CreateFileExporter = (context, filePath) => new StabilityStoneCoverConfigurationExporter(context.WrappedData, filePath),
+                IsEnabled = context => context.WrappedData.Children.Any(),
+                FileFilterGenerator = new FileFilterGenerator(
+                    RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Extension,
+                    RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Description)
             };
 
             yield return new ExportInfo<StabilityStoneCoverWaveConditionsCalculationContext>
