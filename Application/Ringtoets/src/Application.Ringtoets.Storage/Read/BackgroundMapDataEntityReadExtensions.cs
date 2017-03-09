@@ -22,53 +22,49 @@
 using System;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
-using Core.Components.Gis;
-using Core.Components.Gis.Data;
+using Ringtoets.Common.Data.AssessmentSection;
 
 namespace Application.Ringtoets.Storage.Read
 {
     /// <summary>
-    /// Extension methods for read operations for <see cref="BackgroundMapDataContainer"/>
+    /// Extension methods for read operations for <see cref="BackgroundData"/>
     /// based on the <see cref="BackgroundMapDataEntity"/>.
     /// </summary>
     internal static class BackgroundMapDataEntityReadExtensions
     {
         /// <summary>
         /// Read the <see cref="BackgroundMapDataEntity"/> and use the information
-        /// to construct a <see cref="BackgroundMapDataContainer"/>.
+        /// to construct <see cref="BackgroundData"/>.
         /// </summary>
         /// <param name="entity">The <see cref="BackgroundMapDataEntity"/>
-        /// to create <see cref="BackgroundMapDataContainer"/> for.</param>
-        /// <returns>A new <see cref="BackgroundMapDataContainer"/>.</returns>
+        /// to create <see cref="BackgroundData"/> for.</param>
+        /// <returns>A new <see cref="BackgroundData"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when
         /// <paramref name="entity"/> is <c>null</c>.</exception>
-        internal static BackgroundMapDataContainer Read(this BackgroundMapDataEntity entity)
+        internal static BackgroundData Read(this BackgroundMapDataEntity entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            var container = new BackgroundMapDataContainer
+            var backgroundData = new BackgroundData
             {
                 IsVisible = Convert.ToBoolean(entity.IsVisible),
                 Transparency = (RoundedDouble) entity.Transparency,
-                MapData = CreateMapData(entity)
+                Name = entity.Name
             };
-
-            return container;
-        }
-
-        private static WmtsMapData CreateMapData(BackgroundMapDataEntity entity)
-        {
-            WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
-            mapData.Name = entity.Name;
 
             if (entity.SourceCapabilitiesUrl != null && entity.SelectedCapabilityName != null && entity.PreferredFormat != null)
             {
-                mapData.Configure(entity.SourceCapabilitiesUrl, entity.SelectedCapabilityName, entity.PreferredFormat);
+                backgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl] = entity.SourceCapabilitiesUrl;
+                backgroundData.Parameters[BackgroundDataIdentifiers.SelectedCapabilityIdentifier] = entity.SelectedCapabilityName;
+                backgroundData.Parameters[BackgroundDataIdentifiers.PreferredFormat] = entity.PreferredFormat;
+
+                backgroundData.IsConfigured = true;
             }
-            return mapData;
+
+            return backgroundData;
         }
     }
 }

@@ -81,12 +81,9 @@ namespace Application.Ringtoets.Storage.Test.Create
                 {
                     Norm = norm
                 },
-                BackgroundMapData =
+                BackgroundData =
                 {
-                    MapData =
-                    {
-                      Name = mapDataName
-                    },
+                    Name = mapDataName,
                     Transparency = (RoundedDouble) transparency,
                     IsVisible = isVisible
                 }

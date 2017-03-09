@@ -79,8 +79,7 @@ namespace Application.Ringtoets.Storage.Create
             AddEntityForHydraulicDatabase(section, entity, registry);
             AddEntityForReferenceLine(section, entity);
 
-            // TODO: WTI-1141
-            BackgroundMapDataEntity backgroundMapDataEntity = section.BackgroundMapData.Create();
+            BackgroundMapDataEntity backgroundMapDataEntity = section.BackgroundData.Create();
             if (backgroundMapDataEntity != null)
             {
                 entity.BackgroundMapDataEntities.Add(backgroundMapDataEntity);

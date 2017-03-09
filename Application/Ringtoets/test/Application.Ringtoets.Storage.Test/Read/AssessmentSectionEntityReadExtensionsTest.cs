@@ -97,7 +97,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         [Test]
         [TestCase(false)]
         [TestCase(true)]
-        public void Read_WithBackgroundMapData_ReturnsNewAssessmentSectionWithBackgroundMapData(bool isConfigured)
+        public void Read_WithBackgroundData_ReturnsNewAssessmentSectionWithBackgroundData(bool isConfigured)
         {
             // Setup
             const string mapDataName = "Background";
@@ -128,28 +128,24 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var section = entity.Read(collector);
+            AssessmentSection section = entity.Read(collector);
 
             // Assert
-            BackgroundMapDataContainer container = section.BackgroundMapData;
-            Assert.AreEqual(isVisible, container.IsVisible);
-            Assert.AreEqual(transparency, container.Transparency);
-
-            var backgroundMapData = (WmtsMapData)container.MapData;
-            Assert.AreEqual(isConfigured, backgroundMapData.IsConfigured);
-            Assert.AreEqual(mapDataName, backgroundMapData.Name);
+            BackgroundData backgroundData = section.BackgroundData;
+            Assert.AreEqual(isVisible, backgroundData.IsVisible);
+            Assert.AreEqual(transparency, backgroundData.Transparency);
+            Assert.AreEqual(isConfigured, backgroundData.IsConfigured);
+            Assert.AreEqual(mapDataName, backgroundData.Name);
 
             if (isConfigured)
             {
-                Assert.AreEqual(sourceCapabilitiesUrl, backgroundMapData.SourceCapabilitiesUrl);
-                Assert.AreEqual(selectedCapabilityName, backgroundMapData.SelectedCapabilityIdentifier);
-                Assert.AreEqual(preferredFormat, backgroundMapData.PreferredFormat);
+                Assert.AreEqual(sourceCapabilitiesUrl, backgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl]);
+                Assert.AreEqual(selectedCapabilityName, backgroundData.Parameters[BackgroundDataIdentifiers.SelectedCapabilityIdentifier]);
+                Assert.AreEqual(preferredFormat, backgroundData.Parameters[BackgroundDataIdentifiers.PreferredFormat]);
             }
             else
             {
-                Assert.IsNull(backgroundMapData.SourceCapabilitiesUrl);
-                Assert.IsNull(backgroundMapData.SelectedCapabilityIdentifier);
-                Assert.IsNull(backgroundMapData.PreferredFormat);
+                CollectionAssert.IsEmpty(backgroundData.Parameters);
             }
         }
 

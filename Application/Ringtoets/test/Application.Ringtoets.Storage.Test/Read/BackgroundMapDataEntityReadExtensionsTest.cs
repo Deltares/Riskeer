@@ -22,10 +22,8 @@
 using System;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
-using Core.Components.Gis;
-using Core.Components.Gis.Data;
 using NUnit.Framework;
-using Ringtoets.Common.Data;
+using Ringtoets.Common.Data.AssessmentSection;
 
 namespace Application.Ringtoets.Storage.Test.Read
 {
@@ -47,7 +45,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Read_WithEntity_ReturnMapData()
+        public void Read_WithEntity_ReturnBackgroundData()
         {
             // Setup
             const string name = "map data";
@@ -68,22 +66,21 @@ namespace Application.Ringtoets.Storage.Test.Read
             };
 
             // Call
-            BackgroundMapDataContainer container = entity.Read();
+             BackgroundData backgroundData = entity.Read();
 
             // Assert
-            Assert.AreEqual(isVisible, container.IsVisible);
-            Assert.AreEqual(transparancy, container.Transparency.Value);
+            Assert.AreEqual(isVisible, backgroundData.IsVisible);
+            Assert.AreEqual(transparancy, backgroundData.Transparency.Value);
 
-            var wmtsMapData = (WmtsMapData) container.MapData;
-            Assert.AreEqual(name, wmtsMapData.Name);
-            Assert.AreEqual(url, wmtsMapData.SourceCapabilitiesUrl);
-            Assert.AreEqual(capabilityName, wmtsMapData.SelectedCapabilityIdentifier);
-            Assert.AreEqual(preferredFormat, wmtsMapData.PreferredFormat);
-            Assert.IsTrue(wmtsMapData.IsConfigured);
+            Assert.AreEqual(name, backgroundData.Name);
+            Assert.AreEqual(url, backgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl]);
+            Assert.AreEqual(capabilityName, backgroundData.Parameters[BackgroundDataIdentifiers.SelectedCapabilityIdentifier]);
+            Assert.AreEqual(preferredFormat, backgroundData.Parameters[BackgroundDataIdentifiers.PreferredFormat]);
+            Assert.IsTrue(backgroundData.IsConfigured);
         }
 
         [Test]
-        public void Read_ConfigurableColumnsNull_ReturnUnConfiguredMapData()
+        public void Read_ConfigurableColumnsNull_ReturnBackgroundDataWithoutParameters()
         {
             // Setup
             const string name = "map data";
@@ -98,18 +95,15 @@ namespace Application.Ringtoets.Storage.Test.Read
             };
 
             // Call
-            BackgroundMapDataContainer container = entity.Read();
+            BackgroundData backgroundData = entity.Read();
 
             // Assert
-            Assert.AreEqual(isVisible, container.IsVisible);
-            Assert.AreEqual(transparancy, container.Transparency.Value);
+            Assert.AreEqual(isVisible, backgroundData.IsVisible);
+            Assert.AreEqual(transparancy, backgroundData.Transparency.Value);
 
-            var wmtsMapData = (WmtsMapData)container.MapData;
-            Assert.AreEqual(name, wmtsMapData.Name);
-            Assert.IsNull(wmtsMapData.SourceCapabilitiesUrl);
-            Assert.IsNull(wmtsMapData.SelectedCapabilityIdentifier);
-            Assert.IsNull(wmtsMapData.PreferredFormat);
-            Assert.IsFalse(wmtsMapData.IsConfigured);
+            Assert.AreEqual(name, backgroundData.Name);
+            CollectionAssert.IsEmpty(backgroundData.Parameters);
+            Assert.IsFalse(backgroundData.IsConfigured);
         }
     }
 }
