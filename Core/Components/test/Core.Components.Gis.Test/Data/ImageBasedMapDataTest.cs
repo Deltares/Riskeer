@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base.Data;
-using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
 using NUnit.Framework;
 
