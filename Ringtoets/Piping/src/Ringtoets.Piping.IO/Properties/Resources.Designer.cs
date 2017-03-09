@@ -193,6 +193,28 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+        ///
+        ///&lt;!--
+        ///Copyright (C) Stichting Deltares 2016. All rights reserved.
+        ///
+        ///This file is part of Ringtoets.
+        ///
+        ///Ringtoets is free software: you can redistribute it and/or modify
+        ///it under the terms of the GNU General Public License as published by
+        ///the Free Software Foundation, either version 3 of the License, or
+        ///(at your option) any later version.
+        ///
+        ///This program is distributed in the hope that it will be useful,
+        ///but WITHOUT ANY WARRANTY; without even the implied warrant [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string PipingConfiguratieSchema {
+            get {
+                return ResourceManager.GetString("PipingConfiguratieSchema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} Er is geen configuratie geëxporteerd..
         /// </summary>
         public static string PipingConfigurationExporter_Export_Error_exception_0_no_configuration_exported {
@@ -354,27 +376,6 @@ namespace Ringtoets.Piping.IO.Properties {
             get {
                 return ResourceManager.GetString("PipingConfigurationImporter_ValidateCalculation_Error_message_0_calculation_1_ski" +
                         "pped", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-        ///&lt;!--
-        ///Copyright (C) Stichting Deltares 2016. All rights reserved.
-        ///
-        ///This file is part of Ringtoets.
-        ///
-        ///Ringtoets is free software: you can redistribute it and/or modify
-        ///it under the terms of the GNU General Public License as published by
-        ///the Free Software Foundation, either version 3 of the License, or
-        ///(at your option) any later version.
-        ///
-        ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty  [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string PipingConfigurationSchema {
-            get {
-                return ResourceManager.GetString("PipingConfigurationSchema", resourceCulture);
             }
         }
         

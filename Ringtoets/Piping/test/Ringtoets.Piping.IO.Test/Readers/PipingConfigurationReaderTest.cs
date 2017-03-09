@@ -78,7 +78,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
                                               "The required attribute 'naam' is missing.")
                     .SetName("invalidStochastNoName");
                 yield return new TestCaseData("invalidStochastUnknownName.xml",
-                                              "The 'naam' attribute is invalid - The value 'Test' is invalid according to its datatype 'String'")
+                                              "The 'naam' attribute is invalid - The value 'Test' is invalid according to its datatype 'nameType' - The Enumeration constraint failed.")
                     .SetName("invalidStochastUnknownName");
                 yield return new TestCaseData("invalidStochastNoMean.xml",
                                               "The element 'stochast' has invalid child element 'standaardafwijking'.")

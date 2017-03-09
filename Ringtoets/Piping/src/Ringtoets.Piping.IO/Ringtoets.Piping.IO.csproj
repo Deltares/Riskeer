@@ -162,7 +162,7 @@
       <Link>Copying.licenseheader</Link>
     </None>
     <None Include="packages.config" />
-    <None Include="Resources\PipingConfigurationSchema.xsd">
+    <None Include="Resources\PipingConfiguratieSchema.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Resources\XmlGeometrySchema.xsd">

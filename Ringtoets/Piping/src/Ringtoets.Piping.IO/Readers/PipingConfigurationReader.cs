@@ -50,7 +50,7 @@ namespace Ringtoets.Piping.IO.Readers
         /// </list>
         /// </exception>
         internal PipingConfigurationReader(string xmlFilePath)
-            : base(xmlFilePath, Resources.PipingConfigurationSchema) {}
+            : base(xmlFilePath, Resources.PipingConfiguratieSchema) {}
 
         protected override ReadPipingCalculation ParseCalculationElement(XElement calculationElement)
         {

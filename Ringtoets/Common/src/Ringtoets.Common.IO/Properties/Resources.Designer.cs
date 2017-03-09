@@ -82,6 +82,28 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///
+        ///&lt;!--
+        ///Copyright (C) Stichting Deltares 2016. All rights reserved.
+        ///
+        ///This file is part of Ringtoets.
+        ///
+        ///Ringtoets is free software: you can redistribute it and/or modify
+        ///it under the terms of the GNU General Public License as published by
+        ///the Free Software Foundation, either version 3 of the License, or
+        ///(at your option) any later version.
+        ///
+        ///This program is distributed in the hope that it will be useful,
+        ///but WITHOUT ANY WARRANTY; without even the implied warrant [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string ConfiguratieSchema {
+            get {
+                return ResourceManager.GetString("ConfiguratieSchema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het XML-document dat de configuratie voor de berekeningen beschrijft is niet geldig. De validatie geeft de volgende melding op regel {0}, positie {1}: {2}.
         /// </summary>
         public static string ConfigurationReader_Configuration_contains_no_valid_xml_line_0_position_1_reason_2 {
@@ -542,6 +564,28 @@ namespace Ringtoets.Common.IO.Properties {
         public static string ForeshoreProfilesImporter_No_dam_no_foreshore_geometry_file_0_skipped {
             get {
                 return ResourceManager.GetString("ForeshoreProfilesImporter_No_dam_no_foreshore_geometry_file_0_skipped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///
+        ///&lt;!--
+        ///Copyright (C) Stichting Deltares 2016. All rights reserved.
+        ///
+        ///This file is part of Ringtoets.
+        ///
+        ///Ringtoets is free software: you can redistribute it and/or modify
+        ///it under the terms of the GNU General Public License as published by
+        ///the Free Software Foundation, either version 3 of the License, or
+        ///(at your option) any later version.
+        ///
+        ///This program is distributed in the hope that it will be useful,
+        ///but WITHOUT ANY WARRANTY; without even the implied warrant [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string HrLocatieSchema {
+            get {
+                return ResourceManager.GetString("HrLocatieSchema", resourceCulture);
             }
         }
         
@@ -1039,6 +1083,28 @@ namespace Ringtoets.Common.IO.Properties {
         public static string Shape_file_filter_Extension {
             get {
                 return ResourceManager.GetString("Shape_file_filter_Extension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///
+        ///&lt;!--
+        ///Copyright (C) Stichting Deltares 2016. All rights reserved.
+        ///
+        ///This file is part of Ringtoets.
+        ///
+        ///Ringtoets is free software: you can redistribute it and/or modify
+        ///it under the terms of the GNU General Public License as published by
+        ///the Free Software Foundation, either version 3 of the License, or
+        ///(at your option) any later version.
+        ///
+        ///This program is distributed in the hope that it will be useful,
+        ///but WITHOUT ANY WARRANTY; without even the implied warrant [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string StochastSchema {
+            get {
+                return ResourceManager.GetString("StochastSchema", resourceCulture);
             }
         }
         

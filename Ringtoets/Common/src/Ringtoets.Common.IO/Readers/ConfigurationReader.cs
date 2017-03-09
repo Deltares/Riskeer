@@ -23,6 +23,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Schema;
@@ -146,7 +148,10 @@ namespace Ringtoets.Common.IO.Readers
         /// <exception cref="CriticalFileReadException">Thrown when the provided XML document does not match the provided XML Schema Definition (XSD).</exception>
         private static void ValidateToSchema(XDocument document, string schemaString, string xmlFilePath)
         {
-            var xmlSchemaSet = new XmlSchemaSet();
+            var xmlSchemaSet = new XmlSchemaSet
+            {
+                XmlResolver = new XmlResourcesResolver()
+            };
 
             try
             {
@@ -212,6 +217,32 @@ namespace Ringtoets.Common.IO.Readers
         {
             return new ReadCalculationGroup(folderElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute)?.Value,
                                             ParseElements(folderElement.Elements()));
+        }
+
+        private class XmlResourcesResolver : XmlResolver
+        {
+            public override ICredentials Credentials
+            {
+                set
+                {
+                    throw new NotImplementedException();
+                }
+            }
+
+            public override object GetEntity(Uri absoluteUri, string role, Type ofObjectToReturn)
+            {
+                switch (Path.GetFileName(absoluteUri.ToString()))
+                {
+                    case "ConfiguratieSchema.xsd":
+                        return new MemoryStream(Encoding.UTF8.GetBytes(Resources.ConfiguratieSchema));
+                    case "StochastSchema.xsd":
+                        return new MemoryStream(Encoding.UTF8.GetBytes(Resources.StochastSchema));
+                    case "HrLocatieSchema.xsd":
+                        return new MemoryStream(Encoding.UTF8.GetBytes(Resources.HrLocatieSchema));
+                }
+
+                return null;
+            }
         }
     }
 }
