@@ -36,7 +36,8 @@ namespace Application.Ringtoets.Storage.DbContext
     public partial class RingtoetsEntities : System.Data.Entity.DbContext
     {
         public virtual DbSet<AssessmentSectionEntity> AssessmentSectionEntities { get; set; }
-        public virtual DbSet<BackgroundMapDataEntity> BackgroundMapDataEntities { get; set; }
+        public virtual DbSet<BackgroundDataEntity> BackgroundDataEntities { get; set; }
+        public virtual DbSet<BackgroundDataMetaEntity> BackgroundDataMetaEntities { get; set; }
         public virtual DbSet<CalculationGroupEntity> CalculationGroupEntities { get; set; }
         public virtual DbSet<CharacteristicPointEntity> CharacteristicPointEntities { get; set; }
         public virtual DbSet<ClosingStructureEntity> ClosingStructureEntities { get; set; }

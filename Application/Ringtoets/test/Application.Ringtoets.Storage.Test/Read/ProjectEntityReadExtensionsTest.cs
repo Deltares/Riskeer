@@ -79,9 +79,9 @@ namespace Application.Ringtoets.Storage.Test.Read
                         Name = "A",
                         Order = 56,
                         Composition = Convert.ToByte(AssessmentSectionComposition.Dike),
-                        BackgroundMapDataEntities = new[]
+                        BackgroundDataEntities = new[]
                         {
-                            new BackgroundMapDataEntity
+                            new BackgroundDataEntity
                             {
                                 Name = "Background A",
                                 Transparency = 0.0,
@@ -95,9 +95,9 @@ namespace Application.Ringtoets.Storage.Test.Read
                         Name = "B",
                         Order = 0,
                         Composition = Convert.ToByte(AssessmentSectionComposition.Dike),
-                        BackgroundMapDataEntities = new[]
+                        BackgroundDataEntities = new[]
                         {
-                            new BackgroundMapDataEntity
+                            new BackgroundDataEntity
                             {
                                 Name = "Background B",
                                 Transparency = 0.0,

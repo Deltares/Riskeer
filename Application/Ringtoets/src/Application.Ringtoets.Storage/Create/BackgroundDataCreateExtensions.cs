@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Utils.Extensions;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -28,17 +29,17 @@ namespace Application.Ringtoets.Storage.Create
 {
     /// <summary>
     /// Extensions methods for <see cref="BackgroundData"/> related to 
-    /// creating a <see cref="BackgroundMapDataEntity"/>.
+    /// creating a <see cref="BackgroundDataEntity"/>.
     /// </summary>
     internal static class BackgroundDataCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="BackgroundMapDataEntity"/> based on the information of the
+        /// Creates a <see cref="BackgroundDataEntity"/> based on the information of the
         /// <see cref="BackgroundData"/>.
         /// </summary>
-        /// <param name="backgroundData">The container to create a <see cref="BackgroundMapDataEntity"/> for.</param>
+        /// <param name="backgroundData">The container to create a <see cref="BackgroundDataEntity"/> for.</param>
         /// <returns>The entity, or <c>null</c> if <see cref="BackgroundData.BackgroundMapDataType"/> is not supported.</returns>
-        internal static BackgroundMapDataEntity Create(this BackgroundData backgroundData)
+        internal static BackgroundDataEntity Create(this BackgroundData backgroundData)
         {
             if (backgroundData == null)
             {
@@ -52,9 +53,9 @@ namespace Application.Ringtoets.Storage.Create
             return null; // TODO: WTI-1141
         }
 
-        private static BackgroundMapDataEntity CreateWithWmtsData(BackgroundData backgroundData)
+        private static BackgroundDataEntity CreateWithWmtsData(BackgroundData backgroundData)
         {
-            var entity = new BackgroundMapDataEntity
+            var entity = new BackgroundDataEntity
             {
                 Name = backgroundData.Name.DeepClone(),
                 IsVisible = Convert.ToByte(backgroundData.IsVisible),
@@ -63,12 +64,24 @@ namespace Application.Ringtoets.Storage.Create
 
             if (backgroundData.IsConfigured)
             {
-                entity.SelectedCapabilityName = backgroundData.Parameters[BackgroundDataIdentifiers.SelectedCapabilityIdentifier].DeepClone();
-                entity.SourceCapabilitiesUrl = backgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl].DeepClone();
-                entity.PreferredFormat = backgroundData.Parameters[BackgroundDataIdentifiers.PreferredFormat].DeepClone();
+                AddEntitiesForBackgroundDataMeta(backgroundData, entity);
             }
 
             return entity;
+        }
+
+        private static void AddEntitiesForBackgroundDataMeta(BackgroundData backgroundData, BackgroundDataEntity entity)
+        {
+            foreach (KeyValuePair<string, string> backgroundDataParameter in backgroundData.Parameters)
+            {
+                var metaEntity = new BackgroundDataMetaEntity
+                {
+                    Key = backgroundDataParameter.Key.DeepClone(),
+                    Value = backgroundDataParameter.Value.DeepClone()
+                };
+
+                entity.BackgroundDataMetaEntities.Add(metaEntity);
+            }
         }
     }
 }

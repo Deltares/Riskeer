@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using NUnit.Framework;
@@ -34,7 +35,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_EntityNull_ThrowArgumentNullException()
         {
             // Setup
-            BackgroundMapDataEntity entity = null;
+            BackgroundDataEntity entity = null;
 
             // Call
             TestDelegate test = () => entity.Read();
@@ -54,15 +55,32 @@ namespace Application.Ringtoets.Storage.Test.Read
             const string preferredFormat = "image/jpeg";
             const bool isVisible = false;
             const double transparancy = 0.4;
+            const bool isConfigured = true;
 
-            var entity = new BackgroundMapDataEntity
+            var entity = new BackgroundDataEntity
             {
                 Name = name,
-                SourceCapabilitiesUrl = url,
-                SelectedCapabilityName = capabilityName,
-                PreferredFormat = preferredFormat,
+                BackgroundDataMetaEntities = new List<BackgroundDataMetaEntity>
+                {
+                    new BackgroundDataMetaEntity
+                    {
+                        Key = BackgroundDataIdentifiers.SourceCapabilitiesUrl,
+                        Value = url
+                    },
+                    new BackgroundDataMetaEntity
+                    {
+                        Key = BackgroundDataIdentifiers.SelectedCapabilityIdentifier,
+                        Value = capabilityName
+                    },
+                    new BackgroundDataMetaEntity
+                    {
+                        Key = BackgroundDataIdentifiers.PreferredFormat,
+                        Value = preferredFormat
+                    }
+                },
                 IsVisible = Convert.ToByte(isVisible),
-                Transparency = transparancy
+                Transparency = transparancy,
+                IsConfigured = Convert.ToByte(isConfigured)
             };
 
             // Call
@@ -76,34 +94,74 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(url, backgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl]);
             Assert.AreEqual(capabilityName, backgroundData.Parameters[BackgroundDataIdentifiers.SelectedCapabilityIdentifier]);
             Assert.AreEqual(preferredFormat, backgroundData.Parameters[BackgroundDataIdentifiers.PreferredFormat]);
-            Assert.IsTrue(backgroundData.IsConfigured);
+            Assert.AreEqual(isConfigured, backgroundData.IsConfigured);
         }
 
         [Test]
-        public void Read_ConfigurableColumnsNull_ReturnBackgroundDataWithoutParameters()
+        public void Read_IsConfiguredFalse_NoParametersAdded()
         {
             // Setup
-            const string name = "map data";
-            const bool isVisible = false;
-            const double transparancy = 0.4;
+            const bool isConfigured = false;
 
-            var entity = new BackgroundMapDataEntity
+            var entity = new BackgroundDataEntity
             {
-                Name = name,
-                IsVisible = Convert.ToByte(isVisible),
-                Transparency = transparancy
+                BackgroundDataMetaEntities = new List<BackgroundDataMetaEntity>
+                {
+                    new BackgroundDataMetaEntity
+                    {
+                        Key = BackgroundDataIdentifiers.SourceCapabilitiesUrl,
+                        Value = "//url"
+                    },
+                    new BackgroundDataMetaEntity
+                    {
+                        Key = BackgroundDataIdentifiers.SelectedCapabilityIdentifier,
+                        Value = "capability name"
+                    },
+                    new BackgroundDataMetaEntity
+                    {
+                        Key = BackgroundDataIdentifiers.PreferredFormat,
+                        Value = "image/jpeg"
+                    }
+                },
+                IsConfigured = Convert.ToByte(isConfigured)
             };
 
             // Call
             BackgroundData backgroundData = entity.Read();
 
             // Assert
-            Assert.AreEqual(isVisible, backgroundData.IsVisible);
-            Assert.AreEqual(transparancy, backgroundData.Transparency.Value);
-
-            Assert.AreEqual(name, backgroundData.Name);
             CollectionAssert.IsEmpty(backgroundData.Parameters);
-            Assert.IsFalse(backgroundData.IsConfigured);
+            Assert.AreEqual(isConfigured, backgroundData.IsConfigured);
+        }
+
+        [Test]
+        public void Read_BackgroundDataMetaEntityKeyNotValid_MetaDataNotAddedToBackgroundData()
+        {
+            // Setup
+            var entity = new BackgroundDataEntity
+            {
+                BackgroundDataMetaEntities = new List<BackgroundDataMetaEntity>
+                {
+                    new BackgroundDataMetaEntity
+                    {
+                        Key = "some key",
+                        Value = "//url"
+                    },
+                    new BackgroundDataMetaEntity
+                    {
+                        Key = BackgroundDataIdentifiers.SelectedCapabilityIdentifier,
+                        Value = "capability name"
+                    }
+                },
+                IsConfigured = Convert.ToByte(true)
+            };
+
+            // Call
+            BackgroundData backgroundData = entity.Read();
+
+            // Assert
+            Assert.AreEqual(1, backgroundData.Parameters.Count);
+            CollectionAssert.DoesNotContain(backgroundData.Parameters, "some key");
         }
     }
 }

@@ -110,7 +110,7 @@ namespace Application.Ringtoets.Storage.Read
 
         private static void ReadBackgroundMapData(this AssessmentSectionEntity entity, IAssessmentSection assessmentSection)
         {
-            BackgroundData backgroundData = entity.BackgroundMapDataEntities.Single().Read();
+            BackgroundData backgroundData = entity.BackgroundDataEntities.Single().Read();
 
             assessmentSection.BackgroundData.IsVisible = backgroundData.IsVisible;
             assessmentSection.BackgroundData.Transparency = backgroundData.Transparency;

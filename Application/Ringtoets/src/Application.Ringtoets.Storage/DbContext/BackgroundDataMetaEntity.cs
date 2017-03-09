@@ -30,17 +30,13 @@
 
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public partial class BackgroundMapDataEntity
+    public partial class BackgroundDataMetaEntity
     {
-        public long BackgroundMapDataEntityId { get; set; }
-        public long AssessmentSectionEntityId { get; set; }
-        public string Name { get; set; }
-        public string SourceCapabilitiesUrl { get; set; }
-        public string SelectedCapabilityName { get; set; }
-        public string PreferredFormat { get; set; }
-        public byte IsVisible { get; set; }
-        public double Transparency { get; set; }
+        public long BackgroundDataMetaEntityId { get; set; }
+        public long BackgroundDataEntityId { get; set; }
+        public string Key { get; set; }
+        public string Value { get; set; }
 
-        public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
+        public virtual BackgroundDataEntity BackgroundDataEntity { get; set; }
     }
 }

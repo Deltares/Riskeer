@@ -33,37 +33,25 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public partial class AssessmentSectionEntity
+    public partial class BackgroundDataEntity
     {
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public AssessmentSectionEntity()
+        public BackgroundDataEntity()
         {
-            BackgroundDataEntities = new HashSet<BackgroundDataEntity>();
-            FailureMechanismEntities = new HashSet<FailureMechanismEntity>();
-            HydraulicLocationEntities = new HashSet<HydraulicLocationEntity>();
+            BackgroundDataMetaEntities = new HashSet<BackgroundDataMetaEntity>();
         }
 
+        public long BackgroundDataEntityId { get; set; }
         public long AssessmentSectionEntityId { get; set; }
-        public long ProjectEntityId { get; set; }
-        public string Id { get; set; }
         public string Name { get; set; }
-        public string Comments { get; set; }
-        public double Norm { get; set; }
-        public string HydraulicDatabaseVersion { get; set; }
-        public string HydraulicDatabaseLocation { get; set; }
-        public byte Composition { get; set; }
-        public string ReferenceLinePointXml { get; set; }
-        public int Order { get; set; }
+        public byte IsVisible { get; set; }
+        public double Transparency { get; set; }
+        public byte IsConfigured { get; set; }
+        public byte BackgroundDataType { get; set; }
 
-        public virtual ProjectEntity ProjectEntity { get; set; }
+        public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BackgroundDataEntity> BackgroundDataEntities { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FailureMechanismEntity> FailureMechanismEntities { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HydraulicLocationEntity> HydraulicLocationEntities { get; set; }
+        public virtual ICollection<BackgroundDataMetaEntity> BackgroundDataMetaEntities { get; set; }
     }
 }

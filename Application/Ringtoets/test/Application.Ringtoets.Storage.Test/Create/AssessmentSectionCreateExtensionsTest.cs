@@ -127,15 +127,13 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             Assert.IsNull(entity.ReferenceLinePointXml);
 
-            Assert.AreEqual(1, entity.BackgroundMapDataEntities.Count);
-            var backgroundMapDataEntity = entity.BackgroundMapDataEntities.Single();
+            Assert.AreEqual(1, entity.BackgroundDataEntities.Count);
+            var backgroundMapDataEntity = entity.BackgroundDataEntities.Single();
             Assert.IsNotNull(backgroundMapDataEntity);
             Assert.AreEqual(mapDataName, backgroundMapDataEntity.Name);
             Assert.AreEqual(transparency, backgroundMapDataEntity.Transparency);
             Assert.AreEqual(Convert.ToByte(isVisible), backgroundMapDataEntity.IsVisible);
-            Assert.IsNull(backgroundMapDataEntity.SelectedCapabilityName);
-            Assert.IsNull(backgroundMapDataEntity.SourceCapabilitiesUrl);
-            Assert.IsNull(backgroundMapDataEntity.PreferredFormat);
+            CollectionAssert.IsEmpty(backgroundMapDataEntity.BackgroundDataMetaEntities);
         }
 
         [Test]

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -28,20 +29,20 @@ namespace Application.Ringtoets.Storage.Read
 {
     /// <summary>
     /// Extension methods for read operations for <see cref="BackgroundData"/>
-    /// based on the <see cref="BackgroundMapDataEntity"/>.
+    /// based on the <see cref="BackgroundDataEntity"/>.
     /// </summary>
     internal static class BackgroundMapDataEntityReadExtensions
     {
         /// <summary>
-        /// Read the <see cref="BackgroundMapDataEntity"/> and use the information
+        /// Read the <see cref="BackgroundDataEntity"/> and use the information
         /// to construct <see cref="BackgroundData"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="BackgroundMapDataEntity"/>
+        /// <param name="entity">The <see cref="BackgroundDataEntity"/>
         /// to create <see cref="BackgroundData"/> for.</param>
         /// <returns>A new <see cref="BackgroundData"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when
         /// <paramref name="entity"/> is <c>null</c>.</exception>
-        internal static BackgroundData Read(this BackgroundMapDataEntity entity)
+        internal static BackgroundData Read(this BackgroundDataEntity entity)
         {
             if (entity == null)
             {
@@ -52,19 +53,31 @@ namespace Application.Ringtoets.Storage.Read
             {
                 IsVisible = Convert.ToBoolean(entity.IsVisible),
                 Transparency = (RoundedDouble) entity.Transparency,
-                Name = entity.Name
+                Name = entity.Name,
+                IsConfigured = Convert.ToBoolean(entity.IsConfigured)
             };
 
-            if (entity.SourceCapabilitiesUrl != null && entity.SelectedCapabilityName != null && entity.PreferredFormat != null)
+            if (backgroundData.IsConfigured)
             {
-                backgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl] = entity.SourceCapabilitiesUrl;
-                backgroundData.Parameters[BackgroundDataIdentifiers.SelectedCapabilityIdentifier] = entity.SelectedCapabilityName;
-                backgroundData.Parameters[BackgroundDataIdentifiers.PreferredFormat] = entity.PreferredFormat;
+                foreach (BackgroundDataMetaEntity backgroundDataMetaEntity in entity.BackgroundDataMetaEntities)
+                {
+                    KeyValuePair<string, string> parameter = backgroundDataMetaEntity.Read();
 
-                backgroundData.IsConfigured = true;
+                    if (ValidKey(parameter.Key))
+                    {
+                        backgroundData.Parameters[parameter.Key] = parameter.Value;
+                    }
+                }
             }
 
             return backgroundData;
+        }
+
+        private static bool ValidKey(string keyToValidate)
+        {
+            return keyToValidate == BackgroundDataIdentifiers.SourceCapabilitiesUrl
+                   || keyToValidate == BackgroundDataIdentifiers.SelectedCapabilityIdentifier
+                   || keyToValidate == BackgroundDataIdentifiers.PreferredFormat;
         }
     }
 }

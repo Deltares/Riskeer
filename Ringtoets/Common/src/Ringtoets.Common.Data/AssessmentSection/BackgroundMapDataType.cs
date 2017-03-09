@@ -29,11 +29,11 @@ namespace Ringtoets.Common.Data.AssessmentSection
         /// <summary>
         /// Web Map Tile Service background map data type.
         /// </summary>
-        Wmts,
+        Wmts = 0,
 
         /// <summary>
         /// Well known tile source background map data type.
         /// </summary>
-        WellKnown
+        WellKnown = 1
     }
 }

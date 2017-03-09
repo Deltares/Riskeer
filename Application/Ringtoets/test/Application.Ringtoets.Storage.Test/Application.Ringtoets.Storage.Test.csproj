@@ -100,6 +100,7 @@
     <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverWaveConditionsOutputCreateExtensionsTest.cs" />
     <Compile Include="DbContext\RingtoetsEntitiesTest.cs" />
     <Compile Include="IntegrationTests\StorageMigrationIntegrationTest.cs" />
+    <Compile Include="Read\BackgroundDataMetaEntityReadExtensionsTest.cs" />
     <Compile Include="Read\ClosingStructures\ClosingStructureEntityReadExtensionsTest.cs" />
     <Compile Include="Read\ClosingStructures\ClosingStructuresCalculationEntityReadExtensionsTest.cs" />
     <Compile Include="Read\ClosingStructures\ClosingStructuresFailureMechanismMetaEntityReadExtensionsTest.cs" />

@@ -23,10 +23,7 @@ using System;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
-using Core.Components.Gis;
-using Core.Components.Gis.Data;
 using NUnit.Framework;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
 
@@ -79,7 +76,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             };
 
             // Call
-            BackgroundMapDataEntity entity = backgroundData.Create();
+            BackgroundDataEntity entity = backgroundData.Create();
 
             // Assert
             Assert.AreEqual(name, entity.Name);            
@@ -88,15 +85,27 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             if (isConfigured)
             {
-                Assert.AreEqual(sourceCapabilitiesUrl, entity.SourceCapabilitiesUrl);
-                Assert.AreEqual(selectedCapabilityName, entity.SelectedCapabilityName);
-                Assert.AreEqual(preferredFormat, entity.PreferredFormat);
+                Assert.AreEqual(3, entity.BackgroundDataMetaEntities.Count);
+
+                foreach (BackgroundDataMetaEntity backgroundDataMetaEntity in entity.BackgroundDataMetaEntities)
+                {
+                    if (backgroundDataMetaEntity.Key == BackgroundDataIdentifiers.SourceCapabilitiesUrl)
+                    {
+                        Assert.AreEqual(sourceCapabilitiesUrl, backgroundDataMetaEntity.Value);
+                    }
+                    else if (backgroundDataMetaEntity.Key == BackgroundDataIdentifiers.SelectedCapabilityIdentifier)
+                    {
+                        Assert.AreEqual(selectedCapabilityName, backgroundDataMetaEntity.Value);
+                    }
+                    else if (backgroundDataMetaEntity.Key == BackgroundDataIdentifiers.PreferredFormat)
+                    {
+                        Assert.AreEqual(preferredFormat, backgroundDataMetaEntity.Value);
+                    }
+                }
             }
             else
             {
-                Assert.IsNull(entity.SourceCapabilitiesUrl);
-                Assert.IsNull(entity.SelectedCapabilityName);
-                Assert.IsNull(entity.PreferredFormat);
+                CollectionAssert.IsEmpty(entity.BackgroundDataMetaEntities);
             }
         }
 
@@ -107,7 +116,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var backgroundData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData();
 
             // Call
-            BackgroundMapDataEntity entity = backgroundData.Create();
+            BackgroundDataEntity entity = backgroundData.Create();
 
             // Assert
             Assert.IsNull(entity); // TODO: WTI-1141

@@ -85,7 +85,10 @@
     <Compile Include="DbContext\AssessmentSectionEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbContext\BackgroundMapDataEntity.cs">
+    <Compile Include="DbContext\BackgroundDataEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\BackgroundDataMetaEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\CalculationGroupEntity.cs">
@@ -296,6 +299,7 @@
     <Compile Include="DbContext\WaveImpactAsphaltCoverWaveConditionsOutputEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Read\BackgroundDataMetaEntityReadExtensions.cs" />
     <Compile Include="Read\ClosingStructures\ClosingStructureEntityReadExtensions.cs" />
     <Compile Include="Read\ClosingStructures\ClosingStructuresCalculationEntityReadExtensions.cs" />
     <Compile Include="Read\ClosingStructures\ClosingStructuresFailureMechanismMetaEntityReadExtensions.cs" />

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\repos\WettelijkToetsInstrumentarium\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Repos\Ringtoets\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -21,18 +21,26 @@
           <Property Name="ReferenceLinePointXml" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="BackgroundMapDataEntity">
+        <EntityType Name="BackgroundDataEntity">
           <Key>
-            <PropertyRef Name="BackgroundMapDataEntityId" />
+            <PropertyRef Name="BackgroundDataEntityId" />
           </Key>
-          <Property Name="BackgroundMapDataEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BackgroundDataEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AssessmentSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
-          <Property Name="SourceCapabilitiesUrl" Type="nvarchar" MaxLength="2147483647" />
-          <Property Name="SelectedCapabilityName" Type="nvarchar" MaxLength="2147483647" />
-          <Property Name="PreferredFormat" Type="varchar" MaxLength="255" />
           <Property Name="IsVisible" Type="tinyint" Nullable="false" />
           <Property Name="Transparency" Type="real" Nullable="false" />
+          <Property Name="IsConfigured" Type="tinyint" Nullable="false" />
+          <Property Name="BackgroundDataType" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BackgroundDataMetaEntity">
+          <Key>
+            <PropertyRef Name="BackgroundDataMetaEntityId" />
+          </Key>
+          <Property Name="BackgroundDataMetaEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BackgroundDataEntityId" Type="integer" Nullable="false" />
+          <Property Name="Key" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Value" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
         </EntityType>
         <EntityType Name="CalculationGroupEntity">
           <Key>
@@ -1057,15 +1065,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_BackgroundMapDataEntity_0_0">
+        <Association Name="FK_BackgroundDataEntity_0_0">
           <End Role="AssessmentSectionEntity" Type="Self.AssessmentSectionEntity" Multiplicity="1" />
-          <End Role="BackgroundMapDataEntity" Type="Self.BackgroundMapDataEntity" Multiplicity="*" />
+          <End Role="BackgroundDataEntity" Type="Self.BackgroundDataEntity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AssessmentSectionEntity">
               <PropertyRef Name="AssessmentSectionEntityId" />
             </Principal>
-            <Dependent Role="BackgroundMapDataEntity">
+            <Dependent Role="BackgroundDataEntity">
               <PropertyRef Name="AssessmentSectionEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BackgroundDataMetaEntity_0_0">
+          <End Role="BackgroundDataEntity" Type="Self.BackgroundDataEntity" Multiplicity="1" />
+          <End Role="BackgroundDataMetaEntity" Type="Self.BackgroundDataMetaEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BackgroundDataEntity">
+              <PropertyRef Name="BackgroundDataEntityId" />
+            </Principal>
+            <Dependent Role="BackgroundDataMetaEntity">
+              <PropertyRef Name="BackgroundDataEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2127,7 +2147,8 @@
         </Association>
         <EntityContainer Name="RingtoetsEntitiesModelStoreContainer">
           <EntitySet Name="AssessmentSectionEntity" EntityType="Self.AssessmentSectionEntity" store:Type="Tables" />
-          <EntitySet Name="BackgroundMapDataEntity" EntityType="Self.BackgroundMapDataEntity" store:Type="Tables" />
+          <EntitySet Name="BackgroundDataEntity" EntityType="Self.BackgroundDataEntity" store:Type="Tables" />
+          <EntitySet Name="BackgroundDataMetaEntity" EntityType="Self.BackgroundDataMetaEntity" store:Type="Tables" />
           <EntitySet Name="CalculationGroupEntity" EntityType="Self.CalculationGroupEntity" store:Type="Tables" />
           <EntitySet Name="CharacteristicPointEntity" EntityType="Self.CharacteristicPointEntity" store:Type="Tables" />
           <EntitySet Name="ClosingStructureEntity" EntityType="Self.ClosingStructureEntity" store:Type="Tables" />
@@ -2197,9 +2218,13 @@
             <End Role="ProjectEntity" EntitySet="ProjectEntity" />
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntity" />
           </AssociationSet>
-          <AssociationSet Name="FK_BackgroundMapDataEntity_0_0" Association="Self.FK_BackgroundMapDataEntity_0_0">
+          <AssociationSet Name="FK_BackgroundDataEntity_0_0" Association="Self.FK_BackgroundDataEntity_0_0">
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntity" />
-            <End Role="BackgroundMapDataEntity" EntitySet="BackgroundMapDataEntity" />
+            <End Role="BackgroundDataEntity" EntitySet="BackgroundDataEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BackgroundDataMetaEntity_0_0" Association="Self.FK_BackgroundDataMetaEntity_0_0">
+            <End Role="BackgroundDataEntity" EntitySet="BackgroundDataEntity" />
+            <End Role="BackgroundDataMetaEntity" EntitySet="BackgroundDataMetaEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_CalculationGroupEntity_0_0" Association="Self.FK_CalculationGroupEntity_0_0">
             <End Role="CalculationGroupEntity" EntitySet="CalculationGroupEntity" />
@@ -2560,7 +2585,8 @@
       <Schema Namespace="RingtoetsEntitiesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="RingtoetsEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AssessmentSectionEntities" EntityType="RingtoetsEntitiesModel.AssessmentSectionEntity" />
-          <EntitySet Name="BackgroundMapDataEntities" EntityType="RingtoetsEntitiesModel.BackgroundMapDataEntity" />
+          <EntitySet Name="BackgroundDataEntities" EntityType="RingtoetsEntitiesModel.BackgroundDataEntity" />
+          <EntitySet Name="BackgroundDataMetaEntities" EntityType="RingtoetsEntitiesModel.BackgroundDataMetaEntity" />
           <EntitySet Name="CalculationGroupEntities" EntityType="RingtoetsEntitiesModel.CalculationGroupEntity" />
           <EntitySet Name="CharacteristicPointEntities" EntityType="RingtoetsEntitiesModel.CharacteristicPointEntity" />
           <EntitySet Name="ClosingStructureEntities" EntityType="RingtoetsEntitiesModel.ClosingStructureEntity" />
@@ -2630,9 +2656,9 @@
             <End Role="ProjectEntity" EntitySet="ProjectEntities" />
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntities" />
           </AssociationSet>
-          <AssociationSet Name="FK_BackgroundMapDataEntity_0_0" Association="RingtoetsEntitiesModel.FK_BackgroundMapDataEntity_0_0">
+          <AssociationSet Name="FK_BackgroundDataEntity_0_0" Association="RingtoetsEntitiesModel.FK_BackgroundDataEntity_0_0">
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntities" />
-            <End Role="BackgroundMapDataEntity" EntitySet="BackgroundMapDataEntities" />
+            <End Role="BackgroundDataEntity" EntitySet="BackgroundDataEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_FailureMechanismEntity_1_0" Association="RingtoetsEntitiesModel.FK_FailureMechanismEntity_1_0">
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntities" />
@@ -2641,6 +2667,10 @@
           <AssociationSet Name="FK_HydraulicLocationEntity_0_0" Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_0_0">
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntities" />
             <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BackgroundDataMetaEntity_0_0" Association="RingtoetsEntitiesModel.FK_BackgroundDataMetaEntity_0_0">
+            <End Role="BackgroundDataEntity" EntitySet="BackgroundDataEntities" />
+            <End Role="BackgroundDataMetaEntity" EntitySet="BackgroundDataMetaEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_CalculationGroupEntity_0_0" Association="RingtoetsEntitiesModel.FK_CalculationGroupEntity_0_0">
             <End Role="CalculationGroupEntity" EntitySet="CalculationGroupEntities" />
@@ -3003,23 +3033,33 @@
           <Property Name="ReferenceLinePointXml" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ProjectEntity" Relationship="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="ProjectEntity" />
-          <NavigationProperty Name="BackgroundMapDataEntities" Relationship="RingtoetsEntitiesModel.FK_BackgroundMapDataEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="BackgroundMapDataEntity" />
+          <NavigationProperty Name="BackgroundDataEntities" Relationship="RingtoetsEntitiesModel.FK_BackgroundDataEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="BackgroundDataEntity" />
           <NavigationProperty Name="FailureMechanismEntities" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismEntity_1_0" FromRole="AssessmentSectionEntity" ToRole="FailureMechanismEntity" />
           <NavigationProperty Name="HydraulicLocationEntities" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="HydraulicLocationEntity" />
         </EntityType>
-        <EntityType Name="BackgroundMapDataEntity">
+        <EntityType Name="BackgroundDataEntity">
           <Key>
-            <PropertyRef Name="BackgroundMapDataEntityId" />
+            <PropertyRef Name="BackgroundDataEntityId" />
           </Key>
-          <Property Name="BackgroundMapDataEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BackgroundDataEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AssessmentSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="SourceCapabilitiesUrl" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="SelectedCapabilityName" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="PreferredFormat" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="IsVisible" Type="Byte" Nullable="false" />
           <Property Name="Transparency" Type="Double" Nullable="false" />
-          <NavigationProperty Name="AssessmentSectionEntity" Relationship="RingtoetsEntitiesModel.FK_BackgroundMapDataEntity_0_0" FromRole="BackgroundMapDataEntity" ToRole="AssessmentSectionEntity" />
+          <Property Name="IsConfigured" Type="Byte" Nullable="false" />
+          <Property Name="BackgroundDataType" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="AssessmentSectionEntity" Relationship="RingtoetsEntitiesModel.FK_BackgroundDataEntity_0_0" FromRole="BackgroundDataEntity" ToRole="AssessmentSectionEntity" />
+          <NavigationProperty Name="BackgroundDataMetaEntities" Relationship="RingtoetsEntitiesModel.FK_BackgroundDataMetaEntity_0_0" FromRole="BackgroundDataEntity" ToRole="BackgroundDataMetaEntity" />
+        </EntityType>
+        <EntityType Name="BackgroundDataMetaEntity">
+          <Key>
+            <PropertyRef Name="BackgroundDataMetaEntityId" />
+          </Key>
+          <Property Name="BackgroundDataMetaEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BackgroundDataEntityId" Type="Int64" Nullable="false" />
+          <Property Name="Key" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Value" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BackgroundDataEntity" Relationship="RingtoetsEntitiesModel.FK_BackgroundDataMetaEntity_0_0" FromRole="BackgroundDataMetaEntity" ToRole="BackgroundDataEntity" />
         </EntityType>
         <EntityType Name="CalculationGroupEntity">
           <Key>
@@ -4219,14 +4259,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_BackgroundMapDataEntity_0_0">
+        <Association Name="FK_BackgroundDataEntity_0_0">
           <End Type="RingtoetsEntitiesModel.AssessmentSectionEntity" Role="AssessmentSectionEntity" Multiplicity="1" />
-          <End Type="RingtoetsEntitiesModel.BackgroundMapDataEntity" Role="BackgroundMapDataEntity" Multiplicity="*" />
+          <End Type="RingtoetsEntitiesModel.BackgroundDataEntity" Role="BackgroundDataEntity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AssessmentSectionEntity">
               <PropertyRef Name="AssessmentSectionEntityId" />
             </Principal>
-            <Dependent Role="BackgroundMapDataEntity">
+            <Dependent Role="BackgroundDataEntity">
               <PropertyRef Name="AssessmentSectionEntityId" />
             </Dependent>
           </ReferentialConstraint>
@@ -4252,6 +4292,18 @@
             </Principal>
             <Dependent Role="HydraulicLocationEntity">
               <PropertyRef Name="AssessmentSectionEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BackgroundDataMetaEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.BackgroundDataEntity" Role="BackgroundDataEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.BackgroundDataMetaEntity" Role="BackgroundDataMetaEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BackgroundDataEntity">
+              <PropertyRef Name="BackgroundDataEntityId" />
+            </Principal>
+            <Dependent Role="BackgroundDataMetaEntity">
+              <PropertyRef Name="BackgroundDataEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5310,17 +5362,26 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="BackgroundMapDataEntities">
-            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.BackgroundMapDataEntity">
-              <MappingFragment StoreEntitySet="BackgroundMapDataEntity">
+          <EntitySetMapping Name="BackgroundDataEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.BackgroundDataEntity">
+              <MappingFragment StoreEntitySet="BackgroundDataEntity">
+                <ScalarProperty Name="BackgroundDataType" ColumnName="BackgroundDataType" />
+                <ScalarProperty Name="IsConfigured" ColumnName="IsConfigured" />
                 <ScalarProperty Name="Transparency" ColumnName="Transparency" />
                 <ScalarProperty Name="IsVisible" ColumnName="IsVisible" />
-                <ScalarProperty Name="PreferredFormat" ColumnName="PreferredFormat" />
-                <ScalarProperty Name="SelectedCapabilityName" ColumnName="SelectedCapabilityName" />
-                <ScalarProperty Name="SourceCapabilitiesUrl" ColumnName="SourceCapabilitiesUrl" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="AssessmentSectionEntityId" ColumnName="AssessmentSectionEntityId" />
-                <ScalarProperty Name="BackgroundMapDataEntityId" ColumnName="BackgroundMapDataEntityId" />
+                <ScalarProperty Name="BackgroundDataEntityId" ColumnName="BackgroundDataEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BackgroundDataMetaEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.BackgroundDataMetaEntity">
+              <MappingFragment StoreEntitySet="BackgroundDataMetaEntity">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Key" ColumnName="Key" />
+                <ScalarProperty Name="BackgroundDataEntityId" ColumnName="BackgroundDataEntityId" />
+                <ScalarProperty Name="BackgroundDataMetaEntityId" ColumnName="BackgroundDataMetaEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

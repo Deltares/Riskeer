@@ -28,10 +28,7 @@ using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
-using Core.Components.Gis;
-using Core.Components.Gis.Data;
 using NUnit.Framework;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -76,7 +73,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 Comments = comments,
                 Norm = norm
             };
-            entity.BackgroundMapDataEntities.Add(CreateBackgroundMapDataEntity());
+            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
 
             var collector = new ReadConversionCollector();
 
@@ -109,21 +106,33 @@ namespace Application.Ringtoets.Storage.Test.Read
             const string preferredFormat = "image/png";
 
             var entity = CreateAssessmentSectionEntity();
-            BackgroundMapDataEntity backgroundMapDataEntity = new BackgroundMapDataEntity
+            BackgroundDataEntity backgroundDataEntity = new BackgroundDataEntity
             {
                 Name = mapDataName,
                 Transparency = transparency,
-                IsVisible = Convert.ToByte(isVisible)
+                IsVisible = Convert.ToByte(isVisible),
+                IsConfigured = Convert.ToByte(isConfigured),
+                BackgroundDataMetaEntities = new List<BackgroundDataMetaEntity>
+                {
+                    new BackgroundDataMetaEntity
+                    {
+                        Key = BackgroundDataIdentifiers.SourceCapabilitiesUrl,
+                        Value = sourceCapabilitiesUrl
+                    },
+                    new BackgroundDataMetaEntity
+                    {
+                        Key = BackgroundDataIdentifiers.SelectedCapabilityIdentifier,
+                        Value = selectedCapabilityName
+                    },
+                    new BackgroundDataMetaEntity
+                    {
+                        Key = BackgroundDataIdentifiers.PreferredFormat,
+                        Value = preferredFormat
+                    }
+                }
             };
 
-            if (isConfigured)
-            {                
-                backgroundMapDataEntity.SourceCapabilitiesUrl = sourceCapabilitiesUrl;
-                backgroundMapDataEntity.SelectedCapabilityName = selectedCapabilityName;
-                backgroundMapDataEntity.PreferredFormat = preferredFormat;
-            }
-
-            entity.BackgroundMapDataEntities.Add(backgroundMapDataEntity);
+            entity.BackgroundDataEntities.Add(backgroundDataEntity);
 
             var collector = new ReadConversionCollector();
 
@@ -167,7 +176,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 new Point2D(secondX, secondY)
             };
             entity.ReferenceLinePointXml = new Point2DXmlSerializer().ToXml(points);
-            entity.BackgroundMapDataEntities.Add(CreateBackgroundMapDataEntity());
+            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
 
             var collector = new ReadConversionCollector();
 
@@ -199,7 +208,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 Name = "B",
                 Order = 0
             });
-            entity.BackgroundMapDataEntities.Add(CreateBackgroundMapDataEntity());
+            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
 
             var collector = new ReadConversionCollector();
 
@@ -247,7 +256,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
-            entity.BackgroundMapDataEntities.Add(CreateBackgroundMapDataEntity());
+            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
 
             var collector = new ReadConversionCollector();
 
@@ -296,7 +305,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
-            entity.BackgroundMapDataEntities.Add(CreateBackgroundMapDataEntity());
+            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
 
             var collector = new ReadConversionCollector();
 
@@ -342,7 +351,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
-            entity.BackgroundMapDataEntities.Add(CreateBackgroundMapDataEntity());
+            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
 
             var collector = new ReadConversionCollector();
 
@@ -383,7 +392,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
-            entity.BackgroundMapDataEntities.Add(CreateBackgroundMapDataEntity());
+            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
 
             var collector = new ReadConversionCollector();
 
@@ -423,7 +432,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             });
 
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
-            entity.BackgroundMapDataEntities.Add(CreateBackgroundMapDataEntity());
+            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
 
             var collector = new ReadConversionCollector();
 
@@ -463,7 +472,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
-            entity.BackgroundMapDataEntities.Add(CreateBackgroundMapDataEntity());
+            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
 
             var collector = new ReadConversionCollector();
 
@@ -510,7 +519,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
-            entity.BackgroundMapDataEntities.Add(CreateBackgroundMapDataEntity());
+            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
 
             var collector = new ReadConversionCollector();
 
@@ -543,7 +552,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 CalculationGroupEntity = rootGroupEntity
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
-            entity.BackgroundMapDataEntities.Add(CreateBackgroundMapDataEntity());
+            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
 
             var collector = new ReadConversionCollector();
 
@@ -583,7 +592,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
-            entity.BackgroundMapDataEntities.Add(CreateBackgroundMapDataEntity());
+            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
 
             var collector = new ReadConversionCollector();
 
@@ -630,7 +639,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
-            entity.BackgroundMapDataEntities.Add(CreateBackgroundMapDataEntity());
+            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
 
             var collector = new ReadConversionCollector();
 
@@ -678,7 +687,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
-            entity.BackgroundMapDataEntities.Add(CreateBackgroundMapDataEntity());
+            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
 
             var collector = new ReadConversionCollector();
 
@@ -715,7 +724,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 NotRelevantComments = notRelevantComments
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
-            entity.BackgroundMapDataEntities.Add(CreateBackgroundMapDataEntity());
+            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
 
             var collector = new ReadConversionCollector();
 
@@ -754,7 +763,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
-            entity.BackgroundMapDataEntities.Add(CreateBackgroundMapDataEntity());
+            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
 
             var collector = new ReadConversionCollector();
 
@@ -798,7 +807,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 IsRelevant = Convert.ToByte(isRelevant)
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
-            entity.BackgroundMapDataEntities.Add(CreateBackgroundMapDataEntity());
+            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
 
             var collector = new ReadConversionCollector();
 
@@ -835,7 +844,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 NotRelevantComments = notRelevantComments
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
-            entity.BackgroundMapDataEntities.Add(CreateBackgroundMapDataEntity());
+            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
 
             var collector = new ReadConversionCollector();
 
@@ -878,7 +887,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
-            entity.BackgroundMapDataEntities.Add(CreateBackgroundMapDataEntity());
+            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
 
             var collector = new ReadConversionCollector();
 
@@ -919,7 +928,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
-            entity.BackgroundMapDataEntities.Add(CreateBackgroundMapDataEntity());
+            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
 
             var collector = new ReadConversionCollector();
 
@@ -959,7 +968,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
-            entity.BackgroundMapDataEntities.Add(CreateBackgroundMapDataEntity());
+            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
 
             var collector = new ReadConversionCollector();
 
@@ -1001,7 +1010,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
-            entity.BackgroundMapDataEntities.Add(CreateBackgroundMapDataEntity());
+            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
 
             var collector = new ReadConversionCollector();
 
@@ -1043,7 +1052,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
-            entity.BackgroundMapDataEntities.Add(CreateBackgroundMapDataEntity());
+            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
 
             var collector = new ReadConversionCollector();
 
@@ -1084,7 +1093,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
-            entity.BackgroundMapDataEntities.Add(CreateBackgroundMapDataEntity());
+            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
 
             var collector = new ReadConversionCollector();
 
@@ -1117,7 +1126,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
-            entity.BackgroundMapDataEntities.Add(CreateBackgroundMapDataEntity());
+            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
 
             var collector = new ReadConversionCollector();
 
@@ -1161,7 +1170,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             entity.FailureMechanismEntities.Add(grassRevetmentSlidingOutwards);
             entity.FailureMechanismEntities.Add(grassRevetmentSlidingInwards);
             entity.FailureMechanismEntities.Add(technicalInnovations);
-            entity.BackgroundMapDataEntities.Add(CreateBackgroundMapDataEntity());
+            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
 
             var collector = new ReadConversionCollector();
 
@@ -1202,9 +1211,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             };
         }
 
-        private static BackgroundMapDataEntity CreateBackgroundMapDataEntity()
+        private static BackgroundDataEntity CreateBackgroundDataEntity()
         {
-            return new BackgroundMapDataEntity
+            return new BackgroundDataEntity
             {
                 Name = "Background",
                 Transparency = 0.0,
