@@ -48,10 +48,53 @@ namespace Ringtoets.Revetment.IO.Test
         }
 
         [Test]
-        public void WriteConfiguration_SingleCalculation_WritesCompleteConfigurationToFile()
+        public void WriteConfiguration_SparseCalculation_WritesSparseConfigurationToFile()
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath("WriteConfiguration_SingleCalculation.xml");
+            string filePath = TestHelper.GetScratchPadPath(
+                $"{nameof(WriteConfiguration_SparseCalculation_WritesSparseConfigurationToFile)}.xml");
+
+            string expectedXmlFilePath = TestHelper.GetTestDataPath(
+                TestDataPath.Ringtoets.Revetment.IO,
+                Path.Combine(nameof(WaveConditionsInputConfigurationWriter<ICalculation>), "sparseConfiguration.xml"));
+
+            var calculation = new SimpleWaveConditionsCalculation
+            {
+                Name = "Berekening 1"
+            };
+
+            try
+            {
+                using (XmlWriter xmlWriter = XmlWriter.Create(filePath, new XmlWriterSettings
+                {
+                    Indent = true
+                }))
+                {
+                    var writer = new SimpleWaveConditionsInputConfigurationWriter();
+
+                    // Call
+                    writer.PublicWriteCalculation(calculation, xmlWriter);
+                }
+
+                // Assert
+                string actualXml = File.ReadAllText(filePath);
+                string expectedXml = File.ReadAllText(expectedXmlFilePath);
+
+                Assert.AreEqual(expectedXml, actualXml);
+            }
+            finally
+            {
+                File.Delete(filePath);
+            }
+        }
+
+        [Test]
+        public void WriteConfiguration_CompleteCalculation_WritesCompleteConfigurationToFile()
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath(
+                $"{nameof(WriteConfiguration_CompleteCalculation_WritesCompleteConfigurationToFile)}.xml");
+
             string expectedXmlFilePath = TestHelper.GetTestDataPath(
                 TestDataPath.Ringtoets.Revetment.IO,
                 Path.Combine(nameof(WaveConditionsInputConfigurationWriter<ICalculation>), "completeConfiguration.xml"));
@@ -59,7 +102,7 @@ namespace Ringtoets.Revetment.IO.Test
             var calculation = new SimpleWaveConditionsCalculation
             {
                 Name = "Berekening 1",
-                Input = new WaveConditionsInput
+                Input = 
                 {
                     HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("Locatie1"),
                     UpperBoundaryRevetment = (RoundedDouble) 1.5,
@@ -129,6 +172,6 @@ namespace Ringtoets.Revetment.IO.Test
             throw new System.NotImplementedException();
         }
 
-        public WaveConditionsInput Input { get; set; }
+        public WaveConditionsInput Input { get; } = new WaveConditionsInput();
     }
 }

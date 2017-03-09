@@ -20,11 +20,16 @@
 // All rights reserved.
 
 using System.Xml;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.Revetment.IO;
 
 namespace Ringtoets.GrassCoverErosionOutwards.IO
 {
+    /// <summary>
+    /// A writer for writing out configurations of <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/> and
+    /// <see cref="CalculationGroup"/>, to XML format.
+    /// </summary>
     public class GrassCoverErosionOutwardsConfigurationWriter : WaveConditionsInputConfigurationWriter<GrassCoverErosionOutwardsWaveConditionsCalculation>
     {
         protected override void WriteCalculation(GrassCoverErosionOutwardsWaveConditionsCalculation calculation, XmlWriter writer)

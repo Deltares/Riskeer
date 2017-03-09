@@ -24,6 +24,7 @@ using System.Globalization;
 using System.Xml;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.Schema;
 using Ringtoets.Common.IO.Writers;
 using Ringtoets.Revetment.Data;
@@ -48,9 +49,8 @@ namespace Ringtoets.Revetment.IO
             writer.WriteStartElement(ConfigurationSchemaIdentifiers.CalculationElement);
             writer.WriteAttributeString(ConfigurationSchemaIdentifiers.NameAttribute, name);
 
-            writer.WriteElementString(
-                WaveConditionsInputConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
-                input.HydraulicBoundaryLocation.Name);
+            WriteHydraulicBoundaryLocation(input.HydraulicBoundaryLocation, writer);
+
             writer.WriteElementString(
                 WaveConditionsInputConfigurationSchemaIdentifiers.UpperBoundaryRevetment,
                 XmlConvert.ToString(input.UpperBoundaryRevetment));
@@ -66,9 +66,9 @@ namespace Ringtoets.Revetment.IO
             writer.WriteElementString(
                 WaveConditionsInputConfigurationSchemaIdentifiers.StepSize,
                 string.Format(CultureInfo.InvariantCulture, "{0:0.0}", input.StepSize.AsValue()));
-            writer.WriteElementString(
-                WaveConditionsInputConfigurationSchemaIdentifiers.ForeshoreProfile,
-                input.ForeshoreProfile.Name);
+
+            WriteForeshoreProfile(input.ForeshoreProfile, writer);
+
             writer.WriteElementString(
                 WaveConditionsInputConfigurationSchemaIdentifiers.Orientation,
                 XmlConvert.ToString(input.Orientation));
@@ -78,6 +78,26 @@ namespace Ringtoets.Revetment.IO
             writer.WriteEndElement();
         }
 
+        private static void WriteHydraulicBoundaryLocation(HydraulicBoundaryLocation hydraulicBoundaryLocation, XmlWriter writer)
+        {
+            if (hydraulicBoundaryLocation != null)
+            {
+                writer.WriteElementString(
+                    WaveConditionsInputConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
+                    hydraulicBoundaryLocation.Name);
+            }
+        }
+
+        private static void WriteForeshoreProfile(ForeshoreProfile foreshoreProfile, XmlWriter writer)
+        {
+            if (foreshoreProfile != null)
+            {
+                writer.WriteElementString(
+                    WaveConditionsInputConfigurationSchemaIdentifiers.ForeshoreProfile,
+                    foreshoreProfile.Name);
+            }
+        }
+
         private static void WriteWaveReduction(WaveConditionsInput input, XmlWriter writer)
         {
             writer.WriteStartElement(WaveConditionsInputConfigurationSchemaIdentifiers.WaveReduction);
@@ -85,17 +105,27 @@ namespace Ringtoets.Revetment.IO
             writer.WriteElementString(
                 WaveConditionsInputConfigurationSchemaIdentifiers.UseBreakWater,
                 XmlConvert.ToString(input.UseBreakWater));
-            writer.WriteElementString(
-                WaveConditionsInputConfigurationSchemaIdentifiers.BreakWaterType,
-                BreakWaterTypeAsXmlString(input.BreakWater.Type));
-            writer.WriteElementString(
-                WaveConditionsInputConfigurationSchemaIdentifiers.BreakWaterHeight,
-                XmlConvert.ToString(input.BreakWater.Height));
+
+            WriteBreakWaterProperties(input.BreakWater, writer);
+
             writer.WriteElementString(
                 WaveConditionsInputConfigurationSchemaIdentifiers.UseForeshore,
                 XmlConvert.ToString(input.UseForeshore));
 
             writer.WriteEndElement();
+        }
+
+        private static void WriteBreakWaterProperties(BreakWater breakWater, XmlWriter writer)
+        {
+            if (breakWater != null)
+            {
+                writer.WriteElementString(
+                    WaveConditionsInputConfigurationSchemaIdentifiers.BreakWaterType,
+                    BreakWaterTypeAsXmlString(breakWater.Type));
+                writer.WriteElementString(
+                    WaveConditionsInputConfigurationSchemaIdentifiers.BreakWaterHeight,
+                    XmlConvert.ToString(breakWater.Height));
+            }
         }
 
         private static string BreakWaterTypeAsXmlString(BreakWaterType type)

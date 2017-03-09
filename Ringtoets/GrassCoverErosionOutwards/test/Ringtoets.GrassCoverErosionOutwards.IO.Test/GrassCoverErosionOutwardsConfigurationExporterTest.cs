@@ -19,13 +19,163 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.IO;
+using System.Security.AccessControl;
+using Core.Common.Base.Data;
+using Core.Common.Base.IO;
+using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.IO.Test
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsConfigurationExporterTest
     {
-        
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Call
+            var exporter = new GrassCoverErosionOutwardsConfigurationExporter(new CalculationGroup(), "test.xml");
+
+            // Assert
+            Assert.IsInstanceOf<IFileExporter>(exporter);
+        }
+
+        [Test]
+        public void Constructor_CalculationGroupNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new GrassCoverErosionOutwardsConfigurationExporter(null, "test.xml");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("calculationGroup", exception.ParamName);
+        }
+
+        [Test]
+        [TestCase("")]
+        [TestCase("   ")]
+        [TestCase("c:\\>")]
+        public void Constructor_FilePathInvalid_ThrowArgumentException(string filePath)
+        {
+            // Call
+            TestDelegate test = () => new GrassCoverErosionOutwardsConfigurationExporter(new CalculationGroup(), filePath);
+
+            // Assert
+            Assert.Throws<ArgumentException>(test);
+        }
+
+        [Test]
+        public void Export_ValidData_ReturnTrueAndWritesFile()
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath($"{nameof(Export_ValidData_ReturnTrueAndWritesFile)}.xml");
+
+            var calculation1 = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                Name = "Calculation A",
+                InputParameters =
+                {
+                    ForeshoreProfile = new TestForeshoreProfile("ForeshoreA")
+                }
+            };
+
+            var calculation2 = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                Name = "PK001_0002 W1-6_4_1D1",
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HydraulicLocationA", 0, 0),
+                    UseBreakWater = true
+                }
+            };
+
+            var calculationGroup2 = new CalculationGroup("PK001_0002", false)
+            {
+                Children =
+                {
+                    calculation2
+                }
+            };
+
+            var calculationGroup = new CalculationGroup("PK001_0001", false)
+            {
+                Children =
+                {
+                    calculation1,
+                    calculationGroup2
+                }
+            };
+
+            var rootGroup = new CalculationGroup("root", false)
+            {
+                Children =
+                {
+                    calculationGroup
+                }
+            };
+
+            var exporter = new GrassCoverErosionOutwardsConfigurationExporter(rootGroup, filePath);
+
+            try
+            {
+                // Call
+                bool isExported = exporter.Export();
+
+                // Assert
+                Assert.IsTrue(isExported);
+                Assert.IsTrue(File.Exists(filePath));
+
+                string actualXml = File.ReadAllText(filePath);
+                string testDirSubPath = Path.Combine(nameof(GrassCoverErosionOutwardsConfigurationExporter), "fullValidConfiguration.xml");
+                string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionOutwards.IO,
+                                                                        testDirSubPath);
+                string expectedXml = File.ReadAllText(expectedXmlFilePath);
+
+                Assert.AreEqual(expectedXml, actualXml);
+            }
+            finally
+            {
+                File.Delete(filePath);
+            }
+        }
+
+        [Test]
+        public void Export_InvalidDirectoryRights_LogErrorAndReturnFalse()
+        {
+            // Setup
+            var calculationGroup = new CalculationGroup
+            {
+                Children =
+                {
+                    new GrassCoverErosionOutwardsWaveConditionsCalculation()
+                }
+            };
+
+            string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_InvalidDirectoryRights_LogErrorAndReturnFalse));
+            using (var disposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(Export_InvalidDirectoryRights_LogErrorAndReturnFalse)))
+            {
+                string filePath = Path.Combine(directoryPath, "test.xml");
+
+                var exporter = new GrassCoverErosionOutwardsConfigurationExporter(calculationGroup, filePath);
+
+                disposeHelper.LockDirectory(FileSystemRights.Write);
+
+                // Call
+                var isExported = true;
+                Action call = () => isExported = exporter.Export();
+
+                // Assert
+                string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'. "
+                                         + "Er is geen configuratie geëxporteerd.";
+                TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
+                Assert.IsFalse(isExported);
+            }
+        }
     }
 }
