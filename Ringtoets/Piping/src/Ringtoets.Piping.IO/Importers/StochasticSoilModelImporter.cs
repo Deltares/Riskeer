@@ -102,7 +102,14 @@ namespace Ringtoets.Piping.IO.Importers
                 return false;
             }
 
-            UpdatedInstances = modelUpdateStrategy.UpdateModelWithImportedData(ImportTarget, GetValidStochasticSoilModels(importStochasticSoilModelResult), FilePath);
+            StochasticSoilModel[] validStochasticSoilModels = GetValidStochasticSoilModels(importStochasticSoilModelResult).ToArray();
+            if (Canceled)
+            {
+                return false;
+            }
+
+            NotifyProgress(messageProvider.GetAddDataToModelProgressText(), 1, 1);
+            UpdatedInstances = modelUpdateStrategy.UpdateModelWithImportedData(ImportTarget, validStochasticSoilModels, FilePath);
 
             return true;
         }
@@ -147,10 +154,14 @@ namespace Ringtoets.Piping.IO.Importers
         {
             var currentStep = 1;
             StochasticSoilModel[] importedModels = importStochasticSoilModelResult.Items.ToArray();
-            string addDataToModelProgressText = messageProvider.GetAddDataToModelProgressText();
             foreach (StochasticSoilModel importedModel in importedModels)
             {
-                NotifyProgress(addDataToModelProgressText, currentStep, importedModels.Length);
+                NotifyProgress(RingtoestCommonIOResources.Importer_ProgressText_Validating_imported_data, currentStep, importedModels.Length);
+                if (Canceled)
+                {
+                    yield break;
+                }
+
                 if (ValidateStochasticSoilModel(importedModel))
                 {
                     yield return importedModel;

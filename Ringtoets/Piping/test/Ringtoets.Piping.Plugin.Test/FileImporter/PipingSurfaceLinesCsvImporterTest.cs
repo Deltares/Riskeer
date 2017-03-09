@@ -218,6 +218,11 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 }
                 else if (callCount <= expectedNumberOfSurfaceLines + 1 + expectedNumberOfSurfaceLines)
                 {
+                    Assert.AreEqual("Valideren van ingelezen data.", currentStepName);
+                    Assert.AreEqual(expectedNumberOfSurfaceLines, totalNumberOfSteps);
+                }
+                else if (callCount <= expectedNumberOfSurfaceLines + expectedNumberOfSurfaceLines + 2)
+                {
                     Assert.AreEqual(expectedAddDataToModelProgressText, currentStepName);
                 }
                 else
@@ -225,7 +230,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                     Assert.Fail("Not expecting progress: \"{0}: {1} out of {2}\".", currentStepName, currentStep, totalNumberOfSteps);
                 }
 
-                Assert.AreEqual(expectedNumberOfSurfaceLines, totalNumberOfSteps);
                 callCount++;
             });
 
@@ -252,7 +256,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.AreEqual(5.7, secondSurfaceLine.EndingWorldPoint.X);
             AssertAreEqualPoint2D(new Point2D(3.3, 0), secondSurfaceLine.ReferenceLineIntersectionWorldPoint);
 
-            Assert.AreEqual(6, callCount);
+            Assert.AreEqual(7, callCount);
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(validFilePath));
         }
@@ -390,12 +394,10 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void Import_CancelOfImportDuringAddingDataToModel_CancelsImportAndLogs()
+        public void Import_CancelOfImportDuringProcessImportDataToModel_CancelsImportAndLogs()
         {
             // Setup
-            const string expectedAddDataToModelProgressText = "Adding data";
-            var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
-            messageProvider.Expect(mp => mp.GetAddDataToModelProgressText()).Return(expectedAddDataToModelProgressText);
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
             mocks.ReplayAll();
 
             string validFilePath = Path.Combine(ioTestDataPath, "TwoValidSurfaceLines.csv");
@@ -415,7 +417,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             importer.SetProgressChanged((description, step, steps) =>
             {
                 if (step < steps
-                    && description.Contains(expectedAddDataToModelProgressText))
+                    && description.Contains("Valideren van ingelezen data."))
                 {
                     importer.Cancel();
                 }
@@ -433,6 +435,52 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, "Profielschematisaties importeren afgebroken. Geen data ingelezen.", 4);
             AssertUnsuccessfulImport(importResult, surfaceLineUpdateStrategy);
+        }
+
+        [Test]
+        public void Import_CancelOfImportWhenAddingDataToModel_ImportCompletedSuccessfullyNonetheless()
+        {
+            // Setup
+            const string expectedAddDataToModelProgressText = "Adding data";
+            var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
+            messageProvider.Expect(mp => mp.GetAddDataToModelProgressText()).Return(expectedAddDataToModelProgressText);
+            mocks.ReplayAll();
+
+            const int expectedNumberOfSurfaceLines = 2;
+            string validFilePath = Path.Combine(ioTestDataPath, "TwoValidSurfaceLines.csv");
+
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new[]
+            {
+                new Point2D(3.3, -1),
+                new Point2D(3.3, 1),
+                new Point2D(94270, 427775.65),
+                new Point2D(94270, 427812.08)
+            });
+
+            var failureMechanism = new PipingFailureMechanism();
+            var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
+            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, validFilePath, messageProvider, surfaceLineUpdateStrategy);
+            importer.SetProgressChanged((description, step, steps) =>
+            {
+                if (description.Contains(expectedAddDataToModelProgressText))
+                {
+                    importer.Cancel();
+                }
+            });
+
+            // Precondition
+            CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
+            Assert.IsTrue(File.Exists(validFilePath));
+
+            bool importResult = false;
+
+            // Call
+            Action call = () => importResult = importer.Import();
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, "Huidige actie was niet meer te annuleren en is daarom voortgezet.", 4);
+            AssertSuccessfulImport(importResult, expectedNumberOfSurfaceLines, validFilePath, surfaceLineUpdateStrategy);
         }
 
         [Test]
@@ -759,16 +807,17 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.AreEqual(1, importedSurfaceLines.Count(sl => sl.Name == "Rotterdam1"));
             Assert.AreEqual(1, importedSurfaceLines.Count(sl => sl.Name == "ArtifcialLocal"));
 
-            Assert.AreEqual(9, progressCallCount,
+            Assert.AreEqual(10, progressCallCount,
                             new StringBuilder()
                                 .AppendLine("Expected number of calls:")
                                 .AppendLine("1  : Start reading surface lines file.")
                                 .AppendLine("4  : 1 call for each read surface line, +1 for index 0.")
                                 .AppendLine("1  : Start reading characteristic points file.")
+                                .AppendLine("1  : 1 call to process the imported surface lines.")
                                 .AppendLine("1  : Start adding data to failure mechanism.")
                                 .AppendLine("2  : 1 call for each valid surfaceline checked against reference line.")
                                 .AppendLine("-- +")
-                                .AppendLine("9")
+                                .AppendLine("10")
                                 .ToString());
         }
 
@@ -1174,17 +1223,18 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.AreEqual(1, importedSurfaceLines.Count(sl => sl.Name == "Rotterdam1Invalid"));
             Assert.AreEqual(1, importedSurfaceLines.Count(sl => sl.Name == "ArtifcialLocal"));
 
-            Assert.AreEqual(11, progressCallCount,
+            Assert.AreEqual(12, progressCallCount,
                             new StringBuilder()
                                 .AppendLine("Expected number of calls:")
                                 .AppendLine("1  : Start reading surface lines file.")
                                 .AppendLine("3  : 1 call for each read surface line, +1 for index 0.")
                                 .AppendLine("1  : Start reading characteristic points file.")
                                 .AppendLine("3  : 1 call for each set of characteristic points for a locations being read, +1 for index 0.")
+                                .AppendLine("1  : 1 call to process the imported surface lines.")
                                 .AppendLine("1  : Start adding data to failure mechanism.")
                                 .AppendLine("2  : 1 call for each surfaceline checked against reference line.")
                                 .AppendLine("-- +")
-                                .AppendLine("11")
+                                .AppendLine("12")
                                 .ToString());
         }
 
@@ -1240,17 +1290,18 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.AreEqual(1, importedSurfaceLines.Count(sl => sl.Name == "Rotterdam1"));
             Assert.AreEqual(1, importedSurfaceLines.Count(sl => sl.Name == "ArtifcialLocal"));
 
-            Assert.AreEqual(10, progressCallCount,
+            Assert.AreEqual(11, progressCallCount,
                             new StringBuilder()
                                 .AppendLine("Expected number of calls:")
                                 .AppendLine("1  : Start reading surface lines file.")
                                 .AppendLine("3  : 1 call for each read surface line, +1 for index 0.")
                                 .AppendLine("1  : Start reading characteristic points file.")
                                 .AppendLine("2  : 1 call for each set of characteristic points for a locations being read, +1 for index 0.")
+                                .AppendLine("1  : 1 call to process the imported surface lines.")
                                 .AppendLine("1  : Start adding data to failure mechanism.")
                                 .AppendLine("2  : 1 call for each surfaceline checked against reference line.")
                                 .AppendLine("-- +")
-                                .AppendLine("10")
+                                .AppendLine("11")
                                 .ToString());
         }
 
@@ -1306,17 +1357,18 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.AreEqual(1, importedSurfaceLines.Count(sl => sl.Name == "Rotterdam1"));
             Assert.AreEqual(1, importedSurfaceLines.Count(sl => sl.Name == "ArtifcialLocal"));
 
-            Assert.AreEqual(12, progressCallCount,
+            Assert.AreEqual(13, progressCallCount,
                             new StringBuilder()
                                 .AppendLine("Expected number of calls:")
                                 .AppendLine("1  : Start reading surface lines file.")
                                 .AppendLine("3  : 1 call for each read surface line, +1 for index 0.")
                                 .AppendLine("1  : Start reading characteristic points file.")
                                 .AppendLine("4  : 1 call for each set of characteristic points for a locations being read, +1 for index 0.")
+                                .AppendLine("1  : 1 call to process the imported surface lines.")
                                 .AppendLine("1  : Start adding data to failure mechanism.")
                                 .AppendLine("2  : 1 call for each surfaceline checked against reference line.")
                                 .AppendLine("-- +")
-                                .AppendLine("12")
+                                .AppendLine("13")
                                 .ToString());
         }
 
@@ -1381,17 +1433,18 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.AreEqual(1, importedSurfaceLines.Count(sl => sl.Name == "Rotterdam1Invalid"));
             Assert.AreEqual(1, importedSurfaceLines.Count(sl => sl.Name == "ArtifcialLocal"));
 
-            Assert.AreEqual(11, progressCallCount,
+            Assert.AreEqual(12, progressCallCount,
                             new StringBuilder()
                                 .AppendLine("Expected number of calls:")
                                 .AppendLine("1  : Start reading surface lines file.")
                                 .AppendLine("3  : 1 call for each read surface line, +1 for index 0.")
                                 .AppendLine("1  : Start reading characteristic points file.")
                                 .AppendLine("3  : 1 call for each set of characteristic points for a locations being read, +1 for index 0.")
+                                .AppendLine("1  : 1 call to process the imported surface lines.")
                                 .AppendLine("1  : Start adding data to failure mechanism.")
                                 .AppendLine("2  : 1 call for each surfaceline checked against reference line.")
                                 .AppendLine("-- +")
-                                .AppendLine("11")
+                                .AppendLine("12")
                                 .ToString());
         }
 
@@ -1456,6 +1509,11 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 }
                 else if (callCount <= expectedNumberOfSurfaceLines + expectedNumberOfCharacteristicPointsDefinitions + 2 + expectedNumberOfSurfaceLines)
                 {
+                    Assert.AreEqual("Valideren van ingelezen data.", currentStepName);
+                    Assert.AreEqual(expectedNumberOfSurfaceLines, totalNumberOfSteps);
+                }
+                else if (callCount <= expectedNumberOfSurfaceLines + expectedNumberOfCharacteristicPointsDefinitions + 2 + expectedNumberOfSurfaceLines + 1)
+                {
                     Assert.AreEqual(expectedAddDataToModelProgressText, currentStepName);
                 }
                 else
@@ -1463,7 +1521,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                     Assert.Fail("Not expecting progress: \"{0}: {1} out of {2}\".", currentStepName, currentStep, totalNumberOfSteps);
                 }
 
-                Assert.AreEqual(expectedNumberOfSurfaceLines, totalNumberOfSteps);
                 callCount++;
             });
 
@@ -1501,7 +1558,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.AreEqual(new Point3D(2.3, 0, 1.0), secondSurfaceLine.DikeToeAtRiver);
             Assert.AreEqual(new Point3D(5.7, 0, 1.1), secondSurfaceLine.DikeToeAtPolder);
 
-            Assert.AreEqual(9, callCount);
+            Assert.AreEqual(10, callCount);
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(validSurfaceLinesFilePath));
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(validCharacteristicPointsFilePath));

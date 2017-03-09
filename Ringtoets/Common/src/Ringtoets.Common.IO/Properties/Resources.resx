@@ -510,4 +510,7 @@ Er is geen vakindeling geïmporteerd.</value>
   <data name="Importer_ProgressText_Updating_data_in_data_model" xml:space="preserve">
     <value>Bijwerken data in het toetsspoor.</value>
   </data>
+  <data name="Importer_ProgressText_Validating_imported_data" xml:space="preserve">
+    <value>Valideren van ingelezen data.</value>
+  </data>
 </root>

@@ -111,13 +111,14 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 return false;
             }
 
-            RingtoetsPipingSurfaceLine[] importResults = ProcessImportedDataToModel(importSurfaceLinesResult.Items,
+            RingtoetsPipingSurfaceLine[] importResults = GetProcessedImportedData(importSurfaceLinesResult.Items,
                                                                                     importCharacteristicPointsResult.Items).ToArray();
             if (Canceled)
             {
                 return false;
             }
 
+            NotifyProgress(messageProvider.GetAddDataToModelProgressText(), 1, 1);
             UpdatedInstances = surfaceLineUpdateStrategy.UpdateSurfaceLinesWithImportedData(ImportTarget, importResults, FilePath);
             return true;
         }
@@ -144,10 +145,10 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             return new ReadResult<T>(true);
         }
 
-        private IEnumerable<RingtoetsPipingSurfaceLine> ProcessImportedDataToModel(ICollection<RingtoetsPipingSurfaceLine> readSurfaceLines,
+        private IEnumerable<RingtoetsPipingSurfaceLine> GetProcessedImportedData(ICollection<RingtoetsPipingSurfaceLine> readSurfaceLines,
                                                                                    ICollection<CharacteristicPoints> readCharacteristicPointsLocations)
         {
-            string progressText = messageProvider.GetAddDataToModelProgressText();
+            string progressText = RingtoetsCommonIOResources.Importer_ProgressText_Validating_imported_data;
             NotifyProgress(progressText, 0, readSurfaceLines.Count);
 
             List<string> readCharacteristicPointsLocationNames = readCharacteristicPointsLocations.Select(cpl => cpl.Name).ToList();

@@ -711,6 +711,15 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Valideren van ingelezen data..
+        /// </summary>
+        public static string Importer_ProgressText_Validating_imported_data {
+            get {
+                return ResourceManager.GetString("Importer_ProgressText_Validating_imported_data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kon geen punten vinden in dit bestand..
         /// </summary>
         public static string PointShapefileReader_File_can_only_contain_points {

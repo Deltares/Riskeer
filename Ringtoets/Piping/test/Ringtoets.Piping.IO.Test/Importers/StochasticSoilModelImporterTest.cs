@@ -251,8 +251,9 @@ namespace Ringtoets.Piping.IO.Test.Importers
             expectedProgressMessages.Add(new ProgressNotification("Controleren van ondergrondschematisaties.", 1, 1));
             for (var i = 1; i <= expectedModels; i++)
             {
-                expectedProgressMessages.Add(new ProgressNotification(expectedAddDataText, i, expectedModels));
+                expectedProgressMessages.Add(new ProgressNotification("Valideren van ingelezen data.", i, expectedModels));
             }
+            expectedProgressMessages.Add(new ProgressNotification(expectedAddDataText, 1, 1));
             Assert.AreEqual(expectedProgressMessages.Count, progressChangeNotifications.Count);
             for (var i = 0; i < expectedProgressMessages.Count; i++)
             {
@@ -290,7 +291,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
 
             // Assert
             TestHelper.AssertLogMessagesCount(call, 0);
-            Assert.AreEqual(35 * 2, progress);
+            Assert.AreEqual(36 * 2, progress);
 
             StochasticSoilModel[] readModels = AssertSuccessfulImport(validFilePath, importResult, updateStrategy);
             Assert.AreEqual(3, readModels.Length);
@@ -383,6 +384,40 @@ namespace Ringtoets.Piping.IO.Test.Importers
             importer.SetProgressChanged((description, step, steps) =>
             {
                 if (description.Contains("Controleren van ondergrondschematisaties."))
+                {
+                    importer.Cancel();
+                }
+            });
+
+            var importResult = true;
+
+            // Call
+            Action call = () => importResult = importer.Import();
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, "Stochastische ondergrondmodellen importeren afgebroken. Geen data ingelezen.", 1);
+            AssertUnsuccessfulImport(importResult, updateStrategy);
+        }
+
+        [Test]
+        public void Import_CancelOfImportWhenValidatingStochasticSoilModels_CancelsImportAndLogs()
+        {
+            // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
+            string validFilePath = Path.Combine(testDataPath, "complete.soil");
+
+            var failureMechanism = new PipingFailureMechanism();
+            var updateStrategy = new TestStochasticSoilModelUpdateModelStrategy();
+            var importer = new StochasticSoilModelImporter(
+                failureMechanism.StochasticSoilModels,
+                validFilePath,
+                messageProvider,
+                updateStrategy);
+            importer.SetProgressChanged((description, step, steps) =>
+            {
+                if (description.Contains("Valideren van ingelezen data."))
                 {
                     importer.Cancel();
                 }
@@ -500,7 +535,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
                 "Het stochastische ondergrondmodel \'Name\' heeft een ongespecificeerde ondergrondschematisatie. Dit model wordt overgeslagen."
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 2);
-            Assert.AreEqual(7, progress);
+            Assert.AreEqual(8, progress);
 
             StochasticSoilModel[] readModels = AssertSuccessfulImport(pathToCorruptFile, importResult, updateStrategy);
             CollectionAssert.IsEmpty(readModels);
@@ -831,7 +866,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
             CollectionAssert.AreEqual(Enumerable.Repeat(double.NaN, expectedNumberOfLayers),
                                       profile.Layers.Select(l => l.BelowPhreaticLevelMean));
 
-            Assert.AreEqual(6, progress);
+            Assert.AreEqual(7, progress);
         }
 
         [Test]
@@ -913,7 +948,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
             CollectionAssert.AreEqual(expectedBelowPhreaticLevelValues,
                                       profile.Layers.Select(l => l.BelowPhreaticLevelMean));
 
-            Assert.AreEqual(6, progress);
+            Assert.AreEqual(7, progress);
         }
 
         [Test]
