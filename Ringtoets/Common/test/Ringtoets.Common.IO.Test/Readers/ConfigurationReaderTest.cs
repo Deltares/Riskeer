@@ -122,7 +122,7 @@ namespace Ringtoets.Common.IO.Test.Readers
             "Invalid 'schemaString': Data at the root level is invalid. Line 1, position 1.",
             typeof(XmlException))]
         [TestCase("invalidXsdContent.xsd",
-            "Invalid 'schemaString': The root element of a W3C XML Schema should be <schema> and its namespace should be 'http://www.w3.org/2001/XMLSchema'.",
+            "Invalid 'schemaString': The 'http://www.w3.org/2001/XMLSchema:redefine' element is not supported in this context.",
             typeof(XmlSchemaException))]
         [TestCase("notReferencingBaseXsd.xsd",
             "Invalid 'schemaString': the base XML Schema Definition file 'ConfiguratieSchema.xsd' is not referenced.")]
