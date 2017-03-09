@@ -20,47 +20,25 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using BruTile;
 using Core.Components.BruTile.Configurations;
 using Core.Components.BruTile.IO;
 using Core.Components.DotSpatial.Layer.BruTile;
 using Core.Components.Gis.Data;
+using DotSpatial.Symbology;
 using NUnit.Framework;
 using Rhino.Mocks;
 
 namespace Core.Components.DotSpatial.Forms.Test
 {
     [TestFixture]
-    public class WmtsBackgroundLayerStatusTest
+    public class WellKnownBackgroundLayerStatusTest
     {
-        private static IEnumerable<TestCaseData> SlightlyDifferentMapDataFromDefault
-        {
-            get
-            {
-                yield return new TestCaseData(new WmtsMapData("case 1",
-                                                              "https://geodata.nationaalgeoregister.nl/wmts/top10nlv1?VERSION=1.1.0&request=GetCapabilities",
-                                                              "brtachtergrondkaart(EPSG:28992)",
-                                                              "image/png"))
-                    .SetName("HasSameConfiguration_ForCase1_ReturnFalse");
-                yield return new TestCaseData(new WmtsMapData("case 2",
-                                                              "https://geodata.nationaalgeoregister.nl/wmts/top10nlv1?VERSION=1.1.0&request=GetCapabilities",
-                                                              "brtachtergrondkaart(EPSG:12345)",
-                                                              "image/png"))
-                    .SetName("HasSameConfiguration_ForCase2_ReturnFalse");
-                yield return new TestCaseData(new WmtsMapData("case 3",
-                                                              "https://geodata.nationaalgeoregister.nl/wmts/top10nlv1?VERSION=1.1.0&request=GetCapabilities",
-                                                              "brtachtergrondkaart(EPSG:28992)",
-                                                              "image/jpeg"))
-                    .SetName("HasSameConfiguration_ForCase3_ReturnFalse");
-            }
-        }
-
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            using (var layerStatus = new WmtsBackgroundLayerStatus())
+            using (var layerStatus = new WellKnownBackgroundLayerStatus())
             {
                 // Assert
                 Assert.IsInstanceOf<IBackgroundLayerStatus>(layerStatus);
@@ -75,7 +53,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void HasSameConfiguration_MapDataNull_ThrownArgumentNullException()
         {
             // Setup
-            using (var layerStatus = new WmtsBackgroundLayerStatus())
+            using (var layerStatus = new WellKnownBackgroundLayerStatus())
             {
                 // Call
                 TestDelegate call = () => layerStatus.HasSameConfiguration(null);
@@ -87,28 +65,12 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void HasSameConfiguration_MapDataNotWmtsMapData_ReturnFalse()
+        public void HasSameConfiguration_MapDataNotWellKnownMapData_ReturnFalse()
         {
             // Setup
-            using (var layerStatus = new WmtsBackgroundLayerStatus())
+            using (var layerStatus = new WellKnownBackgroundLayerStatus())
             {
                 var mapData = new SimpleImageBasedMapData();
-
-                // Call
-                bool isSame = layerStatus.HasSameConfiguration(mapData);
-
-                // Assert
-                Assert.IsFalse(isSame);
-            }
-        }
-
-        [Test]
-        public void HasSameConfiguration_NoInitializedLayer_ReturnFalse()
-        {
-            // Setup
-            using (var layerStatus = new WmtsBackgroundLayerStatus())
-            {
-                var mapData = WmtsMapData.CreateDefaultPdokMapData();
 
                 // Call
                 bool isSame = layerStatus.HasSameConfiguration(mapData);
@@ -124,15 +86,16 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Setup
             var mocks = new MockRepository();
             var tileFetcher = mocks.Stub<ITileFetcher>();
-            using (var layerStatus = new WmtsBackgroundLayerStatus())
+            using (var layerStatus = new WellKnownBackgroundLayerStatus())
             {
                 IConfiguration configuration = CreateStubConfiguration(mocks, tileFetcher);
                 mocks.ReplayAll();
 
                 using (var layer = new BruTileLayer(configuration))
                 {
-                    var mapData1 = WmtsMapData.CreateDefaultPdokMapData();
-                    var mapData2 = WmtsMapData.CreateDefaultPdokMapData();
+                    var source = new Random(789).NextEnum<WellKnownTileSource>();
+                    var mapData1 = new WellKnownTileSourceMapData(source);
+                    var mapData2 = new WellKnownTileSourceMapData(source);
 
                     layerStatus.SuccessfullyInitializedLayer(layer, mapData1);
 
@@ -140,36 +103,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                     bool isSame = layerStatus.HasSameConfiguration(mapData2);
 
                     // Assert
-                    Assert.IsTrue(isSame,
-                                  "Should recognize same configuration even if instance is not the same.");
-                }
-            }
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCaseSource(nameof(SlightlyDifferentMapDataFromDefault))]
-        public void HasSameConfiguration_ForDifferentInitializedLayer_ReturnFalse(WmtsMapData otherData)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var tileFetcher = mocks.Stub<ITileFetcher>();
-            using (var layerStatus = new WmtsBackgroundLayerStatus())
-            {
-                IConfiguration configuration = CreateStubConfiguration(mocks, tileFetcher);
-                mocks.ReplayAll();
-
-                using (var layer = new BruTileLayer(configuration))
-                {
-                    var mapData = WmtsMapData.CreateDefaultPdokMapData();
-
-                    layerStatus.SuccessfullyInitializedLayer(layer, mapData);
-
-                    // Call
-                    bool isSame = layerStatus.HasSameConfiguration(otherData);
-
-                    // Assert
-                    Assert.IsFalse(isSame);
+                    Assert.IsTrue(isSame, "Should recognize same configuration even if instance is not the same.");
                 }
             }
             mocks.VerifyAll();
@@ -179,9 +113,9 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void SuccessfullyInitializedLayer_LayerNull_ThrownArgumentNullException()
         {
             // Setup
-            using (var layerStatus = new WmtsBackgroundLayerStatus())
+            using (var layerStatus = new WellKnownBackgroundLayerStatus())
             {
-                var dataSource = WmtsMapData.CreateDefaultPdokMapData();
+                var dataSource = new WellKnownTileSourceMapData(new Random(789).NextEnum<WellKnownTileSource>());
 
                 // Call
                 TestDelegate call = () => layerStatus.SuccessfullyInitializedLayer(null, dataSource);
@@ -202,7 +136,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             mocks.ReplayAll();
 
             using (var layer = new BruTileLayer(configuration))
-            using (var layerStatus = new WmtsBackgroundLayerStatus())
+            using (var layerStatus = new WellKnownBackgroundLayerStatus())
             {
                 // Call
                 TestDelegate call = () => layerStatus.SuccessfullyInitializedLayer(layer, null);
@@ -214,7 +148,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void SuccessfullyInitializedLayer_MapDataNotWmtsMapData_SetCreationFailedTrue()
+        public void SuccessfullyInitializedLayer_MapDataNotWellKnownMapData_SetCreationFailedTrue()
         {
             // Setup
             var mocks = new MockRepository();
@@ -223,7 +157,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             mocks.ReplayAll();
 
             using (var layer = new BruTileLayer(configuration))
-            using (var layerStatus = new WmtsBackgroundLayerStatus())
+            using (var layerStatus = new WellKnownBackgroundLayerStatus())
             {
                 var mapData = new SimpleImageBasedMapData();
 
@@ -245,14 +179,11 @@ namespace Core.Components.DotSpatial.Forms.Test
             mocks.ReplayAll();
 
             using (var layer = new BruTileLayer(configuration))
-            using (var layerStatus = new WmtsBackgroundLayerStatus())
+            using (var layerStatus = new WellKnownBackgroundLayerStatus())
             {
                 layerStatus.LayerInitializationFailed();
 
-                // Precondition
-                Assert.IsTrue(layerStatus.PreviousBackgroundLayerCreationFailed);
-
-                var mapData = WmtsMapData.CreateDefaultPdokMapData();
+                var mapData = new WellKnownTileSourceMapData(new Random(789).NextEnum<WellKnownTileSource>());
 
                 // Call
                 layerStatus.SuccessfullyInitializedLayer(layer, mapData);
@@ -266,7 +197,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void LayerInitializationFailed_PreviousBackgroundLayerCreationFailedTrue()
         {
             // Setup
-            using (var layerStatus = new WmtsBackgroundLayerStatus())
+            using (var layerStatus = new WellKnownBackgroundLayerStatus())
             {
                 // Call
                 layerStatus.LayerInitializationFailed();
@@ -286,9 +217,9 @@ namespace Core.Components.DotSpatial.Forms.Test
             mocks.ReplayAll();
 
             using (var layer = new BruTileLayer(configuration))
-            using (var layerStatus = new WmtsBackgroundLayerStatus())
+            using (var layerStatus = new WellKnownBackgroundLayerStatus())
             {
-                var mapData = WmtsMapData.CreateDefaultPdokMapData();
+                var mapData = new WellKnownTileSourceMapData(new Random(789).NextEnum<WellKnownTileSource>());
                 layerStatus.SuccessfullyInitializedLayer(layer, mapData);
 
                 // Call
@@ -310,9 +241,9 @@ namespace Core.Components.DotSpatial.Forms.Test
             mocks.ReplayAll();
 
             using (var layer = new BruTileLayer(configuration))
-            using (var layerStatus = new WmtsBackgroundLayerStatus())
+            using (var layerStatus = new WellKnownBackgroundLayerStatus())
             {
-                var mapData = WmtsMapData.CreateDefaultPdokMapData();
+                var mapData = new WellKnownTileSourceMapData(new Random(789).NextEnum<WellKnownTileSource>());
                 layerStatus.SuccessfullyInitializedLayer(layer, mapData);
 
                 // Call
@@ -328,9 +259,9 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void ClearConfiguration_WithFailedLayerInitializationAndExpectingRecreation_ConfigurationClearedButKeepFailedFlagSet()
         {
             // Setup
-            using (var layerStatus = new WmtsBackgroundLayerStatus())
+            using (var layerStatus = new WellKnownBackgroundLayerStatus())
             {
-                var mapData = WmtsMapData.CreateDefaultPdokMapData();
+                var mapData = new WellKnownTileSourceMapData(new Random(465).NextEnum<WellKnownTileSource>());
                 layerStatus.LayerInitializationFailed();
 
                 // Call

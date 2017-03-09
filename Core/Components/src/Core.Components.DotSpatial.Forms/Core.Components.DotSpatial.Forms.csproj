@@ -85,6 +85,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="WellKnownBackgroundLayerStatus.cs" />
     <Compile Include="WmtsBackgroundLayerStatus.cs" />
   </ItemGroup>
   <ItemGroup>

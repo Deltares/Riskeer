@@ -82,6 +82,7 @@
     <Compile Include="DotSpatialMapTest.cs" />
     <Compile Include="MapControlTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WellKnownBackgroundLayerStatusTest.cs" />
     <Compile Include="WmtsBackgroundLayerStatusTest.cs" />
   </ItemGroup>
   <ItemGroup>
