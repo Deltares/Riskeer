@@ -31,6 +31,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.FileImporters;
+using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.ReferenceLines;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.Handlers;
@@ -188,6 +189,7 @@ namespace Ringtoets.Integration.TestUtils
                 var activity = new FileImportActivity(new PipingSurfaceLinesCsvImporter(assessmentSection.PipingFailureMechanism.SurfaceLines,
                                                                                         assessmentSection.ReferenceLine,
                                                                                         filePath,
+                                                                                        new ImportMessageProvider(),
                                                                                         new RingtoetsPipingSurfaceLineReplaceDataStrategy(assessmentSection.PipingFailureMechanism)),
                                                       "PipingSurfaceLinesCsvImporter");
                 activity.Run();
@@ -211,6 +213,7 @@ namespace Ringtoets.Integration.TestUtils
                 var activity = new FileImportActivity(new StochasticSoilModelImporter(
                                                           assessmentSection.PipingFailureMechanism.StochasticSoilModels,
                                                           filePath,
+                                                          new ImportMessageProvider(),
                                                           new StochasticSoilModelReplaceDataStrategy(assessmentSection.PipingFailureMechanism)),
                                                       "StochasticSoilModelImporter");
                 activity.Run();

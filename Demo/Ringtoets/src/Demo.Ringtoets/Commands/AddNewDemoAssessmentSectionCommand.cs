@@ -37,6 +37,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.IO.FileImporters;
+using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.ReferenceLines;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -557,6 +558,7 @@ namespace Demo.Ringtoets.Commands
                                                                              demoAssessmentSection.ReferenceLine,
                                                                              Path.Combine(embeddedResourceFileWriter.TargetFolderPath,
                                                                                           "DR6_surfacelines.csv"),
+                                                                             new ImportMessageProvider(),
                                                                              new RingtoetsPipingSurfaceLineReplaceDataStrategy(pipingFailureMechanism));
                 surfaceLinesImporter.Import();
             }
@@ -566,6 +568,7 @@ namespace Demo.Ringtoets.Commands
                 var soilProfilesImporter = new StochasticSoilModelImporter(pipingFailureMechanism.StochasticSoilModels,
                                                                            Path.Combine(embeddedResourceFileWriter.TargetFolderPath,
                                                                                         "DR6.soil"),
+                                                                           new ImportMessageProvider(),
                                                                            new StochasticSoilModelReplaceDataStrategy(pipingFailureMechanism));
                 soilProfilesImporter.Import();
             }

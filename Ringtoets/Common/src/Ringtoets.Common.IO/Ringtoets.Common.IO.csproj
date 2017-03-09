@@ -65,6 +65,9 @@
     <Compile Include="FileImporters\FailureMechanismSectionsImporter.cs" />
     <Compile Include="FileImporters\ForeshoreProfilesImporter.cs" />
     <Compile Include="FileImporters\HydraulicBoundaryDatabaseImporter.cs" />
+    <Compile Include="FileImporters\MessageProviders\IImporterMessageProvider.cs" />
+    <Compile Include="FileImporters\MessageProviders\ImportMessageProvider.cs" />
+    <Compile Include="FileImporters\MessageProviders\UpdateMessageProvider.cs" />
     <Compile Include="HydraRing\DesignTablesSettingsProvider.cs" />
     <Compile Include="HydraRing\HydraRingSettingsDatabaseReader.cs" />
     <Compile Include="HydraRing\HydraulicBoundaryLocationFilter.cs" />

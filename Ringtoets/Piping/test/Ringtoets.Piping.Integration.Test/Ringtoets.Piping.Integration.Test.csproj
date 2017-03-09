@@ -50,6 +50,10 @@
     <Reference Include="NUnitForms">
       <HintPath>..\..\..\..\lib\NUnitForms.dll</HintPath>
     </Reference>
+    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SQLite, Version=1.0.104.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
@@ -90,6 +94,10 @@
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj">
       <Project>{4D840673-3812-4338-A352-84854E32B8A0}</Project>
       <Name>Ringtoets.Common.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
+      <Project>{52BA7627-CBAB-4209-BE77-3B5F31378277}</Project>
+      <Name>Ringtoets.Common.IO</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Integration\src\Ringtoets.Integration.Data\Ringtoets.Integration.Data.csproj">
       <Project>{11F1F874-45AF-43E4-8AE5-15A5C9593E28}</Project>

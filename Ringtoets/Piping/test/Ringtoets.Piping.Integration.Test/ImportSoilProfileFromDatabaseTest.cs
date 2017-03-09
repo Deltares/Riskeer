@@ -24,9 +24,10 @@ using System.Linq;
 using Core.Common.TestUtil;
 using Deltares.WTIPiping;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Importers;
-using Ringtoets.Piping.IO.TestUtil;
 using Ringtoets.Piping.KernelWrapper;
 using Ringtoets.Piping.Plugin.FileImporter;
 using Ringtoets.Piping.Primitives;
@@ -42,6 +43,10 @@ namespace Ringtoets.Piping.Integration.Test
         public void GivenDatabaseWithSimple1DProfile_WhenImportingPipingProfile_ThenPipingProfileHasValuesCorrectlySet()
         {
             // Given
+            var mocks = new MockRepository();
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             string databasePath = Path.Combine(testDataPath, "1dprofile.soil");
             var pipingFailureMechanism = new PipingFailureMechanism();
 
@@ -49,6 +54,7 @@ namespace Ringtoets.Piping.Integration.Test
             var importer = new StochasticSoilModelImporter(
                 pipingFailureMechanism.StochasticSoilModels,
                 databasePath,
+                messageProvider,
                 new StochasticSoilModelReplaceDataStrategy(pipingFailureMechanism));
             importer.Import();
 
@@ -72,6 +78,8 @@ namespace Ringtoets.Piping.Integration.Test
                 2.2,
                 1.1
             }, pipingProfile.Layers.Select(l => l.TopLevel));
+
+            mocks.VerifyAll();
         }
 
         /// <summary>
@@ -82,6 +90,10 @@ namespace Ringtoets.Piping.Integration.Test
         public void GivenDatabaseWithValid2DProfileAnd2dProfileWithInvalidLayerGeometry_WhenImportingPipingProfile_ThenValidPipingProfileHasValuesCorrectlySet()
         {
             // Given
+            var mocks = new MockRepository();
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             string databasePath = Path.Combine(testDataPath, "invalid2dGeometry.soil");
             var pipingFailureMechanism = new PipingFailureMechanism();
 
@@ -89,6 +101,7 @@ namespace Ringtoets.Piping.Integration.Test
             var importer = new StochasticSoilModelImporter(
                 pipingFailureMechanism.StochasticSoilModels,
                 databasePath,
+                messageProvider,
                 new StochasticSoilModelReplaceDataStrategy(pipingFailureMechanism));
             importer.Import();
 
@@ -112,12 +125,18 @@ namespace Ringtoets.Piping.Integration.Test
                 3.75,
                 2.75
             }, pipingProfile.Layers.Select(l => l.TopLevel));
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenDatabaseWithNoLayerValues_WhenImportingPipingProfile_ThenValidPipingProfileWithDefaultValuesCreated()
         {
             // Given
+            var mocks = new MockRepository();
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             var databasePath = Path.Combine(testDataPath, "1dprofileNoValues.soil");
             var pipingFailureMechanism = new PipingFailureMechanism();
 
@@ -125,6 +144,7 @@ namespace Ringtoets.Piping.Integration.Test
             var importer = new StochasticSoilModelImporter(
                 pipingFailureMechanism.StochasticSoilModels,
                 databasePath,
+                messageProvider,
                 new StochasticSoilModelReplaceDataStrategy(pipingFailureMechanism));
             importer.Import();
 
@@ -143,6 +163,8 @@ namespace Ringtoets.Piping.Integration.Test
                 2.2,
                 1.1
             }, pipingProfile.Layers.Select(l => l.TopLevel));
+
+            mocks.VerifyAll();
         }
     }
 }

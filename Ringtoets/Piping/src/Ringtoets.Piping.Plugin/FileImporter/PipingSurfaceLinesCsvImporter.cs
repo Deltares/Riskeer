@@ -30,6 +30,7 @@ using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Importers;
 using Ringtoets.Piping.IO.SurfaceLines;
@@ -55,6 +56,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         private const string characteristicPointsFileSubExtension = ".krp";
         private const string csvFileExtension = ".csv";
+        private readonly IImporterMessageProvider messageProvider;
         private readonly ISurfaceLineUpdateDataStrategy surfaceLineUpdateStrategy;
         private readonly ILog log = LogManager.GetLogger(typeof(PipingSurfaceLinesCsvImporter));
 
@@ -66,13 +68,13 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         /// <param name="importTarget">The import target.</param>
         /// <param name="referenceLine">The reference line.</param>
         /// <param name="filePath">The path to the file to import from.</param>
+        /// <param name="messageProvider">The message provider to provide messages during importer actions.</param>
         /// <param name="surfaceLineUpdateStrategy">The strategy to update the surface lines with imported data.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="importTarget"/>
         /// or <paramref name="referenceLine"/> is <c>null</c>.</exception>
-        public PipingSurfaceLinesCsvImporter(RingtoetsPipingSurfaceLineCollection importTarget,
-                                             ReferenceLine referenceLine,
-                                             string filePath,
-                                             ISurfaceLineUpdateDataStrategy surfaceLineUpdateStrategy) : base(filePath, importTarget)
+        public PipingSurfaceLinesCsvImporter(RingtoetsPipingSurfaceLineCollection importTarget, ReferenceLine referenceLine, string filePath,
+                                             IImporterMessageProvider messageProvider, ISurfaceLineUpdateDataStrategy surfaceLineUpdateStrategy)
+            : base(filePath, importTarget)
         {
             if (importTarget == null)
             {
@@ -82,11 +84,15 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             {
                 throw new ArgumentNullException(nameof(referenceLine));
             }
+            if (messageProvider == null)
+            {
+                throw new ArgumentNullException(nameof(messageProvider));
+            }
             if (surfaceLineUpdateStrategy == null)
             {
                 throw new ArgumentNullException(nameof(surfaceLineUpdateStrategy));
             }
-
+            this.messageProvider = messageProvider;
             this.surfaceLineUpdateStrategy = surfaceLineUpdateStrategy;
             this.referenceLine = referenceLine;
         }
@@ -141,14 +147,14 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         private IEnumerable<RingtoetsPipingSurfaceLine> ProcessImportedDataToModel(ICollection<RingtoetsPipingSurfaceLine> readSurfaceLines,
                                                                                    ICollection<CharacteristicPoints> readCharacteristicPointsLocations)
         {
-            NotifyProgress(RingtoetsCommonIOResources.Importer_ProgressText_Adding_imported_data_to_data_model, 0, readSurfaceLines.Count);
+            string progressText = messageProvider.GetAddDataToModelProgressText();
+            NotifyProgress(progressText, 0, readSurfaceLines.Count);
 
             List<string> readCharacteristicPointsLocationNames = readCharacteristicPointsLocations.Select(cpl => cpl.Name).ToList();
             int surfaceLineNumber = 1;
             foreach (var readSurfaceLine in readSurfaceLines)
             {
-                NotifyProgress(RingtoetsCommonIOResources.Importer_ProgressText_Adding_imported_data_to_data_model,
-                               surfaceLineNumber++, readSurfaceLines.Count);
+                NotifyProgress(progressText, surfaceLineNumber++, readSurfaceLines.Count);
 
                 if (Canceled)
                 {

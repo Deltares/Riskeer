@@ -28,6 +28,7 @@ using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using log4net;
+using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Properties;
@@ -43,6 +44,7 @@ namespace Ringtoets.Piping.IO.Importers
     public class StochasticSoilModelImporter : FileImporterBase<StochasticSoilModelCollection>
     {
         private readonly ILog log = LogManager.GetLogger(typeof(StochasticSoilModelImporter));
+        private readonly IImporterMessageProvider messageProvider;
         private readonly IStochasticSoilModelUpdateModelStrategy modelUpdateStrategy;
 
         /// <summary>
@@ -50,16 +52,23 @@ namespace Ringtoets.Piping.IO.Importers
         /// </summary>
         /// <param name="importTarget">The collection to update.</param>
         /// <param name="filePath">The path to the file to import from.</param>
+        /// <param name="messageProvider">The message provider to provide messages during importer actions.</param>
         /// <param name="modelUpdateStrategy">The <see cref="IStochasticSoilModelUpdateModelStrategy"/> to use
         /// when updating the <paramref name="importTarget"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
-        public StochasticSoilModelImporter(StochasticSoilModelCollection importTarget, string filePath, IStochasticSoilModelUpdateModelStrategy modelUpdateStrategy)
+        public StochasticSoilModelImporter(StochasticSoilModelCollection importTarget, string filePath,
+                                           IImporterMessageProvider messageProvider, IStochasticSoilModelUpdateModelStrategy modelUpdateStrategy)
             : base(filePath, importTarget)
         {
             if (modelUpdateStrategy == null)
             {
                 throw new ArgumentNullException(nameof(modelUpdateStrategy));
             }
+            if (messageProvider == null)
+            {
+                throw new ArgumentNullException(nameof(messageProvider));
+            }
+            this.messageProvider = messageProvider;
             this.modelUpdateStrategy = modelUpdateStrategy;
         }
 
@@ -138,9 +147,10 @@ namespace Ringtoets.Piping.IO.Importers
         {
             var currentStep = 1;
             StochasticSoilModel[] importedModels = importStochasticSoilModelResult.Items.ToArray();
+            string addDataToModelProgressText = messageProvider.GetAddDataToModelProgressText();
             foreach (StochasticSoilModel importedModel in importedModels)
             {
-                NotifyProgress(RingtoestCommonIOResources.Importer_ProgressText_Adding_imported_data_to_data_model, currentStep, importedModels.Length);
+                NotifyProgress(addDataToModelProgressText, currentStep, importedModels.Length);
                 if (ValidateStochasticSoilModel(importedModel))
                 {
                     yield return importedModel;

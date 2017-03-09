@@ -507,4 +507,7 @@ Er is geen vakindeling geïmporteerd.</value>
   <data name="ConfigurationReader_No_configuration_items_found" xml:space="preserve">
     <value>Het XML-document dat de configuratie voor de berekeningen beschrijft bevat geen berekeningselementen.</value>
   </data>
+  <data name="Importer_ProgressText_Updating_data_in_data_model" xml:space="preserve">
+    <value>Bijwerken data in het toetsspoor.</value>
+  </data>
 </root>

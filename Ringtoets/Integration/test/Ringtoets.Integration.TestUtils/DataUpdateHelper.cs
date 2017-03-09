@@ -23,6 +23,7 @@ using System.IO;
 using Core.Common.Base.Service;
 using Core.Common.Utils.IO;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Integration.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Importers;
@@ -54,6 +55,7 @@ namespace Ringtoets.Integration.TestUtils
                 var activity = new FileImportActivity(new StochasticSoilModelImporter(
                                                           assessmentSection.PipingFailureMechanism.StochasticSoilModels,
                                                           filePath,
+                                                          new UpdateMessageProvider(),
                                                           new StochasticSoilModelUpdateDataStrategy(assessmentSection.PipingFailureMechanism)),
                                                       "StochasticSoilModelUpdater");
                 activity.Run();

@@ -702,6 +702,15 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bijwerken data in het toetsspoor..
+        /// </summary>
+        public static string Importer_ProgressText_Updating_data_in_data_model {
+            get {
+                return ResourceManager.GetString("Importer_ProgressText_Updating_data_in_data_model", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kon geen punten vinden in dit bestand..
         /// </summary>
         public static string PointShapefileReader_File_can_only_contain_points {
