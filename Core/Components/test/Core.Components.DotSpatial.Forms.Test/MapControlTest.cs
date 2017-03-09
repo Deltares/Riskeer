@@ -101,10 +101,125 @@ namespace Core.Components.DotSpatial.Forms.Test
             }
         }
 
+        private static MapDataCollection GetTestData()
+        {
+            var mapDataCollection = new MapDataCollection("Test data");
+
+            mapDataCollection.Add(new MapPointData("Test data")
+            {
+                Features = new[]
+                {
+                    new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            new[]
+                            {
+                                new Point2D(1.5, 2)
+                            }
+                        }),
+                        new MapGeometry(new[]
+                        {
+                            new[]
+                            {
+                                new Point2D(1.1, 1)
+                            }
+                        }),
+                        new MapGeometry(new[]
+                        {
+                            new[]
+                            {
+                                new Point2D(0.8, 0.5)
+                            }
+                        })
+                    })
+                }
+            });
+
+            mapDataCollection.Add(new MapLineData("Test data")
+            {
+                Features = new[]
+                {
+                    new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            new[]
+                            {
+                                new Point2D(0.0, 1.1),
+                                new Point2D(1.0, 2.1),
+                                new Point2D(1.6, 1.6)
+                            }
+                        })
+                    })
+                }
+            });
+
+            mapDataCollection.Add(new MapPolygonData("Test data")
+            {
+                Features = new[]
+                {
+                    new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            new[]
+                            {
+                                new Point2D(1.0, 1.3),
+                                new Point2D(3.0, 2.6),
+                                new Point2D(5.6, 1.6)
+                            }
+                        })
+                    })
+                },
+                IsVisible = false
+            });
+
+            return mapDataCollection;
+        }
+
+        private static void ExtendWithExpectedMargin(Extent expectedExtent)
+        {
+            double smallestDimension = Math.Min(expectedExtent.Height, expectedExtent.Width);
+            expectedExtent.ExpandBy(smallestDimension * padding);
+        }
+
+        private static Extent GetExpectedExtent(FeatureBasedMapData visibleMapData)
+        {
+            double minX = double.MaxValue;
+            double maxX = double.MinValue;
+            double minY = double.MaxValue;
+            double maxY = double.MinValue;
+
+            foreach (MapFeature feature in visibleMapData.Features)
+            {
+                foreach (MapGeometry geometry in feature.MapGeometries)
+                {
+                    foreach (IEnumerable<Point2D> pointCollection in geometry.PointCollections)
+                    {
+                        foreach (Point2D point in pointCollection)
+                        {
+                            minX = Math.Min(minX, point.X);
+                            maxX = Math.Max(maxX, point.X);
+
+                            minY = Math.Min(minY, point.Y);
+                            maxY = Math.Max(maxY, point.Y);
+                        }
+                    }
+                }
+            }
+
+            return new Extent(minX, minY, maxX, maxY);
+        }
+
+        #region BackgroundMapData
+
+        #region WmtsMapData
+
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void GivenMapControlWithoutBackgroundMapData_WhenBackgroundMapDataSet_ThenMapControlUpdated(bool isVisible)
+        public void GivenMapControlWithoutBackgroundMapData_WhenWmtsBackgroundMapDataSet_ThenMapControlUpdated(bool isVisible)
         {
             // Given
             WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
@@ -368,7 +483,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Given
             WmtsMapData originalBackgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
             originalBackgroundMapData.IsVisible = true;
-            originalBackgroundMapData.Transparency = (RoundedDouble)0.25;
+            originalBackgroundMapData.Transparency = (RoundedDouble) 0.25;
 
             using (new UseCustomTileSourceFactoryConfig(originalBackgroundMapData))
             using (var map = new MapControl())
@@ -387,8 +502,8 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Assert.AreEqual(layer.Projection, mapView.Projection);
 
                 // When
-                var newBackgroundMapData = WmtsMapData.CreateUnconnectedMapData();                
-                map.BackgroundMapData= newBackgroundMapData;
+                var newBackgroundMapData = WmtsMapData.CreateUnconnectedMapData();
+                map.BackgroundMapData = newBackgroundMapData;
 
                 // Then
                 Assert.AreEqual(0, mapView.Layers.Count);
@@ -397,7 +512,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void GivenMapControlWithUnconfiguredBackgroundMapData_WhenBackgroundMapDataSet_ThenMapControlUpdated()
+        public void GivenMapControlWithUnconfiguredBackgroundMapData_WhenWmtsBackgroundMapDataSet_ThenMapControlUpdated()
         {
             // Given
             var newBackgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
@@ -431,7 +546,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void GivenMapControlWithBackgroundData_WhenVisibilityPropertiesChangeAndNotified_ThenBackgroundLayerReused()
+        public void GivenMapControlWithWmtsBackgroundData_WhenVisibilityPropertiesChangeAndNotified_ThenBackgroundLayerReused()
         {
             // Given
             WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
@@ -463,7 +578,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void GivenMapWithUnconfiguredBackgroundAndMapDataCollection_WhenBackgroundMapDataConfigured_ThenLayerIsReusedAndUpdatedFeaturesReprojected()
+        public void GivenMapWithUnconfiguredWmtsBackgroundAndMapDataCollection_WhenBackgroundMapDataConfigured_ThenLayerIsReusedAndUpdatedFeaturesReprojected()
         {
             // Given
             var newBackgroundMapData = WmtsMapData.CreateAlternativePdokMapData();
@@ -525,7 +640,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void GivenMapWithBackgroundAndMapDataCollection_WhenBackgroundMapDataConfigurationRemoved_ThenLayerIsReusedAndUpdatedFeaturesReprojected()
+        public void GivenMapWithWmtsBackgroundAndMapDataCollection_WhenBackgroundMapDataConfigurationRemoved_ThenLayerIsReusedAndUpdatedFeaturesReprojected()
         {
             // Given
             var backgroundMapData = WmtsMapData.CreateAlternativePdokMapData();
@@ -588,7 +703,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void GivenMapControlWithData_WhenBackgroundMapDataSet_ThenDataLayersReprojected()
+        public void GivenMapControlWithData_WhenWmtsBackgroundMapDataSet_ThenDataLayersReprojected()
         {
             // Given
             WmtsMapData backgroundMapData = WmtsMapData.CreateAlternativePdokMapData();
@@ -638,7 +753,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void GivenMapControlWithData_WhenUnconfiguredBackgroundMapDataSet_NoChangesToLayerConfiguration()
+        public void GivenMapControlWithData_WhenUnconfiguredWmtsBackgroundMapDataSet_NoChangesToLayerConfiguration()
         {
             // Given
             WmtsMapData backgroundMapData = WmtsMapData.CreateUnconnectedMapData();
@@ -685,7 +800,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void GivenMapControlWithDataAndBackground_WhenDifferentBackgroundMapDataSet_LayersReprojected()
+        public void GivenMapControlWithDataAndBackground_WhenDifferentWmtsBackgroundMapDataSet_LayersReprojected()
         {
             // Given
             WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
@@ -723,7 +838,8 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Assert.AreEqual(2.2, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y);
 
                 // When
-                WmtsMapData differentBackgroundMapData = WmtsMapData.CreateAlternativePdokMapData();;
+                WmtsMapData differentBackgroundMapData = WmtsMapData.CreateAlternativePdokMapData();
+                ;
                 using (new UseCustomTileSourceFactoryConfig(differentBackgroundMapData))
                 {
                     map.BackgroundMapData = differentBackgroundMapData;
@@ -742,7 +858,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void GivenMapControlWithDataAndBackground_WhenUnconfiguredBackgroundMapDataSet_LayersReprojected()
+        public void GivenMapControlWithDataAndBackground_WhenUnconfiguredWmtsBackgroundMapDataSet_LayersReprojected()
         {
             // Given
             WmtsMapData backgroundMapData = WmtsMapData.CreateAlternativePdokMapData();
@@ -1286,6 +1402,38 @@ namespace Core.Components.DotSpatial.Forms.Test
             }
         }
 
+        /// <summary>
+        /// Generates <see cref="TestCaseData"/> containing problematic <see cref="ITileSourceFactory"/>.
+        /// </summary>
+        /// <param name="prefix">The test-name prefix.</param>
+        /// <returns>The data for the test cases.</returns>
+        /// <remarks>Some test runners, like TeamCity, cannot properly deal with reuse of
+        /// <see cref="TestCaseData"/> sources where the source defines a name of the test,
+        /// as these testrunners to not display tests in hierarchical form.</remarks>
+        private static IEnumerable<TestCaseData> GetProblematicTileSourceFactoryTestCaseData(string prefix)
+        {
+            var factoryWithoutRequiredTileSource = MockRepository.GenerateStub<ITileSourceFactory>();
+            factoryWithoutRequiredTileSource.Stub(f => f.GetWmtsTileSources(Arg<string>.Is.NotNull))
+                                            .Return(Enumerable.Empty<ITileSource>());
+
+            var factoryThrowingCannotFindTileSourceException = MockRepository.GenerateStub<ITileSourceFactory>();
+            factoryThrowingCannotFindTileSourceException.Stub(f => f.GetWmtsTileSources(Arg<string>.Is.NotNull))
+                                                        .Throw(new CannotFindTileSourceException());
+
+            yield return new TestCaseData(factoryWithoutRequiredTileSource)
+                .SetName($"{prefix}: Required tile source not returned by factory.");
+
+            yield return new TestCaseData(factoryThrowingCannotFindTileSourceException)
+                .SetName($"{prefix}: Tile source factory throws CannotFindTileSourceException.");
+        }
+
+
+        #endregion
+
+        #endregion
+
+        #region ZoomToAllVisibleLayers
+
         [Test]
         [Apartment(ApartmentState.STA)]
         public void ZoomToAllVisibleLayers_MapInFormWithEmptyDataSet_ViewInvalidatedLayersSame()
@@ -1669,6 +1817,10 @@ namespace Core.Components.DotSpatial.Forms.Test
             }
         }
 
+        #endregion
+
+        #region SelectionZoom
+
         [Test]
         [Apartment(ApartmentState.STA)]
         public void SelectionZoom_MouseUp_DefaultCursorSet()
@@ -1766,6 +1918,37 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Assert.AreEqual(Cursors.Default, map.Cursor);
             }
         }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        [TestCase(MouseButtons.Right)]
+        [TestCase(MouseButtons.Middle)]
+        public void SelectionZoom_OtherThanMouseLeftDownAndMapBusy_SizeNWSECursorSet(MouseButtons mouseButton)
+        {
+            using (var form = new Form())
+            {
+                // Setup
+                var mapControl = new MapControl();
+                form.Controls.Add(mapControl);
+                form.Show();
+
+                var map = (Map) new ControlTester("Map").TheObject;
+                var mapFunctionSelectionZoom = map.MapFunctions.OfType<MapFunctionSelectionZoom>().First();
+
+                map.IsBusy = true;
+                map.Cursor = Cursors.WaitCursor;
+
+                // Call
+                EventHelper.RaiseEvent(mapFunctionSelectionZoom, "MouseDown", new GeoMouseArgs(new MouseEventArgs(mouseButton, 1, 2, 3, 4), map));
+
+                // Assert
+                Assert.AreEqual(Cursors.SizeNWSE, map.Cursor);
+            }
+        }
+
+        #endregion
+
+        #region Panning
 
         [Test]
         [Apartment(ApartmentState.STA)]
@@ -1887,6 +2070,10 @@ namespace Core.Components.DotSpatial.Forms.Test
             }
         }
 
+        #endregion
+
+        #region Toggle
+
         [Test]
         [Apartment(ApartmentState.STA)]
         public void ToggleRectangleZooming_Always_CorrectlySetsMapFunctions()
@@ -1936,33 +2123,6 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Assert.IsTrue(mapFunctionPan.Enabled);
                 Assert.IsFalse(mapFunctionSelectionZoom.Enabled);
                 Assert.AreEqual(FunctionMode.Pan, map.FunctionMode);
-            }
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        [TestCase(MouseButtons.Right)]
-        [TestCase(MouseButtons.Middle)]
-        public void SelectionZoom_OtherThanMouseLeftDownAndMapBusy_SizeNWSECursorSet(MouseButtons mouseButton)
-        {
-            using (var form = new Form())
-            {
-                // Setup
-                var mapControl = new MapControl();
-                form.Controls.Add(mapControl);
-                form.Show();
-
-                var map = (Map) new ControlTester("Map").TheObject;
-                var mapFunctionSelectionZoom = map.MapFunctions.OfType<MapFunctionSelectionZoom>().First();
-
-                map.IsBusy = true;
-                map.Cursor = Cursors.WaitCursor;
-
-                // Call
-                EventHelper.RaiseEvent(mapFunctionSelectionZoom, "MouseDown", new GeoMouseArgs(new MouseEventArgs(mouseButton, 1, 2, 3, 4), map));
-
-                // Assert
-                Assert.AreEqual(Cursors.SizeNWSE, map.Cursor);
             }
         }
 
@@ -2047,140 +2207,6 @@ namespace Core.Components.DotSpatial.Forms.Test
             }
         }
 
-        /// <summary>
-        /// Generates <see cref="TestCaseData"/> containing problematic <see cref="ITileSourceFactory"/>.
-        /// </summary>
-        /// <param name="prefix">The test-name prefix.</param>
-        /// <returns>The data for the test cases.</returns>
-        /// <remarks>Some test runners, like TeamCity, cannot properly deal with reuse of
-        /// <see cref="TestCaseData"/> sources where the source defines a name of the test,
-        /// as these testrunners to not display tests in hierarchical form.</remarks>
-        private static IEnumerable<TestCaseData> GetProblematicTileSourceFactoryTestCaseData(string prefix)
-        {
-            var factoryWithoutRequiredTileSource = MockRepository.GenerateStub<ITileSourceFactory>();
-            factoryWithoutRequiredTileSource.Stub(f => f.GetWmtsTileSources(Arg<string>.Is.NotNull))
-                                            .Return(Enumerable.Empty<ITileSource>());
-
-            var factoryThrowingCannotFindTileSourceException = MockRepository.GenerateStub<ITileSourceFactory>();
-            factoryThrowingCannotFindTileSourceException.Stub(f => f.GetWmtsTileSources(Arg<string>.Is.NotNull))
-                                                        .Throw(new CannotFindTileSourceException());
-
-            yield return new TestCaseData(factoryWithoutRequiredTileSource)
-                .SetName($"{prefix}: Required tile source not returned by factory.");
-
-            yield return new TestCaseData(factoryThrowingCannotFindTileSourceException)
-                .SetName($"{prefix}: Tile source factory throws CannotFindTileSourceException.");
-        }
-
-        private static MapDataCollection GetTestData()
-        {
-            var mapDataCollection = new MapDataCollection("Test data");
-
-            mapDataCollection.Add(new MapPointData("Test data")
-            {
-                Features = new[]
-                {
-                    new MapFeature(new[]
-                    {
-                        new MapGeometry(new[]
-                        {
-                            new[]
-                            {
-                                new Point2D(1.5, 2)
-                            }
-                        }),
-                        new MapGeometry(new[]
-                        {
-                            new[]
-                            {
-                                new Point2D(1.1, 1)
-                            }
-                        }),
-                        new MapGeometry(new[]
-                        {
-                            new[]
-                            {
-                                new Point2D(0.8, 0.5)
-                            }
-                        })
-                    })
-                }
-            });
-
-            mapDataCollection.Add(new MapLineData("Test data")
-            {
-                Features = new[]
-                {
-                    new MapFeature(new[]
-                    {
-                        new MapGeometry(new[]
-                        {
-                            new[]
-                            {
-                                new Point2D(0.0, 1.1),
-                                new Point2D(1.0, 2.1),
-                                new Point2D(1.6, 1.6)
-                            }
-                        })
-                    })
-                }
-            });
-
-            mapDataCollection.Add(new MapPolygonData("Test data")
-            {
-                Features = new[]
-                {
-                    new MapFeature(new[]
-                    {
-                        new MapGeometry(new[]
-                        {
-                            new[]
-                            {
-                                new Point2D(1.0, 1.3),
-                                new Point2D(3.0, 2.6),
-                                new Point2D(5.6, 1.6)
-                            }
-                        })
-                    })
-                },
-                IsVisible = false
-            });
-
-            return mapDataCollection;
-        }
-
-        private static void ExtendWithExpectedMargin(Extent expectedExtent)
-        {
-            double smallestDimension = Math.Min(expectedExtent.Height, expectedExtent.Width);
-            expectedExtent.ExpandBy(smallestDimension * padding);
-        }
-
-        private Extent GetExpectedExtent(FeatureBasedMapData visibleMapData)
-        {
-            double minX = double.MaxValue;
-            double maxX = double.MinValue;
-            double minY = double.MaxValue;
-            double maxY = double.MinValue;
-
-            foreach (MapFeature feature in visibleMapData.Features)
-            {
-                foreach (MapGeometry geometry in feature.MapGeometries)
-                {
-                    foreach (IEnumerable<Point2D> pointCollection in geometry.PointCollections)
-                    {
-                        foreach (Point2D point in pointCollection)
-                        {
-                            minX = Math.Min(minX, point.X);
-                            maxX = Math.Max(maxX, point.X);
-
-                            minY = Math.Min(minY, point.Y);
-                            maxY = Math.Max(maxY, point.Y);
-                        }
-                    }
-                }
-            }
-
-            return new Extent(minX, minY, maxX, maxY);
-        }
+        #endregion
     }
 }
