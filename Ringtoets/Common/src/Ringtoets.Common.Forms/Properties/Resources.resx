@@ -932,4 +932,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="DataTypeDisplayName_xml_file_filter_Description" xml:space="preserve">
     <value>Ringtoets berekeningenconfiguratie</value>
   </data>
+  <data name="ConfigurationExporter_DisplayName" xml:space="preserve">
+    <value>Ringtoets berekeningenconfiguratie (*.xml)</value>
+  </data>
 </root>

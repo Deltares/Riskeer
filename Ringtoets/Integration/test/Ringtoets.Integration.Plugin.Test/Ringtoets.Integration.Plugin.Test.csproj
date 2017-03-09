@@ -75,8 +75,6 @@
     </Compile>
     <Compile Include="ExportInfos\HydraulicBoundaryDatabaseContextExportInfoTest.cs" />
     <Compile Include="ExportInfos\ReferenceLineContextExportInfoTest.cs" />
-    <Compile Include="ExportInfos\StabilityStoneCoverWaveConditionsCalculationContextExportInfoTest.cs" />
-    <Compile Include="ExportInfos\StabilityStoneCoverWaveConditionsCalculationGroupContextExportInfoTest.cs" />
     <Compile Include="ExportInfos\WaveImpactAsphaltCoverWaveConditionsCalculationContextExportInfoTest.cs" />
     <Compile Include="ExportInfos\WaveImpactAsphaltCoverWaveConditionsCalculationGroupContextExportInfoTest.cs" />
     <Compile Include="Handlers\AssessmentSectionCompositionChangeHandlerTest.cs" />
@@ -287,14 +285,6 @@
     <ProjectReference Include="..\..\..\StabilityStoneCover\src\Ringtoets.StabilityStoneCover.Forms\Ringtoets.StabilityStoneCover.Forms.csproj">
       <Project>{8E4E1877-697A-45D3-81CF-169EFDF65AA0}</Project>
       <Name>Ringtoets.StabilityStoneCover.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\StabilityStoneCover\src\Ringtoets.StabilityStoneCover.IO\Ringtoets.StabilityStoneCover.IO.csproj">
-      <Project>{CF6B8598-2993-4A8E-801D-121CC0EF358E}</Project>
-      <Name>Ringtoets.StabilityStoneCover.IO</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\StabilityStoneCover\src\Ringtoets.StabilityStoneCover.Plugin\Ringtoets.StabilityStoneCover.Plugin.csproj">
-      <Project>{9DDC42CC-A2CC-4900-A711-AA1DD6D3A94A}</Project>
-      <Name>Ringtoets.StabilityStoneCover.Plugin</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Ringtoets.WaveImpactAsphaltCover.Data\Ringtoets.WaveImpactAsphaltCover.Data.csproj">
       <Project>{567e0b69-5280-41ce-add6-443725a61c86}</Project>

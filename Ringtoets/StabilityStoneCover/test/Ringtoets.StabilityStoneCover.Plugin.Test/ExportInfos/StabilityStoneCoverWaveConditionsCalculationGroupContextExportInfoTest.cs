@@ -27,15 +27,13 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Integration.Data;
 using Ringtoets.Revetment.IO;
 using Ringtoets.Revetment.TestUtil;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.IO;
-using Ringtoets.StabilityStoneCover.Plugin;
 
-namespace Ringtoets.Integration.Plugin.Test.ExportInfos
+namespace Ringtoets.StabilityStoneCover.Plugin.Test.ExportInfos
 {
     [TestFixture]
     public class StabilityStoneCoverWaveConditionsCalculationGroupContextExportInfoTest
@@ -49,8 +47,8 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
             using (var plugin = new StabilityStoneCoverPlugin())
             {
                 ExportInfo[] exportInfos = plugin.GetExportInfos().Where(ei => ei.DataType == typeof(StabilityStoneCoverWaveConditionsCalculationGroupContext)).ToArray();
-                waveConditionsExportInfo = exportInfos.Single(ei => ei.Name.Equals("Golfcondities (*.csv)."));
-                configurationExportInfo = exportInfos.Single(ei => ei.Name.Equals("Configuratie van de berekeningen (*.xml)."));
+                waveConditionsExportInfo = exportInfos.Single(ei => ei.Name.Equals("Berekende belastingen bij verschillende waterstanden (*.csv)."));
+                configurationExportInfo = exportInfos.Single(ei => ei.Name.Equals("Ringtoets berekeningenconfiguratie (*.xml)"));
             }
         }
 
@@ -60,7 +58,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
             // Assert
             Assert.IsNotNull(waveConditionsExportInfo.CreateFileExporter);
             Assert.IsNotNull(waveConditionsExportInfo.IsEnabled);
-            Assert.AreEqual("Golfcondities (*.csv).", waveConditionsExportInfo.Name);
+            Assert.AreEqual("Berekende belastingen bij verschillende waterstanden (*.csv).", waveConditionsExportInfo.Name);
             Assert.IsNull(waveConditionsExportInfo.Category);
             Assert.IsNull(waveConditionsExportInfo.Image);
             Assert.IsNotNull(waveConditionsExportInfo.FileFilterGenerator);
@@ -70,7 +68,10 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
         public void WaveConditionsExportInfo_CreateFileExporter_ReturnFileExporter()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var calculationGroup = new CalculationGroup();
 
@@ -81,6 +82,8 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
 
             // Assert
             Assert.IsInstanceOf<WaveConditionsExporterBase>(fileExporter);
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -97,7 +100,10 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
         public void WaveConditionsExportInfo_NoStabilityStoneCoverWaveConditionsCalculation_IsEnabledFalse()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var calculationGroup = new CalculationGroup();
 
@@ -108,13 +114,18 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
 
             // Assert
             Assert.IsFalse(isEnabled);
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void WaveConditionsExportInfo_StabilityStoneCoverWaveConditionsCalculationHasOutputFalse_IsEnabledFalse()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(new StabilityStoneCoverWaveConditionsCalculation());
@@ -126,13 +137,18 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
 
             // Assert
             Assert.IsFalse(isEnabled);
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void WaveConditionsExportInfo_StabilityStoneCoverWaveConditionsCalculationHasOutputTrue_IsEnabledTrue()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var calculationGroup = new CalculationGroup();
             var columnsOutput = new[]
@@ -156,6 +172,8 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
 
             // Assert
             Assert.IsTrue(isEnabled);
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -164,7 +182,10 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
         public void WaveConditionsExportInfo_StabilityStoneCoverWaveConditionsCalculationInSubFolder_IsEnabledTrueIfHasOutput(bool hasOutput)
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var calculationGroup = new CalculationGroup();
 
@@ -202,6 +223,8 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
 
             // Assert
             Assert.AreEqual(hasOutput, isEnabled);
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -210,7 +233,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
             // Assert
             Assert.IsNotNull(configurationExportInfo.CreateFileExporter);
             Assert.IsNotNull(configurationExportInfo.IsEnabled);
-            Assert.AreEqual("Configuratie van de berekeningen (*.xml).", configurationExportInfo.Name);
+            Assert.AreEqual("Ringtoets berekeningenconfiguratie (*.xml)", configurationExportInfo.Name);
             Assert.IsNull(configurationExportInfo.Category);
             Assert.IsNull(configurationExportInfo.Image);
             Assert.IsNotNull(configurationExportInfo.FileFilterGenerator);
@@ -262,6 +285,8 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
 
             // Assert
             Assert.IsFalse(isEnabled);
+
+            mocks.VerifyAll();
         }
 
         [Test]

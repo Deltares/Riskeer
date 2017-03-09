@@ -692,6 +692,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ringtoets berekeningenconfiguratie (*.xml).
+        /// </summary>
+        public static string ConfigurationExporter_DisplayName {
+            get {
+                return ResourceManager.GetString("ConfigurationExporter_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De bijdrage van dit toetsspoor is nul..
         /// </summary>
         public static string Contribution_of_failure_mechanism_zero {

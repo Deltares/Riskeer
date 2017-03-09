@@ -48,8 +48,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 ExportInfo[] exportInfos = plugin.GetExportInfos().Where(ei => ei.DataType == typeof(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext)).ToArray();
-                waveConditionsExportInfo = exportInfos.Single(ei => ei.Name.Equals("Golfcondities (*.csv)."));
-                configurationExportInfo = exportInfos.Single(ei => ei.Name.Equals("Configuratie van de berekeningen (*.xml)."));
+                waveConditionsExportInfo = exportInfos.Single(ei => ei.Name.Equals("Berekende belastingen bij verschillende waterstanden (*.csv)."));
+                configurationExportInfo = exportInfos.Single(ei => ei.Name.Equals("Ringtoets berekeningenconfiguratie (*.xml)"));
             }
         }
 
@@ -59,7 +59,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
             // Assert
             Assert.IsNotNull(waveConditionsExportInfo.CreateFileExporter);
             Assert.IsNotNull(waveConditionsExportInfo.IsEnabled);
-            Assert.AreEqual("Golfcondities (*.csv).", waveConditionsExportInfo.Name);
+            Assert.AreEqual("Berekende belastingen bij verschillende waterstanden (*.csv).", waveConditionsExportInfo.Name);
             Assert.IsNull(waveConditionsExportInfo.Category);
             Assert.IsNull(waveConditionsExportInfo.Image);
             Assert.IsNotNull(waveConditionsExportInfo.FileFilterGenerator);
@@ -204,7 +204,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
             // Assert
             Assert.IsNotNull(configurationExportInfo.CreateFileExporter);
             Assert.IsNotNull(configurationExportInfo.IsEnabled);
-            Assert.AreEqual("Configuratie van de berekeningen (*.xml).", configurationExportInfo.Name);
+            Assert.AreEqual("Ringtoets berekeningenconfiguratie (*.xml)", configurationExportInfo.Name);
             Assert.IsNull(configurationExportInfo.Category);
             Assert.IsNull(configurationExportInfo.Image);
             Assert.IsNotNull(configurationExportInfo.FileFilterGenerator);

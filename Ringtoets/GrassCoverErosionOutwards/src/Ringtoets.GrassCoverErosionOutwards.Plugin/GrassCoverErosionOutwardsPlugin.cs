@@ -272,7 +272,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
             yield return new ExportInfo<GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext>
             {
-                Name = "Golfcondities (*.csv).",
+                Name = RingtoetsCommonFormsResources.WaveConditionsExporter_DisplayName,
                 CreateFileExporter = (context, filePath) =>
                 {
                     var calculations = context.WrappedData.GetCalculations().Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>();
@@ -285,7 +285,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
             yield return new ExportInfo<GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext>
             {
-                Name = "Configuratie van de berekeningen (*.xml).",
+                Name = RingtoetsCommonFormsResources.ConfigurationExporter_DisplayName,
                 CreateFileExporter = (context, filePath) => new GrassCoverErosionOutwardsConfigurationExporter(context.WrappedData, filePath),
                 IsEnabled = context => context.WrappedData.Children.Any(),
                 FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Extension,

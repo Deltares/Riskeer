@@ -24,15 +24,14 @@ using Core.Common.Base.IO;
 using Core.Common.Gui;
 using Core.Common.Gui.Plugin;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Integration.Data;
 using Ringtoets.Revetment.IO;
 using Ringtoets.Revetment.TestUtil;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
-using Ringtoets.StabilityStoneCover.Plugin;
 
-namespace Ringtoets.Integration.Plugin.Test.ExportInfos
+namespace Ringtoets.StabilityStoneCover.Plugin.Test.ExportInfos
 {
     [TestFixture]
     public class StabilityStoneCoverWaveConditionsCalculationContextExportInfoTest
@@ -60,7 +59,10 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
         public void CreateFileExporter_Always_ReturnFileExporter()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(new StabilityStoneCoverWaveConditionsCalculation(),
@@ -75,6 +77,8 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsInstanceOf<WaveConditionsExporterBase>(fileExporter);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -97,7 +101,10 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
         public void IsEnabled_StabilityStoneCoverWaveConditionsCalculationHasOutputFalse_ReturnsFalse()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(new StabilityStoneCoverWaveConditionsCalculation(),
@@ -112,13 +119,18 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsFalse(isEnabled);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void IsEnabled_StabilityStoneCoverWaveConditionsCalculationHasOutputTrue_ReturnsTrue()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var columnsOutput = new[]
             {
@@ -147,6 +159,8 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsTrue(isEnabled);
             }
+
+            mocks.VerifyAll();
         }
 
         private static ExportInfo GetExportInfo(StabilityStoneCoverPlugin plugin)
