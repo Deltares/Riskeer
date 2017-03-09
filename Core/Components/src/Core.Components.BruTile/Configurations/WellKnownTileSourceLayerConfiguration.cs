@@ -25,6 +25,7 @@ using BruTile;
 using BruTile.Predefined;
 using BruTile.Web;
 using Core.Components.BruTile.Data;
+using Core.Components.Gis.Data;
 using Core.Components.Gis.Exceptions;
 
 namespace Core.Components.BruTile.Configurations
@@ -89,6 +90,47 @@ namespace Core.Components.BruTile.Configurations
             HttpTileSource tileSource = KnownTileSources.Create(knownTileSource);
 
             return new WellKnownTileSourceLayerConfiguration(knownTileSource, tileSource);
+        }
+
+        /// <summary>
+        /// Creates a fully initialized instance of <see cref="WellKnownTileSourceLayerConfiguration"/>.
+        /// </summary>
+        /// <param name="wellKnownTileSource">The tile provider to be used.</param>
+        /// <returns>The new <see cref="WellKnownTileSourceLayerConfiguration"/>.</returns>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="wellKnownTileSource"/>
+        /// isn't a supported member.</exception>
+        /// <exception cref="CannotCreateTileCacheException">Thrown when creating the file
+        /// cache failed.</exception>
+        public static WellKnownTileSourceLayerConfiguration CreateInitializedConfiguration(WellKnownTileSource wellKnownTileSource)
+        {
+            return CreateInitializedConfiguration(WellKnownTileSourceToKnownTileSource(wellKnownTileSource));
+        }
+
+        /// <summary>
+        /// Returns the <see cref="KnownTileSource"/> equivalent of <see cref="WellKnownTileSource"/>.
+        /// </summary>
+        /// <param name="wellKnownTileSource"></param>
+        /// <returns>The <see cref="KnownTileSource"/> equivalent of the <paramref name="wellKnownTileSource"/>.</returns>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="wellKnownTileSource"/>
+        /// is not a supported member.</exception>
+        public static KnownTileSource WellKnownTileSourceToKnownTileSource(WellKnownTileSource wellKnownTileSource)
+        {
+            switch (wellKnownTileSource) {
+                case WellKnownTileSource.BingAerial:
+                    return KnownTileSource.BingAerial;
+                case WellKnownTileSource.BingHybrid:
+                    return KnownTileSource.BingHybrid;
+                case WellKnownTileSource.BingRoads:
+                    return KnownTileSource.BingRoads;
+                case WellKnownTileSource.EsriWorldTopo:
+                    return KnownTileSource.EsriWorldTopo;
+                case WellKnownTileSource.EsriWorldShadedRelief:
+                    return KnownTileSource.EsriWorldShadedRelief;
+                case WellKnownTileSource.OpenStreetMap:
+                    return KnownTileSource.OpenStreetMap;
+                default:
+                    throw new NotSupportedException($"Unknown value '{wellKnownTileSource}' for '{nameof(wellKnownTileSource)}'");
+            }
         }
 
         public override IConfiguration Clone()

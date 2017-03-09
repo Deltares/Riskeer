@@ -1426,8 +1426,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             yield return new TestCaseData(factoryThrowingCannotFindTileSourceException)
                 .SetName($"{prefix}: Tile source factory throws CannotFindTileSourceException.");
         }
-
-
+        
         #endregion
 
         #endregion

@@ -24,6 +24,7 @@ using BruTile;
 using BruTile.Predefined;
 using Core.Components.BruTile.Configurations;
 using Core.Components.BruTile.IO;
+using Core.Components.Gis.Data;
 using NUnit.Framework;
 
 namespace Core.Components.BruTile.Test.Configurations
@@ -35,13 +36,39 @@ namespace Core.Components.BruTile.Test.Configurations
         public void CreateInitializedConfiguration_InvalidKnownTileSource_ThrowNotSupportedException()
         {
             // Setup
-            var invalidValue = (KnownTileSource) 9999;
+            const KnownTileSource invalidValue = (KnownTileSource) 9999;
 
             // Call
             TestDelegate call = () => WellKnownTileSourceLayerConfiguration.CreateInitializedConfiguration(invalidValue);
 
             // Assert
             Assert.Throws<NotSupportedException>(call);
+        }
+
+        [Test]
+        public void WellKnownTileSourceToKnownTileSource_InvalidWellKnownTileSource_ThrowsNotSupportedException()
+        {
+            // Setup
+            const WellKnownTileSource invalidValue = (WellKnownTileSource) 9999;
+
+            // Call
+            TestDelegate call = () => WellKnownTileSourceLayerConfiguration.WellKnownTileSourceToKnownTileSource(invalidValue);
+
+            // Assert
+            string message = Assert.Throws<NotSupportedException>(call).Message;
+            Assert.AreEqual($"Unknown value '{invalidValue}' for 'wellKnownTileSource'", message);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(ValidWellKnownTileSourceToCorrespondingKnownTileSource))]
+        public void WellKnownTileSourceToKnownTileSource_ValidWellKnownTileSource_ReturnsCorrespondingKnownTileSource(
+            WellKnownTileSource wellKnownTileSource, KnownTileSource expectedKnownTileSource)
+        {
+            // Call
+            KnownTileSource knownTileSource = WellKnownTileSourceLayerConfiguration.WellKnownTileSourceToKnownTileSource(wellKnownTileSource);
+
+            // Assert
+            Assert.AreEqual(expectedKnownTileSource, knownTileSource);
         }
 
         [Test]
@@ -133,7 +160,20 @@ namespace Core.Components.BruTile.Test.Configurations
             Assert.AreEqual("WellKnownTileSourceLayerConfiguration", objectName);
         }
 
-        private void AssertAttribution(Attribution expectedAttribution, Attribution actualAttribution)
+        private static TestCaseData[] ValidWellKnownTileSourceToCorrespondingKnownTileSource()
+        {
+            return new[]
+            {
+                new TestCaseData(WellKnownTileSource.EsriWorldTopo, KnownTileSource.EsriWorldTopo),
+                new TestCaseData(WellKnownTileSource.EsriWorldShadedRelief, KnownTileSource.EsriWorldShadedRelief),
+                new TestCaseData(WellKnownTileSource.BingAerial, KnownTileSource.BingAerial),
+                new TestCaseData(WellKnownTileSource.BingHybrid, KnownTileSource.BingHybrid),
+                new TestCaseData(WellKnownTileSource.BingRoads, KnownTileSource.BingRoads),
+                new TestCaseData(WellKnownTileSource.OpenStreetMap, KnownTileSource.OpenStreetMap)
+            };
+        }
+
+        private static void AssertAttribution(Attribution expectedAttribution, Attribution actualAttribution)
         {
             if (expectedAttribution == null)
             {
