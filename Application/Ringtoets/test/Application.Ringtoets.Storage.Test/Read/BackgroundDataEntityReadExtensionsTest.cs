@@ -29,7 +29,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 namespace Application.Ringtoets.Storage.Test.Read
 {
     [TestFixture]
-    public class BackgroundMapDataEntityReadExtensionsTest
+    public class BackgroundDataEntityReadExtensionsTest
     {
         [Test]
         public void Read_EntityNull_ThrowArgumentNullException()

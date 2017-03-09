@@ -67,7 +67,7 @@ namespace Application.Ringtoets.Storage.Read
                 }
             };
 
-            entity.ReadBackgroundMapData(assessmentSection);
+            entity.ReadBackgroundData(assessmentSection);
 
             entity.ReadHydraulicDatabase(assessmentSection, collector);
             entity.ReadReferenceLine(assessmentSection);
@@ -108,7 +108,7 @@ namespace Application.Ringtoets.Storage.Read
             GC.Collect();
         }
 
-        private static void ReadBackgroundMapData(this AssessmentSectionEntity entity, IAssessmentSection assessmentSection)
+        private static void ReadBackgroundData(this AssessmentSectionEntity entity, IAssessmentSection assessmentSection)
         {
             BackgroundData backgroundData = entity.BackgroundDataEntities.Single().Read();
 

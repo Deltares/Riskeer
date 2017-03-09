@@ -31,7 +31,7 @@ namespace Application.Ringtoets.Storage.Read
     /// Extension methods for read operations for <see cref="BackgroundData"/>
     /// based on the <see cref="BackgroundDataEntity"/>.
     /// </summary>
-    internal static class BackgroundMapDataEntityReadExtensions
+    internal static class BackgroundDataEntityReadExtensions
     {
         /// <summary>
         /// Read the <see cref="BackgroundDataEntity"/> and use the information
