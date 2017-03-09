@@ -44,6 +44,8 @@ namespace Core.Common.Base.Storage
         /// </summary>
         /// <returns>The file path to be used as location for the migration result. Value
         /// will be <c>null</c> if no target file path an be provided.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="originalFilePath"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="originalFilePath"/> is an invalid file path.</exception>
         string DetermineMigrationLocation(string originalFilePath);
 
         /// <summary>

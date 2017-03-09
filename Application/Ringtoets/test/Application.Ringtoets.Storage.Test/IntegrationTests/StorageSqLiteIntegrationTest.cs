@@ -210,7 +210,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 var expectedMessages = new[]
                 {
                     "Openen van bestaand Ringtoetsproject...",
-                    "Bestaand Ringtoetsproject succesvol geopend."
+                    "Uitvoeren van 'Openen van bestaand project' is gelukt."
                 };
                 TestHelper.AssertLogMessagesAreGenerated(action, expectedMessages, 3);
                 Assert.AreEqual(tempRingtoetsFile, gui.ProjectFilePath);

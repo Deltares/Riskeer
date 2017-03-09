@@ -27,14 +27,14 @@ namespace Core.Common.Base.Storage
     public enum MigrationNeeded
     {
         /// <summary>
-        /// Migration is required.
-        /// </summary>
-        Yes,
-
-        /// <summary>
         /// Migration is not needed.
         /// </summary>
         No,
+
+        /// <summary>
+        /// Migration is required.
+        /// </summary>
+        Yes,
 
         /// <summary>
         /// Migration workflow aborted.

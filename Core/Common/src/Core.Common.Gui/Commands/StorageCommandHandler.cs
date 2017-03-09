@@ -24,7 +24,9 @@ using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
+using Core.Common.Base.Service;
 using Core.Common.Base.Storage;
+using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Properties;
 using log4net;
 
@@ -130,54 +132,17 @@ namespace Core.Common.Gui.Commands
         {
             log.Info(Resources.StorageCommandHandler_OpenExistingProject_Opening_existing_project);
 
-            string migratedProjectFilePath = filePath;
-            var isOpenProjectSuccessful = false;
-
             try
             {
-                MigrationNeeded migrationNeeded = projectMigrator.ShouldMigrate(filePath);
-                if (migrationNeeded == MigrationNeeded.Yes)
-                {
-                    migratedProjectFilePath = projectMigrator.DetermineMigrationLocation(filePath);
-                    if (!string.IsNullOrWhiteSpace(migratedProjectFilePath))
-                    {
-                        isOpenProjectSuccessful = projectMigrator.Migrate(filePath, migratedProjectFilePath);
-                    }
-                }
-                else if (migrationNeeded == MigrationNeeded.Aborted)
-                {
-                    migratedProjectFilePath = null;
-                    isOpenProjectSuccessful = false;
-                }
+                return OpenExistingProjectCore(filePath);
             }
             catch (ArgumentException e)
             {
-                migratedProjectFilePath = null;
-                isOpenProjectSuccessful = false;
                 log.Error(e.Message, e);
-            }
-
-            IProject newProject = null;
-            if (!string.IsNullOrEmpty(migratedProjectFilePath))
-            {
-                newProject = LoadProjectFromStorage(migratedProjectFilePath);
-                isOpenProjectSuccessful = newProject != null;
-            }
-            
-            if (isOpenProjectSuccessful)
-            {
-                log.Info(Resources.StorageCommandHandler_OpeningExistingProject_Opening_existing_project_successful);
-                projectOwner.SetProject(newProject, migratedProjectFilePath);
-                newProject.Name = Path.GetFileNameWithoutExtension(migratedProjectFilePath);
-                newProject.NotifyObservers();
-            }
-            else
-            {
                 log.Error(Resources.StorageCommandHandler_OpeningExistingProject_Opening_existing_project_failed);
                 projectOwner.SetProject(projectFactory.CreateNewProject(), null);
+                return false;
             }
-
-            return isOpenProjectSuccessful;
         }
 
         public bool SaveProjectAs()
@@ -226,6 +191,94 @@ namespace Core.Common.Gui.Commands
                                    Resources.StorageCommandHandler_SaveProject_Successfully_saved_project_0_,
                                    project.Name));
             return true;
+        }
+
+        /// <summary>
+        /// Opens the given project file and determines if migration to the current version is
+        /// required and performs migration if needed.
+        /// </summary>
+        /// <param name="filePath">The project file to open.</param>
+        /// <returns>Returns <c>true</c> if the project was successfully opened; Returns
+        /// <c>false</c> if an error occurred or when opening the project has been cancelled.</returns>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is
+        /// not a valid filepath.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="filePath"/>
+        /// is <c>null</c>.</exception>
+        private bool OpenExistingProjectCore(string filePath)
+        {
+            OpenProjectActivity.ProjectMigrationConstructionProperties migrationProperties;
+            if (PrepareProjectMigration(filePath, out migrationProperties) == MigrationNeeded.Aborted)
+            {
+                log.Info(Resources.StorageCommandHandler_OpenExistingProject_Opening_existing_project_canceled);
+                return false;
+            }
+
+            return MigrateAndOpenProject(filePath, migrationProperties);
+        }
+
+        /// <summary>
+        /// Check if migration is required and if so the migration settings are initialized.
+        /// </summary>
+        /// <param name="filePath">The project file to open.</param>
+        /// <param name="migrationConstructionProperties">Output: Will be null is this method
+        /// returns <see cref="MigrationNeeded.No"/> or <see cref="MigrationNeeded.Aborted"/>.
+        /// Will be a concrete instance if this method returns <see cref="MigrationNeeded.Yes"/>.</param>
+        /// <returns>Indicates if migration is required or not, or that the operation has
+        /// been cancelled.</returns>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is
+        /// not a valid filepath.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="filePath"/>
+        /// is <c>null</c>.</exception>
+        private MigrationNeeded PrepareProjectMigration(string filePath,
+                                                        out OpenProjectActivity.ProjectMigrationConstructionProperties migrationConstructionProperties)
+        {
+            migrationConstructionProperties = null;
+            MigrationNeeded migrationNeeded = projectMigrator.ShouldMigrate(filePath);
+            if (migrationNeeded == MigrationNeeded.Yes)
+            {
+                string projectFilePathTakingIntoAccountMigration = projectMigrator.DetermineMigrationLocation(filePath);
+                if (string.IsNullOrWhiteSpace(projectFilePathTakingIntoAccountMigration))
+                {
+                    migrationNeeded = MigrationNeeded.Aborted;
+                }
+                else
+                {
+                    migrationConstructionProperties = new OpenProjectActivity.ProjectMigrationConstructionProperties
+                    {
+                        Migrator = projectMigrator,
+                        MigrationFilePath = projectFilePathTakingIntoAccountMigration
+                    };
+                }
+            }
+
+            return migrationNeeded;
+        }
+
+        /// <summary>
+        /// Starts an activity that can migrate the project if required, then opens the project.
+        /// </summary>
+        /// <param name="filePath">The project file to open.</param>
+        /// <param name="migrationProperties">The construction properties related to migrating
+        /// a project. Can be <c>null</c>.</param>
+        /// <returns>Returns <c>true</c> if the operation completed successfully; Returns
+        /// <c>false</c> otherwise (for example when the operation failed or was cancelled).</returns>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is
+        /// not a valid filepath.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="filePath"/>
+        /// is <c>null</c>.</exception>
+        private bool MigrateAndOpenProject(string filePath, OpenProjectActivity.ProjectMigrationConstructionProperties migrationProperties)
+        {
+            var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
+            {
+                FilePath = filePath,
+                ProjectOwner = projectOwner,
+                ProjectFactory = projectFactory,
+                ProjectStorage = projectPersistor
+            };
+            var activity = new OpenProjectActivity(openProjectProperties, migrationProperties);
+            ActivityProgressDialogRunner.Run(dialogParent, activity);
+
+            return activity.State == ActivityState.Finished;
         }
 
         private bool IsCurrentNew()

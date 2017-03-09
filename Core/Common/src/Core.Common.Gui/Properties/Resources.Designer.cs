@@ -1530,15 +1530,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bestaand Ringtoetsproject succesvol geopend..
-        /// </summary>
-        public static string StorageCommandHandler_OpeningExistingProject_Opening_existing_project_successful {
-            get {
-                return ResourceManager.GetString("StorageCommandHandler_OpeningExistingProject_Opening_existing_project_successful", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Sla wijzigingen in het project op: {0}?.
         /// </summary>
         public static string StorageCommandHandler_OpenSaveOrDiscardProjectDialog_SaveChangesToProject_0 {

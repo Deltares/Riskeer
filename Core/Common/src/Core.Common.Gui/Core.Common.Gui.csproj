@@ -181,7 +181,6 @@
     <Compile Include="Forms\ProgressDialog\ActivityProgressDialog.Designer.cs">
       <DependentUpon>ActivityProgressDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ProgressDialog\ProgressReporter.cs" />
     <Compile Include="Forms\PropertyGridView\IPropertyResolver.cs" />
     <Compile Include="GuiCore.cs" />
     <Compile Include="ContextMenu\GuiContextMenuItemFactory.cs" />

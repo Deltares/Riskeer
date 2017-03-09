@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Linq;
-using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base.Service;
 using Core.Common.Controls.Dialogs;
@@ -34,12 +33,6 @@ namespace Core.Common.Gui.Test.Forms.ProgressDialog
     [TestFixture]
     public class ActivityProgressDialogTest : NUnitFormTest
     {
-        [SetUp]
-        public void SetUp()
-        {
-            SynchronizationContext.SetSynchronizationContext(new SynchronizationContext());
-        }
-
         [Test]
         public void DefaultConstructor_ExpectedValue()
         {

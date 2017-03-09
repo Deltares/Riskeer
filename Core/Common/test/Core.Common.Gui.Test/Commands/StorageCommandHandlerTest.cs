@@ -213,6 +213,11 @@ namespace Core.Common.Gui.Test.Commands
                 projectOwner,
                 mainWindowController);
 
+            DialogBoxHandler = (name, wnd) =>
+            {
+                // Activity dialog opened and will be closed automatically once done.
+            };
+
             // Call
             bool result = false;
             Action call = () => result = storageCommandHandler.OpenExistingProject(pathToSomeValidFile);
@@ -221,7 +226,7 @@ namespace Core.Common.Gui.Test.Commands
             var expectedMessages = new[]
             {
                 "Openen van bestaand Ringtoetsproject...",
-                "Bestaand Ringtoetsproject succesvol geopend."
+                "Uitvoeren van 'Openen van bestaand project' is gelukt."
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages, 2);
             Assert.IsTrue(result);
@@ -230,7 +235,7 @@ namespace Core.Common.Gui.Test.Commands
         }
 
         [Test]
-        public void OpenExistingProject_MigrationNeededButCancelled_LogFailureAndCreateNewProjectAndReturnsFalse()
+        public void OpenExistingProject_ShouldMigrateCancelled_LogCancellationAndLeaveCurrentProjectUnaffectedAndReturnsFalse()
         {
             // Setup
             const string fileName = "newProject";
@@ -239,19 +244,17 @@ namespace Core.Common.Gui.Test.Commands
             var projectStorage = mocks.StrictMock<IStoreProject>();
 
             var projectMigrator = mocks.StrictMock<IMigrateProject>();
-            using (mocks.Ordered())
-            {
-                projectMigrator.Expect(pm => pm.ShouldMigrate(pathToSomeValidFile)).Return(MigrationNeeded.Yes);
-                projectMigrator.Expect(pm => pm.DetermineMigrationLocation(pathToSomeValidFile)).Return(null);
-            }
+            projectMigrator.Expect(pm => pm.ShouldMigrate(pathToSomeValidFile)).Return(MigrationNeeded.Aborted);
 
             var project = mocks.Stub<IProject>();
             var projectFactory = mocks.StrictMock<IProjectFactory>();
-            projectFactory.Expect(pf => pf.CreateNewProject()).Return(project);
+            projectFactory.Expect(pf => pf.CreateNewProject()).Return(project)
+                          .Repeat.Never();
 
             var projectOwner = mocks.StrictMock<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
-            projectOwner.Expect(po => po.SetProject(project, null));
+            projectOwner.Expect(po => po.SetProject(project, null))
+                        .Repeat.Never();
 
             var mainWindowController = mocks.Stub<IWin32Window>();
             mocks.ReplayAll();
@@ -271,7 +274,59 @@ namespace Core.Common.Gui.Test.Commands
             var expectedMessages = new[]
             {
                 "Openen van bestaand Ringtoetsproject...",
-                "Het is niet gelukt om het Ringtoetsproject te laden."
+                "Openen van bestaand Ringtoetsproject geannuleerd."
+            };
+            TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages, 2);
+            Assert.IsFalse(result);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void OpenExistingProject_DetermineMigrationLocationButCancelled_LogCancellationAndLeaveCurrentProjectUnaffectedAndReturnsFalse()
+        {
+            // Setup
+            const string fileName = "newProject";
+            string pathToSomeValidFile = $"C://folder/directory/{fileName}.rtd";
+
+            var projectStorage = mocks.StrictMock<IStoreProject>();
+
+            var projectMigrator = mocks.StrictMock<IMigrateProject>();
+            using (mocks.Ordered())
+            {
+                projectMigrator.Expect(pm => pm.ShouldMigrate(pathToSomeValidFile)).Return(MigrationNeeded.Yes);
+                projectMigrator.Expect(pm => pm.DetermineMigrationLocation(pathToSomeValidFile)).Return(null);
+            }
+
+            var project = mocks.Stub<IProject>();
+            var projectFactory = mocks.StrictMock<IProjectFactory>();
+            projectFactory.Expect(pf => pf.CreateNewProject()).Return(project)
+                          .Repeat.Never();
+
+            var projectOwner = mocks.StrictMock<IProjectOwner>();
+            projectOwner.Stub(po => po.Project).Return(project);
+            projectOwner.Expect(po => po.SetProject(project, null))
+                        .Repeat.Never();
+
+            var mainWindowController = mocks.Stub<IWin32Window>();
+            mocks.ReplayAll();
+
+            var storageCommandHandler = new StorageCommandHandler(
+                projectStorage,
+                projectMigrator,
+                projectFactory,
+                projectOwner,
+                mainWindowController);
+
+            // Call
+            bool result = true;
+            Action call = () => result = storageCommandHandler.OpenExistingProject(pathToSomeValidFile);
+
+            // Assert
+            var expectedMessages = new[]
+            {
+                "Openen van bestaand Ringtoetsproject...",
+                "Openen van bestaand Ringtoetsproject geannuleerd."
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages, 2);
             Assert.IsFalse(result);
@@ -341,7 +396,7 @@ namespace Core.Common.Gui.Test.Commands
             {
                 projectMigrator.Expect(pm => pm.ShouldMigrate(pathToSomeValidFile)).Return(MigrationNeeded.Yes);
                 projectMigrator.Expect(pm => pm.DetermineMigrationLocation(pathToSomeValidFile))
-                    .Throw(new ArgumentException(errorMessage));
+                               .Throw(new ArgumentException(errorMessage));
             }
 
             var project = mocks.Stub<IProject>();
@@ -398,7 +453,7 @@ namespace Core.Common.Gui.Test.Commands
                 projectMigrator.Expect(pm => pm.Migrate(pathToSomeValidFile, pathToMigratedFile))
                                .Throw(new ArgumentException(errorMessage));
             }
-            
+
             var project = mocks.Stub<IProject>();
             var projectFactory = mocks.StrictMock<IProjectFactory>();
             projectFactory.Expect(pf => pf.CreateNewProject()).Return(project);
@@ -417,6 +472,11 @@ namespace Core.Common.Gui.Test.Commands
                 projectOwner,
                 mainWindowController);
 
+            DialogBoxHandler = (name, wnd) =>
+            {
+                // Activity dialog opened and will be closed automatically once done.
+            };
+
             // Call
             bool result = true;
             Action call = () => result = storageCommandHandler.OpenExistingProject(pathToSomeValidFile);
@@ -426,7 +486,7 @@ namespace Core.Common.Gui.Test.Commands
             {
                 "Openen van bestaand Ringtoetsproject...",
                 errorMessage,
-                "Het is niet gelukt om het Ringtoetsproject te laden."
+                "Uitvoeren van 'Openen van bestaand project' is mislukt."
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages, 3);
             Assert.IsFalse(result);
@@ -462,6 +522,11 @@ namespace Core.Common.Gui.Test.Commands
                 projectOwner,
                 mainWindowController);
 
+            DialogBoxHandler = (name, wnd) =>
+            {
+                // Activity dialog opened and will be closed automatically once done.
+            };
+
             // Call
             bool result = true;
             Action call = () => result = storageCommandHandler.OpenExistingProject(pathToSomeInvalidFile);
@@ -471,7 +536,7 @@ namespace Core.Common.Gui.Test.Commands
             {
                 "Openen van bestaand Ringtoetsproject...",
                 goodErrorMessageText,
-                "Het is niet gelukt om het Ringtoetsproject te laden."
+                "Uitvoeren van 'Openen van bestaand project' is mislukt."
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages, 3);
             Assert.IsFalse(result);
@@ -486,13 +551,16 @@ namespace Core.Common.Gui.Test.Commands
             const string pathToSomeInvalidFile = "<path to some invalid file>";
 
             IProject project = mocks.Stub<IProject>();
+            var mainWindowController = mocks.Stub<IWin32Window>();
             var projectStorage = mocks.Stub<IStoreProject>();
             projectStorage.Stub(ps => ps.LoadProject(pathToSomeInvalidFile))
                           .Return(null);
+
             var projectMigrator = mocks.Stub<IMigrateProject>();
+
             var projectFactory = mocks.Stub<IProjectFactory>();
             projectFactory.Stub(pf => pf.CreateNewProject()).Return(project);
-            var mainWindowController = mocks.Stub<IWin32Window>();
+
             var projectOwner = mocks.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
             projectOwner.Stub(po => po.SetProject(project, null));
@@ -505,6 +573,11 @@ namespace Core.Common.Gui.Test.Commands
                 projectOwner,
                 mainWindowController);
 
+            DialogBoxHandler = (name, wnd) =>
+            {
+                // Activity dialog opened and will be closed automatically once done.
+            };
+
             // Call
             bool result = true;
             Action call = () => result = storageCommandHandler.OpenExistingProject(pathToSomeInvalidFile);
@@ -513,7 +586,7 @@ namespace Core.Common.Gui.Test.Commands
             var expectedMessages = new[]
             {
                 "Openen van bestaand Ringtoetsproject...",
-                "Het is niet gelukt om het Ringtoetsproject te laden."
+                "Uitvoeren van 'Openen van bestaand project' is mislukt."
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages, 2);
             Assert.IsFalse(result);
@@ -549,6 +622,11 @@ namespace Core.Common.Gui.Test.Commands
                 projectOwner,
                 mainWindowController);
 
+            DialogBoxHandler = (name, wnd) =>
+            {
+                // Activity dialog opened and will be closed automatically once done.
+            };
+
             // Call
             bool result = false;
             Action call = () => result = storageCommandHandler.OpenExistingProject(pathToSomeValidFile);
@@ -557,7 +635,7 @@ namespace Core.Common.Gui.Test.Commands
             var expectedMessages = new[]
             {
                 "Openen van bestaand Ringtoetsproject...",
-                "Bestaand Ringtoetsproject succesvol geopend."
+                "Uitvoeren van 'Openen van bestaand project' is gelukt."
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages, 2);
             Assert.IsTrue(result);
@@ -601,6 +679,11 @@ namespace Core.Common.Gui.Test.Commands
                 projectOwner,
                 mainWindowController);
 
+            DialogBoxHandler = (name, wnd) =>
+            {
+                // Activity dialog opened and will be closed automatically once done.
+            };
+
             // Call
             bool result = false;
             Action call = () => result = storageCommandHandler.OpenExistingProject(pathToSomeValidFile);
@@ -609,7 +692,7 @@ namespace Core.Common.Gui.Test.Commands
             var expectedMessages = new[]
             {
                 "Openen van bestaand Ringtoetsproject...",
-                "Bestaand Ringtoetsproject succesvol geopend."
+                "Uitvoeren van 'Openen van bestaand project' is gelukt."
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages, 2);
             Assert.IsTrue(result);

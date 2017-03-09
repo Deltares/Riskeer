@@ -502,9 +502,6 @@
   <data name="StorageCommandHandler_OpeningExistingProject_Opening_existing_project_failed" xml:space="preserve">
     <value>Het is niet gelukt om het Ringtoetsproject te laden.</value>
   </data>
-  <data name="StorageCommandHandler_OpeningExistingProject_Opening_existing_project_successful" xml:space="preserve">
-    <value>Bestaand Ringtoetsproject succesvol geopend.</value>
-  </data>
   <data name="StorageCommandHandler_SaveProject_Saving_project_canceled" xml:space="preserve">
     <value>Opslaan van het Ringtoetsproject geannuleerd.</value>
   </data>

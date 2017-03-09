@@ -47,6 +47,7 @@ namespace Core.Common.Gui
         /// <param name="optionalProjectMigrationProperties">Optional: Properties for migrating
         /// the project to the current version.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when any input argument has invalid values.</exception>
         public OpenProjectActivity(OpenProjectConstructionProperties requiredOpenProjectProperties,
                                    ProjectMigrationConstructionProperties optionalProjectMigrationProperties = null)
         {
@@ -93,10 +94,10 @@ namespace Core.Common.Gui
                     return;
                 }
             }
-            
+
             try
             {
-                openedProject = storage.LoadProject(migratedProjectFilePath ?? filePath);
+                openedProject = storage.LoadProject(FilePathTakingMigrationIntoAccount);
             }
             catch (StorageException e)
             {
@@ -115,8 +116,8 @@ namespace Core.Common.Gui
         {
             if (State == ActivityState.Executed)
             {
-                projectOwner.SetProject(openedProject, filePath);
-                openedProject.Name = Path.GetFileNameWithoutExtension(filePath);
+                projectOwner.SetProject(openedProject, FilePathTakingMigrationIntoAccount);
+                openedProject.Name = Path.GetFileNameWithoutExtension(FilePathTakingMigrationIntoAccount);
                 openedProject.NotifyObservers();
             }
 
@@ -131,6 +132,20 @@ namespace Core.Common.Gui
             }
         }
 
+        private string FilePathTakingMigrationIntoAccount
+        {
+            get
+            {
+                return migratedProjectFilePath ?? filePath;
+            }
+        }
+
+        /// <summary>
+        /// Validates the construction arguments required for opening a project file.
+        /// </summary>
+        /// <param name="requiredOpenProjectProperties">The construction arguments to be validated.</param>
+        /// <exception cref="ArgumentException">Thrown when any construction property of
+        /// <paramref name="requiredOpenProjectProperties"/> is invalid.</exception>
         private static void ValidateOpenProjectProperties(OpenProjectConstructionProperties requiredOpenProjectProperties)
         {
             if (requiredOpenProjectProperties.FilePath == null)
