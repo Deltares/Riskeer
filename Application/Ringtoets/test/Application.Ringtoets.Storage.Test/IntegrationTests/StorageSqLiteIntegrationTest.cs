@@ -35,8 +35,6 @@ using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Settings;
 using Core.Common.TestUtil;
-using Core.Components.Gis;
-using Core.Components.Gis.Data;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
@@ -263,7 +261,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 Assert.AreEqual(expectedAssessmentSection.Name, actualAssessmentSection.Name);
                 AssertComments(expectedAssessmentSection.Comments, actualAssessmentSection.Comments);
 
-                AssertBackgroundMapDataContainer(expectedAssessmentSection.BackgroundMapData, actualAssessmentSection.BackgroundMapData);
+                AssertBackgroundData(expectedAssessmentSection.BackgroundData, actualAssessmentSection.BackgroundData);
                 AssertHydraulicBoundaryDatabase(expectedAssessmentSection.HydraulicBoundaryDatabase, actualAssessmentSection.HydraulicBoundaryDatabase);
                 AssertReferenceLine(expectedAssessmentSection.ReferenceLine, actualAssessmentSection.ReferenceLine);
                 AssertPipingFailureMechanism(expectedAssessmentSection.PipingFailureMechanism, actualAssessmentSection.PipingFailureMechanism);
@@ -1799,26 +1797,14 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
         #region BackgroundMapDataContainer
 
-        private static void AssertBackgroundMapDataContainer(BackgroundMapDataContainer expectedContainer, BackgroundMapDataContainer actualContainer)
+        private static void AssertBackgroundData(BackgroundData expectedBackgroundData, BackgroundData actualBackgroundData)
         {
-            Assert.AreEqual(expectedContainer.IsVisible, actualContainer.IsVisible);
-            Assert.AreEqual(expectedContainer.Transparency, actualContainer.Transparency);
+            Assert.AreEqual(expectedBackgroundData.Name, actualBackgroundData.Name);
+            Assert.AreEqual(expectedBackgroundData.IsVisible, actualBackgroundData.IsVisible);
+            Assert.AreEqual(expectedBackgroundData.Transparency, actualBackgroundData.Transparency);
 
-            var expectedWmtsMapData = (WmtsMapData) expectedContainer.MapData;
-            var actualWmtsMapData = (WmtsMapData) actualContainer.MapData;
-            AssertWmtsMapData(expectedWmtsMapData, actualWmtsMapData);
-        }
-
-        private static void AssertWmtsMapData(WmtsMapData expectedWmtsMapData, WmtsMapData actualWmtsMapData)
-        {
-            Assert.AreEqual(expectedWmtsMapData.Name, actualWmtsMapData.Name);
-            Assert.AreEqual(expectedWmtsMapData.IsVisible, actualWmtsMapData.IsVisible);
-            Assert.AreEqual(expectedWmtsMapData.Transparency, actualWmtsMapData.Transparency);
-
-            Assert.AreEqual(expectedWmtsMapData.IsConfigured, actualWmtsMapData.IsConfigured);
-            Assert.AreEqual(expectedWmtsMapData.SourceCapabilitiesUrl, actualWmtsMapData.SourceCapabilitiesUrl);
-            Assert.AreEqual(expectedWmtsMapData.SelectedCapabilityIdentifier, actualWmtsMapData.SelectedCapabilityIdentifier);
-            Assert.AreEqual(expectedWmtsMapData.PreferredFormat, actualWmtsMapData.PreferredFormat);
+            Assert.AreEqual(expectedBackgroundData.IsConfigured, actualBackgroundData.IsConfigured);
+            CollectionAssert.AreEquivalent(expectedBackgroundData.Parameters, actualBackgroundData.Parameters);
         }
 
         #endregion
