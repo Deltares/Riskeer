@@ -79,6 +79,7 @@
     <Compile Include="..\..\..\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="BackgroundLayerStatusFactoryTest.cs" />
     <Compile Include="DotSpatialMapTest.cs" />
     <Compile Include="MapControlTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
