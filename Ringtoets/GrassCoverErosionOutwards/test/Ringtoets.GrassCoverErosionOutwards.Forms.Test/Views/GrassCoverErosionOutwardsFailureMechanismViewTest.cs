@@ -127,7 +127,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 view.Data = failureMechanismContext;
 
                 // Assert
-                WmtsMapData expectedWmtsBackgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(assessmentSection.BackgroundData);
+                ImageBasedMapData expectedWmtsBackgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(assessmentSection.BackgroundData);
                 MapDataTestHelper.AssertImageBasedMapData(expectedWmtsBackgroundMapData, view.Map.BackgroundMapData);
             }
         }
@@ -175,7 +175,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 // Assert
                 Assert.AreSame(failureMechanismContext, view.Data);
                 AssertEmptyMapData(view.Map.Data);
-                WmtsMapData expectedWmtsBackgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(
+                ImageBasedMapData expectedWmtsBackgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(
                     assessmentSection.BackgroundData);
                 MapDataTestHelper.AssertImageBasedMapData(expectedWmtsBackgroundMapData, view.Map.BackgroundMapData);
             }
@@ -327,7 +327,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 backgroundData.NotifyObservers();
 
                 // Then
-                WmtsMapData expectedWmtsBackgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(backgroundData);
+                ImageBasedMapData expectedWmtsBackgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(backgroundData);
                 MapDataTestHelper.AssertImageBasedMapData(expectedWmtsBackgroundMapData, view.Map.BackgroundMapData);
             }
         }
