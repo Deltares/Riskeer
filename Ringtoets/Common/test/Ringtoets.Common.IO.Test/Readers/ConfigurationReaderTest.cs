@@ -124,7 +124,9 @@ namespace Ringtoets.Common.IO.Test.Readers
         [TestCase("invalidXsdContent.xsd",
             "Invalid 'schemaString': The root element of a W3C XML Schema should be <schema> and its namespace should be 'http://www.w3.org/2001/XMLSchema'.",
             typeof(XmlSchemaException))]
-        public void Constructor_InvalidSchemaString_ThrowArgumentException(string fileName, string expectedMessage, Type expectedExceptionType)
+        [TestCase("notReferencingBaseXsd.xsd",
+            "Invalid 'schemaString': the base XML Schema Definition file 'ConfiguratieSchema.xsd' is not referenced.")]
+        public void Constructor_InvalidSchemaString_ThrowArgumentException(string fileName, string expectedMessage, Type expectedInnerExceptionType = null)
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, "validConfiguration.xml");
@@ -136,7 +138,11 @@ namespace Ringtoets.Common.IO.Test.Readers
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
             Assert.AreEqual(expectedMessage, exception.Message);
-            Assert.IsInstanceOf(expectedExceptionType, exception.InnerException);
+
+            if (expectedInnerExceptionType != null)
+            {
+                Assert.IsInstanceOf(expectedInnerExceptionType, exception.InnerException);
+            }
         }
 
         [Test]
@@ -198,7 +204,7 @@ namespace Ringtoets.Common.IO.Test.Readers
 
         public ConfigurationReaderTest()
         {
-            schemaString = File.ReadAllText(Path.Combine(testDirectoryPath, "ConfiguratieSchema.xsd"));
+            schemaString = File.ReadAllText(Path.Combine(testDirectoryPath, "validConfigurationSchema.xsd"));
         }
 
         private class TestConfigurationReader : ConfigurationReader<TestReadConfigurationItem>

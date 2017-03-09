@@ -148,9 +148,10 @@ namespace Ringtoets.Common.IO.Readers
         /// <exception cref="CriticalFileReadException">Thrown when the provided XML document does not match the provided XML Schema Definition (XSD).</exception>
         private static void ValidateToSchema(XDocument document, string schemaString, string xmlFilePath)
         {
+            var xmlResourcesResolver = new XmlResourcesResolver();
             var xmlSchemaSet = new XmlSchemaSet
             {
-                XmlResolver = new XmlResourcesResolver()
+                XmlResolver = xmlResourcesResolver
             };
 
             try
@@ -161,6 +162,11 @@ namespace Ringtoets.Common.IO.Readers
                                               || exception is XmlSchemaException)
             {
                 throw new ArgumentException($"Invalid 'schemaString': {exception.Message}", exception);
+            }
+
+            if (!xmlResourcesResolver.BaseSchemeReferenced)
+            {
+                throw new ArgumentException("Invalid 'schemaString': the base XML Schema Definition file 'ConfiguratieSchema.xsd' is not referenced.");
             }
 
             try
@@ -229,11 +235,14 @@ namespace Ringtoets.Common.IO.Readers
                 }
             }
 
+            public bool BaseSchemeReferenced { get; private set; }
+
             public override object GetEntity(Uri absoluteUri, string role, Type ofObjectToReturn)
             {
                 switch (Path.GetFileName(absoluteUri.ToString()))
                 {
                     case "ConfiguratieSchema.xsd":
+                        BaseSchemeReferenced = true;
                         return new MemoryStream(Encoding.UTF8.GetBytes(Resources.ConfiguratieSchema));
                     case "StochastSchema.xsd":
                         return new MemoryStream(Encoding.UTF8.GetBytes(Resources.StochastSchema));
