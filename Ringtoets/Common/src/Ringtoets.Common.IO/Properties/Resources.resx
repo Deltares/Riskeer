@@ -513,6 +513,9 @@ Er is geen vakindeling geïmporteerd.</value>
   <data name="Importer_ProgressText_Validating_imported_data" xml:space="preserve">
     <value>Valideren van ingelezen data.</value>
   </data>
+  <data name="ConfigurationExporter_Export_Error_exception_0_no_configuration_exported" xml:space="preserve">
+    <value>{0} Er is geen configuratie geëxporteerd.</value>
+  </data>
   <data name="ConfiguratieSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ConfiguratieSchema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>

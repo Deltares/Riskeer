@@ -22,24 +22,25 @@
 using System;
 using System.IO;
 using System.Security.AccessControl;
+using System.Xml;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.Common.IO.Exporters;
+using Ringtoets.Common.IO.Writers;
 
-namespace Ringtoets.GrassCoverErosionOutwards.IO.Test
+namespace Ringtoets.Common.IO.Test.Exporters
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsConfigurationExporterTest
+    public class ConfigurationExporterTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var exporter = new GrassCoverErosionOutwardsConfigurationExporter(new CalculationGroup(), "test.xml");
+            var exporter = new SimpleConfigurationExporter(new CalculationGroup(), "test.xml");
 
             // Assert
             Assert.IsInstanceOf<IFileExporter>(exporter);
@@ -49,7 +50,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test
         public void Constructor_CalculationGroupNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new GrassCoverErosionOutwardsConfigurationExporter(null, "test.xml");
+            TestDelegate test = () => new SimpleConfigurationExporter(null, "test.xml");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -63,7 +64,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test
         public void Constructor_FilePathInvalid_ThrowArgumentException(string filePath)
         {
             // Call
-            TestDelegate test = () => new GrassCoverErosionOutwardsConfigurationExporter(new CalculationGroup(), filePath);
+            TestDelegate test = () => new SimpleConfigurationExporter(new CalculationGroup(), filePath);
 
             // Assert
             Assert.Throws<ArgumentException>(test);
@@ -73,28 +74,19 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test
         public void Export_ValidData_ReturnTrueAndWritesFile()
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath($"{nameof(Export_ValidData_ReturnTrueAndWritesFile)}.xml");
+            string targetFilePath = TestHelper.GetScratchPadPath($"{nameof(Export_ValidData_ReturnTrueAndWritesFile)}.xml");
 
-            var calculation1 = new GrassCoverErosionOutwardsWaveConditionsCalculation
-            {
-                Name = "Calculation A",
-                InputParameters =
-                {
-                    ForeshoreProfile = new TestForeshoreProfile("ForeshoreA")
-                }
-            };
+            string testFileSubPath = Path.Combine(
+                nameof(ConfigurationExporter<SimpleCalculationConfigurationWriter, TestCalculation>),
+                "folderWithSubfolderAndCalculation.xml");
+            string expectedXmlFilePath = TestHelper.GetTestDataPath(
+                TestDataPath.Ringtoets.Common.IO,
+                testFileSubPath);
 
-            var calculation2 = new GrassCoverErosionOutwardsWaveConditionsCalculation
-            {
-                Name = "PK001_0002 W1-6_4_1D1",
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HydraulicLocationA", 0, 0),
-                    UseBreakWater = true
-                }
-            };
+            var calculation = new TestCalculation("Calculation A");
+            var calculation2 = new TestCalculation("Calculation B");
 
-            var calculationGroup2 = new CalculationGroup("PK001_0002", false)
+            var calculationGroup2 = new CalculationGroup("Group B", false)
             {
                 Children =
                 {
@@ -102,11 +94,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test
                 }
             };
 
-            var calculationGroup = new CalculationGroup("PK001_0001", false)
+            var calculationGroup = new CalculationGroup("Group A", false)
             {
                 Children =
                 {
-                    calculation1,
+                    calculation,
                     calculationGroup2
                 }
             };
@@ -119,7 +111,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test
                 }
             };
 
-            var exporter = new GrassCoverErosionOutwardsConfigurationExporter(rootGroup, filePath);
+            var exporter = new SimpleConfigurationExporter(rootGroup, targetFilePath);
 
             try
             {
@@ -128,19 +120,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test
 
                 // Assert
                 Assert.IsTrue(isExported);
-                Assert.IsTrue(File.Exists(filePath));
+                Assert.IsTrue(File.Exists(targetFilePath));
 
-                string actualXml = File.ReadAllText(filePath);
-                string testDirSubPath = Path.Combine(nameof(GrassCoverErosionOutwardsConfigurationExporter), "fullValidConfiguration.xml");
-                string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionOutwards.IO,
-                                                                        testDirSubPath);
+                string actualXml = File.ReadAllText(targetFilePath);
                 string expectedXml = File.ReadAllText(expectedXmlFilePath);
 
                 Assert.AreEqual(expectedXml, actualXml);
             }
             finally
             {
-                File.Delete(filePath);
+                File.Delete(targetFilePath);
             }
         }
 
@@ -152,7 +141,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test
             {
                 Children =
                 {
-                    new GrassCoverErosionOutwardsWaveConditionsCalculation()
+                    new TestCalculation("Calculation A")
                 }
             };
 
@@ -161,7 +150,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test
             {
                 string filePath = Path.Combine(directoryPath, "test.xml");
 
-                var exporter = new GrassCoverErosionOutwardsConfigurationExporter(calculationGroup, filePath);
+                var exporter = new SimpleConfigurationExporter(calculationGroup, filePath);
 
                 disposeHelper.LockDirectory(FileSystemRights.Write);
 
@@ -175,6 +164,19 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test
                 TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
                 Assert.IsFalse(isExported);
             }
+        }
+    }
+
+    public class SimpleConfigurationExporter : ConfigurationExporter<SimpleCalculationConfigurationWriter, TestCalculation>
+    {
+        public SimpleConfigurationExporter(CalculationGroup calculationGroup, string targetFilePath) : base(calculationGroup, targetFilePath) {}
+    }
+
+    public class SimpleCalculationConfigurationWriter : CalculationConfigurationWriter<TestCalculation>
+    {
+        protected override void WriteCalculation(TestCalculation calculation, XmlWriter writer)
+        {
+            writer.WriteElementString("calculation", calculation.Name);
         }
     }
 }

@@ -215,15 +215,6 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} Er is geen configuratie geëxporteerd..
-        /// </summary>
-        public static string PipingConfigurationExporter_Export_Error_exception_0_no_configuration_exported {
-            get {
-                return ResourceManager.GetString("PipingConfigurationExporter_Export_Error_exception_0_no_configuration_exported", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0} 
         ///Er is geen berekeningenconfiguratie geïmporteerd..
         /// </summary>

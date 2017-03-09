@@ -34,6 +34,7 @@ using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
+using TestCalculation = Ringtoets.Common.Forms.TestUtil.TestCalculation;
 
 namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
 {

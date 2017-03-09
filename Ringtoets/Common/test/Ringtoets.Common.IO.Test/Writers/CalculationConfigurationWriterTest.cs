@@ -24,14 +24,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Security.AccessControl;
 using System.Xml;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.Writers;
 
 namespace Ringtoets.Common.IO.Test.Writers
@@ -206,24 +205,11 @@ namespace Ringtoets.Common.IO.Test.Writers
             }
         }
 
-        public class SimpleCalculation : Observable, ICalculation
-        {
-            public SimpleCalculation(string name)
-            {
-                Name = name;
-            }
-
-            public string Name { get; set; }
-            public bool HasOutput { get; }
-            public Comment Comments { get; }
-            public void ClearOutput() {}
-        }
-
-        public class SimpleCalculationConfigurationWriter : CalculationConfigurationWriter<SimpleCalculation>
+        public class SimpleCalculationConfigurationWriter : CalculationConfigurationWriter<TestCalculation>
         {
             public const string CalculationElementTag = "calculation";
 
-            protected override void WriteCalculation(SimpleCalculation calculation, XmlWriter writer)
+            protected override void WriteCalculation(TestCalculation calculation, XmlWriter writer)
             {
                 writer.WriteElementString(CalculationElementTag, calculation.Name);
             }
@@ -236,8 +222,8 @@ namespace Ringtoets.Common.IO.Test.Writers
 
         private static IEnumerable<TestCaseData> CalculationConfigurations()
         {
-            var calculation1 = new SimpleCalculation("calculation1");
-            var calculation2 = new SimpleCalculation("calculation2");
+            var calculation1 = new TestCalculation("calculation1");
+            var calculation2 = new TestCalculation("calculation2");
 
             var calculationGroup1 = new CalculationGroup("group1", false);
             var calculationGroup2 = new CalculationGroup("group2", false)

@@ -31,6 +31,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
+using TestCalculation = Ringtoets.Common.Forms.TestUtil.TestCalculation;
 
 namespace Ringtoets.Common.Forms.Test.ChangeHandlers
 {

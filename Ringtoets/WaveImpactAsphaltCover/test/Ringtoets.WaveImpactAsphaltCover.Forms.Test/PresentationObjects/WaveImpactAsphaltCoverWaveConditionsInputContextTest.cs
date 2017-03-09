@@ -34,6 +34,7 @@ using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
+using TestCalculation = Ringtoets.Common.Forms.TestUtil.TestCalculation;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
 {

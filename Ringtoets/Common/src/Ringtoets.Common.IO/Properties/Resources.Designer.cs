@@ -104,6 +104,15 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} Er is geen configuratie geëxporteerd..
+        /// </summary>
+        public static string ConfigurationExporter_Export_Error_exception_0_no_configuration_exported {
+            get {
+                return ResourceManager.GetString("ConfigurationExporter_Export_Error_exception_0_no_configuration_exported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het XML-document dat de configuratie voor de berekeningen beschrijft is niet geldig. De validatie geeft de volgende melding op regel {0}, positie {1}: {2}.
         /// </summary>
         public static string ConfigurationReader_Configuration_contains_no_valid_xml_line_0_position_1_reason_2 {

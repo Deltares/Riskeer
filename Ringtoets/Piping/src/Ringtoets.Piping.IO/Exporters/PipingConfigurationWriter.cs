@@ -33,7 +33,7 @@ namespace Ringtoets.Piping.IO.Exporters
     /// <summary>
     /// Writer for writing a piping configuration to XML.
     /// </summary>
-    internal class PipingConfigurationWriter : CalculationConfigurationWriter<PipingCalculation>
+    public class PipingConfigurationWriter : CalculationConfigurationWriter<PipingCalculation>
     {
         protected override void WriteCalculation(PipingCalculation calculation, XmlWriter writer)
         {

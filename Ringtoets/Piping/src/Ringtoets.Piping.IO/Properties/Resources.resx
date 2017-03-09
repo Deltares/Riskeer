@@ -260,9 +260,6 @@ Het bestand wordt overgeslagen.</value>
     <value>{0} 
 Deze ondergrondschematisatie wordt overgeslagen.</value>
   </data>
-  <data name="PipingConfigurationExporter_Export_Error_exception_0_no_configuration_exported" xml:space="preserve">
-    <value>{0} Er is geen configuratie geëxporteerd.</value>
-  </data>
   <data name="SoilDatabaseConstraintsReader_VerifyConstraints_Can_not_read_StochasticSoilModel_Perhaps_table_missing" xml:space="preserve">
     <value>Kan geen ondergrondmodellen lezen. Mogelijk bestaat de '{0}' tabel niet.</value>
   </data>

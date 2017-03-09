@@ -58,6 +58,7 @@
     <Compile Include="LimitedPrecisionHelperTest.cs" />
     <Compile Include="ObservableTestAssessmentSectionStubTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestCalculationTest.cs" />
     <Compile Include="TestDikeProfileTest.cs" />
     <Compile Include="TestFailureMechanismSectionResultTest.cs" />
     <Compile Include="TestFailureMechanismTest.cs" />

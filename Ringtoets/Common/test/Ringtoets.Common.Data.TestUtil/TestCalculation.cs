@@ -19,26 +19,28 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
+using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.IO.Exporters;
-using Ringtoets.Piping.Data;
 
-namespace Ringtoets.Piping.IO.Exporters
+namespace Ringtoets.Common.Data.TestUtil
 {
     /// <summary>
-    /// Exports a piping configuration and stores it as an XML file.
+    /// Simple calculation that can be used in tests.
     /// </summary>
-    public class PipingConfigurationExporter : ConfigurationExporter<PipingConfigurationWriter, PipingCalculation>
+    public class TestCalculation : Observable, ICalculation
     {
         /// <summary>
-        /// Creates a new instance of <see cref="PipingConfigurationExporter"/>.
+        /// Creates a new <see cref="TestCalculation"/>.
         /// </summary>
-        /// <param name="calculationGroup">The calculation group to export.</param>
-        /// <param name="filePath">The path of the XML file to export to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationGroup"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        public PipingConfigurationExporter(CalculationGroup calculationGroup, string filePath) : base(calculationGroup, filePath)
-        {}
+        /// <param name="name">The name of the calculation.</param>
+        public TestCalculation(string name)
+        {
+            Name = name;
+        }
+
+        public string Name { get; set; }
+        public bool HasOutput { get; }
+        public Comment Comments { get; }
+        public void ClearOutput() {}
     }
 }

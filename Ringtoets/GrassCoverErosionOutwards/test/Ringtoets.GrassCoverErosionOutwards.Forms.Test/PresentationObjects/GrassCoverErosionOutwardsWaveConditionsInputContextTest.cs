@@ -31,6 +31,7 @@ using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.Revetment.Data;
+using TestCalculation = Ringtoets.Common.Forms.TestUtil.TestCalculation;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
 {

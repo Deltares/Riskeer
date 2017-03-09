@@ -43,6 +43,7 @@ using Ringtoets.Common.Forms.UITypeEditors;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.Revetment.Forms.PropertyClasses;
+using TestCalculation = Ringtoets.Common.Forms.TestUtil.TestCalculation;
 
 namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
 {
