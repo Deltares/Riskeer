@@ -216,7 +216,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <item><paramref name="mapData"/> is no <see cref="WmtsMapData"/>;</item>
         /// <item>One of the properties of <paramref name="wmtsMapData"/> is not equal to <paramref name="mapData"/>.</item>
         /// </list></exception>
-        public static void AssertWmtsMapData(WmtsMapData wmtsMapData, MapData mapData)
+        private static void AssertWmtsMapData(WmtsMapData wmtsMapData, MapData mapData)
         {
             Assert.IsInstanceOf<WmtsMapData>(mapData);
             Assert.IsNotNull(wmtsMapData);
@@ -254,6 +254,7 @@ namespace Ringtoets.Common.Forms.TestUtil
             if (wellKnownTileSourceMapData != null)
             {
                 AssertWellKnownTileSourceMapData(wellKnownTileSourceMapData, mapData);
+                return;
             }
             Assert.IsInstanceOf<ImageBasedMapData>(imageBasedMapData);
             Assert.Fail($"unknown type of {nameof(ImageBasedMapData)}");

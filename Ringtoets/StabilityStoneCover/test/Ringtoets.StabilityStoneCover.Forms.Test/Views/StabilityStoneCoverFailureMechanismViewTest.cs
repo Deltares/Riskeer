@@ -130,7 +130,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 // Assert
                 WmtsMapData expectedWmtsBackgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(
                     assessmentSection.BackgroundData);
-                MapDataTestHelper.AssertWmtsMapData(expectedWmtsBackgroundMapData, view.Map.BackgroundMapData);
+                MapDataTestHelper.AssertImageBasedMapData(expectedWmtsBackgroundMapData, view.Map.BackgroundMapData);
             }
         }
 
@@ -179,7 +179,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 AssertEmptyMapData(view.Map.Data);
                 WmtsMapData expectedWmtsBackgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(
                     assessmentSection.BackgroundData);
-                MapDataTestHelper.AssertWmtsMapData(expectedWmtsBackgroundMapData, view.Map.BackgroundMapData);
+                MapDataTestHelper.AssertImageBasedMapData(expectedWmtsBackgroundMapData, view.Map.BackgroundMapData);
             }
         }
 
@@ -305,7 +305,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 // Then
                 WmtsMapData expectedWmtsBackgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(
                     backgroundData);
-                MapDataTestHelper.AssertWmtsMapData(expectedWmtsBackgroundMapData, view.Map.BackgroundMapData);
+                MapDataTestHelper.AssertImageBasedMapData(expectedWmtsBackgroundMapData, view.Map.BackgroundMapData);
             }
         }
 
