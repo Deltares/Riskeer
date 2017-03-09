@@ -356,9 +356,9 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 BackgroundData backgroundData = assessmentSection.BackgroundData;
 
                 backgroundData.Name = "some Name";
-                backgroundData.Parameters["SourceCapabilitiesUrl"] = "some URL";
-                backgroundData.Parameters["SelectedCapabilityIdentifier"] = "some Identifier";
-                backgroundData.Parameters["PreferredFormat"] = "image/some Format";
+                backgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl] = "some URL";
+                backgroundData.Parameters[BackgroundDataIdentifiers.SelectedCapabilityIdentifier] = "some Identifier";
+                backgroundData.Parameters[BackgroundDataIdentifiers.PreferredFormat] = "image/some Format";
                 backgroundData.IsConfigured = true;
 
                 // When

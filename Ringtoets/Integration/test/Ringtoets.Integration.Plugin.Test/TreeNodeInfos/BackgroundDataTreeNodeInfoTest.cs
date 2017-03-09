@@ -387,9 +387,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 assessmentSection.BackgroundData.IsConfigured = mapData.IsConfigured;
                 assessmentSection.BackgroundData.Transparency = mapData.Transparency;
                 assessmentSection.BackgroundData.BackgroundMapDataType = BackgroundMapDataType.Wmts;
-                assessmentSection.BackgroundData.Parameters["SourceCapabilitiesUrl"] = mapData.SourceCapabilitiesUrl;
-                assessmentSection.BackgroundData.Parameters["SelectedCapabilityIdentifier"] = mapData.SelectedCapabilityIdentifier;
-                assessmentSection.BackgroundData.Parameters["PreferredFormat"] = mapData.PreferredFormat;
+                assessmentSection.BackgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl] = mapData.SourceCapabilitiesUrl;
+                assessmentSection.BackgroundData.Parameters[BackgroundDataIdentifiers.SelectedCapabilityIdentifier] = mapData.SelectedCapabilityIdentifier;
+                assessmentSection.BackgroundData.Parameters[BackgroundDataIdentifiers.PreferredFormat] = mapData.PreferredFormat;
 
                 DialogBoxHandler = (name, wnd) =>
                 {
@@ -446,9 +446,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 assessmentSection.BackgroundData.IsConfigured = mapData.IsConfigured;
                 assessmentSection.BackgroundData.Transparency = mapData.Transparency;
                 assessmentSection.BackgroundData.BackgroundMapDataType = BackgroundMapDataType.Wmts;
-                assessmentSection.BackgroundData.Parameters["SourceCapabilitiesUrl"] = mapData.SourceCapabilitiesUrl;
-                assessmentSection.BackgroundData.Parameters["SelectedCapabilityIdentifier"] = mapData.SelectedCapabilityIdentifier;
-                assessmentSection.BackgroundData.Parameters["PreferredFormat"] = mapData.PreferredFormat;
+                assessmentSection.BackgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl] = mapData.SourceCapabilitiesUrl;
+                assessmentSection.BackgroundData.Parameters[BackgroundDataIdentifiers.SelectedCapabilityIdentifier] = mapData.SelectedCapabilityIdentifier;
+                assessmentSection.BackgroundData.Parameters[BackgroundDataIdentifiers.PreferredFormat] = mapData.PreferredFormat;
 
                 DialogBoxHandler = (name, wnd) =>
                 {
@@ -542,9 +542,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             Assert.IsTrue(backgroundData.IsVisible);
             Assert.AreEqual(mapData.IsConfigured, backgroundData.IsConfigured);
             Assert.AreEqual(mapData.Transparency, backgroundData.Transparency);
-            Assert.AreEqual(mapData.SourceCapabilitiesUrl, backgroundData.Parameters["SourceCapabilitiesUrl"]);
-            Assert.AreEqual(mapData.SelectedCapabilityIdentifier, backgroundData.Parameters["SelectedCapabilityIdentifier"]);
-            Assert.AreEqual(mapData.PreferredFormat, backgroundData.Parameters["PreferredFormat"]);
+            Assert.AreEqual(mapData.SourceCapabilitiesUrl, backgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl]);
+            Assert.AreEqual(mapData.SelectedCapabilityIdentifier, backgroundData.Parameters[BackgroundDataIdentifiers.SelectedCapabilityIdentifier]);
+            Assert.AreEqual(mapData.PreferredFormat, backgroundData.Parameters[BackgroundDataIdentifiers.PreferredFormat]);
         }
 
         private static void AssertBackgroundMapDataProperties(BackgroundData expectedBackgroundData, BackgroundData actualBackgroundData)

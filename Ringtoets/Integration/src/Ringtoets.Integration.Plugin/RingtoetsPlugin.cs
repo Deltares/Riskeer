@@ -936,9 +936,9 @@ namespace Ringtoets.Integration.Plugin
                 var selectedWmtsMapData = selectedMapData as WmtsMapData;
                 if (selectedWmtsMapData != null)
                 {
-                    assessmentSection.BackgroundData.Parameters["SourceCapabilitiesUrl"] = selectedWmtsMapData.SourceCapabilitiesUrl;
-                    assessmentSection.BackgroundData.Parameters["SelectedCapabilityIdentifier"] = selectedWmtsMapData.SelectedCapabilityIdentifier;
-                    assessmentSection.BackgroundData.Parameters["PreferredFormat"] = selectedWmtsMapData.PreferredFormat;
+                    assessmentSection.BackgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl] = selectedWmtsMapData.SourceCapabilitiesUrl;
+                    assessmentSection.BackgroundData.Parameters[BackgroundDataIdentifiers.SelectedCapabilityIdentifier] = selectedWmtsMapData.SelectedCapabilityIdentifier;
+                    assessmentSection.BackgroundData.Parameters[BackgroundDataIdentifiers.PreferredFormat] = selectedWmtsMapData.PreferredFormat;
                 }
             }
 

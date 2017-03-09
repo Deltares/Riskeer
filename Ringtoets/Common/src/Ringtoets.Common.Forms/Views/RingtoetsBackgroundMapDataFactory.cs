@@ -100,9 +100,9 @@ namespace Ringtoets.Common.Forms.Views
 
             if (backgroundData.IsConfigured)
             {
-                mapData.Configure(backgroundData.Parameters["SourceCapabilitiesUrl"],
-                                  backgroundData.Parameters["SelectedCapabilityIdentifier"],
-                                  backgroundData.Parameters["PreferredFormat"]);
+                mapData.Configure(backgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl],
+                                  backgroundData.Parameters[BackgroundDataIdentifiers.SelectedCapabilityIdentifier],
+                                  backgroundData.Parameters[BackgroundDataIdentifiers.PreferredFormat]);
             }
 
             mapData.IsVisible = backgroundData.IsVisible;

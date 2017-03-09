@@ -115,7 +115,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return GetBackgroundMapDataParameter(data, nameof(SourceCapabilitiesUrl));
+                return GetBackgroundMapDataParameter(data, BackgroundDataIdentifiers.SourceCapabilitiesUrl);
             }
         }
 
@@ -127,7 +127,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return GetBackgroundMapDataParameter(data, nameof(SelectedCapabilityIdentifier));
+                return GetBackgroundMapDataParameter(data, BackgroundDataIdentifiers.SelectedCapabilityIdentifier);
             }
         }
 
@@ -139,7 +139,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return GetBackgroundMapDataParameter(data, nameof(PreferredFormat));
+                return GetBackgroundMapDataParameter(data, BackgroundDataIdentifiers.PreferredFormat);
             }
         }
 

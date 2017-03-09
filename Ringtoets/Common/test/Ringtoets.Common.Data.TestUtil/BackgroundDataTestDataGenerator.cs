@@ -47,9 +47,9 @@ namespace Ringtoets.Common.Data.TestUtil
 
             if (wmtsMapData.IsConfigured)
             {
-                backgroundMapData.Parameters["SourceCapabilitiesUrl"] = wmtsMapData.SourceCapabilitiesUrl;
-                backgroundMapData.Parameters["SelectedCapabilityIdentifier"] = wmtsMapData.SelectedCapabilityIdentifier;
-                backgroundMapData.Parameters["PreferredFormat"] = wmtsMapData.PreferredFormat;
+                backgroundMapData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl] = wmtsMapData.SourceCapabilitiesUrl;
+                backgroundMapData.Parameters[BackgroundDataIdentifiers.SelectedCapabilityIdentifier] = wmtsMapData.SelectedCapabilityIdentifier;
+                backgroundMapData.Parameters[BackgroundDataIdentifiers.PreferredFormat] = wmtsMapData.PreferredFormat;
             }
 
             return backgroundMapData;

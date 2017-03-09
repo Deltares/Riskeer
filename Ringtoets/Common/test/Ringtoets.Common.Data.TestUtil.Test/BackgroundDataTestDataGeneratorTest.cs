@@ -44,9 +44,9 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreEqual(mapData.IsVisible, backgroundData.IsVisible);
             Assert.AreEqual(mapData.Transparency, backgroundData.Transparency);
             Assert.AreEqual(3, backgroundData.Parameters.Count);
-            Assert.AreEqual(mapData.SourceCapabilitiesUrl, backgroundData.Parameters["SourceCapabilitiesUrl"]);
-            Assert.AreEqual(mapData.SelectedCapabilityIdentifier, backgroundData.Parameters["SelectedCapabilityIdentifier"]);
-            Assert.AreEqual(mapData.PreferredFormat, backgroundData.Parameters["PreferredFormat"]);
+            Assert.AreEqual(mapData.SourceCapabilitiesUrl, backgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl]);
+            Assert.AreEqual(mapData.SelectedCapabilityIdentifier, backgroundData.Parameters[BackgroundDataIdentifiers.SelectedCapabilityIdentifier]);
+            Assert.AreEqual(mapData.PreferredFormat, backgroundData.Parameters[BackgroundDataIdentifiers.PreferredFormat]);
         }
 
         [Test]

@@ -155,13 +155,13 @@ namespace Ringtoets.Common.Forms.Test.Views
             WmtsMapData wmtsMapData = WmtsMapData.CreateDefaultPdokMapData();
             BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(wmtsMapData);
 
-            string originalSourceCapabilitiesUrl = backgroundData.Parameters["SourceCapabilitiesUrl"];
-            string originalSelectedCapabilityIdentifier = backgroundData.Parameters["SelectedCapabilityIdentifier"];
-            string originalPreferredFormat = backgroundData.Parameters["PreferredFormat"];
+            string originalSourceCapabilitiesUrl = backgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl];
+            string originalSelectedCapabilityIdentifier = backgroundData.Parameters[BackgroundDataIdentifiers.SelectedCapabilityIdentifier];
+            string originalPreferredFormat = backgroundData.Parameters[BackgroundDataIdentifiers.PreferredFormat];
 
-            backgroundData.Parameters["SourceCapabilitiesUrl"] = "some/url";
-            backgroundData.Parameters["SelectedCapabilityIdentifier"] = "identifier";
-            backgroundData.Parameters["PreferredFormat"] = "image/format";
+            backgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl] = "some/url";
+            backgroundData.Parameters[BackgroundDataIdentifiers.SelectedCapabilityIdentifier] = "identifier";
+            backgroundData.Parameters[BackgroundDataIdentifiers.PreferredFormat] = "image/format";
 
             // Call
             RingtoetsBackgroundMapDataFactory.UpdateBackgroundMapData(wmtsMapData, backgroundData);

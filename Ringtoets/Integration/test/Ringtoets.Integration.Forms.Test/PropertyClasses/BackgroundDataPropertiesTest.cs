@@ -132,9 +132,9 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 BackgroundMapDataType = BackgroundMapDataType.Wmts,
                 Parameters =
                 {
-                    { "SourceCapabilitiesUrl", mapData.SourceCapabilitiesUrl },
-                    { "SelectedCapabilityIdentifier", mapData.SelectedCapabilityIdentifier },
-                    { "PreferredFormat", mapData.PreferredFormat }
+                    { BackgroundDataIdentifiers.SourceCapabilitiesUrl, mapData.SourceCapabilitiesUrl },
+                    { BackgroundDataIdentifiers.SelectedCapabilityIdentifier, mapData.SelectedCapabilityIdentifier },
+                    { BackgroundDataIdentifiers.PreferredFormat, mapData.PreferredFormat }
                 }
             };
 
@@ -293,9 +293,9 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 BackgroundMapDataType = BackgroundMapDataType.Wmts,
                 Parameters =
                 {
-                    { "SourceCapabilitiesUrl", defaultPdokMapData.SourceCapabilitiesUrl },
-                    { "SelectedCapabilityIdentifier", defaultPdokMapData.SelectedCapabilityIdentifier },
-                    { "PreferredFormat", defaultPdokMapData.PreferredFormat }
+                    { BackgroundDataIdentifiers.SourceCapabilitiesUrl, defaultPdokMapData.SourceCapabilitiesUrl },
+                    { BackgroundDataIdentifiers.SelectedCapabilityIdentifier, defaultPdokMapData.SelectedCapabilityIdentifier },
+                    { BackgroundDataIdentifiers.PreferredFormat, defaultPdokMapData.PreferredFormat }
                 }
             };
 

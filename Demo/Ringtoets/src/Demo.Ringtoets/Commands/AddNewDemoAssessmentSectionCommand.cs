@@ -123,9 +123,9 @@ namespace Demo.Ringtoets.Commands
             demoAssessmentSection.BackgroundData.IsVisible = targetConfiguration.IsVisible;
             demoAssessmentSection.BackgroundData.Transparency = targetConfiguration.Transparency;
             demoAssessmentSection.BackgroundData.IsConfigured = targetConfiguration.IsConfigured;
-            demoAssessmentSection.BackgroundData.Parameters.Add("SourceCapabilitiesUrl", targetConfiguration.SourceCapabilitiesUrl);
-            demoAssessmentSection.BackgroundData.Parameters.Add("SelectedCapabilityIdentifier", targetConfiguration.SelectedCapabilityIdentifier);
-            demoAssessmentSection.BackgroundData.Parameters.Add("PreferredFormat", targetConfiguration.PreferredFormat);
+            demoAssessmentSection.BackgroundData.Parameters.Add(BackgroundDataIdentifiers.SourceCapabilitiesUrl, targetConfiguration.SourceCapabilitiesUrl);
+            demoAssessmentSection.BackgroundData.Parameters.Add(BackgroundDataIdentifiers.SelectedCapabilityIdentifier, targetConfiguration.SelectedCapabilityIdentifier);
+            demoAssessmentSection.BackgroundData.Parameters.Add(BackgroundDataIdentifiers.PreferredFormat, targetConfiguration.PreferredFormat);
         }
 
         private void InitializeDemoReferenceLine(AssessmentSection demoAssessmentSection)
