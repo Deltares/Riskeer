@@ -75,6 +75,7 @@
     <Compile Include="DotSpatialMap.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="IBackgroundLayerStatus.cs" />
     <Compile Include="MapControl.cs">
       <SubType>Component</SubType>
     </Compile>

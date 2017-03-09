@@ -29,30 +29,18 @@ namespace Core.Components.DotSpatial.Forms
     /// Class responsible for keeping track of various status information related to the
     /// <see cref="WmtsMapData"/> used to create a background layer in a map view.
     /// </summary>
-    internal class WmtsBackgroundLayerStatus : IDisposable
+    internal class WmtsBackgroundLayerStatus : IBackgroundLayerStatus
     {
+        public bool PreviousBackgroundLayerCreationFailed { get; private set; }
+
+        public BruTileLayer BackgroundLayer { get; private set; }
+
         public void Dispose()
         {
             BackgroundLayer?.Dispose();
         }
 
-        /// <summary>
-        /// Gets a value indicating that the most recent attempt to create the background
-        /// layer failed (returning <c>true</c>) or was successful (returning <c>false</c>).
-        /// </summary>
-        internal bool PreviousBackgroundLayerCreationFailed { get; private set; }
-
-        /// <summary>
-        /// Gets a value for the initialized background layer.
-        /// </summary>
-        internal BruTileLayer BackgroundLayer { get; private set; }
-
-        /// <summary>
-        /// Mark that a (new) background layer has successfully been initialized.
-        /// </summary>
-        /// <param name="backgroundLayer">The constructed layer.</param>
-        /// <param name="dataSource">The data used to construct <paramref name="backgroundLayer"/>.</param>
-        internal void SuccessfullyInitializedLayer(BruTileLayer backgroundLayer, WmtsMapData dataSource)
+        public void SuccessfullyInitializedLayer(BruTileLayer backgroundLayer, ImageBasedMapData dataSource)
         {
             if (backgroundLayer == null)
             {
@@ -62,32 +50,28 @@ namespace Core.Components.DotSpatial.Forms
             {
                 throw new ArgumentNullException(nameof(dataSource));
             }
+            var wmtsDataSource = dataSource as WmtsMapData;
+            if (wmtsDataSource == null)
+            {
+                PreviousBackgroundLayerCreationFailed = true;
+                return;
+            }
 
-            SourceCapabilitiesUrl = dataSource.SourceCapabilitiesUrl;
-            SelectedCapabilityId = dataSource.SelectedCapabilityIdentifier;
-            PreferredFormat = dataSource.PreferredFormat;
+            SourceCapabilitiesUrl = wmtsDataSource.SourceCapabilitiesUrl;
+            SelectedCapabilityId = wmtsDataSource.SelectedCapabilityIdentifier;
+            PreferredFormat = wmtsDataSource.PreferredFormat;
 
             BackgroundLayer = backgroundLayer;
             PreviousBackgroundLayerCreationFailed = false;
         }
 
-        /// <summary>
-        /// Mark that the attempt to create a new background layer failed.
-        /// </summary>
-        internal void LayerInitializationFailed()
+        public void LayerInitializationFailed()
         {
             ClearConfiguration();
             PreviousBackgroundLayerCreationFailed = true;
         }
 
-        /// <summary>
-        /// Clears the status information for the background layer and disposes <see cref="BackgroundLayer"/>
-        /// as well.
-        /// </summary>
-        /// <param name="expectRecreationOfSameBackgroundLayer">Optional: A flag to indicate 
-        /// if recreation of <see cref="BackgroundLayer"/> with the same parameters is expected
-        /// (<c>true</c>) or is expected to be replaced (<c>false</c>)</param>
-        internal void ClearConfiguration(bool expectRecreationOfSameBackgroundLayer = false)
+        public void ClearConfiguration(bool expectRecreationOfSameBackgroundLayer = false)
         {
             SourceCapabilitiesUrl = null;
             SelectedCapabilityId = null;
@@ -105,22 +89,22 @@ namespace Core.Components.DotSpatial.Forms
             }
         }
 
-        /// <summary>
-        /// Indicates if a <see cref="WmtsMapData"/> corresponds with the <see cref="BackgroundLayer"/>.
-        /// </summary>
-        /// <param name="mapData">The map data.</param>
-        /// <returns>Returns <c>true</c> if <paramref name="mapData"/> corresponds with
-        /// <see cref="BackgroundLayer"/>, or <c>false</c> when this is not the case.</returns>
-        internal bool HasSameConfiguration(WmtsMapData mapData)
+        public bool HasSameConfiguration(ImageBasedMapData mapData)
         {
             if (mapData == null)
             {
                 throw new ArgumentNullException(nameof(mapData));
             }
 
-            return Equals(mapData.SourceCapabilitiesUrl, SourceCapabilitiesUrl)
-                   && Equals(mapData.SelectedCapabilityIdentifier, SelectedCapabilityId)
-                   && Equals(mapData.PreferredFormat, PreferredFormat);
+            var wmtsDataSource = mapData as WmtsMapData;
+            if (wmtsDataSource == null)
+            {
+                return false;
+            }
+
+            return Equals(wmtsDataSource.SourceCapabilitiesUrl, SourceCapabilitiesUrl)
+                   && Equals(wmtsDataSource.SelectedCapabilityIdentifier, SelectedCapabilityId)
+                   && Equals(wmtsDataSource.PreferredFormat, PreferredFormat);
         }
 
         private string SourceCapabilitiesUrl { get; set; }

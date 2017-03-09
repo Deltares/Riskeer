@@ -63,6 +63,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (var layerStatus = new WmtsBackgroundLayerStatus())
             {
                 // Assert
+                Assert.IsInstanceOf<IBackgroundLayerStatus>(layerStatus);
                 Assert.IsInstanceOf<IDisposable>(layerStatus);
 
                 Assert.IsNull(layerStatus.BackgroundLayer);
@@ -82,6 +83,22 @@ namespace Core.Components.DotSpatial.Forms.Test
                 // Assert
                 string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
                 Assert.AreEqual("mapData", paramName);
+            }
+        }
+
+        [Test]
+        public void HasSameConfiguration_MapDataNotWmtsMapData_ReturnFalse()
+        {
+            // Setup
+            using (var layerStatus = new WmtsBackgroundLayerStatus())
+            {
+                var mapData = new SimpleImageBasedMapData();
+
+                // Call
+                bool isSame = layerStatus.HasSameConfiguration(mapData);
+
+                // Assert
+                Assert.IsFalse(isSame);
             }
         }
 
@@ -193,6 +210,28 @@ namespace Core.Components.DotSpatial.Forms.Test
                 // Assert
                 string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
                 Assert.AreEqual("dataSource", paramName);
+            }
+        }
+
+        [Test]
+        public void SuccessfullyInitializedLayer_MapDataNotWmtsMapData_ReturnsTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var tileFetcher = mocks.Stub<ITileFetcher>();
+            IConfiguration configuration = CreateStubConfiguration(mocks, tileFetcher);
+            mocks.ReplayAll();
+
+            using (var layer = new BruTileLayer(configuration))
+            using (var layerStatus = new WmtsBackgroundLayerStatus())
+            {
+                var mapData = new SimpleImageBasedMapData();
+
+                // Call
+                layerStatus.SuccessfullyInitializedLayer(layer, mapData);
+
+                // Assert
+                Assert.IsTrue(layerStatus.PreviousBackgroundLayerCreationFailed);
             }
         }
 
@@ -318,6 +357,11 @@ namespace Core.Components.DotSpatial.Forms.Test
             configuration.Stub(c => c.TileFetcher).Return(tileFetcher);
             configuration.Stub(c => c.Dispose());
             return configuration;
+        }
+
+        private class SimpleImageBasedMapData : ImageBasedMapData
+        {
+            public SimpleImageBasedMapData() : base("SimpleImageBasedMapData") {}
         }
     }
 }
