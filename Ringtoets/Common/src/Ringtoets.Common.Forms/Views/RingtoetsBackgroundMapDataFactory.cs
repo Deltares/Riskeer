@@ -53,6 +53,21 @@ namespace Ringtoets.Common.Forms.Views
             return null;
         }
 
+        public static ImageBasedMapData CreateImageBasedBackgroundMapData(BackgroundData backgroundData)
+        {
+            if (backgroundData == null)
+            {
+                throw new ArgumentNullException(nameof(backgroundData));
+            }
+
+            if (backgroundData.BackgroundMapDataType == BackgroundMapDataType.Wmts)
+            {
+                return CreateWmtsBackgroundMapData(backgroundData);
+            }
+
+            return new WellKnownTileSourceMapData((WellKnownTileSource)(Convert.ToInt32(backgroundData.Parameters[BackgroundDataIdentifiers.WellKnownTileSource])));
+        }
+
         /// <summary>
         /// Updates an existing <see cref="WmtsMapData"/>.
         /// </summary>
