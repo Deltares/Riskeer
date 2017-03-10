@@ -34,6 +34,8 @@ namespace Ringtoets.Common.IO.Test.Readers
     public class CombinedXmlSchemaDefinitionTest
     {
         private readonly string validMainSchemaDefinition;
+        private readonly string validNestedSchemaDefinition1;
+        private readonly string validNestedSchemaDefinition2;
 
         private readonly string testDirectoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                                                "CombinedXmlSchemaDefinition");
@@ -45,7 +47,15 @@ namespace Ringtoets.Common.IO.Test.Readers
         public void Constructor_EmptyMainSchemaDefinition_ThrowArgumentException(string emptyMainSchemaDefinition)
         {
             // Call
-            TestDelegate call = () => new CombinedXmlSchemaDefinition(emptyMainSchemaDefinition, new Dictionary<string, string>());
+            TestDelegate call = () => new CombinedXmlSchemaDefinition(emptyMainSchemaDefinition, new Dictionary<string, string>
+            {
+                {
+                    "NestedSchemaDefintion1.xsd", validNestedSchemaDefinition1
+                },
+                {
+                    "NestedSchemaDefintion2.xsd", validNestedSchemaDefinition2
+                }
+            });
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
@@ -73,7 +83,10 @@ namespace Ringtoets.Common.IO.Test.Readers
             TestDelegate call = () => new CombinedXmlSchemaDefinition(validMainSchemaDefinition, new Dictionary<string, string>
             {
                 {
-                    "Test", emptyNestedSchemaDefinition
+                    "NestedSchemaDefintion1.xsd", validNestedSchemaDefinition1
+                },
+                {
+                    "NestedSchemaDefintion2.xsd", emptyNestedSchemaDefinition
                 }
             });
 
@@ -97,7 +110,15 @@ namespace Ringtoets.Common.IO.Test.Readers
             string xsdPath = Path.Combine(testDirectoryPath, invalidMainSchemaDefinition);
 
             // Call
-            TestDelegate call = () => new CombinedXmlSchemaDefinition(File.ReadAllText(xsdPath), new Dictionary<string, string>());
+            TestDelegate call = () => new CombinedXmlSchemaDefinition(File.ReadAllText(xsdPath), new Dictionary<string, string>
+            {
+                {
+                    "NestedSchemaDefintion1.xsd", validNestedSchemaDefinition1
+                },
+                {
+                    "NestedSchemaDefintion2.xsd", validNestedSchemaDefinition2
+                }
+            });
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
@@ -108,6 +129,8 @@ namespace Ringtoets.Common.IO.Test.Readers
         public CombinedXmlSchemaDefinitionTest()
         {
             validMainSchemaDefinition = File.ReadAllText(Path.Combine(testDirectoryPath, "validMainSchemaDefinition.xsd"));
+            validNestedSchemaDefinition1 = File.ReadAllText(Path.Combine(testDirectoryPath, "validNestedSchemaDefinition1.xsd"));
+            validNestedSchemaDefinition2 = File.ReadAllText(Path.Combine(testDirectoryPath, "validNestedSchemaDefinition2.xsd"));
         }
     }
 }
