@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Security.AccessControl;
 using Core.Common.Base.Data;
 using Core.Common.IO.Exceptions;
@@ -68,21 +69,21 @@ namespace Ringtoets.Piping.IO.Test.Exporters
         }
 
         [Test]
-        public void Write_CalculationGroupNull_ThrowArgumentNullException()
+        public void Write_ConfigurationNull_ThrowArgumentNullException()
         {
             // Call
             TestDelegate test = () => new PipingConfigurationWriter().Write(null, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("rootCalculationGroup", exception.ParamName);
+            Assert.AreEqual("configuration", exception.ParamName);
         }
 
         [Test]
         public void Write_FilePathNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new PipingConfigurationWriter().Write(new CalculationGroup(), null);
+            TestDelegate test = () => new PipingConfigurationWriter().Write(Enumerable.Empty<ICalculationBase>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -96,7 +97,7 @@ namespace Ringtoets.Piping.IO.Test.Exporters
         public void Write_FilePathInvalid_ThrowCriticalFileWriteException(string filePath)
         {
             // Call
-            TestDelegate call = () => new PipingConfigurationWriter().Write(new CalculationGroup(), filePath);
+            TestDelegate call = () => new PipingConfigurationWriter().Write(Enumerable.Empty<ICalculationBase>(), filePath);
 
             // Assert
             var exception = Assert.Throws<CriticalFileWriteException>(call);
@@ -111,7 +112,7 @@ namespace Ringtoets.Piping.IO.Test.Exporters
             var filePath = new string('a', 249);
 
             // Call
-            TestDelegate call = () => new PipingConfigurationWriter().Write(new CalculationGroup(), filePath);
+            TestDelegate call = () => new PipingConfigurationWriter().Write(Enumerable.Empty<ICalculationBase>(), filePath);
 
             // Assert
             var exception = Assert.Throws<CriticalFileWriteException>(call);
@@ -130,8 +131,8 @@ namespace Ringtoets.Piping.IO.Test.Exporters
                 disposeHelper.LockDirectory(FileSystemRights.Write);
 
                 // Call
-                TestDelegate call = () => new PipingConfigurationWriter().Write(new CalculationGroup(), filePath);
-                
+                TestDelegate call = () => new PipingConfigurationWriter().Write(Enumerable.Empty<ICalculationBase>(), filePath);
+
                 // Assert
                 var exception = Assert.Throws<CriticalFileWriteException>(call);
                 Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);
@@ -150,7 +151,7 @@ namespace Ringtoets.Piping.IO.Test.Exporters
                 fileDisposeHelper.LockFiles();
 
                 // Call
-                TestDelegate call = () => new PipingConfigurationWriter().Write(new CalculationGroup(), path);
+                TestDelegate call = () => new PipingConfigurationWriter().Write(Enumerable.Empty<ICalculationBase>(), path);
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileWriteException>(call);
@@ -201,18 +202,13 @@ namespace Ringtoets.Piping.IO.Test.Exporters
                 }
             };
 
-            var rootGroup = new CalculationGroup("root", false)
-            {
-                Children =
-                {
-                    calculationGroup
-                }
-            };
-
             try
             {
                 // Call
-                new PipingConfigurationWriter().Write(rootGroup, filePath);
+                new PipingConfigurationWriter().Write(new[]
+                {
+                    calculationGroup
+                }, filePath);
 
                 // Assert
                 Assert.IsTrue(File.Exists(filePath));
@@ -238,18 +234,13 @@ namespace Ringtoets.Piping.IO.Test.Exporters
             // Setup
             string filePath = TestHelper.GetScratchPadPath("test.xml");
 
-            var rootCalculationGroup = new CalculationGroup("group", false)
-            {
-                Children =
-                {
-                    calculation
-                }
-            };
-
             try
             {
                 // Call
-                new PipingConfigurationWriter().Write(rootCalculationGroup, filePath);
+                new PipingConfigurationWriter().Write(new[]
+                {
+                    calculation
+                }, filePath);
 
                 // Assert
                 Assert.IsTrue(File.Exists(filePath));

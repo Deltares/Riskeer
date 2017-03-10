@@ -78,20 +78,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test
             };
 
             var calculationGroup = new CalculationGroup("NestedGroup", false);
-            var rootGroup = new CalculationGroup
-            {
-                Children =
-                {
-                    calculation,
-                    calculationGroup
-                }
-            };
             try
             {
                 var writer = new GrassCoverErosionOutwardsConfigurationWriter();
 
                 // Call
-                writer.Write(rootGroup, filePath);
+                writer.Write(new ICalculationBase[]
+                {
+                    calculation,
+                    calculationGroup
+                }, filePath);
 
                 // Assert
                 string actualXml = File.ReadAllText(filePath);

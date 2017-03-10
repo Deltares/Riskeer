@@ -41,21 +41,21 @@ namespace Ringtoets.Common.IO.Test.Writers
     public class CalculationConfigurationWriterTest
     {
         [Test]
-        public void Write_CalculationGroupNull_ThrowArgumentNullException()
+        public void Write_ConfigurationNull_ThrowArgumentNullException()
         {
             // Call
             TestDelegate test = () => new SimpleCalculationConfigurationWriter().Write(null, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("rootCalculationGroup", exception.ParamName);
+            Assert.AreEqual("configuration", exception.ParamName);
         }
 
         [Test]
         public void Write_FilePathNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new SimpleCalculationConfigurationWriter().Write(new CalculationGroup(), null);
+            TestDelegate test = () => new SimpleCalculationConfigurationWriter().Write(Enumerable.Empty<ICalculationBase>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -69,7 +69,7 @@ namespace Ringtoets.Common.IO.Test.Writers
         public void Write_FilePathInvalid_ThrowCriticalFileWriteException(string filePath)
         {
             // Call
-            TestDelegate call = () => new SimpleCalculationConfigurationWriter().Write(new CalculationGroup(), filePath);
+            TestDelegate call = () => new SimpleCalculationConfigurationWriter().Write(Enumerable.Empty<ICalculationBase>(), filePath);
 
             // Assert
             var exception = Assert.Throws<CriticalFileWriteException>(call);
@@ -84,7 +84,7 @@ namespace Ringtoets.Common.IO.Test.Writers
             var filePath = new string('a', 249);
 
             // Call
-            TestDelegate call = () => new SimpleCalculationConfigurationWriter().Write(new CalculationGroup(), filePath);
+            TestDelegate call = () => new SimpleCalculationConfigurationWriter().Write(Enumerable.Empty<ICalculationBase>(), filePath);
 
             // Assert
             var exception = Assert.Throws<CriticalFileWriteException>(call);
@@ -103,7 +103,7 @@ namespace Ringtoets.Common.IO.Test.Writers
                 disposeHelper.LockDirectory(FileSystemRights.Write);
 
                 // Call
-                TestDelegate call = () => new SimpleCalculationConfigurationWriter().Write(new CalculationGroup(), filePath);
+                TestDelegate call = () => new SimpleCalculationConfigurationWriter().Write(Enumerable.Empty<ICalculationBase>(), filePath);
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileWriteException>(call);
@@ -123,7 +123,7 @@ namespace Ringtoets.Common.IO.Test.Writers
                 fileDisposeHelper.LockFiles();
 
                 // Call
-                TestDelegate call = () => new SimpleCalculationConfigurationWriter().Write(new CalculationGroup(), path);
+                TestDelegate call = () => new SimpleCalculationConfigurationWriter().Write(Enumerable.Empty<ICalculationBase>(), path);
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileWriteException>(call);
@@ -137,9 +137,6 @@ namespace Ringtoets.Common.IO.Test.Writers
         {
             // Setup
             string filePath = TestHelper.GetScratchPadPath("test_distributions_write.xml");
-            string expectedXmlFilePath = TestHelper.GetTestDataPath(
-                TestDataPath.Ringtoets.Common.IO,
-                Path.Combine(nameof(CalculationConfigurationWriter<ICalculation>), "distributions.xml"));
 
             try
             {
@@ -325,7 +322,7 @@ namespace Ringtoets.Common.IO.Test.Writers
 
         [Test]
         [TestCaseSource(nameof(CalculationConfigurations))]
-        public void Write_DifferentCalculationAndCalculationGroupConfigurations_ValidFile(CalculationGroup rootGroup, string expectedFileContentsFileName)
+        public void Write_DifferentCalculationAndCalculationGroupConfigurations_ValidFile(IEnumerable<ICalculationBase> configuration, string expectedFileContentsFileName)
         {
             // Setup
             string filePath = TestHelper.GetScratchPadPath("test.xml");
@@ -336,7 +333,7 @@ namespace Ringtoets.Common.IO.Test.Writers
             try
             {
                 // Call
-                new SimpleCalculationConfigurationWriter().Write(rootGroup, filePath);
+                new SimpleCalculationConfigurationWriter().Write(configuration, filePath);
 
                 // Assert
                 Assert.IsTrue(File.Exists(filePath));
@@ -388,31 +385,35 @@ namespace Ringtoets.Common.IO.Test.Writers
             };
 
             yield return new TestCaseData(
-                    CreateRootGroupWithChildren(calculationGroup1),
+                    new []
+                    {
+                        calculationGroup1
+                    },
                     "singleGroup.xml")
                 .SetName("Single group");
             yield return new TestCaseData(
-                    CreateRootGroupWithChildren(calculation1),
+                    new[]
+                    {
+                        calculation1
+                    },
                     "singleCalculation.xml")
                 .SetName("Single calculation");
             yield return new TestCaseData(
-                    CreateRootGroupWithChildren(calculationGroup1, calculation1),
+                    new ICalculationBase[]
+                    {
+                        calculationGroup1,
+                        calculation1
+                    },
                     "calculationGroupAndCalculation.xml")
                 .SetName("Calculation group and calculation");
             yield return new TestCaseData(
-                    CreateRootGroupWithChildren(calculation1, calculationGroup2),
+                    new ICalculationBase[]
+                    {
+                        calculation1,
+                        calculationGroup2
+                    },
                     "calculationAndGroupWithNesting.xml")
                 .SetName("Calculation and group with nesting");
-        }
-
-        private static CalculationGroup CreateRootGroupWithChildren(params ICalculationBase[] children)
-        {
-            var group = new CalculationGroup("root", false);
-            foreach (ICalculationBase child in children)
-            {
-                group.Children.Add(child);
-            }
-            return group;
         }
     }
 }

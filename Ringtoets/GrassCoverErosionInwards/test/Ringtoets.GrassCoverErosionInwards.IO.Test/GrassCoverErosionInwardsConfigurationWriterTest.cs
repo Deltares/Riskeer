@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Security.AccessControl;
 using Core.Common.Base.Data;
 using Core.Common.IO.Exceptions;
@@ -46,21 +47,21 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
         }
 
         [Test]
-        public void Write_CalculationGroupNull_ThrowArgumentNullException()
+        public void Write_ConfigurationNull_ThrowArgumentNullException()
         {
             // Call
             TestDelegate test = () => new GrassCoverErosionInwardsConfigurationWriter().Write(null, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("rootCalculationGroup", exception.ParamName);
+            Assert.AreEqual("configuration", exception.ParamName);
         }
 
         [Test]
         public void Write_FilePathNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new GrassCoverErosionInwardsConfigurationWriter().Write(new CalculationGroup(), null);
+            TestDelegate test = () => new GrassCoverErosionInwardsConfigurationWriter().Write(Enumerable.Empty<ICalculationBase>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -74,7 +75,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
         public void Write_FilePathInvalid_ThrowCriticalFileWriteException(string filePath)
         {
             // Call
-            TestDelegate call = () => new GrassCoverErosionInwardsConfigurationWriter().Write(new CalculationGroup(), filePath);
+            TestDelegate call = () => new GrassCoverErosionInwardsConfigurationWriter().Write(Enumerable.Empty<ICalculationBase>(), filePath);
 
             // Assert
             var exception = Assert.Throws<CriticalFileWriteException>(call);
@@ -89,7 +90,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
             var filePath = new string('a', 249);
 
             // Call
-            TestDelegate call = () => new GrassCoverErosionInwardsConfigurationWriter().Write(new CalculationGroup(), filePath);
+            TestDelegate call = () => new GrassCoverErosionInwardsConfigurationWriter().Write(Enumerable.Empty<ICalculationBase>(), filePath);
 
             // Assert
             var exception = Assert.Throws<CriticalFileWriteException>(call);
@@ -108,7 +109,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
                 disposeHelper.LockDirectory(FileSystemRights.Write);
 
                 // Call
-                TestDelegate call = () => new GrassCoverErosionInwardsConfigurationWriter().Write(new CalculationGroup(), filePath);
+                TestDelegate call = () => new GrassCoverErosionInwardsConfigurationWriter().Write(Enumerable.Empty<ICalculationBase>(), filePath);
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileWriteException>(call);
@@ -128,7 +129,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
                 fileDisposeHelper.LockFiles();
 
                 // Call
-                TestDelegate call = () => new GrassCoverErosionInwardsConfigurationWriter().Write(new CalculationGroup(), path);
+                TestDelegate call = () => new GrassCoverErosionInwardsConfigurationWriter().Write(Enumerable.Empty<ICalculationBase>(), path);
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileWriteException>(call);
@@ -158,12 +159,9 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
                 var writer = new GrassCoverErosionInwardsConfigurationWriter();
 
                 // Call
-                writer.Write(new CalculationGroup
-                {
-                    Children =
+                writer.Write(new[]
                 {
                     calculation
-                }
                 }, filePath);
 
                 // Assert
@@ -196,12 +194,9 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
                 var writer = new GrassCoverErosionInwardsConfigurationWriter();
 
                 // Call
-                writer.Write(new CalculationGroup
+                writer.Write(new[]
                 {
-                    Children =
-                    {
-                        calculation
-                    }
+                    calculation
                 }, filePath);
 
                 // Assert
@@ -244,18 +239,13 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
                 }
             };
 
-            var rootGroup = new CalculationGroup("root", false)
-            {
-                Children =
-                {
-                    calculationGroup
-                }
-            };
-
             try
             {
                 // Call
-                new GrassCoverErosionInwardsConfigurationWriter().Write(rootGroup, filePath);
+                new GrassCoverErosionInwardsConfigurationWriter().Write(new[]
+                {
+                    calculationGroup
+                }, filePath);
 
                 // Assert
                 Assert.IsTrue(File.Exists(filePath));

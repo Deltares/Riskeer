@@ -65,7 +65,7 @@ namespace Ringtoets.Common.IO.Exporters
         {
             try
             {
-                new TWriter().Write(calculationGroup, filePath);
+                new TWriter().Write(calculationGroup.Children, filePath);
             }
             catch (CriticalFileWriteException e)
             {

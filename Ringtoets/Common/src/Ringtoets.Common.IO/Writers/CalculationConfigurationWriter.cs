@@ -40,18 +40,18 @@ namespace Ringtoets.Common.IO.Writers
     public abstract class CalculationConfigurationWriter<T> where T : class, ICalculation
     {
         /// <summary>
-        /// Writes a piping configuration to an XML file.
+        /// Writes a configuration to an XML file.
         /// </summary>
-        /// <param name="rootCalculationGroup">The root calculation group containing the piping configuration to write.</param>
+        /// <param name="configuration">The configuration to write.</param>
         /// <param name="filePath">The path to the target XML file.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="CriticalFileWriteException">Thrown when unable to write to <paramref name="filePath"/>.</exception>
-        /// <remarks>The <paramref name="rootCalculationGroup"/> itself will not be part of the written XML, only its children.</remarks>
-        public void Write(CalculationGroup rootCalculationGroup, string filePath)
+        /// <remarks>The <paramref name="configuration"/> itself will not be part of the written XML, only its children.</remarks>
+        public void Write(IEnumerable<ICalculationBase> configuration, string filePath)
         {
-            if (rootCalculationGroup == null)
+            if (configuration == null)
             {
-                throw new ArgumentNullException(nameof(rootCalculationGroup));
+                throw new ArgumentNullException(nameof(configuration));
             }
             if (filePath == null)
             {
@@ -70,7 +70,7 @@ namespace Ringtoets.Common.IO.Writers
                     writer.WriteStartDocument();
                     writer.WriteStartElement(ConfigurationSchemaIdentifiers.ConfigurationElement);
 
-                    WriteConfiguration(rootCalculationGroup, writer);
+                    WriteConfiguration(configuration, writer);
 
                     writer.WriteEndElement();
                     writer.WriteEndDocument();
@@ -138,9 +138,9 @@ namespace Ringtoets.Common.IO.Writers
             }
         }
 
-        private void WriteConfiguration(CalculationGroup calculationGroup, XmlWriter writer)
+        private void WriteConfiguration(IEnumerable<ICalculationBase> configuration, XmlWriter writer)
         {
-            foreach (ICalculationBase child in calculationGroup.Children)
+            foreach (ICalculationBase child in configuration)
             {
                 var innerGroup = child as CalculationGroup;
                 if (innerGroup != null)
@@ -189,7 +189,7 @@ namespace Ringtoets.Common.IO.Writers
             writer.WriteStartElement(ConfigurationSchemaIdentifiers.FolderElement);
             writer.WriteAttributeString(ConfigurationSchemaIdentifiers.NameAttribute, calculationGroup.Name);
 
-            WriteConfiguration(calculationGroup, writer);
+            WriteConfiguration(calculationGroup.Children, writer);
 
             writer.WriteEndElement();
         }
