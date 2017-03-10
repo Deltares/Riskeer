@@ -169,6 +169,19 @@ namespace Ringtoets.Piping.IO.Test.Readers
         }
 
         [Test]
+        public void Constructor_ValidConfiguration_ExpectedValues()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationEmptyCalculation.xml");
+
+            // Call
+            var pipingConfigurationReader = new PipingConfigurationReader(filePath);
+
+            // Assert
+            Assert.IsInstanceOf<ConfigurationReader<ReadPipingCalculation>>(pipingConfigurationReader);
+        }
+
+        [Test]
         public void Read_ValidConfigurationWithEmptyCalculation_ReturnExpectedReadPipingCalculation()
         {
             // Setup

@@ -49,6 +49,7 @@ namespace Ringtoets.Piping.IO.Readers
         /// <item><paramref name="xmlFilePath"/> points to a file that does not exist.</item>
         /// <item><paramref name="xmlFilePath"/> points to a file that does not contain valid XML.</item>
         /// <item><paramref name="xmlFilePath"/> points to a file that does not pass the schema validation.</item>
+        /// <item><paramref name="xmlFilePath"/> points to a file that does not contain configuration elements.</item>
         /// </list>
         /// </exception>
         internal PipingConfigurationReader(string xmlFilePath)
