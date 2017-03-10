@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using System.Xml.Linq;
-using System.Xml.Schema;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -35,7 +34,7 @@ namespace Ringtoets.Common.IO.Test.Readers
     [TestFixture]
     public class ConfigurationReaderTest
     {
-        private readonly string schemaString;
+        private readonly string validMainSchemaDefinition;
 
         private readonly string testDirectoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                                                "ConfigurationReader");
@@ -47,7 +46,7 @@ namespace Ringtoets.Common.IO.Test.Readers
         public void Constructor_NoFilePath_ThrowArgumentException(string invalidFilePath)
         {
             // Call
-            TestDelegate call = () => new TestConfigurationReader(invalidFilePath, schemaString);
+            TestDelegate call = () => new TestConfigurationReader(invalidFilePath, validMainSchemaDefinition, new Dictionary<string, string>());
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet leeg of ongedefinieerd zijn.";
@@ -59,12 +58,11 @@ namespace Ringtoets.Common.IO.Test.Readers
         {
             // Setup
             char[] invalidPathChars = Path.GetInvalidPathChars();
-
             string validFilePath = Path.Combine(testDirectoryPath, "validConfiguration.xml");
             string invalidFilePath = validFilePath.Replace("Config", invalidPathChars[3].ToString());
 
             // Call
-            TestDelegate call = () => new TestConfigurationReader(invalidFilePath, schemaString);
+            TestDelegate call = () => new TestConfigurationReader(invalidFilePath, validMainSchemaDefinition, new Dictionary<string, string>());
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': "
@@ -79,7 +77,7 @@ namespace Ringtoets.Common.IO.Test.Readers
             string invalidFilePath = Path.Combine(testDirectoryPath, Path.DirectorySeparatorChar.ToString());
 
             // Call
-            TestDelegate call = () => new TestConfigurationReader(invalidFilePath, schemaString);
+            TestDelegate call = () => new TestConfigurationReader(invalidFilePath, validMainSchemaDefinition, new Dictionary<string, string>());
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet verwijzen naar een lege bestandsnaam.";
@@ -93,57 +91,12 @@ namespace Ringtoets.Common.IO.Test.Readers
             string invalidFilePath = Path.Combine(testDirectoryPath, "notExisting.xml");
 
             // Call
-            TestDelegate call = () => new TestConfigurationReader(invalidFilePath, schemaString);
+            TestDelegate call = () => new TestConfigurationReader(invalidFilePath, validMainSchemaDefinition, new Dictionary<string, string>());
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': het bestand bestaat niet.";
             string message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
-        }
-
-        [Test]
-        [TestCase("")]
-        [TestCase("      ")]
-        [TestCase(null)]
-        public void Constructor_NoSchemaString_ThrowArgumentException(string invalidSchemaString)
-        {
-            // Setup
-            string filePath = Path.Combine(testDirectoryPath, "validConfiguration.xml");
-
-            // Call
-            TestDelegate call = () => new TestConfigurationReader(filePath, invalidSchemaString);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentException>(call);
-            Assert.AreEqual("'mainSchemaDefinition' null, empty or only containing white spaces.", exception.Message);
-        }
-
-        [Test]
-        [TestCase("textContent.xsd",
-            "'mainSchemaDefinition' containing invalid schema definition: Data at the root level is invalid. Line 1, position 1.",
-            typeof(XmlException))]
-        [TestCase("invalidXsdContent.xsd",
-            "'mainSchemaDefinition' containing invalid schema definition: The 'http://www.w3.org/2001/XMLSchema:redefine' element is not supported in this context.",
-            typeof(XmlSchemaException))]
-        [TestCase("notReferencingBaseXsd.xsd",
-            "'nestedSchemaDefinitions' contains one or more schema definitions that are not referenced.")]
-        public void Constructor_InvalidSchemaString_ThrowArgumentException(string fileName, string expectedMessage, Type expectedInnerExceptionType = null)
-        {
-            // Setup
-            string filePath = Path.Combine(testDirectoryPath, "validConfiguration.xml");
-            string xsdPath = Path.Combine(testDirectoryPath, fileName);
-
-            // Call
-            TestDelegate call = () => new TestConfigurationReader(filePath, File.ReadAllText(xsdPath));
-
-            // Assert
-            var exception = Assert.Throws<ArgumentException>(call);
-            Assert.AreEqual(expectedMessage, exception.Message);
-
-            if (expectedInnerExceptionType != null)
-            {
-                Assert.IsInstanceOf(expectedInnerExceptionType, exception.InnerException);
-            }
         }
 
         [Test]
@@ -156,7 +109,7 @@ namespace Ringtoets.Common.IO.Test.Readers
             string filePath = Path.Combine(testDirectoryPath, fileName);
 
             // Call
-            TestDelegate call = () => new TestConfigurationReader(filePath, schemaString);
+            TestDelegate call = () => new TestConfigurationReader(filePath, validMainSchemaDefinition, new Dictionary<string, string>());
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.";
@@ -176,7 +129,7 @@ namespace Ringtoets.Common.IO.Test.Readers
                 fileDisposeHelper.LockFiles();
 
                 // Call
-                TestDelegate call = () => new TestConfigurationReader(path, schemaString);
+                TestDelegate call = () => new TestConfigurationReader(path, validMainSchemaDefinition, new Dictionary<string, string>());
 
                 // Assert
                 string expectedMessage = $"Fout bij het lezen van bestand '{path}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.";
@@ -187,13 +140,28 @@ namespace Ringtoets.Common.IO.Test.Readers
         }
 
         [Test]
+        public void Constructor_MainSchemaDefinitionNotReferencingDefaultSchema_ThrowArgumentException()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "validConfiguration.xml");
+            string xsdPath = Path.Combine(testDirectoryPath, "mainSchemaDefinitionNotReferencingDefaultSchema.xsd");
+
+            // Call
+            TestDelegate call = () => new TestConfigurationReader(filePath, File.ReadAllText(xsdPath), new Dictionary<string, string>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(call);
+            Assert.AreEqual("'nestedSchemaDefinitions' contains one or more schema definitions that are not referenced.", exception.Message);
+        }
+
+        [Test]
         public void Constructor_FileInvalidBasedOnSchemaDefinition_ThrowCriticalFileReadExceptionWithExpectedMessage()
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, "invalidFolderNoName.xml");
 
             // Call
-            TestDelegate call = () => new TestConfigurationReader(filePath, schemaString);
+            TestDelegate call = () => new TestConfigurationReader(filePath, validMainSchemaDefinition, new Dictionary<string, string>());
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': het XML-document dat de configuratie" +
@@ -205,13 +173,15 @@ namespace Ringtoets.Common.IO.Test.Readers
 
         public ConfigurationReaderTest()
         {
-            schemaString = File.ReadAllText(Path.Combine(testDirectoryPath, "validConfigurationSchema.xsd"));
+            validMainSchemaDefinition = File.ReadAllText(Path.Combine(testDirectoryPath, "validConfigurationSchema.xsd"));
         }
 
         private class TestConfigurationReader : ConfigurationReader<TestReadConfigurationItem>
         {
-            public TestConfigurationReader(string xmlFilePath, string mainSchemaDefinition)
-                : base(xmlFilePath, mainSchemaDefinition, new Dictionary<string, string>()) {}
+            public TestConfigurationReader(string xmlFilePath,
+                                           string mainSchemaDefinition,
+                                           IDictionary<string, string> nestedSchemaDefinitions)
+                : base(xmlFilePath, mainSchemaDefinition, nestedSchemaDefinitions) {}
 
             protected override TestReadConfigurationItem ParseCalculationElement(XElement calculationElement)
             {

@@ -93,18 +93,18 @@ namespace Ringtoets.Common.IO.Test.Readers
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
-            Assert.AreEqual("'nestedSchemaDefinitions' holds a nested schema definition value that equals null, is empty or only contains white spaces.", exception.Message);
+            Assert.AreEqual("'nestedSchemaDefinitions' contains one or more nested schema definitions that equal null, are empty or only contain white spaces.", exception.Message);
         }
 
         [Test]
         [TestCase("textContent.xsd",
-            "'mainSchemaDefinition' containing invalid schema definition: Data at the root level is invalid. Line 1, position 1.",
+            "'mainSchemaDefinition' invalid: Data at the root level is invalid. Line 1, position 1.",
             typeof(XmlException))]
         [TestCase("invalidXsdContent.xsd",
-            "'mainSchemaDefinition' containing invalid schema definition: The 'http://www.w3.org/2001/XMLSchema:redefine' element is not supported in this context.",
+            "'mainSchemaDefinition' invalid: The 'http://www.w3.org/2001/XMLSchema:redefine' element is not supported in this context.",
             typeof(XmlSchemaException))]
         [TestCase("referencingUndefinedNestedSchemaDefinition.xsd",
-            "'mainSchemaDefinition' containing invalid schema definition: 'SchemaLocation' must successfully resolve if <redefine> contains any child other than <annotation>.",
+            "'mainSchemaDefinition' invalid: 'SchemaLocation' must successfully resolve if <redefine> contains any child other than <annotation>.",
             typeof(XmlSchemaException))]
         public void Constructor_InvalidMainSchemaDefinition_ThrowArgumentException(string invalidMainSchemaDefinition,
                                                                                    string expectedMessage,
@@ -132,10 +132,10 @@ namespace Ringtoets.Common.IO.Test.Readers
 
         [Test]
         [TestCase("textContent.xsd",
-            "'mainSchemaDefinition' containing invalid schema definition: The 'genericElement' element is not declared.",
+            "'mainSchemaDefinition' invalid: The 'genericElement' element is not declared.",
             typeof(XmlSchemaException))]
         [TestCase("invalidXsdContent.xsd",
-            "'mainSchemaDefinition' containing invalid schema definition: Cannot load the schema from the location 'NestedSchemaDefinition2.xsd' - The 'http://www.w3.org/2001/XMLSchema:redefine' element is not supported in this context.",
+            "'mainSchemaDefinition' invalid: Cannot load the schema from the location 'NestedSchemaDefinition2.xsd' - The 'http://www.w3.org/2001/XMLSchema:redefine' element is not supported in this context.",
             typeof(XmlSchemaException))]
         public void Constructor_InvalidNestedSchemaDefinition_ThrowArgumentException(string invalidNestedSchemaDefinition,
                                                                                      string expectedMessage,
@@ -230,7 +230,7 @@ namespace Ringtoets.Common.IO.Test.Readers
         {
             // Setup
             string xmlFilePath = Path.Combine(testDirectoryPath, "invalidXmlDocument.xml");
-            XDocument validXmlDocument = XDocument.Load(xmlFilePath, LoadOptions.PreserveWhitespace | LoadOptions.SetLineInfo | LoadOptions.SetBaseUri);
+            XDocument invalidXmlDocument = XDocument.Load(xmlFilePath, LoadOptions.PreserveWhitespace | LoadOptions.SetLineInfo | LoadOptions.SetBaseUri);
 
             var combinedXmlSchemaDefinition = new CombinedXmlSchemaDefinition(validMainSchemaDefinition, new Dictionary<string, string>
             {
@@ -243,7 +243,7 @@ namespace Ringtoets.Common.IO.Test.Readers
             });
 
             // Call
-            TestDelegate call = () => combinedXmlSchemaDefinition.Validate(validXmlDocument);
+            TestDelegate call = () => combinedXmlSchemaDefinition.Validate(invalidXmlDocument);
 
             // Assert
             Assert.Throws<XmlSchemaValidationException>(call);
