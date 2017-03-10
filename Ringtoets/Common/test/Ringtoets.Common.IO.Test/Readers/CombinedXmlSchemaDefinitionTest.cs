@@ -182,6 +182,24 @@ namespace Ringtoets.Common.IO.Test.Readers
             Assert.AreEqual("'nestedSchemaDefinitions' contains one or more schema definitions that are not referenced.", exception.Message);
         }
 
+        [Test]
+        public void Constructor_ValidSchemaDefinition_DoesNotThrowException()
+        {
+            // Call
+            TestDelegate call = () => new CombinedXmlSchemaDefinition(validMainSchemaDefinition, new Dictionary<string, string>
+            {
+                {
+                    "NestedSchemaDefinition1.xsd", validNestedSchemaDefinition1
+                },
+                {
+                    "NestedSchemaDefinition2.xsd", validNestedSchemaDefinition2
+                }
+            });
+
+            // Assert
+            Assert.DoesNotThrow(call);
+        }
+
         public CombinedXmlSchemaDefinitionTest()
         {
             validMainSchemaDefinition = File.ReadAllText(Path.Combine(testDirectoryPath, "validMainSchemaDefinition.xsd"));
