@@ -86,6 +86,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 CreateFileExporter = (context, filePath) => new GrassCoverErosionInwardsConfigurationExporter(context.WrappedData.Children, filePath),
                 IsEnabled = context => context.WrappedData.Children.Any()
             };
+            yield return new ExportInfo<GrassCoverErosionInwardsCalculationContext>
+            {
+                FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Extension,
+                                                              RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Description),
+                CreateFileExporter = (context, filePath) => new GrassCoverErosionInwardsConfigurationExporter(new[]
+                {
+                    context.WrappedData
+                }, filePath),
+            };
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()
@@ -667,7 +676,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             GrassCoverErosionInwardsCalculation calculation = context.WrappedData;
 
-            return builder.AddRenameItem()
+            return builder.AddExportItem()
+                          .AddSeparator()
+                          .AddRenameItem()
                           .AddValidateCalculationItem(
                               context,
                               Validate,
