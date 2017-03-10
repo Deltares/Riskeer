@@ -29,6 +29,7 @@ using Core.Common.Base.Data;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Probabilistics;
@@ -96,8 +97,9 @@ namespace Ringtoets.Common.IO.Test.Writers
         public void Write_InvalidDirectoryRights_ThrowCriticalFileWriteException()
         {
             // Setup
-            string directoryPath = TestHelper.GetScratchPadPath(nameof(Write_InvalidDirectoryRights_ThrowCriticalFileWriteException));
-            using (var disposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(Write_InvalidDirectoryRights_ThrowCriticalFileWriteException)))
+            const string testName = nameof(Write_InvalidDirectoryRights_ThrowCriticalFileWriteException);
+            string directoryPath = TestHelper.GetScratchPadPath(testName);
+            using (var disposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), testName))
             {
                 string filePath = Path.Combine(directoryPath, "test.xml");
                 disposeHelper.LockDirectory(FileSystemRights.Write);
@@ -321,7 +323,38 @@ namespace Ringtoets.Common.IO.Test.Writers
         }
 
         [Test]
-        [TestCaseSource(nameof(CalculationConfigurations))]
+        public void Write_CalculationOfTypeOtherThanGiven_ThrowsCriticalFileWriteExceptionWithInnerArgumentException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculation = mocks.Stub<ICalculation>();
+            mocks.ReplayAll();
+
+            string filePath = TestHelper.GetScratchPadPath("test.xml");
+
+            try
+            {
+                // Call
+                TestDelegate test = () => new SimpleCalculationConfigurationWriter().Write(new[]
+                {
+                    calculation
+                }, filePath);
+
+                // Assert
+                var exception = Assert.Throws<CriticalFileWriteException>(test);
+                var innerException = exception.InnerException;
+                Assert.IsNotNull(innerException);
+                Assert.AreEqual($"Cannot write calculation of type '{calculation.GetType()}' using this writer.", innerException.Message);
+            }
+            finally
+            {
+                File.Delete(filePath);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetCalculationConfigurations))]
         public void Write_DifferentCalculationAndCalculationGroupConfigurations_ValidFile(IEnumerable<ICalculationBase> configuration, string expectedFileContentsFileName)
         {
             // Setup
@@ -369,7 +402,7 @@ namespace Ringtoets.Common.IO.Test.Writers
             }
         }
 
-        private static IEnumerable<TestCaseData> CalculationConfigurations()
+        private static IEnumerable<TestCaseData> GetCalculationConfigurations()
         {
             var calculation1 = new TestCalculation("calculation1");
             var calculation2 = new TestCalculation("calculation2");

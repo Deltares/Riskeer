@@ -153,6 +153,8 @@ namespace Ringtoets.Common.IO.Writers
                 {
                     WriteCalculation(calculation, writer);
                 }
+
+                throw new ArgumentException($"Cannot write calculation of type '{child.GetType()}' using this writer.");
             }
         }
 

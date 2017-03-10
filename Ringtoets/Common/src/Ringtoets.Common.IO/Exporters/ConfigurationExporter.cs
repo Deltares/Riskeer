@@ -70,7 +70,7 @@ namespace Ringtoets.Common.IO.Exporters
             }
             catch (CriticalFileWriteException e)
             {
-                log.ErrorFormat(Resources.ConfigurationExporter_Export_Error_exception_0_no_configuration_exported, e.Message);
+                log.ErrorFormat(Resources.ConfigurationExporter_Export_Exception_0_no_configuration_exported, e.Message);
                 return false;
             }
 

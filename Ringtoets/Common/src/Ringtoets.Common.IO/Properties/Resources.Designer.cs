@@ -106,9 +106,9 @@ namespace Ringtoets.Common.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to {0} Er is geen configuratie geëxporteerd..
         /// </summary>
-        public static string ConfigurationExporter_Export_Error_exception_0_no_configuration_exported {
+        public static string ConfigurationExporter_Export_Exception_0_no_configuration_exported {
             get {
-                return ResourceManager.GetString("ConfigurationExporter_Export_Error_exception_0_no_configuration_exported", resourceCulture);
+                return ResourceManager.GetString("ConfigurationExporter_Export_Exception_0_no_configuration_exported", resourceCulture);
             }
         }
         
