@@ -146,6 +146,9 @@
     </Compile>
     <Compile Include="Helpers\FailureMechanismSectionResultRowHelper.cs" />
     <Compile Include="Views\RingtoetsBackgroundMapDataFactory.cs" />
+    <Compile Include="Views\RingtoetsMapControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Views\RingtoetsMapDataFeaturesFactory.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsContextMenuBuilder.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsTreeNodeInfoFactory.cs" />

@@ -119,6 +119,7 @@
     <Compile Include="Views\HydraulicBoundaryLocationRowTest.cs" />
     <Compile Include="Views\HydraulicBoundaryLocationsViewTest.cs" />
     <Compile Include="Views\RingtoetsBackgroundMapDataFactoryTest.cs" />
+    <Compile Include="Views\RingtoetsMapControlTest.cs" />
     <Compile Include="Views\RingtoetsMapDataFactoryTest.cs" />
     <Compile Include="Views\RingtoetsMapDataFeaturesFactoryTest.cs" />
     <Compile Include="Views\SelectableRowTest.cs" />
@@ -146,9 +147,17 @@
       <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
       <Name>Core.Common.Utils</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.Gui.TestUtil\Core.Common.Gui.TestUtil.csproj">
+      <Project>{26214BD0-DAFB-4CFC-8EB2-80C5D53C859E}</Project>
+      <Name>Core.Common.Gui.TestUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
       <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>
       <Name>Core.Common.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.BruTile\Core.Components.BruTile.csproj">
+      <Project>{e02482c7-f12b-42f0-bb2b-c7ec17503a72}</Project>
+      <Name>Core.Components.BruTile</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.DotSpatial.Forms\Core.Components.DotSpatial.Forms.csproj">
       <Project>{5A91174A-FB95-4C9D-9CA5-81C0B8D4361A}</Project>
@@ -165,6 +174,10 @@
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
       <Project>{318BA582-88C9-4816-A54A-A7E431461DE3}</Project>
       <Name>Core.Components.Gis</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\test\Core.Components.BruTile.TestUtil\Core.Components.BruTile.TestUtil.csproj">
+      <Project>{1081336C-D919-4249-AB33-9AF15F4D19EC}</Project>
+      <Name>Core.Components.BruTile.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\test\Core.Components.DotSpatial.TestUtil\Core.Components.DotSpatial.TestUtil.csproj">
       <Project>{9b6f3987-eaf7-4733-80c1-3dcab44d87ae}</Project>

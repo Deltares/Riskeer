@@ -43,7 +43,7 @@ namespace Core.Components.DotSpatial.Forms
     /// <summary>
     /// This class describes a map view with configured projection and function mode.
     /// </summary>
-    public sealed class MapControl : Control, IMapControl
+    public class MapControl : Control, IMapControl
     {
         private readonly ILog log = LogManager.GetLogger(typeof(MapControl));
         private readonly Cursor defaultCursor = Cursors.Default;

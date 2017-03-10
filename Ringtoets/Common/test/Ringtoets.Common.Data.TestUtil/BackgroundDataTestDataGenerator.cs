@@ -61,9 +61,18 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <returns>The created <see cref="BackgroundData"/>.</returns>
         public static BackgroundData GetWellKnownBackgroundMapData()
         {
+            const WellKnownTileSource wellKnownTileSource = WellKnownTileSource.BingAerial;
+
             return new BackgroundData
             {
-                BackgroundMapDataType = BackgroundMapDataType.WellKnown
+                BackgroundMapDataType = BackgroundMapDataType.WellKnown,
+                IsConfigured = true,
+                IsVisible = true,
+                Name = wellKnownTileSource.ToString(),
+                Parameters =
+                {
+                    { BackgroundDataIdentifiers.WellKnownTileSource, ((int) wellKnownTileSource).ToString() }
+                }
             };
         }
     }

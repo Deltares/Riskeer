@@ -75,11 +75,12 @@ namespace Ringtoets.Common.Data.TestUtil.Test
 
             // Assert
             Assert.AreEqual(BackgroundMapDataType.WellKnown, backgroundData.BackgroundMapDataType);
-            Assert.IsNull(backgroundData.Name);
-            Assert.IsFalse(backgroundData.IsConfigured);
+            Assert.AreEqual("BingAerial", backgroundData.Name);
+            Assert.IsTrue(backgroundData.IsConfigured);
             Assert.IsTrue(backgroundData.IsVisible);
             Assert.AreEqual(0, backgroundData.Transparency.Value);
-            CollectionAssert.IsEmpty(backgroundData.Parameters);
+            Assert.AreEqual(1, backgroundData.Parameters.Count);
+            Assert.AreEqual("1", backgroundData.Parameters[BackgroundDataIdentifiers.WellKnownTileSource]);
         }
     }
 }
