@@ -61,6 +61,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestTileSourceFactoryTest.cs" />
+    <Compile Include="TestWellKnownTileSourceTest.cs" />
     <Compile Include="TestWmtsTileSourceTest.cs" />
     <Compile Include="TileSchemaFactoryTest.cs" />
     <Compile Include="UseCustomTileSourceFactoryConfigTest.cs" />

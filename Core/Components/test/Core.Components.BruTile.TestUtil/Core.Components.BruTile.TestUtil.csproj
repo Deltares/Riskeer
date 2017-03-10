@@ -58,6 +58,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="TestTileSourceFactory.cs" />
+    <Compile Include="TestWellKnownTileSource.cs" />
     <Compile Include="TestWmtsTileSource.cs" />
     <Compile Include="TileSchemaFactory.cs" />
     <Compile Include="UseCustomTileSourceFactoryConfig.cs" />
