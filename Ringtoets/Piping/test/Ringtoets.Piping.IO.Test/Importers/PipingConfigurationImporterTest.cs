@@ -159,7 +159,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
             // Setup
             var calculationGroup = new CalculationGroup();
 
-            string filePath = Path.Combine(readerPath, "validConfigurationNesting.xml");
+            string filePath = Path.Combine(importerPath, "validConfigurationNesting.xml");
             var importer = new PipingConfigurationImporter(filePath,
                                                            calculationGroup,
                                                            Enumerable.Empty<HydraulicBoundaryLocation>(),
@@ -187,7 +187,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
         public void GivenImport_WhenImporting_ThenExpectedProgressMessagesGenerated()
         {
             // Given
-            string filePath = Path.Combine(readerPath, "validConfigurationNesting.xml");
+            string filePath = Path.Combine(importerPath, "validConfigurationNesting.xml");
             var importer = new PipingConfigurationImporter(filePath,
                                                            new CalculationGroup(),
                                                            Enumerable.Empty<HydraulicBoundaryLocation>(),
@@ -606,7 +606,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
         public void Import_ValidConfigurationWithValidData_DataAddedToModel()
         {
             // Setup
-            string filePath = Path.Combine(readerPath, "validConfigurationNesting.xml");
+            string filePath = Path.Combine(importerPath, "validConfigurationNesting.xml");
 
             var calculationGroup = new CalculationGroup();
             var pipingFailureMechanism = new PipingFailureMechanism();

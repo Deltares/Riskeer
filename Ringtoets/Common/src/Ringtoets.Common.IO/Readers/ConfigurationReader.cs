@@ -43,6 +43,8 @@ namespace Ringtoets.Common.IO.Readers
     public abstract class ConfigurationReader<TReadCalculation>
         where TReadCalculation : IReadConfigurationItem
     {
+        private const string defaultSchemaName = "ConfiguratieSchema.xsd";
+
         private readonly XDocument xmlDocument;
 
         /// <summary>
@@ -153,15 +155,25 @@ namespace Ringtoets.Common.IO.Readers
         /// <param name="mainSchemaDefinition">A <c>string</c> representing the main schema definition.</param>
         /// <param name="nestedSchemaDefinitions">A <see cref="IDictionary{TKey,TValue}"/> containing
         /// zero to more nested schema definitions</param>
-        /// <exception cref="CriticalFileReadException">Thrown when the provided XML document does not match the provided schema definitions.</exception>
-        private static void ValidateToSchema(XDocument document, string xmlFilePath, string mainSchemaDefinition, IDictionary<string, string> nestedSchemaDefinitions)
+        /// <exception cref="CriticalFileReadException">Thrown when the provided XML document does not match
+        /// the provided schema definitions.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="mainSchemaDefinition"/> does not
+        /// reference the default schema definition <c>ConfiguratieSchema.xsd</c>.</exception>
+        private static void ValidateToSchema(XDocument document, string xmlFilePath, string mainSchemaDefinition,
+                                             IDictionary<string, string> nestedSchemaDefinitions)
         {
-            var combinedXmlSchemaDefinition = new CombinedXmlSchemaDefinition(mainSchemaDefinition, nestedSchemaDefinitions
-                                                                                  .Concat(new[]
-                                                                                  {
-                                                                                      new KeyValuePair<string, string>("ConfiguratieSchema.xsd", Resources.ConfiguratieSchema)
-                                                                                  })
-                                                                                  .ToDictionary(kv => kv.Key, kv => kv.Value));
+            if (!mainSchemaDefinition.Contains(defaultSchemaName))
+            {
+                throw new ArgumentException($"'{nameof(mainSchemaDefinition)}' does not reference the default schema '{defaultSchemaName}'.");
+            }
+
+            var combinedXmlSchemaDefinition = new CombinedXmlSchemaDefinition(
+                mainSchemaDefinition,
+                nestedSchemaDefinitions.Concat(new[]
+                                       {
+                                           new KeyValuePair<string, string>(defaultSchemaName, Resources.ConfiguratieSchema)
+                                       })
+                                       .ToDictionary(kv => kv.Key, kv => kv.Value));
 
             try
             {

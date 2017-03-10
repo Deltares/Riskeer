@@ -167,7 +167,7 @@ namespace Ringtoets.Common.IO.Test.Readers
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
-            Assert.AreEqual("'nestedSchemaDefinitions' contains one or more schema definitions that are not referenced.", exception.Message);
+            Assert.AreEqual("'mainSchemaDefinition' does not reference the default schema 'ConfiguratieSchema.xsd'.", exception.Message);
         }
 
         [Test]

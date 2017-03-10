@@ -39,6 +39,9 @@ namespace Ringtoets.Piping.IO.Readers
     /// </summary>
     internal class PipingConfigurationReader : ConfigurationReader<ReadPipingCalculation>
     {
+        private const string stochastSchemaName = "StochastSchema.xsd";
+        private const string hydraulicBoundaryLocationSchemaName = "HrLocatieSchema.xsd";
+
         /// <summary>
         /// Creates a new instance of <see cref="PipingConfigurationReader"/>.
         /// </summary>
@@ -58,10 +61,10 @@ namespace Ringtoets.Piping.IO.Readers
                    new Dictionary<string, string>
                    {
                        {
-                           "StochastSchema.xsd", RingtoetsCommonIOResources.StochastSchema
+                           stochastSchemaName, RingtoetsCommonIOResources.StochastSchema
                        },
                        {
-                           "HrLocatieSchema.xsd", RingtoetsCommonIOResources.HrLocatieSchema
+                           hydraulicBoundaryLocationSchemaName, RingtoetsCommonIOResources.HrLocatieSchema
                        }
                    }) {}
 

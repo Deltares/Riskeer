@@ -80,7 +80,8 @@ namespace Ringtoets.Common.IO.Readers
         /// Validates the provided XML document based on the combined schema definition.
         /// </summary>
         /// <param name="document">The XML document to validate.</param>
-        /// <exception cref="XmlSchemaValidationException">Thrown when the provided XML document does not match the combined schema definition.</exception>
+        /// <exception cref="XmlSchemaValidationException">Thrown when the provided XML document does not
+        /// match the combined schema definition.</exception>
         public void Validate(XDocument document)
         {
             document.Validate(xmlSchemaSet, null);
