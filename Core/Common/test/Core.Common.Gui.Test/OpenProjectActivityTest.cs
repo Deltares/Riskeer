@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Core.Common.Base.Data;
 using Core.Common.Base.Service;
@@ -408,9 +409,6 @@ namespace Core.Common.Gui.Test
             mocks.VerifyAll();
         }
 
-
-
-
         [Test]
         public void Run_SuccessfulMigrateAndLoadProject_ActivityExecutedWithoutLogMessages()
         {
@@ -561,8 +559,96 @@ namespace Core.Common.Gui.Test
             mocks.VerifyAll();
         }
 
+        [Test]
+        public void Run_WithMigration_ExpectedProgressNotifications()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            var projectOwner = mocks.Stub<IProjectOwner>();
+            var storeProject = mocks.Stub<IStoreProject>();
+            var migrateProject = mocks.Stub<IMigrateProject>();
+            migrateProject.Stub(pm => pm.Migrate(null, null))
+                          .IgnoreArguments()
+                          .Return(true);
+            mocks.ReplayAll();
 
+            var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
+            {
+                FilePath = "",
+                ProjectFactory = projectFactory,
+                ProjectOwner = projectOwner,
+                ProjectStorage = storeProject
+            };
+            var migrateProjectProperties = new OpenProjectActivity.ProjectMigrationConstructionProperties
+            {
+                MigrationFilePath = "",
+                Migrator = migrateProject
+            };
+            var activity = new OpenProjectActivity(openProjectProperties,
+                                                   migrateProjectProperties);
 
+            var progressMessages = new List<string>();
+            activity.ProgressChanged += (sender, args) =>
+            {
+                Assert.AreSame(activity, sender);
+                Assert.AreEqual(EventArgs.Empty, args);
+
+                progressMessages.Add(activity.ProgressText);
+            };
+
+            // Call
+            activity.Run();
+
+            // Assert
+            var expectedProgressMessages = new[]
+            {
+                "Stap 1 van 3 | Migratie project",
+                "Stap 2 van 3 | Inlezen project"
+            };
+            CollectionAssert.AreEqual(expectedProgressMessages, progressMessages);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Run_WithoutMigration_ExpectedProgressNotifications()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            var projectOwner = mocks.Stub<IProjectOwner>();
+            var storeProject = mocks.Stub<IStoreProject>();
+            mocks.ReplayAll();
+
+            var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
+            {
+                FilePath = "",
+                ProjectFactory = projectFactory,
+                ProjectOwner = projectOwner,
+                ProjectStorage = storeProject
+            };
+            var activity = new OpenProjectActivity(openProjectProperties);
+
+            var progressMessages = new List<string>();
+            activity.ProgressChanged += (sender, args) =>
+            {
+                Assert.AreSame(activity, sender);
+                Assert.AreEqual(EventArgs.Empty, args);
+
+                progressMessages.Add(activity.ProgressText);
+            };
+
+            // Call
+            activity.Run();
+
+            // Assert
+            var expectedProgressMessages = new[]
+            {
+                "Stap 1 van 2 | Inlezen project"
+            };
+            CollectionAssert.AreEqual(expectedProgressMessages, progressMessages);
+            mocks.VerifyAll();
+        }
 
         [Test]
         public void Finish_ActivityExecutedSuccessfully_ProjectOwnerAndNewProjectUpdatedWithLogMessage()
@@ -757,6 +843,221 @@ namespace Core.Common.Gui.Test
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
 
             Assert.AreEqual(ActivityState.Canceled, activity.State);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Finish_ProjectMigratedAndOpened_ExpectedProgressText()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var project = mocks.Stub<IProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            var projectOwner = mocks.Stub<IProjectOwner>();
+            var storeProject = mocks.Stub<IStoreProject>();
+            storeProject.Stub(sp => sp.LoadProject(null))
+                        .IgnoreArguments()
+                        .Return(project);
+            var migrateProject = mocks.Stub<IMigrateProject>();
+            migrateProject.Stub(pm => pm.Migrate(null, null))
+                          .IgnoreArguments()
+                          .Return(true);
+            mocks.ReplayAll();
+
+            var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
+            {
+                FilePath = "",
+                ProjectFactory = projectFactory,
+                ProjectOwner = projectOwner,
+                ProjectStorage = storeProject
+            };
+            var migrateProjectProperties = new OpenProjectActivity.ProjectMigrationConstructionProperties
+            {
+                MigrationFilePath = "",
+                Migrator = migrateProject
+            };
+
+            var activity = new OpenProjectActivity(openProjectProperties,
+                                                   migrateProjectProperties);
+            activity.Run();
+
+            // Precondition
+            Assert.AreEqual(ActivityState.Executed, activity.State);
+
+            var progressMessages = new List<string>();
+            activity.ProgressChanged += (sender, args) =>
+            {
+                Assert.AreSame(activity, sender);
+                Assert.AreEqual(EventArgs.Empty, args);
+
+                progressMessages.Add(activity.ProgressText);
+            };
+
+            // Call
+            activity.Finish();
+
+            // Assert
+            var expectedProgressMessages = new[]
+            {
+                "Stap 3 van 3 | Ingeladen project initialiseren"
+            };
+            CollectionAssert.AreEqual(expectedProgressMessages, progressMessages);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Finish_OnlyProjectOpened_ExpectedProgressText()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var project = mocks.Stub<IProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            var projectOwner = mocks.Stub<IProjectOwner>();
+            var storeProject = mocks.Stub<IStoreProject>();
+            storeProject.Stub(sp => sp.LoadProject(null))
+                        .IgnoreArguments()
+                        .Return(project);
+            mocks.ReplayAll();
+
+            var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
+            {
+                FilePath = "",
+                ProjectFactory = projectFactory,
+                ProjectOwner = projectOwner,
+                ProjectStorage = storeProject
+            };
+
+            var activity = new OpenProjectActivity(openProjectProperties);
+            activity.Run();
+
+            // Precondition
+            Assert.AreEqual(ActivityState.Executed, activity.State);
+
+            var progressMessages = new List<string>();
+            activity.ProgressChanged += (sender, args) =>
+            {
+                Assert.AreSame(activity, sender);
+                Assert.AreEqual(EventArgs.Empty, args);
+
+                progressMessages.Add(activity.ProgressText);
+            };
+
+            // Call
+            activity.Finish();
+
+            // Assert
+            var expectedProgressMessages = new[]
+            {
+                "Stap 2 van 2 | Ingeladen project initialiseren"
+            };
+            CollectionAssert.AreEqual(expectedProgressMessages, progressMessages);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Finish_ProjectMigrationFailed_ExpectedProgressText()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            var projectOwner = mocks.Stub<IProjectOwner>();
+            var storeProject = mocks.Stub<IStoreProject>();
+            var migrateProject = mocks.Stub<IMigrateProject>();
+            migrateProject.Stub(pm => pm.Migrate(null, null))
+                          .IgnoreArguments()
+                          .Throw(new ArgumentException());
+            mocks.ReplayAll();
+
+            var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
+            {
+                FilePath = "",
+                ProjectFactory = projectFactory,
+                ProjectOwner = projectOwner,
+                ProjectStorage = storeProject
+            };
+            var migrateProjectProperties = new OpenProjectActivity.ProjectMigrationConstructionProperties
+            {
+                MigrationFilePath = "",
+                Migrator = migrateProject
+            };
+
+            var activity = new OpenProjectActivity(openProjectProperties,
+                                                   migrateProjectProperties);
+            activity.Run();
+
+            // Precondition
+            Assert.AreEqual(ActivityState.Failed, activity.State);
+
+            var progressMessages = new List<string>();
+            activity.ProgressChanged += (sender, args) =>
+            {
+                Assert.AreSame(activity, sender);
+                Assert.AreEqual(EventArgs.Empty, args);
+
+                progressMessages.Add(activity.ProgressText);
+            };
+
+            // Call
+            activity.Finish();
+
+            // Assert
+            var expectedProgressMessages = new[]
+            {
+                "Stap 3 van 3 | Leeg project initialiseren"
+            };
+            CollectionAssert.AreEqual(expectedProgressMessages, progressMessages);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Finish_OnlyProjectOpenFailed_ExpectedProgressText()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            var projectOwner = mocks.Stub<IProjectOwner>();
+            var storeProject = mocks.Stub<IStoreProject>();
+            storeProject.Stub(s => s.LoadProject(null))
+                        .IgnoreArguments()
+                        .Throw(new StorageException());
+            mocks.ReplayAll();
+
+            var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
+            {
+                FilePath = "",
+                ProjectFactory = projectFactory,
+                ProjectOwner = projectOwner,
+                ProjectStorage = storeProject
+            };
+
+            var activity = new OpenProjectActivity(openProjectProperties);
+            activity.Run();
+
+            // Precondition
+            Assert.AreEqual(ActivityState.Failed, activity.State);
+
+            var progressMessages = new List<string>();
+            activity.ProgressChanged += (sender, args) =>
+            {
+                Assert.AreSame(activity, sender);
+                Assert.AreEqual(EventArgs.Empty, args);
+
+                progressMessages.Add(activity.ProgressText);
+            };
+
+            // Call
+            activity.Finish();
+
+            // Assert
+            var expectedProgressMessages = new[]
+            {
+                "Stap 2 van 2 | Leeg project initialiseren"
+            };
+            CollectionAssert.AreEqual(expectedProgressMessages, progressMessages);
 
             mocks.VerifyAll();
         }

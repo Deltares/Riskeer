@@ -24,6 +24,7 @@ using System.IO;
 using Core.Common.Base.Data;
 using Core.Common.Base.Service;
 using Core.Common.Base.Storage;
+using Core.Common.Gui.Properties;
 using log4net;
 
 namespace Core.Common.Gui
@@ -37,6 +38,7 @@ namespace Core.Common.Gui
         private readonly ILog log = LogManager.GetLogger(typeof(OpenProjectActivity));
         private readonly string migratedProjectFilePath;
         private readonly IMigrateProject migrator;
+        private readonly int totalNumberOfSteps = 2;
         private IProject openedProject;
 
         /// <summary>
@@ -62,6 +64,7 @@ namespace Core.Common.Gui
 
                 migratedProjectFilePath = optionalProjectMigrationProperties.MigrationFilePath;
                 migrator = optionalProjectMigrationProperties.Migrator;
+                totalNumberOfSteps = 3;
             }
 
             filePath = requiredOpenProjectProperties.FilePath;
@@ -69,15 +72,20 @@ namespace Core.Common.Gui
             projectFactory = requiredOpenProjectProperties.ProjectFactory;
             storage = requiredOpenProjectProperties.ProjectStorage;
 
-            Name = "Openen van bestaand project";
+            Name = Resources.OpenProjectActivity_Name;
         }
 
         protected override void OnRun()
         {
+            int currentStepNumber = 1;
             openedProject = null;
 
             if (migrator != null)
             {
+                UpdateProgressText(Resources.OpenProjectActivity_ProgressTextStepName_MigrateProject,
+                                   currentStepNumber++,
+                                   totalNumberOfSteps);
+
                 try
                 {
                     bool migrationSuccessful = migrator.Migrate(filePath, migratedProjectFilePath);
@@ -95,6 +103,9 @@ namespace Core.Common.Gui
                 }
             }
 
+            UpdateProgressText(Resources.OpenProjectActivity_ProgressTextStepName_ReadProject,
+                               currentStepNumber,
+                               totalNumberOfSteps);
             try
             {
                 openedProject = storage.LoadProject(FilePathTakingMigrationIntoAccount);
@@ -114,21 +125,27 @@ namespace Core.Common.Gui
 
         protected override void OnFinish()
         {
-            if (State == ActivityState.Executed)
+            switch (State)
             {
-                projectOwner.SetProject(openedProject, FilePathTakingMigrationIntoAccount);
-                openedProject.Name = Path.GetFileNameWithoutExtension(FilePathTakingMigrationIntoAccount);
-                openedProject.NotifyObservers();
-            }
+                case ActivityState.Executed:
+                    UpdateProgressText(Resources.OpenProjectActivity_ProgressTextStepName_InitializeProject,
+                                       totalNumberOfSteps,
+                                       totalNumberOfSteps);
 
-            if (State == ActivityState.Failed)
-            {
-                projectOwner.SetProject(projectFactory.CreateNewProject(), null);
-            }
+                    projectOwner.SetProject(openedProject, FilePathTakingMigrationIntoAccount);
+                    openedProject.Name = Path.GetFileNameWithoutExtension(FilePathTakingMigrationIntoAccount);
+                    openedProject.NotifyObservers();
+                    break;
+                case ActivityState.Failed:
+                    UpdateProgressText(Resources.OpenProjectActivity_ProgressTextStepName_InitializeEmptyProject,
+                                       totalNumberOfSteps,
+                                       totalNumberOfSteps);
 
-            if (State == ActivityState.Canceled)
-            {
-                openedProject = null;
+                    projectOwner.SetProject(projectFactory.CreateNewProject(), null);
+                    break;
+                case ActivityState.Canceled:
+                    openedProject = null;
+                    break;
             }
         }
 
@@ -138,6 +155,18 @@ namespace Core.Common.Gui
             {
                 return migratedProjectFilePath ?? filePath;
             }
+        }
+
+        /// <summary>
+        /// Updates the progress text.
+        /// </summary>
+        /// <param name="currentStepName">A short description of the current step.</param>
+        /// <param name="currentStep">The number of the current step.</param>
+        /// <param name="totalSteps">The total numbers of steps.</param>
+        private void UpdateProgressText(string currentStepName, int currentStep, int totalSteps)
+        {
+            ProgressText = string.Format(Resources.Activity_UpdateProgressText_CurrentStepNumber_0_of_TotalStepsNumber_1_StepDescriptionName_2_,
+                                         currentStep, totalSteps, currentStepName);
         }
 
         /// <summary>
