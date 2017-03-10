@@ -51,12 +51,16 @@ namespace Ringtoets.Common.IO.Readers
         /// Creates a new instance of <see cref="ConfigurationReader{TCalculationItem}"/>.
         /// </summary>
         /// <param name="xmlFilePath">The file path to the XML file.</param>
-        /// <param name="schemaString">A string representing an XML Schema Definition (XSD).</param>
+        /// <param name="mainSchemaDefinition">A string representing the main schema definition.</param>
+        /// <param name="nestedSchemaDefinitions">A <see cref="IDictionary{TKey,TValue}"/> containing
+        /// one or more nested schema definitions; the keys should represent unique file names by which
+        /// the schema definitions can be referenced from <paramref name="mainSchemaDefinition"/>, the
+        /// values should represent the corresponding schema definition strings.</param>
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
         /// <item><paramref name="xmlFilePath"/> is invalid.</item>
-        /// <item><paramref name="schemaString"/> is <c>null</c> or empty.</item>
-        /// <item><paramref name="schemaString"/> contains an invalid schema definition.</item>
+        /// <item><paramref name="mainSchemaDefinition"/> is <c>null</c> or empty.</item>
+        /// <item><paramref name="mainSchemaDefinition"/> contains an invalid schema definition.</item>
         /// </list>
         /// </exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
@@ -66,20 +70,20 @@ namespace Ringtoets.Common.IO.Readers
         /// <item><paramref name="xmlFilePath"/> points to a file that does not pass the schema validation.</item>
         /// </list>
         /// </exception>
-        protected ConfigurationReader(string xmlFilePath, string schemaString)
+        protected ConfigurationReader(string xmlFilePath, string mainSchemaDefinition, IDictionary<string, string> nestedSchemaDefinitions)
         {
             IOUtils.ValidateFilePath(xmlFilePath);
 
-            if (string.IsNullOrWhiteSpace(schemaString))
+            if (string.IsNullOrWhiteSpace(mainSchemaDefinition))
             {
-                throw new ArgumentException(nameof(schemaString));
+                throw new ArgumentException(nameof(mainSchemaDefinition));
             }
 
             ValidateFileExists(xmlFilePath);
 
             xmlDocument = LoadDocument(xmlFilePath);
 
-            ValidateToSchema(xmlDocument, schemaString, xmlFilePath);
+            ValidateToSchema(xmlDocument, mainSchemaDefinition, xmlFilePath);
 
             ValidateNotEmpty(xmlDocument, xmlFilePath);
         }

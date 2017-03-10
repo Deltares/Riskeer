@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
@@ -28,6 +29,7 @@ using Ringtoets.Common.IO.Readers;
 using Ringtoets.Common.IO.Schema;
 using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.IO.Schema;
+using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.Piping.IO.Readers
 {
@@ -50,7 +52,17 @@ namespace Ringtoets.Piping.IO.Readers
         /// </list>
         /// </exception>
         internal PipingConfigurationReader(string xmlFilePath)
-            : base(xmlFilePath, Resources.PipingConfiguratieSchema) {}
+            : base(xmlFilePath,
+                   Resources.PipingConfiguratieSchema,
+                   new Dictionary<string, string>
+                   {
+                       {
+                           "StochastSchema.xsd", RingtoetsCommonIOResources.StochastSchema
+                       },
+                       {
+                           "HrLocatieSchema.xsd", RingtoetsCommonIOResources.HrLocatieSchema
+                       }
+                   }) {}
 
         protected override ReadPipingCalculation ParseCalculationElement(XElement calculationElement)
         {

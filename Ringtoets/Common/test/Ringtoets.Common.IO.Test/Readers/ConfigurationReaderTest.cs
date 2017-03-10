@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using System.Xml.Linq;
@@ -114,7 +115,7 @@ namespace Ringtoets.Common.IO.Test.Readers
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
-            Assert.AreEqual("schemaString", exception.Message);
+            Assert.AreEqual("mainSchemaDefinition", exception.Message);
         }
 
         [Test]
@@ -209,8 +210,8 @@ namespace Ringtoets.Common.IO.Test.Readers
 
         private class TestConfigurationReader : ConfigurationReader<TestReadConfigurationItem>
         {
-            public TestConfigurationReader(string xmlFilePath, string schemaString)
-                : base(xmlFilePath, schemaString) {}
+            public TestConfigurationReader(string xmlFilePath, string mainSchemaDefinition)
+                : base(xmlFilePath, mainSchemaDefinition, new Dictionary<string, string>()) {}
 
             protected override TestReadConfigurationItem ParseCalculationElement(XElement calculationElement)
             {
