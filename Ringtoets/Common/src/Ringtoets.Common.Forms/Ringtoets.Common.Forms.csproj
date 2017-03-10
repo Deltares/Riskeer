@@ -115,6 +115,7 @@
     <Compile Include="StructureSelectionDialog.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="TypeConverters\BackgroundDataConverter.cs" />
     <Compile Include="UITypeEditors\HydraulicBoundaryLocationEditor.cs" />
     <Compile Include="UITypeEditors\ForeshoreProfileEditor.cs" />
     <Compile Include="UITypeEditors\IHasForeshoreProfileProperty.cs" />

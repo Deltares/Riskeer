@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Utils.Reflection;
 using Core.Components.Gis.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 
@@ -68,7 +69,7 @@ namespace Ringtoets.Common.Data.TestUtil
                 BackgroundMapDataType = BackgroundMapDataType.WellKnown,
                 IsConfigured = true,
                 IsVisible = true,
-                Name = wellKnownTileSource.ToString(),
+                Name = TypeUtils.GetDisplayName(wellKnownTileSource),
                 Parameters =
                 {
                     { BackgroundDataIdentifiers.WellKnownTileSource, ((int) wellKnownTileSource).ToString() }
