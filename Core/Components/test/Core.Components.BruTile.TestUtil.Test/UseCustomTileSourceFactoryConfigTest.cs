@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.TestUtil;
 using Core.Components.BruTile.Configurations;
 using Core.Components.Gis.Data;
 using NUnit.Framework;
@@ -50,12 +52,29 @@ namespace Core.Components.BruTile.TestUtil.Test
         }
 
         [Test]
-        public void GivenTileSourceFactoryInstance_WhenConfigForMapData_ThenSingletonInstanceTemporarilyChanged()
+        public void GivenTileSourceFactoryInstance_WhenConfigForWmtsMapData_ThenSingletonInstanceTemporarilyChanged()
         {
             // Given
             ITileSourceFactory originalFactory = TileSourceFactory.Instance;
 
             WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
+
+            // When
+            using (new UseCustomTileSourceFactoryConfig(mapData))
+            {
+                // Then
+                Assert.IsInstanceOf<TestTileSourceFactory>(TileSourceFactory.Instance);
+            }
+            Assert.AreSame(originalFactory, TileSourceFactory.Instance);
+        }
+
+        [Test]
+        public void GivenTileSourceFactoryInstance_WhenConfigForWellKnownTileSourceMapData_ThenSingletonInstanceTemporarilyChanged()
+        {
+            // Given
+            ITileSourceFactory originalFactory = TileSourceFactory.Instance;
+
+            var mapData = new WellKnownTileSourceMapData(new Random(341).NextEnumValue<WellKnownTileSource>());
 
             // When
             using (new UseCustomTileSourceFactoryConfig(mapData))

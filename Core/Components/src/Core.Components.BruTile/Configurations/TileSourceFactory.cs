@@ -25,6 +25,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using BruTile;
+using BruTile.Predefined;
 using BruTile.Wmts;
 using Core.Components.BruTile.Properties;
 using Core.Components.Gis.Exceptions;
@@ -57,11 +58,16 @@ namespace Core.Components.BruTile.Configurations
         public IEnumerable<ITileSource> GetWmtsTileSources(string capabilitiesUrl)
         {
             ITileSource[] wmtsTileSources = ParseWmtsTileSources(capabilitiesUrl).ToArray();
-            if(wmtsTileSources.Any(ts => !(ts.Schema is WmtsTileSchema)))
+            if (wmtsTileSources.Any(ts => !(ts.Schema is WmtsTileSchema)))
             {
                 throw new CannotFindTileSourceException(Resources.TileSourceFactory_GetWmtsTileSources_TileSource_without_WmtsTileSchema_error);
             }
             return wmtsTileSources;
+        }
+
+        public ITileSource GetKnownTileSources(KnownTileSource knownTileSource)
+        {
+            return KnownTileSources.Create(knownTileSource);
         }
 
         /// <summary>

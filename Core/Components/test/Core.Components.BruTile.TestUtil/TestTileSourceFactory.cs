@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using BruTile;
+using BruTile.Predefined;
 using Core.Components.BruTile.Configurations;
 using Core.Components.Gis.Data;
 
@@ -32,6 +33,7 @@ namespace Core.Components.BruTile.TestUtil
     public class TestTileSourceFactory : ITileSourceFactory
     {
         private readonly TestWmtsTileSource wmtsTileSource;
+        private readonly TestWellKnownTileSource wellKnownTileSource;
 
         /// <summary>
         /// Initializes a new instance of <see cref="TestTileSourceFactory"/> for a given
@@ -48,12 +50,27 @@ namespace Core.Components.BruTile.TestUtil
             }
         }
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="TestTileSourceFactory"/> for a given
+        /// <see cref="WellKnownTileSourceMapData"/>.
+        /// </summary>
+        /// <param name="backgroundMapData">The map data to work for.</param>
+        public TestTileSourceFactory(WellKnownTileSourceMapData backgroundMapData)
+        {
+            wellKnownTileSource = new TestWellKnownTileSource(backgroundMapData);
+        }
+
         public IEnumerable<ITileSource> GetWmtsTileSources(string capabilitiesUrl)
         {
             if (wmtsTileSource != null)
             {
                 yield return wmtsTileSource;
             }
+        }
+
+        public ITileSource GetKnownTileSources(KnownTileSource knownTileSource)
+        {
+            return wellKnownTileSource;
         }
     }
 }

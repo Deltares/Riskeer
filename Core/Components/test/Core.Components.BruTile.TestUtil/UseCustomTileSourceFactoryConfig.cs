@@ -48,9 +48,16 @@ namespace Core.Components.BruTile.TestUtil
         /// initializes test stubs to work for a <see cref="WmtsMapData"/> instance.
         /// </summary>
         /// <param name="backgroundMapData">The map data to work with.</param>
-        public UseCustomTileSourceFactoryConfig(WmtsMapData backgroundMapData) : this(new TestTileSourceFactory(backgroundMapData))
-        {
-        }
+        public UseCustomTileSourceFactoryConfig(WmtsMapData backgroundMapData)
+            : this(new TestTileSourceFactory(backgroundMapData)) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="UseCustomTileSourceFactoryConfig"/> that
+        /// initializes test stubs to work for a <see cref="WellKnownTileSourceMapData"/> instance.
+        /// </summary>
+        /// <param name="backgroundMapData">The map data to work with.</param>
+        public UseCustomTileSourceFactoryConfig(WellKnownTileSourceMapData backgroundMapData)
+            : this(new TestTileSourceFactory(backgroundMapData)) {}
 
         public void Dispose()
         {

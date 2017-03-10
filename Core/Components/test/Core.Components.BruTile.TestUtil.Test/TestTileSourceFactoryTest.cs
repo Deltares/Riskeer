@@ -19,9 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using BruTile;
+using BruTile.Predefined;
+using Core.Common.TestUtil;
 using Core.Components.BruTile.Configurations;
 using Core.Components.Gis.Data;
 using NUnit.Framework;
@@ -81,6 +84,37 @@ namespace Core.Components.BruTile.TestUtil.Test
             ITileSource tileSource = tileSources[0];
             Assert.IsInstanceOf<TestWmtsTileSource>(tileSource);
             Assert.AreEqual(mapData.PreferredFormat, tileSource.Schema.Format);
+        }
+
+        [Test]
+        public void Constructor_ForWellKnownTileSourceMapData_ExpectedValues()
+        {
+            // Setup
+            var mapData = new WellKnownTileSourceMapData(new Random(341).NextEnumValue<WellKnownTileSource>());
+
+            // Call
+            var factory = new TestTileSourceFactory(mapData);
+
+            // Assert
+            Assert.IsInstanceOf<ITileSourceFactory>(factory);
+        }
+
+        [Test]
+        public void GetWellKnownTileSources_FromConfiguredWellKnownTileSourceMapData_ReturnTileSource()
+        {
+            // Setup
+            var mapData = new WellKnownTileSourceMapData(new Random(341).NextEnumValue<WellKnownTileSource>());
+
+            // Precondition
+            Assert.IsTrue(mapData.IsConfigured);
+
+            var factory = new TestTileSourceFactory(mapData);
+
+            // Call
+            ITileSource tileSource = factory.GetKnownTileSources(new Random(341).NextEnumValue<KnownTileSource>());
+
+            // Assert
+            Assert.IsInstanceOf<TestWellKnownTileSource>(tileSource);
         }
     }
 }

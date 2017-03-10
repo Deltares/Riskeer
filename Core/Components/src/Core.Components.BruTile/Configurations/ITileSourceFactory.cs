@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using BruTile;
+using BruTile.Predefined;
 using BruTile.Wmts;
 using Core.Components.Gis.Exceptions;
 
@@ -41,5 +43,13 @@ namespace Core.Components.BruTile.Configurations
         /// <exception cref="CannotFindTileSourceException">Thrown when unable to retrieve
         /// tile sources from the given service.</exception>
         IEnumerable<ITileSource> GetWmtsTileSources(string capabilitiesUrl);
+
+        /// <summary>
+        /// Returns the tile source for <paramref name="knownTileSource"/>.
+        /// </summary>
+        /// <param name="knownTileSource">The known tile services to get the tile source for.</param>
+        /// <returns>The tile source for <paramref name="knownTileSource"/>.</returns>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="knownTileSource"/> is not supported.</exception>
+        ITileSource GetKnownTileSources(KnownTileSource knownTileSource);
     }
 }
