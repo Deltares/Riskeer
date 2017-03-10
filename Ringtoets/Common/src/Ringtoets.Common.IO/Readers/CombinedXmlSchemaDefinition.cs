@@ -72,7 +72,7 @@ namespace Ringtoets.Common.IO.Readers
 
             if (!nestedSchemaDefinitionsResolver.AllNestedSchemaDefinitionsReferenced)
             {
-                throw new ArgumentException($"'{nameof(nestedSchemaDefinitions)}' contains schema definitions that are not referenced");
+                throw new ArgumentException($"'{nameof(nestedSchemaDefinitions)}' contains one or more schema definitions that are not referenced.");
             }
         }
 

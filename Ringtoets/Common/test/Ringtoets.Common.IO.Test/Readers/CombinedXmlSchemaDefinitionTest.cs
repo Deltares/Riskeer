@@ -102,6 +102,9 @@ namespace Ringtoets.Common.IO.Test.Readers
         [TestCase("invalidXsdContent.xsd",
             "'mainSchemaDefinition' containing invalid schema definition: The 'http://www.w3.org/2001/XMLSchema:redefine' element is not supported in this context.",
             typeof(XmlSchemaException))]
+        [TestCase("referencingUndefinedNestedSchemaDefinition.xsd",
+            "'mainSchemaDefinition' containing invalid schema definition: 'SchemaLocation' must successfully resolve if <redefine> contains any child other than <annotation>.",
+            typeof(XmlSchemaException))]
         public void Constructor_InvalidMainSchemaDefinition_ThrowArgumentException(string invalidMainSchemaDefinition,
                                                                                    string expectedMessage,
                                                                                    Type expectedInnerExceptionType)
@@ -155,6 +158,28 @@ namespace Ringtoets.Common.IO.Test.Readers
             var exception = Assert.Throws<ArgumentException>(call);
             Assert.AreEqual(expectedMessage, exception.Message);
             Assert.IsInstanceOf(expectedInnerExceptionType, exception.InnerException);
+        }
+
+        [Test]
+        public void Constructor_NestedSchemaDefinitionUnused_ThrowArgumentException()
+        {
+            // Call
+            TestDelegate call = () => new CombinedXmlSchemaDefinition(validMainSchemaDefinition, new Dictionary<string, string>
+            {
+                {
+                    "NestedSchemaDefinition1.xsd", validNestedSchemaDefinition1
+                },
+                {
+                    "NestedSchemaDefinition2.xsd", validNestedSchemaDefinition2
+                },
+                {
+                    "NestedSchemaDefinition3.xsd", validNestedSchemaDefinition2
+                }
+            });
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(call);
+            Assert.AreEqual("'nestedSchemaDefinitions' contains one or more schema definitions that are not referenced.", exception.Message);
         }
 
         public CombinedXmlSchemaDefinitionTest()
