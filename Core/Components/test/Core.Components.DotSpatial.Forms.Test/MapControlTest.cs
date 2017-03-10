@@ -56,6 +56,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         private const double padding = 0.05;
         private const string tileCachesFolder = "tilecaches";
         private static readonly string rootPath = TestHelper.GetScratchPadPath();
+        private DirectoryDisposeHelper directoryDisposeHelper;
 
         [Test]
         public void DefaultConstructor_DefaultValues()
@@ -99,6 +100,18 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Assert.AreEqual(ActionMode.Never, map.ProjectionModeDefine);
                 Assert.IsTrue(map.ZoomOutFartherThanMaxExtent);
             }
+        }
+
+        [OneTimeSetUp]
+        public void SetUp()
+        {
+            directoryDisposeHelper = new DirectoryDisposeHelper(rootPath, tileCachesFolder);
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            directoryDisposeHelper.Dispose();
         }
 
         private static MapDataCollection GetTestData()
@@ -226,6 +239,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             backgroundMapData.IsVisible = isVisible;
             backgroundMapData.Transparency = (RoundedDouble) 0.25;
 
+            using (new UseCustomSettingsHelper(new TestSettingsHelper()))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var map = new MapControl())
             {
@@ -255,6 +269,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Given
             WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
 
+            using (new UseCustomSettingsHelper(new TestSettingsHelper()))
             using (new UseCustomTileSourceFactoryConfig(problematicFactory))
             using (var map = new MapControl())
             {
@@ -319,6 +334,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Given
             WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
 
+            using (new UseCustomSettingsHelper(new TestSettingsHelper()))
             using (new UseCustomTileSourceFactoryConfig(problematicFactory))
             using (var map = new MapControl())
             {
@@ -393,6 +409,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Given
             WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
 
+            using (new UseCustomSettingsHelper(new TestSettingsHelper()))
             using (new UseCustomTileSourceFactoryConfig(problematicFactory))
             using (var map = new MapControl())
             {
@@ -485,6 +502,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             originalBackgroundMapData.IsVisible = true;
             originalBackgroundMapData.Transparency = (RoundedDouble) 0.25;
 
+            using (new UseCustomSettingsHelper(new TestSettingsHelper()))
             using (new UseCustomTileSourceFactoryConfig(originalBackgroundMapData))
             using (var map = new MapControl())
 
@@ -519,6 +537,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             newBackgroundMapData.IsVisible = true;
             newBackgroundMapData.Transparency = (RoundedDouble) 0.75;
 
+            using (new UseCustomSettingsHelper(new TestSettingsHelper()))
             using (new UseCustomTileSourceFactoryConfig(newBackgroundMapData))
             using (var map = new MapControl())
             {
@@ -553,6 +572,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             backgroundMapData.IsVisible = true;
             backgroundMapData.Transparency = (RoundedDouble) 0.25;
 
+            using (new UseCustomSettingsHelper(new TestSettingsHelper()))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var map = new MapControl
             {
@@ -584,6 +604,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             var newBackgroundMapData = WmtsMapData.CreateAlternativePdokMapData();
             var startingBackgroundMapData = WmtsMapData.CreateUnconnectedMapData();
 
+            using (new UseCustomSettingsHelper(new TestSettingsHelper()))
             using (new UseCustomTileSourceFactoryConfig(newBackgroundMapData))
             using (var map = new MapControl
             {
@@ -645,6 +666,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Given
             var backgroundMapData = WmtsMapData.CreateAlternativePdokMapData();
 
+            using (new UseCustomSettingsHelper(new TestSettingsHelper()))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var map = new MapControl
             {
@@ -708,6 +730,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Given
             WmtsMapData backgroundMapData = WmtsMapData.CreateAlternativePdokMapData();
 
+            using (new UseCustomSettingsHelper(new TestSettingsHelper()))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var map = new MapControl())
             {
@@ -758,6 +781,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Given
             WmtsMapData backgroundMapData = WmtsMapData.CreateUnconnectedMapData();
 
+            using (new UseCustomSettingsHelper(new TestSettingsHelper()))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var map = new MapControl())
             {
@@ -805,6 +829,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Given
             WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
 
+            using (new UseCustomSettingsHelper(new TestSettingsHelper()))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var map = new MapControl())
             {
@@ -839,7 +864,6 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 // When
                 WmtsMapData differentBackgroundMapData = WmtsMapData.CreateAlternativePdokMapData();
-                ;
                 using (new UseCustomTileSourceFactoryConfig(differentBackgroundMapData))
                 {
                     map.BackgroundMapData = differentBackgroundMapData;
@@ -863,6 +887,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Given
             WmtsMapData backgroundMapData = WmtsMapData.CreateAlternativePdokMapData();
 
+            using (new UseCustomSettingsHelper(new TestSettingsHelper()))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var map = new MapControl())
             {
@@ -972,6 +997,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Given
             WmtsMapData backgroundMapData = WmtsMapData.CreateAlternativePdokMapData();
 
+            using (new UseCustomSettingsHelper(new TestSettingsHelper()))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var map = new MapControl
             {
@@ -1036,6 +1062,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Given
             WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
 
+            using (new UseCustomSettingsHelper(new TestSettingsHelper()))
             using (new UseCustomTileSourceFactoryConfig(problematicFactory))
             using (var map = new MapControl())
             {
@@ -1338,6 +1365,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Given
             var backgroundMapData = WmtsMapData.CreateAlternativePdokMapData();
 
+            using (new UseCustomSettingsHelper(new TestSettingsHelper()))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var map = new MapControl
             {
@@ -1426,7 +1454,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             yield return new TestCaseData(factoryThrowingCannotFindTileSourceException)
                 .SetName($"{prefix}: Tile source factory throws CannotFindTileSourceException.");
         }
-        
+
         #endregion
 
         #endregion
