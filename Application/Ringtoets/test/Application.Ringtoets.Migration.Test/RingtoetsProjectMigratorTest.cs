@@ -27,7 +27,6 @@ using Application.Ringtoets.Migration.Core;
 using Core.Common.Base.Storage;
 using Core.Common.Gui;
 using Core.Common.TestUtil;
-using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Utils;
@@ -35,9 +34,23 @@ using Ringtoets.Common.Utils;
 namespace Application.Ringtoets.Migration.Test
 {
     [TestFixture]
-    public class RingtoetsProjectMigratorTest : NUnitFormTest
+    public class RingtoetsProjectMigratorTest
     {
         private readonly string currentDatabaseVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
+        private const string testDirectory = nameof(RingtoetsProjectMigratorTest);
+        private DirectoryDisposeHelper directoryDisposeHelper;
+
+        [SetUp]
+        public void Setup()
+        {
+            directoryDisposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), testDirectory);
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            directoryDisposeHelper.Dispose();
+        }
 
         [Test]
         public void Constructor_InquiryHelperNull_ThrowsArgumentNullException()
@@ -68,7 +81,7 @@ namespace Application.Ringtoets.Migration.Test
         }
 
         [Test]
-        public void ShouldMigrate_SourcePathNull_ThrowsArgumentNullException()
+        public void ShouldMigrate_FilePathNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -88,8 +101,7 @@ namespace Application.Ringtoets.Migration.Test
         }
 
         [Test]
-        [TestCase("")]
-        [TestCase("    ")]
+        [TestCaseSource(typeof(InvalidPathHelper), nameof(InvalidPathHelper.InvalidPaths))]
         public void ShouldMigrate_InvalidFilePath_ThrowsArgumentException(string invalidFilePath)
         {
             // Setup
@@ -203,7 +215,7 @@ namespace Application.Ringtoets.Migration.Test
         }
 
         [Test]
-        public void DetermineMigrationLocation_FilePathNull_ThrownArgumentNullException()
+        public void DetermineMigrationLocation_OriginalFilePathNull_ThrownArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -223,9 +235,8 @@ namespace Application.Ringtoets.Migration.Test
         }
 
         [Test]
-        [TestCase("")]
-        [TestCase("    ")]
-        public void DetermineMigrationLocation_InvalidFilePath_ThrowsArgumentException(string invalidFilePath)
+        [TestCaseSource(typeof(InvalidPathHelper), nameof(InvalidPathHelper.InvalidPaths))]
+        public void DetermineMigrationLocation_InvalidOriginalFilePath_ThrowsArgumentException(string invalidFilePath)
         {
             // Setup
             var mocks = new MockRepository();
@@ -319,8 +330,7 @@ namespace Application.Ringtoets.Migration.Test
         }
 
         [Test]
-        [TestCase("")]
-        [TestCase("    ")]
+        [TestCaseSource(typeof(InvalidPathHelper), nameof(InvalidPathHelper.InvalidPaths))]
         public void Migrate_InvalidSourceFilePath_ThrowsArgumentException(string invalidFilePath)
         {
             // Setup
@@ -346,8 +356,7 @@ namespace Application.Ringtoets.Migration.Test
         }
 
         [Test]
-        [TestCase("")]
-        [TestCase("    ")]
+        [TestCaseSource(typeof(InvalidPathHelper), nameof(InvalidPathHelper.InvalidPaths))]
         public void Migrate_InvalidTargetFilePath_ThrowsArgumentException(string invalidFilePath)
         {
             // Setup
@@ -379,7 +388,7 @@ namespace Application.Ringtoets.Migration.Test
 
             string targetFile = $"{nameof(RingtoetsProjectMigratorTest)}." +
                                 $"{nameof(GivenMigratorAndSupportedFile_WhenValidTargetLocationGiven_ThenFileSuccessFullyMigrates)}.rtd";
-            string targetFilePath = Path.Combine(TestHelper.GetScratchPadPath(), targetFile);
+            string targetFilePath = Path.Combine(TestHelper.GetScratchPadPath(), testDirectory, targetFile);
 
             var mocks = new MockRepository();
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
@@ -396,7 +405,8 @@ namespace Application.Ringtoets.Migration.Test
 
                 // Then
                 string expectedMessage = $"Het projectbestand '{sourceFilePath}' is succesvol gemigreerd naar '{targetFilePath}' (versie {currentDatabaseVersion}).";
-                TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+                Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedMessage, LogLevelConstant.Info);
+                TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel, 1);
 
                 Assert.IsTrue(migrationSuccessful);
 
@@ -412,8 +422,9 @@ namespace Application.Ringtoets.Migration.Test
         {
             // Setup
             string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "FullTestProject164.rtd");
-            string targetFilePath = $"{nameof(RingtoetsProjectMigratorTest)}." +
+            string targetFile = $"{nameof(RingtoetsProjectMigratorTest)}." +
                                     $"{nameof(Migrate_UnableToSaveAtTargetFilePath_MigrationFailsAndLogsError)}.rtd";
+            string targetFilePath = Path.Combine(TestHelper.GetScratchPadPath(), testDirectory, targetFile);
 
             var mocks = new MockRepository();
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
@@ -451,7 +462,7 @@ namespace Application.Ringtoets.Migration.Test
             string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "UnsupportedVersion8.rtd");
             string targetFile = $"{nameof(RingtoetsProjectMigratorTest)}." +
                                 $"{nameof(Migrate_UnsupportedSourceFileVersion_MigrationFailsAndLogsError)}";
-            string targetFilePath = Path.Combine(TestHelper.GetScratchPadPath(), targetFile);
+            string targetFilePath = Path.Combine(TestHelper.GetScratchPadPath(), testDirectory, targetFile);
 
             var mocks = new MockRepository();
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
