@@ -100,6 +100,21 @@ namespace Core.Components.BruTile.TestUtil.Test
         }
 
         [Test]
+        public void GetWellKnownTileSources_NotInitialized_ThrowsNotSupportedException()
+        {
+            // Setup
+            WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
+            var factory = new TestTileSourceFactory(mapData);
+
+            // Call
+            TestDelegate test = () => factory.GetKnownTileSources(KnownTileSource.BingHybrid);
+
+            // Assert
+            string message = Assert.Throws<NotSupportedException>(test).Message;
+            Assert.AreEqual("use TestTileSourceFactory() to set the expected well known tile source", message);
+        }
+
+        [Test]
         public void GetWellKnownTileSources_FromConfiguredWellKnownTileSourceMapData_ReturnTileSource()
         {
             // Setup

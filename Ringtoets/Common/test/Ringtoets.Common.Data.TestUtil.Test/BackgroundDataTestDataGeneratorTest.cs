@@ -75,7 +75,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
 
             // Assert
             Assert.AreEqual(BackgroundMapDataType.WellKnown, backgroundData.BackgroundMapDataType);
-            Assert.AreEqual("BingAerial", backgroundData.Name);
+            Assert.AreEqual("Bing Maps - Satelliet", backgroundData.Name);
             Assert.IsTrue(backgroundData.IsConfigured);
             Assert.IsTrue(backgroundData.IsVisible);
             Assert.AreEqual(0, backgroundData.Transparency.Value);

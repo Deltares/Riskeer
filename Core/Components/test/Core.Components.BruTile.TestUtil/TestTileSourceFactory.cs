@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using BruTile;
 using BruTile.Predefined;
@@ -70,6 +71,10 @@ namespace Core.Components.BruTile.TestUtil
 
         public ITileSource GetKnownTileSources(KnownTileSource knownTileSource)
         {
+            if (wellKnownTileSource == null)
+            {
+                throw new NotSupportedException("use TestTileSourceFactory() to set the expected well known tile source");
+            }
             return wellKnownTileSource;
         }
     }

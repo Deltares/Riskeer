@@ -19,11 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
+using System.Linq;
+using BruTile;
+using BruTile.Predefined;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.TestUtil.Settings;
+using Core.Components.BruTile.Configurations;
 using Core.Components.BruTile.TestUtil;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
@@ -38,6 +41,20 @@ namespace Ringtoets.Common.Forms.Test.Views
     [TestFixture]
     public class RingtoetsMapControlTest
     {
+        private static IEnumerable<TestCaseData> BackgroundTypes
+        {
+            get
+            {
+                yield return new TestCaseData(BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData(),
+                                              BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(WmtsMapData.CreateDefaultPdokMapData()))
+                    .SetName("WellKnownToWmts");
+
+                yield return new TestCaseData(BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(WmtsMapData.CreateDefaultPdokMapData()),
+                                              BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData())
+                    .SetName("WmtsToWellKnown");
+            }
+        }
+
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -106,10 +123,25 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Given
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
+            var tileSourceFactory = mocks.StrictMock<ITileSourceFactory>();
+
+            var testWellKnownTileSource = new TestWellKnownTileSource(new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial));
+            if (originalBackgroundData.BackgroundMapDataType == BackgroundMapDataType.WellKnown && newBackgroundData.BackgroundMapDataType == BackgroundMapDataType.Wmts)
+            {
+                tileSourceFactory.Expect(tsf => tsf.GetKnownTileSources(KnownTileSource.BingAerial)).Return(testWellKnownTileSource);
+                tileSourceFactory.Expect(tsf => tsf.GetWmtsTileSources(newBackgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl]))
+                                 .Return(Enumerable.Empty<ITileSource>());
+            }
+            else if (originalBackgroundData.BackgroundMapDataType == BackgroundMapDataType.Wmts && newBackgroundData.BackgroundMapDataType == BackgroundMapDataType.WellKnown)
+            {
+                tileSourceFactory.Expect(tsf => tsf.GetWmtsTileSources(originalBackgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl]))
+                                 .Return(Enumerable.Empty<ITileSource>());
+                tileSourceFactory.Expect(tsf => tsf.GetKnownTileSources(KnownTileSource.BingAerial)).Return(testWellKnownTileSource);
+            }
             mocks.ReplayAll();
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper()))
-            using (new UseCustomTileSourceFactoryConfig(WmtsMapData.CreateDefaultPdokMapData()))
+            using (new UseCustomTileSourceFactoryConfig(tileSourceFactory))
             {
                 var control = new RingtoetsMapControl
                 {
@@ -173,20 +205,6 @@ namespace Ringtoets.Common.Forms.Test.Views
                 // Then
                 Assert.AreSame(oldBackgroundMapData, control.BackgroundMapData);
                 mocks.VerifyAll();
-            }
-        }
-
-        private static IEnumerable<TestCaseData> BackgroundTypes
-        {
-            get
-            {
-                yield return new TestCaseData(BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData(),
-                                              BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(WmtsMapData.CreateDefaultPdokMapData()))
-                    .SetName("WellKnownToWmts");
-
-                yield return new TestCaseData(BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(WmtsMapData.CreateDefaultPdokMapData()),
-                                              BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData())
-                    .SetName("WmtsToWellKnown");
             }
         }
     }
