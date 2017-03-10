@@ -23,8 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Schema;
@@ -74,16 +72,11 @@ namespace Ringtoets.Common.IO.Readers
         {
             IOUtils.ValidateFilePath(xmlFilePath);
 
-            if (string.IsNullOrWhiteSpace(mainSchemaDefinition))
-            {
-                throw new ArgumentException(nameof(mainSchemaDefinition));
-            }
-
             ValidateFileExists(xmlFilePath);
 
             xmlDocument = LoadDocument(xmlFilePath);
 
-            ValidateToSchema(xmlDocument, mainSchemaDefinition, xmlFilePath);
+            ValidateToSchema(xmlDocument, xmlFilePath, mainSchemaDefinition, nestedSchemaDefinitions);
 
             ValidateNotEmpty(xmlDocument, xmlFilePath);
         }
@@ -147,35 +140,23 @@ namespace Ringtoets.Common.IO.Readers
         /// Validates the provided XML document based on the provided XML Schema Definition (XSD).
         /// </summary>
         /// <param name="document">The XML document to validate.</param>
-        /// <param name="schemaString">A string representing the XML Schema Definition (XSD) to use for the validation.</param>
+        /// <param name="mainSchemaDefinition">A string representing the main schema definition.</param>
+        /// <param name="nestedSchemaDefinitions">A <see cref="IDictionary{TKey,TValue}"/> containing
+        /// one or more nested schema definitions</param>
         /// <param name="xmlFilePath">The file path the XML document is loaded from.</param>
         /// <exception cref="CriticalFileReadException">Thrown when the provided XML document does not match the provided XML Schema Definition (XSD).</exception>
-        private static void ValidateToSchema(XDocument document, string schemaString, string xmlFilePath)
+        private static void ValidateToSchema(XDocument document, string xmlFilePath, string mainSchemaDefinition, IDictionary<string, string> nestedSchemaDefinitions)
         {
-            var xmlResourcesResolver = new XmlResourcesResolver();
-            var xmlSchemaSet = new XmlSchemaSet
-            {
-                XmlResolver = xmlResourcesResolver
-            };
+            var combinedXmlSchemaDefinition = new CombinedXmlSchemaDefinition(mainSchemaDefinition, nestedSchemaDefinitions
+                                                                                  .Concat(new[]
+                                                                                  {
+                                                                                      new KeyValuePair<string, string>("ConfiguratieSchema.xsd", Resources.ConfiguratieSchema)
+                                                                                  })
+                                                                                  .ToDictionary(kv => kv.Key, kv => kv.Value));
 
             try
             {
-                xmlSchemaSet.Add(XmlSchema.Read(new StringReader(schemaString), null));
-            }
-            catch (Exception exception) when (exception is XmlException
-                                              || exception is XmlSchemaException)
-            {
-                throw new ArgumentException($"Invalid 'schemaString': {exception.Message}", exception);
-            }
-
-            if (!xmlResourcesResolver.BaseSchemeReferenced)
-            {
-                throw new ArgumentException("Invalid 'schemaString': the base XML Schema Definition file 'ConfiguratieSchema.xsd' is not referenced.");
-            }
-
-            try
-            {
-                document.Validate(xmlSchemaSet, null);
+                combinedXmlSchemaDefinition.Validate(document);
             }
             catch (XmlSchemaValidationException exception)
             {
@@ -227,35 +208,6 @@ namespace Ringtoets.Common.IO.Readers
         {
             return new ReadCalculationGroup(folderElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute)?.Value,
                                             ParseElements(folderElement.Elements()));
-        }
-
-        private class XmlResourcesResolver : XmlResolver
-        {
-            public override ICredentials Credentials
-            {
-                set
-                {
-                    throw new NotImplementedException();
-                }
-            }
-
-            public bool BaseSchemeReferenced { get; private set; }
-
-            public override object GetEntity(Uri absoluteUri, string role, Type ofObjectToReturn)
-            {
-                switch (Path.GetFileName(absoluteUri.ToString()))
-                {
-                    case "ConfiguratieSchema.xsd":
-                        BaseSchemeReferenced = true;
-                        return new MemoryStream(Encoding.UTF8.GetBytes(Resources.ConfiguratieSchema));
-                    case "StochastSchema.xsd":
-                        return new MemoryStream(Encoding.UTF8.GetBytes(Resources.StochastSchema));
-                    case "HrLocatieSchema.xsd":
-                        return new MemoryStream(Encoding.UTF8.GetBytes(Resources.HrLocatieSchema));
-                }
-
-                return null;
-            }
         }
     }
 }

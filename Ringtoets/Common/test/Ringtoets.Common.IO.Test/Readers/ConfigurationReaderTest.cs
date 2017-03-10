@@ -115,18 +115,18 @@ namespace Ringtoets.Common.IO.Test.Readers
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
-            Assert.AreEqual("mainSchemaDefinition", exception.Message);
+            Assert.AreEqual("'mainSchemaDefinition' null, empty or only containing white spaces.", exception.Message);
         }
 
         [Test]
         [TestCase("textContent.xsd",
-            "Invalid 'schemaString': Data at the root level is invalid. Line 1, position 1.",
+            "'mainSchemaDefinition' containing invalid schema definition: Data at the root level is invalid. Line 1, position 1.",
             typeof(XmlException))]
         [TestCase("invalidXsdContent.xsd",
-            "Invalid 'schemaString': The 'http://www.w3.org/2001/XMLSchema:redefine' element is not supported in this context.",
+            "'mainSchemaDefinition' containing invalid schema definition: The 'http://www.w3.org/2001/XMLSchema:redefine' element is not supported in this context.",
             typeof(XmlSchemaException))]
         [TestCase("notReferencingBaseXsd.xsd",
-            "Invalid 'schemaString': the base XML Schema Definition file 'ConfiguratieSchema.xsd' is not referenced.")]
+            "'nestedSchemaDefinitions' contains one or more schema definitions that are not referenced.")]
         public void Constructor_InvalidSchemaString_ThrowArgumentException(string fileName, string expectedMessage, Type expectedInnerExceptionType = null)
         {
             // Setup
