@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Security.AccessControl;
 using System.Xml;
 using Core.Common.Base.Data;
@@ -29,6 +30,7 @@ using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.Writers;
@@ -131,7 +133,72 @@ namespace Ringtoets.Common.IO.Test.Writers
         }
 
         [Test]
-        public void WriteDistribution_Always_WritesEachDistributionAsElement()
+        public void WriteDistribution_WithoutDistributions_ArgumentNullException()
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath("test_distributions_write.xml");
+            string expectedXmlFilePath = TestHelper.GetTestDataPath(
+                TestDataPath.Ringtoets.Common.IO,
+                Path.Combine(nameof(CalculationConfigurationWriter<ICalculation>), "distributions.xml"));
+
+            try
+            {
+                using (XmlWriter xmlWriter = XmlWriter.Create(filePath, new XmlWriterSettings
+                {
+                    Indent = true,
+                    ConformanceLevel = ConformanceLevel.Fragment
+                }))
+                {
+                    var writer = new SimpleCalculationConfigurationWriter();
+
+                    // Call
+                    Assert.Throws<ArgumentNullException>(() => writer.PublicWriteDistributions(null, xmlWriter));
+                }
+
+                // Assert
+                string actualXml = File.ReadAllText(filePath);
+
+                Assert.IsEmpty(actualXml);
+            }
+            finally
+            {
+                File.Delete(filePath);
+            }
+        }
+
+        [Test]
+        public void WriteDistribution_EmptyDistributions_NothingWrittenToFile()
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath("test_distributions_write.xml");
+
+            try
+            {
+                using (XmlWriter xmlWriter = XmlWriter.Create(filePath, new XmlWriterSettings
+                {
+                    Indent = true,
+                    ConformanceLevel = ConformanceLevel.Fragment
+                }))
+                {
+                    var writer = new SimpleCalculationConfigurationWriter();
+
+                    // Call
+                    writer.PublicWriteDistributions(Enumerable.Empty<Tuple<string, IDistribution>>(), xmlWriter);
+                }
+
+                // Assert
+                string actualXml = File.ReadAllText(filePath);
+
+                Assert.IsEmpty(actualXml);
+            }
+            finally
+            {
+                File.Delete(filePath);
+            }
+        }
+
+        [Test]
+        public void WriteDistribution_WithDistributions_WritesEachDistributionAsElement()
         {
             // Setup
             string filePath = TestHelper.GetScratchPadPath("test_distributions_write.xml");
@@ -155,13 +222,93 @@ namespace Ringtoets.Common.IO.Test.Writers
 
             try
             {
-                using (XmlWriter writer = XmlWriter.Create(filePath, new XmlWriterSettings
+                using (XmlWriter xmlWriter = XmlWriter.Create(filePath, new XmlWriterSettings
                 {
-                    Indent = true
+                    Indent = true,
+                    ConformanceLevel = ConformanceLevel.Fragment
                 }))
                 {
+                    var writer = new SimpleCalculationConfigurationWriter();
+
                     // Call
-                    new SimpleCalculationConfigurationWriter().PublicWriteDistributions(distributions, writer);
+                    writer.PublicWriteDistributions(distributions, xmlWriter);
+                }
+
+                // Assert
+                string actualXml = File.ReadAllText(filePath);
+                string expectedXml = File.ReadAllText(expectedXmlFilePath);
+
+                Assert.AreEqual(expectedXml, actualXml);
+            }
+            finally
+            {
+                File.Delete(filePath);
+            }
+        }
+
+        [Test]
+        public void WriteBreakWaterProperties_BreakWaterNull_NothingWrittenToFile()
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath(
+                $"{nameof(WriteBreakWaterProperties_WithBreakWater_WritesPropertiesToFile)}.xml");
+
+            try
+            {
+                using (XmlWriter xmlWriter = XmlWriter.Create(filePath, new XmlWriterSettings
+                {
+                    Indent = true,
+                    ConformanceLevel = ConformanceLevel.Fragment
+                }))
+                {
+                    var writer = new SimpleCalculationConfigurationWriter();
+
+                    // Call
+                    writer.PublicWriteBreakWaterProperties(null, xmlWriter);
+                }
+
+                // Assert
+                string actualXml = File.ReadAllText(filePath);
+
+                Assert.IsEmpty(actualXml);
+            }
+            finally
+            {
+                File.Delete(filePath);
+            }
+        }
+
+        [Test]
+        [TestCase(BreakWaterType.Wall, 26.3, "breakWaterWall.xml")]
+        [TestCase(BreakWaterType.Caisson, 1.5, "breakWaterCaisson.xml")]
+        [TestCase(BreakWaterType.Dam, -55.1, "breakWaterDam.xml")]
+        public void WriteBreakWaterProperties_WithBreakWater_WritesPropertiesToFile(
+            BreakWaterType type,
+            double height,
+            string expectedContentFilePath)
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath(
+                $"{nameof(WriteBreakWaterProperties_WithBreakWater_WritesPropertiesToFile)}.xml");
+
+            string expectedXmlFilePath = TestHelper.GetTestDataPath(
+                TestDataPath.Ringtoets.Common.IO,
+                Path.Combine(nameof(CalculationConfigurationWriter<ICalculation>), expectedContentFilePath));
+
+            var breakWater = new BreakWater(type, (RoundedDouble) height);
+
+            try
+            {
+                using (XmlWriter xmlWriter = XmlWriter.Create(filePath, new XmlWriterSettings
+                {
+                    Indent = true,
+                    ConformanceLevel = ConformanceLevel.Fragment
+                }))
+                {
+                    var writer = new SimpleCalculationConfigurationWriter();
+
+                    // Call
+                    writer.PublicWriteBreakWaterProperties(breakWater, xmlWriter);
                 }
 
                 // Assert
@@ -217,6 +364,11 @@ namespace Ringtoets.Common.IO.Test.Writers
             public void PublicWriteDistributions(IEnumerable<Tuple<string, IDistribution>> distributions, XmlWriter writer)
             {
                 WriteDistributions(distributions, writer);
+            }
+
+            public void PublicWriteBreakWaterProperties(BreakWater breakWater, XmlWriter writer)
+            {
+                WriteBreakWaterProperties(breakWater, writer);
             }
         }
 

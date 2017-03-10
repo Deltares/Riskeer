@@ -60,54 +60,5 @@ namespace Ringtoets.Revetment.IO
         /// The tag of elements containing the name of the foreshore profile.
         /// </summary>
         internal const string ForeshoreProfile = "voorlandprofiel";
-
-        /// <summary>
-        /// The tag of elements containing the orientation of the foreshore profile.
-        /// </summary>
-        internal const string Orientation = "orientatie";
-
-        /// <summary>
-        /// The tag of elements containing parameters that define wave reduction.
-        /// </summary>
-        internal const string WaveReduction = "golfreductie";
-
-        /// <summary>
-        /// The tag of elements containing the value indicating whether to use break water.
-        /// </summary>
-        internal const string UseBreakWater = "damgebruiken";
-
-        /// <summary>
-        /// The tag of elements containing the type of the break water.
-        /// </summary>
-        internal const string BreakWaterType = "damtype";
-
-        /// <summary>
-        /// The tag of elements containing the height of the break water.
-        /// </summary>
-        internal const string BreakWaterHeight = "damhoogte";
-
-        /// <summary>
-        /// The tag of elements containing the value indicating whether to use break water.
-        /// </summary>
-        internal const string UseForeshore = "voorlandgebruiken";
-
-        /// <summary>
-        /// The possible content of the <see cref="BreakWaterType"/> element indicating a
-        /// caisson type of break water.
-        /// </summary>
-        internal const string BreakWaterCaisson = "caisson";
-
-        /// <summary>
-        /// The possible content of the <see cref="BreakWaterType"/> element indicating a
-        /// dam type of break water.
-        /// </summary>
-        internal const string BreakWaterDam = "havendam";
-
-        /// <summary>
-        /// The possible content of the <see cref="BreakWaterType"/> element indicating a
-        /// wall type of break water.
-        /// </summary>
-        internal const string BreakWaterWall = "verticalewand";
-
     }
 }

@@ -70,5 +70,53 @@ namespace Ringtoets.Common.IO.Schema
         /// The identifier for standard deviation elements.
         /// </summary>
         public const string StandardDeviationElement = "standaardafwijking";
+
+        /// <summary>
+        /// The tag of elements containing the orientation of the profile.
+        /// </summary>
+        public const string Orientation = "orientatie";
+
+        /// <summary>
+        /// The tag of elements containing parameters that define wave reduction.
+        /// </summary>
+        public const string WaveReduction = "golfreductie";
+
+        /// <summary>
+        /// The tag of elements containing the value indicating whether to use break water.
+        /// </summary>
+        public const string UseBreakWater = "damgebruiken";
+
+        /// <summary>
+        /// The tag of elements containing the type of the break water.
+        /// </summary>
+        public const string BreakWaterType = "damtype";
+
+        /// <summary>
+        /// The tag of elements containing the height of the break water.
+        /// </summary>
+        public const string BreakWaterHeight = "damhoogte";
+
+        /// <summary>
+        /// The tag of elements containing the value indicating whether to use break water.
+        /// </summary>
+        public const string UseForeshore = "voorlandgebruiken";
+
+        /// <summary>
+        /// The possible content of the <see cref="BreakWaterType"/> element indicating a
+        /// caisson type of break water.
+        /// </summary>
+        public const string BreakWaterCaisson = "caisson";
+
+        /// <summary>
+        /// The possible content of the <see cref="BreakWaterType"/> element indicating a
+        /// dam type of break water.
+        /// </summary>
+        public const string BreakWaterDam = "havendam";
+
+        /// <summary>
+        /// The possible content of the <see cref="BreakWaterType"/> element indicating a
+        /// wall type of break water.
+        /// </summary>
+        public const string BreakWaterWall = "verticalewand";
     }
 }

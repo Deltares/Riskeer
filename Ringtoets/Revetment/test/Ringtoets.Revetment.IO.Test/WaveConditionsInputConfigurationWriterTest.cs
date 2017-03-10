@@ -48,11 +48,11 @@ namespace Ringtoets.Revetment.IO.Test
         }
 
         [Test]
-        public void WriteConfiguration_SparseCalculation_WritesSparseConfigurationToFile()
+        public void WriteCalculation_SparseCalculation_WritesSparseConfigurationToFile()
         {
             // Setup
             string filePath = TestHelper.GetScratchPadPath(
-                $"{nameof(WriteConfiguration_SparseCalculation_WritesSparseConfigurationToFile)}.xml");
+                $"{nameof(WriteCalculation_SparseCalculation_WritesSparseConfigurationToFile)}.xml");
 
             string expectedXmlFilePath = TestHelper.GetTestDataPath(
                 TestDataPath.Ringtoets.Revetment.IO,
@@ -89,11 +89,11 @@ namespace Ringtoets.Revetment.IO.Test
         }
 
         [Test]
-        public void WriteConfiguration_CompleteCalculation_WritesCompleteConfigurationToFile()
+        public void WriteCalculation_CompleteCalculation_WritesCompleteConfigurationToFile()
         {
             // Setup
             string filePath = TestHelper.GetScratchPadPath(
-                $"{nameof(WriteConfiguration_CompleteCalculation_WritesCompleteConfigurationToFile)}.xml");
+                $"{nameof(WriteCalculation_CompleteCalculation_WritesCompleteConfigurationToFile)}.xml");
 
             string expectedXmlFilePath = TestHelper.GetTestDataPath(
                 TestDataPath.Ringtoets.Revetment.IO,

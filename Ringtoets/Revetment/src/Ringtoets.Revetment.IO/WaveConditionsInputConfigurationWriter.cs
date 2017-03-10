@@ -70,7 +70,7 @@ namespace Ringtoets.Revetment.IO
             WriteForeshoreProfile(input.ForeshoreProfile, writer);
 
             writer.WriteElementString(
-                WaveConditionsInputConfigurationSchemaIdentifiers.Orientation,
+                ConfigurationSchemaIdentifiers.Orientation,
                 XmlConvert.ToString(input.Orientation));
 
             WriteWaveReduction(input, writer);
@@ -100,47 +100,19 @@ namespace Ringtoets.Revetment.IO
 
         private static void WriteWaveReduction(WaveConditionsInput input, XmlWriter writer)
         {
-            writer.WriteStartElement(WaveConditionsInputConfigurationSchemaIdentifiers.WaveReduction);
+            writer.WriteStartElement(ConfigurationSchemaIdentifiers.WaveReduction);
 
             writer.WriteElementString(
-                WaveConditionsInputConfigurationSchemaIdentifiers.UseBreakWater,
+                ConfigurationSchemaIdentifiers.UseBreakWater,
                 XmlConvert.ToString(input.UseBreakWater));
 
             WriteBreakWaterProperties(input.BreakWater, writer);
 
             writer.WriteElementString(
-                WaveConditionsInputConfigurationSchemaIdentifiers.UseForeshore,
+                ConfigurationSchemaIdentifiers.UseForeshore,
                 XmlConvert.ToString(input.UseForeshore));
 
             writer.WriteEndElement();
-        }
-
-        private static void WriteBreakWaterProperties(BreakWater breakWater, XmlWriter writer)
-        {
-            if (breakWater != null)
-            {
-                writer.WriteElementString(
-                    WaveConditionsInputConfigurationSchemaIdentifiers.BreakWaterType,
-                    BreakWaterTypeAsXmlString(breakWater.Type));
-                writer.WriteElementString(
-                    WaveConditionsInputConfigurationSchemaIdentifiers.BreakWaterHeight,
-                    XmlConvert.ToString(breakWater.Height));
-            }
-        }
-
-        private static string BreakWaterTypeAsXmlString(BreakWaterType type)
-        {
-            switch (type)
-            {
-                case BreakWaterType.Caisson:
-                    return WaveConditionsInputConfigurationSchemaIdentifiers.BreakWaterCaisson;
-                case BreakWaterType.Dam:
-                    return WaveConditionsInputConfigurationSchemaIdentifiers.BreakWaterDam;
-                case BreakWaterType.Wall:
-                    return WaveConditionsInputConfigurationSchemaIdentifiers.BreakWaterWall;
-                default:
-                    throw new InvalidEnumArgumentException(nameof(type), (int) type, typeof(BreakWaterType));
-            }
         }
     }
 }

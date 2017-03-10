@@ -21,10 +21,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using System.Xml;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils.Properties;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.IO.Schema;
 
@@ -36,32 +39,6 @@ namespace Ringtoets.Common.IO.Writers
     /// <typeparam name="T">The type of calculations which are written to file.</typeparam>
     public abstract class CalculationConfigurationWriter<T> where T : class, ICalculation
     {
-        /// <summary>
-        /// Writes a single <paramref name="calculation"/> in XML format to file.
-        /// </summary>
-        /// <param name="calculation">The calculation to write.</param>
-        /// <param name="writer">The writer to use for writing.</param>
-        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is closed.</exception>
-        protected abstract void WriteCalculation(T calculation, XmlWriter writer);
-
-        /// <summary>
-        /// Writes the <paramref name="distributions"/> in XML format to file.
-        /// </summary>
-        /// <param name="distributions">The distributions, as tuples of name and distribution, to write.</param>
-        /// <param name="writer">The writer to use for writing.</param>
-        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is closed.</exception>
-        protected static void WriteDistributions(IEnumerable<Tuple<string, IDistribution>> distributions, XmlWriter writer)
-        {
-            writer.WriteStartElement(ConfigurationSchemaIdentifiers.StochastsElement);
-
-            foreach (Tuple<string, IDistribution> distribution in distributions)
-            {
-                WriteDistribution(distribution.Item2, distribution.Item1, writer);
-            }
-
-            writer.WriteEndElement();
-        }
-
         /// <summary>
         /// Writes a piping configuration to an XML file.
         /// </summary>
@@ -105,6 +82,62 @@ namespace Ringtoets.Common.IO.Writers
             }
         }
 
+        /// <summary>
+        /// Writes a single <paramref name="calculation"/> in XML format to file.
+        /// </summary>
+        /// <param name="calculation">The calculation to write.</param>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is closed.</exception>
+        protected abstract void WriteCalculation(T calculation, XmlWriter writer);
+
+        /// <summary>
+        /// Writes the <paramref name="distributions"/> in XML format to file.
+        /// </summary>
+        /// <param name="distributions">The distributions, as tuples of name and distribution, to write.</param>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="distributions"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is closed.</exception>
+        protected static void WriteDistributions(IEnumerable<Tuple<string, IDistribution>> distributions, XmlWriter writer)
+        {
+            if (distributions == null)
+            {
+                throw new ArgumentNullException(nameof(distributions));
+            }
+
+            Tuple<string, IDistribution>[] disributionArray = distributions.ToArray();
+
+            if (disributionArray.Any())
+            {
+                writer.WriteStartElement(ConfigurationSchemaIdentifiers.StochastsElement);
+
+                foreach (Tuple<string, IDistribution> distribution in disributionArray)
+                {
+                    WriteDistribution(distribution.Item2, distribution.Item1, writer);
+                }
+
+                writer.WriteEndElement();
+            }
+        }
+
+        /// <summary>
+        /// Writes the properties of the <paramref name="breakWater"/> in XML format to file.
+        /// </summary>
+        /// <param name="breakWater">The break water to write.</param>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is closed.</exception>
+        protected static void WriteBreakWaterProperties(BreakWater breakWater, XmlWriter writer)
+        {
+            if (breakWater != null)
+            {
+                writer.WriteElementString(
+                    ConfigurationSchemaIdentifiers.BreakWaterType,
+                    BreakWaterTypeAsXmlString(breakWater.Type));
+                writer.WriteElementString(
+                    ConfigurationSchemaIdentifiers.BreakWaterHeight,
+                    XmlConvert.ToString(breakWater.Height));
+            }
+        }
+
         private void WriteConfiguration(CalculationGroup calculationGroup, XmlWriter writer)
         {
             foreach (ICalculationBase child in calculationGroup.Children)
@@ -120,6 +153,21 @@ namespace Ringtoets.Common.IO.Writers
                 {
                     WriteCalculation(calculation, writer);
                 }
+            }
+        }
+
+        private static string BreakWaterTypeAsXmlString(BreakWaterType type)
+        {
+            switch (type)
+            {
+                case BreakWaterType.Caisson:
+                    return ConfigurationSchemaIdentifiers.BreakWaterCaisson;
+                case BreakWaterType.Dam:
+                    return ConfigurationSchemaIdentifiers.BreakWaterDam;
+                case BreakWaterType.Wall:
+                    return ConfigurationSchemaIdentifiers.BreakWaterWall;
+                default:
+                    throw new InvalidEnumArgumentException(nameof(type), (int) type, typeof(BreakWaterType));
             }
         }
 

@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <map naam="Testmap">
+    <berekening naam="Berekening 1">
+      <hrlocatie>Locatie1</hrlocatie>
+      <dijkprofiel>dijkProfiel</dijkprofiel>
+      <orientatie>67.1</orientatie>
+      <golfreductie>
+        <damgebruiken>true</damgebruiken>
+        <damtype>caisson</damtype>
+        <damhoogte>1.23</damhoogte>
+        <voorlandgebruiken>true</voorlandgebruiken>
+      </golfreductie>
+      <stochasten>
+        <stochast naam="overslagdebiet">
+          <verwachtingswaarde>0.1</verwachtingswaarde>
+          <standaardafwijking>0.1</standaardafwijking>
+        </stochast>
+      </stochasten>
+    </berekening>
+    <map naam="Nested">
+      <berekening naam="Berekening 2">
+        <orientatie>NaN</orientatie>
+        <golfreductie>
+          <damgebruiken>false</damgebruiken>
+          <damtype>havendam</damtype>
+          <damhoogte>0</damhoogte>
+          <voorlandgebruiken>false</voorlandgebruiken>
+        </golfreductie>
+        <stochasten>
+          <stochast naam="overslagdebiet">
+            <verwachtingswaarde>0.004</verwachtingswaarde>
+            <standaardafwijking>0.0006</standaardafwijking>
+          </stochast>
+        </stochasten>
+      </berekening>
+    </map>
+  </map>
+</configuratie>
