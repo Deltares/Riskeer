@@ -50,10 +50,10 @@ namespace Ringtoets.Common.IO.Test.Readers
             TestDelegate call = () => new CombinedXmlSchemaDefinition(emptyMainSchemaDefinition, new Dictionary<string, string>
             {
                 {
-                    "NestedSchemaDefintion1.xsd", validNestedSchemaDefinition1
+                    "NestedSchemaDefinition1.xsd", validNestedSchemaDefinition1
                 },
                 {
-                    "NestedSchemaDefintion2.xsd", validNestedSchemaDefinition2
+                    "NestedSchemaDefinition2.xsd", validNestedSchemaDefinition2
                 }
             });
 
@@ -83,10 +83,10 @@ namespace Ringtoets.Common.IO.Test.Readers
             TestDelegate call = () => new CombinedXmlSchemaDefinition(validMainSchemaDefinition, new Dictionary<string, string>
             {
                 {
-                    "NestedSchemaDefintion1.xsd", validNestedSchemaDefinition1
+                    "NestedSchemaDefinition1.xsd", validNestedSchemaDefinition1
                 },
                 {
-                    "NestedSchemaDefintion2.xsd", emptyNestedSchemaDefinition
+                    "NestedSchemaDefinition2.xsd", emptyNestedSchemaDefinition
                 }
             });
 
@@ -113,10 +113,41 @@ namespace Ringtoets.Common.IO.Test.Readers
             TestDelegate call = () => new CombinedXmlSchemaDefinition(File.ReadAllText(xsdPath), new Dictionary<string, string>
             {
                 {
-                    "NestedSchemaDefintion1.xsd", validNestedSchemaDefinition1
+                    "NestedSchemaDefinition1.xsd", validNestedSchemaDefinition1
                 },
                 {
-                    "NestedSchemaDefintion2.xsd", validNestedSchemaDefinition2
+                    "NestedSchemaDefinition2.xsd", validNestedSchemaDefinition2
+                }
+            });
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(call);
+            Assert.AreEqual(expectedMessage, exception.Message);
+            Assert.IsInstanceOf(expectedInnerExceptionType, exception.InnerException);
+        }
+
+        [Test]
+        [TestCase("textContent.xsd",
+            "'mainSchemaDefinition' containing invalid schema definition: The 'genericElement' element is not declared.",
+            typeof(XmlSchemaException))]
+        [TestCase("invalidXsdContent.xsd",
+            "'mainSchemaDefinition' containing invalid schema definition: Cannot load the schema from the location 'NestedSchemaDefinition2.xsd' - The 'http://www.w3.org/2001/XMLSchema:redefine' element is not supported in this context.",
+            typeof(XmlSchemaException))]
+        public void Constructor_InvalidNestedSchemaDefinition_ThrowArgumentException(string invalidNestedSchemaDefinition,
+                                                                                     string expectedMessage,
+                                                                                     Type expectedInnerExceptionType)
+        {
+            // Setup
+            string xsdPath = Path.Combine(testDirectoryPath, invalidNestedSchemaDefinition);
+
+            // Call
+            TestDelegate call = () => new CombinedXmlSchemaDefinition(validMainSchemaDefinition, new Dictionary<string, string>
+            {
+                {
+                    "NestedSchemaDefinition1.xsd", validNestedSchemaDefinition1
+                },
+                {
+                    "NestedSchemaDefinition2.xsd", File.ReadAllText(xsdPath)
                 }
             });
 
