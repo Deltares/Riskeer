@@ -22,6 +22,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Xml;
+using System.Xml.Schema;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Readers;
@@ -40,10 +42,10 @@ namespace Ringtoets.Common.IO.Test.Readers
         [TestCase("")]
         [TestCase("      ")]
         [TestCase(null)]
-        public void Constructor_InvalidMainSchemaDefinition_ThrowArgumentException(string invalidMainSchemaString)
+        public void Constructor_EmptyMainSchemaDefinition_ThrowArgumentException(string emptyMainSchemaDefinition)
         {
             // Call
-            TestDelegate call = () => new CombinedXmlSchemaDefinition(invalidMainSchemaString, new Dictionary<string, string>());
+            TestDelegate call = () => new CombinedXmlSchemaDefinition(emptyMainSchemaDefinition, new Dictionary<string, string>());
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
@@ -65,13 +67,13 @@ namespace Ringtoets.Common.IO.Test.Readers
         [TestCase("")]
         [TestCase("      ")]
         [TestCase(null)]
-        public void Constructor_InvalidNestedSchemaDefinitions_ThrowArgumentException(string invalidNestedSchemaString)
+        public void Constructor_EmptyNestedSchemaDefinition_ThrowArgumentException(string emptyNestedSchemaDefinition)
         {
             // Call
             TestDelegate call = () => new CombinedXmlSchemaDefinition(validMainSchemaDefinition, new Dictionary<string, string>
             {
                 {
-                    "Test", invalidNestedSchemaString
+                    "Test", emptyNestedSchemaDefinition
                 }
             });
 
@@ -80,9 +82,32 @@ namespace Ringtoets.Common.IO.Test.Readers
             Assert.AreEqual("'nestedSchemaDefinitions' holds a nested schema definition value that equals null, is empty or only contains white spaces.", exception.Message);
         }
 
+        [Test]
+        [TestCase("textContent.xsd",
+            "'mainSchemaDefinition' containing invalid schema definition: Data at the root level is invalid. Line 1, position 1.",
+            typeof(XmlException))]
+        [TestCase("invalidXsdContent.xsd",
+            "'mainSchemaDefinition' containing invalid schema definition: The 'http://www.w3.org/2001/XMLSchema:redefine' element is not supported in this context.",
+            typeof(XmlSchemaException))]
+        public void Constructor_InvalidMainSchemaDefinition_ThrowArgumentException(string invalidMainSchemaDefinition,
+                                                                                   string expectedMessage,
+                                                                                   Type expectedInnerExceptionType)
+        {
+            // Setup
+            string xsdPath = Path.Combine(testDirectoryPath, invalidMainSchemaDefinition);
+
+            // Call
+            TestDelegate call = () => new CombinedXmlSchemaDefinition(File.ReadAllText(xsdPath), new Dictionary<string, string>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(call);
+            Assert.AreEqual(expectedMessage, exception.Message);
+            Assert.IsInstanceOf(expectedInnerExceptionType, exception.InnerException);
+        }
+
         public CombinedXmlSchemaDefinitionTest()
         {
-            validMainSchemaDefinition = File.ReadAllText(Path.Combine(testDirectoryPath, "validConfigurationSchema.xsd"));
+            validMainSchemaDefinition = File.ReadAllText(Path.Combine(testDirectoryPath, "validMainSchemaDefinition.xsd"));
         }
     }
 }

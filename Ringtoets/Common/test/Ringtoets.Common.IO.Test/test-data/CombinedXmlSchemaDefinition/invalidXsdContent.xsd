@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:redefine schemaLocation="ConfiguratieSchema.xsd">
+    <xs:complexType name="berekeningType">
+      <xs:complexContent>
+        <xs:extension base="berekeningType">
+          <xs:sequence>
+            <xs:element ref="test" minOccurs="0"/>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  <xs:redefine>
+  <xs:element name="test">
+    <xs:simpleType>
+      <xs:restriction base="xs:double"/>
+    </xs:simpleType>
+  </xs:element>
+</xs:schema>
