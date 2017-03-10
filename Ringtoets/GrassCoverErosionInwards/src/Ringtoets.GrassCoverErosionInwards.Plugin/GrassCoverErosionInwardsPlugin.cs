@@ -25,6 +25,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
@@ -44,6 +45,7 @@ using Ringtoets.GrassCoverErosionInwards.Forms;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
+using Ringtoets.GrassCoverErosionInwards.IO;
 using Ringtoets.GrassCoverErosionInwards.Service;
 using Ringtoets.GrassCoverErosionInwards.Utils;
 using GrassCoverErosionInwardsPluginResources = Ringtoets.GrassCoverErosionInwards.Plugin.Properties.Resources;
@@ -62,7 +64,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             yield return new PropertyInfo<GrassCoverErosionInwardsFailureMechanismContext, GrassCoverErosionInwardsFailureMechanismContextProperties>
             {
                 CreateInstance = context => new GrassCoverErosionInwardsFailureMechanismContextProperties(
-                    context, 
+                    context,
                     new FailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism>())
             };
             yield return new PropertyInfo<DikeProfile, DikeProfileProperties>();
@@ -73,6 +75,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                     new ObservablePropertyChangeHandler(context.Calculation, context.WrappedData))
             };
             yield return new PropertyInfo<GrassCoverErosionInwardsOutput, GrassCoverErosionInwardsOutputProperties>();
+        }
+
+        public override IEnumerable<ExportInfo> GetExportInfos()
+        {
+            yield return new ExportInfo<GrassCoverErosionInwardsCalculationGroupContext>
+            {
+                FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Extension,
+                                                              RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Description),
+                CreateFileExporter = (context, filePath) => new GrassCoverErosionInwardsConfigurationExporter(context.WrappedData, filePath),
+                IsEnabled = context => context.WrappedData.Children.Any()
+            };
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()
@@ -200,11 +213,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,
                 calculations.Select(calc =>
-                                    new GrassCoverErosionInwardsCalculationActivity(
-                                        calc,
-                                        assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                        failureMechanism,
-                                        assessmentSection)).ToArray());
+                                        new GrassCoverErosionInwardsCalculationActivity(
+                                            calc,
+                                            assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                            failureMechanism,
+                                            assessmentSection)).ToArray());
         }
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection, IFailureMechanism failureMechanism)
@@ -487,6 +500,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             var isNestedGroup = parentData is GrassCoverErosionInwardsCalculationGroupContext;
 
             StrictContextMenuItem generateCalculationsItem = CreateGenerateCalculationsItem(context);
+
+            builder.AddExportItem()
+                   .AddSeparator();
 
             if (!isNestedGroup)
             {

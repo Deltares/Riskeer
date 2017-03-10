@@ -121,5 +121,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                 Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(GrassCoverErosionInwardsScenariosView)));
             }
         }
+
+        [Test]
+        public void GetExportInfos_ReturnsSupportedExportInfos()
+        {
+            // Setup
+            using (var plugin = new GrassCoverErosionInwardsPlugin())
+            {
+                // Call
+                ExportInfo[] exportInfos = plugin.GetExportInfos().ToArray();
+
+                // Assert
+                Assert.AreEqual(1, exportInfos.Length);
+                Assert.IsTrue(exportInfos.Any(tni => tni.DataType == typeof(GrassCoverErosionInwardsCalculationGroupContext)));
+            }
+        }
     }
 }

@@ -63,6 +63,7 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="ExportInfos\GrassCoverErosionInwardsCalculationGroupContextExportInfoTest.cs" />
     <Compile Include="GrassCoverErosionInwardsPluginTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyInfos\GrassCoverErosionInwardsInputContextPropertyInfoTest.cs" />
@@ -148,6 +149,10 @@
     <ProjectReference Include="..\..\src\Ringtoets.GrassCoverErosionInwards.Forms\Ringtoets.GrassCoverErosionInwards.Forms.csproj">
       <Project>{C540E627-B95B-4CC0-A1B6-A0BDF74936C7}</Project>
       <Name>Ringtoets.GrassCoverErosionInwards.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.GrassCoverErosionInwards.IO\Ringtoets.GrassCoverErosionInwards.IO.csproj">
+      <Project>{AA3AB46F-1664-40C4-A620-A12513184BD4}</Project>
+      <Name>Ringtoets.GrassCoverErosionInwards.IO</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.GrassCoverErosionInwards.Plugin\Ringtoets.GrassCoverErosionInwards.Plugin.csproj">
       <Project>{20955E2A-8CEB-46B0-ADC4-A97D4C6BBDF5}</Project>
