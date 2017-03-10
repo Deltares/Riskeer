@@ -24,6 +24,7 @@ using System.IO;
 using System.Threading;
 using Application.Ringtoets.Migration;
 using Application.Ringtoets.Migration.Core;
+using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Storage;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
@@ -40,13 +41,13 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
     public class StorageMigrationIntegrationTest
     {
         [Test]
+        [TestCaseSource(typeof(RingtoetsProjectMigrationTestHelper), nameof(RingtoetsProjectMigrationTestHelper.GetAllOutdatedSupportedProjectFilePaths))]
         [Apartment(ApartmentState.STA)]
-        public void GivenRingtoetsGuiWithStorageSql_WhenRunWithMigratedFile_MigratedProjectSet()
+        public void GivenRingtoetsGuiWithStorageSql_WhenRunWithMigratedFile_MigratedProjectSet(string sourceFilePath)
         {
             string targetFilePath = TestHelper.GetScratchPadPath(nameof(GivenRingtoetsGuiWithStorageSql_WhenRunWithMigratedFile_MigratedProjectSet));
             using (new FileDisposeHelper(targetFilePath))
             {
-                string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "FullTestProject164.rtd");
                 MigrateFile(sourceFilePath, targetFilePath);
 
                 // Given
@@ -77,11 +78,11 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         }
 
         [Test]
+        [TestCaseSource(typeof(RingtoetsProjectMigrationTestHelper), nameof(RingtoetsProjectMigrationTestHelper.GetAllOutdatedSupportedProjectFilePaths))]
         [Apartment(ApartmentState.STA)]
-        public void GivenRingtoetsGui_WhenRunWithUnmigratedFileAndInquireContinuation_MigratedProjectSet()
+        public void GivenRingtoetsGui_WhenRunWithUnmigratedFileAndInquireContinuation_MigratedProjectSet(string sourceFilePath)
         {
             // Given
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "FullTestProject164.rtd");
             string targetFilePath = TestHelper.GetScratchPadPath(nameof(GivenRingtoetsGui_WhenRunWithUnmigratedFileAndInquireContinuation_MigratedProjectSet));
             using (new FileDisposeHelper(targetFilePath))
             {
@@ -118,11 +119,11 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         }
 
         [Test]
+        [TestCaseSource(typeof(RingtoetsProjectMigrationTestHelper), nameof(RingtoetsProjectMigrationTestHelper.GetAllOutdatedSupportedProjectFilePaths))]
         [Apartment(ApartmentState.STA)]
-        public void GivenRingtoetsGui_WhenRunWithUnmigratedFileAndNoInquireContinuation_MigratedProjectSet()
+        public void GivenRingtoetsGui_WhenRunWithUnmigratedFileAndNoInquireContinuation_MigratedProjectSet(string sourceFilePath)
         {
             // Given
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "FullTestProject164.rtd");
             var projectStore = new StorageSqLite();
 
             var mocks = new MockRepository();

@@ -75,6 +75,10 @@
       <Project>{679D3CE6-0820-49CF-9D56-D1CF7F1B853A}</Project>
       <Name>Migration.Console.TestUtil</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Migration\Scripts\src\Migration.Scripts.Data\Migration.Scripts.Data.csproj">
+      <Project>{d08db9e2-6861-44c8-a725-71a70274cc77}</Project>
+      <Name>Migration.Scripts.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Ringtoets\Common\src\Ringtoets.Common.Utils\Ringtoets.Common.Utils.csproj">
       <Project>{6A074D65-A81C-4C1C-8E24-F36C916E4ED7}</Project>
       <Name>Ringtoets.Common.Utils</Name>
@@ -86,6 +90,10 @@
     <ProjectReference Include="..\..\src\Application.Ringtoets.Migration.Core\Application.Ringtoets.Migration.Core.csproj">
       <Project>{FAC55B92-E259-43D6-B9A1-5BDA6C834359}</Project>
       <Name>Application.Ringtoets.Migration.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application.Ringtoets.Storage.TestUtil\Application.Ringtoets.Storage.TestUtil.csproj">
+      <Project>{03DBE353-99F7-47D6-B826-60D694FFB9AC}</Project>
+      <Name>Application.Ringtoets.Storage.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

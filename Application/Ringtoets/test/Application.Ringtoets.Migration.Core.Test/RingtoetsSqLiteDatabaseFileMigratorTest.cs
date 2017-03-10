@@ -21,6 +21,7 @@
 
 using System;
 using System.IO;
+using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.TestUtil;
 using Migration.Core.Storage;
 using Migration.Scripts.Data.Exceptions;
@@ -73,7 +74,7 @@ namespace Application.Ringtoets.Migration.Core.Test
         public void NeedsMigrate_NeedsMigrate_ReturnsTrue()
         {
             // Setup
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "FullTestProject164.rtd");
+            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
             var versionedFile = new RingtoetsVersionedFile(sourceFilePath);
             var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
 
@@ -88,7 +89,7 @@ namespace Application.Ringtoets.Migration.Core.Test
         public void NeedsMigrate_DoesNotNeedMigration_ReturnsFalse()
         {
             // Setup
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "FullTestProject164.rtd");
+            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
             var versionedFile = new RingtoetsVersionedFile(sourceFilePath);
             var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
 
@@ -104,7 +105,7 @@ namespace Application.Ringtoets.Migration.Core.Test
         {
             // Setup
             const string newVersion = "17.1";
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "FullTestProject164.rtd");
+            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
             var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
 
             string targetFilePath = TestHelper.GetScratchPadPath(nameof(Migrate_ValidFiles_SavesFileAtNewLocation));
@@ -126,7 +127,7 @@ namespace Application.Ringtoets.Migration.Core.Test
         {
             // Setup
             const string newVersion = "17.1";
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "FullTestProject164.rtd");
+            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
             var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
 
             string targetFilePath = TestHelper.GetScratchPadPath(nameof(Migrate_TargetFileInUse_ThrowsCriticalDatabaseMigrationException));
@@ -153,7 +154,7 @@ namespace Application.Ringtoets.Migration.Core.Test
         {
             // Setup
             const string newVersion = "17.1";
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "FullTestProject164.rtd");
+            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
             var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
             var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
 
@@ -171,7 +172,7 @@ namespace Application.Ringtoets.Migration.Core.Test
         {
             // Setup
             const string newVersion = "17.1";
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "FullTestProject164.rtd");
+            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
             var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
 
             string targetFilePath = TestHelper.GetScratchPadPath(nameof(Migrate_TargetFileNotWritable_ThrowsCriticalDatabaseMigrationException));
@@ -207,7 +208,7 @@ namespace Application.Ringtoets.Migration.Core.Test
         {
             // Setup
             const string newVersion = "6";
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "FullTestProject164.rtd");
+            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
             var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
 
             string targetFilePath = TestHelper.GetScratchPadPath(nameof(Migrate_InvalidToVersion_ThrowsCriticalDatabaseMigrationException));
@@ -225,7 +226,7 @@ namespace Application.Ringtoets.Migration.Core.Test
         public void Migrate_UnsupportedVersion_ThrowsCriticalDatabaseMigrationException()
         {
             // Setup
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "UnsupportedVersion8.rtd");
+            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedUnSupportedProjectFilePath();
             var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
 
             string targetFilePath = TestHelper.GetScratchPadPath(nameof(Migrate_UnsupportedVersion_ThrowsCriticalDatabaseMigrationException));

@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Application.Ringtoets.Migration.Core;
+using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Storage;
 using Core.Common.Gui;
 using Core.Common.TestUtil;
@@ -130,9 +131,9 @@ namespace Application.Ringtoets.Migration.Test
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
-            const string file = "UnsupportedVersion8.rtd";
-            const string fileVersion = "8";
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, file);
+            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedUnSupportedProjectFilePath();
+            var versionedFile = new RingtoetsVersionedFile(sourceFilePath);
+            string fileVersion = versionedFile.GetVersion();
 
             var migrator = new RingtoetsProjectMigrator(inquiryHelper);
             var shouldMigrate = MigrationNeeded.Yes;
@@ -161,8 +162,7 @@ namespace Application.Ringtoets.Migration.Test
             inquiryHelper.Expect(h => h.InquireContinuation(question)).Return(confirmContinuation);
             mocks.ReplayAll();
 
-            const string file = "FullTestProject164.rtd";
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, file);
+            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
 
             var migrator = new RingtoetsProjectMigrator(inquiryHelper);
 
@@ -194,17 +194,9 @@ namespace Application.Ringtoets.Migration.Test
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
-            const string currentProjectVersionFile = "FullTestProject171.rtd";
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, currentProjectVersionFile);
-
-            var versionedFile = new RingtoetsVersionedFile(sourceFilePath);
-            string testProjectVersion = versionedFile.GetVersion();
+            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetLatestProjectFilePath();
 
             var migrator = new RingtoetsProjectMigrator(inquiryHelper);
-
-            // Pre-condition
-            string assertionMessage = $"Database version {testProjectVersion} of the testproject must match with the current database version {currentDatabaseVersion}.";
-            Assert.AreEqual(currentDatabaseVersion, testProjectVersion, assertionMessage);
 
             // Call
             MigrationNeeded shouldMigrate = migrator.ShouldMigrate(sourceFilePath);
@@ -319,7 +311,7 @@ namespace Application.Ringtoets.Migration.Test
 
             var migrator = new RingtoetsProjectMigrator(inquiryHelper);
 
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "FullTestProject164.rtd");
+            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
 
             // Call
             TestDelegate call = () => migrator.Migrate(sourceFilePath, null);
@@ -366,8 +358,7 @@ namespace Application.Ringtoets.Migration.Test
 
             var migrator = new RingtoetsProjectMigrator(inquiryHelper);
 
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration,
-                                                               "FullTestProject164.rtd");
+            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
 
             // Call
             TestDelegate call = () => migrator.Migrate(sourceFilePath, invalidFilePath);
@@ -384,7 +375,7 @@ namespace Application.Ringtoets.Migration.Test
         public void GivenMigratorAndSupportedFile_WhenValidTargetLocationGiven_ThenFileSuccessFullyMigrates()
         {
             // Given
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "FullTestProject164.rtd");
+            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
 
             string targetFile = $"{nameof(RingtoetsProjectMigratorTest)}." +
                                 $"{nameof(GivenMigratorAndSupportedFile_WhenValidTargetLocationGiven_ThenFileSuccessFullyMigrates)}.rtd";
@@ -421,9 +412,9 @@ namespace Application.Ringtoets.Migration.Test
         public void Migrate_UnableToSaveAtTargetFilePath_MigrationFailsAndLogsError()
         {
             // Setup
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "FullTestProject164.rtd");
+            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
             string targetFile = $"{nameof(RingtoetsProjectMigratorTest)}." +
-                                    $"{nameof(Migrate_UnableToSaveAtTargetFilePath_MigrationFailsAndLogsError)}.rtd";
+                                $"{nameof(Migrate_UnableToSaveAtTargetFilePath_MigrationFailsAndLogsError)}.rtd";
             string targetFilePath = Path.Combine(TestHelper.GetScratchPadPath(), testDirectory, targetFile);
 
             var mocks = new MockRepository();
@@ -459,7 +450,7 @@ namespace Application.Ringtoets.Migration.Test
         public void Migrate_UnsupportedSourceFileVersion_MigrationFailsAndLogsError()
         {
             // Setup
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "UnsupportedVersion8.rtd");
+            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedUnSupportedProjectFilePath();
             string targetFile = $"{nameof(RingtoetsProjectMigratorTest)}." +
                                 $"{nameof(Migrate_UnsupportedSourceFileVersion_MigrationFailsAndLogsError)}";
             string targetFilePath = Path.Combine(TestHelper.GetScratchPadPath(), testDirectory, targetFile);
@@ -494,7 +485,7 @@ namespace Application.Ringtoets.Migration.Test
         public void Migrate_TargetFileSameAsSourceFile_MigrationFailsAndLogsError()
         {
             // Setup
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, "FullTestProject164.rtd");
+            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
 
             var mocks = new MockRepository();
             var inquiryHelper = mocks.Stub<IInquiryHelper>();

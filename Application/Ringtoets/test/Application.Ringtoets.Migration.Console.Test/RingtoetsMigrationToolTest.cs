@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Application.Ringtoets.Migration.Core;
+using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.TestUtil;
 using Migration.Console;
 using Migration.Console.TestUtil;
@@ -89,8 +91,7 @@ namespace Application.Ringtoets.Migration.Console.Test
         }
 
         [Test]
-        [TestCase("FullTestProject164.rtd", "5", true)]
-        [TestCase("UnsupportedVersion8.rtd", "8", false)]
+        [TestCaseSource(nameof(RingtoetsFilesToMigrate))]
         public void GivenConsole_WhenVersionSupportedCall_ThenReturnedIfSupported(string file, string fileVersion, bool isSupported)
         {
             // Given
@@ -123,7 +124,7 @@ namespace Application.Ringtoets.Migration.Console.Test
         public void GivenConsole_WhenMigrateCalledWithArguments_MigratesToNewVersion()
         {
             // Given
-            string sourceFilePath = TestHelper.GetTestDataPath(testPath, "FullTestProject164.rtd");
+            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
             string targetFilePath = TestHelper.GetScratchPadPath($"{nameof(RingtoetsMigrationToolTest)}.{nameof(GivenConsole_WhenMigrateCalledWithArguments_MigratesToNewVersion)}");
             string expectedVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
@@ -156,7 +157,7 @@ namespace Application.Ringtoets.Migration.Console.Test
         public void GivenConsole_WhenMigrateCalledUnableToSaveTarget_ThenExitWithErrorCode()
         {
             // Given
-            string sourceFilePath = TestHelper.GetTestDataPath(testPath, "FullTestProject164.rtd");
+            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
             string targetFilePath = TestHelper.GetScratchPadPath($"{nameof(RingtoetsMigrationToolTest)}.{nameof(GivenConsole_WhenMigrateCalledUnableToSaveTarget_ThenExitWithErrorCode)}");
 
             using (var fileDisposeHelper = new FileDisposeHelper(targetFilePath))
@@ -208,5 +209,23 @@ namespace Application.Ringtoets.Migration.Console.Test
                    + "          lprojectpad."
                    + Environment.NewLine + Environment.NewLine;
         }
+
+        #region Test cases
+
+        private static IEnumerable<TestCaseData> RingtoetsFilesToMigrate()
+        {
+            string unsupportedProjectFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedUnSupportedProjectFilePath();
+            var unsupportedVersionedFile = new RingtoetsVersionedFile(unsupportedProjectFilePath);
+            string unsupportedVersion = unsupportedVersionedFile.GetVersion();
+
+            string supportedProjectFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
+            var supportedVersionedFile = new RingtoetsVersionedFile(supportedProjectFilePath);
+            string supportedVersion = supportedVersionedFile.GetVersion();
+
+            yield return new TestCaseData(unsupportedProjectFilePath, unsupportedVersion, false).SetName("UnsupportedRingtoetsVersion");
+            yield return new TestCaseData(supportedProjectFilePath, supportedVersion, true).SetName("SupportedRingtoetsVersion");
+        }
+
+        #endregion
     }
 }
