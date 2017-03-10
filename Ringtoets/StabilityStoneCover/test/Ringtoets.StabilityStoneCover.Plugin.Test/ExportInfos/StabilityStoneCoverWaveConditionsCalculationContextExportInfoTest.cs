@@ -30,33 +30,41 @@ using Ringtoets.Revetment.IO;
 using Ringtoets.Revetment.TestUtil;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
+using Ringtoets.StabilityStoneCover.IO;
 
 namespace Ringtoets.StabilityStoneCover.Plugin.Test.ExportInfos
 {
     [TestFixture]
     public class StabilityStoneCoverWaveConditionsCalculationContextExportInfoTest
     {
-        [Test]
-        public void Initialized_Always_ExpectedPropertiesSet()
+        private ExportInfo waveConditionsExportInfo;
+        private ExportInfo configurationExportInfo;
+
+        [SetUp]
+        public void Setup()
         {
-            // Setup
             using (var plugin = new StabilityStoneCoverPlugin())
             {
-                // Call
-                ExportInfo info = GetExportInfo(plugin);
-
-                // Assert
-                Assert.IsNotNull(info.CreateFileExporter);
-                Assert.IsNotNull(info.IsEnabled);
-                Assert.IsNull(info.Name);
-                Assert.IsNull(info.Category);
-                Assert.IsNull(info.Image);
-                Assert.IsNotNull(info.FileFilterGenerator);
+                ExportInfo[] exportInfos = plugin.GetExportInfos().Where(ei => ei.DataType == typeof(StabilityStoneCoverWaveConditionsCalculationContext)).ToArray();
+                waveConditionsExportInfo = exportInfos.Single(ei => ei.Name.Equals("Berekende belastingen bij verschillende waterstanden (*.csv)."));
+                configurationExportInfo = exportInfos.Single(ei => ei.Name.Equals("Ringtoets berekeningenconfiguratie (*.xml)"));
             }
         }
 
         [Test]
-        public void CreateFileExporter_Always_ReturnFileExporter()
+        public void WaveConditionsExportInfo_Initialized_ExpectedPropertiesSet()
+        {
+            // Assert
+            Assert.IsNotNull(waveConditionsExportInfo.CreateFileExporter);
+            Assert.IsNotNull(waveConditionsExportInfo.IsEnabled);
+            Assert.AreEqual("Berekende belastingen bij verschillende waterstanden (*.csv).", waveConditionsExportInfo.Name);
+            Assert.IsNull(waveConditionsExportInfo.Category);
+            Assert.IsNull(waveConditionsExportInfo.Image);
+            Assert.IsNotNull(waveConditionsExportInfo.FileFilterGenerator);
+        }
+
+        [Test]
+        public void WaveConditionsExportInfo_CreateFileExporter_ReturnFileExporter()
         {
             // Setup
             var mocks = new MockRepository();
@@ -66,39 +74,28 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ExportInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(new StabilityStoneCoverWaveConditionsCalculation(),
-                                                                                  failureMechanism, assessmentSection);
-            using (var plugin = new StabilityStoneCoverPlugin())
-            {
-                ExportInfo exportInfo = GetExportInfo(plugin);
+                                                                                        failureMechanism, assessmentSection);
 
-                // Call
-                IFileExporter fileExporter = exportInfo.CreateFileExporter(context, "test");
+            // Call
+            IFileExporter fileExporter = waveConditionsExportInfo.CreateFileExporter(context, "test");
 
-                // Assert
-                Assert.IsInstanceOf<WaveConditionsExporterBase>(fileExporter);
-            }
-
+            // Assert
+            Assert.IsInstanceOf<WaveConditionsExporterBase>(fileExporter);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void FileFilterGenerator_Always_ReturnsFileFilter()
+        public void WaveConditionsExportInfo_FileFilterGenerator_ReturnsFileFilter()
         {
-            // Setup
-            using (var plugin = new StabilityStoneCoverPlugin())
-            {
-                ExportInfo exportInfo = GetExportInfo(plugin);
+            // Call
+            FileFilterGenerator fileFilterGenerator = waveConditionsExportInfo.FileFilterGenerator;
 
-                // Call
-                FileFilterGenerator fileFilterGenerator = exportInfo.FileFilterGenerator;
-
-                // Assert
-                Assert.AreEqual("Kommagescheiden bestand (*.csv)|*.csv", fileFilterGenerator.Filter);
-            }
+            // Assert
+            Assert.AreEqual("Kommagescheiden bestand (*.csv)|*.csv", fileFilterGenerator.Filter);
         }
 
         [Test]
-        public void IsEnabled_StabilityStoneCoverWaveConditionsCalculationHasOutputFalse_ReturnsFalse()
+        public void WaveConditionsExportInfo_StabilityStoneCoverWaveConditionsCalculationHasOutputFalse_IsEnabledFalse()
         {
             // Setup
             var mocks = new MockRepository();
@@ -108,23 +105,18 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ExportInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(new StabilityStoneCoverWaveConditionsCalculation(),
-                                                                                  failureMechanism, assessmentSection);
-            using (var plugin = new StabilityStoneCoverPlugin())
-            {
-                ExportInfo exportInfo = GetExportInfo(plugin);
+                                                                                        failureMechanism, assessmentSection);
 
-                // Call
-                bool isEnabled = exportInfo.IsEnabled(context);
+            // Call
+            bool isEnabled = waveConditionsExportInfo.IsEnabled(context);
 
-                // Assert
-                Assert.IsFalse(isEnabled);
-            }
-
+            // Assert
+            Assert.IsFalse(isEnabled);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void IsEnabled_StabilityStoneCoverWaveConditionsCalculationHasOutputTrue_ReturnsTrue()
+        public void WaveConditionsExportInfo_StabilityStoneCoverWaveConditionsCalculationHasOutputTrue_IsEnabledTrue()
         {
             // Setup
             var mocks = new MockRepository();
@@ -132,12 +124,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ExportInfos
             mocks.ReplayAll();
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var columnsOutput = new[]
-            {
-                new TestWaveConditionsOutput()
-            };
-
-            var blocksOutput = new[]
+            var output = new[]
             {
                 new TestWaveConditionsOutput()
             };
@@ -145,27 +132,82 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ExportInfos
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(
                 new StabilityStoneCoverWaveConditionsCalculation
                 {
-                    Output = new StabilityStoneCoverWaveConditionsOutput(columnsOutput, blocksOutput)
+                    Output = new StabilityStoneCoverWaveConditionsOutput(output, output)
                 },
                 failureMechanism, assessmentSection);
 
-            using (var plugin = new StabilityStoneCoverPlugin())
-            {
-                ExportInfo exportInfo = GetExportInfo(plugin);
+            // Call
+            bool isEnabled = waveConditionsExportInfo.IsEnabled(context);
 
-                // Call
-                bool isEnabled = exportInfo.IsEnabled(context);
-
-                // Assert
-                Assert.IsTrue(isEnabled);
-            }
-
+            // Assert
+            Assert.IsTrue(isEnabled);
             mocks.VerifyAll();
         }
 
-        private static ExportInfo GetExportInfo(StabilityStoneCoverPlugin plugin)
+        [Test]
+        public void ConfigurationExportInfo_Initialized_ExpectedPropertiesSet()
         {
-            return plugin.GetExportInfos().First(ei => ei.DataType == typeof(StabilityStoneCoverWaveConditionsCalculationContext));
+            // Assert
+            Assert.IsNotNull(configurationExportInfo.CreateFileExporter);
+            Assert.IsNotNull(configurationExportInfo.IsEnabled);
+            Assert.AreEqual("Ringtoets berekeningenconfiguratie (*.xml)", configurationExportInfo.Name);
+            Assert.IsNull(configurationExportInfo.Category);
+            Assert.IsNull(configurationExportInfo.Image);
+            Assert.IsNotNull(configurationExportInfo.FileFilterGenerator);
+        }
+
+        [Test]
+        public void ConfigurationExportInfo_CreateFileExporter_ReturnFileExporter()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+
+            var context = new StabilityStoneCoverWaveConditionsCalculationContext(new StabilityStoneCoverWaveConditionsCalculation(),
+                                                                                        failureMechanism, assessmentSection);
+
+            // Call
+            IFileExporter fileExporter = configurationExportInfo.CreateFileExporter(context, "test");
+
+            // Assert
+            Assert.IsInstanceOf<StabilityStoneCoverConfigurationExporter>(fileExporter);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ConfigurationExportInfo_FileFilterGenerator_ReturnsFileFilter()
+        {
+            // Call
+            FileFilterGenerator fileFilterGenerator = configurationExportInfo.FileFilterGenerator;
+
+            // Assert
+            Assert.AreEqual("Ringtoets berekeningenconfiguratie (*.xml)|*.xml", fileFilterGenerator.Filter);
+        }
+
+        [Test]
+        public void ConfigurationExportInfo_IsEnabled_True()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+
+            var context = new StabilityStoneCoverWaveConditionsCalculationContext(
+                new StabilityStoneCoverWaveConditionsCalculation(),
+                failureMechanism,
+                assessmentSection);
+
+            // Call
+            bool isEnabled = configurationExportInfo.IsEnabled(context);
+
+            // Assert
+            Assert.IsTrue(isEnabled);
+            mocks.VerifyAll();
         }
     }
 }

@@ -33,11 +33,10 @@ using Ringtoets.Common.IO.Hydraulics;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.IO;
-using Ringtoets.GrassCoverErosionOutwards.Plugin;
 using Ringtoets.Revetment.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
+namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
 {
     [TestFixture]
     public class HydraulicBoundariesGroupContextExportInfoTest

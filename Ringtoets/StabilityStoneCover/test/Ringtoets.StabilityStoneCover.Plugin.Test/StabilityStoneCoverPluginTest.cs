@@ -119,9 +119,9 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test
                 ExportInfo[] exportInfos = plugin.GetExportInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(3, exportInfos.Length);
+                Assert.AreEqual(4, exportInfos.Length);
                 Assert.AreEqual(2, exportInfos.Count(ei => ei.DataType == typeof(StabilityStoneCoverWaveConditionsCalculationGroupContext)));
-                Assert.IsTrue(exportInfos.Any(ei => ei.DataType == typeof(StabilityStoneCoverWaveConditionsCalculationContext)));
+                Assert.AreEqual(2, exportInfos.Count(ei => ei.DataType == typeof(StabilityStoneCoverWaveConditionsCalculationContext)));
             }
         }
     }

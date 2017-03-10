@@ -30,11 +30,10 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.IO;
-using Ringtoets.GrassCoverErosionOutwards.Plugin;
 using Ringtoets.Revetment.IO;
 using Ringtoets.Revetment.TestUtil;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
+namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsWaveConditionsCalculationGroupContextExportInfoTest

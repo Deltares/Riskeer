@@ -169,10 +169,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
                 ExportInfo[] exportInfos = plugin.GetExportInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(5, exportInfos.Length);
+                Assert.AreEqual(6, exportInfos.Length);
                 Assert.AreEqual(2, exportInfos.Count(ei => ei.DataType == typeof(HydraulicBoundariesGroupContext)));
                 Assert.AreEqual(2, exportInfos.Count(ei => ei.DataType == typeof(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext)));
-                Assert.IsTrue(exportInfos.Any(ei => ei.DataType == typeof(GrassCoverErosionOutwardsWaveConditionsCalculationContext)));
+                Assert.AreEqual(2, exportInfos.Count(ei => ei.DataType == typeof(GrassCoverErosionOutwardsWaveConditionsCalculationContext)));
             }
         }
 
