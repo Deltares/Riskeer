@@ -26,6 +26,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Xml;
+using System.Xml.Linq;
 using System.Xml.Schema;
 
 namespace Ringtoets.Common.IO.Readers
@@ -74,6 +75,16 @@ namespace Ringtoets.Common.IO.Readers
             {
                 throw new ArgumentException($"'{nameof(nestedSchemaDefinitions)}' contains one or more schema definitions that are not referenced.");
             }
+        }
+
+        /// <summary>
+        /// Validates the provided XML document based on the combined schema definition.
+        /// </summary>
+        /// <param name="document">The XML document to validate.</param>
+        /// <exception cref="XmlSchemaValidationException">Thrown when the provided XML document does not match the combined schema definition.</exception>
+        public void Validate(XDocument document)
+        {
+            document.Validate(xmlSchemaSet, null);
         }
 
         /// <summary>

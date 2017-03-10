@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
+using System.Xml.Linq;
 using System.Xml.Schema;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -198,6 +199,54 @@ namespace Ringtoets.Common.IO.Test.Readers
 
             // Assert
             Assert.DoesNotThrow(call);
+        }
+
+        [Test]
+        public void Validate_ValidXmlDocument_DoesNotThrowException()
+        {
+            // Setup
+            string xmlFilePath = Path.Combine(testDirectoryPath, "validXmlDocument.xml");
+            XDocument validXmlDocument = XDocument.Load(xmlFilePath, LoadOptions.PreserveWhitespace | LoadOptions.SetLineInfo | LoadOptions.SetBaseUri);
+
+            var combinedXmlSchemaDefinition = new CombinedXmlSchemaDefinition(validMainSchemaDefinition, new Dictionary<string, string>
+            {
+                {
+                    "NestedSchemaDefinition1.xsd", validNestedSchemaDefinition1
+                },
+                {
+                    "NestedSchemaDefinition2.xsd", validNestedSchemaDefinition2
+                }
+            });
+
+            // Call
+            TestDelegate call = () => combinedXmlSchemaDefinition.Validate(validXmlDocument);
+
+            // Assert
+            Assert.DoesNotThrow(call);
+        }
+
+        [Test]
+        public void Validate_InvalidXmlDocument_ThrowXmlSchemaValidationException()
+        {
+            // Setup
+            string xmlFilePath = Path.Combine(testDirectoryPath, "invalidXmlDocument.xml");
+            XDocument validXmlDocument = XDocument.Load(xmlFilePath, LoadOptions.PreserveWhitespace | LoadOptions.SetLineInfo | LoadOptions.SetBaseUri);
+
+            var combinedXmlSchemaDefinition = new CombinedXmlSchemaDefinition(validMainSchemaDefinition, new Dictionary<string, string>
+            {
+                {
+                    "NestedSchemaDefinition1.xsd", validNestedSchemaDefinition1
+                },
+                {
+                    "NestedSchemaDefinition2.xsd", validNestedSchemaDefinition2
+                }
+            });
+
+            // Call
+            TestDelegate call = () => combinedXmlSchemaDefinition.Validate(validXmlDocument);
+
+            // Assert
+            Assert.Throws<XmlSchemaValidationException>(call);
         }
 
         public CombinedXmlSchemaDefinitionTest()
