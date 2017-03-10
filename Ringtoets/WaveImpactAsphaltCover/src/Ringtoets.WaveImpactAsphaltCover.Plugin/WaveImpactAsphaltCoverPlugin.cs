@@ -171,7 +171,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                 Name = RingtoetsCommonFormsResources.ConfigurationExporter_DisplayName,
                 CreateFileExporter = (context, filePath) =>
                 {
-                    return new WaveImpactAsphaltCoverConfigurationExporter(context.WrappedData, filePath);
+                    return new WaveImpactAsphaltCoverConfigurationExporter(context.WrappedData.Children, filePath);
                 },
                 IsEnabled = context => context.WrappedData.Children.Any(),
                 FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Extension,

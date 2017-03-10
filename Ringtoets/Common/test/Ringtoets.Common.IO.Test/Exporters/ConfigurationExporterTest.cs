@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Security.AccessControl;
 using System.Xml;
 using Core.Common.Base.IO;
@@ -40,21 +42,21 @@ namespace Ringtoets.Common.IO.Test.Exporters
         public void Constructor_ExpectedValues()
         {
             // Call
-            var exporter = new SimpleConfigurationExporter(new CalculationGroup(), "test.xml");
+            var exporter = new SimpleConfigurationExporter(Enumerable.Empty<ICalculationBase>(), "test.xml");
 
             // Assert
             Assert.IsInstanceOf<IFileExporter>(exporter);
         }
 
         [Test]
-        public void Constructor_CalculationGroupNull_ThrowArgumentNullException()
+        public void Constructor_ConfigurationNull_ThrowArgumentNullException()
         {
             // Call
             TestDelegate test = () => new SimpleConfigurationExporter(null, "test.xml");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("calculationGroup", exception.ParamName);
+            Assert.AreEqual("configuration", exception.ParamName);
         }
 
         [Test]
@@ -64,7 +66,7 @@ namespace Ringtoets.Common.IO.Test.Exporters
         public void Constructor_FilePathInvalid_ThrowArgumentException(string filePath)
         {
             // Call
-            TestDelegate test = () => new SimpleConfigurationExporter(new CalculationGroup(), filePath);
+            TestDelegate test = () => new SimpleConfigurationExporter(Enumerable.Empty<ICalculationBase>(), filePath);
 
             // Assert
             Assert.Throws<ArgumentException>(test);
@@ -103,15 +105,10 @@ namespace Ringtoets.Common.IO.Test.Exporters
                 }
             };
 
-            var rootGroup = new CalculationGroup("root", false)
+            var exporter = new SimpleConfigurationExporter(new[]
             {
-                Children =
-                {
-                    calculationGroup
-                }
-            };
-
-            var exporter = new SimpleConfigurationExporter(rootGroup, targetFilePath);
+                calculationGroup
+            }, targetFilePath);
 
             try
             {
@@ -137,20 +134,15 @@ namespace Ringtoets.Common.IO.Test.Exporters
         public void Export_InvalidDirectoryRights_LogErrorAndReturnFalse()
         {
             // Setup
-            var calculationGroup = new CalculationGroup
-            {
-                Children =
-                {
-                    new TestCalculation("Calculation A")
-                }
-            };
-
             string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_InvalidDirectoryRights_LogErrorAndReturnFalse));
             using (var disposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(Export_InvalidDirectoryRights_LogErrorAndReturnFalse)))
             {
                 string filePath = Path.Combine(directoryPath, "test.xml");
 
-                var exporter = new SimpleConfigurationExporter(calculationGroup, filePath);
+                var exporter = new SimpleConfigurationExporter(new[]
+                {
+                    new TestCalculation("Calculation A")
+                }, filePath);
 
                 disposeHelper.LockDirectory(FileSystemRights.Write);
 
@@ -169,7 +161,7 @@ namespace Ringtoets.Common.IO.Test.Exporters
 
     public class SimpleConfigurationExporter : ConfigurationExporter<SimpleCalculationConfigurationWriter, TestCalculation>
     {
-        public SimpleConfigurationExporter(CalculationGroup calculationGroup, string targetFilePath) : base(calculationGroup, targetFilePath) {}
+        public SimpleConfigurationExporter(IEnumerable<ICalculationBase> configuration, string targetFilePath) : base(configuration, targetFilePath) {}
     }
 
     public class SimpleCalculationConfigurationWriter : CalculationConfigurationWriter<TestCalculation>

@@ -21,11 +21,13 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Security.AccessControl;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.IO.Exporters;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Ringtoets.GrassCoverErosionInwards.IO.Test
@@ -37,34 +39,13 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
         public void Constructor_ExpectedValues()
         {
             // Call
-            var exporter = new GrassCoverErosionInwardsConfigurationExporter(new CalculationGroup(), "test.xml");
+            var exporter = new GrassCoverErosionInwardsConfigurationExporter(Enumerable.Empty<ICalculationBase>(), "test.xml");
 
             // Assert
-            Assert.IsInstanceOf<IFileExporter>(exporter);
-        }
-
-        [Test]
-        public void Constructor_CalculationGroupNull_ThrowArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new GrassCoverErosionInwardsConfigurationExporter(null, "test.xml");
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("calculationGroup", exception.ParamName);
-        }
-
-        [Test]
-        [TestCase("")]
-        [TestCase("   ")]
-        [TestCase("c:\\>")]
-        public void Constructor_FilePathInvalid_ThrowArgumentException(string filePath)
-        {
-            // Call
-            TestDelegate test = () => new GrassCoverErosionInwardsConfigurationExporter(new CalculationGroup(), filePath);
-
-            // Assert
-            Assert.Throws<ArgumentException>(test);
+            Assert.IsInstanceOf<
+                ConfigurationExporter<
+                    GrassCoverErosionInwardsConfigurationWriter,
+                    GrassCoverErosionInwardsCalculation>>(exporter);
         }
 
         [Test]
@@ -99,15 +80,10 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
                 }
             };
 
-            var rootGroup = new CalculationGroup("root", false)
+            var exporter = new GrassCoverErosionInwardsConfigurationExporter(new[]
             {
-                Children =
-                {
-                    calculationGroup
-                }
-            };
-
-            var exporter = new GrassCoverErosionInwardsConfigurationExporter(rootGroup, filePath);
+                calculationGroup
+            }, filePath);
 
             try
             {
@@ -137,20 +113,15 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
         public void Export_InvalidDirectoryRights_LogErrorAndReturnFalse()
         {
             // Setup
-            var calculationGroup = new CalculationGroup
-            {
-                Children =
-                {
-                    new GrassCoverErosionInwardsCalculation()
-                }
-            };
-
             string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_InvalidDirectoryRights_LogErrorAndReturnFalse));
             using (var disposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(Export_InvalidDirectoryRights_LogErrorAndReturnFalse)))
             {
                 string filePath = Path.Combine(directoryPath, "test.xml");
 
-                var exporter = new GrassCoverErosionInwardsConfigurationExporter(calculationGroup, filePath);
+                var exporter = new GrassCoverErosionInwardsConfigurationExporter(new[]
+                {
+                    new GrassCoverErosionInwardsCalculation()
+                }, filePath);
 
                 disposeHelper.LockDirectory(FileSystemRights.Write);
 

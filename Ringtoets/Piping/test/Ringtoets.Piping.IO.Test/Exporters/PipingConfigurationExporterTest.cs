@@ -21,6 +21,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Security.AccessControl;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;
@@ -28,6 +29,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.IO.Exporters;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Integration.TestUtils;
 using Ringtoets.Piping.IO.Exporters;
@@ -42,34 +44,10 @@ namespace Ringtoets.Piping.IO.Test.Exporters
         public void Constructor_ExpectedValues()
         {
             // Call
-            var exporter = new PipingConfigurationExporter(new CalculationGroup(), "test.xml");
+            var exporter = new PipingConfigurationExporter(Enumerable.Empty<ICalculationBase>(), "test.xml");
 
             // Assert
-            Assert.IsInstanceOf<IFileExporter>(exporter);
-        }
-
-        [Test]
-        public void Constructor_CalculationGroupNull_ThrowArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new PipingConfigurationExporter(null, "test.xml");
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("calculationGroup", exception.ParamName);
-        }
-
-        [Test]
-        [TestCase("")]
-        [TestCase("   ")]
-        [TestCase("c:\\>")]
-        public void Constructor_FilePathInvalid_ThrowArgumentException(string filePath)
-        {
-            // Call
-            TestDelegate test = () => new PipingConfigurationExporter(new CalculationGroup(), filePath);
-
-            // Assert
-            Assert.Throws<ArgumentException>(test);
+            Assert.IsInstanceOf<ConfigurationExporter<PipingConfigurationWriter, PipingCalculation>>(exporter);
         }
 
         [Test]
@@ -114,15 +92,10 @@ namespace Ringtoets.Piping.IO.Test.Exporters
                 }
             };
 
-            var rootGroup = new CalculationGroup("root", false)
+            var exporter = new PipingConfigurationExporter(new []
             {
-                Children =
-                {
-                    calculationGroup
-                }
-            };
-
-            var exporter = new PipingConfigurationExporter(rootGroup, filePath);
+                calculationGroup
+            }, filePath);
 
             try
             {
@@ -150,20 +123,15 @@ namespace Ringtoets.Piping.IO.Test.Exporters
         public void Export_InvalidDirectoryRights_LogErrorAndReturnFalse()
         {
             // Setup
-            var calculationGroup = new CalculationGroup
-            {
-                Children =
-                {
-                    PipingTestDataGenerator.GetPipingCalculation()
-                }
-            };
-
             string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_InvalidDirectoryRights_LogErrorAndReturnFalse));
             using (var disposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(Export_InvalidDirectoryRights_LogErrorAndReturnFalse)))
             {
                 string filePath = Path.Combine(directoryPath, "test.xml");
 
-                var exporter = new PipingConfigurationExporter(calculationGroup, filePath);
+                var exporter = new PipingConfigurationExporter(new []
+                {
+                    PipingTestDataGenerator.GetPipingCalculation()
+                }, filePath);
 
                 disposeHelper.LockDirectory(FileSystemRights.Write);
 

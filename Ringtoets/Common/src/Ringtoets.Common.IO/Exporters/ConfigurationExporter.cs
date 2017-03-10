@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
@@ -38,26 +39,26 @@ namespace Ringtoets.Common.IO.Exporters
         where TWriter : CalculationConfigurationWriter<TCalculation>, new()
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(ConfigurationExporter<TWriter, TCalculation>));
-        private readonly CalculationGroup calculationGroup;
+        private readonly IEnumerable<ICalculationBase> configuration;
         private readonly string filePath;
 
         /// <summary>
         /// Creates a new instance of <see cref="ConfigurationExporter{TWriter,TCalculation}"/>.
         /// </summary>
-        /// <param name="calculationGroup">The calculation group to export.</param>
+        /// <param name="configuration">The configuration to export.</param>
         /// <param name="filePath">The path of the XML file to export to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationGroup"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="configuration"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        protected ConfigurationExporter(CalculationGroup calculationGroup, string filePath)
+        protected ConfigurationExporter(IEnumerable<ICalculationBase> configuration, string filePath)
         {
-            if (calculationGroup == null)
+            if (configuration == null)
             {
-                throw new ArgumentNullException(nameof(calculationGroup));
+                throw new ArgumentNullException(nameof(configuration));
             }
 
             IOUtils.ValidateFilePath(filePath);
 
-            this.calculationGroup = calculationGroup;
+            this.configuration = configuration;
             this.filePath = filePath;
         }
 
@@ -65,7 +66,7 @@ namespace Ringtoets.Common.IO.Exporters
         {
             try
             {
-                new TWriter().Write(calculationGroup.Children, filePath);
+                new TWriter().Write(configuration, filePath);
             }
             catch (CriticalFileWriteException e)
             {

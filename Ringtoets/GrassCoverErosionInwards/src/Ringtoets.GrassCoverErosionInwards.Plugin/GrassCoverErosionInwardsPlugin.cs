@@ -83,7 +83,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             {
                 FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Extension,
                                                               RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Description),
-                CreateFileExporter = (context, filePath) => new GrassCoverErosionInwardsConfigurationExporter(context.WrappedData, filePath),
+                CreateFileExporter = (context, filePath) => new GrassCoverErosionInwardsConfigurationExporter(context.WrappedData.Children, filePath),
                 IsEnabled = context => context.WrappedData.Children.Any()
             };
         }

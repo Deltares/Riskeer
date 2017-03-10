@@ -166,7 +166,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             yield return new ExportInfo<StabilityStoneCoverWaveConditionsCalculationGroupContext>
             {
                 Name = RingtoetsCommonFormsResources.ConfigurationExporter_DisplayName,
-                CreateFileExporter = (context, filePath) => new StabilityStoneCoverConfigurationExporter(context.WrappedData, filePath),
+                CreateFileExporter = (context, filePath) => new StabilityStoneCoverConfigurationExporter(context.WrappedData.Children, filePath),
                 IsEnabled = context => context.WrappedData.Children.Any(),
                 FileFilterGenerator = new FileFilterGenerator(
                     RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Extension,

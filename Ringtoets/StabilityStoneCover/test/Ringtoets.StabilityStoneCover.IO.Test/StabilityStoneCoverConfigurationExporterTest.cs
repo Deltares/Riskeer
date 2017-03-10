@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.IO;
+using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
@@ -37,7 +38,7 @@ namespace Ringtoets.StabilityStoneCover.IO.Test
         public void Constructor_ExpectedValues()
         {
             // Call
-            var exporter = new StabilityStoneCoverConfigurationExporter(new CalculationGroup(), "test.xml");
+            var exporter = new StabilityStoneCoverConfigurationExporter(Enumerable.Empty<ICalculationBase>(), "test.xml");
 
             // Assert
             Assert.IsInstanceOf<
@@ -88,15 +89,10 @@ namespace Ringtoets.StabilityStoneCover.IO.Test
                 }
             };
 
-            var rootGroup = new CalculationGroup("root", false)
+            var exporter = new StabilityStoneCoverConfigurationExporter(new []
             {
-                Children =
-                {
-                    calculationGroup
-                }
-            };
-
-            var exporter = new StabilityStoneCoverConfigurationExporter(rootGroup, filePath);
+                calculationGroup
+            }, filePath);
 
             try
             {
