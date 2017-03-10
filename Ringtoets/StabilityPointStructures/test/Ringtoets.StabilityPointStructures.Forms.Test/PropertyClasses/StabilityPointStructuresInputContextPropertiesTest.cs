@@ -1152,7 +1152,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             PropertyDescriptor probabilityCollisionSecondaryStructure = dynamicProperties[probabilityCollisionSecondaryStructurePropertyIndex];
             Assert.IsTrue(probabilityCollisionSecondaryStructure.IsReadOnly);
 
-            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.DrainCoefficient, true, true);
             DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.LevelCrestStructure, true, true);
             DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ThresholdHeightOpenWeir, true, true);
             DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.AreaFlowApertures, true, true);

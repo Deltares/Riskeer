@@ -260,9 +260,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             get
             {
                 return new NormalDistributionProperties(
-                    HasStructure()
-                        ? DistributionPropertiesReadOnly.StandardDeviation
-                        : DistributionPropertiesReadOnly.All,
+                    DistributionPropertiesReadOnly.StandardDeviation,
                     data.WrappedData.DrainCoefficient,
                     PropertyChangeHandler);
             }
