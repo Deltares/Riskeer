@@ -57,8 +57,8 @@ namespace Core.Components.BruTile.Configurations
         {
             this.knownTileSource = knownTileSource;
 
-            HttpTileSource httpTileSource = KnownTileSources.Create(knownTileSource);
-            InitializeFromTileSource(httpTileSource);
+            ITileSource tileSource = TileSourceFactory.Instance.GetKnownTileSources(knownTileSource);
+            InitializeFromTileSource(tileSource);
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace Core.Components.BruTile.Configurations
         /// cache failed.</exception>
         public static WellKnownTileSourceLayerConfiguration CreateInitializedConfiguration(KnownTileSource knownTileSource)
         {
-            HttpTileSource tileSource = KnownTileSources.Create(knownTileSource);
+            ITileSource tileSource = TileSourceFactory.Instance.GetKnownTileSources(knownTileSource);
 
             return new WellKnownTileSourceLayerConfiguration(knownTileSource, tileSource);
         }

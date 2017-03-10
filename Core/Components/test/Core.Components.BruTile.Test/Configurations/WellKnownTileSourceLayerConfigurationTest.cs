@@ -22,8 +22,10 @@
 using System;
 using BruTile;
 using BruTile.Predefined;
+using Core.Common.Gui.TestUtil.Settings;
 using Core.Components.BruTile.Configurations;
 using Core.Components.BruTile.IO;
+using Core.Components.BruTile.TestUtil;
 using Core.Components.Gis.Data;
 using NUnit.Framework;
 
@@ -75,16 +77,20 @@ namespace Core.Components.BruTile.Test.Configurations
         public void GivenAllAvailableKnownTileSources_WhenCreatingInitializedConfiguration_ThenConfigurationHasExpectedValues()
         {
             // Given
-            foreach (KnownTileSource knownTileSource in Enum.GetValues(typeof(KnownTileSource)))
+            using (new UseCustomSettingsHelper(new TestSettingsHelper()))
+            using (new UseCustomTileSourceFactoryConfig(new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial)))
             {
-                // When
-                using (var configuration = WellKnownTileSourceLayerConfiguration.CreateInitializedConfiguration(knownTileSource))
+                foreach (KnownTileSource knownTileSource in Enum.GetValues(typeof(KnownTileSource)))
                 {
-                    // Then
-                    Assert.IsTrue(configuration.Initialized);
+                    // When
+                    using (WellKnownTileSourceLayerConfiguration configuration = WellKnownTileSourceLayerConfiguration.CreateInitializedConfiguration(knownTileSource))
+                    {
+                        // Then
+                        Assert.IsTrue(configuration.Initialized);
 
-                    Assert.IsNotNull(configuration.TileSource);
-                    Assert.IsInstanceOf<AsyncTileFetcher>(configuration.TileFetcher);
+                        Assert.IsNotNull(configuration.TileSource);
+                        Assert.IsInstanceOf<AsyncTileFetcher>(configuration.TileFetcher);
+                    }
                 }
             }
         }
@@ -93,8 +99,10 @@ namespace Core.Components.BruTile.Test.Configurations
         public void Clone_FromFullyInitializedConfiguration_ReturnInitializedConfiguration()
         {
             // Setup
-            var knownTileSource = KnownTileSource.BingAerial;
-            using (var configuration = WellKnownTileSourceLayerConfiguration.CreateInitializedConfiguration(knownTileSource))
+            const KnownTileSource knownTileSource = KnownTileSource.BingAerial;
+            using (new UseCustomSettingsHelper(new TestSettingsHelper()))
+            using (new UseCustomTileSourceFactoryConfig(new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial)))
+            using (WellKnownTileSourceLayerConfiguration configuration = WellKnownTileSourceLayerConfiguration.CreateInitializedConfiguration(knownTileSource))
             {
                 // Call
                 using (var clone = (WellKnownTileSourceLayerConfiguration) configuration.Clone())
@@ -102,7 +110,7 @@ namespace Core.Components.BruTile.Test.Configurations
                     // Assert
                     Assert.IsTrue(clone.Initialized);
 
-                    Assert.AreNotSame(configuration.TileSource, clone.TileSource);
+                    Assert.AreEqual(configuration.TileSource, clone.TileSource);
                     Assert.AreEqual(configuration.TileSource.Name, clone.TileSource.Name);
                     AssertAttribution(configuration.TileSource.Attribution, clone.TileSource.Attribution);
                     Assert.AreEqual(configuration.TileSource.Schema.Format, clone.TileSource.Schema.Format);
@@ -116,22 +124,28 @@ namespace Core.Components.BruTile.Test.Configurations
         public void Clone_ConfigurationDisposed_ThrowObjectDisposedException()
         {
             // Setup
-            var configuration = WellKnownTileSourceLayerConfiguration.CreateInitializedConfiguration(KnownTileSource.BingAerial);
-            configuration.Dispose();
+            using (new UseCustomSettingsHelper(new TestSettingsHelper()))
+            using (new UseCustomTileSourceFactoryConfig(new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial)))
+            {
+                WellKnownTileSourceLayerConfiguration configuration = WellKnownTileSourceLayerConfiguration.CreateInitializedConfiguration(KnownTileSource.BingAerial);
+                configuration.Dispose();
 
-            // Call
-            TestDelegate call = () => configuration.Clone();
+                // Call
+                TestDelegate call = () => configuration.Clone();
 
-            // Assert
-            string objectName = Assert.Throws<ObjectDisposedException>(call).ObjectName;
-            Assert.AreEqual("WellKnownTileSourceLayerConfiguration", objectName);
+                // Assert
+                string objectName = Assert.Throws<ObjectDisposedException>(call).ObjectName;
+                Assert.AreEqual("WellKnownTileSourceLayerConfiguration", objectName);
+            }
         }
 
         [Test]
         public void Initialize_InitializedTrue()
         {
             // Setup
-            using (var configuration = WellKnownTileSourceLayerConfiguration.CreateInitializedConfiguration(KnownTileSource.BingAerial))
+            using (new UseCustomSettingsHelper(new TestSettingsHelper()))
+            using (new UseCustomTileSourceFactoryConfig(new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial)))
+            using (WellKnownTileSourceLayerConfiguration configuration = WellKnownTileSourceLayerConfiguration.CreateInitializedConfiguration(KnownTileSource.BingAerial))
             {
                 configuration.GetType()
                              .GetProperty(nameof(configuration.Initialized))
@@ -149,15 +163,19 @@ namespace Core.Components.BruTile.Test.Configurations
         public void Initialize_ConfigurationDisposed_ThrowObjectDisposedException()
         {
             // Setup
-            var configuration = WellKnownTileSourceLayerConfiguration.CreateInitializedConfiguration(KnownTileSource.BingAerial);
-            configuration.Dispose();
+            using (new UseCustomSettingsHelper(new TestSettingsHelper()))
+            using (new UseCustomTileSourceFactoryConfig(new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial)))
+            {
+                WellKnownTileSourceLayerConfiguration configuration = WellKnownTileSourceLayerConfiguration.CreateInitializedConfiguration(KnownTileSource.BingAerial);
+                configuration.Dispose();
 
-            // Call
-            TestDelegate call = () => configuration.Initialize();
+                // Call
+                TestDelegate call = () => configuration.Initialize();
 
-            // Assert
-            string objectName = Assert.Throws<ObjectDisposedException>(call).ObjectName;
-            Assert.AreEqual("WellKnownTileSourceLayerConfiguration", objectName);
+                // Assert
+                string objectName = Assert.Throws<ObjectDisposedException>(call).ObjectName;
+                Assert.AreEqual("WellKnownTileSourceLayerConfiguration", objectName);
+            }
         }
 
         private static TestCaseData[] ValidWellKnownTileSourceToCorrespondingKnownTileSource()
