@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-
   <xs:redefine schemaLocation="UndefinedNestedSchemaDefinition.xsd">
     <xs:complexType name="itemType">
       <xs:complexContent>
@@ -13,7 +11,5 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:redefine>
-
   <xs:include schemaLocation="NestedSchemaDefinition2.xsd"/>
-
 </xs:schema>

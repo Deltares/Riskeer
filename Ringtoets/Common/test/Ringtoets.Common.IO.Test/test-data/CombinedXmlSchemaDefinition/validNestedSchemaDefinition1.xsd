@@ -1,7 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-
   <xs:element name="container">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -9,9 +7,7 @@
       </xs:choice>
     </xs:complexType>
   </xs:element>
-
   <xs:element name="item" type="itemType" />
-
   <xs:complexType name="itemType">
     <xs:attribute name="naam" use="required">
       <xs:simpleType>
@@ -19,5 +15,4 @@
       </xs:simpleType>
     </xs:attribute>
   </xs:complexType>
-
 </xs:schema>

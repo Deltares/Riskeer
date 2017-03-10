@@ -25,6 +25,7 @@ using System.IO;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
+using System.Xml.Schema;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -40,6 +41,19 @@ namespace Ringtoets.Common.IO.Test.Readers
 
         private readonly string testDirectoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                                                "ConfigurationReader");
+
+        private static IEnumerable<TestCaseData> InvalidConfigurations
+        {
+            get
+            {
+                yield return new TestCaseData("invalidFolderNoName.xml",
+                                              "The required attribute 'naam' is missing.")
+                    .SetName("invalidFolderNoName");
+                yield return new TestCaseData("invalidCalculationNoName.xml",
+                                              "The required attribute 'naam' is missing.")
+                    .SetName("invalidCalculationNoName");
+            }
+        }
 
         [Test]
         [TestCase("")]
@@ -157,6 +171,22 @@ namespace Ringtoets.Common.IO.Test.Readers
         }
 
         [Test]
+        [TestCaseSource(nameof(InvalidConfigurations))]
+        public void Constructor_FileInvalidBasedOnSchemaDefinition_ThrowCriticalFileReadException(string fileName, string expectedParsingMessage)
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, fileName);
+
+            // Call
+            TestDelegate call = () => new ConfigurationReader(filePath, validMainSchemaDefinition, new Dictionary<string, string>());
+
+            // Assert
+            var exception = Assert.Throws<CriticalFileReadException>(call);
+            Assert.IsInstanceOf<XmlSchemaValidationException>(exception.InnerException);
+            Assert.IsTrue(exception.InnerException?.Message.Contains(expectedParsingMessage));
+        }
+
+        [Test]
         public void Constructor_FileInvalidBasedOnSchemaDefinition_ThrowCriticalFileReadExceptionWithExpectedMessage()
         {
             // Setup
@@ -174,7 +204,7 @@ namespace Ringtoets.Common.IO.Test.Readers
         }
 
         [Test]
-        public void Constructor_FileEmpty_ThrowCriticalFileReadExceptionWithExpectedMessage()
+        public void Constructor_FileEmpty_ThrowCriticalFileReadException()
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, "emptyConfiguration.xml");
@@ -200,6 +230,25 @@ namespace Ringtoets.Common.IO.Test.Readers
 
             // Assert
             Assert.DoesNotThrow(call);
+        }
+
+        [Test]
+        public void Read_ValidConfigurationWithEmptyFolder_ReturnExpectedReadCalculationGroup()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationEmptyFolder.xml");
+            var configurationReader = new ConfigurationReader(filePath, validMainSchemaDefinition, new Dictionary<string, string>());
+
+            // Call
+            IList<IReadConfigurationItem> readConfigurationItems = configurationReader.Read().ToList();
+
+            // Assert
+            Assert.AreEqual(1, readConfigurationItems.Count);
+
+            var group = readConfigurationItems[0] as ReadCalculationGroup;
+            Assert.IsNotNull(group);
+            Assert.AreEqual("Calculation group", group.Name);
+            CollectionAssert.IsEmpty(group.Items);
         }
 
         [Test]

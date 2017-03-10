@@ -41,12 +41,6 @@ namespace Ringtoets.Piping.IO.Test.Readers
         {
             get
             {
-                yield return new TestCaseData("invalidFolderNoName.xml",
-                                              "The required attribute 'naam' is missing.")
-                    .SetName("invalidFolderNoName");
-                yield return new TestCaseData("invalidCalculationNoName.xml",
-                                              "The required attribute 'naam' is missing.")
-                    .SetName("invalidCalculationNoName");
                 yield return new TestCaseData("invalidAssessmentLevelEmpty.xml",
                                               "The 'toetspeil' element is invalid - The value '' is invalid according to its datatype 'Double'")
                     .SetName("invalidAssessmentLevelEmpty");
@@ -175,41 +169,6 @@ namespace Ringtoets.Piping.IO.Test.Readers
         }
 
         [Test]
-        public void Constructor_FileInvalidBasedOnEmptyRoot_ThrowCriticalFileReadException()
-        {
-            // Setup
-            string filePath = Path.Combine(testDirectoryPath, "invalidEmptyRoot.xml");
-
-            // Call
-            TestDelegate call = () => new PipingConfigurationReader(filePath);
-
-            // Assert
-            string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': het XML-document dat de configuratie" +
-                                     " voor de berekeningen beschrijft bevat geen berekeningselementen.";
-            var exception = Assert.Throws<CriticalFileReadException>(call);
-            Assert.AreEqual(expectedMessage, exception.Message);
-        }
-
-        [Test]
-        public void Read_ValidConfigurationWithEmptyFolder_ReturnExpectedReadPipingCalculationGroup()
-        {
-            // Setup
-            string filePath = Path.Combine(testDirectoryPath, "validConfigurationEmptyFolder.xml");
-            var pipingConfigurationReader = new PipingConfigurationReader(filePath);
-
-            // Call
-            IList<IReadConfigurationItem> readConfigurationItems = pipingConfigurationReader.Read().ToList();
-
-            // Assert
-            Assert.AreEqual(1, readConfigurationItems.Count);
-
-            var group = readConfigurationItems[0] as ReadCalculationGroup;
-            Assert.IsNotNull(group);
-            Assert.AreEqual("Calculation group", group.Name);
-            CollectionAssert.IsEmpty(group.Items);
-        }
-
-        [Test]
         public void Read_ValidConfigurationWithEmptyCalculation_ReturnExpectedReadPipingCalculation()
         {
             // Setup
@@ -257,68 +216,6 @@ namespace Ringtoets.Piping.IO.Test.Readers
             Assert.IsNull(calculation.PhreaticLevelExitStandardDeviation);
             Assert.IsNull(calculation.DampingFactorExitMean);
             Assert.IsNull(calculation.DampingFactorExitStandardDeviation);
-        }
-
-        [Test]
-        public void Read_ValidConfigurationWithNesting_ReturnExpectedReadConfigurationItems()
-        {
-            // Setup
-            string filePath = Path.Combine(testDirectoryPath, "validConfigurationNesting.xml");
-            var pipingConfigurationReader = new PipingConfigurationReader(filePath);
-
-            // Call
-            IList<IReadConfigurationItem> readConfigurationItems = pipingConfigurationReader.Read().ToList();
-
-            // Assert
-            Assert.AreEqual(5, readConfigurationItems.Count);
-
-            var group1 = readConfigurationItems[0] as ReadCalculationGroup;
-            Assert.IsNotNull(group1);
-            Assert.AreEqual("Group 1", group1.Name);
-
-            var calculation1 = readConfigurationItems[1] as ReadPipingCalculation;
-            Assert.IsNotNull(calculation1);
-            Assert.AreEqual("Calculation 1", calculation1.Name);
-
-            var group2 = readConfigurationItems[2] as ReadCalculationGroup;
-            Assert.IsNotNull(group2);
-            Assert.AreEqual("Group 2", group2.Name);
-
-            var calculation2 = readConfigurationItems[3] as ReadPipingCalculation;
-            Assert.IsNotNull(calculation2);
-            Assert.AreEqual("Calculation 2", calculation2.Name);
-
-            var group3 = readConfigurationItems[4] as ReadCalculationGroup;
-            Assert.IsNotNull(group3);
-            Assert.AreEqual("Group 3", group3.Name);
-
-            List<IReadConfigurationItem> group1Items = group1.Items.ToList();
-            Assert.AreEqual(1, group1Items.Count);
-
-            var calculation3 = group1Items[0] as ReadPipingCalculation;
-            Assert.IsNotNull(calculation3);
-            Assert.AreEqual("Calculation 3", calculation3.Name);
-
-            List<IReadConfigurationItem> group2Items = group2.Items.ToList();
-            Assert.AreEqual(2, group2Items.Count);
-
-            var group4 = group2Items[0] as ReadCalculationGroup;
-            Assert.IsNotNull(group4);
-            Assert.AreEqual("Group 4", group4.Name);
-
-            var calculation4 = group2Items[1] as ReadPipingCalculation;
-            Assert.IsNotNull(calculation4);
-            Assert.AreEqual("Calculation 4", calculation4.Name);
-
-            List<IReadConfigurationItem> group3Items = group3.Items.ToList();
-            Assert.AreEqual(0, group3Items.Count);
-
-            List<IReadConfigurationItem> group4Items = group4.Items.ToList();
-            Assert.AreEqual(1, group4Items.Count);
-
-            var calculation5 = group4Items[0] as ReadPipingCalculation;
-            Assert.IsNotNull(calculation5);
-            Assert.AreEqual("Calculation 5", calculation5.Name);
         }
 
         [Test]
