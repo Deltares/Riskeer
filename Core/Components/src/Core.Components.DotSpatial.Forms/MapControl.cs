@@ -50,7 +50,6 @@ namespace Core.Components.DotSpatial.Forms
         private readonly RecursiveObserver<MapDataCollection, MapDataCollection> mapDataCollectionObserver;
         private readonly Observer backGroundMapDataObserver;
         private readonly IList<DrawnMapData> drawnMapDataList = new List<DrawnMapData>();
-        private readonly WmtsBackgroundLayerStatus backgroundLayerStatus = new WmtsBackgroundLayerStatus();
 
         private Map map;
         private MapFunctionPan mapFunctionPan;
@@ -58,7 +57,8 @@ namespace Core.Components.DotSpatial.Forms
         private RdNewMouseCoordinatesMapExtension mouseCoordinatesMapExtension;
         private MapDataCollection data;
 
-        private WmtsMapData backgroundMapData;
+        private IBackgroundLayerStatus backgroundLayerStatus;
+        private ImageBasedMapData backgroundMapData;
 
         /// <summary>
         /// Creates a new instance of <see cref="MapControl"/>.
@@ -102,7 +102,7 @@ namespace Core.Components.DotSpatial.Forms
             }
         }
 
-        public WmtsMapData BackgroundMapData
+        public ImageBasedMapData BackgroundMapData
         {
             get
             {
@@ -117,6 +117,7 @@ namespace Core.Components.DotSpatial.Forms
 
                 backgroundMapData = value;
                 backGroundMapDataObserver.Observable = backgroundMapData;
+                backgroundLayerStatus = BackgroundLayerStatusFactory.CreateBackgroundLayerStatus(backgroundMapData);
 
                 if (HasMapData)
                 {
@@ -195,7 +196,7 @@ namespace Core.Components.DotSpatial.Forms
         {
             if (backgroundLayerStatus.BackgroundLayer != null)
             {
-                if (HasBackgroundMapDataConfigurationChanged())
+                if (HasBackgroundMapDataConfigurationChanged(backgroundMapData))
                 {
                     map.Layers.Remove(backgroundLayerStatus.BackgroundLayer);
                     backgroundLayerStatus.ClearConfiguration();
@@ -214,18 +215,19 @@ namespace Core.Components.DotSpatial.Forms
             }
         }
 
-        private bool HasBackgroundMapDataConfigurationChanged()
+        private bool HasBackgroundMapDataConfigurationChanged(ImageBasedMapData wmtsMapDataBackgroundMapData)
         {
-            return !backgroundLayerStatus.HasSameConfiguration(backgroundMapData);
+            return !backgroundLayerStatus.HasSameConfiguration(wmtsMapDataBackgroundMapData);
         }
 
         private void InsertBackgroundLayer()
         {
             if (backgroundMapData.IsConfigured)
             {
-                InitializeBackgroundLayer();
-
-                InsertBackgroundLayerAndReprojectExistingLayers();
+                if (InitializeBackgroundLayer())
+                {
+                    InsertBackgroundLayerAndReprojectExistingLayers();
+                }
             }
             else
             {
@@ -234,30 +236,75 @@ namespace Core.Components.DotSpatial.Forms
             }
         }
 
+        private bool InitializeBackgroundLayer()
+        {
+            var wmtsBackgroundMapData = backgroundMapData as WmtsMapData;
+            var wellKnownMapDataBackgroundMapData = backgroundMapData as WellKnownTileSourceMapData;
+            if (wmtsBackgroundMapData != null)
+            {
+                return InitializeBackgroundLayer(wmtsBackgroundMapData);
+            }
+            if (wellKnownMapDataBackgroundMapData != null)
+            {
+                return InitializeBackgroundLayer(wellKnownMapDataBackgroundMapData);
+            }
+            return false;
+        }
+
         /// <summary>
         /// Attempts to initialize the background layer.
         /// </summary>
         /// <returns><c>true</c> if initialization of the background layer was successful,
         /// <c>false</c> otherwise.
         /// </returns>
-        private bool InitializeBackgroundLayer()
+        private bool InitializeBackgroundLayer(WmtsMapData wmtsMapDataBackgroundMapData)
         {
             try
             {
-                WmtsLayerConfiguration configuration = WmtsLayerConfiguration.CreateInitializedConfiguration(backgroundMapData.SourceCapabilitiesUrl,
-                                                                                                             backgroundMapData.SelectedCapabilityIdentifier,
-                                                                                                             backgroundMapData.PreferredFormat);
+                WmtsLayerConfiguration configuration = WmtsLayerConfiguration.CreateInitializedConfiguration(wmtsMapDataBackgroundMapData.SourceCapabilitiesUrl,
+                                                                                                             wmtsMapDataBackgroundMapData.SelectedCapabilityIdentifier,
+                                                                                                             wmtsMapDataBackgroundMapData.PreferredFormat);
                 var backgroundLayer = new BruTileLayer(configuration)
                 {
                     IsVisible = backgroundMapData.IsVisible,
                     Transparency = Convert.ToSingle(backgroundMapData.Transparency)
                 };
-                backgroundLayerStatus.SuccessfullyInitializedLayer(backgroundLayer, backgroundMapData);
+                backgroundLayerStatus.SuccessfullyInitializedLayer(backgroundLayer, wmtsMapDataBackgroundMapData);
                 return true;
             }
             catch (Exception e) when (e is CannotFindTileSourceException || e is CannotReceiveTilesException)
             {
                 HandleBruTileInitializationException(e, Resources.MapControl_InitializeBackgroundLayer_Wmts_connection_failed);
+
+                return false;
+            }
+            catch (CannotCreateTileCacheException e)
+            {
+                HandleBruTileInitializationException(e, Resources.MapControl_InitializeBackgroundLayer_Persistent_cache_creation_failed);
+
+                return false;
+            }
+        }
+
+        private bool InitializeBackgroundLayer(WellKnownTileSourceMapData wellKnownMapDataBackgroundMapData)
+        {
+            try
+            {
+                WellKnownTileSourceLayerConfiguration configuration = WellKnownTileSourceLayerConfiguration.CreateInitializedConfiguration(
+                    wellKnownMapDataBackgroundMapData.TileSource);
+
+                var backgroundLayer = new BruTileLayer(configuration)
+                {
+                    IsVisible = backgroundMapData.IsVisible,
+                    Transparency = Convert.ToSingle(backgroundMapData.Transparency)
+                };
+                backgroundLayerStatus.SuccessfullyInitializedLayer(backgroundLayer, wellKnownMapDataBackgroundMapData);
+
+                return true;
+            }
+            catch (Exception e) when (e is CannotFindTileSourceException || e is CannotReceiveTilesException)
+            {
+                HandleBruTileInitializationException(e, $"Verbinden met '{nameof(wellKnownMapDataBackgroundMapData.TileSource)}' is mislukt waardoor geen kaartgegevens ingeladen kunnen worden.");
 
                 return false;
             }
@@ -283,15 +330,12 @@ namespace Core.Components.DotSpatial.Forms
 
         private void InsertBackgroundLayerAndReprojectExistingLayers()
         {
-            if (backgroundLayerStatus.BackgroundLayer != null)
-            {
-                IMapLayer[] existingMapLayers = map.Layers.ToArray();
+            IMapLayer[] existingMapLayers = map.Layers.ToArray();
 
-                map.Projection = backgroundLayerStatus.BackgroundLayer.Projection;
-                map.Layers.Insert(0, backgroundLayerStatus.BackgroundLayer);
+            map.Projection = backgroundLayerStatus.BackgroundLayer.Projection;
+            map.Layers.Insert(0, backgroundLayerStatus.BackgroundLayer);
 
-                ReprojectLayers(existingMapLayers);
-            }
+            ReprojectLayers(existingMapLayers);
         }
 
         private void ReprojectLayers(IEnumerable<IMapLayer> layersToReproject)
@@ -435,7 +479,7 @@ namespace Core.Components.DotSpatial.Forms
             map.ClearLayers();
             map.Projection = MapDataConstants.FeatureBasedMapDataCoordinateSystem;
 
-            backgroundLayerStatus.ClearConfiguration(expectedRecreationOfBackgroundLayer);
+            backgroundLayerStatus?.ClearConfiguration(expectedRecreationOfBackgroundLayer);
         }
 
         private void HandleMapDataCollectionChange()
