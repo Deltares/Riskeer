@@ -72,12 +72,6 @@ namespace Core.Components.DotSpatial.Forms
             backGroundMapDataObserver = new Observer(HandleBackgroundMapDataChange);
         }
 
-        public bool IsPanningEnabled { get; private set; }
-
-        public bool IsRectangleZoomingEnabled { get; private set; }
-
-        public bool IsMouseCoordinatesVisible { get; private set; }
-
         public MapDataCollection Data
         {
             get
@@ -129,54 +123,6 @@ namespace Core.Components.DotSpatial.Forms
             }
         }
 
-        public void ZoomToAllVisibleLayers()
-        {
-            ZoomToAllVisibleLayers(Data);
-        }
-
-        public void ZoomToAllVisibleLayers(MapData layerData)
-        {
-            IEnvelope envelope = CreateEnvelopeForAllVisibleLayers(layerData);
-            if (!envelope.IsNull)
-            {
-                Extent extent = envelope.ToExtent();
-                AddPadding(extent);
-                map.ViewExtents = extent;
-            }
-        }
-
-        public void TogglePanning()
-        {
-            ResetDefaultInteraction();
-
-            IsPanningEnabled = true;
-
-            map.FunctionMode = FunctionMode.Pan;
-        }
-
-        public void ToggleRectangleZooming()
-        {
-            ResetDefaultInteraction();
-
-            IsRectangleZoomingEnabled = true;
-
-            map.ActivateMapFunction(mapFunctionSelectionZoom);
-        }
-
-        public void ToggleMouseCoordinatesVisibility()
-        {
-            if (!IsMouseCoordinatesVisible)
-            {
-                mouseCoordinatesMapExtension.Activate();
-                IsMouseCoordinatesVisible = true;
-            }
-            else
-            {
-                mouseCoordinatesMapExtension.Deactivate();
-                IsMouseCoordinatesVisible = false;
-            }
-        }
-
         protected override void Dispose(bool disposing)
         {
             map.Dispose();
@@ -195,49 +141,47 @@ namespace Core.Components.DotSpatial.Forms
             }
         }
 
-        private void HandleBackgroundMapDataChange()
+        private void InitializeMapView()
         {
-            if (backgroundLayerStatus.BackgroundLayer != null)
+            map = new DotSpatialMap
             {
-                if (HasBackgroundMapDataConfigurationChanged(backgroundMapData))
-                {
-                    map.Layers.Remove(backgroundLayerStatus.BackgroundLayer);
-                    backgroundLayerStatus.ClearConfiguration();
+                ProjectionModeDefine = ActionMode.Never,
+                Dock = DockStyle.Fill,
+                ZoomOutFartherThanMaxExtent = true,
+                Projection = MapDataConstants.FeatureBasedMapDataCoordinateSystem
+            };
 
-                    InsertBackgroundLayer();
-                }
-                else
-                {
-                    backgroundLayerStatus.BackgroundLayer.IsVisible = backgroundMapData.IsVisible;
-                    backgroundLayerStatus.BackgroundLayer.Transparency = Convert.ToSingle(backgroundMapData.Transparency);
-                }
-            }
-            else
+            // Configure the map pan function
+            mapFunctionPan = map.MapFunctions.OfType<MapFunctionPan>().First();
+            mapFunctionPan.FunctionActivated += MapFunctionActivateFunction;
+            mapFunctionPan.MouseDown += MapFunctionPanOnMouseDown;
+            mapFunctionPan.MouseUp += MapFunctionOnMouseUp;
+
+            // Add and configure the map selection zoom function
+            mapFunctionSelectionZoom = new MapFunctionSelectionZoom(map);
+            map.MapFunctions.Add(mapFunctionSelectionZoom);
+            mapFunctionSelectionZoom.FunctionActivated += MapFunctionActivateFunction;
+            mapFunctionSelectionZoom.MouseDown += MapFunctionSelectionZoomOnMouseDown;
+            mapFunctionSelectionZoom.MouseUp += MapFunctionOnMouseUp;
+
+            mouseCoordinatesMapExtension = new RdNewMouseCoordinatesMapExtension(map);
+            ToggleMouseCoordinatesVisibility();
+
+            Controls.Add(map);
+        }
+
+        private void ReprojectLayers(IEnumerable<IMapLayer> layersToReproject)
+        {
+            foreach (IMapLayer mapLayer in layersToReproject)
             {
-                InsertBackgroundLayer();
+                if (!mapLayer.Projection.Equals(map.Projection))
+                {
+                    mapLayer.Reproject(map.Projection);
+                }
             }
         }
 
-        private bool HasBackgroundMapDataConfigurationChanged(ImageBasedMapData wmtsMapDataBackgroundMapData)
-        {
-            return !backgroundLayerStatus.HasSameConfiguration(wmtsMapDataBackgroundMapData);
-        }
-
-        private void InsertBackgroundLayer()
-        {
-            if (backgroundMapData.IsConfigured)
-            {
-                if (InitializeBackgroundLayer())
-                {
-                    InsertBackgroundLayerAndReprojectExistingLayers();
-                }
-            }
-            else
-            {
-                map.Projection = MapDataConstants.FeatureBasedMapDataCoordinateSystem;
-                ReprojectLayers(map.Layers);
-            }
-        }
+        #region Background layer
 
         private bool InitializeBackgroundLayer()
         {
@@ -252,6 +196,36 @@ namespace Core.Components.DotSpatial.Forms
                 return InitializeBackgroundLayer(wellKnownMapDataBackgroundMapData);
             }
             return false;
+        }
+
+        private bool InitializeBackgroundLayer(WellKnownTileSourceMapData wellKnownMapDataBackgroundMapData)
+        {
+            try
+            {
+                WellKnownTileSourceLayerConfiguration configuration = WellKnownTileSourceLayerConfiguration.CreateInitializedConfiguration(
+                    wellKnownMapDataBackgroundMapData.TileSource);
+
+                var backgroundLayer = new BruTileLayer(configuration)
+                {
+                    IsVisible = backgroundMapData.IsVisible,
+                    Transparency = Convert.ToSingle(backgroundMapData.Transparency)
+                };
+                backgroundLayerStatus.SuccessfullyInitializedLayer(backgroundLayer, wellKnownMapDataBackgroundMapData);
+
+                return true;
+            }
+            catch (Exception e) when (e is CannotFindTileSourceException || e is CannotReceiveTilesException)
+            {
+                HandleBruTileInitializationException(e, $"Verbinden met '{nameof(wellKnownMapDataBackgroundMapData.TileSource)}' is mislukt waardoor geen kaartgegevens ingeladen kunnen worden.");
+
+                return false;
+            }
+            catch (CannotCreateTileCacheException e)
+            {
+                HandleBruTileInitializationException(e, Resources.MapControl_InitializeBackgroundLayer_Persistent_cache_creation_failed);
+
+                return false;
+            }
         }
 
         /// <summary>
@@ -289,34 +263,58 @@ namespace Core.Components.DotSpatial.Forms
             }
         }
 
-        private bool InitializeBackgroundLayer(WellKnownTileSourceMapData wellKnownMapDataBackgroundMapData)
+        private void InsertBackgroundLayer()
         {
-            try
+            if (backgroundMapData.IsConfigured)
             {
-                WellKnownTileSourceLayerConfiguration configuration = WellKnownTileSourceLayerConfiguration.CreateInitializedConfiguration(
-                    wellKnownMapDataBackgroundMapData.TileSource);
-
-                var backgroundLayer = new BruTileLayer(configuration)
+                if (InitializeBackgroundLayer())
                 {
-                    IsVisible = backgroundMapData.IsVisible,
-                    Transparency = Convert.ToSingle(backgroundMapData.Transparency)
-                };
-                backgroundLayerStatus.SuccessfullyInitializedLayer(backgroundLayer, wellKnownMapDataBackgroundMapData);
-
-                return true;
+                    InsertBackgroundLayerAndReprojectExistingLayers();
+                }
             }
-            catch (Exception e) when (e is CannotFindTileSourceException || e is CannotReceiveTilesException)
+            else
             {
-                HandleBruTileInitializationException(e, $"Verbinden met '{nameof(wellKnownMapDataBackgroundMapData.TileSource)}' is mislukt waardoor geen kaartgegevens ingeladen kunnen worden.");
-
-                return false;
+                map.Projection = MapDataConstants.FeatureBasedMapDataCoordinateSystem;
+                ReprojectLayers(map.Layers);
             }
-            catch (CannotCreateTileCacheException e)
+        }
+
+        private void InsertBackgroundLayerAndReprojectExistingLayers()
+        {
+            IMapLayer[] existingMapLayers = map.Layers.ToArray();
+
+            map.Projection = backgroundLayerStatus.BackgroundLayer.Projection;
+            map.Layers.Insert(0, backgroundLayerStatus.BackgroundLayer);
+
+            ReprojectLayers(existingMapLayers);
+        }
+
+        private void HandleBackgroundMapDataChange()
+        {
+            if (backgroundLayerStatus.BackgroundLayer != null)
             {
-                HandleBruTileInitializationException(e, Resources.MapControl_InitializeBackgroundLayer_Persistent_cache_creation_failed);
+                if (HasBackgroundMapDataConfigurationChanged(backgroundMapData))
+                {
+                    map.Layers.Remove(backgroundLayerStatus.BackgroundLayer);
+                    backgroundLayerStatus.ClearConfiguration();
 
-                return false;
+                    InsertBackgroundLayer();
+                }
+                else
+                {
+                    backgroundLayerStatus.BackgroundLayer.IsVisible = backgroundMapData.IsVisible;
+                    backgroundLayerStatus.BackgroundLayer.Transparency = Convert.ToSingle(backgroundMapData.Transparency);
+                }
             }
+            else
+            {
+                InsertBackgroundLayer();
+            }
+        }
+
+        private bool HasBackgroundMapDataConfigurationChanged(ImageBasedMapData wmtsMapDataBackgroundMapData)
+        {
+            return !backgroundLayerStatus.HasSameConfiguration(wmtsMapDataBackgroundMapData);
         }
 
         private void HandleBruTileInitializationException(Exception e, string message)
@@ -331,26 +329,180 @@ namespace Core.Components.DotSpatial.Forms
             backgroundLayerStatus.LayerInitializationFailed();
         }
 
-        private void InsertBackgroundLayerAndReprojectExistingLayers()
+        #endregion
+
+        #region Event handlers
+
+        private void MapFunctionActivateFunction(object sender, EventArgs e)
         {
-            IMapLayer[] existingMapLayers = map.Layers.ToArray();
-
-            map.Projection = backgroundLayerStatus.BackgroundLayer.Projection;
-            map.Layers.Insert(0, backgroundLayerStatus.BackgroundLayer);
-
-            ReprojectLayers(existingMapLayers);
+            map.Cursor = defaultCursor;
         }
 
-        private void ReprojectLayers(IEnumerable<IMapLayer> layersToReproject)
+        private void MapFunctionOnMouseUp(object sender, GeoMouseArgs e)
         {
-            foreach (IMapLayer mapLayer in layersToReproject)
+            map.Cursor = defaultCursor;
+        }
+
+        private void MapFunctionPanOnMouseDown(object sender, GeoMouseArgs geoMouseArgs)
+        {
+            map.Cursor = geoMouseArgs.Button != MouseButtons.Right ? Cursors.Hand : defaultCursor;
+        }
+
+        private void MapFunctionSelectionZoomOnMouseDown(object sender, GeoMouseArgs geoMouseArgs)
+        {
+            switch (geoMouseArgs.Button)
             {
-                if (!mapLayer.Projection.Equals(map.Projection))
+                case MouseButtons.Left:
+                    map.Cursor = Cursors.SizeNWSE;
+                    break;
+                default:
+                    map.Cursor = map.IsBusy
+                                     ? Cursors.SizeNWSE
+                                     : defaultCursor;
+                    break;
+            }
+        }
+
+        #endregion
+
+        #region DrawMapData
+
+        /// <summary>
+        /// Lookup class for administration related to drawn map data layers.
+        /// </summary>
+        private class DrawnMapData
+        {
+            /// <summary>
+            /// The feature based map data which the drawn <see cref="FeatureBasedMapDataLayer"/> is based upon.
+            /// </summary>
+            public FeatureBasedMapData FeatureBasedMapData { get; set; }
+
+            /// <summary>
+            /// The drawn map data layer.
+            /// </summary>
+            public IFeatureBasedMapDataLayer FeatureBasedMapDataLayer { get; set; }
+
+            /// <summary>
+            /// The observer attached to <see cref="FeatureBasedMapData"/> and responsible for updating <see cref="FeatureBasedMapDataLayer"/>.
+            /// </summary>
+            public Observer Observer { get; set; }
+        }
+
+        private void ClearAllMapData(bool expectedRecreationOfBackgroundLayer)
+        {
+            foreach (DrawnMapData drawnMapData in drawnMapDataList)
+            {
+                drawnMapData.Observer.Dispose();
+            }
+
+            drawnMapDataList.Clear();
+
+            map.ClearLayers();
+            map.Projection = MapDataConstants.FeatureBasedMapDataCoordinateSystem;
+
+            backgroundLayerStatus?.ClearConfiguration(expectedRecreationOfBackgroundLayer);
+        }
+
+        private void DrawInitialMapData()
+        {
+            if (backgroundMapData != null && backgroundMapData.IsConfigured)
+            {
+                if (InitializeBackgroundLayer())
                 {
-                    mapLayer.Reproject(map.Projection);
+                    map.Projection = backgroundLayerStatus.BackgroundLayer.Projection;
+                    map.Layers.Add(backgroundLayerStatus.BackgroundLayer);
+                }
+            }
+
+            if (Data != null)
+            {
+                foreach (FeatureBasedMapData featureBasedMapData in Data.GetFeatureBasedMapDataRecursively())
+                {
+                    DrawMapData(featureBasedMapData);
                 }
             }
         }
+
+        private void DrawMapData(FeatureBasedMapData featureBasedMapData)
+        {
+            IFeatureBasedMapDataLayer featureBasedMapDataLayer = FeatureBasedMapDataLayerFactory.Create(featureBasedMapData);
+
+            var drawnMapData = new DrawnMapData
+            {
+                FeatureBasedMapData = featureBasedMapData,
+                FeatureBasedMapDataLayer = featureBasedMapDataLayer
+            };
+
+            drawnMapData.Observer = new Observer(() => { drawnMapData.FeatureBasedMapDataLayer.Update(); })
+            {
+                Observable = featureBasedMapData
+            };
+
+            drawnMapDataList.Add(drawnMapData);
+
+            if (!map.Projection.Equals(featureBasedMapDataLayer.Projection))
+            {
+                featureBasedMapDataLayer.Reproject(map.Projection);
+            }
+            map.Layers.Add(featureBasedMapDataLayer);
+        }
+
+        private void DrawMissingMapDataOnCollectionChange(IEnumerable<FeatureBasedMapData> mapDataThatShouldBeDrawn,
+                                                          IDictionary<FeatureBasedMapData, DrawnMapData> drawnMapDataLookup)
+        {
+            foreach (var mapDataToDraw in mapDataThatShouldBeDrawn.Where(mapDataToDraw => !drawnMapDataLookup.ContainsKey(mapDataToDraw)))
+            {
+                DrawMapData(mapDataToDraw);
+            }
+        }
+
+        private void HandleMapDataCollectionChange()
+        {
+            var mapDataThatShouldBeDrawn = Data.GetFeatureBasedMapDataRecursively().ToList();
+            var drawnMapDataLookup = drawnMapDataList.ToDictionary(dmd => dmd.FeatureBasedMapData, dmd => dmd);
+
+            DrawMissingMapDataOnCollectionChange(mapDataThatShouldBeDrawn, drawnMapDataLookup);
+            RemoveRedundantMapDataOnCollectionChange(mapDataThatShouldBeDrawn, drawnMapDataLookup);
+
+            drawnMapDataLookup = drawnMapDataList.ToDictionary(dmd => dmd.FeatureBasedMapData, dmd => dmd);
+
+            ReorderMapDataOnCollectionChange(mapDataThatShouldBeDrawn, drawnMapDataLookup);
+        }
+
+        private void ReorderMapDataOnCollectionChange(IList<FeatureBasedMapData> mapDataThatShouldBeDrawn,
+                                                      IDictionary<FeatureBasedMapData, DrawnMapData> drawnMapDataLookup)
+        {
+            for (var i = 0; i < mapDataThatShouldBeDrawn.Count; i++)
+            {
+                map.Layers.Move(drawnMapDataLookup[mapDataThatShouldBeDrawn[i]].FeatureBasedMapDataLayer, i);
+            }
+        }
+
+        private void RemoveMapData(DrawnMapData drawnMapDataToRemove)
+        {
+            drawnMapDataToRemove.Observer.Dispose();
+            drawnMapDataList.Remove(drawnMapDataToRemove);
+
+            map.Layers.Remove(drawnMapDataToRemove.FeatureBasedMapDataLayer);
+        }
+
+        private void RemoveRedundantMapDataOnCollectionChange(IEnumerable<FeatureBasedMapData> mapDataThatShouldBeDrawn,
+                                                              IDictionary<FeatureBasedMapData, DrawnMapData> drawnMapDataLookup)
+        {
+            foreach (var featureBasedMapData in drawnMapDataLookup.Keys.Except(mapDataThatShouldBeDrawn))
+            {
+                RemoveMapData(drawnMapDataLookup[featureBasedMapData]);
+            }
+        }
+
+        #endregion
+
+        #region Map Interaction
+
+        public bool IsPanningEnabled { get; private set; }
+        public bool IsRectangleZoomingEnabled { get; private set; }
+
+        public bool IsMouseCoordinatesVisible { get; private set; }
 
         private static void AddPadding(Extent extent)
         {
@@ -358,6 +510,54 @@ namespace Core.Components.DotSpatial.Forms
             if (Math.Max(extent.Height, extent.Width) + padding <= double.MaxValue)
             {
                 extent.ExpandBy(padding);
+            }
+        }
+
+        public void TogglePanning()
+        {
+            ResetDefaultInteraction();
+
+            IsPanningEnabled = true;
+
+            map.FunctionMode = FunctionMode.Pan;
+        }
+
+        public void ToggleRectangleZooming()
+        {
+            ResetDefaultInteraction();
+
+            IsRectangleZoomingEnabled = true;
+
+            map.ActivateMapFunction(mapFunctionSelectionZoom);
+        }
+
+        public void ToggleMouseCoordinatesVisibility()
+        {
+            if (!IsMouseCoordinatesVisible)
+            {
+                mouseCoordinatesMapExtension.Activate();
+                IsMouseCoordinatesVisible = true;
+            }
+            else
+            {
+                mouseCoordinatesMapExtension.Deactivate();
+                IsMouseCoordinatesVisible = false;
+            }
+        }
+
+        public void ZoomToAllVisibleLayers()
+        {
+            ZoomToAllVisibleLayers(Data);
+        }
+
+        public void ZoomToAllVisibleLayers(MapData layerData)
+        {
+            IEnvelope envelope = CreateEnvelopeForAllVisibleLayers(layerData);
+            if (!envelope.IsNull)
+            {
+                Extent extent = envelope.ToExtent();
+                AddPadding(extent);
+                map.ViewExtents = extent;
             }
         }
 
@@ -421,191 +621,6 @@ namespace Core.Components.DotSpatial.Forms
             map.FunctionMode = FunctionMode.None;
         }
 
-        private void InitializeMapView()
-        {
-            map = new DotSpatialMap
-            {
-                ProjectionModeDefine = ActionMode.Never,
-                Dock = DockStyle.Fill,
-                ZoomOutFartherThanMaxExtent = true,
-                Projection = MapDataConstants.FeatureBasedMapDataCoordinateSystem
-            };
-
-            // Configure the map pan function
-            mapFunctionPan = map.MapFunctions.OfType<MapFunctionPan>().First();
-            mapFunctionPan.FunctionActivated += MapFunctionActivateFunction;
-            mapFunctionPan.MouseDown += MapFunctionPanOnMouseDown;
-            mapFunctionPan.MouseUp += MapFunctionOnMouseUp;
-
-            // Add and configure the map selection zoom function
-            mapFunctionSelectionZoom = new MapFunctionSelectionZoom(map);
-            map.MapFunctions.Add(mapFunctionSelectionZoom);
-            mapFunctionSelectionZoom.FunctionActivated += MapFunctionActivateFunction;
-            mapFunctionSelectionZoom.MouseDown += MapFunctionSelectionZoomOnMouseDown;
-            mapFunctionSelectionZoom.MouseUp += MapFunctionOnMouseUp;
-
-            mouseCoordinatesMapExtension = new RdNewMouseCoordinatesMapExtension(map);
-            ToggleMouseCoordinatesVisibility();
-
-            Controls.Add(map);
-        }
-
-        private void DrawInitialMapData()
-        {
-            if (backgroundMapData != null && backgroundMapData.IsConfigured)
-            {
-                if (InitializeBackgroundLayer())
-                {
-                    map.Projection = backgroundLayerStatus.BackgroundLayer.Projection;
-                    map.Layers.Add(backgroundLayerStatus.BackgroundLayer);
-                }
-            }
-
-            if (Data != null)
-            {
-                foreach (FeatureBasedMapData featureBasedMapData in Data.GetFeatureBasedMapDataRecursively())
-                {
-                    DrawMapData(featureBasedMapData);
-                }
-            }
-        }
-
-        private void ClearAllMapData(bool expectedRecreationOfBackgroundLayer)
-        {
-            foreach (DrawnMapData drawnMapData in drawnMapDataList)
-            {
-                drawnMapData.Observer.Dispose();
-            }
-
-            drawnMapDataList.Clear();
-
-            map.ClearLayers();
-            map.Projection = MapDataConstants.FeatureBasedMapDataCoordinateSystem;
-
-            backgroundLayerStatus?.ClearConfiguration(expectedRecreationOfBackgroundLayer);
-        }
-
-        private void HandleMapDataCollectionChange()
-        {
-            var mapDataThatShouldBeDrawn = Data.GetFeatureBasedMapDataRecursively().ToList();
-            var drawnMapDataLookup = drawnMapDataList.ToDictionary(dmd => dmd.FeatureBasedMapData, dmd => dmd);
-
-            DrawMissingMapDataOnCollectionChange(mapDataThatShouldBeDrawn, drawnMapDataLookup);
-            RemoveRedundantMapDataOnCollectionChange(mapDataThatShouldBeDrawn, drawnMapDataLookup);
-
-            drawnMapDataLookup = drawnMapDataList.ToDictionary(dmd => dmd.FeatureBasedMapData, dmd => dmd);
-
-            ReorderMapDataOnCollectionChange(mapDataThatShouldBeDrawn, drawnMapDataLookup);
-        }
-
-        private void DrawMissingMapDataOnCollectionChange(IEnumerable<FeatureBasedMapData> mapDataThatShouldBeDrawn,
-                                                          IDictionary<FeatureBasedMapData, DrawnMapData> drawnMapDataLookup)
-        {
-            foreach (var mapDataToDraw in mapDataThatShouldBeDrawn.Where(mapDataToDraw => !drawnMapDataLookup.ContainsKey(mapDataToDraw)))
-            {
-                DrawMapData(mapDataToDraw);
-            }
-        }
-
-        private void RemoveRedundantMapDataOnCollectionChange(IEnumerable<FeatureBasedMapData> mapDataThatShouldBeDrawn,
-                                                              IDictionary<FeatureBasedMapData, DrawnMapData> drawnMapDataLookup)
-        {
-            foreach (var featureBasedMapData in drawnMapDataLookup.Keys.Except(mapDataThatShouldBeDrawn))
-            {
-                RemoveMapData(drawnMapDataLookup[featureBasedMapData]);
-            }
-        }
-
-        private void ReorderMapDataOnCollectionChange(IList<FeatureBasedMapData> mapDataThatShouldBeDrawn,
-                                                      IDictionary<FeatureBasedMapData, DrawnMapData> drawnMapDataLookup)
-        {
-            for (var i = 0; i < mapDataThatShouldBeDrawn.Count; i++)
-            {
-                map.Layers.Move(drawnMapDataLookup[mapDataThatShouldBeDrawn[i]].FeatureBasedMapDataLayer, i);
-            }
-        }
-
-        private void DrawMapData(FeatureBasedMapData featureBasedMapData)
-        {
-            IFeatureBasedMapDataLayer featureBasedMapDataLayer = FeatureBasedMapDataLayerFactory.Create(featureBasedMapData);
-
-            var drawnMapData = new DrawnMapData
-            {
-                FeatureBasedMapData = featureBasedMapData,
-                FeatureBasedMapDataLayer = featureBasedMapDataLayer
-            };
-
-            drawnMapData.Observer = new Observer(() => { drawnMapData.FeatureBasedMapDataLayer.Update(); })
-            {
-                Observable = featureBasedMapData
-            };
-
-            drawnMapDataList.Add(drawnMapData);
-
-            if (!map.Projection.Equals(featureBasedMapDataLayer.Projection))
-            {
-                featureBasedMapDataLayer.Reproject(map.Projection);
-            }
-            map.Layers.Add(featureBasedMapDataLayer);
-        }
-
-        private void RemoveMapData(DrawnMapData drawnMapDataToRemove)
-        {
-            drawnMapDataToRemove.Observer.Dispose();
-            drawnMapDataList.Remove(drawnMapDataToRemove);
-
-            map.Layers.Remove(drawnMapDataToRemove.FeatureBasedMapDataLayer);
-        }
-
-        private void MapFunctionActivateFunction(object sender, EventArgs e)
-        {
-            map.Cursor = defaultCursor;
-        }
-
-        private void MapFunctionOnMouseUp(object sender, GeoMouseArgs e)
-        {
-            map.Cursor = defaultCursor;
-        }
-
-        private void MapFunctionPanOnMouseDown(object sender, GeoMouseArgs geoMouseArgs)
-        {
-            map.Cursor = geoMouseArgs.Button != MouseButtons.Right ? Cursors.Hand : defaultCursor;
-        }
-
-        private void MapFunctionSelectionZoomOnMouseDown(object sender, GeoMouseArgs geoMouseArgs)
-        {
-            switch (geoMouseArgs.Button)
-            {
-                case MouseButtons.Left:
-                    map.Cursor = Cursors.SizeNWSE;
-                    break;
-                default:
-                    map.Cursor = map.IsBusy
-                                     ? Cursors.SizeNWSE
-                                     : defaultCursor;
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// Lookup class for administration related to drawn map data layers.
-        /// </summary>
-        private class DrawnMapData
-        {
-            /// <summary>
-            /// The feature based map data which the drawn <see cref="FeatureBasedMapDataLayer"/> is based upon.
-            /// </summary>
-            public FeatureBasedMapData FeatureBasedMapData { get; set; }
-
-            /// <summary>
-            /// The drawn map data layer.
-            /// </summary>
-            public IFeatureBasedMapDataLayer FeatureBasedMapDataLayer { get; set; }
-
-            /// <summary>
-            /// The observer attached to <see cref="FeatureBasedMapData"/> and responsible for updating <see cref="FeatureBasedMapDataLayer"/>.
-            /// </summary>
-            public Observer Observer { get; set; }
-        }
+        #endregion
     }
 }
