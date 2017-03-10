@@ -40,6 +40,7 @@ namespace Core.Common.Gui
         private readonly IMigrateProject migrator;
         private readonly int totalNumberOfSteps = 2;
         private IProject openedProject;
+        private bool cancel;
 
         /// <summary>
         /// Creates a new instance of <see cref="OpenProjectActivity"/>.
@@ -77,74 +78,35 @@ namespace Core.Common.Gui
 
         protected override void OnRun()
         {
+            cancel = false;
             int currentStepNumber = 1;
-            openedProject = null;
+            ClearOpenedProject();
 
-            if (migrator != null)
+            if (migrator != null && !MigrateProject(currentStepNumber++))
             {
-                UpdateProgressText(Resources.OpenProjectActivity_ProgressTextStepName_MigrateProject,
-                                   currentStepNumber++,
-                                   totalNumberOfSteps);
-
-                try
-                {
-                    bool migrationSuccessful = migrator.Migrate(filePath, migratedProjectFilePath);
-                    if (!migrationSuccessful)
-                    {
-                        State = ActivityState.Failed;
-                        return;
-                    }
-                }
-                catch (ArgumentException e)
-                {
-                    log.Error(e.Message, e);
-                    State = ActivityState.Failed;
-                    return;
-                }
+                return;
             }
 
-            UpdateProgressText(Resources.OpenProjectActivity_ProgressTextStepName_ReadProject,
-                               currentStepNumber,
-                               totalNumberOfSteps);
-            try
-            {
-                openedProject = storage.LoadProject(FilePathTakingMigrationIntoAccount);
-            }
-            catch (StorageException e)
-            {
-                log.Error(e.Message, e.InnerException);
-            }
-
-            if (openedProject == null)
-            {
-                State = ActivityState.Failed;
-            }
+            LoadProject(currentStepNumber);
         }
 
-        protected override void OnCancel() {}
+        protected override void OnCancel()
+        {
+            cancel = true;
+        }
 
         protected override void OnFinish()
         {
             switch (State)
             {
                 case ActivityState.Executed:
-                    UpdateProgressText(Resources.OpenProjectActivity_ProgressTextStepName_InitializeProject,
-                                       totalNumberOfSteps,
-                                       totalNumberOfSteps);
-
-                    projectOwner.SetProject(openedProject, FilePathTakingMigrationIntoAccount);
-                    openedProject.Name = Path.GetFileNameWithoutExtension(FilePathTakingMigrationIntoAccount);
-                    openedProject.NotifyObservers();
+                    InitializeSuccssfulOpenedProject();
                     break;
                 case ActivityState.Failed:
-                    UpdateProgressText(Resources.OpenProjectActivity_ProgressTextStepName_InitializeEmptyProject,
-                                       totalNumberOfSteps,
-                                       totalNumberOfSteps);
-
-                    projectOwner.SetProject(projectFactory.CreateNewProject(), null);
+                    InitializeEmptyProject();
                     break;
                 case ActivityState.Canceled:
-                    openedProject = null;
+                    ClearOpenedProject();
                     break;
             }
         }
@@ -155,6 +117,102 @@ namespace Core.Common.Gui
             {
                 return migratedProjectFilePath ?? filePath;
             }
+        }
+
+        /// <summary>
+        /// Migrates the project.
+        /// </summary>
+        /// <param name="currentStepNumber">The current step number.</param>
+        /// <returns><c>true</c> if migration was successful, <c>false</c> otherwise.</returns>
+        private bool MigrateProject(int currentStepNumber)
+        {
+            UpdateProgressText(Resources.OpenProjectActivity_ProgressTextStepName_MigrateProject,
+                               currentStepNumber,
+                               totalNumberOfSteps);
+
+            try
+            {
+                bool migrationSuccessful = migrator.Migrate(filePath, migratedProjectFilePath);
+
+                if (cancel)
+                {
+                    return false;
+                }
+
+                if (!migrationSuccessful)
+                {
+                    State = ActivityState.Failed;
+                    return false;
+                }
+            }
+            catch (ArgumentException e)
+            {
+                if (cancel)
+                {
+                    return false;
+                }
+
+                log.Error(e.Message, e);
+                State = ActivityState.Failed;
+                return false;
+            }
+
+            return true;
+        }
+
+        private void LoadProject(int currentStepNumber)
+        {
+            UpdateProgressText(Resources.OpenProjectActivity_ProgressTextStepName_ReadProject,
+                               currentStepNumber,
+                               totalNumberOfSteps);
+            try
+            {
+                openedProject = storage.LoadProject(FilePathTakingMigrationIntoAccount);
+            }
+            catch (StorageException e)
+            {
+                if (cancel)
+                {
+                    return;
+                }
+
+                log.Error(e.Message, e.InnerException);
+            }
+
+            if (cancel)
+            {
+                return;
+            }
+
+            if (openedProject == null)
+            {
+                State = ActivityState.Failed;
+            }
+        }
+
+        private void ClearOpenedProject()
+        {
+            openedProject = null;
+        }
+
+        private void InitializeEmptyProject()
+        {
+            UpdateProgressText(Resources.OpenProjectActivity_ProgressTextStepName_InitializeEmptyProject,
+                               totalNumberOfSteps,
+                               totalNumberOfSteps);
+
+            projectOwner.SetProject(projectFactory.CreateNewProject(), null);
+        }
+
+        private void InitializeSuccssfulOpenedProject()
+        {
+            UpdateProgressText(Resources.OpenProjectActivity_ProgressTextStepName_InitializeProject,
+                               totalNumberOfSteps,
+                               totalNumberOfSteps);
+
+            projectOwner.SetProject(openedProject, FilePathTakingMigrationIntoAccount);
+            openedProject.Name = Path.GetFileNameWithoutExtension(FilePathTakingMigrationIntoAccount);
+            openedProject.NotifyObservers();
         }
 
         /// <summary>

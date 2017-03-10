@@ -1061,5 +1061,154 @@ namespace Core.Common.Gui.Test
 
             mocks.VerifyAll();
         }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenActivityMigratingAndOpeningProject_WhenCancellingDuringMigration_DoNotLoadProject(bool migrationSuccessful)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectFactory = mocks.StrictMock<IProjectFactory>();
+            var storeProject = mocks.StrictMock<IStoreProject>();
+            var projectOwner = mocks.StrictMock<IProjectOwner>();
+            var migrateProject = mocks.Stub<IMigrateProject>();
+            migrateProject.Stub(mp => mp.Migrate(null, null))
+                          .IgnoreArguments()
+                          .Return(migrationSuccessful);
+            mocks.ReplayAll();
+
+            var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
+            {
+                FilePath = "",
+                ProjectFactory = projectFactory,
+                ProjectStorage = storeProject,
+                ProjectOwner = projectOwner
+            };
+            var migrateProjectProperties = new OpenProjectActivity.ProjectMigrationConstructionProperties
+            {
+                MigrationFilePath = "",
+                Migrator = migrateProject
+            };
+            var activity = new OpenProjectActivity(openProjectProperties,
+                                                   migrateProjectProperties);
+
+            // When
+            activity.ProgressChanged += (sender, args) => activity.Cancel();
+            activity.Run();
+            activity.Finish();
+
+            // Assert
+            Assert.AreEqual(ActivityState.Canceled, activity.State);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenActivityMigratinProject_WhenCancellingAndMigrationThrowsException_DoNotLoadProject()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectFactory = mocks.StrictMock<IProjectFactory>();
+            var storeProject = mocks.StrictMock<IStoreProject>();
+            var projectOwner = mocks.StrictMock<IProjectOwner>();
+            var migrateProject = mocks.Stub<IMigrateProject>();
+            migrateProject.Stub(mp => mp.Migrate(null, null))
+                          .IgnoreArguments()
+                          .Throw(new ArgumentException());
+            mocks.ReplayAll();
+
+            var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
+            {
+                FilePath = "",
+                ProjectFactory = projectFactory,
+                ProjectStorage = storeProject,
+                ProjectOwner = projectOwner
+            };
+            var migrateProjectProperties = new OpenProjectActivity.ProjectMigrationConstructionProperties
+            {
+                MigrationFilePath = "",
+                Migrator = migrateProject
+            };
+            var activity = new OpenProjectActivity(openProjectProperties,
+                                                   migrateProjectProperties);
+
+            // When
+            activity.ProgressChanged += (sender, args) => activity.Cancel();
+            activity.Run();
+            activity.Finish();
+
+            // Assert
+            Assert.AreEqual(ActivityState.Canceled, activity.State);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenActivityOpeningProject_WhenCancellingDuringLoadProject_DoNotSetProject(bool loadProjectSuccessful)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IProject project = loadProjectSuccessful ?
+                                   mocks.Stub<IProject>() :
+                                   null;
+            var projectFactory = mocks.StrictMock<IProjectFactory>();
+            var projectOwner = mocks.StrictMock<IProjectOwner>();
+            var storeProject = mocks.Stub<IStoreProject>();
+            storeProject.Stub(s => s.LoadProject(null))
+                        .IgnoreArguments()
+                        .Return(project);
+            mocks.ReplayAll();
+
+            var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
+            {
+                FilePath = "",
+                ProjectFactory = projectFactory,
+                ProjectStorage = storeProject,
+                ProjectOwner = projectOwner
+            };
+            var activity = new OpenProjectActivity(openProjectProperties);
+
+            // When
+            activity.ProgressChanged += (sender, args) => activity.Cancel();
+            activity.Run();
+            activity.Finish();
+
+            // Assert
+            Assert.AreEqual(ActivityState.Canceled, activity.State);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenActivityOpeningProject_WhenCancellingWhileLoadProjectThrowsStorageException_DoNotSetProject()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectFactory = mocks.StrictMock<IProjectFactory>();
+            var projectOwner = mocks.StrictMock<IProjectOwner>();
+            var storeProject = mocks.Stub<IStoreProject>();
+            storeProject.Stub(s => s.LoadProject(null))
+                        .IgnoreArguments()
+                        .Throw(new StorageException());
+            mocks.ReplayAll();
+
+            var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
+            {
+                FilePath = "",
+                ProjectFactory = projectFactory,
+                ProjectStorage = storeProject,
+                ProjectOwner = projectOwner
+            };
+            var activity = new OpenProjectActivity(openProjectProperties);
+
+            // When
+            activity.ProgressChanged += (sender, args) => activity.Cancel();
+            activity.Run();
+            activity.Finish();
+
+            // Assert
+            Assert.AreEqual(ActivityState.Canceled, activity.State);
+            mocks.VerifyAll();
+        }
     }
 }
