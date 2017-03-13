@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Xml;
 using Core.Common.IO.Exceptions;
@@ -163,17 +162,7 @@ namespace Ringtoets.Common.IO.Writers
 
         private static string BreakWaterTypeAsXmlString(BreakWaterType type)
         {
-            switch (type)
-            {
-                case BreakWaterType.Caisson:
-                    return ConfigurationSchemaIdentifiers.BreakWaterCaisson;
-                case BreakWaterType.Dam:
-                    return ConfigurationSchemaIdentifiers.BreakWaterDam;
-                case BreakWaterType.Wall:
-                    return ConfigurationSchemaIdentifiers.BreakWaterWall;
-                default:
-                    throw new InvalidEnumArgumentException(nameof(type), (int) type, typeof(BreakWaterType));
-            }
+            return new BreakWaterTypeTypeConverter().ConvertToInvariantString(type);
         }
 
         private static void WriteDistribution(IDistribution distribution, string elementName, XmlWriter writer)

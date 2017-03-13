@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.ComponentModel;
-using System.Globalization;
 using System.Xml;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -38,6 +36,13 @@ namespace Ringtoets.Revetment.IO
     /// <typeparam name="T">The type of calculations that are written to file.</typeparam>
     public abstract class WaveConditionsInputConfigurationWriter<T> : CalculationConfigurationWriter<T> where T : class, ICalculation
     {
+        private readonly WaveConditionsInputStepSizeTypeConverter waveConditionsInputStepSizeConverter;
+
+        public WaveConditionsInputConfigurationWriter()
+        {
+            waveConditionsInputStepSizeConverter = new WaveConditionsInputStepSizeTypeConverter();
+        }
+
         /// <summary>
         /// Writes a single calculation with its <paramref name="input"/> in XML format to file.
         /// </summary>
@@ -65,7 +70,7 @@ namespace Ringtoets.Revetment.IO
                 XmlConvert.ToString(input.LowerBoundaryWaterLevels));
             writer.WriteElementString(
                 WaveConditionsInputConfigurationSchemaIdentifiers.StepSize,
-                string.Format(CultureInfo.InvariantCulture, "{0:0.0}", input.StepSize.AsValue()));
+                waveConditionsInputStepSizeConverter.ConvertToInvariantString(input.StepSize));
 
             WriteForeshoreProfile(input.ForeshoreProfile, writer);
 

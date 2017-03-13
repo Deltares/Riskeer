@@ -54,6 +54,7 @@
     </Compile>
     <Compile Include="AssessmentSectionSettings.cs" />
     <Compile Include="AssessmentSectionSettingsReader.cs" />
+    <Compile Include="BreakWaterTypeTypeConverter.cs" />
     <Compile Include="DikeProfiles\DamType.cs" />
     <Compile Include="DikeProfiles\DikeProfileData.cs" />
     <Compile Include="DikeProfiles\DikeProfileDataReader.cs" />

@@ -386,11 +386,6 @@ namespace Ringtoets.Common.IO.Test.Writers
         {
             public const string CalculationElementTag = "calculation";
 
-            protected override void WriteCalculation(TestCalculation calculation, XmlWriter writer)
-            {
-                writer.WriteElementString(CalculationElementTag, calculation.Name);
-            }
-
             public void PublicWriteDistributions(IEnumerable<Tuple<string, IDistribution>> distributions, XmlWriter writer)
             {
                 WriteDistributions(distributions, writer);
@@ -399,6 +394,11 @@ namespace Ringtoets.Common.IO.Test.Writers
             public void PublicWriteBreakWaterProperties(BreakWater breakWater, XmlWriter writer)
             {
                 WriteBreakWaterProperties(breakWater, writer);
+            }
+
+            protected override void WriteCalculation(TestCalculation calculation, XmlWriter writer)
+            {
+                writer.WriteElementString(CalculationElementTag, calculation.Name);
             }
         }
 
@@ -418,7 +418,7 @@ namespace Ringtoets.Common.IO.Test.Writers
             };
 
             yield return new TestCaseData(
-                    new []
+                    new[]
                     {
                         calculationGroup1
                     },
