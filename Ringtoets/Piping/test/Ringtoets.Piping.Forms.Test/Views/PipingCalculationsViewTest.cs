@@ -1360,6 +1360,64 @@ namespace Ringtoets.Piping.Forms.Test.Views
             mocks.VerifyAll();
         }
 
+        [Test]
+        public void GivenPipingCalculationViewWithCalculations_WhenSurfaceLineLocatedOutsideSectionAfterUpdateAndObserversNotified_ThenDataGridViewUpdated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
+            mocks.ReplayAll();
+
+            using (PipingCalculationsView pipingCalculationView = ShowFullyConfiguredPipingCalculationsView(
+                assessmentSection, handler))
+            {
+                var data = (CalculationGroup) pipingCalculationView.Data;
+                var pipingCalculation = (PipingCalculationScenario) data.Children[0];
+
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                var listBox = (ListBox) new ControlTester("listBox").TheObject;
+
+                // Precondition
+                listBox.SelectedIndex = 0;
+                Assert.AreEqual(2, dataGridView.RowCount);
+                Assert.AreEqual("Calculation 1", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
+                Assert.AreEqual("Calculation 2", dataGridView.Rows[1].Cells[nameColumnIndex].FormattedValue);
+
+                listBox.SelectedIndex = 1;
+                Assert.AreEqual(1, dataGridView.RowCount);
+                Assert.AreEqual("Calculation 2", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
+
+                RingtoetsPipingSurfaceLine surfaceLineToChange = pipingCalculation.InputParameters.SurfaceLine;
+                var updatedSurfaceLine = new RingtoetsPipingSurfaceLine
+                {
+                    Name = surfaceLineToChange.Name,
+                    ReferenceLineIntersectionWorldPoint = new Point2D(9.0, 0.0)
+                };
+                updatedSurfaceLine.SetGeometry(new[]
+                {
+                    new Point3D(9.0, 5.0, 0.0),
+                    new Point3D(9.0, 0.0, 1.0),
+                    new Point3D(9.0, -5.0, 0.0)
+                });
+
+                // When
+                surfaceLineToChange.CopyProperties(updatedSurfaceLine);
+                surfaceLineToChange.NotifyObservers();
+
+                // Then
+                listBox.SelectedIndex = 0;
+                Assert.AreEqual(1, dataGridView.RowCount);
+                Assert.AreEqual("Calculation 2", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
+
+                listBox.SelectedIndex = 1;
+                Assert.AreEqual(2, dataGridView.RowCount);
+                Assert.AreEqual("Calculation 1", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
+                Assert.AreEqual("Calculation 2", dataGridView.Rows[1].Cells[nameColumnIndex].FormattedValue);
+            }
+            mocks.VerifyAll();
+        }
+
         private PipingCalculationsView ShowFullyConfiguredPipingCalculationsView(
             IAssessmentSection assessmentSection,
             IObservablePropertyChangeHandler handler)
