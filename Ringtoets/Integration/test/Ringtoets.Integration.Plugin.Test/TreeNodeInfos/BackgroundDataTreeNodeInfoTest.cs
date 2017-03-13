@@ -30,7 +30,10 @@ using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.TestUtil.ContextMenu;
+using Core.Common.Gui.TestUtil.Settings;
 using Core.Common.TestUtil;
+using Core.Components.BruTile.Configurations;
+using Core.Components.BruTile.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms.Views;
 using NUnit.Extensions.Forms;
@@ -240,10 +243,18 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenNoMapDataSet_WhenSelectingValidMapDataFromContextMenu_ThenMapDataSetAndNotifiesObserver()
+        public void GivenNoMapDataSet_WhenSelectingValidWMTSMapDataFromContextMenu_ThenMapDataSetAndNotifiesObserver()
         {
             // Given
             var mockRepository = new MockRepository();
+            var tileFactory = mockRepository.StrictMock<ITileSourceFactory>();
+            WmtsMapData newMapData = new WmtsMapData("Actueel Hoogtebestand Nederland (AHN1)",
+                                                     "https://geodata.nationaalgeoregister.nl/tiles/service/wmts/ahn1?request=GetCapabilities",
+                                                     "()", "image/png");
+            tileFactory.Expect(tf => tf.GetWmtsTileSources(null)).IgnoreArguments().Return(new[]
+            {
+                new TestWmtsTileSource(newMapData)
+            });
             var assessmentSectionObserver = mockRepository.StrictMock<IObserver>();
             assessmentSectionObserver.Expect(o => o.UpdateObserver());
 
@@ -253,6 +264,11 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
             BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(mapData);
 
+            using (new UseCustomSettingsHelper(new TestSettingsHelper
+            {
+                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "twoValidWmtsConnectionInfos")
+            }))
+            using (new UseCustomTileSourceFactoryConfig(tileFactory))
             using (var treeViewControl = new TreeViewControl())
             using (var plugin = new RingtoetsPlugin())
             {
@@ -273,9 +289,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                 DialogBoxHandler = (name, wnd) =>
                 {
-                    var tester = (BackgroundMapDataSelectionDialog) new FormTester(name).TheObject;
-                    tester.DialogResult = DialogResult.OK;
-                    tester.Close();
+                    var dialog = (BackgroundMapDataSelectionDialog) new FormTester(name).TheObject;
+                    var button = new ButtonTester("selectButton", dialog);
+                    button.Click();
+                    dialog.Close();
                 };
 
                 TreeNodeInfo info = GetInfo(plugin);
@@ -287,7 +304,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     contextMenuStrip.Items[selectContextMenuIndex].PerformClick();
 
                     // Then
-                    AssertBackgroundMapDataProperties(mapData, assessmentSection.BackgroundData);
+                    AssertBackgroundMapDataProperties(newMapData, assessmentSection.BackgroundData, true);
                 }
             }
             mockRepository.VerifyAll();
@@ -323,7 +340,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 var assessmentSection = new ObservableTestAssessmentSectionStub();
                 assessmentSection.Attach(assessmentSectionObserver);
                 assessmentSection.BackgroundData.Attach(backgroundMapDataObserver);
-                
+
                 BackgroundData oldBackgroundData = assessmentSection.BackgroundData;
 
                 DialogBoxHandler = (name, wnd) =>
@@ -393,9 +410,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                 DialogBoxHandler = (name, wnd) =>
                 {
-                    var tester = (BackgroundMapDataSelectionDialog) new FormTester(name).TheObject;
-                    tester.DialogResult = DialogResult.OK;
-                    tester.Close();
+                    var dialog = (BackgroundMapDataSelectionDialog) new FormTester(name).TheObject;
+                    var button = new ButtonTester("selectButton", dialog);
+                    button.Click();
+                    dialog.Close();
                 };
 
                 TreeNodeInfo info = GetInfo(plugin);
@@ -407,7 +425,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     contextMenuStrip.Items[selectContextMenuIndex].PerformClick();
 
                     // Then
-                    AssertBackgroundMapDataProperties(newMapData, assessmentSection.BackgroundData);
+                    AssertBackgroundMapDataProperties(newMapData, assessmentSection.BackgroundData, true);
                 }
             }
             mockRepository.VerifyAll();
@@ -452,11 +470,11 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                 DialogBoxHandler = (name, wnd) =>
                 {
-                    var dialog = (BackgroundMapDataSelectionDialog)new FormTester(name).TheObject;
+                    var dialog = (BackgroundMapDataSelectionDialog) new FormTester(name).TheObject;
 
-                    var comboBox = (ComboBox)new ComboBoxTester("mapLayerComboBox", dialog).TheObject;
-                    comboBox.SelectedItem = ((IBackgroundMapDataSelectionControl[])comboBox.DataSource).OfType<WellKnownMapDataControl>().First();
-                    var wmtsDataGridViewControl = (DataGridViewControl)new ControlTester("dataGridViewControl", dialog).TheObject;
+                    var comboBox = (ComboBox) new ComboBoxTester("mapLayerComboBox", dialog).TheObject;
+                    comboBox.SelectedItem = ((IBackgroundMapDataSelectionControl[]) comboBox.DataSource).OfType<WellKnownMapDataControl>().First();
+                    var wmtsDataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", dialog).TheObject;
                     wmtsDataGridViewControl.SetCurrentCell(wmtsDataGridViewControl.GetCell(1, 0));
 
                     var button = new ButtonTester("selectButton", dialog);
@@ -473,6 +491,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     contextMenuStrip.Items[selectContextMenuIndex].PerformClick();
 
                     // Then
+                    AssertBackgroundMapDataProperties(mapData, assessmentSection.BackgroundData, false);
                 }
             }
             mockRepository.VerifyAll();
@@ -536,10 +555,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             mockRepository.VerifyAll();
         }
 
-        private static void AssertBackgroundMapDataProperties(WmtsMapData mapData, BackgroundData backgroundData)
+        private static void AssertBackgroundMapDataProperties(WmtsMapData mapData, BackgroundData backgroundData, bool shouldBeVisible)
         {
             Assert.AreEqual(mapData.Name, backgroundData.Name);
-            Assert.IsTrue(backgroundData.IsVisible);
+            Assert.AreEqual(shouldBeVisible, backgroundData.IsVisible);
             Assert.AreEqual(mapData.IsConfigured, backgroundData.IsConfigured);
             Assert.AreEqual(mapData.Transparency, backgroundData.Transparency);
             Assert.AreEqual(mapData.SourceCapabilitiesUrl, backgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl]);

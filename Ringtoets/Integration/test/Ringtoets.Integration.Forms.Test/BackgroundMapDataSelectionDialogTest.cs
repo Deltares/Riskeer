@@ -62,21 +62,6 @@ namespace Ringtoets.Integration.Forms.Test
         }
 
         [Test]
-        public void Constructor_WithoutParent_ThrowsArgumentNullException()
-        {
-            // Setup
-            mockRepository.ReplayAll();
-            var imageBasedMapData = new TestImageBasedMapData("someMapData", true);
-
-            // Call
-            TestDelegate test = () => new BackgroundMapDataSelectionDialog(null, imageBasedMapData);
-
-            // Assert
-            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("dialogParent", parameter);
-        }
-
-        [Test]
         public void Constructor_MapDataNull_DefaultProperties()
         {
             // Setup
@@ -89,26 +74,13 @@ namespace Ringtoets.Integration.Forms.Test
                 // Assert
                 Assert.IsInstanceOf<DialogBase>(dialog);
                 Assert.AreEqual("Selecteer achtergrondkaart", dialog.Text);
-                Assert.IsNull(dialog.SelectedMapData);
 
                 Icon icon = BitmapToIcon(RingtoetsCommonFormsResources.SelectionDialogIcon);
                 Bitmap expectedImage = icon.ToBitmap();
                 Bitmap actualImage = dialog.Icon.ToBitmap();
                 TestHelper.AssertImagesAreEqual(expectedImage, actualImage);
 
-                var mapLayers = (ComboBox) new ComboBoxTester("mapLayerComboBox", dialog).TheObject;
-                Assert.AreEqual(ComboBoxStyle.DropDownList, mapLayers.DropDownStyle);
-                Assert.AreEqual("DisplayName", mapLayers.DisplayMember);
-                Assert.IsTrue(mapLayers.Sorted);
-
-                var backgroundMapDataSelectionControls = (IBackgroundMapDataSelectionControl[]) mapLayers.DataSource;
-                Assert.AreEqual(2, backgroundMapDataSelectionControls.Length);
-                Assert.IsInstanceOf<WellKnownMapDataControl>(backgroundMapDataSelectionControls[0]);
-                Assert.IsInstanceOf<WmtsLocationControl>(backgroundMapDataSelectionControls[1]);
-
-                var groupBoxProperties = (GroupBox) new ControlTester("propertiesGroupBox", dialog).TheObject;
-                Assert.AreEqual(1, groupBoxProperties.Controls.Count);
-                Assert.AreSame(backgroundMapDataSelectionControls[0], groupBoxProperties.Controls[0]);
+                AssertMapDataControls<WellKnownMapDataControl>(dialog);
             }
         }
 
@@ -142,13 +114,7 @@ namespace Ringtoets.Integration.Forms.Test
                 using (var dialog = new BackgroundMapDataSelectionDialog(dialogParent, mapData))
                 {
                     // Assert
-                    Assert.AreSame(mapData, dialog.SelectedMapData);
-                    var mapLayers = (ComboBox) new ComboBoxTester("mapLayerComboBox", dialog).TheObject;
-                    Assert.IsInstanceOf<WmtsLocationControl>(mapLayers.SelectedItem);
-
-                    var groupBoxProperties = (GroupBox) new ControlTester("propertiesGroupBox", dialog).TheObject;
-                    Assert.AreEqual(1, groupBoxProperties.Controls.Count);
-                    Assert.AreSame(mapLayers.SelectedItem, groupBoxProperties.Controls[0]);
+                    AssertMapDataControls<WmtsLocationControl>(dialog);
                 }
             }
         }
@@ -169,17 +135,7 @@ namespace Ringtoets.Integration.Forms.Test
                 using (var dialog = new BackgroundMapDataSelectionDialog(dialogParent, mapData))
                 {
                     // Assert
-                    Assert.AreSame(mapData, dialog.SelectedMapData);
-                    var mapLayers = (ComboBox) new ComboBoxTester("mapLayerComboBox", dialog).TheObject;
-                    Assert.AreEqual(ComboBoxStyle.DropDownList, mapLayers.DropDownStyle);
-                    Assert.IsInstanceOf<IBackgroundMapDataSelectionControl[]>(mapLayers.DataSource);
-                    Assert.AreEqual("DisplayName", mapLayers.DisplayMember);
-                    Assert.IsTrue(mapLayers.Sorted);
-                    Assert.IsInstanceOf<WellKnownMapDataControl>(mapLayers.SelectedItem);
-
-                    var groupBoxProperties = (GroupBox) new ControlTester("propertiesGroupBox", dialog).TheObject;
-                    Assert.AreEqual(1, groupBoxProperties.Controls.Count);
-                    Assert.AreSame(mapLayers.SelectedItem, groupBoxProperties.Controls[0]);
+                    AssertMapDataControls<WellKnownMapDataControl>(dialog);
                 }
             }
         }
@@ -190,16 +146,12 @@ namespace Ringtoets.Integration.Forms.Test
         {
             // Setup
             mockRepository.ReplayAll();
-            DialogBoxHandler = (name, wnd) =>
-            {
-                using (new FormTester(name)) {}
-            };
 
             using (var dialogParent = new Form())
             using (var dialog = new BackgroundMapDataSelectionDialog(dialogParent, null))
             {
                 // Call
-                dialog.ShowDialog();
+                dialog.Show();
 
                 // Assert
                 var mapLayerLabel = new LabelTester("mapLayerLabel", dialog);
@@ -315,14 +267,17 @@ namespace Ringtoets.Integration.Forms.Test
                 wmtsLocationControl.SelectedMapDataChanged += (sender, args) => { wmtsLocationControlSelectedMapDataChanged++; };
 
                 comboBox.SelectedItem = GetComboBoxItem<WellKnownMapDataControl>(comboBox);
+                var wellKnownDataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", dialog).TheObject;
+                wellKnownDataGridViewControl.ClearCurrentCell();
+
+                var button = (Button) new ButtonTester("selectButton", dialog).TheObject;
+                Assert.IsFalse(button.Enabled);
 
                 // When
                 wmtsDataGridViewControl.SetCurrentCell(wmtsDataGridViewControl.GetCell(0, 0));
-                var button = new ButtonTester("selectButton", dialog);
-                button.Click();
 
                 // Then
-                Assert.IsInstanceOf<WellKnownTileSourceMapData>(dialog.SelectedMapData);
+                Assert.IsFalse(button.Enabled);
                 Assert.AreEqual(1, wmtsLocationControlSelectedMapDataChanged);
             }
         }
@@ -391,6 +346,30 @@ namespace Ringtoets.Integration.Forms.Test
 
             // Assert
             Assert.DoesNotThrow(call);
+        }
+
+        private static void AssertMapDataControls<T>(BackgroundMapDataSelectionDialog dialog)
+            where T : UserControl, IBackgroundMapDataSelectionControl
+        {
+            var mapLayers = (ComboBox) new ComboBoxTester("mapLayerComboBox", dialog).TheObject;
+            Assert.AreEqual("DisplayName", mapLayers.DisplayMember);
+            Assert.AreEqual("UserControl", mapLayers.ValueMember);
+            Assert.AreEqual(ComboBoxStyle.DropDownList, mapLayers.DropDownStyle);
+            Assert.IsTrue(mapLayers.Sorted);
+            Assert.IsInstanceOf<T>(mapLayers.SelectedItem);
+
+            var backgroundMapDataSelectionControls = (IBackgroundMapDataSelectionControl[]) mapLayers.DataSource;
+            Assert.AreEqual(2, backgroundMapDataSelectionControls.Length);
+            Assert.IsInstanceOf<WellKnownMapDataControl>(backgroundMapDataSelectionControls[0]);
+            Assert.IsInstanceOf<WmtsLocationControl>(backgroundMapDataSelectionControls[1]);
+
+            Assert.IsInstanceOf<IBackgroundMapDataSelectionControl[]>(mapLayers.DataSource);
+            Assert.AreEqual("DisplayName", mapLayers.DisplayMember);
+
+            var groupBoxProperties = (GroupBox) new ControlTester("propertiesGroupBox", dialog).TheObject;
+            Assert.AreEqual(DockStyle.Fill, groupBoxProperties.Dock);
+            Assert.AreEqual(1, groupBoxProperties.Controls.Count);
+            Assert.AreSame(mapLayers.SelectedItem, groupBoxProperties.Controls[0]);
         }
 
         private static T GetComboBoxItem<T>(ComboBox comboBox)

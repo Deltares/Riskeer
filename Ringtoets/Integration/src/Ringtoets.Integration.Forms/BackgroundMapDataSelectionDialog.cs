@@ -56,8 +56,6 @@ namespace Ringtoets.Integration.Forms
                 new WmtsLocationControl(mapData as WmtsMapData, new BruTileWmtsCapabilityFactory())
             };
 
-            SelectedMapData = mapData;
-
             InitializeComponent();
             InitializeButtons();
             InitializeComboBox();
@@ -84,11 +82,11 @@ namespace Ringtoets.Integration.Forms
         {
             if (mapData is WellKnownTileSourceMapData)
             {
-                return mapDatas.OfType<WellKnownMapDataControl>().First();
+                return mapDatas.OfType<WellKnownMapDataControl>().Single();
             }
             if (mapData is WmtsMapData)
             {
-                return mapDatas.OfType<WmtsLocationControl>().First();
+                return mapDatas.OfType<WmtsLocationControl>().Single();
             }
             return mapDatas.First();
         }

@@ -41,6 +41,10 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BruTile, Version=0.19.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\BruTile.0.19.0\lib\net40\BruTile.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Fluent, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\Fluent.Ribbon.3.4.0\lib\net40\Fluent.dll</HintPath>
       <Private>True</Private>
@@ -160,6 +164,10 @@
       <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>
       <Name>Core.Common.TestUtil</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.BruTile\Core.Components.BruTile.csproj">
+      <Project>{E02482C7-F12B-42F0-BB2B-C7EC17503A72}</Project>
+      <Name>Core.Components.BruTile</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj">
       <Project>{4a06df0d-5d75-4bad-a95a-a3db9b7c4ad5}</Project>
       <Name>Core.Components.Gis.Forms</Name>
@@ -167,6 +175,10 @@
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
       <Project>{318ba582-88c9-4816-a54a-a7e431461de3}</Project>
       <Name>Core.Components.Gis</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\test\Core.Components.BruTile.TestUtil\Core.Components.BruTile.TestUtil.csproj">
+      <Project>{1081336C-D919-4249-AB33-9AF15F4D19EC}</Project>
+      <Name>Core.Components.BruTile.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\ClosingStructures\src\Ringtoets.ClosingStructures.Data\Ringtoets.ClosingStructures.Data.csproj">
       <Project>{c6309704-d67b-434c-bc98-9f8910bc1d10}</Project>
@@ -260,14 +272,6 @@
       <Project>{87c2c553-c0bc-40bf-b1ea-b83bff357f27}</Project>
       <Name>Ringtoets.Revetment.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.IO\Ringtoets.Revetment.IO.csproj">
-      <Project>{E3347B16-BB18-41C1-8D34-FBCBF20DB695}</Project>
-      <Name>Ringtoets.Revetment.IO</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Revetment\test\Ringtoets.Revetment.Data.TestUtil\Ringtoets.Revetment.Data.TestUtil.csproj">
-      <Project>{3706200E-48C6-4B86-B48C-4E45C69ABE95}</Project>
-      <Name>Ringtoets.Revetment.Data.TestUtil</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\StabilityPointStructures\src\Ringtoets.StabilityPointStructures.Data\Ringtoets.StabilityPointStructures.Data.csproj">
       <Project>{3d4b9740-8348-4434-8d77-b611fc6ee57f}</Project>
       <Name>Ringtoets.StabilityPointStructures.Data</Name>
@@ -292,10 +296,6 @@
       <Project>{1AC97B51-88C2-437D-89E6-65C69AB3CCAD}</Project>
       <Name>Ringtoets.WaveImpactAsphaltCover.Forms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Ringtoets.WaveImpactAsphaltCover.Plugin\Ringtoets.WaveImpactAsphaltCover.Plugin.csproj">
-      <Project>{83A782F1-BA78-4D5C-B213-39066605AFD8}</Project>
-      <Name>Ringtoets.WaveImpactAsphaltCover.Plugin</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Integration.Data\Ringtoets.Integration.Data.csproj">
       <Project>{11f1f874-45af-43e4-8ae5-15a5c9593e28}</Project>
       <Name>Ringtoets.Integration.Data</Name>
@@ -307,10 +307,6 @@
     <ProjectReference Include="..\..\src\Ringtoets.Integration.Plugin\Ringtoets.Integration.Plugin.csproj">
       <Project>{c8383b76-b3f1-4e6e-b56c-527b469fa20a}</Project>
       <Name>Ringtoets.Integration.Plugin</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Integration.Service\Ringtoets.Integration.Service.csproj">
-      <Project>{28811c4a-6c18-42c1-88b2-a03a3784e2d0}</Project>
-      <Name>Ringtoets.Integration.Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Integration.TestUtils\Ringtoets.Integration.TestUtils.csproj">
       <Project>{174ba68d-6176-4ac5-8dfd-98cdd2c4d971}</Project>
