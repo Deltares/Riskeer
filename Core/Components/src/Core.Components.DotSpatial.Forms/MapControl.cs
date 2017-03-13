@@ -194,84 +194,84 @@ namespace Core.Components.DotSpatial.Forms
 
         #region Background layer
 
-        private bool InitializeBackgroundLayer()
-        {
-            var wmtsBackgroundMapData = backgroundMapData as WmtsMapData;
-            var wellKnownMapDataBackgroundMapData = backgroundMapData as WellKnownTileSourceMapData;
-            if (wmtsBackgroundMapData != null)
-            {
-                return InitializeBackgroundLayer(wmtsBackgroundMapData);
-            }
-            if (wellKnownMapDataBackgroundMapData != null)
-            {
-                return InitializeBackgroundLayer(wellKnownMapDataBackgroundMapData);
-            }
-            return false;
-        }
-
-        private bool InitializeBackgroundLayer(WellKnownTileSourceMapData wellKnownMapDataBackgroundMapData)
-        {
-            try
-            {
-                WellKnownTileSourceLayerConfiguration configuration = WellKnownTileSourceLayerConfiguration.CreateInitializedConfiguration(
-                    wellKnownMapDataBackgroundMapData.TileSource);
-
-                var backgroundLayer = new BruTileLayer(configuration)
-                {
-                    IsVisible = backgroundMapData.IsVisible,
-                    Transparency = Convert.ToSingle(backgroundMapData.Transparency)
-                };
-                backgroundLayerStatus.SuccessfullyInitializedLayer(backgroundLayer, wellKnownMapDataBackgroundMapData);
-
-                return true;
-            }
-            catch (NotSupportedException e)
-            {
-                string tileDisplayName = TypeUtils.GetDisplayName(wellKnownMapDataBackgroundMapData.TileSource);
-                HandleBruTileInitializationException(e, $"Verbinden met '{tileDisplayName}' is mislukt waardoor geen kaartgegevens ingeladen kunnen worden.");
-
-                return false;
-            }
-            catch (CannotCreateTileCacheException e)
-            {
-                HandleBruTileInitializationException(e, Resources.MapControl_InitializeBackgroundLayer_Persistent_cache_creation_failed);
-
-                return false;
-            }
-        }
-
         /// <summary>
         /// Attempts to initialize the background layer.
         /// </summary>
         /// <returns><c>true</c> if initialization of the background layer was successful,
         /// <c>false</c> otherwise.
         /// </returns>
-        private bool InitializeBackgroundLayer(WmtsMapData wmtsMapDataBackgroundMapData)
+        private bool InitializeBackgroundLayer()
+        {
+            IConfiguration configuration = CreateInitializedConfiguration(backgroundMapData);
+            if (configuration == null)
+            {
+                return false;
+            }
+
+            var backgroundLayer = new BruTileLayer(configuration)
+            {
+                IsVisible = backgroundMapData.IsVisible,
+                Transparency = Convert.ToSingle(backgroundMapData.Transparency)
+            };
+            backgroundLayerStatus.SuccessfullyInitializedLayer(backgroundLayer, backgroundMapData);
+
+            return true;
+        }
+
+        private IConfiguration CreateInitializedConfiguration(ImageBasedMapData mapdata)
+        {
+            var wmtsBackgroundMapData = mapdata as WmtsMapData;
+            var wellKnownMapDataBackgroundMapData = mapdata as WellKnownTileSourceMapData;
+            if (wmtsBackgroundMapData != null)
+            {
+                return TryCreateInitializedConfiguration(wmtsBackgroundMapData);
+            }
+
+            if (wellKnownMapDataBackgroundMapData != null)
+            {
+                return TryCreateInitializedConfiguration(wellKnownMapDataBackgroundMapData);
+            }
+            return null;
+        }
+
+        private IConfiguration TryCreateInitializedConfiguration(WellKnownTileSourceMapData wellKnownMapDataBackgroundMapData)
         {
             try
             {
-                WmtsLayerConfiguration configuration = WmtsLayerConfiguration.CreateInitializedConfiguration(wmtsMapDataBackgroundMapData.SourceCapabilitiesUrl,
-                                                                                                             wmtsMapDataBackgroundMapData.SelectedCapabilityIdentifier,
-                                                                                                             wmtsMapDataBackgroundMapData.PreferredFormat);
-                var backgroundLayer = new BruTileLayer(configuration)
-                {
-                    IsVisible = backgroundMapData.IsVisible,
-                    Transparency = Convert.ToSingle(backgroundMapData.Transparency)
-                };
-                backgroundLayerStatus.SuccessfullyInitializedLayer(backgroundLayer, wmtsMapDataBackgroundMapData);
-                return true;
+                return WellKnownTileSourceLayerConfiguration.CreateInitializedConfiguration(wellKnownMapDataBackgroundMapData.TileSource);
             }
-            catch (Exception e) when (e is CannotFindTileSourceException || e is CannotReceiveTilesException)
+            catch (NotSupportedException e)
             {
-                HandleBruTileInitializationException(e, Resources.MapControl_InitializeBackgroundLayer_Wmts_connection_failed);
+                string tileDisplayName = TypeUtils.GetDisplayName(wellKnownMapDataBackgroundMapData.TileSource);
+                HandleBruTileInitializationException(e, string.Format(Resources.MapControl_InitializeBackgroundLayer_Connect_to_0_failed, tileDisplayName));
 
-                return false;
+                return null;
             }
             catch (CannotCreateTileCacheException e)
             {
                 HandleBruTileInitializationException(e, Resources.MapControl_InitializeBackgroundLayer_Persistent_cache_creation_failed);
 
-                return false;
+                return null;
+            }
+        }
+
+        private PersistentCacheConfiguration TryCreateInitializedConfiguration(WmtsMapData wmtsMapDataBackgroundMapData)
+        {
+            try
+            {
+                return WmtsLayerConfiguration.CreateInitializedConfiguration(wmtsMapDataBackgroundMapData.SourceCapabilitiesUrl,
+                                                                             wmtsMapDataBackgroundMapData.SelectedCapabilityIdentifier,
+                                                                             wmtsMapDataBackgroundMapData.PreferredFormat);
+            }
+            catch (Exception e) when (e is CannotFindTileSourceException || e is CannotReceiveTilesException)
+            {
+                HandleBruTileInitializationException(e, Resources.MapControl_InitializeBackgroundLayer_Wmts_connection_failed);
+                return null;
+            }
+            catch (CannotCreateTileCacheException e)
+            {
+                HandleBruTileInitializationException(e, Resources.MapControl_InitializeBackgroundLayer_Persistent_cache_creation_failed);
+                return null;
             }
         }
 
