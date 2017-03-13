@@ -320,6 +320,8 @@ namespace Application.Ringtoets
 
         private static void HandleException(Exception exception, bool isTerminating)
         {
+            log.Error(CoreCommonGuiResources.App_AppDomain_UnhandledException_Unknown_exception_, exception);
+
             if (gui != null && gui.MainWindow != null)
             {
                 using (var exceptionDialog = new ExceptionDialog(gui.MainWindow, gui, exception)
