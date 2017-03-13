@@ -1031,12 +1031,12 @@ namespace Core.Common.Gui.Test.Commands
                 messageBoxText = messageBox.Text;
                 messageBox.SendCommand(MessageBoxTester.Command.Yes);
 
-                ModalFormHandler = (modalName1, modalWnd1, form1) =>
+                ModalFormHandler = (modalName, modalWnd, form) =>
                 {
-                    var saveFileDialog = new SaveFileDialogTester(modalWnd1);
+                    var saveFileDialog = new SaveFileDialogTester(modalWnd);
                     saveFileDialog.SaveFile(someValidFilePath);
 
-                    ModalFormHandler = (modalName2, modalWnd2, form2) =>
+                    DialogBoxHandler = (s, hWnd) =>
                     {
                         // Expect progress dialog, which will close automatically.
                     };
