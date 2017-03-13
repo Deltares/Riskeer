@@ -23,6 +23,7 @@ using System;
 using System.Linq;
 using BruTile;
 using BruTile.Web;
+using Core.Common.Gui.TestUtil.Settings;
 using Core.Common.TestUtil;
 using Core.Components.BruTile.Configurations;
 using Core.Components.BruTile.TestUtil;
@@ -37,12 +38,14 @@ namespace Core.Components.BruTile.Test.Configurations
     public class WmtsLayerConfigurationTest
     {
         private const string validPreferredFormat = "image/png";
+        private DirectoryDisposeHelper directoryDisposeHelper;
+        private TestSettingsHelper testSettingsHelper;
 
         [Test]
         public void CreateInitializedConfiguration_CapabilitiesUrlNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => WmtsLayerConfiguration.CreateInitializedConfiguration(null, "A", "images/png");
+            TestDelegate call = () => WmtsLayerConfiguration.CreateInitializedConfiguration(null, "A", validPreferredFormat);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -53,7 +56,7 @@ namespace Core.Components.BruTile.Test.Configurations
         public void CreateInitializedConfiguration_CapabilityIdNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => WmtsLayerConfiguration.CreateInitializedConfiguration("A", null, "images/png");
+            TestDelegate call = () => WmtsLayerConfiguration.CreateInitializedConfiguration("A", null, validPreferredFormat);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -94,6 +97,7 @@ namespace Core.Components.BruTile.Test.Configurations
             factory.Stub(f => f.GetWmtsTileSources(url)).Return(Enumerable.Empty<ITileSource>());
             mocks.ReplayAll();
 
+            using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(factory))
             {
                 // Call
@@ -129,6 +133,7 @@ namespace Core.Components.BruTile.Test.Configurations
             factory.Stub(f => f.GetWmtsTileSources(targetMapData.SourceCapabilitiesUrl)).Return(tileSources);
             mocks.ReplayAll();
 
+            using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(factory))
             {
                 // Call
@@ -164,6 +169,7 @@ namespace Core.Components.BruTile.Test.Configurations
             factory.Stub(f => f.GetWmtsTileSources(targetMapData.SourceCapabilitiesUrl)).Return(tileSources);
             mocks.ReplayAll();
 
+            using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(factory))
             using (WmtsLayerConfiguration configuration = WmtsLayerConfiguration.CreateInitializedConfiguration(targetMapData.SourceCapabilitiesUrl,
                                                                                                                 targetMapData.SelectedCapabilityIdentifier,
@@ -202,6 +208,7 @@ namespace Core.Components.BruTile.Test.Configurations
             factory.Stub(f => f.GetWmtsTileSources(targetMapData.SourceCapabilitiesUrl)).Return(tileSources);
             mocks.ReplayAll();
 
+            using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(factory))
             {
                 WmtsLayerConfiguration configuration = WmtsLayerConfiguration.CreateInitializedConfiguration(targetMapData.SourceCapabilitiesUrl,
@@ -238,6 +245,7 @@ namespace Core.Components.BruTile.Test.Configurations
             factory.Stub(f => f.GetWmtsTileSources(targetMapData.SourceCapabilitiesUrl)).Return(tileSources);
             mocks.ReplayAll();
 
+            using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(factory))
             using (WmtsLayerConfiguration configuration = WmtsLayerConfiguration.CreateInitializedConfiguration(targetMapData.SourceCapabilitiesUrl,
                                                                                                                 targetMapData.SelectedCapabilityIdentifier,
@@ -274,6 +282,7 @@ namespace Core.Components.BruTile.Test.Configurations
             factory.Stub(f => f.GetWmtsTileSources(targetMapData.SourceCapabilitiesUrl)).Return(tileSources);
             mocks.ReplayAll();
 
+            using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(factory))
             {
                 WmtsLayerConfiguration configuration = WmtsLayerConfiguration.CreateInitializedConfiguration(targetMapData.SourceCapabilitiesUrl,
@@ -289,6 +298,23 @@ namespace Core.Components.BruTile.Test.Configurations
                 Assert.AreEqual("WmtsLayerConfiguration", objectName);
             }
             mocks.VerifyAll();
+        }
+
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
+        {
+            testSettingsHelper = new TestSettingsHelper
+            {
+                ApplicationLocalUserSettingsDirectory = TestHelper.GetScratchPadPath(nameof(WellKnownTileSourceLayerConfigurationTest))
+            };
+
+            directoryDisposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(WellKnownTileSourceLayerConfigurationTest));
+        }
+
+        [OneTimeTearDown]
+        public void OneTimeTearDown()
+        {
+            directoryDisposeHelper.Dispose();
         }
     }
 }

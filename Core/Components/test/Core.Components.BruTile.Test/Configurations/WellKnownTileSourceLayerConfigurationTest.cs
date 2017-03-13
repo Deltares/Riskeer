@@ -23,6 +23,7 @@ using System;
 using BruTile;
 using BruTile.Predefined;
 using Core.Common.Gui.TestUtil.Settings;
+using Core.Common.TestUtil;
 using Core.Components.BruTile.Configurations;
 using Core.Components.BruTile.IO;
 using Core.Components.BruTile.TestUtil;
@@ -34,6 +35,9 @@ namespace Core.Components.BruTile.Test.Configurations
     [TestFixture]
     public class WellKnownTileSourceLayerConfigurationTest
     {
+        private DirectoryDisposeHelper directoryDisposeHelper;
+        private TestSettingsHelper testSettingsHelper;
+
         [Test]
         public void CreateInitializedConfiguration_InvalidKnownTileSource_ThrowNotSupportedException()
         {
@@ -77,7 +81,7 @@ namespace Core.Components.BruTile.Test.Configurations
         public void GivenAllAvailableKnownTileSources_WhenCreatingInitializedConfiguration_ThenConfigurationHasExpectedValues()
         {
             // Given
-            using (new UseCustomSettingsHelper(new TestSettingsHelper()))
+            using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial)))
             {
                 foreach (KnownTileSource knownTileSource in Enum.GetValues(typeof(KnownTileSource)))
@@ -100,7 +104,7 @@ namespace Core.Components.BruTile.Test.Configurations
         {
             // Setup
             const KnownTileSource knownTileSource = KnownTileSource.BingAerial;
-            using (new UseCustomSettingsHelper(new TestSettingsHelper()))
+            using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial)))
             using (WellKnownTileSourceLayerConfiguration configuration = WellKnownTileSourceLayerConfiguration.CreateInitializedConfiguration(knownTileSource))
             {
@@ -124,7 +128,7 @@ namespace Core.Components.BruTile.Test.Configurations
         public void Clone_ConfigurationDisposed_ThrowObjectDisposedException()
         {
             // Setup
-            using (new UseCustomSettingsHelper(new TestSettingsHelper()))
+            using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial)))
             {
                 WellKnownTileSourceLayerConfiguration configuration = WellKnownTileSourceLayerConfiguration.CreateInitializedConfiguration(KnownTileSource.BingAerial);
@@ -143,7 +147,7 @@ namespace Core.Components.BruTile.Test.Configurations
         public void Initialize_InitializedTrue()
         {
             // Setup
-            using (new UseCustomSettingsHelper(new TestSettingsHelper()))
+            using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial)))
             using (WellKnownTileSourceLayerConfiguration configuration = WellKnownTileSourceLayerConfiguration.CreateInitializedConfiguration(KnownTileSource.BingAerial))
             {
@@ -163,7 +167,7 @@ namespace Core.Components.BruTile.Test.Configurations
         public void Initialize_ConfigurationDisposed_ThrowObjectDisposedException()
         {
             // Setup
-            using (new UseCustomSettingsHelper(new TestSettingsHelper()))
+            using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial)))
             {
                 WellKnownTileSourceLayerConfiguration configuration = WellKnownTileSourceLayerConfiguration.CreateInitializedConfiguration(KnownTileSource.BingAerial);
@@ -176,6 +180,23 @@ namespace Core.Components.BruTile.Test.Configurations
                 string objectName = Assert.Throws<ObjectDisposedException>(call).ObjectName;
                 Assert.AreEqual("WellKnownTileSourceLayerConfiguration", objectName);
             }
+        }
+
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
+        {
+            testSettingsHelper = new TestSettingsHelper
+            {
+                ApplicationLocalUserSettingsDirectory = TestHelper.GetScratchPadPath(nameof(WellKnownTileSourceLayerConfigurationTest))
+            };
+
+            directoryDisposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(WellKnownTileSourceLayerConfigurationTest));
+        }
+
+        [OneTimeTearDown]
+        public void OneTimeTearDown()
+        {
+            directoryDisposeHelper.Dispose();
         }
 
         private static TestCaseData[] ValidWellKnownTileSourceToCorrespondingKnownTileSource()
