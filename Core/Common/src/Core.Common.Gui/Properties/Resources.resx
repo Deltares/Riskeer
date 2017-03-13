@@ -505,12 +505,6 @@
   <data name="StorageCommandHandler_SaveProject_Saving_project_canceled" xml:space="preserve">
     <value>Opslaan van het Ringtoetsproject geannuleerd.</value>
   </data>
-  <data name="StorageCommandHandler_Saving_project_failed" xml:space="preserve">
-    <value>Het is niet gelukt om het Ringtoetsproject op te slaan.</value>
-  </data>
-  <data name="StorageCommandHandler_SaveProject_Successfully_saved_project_0_" xml:space="preserve">
-    <value>Het Ringtoetsproject '{0}' is succesvol opgeslagen.</value>
-  </data>
   <data name="GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_import_handler" xml:space="preserve">
     <value>Kan geen 'IImportCommandHandler'-afhankelijk element in het contextmenu creëren zonder een 'IImportCommandHandler'.</value>
   </data>

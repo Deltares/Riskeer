@@ -1627,24 +1627,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het Ringtoetsproject &apos;{0}&apos; is succesvol opgeslagen..
-        /// </summary>
-        public static string StorageCommandHandler_SaveProject_Successfully_saved_project_0_ {
-            get {
-                return ResourceManager.GetString("StorageCommandHandler_SaveProject_Successfully_saved_project_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het is niet gelukt om het Ringtoetsproject op te slaan..
-        /// </summary>
-        public static string StorageCommandHandler_Saving_project_failed {
-            get {
-                return ResourceManager.GetString("StorageCommandHandler_Saving_project_failed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to &amp;Bijwerken....
         /// </summary>
         public static string Update {

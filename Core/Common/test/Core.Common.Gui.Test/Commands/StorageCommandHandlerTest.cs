@@ -107,7 +107,7 @@ namespace Core.Common.Gui.Test.Commands
 
                 var projectMigrator = mocks.Stub<IMigrateProject>();
 
-                var mainWindowController = mocks.StrictMock<IWin32Window>();
+                var mainWindowController = mocks.Stub<IWin32Window>();
                 var projectOwner = mocks.Stub<IProjectOwner>();
                 projectOwner.Stub(po => po.Project).Return(projectStub);
                 projectOwner.Stub(po => po.ProjectFilePath).Return(someValidFilePath);
@@ -120,6 +120,11 @@ namespace Core.Common.Gui.Test.Commands
                     projectOwner,
                     mainWindowController);
 
+                DialogBoxHandler = (s, hWnd) =>
+                {
+                    // Expect progress dialog, which will close automatically.
+                };
+
                 // Call
                 bool result = true;
                 Action call = () => result = storageCommandHandler.SaveProject();
@@ -128,7 +133,7 @@ namespace Core.Common.Gui.Test.Commands
                 var expectedMessages = new[]
                 {
                     Tuple.Create(exceptionMessage, LogLevelConstant.Error),
-                    Tuple.Create("Het is niet gelukt om het Ringtoetsproject op te slaan.", LogLevelConstant.Error)
+                    Tuple.Create("Uitvoeren van 'Opslaan van bestaand project' is mislukt.", LogLevelConstant.Error)
                 };
                 TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 2);
                 Assert.IsFalse(result);
@@ -153,7 +158,7 @@ namespace Core.Common.Gui.Test.Commands
 
                 var projectMigrator = mocks.Stub<IMigrateProject>();
 
-                var mainWindowController = mocks.StrictMock<IWin32Window>();
+                var mainWindowController = mocks.Stub<IWin32Window>();
                 var projectOwner = mocks.Stub<IProjectOwner>();
                 projectOwner.Stub(po => po.Project).Return(projectStub);
                 projectOwner.Stub(po => po.ProjectFilePath).Return(someValidFilePath);
@@ -166,12 +171,17 @@ namespace Core.Common.Gui.Test.Commands
                     projectOwner,
                     mainWindowController);
 
+                DialogBoxHandler = (s, hWnd) =>
+                {
+                    // Expect progress dialog, which will close automatically.
+                };
+
                 // Call
                 bool result = false;
                 Action call = () => result = storageCommandHandler.SaveProject();
 
                 // Assert
-                var expectedMessage = $"Het Ringtoetsproject '{projectStub.Name}' is succesvol opgeslagen.";
+                const string expectedMessage = "Uitvoeren van 'Opslaan van bestaand project' is gelukt.";
                 Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedMessage, LogLevelConstant.Info);
                 TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel, 1);
                 Assert.IsTrue(result);
@@ -958,6 +968,11 @@ namespace Core.Common.Gui.Test.Commands
                     var helper = new MessageBoxTester(wnd);
                     messageBoxText = helper.Text;
                     helper.SendCommand(MessageBoxTester.Command.Yes);
+
+                    DialogBoxHandler = (s, hWnd) =>
+                    {
+                        // Expect progress dialog, which will close automatically.
+                    };
                 };
 
                 // Call
@@ -1020,6 +1035,11 @@ namespace Core.Common.Gui.Test.Commands
                 {
                     var saveFileDialog = new SaveFileDialogTester(modalWnd);
                     saveFileDialog.SaveFile(someValidFilePath);
+
+                    DialogBoxHandler = (s, hWnd) =>
+                    {
+                        // Expect progress dialog, which will close automatically.
+                    };
                 };
             };
 

@@ -155,20 +155,9 @@ namespace Core.Common.Gui.Commands
                 return false;
             }
 
-            if (!TrySaveProjectAs(filePath))
-            {
-                return false;
-            }
-
-            // Save was successful, store location
-            projectOwner.SetProject(project, filePath);
-            project.Name = Path.GetFileNameWithoutExtension(filePath);
-            project.NotifyObservers();
-
-            log.Info(string.Format(CultureInfo.CurrentCulture,
-                                   Resources.StorageCommandHandler_SaveProject_Successfully_saved_project_0_,
-                                   project.Name));
-            return true;
+            var activity = new SaveProjectActivity(project, filePath, false, projectPersistor, projectOwner);
+            ActivityProgressDialogRunner.Run(dialogParent, activity);
+            return activity.State == ActivityState.Finished;
         }
 
         public bool SaveProject()
@@ -182,15 +171,9 @@ namespace Core.Common.Gui.Commands
                 return SaveProjectAs();
             }
 
-            if (!TrySaveProjectAs(filePath))
-            {
-                return false;
-            }
-
-            log.Info(string.Format(CultureInfo.CurrentCulture,
-                                   Resources.StorageCommandHandler_SaveProject_Successfully_saved_project_0_,
-                                   project.Name));
-            return true;
+            var activity = new SaveProjectActivity(project, filePath, true, projectPersistor, projectOwner);
+            ActivityProgressDialogRunner.Run(dialogParent, activity);
+            return activity.State == ActivityState.Finished;
         }
 
         /// <summary>
@@ -315,29 +298,6 @@ namespace Core.Common.Gui.Commands
         }
 
         /// <summary>
-        /// Loads the project from the <see cref="IStoreProject"/>.
-        /// </summary>
-        /// <param name="filePath">The path to load a <see cref="IProject"/> from.</param>
-        /// <returns>The loaded <see cref="IProject"/> from <paramref name="filePath"/> or <c>null</c> if the project
-        /// could not be loaded from <paramref name="filePath"/>.</returns>
-        /// <exception cref="ArgumentException"><paramref name="filePath"/> is invalid.</exception>
-        private IProject LoadProjectFromStorage(string filePath)
-        {
-            IProject loadedProject = null;
-
-            try
-            {
-                loadedProject = projectPersistor.LoadProject(filePath);
-            }
-            catch (StorageException e)
-            {
-                log.Error(e.Message, e.InnerException);
-            }
-
-            return loadedProject;
-        }
-
-        /// <summary>
         /// Prompts a new <see cref="SaveFileDialog"/> to select a location for saving the project file.
         /// </summary>
         /// <param name="projectName">A string containing the file name selected in the file dialog box.</param>
@@ -357,25 +317,6 @@ namespace Core.Common.Gui.Commands
                     return null;
                 }
                 return saveFileDialog.FileName;
-            }
-        }
-
-        private bool TrySaveProjectAs(string filePath)
-        {
-            try
-            {
-                if (!projectPersistor.HasStagedProject)
-                {
-                    projectPersistor.StageProject(projectOwner.Project);
-                }
-                projectPersistor.SaveProjectAs(filePath);
-                return true;
-            }
-            catch (StorageException e)
-            {
-                log.Error(e.Message, e.InnerException);
-                log.Error(Resources.StorageCommandHandler_Saving_project_failed);
-                return false;
             }
         }
     }
