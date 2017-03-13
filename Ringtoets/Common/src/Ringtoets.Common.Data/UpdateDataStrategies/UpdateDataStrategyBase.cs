@@ -130,7 +130,7 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
         /// <exception cref="ArgumentException">Thrown when duplicate items are being added to the 
         /// <paramref name="targetDataCollection"/>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when duplicate items are found during the 
-        /// update of the items to be updatd in the <paramref name="targetDataCollection"/>.</exception>
+        /// update of the items to be updated in the <paramref name="targetDataCollection"/>.</exception>
         private IEnumerable<IObservable> ModifyDataCollection(ObservableUniqueItemCollectionWithSourcePath<TTargetData> targetDataCollection,
                                                               IEnumerable<TTargetData> importedDataCollection,
                                                               string sourceFilePath)
@@ -141,7 +141,7 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
             TTargetData[] objectsToBeUpdated = GetObjectsToBeUpdated(targetDataCollection, importedObjects).ToArray();
 
             var affectedObjects = new List<IObservable>();
-            if (objectsToBeAdded.Any() || objectsToBeRemoved.Any())
+            if (objectsToBeAdded.Any() || objectsToBeRemoved.Any() || objectsToBeUpdated.Any())
             {
                 affectedObjects.Add(targetDataCollection);
             }
