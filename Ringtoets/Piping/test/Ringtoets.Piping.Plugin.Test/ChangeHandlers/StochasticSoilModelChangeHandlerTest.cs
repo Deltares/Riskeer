@@ -39,7 +39,7 @@ namespace Ringtoets.Piping.Plugin.Test.ChangeHandlers
         {
             // Setup
             var mockRepository = new MockRepository();
-            var inquiryHandler = mockRepository.StrictMock<IInquiryHelper>();
+            var inquiryHandler = mockRepository.Stub<IInquiryHelper>();
             mockRepository.ReplayAll();
 
             // Call
@@ -56,7 +56,7 @@ namespace Ringtoets.Piping.Plugin.Test.ChangeHandlers
         {
             // Setup
             var mockRepository = new MockRepository();
-            var inquiryHandler = mockRepository.StrictMock<IInquiryHelper>();
+            var inquiryHandler = mockRepository.Stub<IInquiryHelper>();
             mockRepository.ReplayAll();
 
             // Call
@@ -84,7 +84,7 @@ namespace Ringtoets.Piping.Plugin.Test.ChangeHandlers
         {
             // Setup
             var mockRepository = new MockRepository();
-            var inquiryHandler = mockRepository.StrictMock<IInquiryHelper>();
+            var inquiryHandler = mockRepository.Stub<IInquiryHelper>();
             mockRepository.ReplayAll();
 
             // Call

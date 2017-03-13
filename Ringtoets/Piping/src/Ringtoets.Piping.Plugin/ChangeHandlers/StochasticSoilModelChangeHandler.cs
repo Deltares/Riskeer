@@ -42,7 +42,7 @@ namespace Ringtoets.Piping.Plugin.ChangeHandlers
         /// Creates new instance of <see cref="StochasticSoilModelChangeHandler"/>
         /// </summary>
         /// <param name="failureMechanism">Failure mechanism for which to handle changes in stochastic soil models.</param>
-        /// <param name="query">which should be displayed when inquiring for a confirmation.</param>
+        /// <param name="query">The query which should be displayed when inquiring for a confirmation.</param>
         /// <param name="inquiryHandler">Object responsible for inquiring required data.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public StochasticSoilModelChangeHandler(PipingFailureMechanism failureMechanism, string query, IInquiryHelper inquiryHandler)

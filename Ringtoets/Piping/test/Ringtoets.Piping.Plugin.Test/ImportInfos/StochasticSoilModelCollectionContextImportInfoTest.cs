@@ -146,7 +146,6 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = new ReferenceLine();
 
             var mainWindow = mocks.Stub<IMainWindow>();
             var gui = mocks.Stub<IGui>();
@@ -177,7 +176,6 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = new ReferenceLine();
 
             var mainWindow = mocks.Stub<IMainWindow>();
             var gui = mocks.Stub<IGui>();
@@ -231,8 +229,6 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-
-            assessmentSection.ReferenceLine = new ReferenceLine();
 
             var failureMechanism = new PipingFailureMechanism();
 

@@ -149,7 +149,6 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = new ReferenceLine();
 
             var mainWindow = mocks.Stub<IMainWindow>();
             var gui = mocks.Stub<IGui>();
@@ -180,7 +179,6 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = new ReferenceLine();
 
             var mainWindow = mocks.Stub<IMainWindow>();
             var gui = mocks.Stub<IGui>();
@@ -233,7 +231,6 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = new ReferenceLine();
             mocks.ReplayAll();
 
             const string expectedFilePath = "some/path";
