@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Utils.Reflection;
 using Core.Components.BruTile.Configurations;
 using Core.Components.DotSpatial.Forms.Properties;
 using Core.Components.DotSpatial.Layer;
@@ -214,9 +215,10 @@ namespace Core.Components.DotSpatial.Forms
 
                 return true;
             }
-            catch (Exception e) when (e is CannotFindTileSourceException || e is CannotReceiveTilesException)
+            catch (NotSupportedException e)
             {
-                HandleBruTileInitializationException(e, $"Verbinden met '{nameof(wellKnownMapDataBackgroundMapData.TileSource)}' is mislukt waardoor geen kaartgegevens ingeladen kunnen worden.");
+                string tileDisplayName = TypeUtils.GetDisplayName(wellKnownMapDataBackgroundMapData.TileSource);
+                HandleBruTileInitializationException(e, $"Verbinden met '{tileDisplayName}' is mislukt waardoor geen kaartgegevens ingeladen kunnen worden.");
 
                 return false;
             }

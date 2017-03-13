@@ -27,10 +27,12 @@ using System.Security.AccessControl;
 using System.Threading;
 using System.Windows.Forms;
 using BruTile;
+using BruTile.Predefined;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.TestUtil.Settings;
 using Core.Common.TestUtil;
+using Core.Common.Utils.Reflection;
 using Core.Components.BruTile.Configurations;
 using Core.Components.BruTile.TestUtil;
 using Core.Components.DotSpatial.Layer.BruTile;
@@ -261,9 +263,9 @@ namespace Core.Components.DotSpatial.Forms.Test
         [Test]
         [TestCaseSource(nameof(GetProblematicTileSourceFactoryTestCaseData), new object[]
         {
-            "MapControlWithoutBackgroundMapData"
+            "MapControlWithoutWmtsBackgroundMapData"
         })]
-        public void GivenMapControlWithoutBackgroundMapData_WhenTileSourceFactoryProblematic_ThenLogErrorAndDoNotAddBackgroundLayer(
+        public void GivenMapControlWithoutWmtsBackgroundMapData_WhenTileSourceFactoryProblematic_ThenLogErrorAndDoNotAddBackgroundLayer(
             ITileSourceFactory problematicFactory)
         {
             // Given
@@ -274,7 +276,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (var map = new MapControl())
             {
                 var mapView = map.Controls.OfType<Map>().First();
-                var originalProjection = mapView.Projection;
+                ProjectionInfo originalProjection = mapView.Projection;
 
                 // When
                 Action call = () => map.BackgroundMapData = backgroundMapData;
@@ -282,7 +284,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 // Then
                 const string expectedMessage = "Verbinden met WMTS is mislukt waardoor geen kaartgegevens ingeladen kunnen worden. "
                                                + "De achtergrondkaart kan nu niet getoond worden.";
-                TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+                TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error));
 
                 Assert.AreEqual(0, mapView.Layers.Count);
 
@@ -306,7 +308,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (var map = new MapControl())
             {
                 var mapView = map.Controls.OfType<Map>().First();
-                var originalProjection = mapView.Projection;
+                ProjectionInfo originalProjection = mapView.Projection;
 
                 disposeHelper.LockDirectory(FileSystemRights.Write);
 
@@ -316,7 +318,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 // Then
                 const string expectedMessage = "Configuratie van kaartgegevens hulpbestanden is mislukt. "
                                                + "De achtergrondkaart kan nu niet getoond worden.";
-                TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+                TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error));
 
                 Assert.AreEqual(0, mapView.Layers.Count);
 
@@ -342,7 +344,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Action setAndCauseFailingInitialization = () => map.BackgroundMapData = backgroundMapData;
                 const string expectedMessage = "Verbinden met WMTS is mislukt waardoor geen kaartgegevens ingeladen kunnen worden. "
                                                + "De achtergrondkaart kan nu niet getoond worden.";
-                TestHelper.AssertLogMessageIsGenerated(setAndCauseFailingInitialization, expectedMessage, 1);
+                TestHelper.AssertLogMessageWithLevelIsGenerated(setAndCauseFailingInitialization, Tuple.Create(expectedMessage, LogLevelConstant.Error));
 
                 using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
                 {
@@ -451,7 +453,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (var map = new MapControl())
             {
                 var mapView = map.Controls.OfType<Map>().First();
-                var originalProjection = mapView.Projection;
+                ProjectionInfo originalProjection = mapView.Projection;
 
                 disposeHelper.LockDirectory(FileSystemRights.Write);
 
@@ -1453,6 +1455,508 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             yield return new TestCaseData(factoryThrowingCannotFindTileSourceException)
                 .SetName($"{prefix}: Tile source factory throws CannotFindTileSourceException.");
+        }
+
+        #endregion
+
+        #region MapControlWellKnown
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenMapControlWithoutBackgroundMapData_WhenWellKnownBackgroundMapDataSet_ThenMapControlUpdated(bool isVisible)
+        {
+            // Given
+            var backgroundMapData = new WellKnownTileSourceMapData(new Random(123).NextEnum<WellKnownTileSource>())
+            {
+                IsVisible = isVisible,
+                Transparency = (RoundedDouble) 0.25
+            };
+
+            using (new UseCustomSettingsHelper(new TestSettingsHelper()))
+            using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
+            using (var map = new MapControl())
+            {
+                // When
+                map.BackgroundMapData = backgroundMapData;
+
+                // Then
+                var mapView = map.Controls.OfType<Map>().First();
+                Assert.AreEqual(1, mapView.Layers.Count);
+                BruTileLayer bruTileLayer = (BruTileLayer) mapView.Layers[0];
+                Assert.AreEqual(isVisible, bruTileLayer.IsVisible);
+                Assert.AreEqual(backgroundMapData.Transparency.Value, bruTileLayer.Transparency);
+
+                Assert.IsTrue(bruTileLayer.Projection.Equals(mapView.Projection),
+                              "The background layer's Project should define the Projection of 'mapView'.");
+            }
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetProblematicKnownTileSourceFactoryTestCaseData), new object[]
+        {
+            "MapControlWithoutWellKnownBackgroundMapData"
+        })]
+        public void GivenMapControlWithoutWellKnownBackgroundMapData_WhenTileSourceFactoryProblematic_ThenLogErrorAndDoNotAddBackgroundLayer(
+            ITileSourceFactory problematicFactory)
+        {
+            // Given
+            var backgroundMapData = new WellKnownTileSourceMapData(new Random(123).NextEnum<WellKnownTileSource>());
+
+            using (new UseCustomSettingsHelper(new TestSettingsHelper()))
+            using (new UseCustomTileSourceFactoryConfig(problematicFactory))
+            using (var map = new MapControl())
+            {
+                var mapView = map.Controls.OfType<Map>().First();
+                ProjectionInfo originalProjection = mapView.Projection;
+
+                // When
+                Action call = () => map.BackgroundMapData = backgroundMapData;
+
+                // Then
+                string tileDisplayName = TypeUtils.GetDisplayName(backgroundMapData.TileSource);
+                string expectedMessage = $"Verbinden met '{tileDisplayName}' is mislukt waardoor geen kaartgegevens ingeladen kunnen worden. "
+                                         + "De achtergrondkaart kan nu niet getoond worden.";
+                TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error));
+
+                Assert.AreEqual(0, mapView.Layers.Count);
+
+                Assert.AreSame(originalProjection, mapView.Projection);
+            }
+        }
+
+        [Test]
+        public void GivenMapControlWithoutBackgroundMapData_WhenSettingWellKnownBackgroundAndFailingToCreateCache_ThenLogErrorAndDoNotAddBackgroundLayer()
+        {
+            // Given
+            string folderWithoutPermission = Path.GetRandomFileName();
+            var backgroundMapData = new WellKnownTileSourceMapData(new Random(123).NextEnum<WellKnownTileSource>());
+
+            using (new UseCustomSettingsHelper(new TestSettingsHelper
+            {
+                ApplicationLocalUserSettingsDirectory = Path.Combine(rootPath, folderWithoutPermission)
+            }))
+            using (var disposeHelper = new DirectoryDisposeHelper(rootPath, folderWithoutPermission, tileCachesFolder))
+            using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
+            using (var map = new MapControl())
+            {
+                var mapView = map.Controls.OfType<Map>().First();
+                ProjectionInfo originalProjection = mapView.Projection;
+
+                disposeHelper.LockDirectory(FileSystemRights.Write);
+
+                // When
+                Action call = () => map.BackgroundMapData = backgroundMapData;
+
+                // Then
+                const string expectedMessage = "Configuratie van kaartgegevens hulpbestanden is mislukt. "
+                                               + "De achtergrondkaart kan nu niet getoond worden.";
+                TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error));
+
+                Assert.AreEqual(0, mapView.Layers.Count);
+
+                Assert.AreSame(originalProjection, mapView.Projection);
+            }
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetProblematicKnownTileSourceFactoryTestCaseData), new object[]
+        {
+            "MapWithFailedWellKnownBackgroundMapDataThenSuccessfulAtNotify"
+        })]
+        public void GivenMapControlWithFailingBackgroundMapData_WhenWellKnownBackgroundNotifiesAndInitializationSuccessful_ThenBackgroundLayerAdded(ITileSourceFactory problematicFactory)
+        {
+            // Given
+            var backgroundMapData = new WellKnownTileSourceMapData(new Random(123).NextEnum<WellKnownTileSource>());
+
+            using (new UseCustomSettingsHelper(new TestSettingsHelper()))
+            using (new UseCustomTileSourceFactoryConfig(problematicFactory))
+            using (var map = new MapControl())
+            {
+                // Precondition
+                string tileDisplayName = TypeUtils.GetDisplayName(backgroundMapData.TileSource);
+                Action setAndCauseFailingInitialization = () => map.BackgroundMapData = backgroundMapData;
+                string expectedMessage = $"Verbinden met '{tileDisplayName}' is mislukt waardoor geen kaartgegevens ingeladen kunnen worden. "
+                                         + "De achtergrondkaart kan nu niet getoond worden.";
+                TestHelper.AssertLogMessageWithLevelIsGenerated(setAndCauseFailingInitialization, Tuple.Create(expectedMessage, LogLevelConstant.Error));
+
+                using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
+                {
+                    // When
+                    backgroundMapData.NotifyObservers();
+
+                    // Then
+                    var mapView = map.Controls.OfType<Map>().First();
+                    Assert.AreEqual(1, mapView.Layers.Count);
+                    IMapLayer backgroundLayer = mapView.Layers[0];
+
+                    Assert.IsInstanceOf<BruTileLayer>(backgroundLayer);
+                    Assert.AreSame(backgroundLayer.Projection, mapView.Projection);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenMapControlWithFailedCacheForBackgroundMapData_WhenWellKnownBackgroundNotifiesObserversAndLayerInitializationSuccessful_ThenBackgroundLayerAdded()
+        {
+            // Given
+            string folderWithoutPermission = Path.GetRandomFileName();
+            string settingsDirectory = Path.Combine(rootPath, folderWithoutPermission);
+
+            var backgroundMapData = new WellKnownTileSourceMapData(new Random(123).NextEnum<WellKnownTileSource>());
+
+            using (new UseCustomSettingsHelper(new TestSettingsHelper
+            {
+                ApplicationLocalUserSettingsDirectory = settingsDirectory
+            }))
+            using (new DirectoryDisposeHelper(rootPath, folderWithoutPermission, tileCachesFolder))
+            using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
+            using (var map = new MapControl())
+            {
+                using (new DirectoryPermissionsRevoker(settingsDirectory, FileSystemRights.Write))
+                {
+                    // Precondition
+                    Action setAndCauseCacheInitializationFailure = () => map.BackgroundMapData = backgroundMapData;
+                    const string expectedMessage = "Configuratie van kaartgegevens hulpbestanden is mislukt. "
+                                                   + "De achtergrondkaart kan nu niet getoond worden.";
+                    TestHelper.AssertLogMessageIsGenerated(setAndCauseCacheInitializationFailure, expectedMessage, 1);
+                }
+
+                // When
+                backgroundMapData.NotifyObservers();
+
+                // Then
+                var mapView = map.Controls.OfType<Map>().First();
+                Assert.AreEqual(1, mapView.Layers.Count);
+                IMapLayer backgroundLayer = mapView.Layers[0];
+
+                Assert.IsInstanceOf<BruTileLayer>(backgroundLayer);
+                Assert.AreSame(backgroundLayer.Projection, mapView.Projection);
+            }
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetProblematicKnownTileSourceFactoryTestCaseData), new object[]
+        {
+            "MapWithFailedWellKnownBackgroundMapDataThenFailedAgainAtNotify"
+        })]
+        public void GivenMapControlWithFailedBackgroundMapData_WhenWellKnownBackgroundNotifiesObservers_ThenFailedInitializationShouldNotGenerateLogMessage(ITileSourceFactory problematicFactory)
+        {
+            // Given
+            var backgroundMapData = new WellKnownTileSourceMapData(new Random(123).NextEnum<WellKnownTileSource>());
+
+            using (new UseCustomSettingsHelper(new TestSettingsHelper()))
+            using (new UseCustomTileSourceFactoryConfig(problematicFactory))
+            using (var map = new MapControl())
+            {
+                var mapView = map.Controls.OfType<Map>().First();
+                var originalProjection = mapView.Projection;
+
+                // Precondition
+                string tileDisplayName = TypeUtils.GetDisplayName(backgroundMapData.TileSource);
+                Action setAndCauseFailToInitializeLayer = () => map.BackgroundMapData = backgroundMapData;
+                string expectedMessage = $"Verbinden met '{tileDisplayName}' is mislukt waardoor geen kaartgegevens ingeladen kunnen worden. "
+                                         + "De achtergrondkaart kan nu niet getoond worden.";
+                TestHelper.AssertLogMessageWithLevelIsGenerated(setAndCauseFailToInitializeLayer, Tuple.Create(expectedMessage, LogLevelConstant.Error));
+
+                // When
+                Action call = () => backgroundMapData.NotifyObservers();
+
+                // Then
+                TestHelper.AssertLogMessagesCount(call, 0);
+                Assert.AreEqual(0, mapView.Layers.Count);
+                Assert.AreSame(originalProjection, mapView.Projection);
+            }
+        }
+
+        [Test]
+        public void GivenMapControlWithFailedCacheforBackgroundMapData_WhenWellKnownBackgroundNotifiesObservers_ThenFailedInitializationShouldNotGenerateLogMessage()
+        {
+            // Given
+            string folderWithoutPermission = Path.GetRandomFileName();
+
+            var backgroundMapData = new WellKnownTileSourceMapData(new Random(123).NextEnum<WellKnownTileSource>());
+
+            using (new UseCustomSettingsHelper(new TestSettingsHelper
+            {
+                ApplicationLocalUserSettingsDirectory = Path.Combine(rootPath, folderWithoutPermission)
+            }))
+            using (var disposeHelper = new DirectoryDisposeHelper(rootPath, folderWithoutPermission, tileCachesFolder))
+            using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
+            using (var map = new MapControl())
+            {
+                var mapView = map.Controls.OfType<Map>().First();
+                ProjectionInfo originalProjection = mapView.Projection;
+
+                disposeHelper.LockDirectory(FileSystemRights.Write);
+
+                // Precondition
+                Action setAndCauseCacheInitializationFailure = () => map.BackgroundMapData = backgroundMapData;
+                const string expectedMessage = "Configuratie van kaartgegevens hulpbestanden is mislukt. "
+                                               + "De achtergrondkaart kan nu niet getoond worden.";
+                TestHelper.AssertLogMessageIsGenerated(setAndCauseCacheInitializationFailure, expectedMessage, 1);
+
+                // When
+                Action call = () => backgroundMapData.NotifyObservers();
+
+                // Then
+                TestHelper.AssertLogMessagesCount(call, 0);
+                Assert.AreEqual(0, mapView.Layers.Count);
+                Assert.AreSame(originalProjection, mapView.Projection);
+            }
+        }
+
+        [Test]
+        public void GivenMapControlWithWellKnownBackgroundMapData_WhenWellKnownBackgroundMapDataSet_ThenMapControlUpdated()
+        {
+            // Given
+            var random = new Random(123);
+            var newBackgroundMapData = new WellKnownTileSourceMapData(random.NextEnum<WellKnownTileSource>())
+            {
+                IsVisible = true,
+                Transparency = (RoundedDouble) 0.75
+            };
+
+            using (new UseCustomSettingsHelper(new TestSettingsHelper()))
+            using (new UseCustomTileSourceFactoryConfig(newBackgroundMapData))
+            using (var map = new MapControl())
+            {
+                var originalBackgroundMapData = new WellKnownTileSourceMapData(random.NextEnum<WellKnownTileSource>());
+
+                var mapView = map.Controls.OfType<Map>().First();
+                ProjectionInfo originalProjection = mapView.Projection;
+
+                map.BackgroundMapData = originalBackgroundMapData;
+
+                // Precondition
+                Assert.AreEqual(1, mapView.Layers.Count);
+                //Assert.IsTrue(originalProjection.Equals(mapView.Projection));
+
+                // When
+                map.BackgroundMapData = newBackgroundMapData;
+
+                // Then
+                Assert.AreEqual(1, mapView.Layers.Count);
+                var layer = (BruTileLayer) mapView.Layers[0];
+                Assert.AreEqual(true, layer.IsVisible);
+                Assert.AreEqual(0.75, layer.Transparency);
+                Assert.IsTrue(layer.Projection.Equals(mapView.Projection));
+            }
+        }
+
+        [Test]
+        public void GivenMapControlWithWellKnownBackgroundData_WhenVisibilityPropertiesChangeAndNotified_ThenBackgroundLayerReused()
+        {
+            // Given
+            var random = new Random(123);
+            var backgroundMapData = new WellKnownTileSourceMapData(random.NextEnum<WellKnownTileSource>())
+            {
+                IsVisible = random.NextBoolean(),
+                Transparency = (RoundedDouble) random.NextDouble()
+            };
+
+            using (new UseCustomSettingsHelper(new TestSettingsHelper()))
+            using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
+            using (var map = new MapControl
+            {
+                BackgroundMapData = backgroundMapData
+            })
+            {
+                var mapView = map.Controls.OfType<Map>().First();
+                IMapLayer[] layersBeforeUpdate = mapView.Layers.ToArray();
+
+                // When
+                bool newVisibilityValue = !backgroundMapData.IsVisible;
+                double newTransparencyValue = 1 - backgroundMapData.Transparency;
+                backgroundMapData.IsVisible = newVisibilityValue;
+                backgroundMapData.Transparency = (RoundedDouble) newTransparencyValue;
+                backgroundMapData.NotifyObservers();
+
+                // Then
+                CollectionAssert.AreEqual(layersBeforeUpdate, mapView.Layers);
+                var backgroundLayer = (BruTileLayer) layersBeforeUpdate[0];
+                Assert.AreEqual(newVisibilityValue, backgroundLayer.IsVisible);
+                Assert.AreEqual(newTransparencyValue, backgroundLayer.Transparency, 1e-6);
+            }
+        }
+
+        [Test]
+        public void GivenMapControlWithData_WhenWellKnownBackgroundMapDataSet_ThenDataLayersReprojected()
+        {
+            // Given
+            var backgroundMapData = new WellKnownTileSourceMapData(new Random(123).NextEnum<WellKnownTileSource>());
+
+            using (new UseCustomSettingsHelper(new TestSettingsHelper()))
+            using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
+            using (var map = new MapControl())
+            {
+                var mapDataCollection = new MapDataCollection("A");
+                mapDataCollection.Add(new MapPointData("points")
+                {
+                    Features = new[]
+                    {
+                        new MapFeature(new[]
+                        {
+                            new MapGeometry(new[]
+                            {
+                                new[]
+                                {
+                                    new Point2D(1.1, 2.2)
+                                }
+                            })
+                        })
+                    }
+                });
+                map.Data = mapDataCollection;
+
+                // Precondition
+                var mapView = map.Controls.OfType<Map>().First();
+                var pointFeatureLayer = (FeatureLayer) mapView.Layers[0];
+                Assert.AreEqual(1, mapView.Layers.Count);
+                Assert.AreEqual(1.1, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].X);
+                Assert.AreEqual(2.2, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y);
+
+                // When
+                map.BackgroundMapData = backgroundMapData;
+
+                // Then
+                Assert.AreEqual(2, mapView.Layers.Count);
+                Assert.IsInstanceOf<BruTileLayer>(mapView.Layers[0]);
+                pointFeatureLayer = (FeatureLayer) mapView.Layers[1];
+                Assert.IsTrue(mapView.Projection.Equals(pointFeatureLayer.Projection));
+                Assert.AreEqual(368865.09, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].X, 1e-1,
+                                "Coordinate does not match. (Ball park expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=3857&x=1.1000000&y=2.2000000).");
+                Assert.AreEqual(6102661.13, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y, 1e-1,
+                                "Coordinate does not match (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=3857&x=1.1000000&y=2.2000000).");
+            }
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetProblematicKnownTileSourceFactoryTestCaseData), new object[]
+        {
+            "SettingBothBackgroundAndRegularMapDataWhileWellKnownBackgroundFailed"
+        })]
+        public void GivenMapControl_WhenWellKnownBackgroundAndThenMapDataSetWhileTileSourceFactoryProblematic_MapControlUpdated(ITileSourceFactory problematicFactory)
+        {
+            // Given
+            var backgroundMapData = new WellKnownTileSourceMapData(new Random(123).NextEnum<WellKnownTileSource>());
+
+            using (new UseCustomSettingsHelper(new TestSettingsHelper()))
+            using (new UseCustomTileSourceFactoryConfig(problematicFactory))
+            using (var map = new MapControl())
+            {
+                var mapView = map.Controls.OfType<Map>().First();
+                var originalProjection = mapView.Projection;
+
+                var mapPointData = new MapPointData("Points")
+                {
+                    Features = new[]
+                    {
+                        new MapFeature(new[]
+                        {
+                            new MapGeometry(new[]
+                            {
+                                new[]
+                                {
+                                    new Point2D(1.1, 2.2)
+                                }
+                            })
+                        })
+                    }
+                };
+                var mapDataCollection = new MapDataCollection("Root collection");
+                mapDataCollection.Add(mapPointData);
+
+                // When
+                Action call = () =>
+                {
+                    map.BackgroundMapData = backgroundMapData;
+                    map.Data = mapDataCollection;
+                };
+
+                // Then
+                string expectedMessage = $"Verbinden met '{TypeUtils.GetDisplayName(backgroundMapData.TileSource)}' " +
+                                         "is mislukt waardoor geen kaartgegevens ingeladen kunnen worden. " +
+                                         "De achtergrondkaart kan nu niet getoond worden.";
+                TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1); // Message should only the generated once!
+
+                Assert.AreEqual(1, mapView.Layers.Count);
+                var pointsLayer = (FeatureLayer) mapView.Layers[0];
+                Assert.AreEqual(mapPointData.Name, pointsLayer.Name);
+                Assert.AreSame(originalProjection, pointsLayer.Projection);
+
+                Assert.AreSame(originalProjection, mapView.Projection);
+            }
+        }
+
+        [Test]
+        public void GivenMapControl_WhenWellKnownBackgroundAndThenMapDataSetAndFailingToCreateCache_MapControlUpdated()
+        {
+            // Given
+            string folderWithoutPermission = Path.GetRandomFileName();
+
+            var backgroundMapData = new WellKnownTileSourceMapData(new Random(123).NextEnum<WellKnownTileSource>());
+
+            using (new UseCustomSettingsHelper(new TestSettingsHelper
+            {
+                ApplicationLocalUserSettingsDirectory = Path.Combine(rootPath, folderWithoutPermission)
+            }))
+            using (var disposeHelper = new DirectoryDisposeHelper(rootPath, folderWithoutPermission, tileCachesFolder))
+            using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
+            using (var map = new MapControl())
+            {
+                var mapView = map.Controls.OfType<Map>().First();
+                var originalProjection = mapView.Projection;
+
+                disposeHelper.LockDirectory(FileSystemRights.Write);
+
+                var mapPointData = new MapPointData("Points")
+                {
+                    Features = new[]
+                    {
+                        new MapFeature(new[]
+                        {
+                            new MapGeometry(new[]
+                            {
+                                new[]
+                                {
+                                    new Point2D(1.1, 2.2)
+                                }
+                            })
+                        })
+                    }
+                };
+                var mapDataCollection = new MapDataCollection("Root collection");
+                mapDataCollection.Add(mapPointData);
+
+                // When
+                Action call = () =>
+                {
+                    map.BackgroundMapData = backgroundMapData;
+                    map.Data = mapDataCollection;
+                };
+
+                // Then
+                const string expectedMessage = "Configuratie van kaartgegevens hulpbestanden is mislukt. "
+                                               + "De achtergrondkaart kan nu niet getoond worden.";
+                TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+
+                Assert.AreEqual(1, mapView.Layers.Count);
+                var pointsLayer = (FeatureLayer) mapView.Layers[0];
+                Assert.AreEqual(mapPointData.Name, pointsLayer.Name);
+                Assert.AreSame(originalProjection, pointsLayer.Projection);
+                Assert.AreSame(originalProjection, mapView.Projection);
+            }
+        }
+
+        private static IEnumerable<TestCaseData> GetProblematicKnownTileSourceFactoryTestCaseData(string prefix)
+        {
+            var factoryThrowingNotSupportedException = MockRepository.GenerateStub<ITileSourceFactory>();
+            factoryThrowingNotSupportedException.Stub(f => f.GetKnownTileSources(Arg<KnownTileSource>.Is.NotNull))
+                                                .Throw(new NotSupportedException());
+
+            yield return new TestCaseData(factoryThrowingNotSupportedException)
+                .SetName($"{prefix}: Tile source factory throws NotSupportedException.");
         }
 
         #endregion
