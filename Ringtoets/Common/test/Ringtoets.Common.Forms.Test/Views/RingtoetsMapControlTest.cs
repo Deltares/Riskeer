@@ -25,12 +25,15 @@ using BruTile;
 using BruTile.Predefined;
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using Core.Common.Gui.TestUtil.Settings;
 using Core.Common.TestUtil;
 using Core.Components.BruTile.Configurations;
 using Core.Components.BruTile.TestUtil;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
+using Core.Components.Gis.Geometries;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -45,23 +48,6 @@ namespace Ringtoets.Common.Forms.Test.Views
     {
         private DirectoryDisposeHelper directoryDisposeHelper;
         private TestSettingsHelper testSettingsHelper;
-
-        [OneTimeSetUp]
-        public void OneTimeSetUp()
-        {
-            testSettingsHelper = new TestSettingsHelper
-            {
-                ApplicationLocalUserSettingsDirectory = TestHelper.GetScratchPadPath(nameof(RingtoetsMapControlTest))
-            };
-
-            directoryDisposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(RingtoetsMapControlTest));
-        }
-
-        [OneTimeTearDown]
-        public void OneTimeTearDown()
-        {
-            directoryDisposeHelper.Dispose();
-        }
 
         private static IEnumerable<TestCaseData> BackgroundTypes
         {
@@ -86,6 +72,50 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Assert
             Assert.IsInstanceOf<MapControl>(control);
             Assert.IsNull(control.BackgroundData);
+        }
+
+        [Test]
+        public void RemoveAllData_Always_SetDataAndBackgroundMapDataNull()
+        {
+            // Setup
+            WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+
+            using (new UseCustomSettingsHelper(new TestSettingsHelper()))
+            using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
+            using (var map = new RingtoetsMapControl())
+            {
+                map.BackgroundMapData = backgroundMapData;
+                var mapDataCollection = new MapDataCollection("A");
+                mapDataCollection.Add(new MapPointData("points")
+                {
+                    Features = new[]
+                    {
+                        new MapFeature(new[]
+                        {
+                            new MapGeometry(new[]
+                            {
+                                new[]
+                                {
+                                    new Point2D(1.1, 2.2)
+                                }
+                            })
+                        })
+                    }
+                });
+                map.Data = mapDataCollection;
+
+                // Precondition
+                Assert.IsNotNull(map.Data);
+                Assert.IsNotNull(map.BackgroundMapData);
+
+                // Call
+                map.RemoveAllData();
+
+                // Assert
+                Assert.IsNull(map.Data);
+                Assert.IsNull(map.BackgroundData);
+                Assert.IsNull(map.BackgroundMapData);
+            }
         }
 
         [Test]
@@ -300,6 +330,23 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Assert.AreEqual((WellKnownTileSource) 3, newWellKnownMapData.TileSource);
                 mocks.VerifyAll();
             }
+        }
+
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
+        {
+            testSettingsHelper = new TestSettingsHelper
+            {
+                ApplicationLocalUserSettingsDirectory = TestHelper.GetScratchPadPath(nameof(RingtoetsMapControlTest))
+            };
+
+            directoryDisposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(RingtoetsMapControlTest));
+        }
+
+        [OneTimeTearDown]
+        public void OneTimeTearDown()
+        {
+            directoryDisposeHelper.Dispose();
         }
     }
 }

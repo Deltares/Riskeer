@@ -92,8 +92,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
                     assessmentSectionObserver.Observable = null;
                     duneLocationsObserver.Observable = null;
 
-                    Map.Data = null;
-                    mapControl.BackgroundData = null;
+                    mapControl.RemoveAllData();
                 }
                 else
                 {
@@ -105,7 +104,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
 
                     SetMapDataFeatures();
 
-                    Map.Data = mapDataCollection;
+                    mapControl.Data = mapDataCollection;
                     mapControl.BackgroundData = data.Parent.BackgroundData;
                 }
             }

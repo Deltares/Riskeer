@@ -132,8 +132,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
                     calculationGroupObserver.Observable = null;
                     calculationObserver.Observable = null;
 
-                    Map.Data = null;
-                    mapControl.BackgroundData = null;
+                    mapControl.RemoveAllData();
                 }
                 else
                 {
@@ -148,7 +147,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
 
                     SetMapDataFeatures();
 
-                    Map.Data = mapDataCollection;
+                    mapControl.Data = mapDataCollection;
                     mapControl.BackgroundData = data.Parent.BackgroundData;
                 }
             }

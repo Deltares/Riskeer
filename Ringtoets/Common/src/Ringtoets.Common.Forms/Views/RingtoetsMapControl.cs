@@ -64,6 +64,14 @@ namespace Ringtoets.Common.Forms.Views
             }
         }
 
+        public override void RemoveAllData()
+        {
+            Removing = true;
+            BackgroundData = null;
+            Data = null;
+            Removing = false;
+        }
+
         protected override void Dispose(bool disposing)
         {
             backgroundMapDataObserver.Dispose();

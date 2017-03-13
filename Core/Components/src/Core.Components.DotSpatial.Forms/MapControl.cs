@@ -51,6 +51,7 @@ namespace Core.Components.DotSpatial.Forms
         private readonly RecursiveObserver<MapDataCollection, MapDataCollection> mapDataCollectionObserver;
         private readonly Observer backGroundMapDataObserver;
         private readonly IList<DrawnMapData> drawnMapDataList = new List<DrawnMapData>();
+        protected bool Removing;
 
         private Map map;
         private MapFunctionPan mapFunctionPan;
@@ -90,7 +91,7 @@ namespace Core.Components.DotSpatial.Forms
 
                 mapDataCollectionObserver.Observable = data;
 
-                if (HasMapData)
+                if (HasMapData && !Removing)
                 {
                     DrawInitialMapData();
                 }
@@ -118,11 +119,19 @@ namespace Core.Components.DotSpatial.Forms
                     backgroundLayerStatus = BackgroundLayerStatusFactory.CreateBackgroundLayerStatus(backgroundMapData);
                 }
 
-                if (HasMapData)
+                if (HasMapData && !Removing)
                 {
                     DrawInitialMapData();
                 }
             }
+        }
+
+        public virtual void RemoveAllData()
+        {
+            Removing = true;
+            Data = null;
+            BackgroundMapData = null;
+            Removing = false;
         }
 
         protected override void Dispose(bool disposing)

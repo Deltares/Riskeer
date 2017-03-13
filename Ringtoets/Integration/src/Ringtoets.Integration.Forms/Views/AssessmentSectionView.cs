@@ -84,14 +84,13 @@ namespace Ringtoets.Integration.Forms.Views
 
                 if (data == null)
                 {
-                    Map.Data = null;
-                    mapControl.BackgroundData = null;
+                    mapControl.RemoveAllData();
                 }
                 else
                 {
                     SetMapDataFeatures();
 
-                    Map.Data = mapDataCollection;
+                    mapControl.Data = mapDataCollection;
                     mapControl.BackgroundData = data.BackgroundData;
                 }
             }

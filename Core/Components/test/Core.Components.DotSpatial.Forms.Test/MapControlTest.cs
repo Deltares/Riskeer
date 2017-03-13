@@ -116,6 +116,49 @@ namespace Core.Components.DotSpatial.Forms.Test
             directoryDisposeHelper.Dispose();
         }
 
+        [Test]
+        public void RemoveAllData_Always_SetDataAndBackgroundMapDataNull()
+        {
+            // Setup
+            WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+
+            using (new UseCustomSettingsHelper(new TestSettingsHelper()))
+            using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
+            using (var map = new MapControl())
+            {
+                map.BackgroundMapData = backgroundMapData;
+                var mapDataCollection = new MapDataCollection("A");
+                mapDataCollection.Add(new MapPointData("points")
+                {
+                    Features = new[]
+                    {
+                        new MapFeature(new[]
+                        {
+                            new MapGeometry(new[]
+                            {
+                                new[]
+                                {
+                                    new Point2D(1.1, 2.2)
+                                }
+                            })
+                        })
+                    }
+                });
+                map.Data = mapDataCollection;
+
+                // Precondition
+                Assert.IsNotNull(map.Data);
+                Assert.IsNotNull(map.BackgroundMapData);
+
+                // Call
+                map.RemoveAllData();
+
+                // Assert
+                Assert.IsNull(map.Data);
+                Assert.IsNull(map.BackgroundMapData);
+            }
+        }
+
         private static MapDataCollection GetTestData()
         {
             var mapDataCollection = new MapDataCollection("Test data");

@@ -55,6 +55,11 @@ namespace Core.Components.Gis.Forms
         ImageBasedMapData BackgroundMapData { get; set; }
 
         /// <summary>
+        /// Removes all the data from the map without redrawing any layers.
+        /// </summary>
+        void RemoveAllData();
+
+        /// <summary>
         /// Zooms to a level so that all visible layers are in view.
         /// </summary>
         void ZoomToAllVisibleLayers();
