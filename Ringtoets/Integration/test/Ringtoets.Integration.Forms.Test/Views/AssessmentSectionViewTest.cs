@@ -109,12 +109,13 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             using (var view = new AssessmentSectionView())
             {
+                var mapControl = (RingtoetsMapControl) view.Map;
+
                 // Call
                 view.Data = assessmentSection;
 
                 // Assert
-                ImageBasedMapData expectedWmtsBackgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(assessmentSection.BackgroundData);
-                MapDataTestHelper.AssertImageBasedMapData(expectedWmtsBackgroundMapData, view.Map.BackgroundMapData);
+                Assert.AreSame(assessmentSection.BackgroundData, mapControl.BackgroundData);
             }
         }
 
@@ -127,6 +128,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Data = new ObservableTestAssessmentSectionStub()
             })
             {
+                var mapControl = (RingtoetsMapControl) view.Map;
+
                 // Precondition
                 Assert.AreEqual(2, view.Map.Data.Collection.Count());
 
@@ -135,8 +138,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
                 // Assert
                 Assert.IsNull(view.Data);
-                Assert.IsNull(view.Map.Data);
-                Assert.IsNull(view.Map.BackgroundMapData);
+                Assert.IsNull(mapControl.Data);
+                Assert.IsNull(mapControl.BackgroundData);
+                Assert.IsNull(mapControl.BackgroundMapData);
             }
         }
 

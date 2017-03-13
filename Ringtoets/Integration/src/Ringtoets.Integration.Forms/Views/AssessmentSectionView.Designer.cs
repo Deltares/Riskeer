@@ -36,7 +36,7 @@ namespace Ringtoets.Integration.Forms.Views
         /// </summary>
         private void InitializeComponent()
         {
-            this.mapControl = new Core.Components.DotSpatial.Forms.MapControl();
+            this.mapControl = new Common.Forms.Views.RingtoetsMapControl();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             // 
             // MapView
@@ -59,6 +59,6 @@ namespace Ringtoets.Integration.Forms.Views
 
         #endregion
 
-        private Core.Components.DotSpatial.Forms.MapControl mapControl;
+        private Common.Forms.Views.RingtoetsMapControl mapControl;
     }
 }

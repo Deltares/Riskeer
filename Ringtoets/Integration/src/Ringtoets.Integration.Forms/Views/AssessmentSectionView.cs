@@ -36,13 +36,10 @@ namespace Ringtoets.Integration.Forms.Views
     {
         private readonly Observer assessmentSectionObserver;
         private readonly Observer hydraulicBoundaryDatabaseObserver;
-        private readonly Observer backgroundMapDataObserver;
 
         private readonly MapDataCollection mapDataCollection;
         private readonly MapLineData referenceLineMapData;
         private readonly MapPointData hydraulicBoundaryLocationsMapData;
-
-        private WmtsMapData backgroundMapData;
 
         private IAssessmentSection data;
 
@@ -63,7 +60,6 @@ namespace Ringtoets.Integration.Forms.Views
                 UpdateMapData();
             });
             hydraulicBoundaryDatabaseObserver = new Observer(UpdateMapData);
-            backgroundMapDataObserver = new Observer(UpdateBackgroundMapData);
 
             mapDataCollection = new MapDataCollection(Resources.AssessmentSectionMap_DisplayName);
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
@@ -85,21 +81,18 @@ namespace Ringtoets.Integration.Forms.Views
 
                 assessmentSectionObserver.Observable = data;
                 hydraulicBoundaryDatabaseObserver.Observable = data?.HydraulicBoundaryDatabase;
-                backgroundMapDataObserver.Observable = data?.BackgroundData;
 
                 if (data == null)
                 {
                     Map.Data = null;
-                    Map.BackgroundMapData = null;
+                    mapControl.BackgroundData = null;
                 }
                 else
                 {
                     SetMapDataFeatures();
 
-                    backgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(data.BackgroundData);
-
                     Map.Data = mapDataCollection;
-                    Map.BackgroundMapData = backgroundMapData;
+                    mapControl.BackgroundData = data.BackgroundData;
                 }
             }
         }
@@ -117,17 +110,11 @@ namespace Ringtoets.Integration.Forms.Views
             assessmentSectionObserver.Dispose();
             hydraulicBoundaryDatabaseObserver.Dispose();
 
-            if (disposing && (components != null))
+            if (disposing)
             {
-                components.Dispose();
+                components?.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private void UpdateBackgroundMapData()
-        {
-            RingtoetsBackgroundMapDataFactory.UpdateBackgroundMapData(backgroundMapData, data.BackgroundData);
-            backgroundMapData.NotifyObservers();
         }
 
         private void UpdateMapData()

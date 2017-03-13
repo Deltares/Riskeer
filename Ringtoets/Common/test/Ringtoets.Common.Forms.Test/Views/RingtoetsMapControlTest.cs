@@ -26,6 +26,7 @@ using BruTile.Predefined;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.TestUtil.Settings;
+using Core.Common.TestUtil;
 using Core.Components.BruTile.Configurations;
 using Core.Components.BruTile.TestUtil;
 using Core.Components.DotSpatial.Forms;
@@ -34,6 +35,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
 
 namespace Ringtoets.Common.Forms.Test.Views
@@ -41,6 +43,26 @@ namespace Ringtoets.Common.Forms.Test.Views
     [TestFixture]
     public class RingtoetsMapControlTest
     {
+        private DirectoryDisposeHelper directoryDisposeHelper;
+        private TestSettingsHelper testSettingsHelper;
+
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
+        {
+            testSettingsHelper = new TestSettingsHelper
+            {
+                ApplicationLocalUserSettingsDirectory = TestHelper.GetScratchPadPath(nameof(RingtoetsMapControlTest))
+            };
+
+            directoryDisposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(RingtoetsMapControlTest));
+        }
+
+        [OneTimeTearDown]
+        public void OneTimeTearDown()
+        {
+            directoryDisposeHelper.Dispose();
+        }
+
         private static IEnumerable<TestCaseData> BackgroundTypes
         {
             get
@@ -75,7 +97,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             var control = new RingtoetsMapControl();
 
-            using (new UseCustomSettingsHelper(new TestSettingsHelper()))
+            using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(mapData))
             {
                 // Call
@@ -84,7 +106,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 // Assert
                 Assert.AreSame(backgroundData, control.BackgroundData);
                 Assert.IsNotNull(control.BackgroundMapData);
-                Assert.IsTrue(control.BackgroundMapData is WmtsMapData);
+                MapDataTestHelper.AssertImageBasedMapData(mapData, control.BackgroundMapData);
             }
         }
 
@@ -92,10 +114,10 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void GivenBackgroundData_WhenSetToNull_ThenBackgroundMapDataSetToNull()
         {
             // Given
-            var mapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
             BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(mapData);
 
-            using (new UseCustomSettingsHelper(new TestSettingsHelper()))
+            using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(mapData))
             {
                 var control = new RingtoetsMapControl
@@ -126,21 +148,16 @@ namespace Ringtoets.Common.Forms.Test.Views
             var tileSourceFactory = mocks.StrictMock<ITileSourceFactory>();
 
             var testWellKnownTileSource = new TestWellKnownTileSource(new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial));
-            if (originalBackgroundData.BackgroundMapDataType == BackgroundMapDataType.WellKnown && newBackgroundData.BackgroundMapDataType == BackgroundMapDataType.Wmts)
-            {
-                tileSourceFactory.Expect(tsf => tsf.GetKnownTileSources(KnownTileSource.BingAerial)).Return(testWellKnownTileSource);
-                tileSourceFactory.Expect(tsf => tsf.GetWmtsTileSources(newBackgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl]))
-                                 .Return(Enumerable.Empty<ITileSource>());
-            }
-            else if (originalBackgroundData.BackgroundMapDataType == BackgroundMapDataType.Wmts && newBackgroundData.BackgroundMapDataType == BackgroundMapDataType.WellKnown)
-            {
-                tileSourceFactory.Expect(tsf => tsf.GetWmtsTileSources(originalBackgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl]))
-                                 .Return(Enumerable.Empty<ITileSource>());
-                tileSourceFactory.Expect(tsf => tsf.GetKnownTileSources(KnownTileSource.BingAerial)).Return(testWellKnownTileSource);
-            }
+            string sourceCapabilitiesUrl = originalBackgroundData.BackgroundMapDataType == BackgroundMapDataType.Wmts
+                                               ? originalBackgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl]
+                                               : newBackgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl];
+
+            tileSourceFactory.Expect(tsf => tsf.GetWmtsTileSources(sourceCapabilitiesUrl))
+                             .Return(Enumerable.Empty<ITileSource>());
+            tileSourceFactory.Expect(tsf => tsf.GetKnownTileSources(KnownTileSource.BingAerial)).Return(testWellKnownTileSource);
             mocks.ReplayAll();
 
-            using (new UseCustomSettingsHelper(new TestSettingsHelper()))
+            using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(tileSourceFactory))
             {
                 var control = new RingtoetsMapControl
@@ -186,7 +203,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
             BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(mapData);
 
-            using (new UseCustomSettingsHelper(new TestSettingsHelper()))
+            using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(mapData))
             {
                 var control = new RingtoetsMapControl
