@@ -619,4 +619,19 @@
   <data name="Activity_UpdateProgressText_CurrentStepNumber_0_of_TotalStepsNumber_1_StepDescriptionName_2_" xml:space="preserve">
     <value>Stap {0} van {1} | {2}</value>
   </data>
+  <data name="SaveProjectActivity_Save_existing_project" xml:space="preserve">
+    <value>Opslaan van bestaand project</value>
+  </data>
+  <data name="SaveProjectActivity_Save_project" xml:space="preserve">
+    <value>Opslaan van project</value>
+  </data>
+  <data name="SaveProjectActivity_ProgressTextStepName_InitializeSavedProject" xml:space="preserve">
+    <value>Opgeslagen project initialiseren</value>
+  </data>
+  <data name="SaveProjectActivity_ProgressTextStepName_StagingProject" xml:space="preserve">
+    <value>Voorbereiding opslaan</value>
+  </data>
+  <data name="SaveProjectActivity_ProgressTextStepName_SavingProject" xml:space="preserve">
+    <value>Project opslaan</value>
+  </data>
 </root>

@@ -1427,6 +1427,51 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Opgeslagen project initialiseren.
+        /// </summary>
+        public static string SaveProjectActivity_ProgressTextStepName_InitializeSavedProject {
+            get {
+                return ResourceManager.GetString("SaveProjectActivity_ProgressTextStepName_InitializeSavedProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Project opslaan.
+        /// </summary>
+        public static string SaveProjectActivity_ProgressTextStepName_SavingProject {
+            get {
+                return ResourceManager.GetString("SaveProjectActivity_ProgressTextStepName_SavingProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voorbereiding opslaan.
+        /// </summary>
+        public static string SaveProjectActivity_ProgressTextStepName_StagingProject {
+            get {
+                return ResourceManager.GetString("SaveProjectActivity_ProgressTextStepName_StagingProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opslaan van bestaand project.
+        /// </summary>
+        public static string SaveProjectActivity_Save_existing_project {
+            get {
+                return ResourceManager.GetString("SaveProjectActivity_Save_existing_project", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opslaan van project.
+        /// </summary>
+        public static string SaveProjectActivity_Save_project {
+            get {
+                return ResourceManager.GetString("SaveProjectActivity_Save_project", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fout.
         /// </summary>
         public static string SelectItemDialog_buttonOk_Click_Error {

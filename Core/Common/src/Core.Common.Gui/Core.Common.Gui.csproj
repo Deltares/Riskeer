@@ -162,6 +162,7 @@
     <Compile Include="PropertyBag\PropertySpec.cs" />
     <Compile Include="PropertyBag\PropertySpecDescriptor.cs" />
     <Compile Include="PropertyBag\ReadOnlyPropertyDescriptorDecorator.cs" />
+    <Compile Include="SaveProjectActivity.cs" />
     <Compile Include="Selection\IApplicationSelection.cs" />
     <Compile Include="Settings\GuiCoreSettings.cs" />
     <Compile Include="Settings\ISettingsHelper.cs" />
