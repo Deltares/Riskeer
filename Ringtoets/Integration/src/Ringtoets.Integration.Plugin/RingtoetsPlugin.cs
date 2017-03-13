@@ -52,6 +52,7 @@ using Ringtoets.Common.Forms.GuiServices;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TreeNodeInfos;
+using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.HydraRing;
@@ -918,10 +919,6 @@ namespace Ringtoets.Integration.Plugin
 
         private static void SetSelectedMapData(IAssessmentSection assessmentSection, ImageBasedMapData selectedMapData)
         {
-            if (selectedMapData is WellKnownTileSourceMapData)
-            {
-                return;
-            }
             assessmentSection.BackgroundData.Name = string.Empty;
             assessmentSection.BackgroundData.IsVisible = false;
             assessmentSection.BackgroundData.Parameters.Clear();
@@ -929,16 +926,17 @@ namespace Ringtoets.Integration.Plugin
             if (selectedMapData != null)
             {
                 selectedMapData.IsVisible = true;
-                assessmentSection.BackgroundData.IsVisible = selectedMapData.IsVisible;
-                assessmentSection.BackgroundData.IsConfigured = selectedMapData.IsConfigured;
-                assessmentSection.BackgroundData.Name = selectedMapData.Name;
 
-                var selectedWmtsMapData = selectedMapData as WmtsMapData;
-                if (selectedWmtsMapData != null)
+                BackgroundData newBackgroundData = BackgroundDataConverter.ConvertTo(selectedMapData);
+                
+                assessmentSection.BackgroundData.IsVisible = newBackgroundData.IsVisible;
+                assessmentSection.BackgroundData.IsConfigured = newBackgroundData.IsConfigured;
+                assessmentSection.BackgroundData.Name = newBackgroundData.Name;
+                assessmentSection.BackgroundData.BackgroundMapDataType = newBackgroundData.BackgroundMapDataType;
+
+                foreach (KeyValuePair<string, string> parameter in newBackgroundData.Parameters)
                 {
-                    assessmentSection.BackgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl] = selectedWmtsMapData.SourceCapabilitiesUrl;
-                    assessmentSection.BackgroundData.Parameters[BackgroundDataIdentifiers.SelectedCapabilityIdentifier] = selectedWmtsMapData.SelectedCapabilityIdentifier;
-                    assessmentSection.BackgroundData.Parameters[BackgroundDataIdentifiers.PreferredFormat] = selectedWmtsMapData.PreferredFormat;
+                    assessmentSection.BackgroundData.Parameters.Add(parameter);
                 }
             }
 

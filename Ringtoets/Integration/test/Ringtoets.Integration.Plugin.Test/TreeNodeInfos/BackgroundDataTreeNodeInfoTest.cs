@@ -243,7 +243,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenNoMapDataSet_WhenSelectingValidWMTSMapDataFromContextMenu_ThenMapDataSetAndNotifiesObserver()
+        public void GivenNoMapDataSet_WhenSelectingValidWMTSMapDataFromContextMenu_ThenBackgroundDataSetAndNotifiesObserver()
         {
             // Given
             var mockRepository = new MockRepository();
@@ -304,7 +304,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     contextMenuStrip.Items[selectContextMenuIndex].PerformClick();
 
                     // Then
-                    AssertBackgroundMapDataProperties(newMapData, assessmentSection.BackgroundData, true);
+                    AssertBackgroundMapDataProperties(newMapData, assessmentSection.BackgroundData);
                 }
             }
             mockRepository.VerifyAll();
@@ -366,7 +366,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenMapDataSet_WhenSelectingValidWmtsMapDataFromContextMenu_ThenMapDataSetAndNotifiesObserver()
+        public void GivenMapDataSet_WhenSelectingValidWmtsMapDataFromContextMenu_ThenBackgroundDataSetAndNotifiesObserver()
         {
             // Given
             var mockRepository = new MockRepository();
@@ -425,23 +425,29 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     contextMenuStrip.Items[selectContextMenuIndex].PerformClick();
 
                     // Then
-                    AssertBackgroundMapDataProperties(newMapData, assessmentSection.BackgroundData, true);
+                    AssertBackgroundMapDataProperties(newMapData, assessmentSection.BackgroundData);
                 }
             }
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void GivenMapDataSet_WhenSelectingValidWellKnownMapDataFromContextMenu_ThenMapDataNotSetAndNoNotifiesObserver()
+        public void GivenMapDataSet_WhenSelectingValidWellKnownMapDataFromContextMenu_ThenBackgroundDataSetAndNotifiesObserver()
         {
             // Given
             var mockRepository = new MockRepository();
             var assessmentSectionObserver = mockRepository.StrictMock<IObserver>();
+            assessmentSectionObserver.Expect(o => o.UpdateObserver());
+
             var backgroundMapDataObserver = mockRepository.StrictMock<IObserver>();
+            backgroundMapDataObserver.Expect(o => o.UpdateObserver());
 
             WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
 
             var assessmentSection = new ObservableTestAssessmentSectionStub();
+
+            var newMapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial);
+            var newBackgroundData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData();
 
             using (var treeViewControl = new TreeViewControl())
             using (var plugin = new RingtoetsPlugin())
@@ -454,7 +460,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(cmp => cmp.Get(assessmentSection.BackgroundData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(cmp => cmp.Get(newBackgroundData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mockRepository.ReplayAll();
 
                 assessmentSection.Attach(assessmentSectionObserver);
@@ -474,8 +480,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                     var comboBox = (ComboBox) new ComboBoxTester("mapLayerComboBox", dialog).TheObject;
                     comboBox.SelectedItem = ((IBackgroundMapDataSelectionControl[]) comboBox.DataSource).OfType<WellKnownMapDataControl>().First();
-                    var wmtsDataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", dialog).TheObject;
-                    wmtsDataGridViewControl.SetCurrentCell(wmtsDataGridViewControl.GetCell(1, 0));
+                    var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", dialog).TheObject;
+                    dataGridViewControl.SetCurrentCell(dataGridViewControl.GetCell(0, 0));
 
                     var button = new ButtonTester("selectButton", dialog);
                     button.Click();
@@ -485,13 +491,13 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 TreeNodeInfo info = GetInfo(plugin);
                 plugin.Gui = gui;
 
-                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(assessmentSection.BackgroundData, assessmentSection, treeViewControl))
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(newBackgroundData, assessmentSection, treeViewControl))
                 {
                     // When
                     contextMenuStrip.Items[selectContextMenuIndex].PerformClick();
 
                     // Then
-                    AssertBackgroundMapDataProperties(mapData, assessmentSection.BackgroundData, false);
+                    AssertBackgroundMapDataProperties(newMapData, assessmentSection.BackgroundData);
                 }
             }
             mockRepository.VerifyAll();
@@ -555,15 +561,33 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             mockRepository.VerifyAll();
         }
 
-        private static void AssertBackgroundMapDataProperties(WmtsMapData mapData, BackgroundData backgroundData, bool shouldBeVisible)
+        private static void AssertBackgroundMapDataProperties(WmtsMapData mapData, BackgroundData backgroundData)
         {
             Assert.AreEqual(mapData.Name, backgroundData.Name);
-            Assert.AreEqual(shouldBeVisible, backgroundData.IsVisible);
+            Assert.IsTrue(backgroundData.IsVisible);
             Assert.AreEqual(mapData.IsConfigured, backgroundData.IsConfigured);
             Assert.AreEqual(mapData.Transparency, backgroundData.Transparency);
-            Assert.AreEqual(mapData.SourceCapabilitiesUrl, backgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl]);
-            Assert.AreEqual(mapData.SelectedCapabilityIdentifier, backgroundData.Parameters[BackgroundDataIdentifiers.SelectedCapabilityIdentifier]);
-            Assert.AreEqual(mapData.PreferredFormat, backgroundData.Parameters[BackgroundDataIdentifiers.PreferredFormat]);
+
+            if (mapData.IsConfigured)
+            {
+                Assert.AreEqual(mapData.SourceCapabilitiesUrl, backgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl]);
+                Assert.AreEqual(mapData.SelectedCapabilityIdentifier, backgroundData.Parameters[BackgroundDataIdentifiers.SelectedCapabilityIdentifier]);
+                Assert.AreEqual(mapData.PreferredFormat, backgroundData.Parameters[BackgroundDataIdentifiers.PreferredFormat]);
+            }
+            else
+            {
+                CollectionAssert.IsEmpty(backgroundData.Parameters);
+            }
+        }
+
+        private static void AssertBackgroundMapDataProperties(WellKnownTileSourceMapData mapData, BackgroundData backgroundData)
+        {
+            Assert.AreEqual(mapData.Name, backgroundData.Name);
+            Assert.IsTrue(backgroundData.IsVisible);
+            Assert.AreEqual(mapData.IsConfigured, backgroundData.IsConfigured);
+            Assert.AreEqual(mapData.Transparency, backgroundData.Transparency);
+            
+            Assert.AreEqual(((int)mapData.TileSource).ToString(), backgroundData.Parameters[BackgroundDataIdentifiers.WellKnownTileSource]);
         }
 
         private static void AssertBackgroundMapDataProperties(BackgroundData expectedBackgroundData, BackgroundData actualBackgroundData)
