@@ -48,7 +48,6 @@ namespace Ringtoets.HeightStructures.Forms.Views
         private readonly Observer hydraulicBoundaryDatabaseObserver;
         private readonly Observer foreshoreProfilesObserver;
         private readonly Observer structuresObserver;
-        private readonly Observer backgroundMapDataObserver;
 
         private readonly RecursiveObserver<CalculationGroup, HeightStructuresInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
@@ -63,8 +62,6 @@ namespace Ringtoets.HeightStructures.Forms.Views
         private readonly MapLineData foreshoreProfilesMapData;
         private readonly MapPointData structuresMapData;
         private readonly MapLineData calculationsMapData;
-
-        private WmtsMapData backgroundMapData;
 
         private HeightStructuresFailureMechanismContext data;
 
@@ -88,7 +85,6 @@ namespace Ringtoets.HeightStructures.Forms.Views
             hydraulicBoundaryDatabaseObserver = new Observer(UpdateMapData);
             foreshoreProfilesObserver = new Observer(UpdateMapData);
             structuresObserver = new Observer(UpdateMapData);
-            backgroundMapDataObserver = new Observer(UpdateBackgroundMapData);
 
             calculationInputObserver = new RecursiveObserver<CalculationGroup, HeightStructuresInput>(
                 UpdateMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<StructuresCalculation<HeightStructuresInput>>().Select(pc => pc.InputParameters)));
@@ -136,10 +132,8 @@ namespace Ringtoets.HeightStructures.Forms.Views
                     calculationGroupObserver.Observable = null;
                     calculationObserver.Observable = null;
 
-                    backgroundMapDataObserver.Observable = null;
-
                     Map.Data = null;
-                    Map.BackgroundMapData = null;
+                    mapControl.BackgroundData = null;
                 }
                 else
                 {
@@ -153,14 +147,10 @@ namespace Ringtoets.HeightStructures.Forms.Views
                     calculationGroupObserver.Observable = data.WrappedData.CalculationsGroup;
                     calculationObserver.Observable = data.WrappedData.CalculationsGroup;
 
-                    backgroundMapDataObserver.Observable = data.Parent.BackgroundData;
-
                     SetMapDataFeatures();
 
-                    backgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(data.Parent.BackgroundData);
-
                     Map.Data = mapDataCollection;
-                    Map.BackgroundMapData = backgroundMapData;
+                    mapControl.BackgroundData = data.Parent.BackgroundData;
                 }
             }
         }
@@ -184,19 +174,13 @@ namespace Ringtoets.HeightStructures.Forms.Views
             calculationObserver.Dispose();
             structuresObserver.Dispose();
 
-            if (disposing && (components != null))
+            if (disposing)
             {
-                components.Dispose();
+                components?.Dispose();
             }
             base.Dispose(disposing);
         }
-
-        private void UpdateBackgroundMapData()
-        {
-            RingtoetsBackgroundMapDataFactory.UpdateBackgroundMapData(backgroundMapData, data.Parent.BackgroundData);
-            backgroundMapData.NotifyObservers();
-        }
-
+        
         private void UpdateMapData()
         {
             SetMapDataFeatures();

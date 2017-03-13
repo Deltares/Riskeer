@@ -41,7 +41,6 @@ namespace Ringtoets.DuneErosion.Forms.Views
         private readonly Observer failureMechanismObserver;
         private readonly Observer assessmentSectionObserver;
         private readonly Observer duneLocationsObserver;
-        private readonly Observer backgroundMapDataObserver;
 
         private readonly MapDataCollection mapDataCollection;
         private readonly MapLineData referenceLineMapData;
@@ -49,8 +48,6 @@ namespace Ringtoets.DuneErosion.Forms.Views
         private readonly MapPointData sectionsStartPointMapData;
         private readonly MapPointData sectionsEndPointMapData;
         private readonly MapPointData duneLocationsMapData;
-
-        private WmtsMapData backgroundMapData;
 
         private DuneErosionFailureMechanismContext data;
 
@@ -64,7 +61,6 @@ namespace Ringtoets.DuneErosion.Forms.Views
             failureMechanismObserver = new Observer(UpdateMapData);
             assessmentSectionObserver = new Observer(UpdateMapData);
             duneLocationsObserver = new Observer(UpdateMapData);
-            backgroundMapDataObserver = new Observer(UpdateBackgroundMapData);
 
             mapDataCollection = new MapDataCollection(DuneErosionDataResources.DuneErosionFailureMechanism_DisplayName);
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
@@ -96,10 +92,8 @@ namespace Ringtoets.DuneErosion.Forms.Views
                     assessmentSectionObserver.Observable = null;
                     duneLocationsObserver.Observable = null;
 
-                    backgroundMapDataObserver.Observable = null;
-
                     Map.Data = null;
-                    Map.BackgroundMapData = null;
+                    mapControl.BackgroundData = null;
                 }
                 else
                 {
@@ -109,14 +103,10 @@ namespace Ringtoets.DuneErosion.Forms.Views
                     mapDataCollection.Name = data.WrappedData.Name;
                     duneLocationsObserver.Observable = data.WrappedData.DuneLocations;
 
-                    backgroundMapDataObserver.Observable = data.Parent.BackgroundData;
-
                     SetMapDataFeatures();
 
-                    backgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(data.Parent.BackgroundData);
-
                     Map.Data = mapDataCollection;
-                    Map.BackgroundMapData = backgroundMapData;
+                    mapControl.BackgroundData = data.Parent.BackgroundData;
                 }
             }
         }
@@ -140,12 +130,6 @@ namespace Ringtoets.DuneErosion.Forms.Views
                 components?.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private void UpdateBackgroundMapData()
-        {
-            RingtoetsBackgroundMapDataFactory.UpdateBackgroundMapData(backgroundMapData, data.Parent.BackgroundData);
-            backgroundMapData.NotifyObservers();
         }
 
         private void UpdateMapData()

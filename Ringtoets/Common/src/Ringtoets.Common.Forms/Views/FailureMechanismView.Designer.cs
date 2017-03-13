@@ -36,7 +36,7 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         private void InitializeComponent()
         {
-            this.mapControl = new Core.Components.DotSpatial.Forms.MapControl();
+            this.mapControl = new RingtoetsMapControl();
             this.SuspendLayout();
             // 
             // MapView
@@ -60,6 +60,6 @@ namespace Ringtoets.Common.Forms.Views
 
         #endregion
 
-        private Core.Components.DotSpatial.Forms.MapControl mapControl;
+        private RingtoetsMapControl mapControl;
     }
 }

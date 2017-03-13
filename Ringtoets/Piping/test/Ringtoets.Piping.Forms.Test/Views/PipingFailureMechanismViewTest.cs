@@ -167,22 +167,22 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void Data_AssessmentSectionWithBackgroundMapData_BackgroundMapDataSet()
+        public void Data_AssessmentSectionWithBackgroundData_BackgroundDataSet()
         {
             // Setup
             IAssessmentSection assessmentSection = new ObservableTestAssessmentSectionStub();
 
             using (var view = new PipingFailureMechanismView())
             {
+                var mapControl = (RingtoetsMapControl) view.Map;
+
                 var failureMechanismContext = new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSection);
 
                 // Call
                 view.Data = failureMechanismContext;
 
                 // Assert
-                ImageBasedMapData expectedWmtsBackgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(
-                    assessmentSection.BackgroundData);
-                MapDataTestHelper.AssertImageBasedMapData(expectedWmtsBackgroundMapData, view.Map.BackgroundMapData);
+                Assert.AreSame(assessmentSection.BackgroundData, mapControl.BackgroundData);
             }
         }
 
@@ -199,19 +199,22 @@ namespace Ringtoets.Piping.Forms.Test.Views
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var view = new PipingFailureMechanismView())
             {
+                var mapControl = (RingtoetsMapControl) view.Map;
+
                 view.Data = new PipingFailureMechanismContext(
                     new PipingFailureMechanism(), assessmentSection);
 
                 // Precondition
-                Assert.IsNotNull(view.Map.Data);
-                Assert.IsNotNull(view.Map.BackgroundMapData);
+                Assert.IsNotNull(mapControl.Data);
+                Assert.IsNotNull(mapControl.BackgroundMapData);
 
                 // Call
                 view.Data = null;
 
                 // Assert
-                Assert.IsNull(view.Map.Data);
-                Assert.IsNull(view.Map.BackgroundMapData);
+                Assert.IsNull(mapControl.Data);
+                Assert.IsNull(mapControl.BackgroundData);
+                Assert.IsNull(mapControl.BackgroundMapData);
             }
         }
 
@@ -466,33 +469,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(newHydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
             }
         }
-
-        [Test]
-        public void GivenChangedBackgroundMapData_WhenBackgroundMapDataObserversNotified_MapDataUpdated()
-        {
-            // Given
-            using (var view = new PipingFailureMechanismView())
-            {
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
-                view.Data = new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSection);
-
-                BackgroundData backgroundData = assessmentSection.BackgroundData;
-
-                backgroundData.Name = "some Name";
-                backgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl] = "some URL";
-                backgroundData.Parameters[BackgroundDataIdentifiers.SelectedCapabilityIdentifier] = "some Identifier";
-                backgroundData.Parameters[BackgroundDataIdentifiers.PreferredFormat] = "image/some Format";
-                backgroundData.IsConfigured = true;
-
-                // When
-                backgroundData.NotifyObservers();
-
-                // Then
-                ImageBasedMapData expectedWmtsBackgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(backgroundData);
-                MapDataTestHelper.AssertImageBasedMapData(expectedWmtsBackgroundMapData, view.Map.BackgroundMapData);
-            }
-        }
-
+        
         [Test]
         public void UpdateObserver_ReferenceLineUpdated_MapDataUpdated()
         {

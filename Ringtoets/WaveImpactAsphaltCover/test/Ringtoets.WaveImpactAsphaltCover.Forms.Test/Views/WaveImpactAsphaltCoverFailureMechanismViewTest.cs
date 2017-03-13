@@ -114,13 +114,15 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
         }
 
         [Test]
-        public void Data_AssessmentSectionWithBackgroundMapData_BackgroundMapDataSet()
+        public void Data_AssessmentSectionWithBackgroundData_BackgroundDataSet()
         {
             // Setup
             IAssessmentSection assessmentSection = new ObservableTestAssessmentSectionStub();
 
             using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
             {
+                var mapControl = (RingtoetsMapControl)view.Map;
+
                 var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(
                     new WaveImpactAsphaltCoverFailureMechanism(), assessmentSection);
 
@@ -128,9 +130,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
                 view.Data = failureMechanismContext;
 
                 // Assert
-                ImageBasedMapData expectedWmtsBackgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(
-                    assessmentSection.BackgroundData);
-                MapDataTestHelper.AssertImageBasedMapData(expectedWmtsBackgroundMapData, view.Map.BackgroundMapData);
+                Assert.AreSame(assessmentSection.BackgroundData, mapControl.BackgroundData);
             }
         }
 
@@ -140,6 +140,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             // Setup
             using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
             {
+                var mapControl = (RingtoetsMapControl)view.Map;
+
                 var assessmentSection = new ObservableTestAssessmentSectionStub();
 
                 var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(
@@ -148,15 +150,16 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
                 view.Data = failureMechanismContext;
 
                 // Precondition
-                Assert.AreEqual(7, view.Map.Data.Collection.Count());
+                Assert.AreEqual(7, mapControl.Data.Collection.Count());
 
                 // Call
                 view.Data = null;
 
                 // Assert
                 Assert.IsNull(view.Data);
-                Assert.IsNull(view.Map.Data);
-                Assert.IsNull(view.Map.BackgroundMapData);
+                Assert.IsNull(mapControl.Data);
+                Assert.IsNull(mapControl.BackgroundData);
+                Assert.IsNull(mapControl.BackgroundMapData);
             }
         }
 
@@ -281,35 +284,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
                                           mapDataList[calculationsIndex]);
             }
         }
-
-        [Test]
-        public void GivenChangedBackgroundMapData_WhenBackgroundMapDataObserversNotified_MapDataUpdated()
-        {
-            // Given
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
-            {
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
-                view.Data = new WaveImpactAsphaltCoverFailureMechanismContext(new WaveImpactAsphaltCoverFailureMechanism(),
-                                                                              assessmentSection);
-
-                BackgroundData backgroundData = assessmentSection.BackgroundData;
-
-                backgroundData.Name = "some Name";
-                backgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl] = "some URL";
-                backgroundData.Parameters[BackgroundDataIdentifiers.SelectedCapabilityIdentifier] = "some Identifier";
-                backgroundData.Parameters[BackgroundDataIdentifiers.PreferredFormat] = "image/some Format";
-                backgroundData.IsConfigured = true;
-
-                // When
-                backgroundData.NotifyObservers();
-
-                // Then
-                ImageBasedMapData expectedWmtsBackgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(
-                    backgroundData);
-                MapDataTestHelper.AssertImageBasedMapData(expectedWmtsBackgroundMapData, view.Map.BackgroundMapData);
-            }
-        }
-
+        
         [Test]
         public void UpdateObserver_AssessmentSectionUpdated_MapDataUpdated()
         {

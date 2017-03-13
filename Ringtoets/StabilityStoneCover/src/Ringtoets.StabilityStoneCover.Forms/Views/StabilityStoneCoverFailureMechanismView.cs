@@ -47,7 +47,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         private readonly Observer assessmentSectionObserver;
         private readonly Observer hydraulicBoundaryDatabaseObserver;
         private readonly Observer foreshoreProfilesObserver;
-        private readonly Observer backgroundMapDataObserver;
 
         private readonly RecursiveObserver<CalculationGroup, WaveConditionsInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
@@ -61,8 +60,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         private readonly MapPointData hydraulicBoundaryLocationsMapData;
         private readonly MapLineData foreshoreProfilesMapData;
         private readonly MapLineData calculationsMapData;
-
-        private WmtsMapData backgroundMapData;
 
         private StabilityStoneCoverFailureMechanismContext data;
 
@@ -90,7 +87,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
                 UpdateMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<StabilityStoneCoverWaveConditionsCalculation>().Select(pc => pc.InputParameters)));
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateMapData, pcg => pcg.Children);
             calculationObserver = new RecursiveObserver<CalculationGroup, StabilityStoneCoverWaveConditionsCalculation>(UpdateMapData, pcg => pcg.Children);
-            backgroundMapDataObserver = new Observer(UpdateBackgroundMapData);
 
             mapDataCollection = new MapDataCollection(StabilityStoneCoverDataResources.StabilityStoneCoverFailureMechanism_DisplayName);
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
@@ -130,10 +126,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
                     calculationGroupObserver.Observable = null;
                     calculationObserver.Observable = null;
 
-                    backgroundMapDataObserver.Observable = null;
-
                     Map.Data = null;
-                    Map.BackgroundMapData = null;
+                    mapControl.BackgroundData = null;
                 }
                 else
                 {
@@ -145,14 +139,10 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
                     calculationGroupObserver.Observable = data.WrappedData.WaveConditionsCalculationGroup;
                     calculationObserver.Observable = data.WrappedData.WaveConditionsCalculationGroup;
 
-                    backgroundMapDataObserver.Observable = data.Parent.BackgroundData;
-
                     SetMapDataFeatures();
 
-                    backgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(data.Parent.BackgroundData);
-
                     Map.Data = mapDataCollection;
-                    Map.BackgroundMapData = backgroundMapData;
+                    mapControl.BackgroundData = data.Parent.BackgroundData;
                 }
             }
         }
@@ -175,17 +165,11 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
             calculationGroupObserver.Dispose();
             calculationObserver.Dispose();
 
-            if (disposing && (components != null))
+            if (disposing)
             {
-                components.Dispose();
+                components?.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private void UpdateBackgroundMapData()
-        {
-            RingtoetsBackgroundMapDataFactory.UpdateBackgroundMapData(backgroundMapData, data.Parent.BackgroundData);
-            backgroundMapData.NotifyObservers();
         }
 
         private void UpdateMapData()

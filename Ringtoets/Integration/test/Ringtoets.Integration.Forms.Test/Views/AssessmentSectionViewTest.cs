@@ -102,7 +102,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void Data_AssessmentSectionWithBackgroundMapData_BackgroundMapDataSet()
+        public void Data_AssessmentSectionWithBackgroundData_BackgroundDataSet()
         {
             // Setup
             IAssessmentSection assessmentSection = new ObservableTestAssessmentSectionStub();
@@ -131,7 +131,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var mapControl = (RingtoetsMapControl) view.Map;
 
                 // Precondition
-                Assert.AreEqual(2, view.Map.Data.Collection.Count());
+                Assert.AreEqual(2, mapControl.Data.Collection.Count());
 
                 // Call
                 view.Data = null;
@@ -263,33 +263,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 AssertHydraulicBoundaryDatabaseData(mapData, assessmentSection.HydraulicBoundaryDatabase);
             }
         }
-
-        [Test]
-        public void GivenChangedBackgroundMapData_WhenBackgroundMapDataObserversNotified_MapDataUpdated()
-        {
-            // Given
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
-            using (var view = new AssessmentSectionView())
-            {
-                view.Data = assessmentSection;
-
-                BackgroundData backgroundData = assessmentSection.BackgroundData;
-
-                backgroundData.Name = "some Name";
-                backgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl] = "some URL";
-                backgroundData.Parameters[BackgroundDataIdentifiers.SelectedCapabilityIdentifier] = "some Identifier";
-                backgroundData.Parameters[BackgroundDataIdentifiers.PreferredFormat] = "image/some Format";
-                backgroundData.IsConfigured = true;
-
-                // When
-                backgroundData.NotifyObservers();
-
-                // Then
-                ImageBasedMapData expectedWmtsBackgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(backgroundData);
-                MapDataTestHelper.AssertImageBasedMapData(expectedWmtsBackgroundMapData, view.Map.BackgroundMapData);
-            }
-        }
-
+        
         [Test]
         public void UpdateObserver_ReferenceLineUpdated_MapDataUpdated()
         {
