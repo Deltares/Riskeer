@@ -160,6 +160,40 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             Assert.AreEqual(surfaceLineToUpdateFrom.Name, surfaceLine.Name);
+            Assert.AreEqual(surfaceLineToUpdateFrom.ReferenceLineIntersectionWorldPoint,
+                            surfaceLine.ReferenceLineIntersectionWorldPoint);
+            CollectionAssert.AreEqual(surfaceLineToUpdateFrom.Points, surfaceLine.Points);
+            AssertCharacteristicPoints(surfaceLineToUpdateFrom, surfaceLine);
+        }
+
+        [Test]
+        public void UpdateSurfaceLinesWithImportedData_OnlyReferenceLineIntersectionPointChanged_UpdatesCharacteristicPointsOnly()
+        {
+            // Setup
+            RingtoetsPipingSurfaceLine surfaceLine = CreateValidSurfaceLineForCalculations();
+
+            RingtoetsPipingSurfaceLine surfaceLineToUpdateFrom = CreateValidSurfaceLineForCalculations();
+            surfaceLineToUpdateFrom.ReferenceLineIntersectionWorldPoint = new Point2D(123, 456);
+
+            var targetCollection = new RingtoetsPipingSurfaceLineCollection();
+            targetCollection.AddRange(new[]
+            {
+                surfaceLine
+            }, sourceFilePath);
+            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(new PipingFailureMechanism());
+
+            // Call
+            strategy.UpdateSurfaceLinesWithImportedData(targetCollection,
+                                                        new[]
+                                                        {
+                                                            surfaceLineToUpdateFrom
+                                                        },
+                                                        sourceFilePath);
+
+            // Assert
+            Assert.AreEqual(surfaceLineToUpdateFrom.Name, surfaceLine.Name);
+            Assert.AreEqual(surfaceLineToUpdateFrom.ReferenceLineIntersectionWorldPoint,
+                            surfaceLine.ReferenceLineIntersectionWorldPoint);
             CollectionAssert.AreEqual(surfaceLineToUpdateFrom.Points, surfaceLine.Points);
             AssertCharacteristicPoints(surfaceLineToUpdateFrom, surfaceLine);
         }
@@ -192,12 +226,14 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             Assert.AreEqual(surfaceLineToUpdateFrom.Name, surfaceLine.Name);
+            Assert.AreEqual(surfaceLineToUpdateFrom.ReferenceLineIntersectionWorldPoint,
+                            surfaceLine.ReferenceLineIntersectionWorldPoint);
             CollectionAssert.AreEqual(surfaceLineToUpdateFrom.Points, surfaceLine.Points);
             AssertCharacteristicPoints(surfaceLineToUpdateFrom, surfaceLine);
         }
 
         [Test]
-        public void UpdateSurfaceLinesWithImportedData_GeometryAndCharacteristicPointsChanged_UpdatesGeometryAndCharacteristicPoints()
+        public void UpdateSurfaceLinesWithImportedData_GeometryAndReferenceLineIntersectionPointAndCharacteristicPointsChanged_UpdatesRelevantProperties()
         {
             // Setup
             RingtoetsPipingSurfaceLine surfaceLine = CreateValidSurfaceLineForCalculations();
@@ -220,6 +256,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             Assert.AreEqual(surfaceLineToUpdateFrom.Name, surfaceLine.Name);
+            Assert.AreEqual(surfaceLineToUpdateFrom.ReferenceLineIntersectionWorldPoint,
+                            surfaceLine.ReferenceLineIntersectionWorldPoint);
             CollectionAssert.AreEqual(surfaceLineToUpdateFrom.Points, surfaceLine.Points);
             AssertCharacteristicPoints(surfaceLineToUpdateFrom, surfaceLine);
         }
@@ -838,6 +876,74 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
+        public void UpdateSurfaceLinesWithImportedData_WithCalculationAssignedToRemovedLine_UpdatesCalculationAndRemoveStochasticSoilModelInput()
+        {
+            // Setup
+            var soilModels = new[]
+            {
+                new StochasticSoilModel(1, "A", "B")
+                {
+                    Geometry =
+                    {
+                        new Point2D(2, -1),
+                        new Point2D(2, 1)
+                    },
+                    StochasticSoilProfiles =
+                    {
+                        new StochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, 1)
+                    }
+                },
+                new StochasticSoilModel(2, "C", "D")
+                {
+                    Geometry =
+                    {
+                        new Point2D(-2, -1),
+                        new Point2D(-2, 1)
+                    },
+                    StochasticSoilProfiles =
+                    {
+                        new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 2)
+                    }
+                }
+            };
+
+            RingtoetsPipingSurfaceLine surfaceLine = CreateValidSurfaceLineForCalculations();
+            var calculation = new PipingCalculation(new GeneralPipingInput())
+            {
+                InputParameters =
+                {
+                    SurfaceLine = surfaceLine,
+                    StochasticSoilModel = soilModels[1]
+                }
+            };
+
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
+            failureMechanism.SurfaceLines.AddRange(new[]
+            {
+                surfaceLine
+            }, "path");
+            failureMechanism.StochasticSoilModels.AddRange(soilModels, "path");
+
+            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(failureMechanism);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(failureMechanism.SurfaceLines,
+                                                                                                   Enumerable.Empty<RingtoetsPipingSurfaceLine>(), 
+                                                                                                   "path").ToArray();
+
+            // Assert
+            PipingInput calculationInput = calculation.InputParameters;
+            CollectionAssert.AreEquivalent(new IObservable[]
+            {
+                failureMechanism.SurfaceLines,
+                calculationInput
+            }, affectedObjects);
+            Assert.IsNull(calculationInput.SurfaceLine);
+            Assert.IsNull(calculationInput.StochasticSoilModel);
+        }
+
+        [Test]
         public void UpdateSurfaceLinesWithImportedData_MultipleCalculations_OnlyUpdatesCalculationWithUpdatedSurfaceLine()
         {
             // Setup
@@ -1141,7 +1247,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         {
             var surfaceLine = new RingtoetsPipingSurfaceLine
             {
-                Name = "Name A"
+                Name = "Name A",
+                ReferenceLineIntersectionWorldPoint = new Point2D(123, 456)
             };
             var geometry = new[]
             {
@@ -1182,7 +1289,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
         /// <summary>
         /// Makes a deep clone of the <paramref name="surfaceLine"/> and sets a 
-        /// new geometry and characteristic points.
+        /// new geometry, reference line intersection world reference point and 
+        /// characteristic points.
         /// </summary>
         /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> 
         /// which needs to be deep cloned and modified.</param>
@@ -1190,9 +1298,19 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         /// geometric and characteristic points.</returns>
         private static RingtoetsPipingSurfaceLine DeepCloneAndModifyPoints(RingtoetsPipingSurfaceLine surfaceLine)
         {
+            var random = new Random(21);
+            Point2D newIntersectionPoint = null;
+            if (surfaceLine.ReferenceLineIntersectionWorldPoint != null)
+            {
+                Point2D oldIntersectionPoint = surfaceLine.ReferenceLineIntersectionWorldPoint;
+                newIntersectionPoint = new Point2D(oldIntersectionPoint.X + random.NextDouble(),
+                                                   oldIntersectionPoint.Y + random.NextDouble());
+            }
+
             var copiedLine = new RingtoetsPipingSurfaceLine
             {
-                Name = surfaceLine.Name
+                Name = surfaceLine.Name,
+                ReferenceLineIntersectionWorldPoint = newIntersectionPoint
             };
 
             var newGeometry = new[]

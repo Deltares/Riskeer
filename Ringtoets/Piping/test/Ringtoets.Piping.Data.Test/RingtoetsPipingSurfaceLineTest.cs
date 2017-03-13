@@ -762,6 +762,8 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.AreEqual(surfaceLineToUpdateFrom.Name, surfaceLine.Name);
+            Assert.AreEqual(surfaceLineToUpdateFrom.ReferenceLineIntersectionWorldPoint,
+                            surfaceLine.ReferenceLineIntersectionWorldPoint);
             CollectionAssert.AreEqual(expectedGeometry, surfaceLine.Points);
             AssertCharacteristicPoints(surfaceLineToUpdateFrom, surfaceLine);
         }
@@ -773,7 +775,8 @@ namespace Ringtoets.Piping.Data.Test
             RingtoetsPipingSurfaceLine surfaceLine = CreateSurfaceLineWithCharacteristicPoints();
             var surfaceLineToUpdateFrom = new RingtoetsPipingSurfaceLine
             {
-                Name = surfaceLine.Name
+                Name = surfaceLine.Name,
+                ReferenceLineIntersectionWorldPoint = surfaceLine.ReferenceLineIntersectionWorldPoint
             };
             surfaceLineToUpdateFrom.SetGeometry(surfaceLine.Points);
 
@@ -782,12 +785,34 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.AreEqual(surfaceLineToUpdateFrom.Name, surfaceLine.Name);
+            Assert.AreEqual(surfaceLineToUpdateFrom.ReferenceLineIntersectionWorldPoint,
+                            surfaceLine.ReferenceLineIntersectionWorldPoint);
             CollectionAssert.AreEqual(surfaceLineToUpdateFrom.Points, surfaceLine.Points);
             AssertCharacteristicPoints(surfaceLineToUpdateFrom, surfaceLine);
         }
 
         [Test]
-        public void CopyProperties_LineWithUpdatedGeometryAndCharacteristicPoints_PropertiesUpdated()
+        public void CopyProperties_LineWithUpdatedReferenceLineWorldPoint_PropertiesUpdated()
+        {
+            // Setup
+            RingtoetsPipingSurfaceLine surfaceLine = CreateSurfaceLineWithCharacteristicPoints();
+
+            var expectedIntersectionPoint = new Point2D(123, 456);
+            RingtoetsPipingSurfaceLine surfaceLineToUpdateFrom = CreateSurfaceLineWithCharacteristicPoints();
+            surfaceLineToUpdateFrom.ReferenceLineIntersectionWorldPoint = expectedIntersectionPoint;
+
+            // Call
+            surfaceLine.CopyProperties(surfaceLineToUpdateFrom);
+
+            // Assert
+            Assert.AreEqual(surfaceLineToUpdateFrom.Name, surfaceLine.Name);
+            Assert.AreEqual(expectedIntersectionPoint, surfaceLine.ReferenceLineIntersectionWorldPoint);
+            CollectionAssert.AreEqual(surfaceLineToUpdateFrom.Points, surfaceLine.Points);
+            AssertCharacteristicPoints(surfaceLineToUpdateFrom, surfaceLine);
+        }
+
+        [Test]
+        public void CopyProperties_LineWithUpdatedGeometryAndReferenceLineIntersectionAndCharacteristicPoints_PropertiesUpdated()
         {
             // Setup
             var surfaceLine = new RingtoetsPipingSurfaceLine();
@@ -798,6 +823,8 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.AreEqual(surfaceLineToUpdateFrom.Name, surfaceLine.Name);
+            Assert.AreEqual(surfaceLineToUpdateFrom.ReferenceLineIntersectionWorldPoint,
+                            surfaceLine.ReferenceLineIntersectionWorldPoint);
             CollectionAssert.AreEqual(surfaceLineToUpdateFrom.Points, surfaceLine.Points);
             AssertCharacteristicPoints(surfaceLineToUpdateFrom, surfaceLine);
         }
@@ -918,6 +945,25 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        public void Equals_DifferentReferenceLineIntersectionWorldPoint_ReturnsFalse()
+        {
+            // Setup
+            RingtoetsPipingSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            surfaceLineOne.ReferenceLineIntersectionWorldPoint = new Point2D(0, 0);
+
+            RingtoetsPipingSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            surfaceLineTwo.ReferenceLineIntersectionWorldPoint = new Point2D(1, 1);
+
+            // Call
+            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
+            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
+
+            // Assert
+            Assert.IsFalse(isLineOneEqualToLineTwo);
+            Assert.IsFalse(isLineTwoEqualToLineOne);
+        }
+
+        [Test]
         public void Equals_DifferentBottomDitchDikeSide_ReturnsFalse()
         {
             // Setup
@@ -1026,7 +1072,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void Equals_NamesGeometriesAndCharacteristicPointsEqual_ReturnsTrue()
+        public void Equals_NamesGeometriesAndReferenceLineIntersectionWorldPointAndCharacteristicPointsEqual_ReturnsTrue()
         {
             // Setup
             RingtoetsPipingSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
@@ -1079,7 +1125,8 @@ namespace Ringtoets.Piping.Data.Test
         {
             var surfaceLine = new RingtoetsPipingSurfaceLine
             {
-                Name = "Name A"
+                Name = "Name A",
+                ReferenceLineIntersectionWorldPoint = new Point2D(0, 0)
             };
             var geometry = new[]
             {

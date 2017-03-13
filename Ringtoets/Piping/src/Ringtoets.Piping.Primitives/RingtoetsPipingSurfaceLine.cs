@@ -368,6 +368,7 @@ namespace Ringtoets.Piping.Primitives
             }
 
             Name = fromSurfaceLine.Name;
+            ReferenceLineIntersectionWorldPoint = fromSurfaceLine.ReferenceLineIntersectionWorldPoint;
             SetGeometry(fromSurfaceLine.Points);
             ClearCharacteristicPoints();
             SetCharacteristicPoints(fromSurfaceLine);
@@ -457,7 +458,8 @@ namespace Ringtoets.Piping.Primitives
         private bool Equals(RingtoetsPipingSurfaceLine other)
         {
             return string.Equals(Name, other.Name)
-                   && EqualPoints(other.Points)
+                   && Equals(ReferenceLineIntersectionWorldPoint, other.ReferenceLineIntersectionWorldPoint)
+                   && EqualGeometricPoints(other.Points)
                    && EqualCharacteristicPoints(other);
         }
 
@@ -471,7 +473,7 @@ namespace Ringtoets.Piping.Primitives
                    && Equals(BottomDitchPolderSide, other.BottomDitchPolderSide);
         }
 
-        private bool EqualPoints(Point3D[] otherPoints)
+        private bool EqualGeometricPoints(Point3D[] otherPoints)
         {
             int nrOfOtherPoints = otherPoints.Length;
             if (Points.Length != nrOfOtherPoints)
