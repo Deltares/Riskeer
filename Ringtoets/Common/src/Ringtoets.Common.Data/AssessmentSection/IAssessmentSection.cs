@@ -21,8 +21,6 @@
 
 using System.Collections.Generic;
 using Core.Common.Base;
-using Core.Components.Gis;
-using Core.Components.Gis.Data;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;

@@ -168,10 +168,6 @@
       <Project>{5A91174A-FB95-4C9D-9CA5-81C0B8D4361A}</Project>
       <Name>Core.Components.DotSpatial.Forms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.DotSpatial\Core.Components.DotSpatial.csproj">
-      <Project>{aa47e858-a2a7-470e-8b2d-c76ae8ed9ccd}</Project>
-      <Name>Core.Components.DotSpatial</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj">
       <Project>{4A06DF0D-5D75-4BAD-A95A-A3DB9B7C4AD5}</Project>
       <Name>Core.Components.Gis.Forms</Name>
@@ -183,10 +179,6 @@
     <ProjectReference Include="..\..\..\..\Core\Components\test\Core.Components.BruTile.TestUtil\Core.Components.BruTile.TestUtil.csproj">
       <Project>{1081336C-D919-4249-AB33-9AF15F4D19EC}</Project>
       <Name>Core.Components.BruTile.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Components\test\Core.Components.DotSpatial.TestUtil\Core.Components.DotSpatial.TestUtil.csproj">
-      <Project>{9b6f3987-eaf7-4733-80c1-3dcab44d87ae}</Project>
-      <Name>Core.Components.DotSpatial.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\HydraRing\test\Ringtoets.HydraRing.Calculation.TestUtil\Ringtoets.HydraRing.Calculation.TestUtil.csproj">
       <Project>{74CBA865-9338-447F-BAD9-28312446AE84}</Project>
