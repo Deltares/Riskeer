@@ -221,6 +221,83 @@ namespace Ringtoets.Common.Forms.Test.Views
 
                 // Then
                 Assert.AreSame(oldBackgroundMapData, control.BackgroundMapData);
+                Assert.AreEqual(0.3, control.BackgroundMapData.Transparency.Value);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void GivenConfiguredWmtsBackgroundData_WhenWmtsConfigurationSetToFalseAndNotified_ThenBackgroundMapDataConfigurationRemovedAndNotified()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
+            BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(mapData);
+
+            using (new UseCustomSettingsHelper(testSettingsHelper))
+            using (new UseCustomTileSourceFactoryConfig(mapData))
+            {
+                var control = new RingtoetsMapControl
+                {
+                    BackgroundData = backgroundData
+                };
+
+                control.BackgroundMapData.Attach(observer);
+
+                ImageBasedMapData oldBackgroundMapData = control.BackgroundMapData;
+
+                // When
+                backgroundData.IsConfigured = false;
+                backgroundData.NotifyObservers();
+
+                // Then
+                Assert.AreSame(oldBackgroundMapData, control.BackgroundMapData);
+
+                var newWmtsMapData = (WmtsMapData) control.BackgroundMapData;
+                Assert.IsNull(newWmtsMapData.SourceCapabilitiesUrl);
+                Assert.IsNull(newWmtsMapData.SelectedCapabilityIdentifier);
+                Assert.IsNull(newWmtsMapData.PreferredFormat);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void GivenConfiguredWellKnownBackgroundData_WhenTileSourceChangedAndNotified_ThenBackgroundMapDataUpdatedAndNotified()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var mapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial);
+            BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData();
+
+            using (new UseCustomSettingsHelper(testSettingsHelper))
+            using (new UseCustomTileSourceFactoryConfig(mapData))
+            {
+                var control = new RingtoetsMapControl
+                {
+                    BackgroundData = backgroundData
+                };
+
+                control.BackgroundMapData.Attach(observer);
+
+                ImageBasedMapData oldBackgroundMapData = control.BackgroundMapData;
+
+                // When
+                backgroundData.Parameters[BackgroundDataIdentifiers.WellKnownTileSource] = "3";
+                backgroundData.NotifyObservers();
+
+                // Then
+                Assert.AreSame(oldBackgroundMapData, control.BackgroundMapData);
+
+                var newWellKnownMapData = (WellKnownTileSourceMapData) control.BackgroundMapData;
+                Assert.AreEqual((WellKnownTileSource) 3, newWellKnownMapData.TileSource);
                 mocks.VerifyAll();
             }
         }

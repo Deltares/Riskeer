@@ -41,6 +41,9 @@ namespace Core.Components.Gis.Data
             IsConfigured = true;
         }
 
-        public WellKnownTileSource TileSource { get; }
+        /// <summary>
+        /// Gets or sets the tile source of the map data.
+        /// </summary>
+        public WellKnownTileSource TileSource { get; set; }
     }
 }

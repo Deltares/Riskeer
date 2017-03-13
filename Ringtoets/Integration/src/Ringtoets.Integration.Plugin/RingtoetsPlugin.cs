@@ -907,7 +907,7 @@ namespace Ringtoets.Integration.Plugin
                 return;
             }
 
-            WmtsMapData currentData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(backgroundData);
+            ImageBasedMapData currentData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(backgroundData);
             using (var dialog = new BackgroundMapDataSelectionDialog(Gui.MainWindow, currentData))
             {
                 if (dialog.ShowDialog() == DialogResult.OK)

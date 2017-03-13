@@ -22,108 +22,33 @@
 using System;
 using Core.Components.Gis.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Forms.TypeConverters;
 
 namespace Ringtoets.Common.Forms.Views
 {
     /// <summary>
-    /// Factory for creating <see cref="WmtsMapData"/> for data used in the map.
+    /// Factory for creating <see cref="ImageBasedMapData"/> for data used in the map.
     /// </summary>
     public static class RingtoetsBackgroundMapDataFactory
     {
         /// <summary>
-        /// Creates <see cref="WmtsMapData"/> from a <see cref="BackgroundData"/>.
+        /// Creates <see cref="ImageBasedMapData"/> from a <see cref="BackgroundData"/>.
         /// </summary>
         /// <param name="backgroundData">The <see cref="BackgroundData"/> to create
-        /// the <see cref="WmtsMapData"/> for.</param>
-        /// <returns>The created <see cref="WmtsMapData"/>.</returns>
+        /// the <see cref="ImageBasedMapData"/> for.</param>
+        /// <returns>The created <see cref="ImageBasedMapData"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="backgroundData"/>
         /// is <c>null</c>.</exception>
-        public static WmtsMapData CreateBackgroundMapData(BackgroundData backgroundData)
+        /// <exception cref="NotSupportedException">Thrown when <see cref="BackgroundMapDataType"/>
+        /// is not valid.</exception>
+        public static ImageBasedMapData CreateBackgroundMapData(BackgroundData backgroundData)
         {
             if (backgroundData == null)
             {
                 throw new ArgumentNullException(nameof(backgroundData));
             }
 
-            if (backgroundData.BackgroundMapDataType == BackgroundMapDataType.Wmts)
-            {
-                return CreateWmtsBackgroundMapData(backgroundData);
-            }
-
-            return null;
-        }
-
-        public static ImageBasedMapData CreateImageBasedBackgroundMapData(BackgroundData backgroundData)
-        {
-            if (backgroundData == null)
-            {
-                throw new ArgumentNullException(nameof(backgroundData));
-            }
-
-            if (backgroundData.BackgroundMapDataType == BackgroundMapDataType.Wmts)
-            {
-                return CreateWmtsBackgroundMapData(backgroundData);
-            }
-
-            return new WellKnownTileSourceMapData((WellKnownTileSource)(Convert.ToInt32(backgroundData.Parameters[BackgroundDataIdentifiers.WellKnownTileSource])));
-        }
-
-        /// <summary>
-        /// Updates an existing <see cref="WmtsMapData"/>.
-        /// </summary>
-        /// <param name="mapData">The <see cref="WmtsMapData"/> to update.</param>
-        /// <param name="backgroundData">The <see cref="BackgroundData"/> used
-        /// to update the map data.</param>
-        /// <returns>The updated <see cref="WmtsMapData"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static void UpdateBackgroundMapData(WmtsMapData mapData, BackgroundData backgroundData)
-        {
-            if (mapData == null)
-            {
-                throw new ArgumentNullException(nameof(mapData));
-            }
-            if (backgroundData == null)
-            {
-                throw new ArgumentNullException(nameof(backgroundData));
-            }
-
-            if (backgroundData.BackgroundMapDataType == BackgroundMapDataType.Wmts)
-            {
-                WmtsMapData newMapData = CreateWmtsBackgroundMapData(backgroundData);
-
-                if (newMapData.IsConfigured)
-                {
-                    mapData.Configure(newMapData.SourceCapabilitiesUrl,
-                                      newMapData.SelectedCapabilityIdentifier,
-                                      newMapData.PreferredFormat);
-                }
-                else
-                {
-                    mapData.RemoveConfiguration();
-                }
-
-                mapData.Name = newMapData.Name;
-                mapData.Transparency = newMapData.Transparency;
-                mapData.IsVisible = newMapData.IsVisible;
-            }
-        }
-
-        private static WmtsMapData CreateWmtsBackgroundMapData(BackgroundData backgroundData)
-        {
-            WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
-            mapData.Name = backgroundData.Name;
-
-            if (backgroundData.IsConfigured)
-            {
-                mapData.Configure(backgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl],
-                                  backgroundData.Parameters[BackgroundDataIdentifiers.SelectedCapabilityIdentifier],
-                                  backgroundData.Parameters[BackgroundDataIdentifiers.PreferredFormat]);
-            }
-
-            mapData.IsVisible = backgroundData.IsVisible;
-            mapData.Transparency = backgroundData.Transparency;
-
-            return mapData;
+            return BackgroundDataConverter.ConvertFrom(backgroundData);
         }
     }
 }

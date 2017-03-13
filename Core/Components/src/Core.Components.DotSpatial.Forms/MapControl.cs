@@ -112,6 +112,7 @@ namespace Core.Components.DotSpatial.Forms
 
                 backgroundMapData = value;
                 backGroundMapDataObserver.Observable = backgroundMapData;
+
                 if (backgroundMapData != null)
                 {
                     backgroundLayerStatus = BackgroundLayerStatusFactory.CreateBackgroundLayerStatus(backgroundMapData);

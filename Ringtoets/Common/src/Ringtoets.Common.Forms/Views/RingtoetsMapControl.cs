@@ -23,6 +23,7 @@ using Core.Common.Base;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Forms.TypeConverters;
 
 namespace Ringtoets.Common.Forms.Views
 {
@@ -40,7 +41,7 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         public RingtoetsMapControl()
         {
-            backgroundMapDataObserver = new Observer(UpdateBackgroundMapData);
+            backgroundMapDataObserver = new Observer(OnBackgroundDataUpdated);
         }
 
         /// <summary>
@@ -59,7 +60,7 @@ namespace Ringtoets.Common.Forms.Views
 
                 BackgroundMapData = backgroundData == null
                                         ? null
-                                        : RingtoetsBackgroundMapDataFactory.CreateImageBasedBackgroundMapData(backgroundData);
+                                        : RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(backgroundData);
             }
         }
 
@@ -70,21 +71,46 @@ namespace Ringtoets.Common.Forms.Views
             base.Dispose(disposing);
         }
 
-        private void UpdateBackgroundMapData()
+        private void OnBackgroundDataUpdated()
         {
-            if (backgroundData.BackgroundMapDataType == BackgroundMapDataType.Wmts && BackgroundMapData is WmtsMapData)
+            if (backgroundData.BackgroundMapDataType == BackgroundMapDataType.Wmts && BackgroundMapData is WmtsMapData
+                || backgroundData.BackgroundMapDataType == BackgroundMapDataType.WellKnown && BackgroundMapData is WellKnownTileSourceMapData)
             {
-                RingtoetsBackgroundMapDataFactory.UpdateBackgroundMapData((WmtsMapData) BackgroundMapData, backgroundData);
+                UpdateBackgroundMapData();
                 BackgroundMapData.NotifyObservers();
-            }
-            else if(backgroundData.BackgroundMapDataType == BackgroundMapDataType.WellKnown && BackgroundMapData is WellKnownTileSourceMapData)
-            {
-//                RingtoetsBackgroundMapDataFactory.UpdateBackgroundMapData(BackgroundMapData, backgroundData);
             }
             else
             {
-                BackgroundMapData = RingtoetsBackgroundMapDataFactory.CreateImageBasedBackgroundMapData(backgroundData);
+                BackgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(backgroundData);
             }
+        }
+
+        private void UpdateBackgroundMapData()
+        {
+            ImageBasedMapData newData = BackgroundDataConverter.ConvertFrom(backgroundData);
+
+            if (backgroundData.BackgroundMapDataType == BackgroundMapDataType.Wmts)
+            {
+                if (newData.IsConfigured)
+                {
+                    var newWmtsData = (WmtsMapData) newData;
+                    ((WmtsMapData) BackgroundMapData).Configure(newWmtsData.SourceCapabilitiesUrl,
+                                                                newWmtsData.SelectedCapabilityIdentifier,
+                                                                newWmtsData.PreferredFormat);
+                }
+                else
+                {
+                    ((WmtsMapData) BackgroundMapData).RemoveConfiguration();
+                }
+            }
+            else if (backgroundData.BackgroundMapDataType == BackgroundMapDataType.WellKnown)
+            {
+                ((WellKnownTileSourceMapData) BackgroundMapData).TileSource = ((WellKnownTileSourceMapData) newData).TileSource;
+            }
+
+            BackgroundMapData.IsVisible = newData.IsVisible;
+            BackgroundMapData.Name = newData.Name;
+            BackgroundMapData.Transparency = newData.Transparency;
         }
     }
 }
