@@ -25,7 +25,6 @@ using System.Threading;
 using Application.Ringtoets.Migration;
 using Application.Ringtoets.Migration.Core;
 using Application.Ringtoets.Storage.TestUtil;
-using Core.Common.Base.Storage;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Settings;
@@ -54,9 +53,10 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 var projectStore = new StorageSqLite();
 
                 var mocks = new MockRepository();
-                var projectMigrator = mocks.Stub<IMigrateProject>();
-                projectMigrator.Stub(pm => pm.ShouldMigrate(targetFilePath)).Return(MigrationNeeded.No);
+                var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
                 mocks.ReplayAll();
+
+                var projectMigrator = new RingtoetsProjectMigrator(inquiryHelper);
 
                 using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RingtoetsProjectFactory(), new GuiCoreSettings()))
                 {

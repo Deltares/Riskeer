@@ -27,7 +27,7 @@ namespace Application.Ringtoets.Storage.TestUtil
 {
     /// <summary>
     /// Class which provides file paths of the Ringtoets project files that can 
-    /// be used unit testing migration functionality.
+    /// be used for testing migration functionality.
     /// </summary>
     public static class RingtoetsProjectMigrationTestHelper
     {
@@ -61,7 +61,7 @@ namespace Application.Ringtoets.Storage.TestUtil
 
         /// <summary>
         /// Retrieves the file path of all Ringtoets projects with an older database version,
-        /// which is supported for the migration.
+        /// which are supported for the migration.
         /// </summary>
         /// <returns>An <see cref="IEnumerable{T}"/> of all the file paths to supported
         /// outdated Ringtoets projects.</returns>
