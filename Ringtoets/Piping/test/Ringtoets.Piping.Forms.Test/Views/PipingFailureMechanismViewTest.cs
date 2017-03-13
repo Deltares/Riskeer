@@ -469,7 +469,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(newHydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
             }
         }
-        
+
         [Test]
         public void UpdateObserver_ReferenceLineUpdated_MapDataUpdated()
         {
@@ -547,6 +547,38 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 failureMechanism.SurfaceLines.NotifyObservers();
 
                 // Assert
+                AssertSurfacelinesMapData(failureMechanism.SurfaceLines, surfaceLineMapData);
+            }
+        }
+
+        [Test]
+        public void UpdateObserver_SurfaceLineUpdated_MapDataUpdated()
+        {
+            // Setup
+            using (var view = new PipingFailureMechanismView())
+            {
+                var map = (MapControl) view.Controls[0];
+                var surfaceLine = new RingtoetsPipingSurfaceLine();
+                var failureMechanism = new PipingFailureMechanism();
+                failureMechanism.SurfaceLines.AddRange(new[]
+                {
+                    surfaceLine
+                }, "path");
+                var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
+
+                view.Data = failureMechanismContext;
+
+                surfaceLine.SetGeometry(new[]
+                {
+                    new Point3D(7, 8, 9),
+                    new Point3D(10, 11, 12)
+                });
+
+                // Call
+                surfaceLine.NotifyObservers();
+
+                // Assert
+                var surfaceLineMapData = (MapLineData) map.Data.Collection.ElementAt(surfaceLinesIndex);
                 AssertSurfacelinesMapData(failureMechanism.SurfaceLines, surfaceLineMapData);
             }
         }

@@ -32,6 +32,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
+using Ringtoets.Piping.Primitives;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Views
@@ -50,6 +51,7 @@ namespace Ringtoets.Piping.Forms.Views
         private readonly RecursiveObserver<CalculationGroup, PipingInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
         private readonly RecursiveObserver<CalculationGroup, PipingCalculationScenario> calculationObserver;
+        private readonly RecursiveObserver<RingtoetsPipingSurfaceLineCollection, RingtoetsPipingSurfaceLine> surfaceLineObserver;
 
         private readonly MapDataCollection mapDataCollection;
         private readonly MapLineData referenceLineMapData;
@@ -88,6 +90,8 @@ namespace Ringtoets.Piping.Forms.Views
                 UpdateMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<PipingCalculationScenario>().Select(pc => pc.InputParameters)));
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateMapData, pcg => pcg.Children);
             calculationObserver = new RecursiveObserver<CalculationGroup, PipingCalculationScenario>(UpdateMapData, pcg => pcg.Children);
+
+            surfaceLineObserver = new RecursiveObserver<RingtoetsPipingSurfaceLineCollection, RingtoetsPipingSurfaceLine>(UpdateMapData, rpslc => rpslc);
 
             mapDataCollection = new MapDataCollection(PipingDataResources.PipingFailureMechanism_DisplayName);
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
@@ -129,6 +133,7 @@ namespace Ringtoets.Piping.Forms.Views
                     calculationInputObserver.Observable = null;
                     calculationGroupObserver.Observable = null;
                     calculationObserver.Observable = null;
+                    surfaceLineObserver.Observable = null;
 
                     mapControl.RemoveAllData();
                 }
@@ -142,6 +147,7 @@ namespace Ringtoets.Piping.Forms.Views
                     calculationInputObserver.Observable = data.WrappedData.CalculationsGroup;
                     calculationGroupObserver.Observable = data.WrappedData.CalculationsGroup;
                     calculationObserver.Observable = data.WrappedData.CalculationsGroup;
+                    surfaceLineObserver.Observable = data.WrappedData.SurfaceLines;
 
                     SetMapDataFeatures();
 

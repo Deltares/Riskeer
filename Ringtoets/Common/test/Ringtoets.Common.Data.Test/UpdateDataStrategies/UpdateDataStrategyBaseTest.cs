@@ -276,14 +276,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             CollectionAssert.IsEmpty(strategy.RemoveDataCallArguments);
 
             CollectionAssert.AreEqual(currentCollection, collection);
-
-            IEnumerable<IObservable> expectedAffectedObjects = new IObservable[]
-            {
-                collection,
-                currentCollection[0],
-                currentCollection[1]
-            };
-            CollectionAssert.AreEqual(expectedAffectedObjects, affectedObjects);
+            CollectionAssert.AreEqual(currentCollection, affectedObjects);
         }
 
         [Test]
@@ -427,12 +420,12 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
                                                                                    importedItems,
                                                                                    "path");
 
-            IEnumerable<IObservable> expectedAffectedObjects = new IObservable[]
+            IEnumerable<IObservable> expectedAffectedObjects = new[]
             {
-                collection,
                 itemOne,
                 itemTwo
             };
+
             CollectionAssert.AreEqual(expectedAffectedObjects, affectedObjects);
         }
 

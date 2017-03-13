@@ -279,9 +279,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Assert
             Assert.AreEqual(1, targetCollection.Count);
             Assert.AreSame(existingModel, targetCollection[0]);
-            CollectionAssert.AreEquivalent(new IObservable[]
+            CollectionAssert.AreEquivalent(new[]
             {
-                targetCollection,
                 existingModel
             }, affectedObjects);
         }
@@ -314,7 +313,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.AreEqual(2, targetCollection[0].StochasticSoilProfiles.Count);
             CollectionAssert.AreEquivalent(new IObservable[]
             {
-                targetCollection,
                 existingModel
             }, affectedObjects);
         }
@@ -427,7 +425,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             CollectionAssert.AreEquivalent(new IObservable[]
             {
-                targetCollection,
                 firstSoilModel,
                 calculationWithUpdatedProfile,
                 calculationWithUpdatedProfile.InputParameters,

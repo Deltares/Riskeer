@@ -141,7 +141,7 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
             TTargetData[] objectsToBeUpdated = GetObjectsToBeUpdated(targetDataCollection, importedObjects).ToArray();
 
             var affectedObjects = new List<IObservable>();
-            if (objectsToBeAdded.Any() || objectsToBeRemoved.Any() || objectsToBeUpdated.Any())
+            if (objectsToBeAdded.Any() || objectsToBeRemoved.Any())
             {
                 affectedObjects.Add(targetDataCollection);
             }
