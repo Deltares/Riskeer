@@ -54,7 +54,7 @@
     <Compile Include="ExportableWaveConditionsFactoryTest.cs" />
     <Compile Include="ExportableWaveConditionsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Readers\ReadWaveConditionsInputTest.cs" />
+    <Compile Include="Readers\ReadWaveConditionsCalculationTest.cs" />
     <Compile Include="Readers\WaveConditionsInputConfigurationReaderTest.cs" />
     <Compile Include="WaveConditionsInputConfigurationWriterTest.cs" />
     <Compile Include="WaveConditionsExporterBaseTest.cs" />

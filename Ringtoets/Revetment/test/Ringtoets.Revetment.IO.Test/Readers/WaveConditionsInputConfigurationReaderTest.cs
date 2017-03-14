@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml.Schema;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
@@ -182,7 +183,7 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             var reader = new WaveConditionsInputConfigurationReader(filePath);
 
             // Assert
-            Assert.IsInstanceOf<ConfigurationReader<ReadWaveConditionsInput>>(reader);
+            Assert.IsInstanceOf<ConfigurationReader<ReadWaveConditionsCalculation>>(reader);
         }
 
         [Test]

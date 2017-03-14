@@ -31,9 +31,9 @@ namespace Ringtoets.Revetment.IO.Readers
 {
     /// <summary>
     /// This class reads a wave conditions configuration from XML and creates a collection of corresponding
-    /// <see cref="IReadConfigurationItem"/>, typically containing one or more <see cref="ReadWaveConditionsInput"/>.
+    /// <see cref="IReadConfigurationItem"/>, typically containing one or more <see cref="ReadWaveConditionsCalculation"/>.
     /// </summary>
-    internal class WaveConditionsInputConfigurationReader : ConfigurationReader<ReadWaveConditionsInput>
+    internal class WaveConditionsInputConfigurationReader : ConfigurationReader<ReadWaveConditionsCalculation>
     {
         private const string hydraulicBoundaryLocationSchemaName = "HrLocatieSchema.xsd";
         private const string orientationSchemaName = "OrientatieSchema.xsd";
@@ -72,7 +72,7 @@ namespace Ringtoets.Revetment.IO.Readers
                       }
                   }) {}
 
-        protected override ReadWaveConditionsInput ParseCalculationElement(XElement calculationElement)
+        protected override ReadWaveConditionsCalculation ParseCalculationElement(XElement calculationElement)
         {
             throw new NotImplementedException();
         }

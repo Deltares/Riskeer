@@ -19,23 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using NUnit.Framework;
 using Ringtoets.Common.IO.Readers;
-using Ringtoets.Revetment.IO.Readers;
 
-namespace Ringtoets.Revetment.IO.Test.Readers
+namespace Ringtoets.Revetment.IO.Readers
 {
-    [TestFixture]
-    public class ReadWaveConditionsInputTest
+    internal class ReadWaveConditionsCalculation : IReadConfigurationItem
     {
-        [Test]
-        public void Constructor_ExpectedValues()
-        {
-            // Call
-            var readItem = new ReadWaveConditionsInput();
-
-            // Assert
-            Assert.IsInstanceOf<IReadConfigurationItem>(readItem);
-        }
+        public string Name { get; }
     }
 }
