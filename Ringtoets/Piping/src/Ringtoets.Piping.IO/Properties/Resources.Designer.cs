@@ -226,16 +226,6 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekeningenconfiguratie importeren afgebroken. Geen data ingelezen..
-        /// </summary>
-        public static string PipingConfigurationImporter_LogImportCanceledMessage_Import_canceled_no_data_read {
-            get {
-                return ResourceManager.GetString("PipingConfigurationImporter_LogImportCanceledMessage_Import_canceled_no_data_read" +
-                        "", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Inlezen berekeningenconfiguratie..
         /// </summary>
         public static string PipingConfigurationImporter_ProgressText_Reading_configuration {

@@ -30,6 +30,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Importers;
 using Ringtoets.Piping.Primitives;
@@ -52,7 +53,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
                                                            new PipingFailureMechanism());
 
             // Assert
-            Assert.IsInstanceOf<FileImporterBase<CalculationGroup>>(importer);
+            Assert.IsInstanceOf<CalculationConfigurationImporter>(importer);
         }
 
         [Test]

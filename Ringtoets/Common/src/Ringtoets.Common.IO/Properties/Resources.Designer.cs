@@ -82,6 +82,16 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Berekeningenconfiguratie importeren afgebroken. Geen data ingelezen..
+        /// </summary>
+        public static string CalculationConfigurationImporter_LogImportCanceledMessage_Import_canceled_no_data_read {
+            get {
+                return ResourceManager.GetString("CalculationConfigurationImporter_LogImportCanceledMessage_Import_canceled_no_data" +
+                        "_read", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
         ///
         ///&lt;!--

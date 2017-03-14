@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
-using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using log4net;
@@ -31,6 +30,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.IO.Exceptions;
+using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.Readers;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Properties;
@@ -42,9 +42,10 @@ using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 namespace Ringtoets.Piping.IO.Importers
 {
     /// <summary>
-    /// Imports a piping configuration and stores it on a <see cref="CalculationGroup"/>.
+    /// Imports a piping configuration from an XML file and stores it on a
+    /// <see cref="CalculationGroup"/>.
     /// </summary>
-    public class PipingConfigurationImporter : FileImporterBase<CalculationGroup>
+    public class PipingConfigurationImporter : CalculationConfigurationImporter
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(PipingConfigurationImporter));
 
@@ -78,11 +79,6 @@ namespace Ringtoets.Piping.IO.Importers
             }
             this.hydraulicBoundaryLocations = hydraulicBoundaryLocations;
             this.failureMechanism = failureMechanism;
-        }
-
-        protected override void LogImportCanceledMessage()
-        {
-            log.Info(Resources.PipingConfigurationImporter_LogImportCanceledMessage_Import_canceled_no_data_read);
         }
 
         protected override bool OnImport()

@@ -278,9 +278,6 @@ Deze ondergrondschematisatie wordt overgeslagen.</value>
   <data name="SoilDatabaseConstraintsReader_VerifyConstraints_Invalid_StochasticSoilProfile_probability" xml:space="preserve">
     <value>Er zijn stochastische ondergrondschematisaties zonder geldige kans van voorkomen.</value>
   </data>
-  <data name="PipingConfigurationImporter_LogImportCanceledMessage_Import_canceled_no_data_read" xml:space="preserve">
-    <value>Berekeningenconfiguratie importeren afgebroken. Geen data ingelezen.</value>
-  </data>
   <data name="PipingConfigurationImporter_HandleCriticalFileReadError_Error_0_no_configuration_imported" xml:space="preserve">
     <value>{0} 
 Er is geen berekeningenconfiguratie geïmporteerd.</value>
