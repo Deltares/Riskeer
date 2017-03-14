@@ -39,8 +39,15 @@ namespace Core.Common.Controls.DataGrid
         public DataGridViewControl()
         {
             InitializeComponent();
+            dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
 
             SubscribeEvents();
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            base.OnLoad(e);
         }
 
         /// <summary>
@@ -276,9 +283,9 @@ namespace Core.Common.Controls.DataGrid
         }
 
         /// <summary>
-        /// Sets the datasource on the <see cref="DataGridView"/>.
+        /// Sets the data source on the <see cref="DataGridView"/>.
         /// </summary>
-        /// <param name="dataSource">The datasource to set.</param>
+        /// <param name="dataSource">The data source to set.</param>
         /// <remarks>Providing a value of <c>null</c> for <paramref name="dataSource"/>
         /// will clear the grid view.</remarks>
         public void SetDataSource(IList dataSource)

@@ -235,6 +235,47 @@ namespace Ringtoets.Integration.Forms.Test
         }
 
         [Test]
+        public void GivenValidDialogWithoutMapData_WhenBackgroundMapDataSelectionControlSwitchedBackAndForth_ThenSelectButtonAsExpected()
+        {
+            // Given
+            mockRepository.ReplayAll();
+
+            using (new UseCustomSettingsHelper(new TestSettingsHelper
+            {
+                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "noConfig")
+            }))
+            using (new UseCustomTileSourceFactoryConfig(tileFactory))
+            using (var dialogParent = new Form())
+            using (var dialog = new BackgroundMapDataSelectionDialog(dialogParent, null))
+            {
+                dialog.Show();
+
+                var selectButton = (Button) new ButtonTester("selectButton", dialog).TheObject;
+                var comboBox = (ComboBox) new ComboBoxTester("mapLayerComboBox", dialog).TheObject;
+                WellKnownMapDataControl wellKnownMapDataControl = GetComboBoxItem<WellKnownMapDataControl>(comboBox);
+                WmtsLocationControl wmtsLocationControl = GetComboBoxItem<WmtsLocationControl>(comboBox);
+
+                // Precondition state
+                comboBox.SelectedItem = wmtsLocationControl;
+                var wmtsDataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", dialog).TheObject;
+                Assert.IsNull(wmtsDataGridViewControl.CurrentRow);
+                Assert.IsFalse(selectButton.Enabled);
+
+                // When
+                comboBox.SelectedItem = wellKnownMapDataControl;
+                var wellKnownDataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", dialog).TheObject;
+                DataGridViewRow currentRow = wellKnownDataGridViewControl.CurrentRow;
+                Assert.AreEqual(0, currentRow.Index);
+                Assert.IsTrue(selectButton.Enabled);
+
+                // Then
+                comboBox.SelectedItem = wmtsLocationControl;
+                Assert.IsNull(wmtsDataGridViewControl.CurrentRow);
+                Assert.IsFalse(selectButton.Enabled);
+            }
+        }
+
+        [Test]
         public void GivenValidDialog_WhenControlSwitched_ThenDoesNotListenToEventOfOldControl()
         {
             // Given
@@ -262,11 +303,14 @@ namespace Ringtoets.Integration.Forms.Test
                 dialog.Show();
 
                 var comboBox = (ComboBox) new ComboBoxTester("mapLayerComboBox", dialog).TheObject;
-                var wmtsLocationControl = (WmtsLocationControl) comboBox.SelectedItem;
+                WellKnownMapDataControl wellKnownMapDataControl = GetComboBoxItem<WellKnownMapDataControl>(comboBox);
+                WmtsLocationControl wmtsLocationControl = GetComboBoxItem<WmtsLocationControl>(comboBox);
+
+                comboBox.SelectedItem = wmtsLocationControl;
                 var wmtsDataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", dialog).TheObject;
                 wmtsLocationControl.SelectedMapDataChanged += (sender, args) => { wmtsLocationControlSelectedMapDataChanged++; };
 
-                comboBox.SelectedItem = GetComboBoxItem<WellKnownMapDataControl>(comboBox);
+                comboBox.SelectedItem = wellKnownMapDataControl;
                 var wellKnownDataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", dialog).TheObject;
                 wellKnownDataGridViewControl.ClearCurrentCell();
 

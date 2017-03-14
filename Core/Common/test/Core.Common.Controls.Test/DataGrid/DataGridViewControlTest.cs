@@ -63,6 +63,32 @@ namespace Core.Common.Controls.Test.DataGrid
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
             // Setup
+            using (var control = new DataGridViewControl())
+            {
+                // Call
+                var dataGridView = (DoubleBufferedDataGridView) control.Controls[0];
+
+                // Assert
+                Assert.AreEqual(0, dataGridView.ColumnCount);
+                Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
+                Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, dataGridView.ColumnHeadersDefaultCellStyle.Alignment);
+                Assert.AreEqual(DataGridViewEditMode.EditOnEnter, dataGridView.EditMode);
+                Assert.AreEqual(DataGridViewColumnHeadersHeightSizeMode.DisableResizing, dataGridView.ColumnHeadersHeightSizeMode);
+                Assert.AreEqual(DataGridViewRowHeadersWidthSizeMode.DisableResizing, dataGridView.RowHeadersWidthSizeMode);
+                Assert.IsFalse(dataGridView.AllowUserToResizeColumns);
+                Assert.IsFalse(dataGridView.AllowUserToResizeRows);
+                Assert.IsFalse(dataGridView.AllowUserToAddRows);
+                Assert.IsFalse(dataGridView.AllowUserToDeleteRows);
+                Assert.IsFalse(dataGridView.AutoGenerateColumns);
+                Assert.IsTrue(dataGridView.StandardTab);
+                Assert.IsTrue(dataGridView.MultiSelect);
+            }
+        }
+
+        [Test]
+        public void Show_DataGridViewCorrectlyInitialized()
+        {
+            // Setup
             using (var form = new Form())
             using (var control = new DataGridViewControl())
             {

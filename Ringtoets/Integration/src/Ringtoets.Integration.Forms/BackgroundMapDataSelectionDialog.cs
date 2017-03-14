@@ -105,6 +105,7 @@ namespace Ringtoets.Integration.Forms
             newBackgroundMapDataSelectionControl.SelectedMapDataChanged += OnSelectedMapDataSelectionChanged;
 
             currentBackgroundMapDataSelectionControl = newBackgroundMapDataSelectionControl;
+            UpdateSelectButton();
         }
 
         #region Buttons

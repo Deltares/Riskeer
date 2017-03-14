@@ -230,7 +230,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     // Call
                     using (ContextMenuStrip contextMenu = info.ContextMenuStrip(backgroundMapData, assessmentSection, treeViewControl))
                     {
-                        const string expectedItemText = "Selecteren...";
+                        const string expectedItemText = "&Selecteren...";
                         const string expectedItemTooltip = "Selecteer een achtergrondkaart.";
                         TestHelper.AssertContextMenuStripContainsItem(contextMenu, selectContextMenuIndex,
                                                                       expectedItemText, expectedItemTooltip,
