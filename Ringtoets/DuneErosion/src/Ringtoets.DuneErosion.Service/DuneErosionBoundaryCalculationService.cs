@@ -21,6 +21,7 @@
 
 using System;
 using System.IO;
+using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using log4net;
@@ -199,8 +200,10 @@ namespace Ringtoets.DuneErosion.Service
         /// </summary>
         /// <param name="duneLocation">The <see cref="DuneLocation"/> to create the input for.</param>
         /// <param name="norm">The norm of the failure mechanism to use.</param>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The filepath to the hydraulic boundary database.</param>
-        /// <returns>A <see cref="DunesBoundaryConditionsCalculationInput"/> with all needed input data.</returns>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The file path to the hydraulic
+        /// boundary database.</param>
+        /// <returns>A <see cref="DunesBoundaryConditionsCalculationInput"/> with all needed
+        /// input data.</returns>
         /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 
         /// contains invalid characters.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:

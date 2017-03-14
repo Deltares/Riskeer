@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using log4net;
@@ -200,9 +201,11 @@ namespace Ringtoets.Common.Service
         /// <summary>
         /// Creates the input for an wave height calculation.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/> to create the input from.</param>
+        /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/>
+        /// to create the input from.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The filepath to the hydraulic boundary database.</param>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The file path to the hydraulic
+        /// boundary database.</param>
         /// <returns>A <see cref="WaveHeightCalculationInput"/>.</returns>
         /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 
         /// contains invalid characters.</exception>

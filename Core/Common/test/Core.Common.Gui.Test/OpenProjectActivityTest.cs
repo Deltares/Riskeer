@@ -737,8 +737,9 @@ namespace Core.Common.Gui.Test
             Action call = () => activity.Finish();
 
             // Assert
-            const string expectedMessage = "Uitvoeren van 'Openen van bestaand project' is mislukt.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create("Uitvoeren van 'Openen van bestaand project' is mislukt.",
+                                                                           LogLevelConstant.Error);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
 
             Assert.AreEqual(ActivityState.Failed, activity.State);
 
@@ -790,8 +791,9 @@ namespace Core.Common.Gui.Test
             Action call = () => activity.Finish();
 
             // Assert
-            const string expectedMessage = "Uitvoeren van 'Openen van bestaand project' is mislukt.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create("Uitvoeren van 'Openen van bestaand project' is mislukt.",
+                                                                           LogLevelConstant.Error);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
 
             Assert.AreEqual(ActivityState.Failed, activity.State);
 
@@ -839,8 +841,9 @@ namespace Core.Common.Gui.Test
             Action call = () => activity.Finish();
 
             // Assert
-            const string expectedMessage = "Uitvoeren van 'Openen van bestaand project' is geannuleerd.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create("Uitvoeren van 'Openen van bestaand project' is geannuleerd.",
+                                                                           LogLevelConstant.Warn);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
 
             Assert.AreEqual(ActivityState.Canceled, activity.State);
 

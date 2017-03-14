@@ -37,8 +37,8 @@ namespace Application.Ringtoets.Migration.Test
     [TestFixture]
     public class RingtoetsProjectMigratorTest
     {
-        private readonly string currentDatabaseVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
         private const string testDirectory = nameof(RingtoetsProjectMigratorTest);
+        private readonly string currentDatabaseVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
         private DirectoryDisposeHelper directoryDisposeHelper;
 
         [SetUp]
@@ -136,7 +136,7 @@ namespace Application.Ringtoets.Migration.Test
             string fileVersion = versionedFile.GetVersion();
 
             var migrator = new RingtoetsProjectMigrator(inquiryHelper);
-            var shouldMigrate = MigrationNeeded.Yes;
+            var shouldMigrate = MigrationRequired.Yes;
 
             // Call
             Action call = () => shouldMigrate = migrator.ShouldMigrate(sourceFilePath);
@@ -144,7 +144,7 @@ namespace Application.Ringtoets.Migration.Test
             // Assert
             string expectedMessage = $"Het migreren van een projectbestand met versie '{fileVersion}' naar versie '{currentDatabaseVersion}' is niet ondersteund.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
-            Assert.AreEqual(MigrationNeeded.Aborted, shouldMigrate);
+            Assert.AreEqual(MigrationRequired.Aborted, shouldMigrate);
 
             mocks.VerifyAll();
         }
@@ -167,20 +167,21 @@ namespace Application.Ringtoets.Migration.Test
             var migrator = new RingtoetsProjectMigrator(inquiryHelper);
 
             // Call
-            MigrationNeeded shouldMigrate = MigrationNeeded.No;
+            MigrationRequired shouldMigrate = MigrationRequired.No;
             Action call = () => shouldMigrate = migrator.ShouldMigrate(sourceFilePath);
 
             // Assert
-            var expectedLogMessages = new List<string>();
+            var expectedLogMessages = new List<Tuple<string, LogLevelConstant>>();
             if (!confirmContinuation)
             {
-                expectedLogMessages.Add($"Het migreren van het projectbestand '{sourceFilePath}' is geannuleerd.");
+                expectedLogMessages.Add(Tuple.Create($"Het migreren van het projectbestand '{sourceFilePath}' is geannuleerd.",
+                                                     LogLevelConstant.Warn));
             }
-            TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, expectedLogMessages.Count);
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessages, expectedLogMessages.Count);
 
             var expectedResult = confirmContinuation ?
-                                     MigrationNeeded.Yes :
-                                     MigrationNeeded.Aborted;
+                                     MigrationRequired.Yes :
+                                     MigrationRequired.Aborted;
             Assert.AreEqual(expectedResult, shouldMigrate);
 
             mocks.VerifyAll();
@@ -199,10 +200,10 @@ namespace Application.Ringtoets.Migration.Test
             var migrator = new RingtoetsProjectMigrator(inquiryHelper);
 
             // Call
-            MigrationNeeded shouldMigrate = migrator.ShouldMigrate(sourceFilePath);
+            MigrationRequired shouldMigrate = migrator.ShouldMigrate(sourceFilePath);
 
             // Assert
-            Assert.AreEqual(MigrationNeeded.No, shouldMigrate);
+            Assert.AreEqual(MigrationRequired.No, shouldMigrate);
             mocks.VerifyAll();
         }
 
@@ -257,9 +258,9 @@ namespace Application.Ringtoets.Migration.Test
 
             string validFilePath = TestHelper.GetScratchPadPath($"{originalFileName}.{expectedFileExtension}");
 
-            string versionWithUnderscores = RingtoetsVersionHelper.GetCurrentDatabaseVersion().Replace('.', '-');
+            string versionWithDashes = RingtoetsVersionHelper.GetCurrentDatabaseVersion().Replace('.', '-');
             var expectedFileFilter = new FileFilterGenerator(expectedFileExtension, "Ringtoets project");
-            string expectedSuggestedFileName = $"{originalFileName}_{versionWithUnderscores}";
+            string expectedSuggestedFileName = $"{originalFileName}_{versionWithDashes}";
 
             string expectedReturnPath = TestHelper.GetScratchPadPath("Im_a_file_path_to_the_migrated_file.rtd");
 

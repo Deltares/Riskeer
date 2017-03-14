@@ -21,6 +21,7 @@
 
 using System;
 using System.Data.SQLite;
+using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;

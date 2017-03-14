@@ -67,7 +67,7 @@ namespace Core.Common.TestUtil
         /// <summary>
         /// Returns the location on disk that can be used safely for writing to disk temporarily.
         /// </summary>
-        /// <param name="path">The filepath or folderpath inside the 'scratchpad' folder.</param>
+        /// <param name="path">The file- or folder path inside the 'scratchpad' folder.</param>
         /// <returns>The folder path.</returns>
         /// <remarks>Caller is responsible for cleaning up files put in the folder.</remarks>
         /// <exception cref="IOException">Thrown when the folder doesn't exist.</exception>
@@ -348,7 +348,7 @@ namespace Core.Common.TestUtil
         /// <param name="messages">The collection of messages that should occur in the log</param>
         /// <param name="expectedLogMessageCount">Optional: assert that log has this number of messages.</param>
         /// <seealso cref="AssertLogMessageIsGenerated"/>
-        public static void AssertLogMessagesWithLevelAreGenerated(Action action, Tuple<string, LogLevelConstant>[] messages, int? expectedLogMessageCount = null)
+        public static void AssertLogMessagesWithLevelAreGenerated(Action action, IEnumerable<Tuple<string, LogLevelConstant>> messages, int? expectedLogMessageCount = null)
         {
             Tuple<string, Level>[] renderedMessages = GetAllRenderedMessages(action).ToArray();
 
@@ -411,7 +411,7 @@ namespace Core.Common.TestUtil
         /// </summary>
         /// <param name="messages">The collection of expected messages</param>
         /// <param name="renderedMessages">The collection of messages in the log</param>
-        private static void AssertExpectedMessagesInRenderedMessages(Tuple<string, LogLevelConstant>[] messages, Tuple<string, Level>[] renderedMessages)
+        private static void AssertExpectedMessagesInRenderedMessages(IEnumerable<Tuple<string, LogLevelConstant>> messages, Tuple<string, Level>[] renderedMessages)
         {
             var messagesWithLog4NetLevel = messages.Select(m => Tuple.Create(m.Item1, m.Item2.ToLog4NetLevel()));
             foreach (Tuple<string, Level> message in messagesWithLog4NetLevel)

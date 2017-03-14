@@ -88,64 +88,7 @@ namespace Core.Common.Gui.Forms.ProgressDialog
             var cancellationToken = cancellationTokenSource.Token;
 
             // Run all activities as part of a task
-            task = Task.Factory.StartNew(() =>
-            {
-                for (var i = 0; i < activityCount; i++)
-                {
-                    // Check for cancellation
-                    if (cancellationToken.IsCancellationRequested)
-                    {
-                        break;
-                    }
-
-                    runningActivity = activities.ElementAt(i);
-
-                    int stepNumberForProgressNotification = i + 1;
-                    if (InvokeRequired)
-                    {
-                        UpdateActivityStepControlsDelegate updateDelegate = UpdateProgressControls;
-                        Invoke(updateDelegate, stepNumberForProgressNotification, activityCount);
-                    }
-                    else
-                    {
-                        UpdateProgressControls(stepNumberForProgressNotification, activityCount);
-                    }
-
-                    try
-                    {
-                        if (RenderedMessageLogAppender.Instance != null)
-                        {
-                            RenderedMessageLogAppender.Instance.AppendMessageLineAction = message => runningActivity.LogMessages.Add(message);
-                        }
-
-                        runningActivity.ProgressChanged += ActivityOnProgressChanged;
-
-                        // Run the activity
-                        runningActivity.Run();
-                    }
-                    finally
-                    {
-                        if (RenderedMessageLogAppender.Instance != null)
-                        {
-                            RenderedMessageLogAppender.Instance.AppendMessageLineAction = null;
-                        }
-
-                        runningActivity.ProgressChanged -= ActivityOnProgressChanged;
-                    }
-
-                    // Update the progress bar
-                    int progressBarValue = (int) Math.Round(100.0 / activityCount * stepNumberForProgressNotification);
-                    if (InvokeRequired)
-                    {
-                        UpdateProgressBarDelegate updateDelegate = UpdateProgressBar;
-                        Invoke(updateDelegate, progressBarValue);
-                    }
-                    else
-                    {
-                        UpdateProgressBar(progressBarValue);
-                    }
-                }
-            }, cancellationToken);
+            task = Task.Factory.StartNew(() => { RunAllActivities(activityCount, cancellationToken); }, cancellationToken);
 
             // Afterwards, perform actions that (might) affect the UI thread.
             task.ContinueWith(t =>
@@ -184,14 +127,79 @@ namespace Core.Common.Gui.Forms.ProgressDialog
         /// <param name="disposing"><c>true</c> if managed resources should be disposed; otherwise, <c>false</c>.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
+            if (disposing)
             {
-                components.Dispose();
+                components?.Dispose();
+                task?.Dispose();
             }
 
             cancellationTokenSource.Dispose();
 
             base.Dispose(disposing);
+        }
+
+        private void RunAllActivities(int activityCount, CancellationToken cancellationToken)
+        {
+            for (var i = 0; i < activityCount; i++)
+            {
+                // Check for cancellation
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    break;
+                }
+
+                runningActivity = activities.ElementAt(i);
+                int stepNumberForProgressNotification = i + 1;
+
+                RunActivity(stepNumberForProgressNotification, activityCount);
+            }
+        }
+
+        private void RunActivity(int stepNumberForProgressNotification, int activityCount)
+        {
+            if (InvokeRequired)
+            {
+                UpdateActivityStepControlsDelegate updateDelegate = UpdateProgressControls;
+                Invoke(updateDelegate, stepNumberForProgressNotification, activityCount);
+            }
+            else
+            {
+                UpdateProgressControls(stepNumberForProgressNotification, activityCount);
+            }
+
+            try
+            {
+                if (RenderedMessageLogAppender.Instance != null)
+                {
+                    RenderedMessageLogAppender.Instance.AppendMessageLineAction = message => runningActivity.LogMessages.Add(message);
+                }
+
+                runningActivity.ProgressChanged += ActivityOnProgressChanged;
+
+                // Run the activity
+                runningActivity.Run();
+            }
+            finally
+            {
+                if (RenderedMessageLogAppender.Instance != null)
+                {
+                    RenderedMessageLogAppender.Instance.AppendMessageLineAction = null;
+                }
+
+                runningActivity.ProgressChanged -= ActivityOnProgressChanged;
+            }
+
+            // Update the progress bar
+            int progressBarValue = (int) Math.Round(100.0 / activityCount * stepNumberForProgressNotification);
+            if (InvokeRequired)
+            {
+                UpdateProgressBarDelegate updateDelegate = UpdateProgressBar;
+                Invoke(updateDelegate, progressBarValue);
+            }
+            else
+            {
+                UpdateProgressBar(progressBarValue);
+            }
         }
 
         private void FinishAllActivitiesAndCloseDialog()

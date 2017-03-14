@@ -62,7 +62,7 @@ namespace Application.Ringtoets.Migration
                                                  Resources.RingtoetsProject_TypeDescription);
         }
 
-        public MigrationNeeded ShouldMigrate(string filePath)
+        public MigrationRequired ShouldMigrate(string filePath)
         {
             if (filePath == null)
             {
@@ -76,7 +76,7 @@ namespace Application.Ringtoets.Migration
 
             if (version.Equals(currentDatabaseVersion))
             {
-                return MigrationNeeded.No;
+                return MigrationRequired.No;
             }
 
             if (!fileMigrator.IsVersionSupported(version))
@@ -84,18 +84,18 @@ namespace Application.Ringtoets.Migration
                 string errorMessage = string.Format(MigrationCoreStorageResources.Migrate_From_Version_0_To_Version_1_Not_Supported,
                                                     version, currentDatabaseVersion);
                 log.Error(errorMessage);
-                return MigrationNeeded.Aborted;
+                return MigrationRequired.Aborted;
             }
 
             string query = string.Format(Resources.RingtoetsProjectMigrator_Migrate_Outdated_project_file_update_to_current_version_0_inquire,
                                          currentDatabaseVersion);
             if (inquiryHelper.InquireContinuation(query))
             {
-                return MigrationNeeded.Yes;
+                return MigrationRequired.Yes;
             }
 
             GenerateMigrationCancelledLogMessage(filePath);
-            return MigrationNeeded.Aborted;
+            return MigrationRequired.Aborted;
         }
 
         public string DetermineMigrationLocation(string originalFilePath)
@@ -165,14 +165,21 @@ namespace Application.Ringtoets.Migration
             log.Warn(warningMessage);
         }
 
+        /// <summary>
+        /// Validates a given file path.
+        /// </summary>
+        /// <param name="filePath">The file path to be validated.</param>
+        /// <param name="argumentName">The name of the argument.</param>
+        /// <param name="pathDescription">Prefix, describing the type of file path is being validated.</param>
+        /// <exception cref="ArgumentException">Thrown when the file path argument with the
+        /// given name is not valid.</exception>
         private static void ValidateProjectPath(string filePath, string argumentName, string pathDescription)
         {
             if (!IOUtils.IsValidFilePath(filePath))
             {
                 string message = string.Format(Resources.RingtoetsProjectMigrator_ValidateProjectPath_TypeDescriptor_0_filepath_must_be_a_valid_path,
                                                pathDescription);
-                throw new ArgumentException(message,
-                                            argumentName);
+                throw new ArgumentException(message, argumentName);
             }
         }
     }

@@ -19,7 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Data;
+using Core.Common.Base.IO;
+using Core.Common.Base.Storage;
+using Core.Common.IO.Exceptions;
 
 namespace Core.Common.Gui.Commands
 {
@@ -56,8 +60,8 @@ namespace Core.Common.Gui.Commands
         bool SaveProject();
 
         /// <summary>
-        /// Asks the user to select the file to load a project from, then returns the selected filepath
-        /// of the selected file.
+        /// Asks the user to select the file to load a project from, then returns the selected
+        /// file path of the selected file.
         /// </summary>
         /// <returns>The file path of the selected file.</returns>
         string GetExistingProjectFilePath();
@@ -68,6 +72,14 @@ namespace Core.Common.Gui.Commands
         /// <param name="filePath">Location of the storage file.</param>
         /// <returns><c>true</c> if an existing <see cref="IProject"/> has been loaded, 
         /// <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is
+        /// not a valid file path.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="filePath"/>
+        /// is <c>null</c>.</exception> 
+        /// <exception cref="CriticalFileReadException">Thrown when the file at <paramref name="filePath"/>
+        /// couldn't be read.</exception>
+        /// <exception cref="StorageValidationException">Thrown when the file at <paramref name="filePath"/>
+        /// is not a valid project file.</exception>
         bool OpenExistingProject(string filePath);
     }
 }

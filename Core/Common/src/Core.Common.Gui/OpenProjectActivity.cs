@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Globalization;
 using System.IO;
 using Core.Common.Base.Data;
 using Core.Common.Base.Service;
@@ -29,6 +30,9 @@ using log4net;
 
 namespace Core.Common.Gui
 {
+    /// <summary>
+    /// Activity that handles opening an <see cref="IProject"/>.
+    /// </summary>
     public class OpenProjectActivity : Activity
     {
         private readonly string filePath;
@@ -49,7 +53,8 @@ namespace Core.Common.Gui
         /// able to open a project.</param>
         /// <param name="optionalProjectMigrationProperties">Optional: Properties for migrating
         /// the project to the current version.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="requiredOpenProjectProperties"/>
+        /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when any input argument has invalid values.</exception>
         public OpenProjectActivity(OpenProjectConstructionProperties requiredOpenProjectProperties,
                                    ProjectMigrationConstructionProperties optionalProjectMigrationProperties = null)
@@ -223,7 +228,8 @@ namespace Core.Common.Gui
         /// <param name="totalSteps">The total numbers of steps.</param>
         private void UpdateProgressText(string currentStepName, int currentStep, int totalSteps)
         {
-            ProgressText = string.Format(Resources.Activity_UpdateProgressText_CurrentStepNumber_0_of_TotalStepsNumber_1_StepDescriptionName_2_,
+            ProgressText = string.Format(CultureInfo.CurrentCulture,
+                                         Resources.Activity_UpdateProgressText_CurrentStepNumber_0_of_TotalStepsNumber_1_StepDescriptionName_2_,
                                          currentStep, totalSteps, currentStepName);
         }
 
@@ -253,6 +259,12 @@ namespace Core.Common.Gui
             }
         }
 
+        /// <summary>
+        /// Validates the construction arguments required for migrating a project file.
+        /// </summary>
+        /// <param name="optionalProjectMigrationProperties">The construction arguments to be validated.</param>
+        /// <exception cref="ArgumentException">Thrown when any construction property of
+        /// <paramref name="optionalProjectMigrationProperties"/> is invalid.</exception>
         private static void ValidateProjectMigrationProperties(ProjectMigrationConstructionProperties optionalProjectMigrationProperties)
         {
             if (optionalProjectMigrationProperties.Migrator == null)
@@ -303,7 +315,7 @@ namespace Core.Common.Gui
             public IMigrateProject Migrator { get; set; }
 
             /// <summary>
-            /// The filepath to where the migrate project should be written to. This path
+            /// The file path to where the migrate project should be written to. This path
             /// will override <see cref="OpenProjectConstructionProperties.FilePath"/> with
             /// regards of opening the project.
             /// </summary>

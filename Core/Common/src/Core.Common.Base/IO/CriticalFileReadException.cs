@@ -22,7 +22,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Core.Common.IO.Exceptions
+namespace Core.Common.Base.IO
 {
     /// <summary>
     /// The exception that is thrown when a file reader class encounters a critical error

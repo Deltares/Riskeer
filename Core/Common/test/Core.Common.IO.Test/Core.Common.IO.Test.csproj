@@ -56,7 +56,6 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Exceptions\ConversionExceptionTest.cs" />
-    <Compile Include="Exceptions\CriticalFileReadExceptionTest.cs" />
     <Compile Include="Exceptions\CriticalFileWriteExceptionTest.cs" />
     <Compile Include="Exceptions\LineParseExceptionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -73,6 +72,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Core.Common.Base\Core.Common.Base.csproj">
+      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
+      <Name>Core.Common.Base</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Core.Common.IO\Core.Common.IO.csproj">
       <Project>{E344867E-9AC9-44C8-88A5-8185681679A9}</Project>
       <Name>Core.Common.IO</Name>

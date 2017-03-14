@@ -112,20 +112,20 @@ namespace Application.Ringtoets.Migration.Console
             ConsoleHelper.WriteCommandDescriptionLine(Resources.CommandSupported_Detailed);
         }
 
-        private static void MigrateCommand(string filepath, string toFilepath)
+        private static void MigrateCommand(string filePath, string toFilePath)
         {
-            ValidateMigrationArguments(filepath, toFilepath);
+            ValidateMigrationArguments(filePath, toFilePath);
             var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
-            var sourceFile = new RingtoetsVersionedFile(filepath);
+            var sourceFile = new RingtoetsVersionedFile(filePath);
 
-            migrator.Migrate(sourceFile, currentDatabaseVersion, toFilepath);
+            migrator.Migrate(sourceFile, currentDatabaseVersion, toFilePath);
             System.Console.WriteLine(Resources.CommandMigrate_Successful_Migration_From_Location_0_To_Location_1_Version_2,
-                              filepath, toFilepath, currentDatabaseVersion);
+                              filePath, toFilePath, currentDatabaseVersion);
         }
 
-        private static void ValidateMigrationArguments(string filepath, string toFilepath)
+        private static void ValidateMigrationArguments(string filePath, string toFilePath)
         {
-            if (!(IOUtils.IsValidFilePath(filepath) && IOUtils.IsValidFilePath(toFilepath)))
+            if (!(IOUtils.IsValidFilePath(filePath) && IOUtils.IsValidFilePath(toFilePath)))
             {
                 throw new ArgumentException(Resources.CommandMigrate_Source_Or_Destination_Not_Valid_Path);
             }

@@ -24,10 +24,12 @@ using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
+using Core.Common.Base.IO;
 using Core.Common.Base.Service;
 using Core.Common.Base.Storage;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Properties;
+using Core.Common.IO.Exceptions;
 using log4net;
 
 namespace Core.Common.Gui.Commands
@@ -137,7 +139,7 @@ namespace Core.Common.Gui.Commands
             {
                 return OpenExistingProjectCore(filePath);
             }
-            catch (ArgumentException e)
+            catch (Exception e) when (e is ArgumentException || e is CriticalFileReadException || e is StorageValidationException)
             {
                 log.Error(e.Message, e);
                 log.Error(Resources.StorageCommandHandler_OpeningExistingProject_Opening_existing_project_failed);
@@ -166,7 +168,7 @@ namespace Core.Common.Gui.Commands
             var project = projectOwner.Project;
             var filePath = projectOwner.ProjectFilePath;
 
-            // If filepath is not set, go to SaveAs
+            // If file path is not set, go to SaveAs
             if (string.IsNullOrWhiteSpace(filePath) || !File.Exists(filePath))
             {
                 return SaveProjectAs();
@@ -185,13 +187,17 @@ namespace Core.Common.Gui.Commands
         /// <returns>Returns <c>true</c> if the project was successfully opened; Returns
         /// <c>false</c> if an error occurred or when opening the project has been cancelled.</returns>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is
-        /// not a valid filepath.</exception>
+        /// not a valid file path.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="filePath"/>
         /// is <c>null</c>.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when the file at <paramref name="filePath"/>
+        /// couldn't be read.</exception>
+        /// <exception cref="StorageValidationException">Thrown when the file at <paramref name="filePath"/>
+        /// is not a valid project file.</exception>
         private bool OpenExistingProjectCore(string filePath)
         {
             OpenProjectActivity.ProjectMigrationConstructionProperties migrationProperties;
-            if (PrepareProjectMigration(filePath, out migrationProperties) == MigrationNeeded.Aborted)
+            if (PrepareProjectMigration(filePath, out migrationProperties) == MigrationRequired.Aborted)
             {
                 log.Info(Resources.StorageCommandHandler_OpenExistingProject_Opening_existing_project_canceled);
                 return false;
@@ -204,26 +210,30 @@ namespace Core.Common.Gui.Commands
         /// Check if migration is required and if so the migration settings are initialized.
         /// </summary>
         /// <param name="filePath">The project file to open.</param>
-        /// <param name="migrationConstructionProperties">Output: Will be null is this method
-        /// returns <see cref="MigrationNeeded.No"/> or <see cref="MigrationNeeded.Aborted"/>.
-        /// Will be a concrete instance if this method returns <see cref="MigrationNeeded.Yes"/>.</param>
+        /// <param name="migrationConstructionProperties">Output: Will be null if this method
+        /// returns <see cref="MigrationRequired.No"/> or <see cref="MigrationRequired.Aborted"/>.
+        /// Will be a concrete instance if this method returns <see cref="MigrationRequired.Yes"/>.</param>
         /// <returns>Indicates if migration is required or not, or that the operation has
         /// been cancelled.</returns>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is
-        /// not a valid filepath.</exception>
+        /// not a valid file path.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="filePath"/>
         /// is <c>null</c>.</exception>
-        private MigrationNeeded PrepareProjectMigration(string filePath,
-                                                        out OpenProjectActivity.ProjectMigrationConstructionProperties migrationConstructionProperties)
+        /// <exception cref="CriticalFileReadException">Thrown when the file at <paramref name="filePath"/>
+        /// couldn't be read.</exception>
+        /// <exception cref="StorageValidationException">Thrown when the file at <paramref name="filePath"/>
+        /// is not a valid project file.</exception>
+        private MigrationRequired PrepareProjectMigration(string filePath,
+                                                          out OpenProjectActivity.ProjectMigrationConstructionProperties migrationConstructionProperties)
         {
             migrationConstructionProperties = null;
-            MigrationNeeded migrationNeeded = projectMigrator.ShouldMigrate(filePath);
-            if (migrationNeeded == MigrationNeeded.Yes)
+            MigrationRequired migrationNeeded = projectMigrator.ShouldMigrate(filePath);
+            if (migrationNeeded == MigrationRequired.Yes)
             {
                 string projectFilePathTakingIntoAccountMigration = projectMigrator.DetermineMigrationLocation(filePath);
                 if (string.IsNullOrWhiteSpace(projectFilePathTakingIntoAccountMigration))
                 {
-                    migrationNeeded = MigrationNeeded.Aborted;
+                    migrationNeeded = MigrationRequired.Aborted;
                 }
                 else
                 {
@@ -247,7 +257,7 @@ namespace Core.Common.Gui.Commands
         /// <returns>Returns <c>true</c> if the operation completed successfully; Returns
         /// <c>false</c> otherwise (for example when the operation failed or was cancelled).</returns>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is
-        /// not a valid filepath.</exception>
+        /// not a valid file path.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="filePath"/>
         /// is <c>null</c>.</exception>
         private bool MigrateAndOpenProject(string filePath, OpenProjectActivity.ProjectMigrationConstructionProperties migrationProperties)

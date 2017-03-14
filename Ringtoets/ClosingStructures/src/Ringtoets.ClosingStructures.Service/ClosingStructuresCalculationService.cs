@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using log4net;
 using Ringtoets.ClosingStructures.Data;
@@ -202,13 +203,16 @@ namespace Ringtoets.ClosingStructures.Service
         /// <summary>
         /// Creates the input for the calculation.
         /// </summary>
-        /// <param name="calculation">The <see cref="StructuresCalculation{T}"/> to create the input for.</param>
-        /// <param name="failureMechanism">The <see cref="ClosingStructuresFailureMechanism"/> that holds the information about the contribution 
+        /// <param name="calculation">The <see cref="StructuresCalculation{T}"/> to create
+        /// the input for.</param>
+        /// <param name="failureMechanism">The <see cref="ClosingStructuresFailureMechanism"/>
+        /// that holds the information about the contribution 
         /// and the general inputs used in the calculation.</param>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The filepath to the hydraulic boundary database.</param>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The file path to the hydraulic
+        /// boundary database.</param>
         /// <returns>A <see cref="StructuresClosureCalculationInput"/>.</returns>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="ClosingStructuresInput.InflowModelType"/> is an invalid
-        /// <see cref="ClosingStructureInflowModelType"/>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="ClosingStructuresInput.InflowModelType"/>
+        /// is an invalid <see cref="ClosingStructureInflowModelType"/>.</exception>
         /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 
         /// contains invalid characters.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:

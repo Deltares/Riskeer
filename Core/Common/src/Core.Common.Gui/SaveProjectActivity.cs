@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Globalization;
 using System.IO;
 using Core.Common.Base.Data;
 using Core.Common.Base.Service;
@@ -30,7 +31,7 @@ using log4net;
 namespace Core.Common.Gui
 {
     /// <summary>
-    /// Activity to save a <see cref="IProject"/>.
+    /// Activity to save an <see cref="IProject"/>.
     /// </summary>
     public class SaveProjectActivity : Activity
     {
@@ -54,6 +55,7 @@ namespace Core.Common.Gui
         /// is not already located at <paramref name="filePath"/>.</param>
         /// <param name="storeProject">The object responsible for saving <paramref name="project"/>.</param>
         /// <param name="projectOwner">The object responsible for hosting <paramref name="project"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public SaveProjectActivity(IProject project, string filePath, bool savingExistingProject, IStoreProject storeProject, IProjectOwner projectOwner)
         {
             if (project == null)
@@ -167,7 +169,8 @@ namespace Core.Common.Gui
         /// <param name="totalSteps">The total numbers of steps.</param>
         private void UpdateProgressText(string currentStepName, int currentStep, int totalSteps)
         {
-            ProgressText = string.Format(Resources.Activity_UpdateProgressText_CurrentStepNumber_0_of_TotalStepsNumber_1_StepDescriptionName_2_,
+            ProgressText = string.Format(CultureInfo.CurrentCulture,
+                                         Resources.Activity_UpdateProgressText_CurrentStepNumber_0_of_TotalStepsNumber_1_StepDescriptionName_2_,
                                          currentStep, totalSteps, currentStepName);
         }
     }

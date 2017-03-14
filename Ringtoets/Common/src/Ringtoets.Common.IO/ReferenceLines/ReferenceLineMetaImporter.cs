@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security;
+using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils.Builders;
 using Core.Common.Utils.Properties;

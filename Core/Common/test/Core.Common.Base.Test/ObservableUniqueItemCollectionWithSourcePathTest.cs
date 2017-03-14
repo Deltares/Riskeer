@@ -149,7 +149,7 @@ namespace Core.Common.Base.Test
             TestDelegate call = () => collection.AddRange(Enumerable.Empty<TestItem>(), invalidFilePath);
 
             // Assert
-            string message = $"'{invalidFilePath}' is not a valid filepath.";
+            string message = $"'{invalidFilePath}' is not a valid file path.";
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message).ParamName;
             Assert.AreEqual("filePath", paramName);
         }

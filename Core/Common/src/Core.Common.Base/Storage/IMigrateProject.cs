@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.IO;
 
 namespace Core.Common.Base.Storage
 {
@@ -36,14 +37,18 @@ namespace Core.Common.Base.Storage
         /// <returns>The indicator if migration is required or not.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="filePath"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is an invalid file path.</exception>
-        MigrationNeeded ShouldMigrate(string filePath);
+        /// <exception cref="CriticalFileReadException">Thrown when the file at <paramref name="filePath"/>
+        /// couldn't be read.</exception>
+        /// <exception cref="StorageValidationException">Thrown when the file at <paramref name="filePath"/>
+        /// is not a valid project file.</exception>
+        MigrationRequired ShouldMigrate(string filePath);
 
         /// <summary>
         /// Determines the target file path to place the migrated Ringtoets project based
         /// on it's original file path.
         /// </summary>
         /// <returns>The file path to be used as location for the migration result. Value
-        /// will be <c>null</c> if no target file path an be provided.</returns>
+        /// will be <c>null</c> if no target file path can be provided.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="originalFilePath"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="originalFilePath"/> is an invalid file path.</exception>
         string DetermineMigrationLocation(string originalFilePath);
@@ -53,7 +58,7 @@ namespace Core.Common.Base.Storage
         /// to the latest project version at a user defined target file path.
         /// </summary>
         /// <param name="sourceFilePath">The file path of the project which needs to be migrated.</param>
-        /// <param name="targetFilePath">The file path where the migrated project is written to.</param>
+        /// <param name="targetFilePath">The file path where the migrated project will be written to.</param>
         /// <returns>Returns <c>true</c> if the migration was successful; return <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when either <paramref name="sourceFilePath"/>
         /// or <paramref name="targetFilePath"/> is <c>null</c>.</exception>

@@ -105,18 +105,21 @@ namespace Ringtoets.Revetment.Service
         }
 
         /// <summary>
-        /// Performs a wave conditions calculation based on the supplied <see cref="WaveConditionsInput"/> and returns the output.
-        /// Error and status information is logged during the execution of the operation.
+        /// Performs a wave conditions calculation based on the supplied <see cref="WaveConditionsInput"/>
+        /// and returns the output. Error and status information is logged during the execution
+        /// of the operation.
         /// </summary>
         /// <param name="calculationName">The name of the calculation.</param>
-        /// <param name="waveConditionsInput">The <see cref="WaveConditionsInput"/> that holds all the information required to perform the calculation.</param>
+        /// <param name="waveConditionsInput">The <see cref="WaveConditionsInput"/> that
+        /// holds all the information required to perform the calculation.</param>
         /// <param name="a">The 'a' factor decided on failure mechanism level.</param>
         /// <param name="b">The 'b' factor decided on failure mechanism level.</param>
         /// <param name="c">The 'c' factor decided on failure mechanism level.</param>
         /// <param name="norm">The norm to use as the target.</param>
-        /// <param name="hrdFilePath">The filepath of the hydraulic boundary database.</param>
+        /// <param name="hrdFilePath">The file path of the hydraulic boundary database.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="WaveConditionsOutput"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="waveConditionsInput"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="waveConditionsInput"/>
+        /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when the <paramref name="hrdFilePath"/> 
         /// contains invalid characters.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
@@ -129,8 +132,10 @@ namespace Ringtoets.Revetment.Service
         /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the target probability or 
         /// calculated probability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
-        /// <exception cref="HydraRingFileParserException">Thrown when an error occurs during parsing of the Hydra-Ring output.</exception>
-        /// <exception cref="HydraRingCalculationException">Thrown when an error occurs during the calculation.</exception>
+        /// <exception cref="HydraRingFileParserException">Thrown when an error occurs during
+        /// parsing of the Hydra-Ring output.</exception>
+        /// <exception cref="HydraRingCalculationException">Thrown when an error occurs during
+        /// the calculation.</exception>
         protected IEnumerable<WaveConditionsOutput> CalculateWaveConditions(string calculationName,
                                                                             WaveConditionsInput waveConditionsInput,
                                                                             RoundedDouble a,

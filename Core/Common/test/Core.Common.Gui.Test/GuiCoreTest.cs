@@ -515,7 +515,7 @@ namespace Core.Common.Gui.Test
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
-            projectMigrator.Stub(m => m.ShouldMigrate(testFile)).Return(MigrationNeeded.No);
+            projectMigrator.Stub(m => m.ShouldMigrate(testFile)).Return(MigrationRequired.No);
             var deserializedProject = mocks.Stub<IProject>();
             projectStore.Expect(ps => ps.LoadProject(testFile)).Return(deserializedProject);
             var projectFactory = CreateProjectFactory(mocks);
@@ -562,7 +562,7 @@ namespace Core.Common.Gui.Test
             var projectStore = mocks.Stub<IStoreProject>();
 
             var projectMigrator = mocks.Stub<IMigrateProject>();
-            projectMigrator.Stub(pm => pm.ShouldMigrate(testFile)).Return(MigrationNeeded.Yes);
+            projectMigrator.Stub(pm => pm.ShouldMigrate(testFile)).Return(MigrationRequired.Yes);
             projectMigrator.Stub(pm => pm.DetermineMigrationLocation(testFile)).Return(null);
 
             const string expectedProjectName = "Project";
@@ -666,7 +666,7 @@ namespace Core.Common.Gui.Test
             var projectStore = mocks.Stub<IStoreProject>();
 
             var projectMigrator = mocks.Stub<IMigrateProject>();
-            projectMigrator.Stub(pm => pm.ShouldMigrate(testFile)).Return(MigrationNeeded.Yes);
+            projectMigrator.Stub(pm => pm.ShouldMigrate(testFile)).Return(MigrationRequired.Yes);
             projectMigrator.Stub(pm => pm.DetermineMigrationLocation(testFile)).Return(targetFile);
             projectMigrator.Stub(pm => pm.Migrate(testFile, targetFile))
                            .Throw(new ArgumentException(expectedErrorMessage));
@@ -719,7 +719,7 @@ namespace Core.Common.Gui.Test
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
-            projectMigrator.Stub(m => m.ShouldMigrate(testFile)).Return(MigrationNeeded.No);
+            projectMigrator.Stub(m => m.ShouldMigrate(testFile)).Return(MigrationRequired.No);
             projectStore.Expect(ps => ps.LoadProject(testFile)).Throw(new StorageException(storageExceptionText));
             const string expectedProjectName = "Project";
             var project = mocks.Stub<IProject>();

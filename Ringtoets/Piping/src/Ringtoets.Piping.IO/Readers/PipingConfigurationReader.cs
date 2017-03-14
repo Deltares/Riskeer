@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Ringtoets.Common.IO.Readers;
 using Ringtoets.Common.IO.Schema;

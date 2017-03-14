@@ -94,6 +94,7 @@
     <Compile Include="Geometry\Point3DTest.cs" />
     <Compile Include="Geometry\Segment2DIntersectSegment2DResultTest.cs" />
     <Compile Include="Geometry\Segment2DTest.cs" />
+    <Compile Include="IO\CriticalFileReadExceptionTest.cs" />
     <Compile Include="IO\FileImporterBaseTest.cs" />
     <Compile Include="ObservableTest.cs" />
     <Compile Include="ObserverTest.cs" />

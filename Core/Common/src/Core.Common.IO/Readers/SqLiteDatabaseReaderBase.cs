@@ -23,7 +23,7 @@ using System;
 using System.Data;
 using System.Data.SQLite;
 using System.IO;
-using Core.Common.IO.Exceptions;
+using Core.Common.Base.IO;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
 using UtilsResources = Core.Common.Utils.Properties.Resources;
@@ -75,7 +75,7 @@ namespace Core.Common.IO.Readers
         /// <summary>
         /// Gets the path to the file.
         /// </summary>
-        public string Path { get; private set; }
+        public string Path { get; }
 
         /// <summary>
         /// Closes and disposes the existing <see cref="Connection"/>.

@@ -190,7 +190,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
             var mocks = new MockRepository();
             var projectMigrator = mocks.Stub<IMigrateProject>();
-            projectMigrator.Stub(pm => pm.ShouldMigrate(tempRingtoetsFile)).Return(MigrationNeeded.No);
+            projectMigrator.Stub(pm => pm.ShouldMigrate(tempRingtoetsFile)).Return(MigrationRequired.No);
             mocks.ReplayAll();
 
             var projectStore = new StorageSqLite();
@@ -209,10 +209,10 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 // Then
                 var expectedMessages = new[]
                 {
-                    "Openen van bestaand Ringtoetsproject...",
-                    "Uitvoeren van 'Openen van bestaand project' is gelukt."
+                    Tuple.Create("Openen van bestaand Ringtoetsproject...", LogLevelConstant.Info),
+                    Tuple.Create("Uitvoeren van 'Openen van bestaand project' is gelukt.", LogLevelConstant.Info)
                 };
-                TestHelper.AssertLogMessagesAreGenerated(action, expectedMessages, 3);
+                TestHelper.AssertLogMessagesWithLevelAreGenerated(action, expectedMessages, 3);
                 Assert.AreEqual(tempRingtoetsFile, gui.ProjectFilePath);
                 Assert.NotNull(gui.Project);
                 Assert.AreEqual(expectedProjectName, gui.Project.Name);

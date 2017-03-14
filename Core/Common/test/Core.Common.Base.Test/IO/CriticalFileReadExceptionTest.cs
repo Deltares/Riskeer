@@ -20,11 +20,11 @@
 // All rights reserved.
 
 using System;
-using Core.Common.IO.Exceptions;
+using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
-namespace Core.Common.IO.Test.Exceptions
+namespace Core.Common.Base.Test.IO
 {
     [TestFixture]
     public class CriticalFileReadExceptionTest :
