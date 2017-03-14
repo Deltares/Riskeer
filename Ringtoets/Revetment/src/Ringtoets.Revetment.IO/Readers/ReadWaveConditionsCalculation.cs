@@ -50,9 +50,9 @@ namespace Ringtoets.Revetment.IO.Readers
             StepSize = constructionProperties.StepSize;
             ForeshoreProfile = constructionProperties.ForeshoreProfile;
             Orientation = constructionProperties.Orientation;
-            UseDam = constructionProperties.UseDam;
-            DamType = constructionProperties.DamType;
-            DamHeight = constructionProperties.DamHeight;
+            UseBreakWater = constructionProperties.UseBreakWater;
+            BreakWaterType = constructionProperties.BreakWaterType;
+            BreakWaterHeight = constructionProperties.BreakWaterHeight;
             UseForeshore = constructionProperties.UseForeshore;
         }
 
@@ -97,19 +97,19 @@ namespace Ringtoets.Revetment.IO.Readers
         public double? Orientation { get; }
 
         /// <summary>
-        /// Gets whether the dam should be used for the read calculation.
+        /// Gets whether the breakwater should be used for the read calculation.
         /// </summary>
-        public bool? UseDam { get; }
+        public bool? UseBreakWater { get; }
 
         /// <summary>
-        /// Gets the dam type of the read calculation.
+        /// Gets the breakwater type of the read calculation.
         /// </summary>
-        public ReadDamType DamType { get; }
+        public ReadBreakWaterType BreakWaterType { get; }
 
         /// <summary>
-        /// Gets the dam height of the read calculation.
+        /// Gets the breakwater height of the read calculation.
         /// </summary>
-        public double? DamHeight { get; }
+        public double? BreakWaterHeight { get; }
 
         /// <summary>
         /// Gets whether the foreshore should be used for the read calculation.
@@ -169,19 +169,19 @@ namespace Ringtoets.Revetment.IO.Readers
             public double? Orientation { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the value for <see cref="ReadWaveConditionsCalculation.UseDam"/>.
+            /// Gets or sets the value for <see cref="ReadWaveConditionsCalculation.UseBreakWater"/>.
             /// </summary>
-            public bool? UseDam { internal get; set; }
+            public bool? UseBreakWater { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the value for <see cref="ReadWaveConditionsCalculation.DamType"/>.
+            /// Gets or sets the value for <see cref="ReadWaveConditionsCalculation.BreakWaterType"/>.
             /// </summary>
-            public ReadDamType DamType { internal get; set; }
+            public ReadBreakWaterType BreakWaterType { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the value for <see cref="ReadWaveConditionsCalculation.DamHeight"/>.
+            /// Gets or sets the value for <see cref="ReadWaveConditionsCalculation.BreakWaterHeight"/>.
             /// </summary>
-            public double? DamHeight { internal get; set; }
+            public double? BreakWaterHeight { internal get; set; }
 
             /// <summary>
             /// Gets or sets the value for <see cref="ReadWaveConditionsCalculation.UseForeshore"/>.

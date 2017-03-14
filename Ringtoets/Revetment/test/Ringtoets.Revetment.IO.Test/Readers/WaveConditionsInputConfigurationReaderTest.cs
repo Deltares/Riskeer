@@ -201,5 +201,162 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             Assert.IsInstanceOf<XmlSchemaValidationException>(exception.InnerException);
             StringAssert.Contains(expectedParsingMessage, exception.InnerException?.Message);
         }
+
+        [Test]
+        public void Read_ValidConfigurationWithEmptyCalculation_ReturnExpectedReadWaveConditionsInput()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationEmptyCalculation.xml");
+            var reader = new WaveConditionsInputConfigurationReader(filePath);
+
+            // Call
+            List<IReadConfigurationItem> readItems = reader.Read().ToList();
+
+            // Assert
+            Assert.AreEqual(1, readItems.Count);
+
+            var calculation = readItems[0] as ReadWaveConditionsCalculation;
+            Assert.IsNotNull(calculation);
+            Assert.AreEqual("Berekening 1", calculation.Name);
+            Assert.IsNull(calculation.HydraulicBoundaryLocation);
+            Assert.IsNull(calculation.UpperBoundaryRevetment);
+            Assert.IsNull(calculation.LowerBoundaryRevetment);
+            Assert.IsNull(calculation.UpperBoundaryWaterLevels);
+            Assert.IsNull(calculation.LowerBoundaryWaterLevels);
+            Assert.IsNull(calculation.StepSize);
+            Assert.IsNull(calculation.ForeshoreProfile);
+            Assert.IsNull(calculation.Orientation);
+            Assert.IsNull(calculation.UseBreakWater);
+            Assert.AreEqual(ReadBreakWaterType.None, calculation.BreakWaterType);
+            Assert.IsNull(calculation.BreakWaterHeight);
+            Assert.IsNull(calculation.UseForeshore);
+        }
+
+        [Test]
+        public void Read_ValidConfigurationWithCalculationContainingEmptyWaveReduction_ReturnExpectedReadWaveConditionsCalculation()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationCalculationContainingEmptyWaveReduction.xml");
+            var reader = new WaveConditionsInputConfigurationReader(filePath);
+
+            // Call
+            List<IReadConfigurationItem> readItems = reader.Read().ToList();
+
+            // Assert
+            Assert.AreEqual(1, readItems.Count);
+
+            var calculation = readItems[0] as ReadWaveConditionsCalculation;
+            Assert.IsNotNull(calculation);
+            Assert.IsNull(calculation.UseBreakWater);
+            Assert.AreEqual(ReadBreakWaterType.None, calculation.BreakWaterType);
+            Assert.IsNull(calculation.BreakWaterHeight);
+            Assert.IsNull(calculation.UseForeshore);
+        }
+
+        [Test]
+        public void Read_ValidConfigurationWithCalculationContainingNaNs_ReturnExpectedReadWaveConditionsCalculation()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationCalculationContainingNaNs.xml");
+            var reader = new WaveConditionsInputConfigurationReader(filePath);
+
+            // Call
+            List<IReadConfigurationItem> readItems = reader.Read().ToList();
+
+            // Assert
+            Assert.AreEqual(1, readItems.Count);
+
+            var calculation = readItems[0] as ReadWaveConditionsCalculation;
+            Assert.IsNotNull(calculation);
+            Assert.IsNaN(calculation.UpperBoundaryRevetment);
+            Assert.IsNaN(calculation.LowerBoundaryRevetment);
+            Assert.IsNaN(calculation.UpperBoundaryWaterLevels);
+            Assert.IsNaN(calculation.LowerBoundaryWaterLevels);
+            Assert.IsNaN(calculation.Orientation);
+            Assert.IsNaN(calculation.BreakWaterHeight);
+        }
+
+        [Test]
+        public void Read_ValidConfigurationWithCalculationContainingInfinities_ReturnExpectedReadWaveConditionsCalculation()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationCalculationContaininInfinities.xml");
+            var reader = new WaveConditionsInputConfigurationReader(filePath);
+
+            // Call
+            List<IReadConfigurationItem> readItems = reader.Read().ToList();
+
+            // Assert
+            Assert.AreEqual(1, readItems.Count);
+
+            var calculation = readItems[0] as ReadWaveConditionsCalculation;
+            Assert.IsNotNull(calculation);
+            Assert.IsTrue(calculation.UpperBoundaryRevetment != null && double.IsPositiveInfinity((double) calculation.UpperBoundaryRevetment));
+            Assert.IsTrue(calculation.LowerBoundaryRevetment != null && double.IsNegativeInfinity((double) calculation.LowerBoundaryRevetment));
+            Assert.IsTrue(calculation.UpperBoundaryWaterLevels != null && double.IsPositiveInfinity((double) calculation.UpperBoundaryWaterLevels));
+            Assert.IsTrue(calculation.LowerBoundaryWaterLevels != null && double.IsNegativeInfinity((double) calculation.LowerBoundaryWaterLevels));
+            Assert.IsTrue(calculation.Orientation != null && double.IsPositiveInfinity((double) calculation.Orientation));
+            Assert.IsTrue(calculation.BreakWaterHeight != null && double.IsPositiveInfinity((double) calculation.BreakWaterHeight));
+        }
+
+        [Test]
+        public void Read_ValidConfigurationWithFullCalculation_ReturnExpectedReadWaveConditionsCalculation()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationFullCalculation.xml");
+            var reader = new WaveConditionsInputConfigurationReader(filePath);
+
+            // Call
+            List<IReadConfigurationItem> readItems = reader.Read().ToList();
+
+            // Assert
+            Assert.AreEqual(1, readItems.Count);
+
+            var calculation = readItems[0] as ReadWaveConditionsCalculation;
+            Assert.IsNotNull(calculation);
+            Assert.AreEqual("Berekening 1", calculation.Name);
+            Assert.AreEqual("HRlocatie", calculation.HydraulicBoundaryLocation);
+            Assert.AreEqual(1.1, calculation.UpperBoundaryRevetment);
+            Assert.AreEqual(2.2, calculation.LowerBoundaryRevetment);
+            Assert.AreEqual(3.3, calculation.UpperBoundaryWaterLevels);
+            Assert.AreEqual(4.4, calculation.LowerBoundaryWaterLevels);            
+            Assert.AreEqual(0.5, calculation.StepSize);
+            Assert.AreEqual("Voorlandprofiel", calculation.ForeshoreProfile);
+            Assert.AreEqual(5.5, calculation.Orientation);
+            Assert.IsTrue(calculation.UseBreakWater);
+            Assert.AreEqual(ReadBreakWaterType.Caisson, calculation.BreakWaterType);
+            Assert.AreEqual(6.6, calculation.BreakWaterHeight);
+            Assert.IsFalse(calculation.UseForeshore);
+        }
+
+        [Test]
+        public void Read_ValidConfigurationWithPartialCalculation_ReturnExpectedReadWaveConditionsCalculation()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationPartialCalculation.xml");
+            var reader = new WaveConditionsInputConfigurationReader(filePath);
+
+            // Call
+            List<IReadConfigurationItem> readItems = reader.Read().ToList();
+
+            // Assert
+            Assert.AreEqual(1, readItems.Count);
+
+            var calculation = readItems[0] as ReadWaveConditionsCalculation;
+            Assert.IsNotNull(calculation);
+            Assert.AreEqual("Berekening 1", calculation.Name);
+            Assert.IsNull(calculation.HydraulicBoundaryLocation);
+            Assert.AreEqual(1.1, calculation.UpperBoundaryRevetment);
+            Assert.AreEqual(2.2, calculation.LowerBoundaryRevetment);
+            Assert.IsNull(calculation.UpperBoundaryWaterLevels);
+            Assert.IsNull(calculation.LowerBoundaryWaterLevels);            
+            Assert.AreEqual(0.5, calculation.StepSize);
+            Assert.IsNull(calculation.ForeshoreProfile);
+            Assert.IsNull(calculation.Orientation);
+            Assert.IsTrue(calculation.UseBreakWater);
+            Assert.AreEqual(ReadBreakWaterType.Caisson, calculation.BreakWaterType);
+            Assert.AreEqual(3.3, calculation.BreakWaterHeight);
+            Assert.IsNull(calculation.UseForeshore);
+        }
     }
 }

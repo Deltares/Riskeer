@@ -88,7 +88,7 @@ namespace Ringtoets.Revetment.IO
             if (hydraulicBoundaryLocation != null)
             {
                 writer.WriteElementString(
-                    WaveConditionsInputConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
+                    ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
                     hydraulicBoundaryLocation.Name);
             }
         }

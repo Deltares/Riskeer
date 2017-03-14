@@ -32,58 +32,75 @@ namespace Ringtoets.Common.IO.Readers
     public static class ConfigurationReaderHelper
     {
         /// <summary>
-        /// Gets the double value from a child element.
+        /// Gets the double value from a descendant element.
         /// </summary>
-        /// <param name="parentElement">The <see cref="XElement"/> that contains the child element.</param>
-        /// <param name="childElementName">The name of the child element.</param>
+        /// <param name="parentElement">The <see cref="XElement"/> that contains the descendant element.</param>
+        /// <param name="descendantElementName">The name of the descendant element.</param>
         /// <returns>The value of the element, or <c>null</c> when the <paramref name="parentElement"/>
-        /// does not have child elements of <paramref name="childElementName"/>.</returns>
+        /// does not have descendant elements of <paramref name="descendantElementName"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static double? GetDoubleValueFromChildElement(XElement parentElement, string childElementName)
+        public static double? GetDoubleValueFromDescendantElement(XElement parentElement, string descendantElementName)
         {
             if (parentElement == null)
             {
                 throw new ArgumentNullException(nameof(parentElement));
             }
-            if (childElementName == null)
+            if (descendantElementName == null)
             {
-                throw new ArgumentNullException(nameof(childElementName));
+                throw new ArgumentNullException(nameof(descendantElementName));
             }
 
-            XElement childElement = GetChildElement(parentElement, childElementName);
+            XElement descendantElement = GetDescendantElement(parentElement, descendantElementName);
 
-            return childElement != null
-                       ? (double?) XmlConvert.ToDouble(childElement.Value)
+            return descendantElement != null
+                       ? (double?) XmlConvert.ToDouble(descendantElement.Value)
                        : null;
         }
 
         /// <summary>
-        /// Gets the string value from a child element.
+        /// Gets the string value from a descendant element.
         /// </summary>
-        /// <param name="parentElement">The <see cref="XElement"/> that contains the child element.</param>
-        /// <param name="childElementName">The name of the child element.</param>
+        /// <param name="parentElement">The <see cref="XElement"/> that contains the descendant element.</param>
+        /// <param name="descendantElementName">The name of the descendant element.</param>
         /// <returns>The value of the element, or <c>null</c> when the <paramref name="parentElement"/>
-        /// does not have child elements of <paramref name="childElementName"/>.</returns>
+        /// does not have descendant elements of <paramref name="descendantElementName"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static string GetStringValueFromChildElement(XElement parentElement, string childElementName)
+        public static string GetStringValueFromDescendantElement(XElement parentElement, string descendantElementName)
         {
             if (parentElement == null)
             {
                 throw new ArgumentNullException(nameof(parentElement));
             }
-            if (childElementName == null)
+            if (descendantElementName == null)
             {
-                throw new ArgumentNullException(nameof(childElementName));
+                throw new ArgumentNullException(nameof(descendantElementName));
             }
 
-            XElement childElement = GetChildElement(parentElement, childElementName);
+            XElement descendantElement = GetDescendantElement(parentElement, descendantElementName);
 
-            return childElement?.Value;
+            return descendantElement?.Value;
         }
 
-        private static XElement GetChildElement(XElement parentElement, string childElementName)
+        /// <summary>
+        /// Gets a descendant element with the given <paramref name="descendantElementName"/>.
+        /// </summary>
+        /// <param name="parentElement">The <see cref="XElement"/> that contains the descendant element.</param>
+        /// <param name="descendantElementName">The name of the descendant element.</param>
+        /// <returns>The element, or <c>null</c> when the <paramref name="parentElement"/>
+        /// does not have descendant elements of <paramref name="descendantElementName"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static XElement GetDescendantElement(XElement parentElement, string descendantElementName)
         {
-            return parentElement.Elements(childElementName).FirstOrDefault();
+            if (parentElement == null)
+            {
+                throw new ArgumentNullException(nameof(parentElement));
+            }
+            if (descendantElementName == null)
+            {
+                throw new ArgumentNullException(nameof(descendantElementName));
+            }
+
+            return parentElement.Descendants(descendantElementName).FirstOrDefault();
         }
     }
 }

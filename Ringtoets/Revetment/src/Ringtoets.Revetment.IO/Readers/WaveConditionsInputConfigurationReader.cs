@@ -21,9 +21,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Xml;
 using System.Xml.Linq;
 using Core.Common.IO.Exceptions;
 using Ringtoets.Common.IO.Readers;
+using Ringtoets.Common.IO.Schema;
 using Ringtoets.Revetment.IO.Properties;
 using RingtoestCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
@@ -55,26 +57,81 @@ namespace Ringtoets.Revetment.IO.Readers
         /// </exception>
         public WaveConditionsInputConfigurationReader(string xmlFilePath)
             : base(xmlFilePath,
-                  Resources.BekledingenHrConfiguratieSchema,
-                  new Dictionary<string, string>
-                  {
-                      {
-                          hydraulicBoundaryLocationSchemaName, RingtoestCommonIOResources.HrLocatieSchema
-                      },
-                      {
-                          orientationSchemaName, RingtoestCommonIOResources.OrientatieSchema
-                      },
-                      {
-                          foreshoreProfileSchemaName, RingtoestCommonIOResources.VoorlandProfielSchema
-                      },
-                      {
-                          waveReductionSchemaName, RingtoestCommonIOResources.GolfReductieSchema
-                      }
-                  }) {}
+                   Resources.BekledingenHrConfiguratieSchema,
+                   new Dictionary<string, string>
+                   {
+                       {
+                           hydraulicBoundaryLocationSchemaName, RingtoestCommonIOResources.HrLocatieSchema
+                       },
+                       {
+                           orientationSchemaName, RingtoestCommonIOResources.OrientatieSchema
+                       },
+                       {
+                           foreshoreProfileSchemaName, RingtoestCommonIOResources.VoorlandProfielSchema
+                       },
+                       {
+                           waveReductionSchemaName, RingtoestCommonIOResources.GolfReductieSchema
+                       }
+                   }) {}
 
         protected override ReadWaveConditionsCalculation ParseCalculationElement(XElement calculationElement)
         {
-            throw new NotImplementedException();
+            var constructionProperties = new ReadWaveConditionsCalculation.ConstructionProperties
+            {
+                Name = calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute)?.Value,
+                HydraulicBoundaryLocation = ConfigurationReaderHelper.GetStringValueFromDescendantElement(calculationElement,
+                                                                                                     ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement),
+                UpperBoundaryRevetment = ConfigurationReaderHelper.GetDoubleValueFromDescendantElement(calculationElement,
+                                                                                                  WaveConditionsInputConfigurationSchemaIdentifiers.UpperBoundaryRevetment),
+                LowerBoundaryRevetment = ConfigurationReaderHelper.GetDoubleValueFromDescendantElement(calculationElement,
+                                                                                                  WaveConditionsInputConfigurationSchemaIdentifiers.LowerBoundaryRevetment),
+                UpperBoundaryWaterLevels = ConfigurationReaderHelper.GetDoubleValueFromDescendantElement(calculationElement,
+                                                                                                    WaveConditionsInputConfigurationSchemaIdentifiers.UpperBoundaryWaterLevels),
+                LowerBoundaryWaterLevels = ConfigurationReaderHelper.GetDoubleValueFromDescendantElement(calculationElement,
+                                                                                                    WaveConditionsInputConfigurationSchemaIdentifiers.LowerBoundaryWaterLevels),
+                StepSize = ConfigurationReaderHelper.GetDoubleValueFromDescendantElement(calculationElement,
+                                                                                    WaveConditionsInputConfigurationSchemaIdentifiers.StepSize),
+                ForeshoreProfile = ConfigurationReaderHelper.GetStringValueFromDescendantElement(calculationElement,
+                                                                                            WaveConditionsInputConfigurationSchemaIdentifiers.ForeshoreProfile),
+                Orientation = ConfigurationReaderHelper.GetDoubleValueFromDescendantElement(calculationElement,
+                                                                                       ConfigurationSchemaIdentifiers.Orientation),
+                UseBreakWater = GetBoolValueFromChildElement(calculationElement,
+                                                             ConfigurationSchemaIdentifiers.UseBreakWater),
+                BreakWaterType = GetBreakWaterType(calculationElement,
+                                                   ConfigurationSchemaIdentifiers.BreakWaterType),
+                BreakWaterHeight = ConfigurationReaderHelper.GetDoubleValueFromDescendantElement(calculationElement,
+                                                                                            ConfigurationSchemaIdentifiers.BreakWaterHeight),
+                UseForeshore = GetBoolValueFromChildElement(calculationElement,
+                                                            ConfigurationSchemaIdentifiers.UseForeshore)
+            };
+
+            return new ReadWaveConditionsCalculation(constructionProperties);
+        }
+
+        private static ReadBreakWaterType GetBreakWaterType(XElement parentElement, string childElementName)
+        {
+            string element = ConfigurationReaderHelper.GetStringValueFromDescendantElement(parentElement, childElementName);
+
+            switch (element)
+            {
+                case ConfigurationSchemaIdentifiers.BreakWaterCaisson:
+                    return ReadBreakWaterType.Caisson;
+                case ConfigurationSchemaIdentifiers.BreakWaterDam:
+                    return ReadBreakWaterType.HarborDam;
+                case ConfigurationSchemaIdentifiers.BreakWaterWall:
+                    return ReadBreakWaterType.Vertical;
+                default:
+                    return ReadBreakWaterType.None;
+            }
+        }
+
+        private static bool? GetBoolValueFromChildElement(XElement parentElement, string childElementName)
+        {
+            XElement descendantElement = ConfigurationReaderHelper.GetDescendantElement(parentElement, childElementName);
+
+            return descendantElement != null
+                       ? (bool?) XmlConvert.ToBoolean(descendantElement.Value)
+                       : null;
         }
     }
 }

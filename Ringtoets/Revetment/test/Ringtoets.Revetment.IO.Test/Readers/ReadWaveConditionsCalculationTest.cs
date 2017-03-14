@@ -57,9 +57,9 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             Assert.IsNull(readCalculation.StepSize);
             Assert.IsNull(readCalculation.ForeshoreProfile);
             Assert.IsNull(readCalculation.Orientation);
-            Assert.IsNull(readCalculation.UseDam);
-            Assert.AreEqual(ReadDamType.None, readCalculation.DamType);
-            Assert.IsNull(readCalculation.DamHeight);
+            Assert.IsNull(readCalculation.UseBreakWater);
+            Assert.AreEqual(ReadBreakWaterType.None, readCalculation.BreakWaterType);
+            Assert.IsNull(readCalculation.BreakWaterHeight);
             Assert.IsNull(readCalculation.UseForeshore);
         }
 
@@ -76,9 +76,9 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             const double stepSize = 5.5;
             const string foreshoreProfileName = "Name of the foreshore profile";
             const double orientation = 6.6;
-            const bool useDam = true;
-            const ReadDamType damType = ReadDamType.Caisson;
-            const double damHeight = 7.7;
+            const bool useBreakWater = true;
+            const ReadBreakWaterType breakWaterType = ReadBreakWaterType.Caisson;
+            const double breakWaterHeight = 7.7;
             const bool useForeshore = false;
 
             // Call
@@ -93,9 +93,9 @@ namespace Ringtoets.Revetment.IO.Test.Readers
                 StepSize = stepSize,
                 ForeshoreProfile = foreshoreProfileName,
                 Orientation = orientation,
-                UseDam = useDam,
-                DamType = damType,
-                DamHeight = damHeight,
+                UseBreakWater = useBreakWater,
+                BreakWaterType = breakWaterType,
+                BreakWaterHeight = breakWaterHeight,
                 UseForeshore = useForeshore
             });
 
@@ -109,9 +109,9 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             Assert.AreEqual(stepSize, readPipingCalculation.StepSize);
             Assert.AreEqual(foreshoreProfileName, readPipingCalculation.ForeshoreProfile);
             Assert.AreEqual(orientation, readPipingCalculation.Orientation);
-            Assert.AreEqual(useDam, readPipingCalculation.UseDam);
-            Assert.AreEqual(damType, readPipingCalculation.DamType);
-            Assert.AreEqual(damHeight, readPipingCalculation.DamHeight);
+            Assert.AreEqual(useBreakWater, readPipingCalculation.UseBreakWater);
+            Assert.AreEqual(breakWaterType, readPipingCalculation.BreakWaterType);
+            Assert.AreEqual(breakWaterHeight, readPipingCalculation.BreakWaterHeight);
             Assert.AreEqual(useForeshore, readPipingCalculation.UseForeshore);
         }
     }

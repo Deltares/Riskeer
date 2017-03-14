@@ -27,11 +27,6 @@ namespace Ringtoets.Revetment.IO
     internal static class WaveConditionsInputConfigurationSchemaIdentifiers
     {
         /// <summary>
-        /// The tag of elements containing the name of the hydraulic boundary location.
-        /// </summary>
-        internal const string HydraulicBoundaryLocationElement = "hrlocatie";
-
-        /// <summary>
         /// The tag of elements containing the upper boundary of revetment.
         /// </summary>
         internal const string UpperBoundaryRevetment = "bovengrensbekleding";

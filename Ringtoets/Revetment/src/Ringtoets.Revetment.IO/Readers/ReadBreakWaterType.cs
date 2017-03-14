@@ -22,27 +22,27 @@
 namespace Ringtoets.Revetment.IO.Readers
 {
     /// <summary>
-    /// Specifies the type of dam of a <see cref="ReadWaveConditionsCalculation"/>.
+    /// Specifies the breakwater type of a <see cref="ReadWaveConditionsCalculation"/>.
     /// </summary>
-    public enum ReadDamType
+    public enum ReadBreakWaterType
     {
         /// <summary>
-        /// Indicates there is no dam.
+        /// Indicates there is no breakwater.
         /// </summary>
         None = 0,
 
         /// <summary>
-        /// Indicates there is a caisson-shaped dam.
+        /// Indicates there is a caisson-shaped breakwater.
         /// </summary>
         Caisson = 1,
 
         /// <summary>
-        /// Indicates there is a vertical structure-shaped dam.
+        /// Indicates there is a vertical structure-shaped breakwater.
         /// </summary>
         Vertical = 2,
 
         /// <summary>
-        /// Indicates there is a harbor dam.
+        /// Indicates there is a harbor breakwater.
         /// </summary>
         HarborDam = 3
     }
