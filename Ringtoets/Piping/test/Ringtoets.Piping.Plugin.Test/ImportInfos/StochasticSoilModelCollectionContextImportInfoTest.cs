@@ -94,7 +94,6 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = null;
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
@@ -115,8 +114,9 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = new ReferenceLine();
             mocks.ReplayAll();
+
+            assessmentSection.ReferenceLine = new ReferenceLine();
 
             var failureMechanism = new PipingFailureMechanism();
 
