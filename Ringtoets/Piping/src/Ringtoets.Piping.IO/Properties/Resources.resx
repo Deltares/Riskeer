@@ -304,12 +304,6 @@ Er is geen berekeningenconfiguratie geïmporteerd.</value>
   <data name="XmlGeometrySchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\XmlGeometrySchema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="PipingConfigurationImporter_ProgressText_Reading_configuration" xml:space="preserve">
-    <value>Inlezen berekeningenconfiguratie.</value>
-  </data>
-  <data name="PipingConfigurationImporter_ProgressText_Validating_imported_data" xml:space="preserve">
-    <value>Valideren berekeningenconfiguratie.</value>
-  </data>
   <data name="PipingConfigurationImporter_ReadEntryExitPoint_Entry_point_invalid" xml:space="preserve">
     <value>Een waarde van '{0}' als intredepunt is ongeldig.</value>
   </data>

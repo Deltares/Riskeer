@@ -81,40 +81,6 @@ namespace Ringtoets.Piping.IO.Importers
             this.failureMechanism = failureMechanism;
         }
 
-        protected override bool OnImport()
-        {
-            NotifyProgress(Resources.PipingConfigurationImporter_ProgressText_Reading_configuration, 1, 3);
-
-            ReadResult<IReadConfigurationItem> readResult = ReadConfiguration();
-            if (readResult.CriticalErrorOccurred || Canceled)
-            {
-                return false;
-            }
-
-            NotifyProgress(Resources.PipingConfigurationImporter_ProgressText_Validating_imported_data, 2, 3);
-
-            var validCalculationItems = new List<ICalculationBase>();
-
-            foreach (IReadConfigurationItem readItem in readResult.Items)
-            {
-                if (Canceled)
-                {
-                    return false;
-                }
-
-                ICalculationBase processedItem = ProcessReadItem(readItem);
-                if (processedItem != null)
-                {
-                    validCalculationItems.Add(processedItem);
-                }
-            }
-
-            NotifyProgress(RingtoetsCommonIOResources.Importer_ProgressText_Adding_imported_data_to_data_model, 3, 3);
-            AddItemsToModel(validCalculationItems);
-
-            return true;
-        }
-
         protected override ReadResult<IReadConfigurationItem> ReadConfiguration()
         {
             try
@@ -417,14 +383,6 @@ namespace Ringtoets.Piping.IO.Importers
             catch (ArgumentOutOfRangeException e)
             {
                 throw new CriticalFileValidationException($"{errorMessage} {e.Message}");
-            }
-        }
-
-        private void AddItemsToModel(IEnumerable<ICalculationBase> validCalculationItems)
-        {
-            foreach (ICalculationBase validCalculationItem in validCalculationItems)
-            {
-                ImportTarget.Children.Add(validCalculationItem);
             }
         }
     }

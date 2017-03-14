@@ -226,24 +226,6 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Inlezen berekeningenconfiguratie..
-        /// </summary>
-        public static string PipingConfigurationImporter_ProgressText_Reading_configuration {
-            get {
-                return ResourceManager.GetString("PipingConfigurationImporter_ProgressText_Reading_configuration", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Valideren berekeningenconfiguratie..
-        /// </summary>
-        public static string PipingConfigurationImporter_ProgressText_Validating_imported_data {
-            get {
-                return ResourceManager.GetString("PipingConfigurationImporter_ProgressText_Validating_imported_data", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Een waarde van &apos;{0}&apos; als intredepunt is ongeldig..
         /// </summary>
         public static string PipingConfigurationImporter_ReadEntryExitPoint_Entry_point_invalid {
