@@ -120,10 +120,19 @@
     <None Include="Resources\ConfiguratieSchema.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Resources\GolfReductieSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Resources\HrLocatieSchema.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Resources\OrientatieSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Resources\StochastSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Resources\VoorlandProfielSchema.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>

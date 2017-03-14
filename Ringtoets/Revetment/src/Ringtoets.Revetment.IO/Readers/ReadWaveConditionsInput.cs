@@ -19,11 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
+using Ringtoets.Common.IO.Readers;
 
-[assembly: AssemblyTitle("Ringtoets.Revetment.IO")]
-[assembly: AssemblyProduct("Ringtoets.Revetment.IO")]
-[assembly: Guid("c344f779-1341-47eb-acf6-e87560c57132")]
-[assembly: InternalsVisibleTo("Ringtoets.Revetment.IO.Test")]
+namespace Ringtoets.Revetment.IO.Readers
+{
+    internal class ReadWaveConditionsInput : IReadConfigurationItem
+    {
+        public string Name { get; }
+    }
+}
