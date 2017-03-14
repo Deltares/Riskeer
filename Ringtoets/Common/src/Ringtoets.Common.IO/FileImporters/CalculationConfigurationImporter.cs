@@ -35,12 +35,14 @@ namespace Ringtoets.Common.IO.FileImporters
     /// Base class for importing a calculation configuration from an XML file and
     /// storing it on a <see cref="CalculationGroup"/>.
     /// </summary>
-    public abstract class CalculationConfigurationImporter : FileImporterBase<CalculationGroup>
+    public abstract class CalculationConfigurationImporter<TReadCalculation>
+        : FileImporterBase<CalculationGroup>
+        where TReadCalculation : class, IReadConfigurationItem
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(CalculationConfigurationImporter));
+        private static readonly ILog log = LogManager.GetLogger(typeof(CalculationConfigurationImporter<TReadCalculation>));
 
         /// <summary>
-        /// Creates a new instance of <see cref="CalculationConfigurationImporter"/>.
+        /// Creates a new instance of <see cref="CalculationConfigurationImporter{TReadCalculation}"/>.
         /// </summary>
         /// <param name="filePath">The path to the file to import from.</param>
         /// <param name="importTarget">The calculation group to update.</param>
@@ -88,9 +90,9 @@ namespace Ringtoets.Common.IO.FileImporters
             return true;
         }
 
-        protected abstract ICalculationBase ProcessReadItem(IReadConfigurationItem readItem);
-
         protected abstract ICollection<IReadConfigurationItem> ReadConfigurationItems(string filePath);
+
+        protected abstract ICalculationBase ProcessCalculation(TReadCalculation readCalculation);
 
         private ReadResult<IReadConfigurationItem> ReadConfiguration()
         {
@@ -109,6 +111,39 @@ namespace Ringtoets.Common.IO.FileImporters
                 log.Error(errorMessage, exception);
                 return new ReadResult<IReadConfigurationItem>(true);
             }
+        }
+
+        private ICalculationBase ProcessReadItem(IReadConfigurationItem readItem)
+        {
+            var readCalculationGroup = readItem as ReadCalculationGroup;
+            if (readCalculationGroup != null)
+            {
+                return ProcessCalculationGroup(readCalculationGroup);
+            }
+
+            var readCalculation = readItem as TReadCalculation;
+            if (readCalculation != null)
+            {
+                return ProcessCalculation(readCalculation);
+            }
+
+            return null;
+        }
+
+        private CalculationGroup ProcessCalculationGroup(ReadCalculationGroup readCalculationGroup)
+        {
+            var group = new CalculationGroup(readCalculationGroup.Name, true);
+
+            foreach (IReadConfigurationItem item in readCalculationGroup.Items)
+            {
+                ICalculationBase processedItem = ProcessReadItem(item);
+                if (processedItem != null)
+                {
+                    group.Children.Add(processedItem);
+                }
+            }
+
+            return group;
         }
 
         private void AddItemsToModel(IEnumerable<ICalculationBase> validCalculationItems)

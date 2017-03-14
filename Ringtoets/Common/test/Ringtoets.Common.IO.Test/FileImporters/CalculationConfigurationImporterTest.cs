@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base.IO;
-using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
@@ -61,7 +60,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             TestHelper.AssertLogMessageIsGenerated(call, "Berekeningenconfiguratie importeren afgebroken. Geen data ingelezen.", 1);
         }
 
-        private class TestCalculationConfigurationImporter : CalculationConfigurationImporter
+        private class TestCalculationConfigurationImporter : CalculationConfigurationImporter<TestReadConfigurationItem>
         {
             public TestCalculationConfigurationImporter(string filePath, CalculationGroup importTarget)
                 : base(filePath, importTarget) {}
@@ -78,15 +77,20 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 return true;
             }
 
-            protected override ICalculationBase ProcessReadItem(IReadConfigurationItem readItem)
-            {
-                throw new NotImplementedException();
-            }
-
             protected override ICollection<IReadConfigurationItem> ReadConfigurationItems(string filePath)
             {
                 throw new NotImplementedException();
             }
+
+            protected override ICalculationBase ProcessCalculation(TestReadConfigurationItem readCalculation)
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        private class TestReadConfigurationItem : IReadConfigurationItem
+        {
+            public string Name { get; }
         }
     }
 }

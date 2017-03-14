@@ -35,7 +35,6 @@ using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.IO.Readers;
 using Ringtoets.Piping.IO.Schema;
 using Ringtoets.Piping.Primitives;
-using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.Piping.IO.Importers
 {
@@ -43,7 +42,7 @@ namespace Ringtoets.Piping.IO.Importers
     /// Imports a piping configuration from an XML file and stores it on a
     /// <see cref="CalculationGroup"/>.
     /// </summary>
-    public class PipingConfigurationImporter : CalculationConfigurationImporter
+    public class PipingConfigurationImporter : CalculationConfigurationImporter<ReadPipingCalculation>
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(PipingConfigurationImporter));
 
@@ -79,45 +78,12 @@ namespace Ringtoets.Piping.IO.Importers
             this.failureMechanism = failureMechanism;
         }
 
-        protected override ICalculationBase ProcessReadItem(IReadConfigurationItem readItem)
-        {
-            var readCalculationGroup = readItem as ReadCalculationGroup;
-            if (readCalculationGroup != null)
-            {
-                return ProcessCalculationGroup(readCalculationGroup);
-            }
-
-            var readCalculation = readItem as ReadPipingCalculation;
-            if (readCalculation != null)
-            {
-                return ProcessCalculation(readCalculation);
-            }
-
-            return null;
-        }
-
         protected override ICollection<IReadConfigurationItem> ReadConfigurationItems(string filePath)
         {
             return new PipingConfigurationReader(FilePath).Read().ToList();
         }
 
-        private CalculationGroup ProcessCalculationGroup(ReadCalculationGroup readCalculationGroup)
-        {
-            var group = new CalculationGroup(readCalculationGroup.Name, true);
-
-            foreach (IReadConfigurationItem item in readCalculationGroup.Items)
-            {
-                ICalculationBase processedItem = ProcessReadItem(item);
-                if (processedItem != null)
-                {
-                    group.Children.Add(processedItem);
-                }
-            }
-
-            return group;
-        }
-
-        private PipingCalculationScenario ProcessCalculation(ReadPipingCalculation readCalculation)
+        protected override ICalculationBase ProcessCalculation(ReadPipingCalculation readCalculation)
         {
             var pipingCalculation = new PipingCalculationScenario(new GeneralPipingInput())
             {
