@@ -115,7 +115,7 @@ namespace Ringtoets.Piping.IO.Importers
             return true;
         }
 
-        private ReadResult<IReadConfigurationItem> ReadConfiguration()
+        protected override ReadResult<IReadConfigurationItem> ReadConfiguration()
         {
             try
             {
@@ -134,7 +134,7 @@ namespace Ringtoets.Piping.IO.Importers
             }
         }
 
-        private ICalculationBase ProcessReadItem(IReadConfigurationItem readItem)
+        protected override ICalculationBase ProcessReadItem(IReadConfigurationItem readItem)
         {
             var readCalculationGroup = readItem as ReadCalculationGroup;
             if (readCalculationGroup != null)

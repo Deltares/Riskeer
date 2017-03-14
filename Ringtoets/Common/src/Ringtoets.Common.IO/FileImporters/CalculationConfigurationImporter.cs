@@ -20,10 +20,13 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base.IO;
+using Core.Common.IO.Readers;
 using log4net;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.IO.Properties;
+using Ringtoets.Common.IO.Readers;
 
 namespace Ringtoets.Common.IO.FileImporters
 {
@@ -48,6 +51,52 @@ namespace Ringtoets.Common.IO.FileImporters
         protected override void LogImportCanceledMessage()
         {
             log.Info(Resources.CalculationConfigurationImporter_LogImportCanceledMessage_Import_canceled_no_data_read);
+        }
+
+        protected override bool OnImport()
+        {
+            NotifyProgress(Resources.CalculationConfigurationImporter_ProgressText_Reading_configuration, 1, 3);
+
+            ReadResult<IReadConfigurationItem> readResult = ReadConfiguration();
+            if (readResult.CriticalErrorOccurred || Canceled)
+            {
+                return false;
+            }
+
+            NotifyProgress(Resources.CalculationConfigurationImporter_ProgressText_Validating_imported_data, 2, 3);
+
+            var validCalculationItems = new List<ICalculationBase>();
+
+            foreach (IReadConfigurationItem readItem in readResult.Items)
+            {
+                if (Canceled)
+                {
+                    return false;
+                }
+
+                ICalculationBase processedItem = ProcessReadItem(readItem);
+                if (processedItem != null)
+                {
+                    validCalculationItems.Add(processedItem);
+                }
+            }
+
+            NotifyProgress(Resources.Importer_ProgressText_Adding_imported_data_to_data_model, 3, 3);
+            AddItemsToModel(validCalculationItems);
+
+            return true;
+        }
+
+        protected abstract ICalculationBase ProcessReadItem(IReadConfigurationItem readItem);
+
+        protected abstract ReadResult<IReadConfigurationItem> ReadConfiguration();
+
+        private void AddItemsToModel(IEnumerable<ICalculationBase> validCalculationItems)
+        {
+            foreach (ICalculationBase validCalculationItem in validCalculationItems)
+            {
+                ImportTarget.Children.Add(validCalculationItem);
+            }
         }
     }
 }

@@ -21,10 +21,12 @@
 
 using System;
 using Core.Common.Base.IO;
+using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.IO.FileImporters;
+using Ringtoets.Common.IO.Readers;
 
 namespace Ringtoets.Common.IO.Test.FileImporters
 {
@@ -73,6 +75,16 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 }
 
                 return true;
+            }
+
+            protected override ICalculationBase ProcessReadItem(IReadConfigurationItem readItem)
+            {
+                throw new NotImplementedException();
+            }
+
+            protected override ReadResult<IReadConfigurationItem> ReadConfiguration()
+            {
+                throw new NotImplementedException();
             }
         }
     }

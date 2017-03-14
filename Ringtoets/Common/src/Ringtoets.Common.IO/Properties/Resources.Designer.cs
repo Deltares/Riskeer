@@ -92,6 +92,24 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Inlezen berekeningenconfiguratie..
+        /// </summary>
+        public static string CalculationConfigurationImporter_ProgressText_Reading_configuration {
+            get {
+                return ResourceManager.GetString("CalculationConfigurationImporter_ProgressText_Reading_configuration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valideren berekeningenconfiguratie..
+        /// </summary>
+        public static string CalculationConfigurationImporter_ProgressText_Validating_imported_data {
+            get {
+                return ResourceManager.GetString("CalculationConfigurationImporter_ProgressText_Validating_imported_data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
         ///
         ///&lt;!--

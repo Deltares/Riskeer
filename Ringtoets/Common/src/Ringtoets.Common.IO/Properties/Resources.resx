@@ -528,4 +528,10 @@ Er is geen vakindeling geïmporteerd.</value>
   <data name="CalculationConfigurationImporter_LogImportCanceledMessage_Import_canceled_no_data_read" xml:space="preserve">
     <value>Berekeningenconfiguratie importeren afgebroken. Geen data ingelezen.</value>
   </data>
+  <data name="CalculationConfigurationImporter_ProgressText_Reading_configuration" xml:space="preserve">
+    <value>Inlezen berekeningenconfiguratie.</value>
+  </data>
+  <data name="CalculationConfigurationImporter_ProgressText_Validating_imported_data" xml:space="preserve">
+    <value>Valideren berekeningenconfiguratie.</value>
+  </data>
 </root>
