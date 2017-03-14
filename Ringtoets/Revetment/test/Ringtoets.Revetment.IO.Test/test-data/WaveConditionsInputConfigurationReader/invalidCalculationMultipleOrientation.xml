@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <berekening naam="Calculation">
+    <orientatie>1.2</orientatie>
+    <orientatie>1.2</orientatie>
+  </berekening>
+</configuratie>

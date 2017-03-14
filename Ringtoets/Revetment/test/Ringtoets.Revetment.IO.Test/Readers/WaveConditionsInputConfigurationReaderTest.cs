@@ -43,6 +43,12 @@ namespace Ringtoets.Revetment.IO.Test.Readers
                 yield return new TestCaseData("invalidCalculationMultipleHydraulicBoundaryLocation.xml",
                                               "The element 'berekening' has invalid child element 'hrlocatie'.")
                     .SetName("invalidCalculationMultipleHydraulicBoundaryLocation");
+                yield return new TestCaseData("invalidCalculationMultipleForeshoreProfile.xml",
+                                              "The element 'berekening' has invalid child element 'voorlandprofiel'.")
+                    .SetName("invalidCalculationMultipleForeshoreProfile");
+                yield return new TestCaseData("invalidCalculationMultipleOrientation.xml",
+                                              "The element 'berekening' has invalid child element 'orientatie'.")
+                    .SetName("invalidCalculationMultipleOrientation");
                 yield return new TestCaseData("invalidCalculationMultipleLowerBoundaryRevetment.xml",
                                               "The element 'berekening' has invalid child element 'ondergrensbekleding'.")
                     .SetName("invalidCalculationMultipleLowerBoundaryRevetment");
@@ -61,6 +67,9 @@ namespace Ringtoets.Revetment.IO.Test.Readers
                 yield return new TestCaseData("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocation.xml",
                                               "The 'hrlocatie' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
                     .SetName("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocation");
+                yield return new TestCaseData("invalidConfigurationCalculationContainingEmptyForeshoreProfile.xml",
+                                              "The 'voorlandprofiel' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
+                    .SetName("invalidConfigurationCalculationContainingEmptyForeshoreProfile");
                 yield return new TestCaseData("invalidLowerBoundaryRevetmentEmpty.xml",
                                               "The 'ondergrensbekleding' element is invalid - The value '' is invalid according to its datatype 'Double'")
                     .SetName("invalidLowerBoundaryRevetmentEmpty");
@@ -107,8 +116,17 @@ namespace Ringtoets.Revetment.IO.Test.Readers
                                               "The 'stapgrootte' element is invalid - The value '0,5' is invalid according to its datatype 'Double'")
                     .SetName("invalidStepSizeWrongCulture");
                 yield return new TestCaseData("invalidStepSizeUnknownValue.xml",
-                                              "The 'stapgrootte' element is invalid - The value '1.3' is invalid according to its datatype 'Double'")
+                                              "The 'stapgrootte' element is invalid - The value '1.3' is invalid according to its datatype 'Double' - The Enumeration constraint failed.")
                     .SetName("invalidStepSizeUnknownValue");
+                yield return new TestCaseData("invalidOrientationEmpty.xml",
+                                              "The 'orientatie' element is invalid - The value '' is invalid according to its datatype 'Double'")
+                    .SetName("invalidOrientationEmpty");
+                yield return new TestCaseData("invalidOrientationNoDouble.xml",
+                                              "The 'orientatie' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
+                    .SetName("invalidOrientationNoDouble");
+                yield return new TestCaseData("invalidOrientationWrongCulture.xml",
+                                              "The 'orientatie' element is invalid - The value '0,5' is invalid according to its datatype 'Double'")
+                    .SetName("invalidOrientationWrongCulture");
             }
         }
 
