@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
@@ -36,14 +37,15 @@ namespace Ringtoets.Common.IO.FileImporters
     /// Base class for importing a calculation configuration from an XML file and
     /// storing it on a <see cref="CalculationGroup"/>.
     /// </summary>
-    public abstract class CalculationConfigurationImporter<TReadCalculation>
+    public abstract class CalculationConfigurationImporter<TConfigurationReader, TReadCalculation>
         : FileImporterBase<CalculationGroup>
+        where TConfigurationReader : ConfigurationReader<TReadCalculation>
         where TReadCalculation : class, IReadConfigurationItem
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(CalculationConfigurationImporter<TReadCalculation>));
+        private static readonly ILog log = LogManager.GetLogger(typeof(CalculationConfigurationImporter<TConfigurationReader, TReadCalculation>));
 
         /// <summary>
-        /// Creates a new instance of <see cref="CalculationConfigurationImporter{TReadCalculation}"/>.
+        /// Creates a new instance of <see cref="CalculationConfigurationImporter{TConfigurationReader,TReadCalculation}"/>.
         /// </summary>
         /// <param name="filePath">The path to the file to import from.</param>
         /// <param name="importTarget">The calculation group to update.</param>
@@ -91,7 +93,7 @@ namespace Ringtoets.Common.IO.FileImporters
             return true;
         }
 
-        protected abstract ICollection<IReadConfigurationItem> ReadConfigurationItems(string filePath);
+        protected abstract TConfigurationReader CreateConfigurationReader(string filePath);
 
         protected abstract ICalculationBase ProcessCalculation(TReadCalculation readCalculation);
 
@@ -101,7 +103,7 @@ namespace Ringtoets.Common.IO.FileImporters
             {
                 return new ReadResult<IReadConfigurationItem>(false)
                 {
-                    Items = ReadConfigurationItems(FilePath)
+                    Items = CreateConfigurationReader(FilePath).Read().ToList()
                 };
             }
             catch (Exception exception) when (exception is ArgumentException

@@ -36,7 +36,7 @@ namespace Ringtoets.Piping.IO.Readers
     /// This class reads a piping configuration from XML and creates a collection of corresponding
     /// <see cref="IReadConfigurationItem"/>, typically containing one or more <see cref="ReadPipingCalculation"/>.
     /// </summary>
-    internal class PipingConfigurationReader : ConfigurationReader<ReadPipingCalculation>
+    public class PipingConfigurationReader : ConfigurationReader<ReadPipingCalculation>
     {
         private const string stochastSchemaName = "StochastSchema.xsd";
         private const string hydraulicBoundaryLocationSchemaName = "HrLocatieSchema.xsd";

@@ -21,6 +21,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Xml.Linq;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -60,7 +62,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             TestHelper.AssertLogMessageIsGenerated(call, "Berekeningenconfiguratie importeren afgebroken. Geen data ingelezen.", 1);
         }
 
-        private class TestCalculationConfigurationImporter : CalculationConfigurationImporter<TestReadConfigurationItem>
+        private class TestCalculationConfigurationImporter : CalculationConfigurationImporter<TestConfigurationReader, TestReadConfigurationItem>
         {
             public TestCalculationConfigurationImporter(string filePath, CalculationGroup importTarget)
                 : base(filePath, importTarget) {}
@@ -77,12 +79,29 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 return true;
             }
 
-            protected override ICollection<IReadConfigurationItem> ReadConfigurationItems(string filePath)
+            protected override TestConfigurationReader CreateConfigurationReader(string filePath)
             {
-                throw new NotImplementedException();
+                return new TestConfigurationReader(filePath);
             }
 
             protected override ICalculationBase ProcessCalculation(TestReadConfigurationItem readCalculation)
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        private class TestConfigurationReader : ConfigurationReader<TestReadConfigurationItem>
+        {
+            private static readonly string mainSchemaDefinition =
+                File.ReadAllText(Path.Combine(TestHelper.GetTestDataPath(
+                                                  TestDataPath.Ringtoets.Common.IO,
+                                                  "ConfigurationReader"),
+                                              "validConfigurationSchema.xsd"));
+
+            public TestConfigurationReader(string xmlFilePath)
+                : base(xmlFilePath, mainSchemaDefinition, new Dictionary<string, string>()) {}
+
+            protected override TestReadConfigurationItem ParseCalculationElement(XElement calculationElement)
             {
                 throw new NotImplementedException();
             }

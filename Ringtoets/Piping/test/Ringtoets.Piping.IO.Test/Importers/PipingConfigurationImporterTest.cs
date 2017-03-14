@@ -52,7 +52,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
                                                            new PipingFailureMechanism());
 
             // Assert
-            Assert.IsInstanceOf<CalculationConfigurationImporter<ReadPipingCalculation>>(importer);
+            Assert.IsInstanceOf<CalculationConfigurationImporter<PipingConfigurationReader, ReadPipingCalculation>>(importer);
         }
 
         [Test]

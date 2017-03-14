@@ -28,7 +28,6 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.FileImporters;
-using Ringtoets.Common.IO.Readers;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.IO.Readers;
@@ -41,7 +40,7 @@ namespace Ringtoets.Piping.IO.Importers
     /// Imports a piping configuration from an XML file and stores it on a
     /// <see cref="CalculationGroup"/>.
     /// </summary>
-    public class PipingConfigurationImporter : CalculationConfigurationImporter<ReadPipingCalculation>
+    public class PipingConfigurationImporter : CalculationConfigurationImporter<PipingConfigurationReader, ReadPipingCalculation>
     {
         private readonly IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations;
         private readonly PipingFailureMechanism failureMechanism;
@@ -75,9 +74,9 @@ namespace Ringtoets.Piping.IO.Importers
             this.failureMechanism = failureMechanism;
         }
 
-        protected override ICollection<IReadConfigurationItem> ReadConfigurationItems(string filePath)
+        protected override PipingConfigurationReader CreateConfigurationReader(string filePath)
         {
-            return new PipingConfigurationReader(FilePath).Read().ToList();
+            return new PipingConfigurationReader(FilePath);
         }
 
         protected override ICalculationBase ProcessCalculation(ReadPipingCalculation readCalculation)
