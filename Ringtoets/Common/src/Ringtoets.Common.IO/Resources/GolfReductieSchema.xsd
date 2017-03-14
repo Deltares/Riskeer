@@ -28,12 +28,12 @@ All rights reserved.
   gebruik maakt van dit element.-->
   <xs:element name="golfreductie">
     <xs:complexType>
-      <xs:all minOccurs ="1">
+      <xs:sequence>
         <xs:element ref="damgebruiken" minOccurs="0" maxOccurs="1"/>
         <xs:element ref="damtype" minOccurs="0" maxOccurs="1"/>
         <xs:element ref="damhoogte" minOccurs="0" maxOccurs="1"/>
         <xs:element ref="voorlandgebruiken" minOccurs="0" maxOccurs="1"/>
-      </xs:all>
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
 

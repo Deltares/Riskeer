@@ -64,6 +64,21 @@ namespace Ringtoets.Revetment.IO.Test.Readers
                 yield return new TestCaseData("invalidCalculationMultipleStepSize.xml",
                                               "The element 'berekening' has invalid child element 'stapgrootte'.")
                     .SetName("invalidCalculationMultipleStepSize");
+                yield return new TestCaseData("invalidCalculationMultipleWaveReduction.xml",
+                                              "The element 'berekening' has invalid child element 'golfreductie'.")
+                    .SetName("invalidCalculationMultipleWaveReduction");
+                yield return new TestCaseData("invalidCalculationMultipleDamUsage.xml",
+                                              "The element 'golfreductie' has invalid child element 'damgebruiken'.")
+                    .SetName("invalidCalculationMultipleDamUsage");
+                yield return new TestCaseData("invalidCalculationMultipleDamType.xml",
+                                              "The element 'golfreductie' has invalid child element 'damtype'.")
+                    .SetName("invalidCalculationMultipleDamType");
+                yield return new TestCaseData("invalidCalculationMultipleDamHeight.xml",
+                                              "The element 'golfreductie' has invalid child element 'damhoogte'.")
+                    .SetName("invalidCalculationMultipleDamHeight");
+                yield return new TestCaseData("invalidCalculationMultipleForeshoreUsage.xml",
+                                              "The element 'golfreductie' has invalid child element 'voorlandgebruiken'.")
+                    .SetName("invalidCalculationMultipleForeshoreUsage");
                 yield return new TestCaseData("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocation.xml",
                                               "The 'hrlocatie' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
                     .SetName("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocation");
@@ -127,6 +142,33 @@ namespace Ringtoets.Revetment.IO.Test.Readers
                 yield return new TestCaseData("invalidOrientationWrongCulture.xml",
                                               "The 'orientatie' element is invalid - The value '0,5' is invalid according to its datatype 'Double'")
                     .SetName("invalidOrientationWrongCulture");
+                yield return new TestCaseData("invalidDamUsageEmpty.xml",
+                                              "The 'damgebruiken' element is invalid - The value '' is invalid according to its datatype 'Boolean'")
+                    .SetName("invalidDamUsageEmpty");
+                yield return new TestCaseData("invalidDamUsageNoBoolean.xml",
+                                              "The 'damgebruiken' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
+                    .SetName("invalidDamUsageNoBoolean");
+                yield return new TestCaseData("invalidDamTypeEmpty.xml",
+                                              "The 'damtype' element is invalid - The value '' is invalid according to its datatype 'String'")
+                    .SetName("invalidDamTypeEmpty");
+                yield return new TestCaseData("invalidDamTypeUnknownValue.xml",
+                                              "The 'damtype' element is invalid - The value 'text' is invalid according to its datatype 'String' - The Enumeration constraint failed.")
+                    .SetName("invalidDamTypeUnknownValue");
+                yield return new TestCaseData("invalidDamHeightEmpty.xml",
+                                              "The 'damhoogte' element is invalid - The value '' is invalid according to its datatype 'Double'")
+                    .SetName("invalidDamHeightEmpty");
+                yield return new TestCaseData("invalidDamHeightNoDouble.xml",
+                                              "The 'damhoogte' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
+                    .SetName("invalidDamHeightNoDouble");
+                yield return new TestCaseData("invalidDamHeightWrongCulture.xml",
+                                              "The 'damhoogte' element is invalid - The value '0,5' is invalid according to its datatype 'Double'")
+                    .SetName("invalidDamHeightWrongCulture");
+                yield return new TestCaseData("invalidForeshoreUsageEmpty.xml",
+                                              "The 'voorlandgebruiken' element is invalid - The value '' is invalid according to its datatype 'Boolean'")
+                    .SetName("invalidForeshoreUsageEmpty");
+                yield return new TestCaseData("invalidForeshoreUsageNoBoolean.xml",
+                                              "The 'voorlandgebruiken' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
+                    .SetName("invalidForeshoreUsageNoBoolean");
             }
         }
 
@@ -156,7 +198,7 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(call);
             Assert.IsInstanceOf<XmlSchemaValidationException>(exception.InnerException);
-            Assert.IsTrue(exception.InnerException?.Message.Contains(expectedParsingMessage));
+            StringAssert.Contains(expectedParsingMessage, exception.InnerException?.Message);
         }
     }
 }

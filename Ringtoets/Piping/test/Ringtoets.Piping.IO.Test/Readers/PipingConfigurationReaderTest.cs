@@ -165,7 +165,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(call);
             Assert.IsInstanceOf<XmlSchemaValidationException>(exception.InnerException);
-            Assert.IsTrue(exception.InnerException?.Message.Contains(expectedParsingMessage));
+            StringAssert.Contains(expectedParsingMessage, exception.InnerException?.Message);
         }
 
         [Test]
