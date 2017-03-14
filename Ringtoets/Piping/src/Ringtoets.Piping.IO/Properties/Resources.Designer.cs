@@ -215,17 +215,6 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} 
-        ///Er is geen berekeningenconfiguratie geïmporteerd..
-        /// </summary>
-        public static string PipingConfigurationImporter_HandleCriticalFileReadError_Error_0_no_configuration_imported {
-            get {
-                return ResourceManager.GetString("PipingConfigurationImporter_HandleCriticalFileReadError_Error_0_no_configuration_" +
-                        "imported", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Een waarde van &apos;{0}&apos; als intredepunt is ongeldig..
         /// </summary>
         public static string PipingConfigurationImporter_ReadEntryExitPoint_Entry_point_invalid {

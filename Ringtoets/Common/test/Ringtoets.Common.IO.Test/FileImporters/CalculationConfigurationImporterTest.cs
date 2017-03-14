@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
@@ -82,7 +83,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 throw new NotImplementedException();
             }
 
-            protected override ReadResult<IReadConfigurationItem> ReadConfiguration()
+            protected override ICollection<IReadConfigurationItem> ReadConfigurationItems(string filePath)
             {
                 throw new NotImplementedException();
             }

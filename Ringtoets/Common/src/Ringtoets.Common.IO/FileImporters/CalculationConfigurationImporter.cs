@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base.IO;
+using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using log4net;
 using Ringtoets.Common.Data.Calculation;
@@ -89,7 +90,26 @@ namespace Ringtoets.Common.IO.FileImporters
 
         protected abstract ICalculationBase ProcessReadItem(IReadConfigurationItem readItem);
 
-        protected abstract ReadResult<IReadConfigurationItem> ReadConfiguration();
+        protected abstract ICollection<IReadConfigurationItem> ReadConfigurationItems(string filePath);
+
+        private ReadResult<IReadConfigurationItem> ReadConfiguration()
+        {
+            try
+            {
+                return new ReadResult<IReadConfigurationItem>(false)
+                {
+                    Items = ReadConfigurationItems(FilePath)
+                };
+            }
+            catch (Exception exception) when (exception is ArgumentException
+                                              || exception is CriticalFileReadException)
+            {
+                string errorMessage = string.Format(Resources.CalculationConfigurationImporter_HandleCriticalFileReadError_Error_0_no_configuration_imported,
+                                                    exception.Message);
+                log.Error(errorMessage, exception);
+                return new ReadResult<IReadConfigurationItem>(true);
+            }
+        }
 
         private void AddItemsToModel(IEnumerable<ICalculationBase> validCalculationItems)
         {

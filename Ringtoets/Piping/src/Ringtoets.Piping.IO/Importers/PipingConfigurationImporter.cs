@@ -23,8 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
-using Core.Common.IO.Exceptions;
-using Core.Common.IO.Readers;
 using log4net;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
@@ -81,25 +79,6 @@ namespace Ringtoets.Piping.IO.Importers
             this.failureMechanism = failureMechanism;
         }
 
-        protected override ReadResult<IReadConfigurationItem> ReadConfiguration()
-        {
-            try
-            {
-                return new ReadResult<IReadConfigurationItem>(false)
-                {
-                    Items = new PipingConfigurationReader(FilePath).Read().ToList()
-                };
-            }
-            catch (Exception exception) when (exception is ArgumentException
-                                              || exception is CriticalFileReadException)
-            {
-                string errorMessage = string.Format(Resources.PipingConfigurationImporter_HandleCriticalFileReadError_Error_0_no_configuration_imported,
-                                                    exception.Message);
-                log.Error(errorMessage, exception);
-                return new ReadResult<IReadConfigurationItem>(true);
-            }
-        }
-
         protected override ICalculationBase ProcessReadItem(IReadConfigurationItem readItem)
         {
             var readCalculationGroup = readItem as ReadCalculationGroup;
@@ -115,6 +94,11 @@ namespace Ringtoets.Piping.IO.Importers
             }
 
             return null;
+        }
+
+        protected override ICollection<IReadConfigurationItem> ReadConfigurationItems(string filePath)
+        {
+            return new PipingConfigurationReader(FilePath).Read().ToList();
         }
 
         private CalculationGroup ProcessCalculationGroup(ReadCalculationGroup readCalculationGroup)

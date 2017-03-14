@@ -534,6 +534,10 @@ Er is geen vakindeling geïmporteerd.</value>
   <data name="CalculationConfigurationImporter_ProgressText_Validating_imported_data" xml:space="preserve">
     <value>Valideren berekeningenconfiguratie.</value>
   </data>
+  <data name="CalculationConfigurationImporter_HandleCriticalFileReadError_Error_0_no_configuration_imported" xml:space="preserve">
+    <value>{0} 
+Er is geen berekeningenconfiguratie geïmporteerd.</value>
+  </data>
   <data name="GolfReductieSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\GolfReductieSchema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>

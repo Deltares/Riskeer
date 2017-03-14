@@ -82,6 +82,17 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} 
+        ///Er is geen berekeningenconfiguratie geïmporteerd..
+        /// </summary>
+        public static string CalculationConfigurationImporter_HandleCriticalFileReadError_Error_0_no_configuration_imported {
+            get {
+                return ResourceManager.GetString("CalculationConfigurationImporter_HandleCriticalFileReadError_Error_0_no_configura" +
+                        "tion_imported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Berekeningenconfiguratie importeren afgebroken. Geen data ingelezen..
         /// </summary>
         public static string CalculationConfigurationImporter_LogImportCanceledMessage_Import_canceled_no_data_read {
