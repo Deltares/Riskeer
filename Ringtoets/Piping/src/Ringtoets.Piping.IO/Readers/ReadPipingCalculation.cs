@@ -118,62 +118,62 @@ namespace Ringtoets.Piping.IO.Readers
         public class ConstructionProperties
         {
             /// <summary>
-            /// Gets or sets the value for <see cref="ReadPipingCalculation.Name"/>
+            /// Gets or sets the value for <see cref="ReadPipingCalculation.Name"/>.
             /// </summary>
             public string Name { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the value for <see cref="ReadPipingCalculation.AssessmentLevel"/>
+            /// Gets or sets the value for <see cref="ReadPipingCalculation.AssessmentLevel"/>.
             /// </summary>
             public double? AssessmentLevel { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the value for <see cref="ReadPipingCalculation.HydraulicBoundaryLocation"/>
+            /// Gets or sets the value for <see cref="ReadPipingCalculation.HydraulicBoundaryLocation"/>.
             /// </summary>
             public string HydraulicBoundaryLocation { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the value for <see cref="ReadPipingCalculation.SurfaceLine"/>
+            /// Gets or sets the value for <see cref="ReadPipingCalculation.SurfaceLine"/>.
             /// </summary>
             public string SurfaceLine { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the value for <see cref="ReadPipingCalculation.EntryPointL"/>
+            /// Gets or sets the value for <see cref="ReadPipingCalculation.EntryPointL"/>.
             /// </summary>
             public double? EntryPointL { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the value for <see cref="ReadPipingCalculation.ExitPointL"/>
+            /// Gets or sets the value for <see cref="ReadPipingCalculation.ExitPointL"/>.
             /// </summary>
             public double? ExitPointL { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the value for <see cref="ReadPipingCalculation.StochasticSoilModel"/>
+            /// Gets or sets the value for <see cref="ReadPipingCalculation.StochasticSoilModel"/>.
             /// </summary>
             public string StochasticSoilModel { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the value for <see cref="ReadPipingCalculation.StochasticSoilProfile"/>
+            /// Gets or sets the value for <see cref="ReadPipingCalculation.StochasticSoilProfile"/>.
             /// </summary>
             public string StochasticSoilProfile { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the value for <see cref="ReadPipingCalculation.PhreaticLevelExitMean"/>
+            /// Gets or sets the value for <see cref="ReadPipingCalculation.PhreaticLevelExitMean"/>.
             /// </summary>
             public double? PhreaticLevelExitMean { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the value for <see cref="ReadPipingCalculation.PhreaticLevelExitStandardDeviation"/>
+            /// Gets or sets the value for <see cref="ReadPipingCalculation.PhreaticLevelExitStandardDeviation"/>.
             /// </summary>
             public double? PhreaticLevelExitStandardDeviation { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the value for <see cref="ReadPipingCalculation.DampingFactorExitMean"/>
+            /// Gets or sets the value for <see cref="ReadPipingCalculation.DampingFactorExitMean"/>.
             /// </summary>
             public double? DampingFactorExitMean { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the value for <see cref="ReadPipingCalculation.DampingFactorExitStandardDeviation"/>
+            /// Gets or sets the value for <see cref="ReadPipingCalculation.DampingFactorExitStandardDeviation"/>.
             /// </summary>
             public double? DampingFactorExitStandardDeviation { internal get; set; }
         }

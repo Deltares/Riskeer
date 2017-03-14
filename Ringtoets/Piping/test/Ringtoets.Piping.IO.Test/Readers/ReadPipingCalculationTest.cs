@@ -21,6 +21,7 @@
 
 using System;
 using NUnit.Framework;
+using Ringtoets.Common.IO.Readers;
 using Ringtoets.Piping.IO.Readers;
 
 namespace Ringtoets.Piping.IO.Test.Readers
@@ -46,6 +47,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
             var readPipingCalculation = new ReadPipingCalculation(new ReadPipingCalculation.ConstructionProperties());
 
             // Assert
+            Assert.IsInstanceOf<IReadConfigurationItem>(readPipingCalculation);
             Assert.IsNull(readPipingCalculation.Name);
             Assert.IsNull(readPipingCalculation.AssessmentLevel);
             Assert.IsNull(readPipingCalculation.HydraulicBoundaryLocation);
@@ -63,36 +65,50 @@ namespace Ringtoets.Piping.IO.Test.Readers
         [Test]
         public void Constructor_ConstructionPropertiesWithValuesSet_PropertiesAsExpected()
         {
+            // Setup
+            const string calculationName = "Name of the calculation";
+            const double assessmentLevel = 1.1;
+            const string hydraulicBoundaryLocation = "Name of the hydraulic boundary location";
+            const string surfaceLine = "Name of the surface line";
+            const double entryPointL = 2.2;
+            const double exitPointL = 3.3;
+            const string stochasticSoilModel = "Name of the stochastic soil model";
+            const string stochasticSoilProfile = "Name of the stochastic soil profile";
+            const double phreaticLevelExitMean = 4.4;
+            const double phreaticLevelExitStandardDeviation = 5.5;
+            const double dampingFactorExitMean = 6.6;
+            const double dampingFactorExitStandardDeviation = 7.7;
+
             // Call
             var readPipingCalculation = new ReadPipingCalculation(new ReadPipingCalculation.ConstructionProperties
             {
-                Name = "Name of the calculation",
-                AssessmentLevel = 1.1,
-                HydraulicBoundaryLocation = "Name of the hydraulic boundary location",
-                SurfaceLine = "Name of the surface line",
-                EntryPointL = 2.2,
-                ExitPointL = 3.3,
-                StochasticSoilModel = "Name of the stochastic soil model",
-                StochasticSoilProfile = "Name of the stochastic soil profile",
-                PhreaticLevelExitMean = 4.4,
-                PhreaticLevelExitStandardDeviation = 5.5,
-                DampingFactorExitMean = 6.6,
-                DampingFactorExitStandardDeviation = 7.7
+                Name = calculationName,
+                AssessmentLevel = assessmentLevel,
+                HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                SurfaceLine = surfaceLine,
+                EntryPointL = entryPointL,
+                ExitPointL = exitPointL,
+                StochasticSoilModel = stochasticSoilModel,
+                StochasticSoilProfile = stochasticSoilProfile,
+                PhreaticLevelExitMean = phreaticLevelExitMean,
+                PhreaticLevelExitStandardDeviation = phreaticLevelExitStandardDeviation,
+                DampingFactorExitMean = dampingFactorExitMean,
+                DampingFactorExitStandardDeviation = dampingFactorExitStandardDeviation
             });
 
             // Assert
-            Assert.AreEqual("Name of the calculation", readPipingCalculation.Name);
-            Assert.AreEqual(1.1, readPipingCalculation.AssessmentLevel);
-            Assert.AreEqual("Name of the hydraulic boundary location", readPipingCalculation.HydraulicBoundaryLocation);
-            Assert.AreEqual("Name of the surface line", readPipingCalculation.SurfaceLine);
-            Assert.AreEqual(2.2, readPipingCalculation.EntryPointL);
-            Assert.AreEqual(3.3, readPipingCalculation.ExitPointL);
-            Assert.AreEqual("Name of the stochastic soil model", readPipingCalculation.StochasticSoilModel);
-            Assert.AreEqual("Name of the stochastic soil profile", readPipingCalculation.StochasticSoilProfile);
-            Assert.AreEqual(4.4, readPipingCalculation.PhreaticLevelExitMean);
-            Assert.AreEqual(5.5, readPipingCalculation.PhreaticLevelExitStandardDeviation);
-            Assert.AreEqual(6.6, readPipingCalculation.DampingFactorExitMean);
-            Assert.AreEqual(7.7, readPipingCalculation.DampingFactorExitStandardDeviation);
+            Assert.AreEqual(calculationName, readPipingCalculation.Name);
+            Assert.AreEqual(assessmentLevel, readPipingCalculation.AssessmentLevel);
+            Assert.AreEqual(hydraulicBoundaryLocation, readPipingCalculation.HydraulicBoundaryLocation);
+            Assert.AreEqual(surfaceLine, readPipingCalculation.SurfaceLine);
+            Assert.AreEqual(entryPointL, readPipingCalculation.EntryPointL);
+            Assert.AreEqual(exitPointL, readPipingCalculation.ExitPointL);
+            Assert.AreEqual(stochasticSoilModel, readPipingCalculation.StochasticSoilModel);
+            Assert.AreEqual(stochasticSoilProfile, readPipingCalculation.StochasticSoilProfile);
+            Assert.AreEqual(phreaticLevelExitMean, readPipingCalculation.PhreaticLevelExitMean);
+            Assert.AreEqual(phreaticLevelExitStandardDeviation, readPipingCalculation.PhreaticLevelExitStandardDeviation);
+            Assert.AreEqual(dampingFactorExitMean, readPipingCalculation.DampingFactorExitMean);
+            Assert.AreEqual(dampingFactorExitStandardDeviation, readPipingCalculation.DampingFactorExitStandardDeviation);
         }
     }
 }

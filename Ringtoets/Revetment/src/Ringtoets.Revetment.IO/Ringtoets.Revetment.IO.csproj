@@ -54,6 +54,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Readers\ReadDamType.cs" />
     <Compile Include="Readers\ReadWaveConditionsCalculation.cs" />
     <Compile Include="Readers\WaveConditionsInputConfigurationReader.cs" />
     <Compile Include="WaveConditionsInputConfigurationSchemaIdentifiers.cs" />
