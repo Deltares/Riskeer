@@ -26,6 +26,7 @@ using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using log4net;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.Properties;
 using Ringtoets.Common.IO.Readers;
 
@@ -124,7 +125,7 @@ namespace Ringtoets.Common.IO.FileImporters
             var readCalculation = readItem as TReadCalculation;
             if (readCalculation != null)
             {
-                return ProcessCalculation(readCalculation);
+                return ProcessCalculationInternal(readCalculation);
             }
 
             return null;
@@ -144,6 +145,22 @@ namespace Ringtoets.Common.IO.FileImporters
             }
 
             return group;
+        }
+
+        private ICalculationBase ProcessCalculationInternal(TReadCalculation readCalculation)
+        {
+            try
+            {
+                return ProcessCalculation(readCalculation);
+            }
+            catch (CriticalFileValidationException e)
+            {
+                string message = string.Format(Resources.CalculationConfigurationImporter_ValidateCalculation_Error_message_0_calculation_1_skipped,
+                                               e.Message,
+                                               readCalculation.Name);
+                log.Error(message, e);
+                return null;
+            }
         }
 
         private void AddItemsToModel(IEnumerable<ICalculationBase> validCalculationItems)

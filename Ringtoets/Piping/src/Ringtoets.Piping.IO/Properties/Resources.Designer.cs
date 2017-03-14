@@ -322,16 +322,6 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} Berekening &apos;{1}&apos; is overgeslagen..
-        /// </summary>
-        public static string PipingConfigurationImporter_ValidateCalculation_Error_message_0_calculation_1_skipped {
-            get {
-                return ResourceManager.GetString("PipingConfigurationImporter_ValidateCalculation_Error_message_0_calculation_1_ski" +
-                        "pped", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database..
         /// </summary>
         public static string PipingSoilProfileReader_Critical_Unexpected_value_on_column {

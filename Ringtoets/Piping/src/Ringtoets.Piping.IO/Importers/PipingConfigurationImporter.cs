@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
-using log4net;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probabilistics;
@@ -44,8 +43,6 @@ namespace Ringtoets.Piping.IO.Importers
     /// </summary>
     public class PipingConfigurationImporter : CalculationConfigurationImporter<ReadPipingCalculation>
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(PipingConfigurationImporter));
-
         private readonly IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations;
         private readonly PipingFailureMechanism failureMechanism;
 
@@ -90,23 +87,12 @@ namespace Ringtoets.Piping.IO.Importers
                 Name = readCalculation.Name
             };
 
-            try
-            {
-                ReadHydraulicBoundaryData(readCalculation, pipingCalculation);
-                ReadSurfaceLine(readCalculation, pipingCalculation);
-                ReadEntryExitPoint(readCalculation, pipingCalculation);
-                ReadStochasticSoilModel(readCalculation, pipingCalculation);
-                ReadStochasticSoilProfile(readCalculation, pipingCalculation);
-                ReadStochasts(readCalculation, pipingCalculation);
-            }
-            catch (CriticalFileValidationException e)
-            {
-                string message = string.Format(Resources.PipingConfigurationImporter_ValidateCalculation_Error_message_0_calculation_1_skipped,
-                                               e.Message,
-                                               readCalculation.Name);
-                log.Error(message, e);
-                return null;
-            }
+            ReadHydraulicBoundaryData(readCalculation, pipingCalculation);
+            ReadSurfaceLine(readCalculation, pipingCalculation);
+            ReadEntryExitPoint(readCalculation, pipingCalculation);
+            ReadStochasticSoilModel(readCalculation, pipingCalculation);
+            ReadStochasticSoilProfile(readCalculation, pipingCalculation);
+            ReadStochasts(readCalculation, pipingCalculation);
 
             return pipingCalculation;
         }

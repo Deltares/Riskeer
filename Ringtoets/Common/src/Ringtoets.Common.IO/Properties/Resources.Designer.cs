@@ -121,6 +121,16 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} Berekening &apos;{1}&apos; is overgeslagen..
+        /// </summary>
+        public static string CalculationConfigurationImporter_ValidateCalculation_Error_message_0_calculation_1_skipped {
+            get {
+                return ResourceManager.GetString("CalculationConfigurationImporter_ValidateCalculation_Error_message_0_calculation_" +
+                        "1_skipped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
         ///
         ///&lt;!--

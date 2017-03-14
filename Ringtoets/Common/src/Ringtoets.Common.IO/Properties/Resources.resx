@@ -538,6 +538,9 @@ Er is geen vakindeling geïmporteerd.</value>
     <value>{0} 
 Er is geen berekeningenconfiguratie geïmporteerd.</value>
   </data>
+  <data name="CalculationConfigurationImporter_ValidateCalculation_Error_message_0_calculation_1_skipped" xml:space="preserve">
+    <value>{0} Berekening '{1}' is overgeslagen.</value>
+  </data>
   <data name="GolfReductieSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\GolfReductieSchema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
