@@ -80,7 +80,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Setup
             WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
 
-            using (new UseCustomSettingsHelper(new TestSettingsHelper()))
+            using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var map = new RingtoetsMapControl())
             {
