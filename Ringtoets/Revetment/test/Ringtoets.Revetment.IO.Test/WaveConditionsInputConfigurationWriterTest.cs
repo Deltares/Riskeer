@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.IO;
 using System.Xml;
 using Core.Common.Base;
@@ -65,10 +66,7 @@ namespace Ringtoets.Revetment.IO.Test
 
             try
             {
-                using (XmlWriter xmlWriter = XmlWriter.Create(filePath, new XmlWriterSettings
-                {
-                    Indent = true
-                }))
+                using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
                 {
                     var writer = new SimpleWaveConditionsInputConfigurationWriter();
 
@@ -102,7 +100,7 @@ namespace Ringtoets.Revetment.IO.Test
             var calculation = new SimpleWaveConditionsCalculation
             {
                 Name = "Berekening 1",
-                Input = 
+                Input =
                 {
                     HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("Locatie1"),
                     UpperBoundaryRevetment = (RoundedDouble) 1.5,
@@ -124,10 +122,7 @@ namespace Ringtoets.Revetment.IO.Test
 
             try
             {
-                using (XmlWriter xmlWriter = XmlWriter.Create(filePath, new XmlWriterSettings
-                {
-                    Indent = true
-                }))
+                using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
                 {
                     var writer = new SimpleWaveConditionsInputConfigurationWriter();
 
@@ -146,32 +141,39 @@ namespace Ringtoets.Revetment.IO.Test
                 File.Delete(filePath);
             }
         }
+
+        private static XmlWriter CreateXmlWriter(string filePath)
+        {
+            return XmlWriter.Create(filePath, new XmlWriterSettings
+            {
+                Indent = true
+            });
+        }
     }
 
     public class SimpleWaveConditionsInputConfigurationWriter : WaveConditionsInputConfigurationWriter<SimpleWaveConditionsCalculation>
     {
-        protected override void WriteCalculation(SimpleWaveConditionsCalculation calculation, XmlWriter writer)
-        {
-            WriteCalculation(calculation.Name, calculation.Input, writer);
-        }
-
         public void PublicWriteCalculation(SimpleWaveConditionsCalculation calculation, XmlWriter writer)
         {
             WriteCalculation(calculation, writer);
+        }
+
+        protected override void WriteCalculation(SimpleWaveConditionsCalculation calculation, XmlWriter writer)
+        {
+            WriteCalculation(calculation.Name, calculation.Input, writer);
         }
     }
 
     public class SimpleWaveConditionsCalculation : Observable, ICalculation
     {
+        public WaveConditionsInput Input { get; } = new WaveConditionsInput();
         public string Name { get; set; }
         public bool HasOutput { get; }
         public Comment Comments { get; }
 
         public void ClearOutput()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
-
-        public WaveConditionsInput Input { get; } = new WaveConditionsInput();
     }
 }

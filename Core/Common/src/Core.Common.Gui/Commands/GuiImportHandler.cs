@@ -140,7 +140,7 @@ namespace Core.Common.Gui.Commands
 
         private void ImportItemsUsingDialog(ImportInfo importInfo, object target)
         {
-            string fileDialogResult = inquiryHelper.GetSourceFileLocation(importInfo.FileFilterGenerator);
+            string fileDialogResult = inquiryHelper.GetSourceFileLocation(importInfo.FileFilterGenerator.Filter);
 
             if (fileDialogResult != null && importInfo.VerifyUpdates(target))
             {

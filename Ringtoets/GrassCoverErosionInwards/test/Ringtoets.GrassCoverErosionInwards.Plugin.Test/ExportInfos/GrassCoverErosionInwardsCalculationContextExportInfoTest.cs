@@ -35,7 +35,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ExportInfos
     [TestFixture]
     public class GrassCoverErosionInwardsCalculationContextExportInfoTest
     {
-
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
@@ -64,8 +63,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ExportInfos
             mocks.ReplayAll();
 
             var context = new GrassCoverErosionInwardsCalculationContext(new GrassCoverErosionInwardsCalculation(),
-                                                            new GrassCoverErosionInwardsFailureMechanism(),
-                                                            assessmentSection);
+                                                                         new GrassCoverErosionInwardsFailureMechanism(),
+                                                                         assessmentSection);
 
             using (var plugin = new GrassCoverErosionInwardsPlugin())
             {
@@ -104,9 +103,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new GrassCoverErosionInwardsCalculationContext(new GrassCoverErosionInwardsCalculation(), 
-                                                            new GrassCoverErosionInwardsFailureMechanism(),
-                                                            assessmentSection);
+            var context = new GrassCoverErosionInwardsCalculationContext(new GrassCoverErosionInwardsCalculation(),
+                                                                         new GrassCoverErosionInwardsFailureMechanism(),
+                                                                         assessmentSection);
 
             using (var plugin = new GrassCoverErosionInwardsPlugin())
             {

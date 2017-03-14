@@ -142,11 +142,7 @@ namespace Ringtoets.Common.IO.Test.Writers
 
             try
             {
-                using (XmlWriter xmlWriter = XmlWriter.Create(filePath, new XmlWriterSettings
-                {
-                    Indent = true,
-                    ConformanceLevel = ConformanceLevel.Fragment
-                }))
+                using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
                 {
                     var writer = new SimpleCalculationConfigurationWriter();
 
@@ -173,16 +169,12 @@ namespace Ringtoets.Common.IO.Test.Writers
 
             try
             {
-                using (XmlWriter xmlWriter = XmlWriter.Create(filePath, new XmlWriterSettings
-                {
-                    Indent = true,
-                    ConformanceLevel = ConformanceLevel.Fragment
-                }))
+                using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
                 {
                     var writer = new SimpleCalculationConfigurationWriter();
 
                     // Call
-                    writer.PublicWriteDistributions(Enumerable.Empty<Tuple<string, IDistribution>>(), xmlWriter);
+                    writer.PublicWriteDistributions(new Dictionary<string, IDistribution>(), xmlWriter);
                 }
 
                 // Assert
@@ -205,27 +197,27 @@ namespace Ringtoets.Common.IO.Test.Writers
                 TestDataPath.Ringtoets.Common.IO,
                 Path.Combine(nameof(CalculationConfigurationWriter<ICalculation>), "distributions.xml"));
 
-            var distributions = new List<Tuple<string, IDistribution>>
+            var distributions = new Dictionary<string, IDistribution>
             {
-                new Tuple<string, IDistribution>("normal", new NormalDistribution
                 {
-                    Mean = (RoundedDouble) 0.2,
-                    StandardDeviation = (RoundedDouble) 0.1
-                }),
-                new Tuple<string, IDistribution>("lognormal", new LogNormalDistribution
+                    "normal", new NormalDistribution
+                    {
+                        Mean = (RoundedDouble) 0.2,
+                        StandardDeviation = (RoundedDouble) 0.1
+                    }
+                },
                 {
-                    Mean = (RoundedDouble) 0.4,
-                    StandardDeviation = (RoundedDouble) 0.3
-                })
+                    "lognormal", new LogNormalDistribution
+                    {
+                        Mean = (RoundedDouble) 0.4,
+                        StandardDeviation = (RoundedDouble) 0.3
+                    }
+                }
             };
 
             try
             {
-                using (XmlWriter xmlWriter = XmlWriter.Create(filePath, new XmlWriterSettings
-                {
-                    Indent = true,
-                    ConformanceLevel = ConformanceLevel.Fragment
-                }))
+                using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
                 {
                     var writer = new SimpleCalculationConfigurationWriter();
 
@@ -254,11 +246,7 @@ namespace Ringtoets.Common.IO.Test.Writers
 
             try
             {
-                using (XmlWriter xmlWriter = XmlWriter.Create(filePath, new XmlWriterSettings
-                {
-                    Indent = true,
-                    ConformanceLevel = ConformanceLevel.Fragment
-                }))
+                using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
                 {
                     var writer = new SimpleCalculationConfigurationWriter();
 
@@ -298,11 +286,7 @@ namespace Ringtoets.Common.IO.Test.Writers
 
             try
             {
-                using (XmlWriter xmlWriter = XmlWriter.Create(filePath, new XmlWriterSettings
-                {
-                    Indent = true,
-                    ConformanceLevel = ConformanceLevel.Fragment
-                }))
+                using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
                 {
                     var writer = new SimpleCalculationConfigurationWriter();
 
@@ -382,11 +366,20 @@ namespace Ringtoets.Common.IO.Test.Writers
             }
         }
 
+        private static XmlWriter CreateXmlWriter(string filePath)
+        {
+            return XmlWriter.Create(filePath, new XmlWriterSettings
+            {
+                Indent = true,
+                ConformanceLevel = ConformanceLevel.Fragment
+            });
+        }
+
         public class SimpleCalculationConfigurationWriter : CalculationConfigurationWriter<TestCalculation>
         {
             public const string CalculationElementTag = "calculation";
 
-            public void PublicWriteDistributions(IEnumerable<Tuple<string, IDistribution>> distributions, XmlWriter writer)
+            public void PublicWriteDistributions(IDictionary<string, IDistribution> distributions, XmlWriter writer)
             {
                 WriteDistributions(distributions, writer);
             }

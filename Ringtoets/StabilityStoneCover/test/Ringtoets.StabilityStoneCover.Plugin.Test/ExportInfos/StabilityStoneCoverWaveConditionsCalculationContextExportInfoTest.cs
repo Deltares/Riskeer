@@ -74,7 +74,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ExportInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(new StabilityStoneCoverWaveConditionsCalculation(),
-                                                                                        failureMechanism, assessmentSection);
+                                                                                  failureMechanism, assessmentSection);
 
             // Call
             IFileExporter fileExporter = waveConditionsExportInfo.CreateFileExporter(context, "test");
@@ -105,7 +105,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ExportInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(new StabilityStoneCoverWaveConditionsCalculation(),
-                                                                                        failureMechanism, assessmentSection);
+                                                                                  failureMechanism, assessmentSection);
 
             // Call
             bool isEnabled = waveConditionsExportInfo.IsEnabled(context);
@@ -167,7 +167,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ExportInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(new StabilityStoneCoverWaveConditionsCalculation(),
-                                                                                        failureMechanism, assessmentSection);
+                                                                                  failureMechanism, assessmentSection);
 
             // Call
             IFileExporter fileExporter = configurationExportInfo.CreateFileExporter(context, "test");

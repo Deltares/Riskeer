@@ -62,6 +62,7 @@ namespace Core.Common.Gui.Test.Commands
             projectFactory.Stub(pf => pf.CreateNewProject()).Return(newProject);
             projectOwner.Expect(po => po.SetProject(newProject, null));
 
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
             var mainWindowController = mocks.Stub<IWin32Window>();
 
             mocks.ReplayAll();
@@ -71,6 +72,7 @@ namespace Core.Common.Gui.Test.Commands
                 projectMigrator,
                 projectFactory,
                 projectOwner,
+                inquiryHelper,
                 mainWindowController);
 
             // Call
@@ -111,6 +113,8 @@ namespace Core.Common.Gui.Test.Commands
                 var projectOwner = mocks.Stub<IProjectOwner>();
                 projectOwner.Stub(po => po.Project).Return(projectStub);
                 projectOwner.Stub(po => po.ProjectFilePath).Return(someValidFilePath);
+
+                var inquiryHelper = mocks.Stub<IInquiryHelper>();
                 mocks.ReplayAll();
 
                 var storageCommandHandler = new StorageCommandHandler(
@@ -118,6 +122,7 @@ namespace Core.Common.Gui.Test.Commands
                     projectMigrator,
                     projectFactory,
                     projectOwner,
+                    inquiryHelper,
                     mainWindowController);
 
                 DialogBoxHandler = (s, hWnd) =>
@@ -162,6 +167,8 @@ namespace Core.Common.Gui.Test.Commands
                 var projectOwner = mocks.Stub<IProjectOwner>();
                 projectOwner.Stub(po => po.Project).Return(projectStub);
                 projectOwner.Stub(po => po.ProjectFilePath).Return(someValidFilePath);
+
+                var inquiryHelper = mocks.Stub<IInquiryHelper>();
                 mocks.ReplayAll();
 
                 var storageCommandHandler = new StorageCommandHandler(
@@ -169,6 +176,7 @@ namespace Core.Common.Gui.Test.Commands
                     projectMigrator,
                     projectFactory,
                     projectOwner,
+                    inquiryHelper,
                     mainWindowController);
 
                 DialogBoxHandler = (s, hWnd) =>
@@ -215,6 +223,8 @@ namespace Core.Common.Gui.Test.Commands
 
             var projectOwner = mocks.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.SetProject(loadedProject, pathToMigratedFile));
+
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
             var storageCommandHandler = new StorageCommandHandler(
@@ -222,6 +232,7 @@ namespace Core.Common.Gui.Test.Commands
                 projectMigrator,
                 projectFactory,
                 projectOwner,
+                inquiryHelper,
                 mainWindowController);
 
             DialogBoxHandler = (name, wnd) =>
@@ -268,6 +279,7 @@ namespace Core.Common.Gui.Test.Commands
                         .Repeat.Never();
 
             var mainWindowController = mocks.Stub<IWin32Window>();
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
             var storageCommandHandler = new StorageCommandHandler(
@@ -275,6 +287,7 @@ namespace Core.Common.Gui.Test.Commands
                 projectMigrator,
                 projectFactory,
                 projectOwner,
+                inquiryHelper,
                 mainWindowController);
 
             // Call
@@ -320,6 +333,7 @@ namespace Core.Common.Gui.Test.Commands
                         .Repeat.Never();
 
             var mainWindowController = mocks.Stub<IWin32Window>();
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
             var storageCommandHandler = new StorageCommandHandler(
@@ -327,6 +341,7 @@ namespace Core.Common.Gui.Test.Commands
                 projectMigrator,
                 projectFactory,
                 projectOwner,
+                inquiryHelper,
                 mainWindowController);
 
             // Call
@@ -367,6 +382,7 @@ namespace Core.Common.Gui.Test.Commands
             projectOwner.Stub(po => po.SetProject(project, null));
 
             var mainWindowController = mocks.Stub<IWin32Window>();
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
             var storageCommandHandler = new StorageCommandHandler(
@@ -374,6 +390,7 @@ namespace Core.Common.Gui.Test.Commands
                 projectMigrator,
                 projectFactory,
                 projectOwner,
+                inquiryHelper,
                 mainWindowController);
 
             // Call
@@ -419,6 +436,7 @@ namespace Core.Common.Gui.Test.Commands
             projectOwner.Expect(po => po.SetProject(project, null));
 
             var mainWindowController = mocks.Stub<IWin32Window>();
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
             var storageCommandHandler = new StorageCommandHandler(
@@ -426,6 +444,7 @@ namespace Core.Common.Gui.Test.Commands
                 projectMigrator,
                 projectFactory,
                 projectOwner,
+                inquiryHelper,
                 mainWindowController);
 
             // Call
@@ -474,6 +493,7 @@ namespace Core.Common.Gui.Test.Commands
             projectOwner.Expect(po => po.SetProject(project, null));
 
             var mainWindowController = mocks.Stub<IWin32Window>();
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
             var storageCommandHandler = new StorageCommandHandler(
@@ -481,6 +501,7 @@ namespace Core.Common.Gui.Test.Commands
                 projectMigrator,
                 projectFactory,
                 projectOwner,
+                inquiryHelper,
                 mainWindowController);
 
             DialogBoxHandler = (name, wnd) =>
@@ -524,6 +545,7 @@ namespace Core.Common.Gui.Test.Commands
             var projectOwner = mocks.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
             projectOwner.Stub(po => po.SetProject(project, null));
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
             var storageCommandHandler = new StorageCommandHandler(
@@ -531,6 +553,7 @@ namespace Core.Common.Gui.Test.Commands
                 projectMigrator,
                 projectFactory,
                 projectOwner,
+                inquiryHelper,
                 mainWindowController);
 
             DialogBoxHandler = (name, wnd) =>
@@ -575,6 +598,8 @@ namespace Core.Common.Gui.Test.Commands
             var projectOwner = mocks.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
             projectOwner.Stub(po => po.SetProject(project, null));
+
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
             var storageCommandHandler = new StorageCommandHandler(
@@ -582,6 +607,7 @@ namespace Core.Common.Gui.Test.Commands
                 projectMigrator,
                 projectFactory,
                 projectOwner,
+                inquiryHelper,
                 mainWindowController);
 
             DialogBoxHandler = (name, wnd) =>
@@ -624,6 +650,8 @@ namespace Core.Common.Gui.Test.Commands
 
             var projectOwner = mocks.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.SetProject(loadedProject, pathToSomeValidFile));
+
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
             var storageCommandHandler = new StorageCommandHandler(
@@ -631,6 +659,7 @@ namespace Core.Common.Gui.Test.Commands
                 projectMigrator,
                 projectFactory,
                 projectOwner,
+                inquiryHelper,
                 mainWindowController);
 
             DialogBoxHandler = (name, wnd) =>
@@ -681,6 +710,7 @@ namespace Core.Common.Gui.Test.Commands
             projectOwner.Stub(po => po.ProjectFilePath).Return("<original file path>");
             projectOwner.Stub(po => po.SetProject(loadedProject, pathToSomeValidFile));
 
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
             var storageCommandHandler = new StorageCommandHandler(
@@ -688,6 +718,7 @@ namespace Core.Common.Gui.Test.Commands
                 projectMigrator,
                 projectFactory,
                 projectOwner,
+                inquiryHelper,
                 mainWindowController);
 
             DialogBoxHandler = (name, wnd) =>
@@ -728,6 +759,7 @@ namespace Core.Common.Gui.Test.Commands
             projectStorage.Stub(ps => ps.HasStagedProjectChanges(null)).IgnoreArguments().Return(false);
             projectStorage.Stub(ps => ps.FileFilter).Return(string.Empty);
 
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
             string projectPath = TestHelper.GetScratchPadPath(
@@ -739,6 +771,7 @@ namespace Core.Common.Gui.Test.Commands
                     projectMigrator,
                     projectFactory,
                     projectOwner,
+                    inquiryHelper,
                     mainWindowController);
 
                 DialogBoxHandler = (name, wnd) =>
@@ -765,6 +798,7 @@ namespace Core.Common.Gui.Test.Commands
             var projectStorage = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectOwner = mocks.Stub<IProjectOwner>();
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
             var storageCommandHandler = new StorageCommandHandler(
@@ -772,6 +806,7 @@ namespace Core.Common.Gui.Test.Commands
                 projectMigrator,
                 projectFactory,
                 projectOwner,
+                inquiryHelper,
                 mainWindowController);
 
             DialogBoxHandler = (name, wnd) =>
@@ -804,6 +839,7 @@ namespace Core.Common.Gui.Test.Commands
             var projectOwner = mocks.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
             projectOwner.Stub(po => po.ProjectFilePath).Return("");
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
             var storageCommandHandler = new StorageCommandHandler(
@@ -811,6 +847,7 @@ namespace Core.Common.Gui.Test.Commands
                 projectMigrator,
                 projectFactory,
                 projectOwner,
+                inquiryHelper,
                 mainWindowController);
 
             // Call
@@ -845,24 +882,20 @@ namespace Core.Common.Gui.Test.Commands
             var projectOwnerStub = mocks.Stub<IProjectOwner>();
             projectOwnerStub.Stub(po => po.Project).Return(project);
             projectOwnerStub.Stub(po => po.ProjectFilePath).Return("");
-            mocks.ReplayAll();
 
-            string messageBoxText = null;
-            string expectedMessage = $"Sla wijzigingen in het project op: {projectName}?";
+            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
+            inquiryHelper.Expect(h => h.InquirePerformOptionalStep("Project aan het sluiten...",
+                                                                   $"Sla wijzigingen in het project op: {projectName}?")).
+                          Return(OptionalStepResult.Cancel);
+            mocks.ReplayAll();
 
             var storageCommandHandler = new StorageCommandHandler(
                 projectStorage,
                 projectMigrator,
                 projectFactory,
                 projectOwnerStub,
+                inquiryHelper,
                 mainWindowController);
-
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var helper = new MessageBoxTester(wnd);
-                messageBoxText = helper.Text;
-                helper.ClickCancel();
-            };
 
             // Call
             bool changesHandled = storageCommandHandler.HandleUnsavedChanges();
@@ -871,7 +904,6 @@ namespace Core.Common.Gui.Test.Commands
             Assert.IsFalse(changesHandled);
 
             mocks.VerifyAll();
-            Assert.AreEqual(expectedMessage, messageBoxText);
         }
 
         [Test]
@@ -897,24 +929,20 @@ namespace Core.Common.Gui.Test.Commands
             var projectOwnerStub = mocks.Stub<IProjectOwner>();
             projectOwnerStub.Stub(po => po.Project).Return(project);
             projectOwnerStub.Stub(po => po.ProjectFilePath).Return("");
-            mocks.ReplayAll();
 
-            string messageBoxText = null;
-            string expectedMessage = $"Sla wijzigingen in het project op: {projectName}?";
+            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
+            inquiryHelper.Expect(h => h.InquirePerformOptionalStep("Project aan het sluiten...",
+                                                                   $"Sla wijzigingen in het project op: {projectName}?"))
+                         .Return(OptionalStepResult.SkipOptionalStep);
+            mocks.ReplayAll();
 
             var storageCommandHandler = new StorageCommandHandler(
                 projectStorage,
                 projectMigrator,
                 projectFactory,
                 projectOwnerStub,
+                inquiryHelper,
                 mainWindowController);
-
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var helper = new MessageBoxTester(wnd);
-                messageBoxText = helper.Text;
-                helper.SendCommand(MessageBoxTester.Command.No);
-            };
 
             // Call
             bool changesHandled = storageCommandHandler.HandleUnsavedChanges();
@@ -923,7 +951,6 @@ namespace Core.Common.Gui.Test.Commands
             Assert.IsTrue(changesHandled);
 
             mocks.VerifyAll();
-            Assert.AreEqual(expectedMessage, messageBoxText);
         }
 
         [Test]
@@ -932,7 +959,6 @@ namespace Core.Common.Gui.Test.Commands
         {
             // Setup
             const string projectName = "Project";
-            string messageBoxText = null;
             string someValidFilePath = TestHelper.GetScratchPadPath(nameof(AskConfirmationUnsavedChanges_ProjectSetWithChangeYesPressed_ReturnsTrue));
             using (new FileDisposeHelper(someValidFilePath))
             {
@@ -954,6 +980,11 @@ namespace Core.Common.Gui.Test.Commands
                 var projectOwnerStub = mocks.Stub<IProjectOwner>();
                 projectOwnerStub.Stub(po => po.Project).Return(project);
                 projectOwnerStub.Stub(po => po.ProjectFilePath).Return(someValidFilePath);
+
+                var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
+                inquiryHelper.Expect(h => h.InquirePerformOptionalStep("Project aan het sluiten...",
+                                                                       $"Sla wijzigingen in het project op: {projectName}?"))
+                             .Return(OptionalStepResult.PerformOptionalStep);
                 mocks.ReplayAll();
 
                 var storageCommandHandler = new StorageCommandHandler(
@@ -961,18 +992,12 @@ namespace Core.Common.Gui.Test.Commands
                     projectMigrator,
                     projectFactory,
                     projectOwnerStub,
+                    inquiryHelper,
                     mainWindowController);
 
-                DialogBoxHandler = (name, wnd) =>
+                DialogBoxHandler = (s, hWnd) =>
                 {
-                    var helper = new MessageBoxTester(wnd);
-                    messageBoxText = helper.Text;
-                    helper.SendCommand(MessageBoxTester.Command.Yes);
-
-                    DialogBoxHandler = (s, hWnd) =>
-                    {
-                        // Expect progress dialog, which will close automatically.
-                    };
+                    // Expect progress dialog, which will close automatically.
                 };
 
                 // Call
@@ -983,8 +1008,6 @@ namespace Core.Common.Gui.Test.Commands
             }
 
             mocks.VerifyAll();
-            string expectedMessage = $"Sla wijzigingen in het project op: {projectName}?";
-            Assert.AreEqual(expectedMessage, messageBoxText);
         }
 
         [Test]
@@ -992,8 +1015,8 @@ namespace Core.Common.Gui.Test.Commands
         public void AskConfirmationUnsavedChanges_ProjectSetWithChangeYesFileDoesNotExist_ReturnsTrue()
         {
             // Setup
+            const string fileFilter = "<Some text> | *.rtd";
             const string projectName = "Project";
-            string messageBoxText = null;
             string someValidFilePath = TestHelper.GetScratchPadPath(nameof(AskConfirmationUnsavedChanges_ProjectSetWithChangeYesFileDoesNotExist_ReturnsTrue));
 
             var mainWindowController = mocks.Stub<IWin32Window>();
@@ -1007,7 +1030,7 @@ namespace Core.Common.Gui.Test.Commands
             projectStorage.Stub(ps => ps.HasStagedProject).Return(true);
             projectStorage.Expect(ps => ps.HasStagedProjectChanges(someValidFilePath)).Return(true);
             projectStorage.Expect(ps => ps.UnstageProject());
-            projectStorage.Stub(ps => ps.FileFilter).Return(string.Empty);
+            projectStorage.Stub(ps => ps.FileFilter).Return(fileFilter);
             projectStorage.Expect(p => p.SaveProjectAs(someValidFilePath));
 
             var projectMigrator = mocks.Stub<IMigrateProject>();
@@ -1016,6 +1039,13 @@ namespace Core.Common.Gui.Test.Commands
             projectOwnerStub.Stub(po => po.Project).Return(project);
             projectOwnerStub.Stub(po => po.ProjectFilePath).Return(someValidFilePath);
             projectOwnerStub.Expect(po => po.SetProject(project, someValidFilePath));
+
+            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
+            inquiryHelper.Expect(h => h.InquirePerformOptionalStep("Project aan het sluiten...",
+                                                                   $"Sla wijzigingen in het project op: {projectName}?"))
+                         .Return(OptionalStepResult.PerformOptionalStep);
+            inquiryHelper.Expect(h => h.GetTargetFileLocation(fileFilter, projectName))
+                         .Return(someValidFilePath);
             mocks.ReplayAll();
 
             var storageCommandHandler = new StorageCommandHandler(
@@ -1023,24 +1053,12 @@ namespace Core.Common.Gui.Test.Commands
                 projectMigrator,
                 projectFactory,
                 projectOwnerStub,
+                inquiryHelper,
                 mainWindowController);
 
-            DialogBoxHandler = (name, wnd) =>
+            DialogBoxHandler = (s, hWnd) =>
             {
-                var messageBox = new MessageBoxTester(wnd);
-                messageBoxText = messageBox.Text;
-                messageBox.SendCommand(MessageBoxTester.Command.Yes);
-
-                ModalFormHandler = (modalName, modalWnd, form) =>
-                {
-                    var saveFileDialog = new SaveFileDialogTester(modalWnd);
-                    saveFileDialog.SaveFile(someValidFilePath);
-
-                    DialogBoxHandler = (s, hWnd) =>
-                    {
-                        // Expect progress dialog, which will close automatically.
-                    };
-                };
+                // Expect progress dialog, which will close automatically.
             };
 
             // Call
@@ -1050,8 +1068,6 @@ namespace Core.Common.Gui.Test.Commands
             Assert.IsTrue(changesHandled);
 
             mocks.VerifyAll();
-            string expectedMessage = $"Sla wijzigingen in het project op: {projectName}?";
-            Assert.AreEqual(expectedMessage, messageBoxText);
         }
     }
 }

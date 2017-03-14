@@ -51,17 +51,17 @@ namespace Core.Common.Gui
 
         public string GetSourceFileLocation()
         {
-            return GetSourceFileLocation(new FileFilterGenerator());
+            return GetSourceFileLocation(new FileFilterGenerator().Filter);
         }
 
-        public string GetSourceFileLocation(FileFilterGenerator filter)
+        public string GetSourceFileLocation(string fileFilter)
         {
             string filePath = null;
             using (var dialog = new OpenFileDialog
             {
                 Multiselect = false,
                 Title = Resources.OpenFileDialog_Title,
-                Filter = filter.Filter
+                Filter = fileFilter
             })
             {
                 DialogResult result = dialog.ShowDialog(dialogParent);
@@ -75,16 +75,16 @@ namespace Core.Common.Gui
 
         public string GetTargetFileLocation()
         {
-            return GetTargetFileLocation(new FileFilterGenerator(), null);
+            return GetTargetFileLocation(new FileFilterGenerator().Filter, null);
         }
 
-        public string GetTargetFileLocation(FileFilterGenerator filter, string suggestedFileName)
+        public string GetTargetFileLocation(string fileFilter, string suggestedFileName)
         {
             string filePath = null;
             using (var dialog = new SaveFileDialog
             {
                 Title = Resources.SaveFileDialog_Title,
-                Filter = filter.Filter,
+                Filter = fileFilter,
                 FileName = suggestedFileName
             })
             {
@@ -100,11 +100,31 @@ namespace Core.Common.Gui
         public bool InquireContinuation(string query)
         {
             DialogResult dialog = MessageBox.Show(
-                dialogParent, 
-                query, 
-                CoreCommonBaseResources.Confirm, 
+                dialogParent,
+                query,
+                CoreCommonBaseResources.Confirm,
                 MessageBoxButtons.OKCancel);
             return dialog == DialogResult.OK;
+        }
+
+        public OptionalStepResult InquirePerformOptionalStep(string workflowDescription, string query)
+        {
+            DialogResult confirmation = MessageBox.Show(dialogParent,
+                                                        query,
+                                                        workflowDescription,
+                                                        MessageBoxButtons.YesNoCancel);
+
+            switch (confirmation)
+            {
+                case DialogResult.Cancel:
+                    return OptionalStepResult.Cancel;
+                case DialogResult.Yes:
+                    return OptionalStepResult.PerformOptionalStep;
+                case DialogResult.No:
+                    return OptionalStepResult.SkipOptionalStep;
+                default:
+                    throw new NotImplementedException("Dialogbox should only return the above values.");
+            }
         }
     }
 }

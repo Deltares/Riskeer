@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
@@ -38,14 +37,6 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
     [TestFixture]
     public class GrassCoverErosionInwardsConfigurationWriterTest
     {
-        private static IEnumerable<TestCaseData> Calculations
-        {
-            get
-            {
-                yield break;
-            }
-        }
-
         [Test]
         public void Write_ConfigurationNull_ThrowArgumentNullException()
         {
@@ -187,7 +178,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
                 TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
                 Path.Combine(nameof(GrassCoverErosionInwardsConfigurationWriter), "completeConfiguration.xml"));
 
-            var calculation = CreateCompleteCalculation();
+            GrassCoverErosionInwardsCalculation calculation = CreateCompleteCalculation();
 
             try
             {

@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Xml;
 using Ringtoets.Common.Data.Probabilistics;
@@ -30,10 +29,10 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 namespace Ringtoets.GrassCoverErosionInwards.IO
 {
     /// <summary>
-    /// Writer for writing a piping configuration to XML.
+    /// Writer for writing a grass cover erosion inwards configuration to XML.
     /// </summary>
-    public class GrassCoverErosionInwardsConfigurationWriter : CalculationConfigurationWriter<GrassCoverErosionInwardsCalculation> {
-
+    public class GrassCoverErosionInwardsConfigurationWriter : CalculationConfigurationWriter<GrassCoverErosionInwardsCalculation>
+    {
         protected override void WriteCalculation(GrassCoverErosionInwardsCalculation calculation, XmlWriter writer)
         {
             writer.WriteStartElement(ConfigurationSchemaIdentifiers.CalculationElement);
@@ -63,11 +62,15 @@ namespace Ringtoets.GrassCoverErosionInwards.IO
             writer.WriteEndElement();
         }
 
-        private static IEnumerable<Tuple<string, IDistribution>> CreateInputDistributions(GrassCoverErosionInwardsInput calculationInputParameters)
+        private static IDictionary<string, IDistribution> CreateInputDistributions(GrassCoverErosionInwardsInput calculationInputParameters)
         {
-            yield return Tuple.Create<string, IDistribution>(
-                GrassCoverErosionInwardsConfigurationSchemaIdentifiers.CriticalFlowRateStochastName,
-                calculationInputParameters.CriticalFlowRate);
+            return new Dictionary<string, IDistribution>
+            {
+                {
+                    GrassCoverErosionInwardsConfigurationSchemaIdentifiers.CriticalFlowRateStochastName,
+                    calculationInputParameters.CriticalFlowRate
+                }
+            };
         }
 
         private static void WriteWaveReduction(GrassCoverErosionInwardsInput input, XmlWriter writer)

@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Xml;
 using Ringtoets.Common.Data.Probabilistics;
@@ -80,15 +79,19 @@ namespace Ringtoets.Piping.IO.Exporters
             writer.WriteEndElement();
         }
 
-        private static IEnumerable<Tuple<string, IDistribution>> CreateInputDistributions(PipingInput calculationInputParameters)
+        private static IDictionary<string, IDistribution> CreateInputDistributions(PipingInput calculationInputParameters)
         {
-            yield return Tuple.Create<string, IDistribution>(
-                PipingConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName,
-                calculationInputParameters.PhreaticLevelExit);
-
-            yield return Tuple.Create<string, IDistribution>(
-                PipingConfigurationSchemaIdentifiers.DampingFactorExitStochastName,
-                calculationInputParameters.DampingFactorExit);
+            return new Dictionary<string, IDistribution>
+            {
+                {
+                    PipingConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName,
+                    calculationInputParameters.PhreaticLevelExit
+                },
+                {
+                    PipingConfigurationSchemaIdentifiers.DampingFactorExitStochastName,
+                    calculationInputParameters.DampingFactorExit
+                }
+            };
         }
     }
 }

@@ -36,9 +36,9 @@ namespace Core.Common.Gui
         /// <summary>
         /// Returns the path of an existing file that the user has chosen.
         /// </summary>
-        /// <param name="filter">A filter to which the path returned complies.</param>
+        /// <param name="fileFilter">A filter to which the path returned complies.</param>
         /// <returns>A file location, or <c>null</c> if no location was chosen.</returns>
-        string GetSourceFileLocation(FileFilterGenerator filter);
+        string GetSourceFileLocation(string fileFilter);
 
         /// <summary>
         /// Returns the path to a file, which may or may not exist yet, that the user has chosen.
@@ -50,11 +50,11 @@ namespace Core.Common.Gui
         /// <summary>
         /// Returns the path to a file, which may or may not exist yet, that the user has chosen.
         /// </summary>
-        /// <param name="filter">A filter to which the path returned complies.</param>
+        /// <param name="fileFilter">A filter to which the path returned complies.</param>
         /// <param name="suggestedName">The initial name the user can choose.</param>
         /// <returns>A path to a file, which may or may not exist yet, or <c>null</c> if no location
         /// was chosen.</returns>
-        string GetTargetFileLocation(FileFilterGenerator filter, string suggestedName);
+        string GetTargetFileLocation(string fileFilter, string suggestedName);
 
         /// <summary>
         /// Gets the confirmation of a user.
@@ -62,5 +62,15 @@ namespace Core.Common.Gui
         /// <param name="query">The query to which the user needs to answer.</param>
         /// <returns><c>true</c> if the user confirmed, <c>false</c> otherwise.</returns>
         bool InquireContinuation(string query);
+
+        /// <summary>
+        /// Checks with the user if a certain optional step in some workflow should be
+        /// performed or not.
+        /// </summary>
+        /// <param name="workflowDescription">The short descriptive text on the workflow
+        /// currently being performed.</param>
+        /// <param name="query">The query to which the user needs to answer.</param>
+        /// <returns>How the workflow should continue.</returns>
+        OptionalStepResult InquirePerformOptionalStep(string workflowDescription, string query);
     }
 }

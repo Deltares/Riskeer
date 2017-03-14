@@ -145,6 +145,7 @@
     <Compile Include="IMainWindowController.cs" />
     <Compile Include="IProjectOwner.cs" />
     <Compile Include="OpenProjectActivity.cs" />
+    <Compile Include="OptionalStepResult.cs" />
     <Compile Include="Plugin\ExportInfo.cs" />
     <Compile Include="Plugin\UpdateInfo.cs" />
     <Compile Include="Plugin\ImportInfo.cs" />

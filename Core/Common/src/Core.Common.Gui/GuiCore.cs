@@ -123,7 +123,8 @@ namespace Core.Common.Gui
 
             viewCommandHandler = new ViewCommandHandler(this, this, this);
 
-            StorageCommands = new StorageCommandHandler(projectStore, projectMigrator, projectFactory, this, MainWindow);
+            StorageCommands = new StorageCommandHandler(projectStore, projectMigrator, projectFactory,
+                                                        this, dialogBasedInquiryHelper, MainWindow);
 
             importCommandHandler = new GuiImportHandler(MainWindow, Plugins.SelectMany(p => p.GetImportInfos()), dialogBasedInquiryHelper);
             exportCommandHandler = new GuiExportHandler(MainWindow, Plugins.SelectMany(p => p.GetExportInfos()));

@@ -265,7 +265,7 @@ namespace Application.Ringtoets.Migration.Test
 
             var mocks = new MockRepository();
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            inquiryHelper.Expect(h => h.GetTargetFileLocation(expectedFileFilter, expectedSuggestedFileName))
+            inquiryHelper.Expect(h => h.GetTargetFileLocation(expectedFileFilter.Filter, expectedSuggestedFileName))
                          .Return(expectedReturnPath);
             mocks.ReplayAll();
 

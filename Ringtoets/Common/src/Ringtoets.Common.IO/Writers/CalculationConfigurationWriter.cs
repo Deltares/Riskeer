@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Xml;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils.Properties;
@@ -92,26 +91,24 @@ namespace Ringtoets.Common.IO.Writers
         /// <summary>
         /// Writes the <paramref name="distributions"/> in XML format to file.
         /// </summary>
-        /// <param name="distributions">The distributions, as tuples of name and distribution, to write.</param>
+        /// <param name="distributions">The dictionary of distributions, keyed on name, to write.</param>
         /// <param name="writer">The writer to use for writing.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="distributions"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is closed.</exception>
-        protected static void WriteDistributions(IEnumerable<Tuple<string, IDistribution>> distributions, XmlWriter writer)
+        protected static void WriteDistributions(IDictionary<string, IDistribution> distributions, XmlWriter writer)
         {
             if (distributions == null)
             {
                 throw new ArgumentNullException(nameof(distributions));
             }
 
-            Tuple<string, IDistribution>[] disributionArray = distributions.ToArray();
-
-            if (disributionArray.Any())
+            if (distributions.Count > 0)
             {
                 writer.WriteStartElement(ConfigurationSchemaIdentifiers.StochastsElement);
 
-                foreach (Tuple<string, IDistribution> distribution in disributionArray)
+                foreach (KeyValuePair<string, IDistribution> keyValuePair in distributions)
                 {
-                    WriteDistribution(distribution.Item2, distribution.Item1, writer);
+                    WriteDistribution(keyValuePair.Value, keyValuePair.Key, writer);
                 }
 
                 writer.WriteEndElement();

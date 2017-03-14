@@ -144,7 +144,7 @@ namespace Core.Common.Gui.Commands
             string filePath = oldPath;
             if (!File.Exists(filePath))
             {
-                filePath = inquiryHelper.GetSourceFileLocation(updateInfo.FileFilterGenerator);
+                filePath = inquiryHelper.GetSourceFileLocation(updateInfo.FileFilterGenerator.Filter);
             }
             if (filePath != null && updateInfo.VerifyUpdates(target))
             {

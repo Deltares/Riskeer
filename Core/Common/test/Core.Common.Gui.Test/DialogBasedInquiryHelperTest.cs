@@ -258,6 +258,56 @@ namespace Core.Common.Gui.Test
             Assert.AreEqual(confirm, result);
         }
 
+        [Test]
+        [TestCase(DialogResult.Cancel, OptionalStepResult.Cancel)]
+        [TestCase(DialogResult.Yes, OptionalStepResult.PerformOptionalStep)]
+        [TestCase(DialogResult.No, OptionalStepResult.SkipOptionalStep)]
+        public void InquirePerformOptionalStep_VariousScenarios_ReturnExpectedValue(DialogResult clickedResult,
+            OptionalStepResult expectedResult)
+        {
+            // Setup
+            dialogParent.Expect(d => d.Handle).Repeat.AtLeastOnce().Return(default(IntPtr));
+            mocks.ReplayAll();
+
+            var helper = new DialogBasedInquiryHelper(dialogParent);
+
+            string actualQuery = null;
+            string title = null;
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var tester = new MessageBoxTester(wnd);
+                actualQuery = tester.Text;
+                title = tester.Title;
+
+                switch (clickedResult)
+                {
+                    case DialogResult.Yes:
+                        tester.SendCommand(MessageBoxTester.Command.Yes);
+                        break;
+                    case DialogResult.No:
+                        tester.SendCommand(MessageBoxTester.Command.No);
+                        break;
+                    case DialogResult.Cancel:
+                        tester.SendCommand(MessageBoxTester.Command.Cancel);
+                        break;
+                }
+            };
+
+            const string description = "A";
+            const string query = "B";
+
+            // Call
+            OptionalStepResult result = helper.InquirePerformOptionalStep(description, query);
+
+            // Assert
+            Assert.AreEqual(expectedResult, result);
+
+            Assert.AreEqual(description, title);
+            Assert.AreEqual(query, actualQuery);
+            mocks.VerifyAll();
+        }
+
         public override void TearDown()
         {
             mocks.VerifyAll();

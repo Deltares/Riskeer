@@ -44,6 +44,7 @@ namespace Core.Common.Gui.Commands
         private readonly IStoreProject projectPersistor;
         private readonly IProjectFactory projectFactory;
         private readonly IMigrateProject projectMigrator;
+        private readonly IInquiryHelper inquiryHelper;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StorageCommandHandler"/> class.
@@ -52,15 +53,15 @@ namespace Core.Common.Gui.Commands
         /// <param name="projectMigrator">Class responsible for the migration of the application projects.</param>
         /// <param name="projectFactory">The factory to use when creating new projects.</param>
         /// <param name="projectOwner">The class owning the application project.</param>
+        /// <param name="inquiryHelper">The object facilitating user interaction.</param>
         /// <param name="dialogParent">Controller for UI.</param>
-        public StorageCommandHandler(IStoreProject projectStorage,
-                                     IMigrateProject projectMigrator,
-                                     IProjectFactory projectFactory,
-                                     IProjectOwner projectOwner,
-                                     IWin32Window dialogParent)
+        public StorageCommandHandler(IStoreProject projectStorage, IMigrateProject projectMigrator,
+                                     IProjectFactory projectFactory, IProjectOwner projectOwner,
+                                     IInquiryHelper inquiryHelper, IWin32Window dialogParent)
         {
             this.dialogParent = dialogParent;
             this.projectOwner = projectOwner;
+            this.inquiryHelper = inquiryHelper;
             projectPersistor = projectStorage;
             this.projectMigrator = projectMigrator;
             this.projectFactory = projectFactory;
@@ -271,22 +272,19 @@ namespace Core.Common.Gui.Commands
 
         private bool ShowSaveUnsavedChangesDialog()
         {
-            var confirmation = MessageBox.Show(
-                string.Format(CultureInfo.CurrentCulture,
-                              Resources.StorageCommandHandler_OpenSaveOrDiscardProjectDialog_SaveChangesToProject_0,
-                              projectOwner.Project.Name),
-                Resources.StorageCommandHandler_ClosingProject_Title,
-                MessageBoxButtons.YesNoCancel);
+            string inquiry = string.Format(CultureInfo.CurrentCulture,
+                                           Resources.StorageCommandHandler_OpenSaveOrDiscardProjectDialog_SaveChangesToProject_0,
+                                           projectOwner.Project.Name);
+            OptionalStepResult confirmation = inquiryHelper.InquirePerformOptionalStep(Resources.StorageCommandHandler_ClosingProject_Title,
+                                                                                       inquiry);
 
             switch (confirmation)
             {
-                case DialogResult.Cancel:
+                case OptionalStepResult.Cancel:
                     return false;
-                case DialogResult.Yes:
+                case OptionalStepResult.PerformOptionalStep:
                     ReleaseDatabaseFileHandle();
                     return SaveProject();
-                case DialogResult.No:
-                    break;
             }
             return true;
         }
@@ -304,20 +302,12 @@ namespace Core.Common.Gui.Commands
         /// <returns>The selected project file, or <c>null</c> otherwise.</returns>
         private string OpenProjectSaveFileDialog(string projectName)
         {
-            using (var saveFileDialog = new SaveFileDialog
+            string filePath = inquiryHelper.GetTargetFileLocation(projectPersistor.FileFilter, projectName);
+            if (filePath == null)
             {
-                Title = Resources.SaveFileDialog_Title,
-                Filter = projectPersistor.FileFilter,
-                FileName = projectName
-            })
-            {
-                if (saveFileDialog.ShowDialog() != DialogResult.OK)
-                {
-                    log.Info(Resources.StorageCommandHandler_SaveProject_Saving_project_canceled);
-                    return null;
-                }
-                return saveFileDialog.FileName;
+                log.Info(Resources.StorageCommandHandler_SaveProject_Saving_project_canceled);
             }
+            return filePath;
         }
     }
 }
