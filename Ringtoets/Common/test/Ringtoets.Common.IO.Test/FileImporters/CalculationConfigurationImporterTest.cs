@@ -184,6 +184,25 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Assert.AreEqual(expectedProgressMessages.Length, progressChangedCallCount);
         }
 
+        [Test]
+        public void Import_ValidConfigurationWithValidData_DataAddedToModel()
+        {
+            // Setup
+            string filePath = Path.Combine(readerPath, "validConfiguration.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new TestCalculationConfigurationImporter(filePath,
+                                                                    calculationGroup);
+
+            // Call
+            bool successful = importer.Import();
+
+            // Assert
+            Assert.IsTrue(successful);
+            AssertCalculationGroup(GetExpectedNestedData(), calculationGroup);
+        }
+
         private class TestCalculationConfigurationImporter : CalculationConfigurationImporter<TestCalculationConfigurationReader, ReadCalculation>
         {
             public TestCalculationConfigurationImporter(string filePath, CalculationGroup importTarget)
@@ -240,6 +259,78 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             public string Text { get; set; }
             public int CurrentStep { get; set; }
             public int TotalNumberOfSteps { get; set; }
+        }
+
+        private static CalculationGroup GetExpectedNestedData()
+        {
+            return new CalculationGroup("Root", false)
+            {
+                Children =
+                {
+                    new CalculationGroup("Group 1", false)
+                    {
+                        Children =
+                        {
+                            new TestCalculation
+                            {
+                                Name = "Calculation 3"
+                            }
+                        }
+                    },
+                    new TestCalculation
+                    {
+                        Name = "Calculation 1"
+                    },
+                    new CalculationGroup("Group 2", false)
+                    {
+                        Children =
+                        {
+                            new CalculationGroup("Group 4", false)
+                            {
+                                Children =
+                                {
+                                    new TestCalculation
+                                    {
+                                        Name = "Calculation 5"
+                                    }
+                                }
+                            },
+                            new TestCalculation
+                            {
+                                Name = "Calculation 4"
+                            }
+                        }
+                    },
+                    new TestCalculation
+                    {
+                        Name = "Calculation 2"
+                    },
+                    new CalculationGroup("Group 3", false)
+                }
+            };
+        }
+
+        private static void AssertCalculationGroup(CalculationGroup expectedCalculationGroup, CalculationGroup actualCalculationGroup)
+        {
+            Assert.AreEqual(expectedCalculationGroup.Children.Count, actualCalculationGroup.Children.Count);
+            Assert.IsTrue(actualCalculationGroup.IsNameEditable);
+
+            for (var i = 0; i < expectedCalculationGroup.Children.Count; i++)
+            {
+                Assert.AreEqual(expectedCalculationGroup.Children[i].Name, actualCalculationGroup.Children[i].Name);
+                var innerCalculationgroup = expectedCalculationGroup.Children[i] as CalculationGroup;
+                var innerCalculation = expectedCalculationGroup.Children[i] as TestCalculation;
+
+                if (innerCalculationgroup != null)
+                {
+                    AssertCalculationGroup(innerCalculationgroup, (CalculationGroup) actualCalculationGroup.Children[i]);
+                }
+
+                if (innerCalculation != null)
+                {
+                    Assert.AreEqual(innerCalculation.Name, ((TestCalculation) actualCalculationGroup.Children[i]).Name);
+                }
+            }
         }
     }
 }

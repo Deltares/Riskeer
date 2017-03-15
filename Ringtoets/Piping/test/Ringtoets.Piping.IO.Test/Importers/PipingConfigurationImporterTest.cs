@@ -451,111 +451,13 @@ namespace Ringtoets.Piping.IO.Test.Importers
                 expectedCalculation.InputParameters.AssessmentLevel = (RoundedDouble) 1.1;
             }
 
-            AssertCalculationGroup(new CalculationGroup
-            {
-                Children =
-                {
-                    expectedCalculation
-                }
-            }, calculationGroup);
-        }
-
-        [Test]
-        public void Import_ValidConfigurationWithValidData_DataAddedToModel()
-        {
-            // Setup
-            string filePath = Path.Combine(importerPath, "validConfigurationNesting.xml");
-
-            var calculationGroup = new CalculationGroup();
-            var pipingFailureMechanism = new PipingFailureMechanism();
-
-            var importer = new PipingConfigurationImporter(filePath,
-                                                           calculationGroup,
-                                                           Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                           pipingFailureMechanism);
-
-            // Call
-            bool successful = importer.Import();
-
-            // Assert
-            Assert.IsTrue(successful);
-            AssertCalculationGroup(GetExpectedNestedData(), calculationGroup);
-        }
-
-        private static CalculationGroup GetExpectedNestedData()
-        {
-            return new CalculationGroup("Root", false)
-            {
-                Children =
-                {
-                    new CalculationGroup("Group 1", false)
-                    {
-                        Children =
-                        {
-                            new PipingCalculationScenario(new GeneralPipingInput())
-                            {
-                                Name = "Calculation 3"
-                            }
-                        }
-                    },
-                    new PipingCalculationScenario(new GeneralPipingInput())
-                    {
-                        Name = "Calculation 1"
-                    },
-                    new CalculationGroup("Group 2", false)
-                    {
-                        Children =
-                        {
-                            new CalculationGroup("Group 4", false)
-                            {
-                                Children =
-                                {
-                                    new PipingCalculationScenario(new GeneralPipingInput())
-                                    {
-                                        Name = "Calculation 5"
-                                    }
-                                }
-                            },
-                            new PipingCalculationScenario(new GeneralPipingInput())
-                            {
-                                Name = "Calculation 4"
-                            }
-                        }
-                    },
-                    new PipingCalculationScenario(new GeneralPipingInput())
-                    {
-                        Name = "Calculation 2"
-                    },
-                    new CalculationGroup("Group 3", false)
-                }
-            };
-        }
-
-        private static void AssertCalculationGroup(CalculationGroup expectedCalculationGroup, CalculationGroup actualCalculationGroup)
-        {
-            Assert.AreEqual(expectedCalculationGroup.Children.Count, actualCalculationGroup.Children.Count);
-            Assert.IsTrue(actualCalculationGroup.IsNameEditable);
-
-            for (var i = 0; i < expectedCalculationGroup.Children.Count; i++)
-            {
-                Assert.AreEqual(expectedCalculationGroup.Children[i].Name, actualCalculationGroup.Children[i].Name);
-                var innerCalculationgroup = expectedCalculationGroup.Children[i] as CalculationGroup;
-                var innerCalculation = expectedCalculationGroup.Children[i] as PipingCalculationScenario;
-
-                if (innerCalculationgroup != null)
-                {
-                    AssertCalculationGroup(innerCalculationgroup, (CalculationGroup) actualCalculationGroup.Children[i]);
-                }
-
-                if (innerCalculation != null)
-                {
-                    AssertCalculation(innerCalculation, (PipingCalculationScenario) actualCalculationGroup.Children[i]);
-                }
-            }
+            Assert.AreEqual(1, calculationGroup.Children.Count);
+            AssertCalculation(expectedCalculation, (PipingCalculationScenario) calculationGroup.Children[0]);
         }
 
         private static void AssertCalculation(PipingCalculationScenario expectedCalculation, PipingCalculationScenario actualCalculation)
         {
+            Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
             Assert.AreEqual(expectedCalculation.InputParameters.UseAssessmentLevelManualInput, actualCalculation.InputParameters.UseAssessmentLevelManualInput);
             if (expectedCalculation.InputParameters.UseAssessmentLevelManualInput)
             {
