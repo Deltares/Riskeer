@@ -452,10 +452,10 @@ namespace Ringtoets.Piping.IO.Test.Importers
             }
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertCalculation(expectedCalculation, (PipingCalculationScenario) calculationGroup.Children[0]);
+            AssertPipingCalculationScenario(expectedCalculation, (PipingCalculationScenario) calculationGroup.Children[0]);
         }
 
-        private static void AssertCalculation(PipingCalculationScenario expectedCalculation, PipingCalculationScenario actualCalculation)
+        private static void AssertPipingCalculationScenario(PipingCalculationScenario expectedCalculation, PipingCalculationScenario actualCalculation)
         {
             Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
             Assert.AreEqual(expectedCalculation.InputParameters.UseAssessmentLevelManualInput, actualCalculation.InputParameters.UseAssessmentLevelManualInput);

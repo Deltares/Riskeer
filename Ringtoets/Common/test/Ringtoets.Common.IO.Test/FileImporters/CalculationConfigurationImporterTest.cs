@@ -44,8 +44,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Constructor_ExpectedValues()
         {
             // Call
-            var importer = new TestCalculationConfigurationImporter("",
-                                                                    new CalculationGroup());
+            var importer = new CalculationConfigurationImporter("",
+                                                                new CalculationGroup());
 
             // Assert
             Assert.IsInstanceOf<FileImporterBase<CalculationGroup>>(importer);
@@ -57,8 +57,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, Path.DirectorySeparatorChar.ToString());
 
-            var importer = new TestCalculationConfigurationImporter(filePath,
-                                                                    new CalculationGroup());
+            var importer = new CalculationConfigurationImporter(filePath,
+                                                                new CalculationGroup());
 
             // Call
             var importSuccessful = true;
@@ -77,8 +77,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "I_dont_exist");
 
-            var importer = new TestCalculationConfigurationImporter(filePath,
-                                                                    new CalculationGroup());
+            var importer = new CalculationConfigurationImporter(filePath,
+                                                                new CalculationGroup());
 
             // Call
             var importSuccessful = true;
@@ -96,8 +96,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         {
             // Setup
             string filePath = Path.Combine(readerPath, "invalidFolderNoName.xml");
-            var importer = new TestCalculationConfigurationImporter(filePath,
-                                                                    new CalculationGroup());
+            var importer = new CalculationConfigurationImporter(filePath,
+                                                                new CalculationGroup());
 
             // Call
             var importSuccessful = true;
@@ -123,8 +123,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             var calculationGroup = new CalculationGroup();
 
             string filePath = Path.Combine(readerPath, "validConfiguration.xml");
-            var importer = new TestCalculationConfigurationImporter(filePath,
-                                                                    calculationGroup);
+            var importer = new CalculationConfigurationImporter(filePath,
+                                                                calculationGroup);
 
             importer.SetProgressChanged((description, step, steps) =>
             {
@@ -149,8 +149,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         {
             // Given
             string filePath = Path.Combine(readerPath, "validConfiguration.xml");
-            var importer = new TestCalculationConfigurationImporter(filePath,
-                                                                    new CalculationGroup());
+            var importer = new CalculationConfigurationImporter(filePath,
+                                                                new CalculationGroup());
 
             var expectedProgressMessages = new[]
             {
@@ -192,8 +192,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             var calculationGroup = new CalculationGroup();
 
-            var importer = new TestCalculationConfigurationImporter(filePath,
-                                                                    calculationGroup);
+            var importer = new CalculationConfigurationImporter(filePath,
+                                                                calculationGroup);
 
             // Call
             bool successful = importer.Import();
@@ -203,14 +203,14 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             AssertCalculationGroup(GetExpectedNestedData(), calculationGroup);
         }
 
-        private class TestCalculationConfigurationImporter : CalculationConfigurationImporter<TestCalculationConfigurationReader, ReadCalculation>
+        private class CalculationConfigurationImporter : CalculationConfigurationImporter<CalculationConfigurationReader, ReadCalculation>
         {
-            public TestCalculationConfigurationImporter(string filePath, CalculationGroup importTarget)
+            public CalculationConfigurationImporter(string filePath, CalculationGroup importTarget)
                 : base(filePath, importTarget) {}
 
-            protected override TestCalculationConfigurationReader CreateConfigurationReader(string xmlFilePath)
+            protected override CalculationConfigurationReader CreateConfigurationReader(string xmlFilePath)
             {
-                return new TestCalculationConfigurationReader(xmlFilePath);
+                return new CalculationConfigurationReader(xmlFilePath);
             }
 
             protected override ICalculationBase ParseReadCalculation(ReadCalculation readCalculation)
@@ -222,7 +222,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             }
         }
 
-        private class TestCalculationConfigurationReader : CalculationConfigurationReader<ReadCalculation>
+        private class CalculationConfigurationReader : CalculationConfigurationReader<ReadCalculation>
         {
             private static readonly string mainSchemaDefinition =
                 File.ReadAllText(Path.Combine(TestHelper.GetTestDataPath(
@@ -230,7 +230,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                                                   "CalculationConfigurationReader"),
                                               "validConfigurationSchema.xsd"));
 
-            public TestCalculationConfigurationReader(string xmlFilePath)
+            public CalculationConfigurationReader(string xmlFilePath)
                 : base(xmlFilePath, mainSchemaDefinition, new Dictionary<string, string>()) {}
 
             protected override ReadCalculation ParseCalculationElement(XElement calculationElement)
