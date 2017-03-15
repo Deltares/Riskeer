@@ -26,15 +26,15 @@ using Core.Common.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
-using Ringtoets.Revetment.IO.Exporters;
-using Ringtoets.Revetment.TestUtil;
+using Ringtoets.GrassCoverErosionOutwards.IO.Exporters;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsWaveConditionsCalculationContextWaveConditionsExportInfoTest
+    public class GrassCoverErosionOutwardsWaveConditionsCalculationGroupContextConfigurationExportInfoTest
     {
         private ExportInfo exportInfo;
 
@@ -44,8 +44,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 exportInfo = plugin.GetExportInfos()
-                                   .Single(ei => ei.DataType == typeof(GrassCoverErosionOutwardsWaveConditionsCalculationContext)
-                                                 && ei.Name.Equals("Berekende belastingen bij verschillende waterstanden (*.csv)."));
+                                   .Single(ei => ei.DataType == typeof(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext)
+                                                 && ei.Name.Equals("Ringtoets berekeningenconfiguratie (*.xml)"));
             }
         }
 
@@ -68,17 +68,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(new GrassCoverErosionOutwardsWaveConditionsCalculation(),
-                                                                                        failureMechanism, assessmentSection);
+            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(new CalculationGroup(),
+                                                                                             new GrassCoverErosionOutwardsFailureMechanism(),
+                                                                                             assessmentSection);
 
             // Call
             IFileExporter fileExporter = exportInfo.CreateFileExporter(context, "test");
 
             // Assert
-            Assert.IsInstanceOf<WaveConditionsExporterBase>(fileExporter);
-            mocks.VerifyAll();
+            Assert.IsInstanceOf<GrassCoverErosionOutwardsCalculationConfigurationExporter>(fileExporter);
         }
 
         [Test]
@@ -88,57 +86,59 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
             FileFilterGenerator fileFilterGenerator = exportInfo.FileFilterGenerator;
 
             // Assert
-            Assert.AreEqual("Kommagescheiden bestand (*.csv)|*.csv", fileFilterGenerator.Filter);
+            Assert.AreEqual("Ringtoets berekeningenconfiguratie (*.xml)|*.xml", fileFilterGenerator.Filter);
         }
 
         [Test]
-        public void IsEnabled_CalculationWithoutOutput_ReturnFalse()
+        public void IsEnabled_CalculationGroupNoChildren_ReturnFalse()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(new GrassCoverErosionOutwardsWaveConditionsCalculation(),
-                                                                                        failureMechanism, assessmentSection);
+            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(new CalculationGroup(),
+                                                                                             new GrassCoverErosionOutwardsFailureMechanism(),
+                                                                                             assessmentSection);
 
             // Call
             bool isEnabled = exportInfo.IsEnabled(context);
 
             // Assert
             Assert.IsFalse(isEnabled);
-            mocks.VerifyAll();
         }
 
         [Test]
-        public void IsEnabled_CalculationWithOutput_ReturnTrue()
+        [TestCase(true, false)]
+        [TestCase(false, true)]
+        public void IsEnabled_CalculationGroupWithChildren_ReturnTrue(bool hasNestedGroup, bool hasCalculation)
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var output = new[]
-            {
-                new TestWaveConditionsOutput()
-            };
+            var calculationGroup = new CalculationGroup();
 
-            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(
-                new GrassCoverErosionOutwardsWaveConditionsCalculation
-                {
-                    Output = new GrassCoverErosionOutwardsWaveConditionsOutput(output)
-                },
-                failureMechanism, assessmentSection);
+            if (hasNestedGroup)
+            {
+                calculationGroup.Children.Add(new CalculationGroup());
+            }
+
+            if (hasCalculation)
+            {
+                calculationGroup.Children.Add(new GrassCoverErosionOutwardsWaveConditionsCalculation());
+            }
+
+            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(calculationGroup,
+                                                                                             new GrassCoverErosionOutwardsFailureMechanism(),
+                                                                                             assessmentSection);
 
             // Call
             bool isEnabled = exportInfo.IsEnabled(context);
 
             // Assert
             Assert.IsTrue(isEnabled);
-            mocks.VerifyAll();
         }
     }
 }
