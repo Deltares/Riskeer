@@ -31,7 +31,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO
     /// Exports a grass cover erosion inwards configuration and stores it as an XML file.
     /// </summary>
     public class GrassCoverErosionInwardsConfigurationExporter
-        : ConfigurationExporter<GrassCoverErosionInwardsConfigurationWriter, GrassCoverErosionInwardsCalculation>
+        : ConfigurationExporter<GrassCoverErosionInwardsCalculationConfigurationWriter, GrassCoverErosionInwardsCalculation>
     {
 
         /// <summary>

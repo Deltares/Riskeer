@@ -51,7 +51,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="GrassCoverErosionInwardsConfigurationExporterTest.cs" />
-    <Compile Include="GrassCoverErosionInwardsConfigurationWriterTest.cs" />
+    <Compile Include="GrassCoverErosionInwardsCalculationConfigurationWriterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

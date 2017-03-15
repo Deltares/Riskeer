@@ -42,7 +42,7 @@
     </Compile>
     <Compile Include="GrassCoverErosionInwardsConfigurationExporter.cs" />
     <Compile Include="GrassCoverErosionInwardsConfigurationSchemaIdentifiers.cs" />
-    <Compile Include="GrassCoverErosionInwardsConfigurationWriter.cs" />
+    <Compile Include="GrassCoverErosionInwardsCalculationConfigurationWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

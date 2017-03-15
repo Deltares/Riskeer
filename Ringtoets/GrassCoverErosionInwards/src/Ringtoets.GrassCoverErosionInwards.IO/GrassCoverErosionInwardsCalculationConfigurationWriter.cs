@@ -31,7 +31,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO
     /// <summary>
     /// Writer for writing a grass cover erosion inwards configuration to XML.
     /// </summary>
-    public class GrassCoverErosionInwardsConfigurationWriter : CalculationConfigurationWriter<GrassCoverErosionInwardsCalculation>
+    public class GrassCoverErosionInwardsCalculationConfigurationWriter : CalculationConfigurationWriter<GrassCoverErosionInwardsCalculation>
     {
         protected override void WriteCalculation(GrassCoverErosionInwardsCalculation calculation, XmlWriter writer)
         {

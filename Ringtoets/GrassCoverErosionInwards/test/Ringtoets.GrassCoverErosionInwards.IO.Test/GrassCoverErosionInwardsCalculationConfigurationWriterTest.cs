@@ -35,13 +35,13 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 namespace Ringtoets.GrassCoverErosionInwards.IO.Test
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsConfigurationWriterTest
+    public class GrassCoverErosionInwardsCalculationConfigurationWriterTest
     {
         [Test]
         public void Write_ConfigurationNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new GrassCoverErosionInwardsConfigurationWriter().Write(null, string.Empty);
+            TestDelegate test = () => new GrassCoverErosionInwardsCalculationConfigurationWriter().Write(null, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -52,7 +52,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
         public void Write_FilePathNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new GrassCoverErosionInwardsConfigurationWriter().Write(Enumerable.Empty<ICalculationBase>(), null);
+            TestDelegate test = () => new GrassCoverErosionInwardsCalculationConfigurationWriter().Write(Enumerable.Empty<ICalculationBase>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -66,7 +66,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
         public void Write_FilePathInvalid_ThrowCriticalFileWriteException(string filePath)
         {
             // Call
-            TestDelegate call = () => new GrassCoverErosionInwardsConfigurationWriter().Write(Enumerable.Empty<ICalculationBase>(), filePath);
+            TestDelegate call = () => new GrassCoverErosionInwardsCalculationConfigurationWriter().Write(Enumerable.Empty<ICalculationBase>(), filePath);
 
             // Assert
             var exception = Assert.Throws<CriticalFileWriteException>(call);
@@ -81,7 +81,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
             var filePath = new string('a', 249);
 
             // Call
-            TestDelegate call = () => new GrassCoverErosionInwardsConfigurationWriter().Write(Enumerable.Empty<ICalculationBase>(), filePath);
+            TestDelegate call = () => new GrassCoverErosionInwardsCalculationConfigurationWriter().Write(Enumerable.Empty<ICalculationBase>(), filePath);
 
             // Assert
             var exception = Assert.Throws<CriticalFileWriteException>(call);
@@ -100,7 +100,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
                 disposeHelper.LockDirectory(FileSystemRights.Write);
 
                 // Call
-                TestDelegate call = () => new GrassCoverErosionInwardsConfigurationWriter().Write(Enumerable.Empty<ICalculationBase>(), filePath);
+                TestDelegate call = () => new GrassCoverErosionInwardsCalculationConfigurationWriter().Write(Enumerable.Empty<ICalculationBase>(), filePath);
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileWriteException>(call);
@@ -120,7 +120,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
                 fileDisposeHelper.LockFiles();
 
                 // Call
-                TestDelegate call = () => new GrassCoverErosionInwardsConfigurationWriter().Write(Enumerable.Empty<ICalculationBase>(), path);
+                TestDelegate call = () => new GrassCoverErosionInwardsCalculationConfigurationWriter().Write(Enumerable.Empty<ICalculationBase>(), path);
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileWriteException>(call);
@@ -138,7 +138,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
 
             string expectedXmlFilePath = TestHelper.GetTestDataPath(
                 TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                Path.Combine(nameof(GrassCoverErosionInwardsConfigurationWriter), "sparseConfiguration.xml"));
+                Path.Combine(nameof(GrassCoverErosionInwardsCalculationConfigurationWriter), "sparseConfiguration.xml"));
 
             var calculation = new GrassCoverErosionInwardsCalculation()
             {
@@ -147,7 +147,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
 
             try
             {
-                var writer = new GrassCoverErosionInwardsConfigurationWriter();
+                var writer = new GrassCoverErosionInwardsCalculationConfigurationWriter();
 
                 // Call
                 writer.Write(new[]
@@ -176,13 +176,13 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
 
             string expectedXmlFilePath = TestHelper.GetTestDataPath(
                 TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                Path.Combine(nameof(GrassCoverErosionInwardsConfigurationWriter), "completeConfiguration.xml"));
+                Path.Combine(nameof(GrassCoverErosionInwardsCalculationConfigurationWriter), "completeConfiguration.xml"));
 
             GrassCoverErosionInwardsCalculation calculation = CreateCompleteCalculation();
 
             try
             {
-                var writer = new GrassCoverErosionInwardsConfigurationWriter();
+                var writer = new GrassCoverErosionInwardsCalculationConfigurationWriter();
 
                 // Call
                 writer.Write(new[]
@@ -233,7 +233,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
             try
             {
                 // Call
-                new GrassCoverErosionInwardsConfigurationWriter().Write(new[]
+                new GrassCoverErosionInwardsCalculationConfigurationWriter().Write(new[]
                 {
                     calculationGroup
                 }, filePath);
@@ -243,7 +243,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
 
                 string actualXml = File.ReadAllText(filePath);
                 string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                                        Path.Combine("GrassCoverErosionInwardsConfigurationWriter",
+                                                                        Path.Combine("GrassCoverErosionInwardsCalculationConfigurationWriter",
                                                                                      "folderWithSubfolderAndCalculation.xml"));
                 string expectedXml = File.ReadAllText(expectedXmlFilePath);
 
