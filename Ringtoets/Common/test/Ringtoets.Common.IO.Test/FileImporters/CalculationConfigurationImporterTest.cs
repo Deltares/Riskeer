@@ -22,19 +22,24 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml.Linq;
+using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.Readers;
+using Ringtoets.Common.IO.Schema;
 
 namespace Ringtoets.Common.IO.Test.FileImporters
 {
     [TestFixture]
     public class CalculationConfigurationImporterTest
     {
+        private readonly string readerPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "ConfigurationReader");
+
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -47,50 +52,118 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_CancelingImport_CancelImportAndLog()
+        public void Import_FilePathIsDirectory_CancelImportWithErrorMessage()
         {
             // Setup
-            var importer = new TestCalculationConfigurationImporter("",
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, Path.DirectorySeparatorChar.ToString());
+
+            var importer = new TestCalculationConfigurationImporter(filePath,
                                                                     new CalculationGroup());
 
-            importer.SetProgressChanged((description, step, steps) => { importer.Cancel(); });
+            // Call
+            var importSuccessful = true;
+            Action call = () => importSuccessful = importer.Import();
+
+            // Assert
+            string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': bestandspad mag niet verwijzen naar een lege bestandsnaam. " + Environment.NewLine +
+                                     "Er is geen berekeningenconfiguratie geïmporteerd.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            Assert.IsFalse(importSuccessful);
+        }
+
+        [Test]
+        public void Import_FileDoesNotExist_CancelImportWithErrorMessage()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "I_dont_exist");
+
+            var importer = new TestCalculationConfigurationImporter(filePath,
+                                                                    new CalculationGroup());
 
             // Call
-            Action call = () => importer.Import();
+            var importSuccessful = true;
+            Action call = () => importSuccessful = importer.Import();
+
+            // Assert
+            string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': het bestand bestaat niet. " + Environment.NewLine +
+                                     "Er is geen berekeningenconfiguratie geïmporteerd.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            Assert.IsFalse(importSuccessful);
+        }
+
+        [Test]
+        public void Import_InvalidFile_CancelImportWithErrorMessage()
+        {
+            // Setup
+            string filePath = Path.Combine(readerPath, "invalidFolderNoName.xml");
+            var importer = new TestCalculationConfigurationImporter(filePath,
+                                                                    new CalculationGroup());
+
+            // Call
+            var importSuccessful = true;
+            Action call = () => importSuccessful = importer.Import();
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(1, msgs.Length);
+                StringAssert.StartsWith($"Fout bij het lezen van bestand '{filePath}': het XML-document dat de configuratie voor de berekeningen beschrijft is niet geldig.", msgs[0]);
+            });
+
+            Assert.IsFalse(importSuccessful);
+        }
+
+        [Test]
+        [TestCase("Inlezen")]
+        [TestCase("Valideren")]
+        public void Import_CancelingImport_CancelImportAndLog(string expectedProgressMessage)
+        {
+            // Setup
+            var calculationGroup = new CalculationGroup();
+
+            string filePath = Path.Combine(readerPath, "validConfiguration.xml");
+            var importer = new TestCalculationConfigurationImporter(filePath,
+                                                                    calculationGroup);
+
+            importer.SetProgressChanged((description, step, steps) =>
+            {
+                if (description.Contains(expectedProgressMessage))
+                {
+                    importer.Cancel();
+                }
+            });
+
+            // Call
+            var importSuccessful = true;
+            Action call = () => importSuccessful = importer.Import();
 
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, "Berekeningenconfiguratie importeren afgebroken. Geen data ingelezen.", 1);
+            CollectionAssert.IsEmpty(calculationGroup.Children);
+            Assert.IsFalse(importSuccessful);
         }
 
-        private class TestCalculationConfigurationImporter : CalculationConfigurationImporter<TestConfigurationReader, TestReadConfigurationItem>
+        private class TestCalculationConfigurationImporter : CalculationConfigurationImporter<TestConfigurationReader, ReadCalculation>
         {
             public TestCalculationConfigurationImporter(string filePath, CalculationGroup importTarget)
                 : base(filePath, importTarget) {}
-
-            protected override bool OnImport()
-            {
-                NotifyProgress("Progress", 1, 1);
-
-                if (Canceled)
-                {
-                    return false;
-                }
-
-                return true;
-            }
 
             protected override TestConfigurationReader CreateConfigurationReader(string xmlFilePath)
             {
                 return new TestConfigurationReader(xmlFilePath);
             }
 
-            protected override ICalculationBase ParseReadCalculation(TestReadConfigurationItem readCalculation)
+            protected override ICalculationBase ParseReadCalculation(ReadCalculation readCalculation)
             {
-                throw new NotImplementedException();
+                return new TestCalculation
+                {
+                    Name = readCalculation.Name
+                };
             }
         }
 
-        private class TestConfigurationReader : ConfigurationReader<TestReadConfigurationItem>
+        private class TestConfigurationReader : ConfigurationReader<ReadCalculation>
         {
             private static readonly string mainSchemaDefinition =
                 File.ReadAllText(Path.Combine(TestHelper.GetTestDataPath(
@@ -101,15 +174,25 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             public TestConfigurationReader(string xmlFilePath)
                 : base(xmlFilePath, mainSchemaDefinition, new Dictionary<string, string>()) {}
 
-            protected override TestReadConfigurationItem ParseCalculationElement(XElement calculationElement)
+            protected override ReadCalculation ParseCalculationElement(XElement calculationElement)
             {
-                throw new NotImplementedException();
+                return new ReadCalculation(calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute)?.Value);
             }
         }
 
-        private class TestReadConfigurationItem : IReadConfigurationItem
+        private class ReadCalculation : IReadConfigurationItem
         {
+            public ReadCalculation(string name)
+            {
+                Name = name;
+            }
+
             public string Name { get; }
+        }
+
+        private class TestCalculation : Observable, ICalculationBase
+        {
+            public string Name { get; set; }
         }
     }
 }

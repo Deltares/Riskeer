@@ -76,7 +76,7 @@ namespace Ringtoets.Piping.IO.Importers
 
         protected override PipingConfigurationReader CreateConfigurationReader(string xmlFilePath)
         {
-            return new PipingConfigurationReader(FilePath);
+            return new PipingConfigurationReader(xmlFilePath);
         }
 
         protected override ICalculationBase ParseReadCalculation(ReadPipingCalculation readCalculation)
