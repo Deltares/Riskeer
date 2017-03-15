@@ -28,14 +28,14 @@ using Ringtoets.Piping.Data;
 namespace Ringtoets.Piping.IO.Exporters
 {
     /// <summary>
-    /// Exports a piping configuration and stores it as an XML file.
+    /// Exports a piping calculation configuration and stores it as an XML file.
     /// </summary>
     public class PipingCalculationConfigurationExporter : CalculationConfigurationExporter<PipingCalculationConfigurationWriter, PipingCalculation>
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingCalculationConfigurationExporter"/>.
         /// </summary>
-        /// <param name="configuration">The configuration to export.</param>
+        /// <param name="configuration">The calculation configuration to export.</param>
         /// <param name="filePath">The path of the XML file to export to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="configuration"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>

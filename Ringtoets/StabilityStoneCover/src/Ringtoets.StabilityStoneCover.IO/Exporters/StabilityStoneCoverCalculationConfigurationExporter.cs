@@ -29,7 +29,7 @@ using Ringtoets.StabilityStoneCover.IO.Writers;
 namespace Ringtoets.StabilityStoneCover.IO.Exporters
 {
     /// <summary>
-    /// Exports a stability stone cover configuration and stores it as an XML file.
+    /// Exports a stability stone cover calculation configuration and stores it as an XML file.
     /// </summary>
     public class StabilityStoneCoverCalculationConfigurationExporter
         : CalculationConfigurationExporter<StabilityStoneCoverCalculationConfigurationWriter, StabilityStoneCoverWaveConditionsCalculation>
@@ -37,7 +37,7 @@ namespace Ringtoets.StabilityStoneCover.IO.Exporters
         /// <summary>
         /// Creates a new instance of <see cref="StabilityStoneCoverCalculationConfigurationExporter"/>.
         /// </summary>
-        /// <param name="configuration">The configuration to export.</param>
+        /// <param name="configuration">The calculation configuration to export.</param>
         /// <param name="filePath">The path of the XML file to export to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="configuration"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>

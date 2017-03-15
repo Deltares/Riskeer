@@ -29,20 +29,19 @@ using Ringtoets.GrassCoverErosionInwards.IO.Writers;
 namespace Ringtoets.GrassCoverErosionInwards.IO.Exporters
 {
     /// <summary>
-    /// Exports a grass cover erosion inwards configuration and stores it as an XML file.
+    /// Exports a grass cover erosion inwards calculation configuration and stores it as an XML file.
     /// </summary>
     public class GrassCoverErosionInwardsCalculationConfigurationExporter
         : CalculationConfigurationExporter<GrassCoverErosionInwardsCalculationConfigurationWriter, GrassCoverErosionInwardsCalculation>
     {
-
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculationConfigurationExporter"/>.
         /// </summary>
-        /// <param name="configuration">The configuration to export.</param>
+        /// <param name="configuration">The calculation configuration to export.</param>
         /// <param name="filePath">The path of the XML file to export to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="configuration"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         public GrassCoverErosionInwardsCalculationConfigurationExporter(IEnumerable<ICalculationBase> configuration, string filePath)
-            : base(configuration, filePath) { }
+            : base(configuration, filePath) {}
     }
 }

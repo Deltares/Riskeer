@@ -36,7 +36,7 @@ using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 namespace Ringtoets.Common.IO.Readers
 {
     /// <summary>
-    /// Base class for reading a configuration from XML and creating a collection of corresponding
+    /// Base class for reading a calculation configuration from XML and creating a collection of corresponding
     /// <see cref="IReadConfigurationItem"/>, typically containing one or more <see cref="TReadCalculation"/>.
     /// </summary>
     /// <typeparam name="TReadCalculation">The type of calculation items read from XML.</typeparam>
@@ -93,7 +93,7 @@ namespace Ringtoets.Common.IO.Readers
         }
 
         /// <summary>
-        /// Reads the configuration from the XML and creates a collection of corresponding <see cref="IReadConfigurationItem"/>.
+        /// Reads the calculation configuration from the XML and creates a collection of corresponding <see cref="IReadConfigurationItem"/>.
         /// </summary>
         /// <returns>A collection of read <see cref="IReadConfigurationItem"/>.</returns>
         public IEnumerable<IReadConfigurationItem> Read()

@@ -32,15 +32,15 @@ using Ringtoets.Common.IO.Schema;
 namespace Ringtoets.Common.IO.Writers
 {
     /// <summary>
-    /// Base implementation of a writer for calculations to XML format.
+    /// Base implementation of writing calculation configurations to XML.
     /// </summary>
     /// <typeparam name="T">The type of calculations which are written to file.</typeparam>
     public abstract class CalculationConfigurationWriter<T> where T : class, ICalculation
     {
         /// <summary>
-        /// Writes a configuration to an XML file.
+        /// Writes a calculation configuration to an XML file.
         /// </summary>
-        /// <param name="configuration">The configuration to write.</param>
+        /// <param name="configuration">The calculation configuration to write.</param>
         /// <param name="filePath">The path to the target XML file.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="CriticalFileWriteException">Thrown when unable to write to <paramref name="filePath"/>.</exception>

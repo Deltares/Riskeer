@@ -32,7 +32,7 @@ using Ringtoets.Common.IO.Writers;
 namespace Ringtoets.Common.IO.Exporters
 {
     /// <summary>
-    /// Base class for exporting a configuration and storing it as an XML file.
+    /// Base class for exporting a calculation configuration and storing it as an XML file.
     /// </summary>
     public abstract class CalculationConfigurationExporter<TWriter, TCalculation> : IFileExporter
         where TCalculation : class, ICalculation
@@ -45,7 +45,7 @@ namespace Ringtoets.Common.IO.Exporters
         /// <summary>
         /// Creates a new instance of <see cref="CalculationConfigurationExporter{TWriter,TCalculation}"/>.
         /// </summary>
-        /// <param name="configuration">The configuration to export.</param>
+        /// <param name="configuration">The calculation configuration to export.</param>
         /// <param name="filePath">The path of the XML file to export to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="configuration"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>

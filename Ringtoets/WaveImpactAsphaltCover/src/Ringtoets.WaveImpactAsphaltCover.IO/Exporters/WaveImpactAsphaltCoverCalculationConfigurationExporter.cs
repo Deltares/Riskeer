@@ -29,7 +29,7 @@ using Ringtoets.WaveImpactAsphaltCover.IO.Writers;
 namespace Ringtoets.WaveImpactAsphaltCover.IO.Exporters
 {
     /// <summary>
-    /// Exports a wave impact asphalt cover configuration and stores it as an XML file.
+    /// Exports a wave impact asphalt cover calculation configuration and stores it as an XML file.
     /// </summary>
     public class WaveImpactAsphaltCoverCalculationConfigurationExporter
         : CalculationConfigurationExporter<WaveImpactAsphaltCoverCalculationConfigurationWriter, WaveImpactAsphaltCoverWaveConditionsCalculation>
@@ -37,7 +37,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.IO.Exporters
         /// <summary>
         /// Creates a new instance of <see cref="WaveImpactAsphaltCoverCalculationConfigurationExporter"/>.
         /// </summary>
-        /// <param name="configuration">The configuration to export.</param>
+        /// <param name="configuration">The calculation configuration to export.</param>
         /// <param name="filePath">The path of the XML file to export to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="configuration"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>

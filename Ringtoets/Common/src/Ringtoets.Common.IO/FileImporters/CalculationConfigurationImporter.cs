@@ -33,8 +33,7 @@ using Ringtoets.Common.IO.Readers;
 namespace Ringtoets.Common.IO.FileImporters
 {
     /// <summary>
-    /// Base class for importing a calculation configuration from an XML file and
-    /// storing it on a <see cref="CalculationGroup"/>.
+    /// Base class for importing a calculation configuration from an XML file and storing it on a <see cref="CalculationGroup"/>.
     /// </summary>
     /// <typeparam name="TCalculationConfigurationReader">The type of the reader to use for reading the XML file.</typeparam>
     /// <typeparam name="TReadCalculation">The type of the data read from the XML file by the reader.</typeparam>
@@ -95,10 +94,10 @@ namespace Ringtoets.Common.IO.FileImporters
         }
 
         /// <summary>
-        /// Creates the reader used for reading the configuration from the provided <paramref name="xmlFilePath"/>.
+        /// Creates the reader used for reading the calculation configuration from the provided <paramref name="xmlFilePath"/>.
         /// </summary>
         /// <param name="xmlFilePath">The path to the XML file to import from.</param>
-        /// <returns>A reader for reading the configuration.</returns>
+        /// <returns>A reader for reading the calculation configuration.</returns>
         /// <exception cref="ArgumentException">Thrown when <paramref name="xmlFilePath"/> is invalid.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
