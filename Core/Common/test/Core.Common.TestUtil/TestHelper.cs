@@ -67,7 +67,7 @@ namespace Core.Common.TestUtil
         /// <summary>
         /// Returns the location on disk that can be used safely for writing to disk temporarily.
         /// </summary>
-        /// <param name="path">The file- or folder path inside the 'scratchpad' folder.</param>
+        /// <param name="path">The file or folder path inside the 'scratchpad' folder.</param>
         /// <returns>The folder path.</returns>
         /// <remarks>Caller is responsible for cleaning up files put in the folder.</remarks>
         /// <exception cref="IOException">Thrown when the folder doesn't exist.</exception>

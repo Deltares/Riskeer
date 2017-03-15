@@ -29,7 +29,6 @@ using Core.Common.Base.Service;
 using Core.Common.Base.Storage;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Properties;
-using Core.Common.IO.Exceptions;
 using log4net;
 
 namespace Core.Common.Gui.Commands

@@ -23,7 +23,6 @@ using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using Core.Common.Base.Storage;
-using Core.Common.IO.Exceptions;
 
 namespace Core.Common.Gui.Commands
 {
