@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using System.Windows.Threading;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
@@ -66,6 +65,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
     public class StorageSqLiteIntegrationTest
     {
         private const string tempExtension = ".temp";
+        private DirectoryDisposeHelper directoryDisposeHelper;
 
         [Test]
         public void SaveProjectAs_SaveAsNewFile_ProjectAsEntitiesInBothFiles()
@@ -92,11 +92,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             catch (Exception exception)
             {
                 Assert.Fail(exception.Message);
-            }
-            finally
-            {
-                // TearDown
-                TearDownTempRingtoetsFile(secondRingtoetsFile);
             }
 
             // Assert
@@ -225,21 +220,23 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             mocks.VerifyAll();
         }
 
-        [OneTimeTearDown]
-        public void TearDownTempRingtoetsFile()
+        [OneTimeSetUp]
+        public void SetUp()
         {
-            IEnumerable<string> filesToDelete = Directory.EnumerateFiles(TestHelper.GetScratchPadPath(), $"*{tempExtension}");
+            directoryDisposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(StorageSqLiteIntegrationTest));
+        }
 
-            foreach (string fileToDelete in filesToDelete)
-            {
-                TearDownTempRingtoetsFile(fileToDelete);
-            }
-            Dispatcher.CurrentDispatcher.InvokeShutdown();
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            directoryDisposeHelper.Dispose();
         }
 
         private static string GetRandomRingtoetsFile()
         {
-            return Path.Combine(TestHelper.GetScratchPadPath(),
+            return Path.Combine(TestHelper.GetScratchPadPath(), nameof(StorageSqLiteIntegrationTest),
                                 string.Concat(Path.GetRandomFileName(), tempExtension));
         }
 
@@ -899,6 +896,20 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 File.Delete(filePath);
             }
         }
+
+        #region BackgroundMapDataContainer
+
+        private static void AssertBackgroundData(BackgroundData expectedBackgroundData, BackgroundData actualBackgroundData)
+        {
+            Assert.AreEqual(expectedBackgroundData.Name, actualBackgroundData.Name);
+            Assert.AreEqual(expectedBackgroundData.IsVisible, actualBackgroundData.IsVisible);
+            Assert.AreEqual(expectedBackgroundData.Transparency, actualBackgroundData.Transparency);
+
+            Assert.AreEqual(expectedBackgroundData.IsConfigured, actualBackgroundData.IsConfigured);
+            CollectionAssert.AreEquivalent(expectedBackgroundData.Parameters, actualBackgroundData.Parameters);
+        }
+
+        #endregion
 
         #region StabilityPointStructures FailureMechanism
 
@@ -1791,20 +1802,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedOutput.CalculatedProbability, actualOutput.CalculatedProbability);
             Assert.AreEqual(expectedOutput.CalculatedReliability, actualOutput.CalculatedReliability);
             Assert.AreEqual(CalculationConvergence.NotCalculated, actualOutput.CalculationConvergence);
-        }
-
-        #endregion
-
-        #region BackgroundMapDataContainer
-
-        private static void AssertBackgroundData(BackgroundData expectedBackgroundData, BackgroundData actualBackgroundData)
-        {
-            Assert.AreEqual(expectedBackgroundData.Name, actualBackgroundData.Name);
-            Assert.AreEqual(expectedBackgroundData.IsVisible, actualBackgroundData.IsVisible);
-            Assert.AreEqual(expectedBackgroundData.Transparency, actualBackgroundData.Transparency);
-
-            Assert.AreEqual(expectedBackgroundData.IsConfigured, actualBackgroundData.IsConfigured);
-            CollectionAssert.AreEquivalent(expectedBackgroundData.Parameters, actualBackgroundData.Parameters);
         }
 
         #endregion

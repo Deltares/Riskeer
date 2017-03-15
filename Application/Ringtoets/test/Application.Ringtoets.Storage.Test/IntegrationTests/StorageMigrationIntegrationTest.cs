@@ -39,42 +39,40 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
     [TestFixture]
     public class StorageMigrationIntegrationTest
     {
+        private readonly string workingDirectory = TestHelper.GetScratchPadPath(nameof(StorageMigrationIntegrationTest));
+        private DirectoryDisposeHelper directoryDisposeHelper;
+
         [Test]
         [TestCaseSource(typeof(RingtoetsProjectMigrationTestHelper), nameof(RingtoetsProjectMigrationTestHelper.GetAllOutdatedSupportedProjectFilePaths))]
         [Apartment(ApartmentState.STA)]
         public void GivenRingtoetsGuiWithStorageSql_WhenRunWithMigratedFile_MigratedProjectSet(string sourceFilePath)
         {
-            string targetFilePath = TestHelper.GetScratchPadPath(nameof(GivenRingtoetsGuiWithStorageSql_WhenRunWithMigratedFile_MigratedProjectSet));
-            using (new FileDisposeHelper(targetFilePath))
+            string targetFilePath = Path.Combine(workingDirectory, nameof(GivenRingtoetsGuiWithStorageSql_WhenRunWithMigratedFile_MigratedProjectSet));
+            MigrateFile(sourceFilePath, targetFilePath);
+
+            // Given
+            var projectStore = new StorageSqLite();
+            var mocks = new MockRepository();
+            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
+            mocks.ReplayAll();
+
+            var projectMigrator = new RingtoetsProjectMigrator(inquiryHelper);
+
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RingtoetsProjectFactory(), new GuiCoreSettings()))
             {
-                MigrateFile(sourceFilePath, targetFilePath);
+                // When
+                gui.Run(targetFilePath);
 
-                // Given
-                var projectStore = new StorageSqLite();
-
-                var mocks = new MockRepository();
-                var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-                mocks.ReplayAll();
-
-                var projectMigrator = new RingtoetsProjectMigrator(inquiryHelper);
-
-                using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RingtoetsProjectFactory(), new GuiCoreSettings()))
-                {
-                    // When
-                    gui.Run(targetFilePath);
-
-                    // Then
-                    Assert.AreEqual(targetFilePath, gui.ProjectFilePath);
-                    Assert.NotNull(gui.Project);
-                    string expectedProjectName = Path.GetFileNameWithoutExtension(targetFilePath);
-                    Assert.AreEqual(expectedProjectName, gui.Project.Name);
-                    Assert.AreEqual("description", gui.Project.Description);
-                    Assert.IsInstanceOf<RingtoetsProject>(gui.Project);
-                }
-                GC.WaitForPendingFinalizers();
-
-                mocks.VerifyAll();
+                // Then
+                Assert.AreEqual(targetFilePath, gui.ProjectFilePath);
+                Assert.NotNull(gui.Project);
+                string expectedProjectName = Path.GetFileNameWithoutExtension(targetFilePath);
+                Assert.AreEqual(expectedProjectName, gui.Project.Name);
+                Assert.AreEqual("description", gui.Project.Description);
+                Assert.IsInstanceOf<RingtoetsProject>(gui.Project);
             }
+            
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -83,39 +81,35 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         public void GivenRingtoetsGui_WhenRunWithUnmigratedFileAndInquireContinuation_MigratedProjectSet(string sourceFilePath)
         {
             // Given
-            string targetFilePath = TestHelper.GetScratchPadPath(nameof(GivenRingtoetsGui_WhenRunWithUnmigratedFileAndInquireContinuation_MigratedProjectSet));
-            using (new FileDisposeHelper(targetFilePath))
+            string targetFilePath = Path.Combine(workingDirectory, nameof(GivenRingtoetsGui_WhenRunWithUnmigratedFileAndInquireContinuation_MigratedProjectSet));
+
+            var projectStore = new StorageSqLite();
+            var mocks = new MockRepository();
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            inquiryHelper.Expect(helper => helper.InquireContinuation(null))
+                         .IgnoreArguments()
+                         .Return(true);
+            inquiryHelper.Expect(helper => helper.GetTargetFileLocation(null, null))
+                         .IgnoreArguments()
+                         .Return(targetFilePath);
+            mocks.ReplayAll();
+
+            var projectMigrator = new RingtoetsProjectMigrator(inquiryHelper);
+
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RingtoetsProjectFactory(), new GuiCoreSettings()))
             {
-                var projectStore = new StorageSqLite();
+                // When
+                gui.Run(sourceFilePath);
 
-                var mocks = new MockRepository();
-                var inquiryHelper = mocks.Stub<IInquiryHelper>();
-                inquiryHelper.Expect(helper => helper.InquireContinuation(null))
-                             .IgnoreArguments()
-                             .Return(true);
-                inquiryHelper.Expect(helper => helper.GetTargetFileLocation(null, null))
-                             .IgnoreArguments()
-                             .Return(targetFilePath);
-                mocks.ReplayAll();
-
-                var projectMigrator = new RingtoetsProjectMigrator(inquiryHelper);
-
-                using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RingtoetsProjectFactory(), new GuiCoreSettings()))
-                {
-                    // When
-                    gui.Run(sourceFilePath);
-
-                    // Then
-                    Assert.AreEqual(targetFilePath, gui.ProjectFilePath);
-                    string expectedProjectName = Path.GetFileNameWithoutExtension(targetFilePath);
-                    Assert.AreEqual(expectedProjectName, gui.Project.Name);
-                    Assert.AreEqual("description", gui.Project.Description);
-                    Assert.IsInstanceOf<RingtoetsProject>(gui.Project);
-                }
-                GC.WaitForPendingFinalizers();
-
-                mocks.VerifyAll();
+                // Then
+                Assert.AreEqual(targetFilePath, gui.ProjectFilePath);
+                string expectedProjectName = Path.GetFileNameWithoutExtension(targetFilePath);
+                Assert.AreEqual(expectedProjectName, gui.Project.Name);
+                Assert.AreEqual("description", gui.Project.Description);
+                Assert.IsInstanceOf<RingtoetsProject>(gui.Project);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -125,7 +119,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             // Given
             var projectStore = new StorageSqLite();
-
             var mocks = new MockRepository();
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             inquiryHelper.Expect(helper => helper.InquireContinuation(null))
@@ -145,9 +138,22 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 Assert.AreEqual("Project", gui.Project.Name);
                 Assert.IsEmpty(gui.Project.Description);
             }
-            GC.WaitForPendingFinalizers();
 
             mocks.VerifyAll();
+        }
+
+        [OneTimeSetUp]
+        public void SetUp()
+        {
+            directoryDisposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(StorageMigrationIntegrationTest));
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            directoryDisposeHelper.Dispose();
         }
 
         private static void MigrateFile(string sourceFilePath, string targetFilePath)
