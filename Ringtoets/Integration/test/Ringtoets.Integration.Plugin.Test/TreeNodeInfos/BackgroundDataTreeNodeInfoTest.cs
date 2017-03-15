@@ -383,6 +383,11 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             var assessmentSection = new ObservableTestAssessmentSectionStub();
 
+            using (new UseCustomSettingsHelper(new TestSettingsHelper
+            {
+                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "noConfig")
+            }))
+            using (new UseCustomTileSourceFactoryConfig(newMapData))
             using (var treeViewControl = new TreeViewControl())
             using (var plugin = new RingtoetsPlugin())
             {
@@ -449,6 +454,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var newMapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial);
             var newBackgroundData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData();
 
+            using (new UseCustomSettingsHelper(new TestSettingsHelper
+            {
+                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "noConfig")
+            }))
             using (var treeViewControl = new TreeViewControl())
             using (var plugin = new RingtoetsPlugin())
             {
@@ -513,8 +522,15 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
             BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(mapData);
-            BackgroundData newBackgroundData = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(WmtsMapData.CreateDefaultPdokMapData());
 
+            WmtsMapData newMapData = WmtsMapData.CreateDefaultPdokMapData();
+            BackgroundData newBackgroundData = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(newMapData);
+
+            using (new UseCustomSettingsHelper(new TestSettingsHelper
+            {
+                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "noConfig")
+            }))
+            using (new UseCustomTileSourceFactoryConfig(newMapData))
             using (var treeViewControl = new TreeViewControl())
             using (var plugin = new RingtoetsPlugin())
             {
@@ -586,8 +602,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             Assert.IsTrue(backgroundData.IsVisible);
             Assert.AreEqual(mapData.IsConfigured, backgroundData.IsConfigured);
             Assert.AreEqual(mapData.Transparency, backgroundData.Transparency);
-            
-            Assert.AreEqual(((int)mapData.TileSource).ToString(), backgroundData.Parameters[BackgroundDataIdentifiers.WellKnownTileSource]);
+
+            Assert.AreEqual(((int) mapData.TileSource).ToString(), backgroundData.Parameters[BackgroundDataIdentifiers.WellKnownTileSource]);
         }
 
         private static void AssertBackgroundMapDataProperties(BackgroundData expectedBackgroundData, BackgroundData actualBackgroundData)
