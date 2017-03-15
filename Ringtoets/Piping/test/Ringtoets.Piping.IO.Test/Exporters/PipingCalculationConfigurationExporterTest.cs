@@ -24,7 +24,6 @@ using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
 using Core.Common.Base.Data;
-using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
@@ -38,16 +37,16 @@ using Ringtoets.Piping.Primitives;
 namespace Ringtoets.Piping.IO.Test.Exporters
 {
     [TestFixture]
-    public class PipingConfigurationExporterTest
+    public class PipingCalculationConfigurationExporterTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var exporter = new PipingConfigurationExporter(Enumerable.Empty<ICalculationBase>(), "test.xml");
+            var exporter = new PipingCalculationConfigurationExporter(Enumerable.Empty<ICalculationBase>(), "test.xml");
 
             // Assert
-            Assert.IsInstanceOf<ConfigurationExporter<PipingCalculationConfigurationWriter, PipingCalculation>>(exporter);
+            Assert.IsInstanceOf<CalculationConfigurationExporter<PipingCalculationConfigurationWriter, PipingCalculation>>(exporter);
         }
 
         [Test]
@@ -92,7 +91,7 @@ namespace Ringtoets.Piping.IO.Test.Exporters
                 }
             };
 
-            var exporter = new PipingConfigurationExporter(new []
+            var exporter = new PipingCalculationConfigurationExporter(new []
             {
                 calculationGroup
             }, filePath);
@@ -128,7 +127,7 @@ namespace Ringtoets.Piping.IO.Test.Exporters
             {
                 string filePath = Path.Combine(directoryPath, "test.xml");
 
-                var exporter = new PipingConfigurationExporter(new []
+                var exporter = new PipingCalculationConfigurationExporter(new []
                 {
                     PipingTestDataGenerator.GetPipingCalculation()
                 }, filePath);

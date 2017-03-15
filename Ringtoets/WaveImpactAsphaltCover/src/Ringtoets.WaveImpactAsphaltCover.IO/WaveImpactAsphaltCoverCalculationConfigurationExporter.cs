@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2016. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -23,25 +23,24 @@ using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.IO.Exporters;
-using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.WaveImpactAsphaltCover.Data;
 
-namespace Ringtoets.GrassCoverErosionInwards.IO
+namespace Ringtoets.WaveImpactAsphaltCover.IO
 {
     /// <summary>
-    /// Exports a grass cover erosion inwards configuration and stores it as an XML file.
+    /// Exports a wave impact asphalt cover configuration and stores it as an XML file.
     /// </summary>
-    public class GrassCoverErosionInwardsConfigurationExporter
-        : ConfigurationExporter<GrassCoverErosionInwardsCalculationConfigurationWriter, GrassCoverErosionInwardsCalculation>
+    public class WaveImpactAsphaltCoverCalculationConfigurationExporter
+        : CalculationConfigurationExporter<WaveImpactAsphaltCoverCalculationConfigurationWriter, WaveImpactAsphaltCoverWaveConditionsCalculation>
     {
-
         /// <summary>
-        /// Creates a new instance of <see cref="GrassCoverErosionInwardsConfigurationExporter"/>.
+        /// Creates a new instance of <see cref="WaveImpactAsphaltCoverCalculationConfigurationExporter"/>.
         /// </summary>
         /// <param name="configuration">The configuration to export.</param>
         /// <param name="filePath">The path of the XML file to export to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="configuration"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        public GrassCoverErosionInwardsConfigurationExporter(IEnumerable<ICalculationBase> configuration, string filePath)
-            : base(configuration, filePath) { }
+        public WaveImpactAsphaltCoverCalculationConfigurationExporter(IEnumerable<ICalculationBase> configuration, string filePath)
+            : base(configuration, filePath) {}
     }
 }

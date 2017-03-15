@@ -225,7 +225,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
             IFileExporter fileExporter = configurationExportInfo.CreateFileExporter(context, "test");
 
             // Assert
-            Assert.IsInstanceOf<WaveImpactAsphaltCoverConfigurationExporter>(fileExporter);
+            Assert.IsInstanceOf<WaveImpactAsphaltCoverCalculationConfigurationExporter>(fileExporter);
         }
 
         [Test]

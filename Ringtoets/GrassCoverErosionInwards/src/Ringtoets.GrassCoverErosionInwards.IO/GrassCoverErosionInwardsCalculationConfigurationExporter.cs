@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+// Copyright (C) Stichting Deltares 2016. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -23,23 +23,25 @@ using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.IO.Exporters;
-using Ringtoets.Piping.Data;
+using Ringtoets.GrassCoverErosionInwards.Data;
 
-namespace Ringtoets.Piping.IO.Exporters
+namespace Ringtoets.GrassCoverErosionInwards.IO
 {
     /// <summary>
-    /// Exports a piping configuration and stores it as an XML file.
+    /// Exports a grass cover erosion inwards configuration and stores it as an XML file.
     /// </summary>
-    public class PipingConfigurationExporter : ConfigurationExporter<PipingCalculationConfigurationWriter, PipingCalculation>
+    public class GrassCoverErosionInwardsCalculationConfigurationExporter
+        : CalculationConfigurationExporter<GrassCoverErosionInwardsCalculationConfigurationWriter, GrassCoverErosionInwardsCalculation>
     {
+
         /// <summary>
-        /// Creates a new instance of <see cref="PipingConfigurationExporter"/>.
+        /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculationConfigurationExporter"/>.
         /// </summary>
         /// <param name="configuration">The configuration to export.</param>
         /// <param name="filePath">The path of the XML file to export to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="configuration"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        public PipingConfigurationExporter(IEnumerable<ICalculationBase> configuration, string filePath) : base(configuration, filePath)
-        {}
+        public GrassCoverErosionInwardsCalculationConfigurationExporter(IEnumerable<ICalculationBase> configuration, string filePath)
+            : base(configuration, filePath) { }
     }
 }

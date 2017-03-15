@@ -34,7 +34,6 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
-using Ringtoets.Common.Forms;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -83,14 +82,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             {
                 FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Extension,
                                                               RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Description),
-                CreateFileExporter = (context, filePath) => new GrassCoverErosionInwardsConfigurationExporter(context.WrappedData.Children, filePath),
+                CreateFileExporter = (context, filePath) => new GrassCoverErosionInwardsCalculationConfigurationExporter(context.WrappedData.Children, filePath),
                 IsEnabled = context => context.WrappedData.Children.Any()
             };
             yield return new ExportInfo<GrassCoverErosionInwardsCalculationContext>
             {
                 FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Extension,
                                                               RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Description),
-                CreateFileExporter = (context, filePath) => new GrassCoverErosionInwardsConfigurationExporter(new[]
+                CreateFileExporter = (context, filePath) => new GrassCoverErosionInwardsCalculationConfigurationExporter(new[]
                 {
                     context.WrappedData
                 }, filePath),

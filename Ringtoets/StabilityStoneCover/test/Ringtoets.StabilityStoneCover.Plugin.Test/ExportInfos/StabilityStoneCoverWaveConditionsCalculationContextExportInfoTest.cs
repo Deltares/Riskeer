@@ -173,7 +173,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ExportInfos
             IFileExporter fileExporter = configurationExportInfo.CreateFileExporter(context, "test");
 
             // Assert
-            Assert.IsInstanceOf<StabilityStoneCoverConfigurationExporter>(fileExporter);
+            Assert.IsInstanceOf<StabilityStoneCoverCalculationConfigurationExporter>(fileExporter);
             mocks.VerifyAll();
         }
 

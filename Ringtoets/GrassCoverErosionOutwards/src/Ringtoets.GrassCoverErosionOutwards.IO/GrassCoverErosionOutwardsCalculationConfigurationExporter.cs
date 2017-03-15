@@ -23,24 +23,24 @@ using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.IO.Exporters;
-using Ringtoets.StabilityStoneCover.Data;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 
-namespace Ringtoets.StabilityStoneCover.IO
+namespace Ringtoets.GrassCoverErosionOutwards.IO
 {
     /// <summary>
-    /// Exports a stability stone cover configuration and stores it as an XML file.
+    /// Exports a grass cover erosion outwards configuration and stores it as an XML file.
     /// </summary>
-    public class StabilityStoneCoverConfigurationExporter
-        : ConfigurationExporter<StabilityStoneCoverCalculationConfigurationWriter, StabilityStoneCoverWaveConditionsCalculation>
+    public class GrassCoverErosionOutwardsCalculationConfigurationExporter
+        : CalculationConfigurationExporter<GrassCoverErosionOutwardsCalculationConfigurationWriter, GrassCoverErosionOutwardsWaveConditionsCalculation>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="StabilityStoneCoverConfigurationExporter"/>.
+        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsCalculationConfigurationExporter"/>.
         /// </summary>
         /// <param name="configuration">The configuration to export.</param>
         /// <param name="filePath">The path of the XML file to export to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="configuration"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        public StabilityStoneCoverConfigurationExporter(IEnumerable<ICalculationBase> configuration, string filePath)
+        public GrassCoverErosionOutwardsCalculationConfigurationExporter(IEnumerable<ICalculationBase> configuration, string filePath)
             : base(configuration, filePath) {}
     }
 }

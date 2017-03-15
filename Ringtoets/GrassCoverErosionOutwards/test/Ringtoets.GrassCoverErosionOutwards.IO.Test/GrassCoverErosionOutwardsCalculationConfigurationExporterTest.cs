@@ -27,24 +27,24 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.Exporters;
-using Ringtoets.WaveImpactAsphaltCover.Data;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 
-namespace Ringtoets.WaveImpactAsphaltCover.IO.Test
+namespace Ringtoets.GrassCoverErosionOutwards.IO.Test
 {
     [TestFixture]
-    public class WaveImpactAsphaltCoverConfigurationExporterTest
+    public class GrassCoverErosionOutwardsCalculationConfigurationExporterTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var exporter = new WaveImpactAsphaltCoverConfigurationExporter(Enumerable.Empty<ICalculationBase>(), "test.xml");
+            var exporter = new GrassCoverErosionOutwardsCalculationConfigurationExporter(Enumerable.Empty<ICalculationBase>(), "test.xml");
 
             // Assert
             Assert.IsInstanceOf<
-                ConfigurationExporter<
-                    WaveImpactAsphaltCoverCalculationConfigurationWriter,
-                    WaveImpactAsphaltCoverWaveConditionsCalculation>>(exporter);
+                CalculationConfigurationExporter<
+                    GrassCoverErosionOutwardsCalculationConfigurationWriter,
+                    GrassCoverErosionOutwardsWaveConditionsCalculation>>(exporter);
         }
 
         [Test]
@@ -53,7 +53,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.IO.Test
             // Setup
             string filePath = TestHelper.GetScratchPadPath($"{nameof(Export_ValidData_ReturnTrueAndWritesFile)}.xml");
 
-            var calculation1 = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            var calculation1 = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
                 Name = "Calculation A",
                 InputParameters =
@@ -62,7 +62,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.IO.Test
                 }
             };
 
-            var calculation2 = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            var calculation2 = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
                 Name = "PK001_0002 W1-6_4_1D1",
                 InputParameters =
@@ -89,7 +89,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.IO.Test
                 }
             };
 
-            var exporter = new WaveImpactAsphaltCoverConfigurationExporter(new []
+            var exporter = new GrassCoverErosionOutwardsCalculationConfigurationExporter(new []
             {
                 calculationGroup
             }, filePath);
@@ -104,8 +104,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.IO.Test
                 Assert.IsTrue(File.Exists(filePath));
 
                 string actualXml = File.ReadAllText(filePath);
-                string testDirSubPath = Path.Combine(nameof(WaveImpactAsphaltCoverConfigurationExporter), "fullValidConfiguration.xml");
-                string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.WaveImpactAsphaltCover.IO,
+                string testDirSubPath = Path.Combine(nameof(GrassCoverErosionOutwardsCalculationConfigurationExporter), "fullValidConfiguration.xml");
+                string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionOutwards.IO,
                                                                         testDirSubPath);
                 string expectedXml = File.ReadAllText(expectedXmlFilePath);
 

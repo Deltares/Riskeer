@@ -74,7 +74,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ExportInfos
                 IFileExporter fileExporter = info.CreateFileExporter(context, "test");
 
                 // Assert
-                Assert.IsInstanceOf<GrassCoverErosionInwardsConfigurationExporter>(fileExporter);
+                Assert.IsInstanceOf<GrassCoverErosionInwardsCalculationConfigurationExporter>(fileExporter);
             }
             mocks.VerifyAll();
         }

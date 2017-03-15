@@ -78,7 +78,7 @@ namespace Ringtoets.Piping.Plugin.Test.ExportInfos
                 IFileExporter fileExporter = info.CreateFileExporter(context, "test");
 
                 // Assert
-                Assert.IsInstanceOf<PipingConfigurationExporter>(fileExporter);
+                Assert.IsInstanceOf<PipingCalculationConfigurationExporter>(fileExporter);
             }
             mocks.VerifyAll();
         }

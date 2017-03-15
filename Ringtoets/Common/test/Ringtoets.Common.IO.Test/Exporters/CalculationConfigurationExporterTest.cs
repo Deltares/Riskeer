@@ -36,13 +36,13 @@ using Ringtoets.Common.IO.Writers;
 namespace Ringtoets.Common.IO.Test.Exporters
 {
     [TestFixture]
-    public class ConfigurationExporterTest
+    public class CalculationConfigurationExporterTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var exporter = new SimpleConfigurationExporter(Enumerable.Empty<ICalculationBase>(), "test.xml");
+            var exporter = new SimpleCalculationConfigurationExporter(Enumerable.Empty<ICalculationBase>(), "test.xml");
 
             // Assert
             Assert.IsInstanceOf<IFileExporter>(exporter);
@@ -52,7 +52,7 @@ namespace Ringtoets.Common.IO.Test.Exporters
         public void Constructor_ConfigurationNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new SimpleConfigurationExporter(null, "test.xml");
+            TestDelegate test = () => new SimpleCalculationConfigurationExporter(null, "test.xml");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -66,7 +66,7 @@ namespace Ringtoets.Common.IO.Test.Exporters
         public void Constructor_FilePathInvalid_ThrowArgumentException(string filePath)
         {
             // Call
-            TestDelegate test = () => new SimpleConfigurationExporter(Enumerable.Empty<ICalculationBase>(), filePath);
+            TestDelegate test = () => new SimpleCalculationConfigurationExporter(Enumerable.Empty<ICalculationBase>(), filePath);
 
             // Assert
             Assert.Throws<ArgumentException>(test);
@@ -79,7 +79,7 @@ namespace Ringtoets.Common.IO.Test.Exporters
             string targetFilePath = TestHelper.GetScratchPadPath($"{nameof(Export_ValidData_ReturnTrueAndWritesFile)}.xml");
 
             string testFileSubPath = Path.Combine(
-                nameof(ConfigurationExporter<SimpleCalculationConfigurationWriter, TestCalculation>),
+                nameof(CalculationConfigurationExporter<SimpleCalculationConfigurationWriter, TestCalculation>),
                 "folderWithSubfolderAndCalculation.xml");
             string expectedXmlFilePath = TestHelper.GetTestDataPath(
                 TestDataPath.Ringtoets.Common.IO,
@@ -105,7 +105,7 @@ namespace Ringtoets.Common.IO.Test.Exporters
                 }
             };
 
-            var exporter = new SimpleConfigurationExporter(new[]
+            var exporter = new SimpleCalculationConfigurationExporter(new[]
             {
                 calculationGroup
             }, targetFilePath);
@@ -139,7 +139,7 @@ namespace Ringtoets.Common.IO.Test.Exporters
             {
                 string filePath = Path.Combine(directoryPath, "test.xml");
 
-                var exporter = new SimpleConfigurationExporter(new[]
+                var exporter = new SimpleCalculationConfigurationExporter(new[]
                 {
                     new TestCalculation("Calculation A")
                 }, filePath);
@@ -159,9 +159,9 @@ namespace Ringtoets.Common.IO.Test.Exporters
         }
     }
 
-    public class SimpleConfigurationExporter : ConfigurationExporter<SimpleCalculationConfigurationWriter, TestCalculation>
+    public class SimpleCalculationConfigurationExporter : CalculationConfigurationExporter<SimpleCalculationConfigurationWriter, TestCalculation>
     {
-        public SimpleConfigurationExporter(IEnumerable<ICalculationBase> configuration, string targetFilePath) : base(configuration, targetFilePath) {}
+        public SimpleCalculationConfigurationExporter(IEnumerable<ICalculationBase> configuration, string targetFilePath) : base(configuration, targetFilePath) {}
     }
 
     public class SimpleCalculationConfigurationWriter : CalculationConfigurationWriter<TestCalculation>

@@ -23,7 +23,6 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
-using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
@@ -33,17 +32,17 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 namespace Ringtoets.GrassCoverErosionInwards.IO.Test
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsConfigurationExporterTest
+    public class GrassCoverErosionInwardsCalculationConfigurationExporterTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var exporter = new GrassCoverErosionInwardsConfigurationExporter(Enumerable.Empty<ICalculationBase>(), "test.xml");
+            var exporter = new GrassCoverErosionInwardsCalculationConfigurationExporter(Enumerable.Empty<ICalculationBase>(), "test.xml");
 
             // Assert
             Assert.IsInstanceOf<
-                ConfigurationExporter<
+                CalculationConfigurationExporter<
                     GrassCoverErosionInwardsCalculationConfigurationWriter,
                     GrassCoverErosionInwardsCalculation>>(exporter);
         }
@@ -80,7 +79,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
                 }
             };
 
-            var exporter = new GrassCoverErosionInwardsConfigurationExporter(new[]
+            var exporter = new GrassCoverErosionInwardsCalculationConfigurationExporter(new[]
             {
                 calculationGroup
             }, filePath);
@@ -97,7 +96,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
                 string actualXml = File.ReadAllText(filePath);
                 string expectedXmlFilePath = TestHelper.GetTestDataPath(
                     TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                    Path.Combine(nameof(GrassCoverErosionInwardsConfigurationExporter), "folderWithSubfolderAndCalculation.xml"));
+                    Path.Combine(nameof(GrassCoverErosionInwardsCalculationConfigurationExporter), "folderWithSubfolderAndCalculation.xml"));
 
                 string expectedXml = File.ReadAllText(expectedXmlFilePath);
 
@@ -118,7 +117,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
             {
                 string filePath = Path.Combine(directoryPath, "test.xml");
 
-                var exporter = new GrassCoverErosionInwardsConfigurationExporter(new[]
+                var exporter = new GrassCoverErosionInwardsCalculationConfigurationExporter(new[]
                 {
                     new GrassCoverErosionInwardsCalculation()
                 }, filePath);

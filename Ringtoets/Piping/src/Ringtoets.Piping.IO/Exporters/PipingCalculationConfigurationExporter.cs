@@ -23,24 +23,23 @@ using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.IO.Exporters;
-using Ringtoets.WaveImpactAsphaltCover.Data;
+using Ringtoets.Piping.Data;
 
-namespace Ringtoets.WaveImpactAsphaltCover.IO
+namespace Ringtoets.Piping.IO.Exporters
 {
     /// <summary>
-    /// Exports a wave impact asphalt cover configuration and stores it as an XML file.
+    /// Exports a piping configuration and stores it as an XML file.
     /// </summary>
-    public class WaveImpactAsphaltCoverConfigurationExporter
-        : ConfigurationExporter<WaveImpactAsphaltCoverCalculationConfigurationWriter, WaveImpactAsphaltCoverWaveConditionsCalculation>
+    public class PipingCalculationConfigurationExporter : CalculationConfigurationExporter<PipingCalculationConfigurationWriter, PipingCalculation>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="WaveImpactAsphaltCoverConfigurationExporter"/>.
+        /// Creates a new instance of <see cref="PipingCalculationConfigurationExporter"/>.
         /// </summary>
         /// <param name="configuration">The configuration to export.</param>
         /// <param name="filePath">The path of the XML file to export to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="configuration"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        public WaveImpactAsphaltCoverConfigurationExporter(IEnumerable<ICalculationBase> configuration, string filePath)
-            : base(configuration, filePath) {}
+        public PipingCalculationConfigurationExporter(IEnumerable<ICalculationBase> configuration, string filePath) : base(configuration, filePath)
+        {}
     }
 }
