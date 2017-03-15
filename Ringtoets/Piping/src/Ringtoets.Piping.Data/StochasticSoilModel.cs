@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Data
 {
@@ -101,30 +102,33 @@ namespace Ringtoets.Piping.Data
                 Geometry.Add(point);
             }
 
-            var newNames = new List<string>();
+            var newSoilProfiles = new List<PipingSoilProfile>();
             var updatedProfiles = new List<StochasticSoilProfile>();
             var addedProfiles = new List<StochasticSoilProfile>();
             var removedProfiles = new List<StochasticSoilProfile>();
 
-            foreach (var fromProfile in fromModel.StochasticSoilProfiles)
+            foreach (StochasticSoilProfile fromProfile in fromModel.StochasticSoilProfiles)
             {
-                StochasticSoilProfile sameProfile = StochasticSoilProfiles.SingleOrDefault(sp => sp.SoilProfile.Name.Equals(fromProfile.SoilProfile.Name));
+                StochasticSoilProfile sameProfile = StochasticSoilProfiles.SingleOrDefault(
+                    sp => IsSame(sp, fromProfile)
+                );
                 if (sameProfile != null)
                 {
                     if (sameProfile.Update(fromProfile))
                     {
                         updatedProfiles.Add(sameProfile);
-                    } 
+                    }
                 }
                 else
                 {
                     StochasticSoilProfiles.Add(fromProfile);
                     addedProfiles.Add(fromProfile);
                 }
-                newNames.Add(fromProfile.SoilProfile.Name);
+                newSoilProfiles.Add(fromProfile.SoilProfile);
             }
 
-            foreach (StochasticSoilProfile profileToRemove in StochasticSoilProfiles.Where(sp => !newNames.Contains(sp.SoilProfile.Name)).ToArray())
+            foreach (StochasticSoilProfile profileToRemove in StochasticSoilProfiles.Where(
+                sp => !newSoilProfiles.Any(newSp => IsSame(newSp, sp.SoilProfile))).ToArray())
             {
                 StochasticSoilProfiles.Remove(profileToRemove);
                 removedProfiles.Add(profileToRemove);
@@ -136,6 +140,17 @@ namespace Ringtoets.Piping.Data
         public override string ToString()
         {
             return Name;
+        }
+
+        private static bool IsSame(PipingSoilProfile pipingSoilProfile, PipingSoilProfile otherPipingSoilProfile)
+        {
+            return pipingSoilProfile.Name.Equals(otherPipingSoilProfile.Name)
+                   && pipingSoilProfile.SoilProfileType.Equals(otherPipingSoilProfile.SoilProfileType);
+        }
+
+        private static bool IsSame(StochasticSoilProfile stochasticSoilProfile, StochasticSoilProfile otherStochasticSoilProfile)
+        {
+            return IsSame(stochasticSoilProfile.SoilProfile, otherStochasticSoilProfile.SoilProfile);
         }
     }
 }

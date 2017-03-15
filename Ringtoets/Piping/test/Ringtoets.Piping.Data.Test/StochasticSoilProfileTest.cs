@@ -120,25 +120,46 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void Update_WithValidProfile_UpdatesProperties()
+        [TestCaseSource(nameof(StochasticProfileUnequalCombinations))]
+        public void Update_WithValidProfile_UpdatesProperties(StochasticSoilProfile stochasticProfile, StochasticSoilProfile otherStochasticProfile)
         {
-            // Setup
-            var newProbability = 1.0;
-            var newProfile = new TestPipingSoilProfile();
-            var otherStochasticProfile = new StochasticSoilProfile(newProbability, SoilProfileType.SoilProfile1D, 0)
-            {
-                SoilProfile = newProfile
-            };
-
-            var stochasticProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0);
-
             // Call
             bool updated = stochasticProfile.Update(otherStochasticProfile);
 
             // Assert
             Assert.IsTrue(updated);
-            Assert.AreEqual(newProbability, stochasticProfile.Probability);
-            Assert.AreSame(newProfile, stochasticProfile.SoilProfile);
+            Assert.AreEqual(otherStochasticProfile.Probability, stochasticProfile.Probability);
+            Assert.AreEqual(otherStochasticProfile.SoilProfileType, stochasticProfile.SoilProfileType);
+            Assert.AreSame(otherStochasticProfile.SoilProfile, stochasticProfile.SoilProfile);
+        }
+
+        private static TestCaseData[] StochasticProfileUnequalCombinations()
+        {
+            const string profileName = "newProfile";
+            var stochasticSoilProfile = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 0)
+            {
+                SoilProfile = new TestPipingSoilProfile(profileName, SoilProfileType.SoilProfile1D)
+            };
+            var otherStochasticSoilProfileA = new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 0)
+            {
+                SoilProfile = new TestPipingSoilProfile(profileName, SoilProfileType.SoilProfile1D)
+            };
+            var otherStochasticSoilProfileB = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile2D, 0)
+            {
+                SoilProfile = new TestPipingSoilProfile(profileName, SoilProfileType.SoilProfile2D)
+            };
+
+            return new[]
+            {
+                new TestCaseData(stochasticSoilProfile, otherStochasticSoilProfileA)
+                {
+                    TestName = "Update_ProfileWithProfileA_UpdatesProperties"
+                },
+                new TestCaseData(stochasticSoilProfile, otherStochasticSoilProfileB)
+                {
+                    TestName = "Update_ProfileWithProfileB_UpdatesProperties"
+                }
+            };
         }
 
         [Test]
@@ -255,8 +276,8 @@ namespace Ringtoets.Piping.Data.Test
             StochasticSoilProfile profileA = CreateRandomStochasticProfile(21);
             StochasticSoilProfile profileB = CreateRandomStochasticProfile(21);
             StochasticSoilProfile profileC = CreateRandomStochasticProfile(73);
-            StochasticSoilProfile profileE = new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 25);
-            StochasticSoilProfile profileF = new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 45);
+            var profileE = new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 25);
+            var profileF = new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 45);
 
             return new[]
             {
@@ -278,7 +299,7 @@ namespace Ringtoets.Piping.Data.Test
         private static StochasticSoilProfile CreateRandomStochasticProfile(int randomSeed)
         {
             var random = new Random(randomSeed);
-            return new StochasticSoilProfile(random.NextDouble(), SoilProfileType.SoilProfile1D, profileIdRandom.Next())
+            return new StochasticSoilProfile(random.NextDouble(), random.NextEnumValue<SoilProfileType>(), profileIdRandom.Next())
             {
                 SoilProfile = CreateRandomProfile(random)
             };
@@ -301,7 +322,7 @@ namespace Ringtoets.Piping.Data.Test
                     PermeabilityDeviation = random.NextDouble(),
                     PermeabilityMean = random.NextDouble()
                 }
-            }, SoilProfileType.SoilProfile1D, random.Next());
+            }, random.NextEnumValue<SoilProfileType>(), random.Next());
         }
 
         private static string GetRandomName(Random random)

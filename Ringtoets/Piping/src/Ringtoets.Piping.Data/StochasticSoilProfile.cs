@@ -53,7 +53,7 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets the type of the stochastic soil profile.
         /// </summary>
-        public SoilProfileType SoilProfileType { get; }
+        public SoilProfileType SoilProfileType { get; private set; }
 
         /// <summary>
         /// Gets the database identifier of the stochastic soil profile.
@@ -119,6 +119,7 @@ namespace Ringtoets.Piping.Data
             if (!Equals(fromProfile))
             {
                 SoilProfile = fromProfile.SoilProfile;
+                SoilProfileType = fromProfile.SoilProfileType;
                 Probability = fromProfile.Probability;
                 return true;
             }

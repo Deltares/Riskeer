@@ -38,6 +38,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil
         /// <item><see cref="PipingSoilProfile.Bottom"/> set to <c>0.0</c></item>
         /// <item><see cref="PipingSoilProfile.Layers"/> set to a collection with a single <see cref="PipingSoilLayer"/>
         /// with <see cref="PipingSoilLayer.Top"/> set to <c>0.0</c>.</item>
+        /// <item><see cref="PipingSoilProfile.SoilProfileType"/> set to <see cref="SoilProfileType.SoilProfile1D"/>.</item>
         /// </list>
         /// </summary>
         public TestPipingSoilProfile() : this("") {}
@@ -50,15 +51,31 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil
         /// <item><see cref="PipingSoilProfile.Bottom"/> set to <c>0.0</c></item>
         /// <item><see cref="PipingSoilProfile.Layers"/> set to a collection with a single <see cref="PipingSoilLayer"/>
         /// with <see cref="PipingSoilLayer.Top"/> set to <c>0.0</c>.</item>
+        /// <item><see cref="PipingSoilProfile.SoilProfileType"/> set to <see cref="SoilProfileType.SoilProfile1D"/>.</item>
         /// </list>
         /// </summary>
         /// <param name="name">The name for the profile.</param>
-        public TestPipingSoilProfile(string name) : base(name, 0.0, new Collection<PipingSoilLayer> 
+        public TestPipingSoilProfile(string name) : this(name, SoilProfileType.SoilProfile1D) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TestPipingSoilProfile"/>, which is a <see cref="PipingSoilProfile"/>
+        /// which has:
+        /// <list type="bullet">
+        /// <item><see cref="PipingSoilProfile.Name"/> set to <paramref name="name"/></item>
+        /// <item><see cref="PipingSoilProfile.Bottom"/> set to <c>0.0</c></item>
+        /// <item><see cref="PipingSoilProfile.Layers"/> set to a collection with a single <see cref="PipingSoilLayer"/>
+        /// with <see cref="PipingSoilLayer.Top"/> set to <c>0.0</c>.</item>
+        /// <item><see cref="PipingSoilProfile.SoilProfileType"/> set to <paramref name="soilProfileType"/>.</item>
+        /// </list>
+        /// </summary>
+        /// <param name="name">The name for the profile.</param>
+        /// <param name="soilProfileType">The type of the profile.</param>
+        public TestPipingSoilProfile(string name, SoilProfileType soilProfileType) : base(name, 0.0, new Collection<PipingSoilLayer>
         {
             new PipingSoilLayer(0.0)
             {
                 IsAquifer = true
             }
-        }, SoilProfileType.SoilProfile1D, 0) {}
+        }, soilProfileType, 0) {}
     }
 }

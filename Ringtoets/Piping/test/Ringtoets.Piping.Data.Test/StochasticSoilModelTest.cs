@@ -264,6 +264,41 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        public void Update_ModelWithRemovedProfileSameNameOtherType_ProfileRemoved()
+        {
+            // Setup
+            var profileName = "A";
+            var soilProfile = new PipingSoilProfile(profileName, -2, CreateLayers(), SoilProfileType.SoilProfile1D, -5);
+            var expectedRemovedProfile = new StochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, 3)
+            {
+                SoilProfile = soilProfile
+            };
+            var newProfile = new StochasticSoilProfile(0.2, SoilProfileType.SoilProfile2D, 3)
+            {
+                SoilProfile = new PipingSoilProfile(profileName, -2, CreateLayers(), SoilProfileType.SoilProfile2D, -5)
+            };
+            StochasticSoilModel model = CreateEmptyModel();
+            model.StochasticSoilProfiles.Add(expectedRemovedProfile);
+
+            StochasticSoilModel otherModel = CreateEmptyModel();
+            otherModel.StochasticSoilProfiles.Add(newProfile);
+
+            // Call
+            StochasticSoilModelProfileDifference difference = model.Update(otherModel);
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                newProfile
+            }, difference.AddedProfiles);
+            CollectionAssert.IsEmpty(difference.UpdatedProfiles);
+            CollectionAssert.AreEqual(new[]
+            {
+                expectedRemovedProfile
+            }, difference.RemovedProfiles);
+        }
+
+        [Test]
         public void Update_WithOtherModel_PropertiesUpdated()
         {
             // Setup

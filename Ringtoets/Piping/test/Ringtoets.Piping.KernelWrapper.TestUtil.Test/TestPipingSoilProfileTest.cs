@@ -19,8 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using NUnit.Framework;
+using Ringtoets.Piping.Primitives;
+using Core.Common.TestUtil;
 
 namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test
 {
@@ -36,6 +39,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test
             // Assert
             Assert.IsEmpty(profile.Name);
             Assert.AreEqual(0.0, profile.Bottom);
+            Assert.AreEqual(SoilProfileType.SoilProfile1D, profile.SoilProfileType);
             CollectionAssert.AreEquivalent(new[] { true }, profile.Layers.Select(l => l.IsAquifer));
             CollectionAssert.AreEquivalent(new[] { 0.0 }, profile.Layers.Select(l => l.Top));
         }
@@ -44,7 +48,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test
         public void Constructor_WitValidName_ExpectedPropertiesSet()
         {
             // Setup
-            var name = "some name";
+            const string name = "some name";
 
             // Call
             var profile = new TestPipingSoilProfile(name);
@@ -52,6 +56,25 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test
             // Assert
             Assert.AreEqual(name, profile.Name);
             Assert.AreEqual(0.0, profile.Bottom);
+            Assert.AreEqual(SoilProfileType.SoilProfile1D, profile.SoilProfileType);
+            CollectionAssert.AreEquivalent(new[] { true }, profile.Layers.Select(l => l.IsAquifer));
+            CollectionAssert.AreEquivalent(new[] { 0.0 }, profile.Layers.Select(l => l.Top));
+        }
+
+        [Test]
+        public void Constructor_WitValidNameAndType_ExpectedPropertiesSet()
+        {
+            // Setup
+            const string name = "some name";
+            SoilProfileType soilProfileType = new Random(6543).NextEnumValue<SoilProfileType>();
+
+            // Call
+            var profile = new TestPipingSoilProfile(name, soilProfileType);
+
+            // Assert
+            Assert.AreEqual(name, profile.Name);
+            Assert.AreEqual(0.0, profile.Bottom);
+            Assert.AreEqual(soilProfileType, profile.SoilProfileType);
             CollectionAssert.AreEquivalent(new[] { true }, profile.Layers.Select(l => l.IsAquifer));
             CollectionAssert.AreEquivalent(new[] { 0.0 }, profile.Layers.Select(l => l.Top));
         }
