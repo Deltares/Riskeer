@@ -388,23 +388,20 @@ namespace Application.Ringtoets.Migration.Test
 
             var migrator = new RingtoetsProjectMigrator(inquiryHelper);
 
-            using (new FileDisposeHelper(targetFilePath))
-            {
-                bool migrationSuccessful = false;
+            bool migrationSuccessful = false;
 
-                // When 
-                Action call = () => migrationSuccessful = migrator.Migrate(sourceFilePath, targetFilePath);
+            // When 
+            Action call = () => migrationSuccessful = migrator.Migrate(sourceFilePath, targetFilePath);
 
-                // Then
-                string expectedMessage = $"Het projectbestand '{sourceFilePath}' is succesvol gemigreerd naar '{targetFilePath}' (versie {currentDatabaseVersion}).";
-                Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedMessage, LogLevelConstant.Info);
-                TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel, 1);
+            // Then
+            string expectedMessage = $"Het projectbestand '{sourceFilePath}' is succesvol gemigreerd naar '{targetFilePath}' (versie {currentDatabaseVersion}).";
+            Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedMessage, LogLevelConstant.Info);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel, 1);
 
-                Assert.IsTrue(migrationSuccessful);
+            Assert.IsTrue(migrationSuccessful);
 
-                var toVersionedFile = new RingtoetsVersionedFile(targetFilePath);
-                Assert.AreEqual(currentDatabaseVersion, toVersionedFile.GetVersion());
-            }
+            var toVersionedFile = new RingtoetsVersionedFile(targetFilePath);
+            Assert.AreEqual(currentDatabaseVersion, toVersionedFile.GetVersion());
 
             mocks.VerifyAll();
         }
@@ -462,22 +459,19 @@ namespace Application.Ringtoets.Migration.Test
 
             var migrator = new RingtoetsProjectMigrator(inquiryHelper);
 
-            using (new FileDisposeHelper(targetFilePath))
+            bool migrationSuccessful = true;
+
+            // Call 
+            Action call = () => migrationSuccessful = migrator.Migrate(sourceFilePath, targetFilePath);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
             {
-                bool migrationSuccessful = true;
-
-                // Call 
-                Action call = () => migrationSuccessful = migrator.Migrate(sourceFilePath, targetFilePath);
-
-                // Assert
-                TestHelper.AssertLogMessages(call, messages =>
-                {
-                    string[] msgs = messages.ToArray();
-                    Assert.AreEqual(1, msgs.Length);
-                    StringAssert.StartsWith($"Het migreren van het projectbestand '{sourceFilePath}' is mislukt: ", msgs[0]);
-                });
-                Assert.IsFalse(migrationSuccessful);
-            }
+                string[] msgs = messages.ToArray();
+                Assert.AreEqual(1, msgs.Length);
+                StringAssert.StartsWith($"Het migreren van het projectbestand '{sourceFilePath}' is mislukt: ", msgs[0]);
+            });
+            Assert.IsFalse(migrationSuccessful);
 
             mocks.VerifyAll();
         }
