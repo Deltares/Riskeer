@@ -193,28 +193,6 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-        ///
-        ///&lt;!--
-        ///Copyright (C) Stichting Deltares 2016. All rights reserved.
-        ///
-        ///This file is part of Ringtoets.
-        ///
-        ///Ringtoets is free software: you can redistribute it and/or modify
-        ///it under the terms of the GNU General Public License as published by
-        ///the Free Software Foundation, either version 3 of the License, or
-        ///(at your option) any later version.
-        ///
-        ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warrant [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string PipingConfiguratieSchema {
-            get {
-                return ResourceManager.GetString("PipingConfiguratieSchema", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Een waarde van &apos;{0}&apos; als intredepunt is ongeldig..
         /// </summary>
         public static string PipingCalculationConfigurationImporter_ReadEntryExitPoint_Entry_point_invalid {
