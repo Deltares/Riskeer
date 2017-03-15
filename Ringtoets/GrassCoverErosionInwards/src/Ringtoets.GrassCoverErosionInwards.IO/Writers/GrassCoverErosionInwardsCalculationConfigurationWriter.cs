@@ -29,7 +29,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 namespace Ringtoets.GrassCoverErosionInwards.IO.Writers
 {
     /// <summary>
-    /// Writer for writing a grass cover erosion inwards configuration to XML.
+    /// Writer for writing a grass cover erosion inwards calculation configuration to XML.
     /// </summary>
     public class GrassCoverErosionInwardsCalculationConfigurationWriter : CalculationConfigurationWriter<GrassCoverErosionInwardsCalculation>
     {

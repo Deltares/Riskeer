@@ -33,7 +33,7 @@ using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 namespace Ringtoets.Piping.IO.Readers
 {
     /// <summary>
-    /// This class reads a piping configuration from XML and creates a collection of corresponding
+    /// This class reads a piping calculation configuration from XML and creates a collection of corresponding
     /// <see cref="IReadConfigurationItem"/>, typically containing one or more <see cref="ReadPipingCalculation"/>.
     /// </summary>
     public class PipingCalculationConfigurationReader : CalculationConfigurationReader<ReadPipingCalculation>

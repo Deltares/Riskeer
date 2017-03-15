@@ -22,7 +22,7 @@
 namespace Ringtoets.GrassCoverErosionInwards.IO
 {
     /// <summary>
-    /// Container of identifiers related to the grass cover erosion inwards configuration schema definition.
+    /// Container of identifiers related to the grass cover erosion inwards calculation configuration schema definition.
     /// </summary>
     internal static class GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers
     {

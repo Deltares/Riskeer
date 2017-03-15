@@ -22,7 +22,7 @@
 namespace Ringtoets.Piping.IO.Schema
 {
     /// <summary>
-    /// Container of identifiers related to the piping configuration schema definition.
+    /// Container of identifiers related to the piping calculation configuration schema definition.
     /// </summary>
     internal static class PipingCalculationConfigurationSchemaIdentifiers
     {

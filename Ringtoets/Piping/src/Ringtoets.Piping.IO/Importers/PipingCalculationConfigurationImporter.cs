@@ -37,7 +37,7 @@ using Ringtoets.Piping.Primitives;
 namespace Ringtoets.Piping.IO.Importers
 {
     /// <summary>
-    /// Imports a piping configuration from an XML file and stores it on a
+    /// Imports a piping calculation configuration from an XML file and stores it on a
     /// <see cref="CalculationGroup"/>.
     /// </summary>
     public class PipingCalculationConfigurationImporter : CalculationConfigurationImporter<PipingCalculationConfigurationReader, ReadPipingCalculation>

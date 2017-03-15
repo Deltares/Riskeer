@@ -22,7 +22,7 @@
 namespace Ringtoets.Revetment.IO
 {
     /// <summary>
-    /// Container of identifiers related to the piping configuration schema definition.
+    /// Container of identifiers related to the wave conditions calculation configuration schema definition.
     /// </summary>
     internal static class WaveConditionsCalculationConfigurationSchemaIdentifiers
     {

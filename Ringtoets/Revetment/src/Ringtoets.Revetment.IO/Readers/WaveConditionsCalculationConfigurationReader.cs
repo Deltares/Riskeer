@@ -32,7 +32,7 @@ using RingtoestCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 namespace Ringtoets.Revetment.IO.Readers
 {
     /// <summary>
-    /// This class reads a wave conditions configuration from XML and creates a collection of corresponding
+    /// This class reads a wave conditions calculation configuration from XML and creates a collection of corresponding
     /// <see cref="IReadConfigurationItem"/>, typically containing one or more <see cref="ReadWaveConditionsCalculation"/>.
     /// </summary>
     internal class WaveConditionsCalculationConfigurationReader : CalculationConfigurationReader<ReadWaveConditionsCalculation>

@@ -30,7 +30,7 @@ using Ringtoets.Piping.IO.Schema;
 namespace Ringtoets.Piping.IO.Exporters
 {
     /// <summary>
-    /// Writer for writing a piping configuration to XML.
+    /// Writer for writing a piping calculation configuration to XML.
     /// </summary>
     public class PipingCalculationConfigurationWriter : CalculationConfigurationWriter<PipingCalculation>
     {
