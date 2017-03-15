@@ -84,48 +84,6 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
-        public void GivenImport_WhenImporting_ThenExpectedProgressMessagesGenerated()
-        {
-            // Given
-            string filePath = Path.Combine(importerPath, "validConfigurationNesting.xml");
-            var importer = new PipingConfigurationImporter(filePath,
-                                                           new CalculationGroup(),
-                                                           Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                           new PipingFailureMechanism());
-
-            var expectedProgressMessages = new[]
-            {
-                new ExpectedProgressNotification
-                {
-                    Text = "Inlezen berekeningenconfiguratie.", CurrentStep = 1, TotalNumberOfSteps = 3
-                },
-                new ExpectedProgressNotification
-                {
-                    Text = "Valideren berekeningenconfiguratie.", CurrentStep = 2, TotalNumberOfSteps = 3
-                },
-                new ExpectedProgressNotification
-                {
-                    Text = "Geïmporteerde data toevoegen aan het toetsspoor.", CurrentStep = 3, TotalNumberOfSteps = 3
-                }
-            };
-
-            var progressChangedCallCount = 0;
-            importer.SetProgressChanged((description, step, steps) =>
-            {
-                Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].Text, description);
-                Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].CurrentStep, step);
-                Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].TotalNumberOfSteps, steps);
-                progressChangedCallCount++;
-            });
-
-            // When
-            importer.Import();
-
-            // Then
-            Assert.AreEqual(expectedProgressMessages.Length, progressChangedCallCount);
-        }
-
-        [Test]
         [SetCulture("nl-NL")]
         [TestCase("validConfigurationInvalidEntryExitPoint.xml",
             "Een waarde van '2,2' als uittredepunt is ongeldig. Het uittredepunt moet landwaarts van het intredepunt liggen.")]
@@ -616,13 +574,6 @@ namespace Ringtoets.Piping.IO.Test.Importers
             Assert.AreEqual(expectedCalculation.InputParameters.PhreaticLevelExit.StandardDeviation.Value, actualCalculation.InputParameters.PhreaticLevelExit.StandardDeviation.Value);
             Assert.AreEqual(expectedCalculation.InputParameters.DampingFactorExit.Mean.Value, actualCalculation.InputParameters.DampingFactorExit.Mean.Value);
             Assert.AreEqual(expectedCalculation.InputParameters.DampingFactorExit.StandardDeviation.Value, actualCalculation.InputParameters.DampingFactorExit.StandardDeviation.Value);
-        }
-
-        private class ExpectedProgressNotification
-        {
-            public string Text { get; set; }
-            public int CurrentStep { get; set; }
-            public int TotalNumberOfSteps { get; set; }
         }
     }
 }

@@ -38,7 +38,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
     [TestFixture]
     public class CalculationConfigurationImporterTest
     {
-        private readonly string readerPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "ConfigurationReader");
+        private readonly string readerPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "CalculationConfigurationReader");
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -144,6 +144,46 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Assert.IsFalse(importSuccessful);
         }
 
+        [Test]
+        public void GivenImport_WhenImporting_ThenExpectedProgressMessagesGenerated()
+        {
+            // Given
+            string filePath = Path.Combine(readerPath, "validConfiguration.xml");
+            var importer = new TestCalculationConfigurationImporter(filePath,
+                                                                    new CalculationGroup());
+
+            var expectedProgressMessages = new[]
+            {
+                new ExpectedProgressNotification
+                {
+                    Text = "Inlezen berekeningenconfiguratie.", CurrentStep = 1, TotalNumberOfSteps = 3
+                },
+                new ExpectedProgressNotification
+                {
+                    Text = "Valideren berekeningenconfiguratie.", CurrentStep = 2, TotalNumberOfSteps = 3
+                },
+                new ExpectedProgressNotification
+                {
+                    Text = "Geïmporteerde data toevoegen aan het toetsspoor.", CurrentStep = 3, TotalNumberOfSteps = 3
+                }
+            };
+
+            var progressChangedCallCount = 0;
+            importer.SetProgressChanged((description, step, steps) =>
+            {
+                Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].Text, description);
+                Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].CurrentStep, step);
+                Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].TotalNumberOfSteps, steps);
+                progressChangedCallCount++;
+            });
+
+            // When
+            importer.Import();
+
+            // Then
+            Assert.AreEqual(expectedProgressMessages.Length, progressChangedCallCount);
+        }
+
         private class TestCalculationConfigurationImporter : CalculationConfigurationImporter<TestCalculationConfigurationReader, ReadCalculation>
         {
             public TestCalculationConfigurationImporter(string filePath, CalculationGroup importTarget)
@@ -168,7 +208,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             private static readonly string mainSchemaDefinition =
                 File.ReadAllText(Path.Combine(TestHelper.GetTestDataPath(
                                                   TestDataPath.Ringtoets.Common.IO,
-                                                  "ConfigurationReader"),
+                                                  "CalculationConfigurationReader"),
                                               "validConfigurationSchema.xsd"));
 
             public TestCalculationConfigurationReader(string xmlFilePath)
@@ -193,6 +233,13 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         private class TestCalculation : Observable, ICalculationBase
         {
             public string Name { get; set; }
+        }
+
+        private class ExpectedProgressNotification
+        {
+            public string Text { get; set; }
+            public int CurrentStep { get; set; }
+            public int TotalNumberOfSteps { get; set; }
         }
     }
 }
