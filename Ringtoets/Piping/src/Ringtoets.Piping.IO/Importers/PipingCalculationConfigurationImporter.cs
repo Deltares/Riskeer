@@ -74,7 +74,7 @@ namespace Ringtoets.Piping.IO.Importers
             this.failureMechanism = failureMechanism;
         }
 
-        protected override PipingCalculationConfigurationReader CreateConfigurationReader(string xmlFilePath)
+        protected override PipingCalculationConfigurationReader CreateCalculationConfigurationReader(string xmlFilePath)
         {
             return new PipingCalculationConfigurationReader(xmlFilePath);
         }
@@ -112,7 +112,7 @@ namespace Ringtoets.Piping.IO.Importers
 
                 if (location == null)
                 {
-                    throw new CriticalFileValidationException(string.Format(Resources.PipingConfigurationImporter_ReadHydraulicBoundaryLocation_Hydraulic_boundary_location_0_does_not_exist,
+                    throw new CriticalFileValidationException(string.Format(Resources.PipingCalculationConfigurationImporter_ReadHydraulicBoundaryLocation_Hydraulic_boundary_location_0_does_not_exist,
                                                                             readCalculation.HydraulicBoundaryLocation));
                 }
 
@@ -141,7 +141,7 @@ namespace Ringtoets.Piping.IO.Importers
 
                 if (surfaceLine == null)
                 {
-                    throw new CriticalFileValidationException(string.Format(Resources.PipingConfigurationImporter_ReadSurfaceLine_SurfaceLine_0_does_not_exist,
+                    throw new CriticalFileValidationException(string.Format(Resources.PipingCalculationConfigurationImporter_ReadSurfaceLine_SurfaceLine_0_does_not_exist,
                                                                             readCalculation.SurfaceLine));
                 }
 
@@ -162,7 +162,7 @@ namespace Ringtoets.Piping.IO.Importers
 
             if (readCalculation.SurfaceLine == null && (hasEntryPoint || hasExitPoint))
             {
-                throw new CriticalFileValidationException(Resources.PipingConfigurationImporter_ReadSurfaceLine_EntryPointL_or_ExitPointL_defined_without_SurfaceLine);
+                throw new CriticalFileValidationException(Resources.PipingCalculationConfigurationImporter_ReadSurfaceLine_EntryPointL_or_ExitPointL_defined_without_SurfaceLine);
             }
 
             if (hasEntryPoint)
@@ -171,7 +171,7 @@ namespace Ringtoets.Piping.IO.Importers
 
                 PerformActionHandlingAnyArgumentOutOfRangeException(
                     () => pipingCalculation.InputParameters.EntryPointL = (RoundedDouble) entryPoint,
-                    string.Format(Resources.PipingConfigurationImporter_ReadEntryExitPoint_Entry_point_invalid, entryPoint));
+                    string.Format(Resources.PipingCalculationConfigurationImporter_ReadEntryExitPoint_Entry_point_invalid, entryPoint));
             }
 
             if (hasExitPoint)
@@ -180,7 +180,7 @@ namespace Ringtoets.Piping.IO.Importers
 
                 PerformActionHandlingAnyArgumentOutOfRangeException(
                     () => pipingCalculation.InputParameters.ExitPointL = (RoundedDouble) exitPoint,
-                    string.Format(Resources.PipingConfigurationImporter_ReadEntryExitPoint_Exit_point_invalid, exitPoint));
+                    string.Format(Resources.PipingCalculationConfigurationImporter_ReadEntryExitPoint_Exit_point_invalid, exitPoint));
             }
         }
 
@@ -206,14 +206,14 @@ namespace Ringtoets.Piping.IO.Importers
 
                 if (soilModel == null)
                 {
-                    throw new CriticalFileValidationException(string.Format(Resources.PipingConfigurationImporter_ReadStochasticSoilModel_Stochastische_soil_model_0_does_not_exist,
+                    throw new CriticalFileValidationException(string.Format(Resources.PipingCalculationConfigurationImporter_ReadStochasticSoilModel_Stochastische_soil_model_0_does_not_exist,
                                                                             readCalculation.StochasticSoilModel));
                 }
 
                 if (pipingCalculation.InputParameters.SurfaceLine != null
                     && !soilModel.IntersectsWithSurfaceLineGeometry(pipingCalculation.InputParameters.SurfaceLine))
                 {
-                    throw new CriticalFileValidationException(string.Format(Resources.PipingConfigurationImporter_ReadStochasticSoilModel_Stochastische_soil_model_0_does_not_intersect_with_surfaceLine_1,
+                    throw new CriticalFileValidationException(string.Format(Resources.PipingCalculationConfigurationImporter_ReadStochasticSoilModel_Stochastische_soil_model_0_does_not_intersect_with_surfaceLine_1,
                                                                             readCalculation.StochasticSoilModel,
                                                                             readCalculation.SurfaceLine));
                 }
@@ -239,7 +239,7 @@ namespace Ringtoets.Piping.IO.Importers
             {
                 if (pipingCalculation.InputParameters.StochasticSoilModel == null)
                 {
-                    throw new CriticalFileValidationException(string.Format(Resources.PipingConfigurationImporter_ReadStochasticSoilProfile_No_soil_model_provided_for_soil_profile_with_name_0,
+                    throw new CriticalFileValidationException(string.Format(Resources.PipingCalculationConfigurationImporter_ReadStochasticSoilProfile_No_soil_model_provided_for_soil_profile_with_name_0,
                                                                             readCalculation.StochasticSoilProfile));
                 }
 
@@ -248,7 +248,7 @@ namespace Ringtoets.Piping.IO.Importers
 
                 if (soilProfile == null)
                 {
-                    throw new CriticalFileValidationException(string.Format(Resources.PipingConfigurationImporter_ReadStochasticSoilProfile_Stochastic_soil_profile_0_does_not_exist_within_soil_model_1,
+                    throw new CriticalFileValidationException(string.Format(Resources.PipingCalculationConfigurationImporter_ReadStochasticSoilProfile_Stochastic_soil_profile_0_does_not_exist_within_soil_model_1,
                                                                             readCalculation.StochasticSoilProfile, readCalculation.StochasticSoilModel));
                 }
 
@@ -271,14 +271,14 @@ namespace Ringtoets.Piping.IO.Importers
                 var mean = (double) readCalculation.PhreaticLevelExitMean;
                 PerformActionHandlingAnyArgumentOutOfRangeException(
                     () => normalDistribution.Mean = (RoundedDouble) mean,
-                    string.Format(Resources.PipingConfigurationImporter_ReadStochasts_Invalid_mean_0_for_stochast_with_name_1, mean,
-                                  PipingConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName));
+                    string.Format(Resources.PipingCalculationConfigurationImporter_ReadStochasts_Invalid_mean_0_for_stochast_with_name_1, mean,
+                                  PipingCalculationConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName));
 
                 var standardDeviation = (double) readCalculation.PhreaticLevelExitStandardDeviation;
                 PerformActionHandlingAnyArgumentOutOfRangeException(
                     () => normalDistribution.StandardDeviation = (RoundedDouble) standardDeviation,
-                    string.Format(Resources.PipingConfigurationImporter_ReadStochasts_Invalid_standard_deviation_0_for_stochast_with_name_1, standardDeviation,
-                                  PipingConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName));
+                    string.Format(Resources.PipingCalculationConfigurationImporter_ReadStochasts_Invalid_standard_deviation_0_for_stochast_with_name_1, standardDeviation,
+                                  PipingCalculationConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName));
 
                 pipingCalculation.InputParameters.PhreaticLevelExit = normalDistribution;
             }
@@ -290,14 +290,14 @@ namespace Ringtoets.Piping.IO.Importers
                 var mean = (double) readCalculation.DampingFactorExitMean;
                 PerformActionHandlingAnyArgumentOutOfRangeException(
                     () => logNormalDistribution.Mean = (RoundedDouble) mean,
-                    string.Format(Resources.PipingConfigurationImporter_ReadStochasts_Invalid_mean_0_for_stochast_with_name_1, mean,
-                                  PipingConfigurationSchemaIdentifiers.DampingFactorExitStochastName));
+                    string.Format(Resources.PipingCalculationConfigurationImporter_ReadStochasts_Invalid_mean_0_for_stochast_with_name_1, mean,
+                                  PipingCalculationConfigurationSchemaIdentifiers.DampingFactorExitStochastName));
 
                 var standardDeviation = (double) readCalculation.DampingFactorExitStandardDeviation;
                 PerformActionHandlingAnyArgumentOutOfRangeException(
                     () => logNormalDistribution.StandardDeviation = (RoundedDouble) standardDeviation,
-                    string.Format(Resources.PipingConfigurationImporter_ReadStochasts_Invalid_standard_deviation_0_for_stochast_with_name_1, standardDeviation,
-                                  PipingConfigurationSchemaIdentifiers.DampingFactorExitStochastName));
+                    string.Format(Resources.PipingCalculationConfigurationImporter_ReadStochasts_Invalid_standard_deviation_0_for_stochast_with_name_1, standardDeviation,
+                                  PipingCalculationConfigurationSchemaIdentifiers.DampingFactorExitStochastName));
 
                 pipingCalculation.InputParameters.DampingFactorExit = logNormalDistribution;
             }

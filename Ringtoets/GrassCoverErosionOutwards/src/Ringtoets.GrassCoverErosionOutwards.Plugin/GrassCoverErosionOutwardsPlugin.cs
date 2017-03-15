@@ -285,7 +285,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
             yield return new ExportInfo<GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext>
             {
-                Name = RingtoetsCommonFormsResources.ConfigurationExporter_DisplayName,
+                Name = RingtoetsCommonFormsResources.CalculationConfigurationExporter_DisplayName,
                 CreateFileExporter = (context, filePath) => new GrassCoverErosionOutwardsCalculationConfigurationExporter(context.WrappedData.Children, filePath),
                 IsEnabled = context => context.WrappedData.Children.Any(),
                 FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Extension,
@@ -306,7 +306,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
             yield return new ExportInfo<GrassCoverErosionOutwardsWaveConditionsCalculationContext>
             {
-                Name = RingtoetsCommonFormsResources.ConfigurationExporter_DisplayName,
+                Name = RingtoetsCommonFormsResources.CalculationConfigurationExporter_DisplayName,
                 CreateFileExporter = (context, filePath) => new GrassCoverErosionOutwardsCalculationConfigurationExporter(new[]
                 {
                     context.WrappedData

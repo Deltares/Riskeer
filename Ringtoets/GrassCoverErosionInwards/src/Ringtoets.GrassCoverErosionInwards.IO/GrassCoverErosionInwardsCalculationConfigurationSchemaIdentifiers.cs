@@ -24,7 +24,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO
     /// <summary>
     /// Container of identifiers related to the grass cover erosion inwards configuration schema definition.
     /// </summary>
-    internal static class GrassCoverErosionInwardsConfigurationSchemaIdentifiers
+    internal static class GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers
     {
         /// <summary>
         /// The tag of elements containing the name of the dike profile.

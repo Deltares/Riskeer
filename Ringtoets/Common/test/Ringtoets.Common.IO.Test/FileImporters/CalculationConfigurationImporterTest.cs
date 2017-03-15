@@ -208,7 +208,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             public CalculationConfigurationImporter(string filePath, CalculationGroup importTarget)
                 : base(filePath, importTarget) {}
 
-            protected override CalculationConfigurationReader CreateConfigurationReader(string xmlFilePath)
+            protected override CalculationConfigurationReader CreateCalculationConfigurationReader(string xmlFilePath)
             {
                 return new CalculationConfigurationReader(xmlFilePath);
             }

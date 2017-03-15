@@ -181,7 +181,7 @@ namespace Ringtoets.Common.IO.Readers
             }
             catch (XmlSchemaValidationException exception)
             {
-                string message = string.Format(Resources.ConfigurationReader_Configuration_contains_no_valid_xml_line_0_position_1_reason_2,
+                string message = string.Format(Resources.CalculationConfigurationReader_Configuration_contains_no_valid_xml_line_0_position_1_reason_2,
                                                exception.LineNumber,
                                                exception.LinePosition,
                                                exception.Message);
@@ -203,7 +203,7 @@ namespace Ringtoets.Common.IO.Readers
                                    || d.Name == ConfigurationSchemaIdentifiers.FolderElement))
             {
                 string message = new FileReaderErrorMessageBuilder(xmlFilePath)
-                    .Build(Resources.ConfigurationReader_No_configuration_items_found);
+                    .Build(Resources.CalculationConfigurationReader_No_configuration_items_found);
 
                 throw new CriticalFileReadException(message);
             }

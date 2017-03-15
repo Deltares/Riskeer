@@ -43,7 +43,7 @@ namespace Ringtoets.Piping.IO.Exporters
 
             if (calculationInputParameters.UseAssessmentLevelManualInput)
             {
-                writer.WriteElementString(PipingConfigurationSchemaIdentifiers.AssessmentLevelElement,
+                writer.WriteElementString(PipingCalculationConfigurationSchemaIdentifiers.AssessmentLevelElement,
                                           XmlConvert.ToString(calculationInputParameters.AssessmentLevel));
             }
             else if (calculationInputParameters.HydraulicBoundaryLocation != null)
@@ -54,22 +54,22 @@ namespace Ringtoets.Piping.IO.Exporters
 
             if (calculationInputParameters.SurfaceLine != null)
             {
-                writer.WriteElementString(PipingConfigurationSchemaIdentifiers.SurfaceLineElement,
+                writer.WriteElementString(PipingCalculationConfigurationSchemaIdentifiers.SurfaceLineElement,
                                           calculationInputParameters.SurfaceLine.Name);
-                writer.WriteElementString(PipingConfigurationSchemaIdentifiers.EntryPointLElement,
+                writer.WriteElementString(PipingCalculationConfigurationSchemaIdentifiers.EntryPointLElement,
                                           XmlConvert.ToString(calculationInputParameters.EntryPointL));
-                writer.WriteElementString(PipingConfigurationSchemaIdentifiers.ExitPointLElement,
+                writer.WriteElementString(PipingCalculationConfigurationSchemaIdentifiers.ExitPointLElement,
                                           XmlConvert.ToString(calculationInputParameters.ExitPointL));
             }
 
             if (calculationInputParameters.StochasticSoilModel != null)
             {
-                writer.WriteElementString(PipingConfigurationSchemaIdentifiers.StochasticSoilModelElement,
+                writer.WriteElementString(PipingCalculationConfigurationSchemaIdentifiers.StochasticSoilModelElement,
                                           calculationInputParameters.StochasticSoilModel.Name);
 
                 if (calculationInputParameters.StochasticSoilProfile?.SoilProfile != null)
                 {
-                    writer.WriteElementString(PipingConfigurationSchemaIdentifiers.StochasticSoilProfileElement,
+                    writer.WriteElementString(PipingCalculationConfigurationSchemaIdentifiers.StochasticSoilProfileElement,
                                               calculationInputParameters.StochasticSoilProfile.SoilProfile.Name);
                 }
             }
@@ -84,11 +84,11 @@ namespace Ringtoets.Piping.IO.Exporters
             return new Dictionary<string, IDistribution>
             {
                 {
-                    PipingConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName,
+                    PipingCalculationConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName,
                     calculationInputParameters.PhreaticLevelExit
                 },
                 {
-                    PipingConfigurationSchemaIdentifiers.DampingFactorExitStochastName,
+                    PipingCalculationConfigurationSchemaIdentifiers.DampingFactorExitStochastName,
                     calculationInputParameters.DampingFactorExit
                 }
             };

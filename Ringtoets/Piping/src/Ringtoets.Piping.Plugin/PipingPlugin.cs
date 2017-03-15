@@ -126,8 +126,8 @@ namespace Ringtoets.Piping.Plugin
                 Name = RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Description,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = RingtoetsCommonFormsResources.GeneralFolderIcon,
-                FileFilterGenerator = PipingConfigurationFileFilter,
-                IsEnabled = PipingConfigurationImporterEnabled,
+                FileFilterGenerator = PipingCalculationConfigurationFileFilter,
+                IsEnabled = PipingCalculationConfigurationImporterEnabled,
                 CreateFileImporter = (context, filePath) => new PipingCalculationConfigurationImporter(filePath,
                                                                                             context.WrappedData,
                                                                                             context.AvailableHydraulicBoundaryLocations,
@@ -139,7 +139,7 @@ namespace Ringtoets.Piping.Plugin
         {
             yield return new ExportInfo<PipingCalculationGroupContext>
             {
-                FileFilterGenerator = PipingConfigurationFileFilter,
+                FileFilterGenerator = PipingCalculationConfigurationFileFilter,
                 CreateFileExporter = (context, filePath) => new PipingCalculationConfigurationExporter(context.WrappedData.Children, filePath),
                 IsEnabled = context => context.WrappedData.Children.Any()
             };
@@ -346,7 +346,7 @@ namespace Ringtoets.Piping.Plugin
             };
         }
 
-        private static FileFilterGenerator PipingConfigurationFileFilter
+        private static FileFilterGenerator PipingCalculationConfigurationFileFilter
         {
             get
             {
@@ -363,7 +363,7 @@ namespace Ringtoets.Piping.Plugin
             }
         }
 
-        private static bool PipingConfigurationImporterEnabled(PipingCalculationGroupContext context)
+        private static bool PipingCalculationConfigurationImporterEnabled(PipingCalculationGroupContext context)
         {
             return context.AvailableHydraulicBoundaryLocations.Any()
                    && context.AvailableStochasticSoilModels.Any()

@@ -85,7 +85,7 @@
     <Compile Include="Hydraulics\HydraulicBoundaryLocationsWriterTest.cs" />
     <Compile Include="Readers\CombinedXmlSchemaDefinitionTest.cs" />
     <Compile Include="Readers\CalculationConfigurationReaderHelperTest.cs" />
-    <Compile Include="Readers\ConfigurationReaderTest.cs" />
+    <Compile Include="Readers\CalculationConfigurationReaderTest.cs" />
     <Compile Include="Readers\ReadCalculationGroupTest.cs" />
     <Compile Include="ReferenceLines\ReferenceLineExporterTest.cs" />
     <Compile Include="ReferenceLines\ReferenceLineMetaImporterTest.cs" />

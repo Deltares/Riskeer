@@ -57,19 +57,19 @@ namespace Ringtoets.Revetment.IO.Writers
             WriteHydraulicBoundaryLocation(input.HydraulicBoundaryLocation, writer);
 
             writer.WriteElementString(
-                WaveConditionsConfigurationSchemaIdentifiers.UpperBoundaryRevetment,
+                WaveConditionsCalculationConfigurationSchemaIdentifiers.UpperBoundaryRevetment,
                 XmlConvert.ToString(input.UpperBoundaryRevetment));
             writer.WriteElementString(
-                WaveConditionsConfigurationSchemaIdentifiers.LowerBoundaryRevetment,
+                WaveConditionsCalculationConfigurationSchemaIdentifiers.LowerBoundaryRevetment,
                 XmlConvert.ToString(input.LowerBoundaryRevetment));
             writer.WriteElementString(
-                WaveConditionsConfigurationSchemaIdentifiers.UpperBoundaryWaterLevels,
+                WaveConditionsCalculationConfigurationSchemaIdentifiers.UpperBoundaryWaterLevels,
                 XmlConvert.ToString(input.UpperBoundaryWaterLevels));
             writer.WriteElementString(
-                WaveConditionsConfigurationSchemaIdentifiers.LowerBoundaryWaterLevels,
+                WaveConditionsCalculationConfigurationSchemaIdentifiers.LowerBoundaryWaterLevels,
                 XmlConvert.ToString(input.LowerBoundaryWaterLevels));
             writer.WriteElementString(
-                WaveConditionsConfigurationSchemaIdentifiers.StepSize,
+                WaveConditionsCalculationConfigurationSchemaIdentifiers.StepSize,
                 waveConditionsInputStepSizeConverter.ConvertToInvariantString(input.StepSize));
 
             WriteForeshoreProfile(input.ForeshoreProfile, writer);
@@ -98,7 +98,7 @@ namespace Ringtoets.Revetment.IO.Writers
             if (foreshoreProfile != null)
             {
                 writer.WriteElementString(
-                    WaveConditionsConfigurationSchemaIdentifiers.ForeshoreProfile,
+                    WaveConditionsCalculationConfigurationSchemaIdentifiers.ForeshoreProfile,
                     foreshoreProfile.Name);
             }
         }

@@ -79,7 +79,7 @@
     <Compile Include="Exceptions\StochasticSoilModelUpdateExceptionTest.cs" />
     <Compile Include="Readers\PipingCalculationConfigurationReaderTest.cs" />
     <Compile Include="Readers\ReadPipingCalculationTest.cs" />
-    <Compile Include="Schema\PipingConfigurationSchemaIdentifiersTest.cs" />
+    <Compile Include="Schema\PipingCalculationConfigurationSchemaIdentifiersTest.cs" />
     <Compile Include="SoilProfile\LayerPropertiesTest.cs" />
     <Compile Include="SoilProfile\SoilDatabaseConstraintsReaderTest.cs" />
     <Compile Include="SoilProfile\SoilLayerColorConversionHelperTest.cs" />

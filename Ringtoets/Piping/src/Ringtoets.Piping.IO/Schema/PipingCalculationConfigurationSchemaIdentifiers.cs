@@ -19,41 +19,51 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Revetment.IO
+namespace Ringtoets.Piping.IO.Schema
 {
     /// <summary>
     /// Container of identifiers related to the piping configuration schema definition.
     /// </summary>
-    internal static class WaveConditionsConfigurationSchemaIdentifiers
+    internal static class PipingCalculationConfigurationSchemaIdentifiers
     {
         /// <summary>
-        /// The tag of elements containing the upper boundary of revetment.
+        /// The identifier for assessment level elements.
         /// </summary>
-        internal const string UpperBoundaryRevetment = "bovengrensbekleding";
+        internal const string AssessmentLevelElement = "toetspeil";
 
         /// <summary>
-        /// The tag of elements containing the lower boundary of revetment.
+        /// The identifier for surface line elements.
         /// </summary>
-        internal const string LowerBoundaryRevetment = "ondergrensbekleding";
+        internal const string SurfaceLineElement = "profielschematisatie";
 
         /// <summary>
-        /// The tag of elements containing the upper boundary of water level.
+        /// The identifier for entry point elements.
         /// </summary>
-        internal const string UpperBoundaryWaterLevels = "bovengrenswaterstanden";
+        internal const string EntryPointLElement = "intredepunt";
 
         /// <summary>
-        /// The tag of elements containing the lower boundary of water level.
+        /// The identifier for exit point elements.
         /// </summary>
-        internal const string LowerBoundaryWaterLevels = "ondergrenswaterstanden";
+        internal const string ExitPointLElement = "uittredepunt";
 
         /// <summary>
-        /// The tag of elements containing the step size of the water levels.
+        /// The identifier for stochastic soil model elements.
         /// </summary>
-        internal const string StepSize = "stapgrootte";
+        internal const string StochasticSoilModelElement = "ondergrondmodel";
 
         /// <summary>
-        /// The tag of elements containing the name of the foreshore profile.
+        /// The identifier for stochastic soil profile elements.
         /// </summary>
-        internal const string ForeshoreProfile = "voorlandprofiel";
+        internal const string StochasticSoilProfileElement = "ondergrondschematisatie";
+
+        /// <summary>
+        /// The identifier for the phreatic level exit stochast names.
+        /// </summary>
+        internal const string PhreaticLevelExitStochastName = "polderpeil";
+
+        /// <summary>
+        /// The identifier for the damping factor exit stochast names.
+        /// </summary>
+        internal const string DampingFactorExitStochastName = "dempingsfactor";
     }
 }

@@ -82,6 +82,15 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} Er is geen configuratie geëxporteerd..
+        /// </summary>
+        public static string CalculationConfigurationExporter_Export_Exception_0_no_configuration_exported {
+            get {
+                return ResourceManager.GetString("CalculationConfigurationExporter_Export_Exception_0_no_configuration_exported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} 
         ///Er is geen berekeningenconfiguratie geïmporteerd..
         /// </summary>
@@ -131,6 +140,25 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het XML-document dat de configuratie voor de berekeningen beschrijft is niet geldig. De validatie geeft de volgende melding op regel {0}, positie {1}: {2}.
+        /// </summary>
+        public static string CalculationConfigurationReader_Configuration_contains_no_valid_xml_line_0_position_1_reason_2 {
+            get {
+                return ResourceManager.GetString("CalculationConfigurationReader_Configuration_contains_no_valid_xml_line_0_positio" +
+                        "n_1_reason_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het XML-document dat de configuratie voor de berekeningen beschrijft bevat geen berekeningselementen..
+        /// </summary>
+        public static string CalculationConfigurationReader_No_configuration_items_found {
+            get {
+                return ResourceManager.GetString("CalculationConfigurationReader_No_configuration_items_found", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
         ///
         ///&lt;!--
@@ -149,34 +177,6 @@ namespace Ringtoets.Common.IO.Properties {
         public static string ConfiguratieSchema {
             get {
                 return ResourceManager.GetString("ConfiguratieSchema", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} Er is geen configuratie geëxporteerd..
-        /// </summary>
-        public static string ConfigurationExporter_Export_Exception_0_no_configuration_exported {
-            get {
-                return ResourceManager.GetString("ConfigurationExporter_Export_Exception_0_no_configuration_exported", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het XML-document dat de configuratie voor de berekeningen beschrijft is niet geldig. De validatie geeft de volgende melding op regel {0}, positie {1}: {2}.
-        /// </summary>
-        public static string ConfigurationReader_Configuration_contains_no_valid_xml_line_0_position_1_reason_2 {
-            get {
-                return ResourceManager.GetString("ConfigurationReader_Configuration_contains_no_valid_xml_line_0_position_1_reason_" +
-                        "2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het XML-document dat de configuratie voor de berekeningen beschrijft bevat geen berekeningselementen..
-        /// </summary>
-        public static string ConfigurationReader_No_configuration_items_found {
-            get {
-                return ResourceManager.GetString("ConfigurationReader_No_configuration_items_found", resourceCulture);
             }
         }
         

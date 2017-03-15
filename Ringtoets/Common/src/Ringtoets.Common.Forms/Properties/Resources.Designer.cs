@@ -337,6 +337,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ringtoets berekeningenconfiguratie (*.xml).
+        /// </summary>
+        public static string CalculationConfigurationExporter_DisplayName {
+            get {
+                return ResourceManager.GetString("CalculationConfigurationExporter_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Berekening &amp;toevoegen.
         /// </summary>
         public static string CalculationGroup_Add_Calculation {
@@ -688,15 +697,6 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string ClearOutput_No_output_to_clear {
             get {
                 return ResourceManager.GetString("ClearOutput_No_output_to_clear", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ringtoets berekeningenconfiguratie (*.xml).
-        /// </summary>
-        public static string ConfigurationExporter_DisplayName {
-            get {
-                return ResourceManager.GetString("ConfigurationExporter_DisplayName", resourceCulture);
             }
         }
         

@@ -36,17 +36,17 @@ namespace Ringtoets.Common.IO.FileImporters
     /// Base class for importing a calculation configuration from an XML file and
     /// storing it on a <see cref="CalculationGroup"/>.
     /// </summary>
-    /// <typeparam name="TConfigurationReader">The type of the reader to use for reading the XML file.</typeparam>
+    /// <typeparam name="TCalculationConfigurationReader">The type of the reader to use for reading the XML file.</typeparam>
     /// <typeparam name="TReadCalculation">The type of the data read from the XML file by the reader.</typeparam>
-    public abstract class CalculationConfigurationImporter<TConfigurationReader, TReadCalculation>
+    public abstract class CalculationConfigurationImporter<TCalculationConfigurationReader, TReadCalculation>
         : FileImporterBase<CalculationGroup>
-        where TConfigurationReader : CalculationConfigurationReader<TReadCalculation>
+        where TCalculationConfigurationReader : CalculationConfigurationReader<TReadCalculation>
         where TReadCalculation : class, IReadConfigurationItem
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(CalculationConfigurationImporter<TConfigurationReader, TReadCalculation>));
+        private static readonly ILog log = LogManager.GetLogger(typeof(CalculationConfigurationImporter<TCalculationConfigurationReader, TReadCalculation>));
 
         /// <summary>
-        /// Creates a new instance of <see cref="CalculationConfigurationImporter{TConfigurationReader,TReadCalculation}"/>.
+        /// Creates a new instance of <see cref="CalculationConfigurationImporter{TCalculationConfigurationReader,TReadCalculation}"/>.
         /// </summary>
         /// <param name="xmlFilePath">The path to the XML file to import from.</param>
         /// <param name="importTarget">The calculation group to update.</param>
@@ -108,7 +108,7 @@ namespace Ringtoets.Common.IO.FileImporters
         /// <item><paramref name="xmlFilePath"/> points to a file that does not contain configuration elements.</item>
         /// </list>
         /// </exception>
-        protected abstract TConfigurationReader CreateConfigurationReader(string xmlFilePath);
+        protected abstract TCalculationConfigurationReader CreateCalculationConfigurationReader(string xmlFilePath);
 
         /// <summary>
         /// Parses a calculation from the provided <paramref name="readCalculation"/>.
@@ -124,7 +124,7 @@ namespace Ringtoets.Common.IO.FileImporters
             {
                 return new ReadResult<IReadConfigurationItem>(false)
                 {
-                    Items = CreateConfigurationReader(FilePath).Read().ToList()
+                    Items = CreateCalculationConfigurationReader(FilePath).Read().ToList()
                 };
             }
             catch (Exception exception) when (exception is ArgumentException

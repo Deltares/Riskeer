@@ -35,7 +35,7 @@ using Ringtoets.Common.IO.Schema;
 namespace Ringtoets.Common.IO.Test.Readers
 {
     [TestFixture]
-    public class ConfigurationReaderTest
+    public class CalculationConfigurationReaderTest
     {
         private readonly string validMainSchemaDefinition;
 
@@ -138,7 +138,7 @@ namespace Ringtoets.Common.IO.Test.Readers
         public void Constructor_FileInUse_ThrowCriticalFileReadException()
         {
             // Setup
-            string path = TestHelper.GetScratchPadPath($"{nameof(ConfigurationReaderTest)}.{nameof(Constructor_FileInUse_ThrowCriticalFileReadException)}");
+            string path = TestHelper.GetScratchPadPath($"{nameof(CalculationConfigurationReaderTest)}.{nameof(Constructor_FileInUse_ThrowCriticalFileReadException)}");
 
             using (var fileDisposeHelper = new FileDisposeHelper(path))
             {
@@ -237,10 +237,10 @@ namespace Ringtoets.Common.IO.Test.Readers
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, "validConfigurationEmptyFolder.xml");
-            var configurationReader = new CalculationConfigurationReader(filePath, validMainSchemaDefinition, new Dictionary<string, string>());
+            var calculationConfigurationReader = new CalculationConfigurationReader(filePath, validMainSchemaDefinition, new Dictionary<string, string>());
 
             // Call
-            IList<IReadConfigurationItem> readConfigurationItems = configurationReader.Read().ToList();
+            IList<IReadConfigurationItem> readConfigurationItems = calculationConfigurationReader.Read().ToList();
 
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
@@ -256,10 +256,10 @@ namespace Ringtoets.Common.IO.Test.Readers
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, "validConfiguration.xml");
-            var configurationReader = new CalculationConfigurationReader(filePath, validMainSchemaDefinition, new Dictionary<string, string>());
+            var calculationConfigurationReader = new CalculationConfigurationReader(filePath, validMainSchemaDefinition, new Dictionary<string, string>());
 
             // Call
-            IList<IReadConfigurationItem> readConfigurationItems = configurationReader.Read().ToList();
+            IList<IReadConfigurationItem> readConfigurationItems = calculationConfigurationReader.Read().ToList();
 
             // Assert
             Assert.AreEqual(5, readConfigurationItems.Count);
@@ -313,7 +313,7 @@ namespace Ringtoets.Common.IO.Test.Readers
             Assert.AreEqual("Calculation 5", calculation5.Name);
         }
 
-        public ConfigurationReaderTest()
+        public CalculationConfigurationReaderTest()
         {
             validMainSchemaDefinition = File.ReadAllText(Path.Combine(testDirectoryPath, "validConfigurationSchema.xsd"));
         }

@@ -40,7 +40,7 @@ namespace Ringtoets.Revetment.IO.Test.Writers
     public class WaveConditionsCalculationConfigurationWriterTest
     {
         [Test]
-        public void Constructor_Always_ReturnsConfigurationWriter()
+        public void Constructor_Always_ReturnsCalculationConfigurationWriter()
         {
             // Call
             var writer = new SimpleWaveConditionsCalculationConfigurationWriter();

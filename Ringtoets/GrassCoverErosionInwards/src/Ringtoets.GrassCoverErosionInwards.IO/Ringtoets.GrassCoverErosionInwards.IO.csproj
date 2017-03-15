@@ -41,7 +41,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Exporters\GrassCoverErosionInwardsCalculationConfigurationExporter.cs" />
-    <Compile Include="GrassCoverErosionInwardsConfigurationSchemaIdentifiers.cs" />
+    <Compile Include="GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.cs" />
     <Compile Include="Writers\GrassCoverErosionInwardsCalculationConfigurationWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

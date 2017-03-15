@@ -47,7 +47,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Writers
             }
             if (input.DikeProfile != null)
             {
-                writer.WriteElementString(GrassCoverErosionInwardsConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
+                writer.WriteElementString(GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
                                           input.DikeProfile.Name);
             }
 
@@ -67,7 +67,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Writers
             return new Dictionary<string, IDistribution>
             {
                 {
-                    GrassCoverErosionInwardsConfigurationSchemaIdentifiers.CriticalFlowRateStochastName,
+                    GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.CriticalFlowRateStochastName,
                     calculationInputParameters.CriticalFlowRate
                 }
             };
