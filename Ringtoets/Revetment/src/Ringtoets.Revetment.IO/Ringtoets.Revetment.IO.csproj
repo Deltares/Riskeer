@@ -54,7 +54,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Readers\ReadBreakWaterType.cs" />
     <Compile Include="Readers\ReadWaveConditionsCalculation.cs" />
     <Compile Include="Readers\WaveConditionsCalculationConfigurationReader.cs" />
     <Compile Include="WaveConditionsCalculationConfigurationSchemaIdentifiers.cs" />

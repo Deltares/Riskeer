@@ -58,7 +58,7 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             Assert.IsNull(readCalculation.ForeshoreProfile);
             Assert.IsNull(readCalculation.Orientation);
             Assert.IsNull(readCalculation.UseBreakWater);
-            Assert.AreEqual(ReadBreakWaterType.None, readCalculation.BreakWaterType);
+            Assert.IsNull(readCalculation.BreakWaterType);
             Assert.IsNull(readCalculation.BreakWaterHeight);
             Assert.IsNull(readCalculation.UseForeshore);
         }
@@ -77,7 +77,7 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             const string foreshoreProfileName = "Name of the foreshore profile";
             const double orientation = 6.6;
             const bool useBreakWater = true;
-            const ReadBreakWaterType breakWaterType = ReadBreakWaterType.Caisson;
+            const string breakWaterType = "Caisson";
             const double breakWaterHeight = 7.7;
             const bool useForeshore = false;
 

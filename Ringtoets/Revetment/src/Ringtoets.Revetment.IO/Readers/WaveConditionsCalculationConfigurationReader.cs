@@ -97,8 +97,8 @@ namespace Ringtoets.Revetment.IO.Readers
                                                                                                        ConfigurationSchemaIdentifiers.Orientation),
                 UseBreakWater = GetBoolValueFromChildElement(calculationElement,
                                                              ConfigurationSchemaIdentifiers.UseBreakWater),
-                BreakWaterType = GetBreakWaterType(calculationElement,
-                                                   ConfigurationSchemaIdentifiers.BreakWaterType),
+                BreakWaterType = CalculationConfigurationReaderHelper.GetStringValueFromDescendantElement(calculationElement,
+                                                                                                          ConfigurationSchemaIdentifiers.BreakWaterType),
                 BreakWaterHeight = CalculationConfigurationReaderHelper.GetDoubleValueFromDescendantElement(calculationElement,
                                                                                                             ConfigurationSchemaIdentifiers.BreakWaterHeight),
                 UseForeshore = GetBoolValueFromChildElement(calculationElement,
@@ -106,23 +106,6 @@ namespace Ringtoets.Revetment.IO.Readers
             };
 
             return new ReadWaveConditionsCalculation(constructionProperties);
-        }
-
-        private static ReadBreakWaterType GetBreakWaterType(XElement parentElement, string childElementName)
-        {
-            string element = CalculationConfigurationReaderHelper.GetStringValueFromDescendantElement(parentElement, childElementName);
-
-            switch (element)
-            {
-                case ConfigurationSchemaIdentifiers.BreakWaterCaisson:
-                    return ReadBreakWaterType.Caisson;
-                case ConfigurationSchemaIdentifiers.BreakWaterDam:
-                    return ReadBreakWaterType.HarborDam;
-                case ConfigurationSchemaIdentifiers.BreakWaterWall:
-                    return ReadBreakWaterType.Vertical;
-                default:
-                    return ReadBreakWaterType.None;
-            }
         }
 
         private static bool? GetBoolValueFromChildElement(XElement parentElement, string childElementName)

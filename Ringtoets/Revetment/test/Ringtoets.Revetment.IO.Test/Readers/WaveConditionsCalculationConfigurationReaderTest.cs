@@ -227,7 +227,7 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             Assert.IsNull(calculation.ForeshoreProfile);
             Assert.IsNull(calculation.Orientation);
             Assert.IsNull(calculation.UseBreakWater);
-            Assert.AreEqual(ReadBreakWaterType.None, calculation.BreakWaterType);
+            Assert.IsNull(calculation.BreakWaterType);
             Assert.IsNull(calculation.BreakWaterHeight);
             Assert.IsNull(calculation.UseForeshore);
         }
@@ -248,7 +248,7 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             var calculation = readItems[0] as ReadWaveConditionsCalculation;
             Assert.IsNotNull(calculation);
             Assert.IsNull(calculation.UseBreakWater);
-            Assert.AreEqual(ReadBreakWaterType.None, calculation.BreakWaterType);
+            Assert.IsNull(calculation.BreakWaterType);
             Assert.IsNull(calculation.BreakWaterHeight);
             Assert.IsNull(calculation.UseForeshore);
         }
@@ -324,7 +324,7 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             Assert.AreEqual("Voorlandprofiel", calculation.ForeshoreProfile);
             Assert.AreEqual(5.5, calculation.Orientation);
             Assert.IsTrue(calculation.UseBreakWater);
-            Assert.AreEqual(ReadBreakWaterType.Caisson, calculation.BreakWaterType);
+            Assert.AreEqual("caisson", calculation.BreakWaterType);
             Assert.AreEqual(6.6, calculation.BreakWaterHeight);
             Assert.IsFalse(calculation.UseForeshore);
         }
@@ -354,7 +354,7 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             Assert.IsNull(calculation.ForeshoreProfile);
             Assert.IsNull(calculation.Orientation);
             Assert.IsTrue(calculation.UseBreakWater);
-            Assert.AreEqual(ReadBreakWaterType.Caisson, calculation.BreakWaterType);
+            Assert.AreEqual("caisson", calculation.BreakWaterType);
             Assert.AreEqual(3.3, calculation.BreakWaterHeight);
             Assert.IsNull(calculation.UseForeshore);
         }
