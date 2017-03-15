@@ -48,7 +48,7 @@ namespace Ringtoets.Piping.IO.Importers
         /// <summary>
         /// Creates a new instance of <see cref="PipingConfigurationImporter"/>.
         /// </summary>
-        /// <param name="filePath">The path to the file to import from.</param>
+        /// <param name="xmlFilePath">The path to the XML file to import from.</param>
         /// <param name="importTarget">The calculation group to update.</param>
         /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations
         /// used to check if the imported objects contain the right location.</param>
@@ -56,11 +56,11 @@ namespace Ringtoets.Piping.IO.Importers
         /// if the imported objects contain the right data.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is
         /// <c>null</c>.</exception>
-        public PipingConfigurationImporter(string filePath,
+        public PipingConfigurationImporter(string xmlFilePath,
                                            CalculationGroup importTarget,
                                            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
                                            PipingFailureMechanism failureMechanism)
-            : base(filePath, importTarget)
+            : base(xmlFilePath, importTarget)
         {
             if (hydraulicBoundaryLocations == null)
             {
@@ -74,12 +74,12 @@ namespace Ringtoets.Piping.IO.Importers
             this.failureMechanism = failureMechanism;
         }
 
-        protected override PipingConfigurationReader CreateConfigurationReader(string filePath)
+        protected override PipingConfigurationReader CreateConfigurationReader(string xmlFilePath)
         {
             return new PipingConfigurationReader(FilePath);
         }
 
-        protected override ICalculationBase ProcessCalculation(ReadPipingCalculation readCalculation)
+        protected override ICalculationBase ParseReadCalculation(ReadPipingCalculation readCalculation)
         {
             var pipingCalculation = new PipingCalculationScenario(new GeneralPipingInput())
             {

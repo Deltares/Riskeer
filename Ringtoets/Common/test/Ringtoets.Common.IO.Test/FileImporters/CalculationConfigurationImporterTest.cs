@@ -79,12 +79,12 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 return true;
             }
 
-            protected override TestConfigurationReader CreateConfigurationReader(string filePath)
+            protected override TestConfigurationReader CreateConfigurationReader(string xmlFilePath)
             {
-                return new TestConfigurationReader(filePath);
+                return new TestConfigurationReader(xmlFilePath);
             }
 
-            protected override ICalculationBase ProcessCalculation(TestReadConfigurationItem readCalculation)
+            protected override ICalculationBase ParseReadCalculation(TestReadConfigurationItem readCalculation)
             {
                 throw new NotImplementedException();
             }

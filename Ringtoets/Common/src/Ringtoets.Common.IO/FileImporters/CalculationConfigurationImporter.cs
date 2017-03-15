@@ -37,6 +37,8 @@ namespace Ringtoets.Common.IO.FileImporters
     /// Base class for importing a calculation configuration from an XML file and
     /// storing it on a <see cref="CalculationGroup"/>.
     /// </summary>
+    /// <typeparam name="TConfigurationReader">The type of the reader to use for reading the XML file.</typeparam>
+    /// <typeparam name="TReadCalculation">The type of the data read from the XML file by the reader.</typeparam>
     public abstract class CalculationConfigurationImporter<TConfigurationReader, TReadCalculation>
         : FileImporterBase<CalculationGroup>
         where TConfigurationReader : ConfigurationReader<TReadCalculation>
@@ -47,12 +49,11 @@ namespace Ringtoets.Common.IO.FileImporters
         /// <summary>
         /// Creates a new instance of <see cref="CalculationConfigurationImporter{TConfigurationReader,TReadCalculation}"/>.
         /// </summary>
-        /// <param name="filePath">The path to the file to import from.</param>
+        /// <param name="xmlFilePath">The path to the XML file to import from.</param>
         /// <param name="importTarget">The calculation group to update.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is
-        /// <c>null</c>.</exception>
-        protected CalculationConfigurationImporter(string filePath, CalculationGroup importTarget)
-            : base(filePath, importTarget) {}
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        protected CalculationConfigurationImporter(string xmlFilePath, CalculationGroup importTarget)
+            : base(xmlFilePath, importTarget) {}
 
         protected override void LogImportCanceledMessage()
         {
@@ -71,7 +72,7 @@ namespace Ringtoets.Common.IO.FileImporters
 
             NotifyProgress(Resources.CalculationConfigurationImporter_ProgressText_Validating_imported_data, 2, 3);
 
-            var validCalculationItems = new List<ICalculationBase>();
+            var parsedCalculationItems = new List<ICalculationBase>();
 
             foreach (IReadConfigurationItem readItem in readResult.Items)
             {
@@ -80,22 +81,43 @@ namespace Ringtoets.Common.IO.FileImporters
                     return false;
                 }
 
-                ICalculationBase processedItem = ProcessReadItem(readItem);
-                if (processedItem != null)
+                ICalculationBase parsedItem = ParseReadConfigurationItem(readItem);
+                if (parsedItem != null)
                 {
-                    validCalculationItems.Add(processedItem);
+                    parsedCalculationItems.Add(parsedItem);
                 }
             }
 
             NotifyProgress(Resources.Importer_ProgressText_Adding_imported_data_to_data_model, 3, 3);
-            AddItemsToModel(validCalculationItems);
+
+            AddItemsToModel(parsedCalculationItems);
 
             return true;
         }
 
-        protected abstract TConfigurationReader CreateConfigurationReader(string filePath);
+        /// <summary>
+        /// Creates the reader used for reading the configuration from the provided <paramref name="xmlFilePath"/>.
+        /// </summary>
+        /// <param name="xmlFilePath">The path to the XML file to import from.</param>
+        /// <returns>A reader for reading the configuration.</returns>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="xmlFilePath"/> is invalid.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="xmlFilePath"/> points to a file that does not exist.</item>
+        /// <item><paramref name="xmlFilePath"/> points to a file that does not contain valid XML.</item>
+        /// <item><paramref name="xmlFilePath"/> points to a file that does not pass the schema validation.</item>
+        /// <item><paramref name="xmlFilePath"/> points to a file that does not contain configuration elements.</item>
+        /// </list>
+        /// </exception>
+        protected abstract TConfigurationReader CreateConfigurationReader(string xmlFilePath);
 
-        protected abstract ICalculationBase ProcessCalculation(TReadCalculation readCalculation);
+        /// <summary>
+        /// Parses a calculation from the provided <paramref name="readCalculation"/>.
+        /// </summary>
+        /// <param name="readCalculation">The calculation read from XML.</param>
+        /// <returns>A parsed calculation instance.</returns>
+        /// <exception cref="CriticalFileValidationException">Thrown when something goes wrong while parsing.</exception>
+        protected abstract ICalculationBase ParseReadCalculation(TReadCalculation readCalculation);
 
         private ReadResult<IReadConfigurationItem> ReadConfiguration()
         {
@@ -116,44 +138,44 @@ namespace Ringtoets.Common.IO.FileImporters
             }
         }
 
-        private ICalculationBase ProcessReadItem(IReadConfigurationItem readItem)
+        private ICalculationBase ParseReadConfigurationItem(IReadConfigurationItem readConfigurationItem)
         {
-            var readCalculationGroup = readItem as ReadCalculationGroup;
+            var readCalculationGroup = readConfigurationItem as ReadCalculationGroup;
             if (readCalculationGroup != null)
             {
-                return ProcessCalculationGroup(readCalculationGroup);
+                return ParseReadCalculationGroup(readCalculationGroup);
             }
 
-            var readCalculation = readItem as TReadCalculation;
+            var readCalculation = readConfigurationItem as TReadCalculation;
             if (readCalculation != null)
             {
-                return ProcessCalculationInternal(readCalculation);
+                return ParseReadCalculationInternal(readCalculation);
             }
 
             return null;
         }
 
-        private CalculationGroup ProcessCalculationGroup(ReadCalculationGroup readCalculationGroup)
+        private CalculationGroup ParseReadCalculationGroup(ReadCalculationGroup readCalculationGroup)
         {
-            var group = new CalculationGroup(readCalculationGroup.Name, true);
+            var calculationGroup = new CalculationGroup(readCalculationGroup.Name, true);
 
             foreach (IReadConfigurationItem item in readCalculationGroup.Items)
             {
-                ICalculationBase processedItem = ProcessReadItem(item);
-                if (processedItem != null)
+                ICalculationBase parsedItem = ParseReadConfigurationItem(item);
+                if (parsedItem != null)
                 {
-                    group.Children.Add(processedItem);
+                    calculationGroup.Children.Add(parsedItem);
                 }
             }
 
-            return group;
+            return calculationGroup;
         }
 
-        private ICalculationBase ProcessCalculationInternal(TReadCalculation readCalculation)
+        private ICalculationBase ParseReadCalculationInternal(TReadCalculation readCalculation)
         {
             try
             {
-                return ProcessCalculation(readCalculation);
+                return ParseReadCalculation(readCalculation);
             }
             catch (CriticalFileValidationException e)
             {
@@ -165,11 +187,11 @@ namespace Ringtoets.Common.IO.FileImporters
             }
         }
 
-        private void AddItemsToModel(IEnumerable<ICalculationBase> validCalculationItems)
+        private void AddItemsToModel(IEnumerable<ICalculationBase> parsedCalculationItems)
         {
-            foreach (ICalculationBase validCalculationItem in validCalculationItems)
+            foreach (ICalculationBase parsedCalculationItem in parsedCalculationItems)
             {
-                ImportTarget.Children.Add(validCalculationItem);
+                ImportTarget.Children.Add(parsedCalculationItem);
             }
         }
     }
