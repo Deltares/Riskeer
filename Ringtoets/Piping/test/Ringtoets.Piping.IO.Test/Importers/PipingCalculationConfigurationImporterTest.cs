@@ -37,16 +37,16 @@ using Ringtoets.Piping.Primitives;
 namespace Ringtoets.Piping.IO.Test.Importers
 {
     [TestFixture]
-    public class PipingConfigurationImporterTest
+    public class PipingCalculationConfigurationImporterTest
     {
         private readonly string readerPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "PipingCalculationConfigurationReader");
-        private readonly string importerPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "PipingConfigurationImporter");
+        private readonly string importerPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "PipingCalculationConfigurationImporter");
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var importer = new PipingConfigurationImporter("",
+            var importer = new PipingCalculationConfigurationImporter("",
                                                            new CalculationGroup(),
                                                            Enumerable.Empty<HydraulicBoundaryLocation>(),
                                                            new PipingFailureMechanism());
@@ -59,7 +59,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
         public void Constructor_HydraulicBoundaryLocationsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new PipingConfigurationImporter("",
+            TestDelegate test = () => new PipingCalculationConfigurationImporter("",
                                                                       new CalculationGroup(),
                                                                       null,
                                                                       new PipingFailureMechanism());
@@ -73,7 +73,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
         public void Constructor_FailureMechanismNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new PipingConfigurationImporter("",
+            TestDelegate test = () => new PipingCalculationConfigurationImporter("",
                                                                       new CalculationGroup(),
                                                                       Enumerable.Empty<HydraulicBoundaryLocation>(),
                                                                       null);
@@ -124,7 +124,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
                 surfaceLine
             }, "readerPath");
 
-            var importer = new PipingConfigurationImporter(filePath,
+            var importer = new PipingCalculationConfigurationImporter(filePath,
                                                            calculationGroup,
                                                            new HydraulicBoundaryLocation[0],
                                                            pipingFailureMechanism);
@@ -147,7 +147,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
             string filePath = Path.Combine(importerPath, "validConfigurationCalculationContainingUnknownHydraulicBoundaryLocation.xml");
 
             var calculationGroup = new CalculationGroup();
-            var importer = new PipingConfigurationImporter(filePath,
+            var importer = new PipingCalculationConfigurationImporter(filePath,
                                                            calculationGroup,
                                                            Enumerable.Empty<HydraulicBoundaryLocation>(),
                                                            new PipingFailureMechanism());
@@ -170,7 +170,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
             string filePath = Path.Combine(importerPath, "validConfigurationCalculationContainingUnknownSurfaceLine.xml");
 
             var calculationGroup = new CalculationGroup();
-            var importer = new PipingConfigurationImporter(filePath,
+            var importer = new PipingCalculationConfigurationImporter(filePath,
                                                            calculationGroup,
                                                            new HydraulicBoundaryLocation[0],
                                                            new PipingFailureMechanism());
@@ -194,7 +194,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
 
             var calculationGroup = new CalculationGroup();
             var pipingFailureMechanism = new PipingFailureMechanism();
-            var importer = new PipingConfigurationImporter(filePath,
+            var importer = new PipingCalculationConfigurationImporter(filePath,
                                                            calculationGroup,
                                                            new HydraulicBoundaryLocation[0],
                                                            pipingFailureMechanism);
@@ -244,7 +244,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
                 stochasticSoilModel
             }, "readerPath");
 
-            var importer = new PipingConfigurationImporter(filePath,
+            var importer = new PipingCalculationConfigurationImporter(filePath,
                                                            calculationGroup,
                                                            new HydraulicBoundaryLocation[0],
                                                            pipingFailureMechanism);
@@ -294,7 +294,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
                 stochasticSoilModel
             }, "readerPath");
 
-            var importer = new PipingConfigurationImporter(filePath,
+            var importer = new PipingCalculationConfigurationImporter(filePath,
                                                            calculationGroup,
                                                            new HydraulicBoundaryLocation[0],
                                                            pipingFailureMechanism);
@@ -318,7 +318,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
 
             var calculationGroup = new CalculationGroup();
             var pipingFailureMechanism = new PipingFailureMechanism();
-            var importer = new PipingConfigurationImporter(filePath,
+            var importer = new PipingCalculationConfigurationImporter(filePath,
                                                            calculationGroup,
                                                            new HydraulicBoundaryLocation[0],
                                                            pipingFailureMechanism);
@@ -346,7 +346,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
 
             var calculationGroup = new CalculationGroup();
             var pipingFailureMechanism = new PipingFailureMechanism();
-            var importer = new PipingConfigurationImporter(filePath,
+            var importer = new PipingCalculationConfigurationImporter(filePath,
                                                            calculationGroup,
                                                            new HydraulicBoundaryLocation[0],
                                                            pipingFailureMechanism);
@@ -408,7 +408,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
             }, "readerPath");
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HRlocatie", 10, 20);
-            var importer = new PipingConfigurationImporter(filePath,
+            var importer = new PipingCalculationConfigurationImporter(filePath,
                                                            calculationGroup,
                                                            new[]
                                                            {

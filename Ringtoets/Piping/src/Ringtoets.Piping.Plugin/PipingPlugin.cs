@@ -128,7 +128,7 @@ namespace Ringtoets.Piping.Plugin
                 Image = RingtoetsCommonFormsResources.GeneralFolderIcon,
                 FileFilterGenerator = PipingConfigurationFileFilter,
                 IsEnabled = PipingConfigurationImporterEnabled,
-                CreateFileImporter = (context, filePath) => new PipingConfigurationImporter(filePath,
+                CreateFileImporter = (context, filePath) => new PipingCalculationConfigurationImporter(filePath,
                                                                                             context.WrappedData,
                                                                                             context.AvailableHydraulicBoundaryLocations,
                                                                                             context.FailureMechanism)

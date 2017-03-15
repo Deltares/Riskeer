@@ -231,7 +231,7 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
             IFileImporter importer = importInfo.CreateFileImporter(context, "");
 
             // Assert
-            Assert.IsInstanceOf<PipingConfigurationImporter>(importer);
+            Assert.IsInstanceOf<PipingCalculationConfigurationImporter>(importer);
             mocks.VerifyAll();
         }
     }

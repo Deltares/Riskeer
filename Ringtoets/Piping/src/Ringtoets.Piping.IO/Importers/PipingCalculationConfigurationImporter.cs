@@ -40,13 +40,13 @@ namespace Ringtoets.Piping.IO.Importers
     /// Imports a piping configuration from an XML file and stores it on a
     /// <see cref="CalculationGroup"/>.
     /// </summary>
-    public class PipingConfigurationImporter : CalculationConfigurationImporter<PipingCalculationConfigurationReader, ReadPipingCalculation>
+    public class PipingCalculationConfigurationImporter : CalculationConfigurationImporter<PipingCalculationConfigurationReader, ReadPipingCalculation>
     {
         private readonly IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations;
         private readonly PipingFailureMechanism failureMechanism;
 
         /// <summary>
-        /// Creates a new instance of <see cref="PipingConfigurationImporter"/>.
+        /// Creates a new instance of <see cref="PipingCalculationConfigurationImporter"/>.
         /// </summary>
         /// <param name="xmlFilePath">The path to the XML file to import from.</param>
         /// <param name="importTarget">The calculation group to update.</param>
@@ -56,7 +56,7 @@ namespace Ringtoets.Piping.IO.Importers
         /// if the imported objects contain the right data.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is
         /// <c>null</c>.</exception>
-        public PipingConfigurationImporter(string xmlFilePath,
+        public PipingCalculationConfigurationImporter(string xmlFilePath,
                                            CalculationGroup importTarget,
                                            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
                                            PipingFailureMechanism failureMechanism)

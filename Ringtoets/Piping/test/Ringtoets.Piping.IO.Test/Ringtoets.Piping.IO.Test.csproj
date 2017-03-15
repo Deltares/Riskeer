@@ -74,7 +74,7 @@
     <Compile Include="Exceptions\StochasticSoilProfileReadExceptionTest.cs" />
     <Compile Include="Exporters\PipingCalculationConfigurationExporterTest.cs" />
     <Compile Include="Exporters\PipingCalculationConfigurationWriterTest.cs" />
-    <Compile Include="Importers\PipingConfigurationImporterTest.cs" />
+    <Compile Include="Importers\PipingCalculationConfigurationImporterTest.cs" />
     <Compile Include="Exceptions\RingtoetsPipingSurfaceLineUpdateExceptionTest.cs" />
     <Compile Include="Exceptions\StochasticSoilModelUpdateExceptionTest.cs" />
     <Compile Include="Readers\PipingCalculationConfigurationReaderTest.cs" />
