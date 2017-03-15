@@ -24,7 +24,6 @@ using System.IO;
 using System.Linq;
 using System.Xml.Schema;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Readers;
@@ -33,10 +32,10 @@ using Ringtoets.Revetment.IO.Readers;
 namespace Ringtoets.Revetment.IO.Test.Readers
 {
     [TestFixture]
-    public class WaveConditionsInputConfigurationReaderTest
+    public class WaveConditionsCalculationConfigurationReaderTest
     {
         private readonly string testDirectoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Revetment.IO,
-                                                                               "WaveConditionsInputConfigurationReader");
+                                                                               "WaveConditionsCalculationConfigurationReader");
 
         private static IEnumerable<TestCaseData> InvalidConfigurations
         {
@@ -181,10 +180,10 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             string filePath = Path.Combine(testDirectoryPath, "validConfigurationEmptyCalculation.xml");
 
             // Call
-            var reader = new WaveConditionsInputConfigurationReader(filePath);
+            var reader = new WaveConditionsCalculationConfigurationReader(filePath);
 
             // Assert
-            Assert.IsInstanceOf<ConfigurationReader<ReadWaveConditionsCalculation>>(reader);
+            Assert.IsInstanceOf<CalculationConfigurationReader<ReadWaveConditionsCalculation>>(reader);
         }
 
         [Test]
@@ -195,7 +194,7 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             string filePath = Path.Combine(testDirectoryPath, fileName);
 
             // Call
-            TestDelegate call = () => new WaveConditionsInputConfigurationReader(filePath);
+            TestDelegate call = () => new WaveConditionsCalculationConfigurationReader(filePath);
 
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(call);
@@ -208,7 +207,7 @@ namespace Ringtoets.Revetment.IO.Test.Readers
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, "validConfigurationEmptyCalculation.xml");
-            var reader = new WaveConditionsInputConfigurationReader(filePath);
+            var reader = new WaveConditionsCalculationConfigurationReader(filePath);
 
             // Call
             List<IReadConfigurationItem> readItems = reader.Read().ToList();
@@ -238,7 +237,7 @@ namespace Ringtoets.Revetment.IO.Test.Readers
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, "validConfigurationCalculationContainingEmptyWaveReduction.xml");
-            var reader = new WaveConditionsInputConfigurationReader(filePath);
+            var reader = new WaveConditionsCalculationConfigurationReader(filePath);
 
             // Call
             List<IReadConfigurationItem> readItems = reader.Read().ToList();
@@ -259,7 +258,7 @@ namespace Ringtoets.Revetment.IO.Test.Readers
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, "validConfigurationCalculationContainingNaNs.xml");
-            var reader = new WaveConditionsInputConfigurationReader(filePath);
+            var reader = new WaveConditionsCalculationConfigurationReader(filePath);
 
             // Call
             List<IReadConfigurationItem> readItems = reader.Read().ToList();
@@ -282,7 +281,7 @@ namespace Ringtoets.Revetment.IO.Test.Readers
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, "validConfigurationCalculationContaininInfinities.xml");
-            var reader = new WaveConditionsInputConfigurationReader(filePath);
+            var reader = new WaveConditionsCalculationConfigurationReader(filePath);
 
             // Call
             List<IReadConfigurationItem> readItems = reader.Read().ToList();
@@ -305,7 +304,7 @@ namespace Ringtoets.Revetment.IO.Test.Readers
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, "validConfigurationFullCalculation.xml");
-            var reader = new WaveConditionsInputConfigurationReader(filePath);
+            var reader = new WaveConditionsCalculationConfigurationReader(filePath);
 
             // Call
             List<IReadConfigurationItem> readItems = reader.Read().ToList();
@@ -320,7 +319,7 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             Assert.AreEqual(1.1, calculation.UpperBoundaryRevetment);
             Assert.AreEqual(2.2, calculation.LowerBoundaryRevetment);
             Assert.AreEqual(3.3, calculation.UpperBoundaryWaterLevels);
-            Assert.AreEqual(4.4, calculation.LowerBoundaryWaterLevels);            
+            Assert.AreEqual(4.4, calculation.LowerBoundaryWaterLevels);
             Assert.AreEqual(0.5, calculation.StepSize);
             Assert.AreEqual("Voorlandprofiel", calculation.ForeshoreProfile);
             Assert.AreEqual(5.5, calculation.Orientation);
@@ -335,7 +334,7 @@ namespace Ringtoets.Revetment.IO.Test.Readers
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, "validConfigurationPartialCalculation.xml");
-            var reader = new WaveConditionsInputConfigurationReader(filePath);
+            var reader = new WaveConditionsCalculationConfigurationReader(filePath);
 
             // Call
             List<IReadConfigurationItem> readItems = reader.Read().ToList();
@@ -350,7 +349,7 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             Assert.AreEqual(1.1, calculation.UpperBoundaryRevetment);
             Assert.AreEqual(2.2, calculation.LowerBoundaryRevetment);
             Assert.IsNull(calculation.UpperBoundaryWaterLevels);
-            Assert.IsNull(calculation.LowerBoundaryWaterLevels);            
+            Assert.IsNull(calculation.LowerBoundaryWaterLevels);
             Assert.AreEqual(0.5, calculation.StepSize);
             Assert.IsNull(calculation.ForeshoreProfile);
             Assert.IsNull(calculation.Orientation);

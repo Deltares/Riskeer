@@ -39,7 +39,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
     [TestFixture]
     public class PipingConfigurationImporterTest
     {
-        private readonly string readerPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "PipingConfigurationReader");
+        private readonly string readerPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "PipingCalculationConfigurationReader");
         private readonly string importerPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "PipingConfigurationImporter");
 
         [Test]
@@ -52,7 +52,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
                                                            new PipingFailureMechanism());
 
             // Assert
-            Assert.IsInstanceOf<CalculationConfigurationImporter<PipingConfigurationReader, ReadPipingCalculation>>(importer);
+            Assert.IsInstanceOf<CalculationConfigurationImporter<PipingCalculationConfigurationReader, ReadPipingCalculation>>(importer);
         }
 
         [Test]

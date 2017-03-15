@@ -144,14 +144,14 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Assert.IsFalse(importSuccessful);
         }
 
-        private class TestCalculationConfigurationImporter : CalculationConfigurationImporter<TestConfigurationReader, ReadCalculation>
+        private class TestCalculationConfigurationImporter : CalculationConfigurationImporter<TestCalculationConfigurationReader, ReadCalculation>
         {
             public TestCalculationConfigurationImporter(string filePath, CalculationGroup importTarget)
                 : base(filePath, importTarget) {}
 
-            protected override TestConfigurationReader CreateConfigurationReader(string xmlFilePath)
+            protected override TestCalculationConfigurationReader CreateConfigurationReader(string xmlFilePath)
             {
-                return new TestConfigurationReader(xmlFilePath);
+                return new TestCalculationConfigurationReader(xmlFilePath);
             }
 
             protected override ICalculationBase ParseReadCalculation(ReadCalculation readCalculation)
@@ -163,7 +163,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             }
         }
 
-        private class TestConfigurationReader : ConfigurationReader<ReadCalculation>
+        private class TestCalculationConfigurationReader : CalculationConfigurationReader<ReadCalculation>
         {
             private static readonly string mainSchemaDefinition =
                 File.ReadAllText(Path.Combine(TestHelper.GetTestDataPath(
@@ -171,7 +171,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                                                   "ConfigurationReader"),
                                               "validConfigurationSchema.xsd"));
 
-            public TestConfigurationReader(string xmlFilePath)
+            public TestCalculationConfigurationReader(string xmlFilePath)
                 : base(xmlFilePath, mainSchemaDefinition, new Dictionary<string, string>()) {}
 
             protected override ReadCalculation ParseCalculationElement(XElement calculationElement)

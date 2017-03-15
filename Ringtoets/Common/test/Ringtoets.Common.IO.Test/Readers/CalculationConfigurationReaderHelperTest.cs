@@ -28,13 +28,13 @@ using Ringtoets.Common.IO.Readers;
 namespace Ringtoets.Common.IO.Test.Readers
 {
     [TestFixture]
-    public class ConfigurationReaderHelperTest
+    public class CalculationConfigurationReaderHelperTest
     {
         [Test]
         public void GetDoubleValueFromDescendantElement_ParentElementNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ConfigurationReaderHelper.GetDoubleValueFromDescendantElement(null, "");
+            TestDelegate test = () => CalculationConfigurationReaderHelper.GetDoubleValueFromDescendantElement(null, "");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -45,7 +45,7 @@ namespace Ringtoets.Common.IO.Test.Readers
         public void GetDoubleValueFromDescendantElement_DescendantElementNameNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ConfigurationReaderHelper.GetDoubleValueFromDescendantElement(new XElement("Root"), null);
+            TestDelegate test = () => CalculationConfigurationReaderHelper.GetDoubleValueFromDescendantElement(new XElement("Root"), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -62,7 +62,7 @@ namespace Ringtoets.Common.IO.Test.Readers
             var element = new XElement("Root", new XElement(descendantElementName, descendantElementValue));
 
             // Call
-            double? readValue = ConfigurationReaderHelper.GetDoubleValueFromDescendantElement(element, descendantElementName);
+            double? readValue = CalculationConfigurationReaderHelper.GetDoubleValueFromDescendantElement(element, descendantElementName);
 
             // Assert
             Assert.AreEqual(descendantElementValue, readValue.Value);
@@ -75,7 +75,7 @@ namespace Ringtoets.Common.IO.Test.Readers
             var element = new XElement("Root", new XElement("number", (double) 3));
 
             // Call
-            double? readValue = ConfigurationReaderHelper.GetDoubleValueFromDescendantElement(element, "invalidName");
+            double? readValue = CalculationConfigurationReaderHelper.GetDoubleValueFromDescendantElement(element, "invalidName");
 
             // Assert
             Assert.IsNull(readValue);
@@ -85,7 +85,7 @@ namespace Ringtoets.Common.IO.Test.Readers
         public void GetStringValueFromDescendantElement_ParentElementNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ConfigurationReaderHelper.GetStringValueFromDescendantElement(null, "");
+            TestDelegate test = () => CalculationConfigurationReaderHelper.GetStringValueFromDescendantElement(null, "");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -96,7 +96,7 @@ namespace Ringtoets.Common.IO.Test.Readers
         public void GetStringValueFromDescendantElement_DescendantElementNameNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ConfigurationReaderHelper.GetStringValueFromDescendantElement(new XElement("Test"), null);
+            TestDelegate test = () => CalculationConfigurationReaderHelper.GetStringValueFromDescendantElement(new XElement("Test"), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -113,7 +113,7 @@ namespace Ringtoets.Common.IO.Test.Readers
             var element = new XElement("Root", new XElement(descendantElementName, descendantElementValue));
 
             // Call
-            string readValue = ConfigurationReaderHelper.GetStringValueFromDescendantElement(element, descendantElementName);
+            string readValue = CalculationConfigurationReaderHelper.GetStringValueFromDescendantElement(element, descendantElementName);
 
             // Assert
             Assert.AreEqual(descendantElementValue, readValue);
@@ -126,7 +126,7 @@ namespace Ringtoets.Common.IO.Test.Readers
             var element = new XElement("Root", new XElement("number", "valueText"));
 
             // Call
-            string readValue = ConfigurationReaderHelper.GetStringValueFromDescendantElement(element, "invalidName");
+            string readValue = CalculationConfigurationReaderHelper.GetStringValueFromDescendantElement(element, "invalidName");
 
             // Assert
             Assert.IsNull(readValue);
@@ -136,7 +136,7 @@ namespace Ringtoets.Common.IO.Test.Readers
         public void GetDescendantElement_ParentElementNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ConfigurationReaderHelper.GetDescendantElement(null, "");
+            TestDelegate test = () => CalculationConfigurationReaderHelper.GetDescendantElement(null, "");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -147,7 +147,7 @@ namespace Ringtoets.Common.IO.Test.Readers
         public void GetDescendantElement_DescendantElementNameNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ConfigurationReaderHelper.GetDescendantElement(new XElement("Test"), null);
+            TestDelegate test = () => CalculationConfigurationReaderHelper.GetDescendantElement(new XElement("Test"), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -159,7 +159,7 @@ namespace Ringtoets.Common.IO.Test.Readers
         public void GetDescendantElement_ValidDescendantName_ReturnElement(XElement parentElement)
         {
             // Call
-            XElement element = ConfigurationReaderHelper.GetDescendantElement(parentElement, "descendant");
+            XElement element = CalculationConfigurationReaderHelper.GetDescendantElement(parentElement, "descendant");
 
             // Assert
             Assert.IsNotNull(element);
@@ -173,7 +173,7 @@ namespace Ringtoets.Common.IO.Test.Readers
             var parentElement = new XElement("Root", new XElement("Child", new XElement("descendant")));
             
             // Call
-            XElement element = ConfigurationReaderHelper.GetDescendantElement(parentElement, "something_else");
+            XElement element = CalculationConfigurationReaderHelper.GetDescendantElement(parentElement, "something_else");
 
             // Assert
             Assert.IsNull(element);

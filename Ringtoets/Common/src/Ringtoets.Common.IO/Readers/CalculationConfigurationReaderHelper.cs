@@ -27,9 +27,9 @@ using System.Xml.Linq;
 namespace Ringtoets.Common.IO.Readers
 {
     /// <summary>
-    /// Helper methods related to <see cref="ConfigurationReader{TReadCalculation}"/> instances.
+    /// Helper methods related to <see cref="CalculationConfigurationReader{TReadCalculation}"/> instances.
     /// </summary>
-    public static class ConfigurationReaderHelper
+    public static class CalculationConfigurationReaderHelper
     {
         /// <summary>
         /// Gets the double value from a descendant element.

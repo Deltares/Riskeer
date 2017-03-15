@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using log4net;
 using Ringtoets.Common.Data.Calculation;
@@ -41,7 +40,7 @@ namespace Ringtoets.Common.IO.FileImporters
     /// <typeparam name="TReadCalculation">The type of the data read from the XML file by the reader.</typeparam>
     public abstract class CalculationConfigurationImporter<TConfigurationReader, TReadCalculation>
         : FileImporterBase<CalculationGroup>
-        where TConfigurationReader : ConfigurationReader<TReadCalculation>
+        where TConfigurationReader : CalculationConfigurationReader<TReadCalculation>
         where TReadCalculation : class, IReadConfigurationItem
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(CalculationConfigurationImporter<TConfigurationReader, TReadCalculation>));

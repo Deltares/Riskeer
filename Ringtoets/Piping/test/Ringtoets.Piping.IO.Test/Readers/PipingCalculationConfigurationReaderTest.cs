@@ -24,7 +24,6 @@ using System.IO;
 using System.Linq;
 using System.Xml.Schema;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Readers;
@@ -33,10 +32,10 @@ using Ringtoets.Piping.IO.Readers;
 namespace Ringtoets.Piping.IO.Test.Readers
 {
     [TestFixture]
-    public class PipingConfigurationReaderTest
+    public class PipingCalculationConfigurationReaderTest
     {
         private readonly string testDirectoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO,
-                                                                               "PipingConfigurationReader");
+                                                                               "PipingCalculationConfigurationReader");
 
         private static IEnumerable<TestCaseData> InvalidConfigurations
         {
@@ -161,7 +160,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
             string filePath = Path.Combine(testDirectoryPath, fileName);
 
             // Call
-            TestDelegate call = () => new PipingConfigurationReader(filePath);
+            TestDelegate call = () => new PipingCalculationConfigurationReader(filePath);
 
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(call);
@@ -176,10 +175,10 @@ namespace Ringtoets.Piping.IO.Test.Readers
             string filePath = Path.Combine(testDirectoryPath, "validConfigurationEmptyCalculation.xml");
 
             // Call
-            var pipingConfigurationReader = new PipingConfigurationReader(filePath);
+            var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Assert
-            Assert.IsInstanceOf<ConfigurationReader<ReadPipingCalculation>>(pipingConfigurationReader);
+            Assert.IsInstanceOf<CalculationConfigurationReader<ReadPipingCalculation>>(reader);
         }
 
         [Test]
@@ -187,10 +186,10 @@ namespace Ringtoets.Piping.IO.Test.Readers
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, "validConfigurationEmptyCalculation.xml");
-            var pipingConfigurationReader = new PipingConfigurationReader(filePath);
+            var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
-            IList<IReadConfigurationItem> readConfigurationItems = pipingConfigurationReader.Read().ToList();
+            IList<IReadConfigurationItem> readConfigurationItems = reader.Read().ToList();
 
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
@@ -216,10 +215,10 @@ namespace Ringtoets.Piping.IO.Test.Readers
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, "validConfigurationCalculationContainingEmptyStochasts.xml");
-            var pipingConfigurationReader = new PipingConfigurationReader(filePath);
+            var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
-            IList<IReadConfigurationItem> readConfigurationItems = pipingConfigurationReader.Read().ToList();
+            IList<IReadConfigurationItem> readConfigurationItems = reader.Read().ToList();
 
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
@@ -237,10 +236,10 @@ namespace Ringtoets.Piping.IO.Test.Readers
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, "validConfigurationCalculationContainingNaNs.xml");
-            var pipingConfigurationReader = new PipingConfigurationReader(filePath);
+            var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
-            IList<IReadConfigurationItem> readConfigurationItems = pipingConfigurationReader.Read().ToList();
+            IList<IReadConfigurationItem> readConfigurationItems = reader.Read().ToList();
 
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
@@ -261,10 +260,10 @@ namespace Ringtoets.Piping.IO.Test.Readers
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, "validConfigurationCalculationContainingInfinities.xml");
-            var pipingConfigurationReader = new PipingConfigurationReader(filePath);
+            var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
-            IList<IReadConfigurationItem> readConfigurationItems = pipingConfigurationReader.Read().ToList();
+            IList<IReadConfigurationItem> readConfigurationItems = reader.Read().ToList();
 
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
@@ -285,10 +284,10 @@ namespace Ringtoets.Piping.IO.Test.Readers
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, "validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml");
-            var pipingConfigurationReader = new PipingConfigurationReader(filePath);
+            var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
-            IList<IReadConfigurationItem> readConfigurationItems = pipingConfigurationReader.Read().ToList();
+            IList<IReadConfigurationItem> readConfigurationItems = reader.Read().ToList();
 
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
@@ -314,10 +313,10 @@ namespace Ringtoets.Piping.IO.Test.Readers
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, "validConfigurationFullCalculationContainingAssessmentLevel.xml");
-            var pipingConfigurationReader = new PipingConfigurationReader(filePath);
+            var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
-            IList<IReadConfigurationItem> readConfigurationItems = pipingConfigurationReader.Read().ToList();
+            IList<IReadConfigurationItem> readConfigurationItems = reader.Read().ToList();
 
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
@@ -343,10 +342,10 @@ namespace Ringtoets.Piping.IO.Test.Readers
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, "validConfigurationPartialCalculation.xml");
-            var pipingConfigurationReader = new PipingConfigurationReader(filePath);
+            var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
-            IList<IReadConfigurationItem> readConfigurationItems = pipingConfigurationReader.Read().ToList();
+            IList<IReadConfigurationItem> readConfigurationItems = reader.Read().ToList();
 
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);

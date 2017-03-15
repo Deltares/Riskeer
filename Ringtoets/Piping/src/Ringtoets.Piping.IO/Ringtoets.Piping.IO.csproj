@@ -65,7 +65,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Readers\PipingConfigurationReader.cs" />
+    <Compile Include="Readers\PipingCalculationConfigurationReader.cs" />
     <Compile Include="Schema\PipingConfigurationSchemaIdentifiers.cs" />
     <Compile Include="Readers\ReadPipingCalculation.cs" />
     <Compile Include="SoilProfile\LayerProperties.cs" />

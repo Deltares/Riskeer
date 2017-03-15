@@ -27,7 +27,6 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Schema;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
 using Ringtoets.Common.IO.Properties;
@@ -41,7 +40,7 @@ namespace Ringtoets.Common.IO.Readers
     /// <see cref="IReadConfigurationItem"/>, typically containing one or more <see cref="TReadCalculation"/>.
     /// </summary>
     /// <typeparam name="TReadCalculation">The type of calculation items read from XML.</typeparam>
-    public abstract class ConfigurationReader<TReadCalculation>
+    public abstract class CalculationConfigurationReader<TReadCalculation>
         where TReadCalculation : IReadConfigurationItem
     {
         private const string defaultSchemaName = "ConfiguratieSchema.xsd";
@@ -49,7 +48,7 @@ namespace Ringtoets.Common.IO.Readers
         private readonly XDocument xmlDocument;
 
         /// <summary>
-        /// Creates a new instance of <see cref="ConfigurationReader{TCalculationItem}"/>.
+        /// Creates a new instance of <see cref="CalculationConfigurationReader{TReadCalculation}"/>.
         /// </summary>
         /// <param name="xmlFilePath">The file path to the XML file.</param>
         /// <param name="mainSchemaDefinition">A <c>string</c> representing the main schema definition.</param>
@@ -80,7 +79,7 @@ namespace Ringtoets.Common.IO.Readers
         /// <item><paramref name="xmlFilePath"/> points to a file that does not contain configuration elements.</item>
         /// </list>
         /// </exception>
-        protected ConfigurationReader(string xmlFilePath, string mainSchemaDefinition, IDictionary<string, string> nestedSchemaDefinitions)
+        protected CalculationConfigurationReader(string xmlFilePath, string mainSchemaDefinition, IDictionary<string, string> nestedSchemaDefinitions)
         {
             IOUtils.ValidateFilePath(xmlFilePath);
 

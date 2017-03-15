@@ -24,7 +24,7 @@ using System.Collections.Generic;
 namespace Ringtoets.Common.IO.Readers
 {
     /// <summary>
-    /// Class that represents a calculation group that is read via <see cref="ConfigurationReader{TCalculationItem}"/>.
+    /// Class that represents a calculation group that is read via <see cref="CalculationConfigurationReader{TReadCalculation}"/>.
     /// </summary>
     public class ReadCalculationGroup : IReadConfigurationItem
     {

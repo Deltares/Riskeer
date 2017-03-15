@@ -40,7 +40,7 @@ namespace Ringtoets.Piping.IO.Importers
     /// Imports a piping configuration from an XML file and stores it on a
     /// <see cref="CalculationGroup"/>.
     /// </summary>
-    public class PipingConfigurationImporter : CalculationConfigurationImporter<PipingConfigurationReader, ReadPipingCalculation>
+    public class PipingConfigurationImporter : CalculationConfigurationImporter<PipingCalculationConfigurationReader, ReadPipingCalculation>
     {
         private readonly IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations;
         private readonly PipingFailureMechanism failureMechanism;
@@ -74,9 +74,9 @@ namespace Ringtoets.Piping.IO.Importers
             this.failureMechanism = failureMechanism;
         }
 
-        protected override PipingConfigurationReader CreateConfigurationReader(string xmlFilePath)
+        protected override PipingCalculationConfigurationReader CreateConfigurationReader(string xmlFilePath)
         {
-            return new PipingConfigurationReader(xmlFilePath);
+            return new PipingCalculationConfigurationReader(xmlFilePath);
         }
 
         protected override ICalculationBase ParseReadCalculation(ReadPipingCalculation readCalculation)
