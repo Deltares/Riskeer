@@ -33,16 +33,16 @@ using Ringtoets.Revetment.IO;
 namespace Ringtoets.WaveImpactAsphaltCover.IO.Test
 {
     [TestFixture]
-    public class WaveImpactAsphaltCoverConfigurationWriterTest
+    public class WaveImpactAsphaltCoverCalculationConfigurationWriterTest
     {
         [Test]
         public void Constructor_Always_CreateWaveConditionsInputWriter()
         {
             // Call
-            var writer = new WaveImpactAsphaltCoverConfigurationWriter();
+            var writer = new WaveImpactAsphaltCoverCalculationConfigurationWriter();
 
             // Assert
-            Assert.IsInstanceOf<WaveConditionsInputConfigurationWriter<WaveImpactAsphaltCoverWaveConditionsCalculation>>(writer);
+            Assert.IsInstanceOf<WaveConditionsCalculationConfigurationWriter<WaveImpactAsphaltCoverWaveConditionsCalculation>>(writer);
         }
 
         [Test]
@@ -52,7 +52,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.IO.Test
             string filePath = TestHelper.GetScratchPadPath("Write_GroupWithCalculationAndOtherGroup.xml");
             string expectedXmlFilePath = TestHelper.GetTestDataPath(
                 TestDataPath.Ringtoets.WaveImpactAsphaltCover.IO,
-                Path.Combine(nameof(WaveImpactAsphaltCoverConfigurationWriter), "calculationAndGroupWithNesting.xml"));
+                Path.Combine(nameof(WaveImpactAsphaltCoverCalculationConfigurationWriter), "calculationAndGroupWithNesting.xml"));
 
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
@@ -80,7 +80,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.IO.Test
             var calculationGroup = new CalculationGroup("NestedGroup", false);
             try
             {
-                var writer = new WaveImpactAsphaltCoverConfigurationWriter();
+                var writer = new WaveImpactAsphaltCoverCalculationConfigurationWriter();
 
                 // Call
                 writer.Write(new ICalculationBase[]

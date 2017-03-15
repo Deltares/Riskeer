@@ -24,7 +24,7 @@ namespace Ringtoets.Revetment.IO
     /// <summary>
     /// Container of identifiers related to the piping configuration schema definition.
     /// </summary>
-    internal static class WaveConditionsInputConfigurationSchemaIdentifiers
+    internal static class WaveConditionsConfigurationSchemaIdentifiers
     {
         /// <summary>
         /// The tag of elements containing the upper boundary of revetment.

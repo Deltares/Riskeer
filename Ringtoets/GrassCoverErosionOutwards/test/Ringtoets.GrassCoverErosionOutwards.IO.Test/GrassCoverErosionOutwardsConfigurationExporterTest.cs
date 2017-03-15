@@ -43,7 +43,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test
             // Assert
             Assert.IsInstanceOf<
                 ConfigurationExporter<
-                    GrassCoverErosionOutwardsConfigurationWriter,
+                    GrassCoverErosionOutwardsCalculationConfigurationWriter,
                     GrassCoverErosionOutwardsWaveConditionsCalculation>>(exporter);
         }
 

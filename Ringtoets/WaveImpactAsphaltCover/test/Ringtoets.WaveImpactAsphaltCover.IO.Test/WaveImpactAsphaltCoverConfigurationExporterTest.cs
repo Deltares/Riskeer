@@ -43,7 +43,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.IO.Test
             // Assert
             Assert.IsInstanceOf<
                 ConfigurationExporter<
-                    WaveImpactAsphaltCoverConfigurationWriter,
+                    WaveImpactAsphaltCoverCalculationConfigurationWriter,
                     WaveImpactAsphaltCoverWaveConditionsCalculation>>(exporter);
         }
 

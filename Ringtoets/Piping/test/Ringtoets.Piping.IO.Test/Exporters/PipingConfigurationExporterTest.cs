@@ -47,7 +47,7 @@ namespace Ringtoets.Piping.IO.Test.Exporters
             var exporter = new PipingConfigurationExporter(Enumerable.Empty<ICalculationBase>(), "test.xml");
 
             // Assert
-            Assert.IsInstanceOf<ConfigurationExporter<PipingConfigurationWriter, PipingCalculation>>(exporter);
+            Assert.IsInstanceOf<ConfigurationExporter<PipingCalculationConfigurationWriter, PipingCalculation>>(exporter);
         }
 
         [Test]
@@ -108,7 +108,7 @@ namespace Ringtoets.Piping.IO.Test.Exporters
 
                 string actualXml = File.ReadAllText(filePath);
                 string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO,
-                                                                        Path.Combine("PipingConfigurationWriter", "folderWithSubfolderAndCalculation.xml"));
+                                                                        Path.Combine("PipingCalculationConfigurationWriter", "folderWithSubfolderAndCalculation.xml"));
                 string expectedXml = File.ReadAllText(expectedXmlFilePath);
 
                 Assert.AreEqual(expectedXml, actualXml);

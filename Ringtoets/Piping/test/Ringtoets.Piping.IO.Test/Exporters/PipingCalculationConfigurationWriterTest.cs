@@ -38,7 +38,7 @@ using Ringtoets.Piping.Primitives;
 namespace Ringtoets.Piping.IO.Test.Exporters
 {
     [TestFixture]
-    public class PipingConfigurationWriterTest
+    public class PipingCalculationConfigurationWriterTest
     {
         private static IEnumerable<TestCaseData> Calculations
         {
@@ -72,7 +72,7 @@ namespace Ringtoets.Piping.IO.Test.Exporters
         public void Write_ConfigurationNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new PipingConfigurationWriter().Write(null, string.Empty);
+            TestDelegate test = () => new PipingCalculationConfigurationWriter().Write(null, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -83,7 +83,7 @@ namespace Ringtoets.Piping.IO.Test.Exporters
         public void Write_FilePathNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new PipingConfigurationWriter().Write(Enumerable.Empty<ICalculationBase>(), null);
+            TestDelegate test = () => new PipingCalculationConfigurationWriter().Write(Enumerable.Empty<ICalculationBase>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -97,7 +97,7 @@ namespace Ringtoets.Piping.IO.Test.Exporters
         public void Write_FilePathInvalid_ThrowCriticalFileWriteException(string filePath)
         {
             // Call
-            TestDelegate call = () => new PipingConfigurationWriter().Write(Enumerable.Empty<ICalculationBase>(), filePath);
+            TestDelegate call = () => new PipingCalculationConfigurationWriter().Write(Enumerable.Empty<ICalculationBase>(), filePath);
 
             // Assert
             var exception = Assert.Throws<CriticalFileWriteException>(call);
@@ -112,7 +112,7 @@ namespace Ringtoets.Piping.IO.Test.Exporters
             var filePath = new string('a', 249);
 
             // Call
-            TestDelegate call = () => new PipingConfigurationWriter().Write(Enumerable.Empty<ICalculationBase>(), filePath);
+            TestDelegate call = () => new PipingCalculationConfigurationWriter().Write(Enumerable.Empty<ICalculationBase>(), filePath);
 
             // Assert
             var exception = Assert.Throws<CriticalFileWriteException>(call);
@@ -131,7 +131,7 @@ namespace Ringtoets.Piping.IO.Test.Exporters
                 disposeHelper.LockDirectory(FileSystemRights.Write);
 
                 // Call
-                TestDelegate call = () => new PipingConfigurationWriter().Write(Enumerable.Empty<ICalculationBase>(), filePath);
+                TestDelegate call = () => new PipingCalculationConfigurationWriter().Write(Enumerable.Empty<ICalculationBase>(), filePath);
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileWriteException>(call);
@@ -151,7 +151,7 @@ namespace Ringtoets.Piping.IO.Test.Exporters
                 fileDisposeHelper.LockFiles();
 
                 // Call
-                TestDelegate call = () => new PipingConfigurationWriter().Write(Enumerable.Empty<ICalculationBase>(), path);
+                TestDelegate call = () => new PipingCalculationConfigurationWriter().Write(Enumerable.Empty<ICalculationBase>(), path);
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileWriteException>(call);
@@ -205,7 +205,7 @@ namespace Ringtoets.Piping.IO.Test.Exporters
             try
             {
                 // Call
-                new PipingConfigurationWriter().Write(new[]
+                new PipingCalculationConfigurationWriter().Write(new[]
                 {
                     calculationGroup
                 }, filePath);
@@ -215,7 +215,7 @@ namespace Ringtoets.Piping.IO.Test.Exporters
 
                 string actualXml = File.ReadAllText(filePath);
                 string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO,
-                                                                        Path.Combine("PipingConfigurationWriter",
+                                                                        Path.Combine("PipingCalculationConfigurationWriter",
                                                                                      "folderWithSubfolderAndCalculation.xml"));
                 string expectedXml = File.ReadAllText(expectedXmlFilePath);
 
@@ -237,7 +237,7 @@ namespace Ringtoets.Piping.IO.Test.Exporters
             try
             {
                 // Call
-                new PipingConfigurationWriter().Write(new[]
+                new PipingCalculationConfigurationWriter().Write(new[]
                 {
                     calculation
                 }, filePath);
@@ -246,7 +246,7 @@ namespace Ringtoets.Piping.IO.Test.Exporters
                 Assert.IsTrue(File.Exists(filePath));
 
                 string actualXml = File.ReadAllText(filePath);
-                string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, Path.Combine("PipingConfigurationWriter", $"{expectedFileName}.xml"));
+                string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, Path.Combine("PipingCalculationConfigurationWriter", $"{expectedFileName}.xml"));
                 string expectedXml = File.ReadAllText(expectedXmlFilePath);
 
                 Assert.AreEqual(expectedXml, actualXml);

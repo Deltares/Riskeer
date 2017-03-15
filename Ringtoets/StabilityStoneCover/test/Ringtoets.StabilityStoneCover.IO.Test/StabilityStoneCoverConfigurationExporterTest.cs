@@ -43,7 +43,7 @@ namespace Ringtoets.StabilityStoneCover.IO.Test
             // Assert
             Assert.IsInstanceOf<
                 ConfigurationExporter<
-                    StabilityStoneCoverConfigurationWriter,
+                    StabilityStoneCoverCalculationConfigurationWriter,
                     StabilityStoneCoverWaveConditionsCalculation>>(exporter);
         }
 

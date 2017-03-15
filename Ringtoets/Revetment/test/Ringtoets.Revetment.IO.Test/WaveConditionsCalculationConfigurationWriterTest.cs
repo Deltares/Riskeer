@@ -36,13 +36,13 @@ using Ringtoets.Revetment.Data;
 namespace Ringtoets.Revetment.IO.Test
 {
     [TestFixture]
-    public class WaveConditionsInputConfigurationWriterTest
+    public class WaveConditionsCalculationConfigurationWriterTest
     {
         [Test]
         public void Constructor_Always_ReturnsConfigurationWriter()
         {
             // Call
-            var writer = new SimpleWaveConditionsInputConfigurationWriter();
+            var writer = new SimpleWaveConditionsCalculationConfigurationWriter();
 
             // Assert
             Assert.IsInstanceOf<CalculationConfigurationWriter<SimpleWaveConditionsCalculation>>(writer);
@@ -57,7 +57,7 @@ namespace Ringtoets.Revetment.IO.Test
 
             string expectedXmlFilePath = TestHelper.GetTestDataPath(
                 TestDataPath.Ringtoets.Revetment.IO,
-                Path.Combine(nameof(WaveConditionsInputConfigurationWriter<ICalculation>), "sparseConfiguration.xml"));
+                Path.Combine(nameof(WaveConditionsCalculationConfigurationWriter<ICalculation>), "sparseConfiguration.xml"));
 
             var calculation = new SimpleWaveConditionsCalculation
             {
@@ -68,7 +68,7 @@ namespace Ringtoets.Revetment.IO.Test
             {
                 using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
                 {
-                    var writer = new SimpleWaveConditionsInputConfigurationWriter();
+                    var writer = new SimpleWaveConditionsCalculationConfigurationWriter();
 
                     // Call
                     writer.PublicWriteCalculation(calculation, xmlWriter);
@@ -95,7 +95,7 @@ namespace Ringtoets.Revetment.IO.Test
 
             string expectedXmlFilePath = TestHelper.GetTestDataPath(
                 TestDataPath.Ringtoets.Revetment.IO,
-                Path.Combine(nameof(WaveConditionsInputConfigurationWriter<ICalculation>), "completeConfiguration.xml"));
+                Path.Combine(nameof(WaveConditionsCalculationConfigurationWriter<ICalculation>), "completeConfiguration.xml"));
 
             var calculation = new SimpleWaveConditionsCalculation
             {
@@ -124,7 +124,7 @@ namespace Ringtoets.Revetment.IO.Test
             {
                 using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
                 {
-                    var writer = new SimpleWaveConditionsInputConfigurationWriter();
+                    var writer = new SimpleWaveConditionsCalculationConfigurationWriter();
 
                     // Call
                     writer.PublicWriteCalculation(calculation, xmlWriter);
@@ -151,7 +151,7 @@ namespace Ringtoets.Revetment.IO.Test
         }
     }
 
-    public class SimpleWaveConditionsInputConfigurationWriter : WaveConditionsInputConfigurationWriter<SimpleWaveConditionsCalculation>
+    public class SimpleWaveConditionsCalculationConfigurationWriter : WaveConditionsCalculationConfigurationWriter<SimpleWaveConditionsCalculation>
     {
         public void PublicWriteCalculation(SimpleWaveConditionsCalculation calculation, XmlWriter writer)
         {

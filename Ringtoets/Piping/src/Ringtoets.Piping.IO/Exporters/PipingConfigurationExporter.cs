@@ -30,7 +30,7 @@ namespace Ringtoets.Piping.IO.Exporters
     /// <summary>
     /// Exports a piping configuration and stores it as an XML file.
     /// </summary>
-    public class PipingConfigurationExporter : ConfigurationExporter<PipingConfigurationWriter, PipingCalculation>
+    public class PipingConfigurationExporter : ConfigurationExporter<PipingCalculationConfigurationWriter, PipingCalculation>
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingConfigurationExporter"/>.

@@ -21,18 +21,18 @@
 
 using System.Xml;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.WaveImpactAsphaltCover.Data;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.Revetment.IO;
 
-namespace Ringtoets.WaveImpactAsphaltCover.IO
+namespace Ringtoets.GrassCoverErosionOutwards.IO
 {
     /// <summary>
-    /// A writer for writing out configurations of <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/> and
+    /// A writer for writing out configurations of <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/> and
     /// <see cref="CalculationGroup"/>, to XML format.
     /// </summary>
-    public class WaveImpactAsphaltCoverConfigurationWriter : WaveConditionsInputConfigurationWriter<WaveImpactAsphaltCoverWaveConditionsCalculation>
+    public class GrassCoverErosionOutwardsCalculationConfigurationWriter : WaveConditionsCalculationConfigurationWriter<GrassCoverErosionOutwardsWaveConditionsCalculation>
     {
-        protected override void WriteCalculation(WaveImpactAsphaltCoverWaveConditionsCalculation calculation, XmlWriter writer)
+        protected override void WriteCalculation(GrassCoverErosionOutwardsWaveConditionsCalculation calculation, XmlWriter writer)
         {
             WriteCalculation(calculation.Name, calculation.InputParameters, writer);
         }

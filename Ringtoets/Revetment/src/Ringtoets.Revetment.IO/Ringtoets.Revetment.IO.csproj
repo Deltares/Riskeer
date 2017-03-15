@@ -57,8 +57,8 @@
     <Compile Include="Readers\ReadBreakWaterType.cs" />
     <Compile Include="Readers\ReadWaveConditionsCalculation.cs" />
     <Compile Include="Readers\WaveConditionsCalculationConfigurationReader.cs" />
-    <Compile Include="WaveConditionsInputConfigurationSchemaIdentifiers.cs" />
-    <Compile Include="WaveConditionsInputConfigurationWriter.cs" />
+    <Compile Include="WaveConditionsConfigurationSchemaIdentifiers.cs" />
+    <Compile Include="WaveConditionsCalculationConfigurationWriter.cs" />
     <Compile Include="WaveConditionsExporterBase.cs" />
     <Compile Include="WaveConditionsInputStepSizeTypeConverter.cs" />
     <Compile Include="WaveConditionsWriter.cs" />

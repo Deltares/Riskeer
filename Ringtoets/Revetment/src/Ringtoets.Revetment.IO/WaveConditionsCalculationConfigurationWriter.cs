@@ -34,11 +34,11 @@ namespace Ringtoets.Revetment.IO
     /// to XML format.
     /// </summary>
     /// <typeparam name="T">The type of calculations that are written to file.</typeparam>
-    public abstract class WaveConditionsInputConfigurationWriter<T> : CalculationConfigurationWriter<T> where T : class, ICalculation
+    public abstract class WaveConditionsCalculationConfigurationWriter<T> : CalculationConfigurationWriter<T> where T : class, ICalculation
     {
         private readonly WaveConditionsInputStepSizeTypeConverter waveConditionsInputStepSizeConverter;
 
-        public WaveConditionsInputConfigurationWriter()
+        protected WaveConditionsCalculationConfigurationWriter()
         {
             waveConditionsInputStepSizeConverter = new WaveConditionsInputStepSizeTypeConverter();
         }
@@ -57,19 +57,19 @@ namespace Ringtoets.Revetment.IO
             WriteHydraulicBoundaryLocation(input.HydraulicBoundaryLocation, writer);
 
             writer.WriteElementString(
-                WaveConditionsInputConfigurationSchemaIdentifiers.UpperBoundaryRevetment,
+                WaveConditionsConfigurationSchemaIdentifiers.UpperBoundaryRevetment,
                 XmlConvert.ToString(input.UpperBoundaryRevetment));
             writer.WriteElementString(
-                WaveConditionsInputConfigurationSchemaIdentifiers.LowerBoundaryRevetment,
+                WaveConditionsConfigurationSchemaIdentifiers.LowerBoundaryRevetment,
                 XmlConvert.ToString(input.LowerBoundaryRevetment));
             writer.WriteElementString(
-                WaveConditionsInputConfigurationSchemaIdentifiers.UpperBoundaryWaterLevels,
+                WaveConditionsConfigurationSchemaIdentifiers.UpperBoundaryWaterLevels,
                 XmlConvert.ToString(input.UpperBoundaryWaterLevels));
             writer.WriteElementString(
-                WaveConditionsInputConfigurationSchemaIdentifiers.LowerBoundaryWaterLevels,
+                WaveConditionsConfigurationSchemaIdentifiers.LowerBoundaryWaterLevels,
                 XmlConvert.ToString(input.LowerBoundaryWaterLevels));
             writer.WriteElementString(
-                WaveConditionsInputConfigurationSchemaIdentifiers.StepSize,
+                WaveConditionsConfigurationSchemaIdentifiers.StepSize,
                 waveConditionsInputStepSizeConverter.ConvertToInvariantString(input.StepSize));
 
             WriteForeshoreProfile(input.ForeshoreProfile, writer);
@@ -98,7 +98,7 @@ namespace Ringtoets.Revetment.IO
             if (foreshoreProfile != null)
             {
                 writer.WriteElementString(
-                    WaveConditionsInputConfigurationSchemaIdentifiers.ForeshoreProfile,
+                    WaveConditionsConfigurationSchemaIdentifiers.ForeshoreProfile,
                     foreshoreProfile.Name);
             }
         }

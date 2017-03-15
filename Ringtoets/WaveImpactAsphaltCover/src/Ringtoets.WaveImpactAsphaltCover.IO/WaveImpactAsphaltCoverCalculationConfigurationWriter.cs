@@ -21,18 +21,18 @@
 
 using System.Xml;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.StabilityStoneCover.Data;
+using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.Revetment.IO;
 
-namespace Ringtoets.StabilityStoneCover.IO
+namespace Ringtoets.WaveImpactAsphaltCover.IO
 {
     /// <summary>
-    /// A writer for writing out configurations of <see cref="StabilityStoneCoverWaveConditionsCalculation"/> and
+    /// A writer for writing out configurations of <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/> and
     /// <see cref="CalculationGroup"/>, to XML format.
     /// </summary>
-    public class StabilityStoneCoverConfigurationWriter : WaveConditionsInputConfigurationWriter<StabilityStoneCoverWaveConditionsCalculation>
+    public class WaveImpactAsphaltCoverCalculationConfigurationWriter : WaveConditionsCalculationConfigurationWriter<WaveImpactAsphaltCoverWaveConditionsCalculation>
     {
-        protected override void WriteCalculation(StabilityStoneCoverWaveConditionsCalculation calculation, XmlWriter writer)
+        protected override void WriteCalculation(WaveImpactAsphaltCoverWaveConditionsCalculation calculation, XmlWriter writer)
         {
             WriteCalculation(calculation.Name, calculation.InputParameters, writer);
         }
