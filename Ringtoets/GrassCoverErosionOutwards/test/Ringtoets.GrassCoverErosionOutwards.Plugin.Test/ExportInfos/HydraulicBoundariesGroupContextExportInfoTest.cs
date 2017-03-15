@@ -32,7 +32,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.Hydraulics;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionOutwards.IO;
+using Ringtoets.GrassCoverErosionOutwards.IO.Exporters;
 using Ringtoets.Revetment.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 

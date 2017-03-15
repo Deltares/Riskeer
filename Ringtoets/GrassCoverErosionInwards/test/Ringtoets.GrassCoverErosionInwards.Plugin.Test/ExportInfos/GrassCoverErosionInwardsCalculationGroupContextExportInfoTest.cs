@@ -29,14 +29,13 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionInwards.IO;
+using Ringtoets.GrassCoverErosionInwards.IO.Exporters;
 
 namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ExportInfos
 {
     [TestFixture]
     public class GrassCoverErosionInwardsCalculationGroupContextExportInfoTest
     {
-
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
@@ -65,8 +64,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ExportInfos
             mocks.ReplayAll();
 
             var context = new GrassCoverErosionInwardsCalculationGroupContext(new CalculationGroup(),
-                                                            new GrassCoverErosionInwardsFailureMechanism(),
-                                                            assessmentSection);
+                                                                              new GrassCoverErosionInwardsFailureMechanism(),
+                                                                              assessmentSection);
 
             using (var plugin = new GrassCoverErosionInwardsPlugin())
             {
@@ -106,8 +105,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ExportInfos
             mocks.ReplayAll();
 
             var context = new GrassCoverErosionInwardsCalculationGroupContext(new CalculationGroup(),
-                                                            new GrassCoverErosionInwardsFailureMechanism(),
-                                                            assessmentSection);
+                                                                              new GrassCoverErosionInwardsFailureMechanism(),
+                                                                              assessmentSection);
 
             using (var plugin = new GrassCoverErosionInwardsPlugin())
             {
@@ -145,8 +144,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ExportInfos
             }
 
             var context = new GrassCoverErosionInwardsCalculationGroupContext(calculationGroup,
-                                                            new GrassCoverErosionInwardsFailureMechanism(),
-                                                            assessmentSection);
+                                                                              new GrassCoverErosionInwardsFailureMechanism(),
+                                                                              assessmentSection);
 
             using (var plugin = new GrassCoverErosionInwardsPlugin())
             {

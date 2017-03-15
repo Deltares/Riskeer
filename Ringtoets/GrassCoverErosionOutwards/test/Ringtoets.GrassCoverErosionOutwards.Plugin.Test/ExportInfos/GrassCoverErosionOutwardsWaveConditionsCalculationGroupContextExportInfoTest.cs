@@ -29,8 +29,8 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionOutwards.IO;
-using Ringtoets.Revetment.IO;
+using Ringtoets.GrassCoverErosionOutwards.IO.Exporters;
+using Ringtoets.Revetment.IO.Exporters;
 using Ringtoets.Revetment.TestUtil;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ExportInfos

@@ -28,7 +28,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionInwards.IO;
+using Ringtoets.GrassCoverErosionInwards.IO.Exporters;
 
 namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ExportInfos
 {

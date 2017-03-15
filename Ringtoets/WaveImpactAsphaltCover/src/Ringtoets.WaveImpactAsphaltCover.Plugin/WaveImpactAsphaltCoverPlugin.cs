@@ -43,7 +43,7 @@ using Ringtoets.WaveImpactAsphaltCover.Forms;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses;
 using Ringtoets.WaveImpactAsphaltCover.Forms.Views;
-using Ringtoets.WaveImpactAsphaltCover.IO;
+using Ringtoets.WaveImpactAsphaltCover.IO.Exporters;
 using Ringtoets.WaveImpactAsphaltCover.Service;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -68,7 +68,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             yield return new PropertyInfo<WaveImpactAsphaltCoverWaveConditionsInputContext, WaveImpactAsphaltCoverWaveConditionsInputContextProperties>
             {
                 CreateInstance = context => new WaveImpactAsphaltCoverWaveConditionsInputContextProperties(
-                    context, 
+                    context,
                     new ObservablePropertyChangeHandler(context.Calculation, context.WrappedData))
             };
         }
@@ -169,10 +169,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             yield return new ExportInfo<WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext>
             {
                 Name = RingtoetsCommonFormsResources.ConfigurationExporter_DisplayName,
-                CreateFileExporter = (context, filePath) =>
-                {
-                    return new WaveImpactAsphaltCoverCalculationConfigurationExporter(context.WrappedData.Children, filePath);
-                },
+                CreateFileExporter = (context, filePath) => { return new WaveImpactAsphaltCoverCalculationConfigurationExporter(context.WrappedData.Children, filePath); },
                 IsEnabled = context => context.WrappedData.Children.Any(),
                 FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Extension,
                                                               RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Description)
@@ -195,7 +192,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                 Name = RingtoetsCommonFormsResources.ConfigurationExporter_DisplayName,
                 CreateFileExporter = (context, filePath) =>
                 {
-                    return new WaveImpactAsphaltCoverCalculationConfigurationExporter(new [] { context.WrappedData }, filePath);
+                    return new WaveImpactAsphaltCoverCalculationConfigurationExporter(new[]
+                    {
+                        context.WrappedData
+                    }, filePath);
                 },
                 FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Extension,
                                                               RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Description)

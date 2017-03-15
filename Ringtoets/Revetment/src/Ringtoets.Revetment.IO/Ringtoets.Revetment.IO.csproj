@@ -58,10 +58,10 @@
     <Compile Include="Readers\ReadWaveConditionsCalculation.cs" />
     <Compile Include="Readers\WaveConditionsCalculationConfigurationReader.cs" />
     <Compile Include="WaveConditionsConfigurationSchemaIdentifiers.cs" />
-    <Compile Include="WaveConditionsCalculationConfigurationWriter.cs" />
-    <Compile Include="WaveConditionsExporterBase.cs" />
+    <Compile Include="Writers\WaveConditionsCalculationConfigurationWriter.cs" />
+    <Compile Include="Exporters\WaveConditionsExporterBase.cs" />
     <Compile Include="WaveConditionsInputStepSizeTypeConverter.cs" />
-    <Compile Include="WaveConditionsWriter.cs" />
+    <Compile Include="Writers\WaveConditionsWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

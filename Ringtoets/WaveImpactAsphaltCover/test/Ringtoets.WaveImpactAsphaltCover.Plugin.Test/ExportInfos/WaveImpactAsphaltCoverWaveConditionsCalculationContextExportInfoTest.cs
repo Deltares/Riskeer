@@ -26,11 +26,11 @@ using Core.Common.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Revetment.IO;
+using Ringtoets.Revetment.IO.Exporters;
 using Ringtoets.Revetment.TestUtil;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
-using Ringtoets.WaveImpactAsphaltCover.IO;
+using Ringtoets.WaveImpactAsphaltCover.IO.Exporters;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
 {
@@ -74,7 +74,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(new WaveImpactAsphaltCoverWaveConditionsCalculation(),
-                                                                                        failureMechanism, assessmentSection);
+                                                                                     failureMechanism, assessmentSection);
 
             // Call
             IFileExporter fileExporter = waveConditionsExportInfo.CreateFileExporter(context, "test");
@@ -105,7 +105,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(new WaveImpactAsphaltCoverWaveConditionsCalculation(),
-                                                                                        failureMechanism, assessmentSection);
+                                                                                     failureMechanism, assessmentSection);
 
             // Call
             bool isEnabled = waveConditionsExportInfo.IsEnabled(context);
@@ -167,7 +167,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(new WaveImpactAsphaltCoverWaveConditionsCalculation(),
-                                                                                        failureMechanism, assessmentSection);
+                                                                                     failureMechanism, assessmentSection);
 
             // Call
             IFileExporter fileExporter = configurationExportInfo.CreateFileExporter(context, "test");

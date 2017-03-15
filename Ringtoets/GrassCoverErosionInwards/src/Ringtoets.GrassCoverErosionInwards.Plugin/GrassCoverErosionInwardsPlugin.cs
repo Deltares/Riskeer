@@ -44,7 +44,7 @@ using Ringtoets.GrassCoverErosionInwards.Forms;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
-using Ringtoets.GrassCoverErosionInwards.IO;
+using Ringtoets.GrassCoverErosionInwards.IO.Exporters;
 using Ringtoets.GrassCoverErosionInwards.Service;
 using Ringtoets.GrassCoverErosionInwards.Utils;
 using GrassCoverErosionInwardsPluginResources = Ringtoets.GrassCoverErosionInwards.Plugin.Properties.Resources;

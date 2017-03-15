@@ -50,8 +50,8 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="GrassCoverErosionInwardsCalculationConfigurationExporterTest.cs" />
-    <Compile Include="GrassCoverErosionInwardsCalculationConfigurationWriterTest.cs" />
+    <Compile Include="Exporters\GrassCoverErosionInwardsCalculationConfigurationExporterTest.cs" />
+    <Compile Include="Writers\GrassCoverErosionInwardsCalculationConfigurationWriterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

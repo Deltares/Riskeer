@@ -43,7 +43,7 @@ using Ringtoets.StabilityStoneCover.Forms;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Forms.PropertyClasses;
 using Ringtoets.StabilityStoneCover.Forms.Views;
-using Ringtoets.StabilityStoneCover.IO;
+using Ringtoets.StabilityStoneCover.IO.Exporters;
 using Ringtoets.StabilityStoneCover.Service;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -68,7 +68,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             yield return new PropertyInfo<StabilityStoneCoverWaveConditionsInputContext, StabilityStoneCoverWaveConditionsInputContextProperties>
             {
                 CreateInstance = context => new StabilityStoneCoverWaveConditionsInputContextProperties(
-                    context, 
+                    context,
                     new ObservablePropertyChangeHandler(context.Calculation, context.WrappedData))
             };
         }
@@ -189,7 +189,10 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             yield return new ExportInfo<StabilityStoneCoverWaveConditionsCalculationContext>
             {
                 Name = RingtoetsCommonFormsResources.ConfigurationExporter_DisplayName,
-                CreateFileExporter = (context, filePath) => new StabilityStoneCoverCalculationConfigurationExporter(new [] { context.WrappedData }, filePath),
+                CreateFileExporter = (context, filePath) => new StabilityStoneCoverCalculationConfigurationExporter(new[]
+                {
+                    context.WrappedData
+                }, filePath),
                 FileFilterGenerator = new FileFilterGenerator(
                     RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Extension,
                     RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Description)
