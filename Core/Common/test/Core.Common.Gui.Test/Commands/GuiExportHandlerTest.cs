@@ -21,14 +21,18 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base.IO;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Plugin;
+using Core.Common.Gui.Properties;
 using Core.Common.TestUtil;
+using Core.Common.Utils.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -237,7 +241,7 @@ namespace Core.Common.Gui.Test.Commands
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void ExportFrom_MultipleSupportedExportersAvailable_GivesSelectionDialog()
+        public void ExportFrom_MultipleSupportedExportersAvailableWithDefaultSelectionDialogStyling_GivesExpectedSelectionDialog()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -245,12 +249,19 @@ namespace Core.Common.Gui.Test.Commands
             mockRepository.ReplayAll();
 
             var dialogText = "";
+            IList<TestListViewItem> listViewItems = null;
 
             ModalFormHandler = (name, wnd, form) =>
             {
                 var dialog = new FormTester(name);
+                var imageList = TypeUtils.GetField<ImageList>(dialog.TheObject, "imageList");
+                var listView = (ListView) new ControlTester("listViewItemTypes").TheObject;
 
                 dialogText = dialog.Text;
+                listViewItems = listView.Items
+                                        .OfType<ListViewItem>()
+                                        .Select(lvi => new TestListViewItem(lvi.Name, lvi.Group.Name, imageList.Images[lvi.ImageIndex]))
+                                        .ToList();
 
                 dialog.Close();
             };
@@ -266,6 +277,71 @@ namespace Core.Common.Gui.Test.Commands
 
             // Assert
             Assert.AreEqual("Selecteer wat u wilt exporteren", dialogText);
+
+            Assert.AreEqual(2, listViewItems.Count);
+            Assert.AreEqual("", listViewItems[0].Name);
+            Assert.AreEqual("Algemeen", listViewItems[0].Group);
+            Assert.AreEqual("", listViewItems[1].Name);
+            Assert.AreEqual("Algemeen", listViewItems[1].Group);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void ExportFrom_MultipleSupportedExportersAvailableWithCustomSelectionDialogStyling_GivesExpectedSelectionDialog()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var mainWindow = mockRepository.Stub<IMainWindow>();
+            mockRepository.ReplayAll();
+
+            var dialogText = "";
+            IList<TestListViewItem> listViewItems = null;
+
+            ModalFormHandler = (name, wnd, form) =>
+            {
+                var dialog = new FormTester(name);
+                var imageList = TypeUtils.GetField<ImageList>(dialog.TheObject, "imageList");
+                var listView = (ListView) new ControlTester("listViewItemTypes").TheObject;
+
+                dialogText = dialog.Text;
+                listViewItems = listView.Items
+                                        .OfType<ListViewItem>()
+                                        .Select(lvi => new TestListViewItem(lvi.Name, lvi.Group.Name, imageList.Images[lvi.ImageIndex]))
+                                        .ToList();
+
+                dialog.Close();
+            };
+
+            var exportHandler = new GuiExportHandler(mainWindow, new List<ExportInfo>
+            {
+                new ExportInfo<int>
+                {
+                    Name = "Name 1",
+                    Category = "Category 1",
+                    Image = Resources.Busy_indicator
+                },
+                new ExportInfo<int>
+                {
+                    Name = "Name 2",
+                    Category = "Category 2",
+                    Image = Resources.DeleteIcon
+                }
+            });
+
+            // Call
+            exportHandler.ExportFrom(1234);
+
+            // Assert
+            Assert.AreEqual("Selecteer wat u wilt exporteren", dialogText);
+
+            Assert.AreEqual(2, listViewItems.Count);
+            Assert.AreEqual("Name 1", listViewItems[0].Name);
+            Assert.AreEqual("Category 1", listViewItems[0].Group);
+            Assert.AreEqual("Name 2", listViewItems[1].Name);
+            Assert.AreEqual("Category 2", listViewItems[1].Group);
+
             mockRepository.VerifyAll();
         }
 
@@ -335,6 +411,22 @@ namespace Core.Common.Gui.Test.Commands
             // Assert
             Assert.IsTrue(isExportPossible);
             mocks.VerifyAll();
+        }
+
+        private class TestListViewItem
+        {
+            public TestListViewItem(string name, string group, Image image)
+            {
+                Name = name;
+                Group = group;
+                Image = image;
+            }
+
+            public string Name { get; }
+
+            public string Group { get; }
+
+            public Image Image { get; }
         }
     }
 }
