@@ -19,12 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Drawing;
 using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.Gui;
 using Core.Common.Gui.Plugin;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -32,7 +30,6 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.IO.Exporters;
 using Ringtoets.Revetment.Data;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
 {
@@ -53,23 +50,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
         }
 
         [Test]
-        public void Category_Always_ReturnExpectedCategory()
+        public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Setup
-            string category = exportInfo.Category;
-
             // Assert
-            Assert.AreEqual("Algemeen", category);
-        }
-
-        [Test]
-        public void Image_Always_ReturnExpectedImage()
-        {
-            // Call
-            Image image = exportInfo.Image;
-
-            // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralOutputIcon, image);
+            Assert.IsNotNull(exportInfo.CreateFileExporter);
+            Assert.IsNotNull(exportInfo.IsEnabled);
+            Assert.IsNull(exportInfo.Category);
+            Assert.IsNull(exportInfo.Image);
+            Assert.IsNotNull(exportInfo.FileFilterGenerator);
         }
 
         [Test]

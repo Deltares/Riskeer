@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
@@ -39,7 +38,6 @@ namespace Core.Common.Gui.Commands
     public class GuiExportHandler : IExportCommandHandler
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(GuiExportHandler));
-        private static readonly Bitmap brickImage = Resources.brick;
 
         private readonly IWin32Window dialogParent;
         private readonly IEnumerable<ExportInfo> exportInfos;
@@ -107,7 +105,7 @@ namespace Core.Common.Gui.Commands
             {
                 foreach (var exportInfo in supportedExportInfos)
                 {
-                    selectExportInfoDialog.AddItemType(exportInfo.Name, exportInfo.Category, exportInfo.Image ?? brickImage, null);
+                    selectExportInfoDialog.AddItemType(exportInfo.Name, exportInfo.Category, exportInfo.Image ?? Resources.ExportIcon, null);
                 }
 
                 if (selectExportInfoDialog.ShowDialog() == DialogResult.OK)

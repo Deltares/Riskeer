@@ -245,8 +245,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             yield return new ExportInfo<HydraulicBoundariesGroupContext>
             {
                 Name = RingtoetsCommonFormsResources.HydraulicBoundaryLocationsExporter_DisplayName,
-                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
-                Image = RingtoetsCommonFormsResources.PointShapefileIcon,
                 CreateFileExporter = (context, filePath) =>
                     new HydraulicBoundaryLocationsExporter(context.WrappedData,
                                                            filePath, Resources.DesignWaterLevel_Description, Resources.WaveHeight_Description),
@@ -258,8 +256,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             yield return new ExportInfo<HydraulicBoundariesGroupContext>
             {
                 Name = RingtoetsCommonFormsResources.WaveConditionsExporter_DisplayName,
-                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
-                Image = RingtoetsCommonFormsResources.GeneralOutputIcon,
                 CreateFileExporter = (context, filePath) =>
                 {
                     var calculations = context.FailureMechanism.WaveConditionsCalculationGroup.GetCalculations().Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>();
