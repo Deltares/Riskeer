@@ -77,7 +77,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
         }
 
         [Test]
-        public void FileFilterGenerator_Always_ReturnsFileFilter()
+        public void FileFilterGenerator_Always_ReturnFileFilter()
         {
             // Setup
             using (var plugin = new RingtoetsPlugin())
@@ -93,7 +93,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
         }
 
         [Test]
-        public void IsEnabled_NoReferenceLineSet_ReturnsFalse()
+        public void IsEnabled_NoReferenceLineSet_ReturnFalse()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -112,7 +112,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
         }
 
         [Test]
-        public void IsEnabled_ReferenceLineSet_ReturnsTrue()
+        public void IsEnabled_ReferenceLineSet_ReturnTrue()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)

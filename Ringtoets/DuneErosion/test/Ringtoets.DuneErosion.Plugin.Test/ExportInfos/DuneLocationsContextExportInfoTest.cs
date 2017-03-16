@@ -96,7 +96,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ExportInfos
         }
 
         [Test]
-        public void IsEnabled_NoLocationsWithOutput_ReturnFalse()
+        public void IsEnabled_LocationsWithoutOutput_ReturnFalse()
         {
             // Setup
             var mocks = new MockRepository();
