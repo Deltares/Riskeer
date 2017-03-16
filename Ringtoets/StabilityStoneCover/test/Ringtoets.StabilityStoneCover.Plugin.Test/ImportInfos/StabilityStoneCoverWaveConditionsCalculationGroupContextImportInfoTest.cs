@@ -30,24 +30,24 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.Revetment.IO.Importers;
+using Ringtoets.StabilityStoneCover.Data;
+using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ImportInfos
+namespace Ringtoets.StabilityStoneCover.Plugin.Test.ImportInfos
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsWaveConditionsCalculationGroupContextImportInfoTest
+    public class StabilityStoneCoverWaveConditionsCalculationGroupContextImportInfoTest
     {
         private ImportInfo importInfo;
-        private GrassCoverErosionOutwardsPlugin plugin;
+        private StabilityStoneCoverPlugin plugin;
 
         [SetUp]
         public void SetUp()
         {
-            plugin = new GrassCoverErosionOutwardsPlugin();
-            importInfo = plugin.GetImportInfos().First(i => i.DataType == typeof(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext));
+            plugin = new StabilityStoneCoverPlugin();
+            importInfo = plugin.GetImportInfos().First(i => i.DataType == typeof(StabilityStoneCoverWaveConditionsCalculationGroupContext));
         }
 
         [TearDown]
@@ -100,13 +100,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ImportInfos
         public void IsEnabled_NoHydraulicBoundaryDatabase_ReturnFalse()
         {
             // Setup
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(new CalculationGroup(),
+            var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(new CalculationGroup(),
                                                                                              failureMechanism,
                                                                                              assessmentSection);
 
@@ -122,14 +122,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ImportInfos
         public void IsEnabled_AllDataAvailable_ReturnTrue()
         {
             // Setup
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.HydraulicBoundaryLocations.Add(new TestHydraulicBoundaryLocation());
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(new CalculationGroup(),
+            var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(new CalculationGroup(),
                                                                                              failureMechanism,
                                                                                              assessmentSection);
 
@@ -145,13 +144,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ImportInfos
         public void CreateFileImporter_Always_ReturnFileImporter()
         {
             // Setup
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(new CalculationGroup(),
+            var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(new CalculationGroup(),
                                                                                              failureMechanism,
                                                                                              assessmentSection);
 
@@ -159,7 +158,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ImportInfos
             IFileImporter importer = importInfo.CreateFileImporter(context, "");
 
             // Assert
-            Assert.IsInstanceOf<WaveConditionsCalculationConfigurationImporter<GrassCoverErosionOutwardsWaveConditionsCalculation>>(importer);
+            Assert.IsInstanceOf<WaveConditionsCalculationConfigurationImporter<StabilityStoneCoverWaveConditionsCalculation>>(importer);
             mocks.VerifyAll();
         }
     }

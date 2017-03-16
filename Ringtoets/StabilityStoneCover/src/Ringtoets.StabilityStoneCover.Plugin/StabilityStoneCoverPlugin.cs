@@ -38,6 +38,7 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.Service;
+using Ringtoets.Revetment.IO.Importers;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
@@ -151,6 +152,23 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             };
         }
 
+        public override IEnumerable<ImportInfo> GetImportInfos()
+        {
+            yield return new ImportInfo<StabilityStoneCoverWaveConditionsCalculationGroupContext>
+            {
+                Name = RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Description,
+                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
+                Image = RingtoetsCommonFormsResources.GeneralFolderIcon,
+                FileFilterGenerator = CalculationConfigurationFileFilter,
+                IsEnabled = CalculationConfigurationImporterEnabled,
+                CreateFileImporter = (context, filePath) => new WaveConditionsCalculationConfigurationImporter<StabilityStoneCoverWaveConditionsCalculation>(
+                    filePath,
+                    context.WrappedData,
+                    context.AssessmentSection.HydraulicBoundaryDatabase.Locations,
+                    context.FailureMechanism.ForeshoreProfiles)
+            };
+        }
+
         public override IEnumerable<ExportInfo> GetExportInfos()
         {
             yield return new ExportInfo<StabilityStoneCoverWaveConditionsCalculationGroupContext>
@@ -197,6 +215,21 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                     RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Extension,
                     RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Description)
             };
+        }
+
+        private static FileFilterGenerator CalculationConfigurationFileFilter
+        {
+            get
+            {
+                return new FileFilterGenerator(RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Extension,
+                                               RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Description);
+            }
+        }
+
+        private static bool CalculationConfigurationImporterEnabled(StabilityStoneCoverWaveConditionsCalculationGroupContext context)
+        {
+            return context.AssessmentSection.HydraulicBoundaryDatabase != null
+                   && context.AssessmentSection.HydraulicBoundaryDatabase.Locations.Any();
         }
 
         #region ViewInfos
@@ -365,7 +398,8 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var isNestedGroup = parentData is StabilityStoneCoverWaveConditionsCalculationGroupContext;
 
-            builder.AddExportItem()
+            builder.AddImportItem()
+                   .AddExportItem()
                    .AddSeparator();
 
             if (!isNestedGroup)

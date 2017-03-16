@@ -124,5 +124,20 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test
                 Assert.AreEqual(2, exportInfos.Count(ei => ei.DataType == typeof(StabilityStoneCoverWaveConditionsCalculationContext)));
             }
         }
+
+        [Test]
+        public void GetImportInfos_ReturnsSupportedImportInfos()
+        {
+            // Setup
+            using (var plugin = new StabilityStoneCoverPlugin())
+            {
+                // Call
+                ImportInfo[] importInfos = plugin.GetImportInfos().ToArray();
+
+                // Assert
+                Assert.AreEqual(1, importInfos.Length);
+                Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(StabilityStoneCoverWaveConditionsCalculationGroupContext)));
+            }
+        }
     }
 }
