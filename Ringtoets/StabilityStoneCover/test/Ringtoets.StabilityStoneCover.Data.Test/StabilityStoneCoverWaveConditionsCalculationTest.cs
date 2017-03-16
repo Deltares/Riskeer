@@ -22,7 +22,6 @@
 using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Revetment.Data;
 
 namespace Ringtoets.StabilityStoneCover.Data.Test
@@ -37,7 +36,7 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
             var calculation = new StabilityStoneCoverWaveConditionsCalculation();
 
             // Assert
-            Assert.IsInstanceOf<ICalculation>(calculation);
+            Assert.IsInstanceOf<IWaveConditionsCalculation>(calculation);
             Assert.IsInstanceOf<Observable>(calculation);
 
             Assert.AreEqual("Nieuwe berekening", calculation.Name);

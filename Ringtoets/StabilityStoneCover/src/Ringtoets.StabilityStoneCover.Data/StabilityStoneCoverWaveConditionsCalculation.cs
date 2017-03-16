@@ -21,7 +21,6 @@
 
 using Core.Common.Base;
 using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Revetment.Data;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
@@ -30,7 +29,7 @@ namespace Ringtoets.StabilityStoneCover.Data
     /// <summary>
     /// Class holding information about a wave conditions calculation for the <see cref="StabilityStoneCoverFailureMechanism"/>.
     /// </summary>
-    public class StabilityStoneCoverWaveConditionsCalculation : Observable, ICalculation
+    public class StabilityStoneCoverWaveConditionsCalculation : Observable, IWaveConditionsCalculation
     {
         /// <summary>
         /// Creates a new instance of <see cref="StabilityStoneCoverWaveConditionsCalculation"/>.
@@ -41,11 +40,8 @@ namespace Ringtoets.StabilityStoneCover.Data
             InputParameters = new WaveConditionsInput();
             Comments = new Comment();
         }
-
-        /// <summary>
-        /// Gets the input parameters to perform a wave conditions calculation with.
-        /// </summary>
-        public WaveConditionsInput InputParameters { get; private set; }
+        
+        public WaveConditionsInput InputParameters { get; }
 
         /// <summary>
         /// Gets or sets the output which contains the results of a wave conditions calculation.

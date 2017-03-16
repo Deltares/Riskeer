@@ -53,6 +53,7 @@
     <Compile Include="CoverTypeTest.cs" />
     <Compile Include="ExportableWaveConditionsFactoryTest.cs" />
     <Compile Include="ExportableWaveConditionsTest.cs" />
+    <Compile Include="Importers\WaveConditionsCalculationConfigurationImporterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Readers\ReadWaveConditionsCalculationTest.cs" />
     <Compile Include="Readers\WaveConditionsCalculationConfigurationReaderTest.cs" />

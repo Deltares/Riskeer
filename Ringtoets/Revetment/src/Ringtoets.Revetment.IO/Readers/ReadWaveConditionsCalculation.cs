@@ -27,7 +27,7 @@ namespace Ringtoets.Revetment.IO.Readers
     /// <summary>
     /// Class that represents a wave conditions calculation that is read via <see cref="WaveConditionsCalculationConfigurationReader"/>.
     /// </summary>
-    internal class ReadWaveConditionsCalculation : IReadConfigurationItem
+    public class ReadWaveConditionsCalculation : IReadConfigurationItem
     {
         /// <summary>
         /// Creates a new instance of <see cref="ReadWaveConditionsCalculation"/>.
@@ -121,7 +121,7 @@ namespace Ringtoets.Revetment.IO.Readers
         /// <summary>
         /// Class holding the various construction parameters for <see cref="ReadWaveConditionsCalculation"/>.
         /// </summary>
-        internal class ConstructionProperties
+        public class ConstructionProperties
         {
             /// <summary>
             /// Gets or sets the value for <see cref="ReadWaveConditionsCalculation.Name"/>.

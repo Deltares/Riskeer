@@ -48,6 +48,7 @@
     <Compile Include="CoverType.cs" />
     <Compile Include="ExportableWaveConditions.cs" />
     <Compile Include="ExportableWaveConditionsFactory.cs" />
+    <Compile Include="Importers\WaveConditionsCalculationConfigurationImporter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
