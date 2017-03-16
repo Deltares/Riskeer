@@ -26,6 +26,7 @@ using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.IO;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Revetment.Data;
@@ -46,7 +47,6 @@ namespace Ringtoets.Revetment.IO.Importers
     {
         private readonly IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations;
         private readonly IEnumerable<ForeshoreProfile> foreshoreProfiles;
-        private readonly WaveConditionsInputStepSizeTypeConverter waveConditionsInputStepSizeConverter;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsCalculationConfigurationImporter{T}"/>.
@@ -75,8 +75,6 @@ namespace Ringtoets.Revetment.IO.Importers
             }
             this.hydraulicBoundaryLocations = hydraulicBoundaryLocations;
             this.foreshoreProfiles = foreshoreProfiles;
-
-            waveConditionsInputStepSizeConverter = new WaveConditionsInputStepSizeTypeConverter();
         }
 
         protected override WaveConditionsCalculationConfigurationReader CreateCalculationConfigurationReader(string xmlFilePath)
@@ -96,6 +94,7 @@ namespace Ringtoets.Revetment.IO.Importers
             ReadStepSize(readCalculation, waveConditionsCalculation);
             ReadForeshoreProfile(readCalculation, waveConditionsCalculation);
             ReadOrientation(readCalculation, waveConditionsCalculation);
+            ReadWaveReduction(readCalculation, waveConditionsCalculation);
 
             return waveConditionsCalculation;
         }
@@ -173,7 +172,8 @@ namespace Ringtoets.Revetment.IO.Importers
         {
             if (readCalculation.StepSize != null)
             {
-                calculation.InputParameters.StepSize = (WaveConditionsInputStepSize) waveConditionsInputStepSizeConverter.ConvertFrom(readCalculation.StepSize.ToString());
+                calculation.InputParameters.StepSize = (WaveConditionsInputStepSize)
+                    new WaveConditionsInputStepSizeTypeConverter().ConvertFrom(readCalculation.StepSize.ToString());
             }
         }
 
@@ -200,6 +200,12 @@ namespace Ringtoets.Revetment.IO.Importers
             }
         }
 
+        /// <summary>
+        /// Reads the orientation.
+        /// </summary>
+        /// <param name="readCalculation">The calculation read from the imported file.</param>
+        /// <param name="calculation">The calculation to configure.</param>
+        /// <exception cref="CriticalFileValidationException">Thrown when the orientation is invalid.</exception>
         private static void ReadOrientation(ReadWaveConditionsCalculation readCalculation, IWaveConditionsCalculation calculation)
         {
             if (readCalculation.Orientation.HasValue)
@@ -209,6 +215,67 @@ namespace Ringtoets.Revetment.IO.Importers
                 PerformActionHandlingAnyArgumentOutOfRangeException(
                     () => calculation.InputParameters.Orientation = (RoundedDouble) orientation,
                     string.Format(Resources.WaveConditionsCalculationConfigurationImporter_ReadOrientation_Orientation_0_invalid, orientation));
+            }
+        }
+
+        /// <summary>
+        /// Reads the wave reduction parameters.
+        /// </summary>
+        /// <param name="readCalculation">The calculation read from the imported file.</param>
+        /// <param name="calculation">The calculation to configure.</param>
+        /// <exception cref="CriticalFileValidationException">Thrown when there is an invalid
+        /// wave reduction parameter defined.</exception>
+        private static void ReadWaveReduction(ReadWaveConditionsCalculation readCalculation, IWaveConditionsCalculation calculation)
+        {
+            ValidateWaveReduction(readCalculation, calculation);
+
+            if (readCalculation.UseForeshore.HasValue)
+            {
+                calculation.InputParameters.UseForeshore = (bool) readCalculation.UseForeshore;
+            }
+
+            if (readCalculation.UseBreakWater.HasValue)
+            {
+                calculation.InputParameters.UseBreakWater = (bool) readCalculation.UseBreakWater;
+            }
+
+            if (readCalculation.BreakWaterType != null)
+            {
+                calculation.InputParameters.BreakWater.Type = (BreakWaterType) new BreakWaterTypeTypeConverter().ConvertFrom(readCalculation.BreakWaterType);
+            }
+
+            if (readCalculation.BreakWaterHeight.HasValue)
+            {
+                calculation.InputParameters.BreakWater.Height = (RoundedDouble) readCalculation.BreakWaterHeight;
+            }
+        }
+
+        /// <summary>
+        /// Validation to check if the defined wave reduction parameters are valid.
+        /// </summary>
+        /// <param name="readCalculation">The calculation read from the imported file.</param>
+        /// <param name="calculation">The calculation to configure.</param>
+        /// <exception cref="CriticalFileValidationException">Thrown when there is an
+        /// invalid wave reduction parameter defined.</exception>
+        private static void ValidateWaveReduction(ReadWaveConditionsCalculation readCalculation, IWaveConditionsCalculation calculation)
+        {
+            if (calculation.InputParameters.ForeshoreProfile == null)
+            {
+                if (readCalculation.UseBreakWater.HasValue
+                    || readCalculation.UseForeshore.HasValue
+                    || readCalculation.BreakWaterHeight != null
+                    || readCalculation.BreakWaterType != null)
+                {
+                    throw new CriticalFileValidationException(Resources.WaveConditionsCalculationConfigurationImporter_ValidateWaveReduction_No_foreshore_profile_provided);
+                }
+            }
+            else if (!calculation.InputParameters.ForeshoreGeometry.Any())
+            {
+                if (readCalculation.UseForeshore.HasValue)
+                {
+                    throw new CriticalFileValidationException(string.Format(Resources.WaveConditionsCalculationConfigurationImporter_ValidateWaveReduction_Foreshore_profile_0_has_no_geometry_and_cannot_be_used,
+                                                                      readCalculation.ForeshoreProfile));
+                }
             }
         }
     }

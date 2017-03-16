@@ -163,4 +163,10 @@
   <data name="WaveConditionsCalculationConfigurationImporter_ReadForeshoreProfile_Foreshore_profile_0_does_not_exist" xml:space="preserve">
     <value>Het voorlandprofiel '{0}' bestaat niet.</value>
   </data>
+  <data name="WaveConditionsCalculationConfigurationImporter_ValidateWaveReduction_Foreshore_profile_0_has_no_geometry_and_cannot_be_used" xml:space="preserve">
+    <value>Het opgegeven voorlandprofiel '{0}' heeft geen geometrie en kan daarom niet gebruikt worden.</value>
+  </data>
+  <data name="WaveConditionsCalculationConfigurationImporter_ValidateWaveReduction_No_foreshore_profile_provided" xml:space="preserve">
+    <value>Er is geen voorlandprofiel opgegeven om golfreductie parameters aan toe te voegen.</value>
+  </data>
 </root>

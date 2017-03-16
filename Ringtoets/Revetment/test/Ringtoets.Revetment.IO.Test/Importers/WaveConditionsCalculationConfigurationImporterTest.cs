@@ -24,6 +24,7 @@ using System.IO;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data;
@@ -167,6 +168,58 @@ namespace Ringtoets.Revetment.IO.Test.Importers
         }
 
         [Test]
+        public void Import_WaveReductionWithoutForeshoreProfile_LogMessageAndContinueImport()
+        {
+            // Setup
+            string filePath = Path.Combine(path, "validConfigurationCalculationContainingWaveReductionWithoutForeshoreProfile.xml");
+
+            var calculationGroup = new CalculationGroup();
+            var importer = new WaveConditionsCalculationConfigurationImporter<SimpleWaveConditionsCalculation>(
+                filePath,
+                calculationGroup,
+                Enumerable.Empty<HydraulicBoundaryLocation>(),
+                Enumerable.Empty<ForeshoreProfile>());
+
+            // Call
+            var successful = false;
+            Action call = () => successful = importer.Import();
+
+            // Assert
+            const string expectedMessage = "Er is geen voorlandprofiel opgegeven om golfreductie parameters aan toe te voegen. Berekening 'Berekening 1' is overgeslagen.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            Assert.IsTrue(successful);
+            CollectionAssert.IsEmpty(calculationGroup.Children);
+        }
+
+        [Test]
+        public void Import_UseForeshoreButProfileWithoutGeometry_LogMessageAndContinueImport()
+        {
+            // Setup
+            string filePath = Path.Combine(path, "validConfigurationCalculationContainingUseForeshoreForeshoreProfileWithoutGeometry.xml");
+
+            var calculationGroup = new CalculationGroup();
+            var foreshoreProfile = new TestForeshoreProfile("Voorlandprofiel");
+            var importer = new WaveConditionsCalculationConfigurationImporter<SimpleWaveConditionsCalculation>(
+                filePath,
+                calculationGroup,
+                Enumerable.Empty<HydraulicBoundaryLocation>(),
+                new[]
+                {
+                    foreshoreProfile
+                });
+
+            // Call
+            var successful = false;
+            Action call = () => successful = importer.Import();
+
+            // Assert
+            const string expectedMessage = "Het opgegeven voorlandprofiel 'Voorlandprofiel' heeft geen geometrie en kan daarom niet gebruikt worden. Berekening 'Berekening 1' is overgeslagen.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            Assert.IsTrue(successful);
+            CollectionAssert.IsEmpty(calculationGroup.Children);
+        }
+
+        [Test]
         public void Import_ValidConfigurationWithValidData_DataAddedToModel()
         {
             // Setup
@@ -174,7 +227,17 @@ namespace Ringtoets.Revetment.IO.Test.Importers
 
             var calculationGroup = new CalculationGroup();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HRlocatie", 10, 20);
-            var foreshoreProfile = new TestForeshoreProfile("Voorlandprofiel");
+            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new []
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1),
+                new Point2D(2, 2)
+            },new BreakWater(BreakWaterType.Caisson, 0), new ForeshoreProfile.ConstructionProperties
+            {
+                Id = "id",
+                Name = "Voorlandprofiel"
+            });
+
             var importer = new WaveConditionsCalculationConfigurationImporter<SimpleWaveConditionsCalculation>(
                 filePath,
                 calculationGroup,
@@ -205,7 +268,14 @@ namespace Ringtoets.Revetment.IO.Test.Importers
                     LowerBoundaryWaterLevels = (RoundedDouble) 4,
                     StepSize = WaveConditionsInputStepSize.Half,
                     ForeshoreProfile = foreshoreProfile,
-                    Orientation = (RoundedDouble) 5.5
+                    Orientation = (RoundedDouble) 5.5,
+                    UseForeshore = false,
+                    UseBreakWater = true,
+                    BreakWater =
+                    {
+                        Height = (RoundedDouble) 6.6,
+                        Type = BreakWaterType.Caisson
+                    }
                 }
             };
 
@@ -224,6 +294,10 @@ namespace Ringtoets.Revetment.IO.Test.Importers
             Assert.AreEqual(expectedCalculation.InputParameters.StepSize, actualCalculation.InputParameters.StepSize);
             Assert.AreEqual(expectedCalculation.InputParameters.Orientation, actualCalculation.InputParameters.Orientation);
             Assert.AreEqual(expectedCalculation.InputParameters.ForeshoreProfile, actualCalculation.InputParameters.ForeshoreProfile);
+            Assert.AreEqual(expectedCalculation.InputParameters.UseForeshore, actualCalculation.InputParameters.UseForeshore);
+            Assert.AreEqual(expectedCalculation.InputParameters.UseBreakWater, actualCalculation.InputParameters.UseBreakWater);
+            Assert.AreEqual(expectedCalculation.InputParameters.BreakWater.Height, actualCalculation.InputParameters.BreakWater.Height);
+            Assert.AreEqual(expectedCalculation.InputParameters.BreakWater.Type, actualCalculation.InputParameters.BreakWater.Type);
         }
 
         private class SimpleWaveConditionsCalculation : Observable, IWaveConditionsCalculation
