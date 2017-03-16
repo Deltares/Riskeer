@@ -156,7 +156,8 @@ namespace Application.Ringtoets.Migration.Test
         {
             // Setup
             string question = "Het project dat u wilt openen is opgeslagen in het formaat van een eerdere versie van Ringtoets." +
-                              $" Weet u zeker dat u het bestand wilt migreren naar het formaat van uw huidige Ringtoetsversie ({currentDatabaseVersion})?";
+                              $"{Environment.NewLine}{Environment.NewLine}" +
+                              $"Weet u zeker dat u het bestand wilt migreren naar het formaat van uw huidige Ringtoetsversie ({currentDatabaseVersion})?";
             var mocks = new MockRepository();
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             inquiryHelper.Expect(h => h.InquireContinuation(question)).Return(confirmContinuation);
@@ -277,6 +278,43 @@ namespace Application.Ringtoets.Migration.Test
 
             // Assert
             Assert.AreEqual(expectedReturnPath, targetFilePath);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        public void DetermineMigrationLocation_TargetFilePathIsEmpty_LogsMessageAndReturnsEmptyTargetPath(string targetPath)
+        {
+            // Setup
+            const string originalFileName = "Im_a_valid_file_path";
+            const string expectedFileExtension = "rtd";
+
+            string validFilePath = TestHelper.GetScratchPadPath($"{originalFileName}.{expectedFileExtension}");
+
+            var expectedFileFilter = new FileFilterGenerator(expectedFileExtension, "Ringtoets project");
+            string versionWithDashes = RingtoetsVersionHelper.GetCurrentDatabaseVersion().Replace('.', '-');
+            string expectedSuggestedFileName = $"{originalFileName}_{versionWithDashes}";
+
+            var mocks = new MockRepository();
+            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
+            inquiryHelper.Expect(h => h.GetTargetFileLocation(expectedFileFilter.Filter, expectedSuggestedFileName))
+                         .Return(targetPath);
+            mocks.ReplayAll();
+
+            var migrator = new RingtoetsProjectMigrator(inquiryHelper);
+            string targetFilePath = "arbitraryPath";
+
+            // Call
+            Action call = () => targetFilePath = migrator.DetermineMigrationLocation(validFilePath);
+
+            // Assert
+            Tuple<string, LogLevelConstant> expectedLogMessage = Tuple.Create($"Het migreren van het projectbestand '{validFilePath}' is geannuleerd.",
+                                                                               LogLevelConstant.Warn);
+
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage, 1);
+
+            Assert.AreEqual(targetPath, targetFilePath);
             mocks.VerifyAll();
         }
 

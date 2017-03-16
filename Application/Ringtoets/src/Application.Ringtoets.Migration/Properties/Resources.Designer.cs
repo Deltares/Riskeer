@@ -110,7 +110,9 @@ namespace Application.Ringtoets.Migration.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het project dat u wilt openen is opgeslagen in het formaat van een eerdere versie van Ringtoets. Weet u zeker dat u het bestand wilt migreren naar het formaat van uw huidige Ringtoetsversie ({0})?.
+        ///   Looks up a localized string similar to Het project dat u wilt openen is opgeslagen in het formaat van een eerdere versie van Ringtoets.
+        ///
+        ///Weet u zeker dat u het bestand wilt migreren naar het formaat van uw huidige Ringtoetsversie ({0})?.
         /// </summary>
         internal static string RingtoetsProjectMigrator_Migrate_Outdated_project_file_update_to_current_version_0_inquire {
             get {

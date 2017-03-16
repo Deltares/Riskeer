@@ -108,7 +108,12 @@ namespace Application.Ringtoets.Migration
             ValidateProjectPath(originalFilePath, nameof(originalFilePath), Resources.RingtoetsProjectMigrator_Source_Descriptor);
 
             string suggestedFileName = GetSuggestedFileName(originalFilePath);
-            return inquiryHelper.GetTargetFileLocation(fileFilter.Filter, suggestedFileName);
+            string migrationLocation = inquiryHelper.GetTargetFileLocation(fileFilter.Filter, suggestedFileName);
+            if (string.IsNullOrEmpty(migrationLocation))
+            {
+                GenerateMigrationCancelledLogMessage(originalFilePath);
+            }
+            return migrationLocation;
         }
 
         public bool Migrate(string sourceFilePath, string targetFilePath)
