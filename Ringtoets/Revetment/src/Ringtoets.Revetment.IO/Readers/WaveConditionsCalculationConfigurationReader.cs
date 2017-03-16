@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Xml;
 using System.Xml.Linq;
 using Core.Common.Base.IO;
 using Ringtoets.Common.IO.Readers;
@@ -95,26 +94,17 @@ namespace Ringtoets.Revetment.IO.Readers
                                                                                                             WaveConditionsCalculationConfigurationSchemaIdentifiers.ForeshoreProfile),
                 Orientation = CalculationConfigurationReaderHelper.GetDoubleValueFromDescendantElement(calculationElement,
                                                                                                        ConfigurationSchemaIdentifiers.Orientation),
-                UseBreakWater = GetBoolValueFromChildElement(calculationElement,
-                                                             ConfigurationSchemaIdentifiers.UseBreakWater),
+                UseBreakWater = CalculationConfigurationReaderHelper.GetBoolValueFromDescendantElement(calculationElement,
+                                                                                                       ConfigurationSchemaIdentifiers.UseBreakWater),
                 BreakWaterType = CalculationConfigurationReaderHelper.GetStringValueFromDescendantElement(calculationElement,
                                                                                                           ConfigurationSchemaIdentifiers.BreakWaterType),
                 BreakWaterHeight = CalculationConfigurationReaderHelper.GetDoubleValueFromDescendantElement(calculationElement,
                                                                                                             ConfigurationSchemaIdentifiers.BreakWaterHeight),
-                UseForeshore = GetBoolValueFromChildElement(calculationElement,
-                                                            ConfigurationSchemaIdentifiers.UseForeshore)
+                UseForeshore = CalculationConfigurationReaderHelper.GetBoolValueFromDescendantElement(calculationElement,
+                                                                                                      ConfigurationSchemaIdentifiers.UseForeshore)
             };
 
             return new ReadWaveConditionsCalculation(constructionProperties);
-        }
-
-        private static bool? GetBoolValueFromChildElement(XElement parentElement, string childElementName)
-        {
-            XElement descendantElement = CalculationConfigurationReaderHelper.GetDescendantElement(parentElement, childElementName);
-
-            return descendantElement != null
-                       ? (bool?) XmlConvert.ToBoolean(descendantElement.Value)
-                       : null;
         }
     }
 }

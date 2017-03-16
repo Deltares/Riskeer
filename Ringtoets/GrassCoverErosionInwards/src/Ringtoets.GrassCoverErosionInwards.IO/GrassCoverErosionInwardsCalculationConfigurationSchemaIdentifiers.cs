@@ -29,11 +29,21 @@ namespace Ringtoets.GrassCoverErosionInwards.IO
         /// <summary>
         /// The tag of elements containing the name of the dike profile.
         /// </summary>
-        public const string HydraulicBoundaryLocationElement = "dijkprofiel";
+        public const string DikeProfileElement = "dijkprofiel";
 
         /// <summary>
         /// The name for the critical flow rate stochast.
         /// </summary>
         public static string CriticalFlowRateStochastName = "overslagdebiet";
+
+        /// <summary>
+        /// The identifier for the dike height elements.
+        /// </summary>
+        internal const string DikeHeightElement = "dijkhoogte";
+
+        /// <summary>
+        /// The identifier for the dike height calculation type elements.
+        /// </summary>
+        internal const string DikeHeightCalculationTypeElement = "hbnberekenen";
     }
 }

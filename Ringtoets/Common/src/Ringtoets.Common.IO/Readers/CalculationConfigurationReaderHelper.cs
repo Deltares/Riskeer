@@ -20,9 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
+using Ringtoets.Common.IO.Schema;
 
 namespace Ringtoets.Common.IO.Readers
 {
@@ -32,7 +34,7 @@ namespace Ringtoets.Common.IO.Readers
     public static class CalculationConfigurationReaderHelper
     {
         /// <summary>
-        /// Gets the double value from a descendant element.
+        /// Gets the <see cref="double"/> value from a descendant element.
         /// </summary>
         /// <param name="parentElement">The <see cref="XElement"/> that contains the descendant element.</param>
         /// <param name="descendantElementName">The name of the descendant element.</param>
@@ -58,7 +60,7 @@ namespace Ringtoets.Common.IO.Readers
         }
 
         /// <summary>
-        /// Gets the string value from a descendant element.
+        /// Gets the <see cref="string"/> value from a descendant element.
         /// </summary>
         /// <param name="parentElement">The <see cref="XElement"/> that contains the descendant element.</param>
         /// <param name="descendantElementName">The name of the descendant element.</param>
@@ -79,6 +81,67 @@ namespace Ringtoets.Common.IO.Readers
             XElement descendantElement = GetDescendantElement(parentElement, descendantElementName);
 
             return descendantElement?.Value;
+        }
+
+        /// <summary>
+        ///  Gets the <see cref="bool"/> value from a descendant element.
+        /// </summary>
+        /// <param name="parentElement">The <see cref="XElement"/> that contains the descendant element.</param>
+        /// <param name="descendantElementName">The name of the descendant element.</param>
+        /// <returns>The <see cref="bool"/> value, or <c>null</c> when the <paramref name="parentElement"/>
+        /// does not have descendant elements of <paramref name="descendantElementName"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static bool? GetBoolValueFromDescendantElement(XElement parentElement, string descendantElementName)
+        {
+            XElement descendantElement = GetDescendantElement(parentElement, descendantElementName);
+
+            return descendantElement != null
+                       ? (bool?) XmlConvert.ToBoolean(descendantElement.Value)
+                       : null;
+        }
+
+        /// <summary>
+        /// Gets the converted value from a descendant element.
+        /// </summary>
+        /// <typeparam name="TConverter">The <see cref="TypeConverter"/> to use</typeparam>
+        /// <param name="parentElement">The <see cref="XElement"/> that contains the descendant element.</param>
+        /// <param name="descendantElementName">The name of the descendant element.</param>
+        /// <returns>The converted value, or <c>null</c> when the <paramref name="parentElement"/>
+        /// does not have descendant elements of <paramref name="descendantElementName"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static object GetConvertedValueFromDescendantElement<TConverter>(XElement parentElement, string descendantElementName) where TConverter : TypeConverter, new()
+        {
+            string stringValue = GetStringValueFromDescendantElement(parentElement, descendantElementName);
+            if (stringValue == null)
+            {
+                return null;
+            }
+            return new TConverter().ConvertFromInvariantString(stringValue);
+        }
+
+        /// <summary>
+        /// Gets the 'stochast' element from the descendant 'stochasts' element.
+        /// </summary>
+        /// <param name="parentElement">The <see cref="XElement"/> that contains the descendant element.</param>
+        /// <param name="stochastName">The name of the stochast element.</param>
+        /// <returns>The stochast element, or <c>null</c> when the <paramref name="parentElement"/>
+        /// does not have stochast elements with the name <paramref name="stochastName"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static XElement GetStochastElement(XElement parentElement, string stochastName)
+        {
+            if (parentElement == null)
+            {
+                throw new ArgumentNullException(nameof(parentElement));
+            }
+            if (stochastName == null)
+            {
+                throw new ArgumentNullException(nameof(stochastName));
+            }
+
+            return parentElement.Elements(ConfigurationSchemaIdentifiers.StochastsElement)
+                                .FirstOrDefault()?
+                                .Elements(ConfigurationSchemaIdentifiers.StochastElement)
+                                .FirstOrDefault(e => e.Attribute(ConfigurationSchemaIdentifiers.NameAttribute)?.Value == stochastName);
         }
 
         /// <summary>

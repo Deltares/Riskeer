@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Xml.Linq;
 using Core.Common.Base.IO;
 using Ringtoets.Common.IO.Readers;
@@ -88,7 +87,8 @@ namespace Ringtoets.Piping.IO.Readers
                                                                                                                  PipingCalculationConfigurationSchemaIdentifiers.StochasticSoilProfileElement)
             };
 
-            XElement phreaticLevelExitElement = GetStochastChildElement(calculationElement, PipingCalculationConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName);
+            XElement phreaticLevelExitElement = CalculationConfigurationReaderHelper.GetStochastElement(calculationElement,
+                                                                                                        PipingCalculationConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName);
             if (phreaticLevelExitElement != null)
             {
                 constructionProperties.PhreaticLevelExitMean = CalculationConfigurationReaderHelper.GetDoubleValueFromDescendantElement(phreaticLevelExitElement,
@@ -97,7 +97,8 @@ namespace Ringtoets.Piping.IO.Readers
                                                                                                                                                      ConfigurationSchemaIdentifiers.StandardDeviationElement);
             }
 
-            XElement dampingFactorExitElement = GetStochastChildElement(calculationElement, PipingCalculationConfigurationSchemaIdentifiers.DampingFactorExitStochastName);
+            XElement dampingFactorExitElement = CalculationConfigurationReaderHelper.GetStochastElement(calculationElement,
+                                                                                                        PipingCalculationConfigurationSchemaIdentifiers.DampingFactorExitStochastName);
             if (dampingFactorExitElement != null)
             {
                 constructionProperties.DampingFactorExitMean = CalculationConfigurationReaderHelper.GetDoubleValueFromDescendantElement(dampingFactorExitElement,
@@ -107,14 +108,6 @@ namespace Ringtoets.Piping.IO.Readers
             }
 
             return new ReadPipingCalculation(constructionProperties);
-        }
-
-        private static XElement GetStochastChildElement(XElement parentElement, string stochastName)
-        {
-            return parentElement.Elements(ConfigurationSchemaIdentifiers.StochastsElement)
-                                .FirstOrDefault()?
-                                .Elements(ConfigurationSchemaIdentifiers.StochastElement)
-                                .FirstOrDefault(e => e.Attribute(ConfigurationSchemaIdentifiers.NameAttribute)?.Value == stochastName);
         }
     }
 }

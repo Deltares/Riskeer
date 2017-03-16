@@ -47,7 +47,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Writers
             }
             if (input.DikeProfile != null)
             {
-                writer.WriteElementString(GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
+                writer.WriteElementString(GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeProfileElement,
                                           input.DikeProfile.Name);
             }
 
