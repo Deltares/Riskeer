@@ -187,8 +187,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             IEnumerable<PipingCalculation> calculationsToUpdate = GetAffectedCalculationWithSurfaceLine(removedSurfaceLine);
             foreach (PipingCalculation affectedCalculation in calculationsToUpdate)
             {
-                IEnumerable<StochasticSoilModel> matchingSoilModels = GetAvailableStochasticSoilModels(null);
-                PipingInputService.SetMatchingStochasticSoilModel(affectedCalculation.InputParameters, matchingSoilModels);
+                PipingInputService.SetMatchingStochasticSoilModel(affectedCalculation.InputParameters, Enumerable.Empty<StochasticSoilModel>());
             }
 
             return PipingDataSynchronizationService.RemoveSurfaceLine(failureMechanism, removedSurfaceLine);

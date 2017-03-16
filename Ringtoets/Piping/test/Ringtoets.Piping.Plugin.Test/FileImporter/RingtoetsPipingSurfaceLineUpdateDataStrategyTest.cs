@@ -941,6 +941,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             }, affectedObjects);
             Assert.IsNull(calculationInput.SurfaceLine);
             Assert.IsNull(calculationInput.StochasticSoilModel);
+            Assert.IsNull(calculationInput.StochasticSoilProfile);
         }
 
         [Test]

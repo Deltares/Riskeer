@@ -82,16 +82,15 @@ namespace Ringtoets.Piping.Forms.Views
 
                 UpdateMapData();
             });
-            hydraulicBoundaryDatabaseObserver = new Observer(UpdateMapData);
-            surfaceLinesObserver = new Observer(UpdateMapData);
-            stochasticSoilModelsObserver = new Observer(UpdateMapData);
+            hydraulicBoundaryDatabaseObserver = new Observer(UpdateHydraulicBoundaryLocationsMapData);
+            surfaceLinesObserver = new Observer(UpdateSurfaceLinesMapData);
+            stochasticSoilModelsObserver = new Observer(UpdateStochasticSoilModelsMapData);
 
             calculationInputObserver = new RecursiveObserver<CalculationGroup, PipingInput>(
-                UpdateMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<PipingCalculationScenario>().Select(pc => pc.InputParameters)));
-            calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateMapData, pcg => pcg.Children);
-            calculationObserver = new RecursiveObserver<CalculationGroup, PipingCalculationScenario>(UpdateMapData, pcg => pcg.Children);
-
-            surfaceLineObserver = new RecursiveObserver<RingtoetsPipingSurfaceLineCollection, RingtoetsPipingSurfaceLine>(UpdateMapData, rpslc => rpslc);
+                UpdateCalculationsMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<PipingCalculationScenario>().Select(pc => pc.InputParameters)));
+            calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateCalculationsMapData, pcg => pcg.Children);
+            calculationObserver = new RecursiveObserver<CalculationGroup, PipingCalculationScenario>(UpdateCalculationsMapData, pcg => pcg.Children);
+            surfaceLineObserver = new RecursiveObserver<RingtoetsPipingSurfaceLineCollection, RingtoetsPipingSurfaceLine>(UpdateSurfaceLinesMapData, rpslc => rpslc);
 
             mapDataCollection = new MapDataCollection(PipingDataResources.PipingFailureMechanism_DisplayName);
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
@@ -128,12 +127,12 @@ namespace Ringtoets.Piping.Forms.Views
                     failureMechanismObserver.Observable = null;
                     assessmentSectionObserver.Observable = null;
                     hydraulicBoundaryDatabaseObserver.Observable = null;
-                    surfaceLinesObserver.Observable = null;
                     stochasticSoilModelsObserver.Observable = null;
                     calculationInputObserver.Observable = null;
                     calculationGroupObserver.Observable = null;
                     calculationObserver.Observable = null;
                     surfaceLineObserver.Observable = null;
+                    surfaceLinesObserver.Observable = null;
 
                     mapControl.RemoveAllData();
                 }
@@ -142,14 +141,14 @@ namespace Ringtoets.Piping.Forms.Views
                     failureMechanismObserver.Observable = data.WrappedData;
                     assessmentSectionObserver.Observable = data.Parent;
                     hydraulicBoundaryDatabaseObserver.Observable = data.Parent.HydraulicBoundaryDatabase;
-                    surfaceLinesObserver.Observable = data.WrappedData.SurfaceLines;
                     stochasticSoilModelsObserver.Observable = data.WrappedData.StochasticSoilModels;
                     calculationInputObserver.Observable = data.WrappedData.CalculationsGroup;
                     calculationGroupObserver.Observable = data.WrappedData.CalculationsGroup;
                     calculationObserver.Observable = data.WrappedData.CalculationsGroup;
+                    surfaceLinesObserver.Observable = data.WrappedData.SurfaceLines;
                     surfaceLineObserver.Observable = data.WrappedData.SurfaceLines;
 
-                    SetMapDataFeatures();
+                    SetAllMapDataFeatures();
 
                     mapControl.Data = mapDataCollection;
                     mapControl.BackgroundData = data.Parent.BackgroundData;
@@ -171,10 +170,11 @@ namespace Ringtoets.Piping.Forms.Views
             assessmentSectionObserver.Dispose();
             hydraulicBoundaryDatabaseObserver.Dispose();
             stochasticSoilModelsObserver.Dispose();
-            surfaceLinesObserver.Dispose();
             calculationInputObserver.Dispose();
             calculationGroupObserver.Dispose();
             calculationObserver.Dispose();
+            surfaceLinesObserver.Dispose();
+            surfaceLineObserver.Dispose();
 
             if (disposing)
             {
@@ -185,36 +185,126 @@ namespace Ringtoets.Piping.Forms.Views
 
         private void UpdateMapData()
         {
-            SetMapDataFeatures();
+            UpdateCalculationsMapData();
+            UpdateHydraulicBoundaryLocationsMapData();
+            UpdateReferenceLineMapData();
 
-            referenceLineMapData.NotifyObservers();
-            sectionsMapData.NotifyObservers();
-            stochasticSoilModelsMapData.NotifyObservers();
-            surfaceLinesMapData.NotifyObservers();
-            sectionsStartPointMapData.NotifyObservers();
-            sectionsEndPointMapData.NotifyObservers();
-            hydraulicBoundaryLocationsMapData.NotifyObservers();
+            UpdateSectionsMapData();
+            UpdateSurfaceLinesMapData();
+            UpdateStochasticSoilModelsMapData();
+        }
+
+        private void SetAllMapDataFeatures()
+        {
+            SetCalculationsMapData();
+            SetHydraulicBoundaryLocationsMapData();
+            SetReferenceLineMapData();
+
+            SetSectionsMapData();
+            SetSurfaceLinesMapData();
+            SetStochasticSoilModelsMapData();
+        }
+
+        #region Calculations MapData
+
+        private void UpdateCalculationsMapData()
+        {
+            SetCalculationsMapData();
             calculationsMapData.NotifyObservers();
         }
 
-        private void SetMapDataFeatures()
+        private void SetCalculationsMapData()
         {
-            ReferenceLine referenceLine = data.Parent.ReferenceLine;
-            IEnumerable<FailureMechanismSection> failureMechanismSections = data.WrappedData.Sections;
-            StochasticSoilModelCollection stochasticSoilModels = data.WrappedData.StochasticSoilModels;
-            RingtoetsPipingSurfaceLineCollection ringtoetsPipingSurfaceLines = data.WrappedData.SurfaceLines;
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = data.Parent.HydraulicBoundaryDatabase;
             IEnumerable<PipingCalculationScenario> calculations =
                 data.WrappedData.CalculationsGroup.GetCalculations().Cast<PipingCalculationScenario>();
+            calculationsMapData.Features = PipingMapDataFeaturesFactory.CreateCalculationFeatures(calculations);
+        }
 
+        #endregion
+
+        #region HydraulicBoundaryLocations MapData
+
+        private void UpdateHydraulicBoundaryLocationsMapData()
+        {
+            SetHydraulicBoundaryLocationsMapData();
+            hydraulicBoundaryLocationsMapData.NotifyObservers();
+        }
+
+        private void SetHydraulicBoundaryLocationsMapData()
+        {
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = data.Parent.HydraulicBoundaryDatabase;
+            hydraulicBoundaryLocationsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeatures(hydraulicBoundaryDatabase);
+        }
+
+        #endregion
+
+        #region ReferenceLine MapData
+
+        private void UpdateReferenceLineMapData()
+        {
+            SetReferenceLineMapData();
+            referenceLineMapData.NotifyObservers();
+        }
+
+        private void SetReferenceLineMapData()
+        {
+            ReferenceLine referenceLine = data.Parent.ReferenceLine;
             referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, data.Parent.Id, data.Parent.Name);
-            stochasticSoilModelsMapData.Features = PipingMapDataFeaturesFactory.CreateStochasticSoilModelFeatures(stochasticSoilModels.ToArray());
-            surfaceLinesMapData.Features = PipingMapDataFeaturesFactory.CreateSurfaceLineFeatures(ringtoetsPipingSurfaceLines.ToArray());
+        }
+
+        #endregion
+
+        #region Sections MapData
+
+        private void UpdateSectionsMapData()
+        {
+            SetSectionsMapData();
+            sectionsMapData.NotifyObservers();
+            sectionsStartPointMapData.NotifyObservers();
+            sectionsEndPointMapData.NotifyObservers();
+        }
+
+        private void SetSectionsMapData()
+        {
+            IEnumerable<FailureMechanismSection> failureMechanismSections = data.WrappedData.Sections;
+
             sectionsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
             sectionsStartPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
             sectionsEndPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);
-            hydraulicBoundaryLocationsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeatures(hydraulicBoundaryDatabase);
-            calculationsMapData.Features = PipingMapDataFeaturesFactory.CreateCalculationFeatures(calculations);
         }
+
+        #endregion
+
+        #region SurfaceLines MapData
+
+        private void UpdateSurfaceLinesMapData()
+        {
+            SetSurfaceLinesMapData();
+            surfaceLinesMapData.NotifyObservers();
+        }
+
+        private void SetSurfaceLinesMapData()
+        {
+            RingtoetsPipingSurfaceLineCollection ringtoetsPipingSurfaceLines = data.WrappedData.SurfaceLines;
+            surfaceLinesMapData.Features = PipingMapDataFeaturesFactory.CreateSurfaceLineFeatures(ringtoetsPipingSurfaceLines.ToArray());
+        }
+
+        #endregion
+
+        #region StochasticSoilModels MapData
+
+        private void UpdateStochasticSoilModelsMapData()
+        {
+            SetStochasticSoilModelsMapData();
+            stochasticSoilModelsMapData.NotifyObservers();
+        }
+
+        private void SetStochasticSoilModelsMapData()
+        {
+            StochasticSoilModelCollection stochasticSoilModels = data.WrappedData.StochasticSoilModels;
+            stochasticSoilModelsMapData.Features = PipingMapDataFeaturesFactory.CreateStochasticSoilModelFeatures(stochasticSoilModels.ToArray());
+        }
+
+        #endregion
     }
 }

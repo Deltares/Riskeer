@@ -1375,17 +1375,17 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var data = (CalculationGroup) pipingCalculationView.Data;
                 var pipingCalculation = (PipingCalculationScenario) data.Children[0];
 
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                var listBox = (ListBox) new ControlTester("listBox").TheObject;
+                DataGridViewControl dataGridView = pipingCalculationView.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
+                ListBox listBox = pipingCalculationView.Controls.Find("listBox", true).OfType<ListBox>().First();
 
                 // Precondition
                 listBox.SelectedIndex = 0;
-                Assert.AreEqual(2, dataGridView.RowCount);
+                Assert.AreEqual(2, dataGridView.Rows.Count);
                 Assert.AreEqual("Calculation 1", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual("Calculation 2", dataGridView.Rows[1].Cells[nameColumnIndex].FormattedValue);
 
                 listBox.SelectedIndex = 1;
-                Assert.AreEqual(1, dataGridView.RowCount);
+                Assert.AreEqual(1, dataGridView.Rows.Count);
                 Assert.AreEqual("Calculation 2", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
 
                 RingtoetsPipingSurfaceLine surfaceLineToChange = pipingCalculation.InputParameters.SurfaceLine;
@@ -1407,11 +1407,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 // Then
                 listBox.SelectedIndex = 0;
-                Assert.AreEqual(1, dataGridView.RowCount);
+                Assert.AreEqual(1, dataGridView.Rows.Count);
                 Assert.AreEqual("Calculation 2", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
 
                 listBox.SelectedIndex = 1;
-                Assert.AreEqual(2, dataGridView.RowCount);
+                Assert.AreEqual(2, dataGridView.Rows.Count);
                 Assert.AreEqual("Calculation 1", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual("Calculation 2", dataGridView.Rows[1].Cells[nameColumnIndex].FormattedValue);
             }
