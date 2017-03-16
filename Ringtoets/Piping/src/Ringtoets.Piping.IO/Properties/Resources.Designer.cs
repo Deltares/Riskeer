@@ -211,16 +211,6 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De locatie met hydraulische randvoorwaarden &apos;{0}&apos; bestaat niet..
-        /// </summary>
-        public static string PipingCalculationConfigurationImporter_ReadHydraulicBoundaryLocation_Hydraulic_boundary_location_0_does_not_exist {
-            get {
-                return ResourceManager.GetString("PipingCalculationConfigurationImporter_ReadHydraulicBoundaryLocation_Hydraulic_bo" +
-                        "undary_location_0_does_not_exist", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Het stochastische ondergrondmodel &apos;{0}&apos; bestaat niet..
         /// </summary>
         public static string PipingCalculationConfigurationImporter_ReadStochasticSoilModel_Stochastische_soil_model_0_does_not_exist {

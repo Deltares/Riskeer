@@ -33,6 +33,7 @@ using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.IO.Readers;
 using Ringtoets.Piping.IO.Schema;
 using Ringtoets.Piping.Primitives;
+using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.Piping.IO.Importers
 {
@@ -112,7 +113,7 @@ namespace Ringtoets.Piping.IO.Importers
 
                 if (location == null)
                 {
-                    throw new CriticalFileValidationException(string.Format(Resources.PipingCalculationConfigurationImporter_ReadHydraulicBoundaryLocation_Hydraulic_boundary_location_0_does_not_exist,
+                    throw new CriticalFileValidationException(string.Format(RingtoetsCommonIOResources.CalculationConfigurationImporter_ReadHydraulicBoundaryLocation_Hydraulic_boundary_location_0_does_not_exist,
                                                                             readCalculation.HydraulicBoundaryLocation));
                 }
 

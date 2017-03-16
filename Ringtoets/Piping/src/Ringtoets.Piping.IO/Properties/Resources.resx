@@ -278,9 +278,6 @@ Deze ondergrondschematisatie wordt overgeslagen.</value>
   <data name="SoilDatabaseConstraintsReader_VerifyConstraints_Invalid_StochasticSoilProfile_probability" xml:space="preserve">
     <value>Er zijn stochastische ondergrondschematisaties zonder geldige kans van voorkomen.</value>
   </data>
-  <data name="PipingCalculationConfigurationImporter_ReadHydraulicBoundaryLocation_Hydraulic_boundary_location_0_does_not_exist" xml:space="preserve">
-    <value>De locatie met hydraulische randvoorwaarden '{0}' bestaat niet.</value>
-  </data>
   <data name="PipingCalculationConfigurationImporter_ReadSurfaceLine_SurfaceLine_0_does_not_exist" xml:space="preserve">
     <value>De profielschematisatie '{0}' bestaat niet.</value>
   </data>

@@ -19,12 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.IO;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO.Importers;
@@ -43,10 +46,48 @@ namespace Ringtoets.Revetment.IO.Test.Importers
             // Call
             var importer = new WaveConditionsCalculationConfigurationImporter<SimpleWaveConditionsCalculation>(
                 "",
-                new CalculationGroup());
+                new CalculationGroup(),
+                Enumerable.Empty<HydraulicBoundaryLocation>());
 
             // Assert
             Assert.IsInstanceOf<CalculationConfigurationImporter<WaveConditionsCalculationConfigurationReader, ReadWaveConditionsCalculation>>(importer);
+        }
+
+        [Test]
+        public void Constructor_HydraulicBoundaryLocationsNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new WaveConditionsCalculationConfigurationImporter<SimpleWaveConditionsCalculation>(
+                "",
+                new CalculationGroup(),
+                null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("hydraulicBoundaryLocations", exception.ParamName);
+        }
+
+        [Test]
+        public void Import_HydraulicBoundaryLocationUnknown_LogMessageAndContinueImport()
+        {
+            // Setup
+            string filePath = Path.Combine(path, "validConfigurationCalculationContainingUnknownHydraulicBoundaryLocation.xml");
+
+            var calculationGroup = new CalculationGroup();
+            var importer = new WaveConditionsCalculationConfigurationImporter<SimpleWaveConditionsCalculation>(
+                filePath,
+                calculationGroup,
+                Enumerable.Empty<HydraulicBoundaryLocation>());
+
+            // Call
+            var successful = false;
+            Action call = () => successful = importer.Import();
+
+            // Assert
+            const string expectedMessage = "De locatie met hydraulische randvoorwaarden 'HRlocatie' bestaat niet. Berekening 'Calculation' is overgeslagen.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            Assert.IsTrue(successful);
+            CollectionAssert.IsEmpty(calculationGroup.Children);
         }
 
         [Test]
@@ -56,9 +97,14 @@ namespace Ringtoets.Revetment.IO.Test.Importers
             string filePath = Path.Combine(path, "validConfigurationFullCalculation.xml");
 
             var calculationGroup = new CalculationGroup();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HRlocatie", 10, 20);
             var importer = new WaveConditionsCalculationConfigurationImporter<SimpleWaveConditionsCalculation>(
                 filePath,
-                calculationGroup);
+                calculationGroup,
+                new[]
+                {
+                    hydraulicBoundaryLocation
+                });
 
             // Call
             bool successful = importer.Import();
@@ -66,22 +112,42 @@ namespace Ringtoets.Revetment.IO.Test.Importers
             // Assert
             Assert.IsTrue(successful);
 
+            var expectedCalculation = new SimpleWaveConditionsCalculation
+            {
+                Name = "Berekening 1",
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            var calculation = (IWaveConditionsCalculation) calculationGroup.Children[0];
-            Assert.AreEqual("Berekening 1", calculation.Name);
+            AssertWaveConditionsCalculation(expectedCalculation, (IWaveConditionsCalculation) calculationGroup.Children[0]);
+        }
+
+        private void AssertWaveConditionsCalculation(IWaveConditionsCalculation expectedCalculation, IWaveConditionsCalculation actualCalculation)
+        {
+            Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
+            Assert.AreSame(expectedCalculation.InputParameters.HydraulicBoundaryLocation, actualCalculation.InputParameters.HydraulicBoundaryLocation);
         }
 
         private class SimpleWaveConditionsCalculation : Observable, IWaveConditionsCalculation
         {
+            public SimpleWaveConditionsCalculation()
+            {
+                InputParameters = new WaveConditionsInput();
+            }
+
             public string Name { get; set; }
             public bool HasOutput { get; }
             public Comment Comments { get; }
-            public void ClearOutput()
-            {
-                throw new System.NotImplementedException();
-            }
 
             public WaveConditionsInput InputParameters { get; }
+
+            public void ClearOutput()
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

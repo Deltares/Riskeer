@@ -20,7 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO.Readers;
@@ -37,16 +41,28 @@ namespace Ringtoets.Revetment.IO.Importers
         : CalculationConfigurationImporter<WaveConditionsCalculationConfigurationReader, ReadWaveConditionsCalculation>
         where T : IWaveConditionsCalculation, new()
     {
+        private readonly IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations;
+
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsCalculationConfigurationImporter{T}"/>.
         /// </summary>
         /// <param name="xmlFilePath">The path to the XML file to import from.</param>
         /// <param name="importTarget">The calculation group to update.</param>
+        /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations
+        /// used to check if the imported objects contain the right location.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is
         /// <c>null</c>.</exception>
         public WaveConditionsCalculationConfigurationImporter(string xmlFilePath,
-                                                              CalculationGroup importTarget)
-            : base(xmlFilePath, importTarget) {}
+                                                              CalculationGroup importTarget,
+                                                              IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
+            : base(xmlFilePath, importTarget)
+        {
+            if (hydraulicBoundaryLocations == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
+            }
+            this.hydraulicBoundaryLocations = hydraulicBoundaryLocations;
+        }
 
         protected override WaveConditionsCalculationConfigurationReader CreateCalculationConfigurationReader(string xmlFilePath)
         {
@@ -55,12 +71,38 @@ namespace Ringtoets.Revetment.IO.Importers
 
         protected override ICalculation ParseReadCalculation(ReadWaveConditionsCalculation readCalculation)
         {
-            var calculation = new T
+            var waveConditionsCalculation = new T
             {
                 Name = readCalculation.Name
             };
 
-            return calculation;
+            ReadHydraulicBoundaryLocation(readCalculation, waveConditionsCalculation);
+
+            return waveConditionsCalculation;
+        }
+
+        /// <summary>
+        /// Reads the hydraulic boundary location.
+        /// </summary>
+        /// <param name="readCalculation">The calculation read from the imported file.</param>
+        /// <param name="calculation">The calculation to configure.</param>
+        /// <exception cref="CriticalFileValidationException">Thrown when the <paramref name="readCalculation"/>
+        /// has a <see cref="HydraulicBoundaryLocation"/> set which is not available in <see cref="hydraulicBoundaryLocations"/>.</exception>
+        private void ReadHydraulicBoundaryLocation(ReadWaveConditionsCalculation readCalculation, T calculation)
+        {
+            if (readCalculation.HydraulicBoundaryLocation != null)
+            {
+                HydraulicBoundaryLocation location = hydraulicBoundaryLocations
+                    .FirstOrDefault(l => l.Name == readCalculation.HydraulicBoundaryLocation);
+
+                if (location == null)
+                {
+                    throw new CriticalFileValidationException(string.Format(RingtoetsCommonIOResources.CalculationConfigurationImporter_ReadHydraulicBoundaryLocation_Hydraulic_boundary_location_0_does_not_exist,
+                                                                            readCalculation.HydraulicBoundaryLocation));
+                }
+
+                calculation.InputParameters.HydraulicBoundaryLocation = location;
+            }
         }
     }
 }
