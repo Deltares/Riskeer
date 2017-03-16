@@ -157,4 +157,7 @@
   <data name="WaveConditionsCalculationConfigurationImporter_ReadBoundaries_Lower_boundary_waterlevels_0_invalid" xml:space="preserve">
     <value>Een waarde van '{0}' als ondergrens van de rekenreeks is ongeldig.</value>
   </data>
+  <data name="WaveConditionsCalculationConfigurationImporter_ReadOrientation_Orientation_0_invalid" xml:space="preserve">
+    <value>Een waarde van '{0}' als oriëntatie is ongeldig.</value>
+  </data>
 </root>

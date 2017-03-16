@@ -84,6 +84,7 @@ namespace Ringtoets.Revetment.IO.Importers
             ReadHydraulicBoundaryLocation(readCalculation, waveConditionsCalculation);
             ReadBoundaries(readCalculation, waveConditionsCalculation);
             ReadStepSize(readCalculation, waveConditionsCalculation);
+            ReadOrientation(readCalculation, waveConditionsCalculation);
 
             return waveConditionsCalculation;
         }
@@ -120,12 +121,7 @@ namespace Ringtoets.Revetment.IO.Importers
         /// <exception cref="CriticalFileValidationException">Thrown when one of the boundaries is invalid.</exception>
         private static void ReadBoundaries(ReadWaveConditionsCalculation readCalculation, IWaveConditionsCalculation calculation)
         {
-            bool hasUpperBoundaryRevetment = readCalculation.UpperBoundaryRevetment.HasValue;
-            bool hasLowerBoundaryRevetment = readCalculation.LowerBoundaryRevetment.HasValue;
-            bool hasUpperBoundaryWaterLevels = readCalculation.UpperBoundaryWaterLevels.HasValue;
-            bool hasLowerBoundaryWaterLevels = readCalculation.LowerBoundaryWaterLevels.HasValue;
-
-            if (hasUpperBoundaryRevetment)
+            if (readCalculation.UpperBoundaryRevetment.HasValue)
             {
                 var upperBoundaryRevetment = (double) readCalculation.UpperBoundaryRevetment;
 
@@ -134,7 +130,7 @@ namespace Ringtoets.Revetment.IO.Importers
                     string.Format(Resources.WaveConditionsCalculationConfigurationImporter_ReadBoundaries_Upper_boundary_revetment_0_invalid, upperBoundaryRevetment));
             }
 
-            if (hasLowerBoundaryRevetment)
+            if (readCalculation.LowerBoundaryRevetment.HasValue)
             {
                 var lowerBoundaryRevetment = (double) readCalculation.LowerBoundaryRevetment;
 
@@ -143,7 +139,7 @@ namespace Ringtoets.Revetment.IO.Importers
                     string.Format(Resources.WaveConditionsCalculationConfigurationImporter_ReadBoundaries_Lower_boundary_revetment_0_invalid, lowerBoundaryRevetment));
             }
 
-            if (hasUpperBoundaryWaterLevels)
+            if (readCalculation.UpperBoundaryWaterLevels.HasValue)
             {
                 var upperBoundaryWaterLevels = (double) readCalculation.UpperBoundaryWaterLevels;
 
@@ -152,7 +148,7 @@ namespace Ringtoets.Revetment.IO.Importers
                     string.Format(Resources.WaveConditionsCalculationConfigurationImporter_ReadBoundaries_Upper_boundary_waterlevels_0_invalid, upperBoundaryWaterLevels));
             }
 
-            if (hasLowerBoundaryWaterLevels)
+            if (readCalculation.LowerBoundaryWaterLevels.HasValue)
             {
                 var lowerBoundaryWaterLevels = (double) readCalculation.LowerBoundaryWaterLevels;
 
@@ -167,6 +163,18 @@ namespace Ringtoets.Revetment.IO.Importers
             if (readCalculation.StepSize != null)
             {
                 calculation.InputParameters.StepSize = (WaveConditionsInputStepSize) waveConditionsInputStepSizeConverter.ConvertFrom(readCalculation.StepSize.ToString());
+            }
+        }
+
+        private static void ReadOrientation(ReadWaveConditionsCalculation readCalculation, IWaveConditionsCalculation calculation)
+        {
+            if (readCalculation.Orientation.HasValue)
+            {
+                var orientation = (double) readCalculation.Orientation;
+
+                PerformActionHandlingAnyArgumentOutOfRangeException(
+                    () => calculation.InputParameters.Orientation = (RoundedDouble) orientation,
+                    string.Format(Resources.WaveConditionsCalculationConfigurationImporter_ReadOrientation_Orientation_0_invalid, orientation));
             }
         }
     }

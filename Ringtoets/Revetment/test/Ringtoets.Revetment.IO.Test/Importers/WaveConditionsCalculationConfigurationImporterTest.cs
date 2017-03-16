@@ -74,6 +74,8 @@ namespace Ringtoets.Revetment.IO.Test.Importers
             "Een waarde van '2,2' als ondergrens bekledingen is ongeldig. De bovengrens van de bekleding moet boven de ondergrens liggen.")]
         [TestCase("validConfigurationInvalidWaterLevelBoundaries.xml",
             "Een waarde van '2,2' als ondergrens van de rekenreeks is ongeldig. De bovengrens van de rekenreeks moet boven de ondergrens liggen.")]
+        [TestCase("validConfigurationInvalidOrientation.xml",
+            "Een waarde van '380' als oriëntatie is ongeldig. De waarde voor de oriëntatie moet in het bereik [0,00, 360,00] liggen.")]
         public void Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(string file, string expectedErrorMessage)
         {
             // Setup
@@ -151,7 +153,8 @@ namespace Ringtoets.Revetment.IO.Test.Importers
                     LowerBoundaryRevetment = (RoundedDouble) 2,
                     UpperBoundaryWaterLevels = (RoundedDouble) 9,
                     LowerBoundaryWaterLevels = (RoundedDouble) 4,
-                    StepSize = WaveConditionsInputStepSize.Half
+                    StepSize = WaveConditionsInputStepSize.Half,
+                    Orientation = (RoundedDouble) 5.5
                 }
             };
 
@@ -168,6 +171,7 @@ namespace Ringtoets.Revetment.IO.Test.Importers
             Assert.AreEqual(expectedCalculation.InputParameters.UpperBoundaryWaterLevels, actualCalculation.InputParameters.UpperBoundaryWaterLevels);
             Assert.AreEqual(expectedCalculation.InputParameters.LowerBoundaryWaterLevels, actualCalculation.InputParameters.LowerBoundaryWaterLevels);
             Assert.AreEqual(expectedCalculation.InputParameters.StepSize, actualCalculation.InputParameters.StepSize);
+            Assert.AreEqual(expectedCalculation.InputParameters.Orientation, actualCalculation.InputParameters.Orientation);
         }
 
         private class SimpleWaveConditionsCalculation : Observable, IWaveConditionsCalculation
