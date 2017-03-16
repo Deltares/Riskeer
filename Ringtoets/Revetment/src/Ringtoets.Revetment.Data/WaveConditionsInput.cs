@@ -80,7 +80,7 @@ namespace Ringtoets.Revetment.Data
         {
             get
             {
-                return HydraulicBoundaryLocation != null ? HydraulicBoundaryLocation.DesignWaterLevel : new RoundedDouble(2, double.NaN);
+                return HydraulicBoundaryLocation?.DesignWaterLevel ?? new RoundedDouble(2, double.NaN);
             }
         }
 

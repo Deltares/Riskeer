@@ -23,6 +23,7 @@ using System;
 using System.IO;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data;
@@ -65,6 +66,34 @@ namespace Ringtoets.Revetment.IO.Test.Importers
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("hydraulicBoundaryLocations", exception.ParamName);
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase("validConfigurationInvalidRevetmentBoundaries.xml",
+            "Een waarde van '2,2' als ondergrens bekledingen is ongeldig. De bovengrens van de bekleding moet boven de ondergrens liggen.")]
+        [TestCase("validConfigurationInvalidWaterLevelBoundaries.xml",
+            "Een waarde van '2,2' als ondergrens van de rekenreeks is ongeldig. De bovengrens van de rekenreeks moet boven de ondergrens liggen.")]
+        public void Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(string file, string expectedErrorMessage)
+        {
+            // Setup
+            string filePath = Path.Combine(path, file);
+
+            var calculationGroup = new CalculationGroup();
+            var importer = new WaveConditionsCalculationConfigurationImporter<SimpleWaveConditionsCalculation>(
+                filePath,
+                calculationGroup,
+                Enumerable.Empty<HydraulicBoundaryLocation>());
+
+            // Call
+            var successful = false;
+            Action call = () => successful = importer.Import();
+
+            // Assert
+            string expectedMessage = $"{expectedErrorMessage} Berekening 'Berekening 1' is overgeslagen.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            Assert.IsTrue(successful);
+            CollectionAssert.IsEmpty(calculationGroup.Children);
         }
 
         [Test]
@@ -117,7 +146,11 @@ namespace Ringtoets.Revetment.IO.Test.Importers
                 Name = "Berekening 1",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    UpperBoundaryRevetment = (RoundedDouble) 10,
+                    LowerBoundaryRevetment = (RoundedDouble) 2,
+                    UpperBoundaryWaterLevels = (RoundedDouble) 9,
+                    LowerBoundaryWaterLevels = (RoundedDouble) 4
                 }
             };
 
@@ -129,6 +162,10 @@ namespace Ringtoets.Revetment.IO.Test.Importers
         {
             Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
             Assert.AreSame(expectedCalculation.InputParameters.HydraulicBoundaryLocation, actualCalculation.InputParameters.HydraulicBoundaryLocation);
+            Assert.AreEqual(expectedCalculation.InputParameters.UpperBoundaryRevetment, actualCalculation.InputParameters.UpperBoundaryRevetment);
+            Assert.AreEqual(expectedCalculation.InputParameters.LowerBoundaryRevetment, actualCalculation.InputParameters.LowerBoundaryRevetment);
+            Assert.AreEqual(expectedCalculation.InputParameters.UpperBoundaryWaterLevels, actualCalculation.InputParameters.UpperBoundaryWaterLevels);
+            Assert.AreEqual(expectedCalculation.InputParameters.LowerBoundaryWaterLevels, actualCalculation.InputParameters.LowerBoundaryWaterLevels);
         }
 
         private class SimpleWaveConditionsCalculation : Observable, IWaveConditionsCalculation

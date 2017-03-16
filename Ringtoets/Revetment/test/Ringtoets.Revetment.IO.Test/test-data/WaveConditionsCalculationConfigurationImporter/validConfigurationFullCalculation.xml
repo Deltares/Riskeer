@@ -2,10 +2,10 @@
 <configuratie>
   <berekening naam="Berekening 1">
     <hrlocatie>HRlocatie</hrlocatie>
-	<bovengrensbekleding>1.1</bovengrensbekleding>
-	<ondergrensbekleding>2.2</ondergrensbekleding>
-	<bovengrenswaterstanden>3.3</bovengrenswaterstanden>
-	<ondergrenswaterstanden>4.4</ondergrenswaterstanden>
+	<bovengrensbekleding>10</bovengrensbekleding>
+	<ondergrensbekleding>2</ondergrensbekleding>
+	<bovengrenswaterstanden>9</bovengrenswaterstanden>
+	<ondergrenswaterstanden>4</ondergrenswaterstanden>
 	<stapgrootte>0.5</stapgrootte>
 	<voorlandprofiel>Voorlandprofiel</voorlandprofiel>
 	<orientatie>5.5</orientatie>

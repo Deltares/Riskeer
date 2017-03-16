@@ -82,9 +82,7 @@ namespace Ringtoets.Revetment.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-        ///
-        ///&lt;!--
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!--
         ///Copyright (C) Stichting Deltares 2016. All rights reserved.
         ///
         ///This file is part of Ringtoets.
@@ -95,7 +93,7 @@ namespace Ringtoets.Revetment.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warrant [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without even the implied warranty of [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string BekledingenHrConfiguratieSchema {
             get {
@@ -145,6 +143,46 @@ namespace Ringtoets.Revetment.IO.Properties {
         internal static string No {
             get {
                 return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Een waarde van &apos;{0}&apos; als ondergrens bekledingen is ongeldig..
+        /// </summary>
+        internal static string WaveConditionsCalculationConfigurationImporter_ReadBoundaries_Lower_boundary_revetment_0_invalid {
+            get {
+                return ResourceManager.GetString("WaveConditionsCalculationConfigurationImporter_ReadBoundaries_Lower_boundary_reve" +
+                        "tment_0_invalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Een waarde van &apos;{0}&apos; als ondergrens van de rekenreeks is ongeldig..
+        /// </summary>
+        internal static string WaveConditionsCalculationConfigurationImporter_ReadBoundaries_Lower_boundary_waterlevels_0_invalid {
+            get {
+                return ResourceManager.GetString("WaveConditionsCalculationConfigurationImporter_ReadBoundaries_Lower_boundary_wate" +
+                        "rlevels_0_invalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Een waarde van &apos;{0}&apos; als bovengrens bekledingen is ongeldig..
+        /// </summary>
+        internal static string WaveConditionsCalculationConfigurationImporter_ReadBoundaries_Upper_boundary_revetment_0_invalid {
+            get {
+                return ResourceManager.GetString("WaveConditionsCalculationConfigurationImporter_ReadBoundaries_Upper_boundary_reve" +
+                        "tment_0_invalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Een waarde van &apos;{0}&apos; als bovengrens van de rekenreeks is ongeldig..
+        /// </summary>
+        internal static string WaveConditionsCalculationConfigurationImporter_ReadBoundaries_Upper_boundary_waterlevels_0_invalid {
+            get {
+                return ResourceManager.GetString("WaveConditionsCalculationConfigurationImporter_ReadBoundaries_Upper_boundary_wate" +
+                        "rlevels_0_invalid", resourceCulture);
             }
         }
         

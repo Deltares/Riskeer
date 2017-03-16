@@ -145,4 +145,16 @@
   <data name="BekledingenHrConfiguratieSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BekledingenHrConfiguratieSchema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="WaveConditionsCalculationConfigurationImporter_ReadBoundaries_Upper_boundary_revetment_0_invalid" xml:space="preserve">
+    <value>Een waarde van '{0}' als bovengrens bekledingen is ongeldig.</value>
+  </data>
+  <data name="WaveConditionsCalculationConfigurationImporter_ReadBoundaries_Lower_boundary_revetment_0_invalid" xml:space="preserve">
+    <value>Een waarde van '{0}' als ondergrens bekledingen is ongeldig.</value>
+  </data>
+  <data name="WaveConditionsCalculationConfigurationImporter_ReadBoundaries_Upper_boundary_waterlevels_0_invalid" xml:space="preserve">
+    <value>Een waarde van '{0}' als bovengrens van de rekenreeks is ongeldig.</value>
+  </data>
+  <data name="WaveConditionsCalculationConfigurationImporter_ReadBoundaries_Lower_boundary_waterlevels_0_invalid" xml:space="preserve">
+    <value>Een waarde van '{0}' als ondergrens van de rekenreeks is ongeldig.</value>
+  </data>
 </root>

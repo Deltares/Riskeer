@@ -22,11 +22,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.IO.Properties;
 using Ringtoets.Revetment.IO.Readers;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
@@ -77,6 +79,7 @@ namespace Ringtoets.Revetment.IO.Importers
             };
 
             ReadHydraulicBoundaryLocation(readCalculation, waveConditionsCalculation);
+            ReadBoundaries(readCalculation, waveConditionsCalculation);
 
             return waveConditionsCalculation;
         }
@@ -88,7 +91,7 @@ namespace Ringtoets.Revetment.IO.Importers
         /// <param name="calculation">The calculation to configure.</param>
         /// <exception cref="CriticalFileValidationException">Thrown when the <paramref name="readCalculation"/>
         /// has a <see cref="HydraulicBoundaryLocation"/> set which is not available in <see cref="hydraulicBoundaryLocations"/>.</exception>
-        private void ReadHydraulicBoundaryLocation(ReadWaveConditionsCalculation readCalculation, T calculation)
+        private void ReadHydraulicBoundaryLocation(ReadWaveConditionsCalculation readCalculation, IWaveConditionsCalculation calculation)
         {
             if (readCalculation.HydraulicBoundaryLocation != null)
             {
@@ -102,6 +105,56 @@ namespace Ringtoets.Revetment.IO.Importers
                 }
 
                 calculation.InputParameters.HydraulicBoundaryLocation = location;
+            }
+        }
+
+        /// <summary>
+        /// Reads the entry point and exit point.
+        /// </summary>
+        /// <param name="readCalculation">The calculation read from the imported file.</param>
+        /// <param name="calculation">The calculation to configure.</param>
+        /// <exception cref="CriticalFileValidationException">Thrown when one of the boundaries is invalid.</exception>
+        private static void ReadBoundaries(ReadWaveConditionsCalculation readCalculation, IWaveConditionsCalculation calculation)
+        {
+            bool hasUpperBoundaryRevetment = readCalculation.UpperBoundaryRevetment.HasValue;
+            bool hasLowerBoundaryRevetment = readCalculation.LowerBoundaryRevetment.HasValue;
+            bool hasUpperBoundaryWaterLevels = readCalculation.UpperBoundaryWaterLevels.HasValue;
+            bool hasLowerBoundaryWaterLevels = readCalculation.LowerBoundaryWaterLevels.HasValue;
+
+            if (hasUpperBoundaryRevetment)
+            {
+                var upperBoundaryRevetment = (double) readCalculation.UpperBoundaryRevetment;
+
+                PerformActionHandlingAnyArgumentOutOfRangeException(
+                    () => calculation.InputParameters.UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment,
+                    string.Format(Resources.WaveConditionsCalculationConfigurationImporter_ReadBoundaries_Upper_boundary_revetment_0_invalid, upperBoundaryRevetment));
+            }
+
+            if (hasLowerBoundaryRevetment)
+            {
+                var lowerBoundaryRevetment = (double) readCalculation.LowerBoundaryRevetment;
+
+                PerformActionHandlingAnyArgumentOutOfRangeException(
+                    () => calculation.InputParameters.LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment,
+                    string.Format(Resources.WaveConditionsCalculationConfigurationImporter_ReadBoundaries_Lower_boundary_revetment_0_invalid, lowerBoundaryRevetment));
+            }
+
+            if (hasUpperBoundaryWaterLevels)
+            {
+                var upperBoundaryWaterLevels = (double) readCalculation.UpperBoundaryWaterLevels;
+
+                PerformActionHandlingAnyArgumentOutOfRangeException(
+                    () => calculation.InputParameters.UpperBoundaryWaterLevels = (RoundedDouble) upperBoundaryWaterLevels,
+                    string.Format(Resources.WaveConditionsCalculationConfigurationImporter_ReadBoundaries_Upper_boundary_waterlevels_0_invalid, upperBoundaryWaterLevels));
+            }
+
+            if (hasLowerBoundaryWaterLevels)
+            {
+                var lowerBoundaryWaterLevels = (double) readCalculation.LowerBoundaryWaterLevels;
+
+                PerformActionHandlingAnyArgumentOutOfRangeException(
+                    () => calculation.InputParameters.LowerBoundaryWaterLevels = (RoundedDouble) lowerBoundaryWaterLevels,
+                    string.Format(Resources.WaveConditionsCalculationConfigurationImporter_ReadBoundaries_Lower_boundary_waterlevels_0_invalid, lowerBoundaryWaterLevels));
             }
         }
     }

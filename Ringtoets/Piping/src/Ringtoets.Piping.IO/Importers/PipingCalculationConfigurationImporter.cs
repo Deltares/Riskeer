@@ -303,23 +303,5 @@ namespace Ringtoets.Piping.IO.Importers
                 pipingCalculation.InputParameters.DampingFactorExit = logNormalDistribution;
             }
         }
-
-        /// <summary>
-        /// Performs the provided <paramref name="action"/> and handles any thrown <see cref="ArgumentOutOfRangeException"/>.
-        /// </summary>
-        /// <param name="action">The action to perform.</param>
-        /// <param name="errorMessage">The error message to provide when rethrowing any thrown <see cref="ArgumentOutOfRangeException"/>.</param>
-        /// <exception cref="CriticalFileValidationException">Thrown when <paramref name="action"/> throws an <see cref="ArgumentOutOfRangeException"/>.</exception>
-        private static void PerformActionHandlingAnyArgumentOutOfRangeException(Action action, string errorMessage)
-        {
-            try
-            {
-                action();
-            }
-            catch (ArgumentOutOfRangeException e)
-            {
-                throw new CriticalFileValidationException($"{errorMessage} {e.Message}");
-            }
-        }
     }
 }
