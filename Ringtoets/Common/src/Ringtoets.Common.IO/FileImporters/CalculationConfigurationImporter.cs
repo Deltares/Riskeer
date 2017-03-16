@@ -115,7 +115,7 @@ namespace Ringtoets.Common.IO.FileImporters
         /// <param name="readCalculation">The calculation read from XML.</param>
         /// <returns>A parsed calculation instance.</returns>
         /// <exception cref="CriticalFileValidationException">Thrown when something goes wrong while parsing.</exception>
-        protected abstract ICalculationBase ParseReadCalculation(TReadCalculation readCalculation);
+        protected abstract ICalculation ParseReadCalculation(TReadCalculation readCalculation);
 
         private ReadResult<IReadConfigurationItem> ReadConfiguration()
         {
@@ -169,7 +169,7 @@ namespace Ringtoets.Common.IO.FileImporters
             return calculationGroup;
         }
 
-        private ICalculationBase ParseReadCalculationInternal(TReadCalculation readCalculation)
+        private ICalculation ParseReadCalculationInternal(TReadCalculation readCalculation)
         {
             try
             {

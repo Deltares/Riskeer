@@ -79,7 +79,7 @@ namespace Ringtoets.Piping.IO.Importers
             return new PipingCalculationConfigurationReader(xmlFilePath);
         }
 
-        protected override ICalculationBase ParseReadCalculation(ReadPipingCalculation readCalculation)
+        protected override ICalculation ParseReadCalculation(ReadPipingCalculation readCalculation)
         {
             var pipingCalculation = new PipingCalculationScenario(new GeneralPipingInput())
             {

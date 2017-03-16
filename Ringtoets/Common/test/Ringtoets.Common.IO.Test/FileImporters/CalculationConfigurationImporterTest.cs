@@ -28,6 +28,7 @@ using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.Readers;
@@ -213,7 +214,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 return new CalculationConfigurationReader(xmlFilePath);
             }
 
-            protected override ICalculationBase ParseReadCalculation(ReadCalculation readCalculation)
+            protected override ICalculation ParseReadCalculation(ReadCalculation readCalculation)
             {
                 return new TestCalculation
                 {
@@ -249,9 +250,15 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             public string Name { get; }
         }
 
-        private class TestCalculation : Observable, ICalculationBase
+        private class TestCalculation : Observable, ICalculation
         {
             public string Name { get; set; }
+            public bool HasOutput { get; }
+            public Comment Comments { get; }
+            public void ClearOutput()
+            {
+                throw new NotImplementedException();
+            }
         }
 
         private class ExpectedProgressNotification
