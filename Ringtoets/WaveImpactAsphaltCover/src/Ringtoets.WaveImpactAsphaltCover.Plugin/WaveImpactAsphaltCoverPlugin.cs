@@ -38,6 +38,7 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.Service;
+using Ringtoets.Revetment.IO.Importers;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
@@ -92,6 +93,23 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
                 AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
+            };
+        }
+
+        public override IEnumerable<ImportInfo> GetImportInfos()
+        {
+            yield return new ImportInfo<WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext>
+            {
+                Name = RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Description,
+                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
+                Image = RingtoetsCommonFormsResources.GeneralFolderIcon,
+                FileFilterGenerator = CalculationConfigurationFileFilter,
+                IsEnabled = CalculationConfigurationImporterEnabled,
+                CreateFileImporter = (context, filePath) => new WaveConditionsCalculationConfigurationImporter<WaveImpactAsphaltCoverWaveConditionsCalculation>(
+                    filePath,
+                    context.WrappedData,
+                    context.AssessmentSection.HydraulicBoundaryDatabase.Locations,
+                    context.FailureMechanism.ForeshoreProfiles)
             };
         }
 
@@ -200,6 +218,21 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                 FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Extension,
                                                               RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Description)
             };
+        }
+
+        private static FileFilterGenerator CalculationConfigurationFileFilter
+        {
+            get
+            {
+                return new FileFilterGenerator(RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Extension,
+                                               RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Description);
+            }
+        }
+
+        private static bool CalculationConfigurationImporterEnabled(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext context)
+        {
+            return context.AssessmentSection.HydraulicBoundaryDatabase != null
+                   && context.AssessmentSection.HydraulicBoundaryDatabase.Locations.Any();
         }
 
         #region ViewInfos
@@ -371,7 +404,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
 
             StrictContextMenuItem generateCalculationsItem = CreateGenerateWaveConditionsCalculationsItem(nodeData);
 
-            builder.AddExportItem()
+            builder.AddImportItem()
+                   .AddExportItem()
                    .AddSeparator();
 
             if (!isNestedGroup)

@@ -54,22 +54,25 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class WaveImpactAsphaltCoverWaveConditionsCalculationGroupContextTreeNodeInfoTest : NUnitFormTest
     {
-        private const int contextMenuAddGenerateCalculationsIndex = 2;
-        private const int contextMenuAddCalculationGroupIndexRootGroup = 4;
-        private const int contextMenuAddCalculationIndexRootGroup = 5;
-        private const int contextMenuValidateAllIndexRootGroup = 7;
-        private const int contextMenuCalculateAllIndexRootGroup = 8;
-        private const int contextMenuClearOutputIndexRootGroup = 10;
-        private const int contextMenuRemoveAllChildrenIndexRootGroup = 11;
-        private const int contextMenuCollapseAllIndexRootGroup = 13;
-        private const int contextMenuExpandAllIndexRootGroup = 14;
-        private const int contextMenuPropertiesIndexRootGroup = 16;
+        private const int contextMenuImportConfigurationIndex = 0;
+        private const int contextMenuExportConfigurationIndex = 1;
 
-        private const int contextMenuAddCalculationGroupIndexNestedGroup = 2;
-        private const int contextMenuAddCalculationIndexNestedGroup = 3;
-        private const int contextMenuValidateAllIndexNestedGroup = 6;
-        private const int contextMenuCalculateAllIndexNestedGroup = 7;
-        private const int contextMenuClearOutputIndexNestedGroup = 9;
+        private const int contextMenuAddGenerateCalculationsIndex = 3;
+        private const int contextMenuAddCalculationGroupIndexRootGroup = 5;
+        private const int contextMenuAddCalculationIndexRootGroup = 6;
+        private const int contextMenuValidateAllIndexRootGroup = 8;
+        private const int contextMenuCalculateAllIndexRootGroup = 9;
+        private const int contextMenuClearOutputIndexRootGroup = 11;
+        private const int contextMenuRemoveAllChildrenIndexRootGroup = 12;
+        private const int contextMenuCollapseAllIndexRootGroup = 14;
+        private const int contextMenuExpandAllIndexRootGroup = 15;
+        private const int contextMenuPropertiesIndexRootGroup = 17;
+
+        private const int contextMenuAddCalculationGroupIndexNestedGroup = 3;
+        private const int contextMenuAddCalculationIndexNestedGroup = 4;
+        private const int contextMenuValidateAllIndexNestedGroup = 7;
+        private const int contextMenuCalculateAllIndexNestedGroup = 8;
+        private const int contextMenuClearOutputIndexNestedGroup = 10;
 
         private MockRepository mocks;
         private WaveImpactAsphaltCoverPlugin plugin;
@@ -226,6 +229,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
+            importHandlerMock.Expect(imh => imh.CanImportOn(nodeData)).Return(true);
             var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
             exportHandlerMock.Expect(ehm => ehm.CanExportFrom(nodeData)).Return(true);
             var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
@@ -255,9 +259,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
             {
                 // Assert
-                Assert.AreEqual(16, menu.Items.Count);
+                Assert.AreEqual(17, menu.Items.Count);
 
-                TestHelper.AssertContextMenuStripContainsItem(menu, 0,
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuImportConfigurationIndex,
+                                                              "&Importeren...",
+                                                              "Importeer de gegevens vanuit een bestand.",
+                                                              CoreCommonGuiResources.ImportIcon);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExportConfigurationIndex,
                                                               "&Exporteren...",
                                                               "Exporteer de gegevens naar een bestand.",
                                                               CoreCommonGuiResources.ExportIcon);
@@ -271,7 +279,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                               "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
                                                               RingtoetsCommonFormsResources.FailureMechanismIcon);
 
-                TestHelper.AssertContextMenuStripContainsItem(menu, 5,
+                TestHelper.AssertContextMenuStripContainsItem(menu, 6,
                                                               "&Hernoemen",
                                                               "Wijzig de naam van dit element.",
                                                               CoreCommonGuiResources.RenameIcon);
@@ -291,23 +299,23 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                               RingtoetsCommonFormsResources.ClearIcon,
                                                               false);
 
-                TestHelper.AssertContextMenuStripContainsItem(menu, 10,
+                TestHelper.AssertContextMenuStripContainsItem(menu, 11,
                                                               "Verwij&deren...",
                                                               "Verwijder dit element uit de boom.",
                                                               CoreCommonGuiResources.DeleteIcon);
 
-                TestHelper.AssertContextMenuStripContainsItem(menu, 12,
+                TestHelper.AssertContextMenuStripContainsItem(menu, 13,
                                                               "Alles i&nklappen",
                                                               "Klap dit element en alle onderliggende elementen in.",
                                                               CoreCommonGuiResources.CollapseAllIcon,
                                                               false);
-                TestHelper.AssertContextMenuStripContainsItem(menu, 13,
+                TestHelper.AssertContextMenuStripContainsItem(menu, 14,
                                                               "Alles ui&tklappen",
                                                               "Klap dit element en alle onderliggende elementen uit.",
                                                               CoreCommonGuiResources.ExpandAllIcon,
                                                               false);
 
-                TestHelper.AssertContextMenuStripContainsItem(menu, 15,
+                TestHelper.AssertContextMenuStripContainsItem(menu, 16,
                                                               "Ei&genschappen",
                                                               "Toon de eigenschappen in het Eigenschappenpaneel.",
                                                               CoreCommonGuiResources.PropertiesHS,
@@ -315,11 +323,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
                 CollectionAssert.AllItemsAreInstancesOfType(new[]
                 {
-                    menu.Items[1],
-                    menu.Items[4],
-                    menu.Items[8],
-                    menu.Items[11],
-                    menu.Items[14]
+                    menu.Items[2],
+                    menu.Items[5],
+                    menu.Items[9],
+                    menu.Items[12],
+                    menu.Items[15]
                 }, typeof(ToolStripSeparator));
             }
         }
@@ -338,6 +346,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
+            importHandlerMock.Expect(imh => imh.CanImportOn(nodeData)).Return(true);
             var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
             exportHandlerMock.Expect(ehm => ehm.CanExportFrom(nodeData)).Return(true);
             var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
@@ -363,7 +372,17 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(17, menu.Items.Count);
+                    Assert.AreEqual(18, menu.Items.Count);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuImportConfigurationIndex,
+                                                              "&Importeren...",
+                                                              "Importeer de gegevens vanuit een bestand.",
+                                                              CoreCommonGuiResources.ImportIcon);
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExportConfigurationIndex,
+                                                                  "&Exporteren...",
+                                                                  "Exporteer de gegevens naar een bestand.",
+                                                                  CoreCommonGuiResources.ExportIcon);
+
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddGenerateCalculationsIndex,
                                                                   "Genereer &berekeningen...",
                                                                   "Er is geen hydraulische randvoorwaardendatabase beschikbaar om de randvoorwaardenberekeningen te genereren.",
@@ -413,12 +432,12 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                                   false);
                     CollectionAssert.AllItemsAreInstancesOfType(new[]
                     {
-                        menu.Items[1],
-                        menu.Items[3],
-                        menu.Items[6],
-                        menu.Items[9],
-                        menu.Items[12],
-                        menu.Items[15]
+                        menu.Items[2],
+                        menu.Items[4],
+                        menu.Items[7],
+                        menu.Items[10],
+                        menu.Items[13],
+                        menu.Items[16]
                     }, typeof(ToolStripSeparator));
                 }
             }
@@ -444,6 +463,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
+            importHandlerMock.Expect(imh => imh.CanImportOn(nodeData)).Return(true);
             var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
             exportHandlerMock.Expect(ehm => ehm.CanExportFrom(nodeData)).Return(true);
             var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
@@ -469,7 +489,17 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(17, menu.Items.Count);
+                    Assert.AreEqual(18, menu.Items.Count);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuImportConfigurationIndex,
+                                                              "&Importeren...",
+                                                              "Importeer de gegevens vanuit een bestand.",
+                                                              CoreCommonGuiResources.ImportIcon);
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExportConfigurationIndex,
+                                                                  "&Exporteren...",
+                                                                  "Exporteer de gegevens naar een bestand.",
+                                                                  CoreCommonGuiResources.ExportIcon);
+
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddGenerateCalculationsIndex,
                                                                   "Genereer &berekeningen...",
                                                                   "Genereer randvoorwaardenberekeningen.",
@@ -520,12 +550,12 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                                   false);
                     CollectionAssert.AllItemsAreInstancesOfType(new[]
                     {
-                        menu.Items[1],
-                        menu.Items[3],
-                        menu.Items[6],
-                        menu.Items[9],
-                        menu.Items[12],
-                        menu.Items[15]
+                        menu.Items[2],
+                        menu.Items[4],
+                        menu.Items[7],
+                        menu.Items[10],
+                        menu.Items[13],
+                        menu.Items[16]
                     }, typeof(ToolStripSeparator));
                 }
             }
