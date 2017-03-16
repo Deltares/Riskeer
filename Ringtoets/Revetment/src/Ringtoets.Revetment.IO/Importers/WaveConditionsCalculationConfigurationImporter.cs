@@ -44,6 +44,7 @@ namespace Ringtoets.Revetment.IO.Importers
         where T : IWaveConditionsCalculation, new()
     {
         private readonly IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations;
+        private readonly WaveConditionsInputStepSizeTypeConverter waveConditionsInputStepSizeConverter;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsCalculationConfigurationImporter{T}"/>.
@@ -64,6 +65,8 @@ namespace Ringtoets.Revetment.IO.Importers
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
             }
             this.hydraulicBoundaryLocations = hydraulicBoundaryLocations;
+
+            waveConditionsInputStepSizeConverter = new WaveConditionsInputStepSizeTypeConverter();
         }
 
         protected override WaveConditionsCalculationConfigurationReader CreateCalculationConfigurationReader(string xmlFilePath)
@@ -80,6 +83,7 @@ namespace Ringtoets.Revetment.IO.Importers
 
             ReadHydraulicBoundaryLocation(readCalculation, waveConditionsCalculation);
             ReadBoundaries(readCalculation, waveConditionsCalculation);
+            ReadStepSize(readCalculation, waveConditionsCalculation);
 
             return waveConditionsCalculation;
         }
@@ -155,6 +159,14 @@ namespace Ringtoets.Revetment.IO.Importers
                 PerformActionHandlingAnyArgumentOutOfRangeException(
                     () => calculation.InputParameters.LowerBoundaryWaterLevels = (RoundedDouble) lowerBoundaryWaterLevels,
                     string.Format(Resources.WaveConditionsCalculationConfigurationImporter_ReadBoundaries_Lower_boundary_waterlevels_0_invalid, lowerBoundaryWaterLevels));
+            }
+        }
+
+        private void ReadStepSize(ReadWaveConditionsCalculation readCalculation, IWaveConditionsCalculation calculation)
+        {
+            if (readCalculation.StepSize != null)
+            {
+                calculation.InputParameters.StepSize = (WaveConditionsInputStepSize) waveConditionsInputStepSizeConverter.ConvertFrom(readCalculation.StepSize.ToString());
             }
         }
     }

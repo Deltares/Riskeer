@@ -150,7 +150,8 @@ namespace Ringtoets.Revetment.IO.Test.Importers
                     UpperBoundaryRevetment = (RoundedDouble) 10,
                     LowerBoundaryRevetment = (RoundedDouble) 2,
                     UpperBoundaryWaterLevels = (RoundedDouble) 9,
-                    LowerBoundaryWaterLevels = (RoundedDouble) 4
+                    LowerBoundaryWaterLevels = (RoundedDouble) 4,
+                    StepSize = WaveConditionsInputStepSize.Half
                 }
             };
 
@@ -166,6 +167,7 @@ namespace Ringtoets.Revetment.IO.Test.Importers
             Assert.AreEqual(expectedCalculation.InputParameters.LowerBoundaryRevetment, actualCalculation.InputParameters.LowerBoundaryRevetment);
             Assert.AreEqual(expectedCalculation.InputParameters.UpperBoundaryWaterLevels, actualCalculation.InputParameters.UpperBoundaryWaterLevels);
             Assert.AreEqual(expectedCalculation.InputParameters.LowerBoundaryWaterLevels, actualCalculation.InputParameters.LowerBoundaryWaterLevels);
+            Assert.AreEqual(expectedCalculation.InputParameters.StepSize, actualCalculation.InputParameters.StepSize);
         }
 
         private class SimpleWaveConditionsCalculation : Observable, IWaveConditionsCalculation
