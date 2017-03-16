@@ -28,7 +28,9 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO.Importers;
@@ -48,7 +50,8 @@ namespace Ringtoets.Revetment.IO.Test.Importers
             var importer = new WaveConditionsCalculationConfigurationImporter<SimpleWaveConditionsCalculation>(
                 "",
                 new CalculationGroup(),
-                Enumerable.Empty<HydraulicBoundaryLocation>());
+                Enumerable.Empty<HydraulicBoundaryLocation>(),
+                Enumerable.Empty<ForeshoreProfile>());
 
             // Assert
             Assert.IsInstanceOf<CalculationConfigurationImporter<WaveConditionsCalculationConfigurationReader, ReadWaveConditionsCalculation>>(importer);
@@ -61,11 +64,27 @@ namespace Ringtoets.Revetment.IO.Test.Importers
             TestDelegate test = () => new WaveConditionsCalculationConfigurationImporter<SimpleWaveConditionsCalculation>(
                 "",
                 new CalculationGroup(),
-                null);
+                null,
+                Enumerable.Empty<ForeshoreProfile>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("hydraulicBoundaryLocations", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ForeshoreProfilesNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new WaveConditionsCalculationConfigurationImporter<SimpleWaveConditionsCalculation>(
+                "",
+                new CalculationGroup(),
+                Enumerable.Empty<HydraulicBoundaryLocation>(),
+                null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("foreshoreProfiles", exception.ParamName);
         }
 
         [Test]
@@ -85,7 +104,8 @@ namespace Ringtoets.Revetment.IO.Test.Importers
             var importer = new WaveConditionsCalculationConfigurationImporter<SimpleWaveConditionsCalculation>(
                 filePath,
                 calculationGroup,
-                Enumerable.Empty<HydraulicBoundaryLocation>());
+                Enumerable.Empty<HydraulicBoundaryLocation>(),
+                Enumerable.Empty<ForeshoreProfile>());
 
             // Call
             var successful = false;
@@ -108,7 +128,8 @@ namespace Ringtoets.Revetment.IO.Test.Importers
             var importer = new WaveConditionsCalculationConfigurationImporter<SimpleWaveConditionsCalculation>(
                 filePath,
                 calculationGroup,
-                Enumerable.Empty<HydraulicBoundaryLocation>());
+                Enumerable.Empty<HydraulicBoundaryLocation>(),
+                Enumerable.Empty<ForeshoreProfile>());
 
             // Call
             var successful = false;
@@ -122,6 +143,30 @@ namespace Ringtoets.Revetment.IO.Test.Importers
         }
 
         [Test]
+        public void Import_ForeshoreProfileUnknown_LogMessageAndContinueImport()
+        {
+            // Setup
+            string filePath = Path.Combine(path, "validConfigurationCalculationContainingUnknownForeshoreProfile.xml");
+
+            var calculationGroup = new CalculationGroup();
+            var importer = new WaveConditionsCalculationConfigurationImporter<SimpleWaveConditionsCalculation>(
+                filePath,
+                calculationGroup,
+                Enumerable.Empty<HydraulicBoundaryLocation>(),
+                Enumerable.Empty<ForeshoreProfile>());
+
+            // Call
+            var successful = false;
+            Action call = () => successful = importer.Import();
+
+            // Assert
+            const string expectedMessage = "Het voorlandprofiel 'Voorlandprofiel' bestaat niet. Berekening 'Berekening 1' is overgeslagen.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            Assert.IsTrue(successful);
+            CollectionAssert.IsEmpty(calculationGroup.Children);
+        }
+
+        [Test]
         public void Import_ValidConfigurationWithValidData_DataAddedToModel()
         {
             // Setup
@@ -129,12 +174,17 @@ namespace Ringtoets.Revetment.IO.Test.Importers
 
             var calculationGroup = new CalculationGroup();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HRlocatie", 10, 20);
+            var foreshoreProfile = new TestForeshoreProfile("Voorlandprofiel");
             var importer = new WaveConditionsCalculationConfigurationImporter<SimpleWaveConditionsCalculation>(
                 filePath,
                 calculationGroup,
                 new[]
                 {
                     hydraulicBoundaryLocation
+                },
+                new[]
+                {
+                    foreshoreProfile
                 });
 
             // Call
@@ -154,6 +204,7 @@ namespace Ringtoets.Revetment.IO.Test.Importers
                     UpperBoundaryWaterLevels = (RoundedDouble) 9,
                     LowerBoundaryWaterLevels = (RoundedDouble) 4,
                     StepSize = WaveConditionsInputStepSize.Half,
+                    ForeshoreProfile = foreshoreProfile,
                     Orientation = (RoundedDouble) 5.5
                 }
             };
@@ -172,6 +223,7 @@ namespace Ringtoets.Revetment.IO.Test.Importers
             Assert.AreEqual(expectedCalculation.InputParameters.LowerBoundaryWaterLevels, actualCalculation.InputParameters.LowerBoundaryWaterLevels);
             Assert.AreEqual(expectedCalculation.InputParameters.StepSize, actualCalculation.InputParameters.StepSize);
             Assert.AreEqual(expectedCalculation.InputParameters.Orientation, actualCalculation.InputParameters.Orientation);
+            Assert.AreEqual(expectedCalculation.InputParameters.ForeshoreProfile, actualCalculation.InputParameters.ForeshoreProfile);
         }
 
         private class SimpleWaveConditionsCalculation : Observable, IWaveConditionsCalculation

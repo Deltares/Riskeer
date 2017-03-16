@@ -166,6 +166,16 @@ namespace Ringtoets.Revetment.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het voorlandprofiel &apos;{0}&apos; bestaat niet..
+        /// </summary>
+        internal static string WaveConditionsCalculationConfigurationImporter_ReadForeshoreProfile_Foreshore_profile_0_does_not_exist {
+            get {
+                return ResourceManager.GetString("WaveConditionsCalculationConfigurationImporter_ReadForeshoreProfile_Foreshore_pro" +
+                        "file_0_does_not_exist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Een waarde van &apos;{0}&apos; als oriëntatie is ongeldig..
         /// </summary>
         internal static string WaveConditionsCalculationConfigurationImporter_ReadOrientation_Orientation_0_invalid {

@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.FileImporters;
@@ -44,6 +45,7 @@ namespace Ringtoets.Revetment.IO.Importers
         where T : IWaveConditionsCalculation, new()
     {
         private readonly IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations;
+        private readonly IEnumerable<ForeshoreProfile> foreshoreProfiles;
         private readonly WaveConditionsInputStepSizeTypeConverter waveConditionsInputStepSizeConverter;
 
         /// <summary>
@@ -53,18 +55,26 @@ namespace Ringtoets.Revetment.IO.Importers
         /// <param name="importTarget">The calculation group to update.</param>
         /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations
         /// used to check if the imported objects contain the right location.</param>
+        /// <param name="foreshoreProfiles">The foreshore profiles used to check if
+        /// the imported objects contain the right profile.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is
         /// <c>null</c>.</exception>
         public WaveConditionsCalculationConfigurationImporter(string xmlFilePath,
                                                               CalculationGroup importTarget,
-                                                              IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
+                                                              IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
+                                                              IEnumerable<ForeshoreProfile> foreshoreProfiles)
             : base(xmlFilePath, importTarget)
         {
             if (hydraulicBoundaryLocations == null)
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
             }
+            if (foreshoreProfiles == null)
+            {
+                throw new ArgumentNullException(nameof(foreshoreProfiles));
+            }
             this.hydraulicBoundaryLocations = hydraulicBoundaryLocations;
+            this.foreshoreProfiles = foreshoreProfiles;
 
             waveConditionsInputStepSizeConverter = new WaveConditionsInputStepSizeTypeConverter();
         }
@@ -84,6 +94,7 @@ namespace Ringtoets.Revetment.IO.Importers
             ReadHydraulicBoundaryLocation(readCalculation, waveConditionsCalculation);
             ReadBoundaries(readCalculation, waveConditionsCalculation);
             ReadStepSize(readCalculation, waveConditionsCalculation);
+            ReadForeshoreProfile(readCalculation, waveConditionsCalculation);
             ReadOrientation(readCalculation, waveConditionsCalculation);
 
             return waveConditionsCalculation;
@@ -163,6 +174,29 @@ namespace Ringtoets.Revetment.IO.Importers
             if (readCalculation.StepSize != null)
             {
                 calculation.InputParameters.StepSize = (WaveConditionsInputStepSize) waveConditionsInputStepSizeConverter.ConvertFrom(readCalculation.StepSize.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Reads the foreshore profile.
+        /// </summary>
+        /// <param name="readCalculation">The calculation read from the imported file.</param>
+        /// <param name="calculation">The calculation to configure.</param>
+        /// <exception cref="CriticalFileValidationException">Thrown when the <paramref name="readCalculation"/>
+        /// has a <see cref="ForeshoreProfile"/> set which is not available in <see cref="foreshoreProfiles"/>.</exception>
+        private void ReadForeshoreProfile(ReadWaveConditionsCalculation readCalculation, IWaveConditionsCalculation calculation)
+        {
+            if (readCalculation.ForeshoreProfile != null)
+            {
+                ForeshoreProfile foreshoreProfile = foreshoreProfiles.FirstOrDefault(fp => fp.Name == readCalculation.ForeshoreProfile);
+
+                if (foreshoreProfile == null)
+                {
+                    throw new CriticalFileValidationException(string.Format(Resources.WaveConditionsCalculationConfigurationImporter_ReadForeshoreProfile_Foreshore_profile_0_does_not_exist,
+                                                                            readCalculation.ForeshoreProfile));
+                }
+
+                calculation.InputParameters.ForeshoreProfile = foreshoreProfile;
             }
         }
 
