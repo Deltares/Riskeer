@@ -787,6 +787,15 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Algemeen.
+        /// </summary>
+        public static string GuiExportHandler_Default_category {
+            get {
+                return ResourceManager.GetString("GuiExportHandler_Default_category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exporteren is mislukt..
         /// </summary>
         public static string GuiExportHandler_ExportItemUsingDialog_Export_failed {

@@ -105,7 +105,12 @@ namespace Core.Common.Gui.Commands
             {
                 foreach (var exportInfo in supportedExportInfos)
                 {
-                    selectExportInfoDialog.AddItemType(exportInfo.Name, exportInfo.Category, exportInfo.Image ?? Resources.ExportIcon, null);
+                    selectExportInfoDialog.AddItemType(exportInfo.Name,
+                                                       !string.IsNullOrEmpty(exportInfo.Category)
+                                                           ? exportInfo.Category
+                                                           : Resources.GuiExportHandler_Default_category,
+                                                       exportInfo.Image ?? Resources.ExportIcon,
+                                                       null);
                 }
 
                 if (selectExportInfoDialog.ShowDialog() == DialogResult.OK)

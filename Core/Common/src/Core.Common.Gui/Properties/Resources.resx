@@ -628,4 +628,7 @@
   <data name="SaveProjectActivity_ProgressTextStepName_SavingProject" xml:space="preserve">
     <value>Project opslaan</value>
   </data>
+  <data name="GuiExportHandler_Default_category" xml:space="preserve">
+    <value>Algemeen</value>
+  </data>
 </root>
