@@ -282,9 +282,7 @@ namespace Application.Ringtoets.Migration.Test
         }
 
         [Test]
-        [TestCase(null)]
-        [TestCase("")]
-        public void DetermineMigrationLocation_TargetFilePathIsEmpty_LogsMessageAndReturnsEmptyTargetPath(string targetPath)
+        public void DetermineMigrationLocation_TargetFilePathIsEmpty_LogsMessageAndReturnsEmptyTargetPath()
         {
             // Setup
             const string originalFileName = "Im_a_valid_file_path";
@@ -299,7 +297,7 @@ namespace Application.Ringtoets.Migration.Test
             var mocks = new MockRepository();
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             inquiryHelper.Expect(h => h.GetTargetFileLocation(expectedFileFilter.Filter, expectedSuggestedFileName))
-                         .Return(targetPath);
+                         .Return(null);
             mocks.ReplayAll();
 
             var migrator = new RingtoetsProjectMigrator(inquiryHelper);
@@ -314,7 +312,7 @@ namespace Application.Ringtoets.Migration.Test
 
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage, 1);
 
-            Assert.AreEqual(targetPath, targetFilePath);
+            Assert.IsNull(targetFilePath);
             mocks.VerifyAll();
         }
 

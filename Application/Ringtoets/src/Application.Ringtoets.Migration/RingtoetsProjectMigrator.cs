@@ -109,7 +109,7 @@ namespace Application.Ringtoets.Migration
 
             string suggestedFileName = GetSuggestedFileName(originalFilePath);
             string migrationLocation = inquiryHelper.GetTargetFileLocation(fileFilter.Filter, suggestedFileName);
-            if (string.IsNullOrEmpty(migrationLocation))
+            if (migrationLocation == null)
             {
                 GenerateMigrationCancelledLogMessage(originalFilePath);
             }
