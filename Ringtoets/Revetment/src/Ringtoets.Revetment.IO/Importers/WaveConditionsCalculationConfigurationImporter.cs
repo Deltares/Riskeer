@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
@@ -172,8 +173,10 @@ namespace Ringtoets.Revetment.IO.Importers
         {
             if (readCalculation.StepSize != null)
             {
+                var stepSize = (double) readCalculation.StepSize;
+
                 calculation.InputParameters.StepSize = (WaveConditionsInputStepSize)
-                    new WaveConditionsInputStepSizeTypeConverter().ConvertFrom(readCalculation.StepSize.ToString());
+                    new WaveConditionsInputStepSizeTypeConverter().ConvertFrom(stepSize.ToString("0.0"));
             }
         }
 

@@ -52,6 +52,7 @@ using Ringtoets.GrassCoverErosionOutwards.IO.Exporters;
 using Ringtoets.GrassCoverErosionOutwards.Plugin.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Service;
 using Ringtoets.GrassCoverErosionOutwards.Service.MessageProviders;
+using Ringtoets.Revetment.IO.Importers;
 using RingtoetsGrassCoverErosionOutwardsFormsResources = Ringtoets.GrassCoverErosionOutwards.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -95,6 +96,37 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             yield return new PropertyInfo<GrassCoverErosionOutwardsDesignWaterLevelLocationContext, GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties>();
 
             yield return new PropertyInfo<GrassCoverErosionOutwardsWaveHeightLocationContext, GrassCoverErosionOutwardsWaveHeightLocationContextProperties>();
+        }
+
+        public override IEnumerable<ImportInfo> GetImportInfos()
+        {
+            yield return new ImportInfo<GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext>
+            {
+                Name = RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Description,
+                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
+                Image = RingtoetsCommonFormsResources.GeneralFolderIcon,
+                FileFilterGenerator = CalculationConfigurationFileFilter,
+                IsEnabled = CalculationConfigurationImporterEnabled,
+                CreateFileImporter = (context, filePath) => new WaveConditionsCalculationConfigurationImporter<GrassCoverErosionOutwardsWaveConditionsCalculation>(
+                    filePath,
+                    context.WrappedData,
+                    context.FailureMechanism.HydraulicBoundaryLocations,
+                    context.FailureMechanism.ForeshoreProfiles)
+            };
+        }
+
+        private static FileFilterGenerator CalculationConfigurationFileFilter
+        {
+            get
+            {
+                return new FileFilterGenerator(RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Extension,
+                                               RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Description);
+            }
+        }
+
+        private static bool CalculationConfigurationImporterEnabled(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext context)
+        {
+            return context.FailureMechanism.HydraulicBoundaryLocations.Any();
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()
@@ -660,7 +692,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
             StrictContextMenuItem generateCalculationsItem = CreateGenerateWaveConditionsCalculationsItem(nodeData);
 
-            builder.AddExportItem()
+            builder.AddImportItem()
+                   .AddExportItem()
                    .AddSeparator();
 
             if (!isNestedGroup)

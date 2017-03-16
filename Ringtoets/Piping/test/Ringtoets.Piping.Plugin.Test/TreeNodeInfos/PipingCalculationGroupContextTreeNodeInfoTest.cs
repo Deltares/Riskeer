@@ -212,8 +212,10 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                                                    assessmentSection);
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-            var importHandler = mocks.Stub<IImportCommandHandler>();
-            var exportHandler = mocks.Stub<IExportCommandHandler>();
+            var importHandler = mocks.StrictMock<IImportCommandHandler>();
+            importHandler.Expect(ihm => ihm.CanImportOn(nodeData)).Return(true);
+            var exportHandler = mocks.StrictMock<IExportCommandHandler>();
+            exportHandler.Expect(ehm => ehm.CanExportFrom(nodeData)).Return(true);
             var updateHandler = mocks.Stub<IUpdateCommandHandler>();
             var viewCommandsHandler = mocks.Stub<IViewCommands>();
             var treeViewControl = mocks.StrictMock<TreeViewControl>();
@@ -245,14 +247,12 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuImportCalculationGroupIndexNestedGroup,
                                                               "&Importeren...",
                                                               "Importeer de gegevens vanuit een bestand.",
-                                                              CoreCommonGuiResources.ImportIcon,
-                                                              false);
+                                                              CoreCommonGuiResources.ImportIcon);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExportCalculationGroupIndexNestedGroup,
                                                               "&Exporteren...",
                                                               "Exporteer de gegevens naar een bestand.",
-                                                              CoreCommonGuiResources.ExportIcon,
-                                                              false);
+                                                              CoreCommonGuiResources.ExportIcon);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexNestedGroup,
                                                               "&Map toevoegen",
@@ -337,8 +337,10 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                                              assessmentSection);
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-            var importHandler = mocks.Stub<IImportCommandHandler>();
-            var exportHandler = mocks.Stub<IExportCommandHandler>();
+            var importHandler = mocks.StrictMock<IImportCommandHandler>();
+            importHandler.Expect(ihm => ihm.CanImportOn(nodeData)).Return(true);
+            var exportHandler = mocks.StrictMock<IExportCommandHandler>();
+            exportHandler.Expect(ehm => ehm.CanExportFrom(nodeData)).Return(true);
             var updateHandler = mocks.Stub<IUpdateCommandHandler>();
 
             var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
@@ -370,14 +372,12 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuImportCalculationGroupIndexRootGroup,
                                                               "&Importeren...",
                                                               "Importeer de gegevens vanuit een bestand.",
-                                                              CoreCommonGuiResources.ImportIcon,
-                                                              false);
+                                                              CoreCommonGuiResources.ImportIcon);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExportCalculationGroupIndexRootGroup,
                                                               "&Exporteren...",
                                                               "Exporteer de gegevens naar een bestand.",
-                                                              CoreCommonGuiResources.ExportIcon,
-                                                              false);
+                                                              CoreCommonGuiResources.ExportIcon);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
                                                               "&Map toevoegen",

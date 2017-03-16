@@ -177,6 +177,21 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
         }
 
         [Test]
+        public void GetImportInfos_ReturnsSupportedImportInfos()
+        {
+            // Setup
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
+            {
+                // Call
+                ImportInfo[] importInfos = plugin.GetImportInfos().ToArray();
+
+                // Assert
+                Assert.AreEqual(1, importInfos.Length);
+                Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext)));
+            }
+        }
+
+        [Test]
         public void Activate_GuiNull_ThrowInvalidOperationException()
         {
             // Setup

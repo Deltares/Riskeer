@@ -199,7 +199,7 @@ namespace Demo.Ringtoets.Commands
 
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
-            calculation.InputParameters.HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
+            calculation.InputParameters.HydraulicBoundaryLocation = failureMechanism.HydraulicBoundaryLocations.First(hl => hl.Id == 1300001);
             calculation.InputParameters.NotifyObservers();
         }
 
