@@ -184,12 +184,6 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         protected override IEnumerable<IObservable> RemoveObjectAndDependentData(RingtoetsPipingSurfaceLine removedSurfaceLine)
         {
-            IEnumerable<PipingCalculation> calculationsToUpdate = GetAffectedCalculationWithSurfaceLine(removedSurfaceLine);
-            foreach (PipingCalculation affectedCalculation in calculationsToUpdate)
-            {
-                PipingInputService.SetMatchingStochasticSoilModel(affectedCalculation.InputParameters, Enumerable.Empty<StochasticSoilModel>());
-            }
-
             return PipingDataSynchronizationService.RemoveSurfaceLine(failureMechanism, removedSurfaceLine);
         }
 

@@ -876,34 +876,19 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void UpdateSurfaceLinesWithImportedData_WithCalculationAssignedToRemovedLine_UpdatesCalculationAndRemoveStochasticSoilModelInput()
+        public void UpdateSurfaceLinesWithImportedData_WithCalculationAssignedToRemovedLine_UpdatesCalculationAndDoesNotRemoveStochasticSoilInputs()
         {
             // Setup
-            var soilModels = new[]
+            var soilModel = new StochasticSoilModel(1, "A", "B")
             {
-                new StochasticSoilModel(1, "A", "B")
+                Geometry =
                 {
-                    Geometry =
-                    {
-                        new Point2D(2, -1),
-                        new Point2D(2, 1)
-                    },
-                    StochasticSoilProfiles =
-                    {
-                        new StochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, 1)
-                    }
+                    new Point2D(2, -1),
+                    new Point2D(2, 1)
                 },
-                new StochasticSoilModel(2, "C", "D")
+                StochasticSoilProfiles =
                 {
-                    Geometry =
-                    {
-                        new Point2D(-2, -1),
-                        new Point2D(-2, 1)
-                    },
-                    StochasticSoilProfiles =
-                    {
-                        new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 2)
-                    }
+                    new StochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, 1)
                 }
             };
 
@@ -913,7 +898,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 InputParameters =
                 {
                     SurfaceLine = surfaceLine,
-                    StochasticSoilModel = soilModels[1]
+                    StochasticSoilModel = soilModel,
+                    StochasticSoilProfile = soilModel.StochasticSoilProfiles[0]
                 }
             };
 
@@ -923,13 +909,16 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             {
                 surfaceLine
             }, "path");
-            failureMechanism.StochasticSoilModels.AddRange(soilModels, "path");
+            failureMechanism.StochasticSoilModels.AddRange(new[]
+            {
+                soilModel
+            }, "path");
 
             var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(failureMechanism);
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(failureMechanism.SurfaceLines,
-                                                                                                   Enumerable.Empty<RingtoetsPipingSurfaceLine>(), 
+                                                                                                   Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                                                    "path").ToArray();
 
             // Assert
@@ -940,7 +929,60 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 calculationInput
             }, affectedObjects);
             Assert.IsNull(calculationInput.SurfaceLine);
-            Assert.IsNull(calculationInput.StochasticSoilModel);
+            Assert.AreSame(soilModel, calculationInput.StochasticSoilModel);
+            Assert.AreSame(soilModel.StochasticSoilProfiles[0], calculationInput.StochasticSoilProfile);
+        }
+
+        [Test]
+        public void UpdateSurfaceLinesWithImportedData_WithCalculationAssignedToRemovedLine_UpdatesCalculationAndDoesNotRemoveStochasticSoilModelInput()
+        {
+            // Setup
+            var soilModel = new StochasticSoilModel(1, "A", "B")
+            {
+                Geometry =
+                {
+                    new Point2D(2, -1),
+                    new Point2D(2, 1)
+                }
+            };
+
+            RingtoetsPipingSurfaceLine surfaceLine = CreateValidSurfaceLineForCalculations();
+            var calculation = new PipingCalculation(new GeneralPipingInput())
+            {
+                InputParameters =
+                {
+                    SurfaceLine = surfaceLine,
+                    StochasticSoilModel = soilModel,
+                }
+            };
+
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
+            failureMechanism.SurfaceLines.AddRange(new[]
+            {
+                surfaceLine
+            }, "path");
+            failureMechanism.StochasticSoilModels.AddRange(new[]
+            {
+                soilModel
+            }, "path");
+
+            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(failureMechanism);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(failureMechanism.SurfaceLines,
+                                                                                                   Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                                                   "path").ToArray();
+
+            // Assert
+            PipingInput calculationInput = calculation.InputParameters;
+            CollectionAssert.AreEquivalent(new IObservable[]
+            {
+                failureMechanism.SurfaceLines,
+                calculationInput
+            }, affectedObjects);
+            Assert.IsNull(calculationInput.SurfaceLine);
+            Assert.AreSame(soilModel, calculationInput.StochasticSoilModel);
             Assert.IsNull(calculationInput.StochasticSoilProfile);
         }
 
