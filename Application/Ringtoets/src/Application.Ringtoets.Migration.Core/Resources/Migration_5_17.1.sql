@@ -141,7 +141,8 @@ SELECT
 	FROM (SELECT *, (SELECT count(*)
                      FROM [SOURCEPROJECT].StochasticSoilModelEntity
                      WHERE SSM.StochasticSoilModelEntityId > StochasticSoilModelEntityId
-                     AND SSM.Name IS Name) as Suffix
+                     AND SSM.Name IS Name
+					 AND SSM.FailuremechanismEntityId = FailuremechanismEntityId) as Suffix
 	FROM [SOURCEPROJECT].StochasticSoilModelEntity SSM);
 INSERT INTO StochasticSoilProfileEntity 
 SELECT
@@ -168,7 +169,8 @@ SELECT
 	FROM (SELECT *, (SELECT count(*)
                      FROM [SOURCEPROJECT].SurfaceLineEntity
                      WHERE SL.SurfaceLineEntityId > SurfaceLineEntityId
-                     AND SL.Name IS Name) as Suffix
+                     AND SL.Name IS Name
+					 AND SL.FailuremechanismEntityId = FailuremechanismEntityId) as Suffix
 	FROM [SOURCEPROJECT].SurfaceLineEntity SL);
 INSERT INTO TechnicalInnovationSectionResultEntity SELECT * FROM [SOURCEPROJECT].TechnicalInnovationSectionResultEntity;
 INSERT INTO VersionEntity (

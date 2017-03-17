@@ -68,6 +68,37 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         private DirectoryDisposeHelper directoryDisposeHelper;
 
         [Test]
+        public void SaveProjectAs_DuplicateItemsInProjectSaveAsNewFile_ProjectAsEntitiesInFile()
+        {
+            // Setup
+            RingtoetsProject fullProject = RingtoetsProjectTestHelper.GetFullTestProject();
+            RingtoetsProject duplicateProject = RingtoetsProjectTestHelper.GetFullTestProject();
+
+            AssessmentSection duplicateAssessmentSection = duplicateProject.AssessmentSections.First();
+            fullProject.AssessmentSections.Add(duplicateAssessmentSection);
+
+            string ringtoetsFile = GetRandomRingtoetsFile();
+
+            var storage = new StorageSqLite();
+            storage.StageProject(fullProject);
+            
+            // Call
+            RingtoetsProject firstProject = null;
+            try
+            {
+                storage.SaveProjectAs(ringtoetsFile);
+                firstProject = (RingtoetsProject) storage.LoadProject(ringtoetsFile);
+            }
+            catch (Exception exception)
+            {
+                Assert.Fail(exception.Message);
+            }
+
+            // Assert
+            AssertProjectsAreEqual(fullProject, firstProject);
+        }
+
+        [Test]
         public void SaveProjectAs_SaveAsNewFile_ProjectAsEntitiesInBothFiles()
         {
             // Setup
