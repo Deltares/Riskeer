@@ -213,8 +213,8 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <param name="mapData">The <see cref="MapData"/> that needs to be asserted.</param>
         /// <exception cref="AssertionException">Thrown when:
         /// <list type="bullet">
-        /// <item><paramref name="mapData"/> is no <see cref="WmtsMapData"/>;</item>
-        /// <item>One of the properties of <paramref name="wmtsMapData"/> is not equal to <paramref name="mapData"/>.</item>
+        /// <item><paramref name="mapData"/> is not <see cref="WmtsMapData"/></item>
+        /// <item>One of the properties of <paramref name="wmtsMapData"/> is not equal to <paramref name="mapData"/></item>
         /// </list></exception>
         private static void AssertWmtsMapData(WmtsMapData wmtsMapData, MapData mapData)
         {

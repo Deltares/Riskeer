@@ -451,8 +451,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             var assessmentSection = new ObservableTestAssessmentSectionStub();
 
-            var newMapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial);
-            var newBackgroundData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData();
+            const WellKnownTileSource wellKnownTileSource = WellKnownTileSource.BingAerial;
+            var newMapData = new WellKnownTileSourceMapData(wellKnownTileSource);
+            var newBackgroundData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData(wellKnownTileSource);
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {

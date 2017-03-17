@@ -71,7 +71,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         public void GetWellKnownBackgroundMapData_Always_ReturnBackgroundDataWithTypeSetToWellKnown()
         {
             // Call
-            BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData();
+            BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData(WellKnownTileSource.BingAerial);
 
             // Assert
             Assert.AreEqual(BackgroundMapDataType.WellKnown, backgroundData.BackgroundMapDataType);

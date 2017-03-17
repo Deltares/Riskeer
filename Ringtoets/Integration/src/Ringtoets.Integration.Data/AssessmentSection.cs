@@ -68,7 +68,8 @@ namespace Ringtoets.Integration.Data
                 Name = mapData.Name,
                 IsVisible = mapData.IsVisible,
                 Transparency = mapData.Transparency,
-                IsConfigured = mapData.IsConfigured
+                IsConfigured = mapData.IsConfigured,
+                BackgroundMapDataType = BackgroundMapDataType.Wmts
             };
 
             PipingFailureMechanism = new PipingFailureMechanism();

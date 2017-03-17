@@ -141,4 +141,7 @@
   <data name="OpenStreetMap_DisplayName" xml:space="preserve">
     <value>OpenStreetMap</value>
   </data>
+  <data name="ImageBasedMapData_Transparency_Value_must_be_in_Range_0_" xml:space="preserve">
+    <value>De transparantie moet in het bereik {0} liggen.</value>
+  </data>
 </root>

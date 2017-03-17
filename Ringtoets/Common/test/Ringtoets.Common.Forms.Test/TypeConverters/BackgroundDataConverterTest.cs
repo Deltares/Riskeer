@@ -143,13 +143,14 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
         public void ConvertFrom_BackgroundData_ReturnWellKnownMapData()
         {
             // Setup            
-            BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData();
+            const WellKnownTileSource wellKnownTileSource = WellKnownTileSource.BingAerial;
+            BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData(wellKnownTileSource);
 
             // Call
             ImageBasedMapData convertedMapData = BackgroundDataConverter.ConvertFrom(backgroundData);
             
             // Assert
-            var expectedMapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial);
+            var expectedMapData = new WellKnownTileSourceMapData(wellKnownTileSource);
             MapDataTestHelper.AssertImageBasedMapData(expectedMapData, convertedMapData);
 
         }

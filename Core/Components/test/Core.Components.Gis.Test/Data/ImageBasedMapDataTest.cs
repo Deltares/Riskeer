@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
 using NUnit.Framework;
 
@@ -63,17 +64,42 @@ namespace Core.Components.Gis.Test.Data
         }
 
         [Test]
-        public void Transparency_SetValue_ValueRounded()
+        [TestCase(0)]
+        [TestCase(0.8)]
+        [TestCase(1)]
+        public void Transparency_ValidValues_ReturnNewlySetValue(double newValue)
+        {
+            // Setup
+            var mapData = new SimpleImageBasedMapData("A");
+            var originalNumberOfDecimals = mapData.Transparency.NumberOfDecimalPlaces;
+
+            // Call
+            mapData.Transparency = (RoundedDouble)newValue;
+
+            // Assert
+            Assert.AreEqual(newValue, mapData.Transparency.Value);
+            Assert.AreEqual(originalNumberOfDecimals, mapData.Transparency.NumberOfDecimalPlaces);
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(-123.56)]
+        [TestCase(0.0 - 1e-2)]
+        [TestCase(1.0 + 1e-2)]
+        [TestCase(456.876)]
+        [TestCase(double.NaN)]
+        public void Transparency_SetInvalidValue_ThrowArgumentOutOfRangeException(double invalidTransparency)
         {
             // Setup
             var mapData = new SimpleImageBasedMapData("A");
 
             // Call
-            mapData.Transparency = (RoundedDouble) 0.9938;
+            TestDelegate call = () => mapData.Transparency = (RoundedDouble)invalidTransparency;
 
             // Assert
-            Assert.AreEqual(2, mapData.Transparency.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.99, mapData.Transparency.Value);
+            var message = "De transparantie moet in het bereik [0,00, 1,00] liggen.";
+            string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, message).ParamName;
+            Assert.AreEqual("value", paramName);
         }
 
         private class SimpleImageBasedMapData : ImageBasedMapData

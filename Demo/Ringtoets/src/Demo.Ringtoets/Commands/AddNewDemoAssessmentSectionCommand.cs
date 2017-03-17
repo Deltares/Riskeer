@@ -109,14 +109,15 @@ namespace Demo.Ringtoets.Commands
         private static void InitializeBackgroundMapData(AssessmentSection demoAssessmentSection)
         {
             WmtsMapData targetConfiguration = WmtsMapData.CreateDefaultPdokMapData();
-            demoAssessmentSection.BackgroundData.Name = targetConfiguration.Name;
-            demoAssessmentSection.BackgroundData.BackgroundMapDataType = BackgroundMapDataType.Wmts;
-            demoAssessmentSection.BackgroundData.IsVisible = targetConfiguration.IsVisible;
-            demoAssessmentSection.BackgroundData.Transparency = targetConfiguration.Transparency;
-            demoAssessmentSection.BackgroundData.IsConfigured = targetConfiguration.IsConfigured;
-            demoAssessmentSection.BackgroundData.Parameters.Add(BackgroundDataIdentifiers.SourceCapabilitiesUrl, targetConfiguration.SourceCapabilitiesUrl);
-            demoAssessmentSection.BackgroundData.Parameters.Add(BackgroundDataIdentifiers.SelectedCapabilityIdentifier, targetConfiguration.SelectedCapabilityIdentifier);
-            demoAssessmentSection.BackgroundData.Parameters.Add(BackgroundDataIdentifiers.PreferredFormat, targetConfiguration.PreferredFormat);
+            BackgroundData backgroundData = demoAssessmentSection.BackgroundData;
+            backgroundData.Name = targetConfiguration.Name;
+            backgroundData.BackgroundMapDataType = BackgroundMapDataType.Wmts;
+            backgroundData.IsVisible = targetConfiguration.IsVisible;
+            backgroundData.Transparency = targetConfiguration.Transparency;
+            backgroundData.IsConfigured = targetConfiguration.IsConfigured;
+            backgroundData.Parameters.Add(BackgroundDataIdentifiers.SourceCapabilitiesUrl, targetConfiguration.SourceCapabilitiesUrl);
+            backgroundData.Parameters.Add(BackgroundDataIdentifiers.SelectedCapabilityIdentifier, targetConfiguration.SelectedCapabilityIdentifier);
+            backgroundData.Parameters.Add(BackgroundDataIdentifiers.PreferredFormat, targetConfiguration.PreferredFormat);
         }
 
         private void InitializeDemoReferenceLine(AssessmentSection demoAssessmentSection)

@@ -49,6 +49,9 @@ namespace Ringtoets.Common.Data.AssessmentSection
             Parameters = new Dictionary<string, string>();
         }
 
+        /// <summary>
+        /// Gets or sets the name of the background data.
+        /// </summary>
         public string Name { get; set; }
 
         /// <summary>
@@ -60,7 +63,7 @@ namespace Ringtoets.Common.Data.AssessmentSection
         /// Gets or sets the transparency of the background.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when setting a new value
-        /// that is not in the range [0.0, 1.0].</exception>
+        /// that is not in the range [0.00, 1.00].</exception>
         public RoundedDouble Transparency
         {
             get

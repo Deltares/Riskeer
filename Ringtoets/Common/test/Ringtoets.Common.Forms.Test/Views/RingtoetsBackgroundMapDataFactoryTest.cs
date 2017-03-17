@@ -73,13 +73,14 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void CreateBackgroundMapData_WellKnownConfiguredBackgroundData_ReturnWellKnownMapData()
         {
             // Setup
-            BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData();
+            const WellKnownTileSource wellKnownTileSource = WellKnownTileSource.BingAerial;
+            BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData(wellKnownTileSource);
 
             // Call
             ImageBasedMapData backgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(backgroundData);
 
             // Assert
-            var expectedMapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial);
+            var expectedMapData = new WellKnownTileSourceMapData(wellKnownTileSource);
             MapDataTestHelper.AssertImageBasedMapData(expectedMapData, backgroundMapData);
         }
     }

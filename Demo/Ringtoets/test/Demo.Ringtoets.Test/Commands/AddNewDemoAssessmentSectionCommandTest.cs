@@ -103,14 +103,17 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual("Demo traject", demoAssessmentSection.Name);
             Assert.AreEqual("6-3", demoAssessmentSection.Id);
 
-            Assert.IsTrue(demoAssessmentSection.BackgroundData.IsVisible);
-            Assert.AreEqual(0.0, demoAssessmentSection.BackgroundData.Transparency.Value);
+            BackgroundData backgroundData = demoAssessmentSection.BackgroundData;
+            Assert.IsTrue(backgroundData.IsVisible);
+            Assert.AreEqual(0.0, backgroundData.Transparency.Value);
 
             WmtsMapData expectedWmtsMapData = WmtsMapData.CreateDefaultPdokMapData();
-            Assert.AreEqual(expectedWmtsMapData.Name, demoAssessmentSection.BackgroundData.Name);
-            Assert.AreEqual(expectedWmtsMapData.SourceCapabilitiesUrl, demoAssessmentSection.BackgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl]);
-            Assert.AreEqual(expectedWmtsMapData.SelectedCapabilityIdentifier, demoAssessmentSection.BackgroundData.Parameters[BackgroundDataIdentifiers.SelectedCapabilityIdentifier]);
-            Assert.AreEqual(expectedWmtsMapData.PreferredFormat, demoAssessmentSection.BackgroundData.Parameters[BackgroundDataIdentifiers.PreferredFormat]);
+            Assert.AreEqual(expectedWmtsMapData.Name, backgroundData.Name);
+            Assert.AreEqual(BackgroundMapDataType.Wmts, backgroundData.BackgroundMapDataType);
+            Assert.AreEqual(3, backgroundData.Parameters.Count);
+            Assert.AreEqual(expectedWmtsMapData.SourceCapabilitiesUrl, backgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl]);
+            Assert.AreEqual(expectedWmtsMapData.SelectedCapabilityIdentifier, backgroundData.Parameters[BackgroundDataIdentifiers.SelectedCapabilityIdentifier]);
+            Assert.AreEqual(expectedWmtsMapData.PreferredFormat, backgroundData.Parameters[BackgroundDataIdentifiers.PreferredFormat]);
 
             AssertHydraulicBoundaryDatabase(demoAssessmentSection);
 
