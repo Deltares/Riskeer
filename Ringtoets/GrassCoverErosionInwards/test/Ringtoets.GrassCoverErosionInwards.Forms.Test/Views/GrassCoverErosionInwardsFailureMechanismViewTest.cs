@@ -178,9 +178,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 // Assert
                 Assert.AreSame(failureMechanismContext, view.Data);
                 AssertEmptyMapData(view.Map.Data);
-                ImageBasedMapData expectedWmtsBackgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(
+                ImageBasedMapData expectedImageBasedMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(
                     assessmentSection.BackgroundData);
-                MapDataTestHelper.AssertImageBasedMapData(expectedWmtsBackgroundMapData, view.Map.BackgroundMapData);
+                MapDataTestHelper.AssertImageBasedMapData(expectedImageBasedMapData, view.Map.BackgroundMapData);
             }
         }
 

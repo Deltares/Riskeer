@@ -35,28 +35,25 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
     {
         private RingtoetsPlugin plugin;
         private PropertyInfo info;
-
-        private static readonly WellKnownTileSourceMapData wellKnownMapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingRoads);
-        private static readonly WmtsMapData wmtsMapData = WmtsMapData.CreateDefaultPdokMapData();
-
-        private static IEnumerable<TestCaseData> ValidBackgroundMapDatas
+        
+        private static IEnumerable<TestCaseData> ValidBackgroundMapDatas()
         {
-            get
+            WellKnownTileSourceMapData wellKnownMapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingRoads);
+            WmtsMapData wmtsMapData = WmtsMapData.CreateDefaultPdokMapData();
+
+            yield return new TestCaseData(new BackgroundData());
+            yield return new TestCaseData(new BackgroundData
             {
-                yield return new TestCaseData(new BackgroundData());
-                yield return new TestCaseData(new BackgroundData
-                {
-                    Name = wellKnownMapData.Name,
-                    BackgroundMapDataType = BackgroundMapDataType.WellKnown,
-                    IsConfigured = wellKnownMapData.IsConfigured
-                });
-                yield return new TestCaseData(new BackgroundData
-                {
-                    Name = wmtsMapData.Name,
-                    BackgroundMapDataType = BackgroundMapDataType.Wmts,
-                    IsConfigured = wmtsMapData.IsConfigured
-                });
-            }
+                Name = wellKnownMapData.Name,
+                BackgroundMapDataType = BackgroundMapDataType.WellKnown,
+                IsConfigured = wellKnownMapData.IsConfigured
+            });
+            yield return new TestCaseData(new BackgroundData
+            {
+                Name = wmtsMapData.Name,
+                BackgroundMapDataType = BackgroundMapDataType.Wmts,
+                IsConfigured = wmtsMapData.IsConfigured
+            });
         }
 
         [SetUp]

@@ -277,7 +277,7 @@ namespace Ringtoets.Integration.Plugin
             yield return new PropertyInfo<IAssessmentSection, AssessmentSectionProperties>();
             yield return new PropertyInfo<BackgroundData, BackgroundDataProperties>
             {
-                CreateInstance = container => new BackgroundDataProperties(container)
+                CreateInstance = data => new BackgroundDataProperties(data)
             };
             yield return new PropertyInfo<HydraulicBoundaryDatabaseContext, HydraulicBoundaryDatabaseProperties>();
             yield return new PropertyInfo<FailureMechanismContributionContext, FailureMechanismContributionProperties>
@@ -517,8 +517,8 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new TreeNodeInfo<BackgroundData>
             {
-                Text = container => RingtoetsIntegrationPluginResources.RingtoetsPlugin_BackgroundDataContext_Text,
-                Image = container => RingtoetsFormsResources.Map,
+                Text = data => RingtoetsIntegrationPluginResources.RingtoetsPlugin_BackgroundDataContext_Text,
+                Image = data => RingtoetsFormsResources.Map,
                 ContextMenuStrip = BackgroundDataMenuStrip,
                 ForeColor = data => data.IsConfigured ?
                                         Color.FromKnownColor(KnownColor.ControlText) :

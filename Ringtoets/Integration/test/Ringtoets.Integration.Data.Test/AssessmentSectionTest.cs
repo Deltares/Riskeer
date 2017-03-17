@@ -148,6 +148,7 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(0.0, section.BackgroundData.Transparency.Value);
             Assert.IsFalse(section.BackgroundData.IsConfigured);
             Assert.AreEqual("<niet bepaald>", section.BackgroundData.Name);
+            Assert.AreEqual(BackgroundMapDataType.Wmts, section.BackgroundData.BackgroundMapDataType);
             CollectionAssert.IsEmpty(section.BackgroundData.Parameters);
         }
 
