@@ -79,11 +79,7 @@ namespace Application.Ringtoets.Storage.Create
             AddEntityForHydraulicDatabase(section, entity, registry);
             AddEntityForReferenceLine(section, entity);
 
-            BackgroundDataEntity backgroundDataEntity = section.BackgroundData.Create();
-            if (backgroundDataEntity != null)
-            {
-                entity.BackgroundDataEntities.Add(backgroundDataEntity);
-            }
+            entity.BackgroundDataEntities.Add(section.BackgroundData.Create());
 
             entity.FailureMechanismEntities.Add(section.PipingFailureMechanism.Create(registry));
             entity.FailureMechanismEntities.Add(section.GrassCoverErosionInwards.Create(registry));

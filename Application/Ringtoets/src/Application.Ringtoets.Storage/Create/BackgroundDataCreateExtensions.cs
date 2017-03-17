@@ -51,7 +51,8 @@ namespace Application.Ringtoets.Storage.Create
                 Name = backgroundData.Name.DeepClone(),
                 IsVisible = Convert.ToByte(backgroundData.IsVisible),
                 Transparency = backgroundData.Transparency,
-                BackgroundDataType = Convert.ToByte(backgroundData.BackgroundMapDataType)
+                BackgroundDataType = Convert.ToByte(backgroundData.BackgroundMapDataType),
+                IsConfigured = Convert.ToByte(backgroundData.IsConfigured)
             };
 
             if (backgroundData.IsConfigured)

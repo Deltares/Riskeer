@@ -69,6 +69,8 @@ namespace Application.Ringtoets.Storage.Test.Create
             const string mapDataName = "map data name";
             const double transparency = 0.3;
             const bool isVisible = true;
+            const bool isConfigured = true;
+            const BackgroundMapDataType backgroundType = BackgroundMapDataType.Wmts;
             var assessmentSection = new AssessmentSection(assessmentSectionComposition)
             {
                 Id = testId,
@@ -85,7 +87,9 @@ namespace Application.Ringtoets.Storage.Test.Create
                 {
                     Name = mapDataName,
                     Transparency = (RoundedDouble) transparency,
-                    IsVisible = isVisible
+                    IsVisible = isVisible,
+                    IsConfigured = isConfigured,
+                    BackgroundMapDataType = backgroundType
                 }
             };
             var registry = new PersistenceRegistry();
@@ -133,6 +137,8 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(mapDataName, backgroundMapDataEntity.Name);
             Assert.AreEqual(transparency, backgroundMapDataEntity.Transparency);
             Assert.AreEqual(Convert.ToByte(isVisible), backgroundMapDataEntity.IsVisible);
+            Assert.AreEqual(Convert.ToByte(isConfigured), backgroundMapDataEntity.IsConfigured);
+            Assert.AreEqual(Convert.ToByte(backgroundType), backgroundMapDataEntity.BackgroundDataType);
             CollectionAssert.IsEmpty(backgroundMapDataEntity.BackgroundDataMetaEntities);
         }
 

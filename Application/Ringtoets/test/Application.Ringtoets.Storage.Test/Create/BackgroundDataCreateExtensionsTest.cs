@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
@@ -82,25 +84,16 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(Convert.ToByte(isVisible), entity.IsVisible);
             Assert.AreEqual(transparancy, entity.Transparency);
             Assert.AreEqual(Convert.ToByte(backgroundDataType), entity.BackgroundDataType);
+            Assert.AreEqual(Convert.ToByte(isConfigured), entity.IsConfigured);
 
             if (isConfigured)
             {
                 Assert.AreEqual(3, entity.BackgroundDataMetaEntities.Count);
 
-                foreach (BackgroundDataMetaEntity backgroundDataMetaEntity in entity.BackgroundDataMetaEntities)
+                foreach (KeyValuePair<string, string> parameter in backgroundData.Parameters)
                 {
-                    if (backgroundDataMetaEntity.Key == BackgroundDataIdentifiers.SourceCapabilitiesUrl)
-                    {
-                        Assert.AreEqual(sourceCapabilitiesUrl, backgroundDataMetaEntity.Value);
-                    }
-                    else if (backgroundDataMetaEntity.Key == BackgroundDataIdentifiers.SelectedCapabilityIdentifier)
-                    {
-                        Assert.AreEqual(selectedCapabilityName, backgroundDataMetaEntity.Value);
-                    }
-                    else if (backgroundDataMetaEntity.Key == BackgroundDataIdentifiers.PreferredFormat)
-                    {
-                        Assert.AreEqual(preferredFormat, backgroundDataMetaEntity.Value);
-                    }
+                    BackgroundDataMetaEntity backgroundDataMetaEntity = entity.BackgroundDataMetaEntities.Single(e => e.Key.Equals(parameter.Key));
+                    Assert.AreEqual(parameter.Value, backgroundDataMetaEntity.Value);
                 }
             }
             else
