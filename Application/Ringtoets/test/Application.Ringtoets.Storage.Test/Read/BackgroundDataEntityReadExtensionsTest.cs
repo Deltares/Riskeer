@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using NUnit.Framework;
@@ -59,27 +60,29 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             BackgroundMapDataType backgroundMapDataType = BackgroundMapDataType.Wmts;
 
+            var backgroundDataMetaEntities = new List<BackgroundDataMetaEntity>
+            {
+                new BackgroundDataMetaEntity
+                {
+                    Key = BackgroundDataIdentifiers.SourceCapabilitiesUrl,
+                    Value = url
+                },
+                new BackgroundDataMetaEntity
+                {
+                    Key = BackgroundDataIdentifiers.SelectedCapabilityIdentifier,
+                    Value = capabilityName
+                },
+                new BackgroundDataMetaEntity
+                {
+                    Key = BackgroundDataIdentifiers.PreferredFormat,
+                    Value = preferredFormat
+                }
+            };
+
             var entity = new BackgroundDataEntity
             {
                 Name = name,
-                BackgroundDataMetaEntities = new List<BackgroundDataMetaEntity>
-                {
-                    new BackgroundDataMetaEntity
-                    {
-                        Key = BackgroundDataIdentifiers.SourceCapabilitiesUrl,
-                        Value = url
-                    },
-                    new BackgroundDataMetaEntity
-                    {
-                        Key = BackgroundDataIdentifiers.SelectedCapabilityIdentifier,
-                        Value = capabilityName
-                    },
-                    new BackgroundDataMetaEntity
-                    {
-                        Key = BackgroundDataIdentifiers.PreferredFormat,
-                        Value = preferredFormat
-                    }
-                },
+                BackgroundDataMetaEntities = backgroundDataMetaEntities,
                 IsVisible = Convert.ToByte(isVisible),
                 Transparency = transparancy,
                 IsConfigured = Convert.ToByte(isConfigured),
@@ -94,9 +97,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(transparancy, backgroundData.Transparency.Value);
 
             Assert.AreEqual(name, backgroundData.Name);
-            Assert.AreEqual(url, backgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl]);
-            Assert.AreEqual(capabilityName, backgroundData.Parameters[BackgroundDataIdentifiers.SelectedCapabilityIdentifier]);
-            Assert.AreEqual(preferredFormat, backgroundData.Parameters[BackgroundDataIdentifiers.PreferredFormat]);
+            Assert.AreEqual(3, backgroundData.Parameters.Count);
+            var expectedKeyValuePairs = backgroundDataMetaEntities.Select(me => new KeyValuePair<string, string>(me.Key, me.Value));
+            CollectionAssert.AreEquivalent(expectedKeyValuePairs, backgroundData.Parameters);
             Assert.AreEqual(isConfigured, backgroundData.IsConfigured);
             Assert.AreEqual(backgroundMapDataType, backgroundData.BackgroundMapDataType);
         }
@@ -138,6 +141,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(transparancy, backgroundData.Transparency.Value);
 
             Assert.AreEqual(name, backgroundData.Name);
+            Assert.AreEqual(1, backgroundData.Parameters.Count);
             Assert.AreEqual(enumNumber, Convert.ToInt32(backgroundData.Parameters[BackgroundDataIdentifiers.WellKnownTileSource]));
             Assert.AreEqual(isConfigured, backgroundData.IsConfigured);
             Assert.AreEqual(backgroundMapDataType, backgroundData.BackgroundMapDataType);
@@ -226,26 +230,17 @@ namespace Application.Ringtoets.Storage.Test.Read
             BackgroundData backgroundData = entity.Read();
 
             // Assert
-            var addedKeys = new List<string>();
-            foreach (KeyValuePair<string, string> backgroundDataParameter in backgroundData.Parameters)
-            {
-                addedKeys.Add(backgroundDataParameter.Key);
-            }
-
             if (backgroundMapDataType == BackgroundMapDataType.Wmts)
             {
                 Assert.AreEqual(3, backgroundData.Parameters.Count);
-
-                CollectionAssert.Contains(addedKeys, BackgroundDataIdentifiers.SourceCapabilitiesUrl);
-                CollectionAssert.Contains(addedKeys, BackgroundDataIdentifiers.SelectedCapabilityIdentifier);
-                CollectionAssert.Contains(addedKeys, BackgroundDataIdentifiers.PreferredFormat);
             }
             else if (backgroundMapDataType == BackgroundMapDataType.WellKnown)
             {
                 Assert.AreEqual(1, backgroundData.Parameters.Count);
-                CollectionAssert.Contains(addedKeys, BackgroundDataIdentifiers.WellKnownTileSource);
             }
 
+            var addedKeys = backgroundData.Parameters.Select(backgroundDataParameter => backgroundDataParameter.Key).ToList();
+            CollectionAssert.AreEquivalent(addedKeys, backgroundData.Parameters.Keys);
             CollectionAssert.DoesNotContain(addedKeys, invalidKey);
         }
     }

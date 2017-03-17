@@ -904,8 +904,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedBackgroundData.Name, actualBackgroundData.Name);
             Assert.AreEqual(expectedBackgroundData.IsVisible, actualBackgroundData.IsVisible);
             Assert.AreEqual(expectedBackgroundData.Transparency, actualBackgroundData.Transparency);
-
             Assert.AreEqual(expectedBackgroundData.IsConfigured, actualBackgroundData.IsConfigured);
+            Assert.AreEqual(expectedBackgroundData.BackgroundMapDataType, actualBackgroundData.BackgroundMapDataType);
             CollectionAssert.AreEquivalent(expectedBackgroundData.Parameters, actualBackgroundData.Parameters);
         }
 

@@ -94,16 +94,17 @@ namespace Application.Ringtoets.Storage.Read
 
         private static void ReadBackgroundData(this AssessmentSectionEntity entity, IAssessmentSection assessmentSection)
         {
-            BackgroundData backgroundData = entity.BackgroundDataEntities.Single().Read();
+            BackgroundData readBackgroundData = entity.BackgroundDataEntities.Single().Read();
 
-            assessmentSection.BackgroundData.IsVisible = backgroundData.IsVisible;
-            assessmentSection.BackgroundData.Transparency = backgroundData.Transparency;
-            assessmentSection.BackgroundData.IsConfigured = backgroundData.IsConfigured;
-            assessmentSection.BackgroundData.Name = backgroundData.Name;
+            BackgroundData backgroundData = assessmentSection.BackgroundData;
+            backgroundData.IsVisible = readBackgroundData.IsVisible;
+            backgroundData.Transparency = readBackgroundData.Transparency;
+            backgroundData.IsConfigured = readBackgroundData.IsConfigured;
+            backgroundData.Name = readBackgroundData.Name;
 
-            foreach (KeyValuePair<string, string> backgroundDataParameter in backgroundData.Parameters)
+            foreach (KeyValuePair<string, string> backgroundDataParameter in readBackgroundData.Parameters)
             {
-                assessmentSection.BackgroundData.Parameters.Add(backgroundDataParameter.Key, backgroundDataParameter.Value);
+                backgroundData.Parameters.Add(backgroundDataParameter.Key, backgroundDataParameter.Value);
             }
         }
 

@@ -104,32 +104,35 @@ namespace Application.Ringtoets.Storage.Test.Read
             const string sourceCapabilitiesUrl = "//url";
             const string selectedCapabilityName = "selected name";
             const string preferredFormat = "image/png";
+            const BackgroundMapDataType backgroundMapDataType = BackgroundMapDataType.Wmts;
+            var backgroundDataMetaEntities = new List<BackgroundDataMetaEntity>
+            {
+                new BackgroundDataMetaEntity
+                {
+                    Key = BackgroundDataIdentifiers.SourceCapabilitiesUrl,
+                    Value = sourceCapabilitiesUrl
+                },
+                new BackgroundDataMetaEntity
+                {
+                    Key = BackgroundDataIdentifiers.SelectedCapabilityIdentifier,
+                    Value = selectedCapabilityName
+                },
+                new BackgroundDataMetaEntity
+                {
+                    Key = BackgroundDataIdentifiers.PreferredFormat,
+                    Value = preferredFormat
+                }
+            };
 
-            var entity = CreateAssessmentSectionEntity();
+            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
             BackgroundDataEntity backgroundDataEntity = new BackgroundDataEntity
             {
                 Name = mapDataName,
                 Transparency = transparency,
                 IsVisible = Convert.ToByte(isVisible),
                 IsConfigured = Convert.ToByte(isConfigured),
-                BackgroundDataMetaEntities = new List<BackgroundDataMetaEntity>
-                {
-                    new BackgroundDataMetaEntity
-                    {
-                        Key = BackgroundDataIdentifiers.SourceCapabilitiesUrl,
-                        Value = sourceCapabilitiesUrl
-                    },
-                    new BackgroundDataMetaEntity
-                    {
-                        Key = BackgroundDataIdentifiers.SelectedCapabilityIdentifier,
-                        Value = selectedCapabilityName
-                    },
-                    new BackgroundDataMetaEntity
-                    {
-                        Key = BackgroundDataIdentifiers.PreferredFormat,
-                        Value = preferredFormat
-                    }
-                }
+                BackgroundDataType = Convert.ToByte(backgroundMapDataType),
+                BackgroundDataMetaEntities = backgroundDataMetaEntities
             };
 
             entity.BackgroundDataEntities.Add(backgroundDataEntity);
@@ -145,12 +148,14 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(transparency, backgroundData.Transparency);
             Assert.AreEqual(isConfigured, backgroundData.IsConfigured);
             Assert.AreEqual(mapDataName, backgroundData.Name);
+            Assert.AreEqual(backgroundMapDataType, backgroundData.BackgroundMapDataType);
 
             if (isConfigured)
             {
-                Assert.AreEqual(sourceCapabilitiesUrl, backgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl]);
-                Assert.AreEqual(selectedCapabilityName, backgroundData.Parameters[BackgroundDataIdentifiers.SelectedCapabilityIdentifier]);
-                Assert.AreEqual(preferredFormat, backgroundData.Parameters[BackgroundDataIdentifiers.PreferredFormat]);
+                Assert.AreEqual(3, backgroundData.Parameters.Count);
+
+                var expectedKeyValuePairs = backgroundDataMetaEntities.Select(me => new KeyValuePair<string, string>(me.Key, me.Value));
+                CollectionAssert.AreEquivalent(expectedKeyValuePairs, backgroundData.Parameters);
             }
             else
             {
