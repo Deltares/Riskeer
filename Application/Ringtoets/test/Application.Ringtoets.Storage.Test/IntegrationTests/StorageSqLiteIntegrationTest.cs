@@ -81,18 +81,10 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
             var storage = new StorageSqLite();
             storage.StageProject(fullProject);
-            
+
             // Call
-            RingtoetsProject firstProject = null;
-            try
-            {
-                storage.SaveProjectAs(ringtoetsFile);
-                firstProject = (RingtoetsProject) storage.LoadProject(ringtoetsFile);
-            }
-            catch (Exception exception)
-            {
-                Assert.Fail(exception.Message);
-            }
+            storage.SaveProjectAs(ringtoetsFile);
+            var firstProject = (RingtoetsProject) storage.LoadProject(ringtoetsFile);
 
             // Assert
             AssertProjectsAreEqual(fullProject, firstProject);
@@ -111,19 +103,10 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             storage.SaveProjectAs(firstRingtoetsFile);
 
             // Call
-            RingtoetsProject firstProject = null;
-            RingtoetsProject secondProject = null;
-            try
-            {
-                storage.StageProject(fullProject);
-                storage.SaveProjectAs(secondRingtoetsFile);
-                firstProject = (RingtoetsProject) storage.LoadProject(firstRingtoetsFile);
-                secondProject = (RingtoetsProject) storage.LoadProject(secondRingtoetsFile);
-            }
-            catch (Exception exception)
-            {
-                Assert.Fail(exception.Message);
-            }
+            storage.StageProject(fullProject);
+            storage.SaveProjectAs(secondRingtoetsFile);
+            var firstProject = (RingtoetsProject) storage.LoadProject(firstRingtoetsFile);
+            var secondProject = (RingtoetsProject) storage.LoadProject(secondRingtoetsFile);
 
             // Assert
             AssertProjectsAreEqual(firstProject, secondProject);
