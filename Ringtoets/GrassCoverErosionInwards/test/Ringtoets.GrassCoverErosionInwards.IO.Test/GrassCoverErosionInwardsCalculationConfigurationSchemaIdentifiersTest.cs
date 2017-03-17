@@ -19,11 +19,21 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
+using NUnit.Framework;
 
-[assembly: AssemblyTitle("Ringtoets.GrassCoverErosionInwards.IO")]
-[assembly: AssemblyProduct("Ringtoets.GrassCoverErosionInwards.IO")]
-[assembly: Guid("aa3ab46f-1664-40c4-a620-a12513184bd4")]
-[assembly: InternalsVisibleTo("Ringtoets.GrassCoverErosionInwards.IO.Test")]
+namespace Ringtoets.GrassCoverErosionInwards.IO.Test
+{
+    [TestFixture]
+    public class GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiersTest
+    {
+        [Test]
+        public void GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers_ExpectedValues()
+        {
+            // Call & Assert
+            Assert.AreEqual("dijkprofiel", GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeProfileElement);
+            Assert.AreEqual("overslagdebiet", GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.CriticalFlowRateStochastName);
+            Assert.AreEqual("dijkhoogte", GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeHeightElement);
+            Assert.AreEqual("hbnberekenen", GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeHeightCalculationTypeElement);
+        }
+    }
+}

@@ -44,8 +44,11 @@ namespace Ringtoets.Common.IO.Test.Readers
         [Test]
         public void GetDoubleValueFromDescendantElement_ParentElementNull_ThrowArgumentNullException()
         {
+            // Setup
+            XElement rootElement = null;
+
             // Call
-            TestDelegate test = () => CalculationConfigurationReaderHelper.GetDoubleValueFromDescendantElement(null, "");
+            TestDelegate test = () => rootElement.GetDoubleValueFromDescendantElement("");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -55,8 +58,11 @@ namespace Ringtoets.Common.IO.Test.Readers
         [Test]
         public void GetDoubleValueFromDescendantElement_DescendantElementNameNull_ThrowArgumentNullException()
         {
+            // Setup
+            var rootElement = new XElement("Root");
+
             // Call
-            TestDelegate test = () => CalculationConfigurationReaderHelper.GetDoubleValueFromDescendantElement(new XElement("Root"), null);
+            TestDelegate test = () => rootElement.GetDoubleValueFromDescendantElement(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -73,7 +79,7 @@ namespace Ringtoets.Common.IO.Test.Readers
             var element = new XElement("Root", new XElement(descendantElementName, descendantElementValue));
 
             // Call
-            double? readValue = CalculationConfigurationReaderHelper.GetDoubleValueFromDescendantElement(element, descendantElementName);
+            double? readValue = element.GetDoubleValueFromDescendantElement(descendantElementName);
 
             // Assert
             Assert.AreEqual(descendantElementValue, readValue.Value);
@@ -86,7 +92,7 @@ namespace Ringtoets.Common.IO.Test.Readers
             var element = new XElement("Root", new XElement("number", (double) 3));
 
             // Call
-            double? readValue = CalculationConfigurationReaderHelper.GetDoubleValueFromDescendantElement(element, "invalidName");
+            double? readValue = element.GetDoubleValueFromDescendantElement("invalidName");
 
             // Assert
             Assert.IsNull(readValue);

@@ -34,7 +34,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO
         /// <summary>
         /// The name for the critical flow rate stochast.
         /// </summary>
-        public static string CriticalFlowRateStochastName = "overslagdebiet";
+        public const string CriticalFlowRateStochastName = "overslagdebiet";
 
         /// <summary>
         /// The identifier for the dike height elements.

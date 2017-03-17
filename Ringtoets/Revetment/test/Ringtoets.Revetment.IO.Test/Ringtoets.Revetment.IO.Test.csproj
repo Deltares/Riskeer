@@ -57,6 +57,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Readers\ReadWaveConditionsCalculationTest.cs" />
     <Compile Include="Readers\WaveConditionsCalculationConfigurationReaderTest.cs" />
+    <Compile Include="WaveConditionsCalculationConfigurationSchemaIdentifiersTest.cs" />
     <Compile Include="Writers\WaveConditionsCalculationConfigurationWriterTest.cs" />
     <Compile Include="Exporters\WaveConditionsExporterBaseTest.cs" />
     <Compile Include="WaveConditionsInputStepSizeTypeConverterTest.cs" />

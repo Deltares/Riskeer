@@ -41,7 +41,7 @@ namespace Ringtoets.Common.IO.Readers
         /// <returns>The value of the element, or <c>null</c> when the <paramref name="parentElement"/>
         /// does not have descendant elements of <paramref name="descendantElementName"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static double? GetDoubleValueFromDescendantElement(XElement parentElement, string descendantElementName)
+        public static double? GetDoubleValueFromDescendantElement(this XElement parentElement, string descendantElementName)
         {
             if (parentElement == null)
             {
