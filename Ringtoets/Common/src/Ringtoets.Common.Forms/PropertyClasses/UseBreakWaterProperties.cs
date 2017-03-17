@@ -94,7 +94,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [PropertyOrder(breakWaterTypePropertyIndex)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.BreakWaterType_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.BreakWaterType_Description))]
-        [TypeConverter(typeof(NullableEnumTypeConverter))]
+        [TypeConverter(typeof(NullableEnumConverter))]
         public BreakWaterType? BreakWaterType
         {
             get

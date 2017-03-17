@@ -159,7 +159,7 @@ namespace Ringtoets.Common.IO.Writers
 
         private static string BreakWaterTypeAsXmlString(BreakWaterType type)
         {
-            return new BreakWaterTypeTypeConverter().ConvertToInvariantString(type);
+            return new BreakWaterTypeConverter().ConvertToInvariantString(type);
         }
 
         private static void WriteDistribution(IDistribution distribution, string elementName, XmlWriter writer)

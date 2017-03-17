@@ -340,17 +340,11 @@
   <data name="Categories_Sellmeijer" xml:space="preserve">
     <value>Terugschrijdende erosie (Sellmeijer)</value>
   </data>
-  <data name="DesignVariableTypeConverter_DesignValue_Description" xml:space="preserve">
+  <data name="DesignVariableProperties_DesignValue_Description" xml:space="preserve">
     <value>De representatieve waarde die gebruikt wordt door de berekening.</value>
   </data>
-  <data name="DesignVariableTypeConverter_DesignValue_DisplayName" xml:space="preserve">
+  <data name="DesignVariableProperties_DesignValue_DisplayName" xml:space="preserve">
     <value>Rekenwaarde</value>
-  </data>
-  <data name="DesignVariableTypeConverter_DestributionType_DisplayName" xml:space="preserve">
-    <value>Type verdeling</value>
-  </data>
-  <data name="DesignVariableTypeConverter_DistributionType_Description" xml:space="preserve">
-    <value>Het soort kansverdeling waarin deze parameter gedefinieerd wordt.</value>
   </data>
   <data name="RingtoetsPipingSurfaceLine_BottomDitchDikeSide_Description" xml:space="preserve">
     <value>De locatie van het begin van de slootbodem wanneer deze van de kant van de dijk wordt benaderd.</value>

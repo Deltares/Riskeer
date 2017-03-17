@@ -106,7 +106,7 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="IOUtils.cs" />
     <Compile Include="IO\EmbeddedResourceFileWriter.cs" />
-    <Compile Include="NullableEnumTypeConverter.cs" />
+    <Compile Include="NullableEnumConverter.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

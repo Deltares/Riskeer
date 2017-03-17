@@ -71,7 +71,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             true);
 
             PropertyDescriptor breakWaterTypeProperty = dynamicProperties[1];
-            Assert.IsInstanceOf<NullableEnumTypeConverter>(breakWaterTypeProperty.Converter);
+            Assert.IsInstanceOf<NullableEnumConverter>(breakWaterTypeProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(breakWaterTypeProperty,
                                                                             "Misc",
                                                                             "Type",
@@ -116,7 +116,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             "Moet de dam worden gebruikt tijdens de berekening?");
 
             PropertyDescriptor breakWaterTypeProperty = dynamicProperties[1];
-            Assert.IsInstanceOf<NullableEnumTypeConverter>(breakWaterTypeProperty.Converter);
+            Assert.IsInstanceOf<NullableEnumConverter>(breakWaterTypeProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(breakWaterTypeProperty,
                                                                             "Misc",
                                                                             "Type",

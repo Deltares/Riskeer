@@ -34,7 +34,7 @@ namespace Ringtoets.Revetment.IO.Test
         public void Constructor_ExpectedValues()
         {
             // Call
-            var converter = new WaveConditionsInputStepSizeTypeConverter();
+            var converter = new WaveConditionsInputStepSizeConverter();
 
             // Assert
             Assert.IsInstanceOf<TypeConverter>(converter);
@@ -44,7 +44,7 @@ namespace Ringtoets.Revetment.IO.Test
         public void CanConvertTo_String_ReturnTrue()
         {
             // Setup
-            var converter = new WaveConditionsInputStepSizeTypeConverter();
+            var converter = new WaveConditionsInputStepSizeConverter();
 
             // Call
             bool canConvertToString = converter.CanConvertTo(typeof(string));
@@ -57,7 +57,7 @@ namespace Ringtoets.Revetment.IO.Test
         public void CanConvertTo_OtherTypeThenString_ReturnFalse()
         {
             // Setup
-            var converter = new WaveConditionsInputStepSizeTypeConverter();
+            var converter = new WaveConditionsInputStepSizeConverter();
 
             // Call
             bool canConvertToNonString = converter.CanConvertTo(typeof(object));
@@ -75,7 +75,7 @@ namespace Ringtoets.Revetment.IO.Test
                                                                   string expectedText)
         {
             // Setup
-            var converter = new WaveConditionsInputStepSizeTypeConverter();
+            var converter = new WaveConditionsInputStepSizeConverter();
 
             // Call
             object result = converter.ConvertTo(null, CultureInfo.CurrentCulture, value, typeof(string));
@@ -88,7 +88,7 @@ namespace Ringtoets.Revetment.IO.Test
         public void ConvertTo_Object_ThrowNotSupportedException()
         {
             // Setup
-            var converter = new WaveConditionsInputStepSizeTypeConverter();
+            var converter = new WaveConditionsInputStepSizeConverter();
 
             // Call
             TestDelegate call = () => converter.ConvertTo(WaveConditionsInputStepSize.Half, typeof(object));
@@ -101,7 +101,7 @@ namespace Ringtoets.Revetment.IO.Test
         public void CanConvertFrom_String_ReturnTrue()
         {
             // Setup
-            var converter = new WaveConditionsInputStepSizeTypeConverter();
+            var converter = new WaveConditionsInputStepSizeConverter();
 
             // Call
             bool canConvertFromString = converter.CanConvertFrom(typeof(string));
@@ -114,7 +114,7 @@ namespace Ringtoets.Revetment.IO.Test
         public void CanConvertFrom_NonString_ReturnFalse()
         {
             // Setup
-            var converter = new WaveConditionsInputStepSizeTypeConverter();
+            var converter = new WaveConditionsInputStepSizeConverter();
 
             // Call
             bool canConvertFromString = converter.CanConvertFrom(typeof(object));
@@ -132,7 +132,7 @@ namespace Ringtoets.Revetment.IO.Test
                                                                                           WaveConditionsInputStepSize expectedResult)
         {
             // Setup
-            var converter = new WaveConditionsInputStepSizeTypeConverter();
+            var converter = new WaveConditionsInputStepSizeConverter();
 
             // Call
             object result = converter.ConvertFrom(null, CultureInfo.CurrentCulture, text);
@@ -150,7 +150,7 @@ namespace Ringtoets.Revetment.IO.Test
                                                                                           WaveConditionsInputStepSize expectedResult)
         {
             // Setup
-            var converter = new WaveConditionsInputStepSizeTypeConverter();
+            var converter = new WaveConditionsInputStepSizeConverter();
 
             // Call
             object result = converter.ConvertFrom(null, CultureInfo.CurrentCulture, text);
@@ -164,7 +164,7 @@ namespace Ringtoets.Revetment.IO.Test
         public void ConvertFrom_InvalidText_ThrowNotSupportedException()
         {
             // Setup
-            var converter = new WaveConditionsInputStepSizeTypeConverter();
+            var converter = new WaveConditionsInputStepSizeConverter();
 
             // Call
             TestDelegate call = () => converter.ConvertFrom("1");

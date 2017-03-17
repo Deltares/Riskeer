@@ -57,8 +57,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         public abstract override string DistributionType { get; }
 
         [PropertyOrder(5)]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.DesignVariableTypeConverter_DesignValue_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.DesignVariableTypeConverter_DesignValue_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.DesignVariableProperties_DesignValue_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.DesignVariableProperties_DesignValue_Description))]
         public RoundedDouble DesignValue
         {
             get

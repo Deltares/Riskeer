@@ -22,21 +22,32 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
-using Ringtoets.Revetment.Data;
+using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.IO.Schema;
 
-namespace Ringtoets.Revetment.IO
+namespace Ringtoets.Common.IO
 {
     /// <summary>
-    /// Converts <see cref="WaveConditionsInputStepSize"/> to <see cref="string"/> and back.
+    /// Converts <see cref="BreakWaterType"/> to <see cref="string"/> and back.
     /// </summary>
-    public class WaveConditionsInputStepSizeTypeConverter : TypeConverter
+    public class BreakWaterTypeConverter : TypeConverter
     {
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             if (destinationType == typeof(string))
             {
-                var stepSize = (WaveConditionsInputStepSize) value;
-                return string.Format(culture, "{0:0.0}", stepSize.AsValue());
+                var type = (BreakWaterType) value;
+                switch (type)
+                {
+                    case BreakWaterType.Caisson:
+                        return ConfigurationSchemaIdentifiers.BreakWaterCaisson;
+                    case BreakWaterType.Dam:
+                        return ConfigurationSchemaIdentifiers.BreakWaterDam;
+                    case BreakWaterType.Wall:
+                        return ConfigurationSchemaIdentifiers.BreakWaterWall;
+                    default:
+                        throw new NotSupportedException();
+                }
             }
             return base.ConvertTo(context, culture, value, destinationType);
         }
@@ -55,18 +66,14 @@ namespace Ringtoets.Revetment.IO
             var text = value as string;
             if (text != null)
             {
-                string decimalSeperator = culture.NumberFormat.NumberDecimalSeparator;
-                if ($"0{decimalSeperator}5".Equals(text))
+                switch (text)
                 {
-                    return WaveConditionsInputStepSize.Half;
-                }
-                if ($"1{decimalSeperator}0".Equals(text))
-                {
-                    return WaveConditionsInputStepSize.One;
-                }
-                if ($"2{decimalSeperator}0".Equals(text))
-                {
-                    return WaveConditionsInputStepSize.Two;
+                    case ConfigurationSchemaIdentifiers.BreakWaterCaisson:
+                        return BreakWaterType.Caisson;
+                    case ConfigurationSchemaIdentifiers.BreakWaterDam:
+                        return BreakWaterType.Dam;
+                    case ConfigurationSchemaIdentifiers.BreakWaterWall:
+                        return BreakWaterType.Wall;
                 }
             }
             return base.ConvertFrom(context, culture, value);

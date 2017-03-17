@@ -36,11 +36,11 @@ namespace Ringtoets.Revetment.IO.Writers
     /// <typeparam name="T">The type of calculations that are written to file.</typeparam>
     public abstract class WaveConditionsCalculationConfigurationWriter<T> : CalculationConfigurationWriter<T> where T : class, ICalculation
     {
-        private readonly WaveConditionsInputStepSizeTypeConverter waveConditionsInputStepSizeConverter;
+        private readonly WaveConditionsInputStepSizeConverter waveConditionsInputStepSizeConverter;
 
         protected WaveConditionsCalculationConfigurationWriter()
         {
-            waveConditionsInputStepSizeConverter = new WaveConditionsInputStepSizeTypeConverter();
+            waveConditionsInputStepSizeConverter = new WaveConditionsInputStepSizeConverter();
         }
 
         /// <summary>

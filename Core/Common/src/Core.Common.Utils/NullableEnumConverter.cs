@@ -31,15 +31,15 @@ namespace Core.Common.Utils
     /// <summary>
     /// A type converter to convert nullable Enum objects to and from various other representations.
     /// </summary>
-    public class NullableEnumTypeConverter : NullableConverter
+    public class NullableEnumConverter : NullableConverter
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="NullableEnumTypeConverter"/> class for the given nullable Enum <paramref name="type"/>.
+        /// Initializes a new instance of the <see cref="NullableEnumConverter"/> class for the given nullable Enum <paramref name="type"/>.
         /// </summary>
         /// <remarks> This class looks for the <see cref="ResourcesDisplayNameAttribute"/> decorator.</remarks>
         /// <param name="type">A <see cref="Type"/> that represents the type of enumeration to associate with this enumeration converter.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="type"/> is not a nullable type.</exception>
-        public NullableEnumTypeConverter(Type type) : base(type) {}
+        public NullableEnumConverter(Type type) : base(type) {}
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {

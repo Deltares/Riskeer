@@ -22,32 +22,21 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
-using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.IO.Properties;
+using Ringtoets.Revetment.Data;
 
-namespace Ringtoets.GrassCoverErosionInwards.IO
+namespace Ringtoets.Revetment.IO
 {
     /// <summary>
-    /// Converts <see cref="DikeHeightCalculationType"/> to <see cref="string"/> and back.
+    /// Converts <see cref="WaveConditionsInputStepSize"/> to <see cref="string"/> and back.
     /// </summary>
-    public class DikeHeightCalculationTypeTypeConverter : TypeConverter
+    public class WaveConditionsInputStepSizeConverter : TypeConverter
     {
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             if (destinationType == typeof(string))
             {
-                var dikeHeightCalculationType = (DikeHeightCalculationType) value;
-                switch (dikeHeightCalculationType)
-                {
-                    case DikeHeightCalculationType.NoCalculation:
-                        return Resources.DikeHeightCalculationTypeTypeConverter_NoCalculation;
-                    case DikeHeightCalculationType.CalculateByAssessmentSectionNorm:
-                        return Resources.DikeHeightCalculationTypeTypeConverter_CalculateByAssessmentSectionNorm;
-                    case DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability:
-                        return Resources.DikeHeightCalculationTypeTypeConverter_CalculateByProfileSpecificRequiredProbability;
-                    default:
-                        throw new NotSupportedException();
-                }
+                var stepSize = (WaveConditionsInputStepSize) value;
+                return string.Format(culture, "{0:0.0}", stepSize.AsValue());
             }
             return base.ConvertTo(context, culture, value, destinationType);
         }
@@ -66,17 +55,18 @@ namespace Ringtoets.GrassCoverErosionInwards.IO
             var text = value as string;
             if (text != null)
             {
-                if (text == Resources.DikeHeightCalculationTypeTypeConverter_NoCalculation)
+                string decimalSeperator = culture.NumberFormat.NumberDecimalSeparator;
+                if ($"0{decimalSeperator}5".Equals(text))
                 {
-                    return DikeHeightCalculationType.NoCalculation;
+                    return WaveConditionsInputStepSize.Half;
                 }
-                if (text == Resources.DikeHeightCalculationTypeTypeConverter_CalculateByAssessmentSectionNorm)
+                if ($"1{decimalSeperator}0".Equals(text))
                 {
-                    return DikeHeightCalculationType.CalculateByAssessmentSectionNorm;
+                    return WaveConditionsInputStepSize.One;
                 }
-                if (text == Resources.DikeHeightCalculationTypeTypeConverter_CalculateByProfileSpecificRequiredProbability)
+                if ($"2{decimalSeperator}0".Equals(text))
                 {
-                    return DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability;
+                    return WaveConditionsInputStepSize.Two;
                 }
             }
             return base.ConvertFrom(context, culture, value);

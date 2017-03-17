@@ -22,29 +22,29 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.IO.Schema;
+using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionInwards.IO.Properties;
 
-namespace Ringtoets.Common.IO
+namespace Ringtoets.GrassCoverErosionInwards.IO
 {
     /// <summary>
-    /// Converts <see cref="BreakWaterType"/> to <see cref="string"/> and back.
+    /// Converts <see cref="DikeHeightCalculationType"/> to <see cref="string"/> and back.
     /// </summary>
-    public class BreakWaterTypeTypeConverter : TypeConverter
+    public class DikeHeightCalculationTypeConverter : TypeConverter
     {
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             if (destinationType == typeof(string))
             {
-                var type = (BreakWaterType) value;
-                switch (type)
+                var dikeHeightCalculationType = (DikeHeightCalculationType) value;
+                switch (dikeHeightCalculationType)
                 {
-                    case BreakWaterType.Caisson:
-                        return ConfigurationSchemaIdentifiers.BreakWaterCaisson;
-                    case BreakWaterType.Dam:
-                        return ConfigurationSchemaIdentifiers.BreakWaterDam;
-                    case BreakWaterType.Wall:
-                        return ConfigurationSchemaIdentifiers.BreakWaterWall;
+                    case DikeHeightCalculationType.NoCalculation:
+                        return Resources.DikeHeightCalculationTypeConverter_NoCalculation;
+                    case DikeHeightCalculationType.CalculateByAssessmentSectionNorm:
+                        return Resources.DikeHeightCalculationTypeConverter_CalculateByAssessmentSectionNorm;
+                    case DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability:
+                        return Resources.DikeHeightCalculationTypeConverter_CalculateByProfileSpecificRequiredProbability;
                     default:
                         throw new NotSupportedException();
                 }
@@ -66,14 +66,17 @@ namespace Ringtoets.Common.IO
             var text = value as string;
             if (text != null)
             {
-                switch (text)
+                if (text == Resources.DikeHeightCalculationTypeConverter_NoCalculation)
                 {
-                    case ConfigurationSchemaIdentifiers.BreakWaterCaisson:
-                        return BreakWaterType.Caisson;
-                    case ConfigurationSchemaIdentifiers.BreakWaterDam:
-                        return BreakWaterType.Dam;
-                    case ConfigurationSchemaIdentifiers.BreakWaterWall:
-                        return BreakWaterType.Wall;
+                    return DikeHeightCalculationType.NoCalculation;
+                }
+                if (text == Resources.DikeHeightCalculationTypeConverter_CalculateByAssessmentSectionNorm)
+                {
+                    return DikeHeightCalculationType.CalculateByAssessmentSectionNorm;
+                }
+                if (text == Resources.DikeHeightCalculationTypeConverter_CalculateByProfileSpecificRequiredProbability)
+                {
+                    return DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability;
                 }
             }
             return base.ConvertFrom(context, culture, value);
