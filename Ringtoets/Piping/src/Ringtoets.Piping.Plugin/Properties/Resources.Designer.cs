@@ -252,7 +252,7 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Als u stochastische ondergrondmodellen importeert, dan worden all rekenresultaten van dit toetsspoor verwijderd.
+        ///   Looks up a localized string similar to Als u stochastische ondergrondmodellen importeert, dan worden alle rekenresultaten van dit toetsspoor verwijderd.
         ///
         ///Weet u zeker dat u wilt doorgaan?.
         /// </summary>
@@ -372,15 +372,6 @@ namespace Ringtoets.Piping.Plugin.Properties {
         public static string PipingSurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped {
             get {
                 return ResourceManager.GetString("PipingSurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Profielschematisaties importeren afgebroken. Geen data ingelezen..
-        /// </summary>
-        public static string PipingSurfaceLinesCsvImporter_Import_Import_canceled {
-            get {
-                return ResourceManager.GetString("PipingSurfaceLinesCsvImporter_Import_Import_canceled", resourceCulture);
             }
         }
         

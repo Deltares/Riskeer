@@ -123,9 +123,6 @@
   <data name="Soil_file_Extension" xml:space="preserve">
     <value>soil</value>
   </data>
-  <data name="PipingSurfaceLinesCsvImporter_Import_Import_canceled" xml:space="preserve">
-    <value>Profielschematisaties importeren afgebroken. Geen data ingelezen.</value>
-  </data>
   <data name="PipingSurfaceLinesCsvImporter_Read_PipingSurfaceLines_0_" xml:space="preserve">
     <value>Inlezen '{0}'</value>
   </data>
@@ -220,7 +217,7 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
     <value>Het bijwerken van de stochastische ondergrondmodellen is mislukt.</value>
   </data>
   <data name="PipingPlugin_VerifyStochasticSoilModelImport_When_importing_StochasticSoilModels_calculation_output_will_be_cleared_confirm" xml:space="preserve">
-    <value>Als u stochastische ondergrondmodellen importeert, dan worden all rekenresultaten van dit toetsspoor verwijderd.
+    <value>Als u stochastische ondergrondmodellen importeert, dan worden alle rekenresultaten van dit toetsspoor verwijderd.
 
 Weet u zeker dat u wilt doorgaan?</value>
   </data>

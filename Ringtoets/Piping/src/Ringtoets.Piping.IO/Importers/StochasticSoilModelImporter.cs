@@ -25,7 +25,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using log4net;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
@@ -34,7 +33,8 @@ using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.IO.SoilProfile;
 using Ringtoets.Piping.Primitives;
-using RingtoestCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
+using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
+using RingtoetsPipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 
 namespace Ringtoets.Piping.IO.Importers
 {
@@ -116,7 +116,8 @@ namespace Ringtoets.Piping.IO.Importers
 
         protected override void LogImportCanceledMessage()
         {
-            log.Info(Resources.StochasticSoilModelImporter_Import_Import_canceled);
+            string message = messageProvider.GetCancelledLogMessageText(RingtoetsPipingDataResources.StochasticSoilModelCollection_TypeDescriptor);
+            log.Info(message);
         }
 
         private IEnumerable<IObservable> UpdatedInstances { get; set; } = Enumerable.Empty<IObservable>();
@@ -156,7 +157,7 @@ namespace Ringtoets.Piping.IO.Importers
             StochasticSoilModel[] importedModels = importStochasticSoilModelResult.Items.ToArray();
             foreach (StochasticSoilModel importedModel in importedModels)
             {
-                NotifyProgress(RingtoestCommonIOResources.Importer_ProgressText_Validating_imported_data, currentStep, importedModels.Length);
+                NotifyProgress(RingtoetsCommonIOResources.Importer_ProgressText_Validating_imported_data, currentStep, importedModels.Length);
                 if (Canceled)
                 {
                     yield break;

@@ -37,6 +37,7 @@ using Ringtoets.Piping.IO.SurfaceLines;
 using Ringtoets.Piping.Plugin.Properties;
 using Ringtoets.Piping.Primitives;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
+using RingtoetsPipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin.FileImporter
 {
@@ -125,7 +126,8 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         protected override void LogImportCanceledMessage()
         {
-            log.Info(Resources.PipingSurfaceLinesCsvImporter_Import_Import_canceled);
+            string message = messageProvider.GetCancelledLogMessageText(RingtoetsPipingDataResources.RingtoetsPipingSurfaceLineCollection_TypeDescriptor);
+            log.Info(message);
         }
 
         protected override void DoPostImportUpdates()

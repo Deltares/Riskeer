@@ -825,6 +825,24 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} importeren afgebroken. Geen data ingelezen..
+        /// </summary>
+        public static string Importer_LogMessageText_Import_of_TypeDescriptor_0_cancelled {
+            get {
+                return ResourceManager.GetString("Importer_LogMessageText_Import_of_TypeDescriptor_0_cancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} bijwerken afgebroken. Geen data ingelezen..
+        /// </summary>
+        public static string Importer_LogMessageText_Update_of_TypeDescriptor_0_cancelled {
+            get {
+                return ResourceManager.GetString("Importer_LogMessageText_Update_of_TypeDescriptor_0_cancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Geïmporteerde data toevoegen aan het toetsspoor..
         /// </summary>
         public static string Importer_ProgressText_Adding_imported_data_to_data_model {

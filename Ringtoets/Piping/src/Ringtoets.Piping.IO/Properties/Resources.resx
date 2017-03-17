@@ -219,9 +219,6 @@
   <data name="SoilLayer_Stochastic_parameter_0_has_no_shifted_lognormal_distribution" xml:space="preserve">
     <value>Parameter '{0}' is niet verschoven lognormaal verdeeld.</value>
   </data>
-  <data name="StochasticSoilModelImporter_Import_Import_canceled" xml:space="preserve">
-    <value>Stochastische ondergrondmodellen importeren afgebroken. Geen data ingelezen.</value>
-  </data>
   <data name="StochasticSoilModelImporter_ValidateStochasticSoilModel_No_profiles_found_in_stochastic_soil_model_0" xml:space="preserve">
     <value>Er zijn geen ondergrondschematisaties gevonden in het stochastische ondergrondmodel '{0}'. Dit model wordt overgeslagen.</value>
   </data>

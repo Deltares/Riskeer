@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+
 namespace Ringtoets.Common.IO.FileImporters.MessageProviders
 {
     /// <summary>
@@ -31,5 +33,16 @@ namespace Ringtoets.Common.IO.FileImporters.MessageProviders
         /// </summary>
         /// <returns>The progress text.</returns>
         string GetAddDataToModelProgressText();
+
+        /// <summary>
+        /// Gets the cancelled log message text to be displayed when cancelling an
+        /// importer action.
+        /// </summary>
+        /// <param name="typeDescriptor">The type descriptor of the items that were to 
+        /// be imported.</param>
+        /// <returns>The log message.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="typeDescriptor"/>
+        /// is <c>null</c>.</exception>
+        string GetCancelledLogMessageText(string typeDescriptor);
     }
 }

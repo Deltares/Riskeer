@@ -301,7 +301,9 @@ namespace Ringtoets.Piping.IO.Test.Importers
         public void Import_CancelOfImportWhenReadingSoilProfiles_CancelsImportAndLogs()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            const string cancelledLogMessage = "Operation Cancelled";
+            var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
+            messageProvider.Expect(mp => mp.GetCancelledLogMessageText("Stochastische ondergrondmodellen")).Return(cancelledLogMessage);
             mocks.ReplayAll();
 
             string validFilePath = Path.Combine(testDataPath, "complete.soil");
@@ -327,7 +329,8 @@ namespace Ringtoets.Piping.IO.Test.Importers
             Action call = () => importResult = importer.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Stochastische ondergrondmodellen importeren afgebroken. Geen data ingelezen.", 1);
+            Tuple<string, LogLevelConstant> expectedLogMessage = Tuple.Create(cancelledLogMessage, LogLevelConstant.Info);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage, 1);
             AssertUnsuccessfulImport(importResult, updateStrategy);
         }
 
@@ -335,7 +338,9 @@ namespace Ringtoets.Piping.IO.Test.Importers
         public void Import_CancelOfImportWhenReadingStochasticSoilModels_CancelsImportAndLogs()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            const string cancelledLogMessage = "Operation Cancelled";
+            var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
+            messageProvider.Expect(mp => mp.GetCancelledLogMessageText("Stochastische ondergrondmodellen")).Return(cancelledLogMessage);
             mocks.ReplayAll();
 
             string validFilePath = Path.Combine(testDataPath, "complete.soil");
@@ -361,7 +366,8 @@ namespace Ringtoets.Piping.IO.Test.Importers
             Action call = () => importResult = importer.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Stochastische ondergrondmodellen importeren afgebroken. Geen data ingelezen.", 1);
+            Tuple<string, LogLevelConstant> expectedLogMessage = Tuple.Create(cancelledLogMessage, LogLevelConstant.Info);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage, 1);
             AssertUnsuccessfulImport(importResult, updateStrategy);
         }
 
@@ -369,7 +375,9 @@ namespace Ringtoets.Piping.IO.Test.Importers
         public void Import_CancelOfImportWhenAddingAndCheckingSoilProfiles_CancelsImportAndLogs()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            const string cancelledLogMessage = "Operation Cancelled";
+            var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
+            messageProvider.Expect(mp => mp.GetCancelledLogMessageText("Stochastische ondergrondmodellen")).Return(cancelledLogMessage);
             mocks.ReplayAll();
 
             string validFilePath = Path.Combine(testDataPath, "complete.soil");
@@ -395,7 +403,8 @@ namespace Ringtoets.Piping.IO.Test.Importers
             Action call = () => importResult = importer.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Stochastische ondergrondmodellen importeren afgebroken. Geen data ingelezen.", 1);
+            Tuple<string, LogLevelConstant> expectedLogMessage = Tuple.Create(cancelledLogMessage, LogLevelConstant.Info);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage, 1);
             AssertUnsuccessfulImport(importResult, updateStrategy);
         }
 
@@ -403,7 +412,9 @@ namespace Ringtoets.Piping.IO.Test.Importers
         public void Import_CancelOfImportWhenValidatingStochasticSoilModels_CancelsImportAndLogs()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            const string cancelledLogMessage = "Operation Cancelled";
+            var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
+            messageProvider.Expect(mp => mp.GetCancelledLogMessageText("Stochastische ondergrondmodellen")).Return(cancelledLogMessage);
             mocks.ReplayAll();
 
             string validFilePath = Path.Combine(testDataPath, "complete.soil");
@@ -429,7 +440,8 @@ namespace Ringtoets.Piping.IO.Test.Importers
             Action call = () => importResult = importer.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Stochastische ondergrondmodellen importeren afgebroken. Geen data ingelezen.", 1);
+            Tuple<string, LogLevelConstant> expectedLogMessage = Tuple.Create(cancelledLogMessage, LogLevelConstant.Info);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage, 1);
             AssertUnsuccessfulImport(importResult, updateStrategy);
         }
 
@@ -466,7 +478,9 @@ namespace Ringtoets.Piping.IO.Test.Importers
             Action call = () => importResult = importer.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Huidige actie was niet meer te annuleren en is daarom voortgezet.", 1);
+            var expectedMessage = "Huidige actie was niet meer te annuleren en is daarom voortgezet.";
+            Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedMessage, LogLevelConstant.Warn);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel, 1);
             StochasticSoilModel[] readModels = AssertSuccessfulImport(validFilePath, importResult, updateStrategy);
             Assert.AreEqual(3, readModels.Length);
         }
@@ -529,12 +543,12 @@ namespace Ringtoets.Piping.IO.Test.Importers
             string internalErrorMessage = new FileReaderErrorMessageBuilder(pathToCorruptFile)
                 .WithSubject("ondergrondschematisatie 'Profile'")
                 .Build("Ondergrondschematisatie bevat geen geldige waarde in kolom \'IntersectionX\'.");
-            var expectedLogMessages = new[]
+            var expectedLogMessagesAndLevel = new[]
             {
-                $"{internalErrorMessage} \r\nDeze ondergrondschematisatie wordt overgeslagen.",
-                "Het stochastische ondergrondmodel \'Name\' heeft een ongespecificeerde ondergrondschematisatie. Dit model wordt overgeslagen."
+                Tuple.Create($"{internalErrorMessage} \r\nDeze ondergrondschematisatie wordt overgeslagen.", LogLevelConstant.Error),
+                Tuple.Create("Het stochastische ondergrondmodel \'Name\' heeft een ongespecificeerde ondergrondschematisatie. Dit model wordt overgeslagen.", LogLevelConstant.Warn)
             };
-            TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 2);
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 2);
             Assert.AreEqual(8, progress);
 
             StochasticSoilModel[] readModels = AssertSuccessfulImport(pathToCorruptFile, importResult, updateStrategy);
@@ -594,7 +608,8 @@ namespace Ringtoets.Piping.IO.Test.Importers
             string expectedLogMessage =
                 $"Fout bij het lezen van bestand '{pathToCorruptFile}': de ondergrondschematisatie verwijst naar een ongeldige waarde." +
                 " Dit stochastische ondergrondmodel wordt overgeslagen.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
+            Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedLogMessage, LogLevelConstant.Error);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel, 1);
 
             StochasticSoilModel[] readModels = AssertSuccessfulImport(pathToCorruptFile, importResult, updateStrategy);
             CollectionAssert.IsEmpty(readModels);
@@ -624,8 +639,9 @@ namespace Ringtoets.Piping.IO.Test.Importers
             Action call = () => importResult = importer.Import();
 
             // Assert
-            var expectedLogMessages = "De som van de kansen van voorkomen in het stochastich ondergrondmodel 'Name' is niet gelijk aan 100%.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessages, 1);
+            var expectedLogMessage = "De som van de kansen van voorkomen in het stochastich ondergrondmodel 'Name' is niet gelijk aan 100%.";
+            Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedLogMessage, LogLevelConstant.Warn);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel, 1);
 
             StochasticSoilModel[] readModels = AssertSuccessfulImport(pathToCorruptFile, importResult, updateStrategy);
             Assert.AreEqual(1, readModels.Length);
@@ -738,7 +754,8 @@ namespace Ringtoets.Piping.IO.Test.Importers
             // Assert
             string expectedLogMessage = "Er zijn geen ondergrondschematisaties gevonden in het stochastische " +
                                         "ondergrondmodel 'Model'. Dit model wordt overgeslagen.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
+            Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedLogMessage, LogLevelConstant.Warn);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel, 1);
 
             StochasticSoilModel[] readModels = AssertSuccessfulImport(validFilePath, importResult, updateStrategy);
             CollectionAssert.IsEmpty(readModels);

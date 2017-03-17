@@ -613,15 +613,6 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Stochastische ondergrondmodellen importeren afgebroken. Geen data ingelezen..
-        /// </summary>
-        public static string StochasticSoilModelImporter_Import_Import_canceled {
-            get {
-                return ResourceManager.GetString("StochasticSoilModelImporter_Import_Import_canceled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Ondergrondschematisatie &apos;{0}&apos; is meerdere keren gevonden in ondergrondmodel &apos;{1}&apos;. Kansen van voorkomen worden opgeteld..
         /// </summary>
         public static string StochasticSoilModelImporter_MergeStochasticSoilProfiles_Multiple_SoilProfile_0_used_in_StochasticSoilModel_1_Probabilities_added {

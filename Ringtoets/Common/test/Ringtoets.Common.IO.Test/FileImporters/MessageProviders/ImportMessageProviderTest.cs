@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using NUnit.Framework;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 
@@ -48,6 +49,35 @@ namespace Ringtoets.Common.IO.Test.FileImporters.MessageProviders
 
             // Assert
             const string expectedMessage = "Geïmporteerde data toevoegen aan het toetsspoor.";
+            Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
+        public void GetCancelledLogMessageText_DescriptionNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var messageProvider = new ImportMessageProvider();
+
+            // Call
+            TestDelegate call = () => messageProvider.GetCancelledLogMessageText(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("typeDescriptor", paramName);
+        }
+
+        [Test]
+        public void GetCancelledLogMessageText_WithDescription_ReturnsExpectedMessage()
+        {
+            // Setup
+            const string typeDescriptor = "Items";
+            var messageProvider = new ImportMessageProvider();
+
+            // Call
+            string message = messageProvider.GetCancelledLogMessageText(typeDescriptor);
+
+            // Assert
+            const string expectedMessage = "Items importeren afgebroken. Geen data ingelezen.";
             Assert.AreEqual(expectedMessage, message);
         }
     }

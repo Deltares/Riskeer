@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Ringtoets.Common.IO.Properties;
 
 namespace Ringtoets.Common.IO.FileImporters.MessageProviders
@@ -31,6 +32,16 @@ namespace Ringtoets.Common.IO.FileImporters.MessageProviders
         public string GetAddDataToModelProgressText()
         {
             return Resources.Importer_ProgressText_Updating_data_in_data_model;
+        }
+
+        public string GetCancelledLogMessageText(string typeDescriptor)
+        {
+            if (typeDescriptor == null)
+            {
+                throw new ArgumentNullException(nameof(typeDescriptor));
+            }
+
+            return string.Format(Resources.Importer_LogMessageText_Update_of_TypeDescriptor_0_cancelled, typeDescriptor);
         }
     }
 }

@@ -553,4 +553,10 @@ Er is geen berekeningenconfiguratie geïmporteerd.</value>
   <data name="CalculationConfigurationImporter_ReadHydraulicBoundaryLocation_Hydraulic_boundary_location_0_does_not_exist" xml:space="preserve">
     <value>De locatie met hydraulische randvoorwaarden '{0}' bestaat niet.</value>
   </data>
+  <data name="Importer_LogMessageText_Import_of_TypeDescriptor_0_cancelled" xml:space="preserve">
+    <value>{0} importeren afgebroken. Geen data ingelezen.</value>
+  </data>
+  <data name="Importer_LogMessageText_Update_of_TypeDescriptor_0_cancelled" xml:space="preserve">
+    <value>{0} bijwerken afgebroken. Geen data ingelezen.</value>
+  </data>
 </root>
