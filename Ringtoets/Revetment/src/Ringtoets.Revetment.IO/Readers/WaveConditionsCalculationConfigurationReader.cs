@@ -78,23 +78,18 @@ namespace Ringtoets.Revetment.IO.Readers
             var constructionProperties = new ReadWaveConditionsCalculation.ConstructionProperties
             {
                 Name = calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute)?.Value,
-                HydraulicBoundaryLocation = CalculationConfigurationReaderHelper.GetStringValueFromDescendantElement(calculationElement,
-                                                                                                                     ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement),
+                HydraulicBoundaryLocation = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement),
                 UpperBoundaryRevetment = calculationElement.GetDoubleValueFromDescendantElement(WaveConditionsCalculationConfigurationSchemaIdentifiers.UpperBoundaryRevetment),
                 LowerBoundaryRevetment = calculationElement.GetDoubleValueFromDescendantElement(WaveConditionsCalculationConfigurationSchemaIdentifiers.LowerBoundaryRevetment),
                 UpperBoundaryWaterLevels = calculationElement.GetDoubleValueFromDescendantElement(WaveConditionsCalculationConfigurationSchemaIdentifiers.UpperBoundaryWaterLevels),
                 LowerBoundaryWaterLevels = calculationElement.GetDoubleValueFromDescendantElement(WaveConditionsCalculationConfigurationSchemaIdentifiers.LowerBoundaryWaterLevels),
                 StepSize = calculationElement.GetDoubleValueFromDescendantElement(WaveConditionsCalculationConfigurationSchemaIdentifiers.StepSize),
-                ForeshoreProfile = CalculationConfigurationReaderHelper.GetStringValueFromDescendantElement(calculationElement,
-                                                                                                            WaveConditionsCalculationConfigurationSchemaIdentifiers.ForeshoreProfile),
+                ForeshoreProfile = calculationElement.GetStringValueFromDescendantElement(WaveConditionsCalculationConfigurationSchemaIdentifiers.ForeshoreProfile),
                 Orientation = calculationElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.Orientation),
-                UseBreakWater = CalculationConfigurationReaderHelper.GetBoolValueFromDescendantElement(calculationElement,
-                                                                                                       ConfigurationSchemaIdentifiers.UseBreakWater),
-                BreakWaterType = CalculationConfigurationReaderHelper.GetStringValueFromDescendantElement(calculationElement,
-                                                                                                          ConfigurationSchemaIdentifiers.BreakWaterType),
+                UseBreakWater = calculationElement.GetBoolValueFromDescendantElement(ConfigurationSchemaIdentifiers.UseBreakWater),
+                BreakWaterType = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.BreakWaterType),
                 BreakWaterHeight = calculationElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.BreakWaterHeight),
-                UseForeshore = CalculationConfigurationReaderHelper.GetBoolValueFromDescendantElement(calculationElement,
-                                                                                                      ConfigurationSchemaIdentifiers.UseForeshore)
+                UseForeshore = calculationElement.GetBoolValueFromDescendantElement(ConfigurationSchemaIdentifiers.UseForeshore)
             };
 
             return new ReadWaveConditionsCalculation(constructionProperties);

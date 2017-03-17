@@ -72,28 +72,22 @@ namespace Ringtoets.Piping.IO.Readers
             {
                 Name = calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute)?.Value,
                 AssessmentLevel = calculationElement.GetDoubleValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.AssessmentLevelElement),
-                HydraulicBoundaryLocation = CalculationConfigurationReaderHelper.GetStringValueFromDescendantElement(calculationElement,
-                                                                                                                     ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement),
-                SurfaceLine = CalculationConfigurationReaderHelper.GetStringValueFromDescendantElement(calculationElement,
-                                                                                                       PipingCalculationConfigurationSchemaIdentifiers.SurfaceLineElement),
+                HydraulicBoundaryLocation = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement),
+                SurfaceLine = calculationElement.GetStringValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.SurfaceLineElement),
                 EntryPointL = calculationElement.GetDoubleValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.EntryPointLElement),
                 ExitPointL = calculationElement.GetDoubleValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.ExitPointLElement),
-                StochasticSoilModel = CalculationConfigurationReaderHelper.GetStringValueFromDescendantElement(calculationElement,
-                                                                                                               PipingCalculationConfigurationSchemaIdentifiers.StochasticSoilModelElement),
-                StochasticSoilProfile = CalculationConfigurationReaderHelper.GetStringValueFromDescendantElement(calculationElement,
-                                                                                                                 PipingCalculationConfigurationSchemaIdentifiers.StochasticSoilProfileElement)
+                StochasticSoilModel = calculationElement.GetStringValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.StochasticSoilModelElement),
+                StochasticSoilProfile = calculationElement.GetStringValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.StochasticSoilProfileElement)
             };
 
-            XElement phreaticLevelExitElement = CalculationConfigurationReaderHelper.GetStochastElement(calculationElement,
-                                                                                                        PipingCalculationConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName);
+            XElement phreaticLevelExitElement = calculationElement.GetStochastElement(PipingCalculationConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName);
             if (phreaticLevelExitElement != null)
             {
                 constructionProperties.PhreaticLevelExitMean = phreaticLevelExitElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.MeanElement);
                 constructionProperties.PhreaticLevelExitStandardDeviation = phreaticLevelExitElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.StandardDeviationElement);
             }
 
-            XElement dampingFactorExitElement = CalculationConfigurationReaderHelper.GetStochastElement(calculationElement,
-                                                                                                        PipingCalculationConfigurationSchemaIdentifiers.DampingFactorExitStochastName);
+            XElement dampingFactorExitElement = calculationElement.GetStochastElement(PipingCalculationConfigurationSchemaIdentifiers.DampingFactorExitStochastName);
             if (dampingFactorExitElement != null)
             {
                 constructionProperties.DampingFactorExitMean = dampingFactorExitElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.MeanElement);

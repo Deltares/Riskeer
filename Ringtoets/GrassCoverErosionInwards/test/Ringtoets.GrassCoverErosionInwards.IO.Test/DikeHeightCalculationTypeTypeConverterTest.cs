@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using NUnit.Framework;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -81,6 +82,34 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
         }
 
         [Test]
+        public void ConvertTo_InvalidDikeHeightCalculationTypeValue_ThrownNotSupportedException()
+        {
+            // Setup
+            var converter = new DikeHeightCalculationTypeTypeConverter();
+
+            var invalidValue = (DikeHeightCalculationType) 9999999;
+
+            // Call
+            TestDelegate call = () => converter.ConvertTo(invalidValue, typeof(string));
+
+            // Assert
+            Assert.Throws<NotSupportedException>(call);
+        }
+
+        [Test]
+        public void ConvertTo_Object_ThrowNotSupportedException()
+        {
+            // Setup
+            var converter = new DikeHeightCalculationTypeTypeConverter();
+
+            // Call
+            TestDelegate call = () => converter.ConvertTo(DikeHeightCalculationType.NoCalculation, typeof(object));
+
+            // Assert
+            Assert.Throws<NotSupportedException>(call);
+        }
+
+        [Test]
         public void CanConvertFrom_String_ReturnTrue()
         {
             // Setup
@@ -120,6 +149,19 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
 
             // Assert
             Assert.AreEqual(expectedResult, result);
+        }
+
+        [Test]
+        public void ConvertFrom_UnsupportedString_ThrowNotSupportedException()
+        {
+            // Setup
+            var converter = new DikeHeightCalculationTypeTypeConverter();
+
+            // Call
+            TestDelegate call = () => converter.ConvertFrom("<unsupported string value>");
+
+            // Assert
+            Assert.Throws<NotSupportedException>(call);
         }
     }
 }

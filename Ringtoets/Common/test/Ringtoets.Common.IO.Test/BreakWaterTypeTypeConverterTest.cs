@@ -84,6 +84,20 @@ namespace Ringtoets.Common.IO.Test
         }
 
         [Test]
+        public void ConvertTo_InvalidBreakWaterType_ThrowNotSupportedException()
+        {
+            // Setup
+            var converter = new BreakWaterTypeTypeConverter();
+            var invalidValue = (BreakWaterType) 99999999;
+
+            // Call
+            TestDelegate call = () => converter.ConvertTo(invalidValue, typeof(string));
+
+            // Assert
+            Assert.Throws<NotSupportedException>(call);
+        }
+
+        [Test]
         public void CanConvertFrom_String_ReturnTrue()
         {
             // Setup

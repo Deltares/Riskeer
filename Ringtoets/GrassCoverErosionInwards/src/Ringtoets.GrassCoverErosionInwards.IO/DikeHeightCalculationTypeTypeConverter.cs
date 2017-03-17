@@ -36,7 +36,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO
         {
             if (destinationType == typeof(string))
             {
-                var dikeHeightCalculationType = (DikeHeightCalculationType)value;
+                var dikeHeightCalculationType = (DikeHeightCalculationType) value;
                 switch (dikeHeightCalculationType)
                 {
                     case DikeHeightCalculationType.NoCalculation:
@@ -45,6 +45,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO
                         return Resources.DikeHeightCalculationTypeTypeConverter_CalculateByAssessmentSectionNorm;
                     case DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability:
                         return Resources.DikeHeightCalculationTypeTypeConverter_CalculateByProfileSpecificRequiredProbability;
+                    default:
+                        throw new NotSupportedException();
                 }
             }
             return base.ConvertTo(context, culture, value, destinationType);
@@ -68,7 +70,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO
                 {
                     return DikeHeightCalculationType.NoCalculation;
                 }
-                if(text == Resources.DikeHeightCalculationTypeTypeConverter_CalculateByAssessmentSectionNorm)
+                if (text == Resources.DikeHeightCalculationTypeTypeConverter_CalculateByAssessmentSectionNorm)
                 {
                     return DikeHeightCalculationType.CalculateByAssessmentSectionNorm;
                 }

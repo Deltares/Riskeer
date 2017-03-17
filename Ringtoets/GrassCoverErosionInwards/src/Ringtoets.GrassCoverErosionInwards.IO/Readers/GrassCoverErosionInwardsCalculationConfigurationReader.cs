@@ -77,24 +77,19 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Readers
             var constructionProperties = new ReadGrassCoverErosionInwardsCalculation.ConstructionProperties
             {
                 Name = calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute)?.Value,
-                HydraulicBoundaryLocation = CalculationConfigurationReaderHelper.GetStringValueFromDescendantElement(calculationElement,
-                                                                                                                     ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement),
-                DikeProfile = CalculationConfigurationReaderHelper.GetStringValueFromDescendantElement(calculationElement,
-                                                                                                       GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeProfileElement),
+                HydraulicBoundaryLocation = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement),
+                DikeProfile = calculationElement.GetStringValueFromDescendantElement(GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeProfileElement),
                 Orientation = calculationElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.Orientation),
                 DikeHeight = calculationElement.GetDoubleValueFromDescendantElement(GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeHeightElement),
-                DikeHeightCalculationType = (DikeHeightCalculationType?) CalculationConfigurationReaderHelper.GetConvertedValueFromDescendantElement<DikeHeightCalculationTypeTypeConverter>(calculationElement,
-                                                                                                                                                                                             GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeHeightCalculationTypeElement),
-                UseBreakWater = CalculationConfigurationReaderHelper.GetBoolValueFromDescendantElement(calculationElement,
-                                                                                                       ConfigurationSchemaIdentifiers.UseBreakWater),
-                BreakWaterType = (BreakWaterType?) CalculationConfigurationReaderHelper.GetConvertedValueFromDescendantElement<BreakWaterTypeTypeConverter>(calculationElement,
-                                                                                                                                                            ConfigurationSchemaIdentifiers.BreakWaterType),
+                DikeHeightCalculationType = (DikeHeightCalculationType?) calculationElement.GetConvertedValueFromDescendantElement<DikeHeightCalculationTypeTypeConverter>(
+                    GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeHeightCalculationTypeElement),
+                UseBreakWater = calculationElement.GetBoolValueFromDescendantElement(ConfigurationSchemaIdentifiers.UseBreakWater),
+                BreakWaterType = (BreakWaterType?) calculationElement.GetConvertedValueFromDescendantElement<BreakWaterTypeTypeConverter>(ConfigurationSchemaIdentifiers.BreakWaterType),
                 BreakWaterHeight = calculationElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.BreakWaterHeight),
-                UseForeshore = CalculationConfigurationReaderHelper.GetBoolValueFromDescendantElement(calculationElement,
-                                                                                                      ConfigurationSchemaIdentifiers.UseForeshore)
+                UseForeshore = calculationElement.GetBoolValueFromDescendantElement(ConfigurationSchemaIdentifiers.UseForeshore)
             };
 
-            XElement criticalFlowRateElement = CalculationConfigurationReaderHelper.GetStochastElement(calculationElement, GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.CriticalFlowRateStochastName);
+            XElement criticalFlowRateElement = calculationElement.GetStochastElement(GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.CriticalFlowRateStochastName);
             if (criticalFlowRateElement != null)
             {
                 constructionProperties.CriticalFlowRateMean = criticalFlowRateElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.MeanElement);

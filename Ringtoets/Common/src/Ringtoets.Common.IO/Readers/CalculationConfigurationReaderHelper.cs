@@ -41,18 +41,12 @@ namespace Ringtoets.Common.IO.Readers
         /// <returns>The value of the element, or <c>null</c> when the <paramref name="parentElement"/>
         /// does not have descendant elements of <paramref name="descendantElementName"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="FormatException">Thrown when the value isn't in the correct format.</exception>
+        /// <exception cref="OverflowException">Thrown when the value represents a number
+        /// less than <see cref="double.MinValue"/> or greater than <see cref="double.MaxValue"/>.</exception>
         public static double? GetDoubleValueFromDescendantElement(this XElement parentElement, string descendantElementName)
         {
-            if (parentElement == null)
-            {
-                throw new ArgumentNullException(nameof(parentElement));
-            }
-            if (descendantElementName == null)
-            {
-                throw new ArgumentNullException(nameof(descendantElementName));
-            }
-
-            XElement descendantElement = GetDescendantElement(parentElement, descendantElementName);
+            XElement descendantElement = parentElement.GetDescendantElement(descendantElementName);
 
             return descendantElement != null
                        ? (double?) XmlConvert.ToDouble(descendantElement.Value)
@@ -67,18 +61,9 @@ namespace Ringtoets.Common.IO.Readers
         /// <returns>The value of the element, or <c>null</c> when the <paramref name="parentElement"/>
         /// does not have descendant elements of <paramref name="descendantElementName"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static string GetStringValueFromDescendantElement(XElement parentElement, string descendantElementName)
+        public static string GetStringValueFromDescendantElement(this XElement parentElement, string descendantElementName)
         {
-            if (parentElement == null)
-            {
-                throw new ArgumentNullException(nameof(parentElement));
-            }
-            if (descendantElementName == null)
-            {
-                throw new ArgumentNullException(nameof(descendantElementName));
-            }
-
-            XElement descendantElement = GetDescendantElement(parentElement, descendantElementName);
+            XElement descendantElement = parentElement.GetDescendantElement(descendantElementName);
 
             return descendantElement?.Value;
         }
@@ -91,9 +76,10 @@ namespace Ringtoets.Common.IO.Readers
         /// <returns>The <see cref="bool"/> value, or <c>null</c> when the <paramref name="parentElement"/>
         /// does not have descendant elements of <paramref name="descendantElementName"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static bool? GetBoolValueFromDescendantElement(XElement parentElement, string descendantElementName)
+        /// <exception cref="FormatException">Thrown when the value does not represent a <see cref="bool"/> value.</exception>
+        public static bool? GetBoolValueFromDescendantElement(this XElement parentElement, string descendantElementName)
         {
-            XElement descendantElement = GetDescendantElement(parentElement, descendantElementName);
+            XElement descendantElement = parentElement.GetDescendantElement(descendantElementName);
 
             return descendantElement != null
                        ? (bool?) XmlConvert.ToBoolean(descendantElement.Value)
@@ -109,9 +95,10 @@ namespace Ringtoets.Common.IO.Readers
         /// <returns>The converted value, or <c>null</c> when the <paramref name="parentElement"/>
         /// does not have descendant elements of <paramref name="descendantElementName"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static object GetConvertedValueFromDescendantElement<TConverter>(XElement parentElement, string descendantElementName) where TConverter : TypeConverter, new()
+        /// <exception cref="NotSupportedException">Thrown when the conversion cannot be performed.</exception>
+        public static object GetConvertedValueFromDescendantElement<TConverter>(this XElement parentElement, string descendantElementName) where TConverter : TypeConverter, new()
         {
-            string stringValue = GetStringValueFromDescendantElement(parentElement, descendantElementName);
+            string stringValue = parentElement.GetStringValueFromDescendantElement(descendantElementName);
             if (stringValue == null)
             {
                 return null;
@@ -127,7 +114,7 @@ namespace Ringtoets.Common.IO.Readers
         /// <returns>The stochast element, or <c>null</c> when the <paramref name="parentElement"/>
         /// does not have stochast elements with the name <paramref name="stochastName"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static XElement GetStochastElement(XElement parentElement, string stochastName)
+        public static XElement GetStochastElement(this XElement parentElement, string stochastName)
         {
             if (parentElement == null)
             {
@@ -152,7 +139,7 @@ namespace Ringtoets.Common.IO.Readers
         /// <returns>The element, or <c>null</c> when the <paramref name="parentElement"/>
         /// does not have descendant elements of <paramref name="descendantElementName"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static XElement GetDescendantElement(XElement parentElement, string descendantElementName)
+        public static XElement GetDescendantElement(this XElement parentElement, string descendantElementName)
         {
             if (parentElement == null)
             {

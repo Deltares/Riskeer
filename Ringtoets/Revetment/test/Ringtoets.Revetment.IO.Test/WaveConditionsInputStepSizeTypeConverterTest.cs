@@ -85,6 +85,19 @@ namespace Ringtoets.Revetment.IO.Test
         }
 
         [Test]
+        public void ConvertTo_Object_ThrowNotSupportedException()
+        {
+            // Setup
+            var converter = new WaveConditionsInputStepSizeTypeConverter();
+
+            // Call
+            TestDelegate call = () => converter.ConvertTo(WaveConditionsInputStepSize.Half, typeof(object));
+
+            // Assert
+            Assert.Throws<NotSupportedException>(call);
+        }
+
+        [Test]
         public void CanConvertFrom_String_ReturnTrue()
         {
             // Setup

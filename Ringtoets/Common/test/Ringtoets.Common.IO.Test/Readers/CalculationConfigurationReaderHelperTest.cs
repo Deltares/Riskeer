@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Xml;
 using System.Xml.Linq;
 using NUnit.Framework;
@@ -101,8 +102,11 @@ namespace Ringtoets.Common.IO.Test.Readers
         [Test]
         public void GetStringValueFromDescendantElement_ParentElementNull_ThrowArgumentNullException()
         {
+            // Setup
+            XElement element = null;
+
             // Call
-            TestDelegate test = () => CalculationConfigurationReaderHelper.GetStringValueFromDescendantElement(null, "");
+            TestDelegate test = () => element.GetStringValueFromDescendantElement("");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -113,7 +117,7 @@ namespace Ringtoets.Common.IO.Test.Readers
         public void GetStringValueFromDescendantElement_DescendantElementNameNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => CalculationConfigurationReaderHelper.GetStringValueFromDescendantElement(new XElement("Test"), null);
+            TestDelegate test = () => new XElement("Test").GetStringValueFromDescendantElement(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -130,7 +134,7 @@ namespace Ringtoets.Common.IO.Test.Readers
             var element = new XElement("Root", new XElement(descendantElementName, descendantElementValue));
 
             // Call
-            string readValue = CalculationConfigurationReaderHelper.GetStringValueFromDescendantElement(element, descendantElementName);
+            string readValue = element.GetStringValueFromDescendantElement(descendantElementName);
 
             // Assert
             Assert.AreEqual(descendantElementValue, readValue);
@@ -143,7 +147,7 @@ namespace Ringtoets.Common.IO.Test.Readers
             var element = new XElement("Root", new XElement("number", "valueText"));
 
             // Call
-            string readValue = CalculationConfigurationReaderHelper.GetStringValueFromDescendantElement(element, "invalidName");
+            string readValue = element.GetStringValueFromDescendantElement("invalidName");
 
             // Assert
             Assert.IsNull(readValue);
@@ -152,8 +156,11 @@ namespace Ringtoets.Common.IO.Test.Readers
         [Test]
         public void GetBoolValueFromDescendantElement_ParentElementNull_ThrowArgumentNullException()
         {
+            // Setup
+            XElement element = null;
+
             // Call
-            TestDelegate test = () => CalculationConfigurationReaderHelper.GetBoolValueFromDescendantElement(null, "");
+            TestDelegate test = () => element.GetBoolValueFromDescendantElement("");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -167,7 +174,7 @@ namespace Ringtoets.Common.IO.Test.Readers
             var element = new XElement("Root");
 
             // Call
-            TestDelegate test = () => CalculationConfigurationReaderHelper.GetBoolValueFromDescendantElement(element, null);
+            TestDelegate test = () => element.GetBoolValueFromDescendantElement(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -186,7 +193,7 @@ namespace Ringtoets.Common.IO.Test.Readers
             var element = new XElement("Root", new XElement(descendantElementName, elementValue));
 
             // Call
-            bool? readValue = CalculationConfigurationReaderHelper.GetBoolValueFromDescendantElement(element, descendantElementName);
+            bool? readValue = element.GetBoolValueFromDescendantElement(descendantElementName);
 
             // Assert
             Assert.AreEqual(booleanValue, readValue);
@@ -201,7 +208,68 @@ namespace Ringtoets.Common.IO.Test.Readers
             var element = new XElement("Root", new XElement("booleanValue", elementValue));
 
             // Call
-            bool? readValue = CalculationConfigurationReaderHelper.GetBoolValueFromDescendantElement(element, "unmatchingChildElementName");
+            bool? readValue = element.GetBoolValueFromDescendantElement("unmatchingChildElementName");
+
+            // Assert
+            Assert.IsNull(readValue);
+        }
+
+        [Test]
+        public void GetConvertedValueFromDescendantElement_ParentElementNull_ThrowArgumentNullException()
+        {
+            // Setup
+            XElement element = null;
+
+            // Call
+            TestDelegate test = () => element.GetConvertedValueFromDescendantElement<TypeConverter>("");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("parentElement", exception.ParamName);
+        }
+
+        [Test]
+        public void GetConvertedValueFromDescendantElement_DescendantElementNameNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var element = new XElement("Root");
+
+            // Call
+            TestDelegate test = () => element.GetConvertedValueFromDescendantElement<TypeConverter>(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("descendantElementName", exception.ParamName);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GetConvertedValueFromDescendantElement_ValidDescendantElement_ReturnValue(bool value)
+        {
+            // Setup
+            const string descendantElementName = "value";
+            string elementValue = XmlConvert.ToString(value);
+
+            var element = new XElement("Root", new XElement(descendantElementName, elementValue));
+
+            // Call
+            object readValue = element.GetConvertedValueFromDescendantElement<BooleanConverter>(descendantElementName);
+
+            // Assert
+            Assert.AreEqual(value, readValue);
+        }
+
+        [Test]
+        public void GetConvertedValueFromDescendantElement_UnmatchedDescendantElement_ReturnNull()
+        {
+            // Setup
+            string elementValue = XmlConvert.ToString(true);
+
+            var element = new XElement("Root", new XElement("value", elementValue));
+
+            // Call
+            object readValue = element.GetConvertedValueFromDescendantElement<TypeConverter>("unmatchingChildElementName");
 
             // Assert
             Assert.IsNull(readValue);
@@ -210,8 +278,11 @@ namespace Ringtoets.Common.IO.Test.Readers
         [Test]
         public void GetStochastElement_ParentElementNull_ThrowArgumentNullException()
         {
+            // Setup
+            XElement element = null;
+
             // Call
-            TestDelegate test = () => CalculationConfigurationReaderHelper.GetStochastElement(null, "");
+            TestDelegate test = () => element.GetStochastElement("");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -225,7 +296,7 @@ namespace Ringtoets.Common.IO.Test.Readers
             var element = new XElement("Root");
 
             // Call
-            TestDelegate test = () => CalculationConfigurationReaderHelper.GetStochastElement(element, null);
+            TestDelegate test = () => element.GetStochastElement(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -239,7 +310,7 @@ namespace Ringtoets.Common.IO.Test.Readers
             var element = new XElement("Root");
 
             // Call
-            XElement stochastElement = CalculationConfigurationReaderHelper.GetStochastElement(element, "stochast_name");
+            XElement stochastElement = element.GetStochastElement("stochast_name");
 
             // Assert
             Assert.IsNull(stochastElement);
@@ -253,7 +324,7 @@ namespace Ringtoets.Common.IO.Test.Readers
             var element = new XElement("Root", stochastsElements);
 
             // Call
-            XElement stochastElement = CalculationConfigurationReaderHelper.GetStochastElement(element, "stochast_name");
+            XElement stochastElement = element.GetStochastElement("stochast_name");
 
             // Assert
             Assert.IsNull(stochastElement);
@@ -276,7 +347,7 @@ namespace Ringtoets.Common.IO.Test.Readers
             var element = new XElement("Root", stochastsElements);
 
             // Call
-            XElement stochastElement = CalculationConfigurationReaderHelper.GetStochastElement(element, "stochast_name");
+            XElement stochastElement = element.GetStochastElement("stochast_name");
 
             // Assert
             Assert.IsNull(stochastElement);
@@ -304,7 +375,7 @@ namespace Ringtoets.Common.IO.Test.Readers
             var element = new XElement("Root", stochastsElements);
 
             // Call
-            XElement stochastElement = CalculationConfigurationReaderHelper.GetStochastElement(element, stochastName);
+            XElement stochastElement = element.GetStochastElement(stochastName);
 
             // Assert
             Assert.AreSame(stochastElementToMatch, stochastElement);
@@ -313,8 +384,11 @@ namespace Ringtoets.Common.IO.Test.Readers
         [Test]
         public void GetDescendantElement_ParentElementNull_ThrowArgumentNullException()
         {
+            // Setup
+            XElement element = null;
+
             // Call
-            TestDelegate test = () => CalculationConfigurationReaderHelper.GetDescendantElement(null, "");
+            TestDelegate test = () => element.GetDescendantElement("");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -325,7 +399,7 @@ namespace Ringtoets.Common.IO.Test.Readers
         public void GetDescendantElement_DescendantElementNameNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => CalculationConfigurationReaderHelper.GetDescendantElement(new XElement("Test"), null);
+            TestDelegate test = () => new XElement("Test").GetDescendantElement(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -337,7 +411,7 @@ namespace Ringtoets.Common.IO.Test.Readers
         public void GetDescendantElement_ValidDescendantName_ReturnElement(XElement parentElement)
         {
             // Call
-            XElement element = CalculationConfigurationReaderHelper.GetDescendantElement(parentElement, "descendant");
+            XElement element = parentElement.GetDescendantElement("descendant");
 
             // Assert
             Assert.IsNotNull(element);
@@ -351,7 +425,7 @@ namespace Ringtoets.Common.IO.Test.Readers
             var parentElement = new XElement("Root", new XElement("Child", new XElement("descendant")));
 
             // Call
-            XElement element = CalculationConfigurationReaderHelper.GetDescendantElement(parentElement, "something_else");
+            XElement element = parentElement.GetDescendantElement("something_else");
 
             // Assert
             Assert.IsNull(element);
