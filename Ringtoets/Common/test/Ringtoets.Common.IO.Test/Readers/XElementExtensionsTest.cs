@@ -31,7 +31,7 @@ using Ringtoets.Common.IO.Schema;
 namespace Ringtoets.Common.IO.Test.Readers
 {
     [TestFixture]
-    public class CalculationConfigurationReaderHelperTest
+    public class XElementExtensionsTest
     {
         private static IEnumerable<TestCaseData> XElements
         {

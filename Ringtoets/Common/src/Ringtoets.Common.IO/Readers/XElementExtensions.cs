@@ -29,9 +29,9 @@ using Ringtoets.Common.IO.Schema;
 namespace Ringtoets.Common.IO.Readers
 {
     /// <summary>
-    /// Helper methods related to <see cref="CalculationConfigurationReader{TReadCalculation}"/> instances.
+    /// Extensions methods for <see cref="XElement"/>.
     /// </summary>
-    public static class CalculationConfigurationReaderHelper
+    public static class XElementExtensions
     {
         /// <summary>
         /// Gets the <see cref="double"/> value from a descendant element.
