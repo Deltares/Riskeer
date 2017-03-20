@@ -167,9 +167,13 @@ namespace Application.Ringtoets.Storage
                 byte[] hash = FingerprintHelper.Get(stagedProject.Entity);
                 return !FingerprintHelper.AreEqual(originalHash, hash);
             }
-            catch (QuotaExceededException e)
+            catch (CannotDetermineFingerprintException e)
             {
-                throw new StorageException(Resources.StorageSqLite_HasStagedProjectChanges_Project_contains_too_many_objects_to_generate_fingerprint, e);
+                if (e.InnerException is QuotaExceededException)
+                {
+                    throw new StorageException(Resources.StorageSqLite_HasStagedProjectChanges_Project_contains_too_many_objects_to_generate_fingerprint, e);
+                }
+                throw new StorageException(e.Message, e);
             }
         }
 
@@ -193,7 +197,7 @@ namespace Application.Ringtoets.Storage
                 {
                     throw CreateStorageWriterException(databaseFilePath, Resources.Error_saving_database, exception);
                 }
-                catch (QuotaExceededException exception)
+                catch (CannotDetermineFingerprintException exception)
                 {
                     throw CreateStorageWriterException(databaseFilePath, exception.Message, exception);
                 }

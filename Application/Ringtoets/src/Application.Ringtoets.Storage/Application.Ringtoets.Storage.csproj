@@ -299,6 +299,7 @@
     <Compile Include="DbContext\WaveImpactAsphaltCoverWaveConditionsOutputEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Exceptions\CannotDetermineFingerprintException.cs" />
     <Compile Include="Read\BackgroundDataMetaEntityReadExtensions.cs" />
     <Compile Include="Read\ClosingStructures\ClosingStructureEntityReadExtensions.cs" />
     <Compile Include="Read\ClosingStructures\ClosingStructuresCalculationEntityReadExtensions.cs" />

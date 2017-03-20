@@ -160,4 +160,7 @@
   <data name="DatabaseStructure" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\..\..\..\..\build\databasestructure.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="FingerprintHelper_Critical_error_message" xml:space="preserve">
+    <value>Een kritieke fout voorkomt dat een vingerafdruk van de projectdata gemaakt kan worden.</value>
+  </data>
 </root>

@@ -138,6 +138,15 @@ namespace Application.Ringtoets.Storage.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Een kritieke fout voorkomt dat een vingerafdruk van de projectdata gemaakt kan worden..
+        /// </summary>
+        internal static string FingerprintHelper_Critical_error_message {
+            get {
+                return ResourceManager.GetString("FingerprintHelper_Critical_error_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ringtoetsproject (*.rtd)|*.rtd.
         /// </summary>
         internal static string Ringtoets_project_file_filter {

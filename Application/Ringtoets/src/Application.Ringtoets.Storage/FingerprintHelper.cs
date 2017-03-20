@@ -27,6 +27,8 @@ using System.Security.Cryptography;
 using System.ServiceModel;
 using System.Xml;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.Exceptions;
+using Application.Ringtoets.Storage.Properties;
 
 namespace Application.Ringtoets.Storage
 {
@@ -42,8 +44,8 @@ namespace Application.Ringtoets.Storage
         /// <param name="entity">The <see cref="ProjectEntity"/> to generate a hashcode for.</param>
         /// <returns>The binary hashcode for <paramref name="entity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
-        /// <exception cref="QuotaExceededException">Thrown when <paramref name="entity"/>
-        /// contains more than <see cref="int.MaxValue"/> unique object instances.</exception>
+        /// <exception cref="CannotDetermineFingerprintException">Thrown when a critical
+        /// error occurs when trying to determine the fingerprint.</exception>
         public static byte[] Get(ProjectEntity entity)
         {
             if (entity == null)
@@ -51,8 +53,40 @@ namespace Application.Ringtoets.Storage
                 throw new ArgumentNullException(nameof(entity));
             }
 
+            try
+            {
+                string filePath = Path.GetTempFileName();
+
+                byte[] computeHash = ComputeHash(entity, filePath);
+
+                File.Delete(filePath);
+
+                return computeHash;
+            }
+            catch (Exception e) when(e is UnauthorizedAccessException || e is IOException || e is QuotaExceededException)
+            {
+                throw new CannotDetermineFingerprintException(Resources.FingerprintHelper_Critical_error_message, e);
+            }
+        }
+
+        /// <summary>
+        /// While using a target file as storage, determines the fingerprint for the given
+        /// <see cref="ProjectEntity"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="ProjectEntity"/> to generate a hashcode for.</param>
+        /// <param name="filePath">The filepath to use as temporary storage.</param>
+        /// <returns>The binary hashcode for <paramref name="entity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
+        /// <exception cref="QuotaExceededException">Thrown when <paramref name="entity"/>
+        /// contains more than <see cref="int.MaxValue"/> unique object instances.</exception>
+        /// <exception cref="UnauthorizedAccessException">The caller does not have the
+        /// required permissions or <paramref name="filePath"/> is read-only.</exception>
+        /// <exception cref="IOException">An I/O exception occurred while creating the file
+        /// at <paramref name="filePath"/>.</exception>
+        private static byte[] ComputeHash(ProjectEntity entity, string filePath)
+        {
             using (HashAlgorithm hashingAlgorithm = MD5.Create())
-            using (var stream = new MemoryStream())
+            using (FileStream stream = File.Create(filePath))
             using (XmlDictionaryWriter writer = XmlDictionaryWriter.CreateBinaryWriter(stream))
             {
                 var serializer = new DataContractSerializer(entity.GetType(),
@@ -60,7 +94,8 @@ namespace Application.Ringtoets.Storage
                                                             int.MaxValue, false, true, null);
                 serializer.WriteObject(writer, entity);
                 writer.Flush();
-                return hashingAlgorithm.ComputeHash(stream.ToArray());
+                stream.Seek(0, SeekOrigin.Begin);
+                return hashingAlgorithm.ComputeHash(stream);
             }
         }
 
