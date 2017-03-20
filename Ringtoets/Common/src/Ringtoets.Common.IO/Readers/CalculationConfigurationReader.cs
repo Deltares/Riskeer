@@ -167,13 +167,10 @@ namespace Ringtoets.Common.IO.Readers
                 throw new ArgumentException($"'{nameof(mainSchemaDefinition)}' does not reference the default schema '{defaultSchemaName}'.");
             }
 
-            var combinedXmlSchemaDefinition = new CombinedXmlSchemaDefinition(
-                mainSchemaDefinition,
-                nestedSchemaDefinitions.Concat(new[]
-                                       {
-                                           new KeyValuePair<string, string>(defaultSchemaName, Resources.ConfiguratieSchema)
-                                       })
-                                       .ToDictionary(kv => kv.Key, kv => kv.Value));
+            IDictionary<string, string> extendedNestedSchemaDefinitions = new Dictionary<string, string>(nestedSchemaDefinitions);
+            extendedNestedSchemaDefinitions.Add(defaultSchemaName, Resources.ConfiguratieSchema);
+
+            var combinedXmlSchemaDefinition = new CombinedXmlSchemaDefinition(mainSchemaDefinition, extendedNestedSchemaDefinitions);
 
             try
             {
