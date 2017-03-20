@@ -276,7 +276,57 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             CollectionAssert.IsEmpty(strategy.RemoveDataCallArguments);
 
             CollectionAssert.AreEqual(currentCollection, collection);
-            CollectionAssert.AreEqual(currentCollection, affectedObjects);
+            CollectionAssert.AreEqual(new IObservable[]
+            {
+                collection,
+                currentCollection[0],
+                currentCollection[1]
+            }, affectedObjects);
+        }
+
+        [Test]
+        public void UpdateTargetCollectionData_CollectionNotEmptyAndNoPathAndImportedDataFullyOverlaps_UpdatesCollectionAndFilePath()
+        {
+            // Setup
+            const string itemOneName = "Item one";
+            const string itemTwoName = "Item Two";
+
+            var currentCollection = new[]
+            {
+                new TestItem(itemOneName),
+                new TestItem(itemTwoName)
+            };
+            var collection = new TestUniqueItemCollection();
+            collection.AddRange(currentCollection, "Onbekend");
+
+            var importedItems = new[]
+            {
+                currentCollection[0].DeepClone(),
+                currentCollection[1].DeepClone()
+            };
+
+            var strategy = new ConcreteUpdateDataStrategy(new TestFailureMechanism());
+            strategy.ItemsToUpdate = currentCollection;
+
+            const string newSourceFilePath = "Something/Different/From/Onbekend";
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = strategy.ConcreteUpdateData(collection,
+                                                                                   importedItems,
+                                                                                   newSourceFilePath);
+
+            // Assert
+            Assert.IsTrue(strategy.IsUpdateDataCalled);
+            Assert.IsFalse(strategy.IsRemoveObjectAndDependentDataCalled);
+
+            Assert.AreEqual(newSourceFilePath, collection.SourcePath);
+            CollectionAssert.AreEqual(currentCollection, collection);
+            CollectionAssert.AreEqual(new IObservable[]
+            {
+                collection,
+                currentCollection[0],
+                currentCollection[1]
+            }, affectedObjects);
         }
 
         [Test]
@@ -420,8 +470,9 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
                                                                                    importedItems,
                                                                                    "path");
 
-            IEnumerable<IObservable> expectedAffectedObjects = new[]
+            IEnumerable<IObservable> expectedAffectedObjects = new IObservable[]
             {
+                collection,
                 itemOne,
                 itemTwo
             };

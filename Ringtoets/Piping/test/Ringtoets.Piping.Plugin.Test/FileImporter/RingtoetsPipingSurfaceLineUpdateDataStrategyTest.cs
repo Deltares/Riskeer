@@ -460,8 +460,9 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.AreSame(targetSurfaceLine, targetCollection[0]);
             Assert.AreEqual(readSurfaceLine, targetSurfaceLine);
 
-            CollectionAssert.AreEqual(new[]
+            CollectionAssert.AreEqual(new IObservable[]
             {
+                targetCollection,
                 targetSurfaceLine
             }, affectedObjects);
         }
@@ -702,6 +703,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             CollectionAssert.AreEquivalent(new IObservable[]
             {
+                collection,
                 affectedCalculation,
                 affectedInput,
                 affectedSurfaceLine
@@ -777,6 +779,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             PipingInput calculationInput = calculation.InputParameters;
             CollectionAssert.AreEquivalent(new IObservable[]
             {
+                failureMechanism.SurfaceLines,
                 surfaceLine,
                 calculationInput
             }, affectedObjects);
@@ -867,6 +870,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             PipingInput calculationInput = calculation.InputParameters;
             CollectionAssert.AreEquivalent(new IObservable[]
             {
+                failureMechanism.SurfaceLines,
                 surfaceLine,
                 calculationInput
             }, affectedObjects);
@@ -1082,6 +1086,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             PipingInput affectedInput = affectedCalculation.InputParameters;
             CollectionAssert.AreEquivalent(new IObservable[]
             {
+                failureMechanism.SurfaceLines,
                 affectedInput,
                 affectedSurfaceLine
             }, affectedObjects);
@@ -1141,6 +1146,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Assert
             CollectionAssert.AreEquivalent(new IObservable[]
             {
+                failureMechanism.SurfaceLines,
                 affectedSurfaceLine,
                 affectedCalculation.InputParameters
             }, affectedObjects);
@@ -1209,6 +1215,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             CollectionAssert.AreEquivalent(new IObservable[]
             {
+                collection,
                 affectedCalculation,
                 affectedInput,
                 affectedSurfaceLine
@@ -1280,6 +1287,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             CollectionAssert.AreEquivalent(new IObservable[]
             {
+                collection,
                 affectedCalculation,
                 affectedInput,
                 affectedSurfaceLine
