@@ -105,19 +105,22 @@ namespace Ringtoets.Revetment.IO.Writers
 
         private static void WriteWaveReduction(WaveConditionsInput input, XmlWriter writer)
         {
-            writer.WriteStartElement(ConfigurationSchemaIdentifiers.WaveReduction);
+            if (input.ForeshoreProfile != null)
+            {
+                writer.WriteStartElement(ConfigurationSchemaIdentifiers.WaveReduction);
 
-            writer.WriteElementString(
-                ConfigurationSchemaIdentifiers.UseBreakWater,
-                XmlConvert.ToString(input.UseBreakWater));
+                writer.WriteElementString(
+                    ConfigurationSchemaIdentifiers.UseBreakWater,
+                    XmlConvert.ToString(input.UseBreakWater));
 
-            WriteBreakWaterProperties(input.BreakWater, writer);
+                WriteBreakWaterProperties(input.BreakWater, writer);
 
-            writer.WriteElementString(
-                ConfigurationSchemaIdentifiers.UseForeshore,
-                XmlConvert.ToString(input.UseForeshore));
+                writer.WriteElementString(
+                    ConfigurationSchemaIdentifiers.UseForeshore,
+                    XmlConvert.ToString(input.UseForeshore));
 
-            writer.WriteEndElement();
+                writer.WriteEndElement();
+            }
         }
     }
 }

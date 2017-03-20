@@ -25,12 +25,6 @@
         <ondergrenswaterstanden>NaN</ondergrenswaterstanden>
         <stapgrootte>0.5</stapgrootte>
         <orientatie>NaN</orientatie>
-        <golfreductie>
-          <damgebruiken>true</damgebruiken>
-          <damtype>havendam</damtype>
-          <damhoogte>0</damhoogte>
-          <voorlandgebruiken>false</voorlandgebruiken>
-        </golfreductie>
       </berekening>
     </map>
   </map>
