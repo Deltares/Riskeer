@@ -29,6 +29,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Revetment.IO.Importers;
@@ -107,8 +108,32 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ImportInfos
             mocks.ReplayAll();
 
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(new CalculationGroup(),
-                                                                                             failureMechanism,
-                                                                                             assessmentSection);
+                                                                                          failureMechanism,
+                                                                                          assessmentSection);
+
+            // Call
+            bool isEnabled = importInfo.IsEnabled(context);
+
+            // Assert
+            Assert.IsFalse(isEnabled);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void IsEnabled_HydraulicBoundaryDatabaseWithoutLocations_ReturnFalse()
+        {
+            // Setup
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+
+            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(new CalculationGroup(),
+                                                                                          failureMechanism,
+                                                                                          assessmentSection);
 
             // Call
             bool isEnabled = importInfo.IsEnabled(context);
@@ -129,8 +154,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ImportInfos
             mocks.ReplayAll();
 
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(new CalculationGroup(),
-                                                                                             failureMechanism,
-                                                                                             assessmentSection);
+                                                                                          failureMechanism,
+                                                                                          assessmentSection);
 
             // Call
             bool isEnabled = importInfo.IsEnabled(context);
@@ -151,8 +176,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ImportInfos
             mocks.ReplayAll();
 
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(new CalculationGroup(),
-                                                                                             failureMechanism,
-                                                                                             assessmentSection);
+                                                                                          failureMechanism,
+                                                                                          assessmentSection);
 
             // Call
             IFileImporter importer = importInfo.CreateFileImporter(context, "");

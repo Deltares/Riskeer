@@ -70,9 +70,14 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
         private const int contextMenuAddCalculationGroupIndexNestedGroup = 3;
         private const int contextMenuAddCalculationIndexNestedGroup = 4;
+        private const int contextMenuRenameCalculationGroundIndexNestedGroup = 6;
         private const int contextMenuValidateAllIndexNestedGroup = 7;
         private const int contextMenuCalculateAllIndexNestedGroup = 8;
         private const int contextMenuClearOutputIndexNestedGroup = 10;
+        private const int contextMenuRemoveElementIndexNestedGroup = 11;
+        private const int contextMenuCollapseAllIndexNestedGroup = 13;
+        private const int contextMenuExpandAllIndexNestedGroup = 14;
+        private const int contextMenuPropertiesIndexNestedGroup = 16;
 
         private MockRepository mocks;
         private WaveImpactAsphaltCoverPlugin plugin;
@@ -279,7 +284,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                               "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
                                                               RingtoetsCommonFormsResources.FailureMechanismIcon);
 
-                TestHelper.AssertContextMenuStripContainsItem(menu, 6,
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRenameCalculationGroundIndexNestedGroup,
                                                               "&Hernoemen",
                                                               "Wijzig de naam van dit element.",
                                                               CoreCommonGuiResources.RenameIcon);
@@ -299,23 +304,23 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                               RingtoetsCommonFormsResources.ClearIcon,
                                                               false);
 
-                TestHelper.AssertContextMenuStripContainsItem(menu, 11,
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRemoveElementIndexNestedGroup,
                                                               "Verwij&deren...",
                                                               "Verwijder dit element uit de boom.",
                                                               CoreCommonGuiResources.DeleteIcon);
 
-                TestHelper.AssertContextMenuStripContainsItem(menu, 13,
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCollapseAllIndexNestedGroup,
                                                               "Alles i&nklappen",
                                                               "Klap dit element en alle onderliggende elementen in.",
                                                               CoreCommonGuiResources.CollapseAllIcon,
                                                               false);
-                TestHelper.AssertContextMenuStripContainsItem(menu, 14,
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExpandAllIndexNestedGroup,
                                                               "Alles ui&tklappen",
                                                               "Klap dit element en alle onderliggende elementen uit.",
                                                               CoreCommonGuiResources.ExpandAllIcon,
                                                               false);
 
-                TestHelper.AssertContextMenuStripContainsItem(menu, 16,
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuPropertiesIndexNestedGroup,
                                                               "Ei&genschappen",
                                                               "Toon de eigenschappen in het Eigenschappenpaneel.",
                                                               CoreCommonGuiResources.PropertiesHS,
