@@ -64,7 +64,6 @@
     <Compile Include="DikeProfiles\DikeProfileDataTest.cs" />
     <Compile Include="DikeProfiles\ProfileLocationReaderTest.cs" />
     <Compile Include="DikeProfiles\ProfileLocationTest.cs" />
-    <Compile Include="Exceptions\CalculationParseExceptionTest.cs" />
     <Compile Include="Exceptions\CriticalFileValidationExceptionTest.cs" />
     <Compile Include="Exporters\CalculationConfigurationExporterTest.cs" />
     <Compile Include="FileImporters\CalculationConfigurationImporterTest.cs" />
