@@ -29,8 +29,6 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Properties;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
-using BaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Ringtoets.Common.Forms.TreeNodeInfos
 {

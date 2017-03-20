@@ -74,6 +74,7 @@
     <Compile Include="Helpers\NamingHelperTest.cs" />
     <Compile Include="Helpers\ProbabilityFormattingHelperTest.cs" />
     <Compile Include="Helpers\SelectableHydraulicBoundaryLocationHelperTest.cs" />
+    <Compile Include="ImportInfos\RingtoetsImportInfoFactoryTest.cs" />
     <Compile Include="PresentationObjects\InputContextBaseTest.cs" />
     <Compile Include="PresentationObjects\FailureMechanismContextTest.cs" />
     <Compile Include="PresentationObjects\CategoryTreeFolderTest.cs" />
