@@ -34,6 +34,9 @@ namespace Ringtoets.Common.IO.Exporters
     /// <summary>
     /// Base class for exporting a calculation configuration and storing it as an XML file.
     /// </summary>
+    /// <typeparam name="TWriter">The <see cref="CalculationConfigurationWriter{T}"/> 
+    /// to use for exporting <see cref="TCalculation"/>.</typeparam>
+    /// <typeparam name="TCalculation">The <see cref="TCalculation"/> type to export.</typeparam>
     public abstract class CalculationConfigurationExporter<TWriter, TCalculation> : IFileExporter
         where TCalculation : class, ICalculation
         where TWriter : CalculationConfigurationWriter<TCalculation>, new()

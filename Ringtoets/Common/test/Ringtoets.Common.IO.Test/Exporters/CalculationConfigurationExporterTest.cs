@@ -19,72 +19,30 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Security.AccessControl;
 using System.Xml;
-using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.Exporters;
+using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.Common.IO.Writers;
 
 namespace Ringtoets.Common.IO.Test.Exporters
 {
     [TestFixture]
     public class CalculationConfigurationExporterTest
+        : CustomCalculationConfigurationExporterDesignGuidelinesTestFixture<
+            SimpleCalculationConfigurationExporter,
+            SimpleCalculationConfigurationWriter,
+            TestCalculation>
     {
-        [Test]
-        public void Constructor_ExpectedValues()
-        {
-            // Call
-            var exporter = new SimpleCalculationConfigurationExporter(Enumerable.Empty<ICalculationBase>(), "test.xml");
-
-            // Assert
-            Assert.IsInstanceOf<IFileExporter>(exporter);
-        }
-
-        [Test]
-        public void Constructor_ConfigurationNull_ThrowArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new SimpleCalculationConfigurationExporter(null, "test.xml");
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("configuration", exception.ParamName);
-        }
-
-        [Test]
-        [TestCase("")]
-        [TestCase("   ")]
-        [TestCase("c:\\>")]
-        public void Constructor_FilePathInvalid_ThrowArgumentException(string filePath)
-        {
-            // Call
-            TestDelegate test = () => new SimpleCalculationConfigurationExporter(Enumerable.Empty<ICalculationBase>(), filePath);
-
-            // Assert
-            Assert.Throws<ArgumentException>(test);
-        }
-
         [Test]
         public void Export_ValidData_ReturnTrueAndWritesFile()
         {
             // Setup
-            string targetFilePath = TestHelper.GetScratchPadPath($"{nameof(Export_ValidData_ReturnTrueAndWritesFile)}.xml");
-
-            string testFileSubPath = Path.Combine(
-                nameof(CalculationConfigurationExporter<SimpleCalculationConfigurationWriter, TestCalculation>),
-                "folderWithSubfolderAndCalculation.xml");
-            string expectedXmlFilePath = TestHelper.GetTestDataPath(
-                TestDataPath.Ringtoets.Common.IO,
-                testFileSubPath);
-
             var calculation = new TestCalculation("Calculation A");
             var calculation2 = new TestCalculation("Calculation B");
 
@@ -105,57 +63,23 @@ namespace Ringtoets.Common.IO.Test.Exporters
                 }
             };
 
-            var exporter = new SimpleCalculationConfigurationExporter(new[]
+            string testFileSubPath = Path.Combine(
+                nameof(CalculationConfigurationExporter<SimpleCalculationConfigurationWriter, TestCalculation>),
+                "folderWithSubfolderAndCalculation.xml");
+            string expectedXmlFilePath = TestHelper.GetTestDataPath(
+                TestDataPath.Ringtoets.Common.IO,
+                testFileSubPath);
+
+            // Call and Assert
+            WriteAndValidate(new[]
             {
                 calculationGroup
-            }, targetFilePath);
-
-            try
-            {
-                // Call
-                bool isExported = exporter.Export();
-
-                // Assert
-                Assert.IsTrue(isExported);
-                Assert.IsTrue(File.Exists(targetFilePath));
-
-                string actualXml = File.ReadAllText(targetFilePath);
-                string expectedXml = File.ReadAllText(expectedXmlFilePath);
-
-                Assert.AreEqual(expectedXml, actualXml);
-            }
-            finally
-            {
-                File.Delete(targetFilePath);
-            }
+            }, expectedXmlFilePath);
         }
 
-        [Test]
-        public void Export_InvalidDirectoryRights_LogErrorAndReturnFalse()
+        protected override TestCalculation CreateCalculation()
         {
-            // Setup
-            string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_InvalidDirectoryRights_LogErrorAndReturnFalse));
-            using (var disposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(Export_InvalidDirectoryRights_LogErrorAndReturnFalse)))
-            {
-                string filePath = Path.Combine(directoryPath, "test.xml");
-
-                var exporter = new SimpleCalculationConfigurationExporter(new[]
-                {
-                    new TestCalculation("Calculation A")
-                }, filePath);
-
-                disposeHelper.LockDirectory(FileSystemRights.Write);
-
-                // Call
-                var isExported = true;
-                Action call = () => isExported = exporter.Export();
-
-                // Assert
-                string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'. "
-                                         + "Er is geen configuratie geëxporteerd.";
-                TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
-                Assert.IsFalse(isExported);
-            }
+            return new TestCalculation("TestCalculation A");
         }
     }
 
