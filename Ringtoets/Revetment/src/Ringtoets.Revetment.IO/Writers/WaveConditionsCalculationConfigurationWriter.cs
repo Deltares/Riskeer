@@ -38,6 +38,9 @@ namespace Ringtoets.Revetment.IO.Writers
     {
         private readonly WaveConditionsInputStepSizeConverter waveConditionsInputStepSizeConverter;
 
+        /// <summary>
+        /// Created a new instance of <see cref="WaveConditionsCalculationConfigurationWriter{T}"/>.
+        /// </summary>
         protected WaveConditionsCalculationConfigurationWriter()
         {
             waveConditionsInputStepSizeConverter = new WaveConditionsInputStepSizeConverter();

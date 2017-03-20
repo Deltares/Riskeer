@@ -20,13 +20,12 @@
 // All rights reserved.
 
 using System.IO;
-using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.IO.Exporters;
+using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.IO.Exporters;
 using Ringtoets.StabilityStoneCover.IO.Writers;
@@ -35,26 +34,15 @@ namespace Ringtoets.StabilityStoneCover.IO.Test.Exporters
 {
     [TestFixture]
     public class StabilityStoneCoverCalculationConfigurationExporterTest
+        : CustomCalculationConfigurationExporterDesignGuidelinesTestFixture<
+            StabilityStoneCoverCalculationConfigurationExporter,
+            StabilityStoneCoverCalculationConfigurationWriter,
+            StabilityStoneCoverWaveConditionsCalculation>
     {
-        [Test]
-        public void Constructor_ExpectedValues()
-        {
-            // Call
-            var exporter = new StabilityStoneCoverCalculationConfigurationExporter(Enumerable.Empty<ICalculationBase>(), "test.xml");
-
-            // Assert
-            Assert.IsInstanceOf<
-                CalculationConfigurationExporter<
-                    StabilityStoneCoverCalculationConfigurationWriter,
-                    StabilityStoneCoverWaveConditionsCalculation>>(exporter);
-        }
-
         [Test]
         public void Export_ValidData_ReturnTrueAndWritesFile()
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath($"{nameof(Export_ValidData_ReturnTrueAndWritesFile)}.xml");
-
             var calculation1 = new StabilityStoneCoverWaveConditionsCalculation
             {
                 Name = "Calculation A",
@@ -90,33 +78,16 @@ namespace Ringtoets.StabilityStoneCover.IO.Test.Exporters
                     calculationGroup2
                 }
             };
+            string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.StabilityStoneCover.IO,
+                                                                    Path.Combine(
+                                                                        nameof(StabilityStoneCoverCalculationConfigurationExporter),
+                                                                        "fullValidConfiguration.xml"));
 
-            var exporter = new StabilityStoneCoverCalculationConfigurationExporter(new[]
+            // Call and Assert
+            WriteAndValidate(new[]
             {
                 calculationGroup
-            }, filePath);
-
-            try
-            {
-                // Call
-                bool isExported = exporter.Export();
-
-                // Assert
-                Assert.IsTrue(isExported);
-                Assert.IsTrue(File.Exists(filePath));
-
-                string actualXml = File.ReadAllText(filePath);
-                string testDirSubPath = Path.Combine(nameof(StabilityStoneCoverCalculationConfigurationExporter), "fullValidConfiguration.xml");
-                string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.StabilityStoneCover.IO,
-                                                                        testDirSubPath);
-                string expectedXml = File.ReadAllText(expectedXmlFilePath);
-
-                Assert.AreEqual(expectedXml, actualXml);
-            }
-            finally
-            {
-                File.Delete(filePath);
-            }
+            }, expectedXmlFilePath);
         }
     }
 }

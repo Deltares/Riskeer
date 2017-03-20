@@ -19,16 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.IO;
-using System.Linq;
-using System.Security.AccessControl;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.IO.Exporters;
+using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Integration.TestUtils;
 using Ringtoets.Piping.IO.Exporters;
@@ -38,23 +35,15 @@ namespace Ringtoets.Piping.IO.Test.Exporters
 {
     [TestFixture]
     public class PipingCalculationConfigurationExporterTest
+        : CustomCalculationConfigurationExporterDesignGuidelinesTestFixture<
+            PipingCalculationConfigurationExporter,
+            PipingCalculationConfigurationWriter,
+            PipingCalculation>
     {
-        [Test]
-        public void Constructor_ExpectedValues()
-        {
-            // Call
-            var exporter = new PipingCalculationConfigurationExporter(Enumerable.Empty<ICalculationBase>(), "test.xml");
-
-            // Assert
-            Assert.IsInstanceOf<CalculationConfigurationExporter<PipingCalculationConfigurationWriter, PipingCalculation>>(exporter);
-        }
-
         [Test]
         public void Export_ValidData_ReturnTrueAndWritesFile()
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath($"{nameof(Export_ValidData_ReturnTrueAndWritesFile)}.xml");
-
             PipingCalculation calculation = PipingTestDataGenerator.GetPipingCalculation();
             calculation.InputParameters.EntryPointL = (RoundedDouble) 0.1;
             calculation.InputParameters.ExitPointL = (RoundedDouble) 0.2;
@@ -91,59 +80,20 @@ namespace Ringtoets.Piping.IO.Test.Exporters
                 }
             };
 
-            var exporter = new PipingCalculationConfigurationExporter(new []
+            string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO,
+                                                                    Path.Combine("PipingCalculationConfigurationWriter",
+                                                                                 "folderWithSubfolderAndCalculation.xml"));
+
+            // Call and Assert
+            WriteAndValidate(new[]
             {
                 calculationGroup
-            }, filePath);
-
-            try
-            {
-                // Call
-                bool isExported = exporter.Export();
-
-                // Assert
-                Assert.IsTrue(isExported);
-                Assert.IsTrue(File.Exists(filePath));
-
-                string actualXml = File.ReadAllText(filePath);
-                string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO,
-                                                                        Path.Combine("PipingCalculationConfigurationWriter", "folderWithSubfolderAndCalculation.xml"));
-                string expectedXml = File.ReadAllText(expectedXmlFilePath);
-
-                Assert.AreEqual(expectedXml, actualXml);
-            }
-            finally
-            {
-                File.Delete(filePath);
-            }
+            }, expectedXmlFilePath);
         }
 
-        [Test]
-        public void Export_InvalidDirectoryRights_LogErrorAndReturnFalse()
+        protected override PipingCalculation CreateCalculation()
         {
-            // Setup
-            string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_InvalidDirectoryRights_LogErrorAndReturnFalse));
-            using (var disposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(Export_InvalidDirectoryRights_LogErrorAndReturnFalse)))
-            {
-                string filePath = Path.Combine(directoryPath, "test.xml");
-
-                var exporter = new PipingCalculationConfigurationExporter(new []
-                {
-                    PipingTestDataGenerator.GetPipingCalculation()
-                }, filePath);
-
-                disposeHelper.LockDirectory(FileSystemRights.Write);
-
-                // Call
-                var isExported = true;
-                Action call = () => isExported = exporter.Export();
-
-                // Assert
-                string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'. "
-                                         + "Er is geen configuratie geëxporteerd.";
-                TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
-                Assert.IsFalse(isExported);
-            }
+            return PipingTestDataGenerator.GetPipingCalculation();
         }
     }
 }
