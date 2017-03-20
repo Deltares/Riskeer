@@ -23,12 +23,14 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Components.BruTile.TestUtil;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
@@ -338,7 +340,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateObserver_AssessmentSectionUpdated_MapDataUpdated()
+        public void UpdateObserver_AssessmentSectionUpdated_MapDataUpdatedAndObserversNotified()
         {
             // Setup
             using (var view = new PipingFailureMechanismView())
@@ -366,9 +368,19 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     HydraulicBoundaryDatabase = hydraulicBoundaryDatabase1
                 };
 
-                var failureMechanismContext = new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSection);
+                view.Data = new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSection);
 
-                view.Data = failureMechanismContext;
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
+                observers[stochasticSoilModelsIndex].Expect(obs => obs.UpdateObserver());
+                observers[surfaceLinesIndex].Expect(obs => obs.UpdateObserver());
+                observers[sectionsIndex].Expect(obs => obs.UpdateObserver());
+                observers[sectionsStartPointIndex].Expect(obs => obs.UpdateObserver());
+                observers[sectionsEndPointIndex].Expect(obs => obs.UpdateObserver());
+                observers[hydraulicBoundaryLocationsIndex].Expect(obs => obs.UpdateObserver());
+                observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
 
                 var hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
@@ -382,11 +394,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 // Assert
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase2.Locations, hydraulicBoundaryLocationsMapData);
+                mocks.VerifyAll();
             }
         }
 
         [Test]
-        public void UpdateObserver_HydraulicBoundaryDatabaseUpdated_MapDataUpdated()
+        public void UpdateObserver_HydraulicBoundaryDatabaseUpdated_MapDataUpdatedAndObserversNotified()
         {
             // Setup
             using (var view = new PipingFailureMechanismView())
@@ -406,9 +419,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
                 };
 
-                var failureMechanismContext = new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSection);
+                view.Data = new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSection);
 
-                view.Data = failureMechanismContext;
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[hydraulicBoundaryLocationsIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
 
                 var hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
@@ -421,11 +437,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 // Assert
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
+                mocks.VerifyAll();
             }
         }
 
         [Test]
-        public void GivenAssessmentSectionWithHydraulicBoundaryDatabase_WhenNewDatabaseIsSetAndNotified_ThenMapDataUpdated()
+        public void GivenAssessmentSectionWithHydraulicBoundaryDatabase_WhenNewDatabaseIsSetAndNotified_ThenMapDataUpdatedAndObserversNotified()
         {
             // Given
             using (var view = new PipingFailureMechanismView())
@@ -454,6 +471,18 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 view.Data = new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSection);
 
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
+                observers[stochasticSoilModelsIndex].Expect(obs => obs.UpdateObserver());
+                observers[surfaceLinesIndex].Expect(obs => obs.UpdateObserver());
+                observers[sectionsIndex].Expect(obs => obs.UpdateObserver());
+                observers[sectionsStartPointIndex].Expect(obs => obs.UpdateObserver());
+                observers[sectionsEndPointIndex].Expect(obs => obs.UpdateObserver());
+                observers[hydraulicBoundaryLocationsIndex].Expect(obs => obs.UpdateObserver()).Repeat.Twice();
+                observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
+
                 var hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
                 // Precondition
@@ -467,11 +496,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 // Then
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(newHydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
+                mocks.VerifyAll();
             }
         }
 
         [Test]
-        public void UpdateObserver_ReferenceLineUpdated_MapDataUpdated()
+        public void UpdateObserver_ReferenceLineUpdated_MapDataUpdatedAndObserverNotified()
         {
             // Setup
             using (var view = new PipingFailureMechanismView())
@@ -496,9 +526,19 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 };
                 assessmentSection.ReferenceLine.SetGeometry(points1);
 
-                var failureMechanismContext = new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSection);
+                view.Data = new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSection);
 
-                view.Data = failureMechanismContext;
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
+                observers[stochasticSoilModelsIndex].Expect(obs => obs.UpdateObserver());
+                observers[surfaceLinesIndex].Expect(obs => obs.UpdateObserver());
+                observers[sectionsIndex].Expect(obs => obs.UpdateObserver());
+                observers[sectionsStartPointIndex].Expect(obs => obs.UpdateObserver());
+                observers[sectionsEndPointIndex].Expect(obs => obs.UpdateObserver());
+                observers[hydraulicBoundaryLocationsIndex].Expect(obs => obs.UpdateObserver());
+                observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
 
                 var referenceLineMapData = map.Data.Collection.ElementAt(referenceLineIndex);
 
@@ -512,11 +552,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 // Assert
                 MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
+                mocks.VerifyAll();
             }
         }
 
         [Test]
-        public void UpdateObserver_SurfaceLinesUpdated_MapDataUpdated()
+        public void UpdateObserver_SurfaceLinesUpdated_MapDataUpdatedAndObserverNotified()
         {
             // Setup
             using (var view = new PipingFailureMechanismView())
@@ -543,16 +584,22 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     surfaceLine
                 }, "path");
 
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[surfaceLinesIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
+
                 // Call
                 failureMechanism.SurfaceLines.NotifyObservers();
 
                 // Assert
                 AssertSurfacelinesMapData(failureMechanism.SurfaceLines, surfaceLineMapData);
+                mocks.VerifyAll();
             }
         }
 
         [Test]
-        public void UpdateObserver_SurfaceLineUpdated_MapDataUpdated()
+        public void UpdateObserver_SurfaceLineUpdated_MapDataUpdatedAndObserverNotified()
         {
             // Setup
             using (var view = new PipingFailureMechanismView())
@@ -574,17 +621,23 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     new Point3D(10, 11, 12)
                 });
 
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[surfaceLinesIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
+
                 // Call
                 surfaceLine.NotifyObservers();
 
                 // Assert
                 var surfaceLineMapData = (MapLineData) map.Data.Collection.ElementAt(surfaceLinesIndex);
                 AssertSurfacelinesMapData(failureMechanism.SurfaceLines, surfaceLineMapData);
+                mocks.VerifyAll();
             }
         }
 
         [Test]
-        public void UpdateObserver_FailureMechanismSectionsUpdated_MapDataUpdated()
+        public void UpdateObserver_FailureMechanismSectionsUpdated_MapDataUpdatedAndObserverNotified()
         {
             // Setup
             using (var view = new PipingFailureMechanismView())
@@ -606,6 +659,18 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     new Point2D(1, 2)
                 }));
 
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
+                observers[stochasticSoilModelsIndex].Expect(obs => obs.UpdateObserver());
+                observers[surfaceLinesIndex].Expect(obs => obs.UpdateObserver());
+                observers[sectionsIndex].Expect(obs => obs.UpdateObserver());
+                observers[sectionsStartPointIndex].Expect(obs => obs.UpdateObserver());
+                observers[sectionsEndPointIndex].Expect(obs => obs.UpdateObserver());
+                observers[hydraulicBoundaryLocationsIndex].Expect(obs => obs.UpdateObserver());
+                observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
+
                 // Call
                 failureMechanism.NotifyObservers();
 
@@ -613,11 +678,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, sectionMapData);
                 MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, sectionStartsMapData);
                 MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, sectionsEndsMapData);
+                mocks.VerifyAll();
             }
         }
 
         [Test]
-        public void UpdateObserver_StochasticSoilModelsUpdated_MapDataUpdated()
+        public void UpdateObserver_StochasticSoilModelsUpdated_MapDataUpdatedAndObserverNotified()
         {
             // Setup
             using (var view = new PipingFailureMechanismView())
@@ -643,16 +709,22 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     stochasticSoilModel
                 }, "path");
 
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[stochasticSoilModelsIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
+
                 // Call
                 failureMechanism.StochasticSoilModels.NotifyObservers();
 
                 // Assert
                 AssertStochasticSoilModelsMapData(failureMechanism.StochasticSoilModels, stochasticSoilModelMapData);
+                mocks.VerifyAll();
             }
         }
 
         [Test]
-        public void UpdateObserver_CalculationGroupUpdated_MapDataUpdated()
+        public void UpdateObserver_CalculationGroupUpdated_MapDataUpdatedAndObserverNotified()
         {
             // Setup
             using (var view = new PipingFailureMechanismView())
@@ -690,24 +762,27 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 failureMechanism.CalculationsGroup.Children.Add(calculationB);
 
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
+
                 // Call
                 failureMechanism.CalculationsGroup.NotifyObservers();
 
                 // Assert
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<PipingCalculationScenario>(), calculationMapData);
+                mocks.VerifyAll();
             }
         }
 
         [Test]
-        public void UpdateObserver_CalculationInputUpdated_MapDataUpdated()
+        public void UpdateObserver_CalculationInputUpdated_MapDataUpdatedAndObserverNotified()
         {
             // Setup
             using (var view = new PipingFailureMechanismView())
             {
                 var map = (MapControl) view.Controls[0];
-
-                var failureMechanism = new PipingFailureMechanism();
-                var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
 
                 var surfaceLineA = new RingtoetsPipingSurfaceLine();
                 surfaceLineA.SetGeometry(new[]
@@ -728,30 +803,37 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var calculationA = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
                 calculationA.InputParameters.SurfaceLine = surfaceLineA;
 
+                var failureMechanism = new PipingFailureMechanism();
+                failureMechanism.CalculationsGroup.Children.Add(calculationA);
+                var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
+                
                 view.Data = failureMechanismContext;
 
                 var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
 
                 calculationA.InputParameters.SurfaceLine = surfaceLineB;
 
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
+
                 // Call
                 calculationA.InputParameters.NotifyObservers();
 
                 // Assert
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<PipingCalculationScenario>(), calculationMapData);
+                mocks.VerifyAll();
             }
         }
 
         [Test]
-        public void UpdateObserver_CalculationUpdated_MapDataUpdated()
+        public void UpdateObserver_CalculationUpdated_MapDataUpdatedAndObserverNotified()
         {
             // Setup
             using (var view = new PipingFailureMechanismView())
             {
                 var map = (MapControl) view.Controls[0];
-
-                var failureMechanism = new PipingFailureMechanism();
-                var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
 
                 var surfaceLineA = new RingtoetsPipingSurfaceLine();
                 surfaceLineA.SetGeometry(new[]
@@ -772,17 +854,27 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var calculationA = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
                 calculationA.InputParameters.SurfaceLine = surfaceLineA;
 
+                var failureMechanism = new PipingFailureMechanism();
+                failureMechanism.CalculationsGroup.Children.Add(calculationA);
+                var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
+                
                 view.Data = failureMechanismContext;
 
                 var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
 
                 calculationA.Name = "new name";
 
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
+
                 // Call
                 calculationA.NotifyObservers();
 
                 // Assert
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<PipingCalculationScenario>(), calculationMapData);
+                mocks.VerifyAll();
             }
         }
 
@@ -1007,6 +1099,54 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual("Vakindeling (eindpunten)", sectionsEndPointMapData.Name);
             Assert.AreEqual("Hydraulische randvoorwaarden", hydraulicBoundaryLocationsMapData.Name);
             Assert.AreEqual("Berekeningen", calculationsMapData.Name);
+        }
+
+        /// <summary>
+        /// Attaches mocked observers to all <see cref="IObservable"/> map data components.
+        /// </summary>
+        /// <param name="mocks">The <see cref="MockRepository"/>.</param>
+        /// <param name="mapData">The map data collection containing the <see cref="IObservable"/>
+        /// elements.</param>
+        /// <returns>An array of mocked observers attached to the data in <paramref name="mapData"/>.</returns>
+        private static IObserver[] AttachMapDataObservers(MockRepository mocks, IEnumerable<MapData> mapData)
+        {
+            MapData[] mapDataArray = mapData.ToArray();
+
+            var referenceLineMapDataObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[referenceLineIndex].Attach(referenceLineMapDataObserver);
+
+            var stochasticSoilModelMapDataObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[stochasticSoilModelsIndex].Attach(stochasticSoilModelMapDataObserver);
+
+            var surfaceLineMapDataObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[surfaceLinesIndex].Attach(surfaceLineMapDataObserver);
+
+            var sectionsMapDataObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[sectionsIndex].Attach(sectionsMapDataObserver);
+
+            var sectionsStartPointMapDataObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[sectionsStartPointIndex].Attach(sectionsStartPointMapDataObserver);
+
+            var sectionsEndPointMapDataObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[sectionsEndPointIndex].Attach(sectionsEndPointMapDataObserver);
+
+            var hydraulicBoundaryLocationsMapDataObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[hydraulicBoundaryLocationsIndex].Attach(hydraulicBoundaryLocationsMapDataObserver);
+
+            var calculationsMapDataObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[calculationsIndex].Attach(calculationsMapDataObserver);
+
+            return new[]
+            {
+                referenceLineMapDataObserver,
+                stochasticSoilModelMapDataObserver,
+                surfaceLineMapDataObserver,
+                sectionsMapDataObserver,
+                sectionsStartPointMapDataObserver,
+                sectionsEndPointMapDataObserver,
+                hydraulicBoundaryLocationsMapDataObserver,
+                calculationsMapDataObserver
+            };
         }
     }
 }
