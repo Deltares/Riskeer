@@ -143,6 +143,7 @@ namespace Ringtoets.StabilityStoneCover.IO.Test.Exporters
                             {
                                 DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(28.36844)
                             },
+                            ForeshoreProfile = new TestForeshoreProfile("foreshoreA"),
                             LowerBoundaryRevetment = (RoundedDouble) 1.384,
                             UpperBoundaryRevetment = (RoundedDouble) 11.54898963,
                             StepSize = WaveConditionsInputStepSize.Half,
@@ -169,8 +170,8 @@ namespace Ringtoets.StabilityStoneCover.IO.Test.Exporters
                 Assert.IsTrue(File.Exists(filePath));
                 string fileContent = File.ReadAllText(filePath);
                 Assert.AreEqual("Naam berekening, Naam HR locatie, X HR locatie (RD) [m], Y HR locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°]\r\n" +
-                                "aCalculation, aLocation, 44.000, 123.456, , nee, nee, Steen (zuilen), 1.10, 2.20, 3.30, 4.40, 5.50\r\n" +
-                                "aCalculation, aLocation, 44.000, 123.456, , nee, nee, Steen (blokken), 1.10, 2.20, 3.30, 4.40, 5.50\r\n",
+                                "aCalculation, aLocation, 44.000, 123.456, foreshoreA, nee, nee, Steen (zuilen), 1.10, 2.20, 3.30, 4.40, 5.50\r\n" +
+                                "aCalculation, aLocation, 44.000, 123.456, foreshoreA, nee, nee, Steen (blokken), 1.10, 2.20, 3.30, 4.40, 5.50\r\n",
                                 fileContent);
             }
         }
