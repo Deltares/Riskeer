@@ -214,7 +214,7 @@ SELECT AssessmentSectionEntityId,
 		0,
 		0.0,
 		0,
-		0
+		1
 		FROM AssessmentSectionEntity;
 
 DETACH SOURCEPROJECT;

@@ -41,7 +41,8 @@ namespace Ringtoets.Common.Data.TestUtil
             FailureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 0, 1.0 / 300000);
             BackgroundData = new BackgroundData
             {
-                Name = "Background data"
+                Name = "Background data",
+                BackgroundMapDataType = BackgroundMapDataType.Wmts
             };
         }
 

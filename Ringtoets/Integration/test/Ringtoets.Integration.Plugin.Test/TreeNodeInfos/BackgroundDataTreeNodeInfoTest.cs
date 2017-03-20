@@ -320,7 +320,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             var backgroundMapData = new BackgroundData
             {
-                Name = "background map data"
+                Name = "background map data",
+                BackgroundMapDataType = BackgroundMapDataType.Wmts
             };
 
             using (var treeViewControl = new TreeViewControl())
