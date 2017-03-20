@@ -87,6 +87,7 @@
     <Compile Include="Data\RangeTest.cs" />
     <Compile Include="Data\RoundedDoubleTest.cs" />
     <Compile Include="Data\RoundedPoint2DCollectionTest.cs" />
+    <Compile Include="FilteredKeyDictionaryTest.cs" />
     <Compile Include="FormattableConstantsTest.cs" />
     <Compile Include="Geometry\Math2DTest.cs" />
     <Compile Include="Geometry\Point2DTest.cs" />

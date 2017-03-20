@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Properties;
@@ -46,7 +45,14 @@ namespace Ringtoets.Common.Data.AssessmentSection
         {
             IsVisible = true;
             transparency = new RoundedDouble(transparencyNumberOfDecimals);
-            Parameters = new Dictionary<string, string>();
+            Parameters = new FilteredKeyDictionary<string, string>(
+                new[]
+                {
+                    BackgroundDataIdentifiers.SourceCapabilitiesUrl,
+                    BackgroundDataIdentifiers.SelectedCapabilityIdentifier,
+                    BackgroundDataIdentifiers.PreferredFormat,
+                    BackgroundDataIdentifiers.WellKnownTileSource
+                });
         }
 
         /// <summary>
@@ -97,6 +103,6 @@ namespace Ringtoets.Common.Data.AssessmentSection
         /// <summary>
         /// Gets the parameters that are configured for a background map data.
         /// </summary>
-        public IDictionary<string, string> Parameters { get; }
+        public FilteredKeyDictionary<string, string> Parameters { get; }
     }
 }

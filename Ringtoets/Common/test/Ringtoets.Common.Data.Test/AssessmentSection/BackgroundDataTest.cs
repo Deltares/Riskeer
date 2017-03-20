@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -83,6 +85,66 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
             var message = "De transparantie moet in het bereik [0,00, 1,00] liggen.";
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, message).ParamName;
             Assert.AreEqual("value", paramName);
+        }
+
+        [Test]
+        [TestCase("SourceCapabilitiesUrl")]
+        [TestCase("SelectedCapabilityIdentifier")]
+        [TestCase("PreferredFormat")]
+        [TestCase("WellKnownTileSource")]
+        public void Parameters_AllowedKeys_ItemAddedToDictionary(string allowedKey)
+        {
+            // Setup
+            const string value = "some value";
+            var backgroundData = new BackgroundData();
+
+            // Precondition
+            CollectionAssert.IsEmpty(backgroundData.Parameters);
+
+            // Call
+            backgroundData.Parameters.Add(allowedKey, value);
+
+            // Assert
+            Assert.AreEqual(1, backgroundData.Parameters.Count);
+            KeyValuePair<string, string> item = backgroundData.Parameters.First();
+            Assert.AreEqual(allowedKey, item.Key);
+            Assert.AreEqual(value, item.Value);
+        }
+
+        [Test]
+        public void Parameters_AddOtherThanAllowed_ThrowInvalidOperationException()
+        {
+            // Setup
+            var backgroundData = new BackgroundData();
+            
+            // Precondition
+            CollectionAssert.IsEmpty(backgroundData.Parameters);
+
+            // Call
+            TestDelegate test = () => backgroundData.Parameters.Add("invalid key", "test");
+
+            // Assert
+            var exception = Assert.Throws<InvalidOperationException>(test);
+            Assert.AreEqual("Key 'invalid key' is not allowed to add to the dictionary.", exception.Message);
+            CollectionAssert.IsEmpty(backgroundData.Parameters);
+        }
+
+        [Test]
+        public void Parameters_AddOtherThanAllowed_ThrowInvalidOperationExceptions()
+        {
+            // Setup
+            var backgroundData = new BackgroundData();
+            
+            // Precondition
+            CollectionAssert.IsEmpty(backgroundData.Parameters);
+
+            // Call
+            TestDelegate test = () => backgroundData.Parameters["invalid key"] = "test";
+
+            // Assert
+            var exception = Assert.Throws<InvalidOperationException>(test);
+            Assert.AreEqual("Key 'invalid key' is not allowed to add to the dictionary.", exception.Message);
+            CollectionAssert.IsEmpty(backgroundData.Parameters);
         }
     }
 }
