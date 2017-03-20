@@ -26,6 +26,7 @@ using Core.Common.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Revetment.TestUtil;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using Ringtoets.WaveImpactAsphaltCover.IO.Exporters;
@@ -44,7 +45,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
             {
                 exportInfo = plugin.GetExportInfos()
                                    .Single(ei => ei.DataType == typeof(WaveImpactAsphaltCoverWaveConditionsCalculationContext)
-                                                 && ei.Name.Equals("Ringtoets berekeningenconfiguratie (*.xml)"));
+                                                 && ei.Name.Equals("Berekende belastingen bij verschillende waterstanden (*.csv)."));
             }
         }
 
@@ -76,7 +77,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
             IFileExporter fileExporter = exportInfo.CreateFileExporter(context, "test");
 
             // Assert
-            Assert.IsInstanceOf<WaveImpactAsphaltCoverCalculationConfigurationExporter>(fileExporter);
+            Assert.IsInstanceOf<WaveImpactAsphaltCoverWaveConditionsExporter>(fileExporter);
             mocks.VerifyAll();
         }
 
@@ -87,11 +88,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
             FileFilterGenerator fileFilterGenerator = exportInfo.FileFilterGenerator;
 
             // Assert
-            Assert.AreEqual("Ringtoets berekeningenconfiguratie (*.xml)|*.xml", fileFilterGenerator.Filter);
+            Assert.AreEqual("Kommagescheiden bestand (*.csv)|*.csv", fileFilterGenerator.Filter);
         }
 
         [Test]
-        public void IsEnabled_Always_ReturnTrue()
+        public void IsEnabled_CalculationWithoutOutput_IsEnabledFalse()
         {
             // Setup
             var mocks = new MockRepository();
@@ -100,10 +101,37 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
+            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(new WaveImpactAsphaltCoverWaveConditionsCalculation(),
+                                                                                     failureMechanism, assessmentSection);
+
+            // Call
+            bool isEnabled = exportInfo.IsEnabled(context);
+
+            // Assert
+            Assert.IsFalse(isEnabled);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void IsEnabled_CalculationWithOutput_IsEnabledTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            var output = new[]
+            {
+                new TestWaveConditionsOutput()
+            };
+
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(
-                new WaveImpactAsphaltCoverWaveConditionsCalculation(),
-                failureMechanism,
-                assessmentSection);
+                new WaveImpactAsphaltCoverWaveConditionsCalculation
+                {
+                    Output = new WaveImpactAsphaltCoverWaveConditionsOutput(output)
+                },
+                failureMechanism, assessmentSection);
 
             // Call
             bool isEnabled = exportInfo.IsEnabled(context);
