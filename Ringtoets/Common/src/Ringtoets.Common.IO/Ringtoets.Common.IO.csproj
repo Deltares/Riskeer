@@ -61,6 +61,7 @@
     <Compile Include="DikeProfiles\ProfileLocation.cs" />
     <Compile Include="DikeProfiles\ProfileLocationReader.cs" />
     <Compile Include="DikeProfiles\SheetPileType.cs" />
+    <Compile Include="Exceptions\CalculationParseException.cs" />
     <Compile Include="Exceptions\CriticalFileValidationException.cs" />
     <Compile Include="Exporters\CalculationConfigurationExporter.cs" />
     <Compile Include="FileImporters\CalculationConfigurationImporter.cs" />
