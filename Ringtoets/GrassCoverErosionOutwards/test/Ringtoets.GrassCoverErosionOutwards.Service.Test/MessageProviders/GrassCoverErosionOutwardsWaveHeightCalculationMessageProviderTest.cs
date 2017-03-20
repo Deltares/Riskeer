@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using NUnit.Framework;
 using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.GrassCoverErosionOutwards.Service.MessageProviders;
@@ -86,8 +87,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test.MessageProviders
             var message = provider.GetCalculationFailedMessage(name, failureMessage);
 
             // Assert
-            var expectedMessage = string.Format("Er is een fout opgetreden tijdens de Golfhoogte bij doorsnede-eis berekening '{0}'. Bekijk het foutrapport door op details te klikken.\r\n{1}",
-                                                name, failureMessage);
+            var expectedMessage = $"Er is een fout opgetreden tijdens de Golfhoogte bij doorsnede-eis berekening '{name}'. Bekijk het foutrapport door op details te klikken.{Environment.NewLine}{failureMessage}";
             Assert.AreEqual(expectedMessage, message);
         }
 

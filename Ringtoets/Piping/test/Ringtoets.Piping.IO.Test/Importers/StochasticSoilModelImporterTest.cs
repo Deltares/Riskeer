@@ -160,7 +160,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
                                          messages =>
                                          {
                                              string[] messageArray = messages.ToArray();
-                                             string message = $"{string.Empty} \r\nHet bestand wordt overgeslagen.";
+                                             string message = $"{string.Empty} {Environment.NewLine}Het bestand wordt overgeslagen.";
                                              StringAssert.EndsWith(message, messageArray[0]);
                                          });
             Assert.AreEqual(1, progress);
@@ -196,7 +196,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
                                          messages =>
                                          {
                                              string[] messageArray = messages.ToArray();
-                                             string message = $"{string.Empty} \r\nHet bestand wordt overgeslagen.";
+                                             string message = $"{string.Empty} {Environment.NewLine}Het bestand wordt overgeslagen.";
                                              StringAssert.EndsWith(message, messageArray[0]);
                                          });
             Assert.AreEqual(1, progress);
@@ -545,7 +545,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
                 .Build("Ondergrondschematisatie bevat geen geldige waarde in kolom \'IntersectionX\'.");
             var expectedLogMessagesAndLevel = new[]
             {
-                Tuple.Create($"{internalErrorMessage} \r\nDeze ondergrondschematisatie wordt overgeslagen.", LogLevelConstant.Error),
+                Tuple.Create($"{internalErrorMessage} {Environment.NewLine}Deze ondergrondschematisatie wordt overgeslagen.", LogLevelConstant.Error),
                 Tuple.Create("Het stochastische ondergrondmodel \'Name\' heeft een ongespecificeerde ondergrondschematisatie. Dit model wordt overgeslagen.", LogLevelConstant.Warn)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 2);

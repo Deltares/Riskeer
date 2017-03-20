@@ -82,7 +82,7 @@
       <Name>Ringtoets.Common.Data.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.IO.TestUtil\Ringtoets.Common.IO.TestUtil.csproj">
-      <Project>{33508D7C-1602-4C0D-8503-73AAE98C19E5}</Project>
+      <Project>{33508d7c-1602-4c0d-8503-73aae98c19e5}</Project>
       <Name>Ringtoets.Common.IO.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Data\Ringtoets.Revetment.Data.csproj">

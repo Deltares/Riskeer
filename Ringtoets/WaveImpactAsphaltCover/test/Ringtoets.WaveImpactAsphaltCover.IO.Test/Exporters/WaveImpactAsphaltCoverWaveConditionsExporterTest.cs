@@ -80,8 +80,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.IO.Test.Exporters
         public void Export_CalculationsWithoutOutput_FileWithOnlyHeader()
         {
             // Setup
-            string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_CalculationsWithoutOutput_FileWithOnlyHeader));
-            using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(Export_CalculationsWithoutOutput_FileWithOnlyHeader)))
+            const string folderName = nameof(Export_CalculationsWithoutOutput_FileWithOnlyHeader);
+            string directoryPath = TestHelper.GetScratchPadPath(folderName);
+            using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), folderName))
             {
                 string filePath = Path.Combine(directoryPath, "test.csv");
 
@@ -99,7 +100,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.IO.Test.Exporters
                 Assert.IsTrue(isExported);
                 Assert.IsTrue(File.Exists(filePath));
                 string fileContent = File.ReadAllText(filePath);
-                Assert.AreEqual("Naam berekening, Naam HR locatie, X HR locatie (RD) [m], Y HR locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°]\r\n", fileContent);
+                string expectedText = $"Naam berekening, Naam HR locatie, X HR locatie (RD) [m], Y HR locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°]{Environment.NewLine}";
+                Assert.AreEqual(expectedText, fileContent);
             }
         }
 
@@ -107,8 +109,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.IO.Test.Exporters
         public void Export_CalculationsWithoutHydraulicBoundaryLocation_FileWithOnlyHeader()
         {
             // Setup
-            string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_CalculationsWithoutHydraulicBoundaryLocation_FileWithOnlyHeader));
-            using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(Export_CalculationsWithoutHydraulicBoundaryLocation_FileWithOnlyHeader)))
+            const string folderName = nameof(Export_CalculationsWithoutHydraulicBoundaryLocation_FileWithOnlyHeader);
+            string directoryPath = TestHelper.GetScratchPadPath(folderName);
+            using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), folderName))
             {
                 string filePath = Path.Combine(directoryPath, "test.csv");
 
@@ -129,7 +132,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.IO.Test.Exporters
                 Assert.IsTrue(isExported);
                 Assert.IsTrue(File.Exists(filePath));
                 string fileContent = File.ReadAllText(filePath);
-                Assert.AreEqual("Naam berekening, Naam HR locatie, X HR locatie (RD) [m], Y HR locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°]\r\n", fileContent);
+                string expectedText = $"Naam berekening, Naam HR locatie, X HR locatie (RD) [m], Y HR locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°]{Environment.NewLine}";
+                Assert.AreEqual(expectedText, fileContent);
             }
         }
 
@@ -137,9 +141,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.IO.Test.Exporters
         public void Export_ValidData_ValidFile()
         {
             // Setup
-            string subFolder = $"{nameof(WaveImpactAsphaltCoverWaveConditionsExporterTest)}.{nameof(Export_ValidData_ValidFile)}";
-            string directoryPath = TestHelper.GetScratchPadPath(subFolder);
-            using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), subFolder))
+            string folderName = $"{nameof(WaveImpactAsphaltCoverWaveConditionsExporterTest)}.{nameof(Export_ValidData_ValidFile)}";
+            string directoryPath = TestHelper.GetScratchPadPath(folderName);
+            using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), folderName))
             {
                 string filePath = Path.Combine(directoryPath, "test.csv");
 
@@ -177,9 +181,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.IO.Test.Exporters
                 Assert.IsTrue(isExported);
                 Assert.IsTrue(File.Exists(filePath));
                 string fileContent = File.ReadAllText(filePath);
-                Assert.AreEqual("Naam berekening, Naam HR locatie, X HR locatie (RD) [m], Y HR locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°]\r\n" +
-                                "aCalculation, aLocation, 44.000, 123.456, foreshoreA, nee, nee, Asfalt, 1.10, 2.20, 3.30, 4.40, 5.50\r\n",
-                                fileContent);
+                string expectedText = $"Naam berekening, Naam HR locatie, X HR locatie (RD) [m], Y HR locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°]{Environment.NewLine}" +
+                                      $"aCalculation, aLocation, 44.000, 123.456, foreshoreA, nee, nee, Asfalt, 1.10, 2.20, 3.30, 4.40, 5.50{Environment.NewLine}";
+                Assert.AreEqual(expectedText, fileContent);
             }
         }
     }

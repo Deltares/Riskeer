@@ -112,7 +112,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
                 Action call = () => isExported = exporter.Export();
 
                 // Assert
-                string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.\r\nEr is geen referentielijn geëxporteerd.";
+                string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.{Environment.NewLine}Er is geen referentielijn geëxporteerd.";
                 TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
                 Assert.IsFalse(isExported);
             }
