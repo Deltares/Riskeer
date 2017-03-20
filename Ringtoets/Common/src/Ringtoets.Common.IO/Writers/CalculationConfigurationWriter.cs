@@ -134,6 +134,13 @@ namespace Ringtoets.Common.IO.Writers
             }
         }
 
+        /// <summary>
+        /// Writes the <paramref name="configuration"/> in XML format to file.
+        /// </summary>
+        /// <param name="configuration">The calculation group(s) and/or calculation(s) to write.</param>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="configuration"/> 
+        /// contains a value that is neither <see cref="CalculationGroup"/> nor <see cref="T"/>.</exception>
         private void WriteConfiguration(IEnumerable<ICalculationBase> configuration, XmlWriter writer)
         {
             foreach (ICalculationBase child in configuration)
