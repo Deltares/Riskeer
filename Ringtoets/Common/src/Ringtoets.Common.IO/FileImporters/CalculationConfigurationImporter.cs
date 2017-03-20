@@ -135,6 +135,11 @@ namespace Ringtoets.Common.IO.FileImporters
             }
         }
 
+        protected void LogReadCalculationConversionError(string message, string calculationName)
+        {
+            log.ErrorFormat(Resources.CalculationConfigurationImporter_ValidateCalculation_Error_message_0_calculation_1_skipped, message, calculationName);
+        }
+
         private ReadResult<IReadConfigurationItem> ReadConfiguration()
         {
             try
@@ -195,10 +200,7 @@ namespace Ringtoets.Common.IO.FileImporters
             }
             catch (CriticalFileValidationException e)
             {
-                string message = string.Format(Resources.CalculationConfigurationImporter_ValidateCalculation_Error_message_0_calculation_1_skipped,
-                                               e.Message,
-                                               readCalculation.Name);
-                log.Error(message, e);
+                LogReadCalculationConversionError(e.Message, readCalculation.Name);
                 return null;
             }
         }
