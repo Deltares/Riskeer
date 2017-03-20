@@ -135,6 +135,11 @@ namespace Ringtoets.Common.IO.FileImporters
             }
         }
 
+        protected void LogOutOfRangeException(string errorMessage, string calculationName, ArgumentOutOfRangeException e)
+        {
+            LogReadCalculationConversionError($"{errorMessage} {e.Message}", calculationName);
+        }
+
         protected void LogReadCalculationConversionError(string message, string calculationName)
         {
             log.ErrorFormat(Resources.CalculationConfigurationImporter_ValidateCalculation_Error_message_0_calculation_1_skipped, message, calculationName);

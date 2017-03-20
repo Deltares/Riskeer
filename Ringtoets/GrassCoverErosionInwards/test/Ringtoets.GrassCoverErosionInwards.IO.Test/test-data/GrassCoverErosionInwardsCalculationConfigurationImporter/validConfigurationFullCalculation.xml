@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <berekening naam="Berekening 1">
+    <hrlocatie>HRlocatie</hrlocatie>
+    <dijkprofiel>Dijkprofiel</dijkprofiel>
+    <orientatie>5.5</orientatie>
+    <dijkhoogte>3.45</dijkhoogte>
+    <hbnberekenen>norm</hbnberekenen>
+    <golfreductie>
+      <damgebruiken>true</damgebruiken>
+      <damtype>caisson</damtype>
+      <damhoogte>6.6</damhoogte>
+      <voorlandgebruiken>false</voorlandgebruiken>
+    </golfreductie>
+  </berekening>
+</configuratie>

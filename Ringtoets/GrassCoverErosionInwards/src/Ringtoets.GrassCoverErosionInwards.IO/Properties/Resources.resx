@@ -130,4 +130,19 @@
   <data name="DikeHeightCalculationTypeConverter_CalculateByProfileSpecificRequiredProbability" xml:space="preserve">
     <value>doorsnede</value>
   </data>
+  <data name="GrassCoverErosionInwardsCalculationConfigurationImporter_ReadDikeProfile_DikeProfile_0_does_not_exist" xml:space="preserve">
+    <value>Het dijkprofiel '{0}' bestaat niet.</value>
+  </data>
+  <data name="GrassCoverErosionInwardsCalculationConfigurationImporter_ReadOrientation_Orientation_0_invalid" xml:space="preserve">
+    <value>Een waarde van '{0}' als oriëntatie is ongeldig.</value>
+  </data>
+  <data name="GrassCoverErosionInwardsCalculationConfigurationImporter_ValidateWaveReduction_DikeProfile_0_has_no_geometry_and_cannot_be_used" xml:space="preserve">
+    <value>Het opgegeven dijkprofiel '{0}' heeft geen geometrie en kan daarom niet gebruikt worden.</value>
+  </data>
+  <data name="GrassCoverErosionInwardsCalculationConfigurationImporter_ValidateWaveReduction_No_DikeProfile_provided_for_BreakWater_parameters" xml:space="preserve">
+    <value>Er is geen dijkprofiel opgegeven om golfreductie parameters aan toe te voegen.</value>
+  </data>
+  <data name="GrassCoverErosionInwardsCalculationConfigurationImporter_ValidateWaveReduction_No_DikeProfile_provided_for_DikeHeight" xml:space="preserve">
+    <value>Er is geen dijkprofiel opgegeven om de dijkhoogte aan toe te voegen.</value>
+  </data>
 </root>

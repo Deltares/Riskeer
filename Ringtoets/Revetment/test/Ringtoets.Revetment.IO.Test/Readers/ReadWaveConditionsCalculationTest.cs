@@ -77,7 +77,7 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             const string foreshoreProfileName = "Name of the foreshore profile";
             const double orientation = 6.6;
             const bool useBreakWater = true;
-            const string breakWaterType = "Caisson";
+            const string breakWaterType = "caisson";
             const double breakWaterHeight = 7.7;
             const bool useForeshore = false;
 

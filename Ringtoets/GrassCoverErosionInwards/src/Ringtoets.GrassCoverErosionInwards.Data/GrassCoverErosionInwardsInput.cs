@@ -97,7 +97,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
                 RoundedDouble newOrientation = value.ToPrecision(orientation.NumberOfDecimalPlaces);
                 if (!double.IsNaN(newOrientation) && !orientationValidityRange.InRange(newOrientation))
                 {
-                    throw new ArgumentOutOfRangeException(nameof(value), string.Format(RingtoetsCommonDataResources.Orientation_Value_needs_to_be_in_Range_0_,
+                    throw new ArgumentOutOfRangeException(null, string.Format(RingtoetsCommonDataResources.Orientation_Value_needs_to_be_in_Range_0_,
                                                                                        orientationValidityRange));
                 }
                 orientation = newOrientation;
