@@ -37,6 +37,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.Common.Forms.ImportInfos;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
@@ -121,18 +122,14 @@ namespace Ringtoets.Piping.Plugin
                 VerifyUpdates = context => VerifyStochasticSoilModelUpdates(context, Resources.PipingPlugin_VerifyStochasticSoilModelImport_When_importing_StochasticSoilModels_calculation_output_will_be_cleared_confirm)
             };
 
-            yield return new ImportInfo<PipingCalculationGroupContext>
-            {
-                Name = RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Description,
-                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
-                Image = RingtoetsCommonFormsResources.GeneralFolderIcon,
-                FileFilterGenerator = PipingCalculationConfigurationFileFilter,
-                IsEnabled = PipingCalculationConfigurationImporterEnabled,
-                CreateFileImporter = (context, filePath) => new PipingCalculationConfigurationImporter(filePath,
-                                                                                            context.WrappedData,
-                                                                                            context.AvailableHydraulicBoundaryLocations,
-                                                                                            context.FailureMechanism)
-            };
+            yield return RingtoetsImportInfoFactory.CreateCalculationConfigurationImportInfo<PipingCalculationGroupContext>(
+                PipingCalculationConfigurationImporterEnabled,
+                (context, filePath) =>
+                    new PipingCalculationConfigurationImporter(
+                        filePath,
+                        context.WrappedData,
+                        context.AvailableHydraulicBoundaryLocations,
+                        context.FailureMechanism));
         }
 
         public override IEnumerable<ExportInfo> GetExportInfos()
