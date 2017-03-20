@@ -22,6 +22,8 @@
 using System.Drawing;
 using Core.Common.Base.IO;
 using Core.Common.Gui.Plugin;
+using Core.Common.Gui.Properties;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -41,8 +43,8 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.IsNull(info.CreateFileImporter);
             Assert.IsNull(info.IsEnabled);
             Assert.IsNull(info.Name);
-            Assert.IsNull(info.Category);
-            Assert.IsNull(info.Image);
+            Assert.AreEqual("Bijwerken gegevens", info.Category);
+            TestHelper.AssertImagesAreEqual(Resources.brick, info.Image);
             Assert.IsNull(info.FileFilterGenerator);
             Assert.IsNull(info.CurrentPath);
             Assert.IsNull(info.VerifyUpdates);
@@ -59,8 +61,8 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.IsNull(info.CreateFileImporter);
             Assert.IsNull(info.IsEnabled);
             Assert.IsNull(info.Name);
-            Assert.IsNull(info.Category);
-            Assert.IsNull(info.Image);
+            Assert.AreEqual("Bijwerken gegevens", info.Category);
+            TestHelper.AssertImagesAreEqual(Resources.brick, info.Image);
             Assert.IsNull(info.FileFilterGenerator);
             Assert.IsNull(info.CurrentPath);
             Assert.IsNull(info.VerifyUpdates);
@@ -137,8 +139,8 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.IsNotNull(convertedInfo.IsEnabled);
             Assert.IsTrue(convertedInfo.IsEnabled(12));
             Assert.IsNull(info.Name);
-            Assert.IsNull(info.Category);
-            Assert.IsNull(info.Image);
+            Assert.AreEqual("Bijwerken gegevens", info.Category);
+            TestHelper.AssertImagesAreEqual(Resources.brick, info.Image);
             Assert.IsNull(info.FileFilterGenerator);
             Assert.IsNull(info.CurrentPath);
             Assert.IsNull(info.VerifyUpdates);

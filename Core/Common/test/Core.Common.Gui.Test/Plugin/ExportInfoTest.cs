@@ -22,6 +22,8 @@
 using System.Drawing;
 using Core.Common.Base.IO;
 using Core.Common.Gui.Plugin;
+using Core.Common.Gui.Properties;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -41,8 +43,8 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.IsNull(info.CreateFileExporter);
             Assert.IsNull(info.IsEnabled);
             Assert.IsNull(info.Name);
-            Assert.IsNull(info.Category);
-            Assert.IsNull(info.Image);
+            Assert.AreEqual("Algemeen", info.Category);
+            TestHelper.AssertImagesAreEqual(Resources.ExportIcon, info.Image);
             Assert.IsNull(info.FileFilterGenerator);
         }
 
@@ -57,8 +59,8 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.IsNull(info.CreateFileExporter);
             Assert.IsNull(info.IsEnabled);
             Assert.IsNull(info.Name);
-            Assert.IsNull(info.Category);
-            Assert.IsNull(info.Image);
+            Assert.AreEqual("Algemeen", info.Category);
+            TestHelper.AssertImagesAreEqual(Resources.ExportIcon, info.Image);
             Assert.IsNull(info.FileFilterGenerator);
         }
 
@@ -126,8 +128,8 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.IsNotNull(convertedInfo.IsEnabled);
             Assert.IsTrue(convertedInfo.IsEnabled(new object()));
             Assert.IsNull(info.Name);
-            Assert.IsNull(info.Category);
-            Assert.IsNull(info.Image);
+            Assert.AreEqual("Algemeen", info.Category);
+            TestHelper.AssertImagesAreEqual(Resources.ExportIcon, info.Image);
             Assert.IsNull(info.FileFilterGenerator);
         }
     }

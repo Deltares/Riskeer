@@ -121,12 +121,7 @@ namespace Core.Common.Gui.Commands
             {
                 foreach (ImportInfo importInfo in supportedImportInfos)
                 {
-                    string category = string.IsNullOrEmpty(importInfo.Category) ?
-                                          Resources.GuiImportHandler_GetSupportedImporterForTargetType_Data_Import :
-                                          importInfo.Category;
-                    Image itemImage = importInfo.Image ?? Resources.brick;
-
-                    selectImporterDialog.AddItemType(importInfo.Name, category, itemImage, null);
+                    selectImporterDialog.AddItemType(importInfo.Name, importInfo.Category, importInfo.Image, null);
                 }
 
                 if (selectImporterDialog.ShowDialog() == DialogResult.OK)

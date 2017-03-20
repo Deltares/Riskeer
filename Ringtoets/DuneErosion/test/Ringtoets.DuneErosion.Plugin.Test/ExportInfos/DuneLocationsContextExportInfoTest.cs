@@ -23,6 +23,7 @@ using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.Gui;
 using Core.Common.Gui.Plugin;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -30,6 +31,7 @@ using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using Ringtoets.DuneErosion.IO;
+using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Ringtoets.DuneErosion.Plugin.Test.ExportInfos
 {
@@ -49,8 +51,8 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ExportInfos
                 Assert.IsNotNull(info.CreateFileExporter);
                 Assert.IsNotNull(info.IsEnabled);
                 Assert.IsNull(info.Name);
-                Assert.IsNull(info.Category);
-                Assert.IsNull(info.Image);
+                Assert.AreEqual("Algemeen", info.Category);
+                TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.ExportIcon, info.Image);
                 Assert.IsNotNull(info.FileFilterGenerator);
             }
         }

@@ -121,12 +121,7 @@ namespace Core.Common.Gui.Commands
             {
                 foreach (UpdateInfo updateInfo in supportedUpdateInfo)
                 {
-                    string category = string.IsNullOrEmpty(updateInfo.Category) ?
-                                          Resources.GuiUpdateHandler_GetSupportedUpdaterForTargetType_Data_Update :
-                                          updateInfo.Category;
-                    Image itemImage = updateInfo.Image ?? Resources.brick;
-
-                    selectUpdaterDialog.AddItemType(updateInfo.Name, category, itemImage, null);
+                    selectUpdaterDialog.AddItemType(updateInfo.Name, updateInfo.Category, updateInfo.Image, null);
                 }
 
                 if (selectUpdaterDialog.ShowDialog() == DialogResult.OK)

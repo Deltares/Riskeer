@@ -22,6 +22,7 @@
 using System;
 using System.Drawing;
 using Core.Common.Base.IO;
+using Core.Common.Gui.Properties;
 
 namespace Core.Common.Gui.Plugin
 {
@@ -62,12 +63,14 @@ namespace Core.Common.Gui.Plugin
         /// <summary>
         /// Gets or sets the category of the export information.
         /// </summary>
-        public string Category { get; set; }
+        /// <remarks>Should never return null.</remarks>
+        public string Category { get; set; } = Resources.ExportInfo_Default_category;
 
         /// <summary>
         /// Gets or sets the image of the export information.
         /// </summary>
-        public Image Image { get; set; }
+        /// <remarks>Should never return null.</remarks>
+        public Image Image { get; set; } = Resources.ExportIcon;
 
         /// <summary>
         /// Gets or sets the file filter generator of the export information used to make file filters.
@@ -119,12 +122,14 @@ namespace Core.Common.Gui.Plugin
         /// <summary>
         /// Gets or sets the category of the export information.
         /// </summary>
-        public string Category { get; set; }
+        /// <remarks>Should never return null.</remarks>
+        public string Category { get; set; } = Resources.ExportInfo_Default_category;
 
         /// <summary>
         /// Gets or sets the image of the export information.
         /// </summary>
-        public Image Image { get; set; }
+        /// <remarks>Should never return null.</remarks>
+        public Image Image { get; set; } = Resources.ExportIcon;
 
         /// <summary>
         /// Gets or sets the file filter generator of the export information used to make file filters.

@@ -646,6 +646,15 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Algemeen.
+        /// </summary>
+        public static string ExportInfo_Default_category {
+            get {
+                return ResourceManager.GetString("ExportInfo_Default_category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Toetsspoor.
         /// </summary>
         public static string FailureMechanismContributionView_GridColumn_Assessment {
@@ -787,15 +796,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Algemeen.
-        /// </summary>
-        public static string GuiExportHandler_Default_category {
-            get {
-                return ResourceManager.GetString("GuiExportHandler_Default_category", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Exporteren is mislukt..
         /// </summary>
         public static string GuiExportHandler_ExportItemUsingDialog_Export_failed {
@@ -861,15 +861,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Importeren gegevens.
-        /// </summary>
-        public static string GuiImportHandler_GetSupportedImporterForTargetType_Data_Import {
-            get {
-                return ResourceManager.GetString("GuiImportHandler_GetSupportedImporterForTargetType_Data_Import", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Fout.
         /// </summary>
         public static string GuiImportHandler_GetSupportedImporterForTargetType_Error {
@@ -922,15 +913,6 @@ namespace Core.Common.Gui.Properties {
         public static string GuiImportHandler_RunImportActivity_Start_importing_data {
             get {
                 return ResourceManager.GetString("GuiImportHandler_RunImportActivity_Start_importing_data", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bijwerken gegevens.
-        /// </summary>
-        public static string GuiUpdateHandler_GetSupportedUpdaterForTargetType_Data_Update {
-            get {
-                return ResourceManager.GetString("GuiUpdateHandler_GetSupportedUpdaterForTargetType_Data_Update", resourceCulture);
             }
         }
         
@@ -1025,6 +1007,15 @@ namespace Core.Common.Gui.Properties {
             get {
                 object obj = ResourceManager.GetObject("ImportIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Importeren gegevens.
+        /// </summary>
+        public static string ImportInfo_Default_category {
+            get {
+                return ResourceManager.GetString("ImportInfo_Default_category", resourceCulture);
             }
         }
         
@@ -1671,6 +1662,15 @@ namespace Core.Common.Gui.Properties {
         public static string Update_ToolTip {
             get {
                 return ResourceManager.GetString("Update_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bijwerken gegevens.
+        /// </summary>
+        public static string UpdateInfo_Default_category {
+            get {
+                return ResourceManager.GetString("UpdateInfo_Default_category", resourceCulture);
             }
         }
     }

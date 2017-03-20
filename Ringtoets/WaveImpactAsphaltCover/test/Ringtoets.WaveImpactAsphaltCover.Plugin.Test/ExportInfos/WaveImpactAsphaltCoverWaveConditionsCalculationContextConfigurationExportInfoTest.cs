@@ -23,12 +23,14 @@ using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.Gui;
 using Core.Common.Gui.Plugin;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using Ringtoets.WaveImpactAsphaltCover.IO.Exporters;
+using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
 {
@@ -54,8 +56,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
             // Assert
             Assert.IsNotNull(exportInfo.CreateFileExporter);
             Assert.IsNotNull(exportInfo.IsEnabled);
-            Assert.IsNull(exportInfo.Category);
-            Assert.IsNull(exportInfo.Image);
+            Assert.AreEqual("Algemeen", exportInfo.Category);
+            TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.ExportIcon, exportInfo.Image);
             Assert.IsNotNull(exportInfo.FileFilterGenerator);
         }
 

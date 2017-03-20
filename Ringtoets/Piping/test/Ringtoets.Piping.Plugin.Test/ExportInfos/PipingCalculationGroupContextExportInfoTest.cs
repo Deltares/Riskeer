@@ -23,6 +23,7 @@ using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.Gui;
 using Core.Common.Gui.Plugin;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -31,6 +32,7 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.IO.Exporters;
 using Ringtoets.Piping.Primitives;
+using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin.Test.ExportInfos
 {
@@ -50,8 +52,8 @@ namespace Ringtoets.Piping.Plugin.Test.ExportInfos
                 Assert.IsNotNull(info.CreateFileExporter);
                 Assert.IsNotNull(info.IsEnabled);
                 Assert.IsNull(info.Name);
-                Assert.IsNull(info.Category);
-                Assert.IsNull(info.Image);
+                Assert.AreEqual("Algemeen", info.Category);
+                TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.ExportIcon, info.Image);
                 Assert.IsNotNull(info.FileFilterGenerator);
             }
         }

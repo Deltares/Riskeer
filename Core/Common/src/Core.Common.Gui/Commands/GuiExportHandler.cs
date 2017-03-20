@@ -103,13 +103,11 @@ namespace Core.Common.Gui.Commands
 
             using (var selectExportInfoDialog = new SelectItemDialog(dialogParent, Resources.GuiExportHandler_GetSupportedExportInfoUsingDialog_Select_exporter))
             {
-                foreach (var exportInfo in supportedExportInfos)
+                foreach (ExportInfo exportInfo in supportedExportInfos)
                 {
                     selectExportInfoDialog.AddItemType(exportInfo.Name,
-                                                       !string.IsNullOrEmpty(exportInfo.Category)
-                                                           ? exportInfo.Category
-                                                           : Resources.GuiExportHandler_Default_category,
-                                                       exportInfo.Image ?? Resources.ExportIcon,
+                                                       exportInfo.Category,
+                                                       exportInfo.Image,
                                                        null);
                 }
 

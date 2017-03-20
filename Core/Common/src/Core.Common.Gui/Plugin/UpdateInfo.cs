@@ -22,6 +22,7 @@
 using System;
 using System.Drawing;
 using Core.Common.Base.IO;
+using Core.Common.Gui.Properties;
 
 namespace Core.Common.Gui.Plugin
 {
@@ -74,12 +75,14 @@ namespace Core.Common.Gui.Plugin
         /// <summary>
         /// Gets or sets the category of the update information.
         /// </summary>
-        public string Category { get; set; }
+        /// <remarks>Should never return null.</remarks>
+        public string Category { get; set; } = Resources.UpdateInfo_Default_category;
 
         /// <summary>
         /// Gets or sets the image of the update information.
         /// </summary>
-        public Image Image { get; set; }
+        /// <remarks>Should never return null.</remarks>
+        public Image Image { get; set; } = Resources.brick;
 
         /// <summary>
         /// Gets or sets the file filter generator of the update information used to make file filters.
@@ -143,12 +146,14 @@ namespace Core.Common.Gui.Plugin
         /// <summary>
         /// Gets or sets the category of the update information.
         /// </summary>
-        public string Category { get; set; }
+        /// <remarks>Should never return null.</remarks>
+        public string Category { get; set; } = Resources.UpdateInfo_Default_category;
 
         /// <summary>
         /// Gets or sets the image of the update information.
         /// </summary>
-        public Image Image { get; set; }
+        /// <remarks>Should never return null.</remarks>
+        public Image Image { get; set; } = Resources.brick;
 
         /// <summary>
         /// Gets or sets the file filter generator of the update information used to make file filters.

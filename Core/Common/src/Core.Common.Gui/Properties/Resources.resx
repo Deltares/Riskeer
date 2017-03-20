@@ -298,10 +298,10 @@
   <data name="MessageWindow_MessageWindow_Messages" xml:space="preserve">
     <value>Berichten</value>
   </data>
-  <data name="GuiImportHandler_GetSupportedImporterForTargetType_Data_Import" xml:space="preserve">
+  <data name="ImportInfo_Default_category" xml:space="preserve">
     <value>Importeren gegevens</value>
   </data>
-  <data name="GuiUpdateHandler_GetSupportedUpdaterForTargetType_Data_Update" xml:space="preserve">
+  <data name="UpdateInfo_Default_category" xml:space="preserve">
     <value>Bijwerken gegevens</value>
   </data>
   <data name="icon_clear_all_messages" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -628,7 +628,7 @@
   <data name="SaveProjectActivity_ProgressTextStepName_SavingProject" xml:space="preserve">
     <value>Project opslaan</value>
   </data>
-  <data name="GuiExportHandler_Default_category" xml:space="preserve">
+  <data name="ExportInfo_Default_category" xml:space="preserve">
     <value>Algemeen</value>
   </data>
 </root>
