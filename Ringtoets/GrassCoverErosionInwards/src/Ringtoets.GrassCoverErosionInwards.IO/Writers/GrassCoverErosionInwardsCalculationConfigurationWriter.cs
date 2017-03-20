@@ -80,6 +80,14 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Writers
                 return;
             }
 
+            writer.WriteElementString(
+                GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeHeightElement,
+                XmlConvert.ToString(input.DikeHeight));
+
+            writer.WriteElementString(
+                GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeHeightCalculationTypeElement,
+                DikeHeightCalculationTypeAsXmlString(input.DikeHeightCalculationType));
+            
             writer.WriteStartElement(ConfigurationSchemaIdentifiers.WaveReduction);
 
             writer.WriteElementString(
@@ -93,6 +101,11 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Writers
                 XmlConvert.ToString(input.UseForeshore));
 
             writer.WriteEndElement();
+        }
+
+        private static string DikeHeightCalculationTypeAsXmlString(DikeHeightCalculationType type)
+        {
+            return new DikeHeightCalculationTypeConverter().ConvertToInvariantString(type);
         }
     }
 }

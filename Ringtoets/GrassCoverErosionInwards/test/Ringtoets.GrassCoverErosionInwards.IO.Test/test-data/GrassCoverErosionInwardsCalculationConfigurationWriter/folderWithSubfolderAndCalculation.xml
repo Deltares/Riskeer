@@ -5,6 +5,8 @@
       <hrlocatie>Locatie1</hrlocatie>
       <dijkprofiel>dijkProfiel</dijkprofiel>
       <orientatie>67.1</orientatie>
+      <dijkhoogte>0</dijkhoogte>
+      <hbnberekenen>niet</hbnberekenen>
       <golfreductie>
         <damgebruiken>true</damgebruiken>
         <damtype>caisson</damtype>
