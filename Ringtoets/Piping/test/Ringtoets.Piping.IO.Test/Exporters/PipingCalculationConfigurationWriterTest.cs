@@ -19,17 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Security.AccessControl;
 using Core.Common.Base.Data;
-using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Integration.TestUtils;
 using Ringtoets.Piping.IO.Exporters;
@@ -39,6 +36,9 @@ namespace Ringtoets.Piping.IO.Test.Exporters
 {
     [TestFixture]
     public class PipingCalculationConfigurationWriterTest
+        : CustomCalculationConfigurationWriterDesignGuidelinesTestFixture<
+            PipingCalculationConfigurationWriter,
+            PipingCalculation>
     {
         private static IEnumerable<TestCaseData> Calculations
         {
@@ -65,98 +65,6 @@ namespace Ringtoets.Piping.IO.Test.Exporters
                 yield return new TestCaseData("calculationWithInfinities",
                                               PipingTestDataGenerator.GetPipingCalculationWithInfinities())
                     .SetName("calculationWithInfinities");
-            }
-        }
-
-        [Test]
-        public void Write_ConfigurationNull_ThrowArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new PipingCalculationConfigurationWriter().Write(null, string.Empty);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("configuration", exception.ParamName);
-        }
-
-        [Test]
-        public void Write_FilePathNull_ThrowArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new PipingCalculationConfigurationWriter().Write(Enumerable.Empty<ICalculationBase>(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("filePath", exception.ParamName);
-        }
-
-        [Test]
-        [TestCase("")]
-        [TestCase("   ")]
-        [TestCase("c:\\>")]
-        public void Write_FilePathInvalid_ThrowCriticalFileWriteException(string filePath)
-        {
-            // Call
-            TestDelegate call = () => new PipingCalculationConfigurationWriter().Write(Enumerable.Empty<ICalculationBase>(), filePath);
-
-            // Assert
-            var exception = Assert.Throws<CriticalFileWriteException>(call);
-            Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);
-            Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
-        }
-
-        [Test]
-        public void Write_FilePathTooLong_ThrowCriticalFileWriteException()
-        {
-            // Setup
-            var filePath = new string('a', 249);
-
-            // Call
-            TestDelegate call = () => new PipingCalculationConfigurationWriter().Write(Enumerable.Empty<ICalculationBase>(), filePath);
-
-            // Assert
-            var exception = Assert.Throws<CriticalFileWriteException>(call);
-            Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);
-            Assert.IsInstanceOf<PathTooLongException>(exception.InnerException);
-        }
-
-        [Test]
-        public void Write_InvalidDirectoryRights_ThrowCriticalFileWriteException()
-        {
-            // Setup
-            string directoryPath = TestHelper.GetScratchPadPath(nameof(Write_InvalidDirectoryRights_ThrowCriticalFileWriteException));
-            using (var disposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(Write_InvalidDirectoryRights_ThrowCriticalFileWriteException)))
-            {
-                string filePath = Path.Combine(directoryPath, "test.xml");
-                disposeHelper.LockDirectory(FileSystemRights.Write);
-
-                // Call
-                TestDelegate call = () => new PipingCalculationConfigurationWriter().Write(Enumerable.Empty<ICalculationBase>(), filePath);
-
-                // Assert
-                var exception = Assert.Throws<CriticalFileWriteException>(call);
-                Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);
-                Assert.IsInstanceOf<UnauthorizedAccessException>(exception.InnerException);
-            }
-        }
-
-        [Test]
-        public void Write_FileInUse_ThrowCriticalFileWriteException()
-        {
-            // Setup
-            string path = TestHelper.GetScratchPadPath(nameof(Write_FileInUse_ThrowCriticalFileWriteException));
-
-            using (var fileDisposeHelper = new FileDisposeHelper(path))
-            {
-                fileDisposeHelper.LockFiles();
-
-                // Call
-                TestDelegate call = () => new PipingCalculationConfigurationWriter().Write(Enumerable.Empty<ICalculationBase>(), path);
-
-                // Assert
-                var exception = Assert.Throws<CriticalFileWriteException>(call);
-                Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{path}'.", exception.Message);
-                Assert.IsInstanceOf<IOException>(exception.InnerException);
             }
         }
 

@@ -26,6 +26,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO.Writers;
 using Ringtoets.StabilityStoneCover.Data;
@@ -35,17 +36,10 @@ namespace Ringtoets.StabilityStoneCover.IO.Test.Writers
 {
     [TestFixture]
     public class StabilityStoneCoverCalculationConfigurationWriterTest
+        : CustomCalculationConfigurationWriterDesignGuidelinesTestFixture<
+            StabilityStoneCoverCalculationConfigurationWriter,
+            StabilityStoneCoverWaveConditionsCalculation>
     {
-        [Test]
-        public void Constructor_Always_CreateWaveConditionsInputWriter()
-        {
-            // Call
-            var writer = new StabilityStoneCoverCalculationConfigurationWriter();
-
-            // Assert
-            Assert.IsInstanceOf<WaveConditionsCalculationConfigurationWriter<StabilityStoneCoverWaveConditionsCalculation>>(writer);
-        }
-
         [Test]
         public void Write_GroupWithCalculationAndOtherGroup_WritesOutCalculationAndGroupToFile()
         {
@@ -100,6 +94,11 @@ namespace Ringtoets.StabilityStoneCover.IO.Test.Writers
             {
                 File.Delete(filePath);
             }
+        }
+
+        protected override void AssertDefaultConstructedInstance(StabilityStoneCoverCalculationConfigurationWriter writer)
+        {
+            Assert.IsInstanceOf<WaveConditionsCalculationConfigurationWriter<StabilityStoneCoverWaveConditionsCalculation>>(writer);
         }
     }
 }

@@ -26,6 +26,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.IO.Writers;
 using Ringtoets.Revetment.Data;
@@ -35,17 +36,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Writers
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsCalculationConfigurationWriterTest
+        : CustomCalculationConfigurationWriterDesignGuidelinesTestFixture<
+            GrassCoverErosionOutwardsCalculationConfigurationWriter,
+            GrassCoverErosionOutwardsWaveConditionsCalculation>
     {
-        [Test]
-        public void Constructor_Always_CreateWaveConditionsInputWriter()
-        {
-            // Call
-            var writer = new GrassCoverErosionOutwardsCalculationConfigurationWriter();
-
-            // Assert
-            Assert.IsInstanceOf<WaveConditionsCalculationConfigurationWriter<GrassCoverErosionOutwardsWaveConditionsCalculation>>(writer);
-        }
-
         [Test]
         public void Write_GroupWithCalculationAndOtherGroup_WritesOutCalculationAndGroupToFile()
         {
@@ -100,6 +94,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Writers
             {
                 File.Delete(filePath);
             }
+        }
+
+        protected override void AssertDefaultConstructedInstance(GrassCoverErosionOutwardsCalculationConfigurationWriter writer)
+        {
+            Assert.IsInstanceOf<WaveConditionsCalculationConfigurationWriter<GrassCoverErosionOutwardsWaveConditionsCalculation>>(writer);
         }
     }
 }

@@ -26,6 +26,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO.Writers;
 using Ringtoets.WaveImpactAsphaltCover.Data;
@@ -35,17 +36,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.IO.Test.Writers
 {
     [TestFixture]
     public class WaveImpactAsphaltCoverCalculationConfigurationWriterTest
+        : CustomCalculationConfigurationWriterDesignGuidelinesTestFixture<
+            WaveImpactAsphaltCoverCalculationConfigurationWriter,
+            WaveImpactAsphaltCoverWaveConditionsCalculation>
     {
-        [Test]
-        public void Constructor_Always_CreateWaveConditionsInputWriter()
-        {
-            // Call
-            var writer = new WaveImpactAsphaltCoverCalculationConfigurationWriter();
-
-            // Assert
-            Assert.IsInstanceOf<WaveConditionsCalculationConfigurationWriter<WaveImpactAsphaltCoverWaveConditionsCalculation>>(writer);
-        }
-
         [Test]
         public void Write_GroupWithCalculationAndOtherGroup_WritesOutCalculationAndGroupToFile()
         {
@@ -100,6 +94,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.IO.Test.Writers
             {
                 File.Delete(filePath);
             }
+        }
+
+        protected override void AssertDefaultConstructedInstance(WaveImpactAsphaltCoverCalculationConfigurationWriter writer)
+        {
+            Assert.IsInstanceOf<WaveConditionsCalculationConfigurationWriter<WaveImpactAsphaltCoverWaveConditionsCalculation>>(writer);
         }
     }
 }

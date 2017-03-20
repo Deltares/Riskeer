@@ -30,7 +30,7 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.IO.Writers;
+using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO.Writers;
 
@@ -38,17 +38,10 @@ namespace Ringtoets.Revetment.IO.Test.Writers
 {
     [TestFixture]
     public class WaveConditionsCalculationConfigurationWriterTest
+        : CustomCalculationConfigurationWriterDesignGuidelinesTestFixture<
+            SimpleWaveConditionsCalculationConfigurationWriter,
+            SimpleWaveConditionsCalculation>
     {
-        [Test]
-        public void Constructor_Always_ReturnsCalculationConfigurationWriter()
-        {
-            // Call
-            var writer = new SimpleWaveConditionsCalculationConfigurationWriter();
-
-            // Assert
-            Assert.IsInstanceOf<CalculationConfigurationWriter<SimpleWaveConditionsCalculation>>(writer);
-        }
-
         [Test]
         public void WriteCalculation_SparseCalculation_WritesSparseConfigurationToFile()
         {
