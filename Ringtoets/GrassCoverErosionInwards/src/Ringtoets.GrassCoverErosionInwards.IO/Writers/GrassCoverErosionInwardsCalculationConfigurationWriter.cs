@@ -75,6 +75,11 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Writers
 
         private static void WriteWaveReduction(GrassCoverErosionInwardsInput input, XmlWriter writer)
         {
+            if (input.DikeProfile == null)
+            {
+                return;
+            }
+
             writer.WriteStartElement(ConfigurationSchemaIdentifiers.WaveReduction);
 
             writer.WriteElementString(

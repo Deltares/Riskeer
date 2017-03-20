@@ -2,12 +2,6 @@
 <configuratie>
   <berekening naam="Berekening 1">
     <orientatie>NaN</orientatie>
-    <golfreductie>
-      <damgebruiken>false</damgebruiken>
-      <damtype>havendam</damtype>
-      <damhoogte>0</damhoogte>
-      <voorlandgebruiken>false</voorlandgebruiken>
-    </golfreductie>
     <stochasten>
       <stochast naam="overslagdebiet">
         <verwachtingswaarde>0.004</verwachtingswaarde>

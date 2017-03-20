@@ -141,7 +141,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Writers
                 TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
                 Path.Combine(nameof(GrassCoverErosionInwardsCalculationConfigurationWriter), "sparseConfiguration.xml"));
 
-            var calculation = new GrassCoverErosionInwardsCalculation()
+            var calculation = new GrassCoverErosionInwardsCalculation
             {
                 Name = "Berekening 1"
             };
