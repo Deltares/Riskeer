@@ -41,19 +41,22 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
             WellKnownTileSourceMapData wellKnownMapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingRoads);
             WmtsMapData wmtsMapData = WmtsMapData.CreateDefaultPdokMapData();
 
-            yield return new TestCaseData(new BackgroundData());
-            yield return new TestCaseData(new BackgroundData
+            yield return new TestCaseData(
+                new BackgroundData())
+                .SetName("Default BackgroundData");
+            yield return new TestCaseData(
+                new BackgroundData
             {
                 Name = wellKnownMapData.Name,
                 BackgroundMapDataType = BackgroundMapDataType.WellKnown,
                 IsConfigured = wellKnownMapData.IsConfigured
-            });
+            }).SetName("WellKnown BingRoads BackgroundData");
             yield return new TestCaseData(new BackgroundData
             {
                 Name = wmtsMapData.Name,
                 BackgroundMapDataType = BackgroundMapDataType.Wmts,
                 IsConfigured = wmtsMapData.IsConfigured
-            });
+            }).SetName("Wmts DefaultPdok BackgroundData");
         }
 
         [SetUp]

@@ -78,37 +78,37 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
                     true,
                     true,
                     true)
-                .SetName("Distribution, All read-only, correct assertions."),
+                .SetName("VariationDistribution, All read-only, correct assertions."),
             new TestCaseData(
                     new SimpleVariationCoefficientDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.All),
                     false,
                     true,
                     false)
-                .SetName("Distribution, All read-only, incorrect assertions."),
+                .SetName("VariationDistribution, All read-only, incorrect assertions."),
             new TestCaseData(
                     new SimpleVariationCoefficientDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.All),
                     true,
                     false,
                     false)
-                .SetName("Distribution, All read-only, incorrect assertions."),
+                .SetName("VariationDistribution, All read-only, incorrect assertions."),
             new TestCaseData(
                     new SimpleVariationCoefficientDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.Mean),
                     true,
                     false,
                     true)
-                .SetName("Distribution, Mean read-only, correct assertions."),
+                .SetName("VariationDistribution, Mean read-only, correct assertions."),
             new TestCaseData(
                     new SimpleVariationCoefficientDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.CoefficientOfVariation),
                     false,
                     true,
                     true)
-                .SetName("Distribution, CoefficientOfVariation read-only, correct assertions."),
+                .SetName("VariationDistribution, CoefficientOfVariation read-only, correct assertions."),
             new TestCaseData(
                     new SimpleVariationCoefficientDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.None),
                     false,
                     false,
                     true)
-                .SetName("Distribution, None read-only, correct assertions."),
+                .SetName("VariationDistribution, None read-only, correct assertions."),
         };
 
         #endregion

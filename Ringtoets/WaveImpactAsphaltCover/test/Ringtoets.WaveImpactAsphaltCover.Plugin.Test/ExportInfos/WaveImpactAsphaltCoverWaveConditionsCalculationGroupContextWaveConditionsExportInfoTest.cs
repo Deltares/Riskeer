@@ -117,8 +117,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
+        [TestCase(true, TestName = "IsEnabled_WithOutput_ReturnExpectedEnabledState")]
+        [TestCase(false, TestName = "IsEnabled_WithoutOutput_ReturnExpectedEnabledState")]
         public void IsEnabled_CalculationWithOrWithoutOutput_ReturnExpectedEnabledState(bool hasOutput)
         {
             // Setup
@@ -153,8 +153,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
+        [TestCase(true, TestName = "IsEnabled_WithOutputInSubFolder_ReturnExpectedEnabledState")]
+        [TestCase(false, TestName = "IsEnabled_WithoutOutputInSubFolder_ReturnExpectedEnabledState")]
         public void IsEnabled_CalculationInSubFolder_ReturnExpectedEnabledState(bool hasOutput)
         {
             // Setup
