@@ -81,7 +81,7 @@ namespace Ringtoets.Piping.IO.Test.Exporters
             };
 
             string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO,
-                                                                    Path.Combine("PipingCalculationConfigurationExporter",
+                                                                    Path.Combine(nameof(PipingCalculationConfigurationExporter),
                                                                                  "folderWithSubfolderAndCalculation.xml"));
 
             // Call and Assert
