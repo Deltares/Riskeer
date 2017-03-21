@@ -23,7 +23,6 @@ using System;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
-using Core.Components.Gis.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
@@ -138,18 +137,18 @@ namespace Ringtoets.Integration.Data.Test
 
             Assert.AreEqual(names, section.FailureMechanismContribution.Distribution.Select(d => d.Assessment));
             Assert.AreEqual(codes, section.FailureMechanismContribution.Distribution.Select(d => d.AssessmentCode));
-            Assert.AreEqual(Enumerable.Repeat(1.0/30000.0, 12), section.FailureMechanismContribution.Distribution.Select(d => d.Norm));
+            Assert.AreEqual(Enumerable.Repeat(1.0 / 30000.0, 12), section.FailureMechanismContribution.Distribution.Select(d => d.Norm));
 
             Assert.AreEqual(double.NaN, section.PipingFailureMechanism.PipingProbabilityAssessmentInput.SectionLength);
 
             Assert.AreEqual(sum, section.FailureMechanismContribution.Distribution.Sum(d => d.Contribution));
 
-            Assert.IsFalse(section.BackgroundData.IsVisible);
+            Assert.IsTrue(section.BackgroundData.IsVisible);
             Assert.AreEqual(0.0, section.BackgroundData.Transparency.Value);
-            Assert.IsFalse(section.BackgroundData.IsConfigured);
-            Assert.AreEqual("<niet bepaald>", section.BackgroundData.Name);
-            Assert.AreEqual(BackgroundMapDataType.Wmts, section.BackgroundData.BackgroundMapDataType);
-            CollectionAssert.IsEmpty(section.BackgroundData.Parameters);
+            Assert.IsTrue(section.BackgroundData.IsConfigured);
+            Assert.AreEqual("Bing Maps - Satelliet", section.BackgroundData.Name);
+            Assert.AreEqual(BackgroundMapDataType.WellKnown, section.BackgroundData.BackgroundMapDataType);
+            Assert.AreEqual("1", section.BackgroundData.Parameters[BackgroundDataIdentifiers.WellKnownTileSource]);
         }
 
         [Test]
@@ -227,7 +226,7 @@ namespace Ringtoets.Integration.Data.Test
             // Setup
             var assessmentSection = new AssessmentSection(composition);
 
-            const double norm = 1.0/30000;
+            const double norm = 1.0 / 30000;
 
             // Call
             var contribution = assessmentSection.FailureMechanismContribution.Distribution.ToArray();
@@ -241,7 +240,7 @@ namespace Ringtoets.Integration.Data.Test
                 Assert.AreEqual(failureMechanisms[i].Name, contribution[i].Assessment);
                 Assert.AreEqual(failureMechanisms[i].Contribution, contribution[i].Contribution);
                 Assert.AreEqual(norm, contribution[i].Norm);
-                Assert.AreEqual(100.0/(norm*contribution[i].Contribution), contribution[i].ProbabilitySpace);
+                Assert.AreEqual(100.0 / (norm * contribution[i].Contribution), contribution[i].ProbabilitySpace);
             }
             var otherContributionItem = contribution[11];
             Assert.AreEqual("Overig", otherContributionItem.Assessment);

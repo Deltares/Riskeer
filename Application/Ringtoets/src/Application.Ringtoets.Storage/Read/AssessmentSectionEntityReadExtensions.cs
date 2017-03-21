@@ -102,6 +102,7 @@ namespace Application.Ringtoets.Storage.Read
             backgroundData.IsConfigured = readBackgroundData.IsConfigured;
             backgroundData.Name = readBackgroundData.Name;
 
+            backgroundData.Parameters.Clear();
             foreach (KeyValuePair<string, string> backgroundDataParameter in readBackgroundData.Parameters)
             {
                 backgroundData.Parameters.Add(backgroundDataParameter.Key, backgroundDataParameter.Value);

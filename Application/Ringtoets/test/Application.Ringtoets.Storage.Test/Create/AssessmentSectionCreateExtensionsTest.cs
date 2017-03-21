@@ -92,6 +92,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                     BackgroundMapDataType = backgroundType
                 }
             };
+            assessmentSection.BackgroundData.Parameters.Clear();
             var registry = new PersistenceRegistry();
 
             // Call

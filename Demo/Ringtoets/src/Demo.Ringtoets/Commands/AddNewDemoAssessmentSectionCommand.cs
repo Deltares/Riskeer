@@ -106,7 +106,7 @@ namespace Demo.Ringtoets.Commands
             return demoAssessmentSection;
         }
 
-        private static void InitializeBackgroundMapData(AssessmentSection demoAssessmentSection)
+        private static void InitializeBackgroundMapData(IAssessmentSection demoAssessmentSection)
         {
             WmtsMapData targetConfiguration = WmtsMapData.CreateDefaultPdokMapData();
             BackgroundData backgroundData = demoAssessmentSection.BackgroundData;
@@ -115,12 +115,13 @@ namespace Demo.Ringtoets.Commands
             backgroundData.IsVisible = targetConfiguration.IsVisible;
             backgroundData.Transparency = targetConfiguration.Transparency;
             backgroundData.IsConfigured = targetConfiguration.IsConfigured;
+            backgroundData.Parameters.Clear();
             backgroundData.Parameters.Add(BackgroundDataIdentifiers.SourceCapabilitiesUrl, targetConfiguration.SourceCapabilitiesUrl);
             backgroundData.Parameters.Add(BackgroundDataIdentifiers.SelectedCapabilityIdentifier, targetConfiguration.SelectedCapabilityIdentifier);
             backgroundData.Parameters.Add(BackgroundDataIdentifiers.PreferredFormat, targetConfiguration.PreferredFormat);
         }
 
-        private void InitializeDemoReferenceLine(AssessmentSection demoAssessmentSection)
+        private void InitializeDemoReferenceLine(IAssessmentSection demoAssessmentSection)
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly,
                                                                                    true,
@@ -137,7 +138,7 @@ namespace Demo.Ringtoets.Commands
             }
         }
 
-        private void InitializeDemoFailureMechanismSections(AssessmentSection demoAssessmentSection)
+        private void InitializeDemoFailureMechanismSections(IAssessmentSection demoAssessmentSection)
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly,
                                                                                    true,

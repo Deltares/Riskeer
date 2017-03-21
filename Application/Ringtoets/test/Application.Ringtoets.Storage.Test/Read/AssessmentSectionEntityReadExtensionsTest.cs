@@ -101,26 +101,14 @@ namespace Application.Ringtoets.Storage.Test.Read
             const double transparency = 0.0;
             bool isVisible = isConfigured;
 
-            const string sourceCapabilitiesUrl = "//url";
-            const string selectedCapabilityName = "selected name";
-            const string preferredFormat = "image/png";
-            const BackgroundMapDataType backgroundMapDataType = BackgroundMapDataType.Wmts;
+            const string wellKnownTileSource = "1";
+            const BackgroundMapDataType backgroundMapDataType = BackgroundMapDataType.WellKnown;
             var backgroundDataMetaEntities = new List<BackgroundDataMetaEntity>
             {
                 new BackgroundDataMetaEntity
                 {
-                    Key = BackgroundDataIdentifiers.SourceCapabilitiesUrl,
-                    Value = sourceCapabilitiesUrl
-                },
-                new BackgroundDataMetaEntity
-                {
-                    Key = BackgroundDataIdentifiers.SelectedCapabilityIdentifier,
-                    Value = selectedCapabilityName
-                },
-                new BackgroundDataMetaEntity
-                {
-                    Key = BackgroundDataIdentifiers.PreferredFormat,
-                    Value = preferredFormat
+                    Key = BackgroundDataIdentifiers.WellKnownTileSource,
+                    Value = wellKnownTileSource
                 }
             };
 
@@ -152,7 +140,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             if (isConfigured)
             {
-                Assert.AreEqual(3, backgroundData.Parameters.Count);
+                Assert.AreEqual(1, backgroundData.Parameters.Count);
 
                 var expectedKeyValuePairs = backgroundDataMetaEntities.Select(me => new KeyValuePair<string, string>(me.Key, me.Value));
                 CollectionAssert.AreEquivalent(expectedKeyValuePairs, backgroundData.Parameters);

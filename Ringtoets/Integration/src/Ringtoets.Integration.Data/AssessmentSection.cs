@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
-using Core.Components.Gis;
 using Core.Components.Gis.Data;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data;
@@ -61,7 +60,7 @@ namespace Ringtoets.Integration.Data
             Name = Resources.AssessmentSection_DisplayName;
             Comments = new Comment();
 
-            WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
+            var mapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial);
 
             BackgroundData = new BackgroundData
             {
@@ -69,8 +68,9 @@ namespace Ringtoets.Integration.Data
                 IsVisible = mapData.IsVisible,
                 Transparency = mapData.Transparency,
                 IsConfigured = mapData.IsConfigured,
-                BackgroundMapDataType = BackgroundMapDataType.Wmts
+                BackgroundMapDataType = BackgroundMapDataType.WellKnown
             };
+            BackgroundData.Parameters[BackgroundDataIdentifiers.WellKnownTileSource] = ((int) mapData.TileSource).ToString();
 
             PipingFailureMechanism = new PipingFailureMechanism();
             GrassCoverErosionInwards = new GrassCoverErosionInwardsFailureMechanism();

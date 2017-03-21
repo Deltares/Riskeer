@@ -210,12 +210,20 @@ INSERT INTO BackgroundDataEntity (
 		[IsConfigured],
 		[BackgroundDataType])
 SELECT AssessmentSectionEntityId,
-		"<niet bepaald>",
-		0,
+		"Bing Maps - Satelliet",
+		1,
 		0.0,
-		0,
-		1
+		1,
+		2
 		FROM AssessmentSectionEntity;
-
+INSERT INTO BackgroundDataMetaEntity(
+		[BackgroundDataEntityId],
+		[Key],
+		[Value])
+SELECT BackgroundDataEntityId,
+		"WellKnownTileSource",
+		"1"
+		FROM BackgroundDataEntity;
 DETACH SOURCEPROJECT;
+
 PRAGMA foreign_keys = ON;
