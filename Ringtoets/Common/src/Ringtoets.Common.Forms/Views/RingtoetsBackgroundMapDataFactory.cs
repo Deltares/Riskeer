@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using Core.Components.Gis.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.TypeConverters;
@@ -41,6 +42,10 @@ namespace Ringtoets.Common.Forms.Views
         /// is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="BackgroundMapDataType"/>
         /// is not valid.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="BackgroundData.Parameters"/>
+        /// contains an invalid value for <see cref="WellKnownTileSource"/> when the 
+        /// <see cref="BackgroundData.BackgroundMapDataType"/> is of type 
+        /// <see cref="BackgroundMapDataType.WellKnown"/>.</exception>
         public static ImageBasedMapData CreateBackgroundMapData(BackgroundData backgroundData)
         {
             if (backgroundData == null)

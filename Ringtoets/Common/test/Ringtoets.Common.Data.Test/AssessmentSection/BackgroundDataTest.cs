@@ -112,7 +112,7 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
         }
 
         [Test]
-        public void Parameters_AddOtherThanAllowed_ThrowInvalidOperationException()
+        public void ParametersAdd_AddOtherThanAllowed_ThrowInvalidOperationException()
         {
             // Setup
             var backgroundData = new BackgroundData();
@@ -130,7 +130,7 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
         }
 
         [Test]
-        public void Parameters_AddOtherThanAllowed_ThrowInvalidOperationExceptions()
+        public void ParametersIndexer_AddOtherThanAllowed_ThrowInvalidOperationException()
         {
             // Setup
             var backgroundData = new BackgroundData();

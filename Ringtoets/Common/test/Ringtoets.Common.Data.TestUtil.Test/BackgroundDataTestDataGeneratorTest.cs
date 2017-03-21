@@ -19,6 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.ComponentModel;
+using Core.Common.TestUtil;
+using Core.Common.Utils.Reflection;
 using Core.Components.Gis.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -68,19 +72,39 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void GetWellKnownBackgroundMapData_Always_ReturnBackgroundDataWithTypeSetToWellKnown()
+        public void GetWellKnownBackgroundMapData_WithValidWellKnownTileSourceValue_ReturnBackgroundDataWithTypeSetToWellKnown()
         {
+            // Setup
+            var random = new Random(21);
+            WellKnownTileSource wellKnownTileSource = random.NextEnumValue<WellKnownTileSource>();
+
             // Call
-            BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData(WellKnownTileSource.BingAerial);
+            BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData(wellKnownTileSource);
 
             // Assert
             Assert.AreEqual(BackgroundMapDataType.WellKnown, backgroundData.BackgroundMapDataType);
-            Assert.AreEqual("Bing Maps - Satelliet", backgroundData.Name);
             Assert.IsTrue(backgroundData.IsConfigured);
             Assert.IsTrue(backgroundData.IsVisible);
             Assert.AreEqual(0, backgroundData.Transparency.Value);
             Assert.AreEqual(1, backgroundData.Parameters.Count);
-            Assert.AreEqual("1", backgroundData.Parameters[BackgroundDataIdentifiers.WellKnownTileSource]);
+
+            string backgroundDataName = TypeUtils.GetDisplayName(wellKnownTileSource);
+            Assert.AreEqual(backgroundDataName, backgroundData.Name);
+            Assert.AreEqual(((int)wellKnownTileSource).ToString(),
+                            backgroundData.Parameters[BackgroundDataIdentifiers.WellKnownTileSource]);
+        }
+
+        [Test]
+        public void GetWellKnownBackgroundMapData_WithInvalidWellKnownTileSourceValue_ThrowsInvalidEnumArgumentException()
+        {
+            // Setup
+            const WellKnownTileSource invalidWellKnownTileSource = (WellKnownTileSource) 1337;
+
+            // Call
+            TestDelegate call = () => BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData(invalidWellKnownTileSource);
+
+            // Assert
+            Assert.Throws<InvalidEnumArgumentException>(call);
         }
     }
 }

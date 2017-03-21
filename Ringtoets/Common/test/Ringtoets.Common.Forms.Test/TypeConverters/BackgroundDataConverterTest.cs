@@ -21,6 +21,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -51,8 +53,8 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
         {
             // Setup
             WmtsMapData mapData = configured
-                ? WmtsMapData.CreateDefaultPdokMapData()
-                : WmtsMapData.CreateUnconnectedMapData();
+                                      ? WmtsMapData.CreateDefaultPdokMapData()
+                                      : WmtsMapData.CreateUnconnectedMapData();
 
             // Call
             BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(mapData);
@@ -81,7 +83,9 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
         public void ConvertTo_WellKnownMapData_ReturnBackgroundData()
         {
             // Setup
-            var mapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial);
+            var random = new Random(21);
+            WellKnownTileSource wellKnownTileSource = random.NextEnumValue<WellKnownTileSource>();
+            var mapData = new WellKnownTileSourceMapData(wellKnownTileSource);
 
             // Call
             BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(mapData);
@@ -94,8 +98,8 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
             Assert.AreEqual(BackgroundMapDataType.WellKnown, backgroundData.BackgroundMapDataType);
 
             Assert.AreEqual(1, backgroundData.Parameters.Count);
-            var wellKnownTileSource = (WellKnownTileSource) Convert.ToInt32(backgroundData.Parameters[BackgroundDataIdentifiers.WellKnownTileSource]);
-            Assert.AreEqual(mapData.TileSource, wellKnownTileSource);
+            var actualWellKnownTileSource = (WellKnownTileSource) Convert.ToInt32(backgroundData.Parameters[BackgroundDataIdentifiers.WellKnownTileSource]);
+            Assert.AreEqual(mapData.TileSource, actualWellKnownTileSource);
         }
 
         [Test]
@@ -143,16 +147,33 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
         public void ConvertFrom_BackgroundData_ReturnWellKnownMapData()
         {
             // Setup            
-            const WellKnownTileSource wellKnownTileSource = WellKnownTileSource.BingAerial;
+            var random = new Random(21);
+            WellKnownTileSource wellKnownTileSource = random.NextEnumValue<WellKnownTileSource>();
             BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData(wellKnownTileSource);
 
             // Call
             ImageBasedMapData convertedMapData = BackgroundDataConverter.ConvertFrom(backgroundData);
-            
+
             // Assert
             var expectedMapData = new WellKnownTileSourceMapData(wellKnownTileSource);
             MapDataTestHelper.AssertImageBasedMapData(expectedMapData, convertedMapData);
+        }
 
+        [Test]
+        public void ConvertFrom_BackgroundDataWithInvalidWellKnownTileSourceValue_ThrowsInvalidEnumArgumentException()
+        {
+            // Setup            
+            var backgroundData = new BackgroundData
+            {
+                BackgroundMapDataType = BackgroundMapDataType.WellKnown
+            };
+            backgroundData.Parameters[BackgroundDataIdentifiers.WellKnownTileSource] = "1337";
+
+            // Call
+            TestDelegate call = () => BackgroundDataConverter.ConvertFrom(backgroundData);
+
+            // Assert
+            Assert.Throws<InvalidEnumArgumentException>(call);
         }
 
         private static IEnumerable<TestCaseData> WmtsMapDatas
