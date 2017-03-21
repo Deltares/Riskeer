@@ -23,6 +23,7 @@
     <map naam="Nested">
       <berekening naam="Berekening 2">
         <orientatie>NaN</orientatie>
+        <hbnberekenen>niet</hbnberekenen>
         <stochasten>
           <stochast naam="overslagdebiet">
             <verwachtingswaarde>0.004</verwachtingswaarde>

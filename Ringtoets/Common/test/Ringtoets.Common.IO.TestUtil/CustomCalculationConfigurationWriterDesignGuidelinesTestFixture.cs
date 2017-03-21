@@ -49,8 +49,11 @@ namespace Ringtoets.Common.IO.TestUtil
         [Test]
         public void Write_ConfigurationNull_ThrowArgumentNullException()
         {
+            // Setup
+            var writer = new TWriter();
+
             // Call
-            TestDelegate test = () => new TWriter().Write(null, string.Empty);
+            TestDelegate test = () => writer.Write(null, string.Empty);
 
             // Assert
             ArgumentNullException exception = Assert.Throws<ArgumentNullException>(test);
@@ -60,8 +63,11 @@ namespace Ringtoets.Common.IO.TestUtil
         [Test]
         public void Write_FilePathNull_ThrowArgumentNullException()
         {
+            // Setup
+            var writer = new TWriter();
+
             // Call
-            TestDelegate test = () => new TWriter().Write(Enumerable.Empty<ICalculationBase>(), null);
+            TestDelegate test = () => writer.Write(Enumerable.Empty<ICalculationBase>(), null);
 
             // Assert
             ArgumentNullException exception = Assert.Throws<ArgumentNullException>(test);
@@ -72,8 +78,11 @@ namespace Ringtoets.Common.IO.TestUtil
         [TestCaseSource(typeof(InvalidPathHelper), nameof(InvalidPathHelper.InvalidPaths))]
         public void Write_FilePathInvalid_ThrowCriticalFileWriteException(string filePath)
         {
+            // Setup
+            var writer = new TWriter();
+            
             // Call
-            TestDelegate call = () => new TWriter().Write(Enumerable.Empty<ICalculationBase>(), filePath);
+            TestDelegate call = () => writer.Write(Enumerable.Empty<ICalculationBase>(), filePath);
 
             // Assert
             CriticalFileWriteException exception = Assert.Throws<CriticalFileWriteException>(call);
@@ -85,9 +94,10 @@ namespace Ringtoets.Common.IO.TestUtil
         {
             // Setup
             var filePath = new string('a', 249);
+            var writer = new TWriter();
 
             // Call
-            TestDelegate call = () => new TWriter().Write(Enumerable.Empty<ICalculationBase>(), filePath);
+            TestDelegate call = () => writer.Write(Enumerable.Empty<ICalculationBase>(), filePath);
 
             // Assert
             CriticalFileWriteException exception = Assert.Throws<CriticalFileWriteException>(call);
@@ -98,6 +108,7 @@ namespace Ringtoets.Common.IO.TestUtil
         public void Write_InvalidDirectoryRights_ThrowCriticalFileWriteException()
         {
             // Setup
+            var writer = new TWriter();
             string directoryPath = TestHelper.GetScratchPadPath(nameof(Write_InvalidDirectoryRights_ThrowCriticalFileWriteException));
             using (var disposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(Write_InvalidDirectoryRights_ThrowCriticalFileWriteException)))
             {
@@ -105,7 +116,7 @@ namespace Ringtoets.Common.IO.TestUtil
                 disposeHelper.LockDirectory(FileSystemRights.Write);
 
                 // Call
-                TestDelegate call = () => new TWriter().Write(Enumerable.Empty<ICalculationBase>(), filePath);
+                TestDelegate call = () => writer.Write(Enumerable.Empty<ICalculationBase>(), filePath);
 
                 // Assert
                 CriticalFileWriteException exception = Assert.Throws<CriticalFileWriteException>(call);
@@ -118,13 +129,14 @@ namespace Ringtoets.Common.IO.TestUtil
         {
             // Setup
             string path = TestHelper.GetScratchPadPath(nameof(Write_FileInUse_ThrowCriticalFileWriteException));
+            var writer = new TWriter();
 
             using (var fileDisposeHelper = new FileDisposeHelper(path))
             {
                 fileDisposeHelper.LockFiles();
 
                 // Call
-                TestDelegate call = () => new TWriter().Write(Enumerable.Empty<ICalculationBase>(), path);
+                TestDelegate call = () => writer.Write(Enumerable.Empty<ICalculationBase>(), path);
 
                 // Assert
                 CriticalFileWriteException exception = Assert.Throws<CriticalFileWriteException>(call);

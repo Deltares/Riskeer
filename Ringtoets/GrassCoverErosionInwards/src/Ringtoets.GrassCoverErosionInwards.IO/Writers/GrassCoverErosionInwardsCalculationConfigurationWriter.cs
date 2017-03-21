@@ -40,20 +40,19 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Writers
 
             GrassCoverErosionInwardsInput input = calculation.InputParameters;
 
-            if (input.HydraulicBoundaryLocation != null)
-            {
-                writer.WriteElementString(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
-                                          input.HydraulicBoundaryLocation.Name);
-            }
-            if (input.DikeProfile != null)
-            {
-                writer.WriteElementString(GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeProfileElement,
-                                          input.DikeProfile.Name);
-            }
+            WriteHydraulicBoundaryLocation(input, writer);
+
+            WriteDikeProfileName(input, writer);
 
             writer.WriteElementString(
                 ConfigurationSchemaIdentifiers.Orientation,
                 XmlConvert.ToString(input.Orientation));
+
+            WriteDikeHeight(input, writer);
+
+            writer.WriteElementString(
+                GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeHeightCalculationTypeElement,
+                DikeHeightCalculationTypeAsXmlString(input.DikeHeightCalculationType));
 
             WriteWaveReduction(input, writer);
 
@@ -62,18 +61,31 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Writers
             writer.WriteEndElement();
         }
 
-        private static IDictionary<string, IDistribution> CreateInputDistributions(GrassCoverErosionInwardsInput calculationInputParameters)
+        private static void WriteHydraulicBoundaryLocation(GrassCoverErosionInwardsInput input, XmlWriter writer)
         {
-            return new Dictionary<string, IDistribution>
+            if (input.HydraulicBoundaryLocation == null)
             {
-                {
-                    GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.CriticalFlowRateStochastName,
-                    calculationInputParameters.CriticalFlowRate
-                }
-            };
+                return;
+            }
+
+            writer.WriteElementString(
+                ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
+                input.HydraulicBoundaryLocation.Name);
         }
 
-        private static void WriteWaveReduction(GrassCoverErosionInwardsInput input, XmlWriter writer)
+        private static void WriteDikeProfileName(GrassCoverErosionInwardsInput input, XmlWriter writer)
+        {
+            if (input.DikeProfile == null)
+            {
+                return;
+            }
+
+            writer.WriteElementString(
+                GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeProfileElement,
+                input.DikeProfile.Name);
+        }
+
+        private static void WriteDikeHeight(GrassCoverErosionInwardsInput input, XmlWriter writer)
         {
             if (input.DikeProfile == null)
             {
@@ -83,11 +95,20 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Writers
             writer.WriteElementString(
                 GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeHeightElement,
                 XmlConvert.ToString(input.DikeHeight));
+        }
 
-            writer.WriteElementString(
-                GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeHeightCalculationTypeElement,
-                DikeHeightCalculationTypeAsXmlString(input.DikeHeightCalculationType));
-            
+        private static string DikeHeightCalculationTypeAsXmlString(DikeHeightCalculationType type)
+        {
+            return new DikeHeightCalculationTypeConverter().ConvertToInvariantString(type);
+        }
+
+        private static void WriteWaveReduction(GrassCoverErosionInwardsInput input, XmlWriter writer)
+        {
+            if (input.DikeProfile == null)
+            {
+                return;
+            }
+
             writer.WriteStartElement(ConfigurationSchemaIdentifiers.WaveReduction);
 
             writer.WriteElementString(
@@ -103,9 +124,15 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Writers
             writer.WriteEndElement();
         }
 
-        private static string DikeHeightCalculationTypeAsXmlString(DikeHeightCalculationType type)
+        private static IDictionary<string, IDistribution> CreateInputDistributions(GrassCoverErosionInwardsInput calculationInputParameters)
         {
-            return new DikeHeightCalculationTypeConverter().ConvertToInvariantString(type);
+            return new Dictionary<string, IDistribution>
+            {
+                {
+                    GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.CriticalFlowRateStochastName,
+                    calculationInputParameters.CriticalFlowRate
+                }
+            };
         }
     }
 }
