@@ -118,7 +118,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
 
         [Test]
-        public void Replace_AssessmentSectionNull_ThrownArgumentNullException()
+        public void Replace_AssessmentSectionNull_ThrowArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();

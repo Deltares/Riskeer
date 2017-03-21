@@ -131,7 +131,7 @@ namespace Core.Common.Utils.Test.Reflection
         }
 
         [Test]
-        public void GetAssemblyResourceStream_AssemblyNull_ThrownArgumentNullException()
+        public void GetAssemblyResourceStream_AssemblyNull_ThrowArgumentNullException()
         {
             // Call
             TestDelegate call = () => AssemblyUtils.GetAssemblyResourceStream(null, "nice.txt");

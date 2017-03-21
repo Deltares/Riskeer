@@ -293,12 +293,20 @@ namespace Ringtoets.Revetment.IO.Test.Readers
 
             var calculation = readItems[0] as ReadWaveConditionsCalculation;
             Assert.IsNotNull(calculation);
-            Assert.IsTrue(calculation.UpperBoundaryRevetment != null && double.IsPositiveInfinity((double) calculation.UpperBoundaryRevetment));
-            Assert.IsTrue(calculation.LowerBoundaryRevetment != null && double.IsNegativeInfinity((double) calculation.LowerBoundaryRevetment));
-            Assert.IsTrue(calculation.UpperBoundaryWaterLevels != null && double.IsPositiveInfinity((double) calculation.UpperBoundaryWaterLevels));
-            Assert.IsTrue(calculation.LowerBoundaryWaterLevels != null && double.IsNegativeInfinity((double) calculation.LowerBoundaryWaterLevels));
-            Assert.IsTrue(calculation.Orientation != null && double.IsPositiveInfinity((double) calculation.Orientation));
-            Assert.IsTrue(calculation.BreakWaterHeight != null && double.IsPositiveInfinity((double) calculation.BreakWaterHeight));
+
+            Assert.NotNull(calculation.UpperBoundaryRevetment);
+            Assert.NotNull(calculation.LowerBoundaryRevetment);
+            Assert.NotNull(calculation.UpperBoundaryWaterLevels);
+            Assert.NotNull(calculation.LowerBoundaryWaterLevels);
+            Assert.NotNull(calculation.Orientation);
+            Assert.NotNull(calculation.BreakWaterHeight);
+
+            Assert.IsTrue(double.IsPositiveInfinity(calculation.UpperBoundaryRevetment.Value));
+            Assert.IsTrue(double.IsNegativeInfinity(calculation.LowerBoundaryRevetment.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(calculation.UpperBoundaryWaterLevels.Value));
+            Assert.IsTrue(double.IsNegativeInfinity(calculation.LowerBoundaryWaterLevels.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(calculation.Orientation.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(calculation.BreakWaterHeight.Value));
         }
 
         [Test]

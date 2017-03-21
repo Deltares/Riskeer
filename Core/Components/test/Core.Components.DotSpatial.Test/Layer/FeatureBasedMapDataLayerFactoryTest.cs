@@ -61,7 +61,7 @@ namespace Core.Components.DotSpatial.Test.Layer
         }
 
         [Test]
-        public void Create_OtherData_ThrownsNotSupportedException()
+        public void Create_OtherData_ThrowsNotSupportedException()
         {
             // Setup
             var testData = new TestFeatureBasedMapData("test data");

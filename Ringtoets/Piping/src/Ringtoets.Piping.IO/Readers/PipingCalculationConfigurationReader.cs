@@ -70,7 +70,7 @@ namespace Ringtoets.Piping.IO.Readers
         {
             var constructionProperties = new ReadPipingCalculation.ConstructionProperties
             {
-                Name = calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute)?.Value,
+                Name = calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute).Value,
                 AssessmentLevel = calculationElement.GetDoubleValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.AssessmentLevelElement),
                 HydraulicBoundaryLocation = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement),
                 SurfaceLine = calculationElement.GetStringValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.SurfaceLineElement),

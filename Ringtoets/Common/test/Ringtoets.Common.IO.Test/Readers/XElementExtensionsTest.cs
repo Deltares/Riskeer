@@ -290,7 +290,7 @@ namespace Ringtoets.Common.IO.Test.Readers
         }
 
         [Test]
-        public void GetStochastElement_StochastNameNull_ThrownArgumentNullException()
+        public void GetStochastElement_StochastNameNull_ThrowArgumentNullException()
         {
             // Setup
             var element = new XElement("Root");

@@ -70,7 +70,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries
         }
 
         [Test]
-        public void Create_OtherData_ThrownsNotSupportedException()
+        public void Create_OtherData_ThrowsNotSupportedException()
         {
             // Setup
             var testData = new TestItemBasedChartData("test data");
@@ -83,7 +83,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries
         }
 
         [Test]
-        public void Create_NullData_ThrownsArgumentNullException()
+        public void Create_NullData_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => ItemBasedChartDataSeriesFactory.Create(null);

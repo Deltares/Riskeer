@@ -219,7 +219,7 @@ namespace Core.Components.BruTile.Test.Configurations
         }
 
         [Test]
-        public void InitializeFromTileSource_ConfigurationDisposed_ThrownObjectDisposedException()
+        public void InitializeFromTileSource_ConfigurationDisposed_ThrowObjectDisposedException()
         {
             // Setup
             var mocks = new MockRepository();

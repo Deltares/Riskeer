@@ -82,7 +82,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
         }
 
         [Test]
-        public void ConvertTo_InvalidDikeHeightCalculationTypeValue_ThrownNotSupportedException()
+        public void ConvertTo_InvalidDikeHeightCalculationTypeValue_ThrowNotSupportedException()
         {
             // Setup
             var converter = new DikeHeightCalculationTypeConverter();

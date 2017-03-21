@@ -209,7 +209,7 @@ namespace Application.Ringtoets.Migration.Test
         }
 
         [Test]
-        public void DetermineMigrationLocation_OriginalFilePathNull_ThrownArgumentNullException()
+        public void DetermineMigrationLocation_OriginalFilePathNull_ThrowArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();

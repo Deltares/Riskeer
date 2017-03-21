@@ -270,13 +270,22 @@ namespace Ringtoets.Piping.IO.Test.Readers
 
             var calculation = readConfigurationItems[0] as ReadPipingCalculation;
             Assert.IsNotNull(calculation);
-            Assert.IsTrue(calculation.AssessmentLevel != null && double.IsNegativeInfinity((double) calculation.AssessmentLevel));
-            Assert.IsTrue(calculation.EntryPointL != null && double.IsNegativeInfinity((double) calculation.EntryPointL));
-            Assert.IsTrue(calculation.ExitPointL != null && double.IsPositiveInfinity((double) calculation.ExitPointL));
-            Assert.IsTrue(calculation.PhreaticLevelExitMean != null && double.IsNegativeInfinity((double) calculation.PhreaticLevelExitMean));
-            Assert.IsTrue(calculation.PhreaticLevelExitStandardDeviation != null && double.IsPositiveInfinity((double) calculation.PhreaticLevelExitStandardDeviation));
-            Assert.IsTrue(calculation.DampingFactorExitMean != null && double.IsPositiveInfinity((double) calculation.DampingFactorExitMean));
-            Assert.IsTrue(calculation.DampingFactorExitStandardDeviation != null && double.IsPositiveInfinity((double) calculation.DampingFactorExitStandardDeviation));
+
+            Assert.IsNotNull(calculation.AssessmentLevel);
+            Assert.IsNotNull(calculation.EntryPointL);
+            Assert.IsNotNull(calculation.ExitPointL);
+            Assert.IsNotNull(calculation.PhreaticLevelExitMean);
+            Assert.IsNotNull(calculation.PhreaticLevelExitStandardDeviation);
+            Assert.IsNotNull(calculation.DampingFactorExitMean);
+            Assert.IsNotNull(calculation.DampingFactorExitStandardDeviation);
+
+            Assert.IsTrue(double.IsNegativeInfinity(calculation.AssessmentLevel.Value));
+            Assert.IsTrue(double.IsNegativeInfinity(calculation.EntryPointL.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(calculation.ExitPointL.Value));
+            Assert.IsTrue(double.IsNegativeInfinity(calculation.PhreaticLevelExitMean.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(calculation.PhreaticLevelExitStandardDeviation.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(calculation.DampingFactorExitMean.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(calculation.DampingFactorExitStandardDeviation.Value));
         }
 
         [Test]

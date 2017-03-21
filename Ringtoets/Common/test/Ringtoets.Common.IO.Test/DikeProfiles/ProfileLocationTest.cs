@@ -58,7 +58,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         }
 
         [Test]
-        public void Constructor_InitializedWithNullId_ThrownArgumentException()
+        public void Constructor_InitializedWithNullId_ThrowArgumentException()
         {
             // Setup
             var referencePoint = new Point2D(2.2, 3.3);
@@ -73,7 +73,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         }
 
         [Test]
-        public void Constructor_InitializedWithNullPoint_ThrownArgumentException()
+        public void Constructor_InitializedWithNullPoint_ThrowArgumentException()
         {
             // Call
             TestDelegate call = () => new ProfileLocation("anID", "aNAME", 1.1, null);
@@ -89,7 +89,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         [TestCase("a#1")]
         [TestCase("   ")]
         [TestCase("*&(%&$")]
-        public void Constructor_InitializedWithInvalidId_ThrownArgumentException(string id)
+        public void Constructor_InitializedWithInvalidId_ThrowArgumentException(string id)
         {
             // Setup
             var referencePoint = new Point2D(2.2, 3.3);
@@ -107,7 +107,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         [TestCase(double.NaN)]
         [TestCase(double.PositiveInfinity)]
         [TestCase(double.NegativeInfinity)]
-        public void Constructor_InitializedWithInvalidId_ThrownArgumentException(double x0)
+        public void Constructor_InitializedWithInvalidId_ThrowArgumentException(double x0)
         {
             // Setup
             var referencePoint = new Point2D(2.2, 3.3);

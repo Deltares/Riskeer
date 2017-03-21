@@ -136,6 +136,16 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
                                               "The element 'golfreductie' has invalid child element 'voorlandgebruiken'.")
                     .SetName("invalidMultipleUseForeshores");
 
+                yield return new TestCaseData("invalidMultipleCriticalFlowRateStochast.xml",
+                                              "There is a duplicate key sequence 'overslagdebiet' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
+                    .SetName("invalidMultipleCriticalFlowRateStochast");
+                yield return new TestCaseData("invalidCriticalFlowRateMissingMean.xml",
+                                              "The element 'stochast' has invalid child element 'standaardafwijking'. List of possible elements expected: 'verwachtingswaarde'.")
+                    .SetName("invalidCriticalFlowRateMissingMean");
+                yield return new TestCaseData("invalidCriticalFlowRateMissingStandardDeviation.xml",
+                                              "The element 'stochast' has incomplete content. List of possible elements expected: 'standaardafwijking'.")
+                    .SetName("invalidCriticalFlowRateMissingStandardDeviation");
+
                 yield return new TestCaseData("invalidCriticalFlowRateMeanEmpty.xml",
                                               "The 'verwachtingswaarde' element is invalid - The value '' is invalid according to its datatype 'Double'")
                     .SetName("invalidCriticalFlowRateMeanEmpty");
@@ -295,11 +305,11 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
             Assert.IsNotNull(calculation.CriticalFlowRateMean);
             Assert.IsNotNull(calculation.CriticalFlowRateStandardDeviation);
 
-            Assert.IsTrue(double.IsPositiveInfinity((double) calculation.Orientation));
-            Assert.IsTrue(double.IsNegativeInfinity((double) calculation.DikeHeight));
-            Assert.IsTrue(double.IsNegativeInfinity((double) calculation.BreakWaterHeight));
-            Assert.IsTrue(double.IsPositiveInfinity((double) calculation.CriticalFlowRateMean));
-            Assert.IsTrue(double.IsPositiveInfinity((double) calculation.CriticalFlowRateStandardDeviation));
+            Assert.IsTrue(double.IsPositiveInfinity(calculation.Orientation.Value));
+            Assert.IsTrue(double.IsNegativeInfinity(calculation.DikeHeight.Value));
+            Assert.IsTrue(double.IsNegativeInfinity(calculation.BreakWaterHeight.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(calculation.CriticalFlowRateMean.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(calculation.CriticalFlowRateStandardDeviation.Value));
         }
 
         [Test]

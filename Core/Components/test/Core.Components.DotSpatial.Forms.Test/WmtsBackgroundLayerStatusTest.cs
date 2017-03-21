@@ -72,7 +72,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void HasSameConfiguration_MapDataNull_ThrownArgumentNullException()
+        public void HasSameConfiguration_MapDataNull_ThrowArgumentNullException()
         {
             // Setup
             using (var layerStatus = new WmtsBackgroundLayerStatus())
@@ -176,7 +176,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void SuccessfullyInitializedLayer_LayerNull_ThrownArgumentNullException()
+        public void SuccessfullyInitializedLayer_LayerNull_ThrowArgumentNullException()
         {
             // Setup
             using (var layerStatus = new WmtsBackgroundLayerStatus())
@@ -193,7 +193,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void SuccessfullyInitializedLayer_MapDataNull_ThrownArgumentNullException()
+        public void SuccessfullyInitializedLayer_MapDataNull_ThrowArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
