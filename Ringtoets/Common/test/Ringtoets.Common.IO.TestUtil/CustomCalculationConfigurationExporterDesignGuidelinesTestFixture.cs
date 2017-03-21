@@ -44,7 +44,7 @@ namespace Ringtoets.Common.IO.TestUtil
         public void Constructor_ConfigurationNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => CallDefaultConstructor(null, "test.xml");
+            TestDelegate test = () => CallConfigurationFilePathConstructor(null, "test.xml");
 
             // Assert
             var activatorException = Assert.Throws<TargetInvocationException>(test);
@@ -57,7 +57,7 @@ namespace Ringtoets.Common.IO.TestUtil
         public void Constructor_FilePathInvalid_ThrowArgumentException(string filePath)
         {
             // Call
-            TestDelegate test = () => CallDefaultConstructor(Enumerable.Empty<ICalculationBase>(), filePath);
+            TestDelegate test = () => CallConfigurationFilePathConstructor(Enumerable.Empty<ICalculationBase>(), filePath);
 
             // Assert
             var activatorException = Assert.Throws<TargetInvocationException>(test);
@@ -69,7 +69,7 @@ namespace Ringtoets.Common.IO.TestUtil
         public void Constructor_ExpectedValues()
         {
             // Call
-            TCalculationConfigurationExporter exporter = CallDefaultConstructor(Enumerable.Empty<ICalculationBase>(), "test.xml");
+            TCalculationConfigurationExporter exporter = CallConfigurationFilePathConstructor(Enumerable.Empty<ICalculationBase>(), "test.xml");
 
             // Assert
             AssertDefaultConstructedInstance(exporter);
@@ -79,12 +79,13 @@ namespace Ringtoets.Common.IO.TestUtil
         public void Export_InvalidDirectoryRights_LogErrorAndReturnFalse()
         {
             // Setup
-            string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_InvalidDirectoryRights_LogErrorAndReturnFalse));
-            using (var disposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(Export_InvalidDirectoryRights_LogErrorAndReturnFalse)))
+            const string folderName = nameof(Export_InvalidDirectoryRights_LogErrorAndReturnFalse);
+            string directoryPath = TestHelper.GetScratchPadPath(folderName);
+            using (var disposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), folderName))
             {
                 string filePath = Path.Combine(directoryPath, "test.xml");
 
-                TCalculationConfigurationExporter exporter = CallDefaultConstructor(new[]
+                TCalculationConfigurationExporter exporter = CallConfigurationFilePathConstructor(new[]
                 {
                     CreateCalculation()
                 }, filePath);
@@ -96,7 +97,7 @@ namespace Ringtoets.Common.IO.TestUtil
                 Action call = () => isExported = exporter.Export();
 
                 // Assert
-                IEnumerable<Tuple<string, LogLevelConstant>> logMessages = AssertExportFailedLogMessages(filePath);
+                IEnumerable<Tuple<string, LogLevelConstant>> logMessages = GetExpectedExportFailedLogMessages(filePath);
                 TestHelper.AssertLogMessagesWithLevelAreGenerated(call, logMessages);
                 Assert.IsFalse(isExported);
             }
@@ -115,7 +116,7 @@ namespace Ringtoets.Common.IO.TestUtil
 
             string filePath = Path.Combine(stringBuilder.ToString(), "test.xml");
 
-            TCalculationConfigurationExporter exporter = CallDefaultConstructor(new[]
+            TCalculationConfigurationExporter exporter = CallConfigurationFilePathConstructor(new[]
             {
                 CreateCalculation()
             }, filePath);
@@ -125,12 +126,12 @@ namespace Ringtoets.Common.IO.TestUtil
             Action call = () => isExported = exporter.Export();
 
             // Assert
-            IEnumerable<Tuple<string, LogLevelConstant>> logMessages = AssertExportFailedLogMessages(filePath);
+            IEnumerable<Tuple<string, LogLevelConstant>> logMessages = GetExpectedExportFailedLogMessages(filePath);
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, logMessages);
             Assert.IsFalse(isExported);
         }
 
-        protected virtual IEnumerable<Tuple<string, LogLevelConstant>> AssertExportFailedLogMessages(string filePath)
+        protected virtual IEnumerable<Tuple<string, LogLevelConstant>> GetExpectedExportFailedLogMessages(string filePath)
         {
             return new[]
             {
@@ -161,7 +162,7 @@ namespace Ringtoets.Common.IO.TestUtil
         protected void WriteAndValidate(IEnumerable<ICalculationBase> configuration, string expectedXmlFilePath)
         {
             string filePath = TestHelper.GetScratchPadPath($"{nameof(TCalculationConfigurationExporter)}.{nameof(WriteAndValidate)}.xml");
-            TCalculationConfigurationExporter exporter = CallDefaultConstructor(configuration, filePath);
+            TCalculationConfigurationExporter exporter = CallConfigurationFilePathConstructor(configuration, filePath);
 
             try
             {
@@ -188,7 +189,8 @@ namespace Ringtoets.Common.IO.TestUtil
             return (TCalculation) Activator.CreateInstance(typeof(TCalculation));
         }
 
-        private static TCalculationConfigurationExporter CallDefaultConstructor(IEnumerable<ICalculationBase> configuration, string filePath)
+        private static TCalculationConfigurationExporter CallConfigurationFilePathConstructor(
+            IEnumerable<ICalculationBase> configuration, string filePath)
         {
             return (TCalculationConfigurationExporter) Activator.CreateInstance(typeof(TCalculationConfigurationExporter), configuration, filePath);
         }
