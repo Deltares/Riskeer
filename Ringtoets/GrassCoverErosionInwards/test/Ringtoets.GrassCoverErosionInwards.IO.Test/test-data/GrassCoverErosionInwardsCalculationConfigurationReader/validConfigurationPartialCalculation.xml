@@ -4,8 +4,8 @@
     <dijkprofiel>name_of_dikeprofile</dijkprofiel>
     <dijkhoogte>-1.2</dijkhoogte>
     <golfreductie>
-  	  <damgebruiken>false</damgebruiken>
-  	  <damhoogte>3.4</damhoogte>
+      <damgebruiken>false</damgebruiken>
+      <damhoogte>3.4</damhoogte>
     </golfreductie>
     <stochasten>
     </stochasten>

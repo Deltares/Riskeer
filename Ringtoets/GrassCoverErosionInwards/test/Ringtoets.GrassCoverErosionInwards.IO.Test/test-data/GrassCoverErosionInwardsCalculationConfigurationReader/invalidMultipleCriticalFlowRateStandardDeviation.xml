@@ -2,10 +2,10 @@
 <configuratie>
   <berekening naam="Calculation">
     <stochasten>
-	  <stochast naam="overslagdebiet">
-	    <standaardafwijking>1.1</standaardafwijking>
-		<standaardafwijking>2.2</standaardafwijking>
-	  </stochast>
-	</stochasten>
+      <stochast naam="overslagdebiet">
+        <standaardafwijking>1.1</standaardafwijking>
+        <standaardafwijking>2.2</standaardafwijking>
+      </stochast>
+    </stochasten>
   </berekening>
 </configuratie>

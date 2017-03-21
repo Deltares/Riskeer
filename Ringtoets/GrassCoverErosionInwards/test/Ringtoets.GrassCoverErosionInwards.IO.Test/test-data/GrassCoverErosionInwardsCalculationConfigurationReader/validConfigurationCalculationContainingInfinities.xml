@@ -4,13 +4,13 @@
     <orientatie>INF</orientatie>
     <dijkhoogte>-INF</dijkhoogte>
     <golfreductie>
-  	  <damhoogte>-INF</damhoogte>
+      <damhoogte>-INF</damhoogte>
     </golfreductie>
     <stochasten>
-  	  <stochast naam="overslagdebiet">
-  	    <verwachtingswaarde>INF</verwachtingswaarde>
-  	    <standaardafwijking>INF</standaardafwijking>
-  	  </stochast>
+      <stochast naam="overslagdebiet">
+        <verwachtingswaarde>INF</verwachtingswaarde>
+        <standaardafwijking>INF</standaardafwijking>
+      </stochast>
     </stochasten>
   </berekening>
 </configuratie>

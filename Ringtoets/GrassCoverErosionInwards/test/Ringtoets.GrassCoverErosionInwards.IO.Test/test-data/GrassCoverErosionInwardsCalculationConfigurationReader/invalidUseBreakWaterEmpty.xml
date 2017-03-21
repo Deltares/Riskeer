@@ -2,7 +2,7 @@
 <configuratie>
   <berekening naam="Calculation">
     <golfreductie>
-	  <damgebruiken/>
-	</golfreductie>
+      <damgebruiken/>
+    </golfreductie>
   </berekening>
 </configuratie>

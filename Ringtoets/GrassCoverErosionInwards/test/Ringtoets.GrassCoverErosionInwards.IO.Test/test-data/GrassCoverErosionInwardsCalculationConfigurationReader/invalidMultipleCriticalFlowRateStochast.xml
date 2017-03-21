@@ -2,14 +2,14 @@
 <configuratie>
   <berekening naam="Calculation">
     <stochasten>
-	  <stochast naam="overslagdebiet">
-	    <verwachtingswaarde>1.1</verwachtingswaarde>
-		<standaardafwijking>2.2</standaardafwijking>
-	  </stochast>
-	  <stochast naam="overslagdebiet">
-	    <verwachtingswaarde>3.3</verwachtingswaarde>
-		<standaardafwijking>4.4</standaardafwijking>
-	  </stochast>
-	</stochasten>
+      <stochast naam="overslagdebiet">
+        <verwachtingswaarde>1.1</verwachtingswaarde>
+        <standaardafwijking>2.2</standaardafwijking>
+      </stochast>
+      <stochast naam="overslagdebiet">
+        <verwachtingswaarde>3.3</verwachtingswaarde>
+        <standaardafwijking>4.4</standaardafwijking>
+      </stochast>
+    </stochasten>
   </berekening>
 </configuratie>
