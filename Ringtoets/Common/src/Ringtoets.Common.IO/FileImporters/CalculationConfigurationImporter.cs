@@ -26,7 +26,6 @@ using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using log4net;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.Properties;
 using Ringtoets.Common.IO.Readers;
 
@@ -113,27 +112,8 @@ namespace Ringtoets.Common.IO.FileImporters
         /// Parses a calculation from the provided <paramref name="readCalculation"/>.
         /// </summary>
         /// <param name="readCalculation">The calculation read from XML.</param>
-        /// <returns>A parsed calculation instance.</returns>
-        /// <exception cref="CriticalFileValidationException">Thrown when something goes wrong while parsing.</exception>
+        /// <returns>A parsed calculation instance, or <c>null</c> when something goes wrong while parsing.</returns>
         protected abstract ICalculation ParseReadCalculation(TReadCalculation readCalculation);
-
-        /// <summary>
-        /// Performs the provided <paramref name="action"/> and handles any thrown <see cref="ArgumentOutOfRangeException"/>.
-        /// </summary>
-        /// <param name="action">The action to perform.</param>
-        /// <param name="errorMessage">The error message to provide when rethrowing any thrown <see cref="ArgumentOutOfRangeException"/>.</param>
-        /// <exception cref="CriticalFileValidationException">Thrown when <paramref name="action"/> throws an <see cref="ArgumentOutOfRangeException"/>.</exception>
-        protected static void PerformActionHandlingAnyArgumentOutOfRangeException(Action action, string errorMessage)
-        {
-            try
-            {
-                action();
-            }
-            catch (ArgumentOutOfRangeException e)
-            {
-                throw new CriticalFileValidationException($"{errorMessage} {e.Message}");
-            }
-        }
 
         protected void LogOutOfRangeException(string errorMessage, string calculationName, ArgumentOutOfRangeException e)
         {
@@ -175,7 +155,7 @@ namespace Ringtoets.Common.IO.FileImporters
             var readCalculation = readConfigurationItem as TReadCalculation;
             if (readCalculation != null)
             {
-                return ParseReadCalculationInternal(readCalculation);
+                return ParseReadCalculation(readCalculation);
             }
 
             return null;
@@ -195,19 +175,6 @@ namespace Ringtoets.Common.IO.FileImporters
             }
 
             return calculationGroup;
-        }
-
-        private ICalculation ParseReadCalculationInternal(TReadCalculation readCalculation)
-        {
-            try
-            {
-                return ParseReadCalculation(readCalculation);
-            }
-            catch (CriticalFileValidationException e)
-            {
-                LogReadCalculationConversionError(e.Message, readCalculation.Name);
-                return null;
-            }
         }
 
         private void AddItemsToModel(IEnumerable<ICalculationBase> parsedCalculationItems)

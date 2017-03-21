@@ -21,14 +21,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO;
-using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO.Properties;
@@ -46,7 +44,7 @@ namespace Ringtoets.Revetment.IO.Importers
         : CalculationConfigurationImporter<WaveConditionsCalculationConfigurationReader, ReadWaveConditionsCalculation>
         where T : IWaveConditionsCalculation, new()
     {
-        private readonly IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations;
+        private readonly IEnumerable<HydraulicBoundaryLocation> availableHydraulicBoundaryLocations;
         private readonly IEnumerable<ForeshoreProfile> foreshoreProfiles;
 
         /// <summary>
@@ -54,7 +52,7 @@ namespace Ringtoets.Revetment.IO.Importers
         /// </summary>
         /// <param name="xmlFilePath">The path to the XML file to import from.</param>
         /// <param name="importTarget">The calculation group to update.</param>
-        /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations
+        /// <param name="availableHydraulicBoundaryLocations">The hydraulic boundary locations
         /// used to check if the imported objects contain the right location.</param>
         /// <param name="foreshoreProfiles">The foreshore profiles used to check if
         /// the imported objects contain the right profile.</param>
@@ -62,19 +60,19 @@ namespace Ringtoets.Revetment.IO.Importers
         /// <c>null</c>.</exception>
         public WaveConditionsCalculationConfigurationImporter(string xmlFilePath,
                                                               CalculationGroup importTarget,
-                                                              IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
+                                                              IEnumerable<HydraulicBoundaryLocation> availableHydraulicBoundaryLocations,
                                                               IEnumerable<ForeshoreProfile> foreshoreProfiles)
             : base(xmlFilePath, importTarget)
         {
-            if (hydraulicBoundaryLocations == null)
+            if (availableHydraulicBoundaryLocations == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
+                throw new ArgumentNullException(nameof(availableHydraulicBoundaryLocations));
             }
             if (foreshoreProfiles == null)
             {
                 throw new ArgumentNullException(nameof(foreshoreProfiles));
             }
-            this.hydraulicBoundaryLocations = hydraulicBoundaryLocations;
+            this.availableHydraulicBoundaryLocations = availableHydraulicBoundaryLocations;
             this.foreshoreProfiles = foreshoreProfiles;
         }
 
@@ -90,12 +88,27 @@ namespace Ringtoets.Revetment.IO.Importers
                 Name = readCalculation.Name
             };
 
-            ReadHydraulicBoundaryLocation(readCalculation, waveConditionsCalculation);
-            ReadBoundaries(readCalculation, waveConditionsCalculation);
+            if (!ReadHydraulicBoundaryLocation(readCalculation, waveConditionsCalculation))
+            {
+                return null;
+            }
+            if (!ReadBoundaries(readCalculation, waveConditionsCalculation))
+            {
+                return null;
+            }
             ReadStepSize(readCalculation, waveConditionsCalculation);
-            ReadForeshoreProfile(readCalculation, waveConditionsCalculation);
-            ReadOrientation(readCalculation, waveConditionsCalculation);
-            ReadWaveReduction(readCalculation, waveConditionsCalculation);
+            if (!ReadForeshoreProfile(readCalculation, waveConditionsCalculation))
+            {
+                return null;
+            }
+            if (!ReadOrientation(readCalculation, waveConditionsCalculation))
+            {
+                return null;
+            }
+            if (!ReadWaveReduction(readCalculation, waveConditionsCalculation))
+            {
+                return null;
+            }
 
             return waveConditionsCalculation;
         }
@@ -105,23 +118,28 @@ namespace Ringtoets.Revetment.IO.Importers
         /// </summary>
         /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
-        /// <exception cref="CriticalFileValidationException">Thrown when the <paramref name="readCalculation"/>
-        /// has a <see cref="HydraulicBoundaryLocation"/> set which is not available in <see cref="hydraulicBoundaryLocations"/>.</exception>
-        private void ReadHydraulicBoundaryLocation(ReadWaveConditionsCalculation readCalculation, IWaveConditionsCalculation calculation)
+        /// <returns><c>false</c> when the <paramref name="readCalculation"/> has a 
+        /// <see cref="HydraulicBoundaryLocation"/> set which is not available in 
+        /// <see cref="availableHydraulicBoundaryLocations"/>, <c>true</c> otherwise.</returns>
+        private bool ReadHydraulicBoundaryLocation(ReadWaveConditionsCalculation readCalculation, IWaveConditionsCalculation calculation)
         {
             if (readCalculation.HydraulicBoundaryLocation != null)
             {
-                HydraulicBoundaryLocation location = hydraulicBoundaryLocations
+                HydraulicBoundaryLocation location = availableHydraulicBoundaryLocations
                     .FirstOrDefault(l => l.Name == readCalculation.HydraulicBoundaryLocation);
 
                 if (location == null)
                 {
-                    throw new CriticalFileValidationException(string.Format(RingtoetsCommonIOResources.CalculationConfigurationImporter_ReadHydraulicBoundaryLocation_Hydraulic_boundary_location_0_does_not_exist,
-                                                                            readCalculation.HydraulicBoundaryLocation));
+                    LogReadCalculationConversionError(string.Format(
+                                                          RingtoetsCommonIOResources.CalculationConfigurationImporter_ReadHydraulicBoundaryLocation_Hydraulic_boundary_location_0_does_not_exist,
+                                                          readCalculation.HydraulicBoundaryLocation),
+                                                      calculation.Name);
+                    return false;
                 }
 
                 calculation.InputParameters.HydraulicBoundaryLocation = location;
             }
+            return true;
         }
 
         /// <summary>
@@ -129,44 +147,82 @@ namespace Ringtoets.Revetment.IO.Importers
         /// </summary>
         /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
-        /// <exception cref="CriticalFileValidationException">Thrown when one of the boundaries is invalid.</exception>
-        private static void ReadBoundaries(ReadWaveConditionsCalculation readCalculation, IWaveConditionsCalculation calculation)
+        /// <returns><c>false</c> when one of the boundaries is invalid, <c>true</c> otherwise.</returns>
+        private bool ReadBoundaries(ReadWaveConditionsCalculation readCalculation, IWaveConditionsCalculation calculation)
         {
             if (readCalculation.UpperBoundaryRevetment.HasValue)
             {
                 var upperBoundaryRevetment = (double) readCalculation.UpperBoundaryRevetment;
 
-                PerformActionHandlingAnyArgumentOutOfRangeException(
-                    () => calculation.InputParameters.UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment,
-                    string.Format(Resources.WaveConditionsCalculationConfigurationImporter_ReadBoundaries_Upper_boundary_revetment_0_invalid, upperBoundaryRevetment));
+                try
+                {
+                    calculation.InputParameters.UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment;
+                }
+                catch (ArgumentOutOfRangeException e)
+                {
+                    LogOutOfRangeException(string.Format(
+                                               Resources.WaveConditionsCalculationConfigurationImporter_ReadBoundaries_Upper_boundary_revetment_0_invalid,
+                                               upperBoundaryRevetment),
+                                           calculation.Name, e);
+                    return false;
+                }
             }
 
             if (readCalculation.LowerBoundaryRevetment.HasValue)
             {
                 var lowerBoundaryRevetment = (double) readCalculation.LowerBoundaryRevetment;
 
-                PerformActionHandlingAnyArgumentOutOfRangeException(
-                    () => calculation.InputParameters.LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment,
-                    string.Format(Resources.WaveConditionsCalculationConfigurationImporter_ReadBoundaries_Lower_boundary_revetment_0_invalid, lowerBoundaryRevetment));
+                try
+                {
+                    calculation.InputParameters.LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment;
+                }
+                catch (ArgumentOutOfRangeException e)
+                {
+                    LogOutOfRangeException(string.Format(
+                                               Resources.WaveConditionsCalculationConfigurationImporter_ReadBoundaries_Lower_boundary_revetment_0_invalid,
+                                               lowerBoundaryRevetment),
+                                           calculation.Name, e);
+                    return false;
+                }
             }
 
             if (readCalculation.UpperBoundaryWaterLevels.HasValue)
             {
                 var upperBoundaryWaterLevels = (double) readCalculation.UpperBoundaryWaterLevels;
 
-                PerformActionHandlingAnyArgumentOutOfRangeException(
-                    () => calculation.InputParameters.UpperBoundaryWaterLevels = (RoundedDouble) upperBoundaryWaterLevels,
-                    string.Format(Resources.WaveConditionsCalculationConfigurationImporter_ReadBoundaries_Upper_boundary_waterlevels_0_invalid, upperBoundaryWaterLevels));
+                try
+                {
+                    calculation.InputParameters.UpperBoundaryWaterLevels = (RoundedDouble)upperBoundaryWaterLevels;
+                }
+                catch (ArgumentOutOfRangeException e)
+                {
+                    LogOutOfRangeException(string.Format(
+                                               Resources.WaveConditionsCalculationConfigurationImporter_ReadBoundaries_Upper_boundary_waterlevels_0_invalid,
+                                               upperBoundaryWaterLevels),
+                                           calculation.Name, e);
+                    return false;
+                }
             }
 
             if (readCalculation.LowerBoundaryWaterLevels.HasValue)
             {
                 var lowerBoundaryWaterLevels = (double) readCalculation.LowerBoundaryWaterLevels;
 
-                PerformActionHandlingAnyArgumentOutOfRangeException(
-                    () => calculation.InputParameters.LowerBoundaryWaterLevels = (RoundedDouble) lowerBoundaryWaterLevels,
-                    string.Format(Resources.WaveConditionsCalculationConfigurationImporter_ReadBoundaries_Lower_boundary_waterlevels_0_invalid, lowerBoundaryWaterLevels));
+                try
+                {
+                    calculation.InputParameters.LowerBoundaryWaterLevels = (RoundedDouble)lowerBoundaryWaterLevels;
+                }
+                catch (ArgumentOutOfRangeException e)
+                {
+                    LogOutOfRangeException(string.Format(
+                                               Resources.WaveConditionsCalculationConfigurationImporter_ReadBoundaries_Lower_boundary_waterlevels_0_invalid,
+                                               lowerBoundaryWaterLevels),
+                                           calculation.Name, e);
+                    return false;
+                }
             }
+
+            return true;
         }
 
         private void ReadStepSize(ReadWaveConditionsCalculation readCalculation, IWaveConditionsCalculation calculation)
@@ -185,9 +241,10 @@ namespace Ringtoets.Revetment.IO.Importers
         /// </summary>
         /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
-        /// <exception cref="CriticalFileValidationException">Thrown when the <paramref name="readCalculation"/>
-        /// has a <see cref="ForeshoreProfile"/> set which is not available in <see cref="foreshoreProfiles"/>.</exception>
-        private void ReadForeshoreProfile(ReadWaveConditionsCalculation readCalculation, IWaveConditionsCalculation calculation)
+        /// <returns><c>false</c> when the <paramref name="readCalculation"/> has a
+        /// <see cref="ForeshoreProfile"/> set which is not available in <see cref="foreshoreProfiles"/>,
+        /// <c>true</c> otherwise.</returns>
+        private bool ReadForeshoreProfile(ReadWaveConditionsCalculation readCalculation, IWaveConditionsCalculation calculation)
         {
             if (readCalculation.ForeshoreProfile != null)
             {
@@ -195,12 +252,16 @@ namespace Ringtoets.Revetment.IO.Importers
 
                 if (foreshoreProfile == null)
                 {
-                    throw new CriticalFileValidationException(string.Format(Resources.WaveConditionsCalculationConfigurationImporter_ReadForeshoreProfile_Foreshore_profile_0_does_not_exist,
-                                                                            readCalculation.ForeshoreProfile));
+                    LogReadCalculationConversionError(string.Format(
+                                                          Resources.WaveConditionsCalculationConfigurationImporter_ReadForeshoreProfile_Foreshore_profile_0_does_not_exist,
+                                                          readCalculation.ForeshoreProfile),
+                                                      calculation.Name);
+                    return false;
                 }
 
                 calculation.InputParameters.ForeshoreProfile = foreshoreProfile;
             }
+            return true;
         }
 
         /// <summary>
@@ -208,17 +269,27 @@ namespace Ringtoets.Revetment.IO.Importers
         /// </summary>
         /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
-        /// <exception cref="CriticalFileValidationException">Thrown when the orientation is invalid.</exception>
-        private static void ReadOrientation(ReadWaveConditionsCalculation readCalculation, IWaveConditionsCalculation calculation)
+        /// <returns><c>falce</c> when the orientation is invalid, <c>true</c> otherwise.</returns>
+        private bool ReadOrientation(ReadWaveConditionsCalculation readCalculation, IWaveConditionsCalculation calculation)
         {
             if (readCalculation.Orientation.HasValue)
             {
                 var orientation = (double) readCalculation.Orientation;
 
-                PerformActionHandlingAnyArgumentOutOfRangeException(
-                    () => calculation.InputParameters.Orientation = (RoundedDouble) orientation,
-                    string.Format(Resources.WaveConditionsCalculationConfigurationImporter_ReadOrientation_Orientation_0_invalid, orientation));
+                try
+                {
+                    calculation.InputParameters.Orientation = (RoundedDouble) orientation;
+                }
+                catch (ArgumentOutOfRangeException e)
+                {
+                    LogOutOfRangeException(string.Format(
+                                               Resources.WaveConditionsCalculationConfigurationImporter_ReadOrientation_Orientation_0_invalid,
+                                               orientation),
+                                           calculation.Name, e);
+                    return false;
+                }
             }
+            return true;
         }
 
         /// <summary>
@@ -226,11 +297,14 @@ namespace Ringtoets.Revetment.IO.Importers
         /// </summary>
         /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
-        /// <exception cref="CriticalFileValidationException">Thrown when there is an invalid
-        /// wave reduction parameter defined.</exception>
-        private static void ReadWaveReduction(ReadWaveConditionsCalculation readCalculation, IWaveConditionsCalculation calculation)
+        /// <returns><c>false</c> when there is an invalid wave reduction parameter defined,
+        /// <c>true</c> otherwise.</returns>
+        private bool ReadWaveReduction(ReadWaveConditionsCalculation readCalculation, IWaveConditionsCalculation calculation)
         {
-            ValidateWaveReduction(readCalculation, calculation);
+            if (!ValidateWaveReduction(readCalculation, calculation))
+            {
+                return false;
+            }
 
             if (readCalculation.UseForeshore.HasValue)
             {
@@ -251,6 +325,7 @@ namespace Ringtoets.Revetment.IO.Importers
             {
                 calculation.InputParameters.BreakWater.Height = (RoundedDouble) readCalculation.BreakWaterHeight;
             }
+            return true;
         }
 
         /// <summary>
@@ -258,9 +333,9 @@ namespace Ringtoets.Revetment.IO.Importers
         /// </summary>
         /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
-        /// <exception cref="CriticalFileValidationException">Thrown when there is an
-        /// invalid wave reduction parameter defined.</exception>
-        private static void ValidateWaveReduction(ReadWaveConditionsCalculation readCalculation, IWaveConditionsCalculation calculation)
+        /// <returns><c>false</c> when there is an invalid wave reduction parameter defined,
+        /// <c>true</c> otherwise.</returns>
+        private bool ValidateWaveReduction(ReadWaveConditionsCalculation readCalculation, IWaveConditionsCalculation calculation)
         {
             if (calculation.InputParameters.ForeshoreProfile == null)
             {
@@ -269,17 +344,24 @@ namespace Ringtoets.Revetment.IO.Importers
                     || readCalculation.BreakWaterHeight != null
                     || readCalculation.BreakWaterType != null)
                 {
-                    throw new CriticalFileValidationException(Resources.WaveConditionsCalculationConfigurationImporter_ValidateWaveReduction_No_foreshore_profile_provided);
+                    LogReadCalculationConversionError(
+                        Resources.WaveConditionsCalculationConfigurationImporter_ValidateWaveReduction_No_foreshore_profile_provided,
+                        calculation.Name);
+                    return false;
                 }
             }
             else if (!calculation.InputParameters.ForeshoreGeometry.Any())
             {
                 if (readCalculation.UseForeshore.HasValue)
                 {
-                    throw new CriticalFileValidationException(string.Format(Resources.WaveConditionsCalculationConfigurationImporter_ValidateWaveReduction_Foreshore_profile_0_has_no_geometry_and_cannot_be_used,
-                                                                      readCalculation.ForeshoreProfile));
+                    LogReadCalculationConversionError(string.Format(
+                                                          Resources.WaveConditionsCalculationConfigurationImporter_ValidateWaveReduction_Foreshore_profile_0_has_no_geometry_and_cannot_be_used,
+                                                          readCalculation.ForeshoreProfile),
+                                                      calculation.Name);
+                    return false;
                 }
             }
+            return true;
         }
     }
 }
