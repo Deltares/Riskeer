@@ -3,7 +3,7 @@
   <berekening naam="Berekening 1">
     <dijkprofiel>Dijkprofiel</dijkprofiel>
     <golfreductie>
-      <voorlandgebruiken>true</voorlandgebruiken>
+      <voorlandgebruiken>false</voorlandgebruiken>
     </golfreductie>
   </berekening>
 </configuratie>

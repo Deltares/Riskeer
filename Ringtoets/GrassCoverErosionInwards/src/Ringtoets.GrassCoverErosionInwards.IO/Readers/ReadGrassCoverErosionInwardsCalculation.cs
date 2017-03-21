@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.IO.Readers;
-using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Ringtoets.GrassCoverErosionInwards.IO.Readers
 {
@@ -85,7 +83,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Readers
         /// Gets the value for how the dike height should be calculated for the grass cover
         /// erosion inwards calculation.
         /// </summary>
-        public DikeHeightCalculationType? DikeHeightCalculationType { get; }
+        public ReadDikeHeightCalculationType? DikeHeightCalculationType { get; }
 
         /// <summary>
         /// Gets the value indicating if the break water for the grass cover erosion inwards
@@ -96,7 +94,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Readers
         /// <summary>
         /// Gets the type of break water for the grass cover erosion inwards calculation.
         /// </summary>
-        public BreakWaterType? BreakWaterType { get; }
+        public ReadBreakWaterType? BreakWaterType { get; }
 
         /// <summary>
         /// Gets the height of the break water for the grass cover erosion inwards calculation.
@@ -156,7 +154,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Readers
             /// <summary>
             /// Gets or sets the value for <see cref="ReadGrassCoverErosionInwardsCalculation.DikeHeightCalculationType"/>.
             /// </summary>
-            public DikeHeightCalculationType? DikeHeightCalculationType { get; set; }
+            public ReadDikeHeightCalculationType? DikeHeightCalculationType { get; set; }
 
             /// <summary>
             /// Gets or sets the value for <see cref="ReadGrassCoverErosionInwardsCalculation.UseBreakWater"/>.
@@ -166,7 +164,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Readers
             /// <summary>
             /// Gets or sets the value for <see cref="ReadGrassCoverErosionInwardsCalculation.BreakWaterType"/>.
             /// </summary>
-            public BreakWaterType? BreakWaterType { get; set; }
+            public ReadBreakWaterType? BreakWaterType { get; set; }
 
             /// <summary>
             /// Gets or sets the value for <see cref="ReadGrassCoverErosionInwardsCalculation.BreakWaterHeight"/>.

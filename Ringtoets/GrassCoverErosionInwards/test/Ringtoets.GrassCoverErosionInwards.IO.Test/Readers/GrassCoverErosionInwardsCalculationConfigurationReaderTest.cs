@@ -26,9 +26,7 @@ using System.Xml.Schema;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.IO.Readers;
-using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.IO.Readers;
 
 namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
@@ -332,9 +330,9 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
             Assert.AreEqual("some_dike_profile", calculation.DikeProfile);
             Assert.AreEqual(67.1, calculation.Orientation);
             Assert.AreEqual(3.45, calculation.DikeHeight);
-            Assert.AreEqual(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, calculation.DikeHeightCalculationType);
+            Assert.AreEqual(ReadDikeHeightCalculationType.CalculateByAssessmentSectionNorm, calculation.DikeHeightCalculationType);
             Assert.AreEqual(true, calculation.UseBreakWater);
-            Assert.AreEqual(BreakWaterType.Dam, calculation.BreakWaterType);
+            Assert.AreEqual(ReadBreakWaterType.Dam, calculation.BreakWaterType);
             Assert.AreEqual(1.234, calculation.BreakWaterHeight);
             Assert.AreEqual(false, calculation.UseForeshore);
             Assert.AreEqual(0.1, calculation.CriticalFlowRateMean);

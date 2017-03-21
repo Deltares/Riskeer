@@ -22,7 +22,7 @@
 using System;
 using System.ComponentModel;
 using NUnit.Framework;
-using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionInwards.IO.Readers;
 
 namespace Ringtoets.GrassCoverErosionInwards.IO.Test
 {
@@ -33,7 +33,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
         public void Constructor_ExpectedValues()
         {
             // Call
-            var converter = new DikeHeightCalculationTypeConverter();
+            var converter = new ReadDikeHeightCalculationTypeConverter();
 
             // Assert
             Assert.IsInstanceOf<TypeConverter>(converter);
@@ -43,7 +43,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
         public void CanConvertTo_String_ReturnTrue()
         {
             // Setup
-            var converter = new DikeHeightCalculationTypeConverter();
+            var converter = new ReadDikeHeightCalculationTypeConverter();
 
             // Call
             bool canConvertToString = converter.CanConvertTo(typeof(string));
@@ -56,7 +56,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
         public void CanConvertTo_NotString_ReturnFalse()
         {
             // Setup
-            var converter = new DikeHeightCalculationTypeConverter();
+            var converter = new ReadDikeHeightCalculationTypeConverter();
 
             // Call
             bool canConvert = converter.CanConvertTo(typeof(object));
@@ -66,13 +66,13 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
         }
 
         [Test]
-        [TestCase(DikeHeightCalculationType.NoCalculation, "niet")]
-        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, "norm")]
-        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, "doorsnede")]
-        public void ConvertTo_VariousCases_ReturnExpectedValues(DikeHeightCalculationType value, string expectedResult)
+        [TestCase(ReadDikeHeightCalculationType.NoCalculation, "niet")]
+        [TestCase(ReadDikeHeightCalculationType.CalculateByAssessmentSectionNorm, "norm")]
+        [TestCase(ReadDikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, "doorsnede")]
+        public void ConvertTo_VariousCases_ReturnExpectedValues(ReadDikeHeightCalculationType value, string expectedResult)
         {
             // Setup
-            var converter = new DikeHeightCalculationTypeConverter();
+            var converter = new ReadDikeHeightCalculationTypeConverter();
 
             // Call
             object result = converter.ConvertTo(value, typeof(string));
@@ -85,9 +85,9 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
         public void ConvertTo_InvalidDikeHeightCalculationTypeValue_ThrowNotSupportedException()
         {
             // Setup
-            var converter = new DikeHeightCalculationTypeConverter();
+            var converter = new ReadDikeHeightCalculationTypeConverter();
 
-            var invalidValue = (DikeHeightCalculationType) 9999999;
+            var invalidValue = (ReadDikeHeightCalculationType) 9999999;
 
             // Call
             TestDelegate call = () => converter.ConvertTo(invalidValue, typeof(string));
@@ -100,10 +100,10 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
         public void ConvertTo_Object_ThrowNotSupportedException()
         {
             // Setup
-            var converter = new DikeHeightCalculationTypeConverter();
+            var converter = new ReadDikeHeightCalculationTypeConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertTo(DikeHeightCalculationType.NoCalculation, typeof(object));
+            TestDelegate call = () => converter.ConvertTo(ReadDikeHeightCalculationType.NoCalculation, typeof(object));
 
             // Assert
             Assert.Throws<NotSupportedException>(call);
@@ -113,7 +113,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
         public void CanConvertFrom_String_ReturnTrue()
         {
             // Setup
-            var converter = new DikeHeightCalculationTypeConverter();
+            var converter = new ReadDikeHeightCalculationTypeConverter();
 
             // Call
             bool canConvertFromString = converter.CanConvertFrom(typeof(string));
@@ -126,7 +126,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
         public void CanConvertFrom_NonString_ReturnFalse()
         {
             // Setup
-            var converter = new DikeHeightCalculationTypeConverter();
+            var converter = new ReadDikeHeightCalculationTypeConverter();
 
             // Call
             bool canConvert = converter.CanConvertFrom(typeof(object));
@@ -136,13 +136,13 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
         }
 
         [Test]
-        [TestCase("niet", DikeHeightCalculationType.NoCalculation)]
-        [TestCase("norm", DikeHeightCalculationType.CalculateByAssessmentSectionNorm)]
-        [TestCase("doorsnede", DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)]
-        public void ConvertFrom_VariousCases_ReturnExpectedValue(string value, DikeHeightCalculationType expectedResult)
+        [TestCase("niet", ReadDikeHeightCalculationType.NoCalculation)]
+        [TestCase("norm", ReadDikeHeightCalculationType.CalculateByAssessmentSectionNorm)]
+        [TestCase("doorsnede", ReadDikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)]
+        public void ConvertFrom_VariousCases_ReturnExpectedValue(string value, ReadDikeHeightCalculationType expectedResult)
         {
             // Setup
-            var converter = new DikeHeightCalculationTypeConverter();
+            var converter = new ReadDikeHeightCalculationTypeConverter();
 
             // Call
             object result = converter.ConvertFrom(value);
@@ -155,7 +155,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
         public void ConvertFrom_UnsupportedString_ThrowNotSupportedException()
         {
             // Setup
-            var converter = new DikeHeightCalculationTypeConverter();
+            var converter = new ReadDikeHeightCalculationTypeConverter();
 
             // Call
             TestDelegate call = () => converter.ConvertFrom("<unsupported string value>");

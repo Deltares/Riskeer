@@ -224,7 +224,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
 
             if (readCalculation.BreakWaterType != null)
             {
-                calculation.InputParameters.BreakWater.Type = readCalculation.BreakWaterType.Value;
+                calculation.InputParameters.BreakWater.Type = (BreakWaterType) readCalculation.BreakWaterType.Value;
             }
 
             if (readCalculation.BreakWaterHeight.HasValue)
@@ -270,7 +270,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
         {
             if (readCalculation.DikeHeightCalculationType.HasValue)
             {
-                calculation.InputParameters.DikeHeightCalculationType = readCalculation.DikeHeightCalculationType.Value;
+                calculation.InputParameters.DikeHeightCalculationType = (DikeHeightCalculationType) readCalculation.DikeHeightCalculationType.Value;
             }
         }
 

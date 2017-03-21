@@ -86,7 +86,7 @@ namespace Ringtoets.Revetment.IO.Readers
         /// <summary>
         /// Gets the step size of the read calculation.
         /// </summary>
-        public WaveConditionsInputStepSize? StepSize { get; }
+        public ReadWaveConditionsInputStepSize? StepSize { get; }
 
         /// <summary>
         /// Gets the name of the foreshore profile of the read calculation.
@@ -106,7 +106,7 @@ namespace Ringtoets.Revetment.IO.Readers
         /// <summary>
         /// Gets the breakwater type of the read calculation.
         /// </summary>
-        public BreakWaterType? BreakWaterType { get; }
+        public ReadBreakWaterType? BreakWaterType { get; }
 
         /// <summary>
         /// Gets the breakwater height of the read calculation.
@@ -158,7 +158,7 @@ namespace Ringtoets.Revetment.IO.Readers
             /// <summary>
             /// Gets or sets the value for <see cref="ReadWaveConditionsCalculation.StepSize"/>.
             /// </summary>
-            public WaveConditionsInputStepSize? StepSize{ internal get; set; }
+            public ReadWaveConditionsInputStepSize? StepSize{ internal get; set; }
 
             /// <summary>
             /// Gets or sets the value for <see cref="ReadWaveConditionsCalculation.ForeshoreProfile"/>.
@@ -178,7 +178,7 @@ namespace Ringtoets.Revetment.IO.Readers
             /// <summary>
             /// Gets or sets the value for <see cref="ReadWaveConditionsCalculation.BreakWaterType"/>.
             /// </summary>
-            public BreakWaterType? BreakWaterType { internal get; set; }
+            public ReadBreakWaterType? BreakWaterType { internal get; set; }
 
             /// <summary>
             /// Gets or sets the value for <see cref="ReadWaveConditionsCalculation.BreakWaterHeight"/>.

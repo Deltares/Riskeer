@@ -22,7 +22,7 @@
 using System;
 using System.ComponentModel;
 using NUnit.Framework;
-using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.IO.Readers;
 using Ringtoets.Common.IO.Schema;
 
 namespace Ringtoets.Common.IO.Test
@@ -34,7 +34,7 @@ namespace Ringtoets.Common.IO.Test
         public void Constructor_ExpectedValues()
         {
             // Call
-            var converter = new BreakWaterTypeConverter();
+            var converter = new ReadBreakWaterTypeConverter();
 
             // Assert
             Assert.IsInstanceOf<TypeConverter>(converter);
@@ -44,7 +44,7 @@ namespace Ringtoets.Common.IO.Test
         public void CanConvertTo_String_ReturnTrue()
         {
             // Setup
-            var converter = new BreakWaterTypeConverter();
+            var converter = new ReadBreakWaterTypeConverter();
 
             // Call
             bool canConvertToString = converter.CanConvertTo(typeof(string));
@@ -57,7 +57,7 @@ namespace Ringtoets.Common.IO.Test
         public void CanConvertTo_OtherThanString_ReturnFalse()
         {
             // Setup
-            var converter = new BreakWaterTypeConverter();
+            var converter = new ReadBreakWaterTypeConverter();
 
             // Call
             bool canConvertToString = converter.CanConvertTo(typeof(object));
@@ -67,14 +67,14 @@ namespace Ringtoets.Common.IO.Test
         }
 
         [Test]
-        [TestCase(BreakWaterType.Caisson, ConfigurationSchemaIdentifiers.BreakWaterCaisson)]
-        [TestCase(BreakWaterType.Dam, ConfigurationSchemaIdentifiers.BreakWaterDam)]
-        [TestCase(BreakWaterType.Wall, ConfigurationSchemaIdentifiers.BreakWaterWall)]
-        public void ConverTo_VariousCases_ReturnExpectedText(BreakWaterType value,
+        [TestCase(ReadBreakWaterType.Caisson, ConfigurationSchemaIdentifiers.BreakWaterCaisson)]
+        [TestCase(ReadBreakWaterType.Dam, ConfigurationSchemaIdentifiers.BreakWaterDam)]
+        [TestCase(ReadBreakWaterType.Wall, ConfigurationSchemaIdentifiers.BreakWaterWall)]
+        public void ConverTo_VariousCases_ReturnExpectedText(ReadBreakWaterType value,
                                                              string expectedResult)
         {
             // Setup
-            var converter = new BreakWaterTypeConverter();
+            var converter = new ReadBreakWaterTypeConverter();
 
             // Call
             object result = converter.ConvertTo(value, typeof(string));
@@ -87,8 +87,8 @@ namespace Ringtoets.Common.IO.Test
         public void ConvertTo_InvalidBreakWaterType_ThrowNotSupportedException()
         {
             // Setup
-            var converter = new BreakWaterTypeConverter();
-            var invalidValue = (BreakWaterType) 99999999;
+            var converter = new ReadBreakWaterTypeConverter();
+            var invalidValue = (ReadBreakWaterType) 99999999;
 
             // Call
             TestDelegate call = () => converter.ConvertTo(invalidValue, typeof(string));
@@ -101,7 +101,7 @@ namespace Ringtoets.Common.IO.Test
         public void CanConvertFrom_String_ReturnTrue()
         {
             // Setup
-            var converter = new BreakWaterTypeConverter();
+            var converter = new ReadBreakWaterTypeConverter();
 
             // Call
             bool canConvertFromString = converter.CanConvertFrom(typeof(string));
@@ -114,7 +114,7 @@ namespace Ringtoets.Common.IO.Test
         public void CanConvertFrom_OtherThanString_ReturnFalse()
         {
             // Setup
-            var converter = new BreakWaterTypeConverter();
+            var converter = new ReadBreakWaterTypeConverter();
 
             // Call
             bool canConvertFromString = converter.CanConvertFrom(typeof(object));
@@ -124,14 +124,14 @@ namespace Ringtoets.Common.IO.Test
         }
 
         [Test]
-        [TestCase(ConfigurationSchemaIdentifiers.BreakWaterCaisson, BreakWaterType.Caisson)]
-        [TestCase(ConfigurationSchemaIdentifiers.BreakWaterDam, BreakWaterType.Dam)]
-        [TestCase(ConfigurationSchemaIdentifiers.BreakWaterWall, BreakWaterType.Wall)]
+        [TestCase(ConfigurationSchemaIdentifiers.BreakWaterCaisson, ReadBreakWaterType.Caisson)]
+        [TestCase(ConfigurationSchemaIdentifiers.BreakWaterDam, ReadBreakWaterType.Dam)]
+        [TestCase(ConfigurationSchemaIdentifiers.BreakWaterWall, ReadBreakWaterType.Wall)]
         public void ConvertFrom_Text_ReturnExpectedBreakWaterType(string value,
-                                                                  BreakWaterType expectedResult)
+                                                                  ReadBreakWaterType expectedResult)
         {
             // Setup
-            var converter = new BreakWaterTypeConverter();
+            var converter = new ReadBreakWaterTypeConverter();
 
             // Call
             object result = converter.ConvertFrom(value);
@@ -144,7 +144,7 @@ namespace Ringtoets.Common.IO.Test
         public void ConvertFrom_InvalidText_ThrowNotSupportedException()
         {
             // Setup
-            var converter = new BreakWaterTypeConverter();
+            var converter = new ReadBreakWaterTypeConverter();
 
             // Call
             TestDelegate call = () => converter.ConvertFrom("A");

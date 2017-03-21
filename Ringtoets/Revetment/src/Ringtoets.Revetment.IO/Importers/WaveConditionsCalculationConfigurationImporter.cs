@@ -228,7 +228,7 @@ namespace Ringtoets.Revetment.IO.Importers
         {
             if (readCalculation.StepSize.HasValue)
             {
-                calculation.InputParameters.StepSize = readCalculation.StepSize.Value;
+                calculation.InputParameters.StepSize = (WaveConditionsInputStepSize) readCalculation.StepSize.Value;
             }
         }
 
@@ -314,7 +314,7 @@ namespace Ringtoets.Revetment.IO.Importers
 
             if (readCalculation.BreakWaterType.HasValue)
             {
-                calculation.InputParameters.BreakWater.Type = readCalculation.BreakWaterType.Value;
+                calculation.InputParameters.BreakWater.Type = (BreakWaterType) readCalculation.BreakWaterType.Value;
             }
 
             if (readCalculation.BreakWaterHeight.HasValue)

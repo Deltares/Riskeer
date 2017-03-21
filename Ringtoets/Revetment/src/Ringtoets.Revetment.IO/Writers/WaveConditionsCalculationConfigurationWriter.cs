@@ -26,6 +26,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.Schema;
 using Ringtoets.Common.IO.Writers;
 using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.IO.Readers;
 
 namespace Ringtoets.Revetment.IO.Writers
 {
@@ -36,14 +37,14 @@ namespace Ringtoets.Revetment.IO.Writers
     /// <typeparam name="T">The type of calculations that are written to file.</typeparam>
     public abstract class WaveConditionsCalculationConfigurationWriter<T> : CalculationConfigurationWriter<T> where T : class, ICalculation
     {
-        private readonly WaveConditionsInputStepSizeConverter waveConditionsInputStepSizeConverter;
+        private readonly ReadWaveConditionsInputStepSizeConverter readWaveConditionsInputStepSizeConverter;
 
         /// <summary>
         /// Created a new instance of <see cref="WaveConditionsCalculationConfigurationWriter{T}"/>.
         /// </summary>
         protected WaveConditionsCalculationConfigurationWriter()
         {
-            waveConditionsInputStepSizeConverter = new WaveConditionsInputStepSizeConverter();
+            readWaveConditionsInputStepSizeConverter = new ReadWaveConditionsInputStepSizeConverter();
         }
 
         /// <summary>
@@ -73,7 +74,7 @@ namespace Ringtoets.Revetment.IO.Writers
                 XmlConvert.ToString(input.LowerBoundaryWaterLevels));
             writer.WriteElementString(
                 WaveConditionsCalculationConfigurationSchemaIdentifiers.StepSize,
-                waveConditionsInputStepSizeConverter.ConvertToInvariantString(input.StepSize));
+                readWaveConditionsInputStepSizeConverter.ConvertToInvariantString((ReadWaveConditionsInputStepSize) input.StepSize));
 
             WriteForeshoreProfile(input.ForeshoreProfile, writer);
 

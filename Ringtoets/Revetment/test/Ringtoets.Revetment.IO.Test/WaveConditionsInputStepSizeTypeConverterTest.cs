@@ -23,7 +23,7 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 using NUnit.Framework;
-using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.IO.Readers;
 
 namespace Ringtoets.Revetment.IO.Test
 {
@@ -34,7 +34,7 @@ namespace Ringtoets.Revetment.IO.Test
         public void Constructor_ExpectedValues()
         {
             // Call
-            var converter = new WaveConditionsInputStepSizeConverter();
+            var converter = new ReadWaveConditionsInputStepSizeConverter();
 
             // Assert
             Assert.IsInstanceOf<TypeConverter>(converter);
@@ -44,7 +44,7 @@ namespace Ringtoets.Revetment.IO.Test
         public void CanConvertTo_String_ReturnTrue()
         {
             // Setup
-            var converter = new WaveConditionsInputStepSizeConverter();
+            var converter = new ReadWaveConditionsInputStepSizeConverter();
 
             // Call
             bool canConvertToString = converter.CanConvertTo(typeof(string));
@@ -57,7 +57,7 @@ namespace Ringtoets.Revetment.IO.Test
         public void CanConvertTo_OtherTypeThenString_ReturnFalse()
         {
             // Setup
-            var converter = new WaveConditionsInputStepSizeConverter();
+            var converter = new ReadWaveConditionsInputStepSizeConverter();
 
             // Call
             bool canConvertToNonString = converter.CanConvertTo(typeof(object));
@@ -68,14 +68,14 @@ namespace Ringtoets.Revetment.IO.Test
 
         [Test]
         [SetCulture("nl-NL")]
-        [TestCase(WaveConditionsInputStepSize.Half, "0,5")]
-        [TestCase(WaveConditionsInputStepSize.One, "1,0")]
-        [TestCase(WaveConditionsInputStepSize.Two, "2,0")]
-        public void ConvertTo_ForAllEnumValues_ReturnExpectedText(WaveConditionsInputStepSize value,
+        [TestCase(ReadWaveConditionsInputStepSize.Half, "0,5")]
+        [TestCase(ReadWaveConditionsInputStepSize.One, "1,0")]
+        [TestCase(ReadWaveConditionsInputStepSize.Two, "2,0")]
+        public void ConvertTo_ForAllEnumValues_ReturnExpectedText(ReadWaveConditionsInputStepSize value,
                                                                   string expectedText)
         {
             // Setup
-            var converter = new WaveConditionsInputStepSizeConverter();
+            var converter = new ReadWaveConditionsInputStepSizeConverter();
 
             // Call
             object result = converter.ConvertTo(null, CultureInfo.CurrentCulture, value, typeof(string));
@@ -88,10 +88,10 @@ namespace Ringtoets.Revetment.IO.Test
         public void ConvertTo_Object_ThrowNotSupportedException()
         {
             // Setup
-            var converter = new WaveConditionsInputStepSizeConverter();
+            var converter = new ReadWaveConditionsInputStepSizeConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertTo(WaveConditionsInputStepSize.Half, typeof(object));
+            TestDelegate call = () => converter.ConvertTo(ReadWaveConditionsInputStepSize.Half, typeof(object));
 
             // Assert
             Assert.Throws<NotSupportedException>(call);
@@ -101,7 +101,7 @@ namespace Ringtoets.Revetment.IO.Test
         public void CanConvertFrom_String_ReturnTrue()
         {
             // Setup
-            var converter = new WaveConditionsInputStepSizeConverter();
+            var converter = new ReadWaveConditionsInputStepSizeConverter();
 
             // Call
             bool canConvertFromString = converter.CanConvertFrom(typeof(string));
@@ -114,7 +114,7 @@ namespace Ringtoets.Revetment.IO.Test
         public void CanConvertFrom_NonString_ReturnFalse()
         {
             // Setup
-            var converter = new WaveConditionsInputStepSizeConverter();
+            var converter = new ReadWaveConditionsInputStepSizeConverter();
 
             // Call
             bool canConvertFromString = converter.CanConvertFrom(typeof(object));
@@ -125,14 +125,14 @@ namespace Ringtoets.Revetment.IO.Test
 
         [Test]
         [SetCulture("nl-NL")]
-        [TestCase("0,5", WaveConditionsInputStepSize.Half)]
-        [TestCase("1,0", WaveConditionsInputStepSize.One)]
-        [TestCase("2,0", WaveConditionsInputStepSize.Two)]
+        [TestCase("0,5", ReadWaveConditionsInputStepSize.Half)]
+        [TestCase("1,0", ReadWaveConditionsInputStepSize.One)]
+        [TestCase("2,0", ReadWaveConditionsInputStepSize.Two)]
         public void ConvertFrom_VariousCasesInCultureNL_ReturnWaveConditionsInputStepSize(string text,
-                                                                                          WaveConditionsInputStepSize expectedResult)
+                                                                                          ReadWaveConditionsInputStepSize expectedResult)
         {
             // Setup
-            var converter = new WaveConditionsInputStepSizeConverter();
+            var converter = new ReadWaveConditionsInputStepSizeConverter();
 
             // Call
             object result = converter.ConvertFrom(null, CultureInfo.CurrentCulture, text);
@@ -143,14 +143,14 @@ namespace Ringtoets.Revetment.IO.Test
 
         [Test]
         [SetCulture("en-US")]
-        [TestCase("0.5", WaveConditionsInputStepSize.Half)]
-        [TestCase("1.0", WaveConditionsInputStepSize.One)]
-        [TestCase("2.0", WaveConditionsInputStepSize.Two)]
+        [TestCase("0.5", ReadWaveConditionsInputStepSize.Half)]
+        [TestCase("1.0", ReadWaveConditionsInputStepSize.One)]
+        [TestCase("2.0", ReadWaveConditionsInputStepSize.Two)]
         public void ConvertFrom_VariousCasesInCultureEN_ReturnWaveConditionsInputStepSize(string text,
-                                                                                          WaveConditionsInputStepSize expectedResult)
+                                                                                          ReadWaveConditionsInputStepSize expectedResult)
         {
             // Setup
-            var converter = new WaveConditionsInputStepSizeConverter();
+            var converter = new ReadWaveConditionsInputStepSizeConverter();
 
             // Call
             object result = converter.ConvertFrom(null, CultureInfo.CurrentCulture, text);
@@ -164,7 +164,7 @@ namespace Ringtoets.Revetment.IO.Test
         public void ConvertFrom_InvalidText_ThrowNotSupportedException()
         {
             // Setup
-            var converter = new WaveConditionsInputStepSizeConverter();
+            var converter = new ReadWaveConditionsInputStepSizeConverter();
 
             // Call
             TestDelegate call = () => converter.ConvertFrom("1");

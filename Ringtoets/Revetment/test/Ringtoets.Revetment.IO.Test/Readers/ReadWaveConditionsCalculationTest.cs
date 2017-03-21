@@ -75,11 +75,11 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             const double lowerBoundaryRevetment = 2.2;
             const double upperBoundaryWaterLevels = 3.3;
             const double lowerBoundaryWaterLevels = 4.4;
-            const WaveConditionsInputStepSize stepSize = WaveConditionsInputStepSize.Half;
+            const ReadWaveConditionsInputStepSize stepSize = ReadWaveConditionsInputStepSize.Half;
             const string foreshoreProfileName = "Name of the foreshore profile";
             const double orientation = 6.6;
             const bool useBreakWater = true;
-            const BreakWaterType breakWaterType = BreakWaterType.Caisson;
+            const ReadBreakWaterType breakWaterType = ReadBreakWaterType.Caisson;
             const double breakWaterHeight = 7.7;
             const bool useForeshore = false;
 

@@ -10,7 +10,7 @@
       <damgebruiken>true</damgebruiken>
       <damtype>caisson</damtype>
       <damhoogte>6.6</damhoogte>
-      <voorlandgebruiken>false</voorlandgebruiken>
+      <voorlandgebruiken>true</voorlandgebruiken>
     </golfreductie>
     <stochasten>
       <stochast naam="overslagdebiet">

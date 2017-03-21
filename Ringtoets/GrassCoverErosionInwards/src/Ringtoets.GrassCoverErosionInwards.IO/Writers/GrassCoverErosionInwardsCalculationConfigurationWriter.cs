@@ -25,6 +25,7 @@ using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.IO.Schema;
 using Ringtoets.Common.IO.Writers;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionInwards.IO.Readers;
 
 namespace Ringtoets.GrassCoverErosionInwards.IO.Writers
 {
@@ -52,7 +53,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Writers
 
             writer.WriteElementString(
                 GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeHeightCalculationTypeElement,
-                DikeHeightCalculationTypeAsXmlString(input.DikeHeightCalculationType));
+                DikeHeightCalculationTypeAsXmlString((ReadDikeHeightCalculationType) input.DikeHeightCalculationType));
 
             WriteWaveReduction(input, writer);
 
@@ -97,9 +98,9 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Writers
                 XmlConvert.ToString(input.DikeHeight));
         }
 
-        private static string DikeHeightCalculationTypeAsXmlString(DikeHeightCalculationType type)
+        private static string DikeHeightCalculationTypeAsXmlString(ReadDikeHeightCalculationType type)
         {
-            return new DikeHeightCalculationTypeConverter().ConvertToInvariantString(type);
+            return new ReadDikeHeightCalculationTypeConverter().ConvertToInvariantString(type);
         }
 
         private static void WriteWaveReduction(GrassCoverErosionInwardsInput input, XmlWriter writer)

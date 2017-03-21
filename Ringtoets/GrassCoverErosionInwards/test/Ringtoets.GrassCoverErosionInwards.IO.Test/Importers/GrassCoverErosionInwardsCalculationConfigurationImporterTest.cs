@@ -245,23 +245,11 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
         public void Import_ValidConfigurationWithoutForeshoreProfileNotUsed_DataAddedToModel()
         {
             // Setup
-            string filePath = Path.Combine(path, "validConfigurationFullCalculation.xml");
+            string filePath = Path.Combine(path, "validConfigurationCalculationNotUseForeshoreWithoutGeometry.xml");
 
             var calculationGroup = new CalculationGroup();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HRlocatie", 10, 20);
-            var dikeProfile = new DikeProfile(new Point2D(0, 0), new[]
-            {
-                new RoughnessPoint(new Point2D(0, 0), 2.1),
-                new RoughnessPoint(new Point2D(1, 1), 3.9),
-                new RoughnessPoint(new Point2D(2, 2), 5.2)
-            }, 
-            Enumerable.Empty<Point2D>(), 
-            new BreakWater(BreakWaterType.Caisson, 0), new DikeProfile.ConstructionProperties
-            {
-                Id = "id",
-                Name = "Dijkprofiel",
-                DikeHeight = 3.45
-            });
+            var dikeProfile = new TestDikeProfile("Dijkprofiel");
 
             var importer = new GrassCoverErosionInwardsCalculationConfigurationImporter(
                 filePath,
@@ -286,22 +274,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
                 Name = "Berekening 1",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    DikeProfile = dikeProfile,
-                    DikeHeightCalculationType = DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
-                    Orientation = (RoundedDouble) 5.5,
-                    UseForeshore = false,
-                    UseBreakWater = true,
-                    BreakWater =
-                    {
-                        Height = (RoundedDouble) 6.6,
-                        Type = BreakWaterType.Caisson
-                    },
-                    CriticalFlowRate =
-                    {
-                        Mean = (RoundedDouble) 2.0,
-                        StandardDeviation = (RoundedDouble) 1.1
-                    }
+                    DikeProfile = dikeProfile
                 }
             };
 
@@ -361,7 +334,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
                     DikeProfile = dikeProfile,
                     DikeHeightCalculationType = DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
                     Orientation = (RoundedDouble) 5.5,
-                    UseForeshore = false,
+                    UseForeshore = true,
                     UseBreakWater = true,
                     BreakWater =
                     {

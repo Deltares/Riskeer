@@ -27,6 +27,7 @@ using Core.Common.Utils.Properties;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.IO.Readers;
 using Ringtoets.Common.IO.Schema;
 
 namespace Ringtoets.Common.IO.Writers
@@ -127,7 +128,7 @@ namespace Ringtoets.Common.IO.Writers
             {
                 writer.WriteElementString(
                     ConfigurationSchemaIdentifiers.BreakWaterType,
-                    BreakWaterTypeAsXmlString(breakWater.Type));
+                    BreakWaterTypeAsXmlString((ReadBreakWaterType) breakWater.Type));
                 writer.WriteElementString(
                     ConfigurationSchemaIdentifiers.BreakWaterHeight,
                     XmlConvert.ToString(breakWater.Height));
@@ -164,9 +165,9 @@ namespace Ringtoets.Common.IO.Writers
             }
         }
 
-        private static string BreakWaterTypeAsXmlString(BreakWaterType type)
+        private static string BreakWaterTypeAsXmlString(ReadBreakWaterType type)
         {
-            return new BreakWaterTypeConverter().ConvertToInvariantString(type);
+            return new ReadBreakWaterTypeConverter().ConvertToInvariantString(type);
         }
 
         private static void WriteDistribution(IDistribution distribution, string elementName, XmlWriter writer)

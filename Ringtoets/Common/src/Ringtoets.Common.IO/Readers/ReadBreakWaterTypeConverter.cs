@@ -22,29 +22,28 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
-using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.IO.Properties;
+using Ringtoets.Common.IO.Schema;
 
-namespace Ringtoets.GrassCoverErosionInwards.IO
+namespace Ringtoets.Common.IO.Readers
 {
     /// <summary>
-    /// Converts <see cref="DikeHeightCalculationType"/> to <see cref="string"/> and back.
+    /// Converts <see cref="ReadBreakWaterType"/> to <see cref="string"/> and back.
     /// </summary>
-    public class DikeHeightCalculationTypeConverter : TypeConverter
+    public class ReadBreakWaterTypeConverter : TypeConverter
     {
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             if (destinationType == typeof(string))
             {
-                var dikeHeightCalculationType = (DikeHeightCalculationType) value;
-                switch (dikeHeightCalculationType)
+                var type = (ReadBreakWaterType) value;
+                switch (type)
                 {
-                    case DikeHeightCalculationType.NoCalculation:
-                        return Resources.DikeHeightCalculationTypeConverter_NoCalculation;
-                    case DikeHeightCalculationType.CalculateByAssessmentSectionNorm:
-                        return Resources.DikeHeightCalculationTypeConverter_CalculateByAssessmentSectionNorm;
-                    case DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability:
-                        return Resources.DikeHeightCalculationTypeConverter_CalculateByProfileSpecificRequiredProbability;
+                    case ReadBreakWaterType.Caisson:
+                        return ConfigurationSchemaIdentifiers.BreakWaterCaisson;
+                    case ReadBreakWaterType.Dam:
+                        return ConfigurationSchemaIdentifiers.BreakWaterDam;
+                    case ReadBreakWaterType.Wall:
+                        return ConfigurationSchemaIdentifiers.BreakWaterWall;
                     default:
                         throw new NotSupportedException();
                 }
@@ -66,17 +65,14 @@ namespace Ringtoets.GrassCoverErosionInwards.IO
             var text = value as string;
             if (text != null)
             {
-                if (text == Resources.DikeHeightCalculationTypeConverter_NoCalculation)
+                switch (text)
                 {
-                    return DikeHeightCalculationType.NoCalculation;
-                }
-                if (text == Resources.DikeHeightCalculationTypeConverter_CalculateByAssessmentSectionNorm)
-                {
-                    return DikeHeightCalculationType.CalculateByAssessmentSectionNorm;
-                }
-                if (text == Resources.DikeHeightCalculationTypeConverter_CalculateByProfileSpecificRequiredProbability)
-                {
-                    return DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability;
+                    case ConfigurationSchemaIdentifiers.BreakWaterCaisson:
+                        return ReadBreakWaterType.Caisson;
+                    case ConfigurationSchemaIdentifiers.BreakWaterDam:
+                        return ReadBreakWaterType.Dam;
+                    case ConfigurationSchemaIdentifiers.BreakWaterWall:
+                        return ReadBreakWaterType.Wall;
                 }
             }
             return base.ConvertFrom(context, culture, value);

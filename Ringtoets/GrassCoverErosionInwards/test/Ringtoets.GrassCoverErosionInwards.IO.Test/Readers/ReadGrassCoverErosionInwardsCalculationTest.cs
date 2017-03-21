@@ -21,9 +21,7 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.IO.Readers;
-using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.IO.Readers;
 
 namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
@@ -74,9 +72,9 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
             const string dikeProfileName = "name of the dike profile";
             const double orientation = 1.1;
             const double dikeHeight = 2.2;
-            var calculationType = DikeHeightCalculationType.CalculateByAssessmentSectionNorm;
+            const ReadDikeHeightCalculationType calculationType = ReadDikeHeightCalculationType.CalculateByAssessmentSectionNorm;
             const bool useBreakWater = true;
-            var breakWaterType = BreakWaterType.Wall;
+            const ReadBreakWaterType breakWaterType = ReadBreakWaterType.Wall;
             const double breakWaterHeight = 3.3;
             const bool useForeshore = true;
             const double criticalFlowMean = 4.4;
