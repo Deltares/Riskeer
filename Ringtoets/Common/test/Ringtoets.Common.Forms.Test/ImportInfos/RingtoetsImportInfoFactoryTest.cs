@@ -38,7 +38,7 @@ namespace Ringtoets.Common.Forms.Test.ImportInfos
     public class RingtoetsImportInfoFactoryTest
     {
         [Test]
-        public void CreateCalculationConfigurationImportInfo_Always_ExpectedPropertiesSet()
+        public void CreateCalculationConfigurationImportInfo_WithArguments_ExpectedPropertiesSet()
         {
             // Setup
             var mocks = new MockRepository();
@@ -59,7 +59,7 @@ namespace Ringtoets.Common.Forms.Test.ImportInfos
         }
 
         [Test]
-        public void CreateCalculationConfigurationImportInfo_Always_ReturnsExpectedName()
+        public void CreateCalculationConfigurationImportInfo_Always_ReturnsExpectedProperties()
         {
             // Call
             ImportInfo<ICalculationContext<CalculationGroup, IFailureMechanism>> importInfo =
@@ -68,42 +68,11 @@ namespace Ringtoets.Common.Forms.Test.ImportInfos
 
             // Assert
             Assert.AreEqual("Ringtoets berekeningenconfiguratie", importInfo.Name);
-        }
-
-        [Test]
-        public void CreateCalculationConfigurationImportInfo_Always_ReturnsExpectedCategory()
-        {
-            // Call
-            ImportInfo<ICalculationContext<CalculationGroup, IFailureMechanism>> importInfo =
-                RingtoetsImportInfoFactory.CreateCalculationConfigurationImportInfo
-                    <ICalculationContext<CalculationGroup, IFailureMechanism>>(null, null);
-
-            // Assert
             Assert.AreEqual("Algemeen", importInfo.Category);
-        }
 
-        [Test]
-        public void CreateCalculationConfigurationImportInfo_Always_ReturnsExpectedFileFilter()
-        {
-            // Call
-            ImportInfo<ICalculationContext<CalculationGroup, IFailureMechanism>> importInfo =
-                RingtoetsImportInfoFactory.CreateCalculationConfigurationImportInfo
-                    <ICalculationContext<CalculationGroup, IFailureMechanism>>(null, null);
-
-            // Assert
             FileFilterGenerator fileFilterGenerator = importInfo.FileFilterGenerator;
             Assert.AreEqual("Ringtoets berekeningenconfiguratie (*.xml)|*.xml", fileFilterGenerator.Filter);
-        }
 
-        [Test]
-        public void CreateCalculationConfigurationImportInfo_Always_ReturnsExpectedIcon()
-        {
-            // Call
-            ImportInfo<ICalculationContext<CalculationGroup, IFailureMechanism>> importInfo =
-                RingtoetsImportInfoFactory.CreateCalculationConfigurationImportInfo
-                    <ICalculationContext<CalculationGroup, IFailureMechanism>>(null, null);
-
-            // Assert
             TestHelper.AssertImagesAreEqual(Resources.GeneralFolderIcon, importInfo.Image);
         }
     }

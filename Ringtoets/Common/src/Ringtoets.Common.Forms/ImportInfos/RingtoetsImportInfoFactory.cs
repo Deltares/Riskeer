@@ -31,7 +31,7 @@ using Ringtoets.Common.Forms.Properties;
 namespace Ringtoets.Common.Forms.ImportInfos
 {
     /// <summary>
-    /// Factor for creating standard <see cref="ImportInfo"/> objects. 
+    /// Factory for creating standard <see cref="ImportInfo"/> objects. 
     /// </summary>
     public static class RingtoetsImportInfoFactory
     {
@@ -43,7 +43,7 @@ namespace Ringtoets.Common.Forms.ImportInfos
         /// to create the <see cref="ImportInfo"/> for.</typeparam>
         /// <param name="isEnabled">The function to determine if the item is enabled.</param>
         /// <param name="createFileImporter">The function to create the relevant importer.</param>
-        /// <returns>A <see cref="ImportInfo"/> object.</returns>
+        /// <returns>An <see cref="ImportInfo"/> object.</returns>
         public static ImportInfo<TCalculationGroupContext> CreateCalculationConfigurationImportInfo<TCalculationGroupContext>(
             Func<TCalculationGroupContext, bool> isEnabled,
             Func<TCalculationGroupContext, string, IFileImporter> createFileImporter)
