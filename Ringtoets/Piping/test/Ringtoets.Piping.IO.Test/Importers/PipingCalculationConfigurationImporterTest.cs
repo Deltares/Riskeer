@@ -66,7 +66,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("hydraulicBoundaryLocations", exception.ParamName);
+            Assert.AreEqual("availableHydraulicBoundaryLocations", exception.ParamName);
         }
 
         [Test]
