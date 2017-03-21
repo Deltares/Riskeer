@@ -132,10 +132,10 @@ namespace Ringtoets.Common.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De locatie met hydraulische randvoorwaarden &apos;{0}&apos; bestaat niet..
         /// </summary>
-        public static string CalculationConfigurationImporter_ReadHydraulicBoundaryLocation_Hydraulic_boundary_location_0_does_not_exist {
+        public static string CalculationConfigurationImporter_ReadHydraulicBoundaryLocation_HydraulicBoundaryLocation_0_does_not_exist {
             get {
-                return ResourceManager.GetString("CalculationConfigurationImporter_ReadHydraulicBoundaryLocation_Hydraulic_boundary" +
-                        "_location_0_does_not_exist", resourceCulture);
+                return ResourceManager.GetString("CalculationConfigurationImporter_ReadHydraulicBoundaryLocation_HydraulicBoundaryL" +
+                        "ocation_0_does_not_exist", resourceCulture);
             }
         }
         

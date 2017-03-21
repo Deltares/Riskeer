@@ -132,7 +132,7 @@ namespace Ringtoets.Piping.IO.Importers
                 {
                     LogReadCalculationConversionError(
                         string.Format(
-                            RingtoetsCommonIOResources.CalculationConfigurationImporter_ReadHydraulicBoundaryLocation_Hydraulic_boundary_location_0_does_not_exist,
+                            RingtoetsCommonIOResources.CalculationConfigurationImporter_ReadHydraulicBoundaryLocation_HydraulicBoundaryLocation_0_does_not_exist,
                             readCalculation.HydraulicBoundaryLocation),
                         pipingCalculation.Name);
                     return false;

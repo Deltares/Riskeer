@@ -130,7 +130,7 @@ namespace Ringtoets.Revetment.IO.Importers
                 if (location == null)
                 {
                     LogReadCalculationConversionError(string.Format(
-                                                          RingtoetsCommonIOResources.CalculationConfigurationImporter_ReadHydraulicBoundaryLocation_Hydraulic_boundary_location_0_does_not_exist,
+                                                          RingtoetsCommonIOResources.CalculationConfigurationImporter_ReadHydraulicBoundaryLocation_HydraulicBoundaryLocation_0_does_not_exist,
                                                           readCalculation.HydraulicBoundaryLocation),
                                                       calculation.Name);
                     return false;
@@ -160,7 +160,7 @@ namespace Ringtoets.Revetment.IO.Importers
                 catch (ArgumentOutOfRangeException e)
                 {
                     LogOutOfRangeException(string.Format(
-                                               Resources.WaveConditionsCalculationConfigurationImporter_ReadBoundaries_Upper_boundary_revetment_0_invalid,
+                                               Resources.WaveConditionsCalculationConfigurationImporter_ReadBoundaries_UpperBoundaryRevetment_0_invalid,
                                                upperBoundaryRevetment),
                                            calculation.Name, e);
                     return false;
@@ -178,7 +178,7 @@ namespace Ringtoets.Revetment.IO.Importers
                 catch (ArgumentOutOfRangeException e)
                 {
                     LogOutOfRangeException(string.Format(
-                                               Resources.WaveConditionsCalculationConfigurationImporter_ReadBoundaries_Lower_boundary_revetment_0_invalid,
+                                               Resources.WaveConditionsCalculationConfigurationImporter_ReadBoundaries_LowerBoundaryRevetment_0_invalid,
                                                lowerBoundaryRevetment),
                                            calculation.Name, e);
                     return false;
@@ -196,7 +196,7 @@ namespace Ringtoets.Revetment.IO.Importers
                 catch (ArgumentOutOfRangeException e)
                 {
                     LogOutOfRangeException(string.Format(
-                                               Resources.WaveConditionsCalculationConfigurationImporter_ReadBoundaries_Upper_boundary_waterlevels_0_invalid,
+                                               Resources.WaveConditionsCalculationConfigurationImporter_ReadBoundaries_UpperBoundaryWaterlevels_0_invalid,
                                                upperBoundaryWaterLevels),
                                            calculation.Name, e);
                     return false;
@@ -214,7 +214,7 @@ namespace Ringtoets.Revetment.IO.Importers
                 catch (ArgumentOutOfRangeException e)
                 {
                     LogOutOfRangeException(string.Format(
-                                               Resources.WaveConditionsCalculationConfigurationImporter_ReadBoundaries_Lower_boundary_waterlevels_0_invalid,
+                                               Resources.WaveConditionsCalculationConfigurationImporter_ReadBoundaries_LowerBoundaryWaterlevels_0_invalid,
                                                lowerBoundaryWaterLevels),
                                            calculation.Name, e);
                     return false;
@@ -249,7 +249,7 @@ namespace Ringtoets.Revetment.IO.Importers
                 if (foreshoreProfile == null)
                 {
                     LogReadCalculationConversionError(string.Format(
-                                                          Resources.WaveConditionsCalculationConfigurationImporter_ReadForeshoreProfile_Foreshore_profile_0_does_not_exist,
+                                                          Resources.WaveConditionsCalculationConfigurationImporter_ReadForeshoreProfile_ForeshoreProfile_0_does_not_exist,
                                                           readCalculation.ForeshoreProfile),
                                                       calculation.Name);
                     return false;
@@ -341,7 +341,7 @@ namespace Ringtoets.Revetment.IO.Importers
                     || readCalculation.BreakWaterType != null)
                 {
                     LogReadCalculationConversionError(
-                        Resources.WaveConditionsCalculationConfigurationImporter_ValidateWaveReduction_No_foreshore_profile_provided,
+                        Resources.WaveConditionsCalculationConfigurationImporter_ValidateWaveReduction_No_foreshoreProfile_provided,
                         calculation.Name);
                     return false;
                 }
@@ -351,7 +351,7 @@ namespace Ringtoets.Revetment.IO.Importers
                 if (readCalculation.UseForeshore.HasValue)
                 {
                     LogReadCalculationConversionError(string.Format(
-                                                          Resources.WaveConditionsCalculationConfigurationImporter_ValidateWaveReduction_Foreshore_profile_0_has_no_geometry_and_cannot_be_used,
+                                                          Resources.WaveConditionsCalculationConfigurationImporter_ValidateWaveReduction_ForeshoreProfile_0_has_no_geometry_and_cannot_be_used,
                                                           readCalculation.ForeshoreProfile),
                                                       calculation.Name);
                     return false;
