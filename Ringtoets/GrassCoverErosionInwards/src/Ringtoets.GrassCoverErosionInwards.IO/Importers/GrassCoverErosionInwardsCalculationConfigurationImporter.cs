@@ -82,6 +82,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
                 Name = readCalculation.Name
             };
             ReadDikeHeightCalculationType(readCalculation, calculation);
+            ReadCriticalWaveReduction(readCalculation, calculation);
 
             if (!ReadHydraulicBoundaryLocation(readCalculation, calculation))
             {
@@ -178,11 +179,11 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
         {
             if (readCalculation.Orientation.HasValue)
             {
-                var orientation = new RoundedDouble(2, readCalculation.Orientation.Value);
+                var orientation = readCalculation.Orientation.Value;
 
                 try
                 {
-                    calculation.InputParameters.Orientation = orientation;
+                    calculation.InputParameters.Orientation = (RoundedDouble) orientation;
                 }
                 catch (ArgumentOutOfRangeException e)
                 {
@@ -213,12 +214,12 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
 
             if (readCalculation.UseForeshore.HasValue)
             {
-                calculation.InputParameters.UseForeshore = (bool) readCalculation.UseForeshore;
+                calculation.InputParameters.UseForeshore = readCalculation.UseForeshore.Value;
             }
 
             if (readCalculation.UseBreakWater.HasValue)
             {
-                calculation.InputParameters.UseBreakWater = (bool) readCalculation.UseBreakWater;
+                calculation.InputParameters.UseBreakWater = readCalculation.UseBreakWater.Value;
             }
 
             if (readCalculation.BreakWaterType != null)
@@ -234,6 +235,12 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
             return true;
         }
 
+        /// <summary>
+        /// Reads the dike height.
+        /// </summary>
+        /// <param name="readCalculation">The calculation read from the imported file.</param>
+        /// <param name="calculation">The calculation to configure.</param>
+        /// <returns><c>false</c> when there is a dike height but no dike profile defined, <c>true</c> otherwise.</returns>
         private bool ReadDikeHeight(ReadGrassCoverErosionInwardsCalculation readCalculation, GrassCoverErosionInwardsCalculation calculation)
         {
             if (calculation.InputParameters.DikeProfile == null)
@@ -254,11 +261,33 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
             return true;
         }
 
+        /// <summary>
+        /// Reads the dike height calculation type.
+        /// </summary>
+        /// <param name="readCalculation">The calculation read from the imported file.</param>
+        /// <param name="calculation">The calculation to configure.</param>
         private void ReadDikeHeightCalculationType(ReadGrassCoverErosionInwardsCalculation readCalculation, GrassCoverErosionInwardsCalculation calculation)
         {
             if (readCalculation.DikeHeightCalculationType.HasValue)
             {
                 calculation.InputParameters.DikeHeightCalculationType = readCalculation.DikeHeightCalculationType.Value;
+            }
+        }
+
+        /// <summary>
+        /// Reads the critical wave reduction.
+        /// </summary>
+        /// <param name="readCalculation">The calculation read from the imported file.</param>
+        /// <param name="calculation">The calculation to configure.</param>
+        private void ReadCriticalWaveReduction(ReadGrassCoverErosionInwardsCalculation readCalculation, GrassCoverErosionInwardsCalculation calculation)
+        {
+            if (readCalculation.CriticalFlowRateMean.HasValue)
+            {
+                calculation.InputParameters.CriticalFlowRate.Mean = (RoundedDouble) readCalculation.CriticalFlowRateMean.Value;
+            }
+            if (readCalculation.CriticalFlowRateStandardDeviation.HasValue)
+            {
+                calculation.InputParameters.CriticalFlowRate.StandardDeviation = (RoundedDouble)readCalculation.CriticalFlowRateStandardDeviation.Value;
             }
         }
 
@@ -286,7 +315,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
             }
             else if (!calculation.InputParameters.ForeshoreGeometry.Any())
             {
-                if (readCalculation.UseForeshore.HasValue)
+                if (readCalculation.UseForeshore.HasValue && readCalculation.UseForeshore.Value)
                 {
                     LogReadCalculationConversionError(
                         string.Format(

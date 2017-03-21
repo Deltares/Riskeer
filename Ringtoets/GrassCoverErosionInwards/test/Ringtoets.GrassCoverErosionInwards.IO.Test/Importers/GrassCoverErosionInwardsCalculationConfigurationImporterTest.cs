@@ -110,7 +110,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
             Action call = () => successful = importer.Import();
 
             // Assert
-            string expectedMessage = "Een waarde van '380,00' als oriëntatie is ongeldig. De waarde voor de oriëntatie moet in het bereik [0,00, 360,00] liggen. " +
+            string expectedMessage = "Een waarde van '380' als oriëntatie is ongeldig. De waarde voor de oriëntatie moet in het bereik [0,00, 360,00] liggen. " +
                                      "Berekening 'Berekening 1' is overgeslagen.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsTrue(successful);
@@ -242,6 +242,74 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
         }
 
         [Test]
+        public void Import_ValidConfigurationWithoutForeshoreProfileNotUsed_DataAddedToModel()
+        {
+            // Setup
+            string filePath = Path.Combine(path, "validConfigurationFullCalculation.xml");
+
+            var calculationGroup = new CalculationGroup();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HRlocatie", 10, 20);
+            var dikeProfile = new DikeProfile(new Point2D(0, 0), new[]
+            {
+                new RoughnessPoint(new Point2D(0, 0), 2.1),
+                new RoughnessPoint(new Point2D(1, 1), 3.9),
+                new RoughnessPoint(new Point2D(2, 2), 5.2)
+            }, 
+            Enumerable.Empty<Point2D>(), 
+            new BreakWater(BreakWaterType.Caisson, 0), new DikeProfile.ConstructionProperties
+            {
+                Id = "id",
+                Name = "Dijkprofiel",
+                DikeHeight = 3.45
+            });
+
+            var importer = new GrassCoverErosionInwardsCalculationConfigurationImporter(
+                filePath,
+                calculationGroup,
+                new[]
+                {
+                    hydraulicBoundaryLocation
+                },
+                new[]
+                {
+                    dikeProfile
+                });
+
+            // Call
+            bool successful = importer.Import();
+
+            // Assert
+            Assert.IsTrue(successful);
+
+            var expectedCalculation = new GrassCoverErosionInwardsCalculation
+            {
+                Name = "Berekening 1",
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    DikeProfile = dikeProfile,
+                    DikeHeightCalculationType = DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
+                    Orientation = (RoundedDouble) 5.5,
+                    UseForeshore = false,
+                    UseBreakWater = true,
+                    BreakWater =
+                    {
+                        Height = (RoundedDouble) 6.6,
+                        Type = BreakWaterType.Caisson
+                    },
+                    CriticalFlowRate =
+                    {
+                        Mean = (RoundedDouble) 2.0,
+                        StandardDeviation = (RoundedDouble) 1.1
+                    }
+                }
+            };
+
+            Assert.AreEqual(1, calculationGroup.Children.Count);
+            AssertCalculation(expectedCalculation, (GrassCoverErosionInwardsCalculation)calculationGroup.Children[0]);
+        }
+
+        [Test]
         public void Import_ValidConfigurationWithValidData_DataAddedToModel()
         {
             // Setup
@@ -299,6 +367,11 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
                     {
                         Height = (RoundedDouble) 6.6,
                         Type = BreakWaterType.Caisson
+                    },
+                    CriticalFlowRate =
+                    {
+                        Mean = (RoundedDouble) 2.0,
+                        StandardDeviation = (RoundedDouble) 1.1
                     }
                 }
             };
@@ -319,6 +392,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
             Assert.AreEqual(expectedCalculation.InputParameters.UseBreakWater, actualCalculation.InputParameters.UseBreakWater);
             Assert.AreEqual(expectedCalculation.InputParameters.BreakWater.Height, actualCalculation.InputParameters.BreakWater.Height);
             Assert.AreEqual(expectedCalculation.InputParameters.BreakWater.Type, actualCalculation.InputParameters.BreakWater.Type);
+            DistributionAssert.AreEqual(expectedCalculation.InputParameters.CriticalFlowRate, actualCalculation.InputParameters.CriticalFlowRate);
         }
     }
 }

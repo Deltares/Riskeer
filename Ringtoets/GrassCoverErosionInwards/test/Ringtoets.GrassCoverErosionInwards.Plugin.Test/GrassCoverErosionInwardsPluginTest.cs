@@ -123,6 +123,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
         }
 
         [Test]
+        public void GetImportInfos_ReturnsSupportedImportInfos()
+        {
+            // Setup
+            using (var plugin = new GrassCoverErosionInwardsPlugin())
+            {
+                // Call
+                ImportInfo[] importInfos = plugin.GetImportInfos().ToArray();
+
+                // Assert
+                Assert.AreEqual(1, importInfos.Length);
+                Assert.IsTrue(importInfos.Any(tni => tni.DataType == typeof(GrassCoverErosionInwardsCalculationGroupContext)));
+            }
+        }
+
+        [Test]
         public void GetExportInfos_ReturnsSupportedExportInfos()
         {
             // Setup

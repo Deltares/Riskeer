@@ -12,5 +12,11 @@
       <damhoogte>6.6</damhoogte>
       <voorlandgebruiken>false</voorlandgebruiken>
     </golfreductie>
+    <stochasten>
+      <stochast naam="overslagdebiet">
+        <verwachtingswaarde>2.0</verwachtingswaarde>
+        <standaardafwijking>1.1</standaardafwijking>
+      </stochast>
+    </stochasten>
   </berekening>
 </configuratie>

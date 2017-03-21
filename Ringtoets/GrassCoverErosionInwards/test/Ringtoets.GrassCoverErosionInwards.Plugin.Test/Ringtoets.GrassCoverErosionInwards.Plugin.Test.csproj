@@ -66,6 +66,7 @@
     <Compile Include="ExportInfos\GrassCoverErosionInwardsCalculationContextExportInfoTest.cs" />
     <Compile Include="ExportInfos\GrassCoverErosionInwardsCalculationGroupContextExportInfoTest.cs" />
     <Compile Include="GrassCoverErosionInwardsPluginTest.cs" />
+    <Compile Include="ImportInfos\GrassCoverErosionInwardsCalculationGroupContextImportInfoTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyInfos\GrassCoverErosionInwardsInputContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\GrassCoverErosionInwardsFailureMechanismContextPropertyInfoTest.cs" />

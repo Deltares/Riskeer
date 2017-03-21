@@ -36,6 +36,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.Common.Forms.ImportInfos;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.Service;
@@ -45,6 +46,7 @@ using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.IO.Exporters;
+using Ringtoets.GrassCoverErosionInwards.IO.Importers;
 using Ringtoets.GrassCoverErosionInwards.Service;
 using Ringtoets.GrassCoverErosionInwards.Utils;
 using GrassCoverErosionInwardsPluginResources = Ringtoets.GrassCoverErosionInwards.Plugin.Properties.Resources;
@@ -74,6 +76,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                     new ObservablePropertyChangeHandler(context.Calculation, context.WrappedData))
             };
             yield return new PropertyInfo<GrassCoverErosionInwardsOutput, GrassCoverErosionInwardsOutputProperties>();
+        }
+
+        public override IEnumerable<ImportInfo> GetImportInfos()
+        {
+            yield return RingtoetsImportInfoFactory.CreateCalculationConfigurationImportInfo<GrassCoverErosionInwardsCalculationGroupContext>(
+                context => context.AvailableDikeProfiles.Any() && context.AvailableHydraulicBoundaryLocations.Any(),
+                (context, filePath) => new GrassCoverErosionInwardsCalculationConfigurationImporter(
+                    filePath,
+                    context.WrappedData,
+                    context.AvailableHydraulicBoundaryLocations,
+                    context.AvailableDikeProfiles));
         }
 
         public override IEnumerable<ExportInfo> GetExportInfos()
@@ -509,7 +522,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             StrictContextMenuItem generateCalculationsItem = CreateGenerateCalculationsItem(context);
 
-            builder.AddExportItem()
+            builder.AddImportItem()
+                   .AddExportItem()
                    .AddSeparator();
 
             if (!isNestedGroup)
