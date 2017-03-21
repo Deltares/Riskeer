@@ -58,9 +58,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             const double transparancy = 0.4;
             const bool isConfigured = true;
 
-            BackgroundMapDataType backgroundMapDataType = BackgroundMapDataType.Wmts;
-
-            var backgroundDataMetaEntities = new List<BackgroundDataMetaEntity>
+            const BackgroundMapDataType backgroundMapDataType = BackgroundMapDataType.Wmts;
+            var backgroundDataMetaEntities = new []
             {
                 new BackgroundDataMetaEntity
                 {

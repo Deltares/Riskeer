@@ -103,7 +103,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             const string wellKnownTileSource = "1";
             const BackgroundMapDataType backgroundMapDataType = BackgroundMapDataType.WellKnown;
-            var backgroundDataMetaEntities = new List<BackgroundDataMetaEntity>
+            var backgroundDataMetaEntities = new[]
             {
                 new BackgroundDataMetaEntity
                 {
