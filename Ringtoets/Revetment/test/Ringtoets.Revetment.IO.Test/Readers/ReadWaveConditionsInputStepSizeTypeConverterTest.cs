@@ -25,10 +25,10 @@ using System.Globalization;
 using NUnit.Framework;
 using Ringtoets.Revetment.IO.Readers;
 
-namespace Ringtoets.Revetment.IO.Test
+namespace Ringtoets.Revetment.IO.Test.Readers
 {
     [TestFixture]
-    public class WaveConditionsInputStepSizeTypeConverterTest
+    public class ReadWaveConditionsInputStepSizeTypeConverterTest
     {
         [Test]
         public void Constructor_ExpectedValues()

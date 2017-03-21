@@ -25,10 +25,10 @@ using NUnit.Framework;
 using Ringtoets.Common.IO.Readers;
 using Ringtoets.Common.IO.Schema;
 
-namespace Ringtoets.Common.IO.Test
+namespace Ringtoets.Common.IO.Test.Readers
 {
     [TestFixture]
-    public class BreakWaterTypeConverterTest
+    public class ReadBreakWaterTypeConverterTest
     {
         [Test]
         public void Constructor_ExpectedValues()

@@ -24,10 +24,10 @@ using System.ComponentModel;
 using NUnit.Framework;
 using Ringtoets.GrassCoverErosionInwards.IO.Readers;
 
-namespace Ringtoets.GrassCoverErosionInwards.IO.Test
+namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
 {
     [TestFixture]
-    public class DikeHeightCalculationConverterTest
+    public class ReadDikeHeightCalculationConverterTest
     {
         [Test]
         public void Constructor_ExpectedValues()
