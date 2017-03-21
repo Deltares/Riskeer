@@ -89,5 +89,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Exporters
                 calculationGroup
             }, expectedXmlFilePath);
         }
+
+        protected override GrassCoverErosionOutwardsWaveConditionsCalculation CreateCalculation()
+        {
+            return new GrassCoverErosionOutwardsWaveConditionsCalculation();
+        }
     }
 }

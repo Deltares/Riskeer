@@ -184,10 +184,7 @@ namespace Ringtoets.Common.IO.TestUtil
             }
         }
 
-        protected virtual TCalculation CreateCalculation()
-        {
-            return (TCalculation) Activator.CreateInstance(typeof(TCalculation));
-        }
+        protected abstract TCalculation CreateCalculation();
 
         private static TCalculationConfigurationExporter CallConfigurationFilePathConstructor(
             IEnumerable<ICalculationBase> configuration, string filePath)

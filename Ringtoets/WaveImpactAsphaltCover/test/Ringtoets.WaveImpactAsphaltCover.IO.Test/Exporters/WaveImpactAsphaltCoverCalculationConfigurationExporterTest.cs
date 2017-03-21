@@ -90,5 +90,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.IO.Test.Exporters
                 calculationGroup
             }, expectedXmlFilePath);
         }
+
+        protected override WaveImpactAsphaltCoverWaveConditionsCalculation CreateCalculation()
+        {
+            return new WaveImpactAsphaltCoverWaveConditionsCalculation();
+        }
     }
 }

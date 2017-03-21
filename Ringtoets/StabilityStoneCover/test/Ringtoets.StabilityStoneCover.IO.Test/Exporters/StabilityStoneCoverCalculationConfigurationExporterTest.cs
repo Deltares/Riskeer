@@ -89,5 +89,10 @@ namespace Ringtoets.StabilityStoneCover.IO.Test.Exporters
                 calculationGroup
             }, expectedXmlFilePath);
         }
+
+        protected override StabilityStoneCoverWaveConditionsCalculation CreateCalculation()
+        {
+            return new StabilityStoneCoverWaveConditionsCalculation();
+        }
     }
 }
