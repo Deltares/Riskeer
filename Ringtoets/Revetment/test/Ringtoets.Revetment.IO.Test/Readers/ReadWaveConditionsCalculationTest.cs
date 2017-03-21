@@ -21,7 +21,9 @@
 
 using System;
 using NUnit.Framework;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.IO.Readers;
+using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO.Readers;
 
 namespace Ringtoets.Revetment.IO.Test.Readers
@@ -73,11 +75,11 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             const double lowerBoundaryRevetment = 2.2;
             const double upperBoundaryWaterLevels = 3.3;
             const double lowerBoundaryWaterLevels = 4.4;
-            const double stepSize = 5.5;
+            const WaveConditionsInputStepSize stepSize = WaveConditionsInputStepSize.Half;
             const string foreshoreProfileName = "Name of the foreshore profile";
             const double orientation = 6.6;
             const bool useBreakWater = true;
-            const string breakWaterType = "caisson";
+            const BreakWaterType breakWaterType = BreakWaterType.Caisson;
             const double breakWaterHeight = 7.7;
             const bool useForeshore = false;
 

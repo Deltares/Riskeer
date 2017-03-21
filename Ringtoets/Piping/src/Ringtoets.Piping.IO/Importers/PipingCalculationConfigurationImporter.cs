@@ -143,7 +143,7 @@ namespace Ringtoets.Piping.IO.Importers
             else if (readCalculation.AssessmentLevel.HasValue)
             {
                 pipingCalculation.InputParameters.UseAssessmentLevelManualInput = true;
-                pipingCalculation.InputParameters.AssessmentLevel = (RoundedDouble) readCalculation.AssessmentLevel;
+                pipingCalculation.InputParameters.AssessmentLevel = (RoundedDouble) readCalculation.AssessmentLevel.Value;
             }
 
             return true;
@@ -198,7 +198,7 @@ namespace Ringtoets.Piping.IO.Importers
 
             if (hasEntryPoint)
             {
-                var entryPoint = (double) readCalculation.EntryPointL;
+                double entryPoint = readCalculation.EntryPointL.Value;
 
                 try
                 {
@@ -214,7 +214,7 @@ namespace Ringtoets.Piping.IO.Importers
 
             if (hasExitPoint)
             {
-                var exitPoint = (double) readCalculation.ExitPointL;
+                double exitPoint = readCalculation.ExitPointL.Value;
 
                 try
                 {
@@ -329,7 +329,7 @@ namespace Ringtoets.Piping.IO.Importers
             {
                 var normalDistribution = new NormalDistribution();
 
-                var mean = (double) readCalculation.PhreaticLevelExitMean;
+                double mean = readCalculation.PhreaticLevelExitMean.Value;
 
                 try
                 {
@@ -345,7 +345,7 @@ namespace Ringtoets.Piping.IO.Importers
                     return false;
                 }
 
-                var standardDeviation = (double)readCalculation.PhreaticLevelExitStandardDeviation;
+                double standardDeviation = readCalculation.PhreaticLevelExitStandardDeviation.Value;
 
                 try
                 {
@@ -367,7 +367,7 @@ namespace Ringtoets.Piping.IO.Importers
             if (readCalculation.DampingFactorExitMean.HasValue && readCalculation.DampingFactorExitStandardDeviation.HasValue)
             {
                 var logNormalDistribution = new LogNormalDistribution();
-                var mean = (double)readCalculation.DampingFactorExitMean;
+                double mean = readCalculation.DampingFactorExitMean.Value;
 
                 try
                 {
@@ -383,7 +383,7 @@ namespace Ringtoets.Piping.IO.Importers
                     return false;
                 }
 
-                var standardDeviation = (double)readCalculation.DampingFactorExitStandardDeviation;
+                double standardDeviation = readCalculation.DampingFactorExitStandardDeviation.Value;
 
                 try
                 {

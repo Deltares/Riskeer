@@ -26,7 +26,6 @@ using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.IO;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO.Properties;
@@ -143,7 +142,7 @@ namespace Ringtoets.Revetment.IO.Importers
         }
 
         /// <summary>
-        /// Reads the entry point and exit point.
+        /// Reads the boundaries of the calculation.
         /// </summary>
         /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
@@ -152,7 +151,7 @@ namespace Ringtoets.Revetment.IO.Importers
         {
             if (readCalculation.UpperBoundaryRevetment.HasValue)
             {
-                var upperBoundaryRevetment = (double) readCalculation.UpperBoundaryRevetment;
+                double upperBoundaryRevetment = readCalculation.UpperBoundaryRevetment.Value;
 
                 try
                 {
@@ -170,7 +169,7 @@ namespace Ringtoets.Revetment.IO.Importers
 
             if (readCalculation.LowerBoundaryRevetment.HasValue)
             {
-                var lowerBoundaryRevetment = (double) readCalculation.LowerBoundaryRevetment;
+                double lowerBoundaryRevetment = readCalculation.LowerBoundaryRevetment.Value;
 
                 try
                 {
@@ -188,7 +187,7 @@ namespace Ringtoets.Revetment.IO.Importers
 
             if (readCalculation.UpperBoundaryWaterLevels.HasValue)
             {
-                var upperBoundaryWaterLevels = (double) readCalculation.UpperBoundaryWaterLevels;
+                double upperBoundaryWaterLevels = readCalculation.UpperBoundaryWaterLevels.Value;
 
                 try
                 {
@@ -206,7 +205,7 @@ namespace Ringtoets.Revetment.IO.Importers
 
             if (readCalculation.LowerBoundaryWaterLevels.HasValue)
             {
-                var lowerBoundaryWaterLevels = (double) readCalculation.LowerBoundaryWaterLevels;
+                double lowerBoundaryWaterLevels = readCalculation.LowerBoundaryWaterLevels.Value;
 
                 try
                 {
@@ -227,12 +226,9 @@ namespace Ringtoets.Revetment.IO.Importers
 
         private void ReadStepSize(ReadWaveConditionsCalculation readCalculation, IWaveConditionsCalculation calculation)
         {
-            if (readCalculation.StepSize != null)
+            if (readCalculation.StepSize.HasValue)
             {
-                var stepSize = (double) readCalculation.StepSize;
-
-                calculation.InputParameters.StepSize = (WaveConditionsInputStepSize)
-                    new WaveConditionsInputStepSizeConverter().ConvertFrom(stepSize.ToString("0.0"));
+                calculation.InputParameters.StepSize = readCalculation.StepSize.Value;
             }
         }
 
@@ -274,7 +270,7 @@ namespace Ringtoets.Revetment.IO.Importers
         {
             if (readCalculation.Orientation.HasValue)
             {
-                var orientation = (double) readCalculation.Orientation;
+                double orientation = readCalculation.Orientation.Value;
 
                 try
                 {
@@ -308,22 +304,22 @@ namespace Ringtoets.Revetment.IO.Importers
 
             if (readCalculation.UseForeshore.HasValue)
             {
-                calculation.InputParameters.UseForeshore = (bool) readCalculation.UseForeshore;
+                calculation.InputParameters.UseForeshore = readCalculation.UseForeshore.Value;
             }
 
             if (readCalculation.UseBreakWater.HasValue)
             {
-                calculation.InputParameters.UseBreakWater = (bool) readCalculation.UseBreakWater;
+                calculation.InputParameters.UseBreakWater = readCalculation.UseBreakWater.Value;
             }
 
-            if (readCalculation.BreakWaterType != null)
+            if (readCalculation.BreakWaterType.HasValue)
             {
-                calculation.InputParameters.BreakWater.Type = (BreakWaterType) new BreakWaterTypeConverter().ConvertFrom(readCalculation.BreakWaterType);
+                calculation.InputParameters.BreakWater.Type = readCalculation.BreakWaterType.Value;
             }
 
             if (readCalculation.BreakWaterHeight.HasValue)
             {
-                calculation.InputParameters.BreakWater.Height = (RoundedDouble) readCalculation.BreakWaterHeight;
+                calculation.InputParameters.BreakWater.Height = (RoundedDouble) readCalculation.BreakWaterHeight.Value;
             }
             return true;
         }

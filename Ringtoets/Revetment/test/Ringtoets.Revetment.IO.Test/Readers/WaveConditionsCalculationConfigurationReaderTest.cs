@@ -26,7 +26,9 @@ using System.Xml.Schema;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.IO.Readers;
+using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO.Readers;
 
 namespace Ringtoets.Revetment.IO.Test.Readers
@@ -320,11 +322,11 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             Assert.AreEqual(2.2, calculation.LowerBoundaryRevetment);
             Assert.AreEqual(3.3, calculation.UpperBoundaryWaterLevels);
             Assert.AreEqual(4.4, calculation.LowerBoundaryWaterLevels);
-            Assert.AreEqual(0.5, calculation.StepSize);
+            Assert.AreEqual(WaveConditionsInputStepSize.Half, calculation.StepSize);
             Assert.AreEqual("Voorlandprofiel", calculation.ForeshoreProfile);
             Assert.AreEqual(5.5, calculation.Orientation);
             Assert.IsTrue(calculation.UseBreakWater);
-            Assert.AreEqual("caisson", calculation.BreakWaterType);
+            Assert.AreEqual(BreakWaterType.Caisson, calculation.BreakWaterType);
             Assert.AreEqual(6.6, calculation.BreakWaterHeight);
             Assert.IsFalse(calculation.UseForeshore);
         }
@@ -350,11 +352,11 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             Assert.AreEqual(2.2, calculation.LowerBoundaryRevetment);
             Assert.IsNull(calculation.UpperBoundaryWaterLevels);
             Assert.IsNull(calculation.LowerBoundaryWaterLevels);
-            Assert.AreEqual(0.5, calculation.StepSize);
+            Assert.AreEqual(WaveConditionsInputStepSize.Half, calculation.StepSize);
             Assert.IsNull(calculation.ForeshoreProfile);
             Assert.IsNull(calculation.Orientation);
             Assert.IsTrue(calculation.UseBreakWater);
-            Assert.AreEqual("caisson", calculation.BreakWaterType);
+            Assert.AreEqual(BreakWaterType.Caisson, calculation.BreakWaterType);
             Assert.AreEqual(3.3, calculation.BreakWaterHeight);
             Assert.IsNull(calculation.UseForeshore);
         }
