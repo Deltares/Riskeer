@@ -28,8 +28,5 @@ namespace Application.Ringtoets.Storage.Test.Exceptions
 {
     [TestFixture]
     public class CannotDetermineFingerprintExceptionTest :
-        CustomExceptionDesignGuidelinesTestFixture<CannotDetermineFingerprintException, Exception>
-    {
-        
-    }
+        CustomExceptionDesignGuidelinesTestFixture<CannotDetermineFingerprintException, Exception> {}
 }
