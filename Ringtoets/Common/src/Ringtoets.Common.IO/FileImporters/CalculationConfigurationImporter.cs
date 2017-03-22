@@ -144,6 +144,12 @@ namespace Ringtoets.Common.IO.FileImporters
             }
         }
 
+        /// <summary>
+        /// Parses the read configuration item.
+        /// </summary>
+        /// <param name="readConfigurationItem">The read item to parse.</param>
+        /// <returns>A parsed calculation item.</returns>
+        /// <exception cref="InvalidOperationException">Thrown when the item to parse is not valid.</exception>
         private ICalculationBase ParseReadConfigurationItem(IReadConfigurationItem readConfigurationItem)
         {
             var readCalculationGroup = readConfigurationItem as ReadCalculationGroup;
@@ -158,9 +164,16 @@ namespace Ringtoets.Common.IO.FileImporters
                 return ParseReadCalculation(readCalculation);
             }
 
-            return null;
+            throw new InvalidOperationException("Can't parse item that is not a calculation or calculation group.");
         }
 
+        /// <summary>
+        /// Parses the read calculation group and it's children.
+        /// </summary>
+        /// <param name="readCalculationGroup">The calculation group to parse.</param>
+        /// <returns>A parsed calculation group.</returns>
+        /// <exception cref="InvalidOperationException">Thrown when the one of the children
+        /// to parse is not valid.</exception>
         private CalculationGroup ParseReadCalculationGroup(ReadCalculationGroup readCalculationGroup)
         {
             var calculationGroup = new CalculationGroup(readCalculationGroup.Name, true);
