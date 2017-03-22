@@ -47,7 +47,7 @@ namespace Ringtoets.Common.IO.Test.Writers
         public void WriteDistribution_WithoutDistributions_ArgumentNullException()
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath("test_distributions_write.xml");
+            string filePath = TestHelper.GetScratchPadPath(nameof(WriteDistribution_WithoutDistributions_ArgumentNullException));
 
             try
             {
@@ -74,7 +74,7 @@ namespace Ringtoets.Common.IO.Test.Writers
         public void WriteDistribution_EmptyDistributions_NothingWrittenToFile()
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath("test_distributions_write.xml");
+            string filePath = TestHelper.GetScratchPadPath(nameof(WriteDistribution_EmptyDistributions_NothingWrittenToFile));
 
             try
             {
@@ -101,7 +101,7 @@ namespace Ringtoets.Common.IO.Test.Writers
         public void WriteDistribution_WithDistributions_WritesEachDistributionAsElement()
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath("test_distributions_write.xml");
+            string filePath = TestHelper.GetScratchPadPath(nameof(WriteDistribution_WithDistributions_WritesEachDistributionAsElement));
             string expectedXmlFilePath = TestHelper.GetTestDataPath(
                 TestDataPath.Ringtoets.Common.IO,
                 Path.Combine(nameof(CalculationConfigurationWriter<ICalculation>), "distributions.xml"));
@@ -132,6 +132,111 @@ namespace Ringtoets.Common.IO.Test.Writers
 
                     // Call
                     writer.PublicWriteDistributions(distributions, xmlWriter);
+                }
+
+                // Assert
+                string actualXml = File.ReadAllText(filePath);
+                string expectedXml = File.ReadAllText(expectedXmlFilePath);
+
+                Assert.AreEqual(expectedXml, actualXml);
+            }
+            finally
+            {
+                File.Delete(filePath);
+            }
+        }
+        [Test]
+        public void WriteVariationCoefficientDistribution_WithoutVariationCoefficientDistributions_ArgumentNullException()
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath(
+                nameof(WriteVariationCoefficientDistribution_WithoutVariationCoefficientDistributions_ArgumentNullException));
+
+            try
+            {
+                using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
+                {
+                    var writer = new SimpleCalculationConfigurationWriter();
+
+                    // Call
+                    Assert.Throws<ArgumentNullException>(() => writer.PublicWriteDistributions(null, xmlWriter));
+                }
+
+                // Assert
+                string actualXml = File.ReadAllText(filePath);
+
+                Assert.IsEmpty(actualXml);
+            }
+            finally
+            {
+                File.Delete(filePath);
+            }
+        }
+
+        [Test]
+        public void WriteVariationCoefficientDistribution_EmptyVariationCoefficientDistributions_NothingWrittenToFile()
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath(
+                nameof(WriteVariationCoefficientDistribution_EmptyVariationCoefficientDistributions_NothingWrittenToFile));
+
+            try
+            {
+                using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
+                {
+                    var writer = new SimpleCalculationConfigurationWriter();
+
+                    // Call
+                    writer.PublicWriteDistributions(new Dictionary<string, IDistribution>(), xmlWriter);
+                }
+
+                // Assert
+                string actualXml = File.ReadAllText(filePath);
+
+                Assert.IsEmpty(actualXml);
+            }
+            finally
+            {
+                File.Delete(filePath);
+            }
+        }
+
+        [Test]
+        public void WriteVariationCoefficientDistribution_WithVariationCoefficientDistributions_WritesEachDistributionAsElement()
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath(
+                nameof(WriteVariationCoefficientDistribution_WithVariationCoefficientDistributions_WritesEachDistributionAsElement));
+            string expectedXmlFilePath = TestHelper.GetTestDataPath(
+                TestDataPath.Ringtoets.Common.IO,
+                Path.Combine(nameof(CalculationConfigurationWriter<ICalculation>), "variationCoefficientDistributions.xml"));
+
+            var distributions = new Dictionary<string, IVariationCoefficientDistribution>
+            {
+                {
+                    "normal", new VariationCoefficientNormalDistribution
+                    {
+                        Mean = (RoundedDouble) 0.2,
+                        CoefficientOfVariation = (RoundedDouble) 0.1
+                    }
+                },
+                {
+                    "lognormal", new VariationCoefficientLogNormalDistribution
+                    {
+                        Mean = (RoundedDouble) 0.4,
+                        CoefficientOfVariation = (RoundedDouble) 0.3
+                    }
+                }
+            };
+
+            try
+            {
+                using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
+                {
+                    var writer = new SimpleCalculationConfigurationWriter();
+
+                    // Call
+                    writer.PublicWriteVariationCoefficientDistributions(distributions, xmlWriter);
                 }
 
                 // Assert
@@ -339,6 +444,12 @@ namespace Ringtoets.Common.IO.Test.Writers
         public void PublicWriteDistributions(IDictionary<string, IDistribution> distributions, XmlWriter writer)
         {
             WriteDistributions(distributions, writer);
+        }
+        public void PublicWriteVariationCoefficientDistributions(
+            IDictionary<string, IVariationCoefficientDistribution> distributions, 
+            XmlWriter writer)
+        {
+            WriteVariationCoefficientDistributions(distributions, writer);
         }
 
         public void PublicWriteBreakWaterProperties(BreakWater breakWater, XmlWriter writer)

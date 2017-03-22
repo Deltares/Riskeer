@@ -72,6 +72,11 @@ namespace Ringtoets.Common.IO.Schema
         public const string StandardDeviationElement = "standaardafwijking";
 
         /// <summary>
+        /// The identifier for variation coefficient elements.
+        /// </summary>
+        public const string VariationCoefficientElement = "variatiecoefficient";
+
+        /// <summary>
         /// The tag of elements containing the orientation of the profile.
         /// </summary>
         public const string Orientation = "orientatie";

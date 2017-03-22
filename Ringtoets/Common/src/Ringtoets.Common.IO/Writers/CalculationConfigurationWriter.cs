@@ -117,6 +117,33 @@ namespace Ringtoets.Common.IO.Writers
         }
 
         /// <summary>
+        /// Writes the <paramref name="variationCoefficientDistributions"/> in XML format to file.
+        /// </summary>
+        /// <param name="variationCoefficientDistributions">The dictionary of variation coefficient distributions, keyed on name, to write.</param>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="variationCoefficientDistributions"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is closed.</exception>
+        protected static void WriteVariationCoefficientDistributions(IDictionary<string, IVariationCoefficientDistribution> variationCoefficientDistributions, XmlWriter writer)
+        {
+            if (variationCoefficientDistributions == null)
+            {
+                throw new ArgumentNullException(nameof(variationCoefficientDistributions));
+            }
+
+            if (variationCoefficientDistributions.Count > 0)
+            {
+                writer.WriteStartElement(ConfigurationSchemaIdentifiers.StochastsElement);
+
+                foreach (KeyValuePair<string, IVariationCoefficientDistribution> keyValuePair in variationCoefficientDistributions)
+                {
+                    WriteVariationCoefficientDistribution(keyValuePair.Value, keyValuePair.Key, writer);
+                }
+
+                writer.WriteEndElement();
+            }
+        }
+
+        /// <summary>
         /// Writes the properties of the <paramref name="breakWater"/> in XML format to file.
         /// </summary>
         /// <param name="breakWater">The break water to write.</param>
@@ -179,6 +206,19 @@ namespace Ringtoets.Common.IO.Writers
                                       XmlConvert.ToString(distribution.Mean));
             writer.WriteElementString(ConfigurationSchemaIdentifiers.StandardDeviationElement,
                                       XmlConvert.ToString(distribution.StandardDeviation));
+
+            writer.WriteEndElement();
+        }
+
+        private static void WriteVariationCoefficientDistribution(IVariationCoefficientDistribution distribution, string elementName, XmlWriter writer)
+        {
+            writer.WriteStartElement(ConfigurationSchemaIdentifiers.StochastElement);
+
+            writer.WriteAttributeString(ConfigurationSchemaIdentifiers.NameAttribute, elementName);
+            writer.WriteElementString(ConfigurationSchemaIdentifiers.MeanElement,
+                                      XmlConvert.ToString(distribution.Mean));
+            writer.WriteElementString(ConfigurationSchemaIdentifiers.VariationCoefficientElement,
+                                      XmlConvert.ToString(distribution.CoefficientOfVariation));
 
             writer.WriteEndElement();
         }
