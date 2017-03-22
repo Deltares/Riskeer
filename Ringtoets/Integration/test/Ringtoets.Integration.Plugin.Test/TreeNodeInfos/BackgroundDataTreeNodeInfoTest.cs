@@ -324,6 +324,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 BackgroundMapDataType = BackgroundMapDataType.Wmts
             };
 
+            using (new UseCustomSettingsHelper(new TestSettingsHelper
+            {
+                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Forms, "EmptyWmtsConnectionInfo")
+            }))
             using (var treeViewControl = new TreeViewControl())
             using (var plugin = new RingtoetsPlugin())
             {
@@ -451,7 +455,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "noConfig")
+                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Forms, "EmptyWmtsConnectionInfo")
             }))
             using (var treeViewControl = new TreeViewControl())
             using (var plugin = new RingtoetsPlugin())

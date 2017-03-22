@@ -21,11 +21,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Xml;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using Core.Components.Gis.IO.Readers;
 using NUnit.Framework;
@@ -251,6 +251,24 @@ namespace Core.Components.Gis.IO.Test.Readers
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<IOException>(exception.InnerException);
             }
+        }
+
+        [Test]
+        public void ReadDefaultWmtsConnectionInfos_Always_ReturnsExpectedWmtsConnectionInfos()
+        {
+            // Setup
+            var reader = new WmtsConnectionInfoReader();
+
+            // Call
+            ReadOnlyCollection<WmtsConnectionInfo> readConnectionInfos = reader.ReadDefaultWmtsConnectionInfos();
+
+            // Assert
+            Assert.AreEqual(2, readConnectionInfos.Count);
+            var firstExpected = new WmtsConnectionInfo(@"ESRI luchtfoto", @"http://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/WMTS?");
+            var secondExpected = new WmtsConnectionInfo(@"PDOK", @"https://geodata.nationaalgeoregister.nl/tiles/service/wmts/ahn2?request=GetCapabilities");
+
+            AssertAreEqual(firstExpected, readConnectionInfos[0]);
+            AssertAreEqual(secondExpected, readConnectionInfos[1]);
         }
 
         private static void AssertAreEqual(WmtsConnectionInfo expected, WmtsConnectionInfo actual)

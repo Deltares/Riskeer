@@ -90,6 +90,7 @@ namespace Core.Components.Gis.Forms.Test.Views
         public void Constructor_ActiveWmtsMapDataNull_DefaultValues()
         {
             // Setup
+            wmtsCapabilityFactory.Expect(GetWmtsCapabilitiesFromDefaultWmtsCapabilityUrl).Return(Enumerable.Empty<WmtsCapability>());
             mockRepository.ReplayAll();
 
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
@@ -134,6 +135,7 @@ namespace Core.Components.Gis.Forms.Test.Views
         public void Show_AddedToForm_DefaultProperties()
         {
             // Setup
+            wmtsCapabilityFactory.Expect(GetWmtsCapabilitiesFromDefaultWmtsCapabilityUrl).Return(Enumerable.Empty<WmtsCapability>());
             mockRepository.ReplayAll();
 
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
@@ -153,11 +155,11 @@ namespace Core.Components.Gis.Forms.Test.Views
                 Assert.AreEqual("Name", urlLocations.DisplayMember);
                 Assert.AreEqual("Url", urlLocations.ValueMember);
                 Assert.IsTrue(urlLocations.Sorted);
-                Assert.IsNull(urlLocations.SelectedItem);
+                Assert.IsNotNull(urlLocations.SelectedItem);
 
                 var buttonConnectTo = (Button) new ButtonTester("connectToButton", form).TheObject;
                 Assert.AreEqual("Verbinding maken", buttonConnectTo.Text);
-                Assert.IsFalse(buttonConnectTo.Enabled);
+                Assert.IsTrue(buttonConnectTo.Enabled);
 
                 var buttonAddLocation = new ButtonTester("addLocationButton", form);
                 Assert.AreEqual("Locatie toevoegen...", buttonAddLocation.Text);
@@ -212,6 +214,7 @@ namespace Core.Components.Gis.Forms.Test.Views
         public void Constructor_NullMapData_DataGridViewCorrectlyInitialized()
         {
             // Setup
+            wmtsCapabilityFactory.Expect(GetWmtsCapabilitiesFromDefaultWmtsCapabilityUrl).Return(Enumerable.Empty<WmtsCapability>());
             mockRepository.ReplayAll();
 
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
@@ -314,6 +317,7 @@ namespace Core.Components.Gis.Forms.Test.Views
         public void Dispose_AlreadyDisposed_DoesNotThrowException()
         {
             // Setup
+            wmtsCapabilityFactory.Expect(GetWmtsCapabilitiesFromDefaultWmtsCapabilityUrl).Return(Enumerable.Empty<WmtsCapability>());
             mockRepository.ReplayAll();
 
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
@@ -378,6 +382,7 @@ namespace Core.Components.Gis.Forms.Test.Views
         public void GetSelectedMapData_WithoutSelectedData_ReturnsNull()
         {
             // Setup
+            wmtsCapabilityFactory.Expect(GetWmtsCapabilitiesFromDefaultWmtsCapabilityUrl).Return(Enumerable.Empty<WmtsCapability>());
             mockRepository.ReplayAll();
 
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
@@ -598,6 +603,7 @@ namespace Core.Components.Gis.Forms.Test.Views
         public void GivenWmtsLocationControlAndAddLocationClicked_WhenDialogCanceled_ThenWmtsLocationsNotUpdated()
         {
             // Given
+            wmtsCapabilityFactory.Expect(GetWmtsCapabilitiesFromDefaultWmtsCapabilityUrl).Return(Enumerable.Empty<WmtsCapability>());
             mockRepository.ReplayAll();
 
             DialogBoxHandler = (formName, wnd) =>
@@ -624,7 +630,7 @@ namespace Core.Components.Gis.Forms.Test.Views
                 // Then
                 var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
                 var dataSource = (IList<WmtsConnectionInfo>) comboBox.DataSource;
-                Assert.AreEqual(0, dataSource.Count);
+                Assert.AreEqual(2, dataSource.Count);
             }
         }
 
@@ -691,6 +697,7 @@ namespace Core.Components.Gis.Forms.Test.Views
         public void GivenWmtsLocationControlAndAddLocationClicked_WhenInValidDataInDialog_ThenWmtsLocationsNotUpdated()
         {
             // Given
+            wmtsCapabilityFactory.Expect(GetWmtsCapabilitiesFromDefaultWmtsCapabilityUrl).Return(Enumerable.Empty<WmtsCapability>());
             mockRepository.ReplayAll();
 
             DialogBoxHandler = (formName, wnd) =>
@@ -725,10 +732,10 @@ namespace Core.Components.Gis.Forms.Test.Views
                 // Then
                 var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
                 var dataSource = (IList<WmtsConnectionInfo>) comboBox.DataSource;
-                Assert.AreEqual(0, dataSource.Count);
+                Assert.AreEqual(2, dataSource.Count);
 
                 var connectToButton = (Button) new ButtonTester("connectToButton", form).TheObject;
-                Assert.IsFalse(connectToButton.Enabled);
+                Assert.IsTrue(connectToButton.Enabled);
             }
         }
 
@@ -913,11 +920,12 @@ namespace Core.Components.Gis.Forms.Test.Views
             // Given
             WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
 
+            wmtsCapabilityFactory.Expect(GetWmtsCapabilitiesFromDefaultWmtsCapabilityUrl).Return(Enumerable.Empty<WmtsCapability>());
             wmtsCapabilityFactory.Expect(wcf => wcf.GetWmtsCapabilities(backgroundMapData.SourceCapabilitiesUrl))
                                  .Return(new[]
                                  {
                                      CreateWmtsCapability(new TestWmtsTileSource(backgroundMapData))
-                                 }).Repeat.Twice();
+                                 });
             mockRepository.ReplayAll();
 
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
@@ -982,6 +990,7 @@ namespace Core.Components.Gis.Forms.Test.Views
         public void Dispose_DisposedAlreadyCalled_DoesNotThrowException()
         {
             // Setup
+            wmtsCapabilityFactory.Expect(GetWmtsCapabilitiesFromDefaultWmtsCapabilityUrl).Return(Enumerable.Empty<WmtsCapability>());
             mockRepository.ReplayAll();
 
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
@@ -998,6 +1007,11 @@ namespace Core.Components.Gis.Forms.Test.Views
                 // Assert
                 Assert.DoesNotThrow(call);
             }
+        }
+
+        private static IEnumerable<WmtsCapability> GetWmtsCapabilitiesFromDefaultWmtsCapabilityUrl(IWmtsCapabilityFactory wcf)
+        {
+            return wcf.GetWmtsCapabilities("http://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/WMTS?");
         }
 
         private static WmtsCapability CreateWmtsCapability(ITileSource tileSource)

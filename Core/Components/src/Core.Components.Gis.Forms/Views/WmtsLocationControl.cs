@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -179,9 +180,14 @@ namespace Core.Components.Gis.Forms.Views
 
         private IEnumerable<WmtsConnectionInfo> GetSavedWmtsConnectionInfos()
         {
+            var reader = new WmtsConnectionInfoReader();
+            if (!File.Exists(wmtsConnectionInfoFilePath))
+            {
+                return reader.ReadDefaultWmtsConnectionInfos();
+            }
+
             try
             {
-                var reader = new WmtsConnectionInfoReader();
                 return reader.ReadWmtsConnectionInfos(wmtsConnectionInfoFilePath);
             }
             catch (CriticalFileReadException exception)

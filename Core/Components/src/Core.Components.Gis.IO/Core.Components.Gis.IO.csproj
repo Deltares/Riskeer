@@ -101,6 +101,7 @@
       <Link>Copying.Lesser.licenseheader</Link>
     </None>
     <None Include="packages.config" />
+    <None Include="Resources\defaultwmtsconnectioninfo.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

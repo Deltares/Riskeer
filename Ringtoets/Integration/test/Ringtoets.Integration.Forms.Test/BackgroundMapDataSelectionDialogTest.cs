@@ -46,6 +46,7 @@ namespace Ringtoets.Integration.Forms.Test
     {
         private MockRepository mockRepository;
         private ITileSourceFactory tileFactory;
+        private static readonly TestDataPath testPath = TestDataPath.Ringtoets.Integration.Forms;
 
         [SetUp]
         public void SetUp()
@@ -68,19 +69,25 @@ namespace Ringtoets.Integration.Forms.Test
             var dialogParent = mockRepository.Stub<IWin32Window>();
             mockRepository.ReplayAll();
 
-            // Call
-            using (var dialog = new BackgroundMapDataSelectionDialog(dialogParent, null))
+            using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                // Assert
-                Assert.IsInstanceOf<DialogBase>(dialog);
-                Assert.AreEqual("Selecteer achtergrondkaart", dialog.Text);
+                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "EmptyWmtsConnectionInfo")
+            }))
+            {
+                // Call
+                using (var dialog = new BackgroundMapDataSelectionDialog(dialogParent, null))
+                {
+                    // Assert
+                    Assert.IsInstanceOf<DialogBase>(dialog);
+                    Assert.AreEqual("Selecteer achtergrondkaart", dialog.Text);
 
-                Icon icon = BitmapToIcon(RingtoetsCommonFormsResources.SelectionDialogIcon);
-                Bitmap expectedImage = icon.ToBitmap();
-                Bitmap actualImage = dialog.Icon.ToBitmap();
-                TestHelper.AssertImagesAreEqual(expectedImage, actualImage);
+                    Icon icon = BitmapToIcon(RingtoetsCommonFormsResources.SelectionDialogIcon);
+                    Bitmap expectedImage = icon.ToBitmap();
+                    Bitmap actualImage = dialog.Icon.ToBitmap();
+                    TestHelper.AssertImagesAreEqual(expectedImage, actualImage);
 
-                AssertMapDataControls<WellKnownMapDataControl>(dialog);
+                    AssertMapDataControls<WellKnownMapDataControl>(dialog);
+                }
             }
         }
 
@@ -129,6 +136,10 @@ namespace Ringtoets.Integration.Forms.Test
             var random = new Random(124);
             var mapData = new WellKnownTileSourceMapData(random.NextEnumValue<WellKnownTileSource>());
 
+            using (new UseCustomSettingsHelper(new TestSettingsHelper
+            {
+                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "EmptyWmtsConnectionInfo")
+            }))
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
             {
                 // Call
@@ -147,6 +158,10 @@ namespace Ringtoets.Integration.Forms.Test
             // Setup
             mockRepository.ReplayAll();
 
+            using (new UseCustomSettingsHelper(new TestSettingsHelper
+            {
+                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "EmptyWmtsConnectionInfo")
+            }))
             using (var dialogParent = new Form())
             using (var dialog = new BackgroundMapDataSelectionDialog(dialogParent, null))
             {
@@ -193,6 +208,10 @@ namespace Ringtoets.Integration.Forms.Test
                 }
             };
 
+            using (new UseCustomSettingsHelper(new TestSettingsHelper
+            {
+                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "EmptyWmtsConnectionInfo")
+            }))
             using (var dialogParent = new Form())
             using (var dialog = new BackgroundMapDataSelectionDialog(dialogParent, null))
             {
@@ -222,6 +241,10 @@ namespace Ringtoets.Integration.Forms.Test
                 }
             };
 
+            using (new UseCustomSettingsHelper(new TestSettingsHelper
+            {
+                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "EmptyWmtsConnectionInfo")
+            }))
             using (var dialogParent = new Form())
             using (var dialog = new BackgroundMapDataSelectionDialog(dialogParent, null))
             {
@@ -242,7 +265,7 @@ namespace Ringtoets.Integration.Forms.Test
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "noConfig")
+                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "EmptyWmtsConnectionInfo")
             }))
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
             using (var dialogParent = new Form())
@@ -378,18 +401,24 @@ namespace Ringtoets.Integration.Forms.Test
             // Setup
             mockRepository.ReplayAll();
 
-            // Call
-            TestDelegate call = () =>
+            using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                using (var dialogParent = new Form())
-                using (var dialog = new BackgroundMapDataSelectionDialog(dialogParent, null))
+                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "EmptyWmtsConnectionInfo")
+            }))
+            {
+                // Call
+                TestDelegate call = () =>
                 {
-                    dialog.Dispose();
-                }
-            };
+                    using (var dialogParent = new Form())
+                    using (var dialog = new BackgroundMapDataSelectionDialog(dialogParent, null))
+                    {
+                        dialog.Dispose();
+                    }
+                };
 
-            // Assert
-            Assert.DoesNotThrow(call);
+                // Assert
+                Assert.DoesNotThrow(call);
+            }
         }
 
         private static void AssertMapDataControls<T>(BackgroundMapDataSelectionDialog dialog)

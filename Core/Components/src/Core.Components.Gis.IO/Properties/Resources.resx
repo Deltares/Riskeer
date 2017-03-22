@@ -163,4 +163,8 @@ Er is geen kaartlaag geïmporteerd.</value>
   <data name="WmtsConnectionInfoReader_Unable_To_Create_WmtsConnectionInfo" xml:space="preserve">
     <value>Het is niet mogelijk om WMTS connectie '{0}' aan te maken met URL '{1}'.</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="defaultWmtsConnectionInfo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\defaultwmtsconnectioninfo.config;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
 </root>

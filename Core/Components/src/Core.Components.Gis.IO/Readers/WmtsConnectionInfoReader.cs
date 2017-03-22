@@ -27,7 +27,6 @@ using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
 using Core.Components.Gis.IO.Properties;
@@ -73,7 +72,9 @@ namespace Core.Components.Gis.IO.Readers
             {
                 readConnectionInfos = ReadWmtsConnectionInfos().ToArray();
             }
-            catch (Exception exception) when (exception is XmlException || exception is IOException)
+            catch (Exception exception) when (exception is XmlException
+                                              || exception is InvalidOperationException
+                                              || exception is IOException)
             {
                 string message = new FileReaderErrorMessageBuilder(filePath)
                     .Build(CoreCommonUtilsResources.Error_General_IO_Import_ErrorMessage);
@@ -83,24 +84,54 @@ namespace Core.Components.Gis.IO.Readers
         }
 
         /// <summary>
+        /// Reads the default WMTS Connection info objects.
+        /// </summary>
+        /// <returns>The read <see cref="WmtsConnectionInfo"/> information.</returns>
+        /// <exception cref="XmlException">Thrown when an error occurred while parsing the XML.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when an error occurred while reading the XML.</exception>
+        public ReadOnlyCollection<WmtsConnectionInfo> ReadDefaultWmtsConnectionInfos()
+        {
+            using (XmlReader reader = XmlReader.Create(new StringReader(Resources.defaultWmtsConnectionInfo)))
+            {
+                IList<WmtsConnectionInfo> connectionInfos = ReadWmtsConnectionInfos(reader).ToList();
+                return new ReadOnlyCollection<WmtsConnectionInfo>(connectionInfos);
+            }
+        }
+
+        /// <summary>
         /// Reads the collection of <see cref="WmtsConnectionInfo"/> from <see cref="filePath"/>.
         /// </summary>
         /// <returns>The read collection.</returns>
         /// <exception cref="XmlException">Thrown when an error occurred while parsing the XML.</exception>
         private IEnumerable<WmtsConnectionInfo> ReadWmtsConnectionInfos()
         {
-            var connectionInfos = new List<WmtsConnectionInfo>();
             using (XmlReader reader = XmlReader.Create(filePath))
             {
-                while (reader.Read())
-                {
-                    if (IsReadElementWmtsConnectionElement(reader)) { continue;}
+                return ReadWmtsConnectionInfos(reader);
+            }
+        }
 
-                    WmtsConnectionInfo readWmtsConnectionElement = ReadWmtsConnectionElement(reader);
-                    if (readWmtsConnectionElement != null)
-                    {
-                        connectionInfos.Add(readWmtsConnectionElement);
-                    }
+        /// <summary>
+        /// Reads the <see cref="WmtsConnectionInfo"/> objects from the <paramref name="reader"/>.
+        /// </summary>
+        /// <param name="reader">The reader to use.</param>
+        /// <returns>The read WMTS connection infos.</returns>
+        /// <exception cref="XmlException">Thrown when an error occurred while parsing the XML.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when an error occurred while reading the XML.</exception>
+        private IEnumerable<WmtsConnectionInfo> ReadWmtsConnectionInfos(XmlReader reader)
+        {
+            var connectionInfos = new List<WmtsConnectionInfo>();
+            while (reader.Read())
+            {
+                if (IsReadElementWmtsConnectionElement(reader))
+                {
+                    continue;
+                }
+
+                WmtsConnectionInfo readWmtsConnectionElement = ReadWmtsConnectionElement(reader);
+                if (readWmtsConnectionElement != null)
+                {
+                    connectionInfos.Add(readWmtsConnectionElement);
                 }
             }
             return connectionInfos;
@@ -119,6 +150,13 @@ namespace Core.Components.Gis.IO.Readers
                    || reader.Name != WmtsConnectionInfoXmlDefinitions.WmtsConnectionElement;
         }
 
+        /// <summary>
+        /// Reads a single <see cref="WmtsConnectionInfo"/> from <see cref="filePath"/>.
+        /// </summary>
+        /// <param name="reader">The reader to use.</param>
+        /// <returns>The read <see cref="WmtsConnectionInfo"/> or <c>null</c> if none read.</returns>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="reader"/> 
+        /// is not positioned on an element when this method is called.</exception>
         private WmtsConnectionInfo ReadWmtsConnectionElement(XmlReader reader)
         {
             using (XmlReader subtreeReader = reader.ReadSubtree())
