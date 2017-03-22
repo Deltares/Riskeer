@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using Core.Common.Base.IO;
+using Ringtoets.Common.IO;
 using Ringtoets.Common.IO.Readers;
 using Ringtoets.Common.IO.Schema;
 using Ringtoets.GrassCoverErosionInwards.IO.Properties;

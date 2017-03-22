@@ -21,6 +21,7 @@
 
 using System;
 using NUnit.Framework;
+using Ringtoets.Common.IO;
 using Ringtoets.Common.IO.Readers;
 using Ringtoets.Revetment.IO.Readers;
 

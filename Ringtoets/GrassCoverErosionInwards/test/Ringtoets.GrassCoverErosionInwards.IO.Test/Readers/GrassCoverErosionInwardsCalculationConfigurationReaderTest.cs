@@ -26,6 +26,7 @@ using System.Xml.Schema;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.IO;
 using Ringtoets.Common.IO.Readers;
 using Ringtoets.GrassCoverErosionInwards.IO.Readers;
 
