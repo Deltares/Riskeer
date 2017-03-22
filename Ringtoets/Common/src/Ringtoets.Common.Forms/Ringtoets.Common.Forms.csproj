@@ -116,7 +116,6 @@
     <Compile Include="StructureSelectionDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TypeConverters\BackgroundDataConverter.cs" />
     <Compile Include="UITypeEditors\HydraulicBoundaryLocationEditor.cs" />
     <Compile Include="UITypeEditors\ForeshoreProfileEditor.cs" />
     <Compile Include="UITypeEditors\IHasForeshoreProfileProperty.cs" />
@@ -264,6 +263,11 @@
     <ProjectReference Include="..\Ringtoets.Common.Service\Ringtoets.Common.Service.csproj">
       <Project>{D951D6DA-FE83-4920-9FDB-63BF96480B54}</Project>
       <Name>Ringtoets.Common.Service</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Common.Utils\Ringtoets.Common.Utils.csproj">
+      <Project>{6A074D65-A81C-4C1C-8E24-F36C916E4ED7}</Project>
+      <Name>Ringtoets.Common.Utils</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>

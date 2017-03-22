@@ -24,7 +24,7 @@ using System.ComponentModel;
 using Core.Components.Gis.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 
-namespace Ringtoets.Common.Forms.TypeConverters
+namespace Ringtoets.Common.Utils.TypeConverters
 {
     /// <summary>
     /// Converter to convert <see cref="BackgroundData"/> to <see cref="ImageBasedMapData"/>
@@ -140,9 +140,18 @@ namespace Ringtoets.Common.Forms.TypeConverters
             return wmtsMapData;
         }
 
+        /// <summary>
+        /// Creates a <see cref="WellKnownTileSourceMapData"/>, based upon the properties of <paramref name="backgroundData"/>.
+        /// </summary>
+        /// <param name="backgroundData">The <see cref="BackgroundData"/> to base the <see cref="WellKnownTileSourceMapData"/> upon.</param>
+        /// <returns>The newly created <see cref="WellKnownTileSourceMapData"/>.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="BackgroundData.Parameters"/>
+        /// contains an invalid value for <see cref="WellKnownTileSource"/> when the 
+        /// <see cref="BackgroundData.BackgroundMapDataType"/> is of type 
+        /// <see cref="BackgroundMapDataType.WellKnown"/>.</exception>
         private static WellKnownTileSourceMapData CreateWellKnownMapdata(BackgroundData backgroundData)
         {
-            var tileSource = (WellKnownTileSource)Convert.ToInt32(backgroundData.Parameters[BackgroundDataIdentifiers.WellKnownTileSource]);
+            var tileSource = (WellKnownTileSource) Convert.ToInt32(backgroundData.Parameters[BackgroundDataIdentifiers.WellKnownTileSource]);
             return new WellKnownTileSourceMapData(tileSource);
         }
     }

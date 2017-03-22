@@ -30,6 +30,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Utils.TypeConverters;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -62,15 +63,7 @@ namespace Ringtoets.Integration.Data
 
             var mapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial);
 
-            BackgroundData = new BackgroundData
-            {
-                Name = mapData.Name,
-                IsVisible = mapData.IsVisible,
-                Transparency = mapData.Transparency,
-                IsConfigured = mapData.IsConfigured,
-                BackgroundMapDataType = BackgroundMapDataType.WellKnown
-            };
-            BackgroundData.Parameters[BackgroundDataIdentifiers.WellKnownTileSource] = ((int) mapData.TileSource).ToString();
+            BackgroundData = BackgroundDataConverter.ConvertTo(mapData);
 
             PipingFailureMechanism = new PipingFailureMechanism();
             GrassCoverErosionInwards = new GrassCoverErosionInwardsFailureMechanism();

@@ -28,13 +28,24 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TestUtil;
-using Ringtoets.Common.Forms.TypeConverters;
+using Ringtoets.Common.Utils.TypeConverters;
 
-namespace Ringtoets.Common.Forms.Test.TypeConverters
+namespace Ringtoets.Common.Utils.Test.TypeConverters
 {
     [TestFixture]
     public class BackgroundDataConverterTest
     {
+        private static IEnumerable<TestCaseData> WmtsMapDatas
+        {
+            get
+            {
+                yield return new TestCaseData(WmtsMapData.CreateDefaultPdokMapData())
+                    .SetName("Configured WMTS map data.");
+                yield return new TestCaseData(WmtsMapData.CreateUnconnectedMapData())
+                    .SetName("Not configured WMTS map data.");
+            }
+        }
+
         [Test]
         public void ConvertTo_MapDataNull_ThrowArgumentNullException()
         {
@@ -174,17 +185,6 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
 
             // Assert
             Assert.Throws<InvalidEnumArgumentException>(call);
-        }
-
-        private static IEnumerable<TestCaseData> WmtsMapDatas
-        {
-            get
-            {
-                yield return new TestCaseData(WmtsMapData.CreateDefaultPdokMapData())
-                    .SetName("Configured WMTS map data.");
-                yield return new TestCaseData(WmtsMapData.CreateUnconnectedMapData())
-                    .SetName("Not configured WMTS map data.");
-            }
         }
     }
 }

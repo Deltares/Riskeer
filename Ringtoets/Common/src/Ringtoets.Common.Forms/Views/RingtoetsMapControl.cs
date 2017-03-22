@@ -23,7 +23,7 @@ using Core.Common.Base;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Forms.TypeConverters;
+using Ringtoets.Common.Utils.TypeConverters;
 
 namespace Ringtoets.Common.Forms.Views
 {
