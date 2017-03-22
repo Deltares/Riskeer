@@ -47,8 +47,11 @@ All rights reserved.
   <xs:element name="stochast">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="verwachtingswaarde"/>
-        <xs:element ref="standaardafwijking"/>
+        <xs:element minOccurs="0" ref="verwachtingswaarde"/>
+        <xs:choice minOccurs="0">
+          <xs:element ref="standaardafwijking"/>
+          <xs:element ref="variatiecoefficient"/>
+        </xs:choice>
       </xs:sequence>
       <xs:attribute name="naam" type="nameType" use="required"/>
     </xs:complexType>
@@ -76,4 +79,11 @@ All rights reserved.
     </xs:simpleType>
   </xs:element>
 
+  <!--Element definitie voor het opgeven van een variatiecoefficient.-->
+  <xs:element name="variatiecoefficient">
+    <xs:simpleType>
+      <xs:restriction base="xs:double"/>
+    </xs:simpleType>
+  </xs:element>
+  
 </xs:schema>

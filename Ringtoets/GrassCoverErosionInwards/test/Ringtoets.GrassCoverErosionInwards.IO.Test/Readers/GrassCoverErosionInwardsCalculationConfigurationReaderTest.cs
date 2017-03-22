@@ -138,12 +138,6 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
                 yield return new TestCaseData("invalidMultipleCriticalFlowRateStochast.xml",
                                               "There is a duplicate key sequence 'overslagdebiet' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
                     .SetName("invalidMultipleCriticalFlowRateStochast");
-                yield return new TestCaseData("invalidCriticalFlowRateMissingMean.xml",
-                                              "The element 'stochast' has invalid child element 'standaardafwijking'. List of possible elements expected: 'verwachtingswaarde'.")
-                    .SetName("invalidCriticalFlowRateMissingMean");
-                yield return new TestCaseData("invalidCriticalFlowRateMissingStandardDeviation.xml",
-                                              "The element 'stochast' has incomplete content. List of possible elements expected: 'standaardafwijking'.")
-                    .SetName("invalidCriticalFlowRateMissingStandardDeviation");
 
                 yield return new TestCaseData("invalidCriticalFlowRateMeanEmpty.xml",
                                               "The 'verwachtingswaarde' element is invalid - The value '' is invalid according to its datatype 'Double'")
@@ -366,6 +360,44 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
             Assert.AreEqual(3.4, calculation.BreakWaterHeight);
             Assert.IsNull(calculation.UseForeshore);
             Assert.IsNull(calculation.CriticalFlowRateMean);
+            Assert.IsNull(calculation.CriticalFlowRateStandardDeviation);
+        }
+
+        [Test]
+        public void Read_ValidConfigurationWithMissingStochastMean_ExpectedValues()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationCriticalFlowRateMissingMean.xml");
+            var reader = new GrassCoverErosionInwardsCalculationConfigurationReader(filePath);
+
+            // Call
+            IList<IReadConfigurationItem> readConfigurationItems = reader.Read().ToList();
+
+            // Assert
+            Assert.AreEqual(1, readConfigurationItems.Count);
+
+            var calculation = readConfigurationItems[0] as ReadGrassCoverErosionInwardsCalculation;
+            Assert.IsNotNull(calculation);
+            Assert.IsNull(calculation.CriticalFlowRateMean);
+            Assert.AreEqual(2.2, calculation.CriticalFlowRateStandardDeviation);
+        }
+
+        [Test]
+        public void Read_ValidConfigurationWithMissingStochastStandardDeviation_ExpectedValues()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationCriticalFlowRateMissingStandardDeviation.xml");
+            var reader = new GrassCoverErosionInwardsCalculationConfigurationReader(filePath);
+
+            // Call
+            IList<IReadConfigurationItem> readConfigurationItems = reader.Read().ToList();
+
+            // Assert
+            Assert.AreEqual(1, readConfigurationItems.Count);
+
+            var calculation = readConfigurationItems[0] as ReadGrassCoverErosionInwardsCalculation;
+            Assert.IsNotNull(calculation);
+            Assert.AreEqual(1.1, calculation.CriticalFlowRateMean);
             Assert.IsNull(calculation.CriticalFlowRateStandardDeviation);
         }
     }

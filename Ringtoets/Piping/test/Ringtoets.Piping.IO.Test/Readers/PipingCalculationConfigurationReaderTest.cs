@@ -74,12 +74,6 @@ namespace Ringtoets.Piping.IO.Test.Readers
                 yield return new TestCaseData("invalidStochastUnknownName.xml",
                                               "The 'naam' attribute is invalid - The value 'Test' is invalid according to its datatype 'nameType' - The Enumeration constraint failed.")
                     .SetName("invalidStochastUnknownName");
-                yield return new TestCaseData("invalidStochastNoMean.xml",
-                                              "The element 'stochast' has invalid child element 'standaardafwijking'.")
-                    .SetName("invalidStochastNoMean");
-                yield return new TestCaseData("invalidStochastNoStandardDeviation.xml",
-                                              "The element 'stochast' has incomplete content.")
-                    .SetName("invalidStochastNoStandardDeviation");
                 yield return new TestCaseData("invalidStochastMultipleMean.xml",
                                               "The element 'stochast' has invalid child element 'verwachtingswaarde'.")
                     .SetName("invalidStochastMultipleMean");
@@ -373,6 +367,44 @@ namespace Ringtoets.Piping.IO.Test.Readers
             Assert.AreEqual(4.4, calculation.PhreaticLevelExitStandardDeviation);
             Assert.IsNull(calculation.DampingFactorExitMean);
             Assert.IsNull(calculation.DampingFactorExitStandardDeviation);
+        }
+
+        [Test]
+        public void Read_ValidConfigurationWithMissingStochastMean_ExpectedValues()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationStochastNoMean.xml");
+            var reader = new PipingCalculationConfigurationReader(filePath);
+
+            // Call
+            IList<IReadConfigurationItem> readConfigurationItems = reader.Read().ToList();
+
+            // Assert
+            Assert.AreEqual(1, readConfigurationItems.Count);
+
+            var calculation = readConfigurationItems[0] as ReadPipingCalculation;
+            Assert.IsNotNull(calculation);
+            Assert.IsNull(calculation.PhreaticLevelExitMean);
+            Assert.AreEqual(0.1, calculation.PhreaticLevelExitStandardDeviation);
+        }
+
+        [Test]
+        public void Read_ValidConfigurationWithMissingStochastStandardDeviation_ExpectedValues()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationStochastNoStandardDeviation.xml");
+            var reader = new PipingCalculationConfigurationReader(filePath);
+
+            // Call
+            IList<IReadConfigurationItem> readConfigurationItems = reader.Read().ToList();
+
+            // Assert
+            Assert.AreEqual(1, readConfigurationItems.Count);
+
+            var calculation = readConfigurationItems[0] as ReadPipingCalculation;
+            Assert.IsNotNull(calculation);
+            Assert.AreEqual(0.0, calculation.PhreaticLevelExitMean);
+            Assert.IsNull(calculation.PhreaticLevelExitStandardDeviation);
         }
     }
 }
