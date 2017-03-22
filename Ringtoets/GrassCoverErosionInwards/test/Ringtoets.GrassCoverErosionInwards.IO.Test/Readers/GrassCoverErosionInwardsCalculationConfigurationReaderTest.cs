@@ -400,5 +400,24 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
             Assert.AreEqual(1.1, calculation.CriticalFlowRateMean);
             Assert.IsNull(calculation.CriticalFlowRateStandardDeviation);
         }
+
+        [Test]
+        public void Read_ValidConfigurationWithEmptyStochast_ExpectedValues()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationEmptyCriticalFlowRate.xml");
+            var reader = new GrassCoverErosionInwardsCalculationConfigurationReader(filePath);
+
+            // Call
+            IList<IReadConfigurationItem> readConfigurationItems = reader.Read().ToList();
+
+            // Assert
+            Assert.AreEqual(1, readConfigurationItems.Count);
+
+            var calculation = readConfigurationItems[0] as ReadGrassCoverErosionInwardsCalculation;
+            Assert.IsNotNull(calculation);
+            Assert.IsNull(calculation.CriticalFlowRateMean);
+            Assert.IsNull(calculation.CriticalFlowRateStandardDeviation);
+        }
     }
 }

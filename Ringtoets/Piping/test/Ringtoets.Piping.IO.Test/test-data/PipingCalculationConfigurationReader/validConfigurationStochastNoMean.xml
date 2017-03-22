@@ -5,6 +5,9 @@
       <stochast naam="polderpeil">
         <standaardafwijking>0.100</standaardafwijking>
       </stochast>
+      <stochast naam="dempingsfactor">
+        <standaardafwijking>7.7</standaardafwijking>
+      </stochast>
     </stochasten>
   </berekening>
 </configuratie>

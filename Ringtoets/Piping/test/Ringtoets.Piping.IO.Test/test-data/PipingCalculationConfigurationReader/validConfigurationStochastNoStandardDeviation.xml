@@ -5,6 +5,9 @@
       <stochast naam="polderpeil">
         <verwachtingswaarde>0.000</verwachtingswaarde>
       </stochast>
+      <stochast naam="dempingsfactor">
+        <verwachtingswaarde>6.6</verwachtingswaarde>
+      </stochast>
     </stochasten>
   </berekening>
 </configuratie>

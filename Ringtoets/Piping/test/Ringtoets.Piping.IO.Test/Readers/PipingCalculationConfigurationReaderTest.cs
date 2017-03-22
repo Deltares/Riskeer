@@ -386,6 +386,8 @@ namespace Ringtoets.Piping.IO.Test.Readers
             Assert.IsNotNull(calculation);
             Assert.IsNull(calculation.PhreaticLevelExitMean);
             Assert.AreEqual(0.1, calculation.PhreaticLevelExitStandardDeviation);
+            Assert.IsNull(calculation.DampingFactorExitMean);
+            Assert.AreEqual(7.7, calculation.DampingFactorExitStandardDeviation);
         }
 
         [Test]
@@ -405,6 +407,29 @@ namespace Ringtoets.Piping.IO.Test.Readers
             Assert.IsNotNull(calculation);
             Assert.AreEqual(0.0, calculation.PhreaticLevelExitMean);
             Assert.IsNull(calculation.PhreaticLevelExitStandardDeviation);
+            Assert.AreEqual(6.6, calculation.DampingFactorExitMean);
+            Assert.IsNull(calculation.DampingFactorExitStandardDeviation);
+        }
+
+        [Test]
+        public void Read_ValidConfigurationWithEmptyStochast_ExpectedValues()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationEmptyStochast.xml");
+            var reader = new PipingCalculationConfigurationReader(filePath);
+
+            // Call
+            IList<IReadConfigurationItem> readConfigurationItems = reader.Read().ToList();
+
+            // Assert
+            Assert.AreEqual(1, readConfigurationItems.Count);
+
+            var calculation = readConfigurationItems[0] as ReadPipingCalculation;
+            Assert.IsNotNull(calculation);
+            Assert.IsNull(calculation.PhreaticLevelExitMean);
+            Assert.IsNull(calculation.PhreaticLevelExitStandardDeviation);
+            Assert.IsNull(calculation.DampingFactorExitMean);
+            Assert.IsNull(calculation.DampingFactorExitStandardDeviation);
         }
     }
 }
