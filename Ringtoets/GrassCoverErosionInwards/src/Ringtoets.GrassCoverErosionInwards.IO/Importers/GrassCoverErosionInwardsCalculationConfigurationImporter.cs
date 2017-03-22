@@ -177,9 +177,21 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
         /// </summary>
         /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
-        /// <returns><c>false</c> when the orientation is invalid, <c>true</c> otherwise.</returns>
+        /// <returns><c>false</c> when the orientation is invalid or when there is an orientation but
+        /// no dike profile defined, <c>true</c> otherwise.</returns>
         private bool ReadOrientation(ReadGrassCoverErosionInwardsCalculation readCalculation, GrassCoverErosionInwardsCalculation calculation)
         {
+            if (calculation.InputParameters.DikeProfile == null)
+            {
+                if (readCalculation.Orientation.HasValue)
+                {
+                    LogReadCalculationConversionError(
+                        Resources.GrassCoverErosionInwardsCalculationConfigurationImporter_ValidateWaveReduction_No_DikeProfile_provided_for_Orientation,
+                        calculation.Name);
+
+                    return false;
+                }
+            }
             if (readCalculation.Orientation.HasValue)
             {
                 double orientation = readCalculation.Orientation.Value;

@@ -174,6 +174,16 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er is geen dijkprofiel opgegeven om de oriëntatie aan toe te voegen..
+        /// </summary>
+        internal static string GrassCoverErosionInwardsCalculationConfigurationImporter_ValidateWaveReduction_No_DikeProfile_provided_for_Orientation {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationConfigurationImporter_ValidateWaveReduction_No" +
+                        "_DikeProfile_provided_for_Orientation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to norm.
         /// </summary>
         internal static string ReadDikeHeightCalculationTypeConverter_CalculateByAssessmentSectionNorm {

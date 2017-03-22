@@ -41,7 +41,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
     public class GrassCoverErosionInwardsCalculationConfigurationImporterTest
     {
         private readonly string path = TestHelper.GetTestDataPath(
-            TestDataPath.Ringtoets.GrassCoverErosionInwards.IO, 
+            TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
             nameof(GrassCoverErosionInwardsCalculationConfigurationImporter));
 
         [Test]
@@ -57,7 +57,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
             // Assert
             Assert.IsInstanceOf<
                 CalculationConfigurationImporter<
-                    GrassCoverErosionInwardsCalculationConfigurationReader, 
+                    GrassCoverErosionInwardsCalculationConfigurationReader,
                     ReadGrassCoverErosionInwardsCalculation>>(importer);
         }
 
@@ -103,7 +103,10 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
                 filePath,
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
-                Enumerable.Empty<DikeProfile>());
+                new[]
+                {
+                    new TestDikeProfile("Dijkprofiel")
+                });
 
             // Call
             var successful = false;
@@ -266,6 +269,30 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
         }
 
         [Test]
+        public void Import_OrientationWithoutDikeProfile_LogMessageAndContinueImport()
+        {
+            // Setup
+            string filePath = Path.Combine(path, "validConfigurationCalculationOrientationWithoutDikeProfile.xml");
+
+            var calculationGroup = new CalculationGroup();
+            var importer = new GrassCoverErosionInwardsCalculationConfigurationImporter(
+                filePath,
+                calculationGroup,
+                Enumerable.Empty<HydraulicBoundaryLocation>(),
+                Enumerable.Empty<DikeProfile>());
+
+            // Call
+            var successful = false;
+            Action call = () => successful = importer.Import();
+
+            // Assert
+            const string expectedMessage = "Er is geen dijkprofiel opgegeven om de oriëntatie aan toe te voegen. Berekening 'Berekening 1' is overgeslagen.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            Assert.IsTrue(successful);
+            CollectionAssert.IsEmpty(calculationGroup.Children);
+        }
+
+        [Test]
         public void Import_UseForeshoreButProfileWithoutGeometry_LogMessageAndContinueImport()
         {
             // Setup
@@ -331,7 +358,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertCalculation(expectedCalculation, (GrassCoverErosionInwardsCalculation)calculationGroup.Children[0]);
+            AssertCalculation(expectedCalculation, (GrassCoverErosionInwardsCalculation) calculationGroup.Children[0]);
         }
 
         [Test]
@@ -402,7 +429,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertCalculation(expectedCalculation, (GrassCoverErosionInwardsCalculation)calculationGroup.Children[0]);
+            AssertCalculation(expectedCalculation, (GrassCoverErosionInwardsCalculation) calculationGroup.Children[0]);
         }
 
         private void AssertCalculation(GrassCoverErosionInwardsCalculation expectedCalculation, GrassCoverErosionInwardsCalculation actualCalculation)
