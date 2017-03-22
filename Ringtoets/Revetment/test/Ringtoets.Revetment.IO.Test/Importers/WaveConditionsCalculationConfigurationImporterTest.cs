@@ -114,7 +114,7 @@ namespace Ringtoets.Revetment.IO.Test.Importers
 
             // Assert
             string expectedMessage = $"{expectedErrorMessage} Berekening 'Berekening 1' is overgeslagen.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error), 1);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -138,7 +138,7 @@ namespace Ringtoets.Revetment.IO.Test.Importers
 
             // Assert
             const string expectedMessage = "De locatie met hydraulische randvoorwaarden 'HRlocatie' bestaat niet. Berekening 'Calculation' is overgeslagen.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error), 1);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -162,7 +162,7 @@ namespace Ringtoets.Revetment.IO.Test.Importers
 
             // Assert
             const string expectedMessage = "Het voorlandprofiel 'Voorlandprofiel' bestaat niet. Berekening 'Berekening 1' is overgeslagen.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error), 1);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -186,16 +186,16 @@ namespace Ringtoets.Revetment.IO.Test.Importers
 
             // Assert
             const string expectedMessage = "Er is geen voorlandprofiel opgegeven om golfreductie parameters aan toe te voegen. Berekening 'Berekening 1' is overgeslagen.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error), 1);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
 
         [Test]
-        public void Import_UseForeshoreButProfileWithoutGeometry_LogMessageAndContinueImport()
+        public void Import_UseForeshoreTrueButProfileWithoutForeshoreGeometry_LogMessageAndContinueImport()
         {
             // Setup
-            string filePath = Path.Combine(path, "validConfigurationCalculationContainingUseForeshoreForeshoreProfileWithoutGeometry.xml");
+            string filePath = Path.Combine(path, "validConfigurationCalculationUseForeshoreTrueForeshoreProfileWithoutGeometry.xml");
 
             var calculationGroup = new CalculationGroup();
             var foreshoreProfile = new TestForeshoreProfile("Voorlandprofiel");
@@ -214,9 +214,47 @@ namespace Ringtoets.Revetment.IO.Test.Importers
 
             // Assert
             const string expectedMessage = "Het opgegeven voorlandprofiel 'Voorlandprofiel' heeft geen geometrie en kan daarom niet gebruikt worden. Berekening 'Berekening 1' is overgeslagen.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error), 1);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
+        }
+
+        [Test]
+        public void Import_UseForeshoreFalseButProfileWithoutForeshoreGeometry_DataAddedToModel()
+        {
+            // Setup
+            string filePath = Path.Combine(path, "validConfigurationCalculationUseForeshoreFalseForeshoreProfileWithoutGeometry.xml");
+
+            var calculationGroup = new CalculationGroup();
+            var foreshoreProfile = new TestForeshoreProfile("Voorlandprofiel");
+            var importer = new WaveConditionsCalculationConfigurationImporter<SimpleWaveConditionsCalculation>(
+                filePath,
+                calculationGroup,
+                Enumerable.Empty<HydraulicBoundaryLocation>(),
+                new[]
+                {
+                    foreshoreProfile
+                });
+
+            // Call
+            bool successful = importer.Import();
+
+            // Assert
+            Assert.IsTrue(successful);
+
+            var expectedCalculation = new SimpleWaveConditionsCalculation
+            {
+                Name = "Berekening 1",
+                InputParameters =
+                {
+                    UseForeshore = false,
+                    Orientation = (RoundedDouble) 0,
+                    ForeshoreProfile = foreshoreProfile
+                }
+            };
+
+            Assert.AreEqual(1, calculationGroup.Children.Count);
+            AssertWaveConditionsCalculation(expectedCalculation, (IWaveConditionsCalculation)calculationGroup.Children[0]);
         }
 
         [Test]

@@ -191,7 +191,7 @@ namespace Ringtoets.Revetment.IO.Importers
 
                 try
                 {
-                    calculation.InputParameters.UpperBoundaryWaterLevels = (RoundedDouble)upperBoundaryWaterLevels;
+                    calculation.InputParameters.UpperBoundaryWaterLevels = (RoundedDouble) upperBoundaryWaterLevels;
                 }
                 catch (ArgumentOutOfRangeException e)
                 {
@@ -209,7 +209,7 @@ namespace Ringtoets.Revetment.IO.Importers
 
                 try
                 {
-                    calculation.InputParameters.LowerBoundaryWaterLevels = (RoundedDouble)lowerBoundaryWaterLevels;
+                    calculation.InputParameters.LowerBoundaryWaterLevels = (RoundedDouble) lowerBoundaryWaterLevels;
                 }
                 catch (ArgumentOutOfRangeException e)
                 {
@@ -348,7 +348,7 @@ namespace Ringtoets.Revetment.IO.Importers
             }
             else if (!calculation.InputParameters.ForeshoreGeometry.Any())
             {
-                if (readCalculation.UseForeshore.HasValue)
+                if (readCalculation.UseForeshore.HasValue && readCalculation.UseForeshore.Value)
                 {
                     LogReadCalculationConversionError(string.Format(
                                                           Resources.WaveConditionsCalculationConfigurationImporter_ValidateWaveReduction_ForeshoreProfile_0_has_no_geometry_and_cannot_be_used,
