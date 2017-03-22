@@ -98,117 +98,13 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
         }
 
         [Test]
-        public void IsEnabled_NoSurfaceLines_ReturnFalse()
+        public void IsEnabled_Always_ReturnTrue()
         {
-            // Setup
-            var failureMechanism = new PipingFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            var context = new PipingCalculationGroupContext(new CalculationGroup(),
-                                                            Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                            new[]
-                                                            {
-                                                                new StochasticSoilModel(1, "A", "B")
-                                                            },
-                                                            failureMechanism,
-                                                            assessmentSection);
-
             // Call
-            bool isEnabled = importInfo.IsEnabled(context);
-
-            // Assert
-            Assert.IsFalse(isEnabled);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void IsEnabled_NoSoilModels_ReturnFalse()
-        {
-            // Setup
-            var failureMechanism = new PipingFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            var context = new PipingCalculationGroupContext(new CalculationGroup(),
-                                                            new[]
-                                                            {
-                                                                new RingtoetsPipingSurfaceLine()
-                                                            },
-                                                            Enumerable.Empty<StochasticSoilModel>(),
-                                                            failureMechanism,
-                                                            assessmentSection);
-
-            // Call
-            bool isEnabled = importInfo.IsEnabled(context);
-
-            // Assert
-            Assert.IsFalse(isEnabled);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void IsEnabled_NoHydraulicBoundaryDatabase_ReturnFalse()
-        {
-            // Setup
-            var failureMechanism = new PipingFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            var context = new PipingCalculationGroupContext(new CalculationGroup(),
-                                                            new[]
-                                                            {
-                                                                new RingtoetsPipingSurfaceLine()
-                                                            },
-                                                            new[]
-                                                            {
-                                                                new StochasticSoilModel(1, "A", "B")
-                                                            },
-                                                            failureMechanism,
-                                                            assessmentSection);
-
-            // Call
-            bool isEnabled = importInfo.IsEnabled(context);
-
-            // Assert
-            Assert.IsFalse(isEnabled);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void IsEnabled_AllDataAvailable_ReturnTrue()
-        {
-            // Setup
-            var failureMechanism = new PipingFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            var context = new PipingCalculationGroupContext(new CalculationGroup(),
-                                                            new[]
-                                                            {
-                                                                new RingtoetsPipingSurfaceLine()
-                                                            },
-                                                            new[]
-                                                            {
-                                                                new StochasticSoilModel(1, "A", "B")
-                                                            },
-                                                            failureMechanism,
-                                                            assessmentSection);
-
-            // Call
-            bool isEnabled = importInfo.IsEnabled(context);
+            bool isEnabled = importInfo.IsEnabled(null);
 
             // Assert
             Assert.IsTrue(isEnabled);
-            mocks.VerifyAll();
         }
 
         [Test]

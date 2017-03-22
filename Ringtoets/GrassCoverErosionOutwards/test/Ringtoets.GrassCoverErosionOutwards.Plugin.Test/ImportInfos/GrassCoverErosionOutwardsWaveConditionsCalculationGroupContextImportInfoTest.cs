@@ -97,48 +97,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ImportInfos
         }
 
         [Test]
-        public void IsEnabled_NoHydraulicBoundaryDatabase_ReturnFalse()
+        public void IsEnabled_Always_ReturnTrue()
         {
-            // Setup
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(new CalculationGroup(),
-                                                                                             failureMechanism,
-                                                                                             assessmentSection);
-
             // Call
-            bool isEnabled = importInfo.IsEnabled(context);
-
-            // Assert
-            Assert.IsFalse(isEnabled);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void IsEnabled_AllDataAvailable_ReturnTrue()
-        {
-            // Setup
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.HydraulicBoundaryLocations.Add(new TestHydraulicBoundaryLocation());
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(new CalculationGroup(),
-                                                                                             failureMechanism,
-                                                                                             assessmentSection);
-
-            // Call
-            bool isEnabled = importInfo.IsEnabled(context);
+            bool isEnabled = importInfo.IsEnabled(null);
 
             // Assert
             Assert.IsTrue(isEnabled);
-            mocks.VerifyAll();
         }
 
         [Test]

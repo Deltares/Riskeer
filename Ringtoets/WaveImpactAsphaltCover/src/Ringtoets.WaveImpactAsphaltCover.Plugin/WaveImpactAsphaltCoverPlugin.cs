@@ -100,7 +100,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
         public override IEnumerable<ImportInfo> GetImportInfos()
         {
             yield return RingtoetsImportInfoFactory.CreateCalculationConfigurationImportInfo<WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext>(
-                CalculationConfigurationImporterEnabled,
                 (context, filePath) =>
                     new WaveConditionsCalculationConfigurationImporter<WaveImpactAsphaltCoverWaveConditionsCalculation>(
                         filePath,
@@ -214,12 +213,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                 FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Extension,
                                                               RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Description)
             };
-        }
-
-        private static bool CalculationConfigurationImporterEnabled(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext context)
-        {
-            return context.AssessmentSection.HydraulicBoundaryDatabase != null
-                   && context.AssessmentSection.HydraulicBoundaryDatabase.Locations.Any();
         }
 
         #region ViewInfos

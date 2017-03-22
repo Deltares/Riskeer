@@ -98,71 +98,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ImportInfos
         }
 
         [Test]
-        public void IsEnabled_NoHydraulicBoundaryDatabase_ReturnFalse()
+        public void IsEnabled_Always_ReturnTrue()
         {
-            // Setup
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(new CalculationGroup(),
-                                                                                          failureMechanism,
-                                                                                          assessmentSection);
-
             // Call
-            bool isEnabled = importInfo.IsEnabled(context);
-
-            // Assert
-            Assert.IsFalse(isEnabled);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void IsEnabled_HydraulicBoundaryDatabaseWithoutLocations_ReturnFalse()
-        {
-            // Setup
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-
-            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(new CalculationGroup(),
-                                                                                          failureMechanism,
-                                                                                          assessmentSection);
-
-            // Call
-            bool isEnabled = importInfo.IsEnabled(context);
-
-            // Assert
-            Assert.IsFalse(isEnabled);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void IsEnabled_AllDataAvailable_ReturnTrue()
-        {
-            // Setup
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(new CalculationGroup(),
-                                                                                          failureMechanism,
-                                                                                          assessmentSection);
-
-            // Call
-            bool isEnabled = importInfo.IsEnabled(context);
+            bool isEnabled = importInfo.IsEnabled(null);
 
             // Assert
             Assert.IsTrue(isEnabled);
-            mocks.VerifyAll();
         }
 
         [Test]

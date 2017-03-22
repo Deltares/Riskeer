@@ -102,7 +102,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         public override IEnumerable<ImportInfo> GetImportInfos()
         {
             yield return RingtoetsImportInfoFactory.CreateCalculationConfigurationImportInfo<GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext>(
-                CalculationConfigurationImporterEnabled,
                 (context, filePath) =>
                     new WaveConditionsCalculationConfigurationImporter<GrassCoverErosionOutwardsWaveConditionsCalculation>(
                         filePath,
@@ -335,11 +334,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 throw new InvalidOperationException("Gui cannot be null");
             }
             hydraulicBoundaryLocationCalculationGuiService = new HydraulicBoundaryLocationCalculationGuiService(Gui.MainWindow);
-        }
-
-        private static bool CalculationConfigurationImporterEnabled(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext context)
-        {
-            return context.FailureMechanism.HydraulicBoundaryLocations.Any();
         }
 
         #region ViewInfos

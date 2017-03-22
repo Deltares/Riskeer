@@ -81,7 +81,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         public override IEnumerable<ImportInfo> GetImportInfos()
         {
             yield return RingtoetsImportInfoFactory.CreateCalculationConfigurationImportInfo<GrassCoverErosionInwardsCalculationGroupContext>(
-                context => context.AvailableDikeProfiles.Any() && context.AvailableHydraulicBoundaryLocations.Any(),
                 (context, filePath) => new GrassCoverErosionInwardsCalculationConfigurationImporter(
                     filePath,
                     context.WrappedData,

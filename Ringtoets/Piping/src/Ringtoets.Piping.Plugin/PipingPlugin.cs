@@ -123,7 +123,6 @@ namespace Ringtoets.Piping.Plugin
             };
 
             yield return RingtoetsImportInfoFactory.CreateCalculationConfigurationImportInfo<PipingCalculationGroupContext>(
-                PipingCalculationConfigurationImporterEnabled,
                 (context, filePath) =>
                     new PipingCalculationConfigurationImporter(
                         filePath,
@@ -358,13 +357,6 @@ namespace Ringtoets.Piping.Plugin
             {
                 return new FileFilterGenerator(Resources.Soil_file_Extension, Resources.Soil_file_Description);
             }
-        }
-
-        private static bool PipingCalculationConfigurationImporterEnabled(PipingCalculationGroupContext context)
-        {
-            return context.AvailableHydraulicBoundaryLocations.Any()
-                   && context.AvailableStochasticSoilModels.Any()
-                   && context.AvailablePipingSurfaceLines.Any();
         }
 
         private static StochasticSoilModelImporter StochasticSoilModelImporter(StochasticSoilModelCollectionContext context, string filePath,

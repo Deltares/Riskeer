@@ -41,11 +41,9 @@ namespace Ringtoets.Common.Forms.ImportInfos
         /// </summary>
         /// <typeparam name="TCalculationGroupContext">The type of calculation group context
         /// to create the <see cref="ImportInfo"/> for.</typeparam>
-        /// <param name="isEnabled">The function to determine if the item is enabled.</param>
         /// <param name="createFileImporter">The function to create the relevant importer.</param>
         /// <returns>An <see cref="ImportInfo"/> object.</returns>
         public static ImportInfo<TCalculationGroupContext> CreateCalculationConfigurationImportInfo<TCalculationGroupContext>(
-            Func<TCalculationGroupContext, bool> isEnabled,
             Func<TCalculationGroupContext, string, IFileImporter> createFileImporter)
             where TCalculationGroupContext: ICalculationContext<CalculationGroup, IFailureMechanism>
         {
@@ -56,7 +54,7 @@ namespace Ringtoets.Common.Forms.ImportInfos
                 Image = Resources.GeneralFolderIcon,
                 FileFilterGenerator = new FileFilterGenerator(Resources.DataTypeDisplayName_xml_file_filter_Extension,
                                                               Resources.DataTypeDisplayName_xml_file_filter_Description),
-                IsEnabled = isEnabled,
+                IsEnabled = context => true,
                 CreateFileImporter = createFileImporter
             };
         }

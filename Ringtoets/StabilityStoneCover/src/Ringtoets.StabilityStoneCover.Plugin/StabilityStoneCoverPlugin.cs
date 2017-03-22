@@ -156,7 +156,6 @@ namespace Ringtoets.StabilityStoneCover.Plugin
         public override IEnumerable<ImportInfo> GetImportInfos()
         {
             yield return RingtoetsImportInfoFactory.CreateCalculationConfigurationImportInfo<StabilityStoneCoverWaveConditionsCalculationGroupContext>(
-                CalculationConfigurationImporterEnabled,
                 (context, filePath) =>
                     new WaveConditionsCalculationConfigurationImporter<StabilityStoneCoverWaveConditionsCalculation>(
                         filePath,
@@ -211,12 +210,6 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                     RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Extension,
                     RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Description)
             };
-        }
-
-        private static bool CalculationConfigurationImporterEnabled(StabilityStoneCoverWaveConditionsCalculationGroupContext context)
-        {
-            return context.AssessmentSection.HydraulicBoundaryDatabase != null
-                   && context.AssessmentSection.HydraulicBoundaryDatabase.Locations.Any();
         }
 
         #region ViewInfos

@@ -45,28 +45,13 @@ namespace Ringtoets.Common.Forms.Test.ImportInfos
             var fileImporter = mocks.Stub<IFileImporter>();
             mocks.ReplayAll();
 
-            Func<ICalculationContext<CalculationGroup, IFailureMechanism>, bool> isEnabled = context => false;
             Func<ICalculationContext<CalculationGroup, IFailureMechanism>, string, IFileImporter> createFileImporter = (context, s) => fileImporter;
 
             // Call
-            ImportInfo<ICalculationContext<CalculationGroup, IFailureMechanism>> importInfo =
-                RingtoetsImportInfoFactory.CreateCalculationConfigurationImportInfo(isEnabled, createFileImporter);
+            ImportInfo<ICalculationContext<CalculationGroup, IFailureMechanism>> importInfo = RingtoetsImportInfoFactory.CreateCalculationConfigurationImportInfo(createFileImporter);
 
             // Assert
-            Assert.AreSame(isEnabled, importInfo.IsEnabled);
             Assert.AreSame(createFileImporter, importInfo.CreateFileImporter);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CreateCalculationConfigurationImportInfo_Always_ReturnsExpectedProperties()
-        {
-            // Call
-            ImportInfo<ICalculationContext<CalculationGroup, IFailureMechanism>> importInfo =
-                RingtoetsImportInfoFactory.CreateCalculationConfigurationImportInfo
-                    <ICalculationContext<CalculationGroup, IFailureMechanism>>(null, null);
-
-            // Assert
             Assert.AreEqual("Ringtoets berekeningenconfiguratie", importInfo.Name);
             Assert.AreEqual("Algemeen", importInfo.Category);
 
@@ -74,6 +59,7 @@ namespace Ringtoets.Common.Forms.Test.ImportInfos
             Assert.AreEqual("Ringtoets berekeningenconfiguratie (*.xml)|*.xml", fileFilterGenerator.Filter);
 
             TestHelper.AssertImagesAreEqual(Resources.GeneralFolderIcon, importInfo.Image);
+            Assert.IsTrue(importInfo.IsEnabled(null));
         }
     }
 }

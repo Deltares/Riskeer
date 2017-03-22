@@ -98,96 +98,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ImportInfos
         }
 
         [Test]
-        public void IsEnabled_NoHydraulicBoundaryDatabase_ReturnFalse()
+        public void IsEnabled_Always_ReturnTrue()
         {
-            // Setup
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.DikeProfiles.Add(new TestDikeProfile());
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var context = new GrassCoverErosionInwardsCalculationGroupContext(new CalculationGroup(),
-                                                                              failureMechanism,
-                                                                              assessmentSection);
-
             // Call
-            bool isEnabled = importInfo.IsEnabled(context);
-
-            // Assert
-            Assert.IsFalse(isEnabled);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void IsEnabled_HydraulicBoundaryDatabaseWithoutLocations_ReturnFalse()
-        {
-            // Setup
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.DikeProfiles.Add(new TestDikeProfile());
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-
-            var context = new GrassCoverErosionInwardsCalculationGroupContext(new CalculationGroup(),
-                                                                              failureMechanism,
-                                                                              assessmentSection);
-
-            // Call
-            bool isEnabled = importInfo.IsEnabled(context);
-
-            // Assert
-            Assert.IsFalse(isEnabled);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void IsEnabled_NoDikeProfiles_ReturnFalse()
-        {
-            // Setup
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            var context = new GrassCoverErosionInwardsCalculationGroupContext(new CalculationGroup(),
-                                                                              failureMechanism,
-                                                                              assessmentSection);
-
-            // Call
-            bool isEnabled = importInfo.IsEnabled(context);
-
-            // Assert
-            Assert.IsFalse(isEnabled);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void IsEnabled_AllDataAvailable_ReturnTrue()
-        {
-            // Setup
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.DikeProfiles.Add(new TestDikeProfile());
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            var context = new GrassCoverErosionInwardsCalculationGroupContext(new CalculationGroup(),
-                                                                              failureMechanism,
-                                                                              assessmentSection);
-
-            // Call
-            bool isEnabled = importInfo.IsEnabled(context);
+            bool isEnabled = importInfo.IsEnabled(null);
 
             // Assert
             Assert.IsTrue(isEnabled);
-            mocks.VerifyAll();
         }
 
         [Test]
