@@ -21,9 +21,7 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.IO.Readers;
-using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO.Readers;
 
 namespace Ringtoets.Revetment.IO.Test.Readers

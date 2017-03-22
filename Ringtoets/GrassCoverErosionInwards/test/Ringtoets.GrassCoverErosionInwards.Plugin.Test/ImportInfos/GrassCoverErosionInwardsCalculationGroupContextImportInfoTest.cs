@@ -105,12 +105,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ImportInfos
             failureMechanism.DikeProfiles.Add(new TestDikeProfile());
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var context = new GrassCoverErosionInwardsCalculationGroupContext(new CalculationGroup(),
-                                                                                          failureMechanism,
-                                                                                          assessmentSection);
+                                                                              failureMechanism,
+                                                                              assessmentSection);
 
             // Call
             bool isEnabled = importInfo.IsEnabled(context);
@@ -128,14 +128,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ImportInfos
             failureMechanism.DikeProfiles.Add(new TestDikeProfile());
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             var context = new GrassCoverErosionInwardsCalculationGroupContext(new CalculationGroup(),
-                                                                                          failureMechanism,
-                                                                                          assessmentSection);
+                                                                              failureMechanism,
+                                                                              assessmentSection);
 
             // Call
             bool isEnabled = importInfo.IsEnabled(context);
@@ -156,8 +156,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ImportInfos
             mocks.ReplayAll();
 
             var context = new GrassCoverErosionInwardsCalculationGroupContext(new CalculationGroup(),
-                                                                                          failureMechanism,
-                                                                                          assessmentSection);
+                                                                              failureMechanism,
+                                                                              assessmentSection);
 
             // Call
             bool isEnabled = importInfo.IsEnabled(context);
@@ -179,8 +179,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ImportInfos
             mocks.ReplayAll();
 
             var context = new GrassCoverErosionInwardsCalculationGroupContext(new CalculationGroup(),
-                                                                                          failureMechanism,
-                                                                                          assessmentSection);
+                                                                              failureMechanism,
+                                                                              assessmentSection);
 
             // Call
             bool isEnabled = importInfo.IsEnabled(context);
@@ -197,12 +197,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ImportInfos
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var context = new GrassCoverErosionInwardsCalculationGroupContext(new CalculationGroup(),
-                                                                                          failureMechanism,
-                                                                                          assessmentSection);
+                                                                              failureMechanism,
+                                                                              assessmentSection);
 
             // Call
             IFileImporter importer = importInfo.CreateFileImporter(context, "");

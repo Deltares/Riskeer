@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.IO.Readers;
-using Ringtoets.Revetment.Data;
 
 namespace Ringtoets.Revetment.IO.Readers
 {
@@ -158,7 +156,7 @@ namespace Ringtoets.Revetment.IO.Readers
             /// <summary>
             /// Gets or sets the value for <see cref="ReadWaveConditionsCalculation.StepSize"/>.
             /// </summary>
-            public ReadWaveConditionsInputStepSize? StepSize{ internal get; set; }
+            public ReadWaveConditionsInputStepSize? StepSize { internal get; set; }
 
             /// <summary>
             /// Gets or sets the value for <see cref="ReadWaveConditionsCalculation.ForeshoreProfile"/>.

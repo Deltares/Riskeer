@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using Core.Common.Base.IO;
-using Ringtoets.Common.IO;
 using Ringtoets.Common.IO.Readers;
 using Ringtoets.Common.IO.Schema;
 using Ringtoets.Revetment.IO.Properties;
@@ -88,7 +87,7 @@ namespace Ringtoets.Revetment.IO.Readers
                 ForeshoreProfile = calculationElement.GetStringValueFromDescendantElement(WaveConditionsCalculationConfigurationSchemaIdentifiers.ForeshoreProfile),
                 Orientation = calculationElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.Orientation),
                 UseBreakWater = calculationElement.GetBoolValueFromDescendantElement(ConfigurationSchemaIdentifiers.UseBreakWater),
-                BreakWaterType = (ReadBreakWaterType?)calculationElement.GetConvertedValueFromDescendantElement<ReadBreakWaterTypeConverter>(ConfigurationSchemaIdentifiers.BreakWaterType),
+                BreakWaterType = (ReadBreakWaterType?) calculationElement.GetConvertedValueFromDescendantElement<ReadBreakWaterTypeConverter>(ConfigurationSchemaIdentifiers.BreakWaterType),
                 BreakWaterHeight = calculationElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.BreakWaterHeight),
                 UseForeshore = calculationElement.GetBoolValueFromDescendantElement(ConfigurationSchemaIdentifiers.UseForeshore)
             };

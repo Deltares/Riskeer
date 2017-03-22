@@ -104,6 +104,26 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Een waarde van &apos;{0}&apos; als gemiddelde voor het kritisch overslagdebiet is ongeldig..
+        /// </summary>
+        internal static string GrassCoverErosionInwardsCalculationConfigurationImporter_ReadCriticalWaveReduction_ReadCriticalWaveReductionMean_0_invalid {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationConfigurationImporter_ReadCriticalWaveReductio" +
+                        "n_ReadCriticalWaveReductionMean_0_invalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Een waarde van &apos;{0}&apos; als standaardafwijking voor het kritisch overslagdebiet is ongeldig..
+        /// </summary>
+        internal static string GrassCoverErosionInwardsCalculationConfigurationImporter_ReadCriticalWaveReduction_ReadCriticalWaveReductionStandardDeviation_0_invalid {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationConfigurationImporter_ReadCriticalWaveReductio" +
+                        "n_ReadCriticalWaveReductionStandardDeviation_0_invalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het dijkprofiel &apos;{0}&apos; bestaat niet..
         /// </summary>
         internal static string GrassCoverErosionInwardsCalculationConfigurationImporter_ReadDikeProfile_DikeProfile_0_does_not_exist {

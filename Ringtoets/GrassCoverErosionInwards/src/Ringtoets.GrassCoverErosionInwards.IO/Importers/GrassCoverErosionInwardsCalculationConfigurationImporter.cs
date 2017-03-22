@@ -82,8 +82,11 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
                 Name = readCalculation.Name
             };
             ReadDikeHeightCalculationType(readCalculation, calculation);
-            ReadCriticalWaveReduction(readCalculation, calculation);
 
+            if(!ReadCriticalWaveReduction(readCalculation, calculation))
+            {
+                return null;
+            }
             if (!ReadHydraulicBoundaryLocation(readCalculation, calculation))
             {
                 return null;
@@ -107,7 +110,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
 
             return calculation;
         }
-        
+
         /// <summary>
         /// Reads the hydraulic boundary location.
         /// </summary>
@@ -179,7 +182,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
         {
             if (readCalculation.Orientation.HasValue)
             {
-                var orientation = readCalculation.Orientation.Value;
+                double orientation = readCalculation.Orientation.Value;
 
                 try
                 {
@@ -222,7 +225,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
                 calculation.InputParameters.UseBreakWater = readCalculation.UseBreakWater.Value;
             }
 
-            if (readCalculation.BreakWaterType != null)
+            if (readCalculation.BreakWaterType.HasValue)
             {
                 calculation.InputParameters.BreakWater.Type = (BreakWaterType) readCalculation.BreakWaterType.Value;
             }
@@ -279,16 +282,67 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
         /// </summary>
         /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
-        private void ReadCriticalWaveReduction(ReadGrassCoverErosionInwardsCalculation readCalculation, GrassCoverErosionInwardsCalculation calculation)
+        private bool ReadCriticalWaveReduction(ReadGrassCoverErosionInwardsCalculation readCalculation, GrassCoverErosionInwardsCalculation calculation)
         {
-            if (readCalculation.CriticalFlowRateMean.HasValue)
+            return ReadCriticalFlowRateMean(readCalculation, calculation) && ReadCriticalFlowRateStandardDeviation(readCalculation, calculation);
+        }
+
+        private bool ReadCriticalFlowRateMean(ReadGrassCoverErosionInwardsCalculation readCalculation, GrassCoverErosionInwardsCalculation calculation)
+        {
+            if (!readCalculation.CriticalFlowRateMean.HasValue)
             {
-                calculation.InputParameters.CriticalFlowRate.Mean = (RoundedDouble) readCalculation.CriticalFlowRateMean.Value;
+                return true;
             }
-            if (readCalculation.CriticalFlowRateStandardDeviation.HasValue)
+
+            double criticalFlowRateMean = readCalculation.CriticalFlowRateMean.Value;
+
+            try
             {
-                calculation.InputParameters.CriticalFlowRate.StandardDeviation = (RoundedDouble)readCalculation.CriticalFlowRateStandardDeviation.Value;
+                calculation.InputParameters.CriticalFlowRate.Mean = (RoundedDouble)criticalFlowRateMean;
             }
+            catch (ArgumentOutOfRangeException e)
+            {
+                string errorMessage = string.Format(
+                    Resources.GrassCoverErosionInwardsCalculationConfigurationImporter_ReadCriticalWaveReduction_ReadCriticalWaveReductionMean_0_invalid,
+                    criticalFlowRateMean);
+
+                LogOutOfRangeException(
+                    errorMessage,
+                    calculation.Name,
+                    e);
+
+                return false;
+            }
+            return true;
+        }
+
+        private bool ReadCriticalFlowRateStandardDeviation(ReadGrassCoverErosionInwardsCalculation readCalculation, GrassCoverErosionInwardsCalculation calculation)
+        {
+            if (!readCalculation.CriticalFlowRateStandardDeviation.HasValue)
+            {
+                return true;
+            }
+
+            double criticalFlowRateStandardDeviation = readCalculation.CriticalFlowRateStandardDeviation.Value;
+
+            try
+            {
+                calculation.InputParameters.CriticalFlowRate.StandardDeviation = (RoundedDouble) criticalFlowRateStandardDeviation;
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                string errorMessage = string.Format(
+                    Resources.GrassCoverErosionInwardsCalculationConfigurationImporter_ReadCriticalWaveReduction_ReadCriticalWaveReductionStandardDeviation_0_invalid,
+                    criticalFlowRateStandardDeviation);
+
+                LogOutOfRangeException(
+                    errorMessage,
+                    calculation.Name,
+                    e);
+
+                return false;
+            }
+            return true;
         }
 
         /// <summary>
