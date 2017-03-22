@@ -92,9 +92,10 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        [TestCase(false)]
-        [TestCase(true)]
-        public void Read_WithBackgroundData_ReturnsNewAssessmentSectionWithBackgroundData(bool isConfigured)
+        [Combinatorial]
+        public void Read_WithBackgroundData_ReturnsNewAssessmentSectionWithBackgroundData(
+            [Values(true, false)]bool isConfigured,
+            [Values(BackgroundMapDataType.WellKnown, BackgroundMapDataType.Wmts)] BackgroundMapDataType backgroundMapDataType)
         {
             // Setup
             const string mapDataName = "Background";
@@ -102,7 +103,6 @@ namespace Application.Ringtoets.Storage.Test.Read
             bool isVisible = isConfigured;
 
             const string wellKnownTileSource = "1";
-            const BackgroundMapDataType backgroundMapDataType = BackgroundMapDataType.WellKnown;
             var backgroundDataMetaEntities = new[]
             {
                 new BackgroundDataMetaEntity

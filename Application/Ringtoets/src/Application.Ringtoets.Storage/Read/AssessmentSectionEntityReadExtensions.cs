@@ -101,6 +101,7 @@ namespace Application.Ringtoets.Storage.Read
             backgroundData.Transparency = readBackgroundData.Transparency;
             backgroundData.IsConfigured = readBackgroundData.IsConfigured;
             backgroundData.Name = readBackgroundData.Name;
+            backgroundData.BackgroundMapDataType = readBackgroundData.BackgroundMapDataType;
 
             backgroundData.Parameters.Clear();
             foreach (KeyValuePair<string, string> backgroundDataParameter in readBackgroundData.Parameters)

@@ -37,6 +37,7 @@ namespace Ringtoets.Common.Data.AssessmentSection
                                                                                                           new RoundedDouble(transparencyNumberOfDecimals, 1));
 
         private RoundedDouble transparency;
+        private BackgroundMapDataType backgroundMapDataType;
 
         /// <summary>
         /// Creates a new <see cref="BackgroundData"/>.
@@ -45,6 +46,7 @@ namespace Ringtoets.Common.Data.AssessmentSection
         {
             IsVisible = true;
             transparency = new RoundedDouble(transparencyNumberOfDecimals);
+            BackgroundMapDataType = BackgroundMapDataType.Wmts;
             Parameters = new FilteredKeyDictionary<string, string>(
                 new[]
                 {
@@ -93,7 +95,17 @@ namespace Ringtoets.Common.Data.AssessmentSection
         /// <summary>
         /// Gets or sets the type of the background map data.
         /// </summary>
-        public BackgroundMapDataType BackgroundMapDataType { get; set; }
+        public BackgroundMapDataType BackgroundMapDataType
+        {
+            get
+            {
+                return backgroundMapDataType;
+            }
+            set
+            {
+                backgroundMapDataType = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets whether a background map data is configured.
