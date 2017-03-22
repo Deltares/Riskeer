@@ -22,18 +22,18 @@
 using System;
 using System.ComponentModel;
 using NUnit.Framework;
-using Ringtoets.GrassCoverErosionInwards.IO.Readers;
+using Ringtoets.Common.IO.Schema;
 
-namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
+namespace Ringtoets.Common.IO.Test
 {
     [TestFixture]
-    public class ReadDikeHeightCalculationConverterTest
+    public class ReadBreakWaterTypeConverterTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var converter = new ReadDikeHeightCalculationTypeConverter();
+            var converter = new ReadBreakWaterTypeConverter();
 
             // Assert
             Assert.IsInstanceOf<TypeConverter>(converter);
@@ -43,7 +43,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
         public void CanConvertTo_String_ReturnTrue()
         {
             // Setup
-            var converter = new ReadDikeHeightCalculationTypeConverter();
+            var converter = new ReadBreakWaterTypeConverter();
 
             // Call
             bool canConvertToString = converter.CanConvertTo(typeof(string));
@@ -53,26 +53,27 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
         }
 
         [Test]
-        public void CanConvertTo_NotString_ReturnFalse()
+        public void CanConvertTo_OtherThanString_ReturnFalse()
         {
             // Setup
-            var converter = new ReadDikeHeightCalculationTypeConverter();
+            var converter = new ReadBreakWaterTypeConverter();
 
             // Call
-            bool canConvert = converter.CanConvertTo(typeof(object));
+            bool canConvertToString = converter.CanConvertTo(typeof(object));
 
             // Assert
-            Assert.IsFalse(canConvert);
+            Assert.IsFalse(canConvertToString);
         }
 
         [Test]
-        [TestCase(ReadDikeHeightCalculationType.NoCalculation, "niet")]
-        [TestCase(ReadDikeHeightCalculationType.CalculateByAssessmentSectionNorm, "norm")]
-        [TestCase(ReadDikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, "doorsnede")]
-        public void ConvertTo_VariousCases_ReturnExpectedValues(ReadDikeHeightCalculationType value, string expectedResult)
+        [TestCase(ReadBreakWaterType.Caisson, ConfigurationSchemaIdentifiers.BreakWaterCaisson)]
+        [TestCase(ReadBreakWaterType.Dam, ConfigurationSchemaIdentifiers.BreakWaterDam)]
+        [TestCase(ReadBreakWaterType.Wall, ConfigurationSchemaIdentifiers.BreakWaterWall)]
+        public void ConverTo_VariousCases_ReturnExpectedText(ReadBreakWaterType value,
+                                                             string expectedResult)
         {
             // Setup
-            var converter = new ReadDikeHeightCalculationTypeConverter();
+            var converter = new ReadBreakWaterTypeConverter();
 
             // Call
             object result = converter.ConvertTo(value, typeof(string));
@@ -82,12 +83,11 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
         }
 
         [Test]
-        public void ConvertTo_InvalidDikeHeightCalculationTypeValue_ThrowNotSupportedException()
+        public void ConvertTo_InvalidBreakWaterType_ThrowNotSupportedException()
         {
             // Setup
-            var converter = new ReadDikeHeightCalculationTypeConverter();
-
-            var invalidValue = (ReadDikeHeightCalculationType) 9999999;
+            var converter = new ReadBreakWaterTypeConverter();
+            var invalidValue = (ReadBreakWaterType) 99999999;
 
             // Call
             TestDelegate call = () => converter.ConvertTo(invalidValue, typeof(string));
@@ -97,23 +97,10 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
         }
 
         [Test]
-        public void ConvertTo_Object_ThrowNotSupportedException()
-        {
-            // Setup
-            var converter = new ReadDikeHeightCalculationTypeConverter();
-
-            // Call
-            TestDelegate call = () => converter.ConvertTo(ReadDikeHeightCalculationType.NoCalculation, typeof(object));
-
-            // Assert
-            Assert.Throws<NotSupportedException>(call);
-        }
-
-        [Test]
         public void CanConvertFrom_String_ReturnTrue()
         {
             // Setup
-            var converter = new ReadDikeHeightCalculationTypeConverter();
+            var converter = new ReadBreakWaterTypeConverter();
 
             // Call
             bool canConvertFromString = converter.CanConvertFrom(typeof(string));
@@ -123,26 +110,27 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
         }
 
         [Test]
-        public void CanConvertFrom_NonString_ReturnFalse()
+        public void CanConvertFrom_OtherThanString_ReturnFalse()
         {
             // Setup
-            var converter = new ReadDikeHeightCalculationTypeConverter();
+            var converter = new ReadBreakWaterTypeConverter();
 
             // Call
-            bool canConvert = converter.CanConvertFrom(typeof(object));
+            bool canConvertFromString = converter.CanConvertFrom(typeof(object));
 
             // Assert
-            Assert.IsFalse(canConvert);
+            Assert.IsFalse(canConvertFromString);
         }
 
         [Test]
-        [TestCase("niet", ReadDikeHeightCalculationType.NoCalculation)]
-        [TestCase("norm", ReadDikeHeightCalculationType.CalculateByAssessmentSectionNorm)]
-        [TestCase("doorsnede", ReadDikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)]
-        public void ConvertFrom_VariousCases_ReturnExpectedValue(string value, ReadDikeHeightCalculationType expectedResult)
+        [TestCase(ConfigurationSchemaIdentifiers.BreakWaterCaisson, ReadBreakWaterType.Caisson)]
+        [TestCase(ConfigurationSchemaIdentifiers.BreakWaterDam, ReadBreakWaterType.Dam)]
+        [TestCase(ConfigurationSchemaIdentifiers.BreakWaterWall, ReadBreakWaterType.Wall)]
+        public void ConvertFrom_Text_ReturnExpectedBreakWaterType(string value,
+                                                                  ReadBreakWaterType expectedResult)
         {
             // Setup
-            var converter = new ReadDikeHeightCalculationTypeConverter();
+            var converter = new ReadBreakWaterTypeConverter();
 
             // Call
             object result = converter.ConvertFrom(value);
@@ -152,13 +140,13 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
         }
 
         [Test]
-        public void ConvertFrom_UnsupportedString_ThrowNotSupportedException()
+        public void ConvertFrom_InvalidText_ThrowNotSupportedException()
         {
             // Setup
-            var converter = new ReadDikeHeightCalculationTypeConverter();
+            var converter = new ReadBreakWaterTypeConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertFrom("<unsupported string value>");
+            TestDelegate call = () => converter.ConvertFrom("A");
 
             // Assert
             Assert.Throws<NotSupportedException>(call);

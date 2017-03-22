@@ -24,7 +24,7 @@ using System.ComponentModel;
 using System.Globalization;
 using Ringtoets.GrassCoverErosionInwards.IO.Properties;
 
-namespace Ringtoets.GrassCoverErosionInwards.IO.Readers
+namespace Ringtoets.GrassCoverErosionInwards.IO
 {
     /// <summary>
     /// Converts <see cref="ReadDikeHeightCalculationType"/> to <see cref="string"/> and back.

@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.GrassCoverErosionInwards.IO.Readers
+namespace Ringtoets.GrassCoverErosionInwards.IO
 {
     /// <summary>
     /// Defines the various types of dike height calculations in a read calculation configuration.

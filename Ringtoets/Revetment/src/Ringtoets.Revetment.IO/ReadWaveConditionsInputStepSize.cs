@@ -19,26 +19,26 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Common.IO.Readers
+namespace Ringtoets.Revetment.IO
 {
     /// <summary>
-    /// Defines the various types of break water values possible in a read calculation configuration.
+    /// Enum defining the possible step size value in a read wave conditions calculation.
     /// </summary>
-    public enum ReadBreakWaterType
+    public enum ReadWaveConditionsInputStepSize
     {
         /// <summary>
-        /// A wall.
+        /// A step size of 0.5
         /// </summary>
-        Wall = 1,
+        Half = 1,
 
         /// <summary>
-        /// A watertight retaining structure.
+        /// A step size of 1.0
         /// </summary>
-        Caisson = 2,
+        One = 2,
 
         /// <summary>
-        /// A barrier that impounds water or underground streams.
+        /// A step size of 2.0
         /// </summary>
-        Dam = 3
+        Two = 3
     }
 }

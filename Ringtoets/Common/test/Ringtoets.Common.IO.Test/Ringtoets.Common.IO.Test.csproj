@@ -59,7 +59,7 @@
     </Compile>
     <Compile Include="AssessmentSectionSettingsReaderTest.cs" />
     <Compile Include="AssessmentSectionSettingsTest.cs" />
-    <Compile Include="Readers\ReadBreakWaterTypeConverterTest.cs" />
+    <Compile Include="ReadBreakWaterTypeConverterTest.cs" />
     <Compile Include="DikeProfiles\DikeProfileDataReaderTest.cs" />
     <Compile Include="DikeProfiles\DikeProfileDataTest.cs" />
     <Compile Include="DikeProfiles\ProfileLocationReaderTest.cs" />

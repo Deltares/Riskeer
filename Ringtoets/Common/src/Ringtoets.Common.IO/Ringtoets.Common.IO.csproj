@@ -54,7 +54,7 @@
     </Compile>
     <Compile Include="AssessmentSectionSettings.cs" />
     <Compile Include="AssessmentSectionSettingsReader.cs" />
-    <Compile Include="Readers\ReadBreakWaterTypeConverter.cs" />
+    <Compile Include="ReadBreakWaterTypeConverter.cs" />
     <Compile Include="DikeProfiles\DamType.cs" />
     <Compile Include="DikeProfiles\DikeProfileData.cs" />
     <Compile Include="DikeProfiles\DikeProfileDataReader.cs" />
@@ -83,7 +83,7 @@
     <Compile Include="Hydraulics\HydraulicBoundaryLocationsWriter.cs" />
     <Compile Include="IConfirmDataChangeHandler.cs" />
     <Compile Include="Readers\CalculationConfigurationReader.cs" />
-    <Compile Include="Readers\ReadBreakWaterType.cs" />
+    <Compile Include="ReadBreakWaterType.cs" />
     <Compile Include="Readers\XElementExtensions.cs" />
     <Compile Include="Readers\IReadConfigurationItem.cs" />
     <Compile Include="Readers\ReadCalculationGroup.cs" />

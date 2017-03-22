@@ -56,12 +56,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Readers\ReadWaveConditionsCalculation.cs" />
-    <Compile Include="Readers\ReadWaveConditionsInputStepSize.cs" />
+    <Compile Include="ReadWaveConditionsInputStepSize.cs" />
     <Compile Include="Readers\WaveConditionsCalculationConfigurationReader.cs" />
     <Compile Include="WaveConditionsCalculationConfigurationSchemaIdentifiers.cs" />
     <Compile Include="Writers\WaveConditionsCalculationConfigurationWriter.cs" />
     <Compile Include="Exporters\WaveConditionsExporterBase.cs" />
-    <Compile Include="Readers\ReadWaveConditionsInputStepSizeConverter.cs" />
+    <Compile Include="ReadWaveConditionsInputStepSizeConverter.cs" />
     <Compile Include="Writers\WaveConditionsWriter.cs" />
   </ItemGroup>
   <ItemGroup>

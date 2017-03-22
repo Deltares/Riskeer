@@ -23,9 +23,8 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 using NUnit.Framework;
-using Ringtoets.Revetment.IO.Readers;
 
-namespace Ringtoets.Revetment.IO.Test.Readers
+namespace Ringtoets.Revetment.IO.Test
 {
     [TestFixture]
     public class ReadWaveConditionsInputStepSizeTypeConverterTest

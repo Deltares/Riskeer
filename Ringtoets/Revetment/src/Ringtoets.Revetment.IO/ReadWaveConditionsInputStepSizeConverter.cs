@@ -22,30 +22,26 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
-using Ringtoets.Common.IO.Schema;
 
-namespace Ringtoets.Common.IO.Readers
+namespace Ringtoets.Revetment.IO
 {
     /// <summary>
-    /// Converts <see cref="ReadBreakWaterType"/> to <see cref="string"/> and back.
+    /// Converts <see cref="ReadWaveConditionsInputStepSize"/> to <see cref="string"/> and back.
     /// </summary>
-    public class ReadBreakWaterTypeConverter : TypeConverter
+    public class ReadWaveConditionsInputStepSizeConverter : TypeConverter
     {
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             if (destinationType == typeof(string))
             {
-                var type = (ReadBreakWaterType) value;
-                switch (type)
+                switch ((ReadWaveConditionsInputStepSize) value)
                 {
-                    case ReadBreakWaterType.Caisson:
-                        return ConfigurationSchemaIdentifiers.BreakWaterCaisson;
-                    case ReadBreakWaterType.Dam:
-                        return ConfigurationSchemaIdentifiers.BreakWaterDam;
-                    case ReadBreakWaterType.Wall:
-                        return ConfigurationSchemaIdentifiers.BreakWaterWall;
-                    default:
-                        throw new NotSupportedException();
+                    case ReadWaveConditionsInputStepSize.Half:
+                        return FormatStepSizeValue(culture, 0.5);
+                    case ReadWaveConditionsInputStepSize.One:
+                        return FormatStepSizeValue(culture, 1.0);
+                    case ReadWaveConditionsInputStepSize.Two:
+                        return FormatStepSizeValue(culture, 2.0);
                 }
             }
             return base.ConvertTo(context, culture, value, destinationType);
@@ -65,17 +61,26 @@ namespace Ringtoets.Common.IO.Readers
             var text = value as string;
             if (text != null)
             {
-                switch (text)
+                string decimalSeperator = culture.NumberFormat.NumberDecimalSeparator;
+                if ($"0{decimalSeperator}5".Equals(text))
                 {
-                    case ConfigurationSchemaIdentifiers.BreakWaterCaisson:
-                        return ReadBreakWaterType.Caisson;
-                    case ConfigurationSchemaIdentifiers.BreakWaterDam:
-                        return ReadBreakWaterType.Dam;
-                    case ConfigurationSchemaIdentifiers.BreakWaterWall:
-                        return ReadBreakWaterType.Wall;
+                    return ReadWaveConditionsInputStepSize.Half;
+                }
+                if ($"1{decimalSeperator}0".Equals(text))
+                {
+                    return ReadWaveConditionsInputStepSize.One;
+                }
+                if ($"2{decimalSeperator}0".Equals(text))
+                {
+                    return ReadWaveConditionsInputStepSize.Two;
                 }
             }
             return base.ConvertFrom(context, culture, value);
+        }
+
+        private static string FormatStepSizeValue(CultureInfo culture, double stepSizeValue)
+        {
+            return string.Format(culture, "{0:0.0}", stepSizeValue);
         }
     }
 }

@@ -60,7 +60,7 @@
     <Compile Include="WaveConditionsCalculationConfigurationSchemaIdentifiersTest.cs" />
     <Compile Include="Writers\WaveConditionsCalculationConfigurationWriterTest.cs" />
     <Compile Include="Exporters\WaveConditionsExporterBaseTest.cs" />
-    <Compile Include="Readers\ReadWaveConditionsInputStepSizeTypeConverterTest.cs" />
+    <Compile Include="ReadWaveConditionsInputStepSizeTypeConverterTest.cs" />
     <Compile Include="Writers\WaveConditionsWriterTest.cs" />
   </ItemGroup>
   <ItemGroup>
