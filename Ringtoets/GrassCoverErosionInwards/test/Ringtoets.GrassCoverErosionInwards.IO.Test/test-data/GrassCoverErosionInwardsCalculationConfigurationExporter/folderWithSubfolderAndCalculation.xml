@@ -2,7 +2,6 @@
 <configuratie>
   <map naam="Testmap">
     <berekening naam="Berekening 1">
-      <orientatie>NaN</orientatie>
       <hbnberekenen>niet</hbnberekenen>
       <stochasten>
         <stochast naam="overslagdebiet">
@@ -13,7 +12,6 @@
     </berekening>
     <map naam="Nested">
       <berekening naam="Berekening 2">
-        <orientatie>NaN</orientatie>
         <hbnberekenen>niet</hbnberekenen>
         <stochasten>
           <stochast naam="overslagdebiet">

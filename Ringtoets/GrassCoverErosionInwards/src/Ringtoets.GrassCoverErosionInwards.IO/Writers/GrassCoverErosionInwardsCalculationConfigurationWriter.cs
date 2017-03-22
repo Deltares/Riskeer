@@ -45,9 +45,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Writers
 
             WriteDikeProfileName(input, writer);
 
-            writer.WriteElementString(
-                ConfigurationSchemaIdentifiers.Orientation,
-                XmlConvert.ToString(input.Orientation));
+            WriteOrientation(input, writer);
 
             WriteDikeHeight(input, writer);
 
@@ -84,6 +82,18 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Writers
             writer.WriteElementString(
                 GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeProfileElement,
                 input.DikeProfile.Name);
+        }
+
+        private static void WriteOrientation(GrassCoverErosionInwardsInput input, XmlWriter writer)
+        {
+            if (input.DikeProfile == null)
+            {
+                return;
+            }
+
+            writer.WriteElementString(
+                ConfigurationSchemaIdentifiers.Orientation,
+                XmlConvert.ToString(input.Orientation));
         }
 
         private static void WriteDikeHeight(GrassCoverErosionInwardsInput input, XmlWriter writer)

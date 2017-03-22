@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <configuratie>
   <berekening naam="Berekening 1">
-    <orientatie>NaN</orientatie>
     <hbnberekenen>niet</hbnberekenen>
     <stochasten>
       <stochast naam="overslagdebiet">
