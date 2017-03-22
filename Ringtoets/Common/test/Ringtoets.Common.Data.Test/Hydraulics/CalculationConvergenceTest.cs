@@ -47,5 +47,23 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
                 };
             }
         }
+
+        protected override IDictionary<CalculationConvergence, byte> ExpectedValueForEnumValues {
+            get
+            {
+                return new Dictionary<CalculationConvergence, byte>
+                {
+                    {
+                        CalculationConvergence.NotCalculated, 1
+                    },
+                    {
+                        CalculationConvergence.CalculatedNotConverged, 2
+                    },
+                    {
+                        CalculationConvergence.CalculatedConverged, 3
+                    }
+                };
+            }
+        }
     }
 }

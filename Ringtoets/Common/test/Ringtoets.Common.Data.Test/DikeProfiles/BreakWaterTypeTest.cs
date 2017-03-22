@@ -47,5 +47,23 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
                 };
             }
         }
+
+        protected override IDictionary<BreakWaterType, byte> ExpectedValueForEnumValues {
+            get
+            {
+                return new Dictionary<BreakWaterType, byte>
+                {
+                    {
+                        BreakWaterType.Wall, 1
+                    },
+                    {
+                        BreakWaterType.Caisson, 2
+                    },
+                    {
+                        BreakWaterType.Dam, 3
+                    }
+                };
+            }
+        }
     }
 }

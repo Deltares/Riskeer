@@ -52,7 +52,34 @@ namespace Core.Components.Gis.Test.Data
                     },
                     {
                         WellKnownTileSource.EsriWorldShadedRelief, "Esri World - Reliëf"
+                    }
+                };
+            }
+        }
+
+        protected override IDictionary<WellKnownTileSource, byte> ExpectedValueForEnumValues {
+            get
+            {
+                return new Dictionary<WellKnownTileSource, byte>
+                {
+                    {
+                        WellKnownTileSource.OpenStreetMap, 0
                     },
+                    {
+                        WellKnownTileSource.BingAerial, 1
+                    },
+                    {
+                        WellKnownTileSource.BingHybrid, 2
+                    },
+                    {
+                        WellKnownTileSource.BingRoads, 3
+                    },
+                    {
+                        WellKnownTileSource.EsriWorldTopo, 4
+                    },
+                    {
+                        WellKnownTileSource.EsriWorldShadedRelief, 5
+                    }
                 };
             }
         }

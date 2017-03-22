@@ -47,13 +47,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             }
         }
 
-        [Test]
-        public void ConvertToByte_Always_ReturnExpectedValues()
+        protected override IDictionary<DikeHeightCalculationType, byte> ExpectedValueForEnumValues
         {
-            // Assert
-            Assert.AreEqual(1, (byte) DikeHeightCalculationType.NoCalculation);
-            Assert.AreEqual(2, (byte) DikeHeightCalculationType.CalculateByAssessmentSectionNorm);
-            Assert.AreEqual(3, (byte) DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability);
+            get
+            {
+                return new Dictionary<DikeHeightCalculationType, byte>
+                {
+                    {
+                        DikeHeightCalculationType.NoCalculation, 1
+                    },
+                    {
+                        DikeHeightCalculationType.CalculateByAssessmentSectionNorm, 2
+                    },
+                    {
+                        DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, 3
+                    }
+                };
+            }
         }
     }
 }

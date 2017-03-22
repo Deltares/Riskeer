@@ -74,7 +74,7 @@
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
-      <Project>{318ba582-88c9-4816-a54a-a7e431461de3}</Project>
+      <Project>{318BA582-88C9-4816-A54A-A7E431461DE3}</Project>
       <Name>Core.Components.Gis</Name>
       <Private>False</Private>
     </ProjectReference>
@@ -84,7 +84,7 @@
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Utils\Ringtoets.Common.Utils.csproj">
-      <Project>{6A074D65-A81C-4C1C-8E24-F36C916E4ED7}</Project>
+      <Project>{6a074d65-a81c-4c1c-8e24-f36c916e4ed7}</Project>
       <Name>Ringtoets.Common.Utils</Name>
       <Private>False</Private>
     </ProjectReference>

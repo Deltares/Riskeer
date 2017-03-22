@@ -45,5 +45,23 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
                 };
             }
         }
+
+        protected override IDictionary<AssessmentLayerOneState, byte> ExpectedValueForEnumValues {
+            get
+            {
+                return new Dictionary<AssessmentLayerOneState, byte>
+                {
+                    {
+                        AssessmentLayerOneState.NotAssessed, 1
+                    },
+                    {
+                        AssessmentLayerOneState.Sufficient, 2
+                    },
+                    {
+                        AssessmentLayerOneState.NoVerdict, 3
+                    }
+                };
+            }
+        }
     }
 }

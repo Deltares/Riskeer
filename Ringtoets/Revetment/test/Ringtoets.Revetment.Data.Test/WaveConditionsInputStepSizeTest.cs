@@ -46,5 +46,24 @@ namespace Ringtoets.Revetment.Data.Test
                 };
             }
         }
+
+        protected override IDictionary<WaveConditionsInputStepSize, byte> ExpectedValueForEnumValues
+        {
+            get
+            {
+                return new Dictionary<WaveConditionsInputStepSize, byte>
+                {
+                    {
+                        WaveConditionsInputStepSize.Half, 1
+                    },
+                    {
+                        WaveConditionsInputStepSize.One, 2
+                    },
+                    {
+                        WaveConditionsInputStepSize.Two, 3
+                    }
+                };
+            }
+        }
     }
 }

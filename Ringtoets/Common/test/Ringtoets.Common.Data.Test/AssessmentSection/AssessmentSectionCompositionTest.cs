@@ -47,5 +47,24 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
                 };
             }
         }
+
+        protected override IDictionary<AssessmentSectionComposition, byte> ExpectedValueForEnumValues
+        {
+            get
+            {
+                return new Dictionary<AssessmentSectionComposition, byte>
+                {
+                    {
+                        AssessmentSectionComposition.Dike, 1
+                    },
+                    {
+                        AssessmentSectionComposition.Dune, 2
+                    },
+                    {
+                        AssessmentSectionComposition.DikeAndDune, 3
+                    }
+                };
+            }
+        }
     }
 }

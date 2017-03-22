@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using Core.Common.Utils.Attributes;
 using NUnit.Framework;
@@ -32,14 +31,35 @@ namespace Core.Common.TestUtil
     public abstract class EnumTestFixture<TEnumType>
     {
         protected abstract IDictionary<TEnumType, string> ExpectedDisplayNameForEnumValues { get; }
+        protected abstract IDictionary<TEnumType, byte> ExpectedValueForEnumValues { get; }
 
         [Test]
         public void DisplayName_Always_ReturnExpectedValues()
         {
+            // Setup
             foreach (TEnumType value in Enum.GetValues(typeof(TEnumType)))
             {
-                Assert.AreEqual(ExpectedDisplayNameForEnumValues[value], GetDisplayName(value),
+                // Call
+                string displayName = GetDisplayName(value);
+
+                // Assert
+                Assert.AreEqual(ExpectedDisplayNameForEnumValues[value], displayName,
                                 $"Display name for {value} incorrect.");
+            }
+        }
+
+        [Test]
+        public void ConvertToByte_Always_ReturnExpectedValues()
+        {
+            // Setup
+            foreach (TEnumType value in Enum.GetValues(typeof(TEnumType)))
+            {
+                // Call
+                int actualValue = Convert.ToInt32(value);
+
+                // Assert
+                Assert.AreEqual(ExpectedValueForEnumValues[value], actualValue,
+                                $"Value for {value} incorrect.");
             }
         }
 

@@ -45,12 +45,28 @@ namespace Core.Common.TestUtil.Test
             }
         }
 
+        protected override IDictionary<DisplayNameTestEnum, byte> ExpectedValueForEnumValues
+        {
+            get
+            {
+                return new Dictionary<DisplayNameTestEnum, byte>
+                {
+                    {
+                        DisplayNameTestEnum.NoDisplayName, 0
+                    },
+                    {
+                        DisplayNameTestEnum.HasResourcesDisplayName, 4
+                    }
+                };
+            }
+        }
+
         public enum DisplayNameTestEnum
         {
             NoDisplayName,
 
             [ResourcesDisplayName(typeof(Resources), nameof(Resources.SomeDisplayName))]
-            HasResourcesDisplayName
+            HasResourcesDisplayName = 4
         }
     }
 }
