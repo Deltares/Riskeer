@@ -149,12 +149,20 @@ namespace Ringtoets.Common.IO.DikeProfiles
 
         private static double GetOffsetAttributeValue(IDictionary<string, object> attributes)
         {
-            var attributeX0Value = attributes[offsetAttributeName] as double?;
-            if (attributeX0Value == null)
+            object value = attributes[offsetAttributeName];
+            if(value == null)
             {
                 throw new LineParseException(Resources.ProfileLocationReader_GetProfileLocations_Invalid_X0);
             }
-            return attributeX0Value.Value;
+
+            try
+            {
+                return Convert.ToDouble(value);
+            }
+            catch (Exception e) when (e is FormatException || e is InvalidCastException || e is OverflowException)
+            {
+                throw new LineParseException(Resources.ProfileLocationReader_GetProfileLocations_Invalid_X0, e);
+            }
         }
 
         private static string GetNameAttributeValue(IDictionary<string, object> attributes)

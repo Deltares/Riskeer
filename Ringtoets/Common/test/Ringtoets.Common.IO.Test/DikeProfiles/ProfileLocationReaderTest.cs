@@ -399,5 +399,70 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
                 Assert.AreEqual(533920.28050000477, dikeProfileLocations[4].Point.Y);
             }
         }
+
+        [Test]
+        public void GetNextProfileLocation_FileWithBinaryX0_GetLocations()
+        {
+            // Setup
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                              Path.Combine("DikeProfiles", "BinaryX0", "PROF63_GE_D0.shp"));
+            IList<ProfileLocation> dikeProfileLocations = new List<ProfileLocation>();
+
+            using (var reader = new ProfileLocationReader(validFilePath))
+            {
+                int count = reader.GetLocationCount;
+                for (int i = 0; i < count; i++)
+                {
+                    // Call
+                    dikeProfileLocations.Add(reader.GetNextProfileLocation());
+                }
+
+                // Assert
+                Assert.AreEqual(160089.54199999946, dikeProfileLocations[0].Point.X);
+                Assert.AreEqual(160618.05799999836, dikeProfileLocations[1].Point.X);
+
+                Assert.AreEqual(582257.47199999972, dikeProfileLocations[0].Point.Y);
+                Assert.AreEqual(582857.71500000195, dikeProfileLocations[1].Point.Y);
+
+                Assert.AreEqual(42.0, dikeProfileLocations[0].Offset);
+                Assert.AreEqual(44.419998168945312, dikeProfileLocations[1].Offset);
+            }
+        }
+
+        [Test]
+        public void GetNextProfileLocation_FileWithInvalidOverflowingBinaryX0_ThrowLineParseException()
+        {
+            // Setup
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                              Path.Combine("DikeProfiles", "InvalidBinaryX0_Overflow", "PROF63_GE_D0.shp"));
+            using (var reader = new ProfileLocationReader(validFilePath))
+            {
+                // Call
+                TestDelegate call = () => reader.GetNextProfileLocation();
+
+                // Assert
+                var exception = Assert.Throws<LineParseException>(call);
+                Assert.AreEqual("Het profiel heeft geen geldige waarde voor attribuut 'X0'.", exception.Message);
+                Assert.IsInstanceOf<OverflowException>(exception.InnerException);
+            }
+        }
+
+        [Test]
+        public void GetNextProfileLocation_FileWithInvalidFormattedBinaryX0_ThrowLineParseException()
+        {
+            // Setup
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                              Path.Combine("DikeProfiles", "InvalidBinaryX0_InvalidFormat", "PROF63_GE_D0.shp"));
+            using (var reader = new ProfileLocationReader(validFilePath))
+            {
+                // Call
+                TestDelegate call = () => reader.GetNextProfileLocation();
+
+                // Assert
+                var exception = Assert.Throws<LineParseException>(call);
+                Assert.AreEqual("Het profiel heeft geen geldige waarde voor attribuut 'X0'.", exception.Message);
+                Assert.IsInstanceOf<FormatException>(exception.InnerException);
+            }
+        }
     }
 }
