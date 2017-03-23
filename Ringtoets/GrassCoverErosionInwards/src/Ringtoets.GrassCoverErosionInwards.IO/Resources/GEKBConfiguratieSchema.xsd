@@ -64,8 +64,7 @@ All rights reserved.
     </xs:simpleType>
   </xs:redefine>
 
-
-  <!--Generieke definitie voor de standaardafwijking van een stochast..-->
+  <!--Generieke definitie voor de standaardafwijking van een stochast.-->
   <xs:include schemaLocation="StochastStandardDeviationSchema.xsd"/>
 
   <!--Generieke definitie voor de variatiecoefficient van een stochast.-->

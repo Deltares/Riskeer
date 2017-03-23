@@ -145,6 +145,7 @@ namespace Ringtoets.Common.IO.Test.Writers
                 File.Delete(filePath);
             }
         }
+
         [Test]
         public void WriteVariationCoefficientDistribution_WithoutVariationCoefficientDistributions_ArgumentNullException()
         {
