@@ -21,6 +21,7 @@
 
 using System;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
@@ -46,7 +47,7 @@ namespace Ringtoets.Integration.Forms.Test
     {
         private MockRepository mockRepository;
         private ITileSourceFactory tileFactory;
-        private static readonly TestDataPath testPath = TestDataPath.Ringtoets.Integration.Forms;
+        private static readonly string testPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Forms);
 
         [SetUp]
         public void SetUp()
@@ -69,9 +70,10 @@ namespace Ringtoets.Integration.Forms.Test
             var dialogParent = mockRepository.Stub<IWin32Window>();
             mockRepository.ReplayAll();
 
+            string settingsDirectory = Path.Combine(testPath, "EmptyWmtsConnectionInfo");
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "EmptyWmtsConnectionInfo")
+                ApplicationLocalUserSettingsDirectory = settingsDirectory
             }))
             {
                 // Call
@@ -136,9 +138,10 @@ namespace Ringtoets.Integration.Forms.Test
             var random = new Random(124);
             var mapData = new WellKnownTileSourceMapData(random.NextEnumValue<WellKnownTileSource>());
 
+            string settingsDirectory = Path.Combine(testPath, "EmptyWmtsConnectionInfo");
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "EmptyWmtsConnectionInfo")
+                ApplicationLocalUserSettingsDirectory = settingsDirectory
             }))
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
             {
@@ -158,9 +161,10 @@ namespace Ringtoets.Integration.Forms.Test
             // Setup
             mockRepository.ReplayAll();
 
+            string settingsDirectory = Path.Combine(testPath, "EmptyWmtsConnectionInfo");
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "EmptyWmtsConnectionInfo")
+                ApplicationLocalUserSettingsDirectory = settingsDirectory
             }))
             using (var dialogParent = new Form())
             using (var dialog = new BackgroundMapDataSelectionDialog(dialogParent, null))
@@ -208,9 +212,10 @@ namespace Ringtoets.Integration.Forms.Test
                 }
             };
 
+            string settingsDirectory = Path.Combine(testPath, "EmptyWmtsConnectionInfo");
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "EmptyWmtsConnectionInfo")
+                ApplicationLocalUserSettingsDirectory = settingsDirectory
             }))
             using (var dialogParent = new Form())
             using (var dialog = new BackgroundMapDataSelectionDialog(dialogParent, null))
@@ -241,9 +246,10 @@ namespace Ringtoets.Integration.Forms.Test
                 }
             };
 
+            string settingsDirectory = Path.Combine(testPath, "EmptyWmtsConnectionInfo");
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "EmptyWmtsConnectionInfo")
+                ApplicationLocalUserSettingsDirectory = settingsDirectory
             }))
             using (var dialogParent = new Form())
             using (var dialog = new BackgroundMapDataSelectionDialog(dialogParent, null))
@@ -263,9 +269,10 @@ namespace Ringtoets.Integration.Forms.Test
             // Given
             mockRepository.ReplayAll();
 
+            string settingsDirectory = Path.Combine(testPath, "EmptyWmtsConnectionInfo");
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "EmptyWmtsConnectionInfo")
+                ApplicationLocalUserSettingsDirectory = settingsDirectory
             }))
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
             using (var dialogParent = new Form())
@@ -280,13 +287,13 @@ namespace Ringtoets.Integration.Forms.Test
 
                 // Precondition state
                 comboBox.SelectedItem = wmtsLocationControl;
-                var wmtsDataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", dialog).TheObject;
+                var wmtsDataGridViewControl = dialog.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
                 Assert.IsNull(wmtsDataGridViewControl.CurrentRow);
                 Assert.IsFalse(selectButton.Enabled);
 
                 // When
                 comboBox.SelectedItem = wellKnownMapDataControl;
-                var wellKnownDataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", dialog).TheObject;
+                var wellKnownDataGridViewControl = dialog.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
                 DataGridViewRow currentRow = wellKnownDataGridViewControl.CurrentRow;
                 Assert.AreEqual(0, currentRow.Index);
                 Assert.IsTrue(selectButton.Enabled);
@@ -315,9 +322,10 @@ namespace Ringtoets.Integration.Forms.Test
 
             var wmtsLocationControlSelectedMapDataChanged = 0;
 
+            string settingsDirectory = Path.Combine(testPath, "EmptyWmtsConnectionInfo");
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "noConfig")
+                ApplicationLocalUserSettingsDirectory = settingsDirectory
             }))
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
             using (var dialogParent = new Form())
@@ -330,11 +338,11 @@ namespace Ringtoets.Integration.Forms.Test
                 WmtsLocationControl wmtsLocationControl = GetComboBoxItem<WmtsLocationControl>(comboBox);
 
                 comboBox.SelectedItem = wmtsLocationControl;
-                var wmtsDataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", dialog).TheObject;
+                var wmtsDataGridViewControl = dialog.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
                 wmtsLocationControl.SelectedMapDataChanged += (sender, args) => { wmtsLocationControlSelectedMapDataChanged++; };
 
                 comboBox.SelectedItem = wellKnownMapDataControl;
-                var wellKnownDataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", dialog).TheObject;
+                var wellKnownDataGridViewControl = dialog.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
                 wellKnownDataGridViewControl.ClearCurrentCell();
 
                 var button = (Button) new ButtonTester("selectButton", dialog).TheObject;
@@ -366,9 +374,10 @@ namespace Ringtoets.Integration.Forms.Test
 
             var wellKnownSelectedMapDataChanged = 0;
 
+            string settingsDirectory = Path.Combine(testPath, "EmptyWmtsConnectionInfo");
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "noConfig")
+                ApplicationLocalUserSettingsDirectory = settingsDirectory
             }))
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
             using (var dialogParent = new Form())
@@ -381,7 +390,7 @@ namespace Ringtoets.Integration.Forms.Test
 
                 comboBox.SelectedItem = wellKnownControl;
 
-                var wellKnownDataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", dialog).TheObject;
+                var wellKnownDataGridViewControl = dialog.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
                 wellKnownControl.SelectedMapDataChanged += (sender, args) => { wellKnownSelectedMapDataChanged++; };
 
                 // When
@@ -401,9 +410,10 @@ namespace Ringtoets.Integration.Forms.Test
             // Setup
             mockRepository.ReplayAll();
 
+            string settingsDirectory = Path.Combine(testPath, "EmptyWmtsConnectionInfo");
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "EmptyWmtsConnectionInfo")
+                ApplicationLocalUserSettingsDirectory = settingsDirectory
             }))
             {
                 // Call

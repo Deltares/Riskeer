@@ -87,8 +87,6 @@ namespace Core.Components.Gis.IO.Readers
         /// Reads the default WMTS Connection info objects.
         /// </summary>
         /// <returns>The read <see cref="WmtsConnectionInfo"/> information.</returns>
-        /// <exception cref="XmlException">Thrown when an error occurred while parsing the XML.</exception>
-        /// <exception cref="InvalidOperationException">Thrown when an error occurred while reading the XML.</exception>
         public ReadOnlyCollection<WmtsConnectionInfo> ReadDefaultWmtsConnectionInfos()
         {
             using (XmlReader reader = XmlReader.Create(new StringReader(Resources.defaultWmtsConnectionInfo)))
@@ -103,6 +101,7 @@ namespace Core.Components.Gis.IO.Readers
         /// </summary>
         /// <returns>The read collection.</returns>
         /// <exception cref="XmlException">Thrown when an error occurred while parsing the XML.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when an error occurred while reading the XML.</exception>
         private IEnumerable<WmtsConnectionInfo> ReadWmtsConnectionInfos()
         {
             using (XmlReader reader = XmlReader.Create(filePath))

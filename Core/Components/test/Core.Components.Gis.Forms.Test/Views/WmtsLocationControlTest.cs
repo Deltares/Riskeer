@@ -146,10 +146,10 @@ namespace Core.Components.Gis.Forms.Test.Views
                 form.Controls.Add(control);
 
                 // Assert
-                var urlLocationLabel = new LabelTester("urlLocationLabel", form);
+                Label urlLocationLabel = form.Controls.Find("urlLocationLabel", true).OfType<Label>().First();
                 Assert.AreEqual("Locatie (URL)", urlLocationLabel.Text);
 
-                var urlLocations = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
+                ComboBox urlLocations = form.Controls.Find("urlLocationComboBox", true).OfType<ComboBox>().First();
                 Assert.AreEqual(ComboBoxStyle.DropDownList, urlLocations.DropDownStyle);
                 Assert.IsInstanceOf<ICollection<WmtsConnectionInfo>>(urlLocations.DataSource);
                 Assert.AreEqual("Name", urlLocations.DisplayMember);
@@ -157,14 +157,14 @@ namespace Core.Components.Gis.Forms.Test.Views
                 Assert.IsTrue(urlLocations.Sorted);
                 Assert.IsNotNull(urlLocations.SelectedItem);
 
-                var buttonConnectTo = (Button) new ButtonTester("connectToButton", form).TheObject;
+                Button buttonConnectTo = form.Controls.Find("connectToButton", true).OfType<Button>().First();
                 Assert.AreEqual("Verbinding maken", buttonConnectTo.Text);
                 Assert.IsTrue(buttonConnectTo.Enabled);
 
-                var buttonAddLocation = new ButtonTester("addLocationButton", form);
+                Button buttonAddLocation = form.Controls.Find("addLocationButton", true).OfType<Button>().First();
                 Assert.AreEqual("Locatie toevoegen...", buttonAddLocation.Text);
 
-                var buttonEditLocation = (Button) new ButtonTester("editLocationButton", form).TheObject;
+                Button buttonEditLocation = form.Controls.Find("editLocationButton", true).OfType<Button>().First();
                 Assert.AreEqual("Locatie aanpassen...", buttonEditLocation.Text);
             }
         }
@@ -191,10 +191,10 @@ namespace Core.Components.Gis.Forms.Test.Views
                 form.Controls.Add(control);
 
                 // Assert
-                var urlLocationLabel = new LabelTester("urlLocationLabel", form);
+                Label urlLocationLabel = form.Controls.Find("urlLocationLabel", true).OfType<Label>().First();
                 Assert.AreEqual("Locatie (URL)", urlLocationLabel.Text);
 
-                var urlLocations = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
+                ComboBox urlLocations = form.Controls.Find("urlLocationComboBox", true).OfType<ComboBox>().First();
                 Assert.AreEqual(ComboBoxStyle.DropDownList, urlLocations.DropDownStyle);
                 var connectionInfos = (IList<WmtsConnectionInfo>) urlLocations.DataSource;
                 Assert.Contains(activeWmtsConnectionInfo, connectionInfos.ToArray());
@@ -204,7 +204,7 @@ namespace Core.Components.Gis.Forms.Test.Views
                 Assert.IsTrue(urlLocations.Sorted);
                 Assert.IsNotNull(urlLocations.SelectedItem);
 
-                var buttonConnectTo = (Button) new ButtonTester("connectToButton", form).TheObject;
+                Button buttonConnectTo = form.Controls.Find("connectToButton", true).OfType<Button>().First();
                 Assert.AreEqual("Verbinding maken", buttonConnectTo.Text);
                 Assert.IsTrue(buttonConnectTo.Enabled);
             }
@@ -226,7 +226,7 @@ namespace Core.Components.Gis.Forms.Test.Views
                     form.Controls.Add(control);
 
                     // Assert
-                    var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", form).TheObject;
+                    DataGridViewControl dataGridViewControl = form.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
                     var dataGridView = dataGridViewControl.Controls.OfType<DataGridView>().First();
 
                     Assert.AreEqual(DataGridViewSelectionMode.FullRowSelect, dataGridViewControl.SelectionMode);
@@ -280,7 +280,7 @@ namespace Core.Components.Gis.Forms.Test.Views
                     form.Controls.Add(control);
 
                     // Assert
-                    var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", form).TheObject;
+                    DataGridViewControl dataGridViewControl = form.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
                     Assert.AreEqual(2, dataGridViewControl.Rows.Count);
                     DataGridViewRow currentRow = dataGridViewControl.CurrentRow;
                     Assert.IsNotNull(currentRow);
@@ -307,7 +307,7 @@ namespace Core.Components.Gis.Forms.Test.Views
                     form.Controls.Add(control);
 
                     // Assert
-                    var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", form).TheObject;
+                    DataGridViewControl dataGridViewControl = form.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
                     Assert.IsEmpty(dataGridViewControl.Rows);
                 }
             }
@@ -357,7 +357,7 @@ namespace Core.Components.Gis.Forms.Test.Views
                 using (ShowFullyConfiguredWmtsLocationControl(form, wmtsCapabilityFactory))
                 {
                     // Assert
-                    var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", form).TheObject;
+                    DataGridViewControl dataGridViewControl = form.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
                     DataGridViewRowCollection rows = dataGridViewControl.Rows;
                     Assert.AreEqual(2, rows.Count);
 
@@ -438,7 +438,7 @@ namespace Core.Components.Gis.Forms.Test.Views
             using (var form = new Form())
             using (WmtsLocationControl control = ShowFullyConfiguredWmtsLocationControl(form, wmtsCapabilityFactory))
             {
-                var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", form).TheObject;
+                DataGridViewControl dataGridViewControl = form.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
                 dataGridViewControl.SetCurrentCell(dataGridViewControl.GetCell(1, 0));
 
                 // Call
@@ -484,22 +484,22 @@ namespace Core.Components.Gis.Forms.Test.Views
                     form.Show();
 
                     // Then
-                    var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
-                    var dataSource = (IList<WmtsConnectionInfo>) comboBox.DataSource;
+                    ComboBox urlLocations = form.Controls.Find("urlLocationComboBox", true).OfType<ComboBox>().First();
+                    var dataSource = (IList<WmtsConnectionInfo>) urlLocations.DataSource;
                     Assert.AreEqual(2, dataSource.Count);
 
-                    var firstWmtsConnectionInfo = (WmtsConnectionInfo) comboBox.Items[0];
+                    var firstWmtsConnectionInfo = (WmtsConnectionInfo) urlLocations.Items[0];
                     Assert.AreEqual("Actueel Hoogtebestand Nederland (AHN1)", firstWmtsConnectionInfo.Name);
                     Assert.AreEqual(url, firstWmtsConnectionInfo.Url);
 
-                    var secondWmtsConnectionInfo = (WmtsConnectionInfo) comboBox.Items[1];
+                    var secondWmtsConnectionInfo = (WmtsConnectionInfo) urlLocations.Items[1];
                     Assert.AreEqual("Zeegraskartering", secondWmtsConnectionInfo.Name);
                     Assert.AreEqual("https://geodata.nationaalgeoregister.nl/zeegraskartering/wfs?request=GetCapabilities",
                                     secondWmtsConnectionInfo.Url);
 
-                    Assert.AreSame(comboBox.SelectedItem, firstWmtsConnectionInfo);
+                    Assert.AreSame(urlLocations.SelectedItem, firstWmtsConnectionInfo);
 
-                    var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", form).TheObject;
+                    DataGridViewControl dataGridViewControl = form.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
                     Assert.AreSame(dataGridViewControl.Rows[0], dataGridViewControl.CurrentRow);
                 }
             }
@@ -536,22 +536,22 @@ namespace Core.Components.Gis.Forms.Test.Views
                     form.Show();
 
                     // Then
-                    var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
-                    var dataSource = (IList<WmtsConnectionInfo>) comboBox.DataSource;
+                    ComboBox urlLocations = form.Controls.Find("urlLocationComboBox", true).OfType<ComboBox>().First();
+                    var dataSource = (IList<WmtsConnectionInfo>) urlLocations.DataSource;
                     Assert.AreEqual(2, dataSource.Count);
 
-                    var firstWmtsConnectionInfo = (WmtsConnectionInfo) comboBox.Items[0];
+                    var firstWmtsConnectionInfo = (WmtsConnectionInfo) urlLocations.Items[0];
                     Assert.AreEqual("Actueel Hoogtebestand Nederland (AHN1)", firstWmtsConnectionInfo.Name);
                     Assert.AreEqual("https://geodata.nationaalgeoregister.nl/tiles/service/wmts/ahn1?request=GetCapabilities",
                                     firstWmtsConnectionInfo.Url);
 
-                    var secondWmtsConnectionInfo = (WmtsConnectionInfo) comboBox.Items[1];
+                    var secondWmtsConnectionInfo = (WmtsConnectionInfo) urlLocations.Items[1];
                     Assert.AreEqual(mapDataName, secondWmtsConnectionInfo.Name);
                     Assert.AreEqual(mapDataUrl, secondWmtsConnectionInfo.Url);
 
-                    Assert.AreSame(comboBox.SelectedItem, secondWmtsConnectionInfo);
+                    Assert.AreSame(urlLocations.SelectedItem, secondWmtsConnectionInfo);
 
-                    var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", form).TheObject;
+                    DataGridViewControl dataGridViewControl = form.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
                     Assert.AreSame(dataGridViewControl.Rows[0], dataGridViewControl.CurrentRow);
                 }
             }
@@ -582,8 +582,8 @@ namespace Core.Components.Gis.Forms.Test.Views
                         form.Controls.Add(control);
 
                         // Then
-                        var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
-                        var dataSource = (IList<WmtsConnectionInfo>) comboBox.DataSource;
+                        ComboBox urlLocations = form.Controls.Find("urlLocationComboBox", true).OfType<ComboBox>().First();
+                        var dataSource = (IList<WmtsConnectionInfo>) urlLocations.DataSource;
                         Assert.AreEqual(0, dataSource.Count);
                     }
                 };
@@ -628,8 +628,8 @@ namespace Core.Components.Gis.Forms.Test.Views
                 buttonAddLocation.Click();
 
                 // Then
-                var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
-                var dataSource = (IList<WmtsConnectionInfo>) comboBox.DataSource;
+                ComboBox urlLocations = form.Controls.Find("urlLocationComboBox", true).OfType<ComboBox>().First();
+                var dataSource = (IList<WmtsConnectionInfo>) urlLocations.DataSource;
                 Assert.AreEqual(2, dataSource.Count);
             }
         }
@@ -650,8 +650,8 @@ namespace Core.Components.Gis.Forms.Test.Views
                 using (var formTester = new FormTester(formName))
                 {
                     var dialog = (WmtsConnectionDialog) formTester.TheObject;
-                    var nameTextBox = (TextBox) new TextBoxTester("nameTextBox", dialog).TheObject;
-                    var urlTextBox = (TextBox) new TextBoxTester("urlTextBox", dialog).TheObject;
+                    TextBox nameTextBox = dialog.Controls.Find("nameTextBox", true).OfType<TextBox>().First();
+                    TextBox urlTextBox = dialog.Controls.Find("urlTextBox", true).OfType<TextBox>().First();
                     var actionButton = new ButtonTester("actionButton", dialog);
 
                     nameTextBox.Text = name;
@@ -680,14 +680,14 @@ namespace Core.Components.Gis.Forms.Test.Views
                 buttonAddLocation.Click();
 
                 // Then
-                var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
-                var dataSource = (IList<WmtsConnectionInfo>) comboBox.DataSource;
+                ComboBox urlLocations = form.Controls.Find("urlLocationComboBox", true).OfType<ComboBox>().First();
+                var dataSource = (IList<WmtsConnectionInfo>) urlLocations.DataSource;
                 Assert.AreEqual(1, dataSource.Count);
-                var item = (WmtsConnectionInfo) comboBox.Items[0];
+                var item = (WmtsConnectionInfo) urlLocations.Items[0];
                 Assert.AreEqual(name, item.Name);
                 Assert.AreEqual(url, item.Url);
 
-                var connectToButton = (Button) new ButtonTester("connectToButton", form).TheObject;
+                Button connectToButton = form.Controls.Find("connectToButton", true).OfType<Button>().First();
                 Assert.IsTrue(connectToButton.Enabled);
             }
         }
@@ -730,11 +730,11 @@ namespace Core.Components.Gis.Forms.Test.Views
                 buttonAddLocation.Click();
 
                 // Then
-                var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
-                var dataSource = (IList<WmtsConnectionInfo>) comboBox.DataSource;
+                ComboBox urlLocations = form.Controls.Find("urlLocationComboBox", true).OfType<ComboBox>().First();
+                var dataSource = (IList<WmtsConnectionInfo>) urlLocations.DataSource;
                 Assert.AreEqual(2, dataSource.Count);
 
-                var connectToButton = (Button) new ButtonTester("connectToButton", form).TheObject;
+                Button connectToButton = form.Controls.Find("connectToButton", true).OfType<Button>().First();
                 Assert.IsTrue(connectToButton.Enabled);
             }
         }
@@ -755,8 +755,8 @@ namespace Core.Components.Gis.Forms.Test.Views
                 using (var formTester = new FormTester(formName))
                 {
                     var dialog = (WmtsConnectionDialog) formTester.TheObject;
-                    var nameTextBox = (TextBox) new TextBoxTester("nameTextBox", dialog).TheObject;
-                    var urlTextBox = (TextBox) new TextBoxTester("urlTextBox", dialog).TheObject;
+                    TextBox nameTextBox = dialog.Controls.Find("nameTextBox", true).OfType<TextBox>().First();
+                    TextBox urlTextBox = dialog.Controls.Find("urlTextBox", true).OfType<TextBox>().First();
                     var actionButton = new ButtonTester("actionButton", dialog);
 
                     nameTextBox.Text = name;
@@ -792,8 +792,8 @@ namespace Core.Components.Gis.Forms.Test.Views
                     // Then
                     string exceptionMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{configFilePath}'.";
                     TestHelper.AssertLogMessageWithLevelIsGenerated(action, Tuple.Create(exceptionMessage, LogLevelConstant.Error));
-                    var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
-                    var dataSource = (IList<WmtsConnectionInfo>) comboBox.DataSource;
+                    ComboBox urlLocations = form.Controls.Find("urlLocationComboBox", true).OfType<ComboBox>().First();
+                    var dataSource = (IList<WmtsConnectionInfo>) urlLocations.DataSource;
                     Assert.AreEqual(1, dataSource.Count);
                 }
             }
@@ -839,10 +839,10 @@ namespace Core.Components.Gis.Forms.Test.Views
                     editLocationButton.Click();
 
                     // Then
-                    var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
-                    var dataSource = (IList<WmtsConnectionInfo>) comboBox.DataSource;
+                    ComboBox urlLocations = form.Controls.Find("urlLocationComboBox", true).OfType<ComboBox>().First();
+                    var dataSource = (IList<WmtsConnectionInfo>) urlLocations.DataSource;
                     Assert.AreEqual(1, dataSource.Count);
-                    var item = (WmtsConnectionInfo) comboBox.Items[0];
+                    var item = (WmtsConnectionInfo) urlLocations.Items[0];
                     Assert.AreEqual(capabilitiesName, item.Name);
                     Assert.AreEqual(capabilitiesUrl, item.Url);
                 }
@@ -867,8 +867,8 @@ namespace Core.Components.Gis.Forms.Test.Views
                 using (var formTester = new FormTester(formName))
                 {
                     var dialog = (WmtsConnectionDialog) formTester.TheObject;
-                    var nameTextBox = (TextBox) new TextBoxTester("nameTextBox", dialog).TheObject;
-                    var urlTextBox = (TextBox) new TextBoxTester("urlTextBox", dialog).TheObject;
+                    TextBox nameTextBox = dialog.Controls.Find("nameTextBox", true).OfType<TextBox>().First();
+                    TextBox urlTextBox = dialog.Controls.Find("urlTextBox", true).OfType<TextBox>().First();
                     var actionButton = new ButtonTester("actionButton", dialog);
 
                     nameTextBox.Text = newName;
@@ -903,10 +903,10 @@ namespace Core.Components.Gis.Forms.Test.Views
                         editLocationButton.Click();
 
                         // Then
-                        var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
-                        var dataSource = (IList<WmtsConnectionInfo>) comboBox.DataSource;
+                        ComboBox urlLocations = form.Controls.Find("urlLocationComboBox", true).OfType<ComboBox>().First();
+                        var dataSource = (IList<WmtsConnectionInfo>) urlLocations.DataSource;
                         Assert.AreEqual(1, dataSource.Count);
-                        var item = (WmtsConnectionInfo) comboBox.Items[0];
+                        var item = (WmtsConnectionInfo) urlLocations.Items[0];
                         Assert.AreEqual(newName, item.Name);
                         Assert.AreEqual(newUrl, item.Url);
                     }
@@ -939,7 +939,7 @@ namespace Core.Components.Gis.Forms.Test.Views
                 connectToButton.Click();
 
                 // Then
-                var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", form).TheObject;
+                DataGridViewControl dataGridViewControl = form.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
                 DataGridViewRowCollection rows = dataGridViewControl.Rows;
                 Assert.AreEqual(1, rows.Count);
 
@@ -1045,7 +1045,7 @@ namespace Core.Components.Gis.Forms.Test.Views
                 new WmtsCapability("brtachtergrondkaart(EPSG:28992)", "image/png8", "brtachtergrondkaart", "EPSG:28992")
             };
 
-            var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", form).TheObject;
+            DataGridViewControl dataGridViewControl = form.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
             dataGridViewControl.SetDataSource(capabilities);
 
             return control;
@@ -1056,8 +1056,8 @@ namespace Core.Components.Gis.Forms.Test.Views
             var control = new WmtsLocationControl(null, wmtsCapabilityFactory);
             form.Controls.Add(control);
 
-            var comboBox = (ComboBox) new ComboBoxTester("urlLocationComboBox", form).TheObject;
-            comboBox.DataSource = new List<WmtsConnectionInfo>
+            ComboBox urlLocations = form.Controls.Find("urlLocationComboBox", true).OfType<ComboBox>().First();
+            urlLocations.DataSource = new List<WmtsConnectionInfo>
             {
                 new WmtsConnectionInfo("PDOK achtergrondkaart", "https://geodata.nationaalgeoregister.nl/wmts/top10nlv2?VERSION=1.0.0&request=GetCapabilities")
             };
