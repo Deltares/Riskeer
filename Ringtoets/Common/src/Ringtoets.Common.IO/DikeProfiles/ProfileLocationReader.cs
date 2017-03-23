@@ -147,10 +147,17 @@ namespace Ringtoets.Common.IO.DikeProfiles
             }
         }
 
+        /// <summary>
+        /// Gets the offset value in <paramref name="attributes"/>.
+        /// </summary>
+        /// <param name="attributes">The attributes containing the offset value.</param>
+        /// <returns>The read offset value.</returns>
+        /// <exception cref="LineParseException">Thrown when <paramref name="attributes"/> does 
+        /// not a valid value for offset.</exception>
         private static double GetOffsetAttributeValue(IDictionary<string, object> attributes)
         {
             object value = attributes[offsetAttributeName];
-            if(value == null)
+            if (value == null)
             {
                 throw new LineParseException(Resources.ProfileLocationReader_GetProfileLocations_Invalid_X0);
             }
@@ -177,6 +184,11 @@ namespace Ringtoets.Common.IO.DikeProfiles
             return attributeIdValue;
         }
 
+        /// <summary>
+        /// Validates that the shape file has the required attributes.
+        /// </summary>
+        /// <exception cref="CriticalFileReadException">Thrown when the shape file does not have 
+        /// the required attributes.</exception>
         private void CheckRequiredAttributePresence()
         {
             IEnumerable<string> requiredAttributes = new[]
