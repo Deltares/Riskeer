@@ -29,12 +29,10 @@ using Core.Common.Base.Geometry;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
-using Core.Components.Gis.Data;
 using Demo.Ringtoets.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probabilistics;
@@ -102,18 +100,6 @@ namespace Demo.Ringtoets.Test.Commands
             var demoAssessmentSection = project.AssessmentSections[0];
             Assert.AreEqual("Demo traject", demoAssessmentSection.Name);
             Assert.AreEqual("6-3", demoAssessmentSection.Id);
-
-            BackgroundData backgroundData = demoAssessmentSection.BackgroundData;
-            Assert.IsTrue(backgroundData.IsVisible);
-            Assert.AreEqual(0.0, backgroundData.Transparency.Value);
-
-            WmtsMapData expectedWmtsMapData = WmtsMapData.CreateDefaultPdokMapData();
-            Assert.AreEqual(expectedWmtsMapData.Name, backgroundData.Name);
-            Assert.AreEqual(BackgroundMapDataType.Wmts, backgroundData.BackgroundMapDataType);
-            Assert.AreEqual(3, backgroundData.Parameters.Count);
-            Assert.AreEqual(expectedWmtsMapData.SourceCapabilitiesUrl, backgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl]);
-            Assert.AreEqual(expectedWmtsMapData.SelectedCapabilityIdentifier, backgroundData.Parameters[BackgroundDataIdentifiers.SelectedCapabilityIdentifier]);
-            Assert.AreEqual(expectedWmtsMapData.PreferredFormat, backgroundData.Parameters[BackgroundDataIdentifiers.PreferredFormat]);
 
             AssertHydraulicBoundaryDatabase(demoAssessmentSection);
 

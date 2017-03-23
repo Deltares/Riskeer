@@ -29,7 +29,6 @@ using Core.Common.Controls.Commands;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Utils.IO;
-using Core.Components.Gis.Data;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -89,7 +88,6 @@ namespace Demo.Ringtoets.Commands
                 Id = "6-3",
                 Name = "Demo traject"
             };
-            InitializeBackgroundMapData(demoAssessmentSection);
             InitializeDemoReferenceLine(demoAssessmentSection);
             InitializeDemoHydraulicBoundaryDatabase(demoAssessmentSection);
             InitializeDemoFailureMechanismSections(demoAssessmentSection);
@@ -104,21 +102,6 @@ namespace Demo.Ringtoets.Commands
             InitializeWaveImpactAsphaltCoverData(demoAssessmentSection);
 
             return demoAssessmentSection;
-        }
-
-        private static void InitializeBackgroundMapData(IAssessmentSection demoAssessmentSection)
-        {
-            WmtsMapData targetConfiguration = WmtsMapData.CreateDefaultPdokMapData();
-            BackgroundData backgroundData = demoAssessmentSection.BackgroundData;
-            backgroundData.Name = targetConfiguration.Name;
-            backgroundData.BackgroundMapDataType = BackgroundMapDataType.Wmts;
-            backgroundData.IsVisible = targetConfiguration.IsVisible;
-            backgroundData.Transparency = targetConfiguration.Transparency;
-            backgroundData.IsConfigured = targetConfiguration.IsConfigured;
-            backgroundData.Parameters.Clear();
-            backgroundData.Parameters.Add(BackgroundDataIdentifiers.SourceCapabilitiesUrl, targetConfiguration.SourceCapabilitiesUrl);
-            backgroundData.Parameters.Add(BackgroundDataIdentifiers.SelectedCapabilityIdentifier, targetConfiguration.SelectedCapabilityIdentifier);
-            backgroundData.Parameters.Add(BackgroundDataIdentifiers.PreferredFormat, targetConfiguration.PreferredFormat);
         }
 
         private void InitializeDemoReferenceLine(IAssessmentSection demoAssessmentSection)
