@@ -59,6 +59,9 @@
     </Compile>
     <Compile Include="AssessmentSectionSettingsReaderTest.cs" />
     <Compile Include="AssessmentSectionSettingsTest.cs" />
+    <Compile Include="Configurations\MeanVariationCoefficientStochastConfigurationTest.cs" />
+    <Compile Include="Configurations\MeanStandardDeviationStochastConfigurationTest.cs" />
+    <Compile Include="Configurations\WaveReductionConfigurationTest.cs" />
     <Compile Include="ReadBreakWaterTypeConverterTest.cs" />
     <Compile Include="DikeProfiles\DikeProfileDataReaderTest.cs" />
     <Compile Include="DikeProfiles\DikeProfileDataTest.cs" />
@@ -96,6 +99,7 @@
     <Compile Include="ReferenceLines\ReferenceLineReaderTest.cs" />
     <Compile Include="ReferenceLines\ReferenceLineWriterTest.cs" />
     <Compile Include="Schema\ConfigurationSchemaIdentifiersTest.cs" />
+    <Compile Include="Configurations\StructureCalculationConfigurationTest.cs" />
     <Compile Include="Structures\StructureLocationReaderTest.cs" />
     <Compile Include="Structures\StructureLocationTest.cs" />
     <Compile Include="Structures\StructuresCharacteristicsCsvReaderTest.cs" />
