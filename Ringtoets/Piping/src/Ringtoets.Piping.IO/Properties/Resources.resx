@@ -297,10 +297,10 @@ Deze ondergrondschematisatie wordt overgeslagen.</value>
   <data name="PipingCalculationConfigurationImporter_ReadEntryExitPoint_Exit_point_invalid" xml:space="preserve">
     <value>Een waarde van '{0}' als uittredepunt is ongeldig.</value>
   </data>
-  <data name="PipingCalculationConfigurationImporter_ReadStochasts_Invalid_mean_0_for_stochast_with_name_1" xml:space="preserve">
+  <data name="PipingCalculationConfigurationImporter_ReadStochasts_Invalid_Mean_0_for_stochast_with_StochastName_1_" xml:space="preserve">
     <value>Een gemiddelde van '{0}' is ongeldig voor stochast '{1}'.</value>
   </data>
-  <data name="PipingCalculationConfigurationImporter_ReadStochasts_Invalid_standard_deviation_0_for_stochast_with_name_1" xml:space="preserve">
+  <data name="PipingCalculationConfigurationImporter_ReadStochasts_Invalid_StandardDeviation_0_for_stochast_with_StochastName_1_" xml:space="preserve">
     <value>Een standaardafwijking van '{0}' is ongeldig voor stochast '{1}'.</value>
   </data>
   <data name="PipingCalculationConfigurationImporter_ReadStochasticSoilProfile_No_soil_model_provided_for_soil_profile_with_name_0" xml:space="preserve">

@@ -122,7 +122,8 @@ namespace Ringtoets.Common.IO.FileImporters
 
         protected void LogReadCalculationConversionError(string message, string calculationName)
         {
-            log.ErrorFormat(Resources.CalculationConfigurationImporter_ValidateCalculation_Error_message_0_calculation_1_skipped, message, calculationName);
+            log.ErrorFormat(Resources.CalculationConfigurationImporter_ValidateCalculation_ErrorMessage_0_Calculation_1_skipped,
+                            message, calculationName);
         }
 
         private ReadResult<IReadConfigurationItem> ReadConfiguration()

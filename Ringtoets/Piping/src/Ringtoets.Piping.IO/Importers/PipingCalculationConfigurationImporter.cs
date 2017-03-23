@@ -57,9 +57,9 @@ namespace Ringtoets.Piping.IO.Importers
         /// <exception cref="ArgumentNullException">Thrown when any parameter is
         /// <c>null</c>.</exception>
         public PipingCalculationConfigurationImporter(string xmlFilePath,
-                                           CalculationGroup importTarget,
-                                           IEnumerable<HydraulicBoundaryLocation> availableHydraulicBoundaryLocations,
-                                           PipingFailureMechanism failureMechanism)
+                                                      CalculationGroup importTarget,
+                                                      IEnumerable<HydraulicBoundaryLocation> availableHydraulicBoundaryLocations,
+                                                      PipingFailureMechanism failureMechanism)
             : base(xmlFilePath, importTarget)
         {
             if (availableHydraulicBoundaryLocations == null)
@@ -86,32 +86,16 @@ namespace Ringtoets.Piping.IO.Importers
                 Name = readCalculation.Name
             };
 
-            if (!ReadHydraulicBoundaryData(readCalculation, pipingCalculation))
+            if (TryReadHydraulicBoundaryData(readCalculation, pipingCalculation)
+                && TryReadSurfaceLine(readCalculation, pipingCalculation)
+                && TryReadEntryExitPoint(readCalculation, pipingCalculation)
+                && TryReadStochasticSoilModel(readCalculation, pipingCalculation)
+                && TryReadStochasticSoilProfile(readCalculation, pipingCalculation)
+                && TryReadStochasts(readCalculation, pipingCalculation))
             {
-                return null;
+                return pipingCalculation;
             }
-            if (!ReadSurfaceLine(readCalculation, pipingCalculation))
-            {
-                return null;
-            }
-            if (!ReadEntryExitPoint(readCalculation, pipingCalculation))
-            {
-                return null;
-            }
-            if (!ReadStochasticSoilModel(readCalculation, pipingCalculation))
-            {
-                return null;
-            }
-            if (!ReadStochasticSoilProfile(readCalculation, pipingCalculation))
-            {
-                return null;
-            }
-            if (!ReadStochasts(readCalculation, pipingCalculation))
-            {
-                return null;
-            }
-
-            return pipingCalculation;
+            return null;
         }
 
         /// <summary>
@@ -121,7 +105,7 @@ namespace Ringtoets.Piping.IO.Importers
         /// <param name="pipingCalculation">The calculation to configure.</param>
         /// <returns><c>false</c> when the <paramref name="readCalculation"/> has a <see cref="HydraulicBoundaryLocation"/>
         /// set which is not available in <see cref="availableHydraulicBoundaryLocations"/>, <c>true</c> otherwise.</returns>
-        private bool ReadHydraulicBoundaryData(ReadPipingCalculation readCalculation, PipingCalculationScenario pipingCalculation)
+        private bool TryReadHydraulicBoundaryData(ReadPipingCalculation readCalculation, PipingCalculationScenario pipingCalculation)
         {
             if (readCalculation.HydraulicBoundaryLocation != null)
             {
@@ -156,7 +140,7 @@ namespace Ringtoets.Piping.IO.Importers
         /// <param name="pipingCalculation">The calculation to configure.</param>
         /// <returns><c>false</c> when the <paramref name="readCalculation"/> has a <see cref="RingtoetsPipingSurfaceLine"/>
         /// set which is not available in <see cref="PipingFailureMechanism.SurfaceLines"/>, <c>true</c> otherwise.</returns>
-        private bool ReadSurfaceLine(ReadPipingCalculation readCalculation, PipingCalculationScenario pipingCalculation)
+        private bool TryReadSurfaceLine(ReadPipingCalculation readCalculation, PipingCalculationScenario pipingCalculation)
         {
             if (readCalculation.SurfaceLine != null)
             {
@@ -184,7 +168,7 @@ namespace Ringtoets.Piping.IO.Importers
         /// <param name="pipingCalculation">The calculation to configure.</param>
         /// <returns><c>false</c> when entry or exit point is set without <see cref="RingtoetsPipingSurfaceLine"/>,
         /// or when entry or exit point is invalid, <c>true</c> otherwise.</returns>
-        private bool ReadEntryExitPoint(ReadPipingCalculation readCalculation, PipingCalculationScenario pipingCalculation)
+        private bool TryReadEntryExitPoint(ReadPipingCalculation readCalculation, PipingCalculationScenario pipingCalculation)
         {
             bool hasEntryPoint = readCalculation.EntryPointL.HasValue;
             bool hasExitPoint = readCalculation.ExitPointL.HasValue;
@@ -218,7 +202,7 @@ namespace Ringtoets.Piping.IO.Importers
 
                 try
                 {
-                    pipingCalculation.InputParameters.ExitPointL = (RoundedDouble)exitPoint;
+                    pipingCalculation.InputParameters.ExitPointL = (RoundedDouble) exitPoint;
                 }
                 catch (ArgumentOutOfRangeException e)
                 {
@@ -244,7 +228,7 @@ namespace Ringtoets.Piping.IO.Importers
         /// when this is set.</item>
         /// </list>
         /// <c>true</c> otherwise.</returns>
-        private bool ReadStochasticSoilModel(ReadPipingCalculation readCalculation, PipingCalculationScenario pipingCalculation)
+        private bool TryReadStochasticSoilModel(ReadPipingCalculation readCalculation, PipingCalculationScenario pipingCalculation)
         {
             if (readCalculation.StochasticSoilModel != null)
             {
@@ -287,7 +271,7 @@ namespace Ringtoets.Piping.IO.Importers
         /// <item>a <see cref="StochasticSoilProfile"/> set which is not available in the <see cref="StochasticSoilModel"/>.</item>
         /// </list>
         /// <c>true</c> otherwise.</returns>
-        private bool ReadStochasticSoilProfile(ReadPipingCalculation readCalculation, PipingCalculationScenario pipingCalculation)
+        private bool TryReadStochasticSoilProfile(ReadPipingCalculation readCalculation, PipingCalculationScenario pipingCalculation)
         {
             if (readCalculation.StochasticSoilProfile != null)
             {
@@ -323,85 +307,97 @@ namespace Ringtoets.Piping.IO.Importers
         /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="pipingCalculation">The calculation to configure.</param>
         /// <returns><c>false</c> when a stochast value (mean or standard deviation) is invalid, <c>true</c> otherwise.</returns>
-        private bool ReadStochasts(ReadPipingCalculation readCalculation, PipingCalculationScenario pipingCalculation)
+        private bool TryReadStochasts(ReadPipingCalculation readCalculation, PipingCalculationScenario pipingCalculation)
         {
-            if (readCalculation.PhreaticLevelExitMean.HasValue && readCalculation.PhreaticLevelExitStandardDeviation.HasValue)
+            return TryReadPhreaticLevelExit(readCalculation, pipingCalculation)
+                   && TryReadDampingFactorExit(readCalculation, pipingCalculation);
+        }
+
+        private bool TryReadDampingFactorExit(ReadPipingCalculation readCalculation, PipingCalculationScenario pipingCalculation)
+        {
+            double? mean = readCalculation.DampingFactorExitMean;
+            double? standardDeviation = readCalculation.DampingFactorExitStandardDeviation;
+            if (mean.HasValue && standardDeviation.HasValue)
             {
-                var normalDistribution = new NormalDistribution();
-
-                double mean = readCalculation.PhreaticLevelExitMean.Value;
-
-                try
+                LogNormalDistribution normalDistribution = TryReadLogNormalDistribution(mean.Value, standardDeviation.Value,
+                                                                                        PipingCalculationConfigurationSchemaIdentifiers.DampingFactorExitStochastName,
+                                                                                        pipingCalculation.Name);
+                if (normalDistribution == null)
                 {
-                    normalDistribution.Mean = (RoundedDouble) mean;
-                }
-                catch (ArgumentOutOfRangeException e)
-                {
-                    LogOutOfRangeException(string.Format(
-                                               Resources.PipingCalculationConfigurationImporter_ReadStochasts_Invalid_mean_0_for_stochast_with_name_1,
-                                               mean,
-                                               PipingCalculationConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName),
-                                           pipingCalculation.Name, e);
                     return false;
                 }
 
-                double standardDeviation = readCalculation.PhreaticLevelExitStandardDeviation.Value;
+                pipingCalculation.InputParameters.DampingFactorExit = normalDistribution;
+            }
+            return true;
+        }
 
-                try
+        private bool TryReadPhreaticLevelExit(ReadPipingCalculation readCalculation, PipingCalculationScenario pipingCalculation)
+        {
+            double? mean = readCalculation.PhreaticLevelExitMean;
+            double? standardDeviation = readCalculation.PhreaticLevelExitStandardDeviation;
+            if (mean.HasValue && standardDeviation.HasValue)
+            {
+                NormalDistribution normalDistribution = TryReadNormalDistribution(mean.Value, standardDeviation.Value,
+                                                                                  PipingCalculationConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName,
+                                                                                  pipingCalculation.Name);
+                if (normalDistribution == null)
                 {
-                    normalDistribution.StandardDeviation = (RoundedDouble) standardDeviation;
-                }
-                catch (ArgumentOutOfRangeException e)
-                {
-                    LogOutOfRangeException(string.Format(
-                                               Resources.PipingCalculationConfigurationImporter_ReadStochasts_Invalid_standard_deviation_0_for_stochast_with_name_1,
-                                               standardDeviation,
-                                               PipingCalculationConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName),
-                                           pipingCalculation.Name, e);
                     return false;
                 }
 
                 pipingCalculation.InputParameters.PhreaticLevelExit = normalDistribution;
             }
+            return true;
+        }
 
-            if (readCalculation.DampingFactorExitMean.HasValue && readCalculation.DampingFactorExitStandardDeviation.HasValue)
+        private NormalDistribution TryReadNormalDistribution(double mean, double standardDeviation, string stochastName, string calculationName)
+        {
+            var distribution = new NormalDistribution();
+            if (TryReadDistributionParameters(distribution, mean, standardDeviation, stochastName, calculationName))
             {
-                var logNormalDistribution = new LogNormalDistribution();
-                double mean = readCalculation.DampingFactorExitMean.Value;
+                return distribution;
+            }
+            return null;
+        }
 
-                try
-                {
-                    logNormalDistribution.Mean = (RoundedDouble)mean;
-                }
-                catch (ArgumentOutOfRangeException e)
-                {
-                    LogOutOfRangeException(string.Format(
-                                               Resources.PipingCalculationConfigurationImporter_ReadStochasts_Invalid_mean_0_for_stochast_with_name_1,
-                                               mean,
-                                               PipingCalculationConfigurationSchemaIdentifiers.DampingFactorExitStochastName),
-                                           pipingCalculation.Name, e);
-                    return false;
-                }
+        private LogNormalDistribution TryReadLogNormalDistribution(double mean, double standardDeviation, string stochastName, string calculationName)
+        {
+            var distribution = new LogNormalDistribution();
+            if (TryReadDistributionParameters(distribution, mean, standardDeviation, stochastName, calculationName))
+            {
+                return distribution;
+            }
+            return null;
+        }
 
-                double standardDeviation = readCalculation.DampingFactorExitStandardDeviation.Value;
-
-                try
-                {
-                    logNormalDistribution.StandardDeviation = (RoundedDouble)standardDeviation;
-                }
-                catch (ArgumentOutOfRangeException e)
-                {
-                    LogOutOfRangeException(string.Format(
-                                               Resources.PipingCalculationConfigurationImporter_ReadStochasts_Invalid_standard_deviation_0_for_stochast_with_name_1,
-                                               standardDeviation,
-                                               PipingCalculationConfigurationSchemaIdentifiers.DampingFactorExitStochastName),
-                                           pipingCalculation.Name, e);
-                    return false;
-                }
-
-                pipingCalculation.InputParameters.DampingFactorExit = logNormalDistribution;
+        private bool TryReadDistributionParameters(IDistribution distribution, double mean, double standardDeviation, string stochastName, string calculationName)
+        {
+            try
+            {
+                distribution.Mean = (RoundedDouble) mean;
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                LogOutOfRangeException(string.Format(
+                                           Resources.PipingCalculationConfigurationImporter_ReadStochasts_Invalid_Mean_0_for_stochast_with_StochastName_1_,
+                                           mean, stochastName),
+                                       calculationName, e);
+                return false;
             }
 
+            try
+            {
+                distribution.StandardDeviation = (RoundedDouble) standardDeviation;
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                LogOutOfRangeException(string.Format(
+                                           Resources.PipingCalculationConfigurationImporter_ReadStochasts_Invalid_StandardDeviation_0_for_stochast_with_StochastName_1_,
+                                           standardDeviation, stochastName),
+                                       calculationName, e);
+                return false;
+            }
             return true;
         }
     }

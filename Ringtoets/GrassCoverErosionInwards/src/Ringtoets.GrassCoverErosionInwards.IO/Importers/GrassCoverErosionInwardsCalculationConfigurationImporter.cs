@@ -83,32 +83,16 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
             };
             ReadDikeHeightCalculationType(readCalculation, calculation);
 
-            if(!ReadCriticalWaveReduction(readCalculation, calculation))
+            if (TryReadCriticalWaveReduction(readCalculation, calculation)
+                && TryReadHydraulicBoundaryLocation(readCalculation, calculation)
+                && TryReadDikeProfile(readCalculation, calculation)
+                && TryReadOrientation(readCalculation, calculation)
+                && TryReadWaveReduction(readCalculation, calculation)
+                && TryReadDikeHeight(readCalculation, calculation))
             {
-                return null;
+                return calculation;
             }
-            if (!ReadHydraulicBoundaryLocation(readCalculation, calculation))
-            {
-                return null;
-            }
-            if (!ReadDikeProfile(readCalculation, calculation))
-            {
-                return null;
-            }
-            if (!ReadOrientation(readCalculation, calculation))
-            {
-                return null;
-            }
-            if (!ReadWaveReduction(readCalculation, calculation))
-            {
-                return null;
-            }
-            if (!ReadDikeHeight(readCalculation, calculation))
-            {
-                return null;
-            }
-
-            return calculation;
+            return null;
         }
 
         /// <summary>
@@ -118,7 +102,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
         /// <param name="calculation">The calculation to configure.</param>
         /// <returns><c>false</c> when the <paramref name="readCalculation"/> has a <see cref="HydraulicBoundaryLocation"/>
         /// set which is not available in <see cref="availableHydraulicBoundaryLocations"/>, <c>true</c> otherwise.</returns>
-        private bool ReadHydraulicBoundaryLocation(ReadGrassCoverErosionInwardsCalculation readCalculation, GrassCoverErosionInwardsCalculation calculation)
+        private bool TryReadHydraulicBoundaryLocation(ReadGrassCoverErosionInwardsCalculation readCalculation, GrassCoverErosionInwardsCalculation calculation)
         {
             if (readCalculation.HydraulicBoundaryLocation != null)
             {
@@ -149,7 +133,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
         /// <param name="calculation">The calculation to configure.</param>
         /// <returns><c>false</c> when the <paramref name="readCalculation"/> has a <see cref="ForeshoreProfile"/> 
         /// set which is not available in <see cref="availableDikeProfiles"/>, <c>true</c> otherwise.</returns>
-        private bool ReadDikeProfile(ReadGrassCoverErosionInwardsCalculation readCalculation, GrassCoverErosionInwardsCalculation calculation)
+        private bool TryReadDikeProfile(ReadGrassCoverErosionInwardsCalculation readCalculation, GrassCoverErosionInwardsCalculation calculation)
         {
             if (readCalculation.DikeProfile != null)
             {
@@ -179,11 +163,11 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
         /// <param name="calculation">The calculation to configure.</param>
         /// <returns><c>false</c> when the orientation is invalid or when there is an orientation but
         /// no dike profile defined, <c>true</c> otherwise.</returns>
-        private bool ReadOrientation(ReadGrassCoverErosionInwardsCalculation readCalculation, GrassCoverErosionInwardsCalculation calculation)
+        private bool TryReadOrientation(ReadGrassCoverErosionInwardsCalculation readCalculation, GrassCoverErosionInwardsCalculation calculation)
         {
-            if (calculation.InputParameters.DikeProfile == null)
+            if (readCalculation.Orientation.HasValue)
             {
-                if (readCalculation.Orientation.HasValue)
+                if (calculation.InputParameters.DikeProfile == null)
                 {
                     LogReadCalculationConversionError(
                         Resources.GrassCoverErosionInwardsCalculationConfigurationImporter_ValidateWaveReduction_No_DikeProfile_provided_for_Orientation,
@@ -191,9 +175,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
 
                     return false;
                 }
-            }
-            if (readCalculation.Orientation.HasValue)
-            {
+
                 double orientation = readCalculation.Orientation.Value;
 
                 try
@@ -220,7 +202,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
         /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
         /// <returns><c>false</c> when there is an invalid wave reduction parameter defined, <c>true</c> otherwise.</returns>
-        private bool ReadWaveReduction(ReadGrassCoverErosionInwardsCalculation readCalculation, GrassCoverErosionInwardsCalculation calculation)
+        private bool TryReadWaveReduction(ReadGrassCoverErosionInwardsCalculation readCalculation, GrassCoverErosionInwardsCalculation calculation)
         {
             if (!ValidateWaveReduction(readCalculation, calculation))
             {
@@ -256,11 +238,11 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
         /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
         /// <returns><c>false</c> when there is a dike height but no dike profile defined, <c>true</c> otherwise.</returns>
-        private bool ReadDikeHeight(ReadGrassCoverErosionInwardsCalculation readCalculation, GrassCoverErosionInwardsCalculation calculation)
+        private bool TryReadDikeHeight(ReadGrassCoverErosionInwardsCalculation readCalculation, GrassCoverErosionInwardsCalculation calculation)
         {
-            if (calculation.InputParameters.DikeProfile == null)
+            if (readCalculation.DikeHeight.HasValue)
             {
-                if (readCalculation.DikeHeight.HasValue)
+                if (calculation.InputParameters.DikeProfile == null)
                 {
                     LogReadCalculationConversionError(
                         Resources.GrassCoverErosionInwardsCalculationConfigurationImporter_ValidateWaveReduction_No_DikeProfile_provided_for_DikeHeight,
@@ -268,9 +250,6 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
 
                     return false;
                 }
-            }
-            else if (readCalculation.DikeHeight.HasValue)
-            {
                 calculation.InputParameters.DikeHeight = (RoundedDouble) readCalculation.DikeHeight.Value;
             }
             return true;
@@ -294,12 +273,14 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
         /// </summary>
         /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
-        private bool ReadCriticalWaveReduction(ReadGrassCoverErosionInwardsCalculation readCalculation, GrassCoverErosionInwardsCalculation calculation)
+        /// <returns><c>true</c> if reading all required wave reduction parameters was successful,
+        /// <c>false</c> otherwise.</returns>
+        private bool TryReadCriticalWaveReduction(ReadGrassCoverErosionInwardsCalculation readCalculation, GrassCoverErosionInwardsCalculation calculation)
         {
-            return ReadCriticalFlowRateMean(readCalculation, calculation) && ReadCriticalFlowRateStandardDeviation(readCalculation, calculation);
+            return TryReadCriticalFlowRateMean(readCalculation, calculation) && TryReadCriticalFlowRateStandardDeviation(readCalculation, calculation);
         }
 
-        private bool ReadCriticalFlowRateMean(ReadGrassCoverErosionInwardsCalculation readCalculation, GrassCoverErosionInwardsCalculation calculation)
+        private bool TryReadCriticalFlowRateMean(ReadGrassCoverErosionInwardsCalculation readCalculation, GrassCoverErosionInwardsCalculation calculation)
         {
             if (!readCalculation.CriticalFlowRateMean.HasValue)
             {
@@ -310,7 +291,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
 
             try
             {
-                calculation.InputParameters.CriticalFlowRate.Mean = (RoundedDouble)criticalFlowRateMean;
+                calculation.InputParameters.CriticalFlowRate.Mean = (RoundedDouble) criticalFlowRateMean;
             }
             catch (ArgumentOutOfRangeException e)
             {
@@ -328,7 +309,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
             return true;
         }
 
-        private bool ReadCriticalFlowRateStandardDeviation(ReadGrassCoverErosionInwardsCalculation readCalculation, GrassCoverErosionInwardsCalculation calculation)
+        private bool TryReadCriticalFlowRateStandardDeviation(ReadGrassCoverErosionInwardsCalculation readCalculation, GrassCoverErosionInwardsCalculation calculation)
         {
             if (!readCalculation.CriticalFlowRateStandardDeviation.HasValue)
             {
