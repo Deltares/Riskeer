@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Serializers;
@@ -99,15 +98,8 @@ namespace Application.Ringtoets.Storage.Read
             BackgroundData backgroundData = assessmentSection.BackgroundData;
             backgroundData.IsVisible = readBackgroundData.IsVisible;
             backgroundData.Transparency = readBackgroundData.Transparency;
-            backgroundData.IsConfigured = readBackgroundData.IsConfigured;
             backgroundData.Name = readBackgroundData.Name;
-            backgroundData.BackgroundMapDataType = readBackgroundData.BackgroundMapDataType;
-
-            backgroundData.Parameters.Clear();
-            foreach (KeyValuePair<string, string> backgroundDataParameter in readBackgroundData.Parameters)
-            {
-                backgroundData.Parameters.Add(backgroundDataParameter.Key, backgroundDataParameter.Value);
-            }
+            backgroundData.Configuration = readBackgroundData.Configuration;
         }
 
         private static void ReadReferenceLine(this AssessmentSectionEntity entity, IAssessmentSection assessmentSection)

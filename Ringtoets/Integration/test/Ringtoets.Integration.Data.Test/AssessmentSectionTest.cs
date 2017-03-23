@@ -23,6 +23,7 @@ using System;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
+using Core.Components.Gis.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
@@ -145,10 +146,9 @@ namespace Ringtoets.Integration.Data.Test
 
             Assert.IsTrue(section.BackgroundData.IsVisible);
             Assert.AreEqual(0.0, section.BackgroundData.Transparency.Value);
-            Assert.IsTrue(section.BackgroundData.IsConfigured);
             Assert.AreEqual("Bing Maps - Satelliet", section.BackgroundData.Name);
-            Assert.AreEqual(BackgroundMapDataType.WellKnown, section.BackgroundData.BackgroundMapDataType);
-            Assert.AreEqual("1", section.BackgroundData.Parameters[BackgroundDataIdentifiers.WellKnownTileSource]);
+            var configuration = (WellKnownBackgroundDataConfiguration) section.BackgroundData.Configuration;
+            Assert.AreEqual(WellKnownTileSource.BingAerial, configuration.WellKnownTileSource);
         }
 
         [Test]

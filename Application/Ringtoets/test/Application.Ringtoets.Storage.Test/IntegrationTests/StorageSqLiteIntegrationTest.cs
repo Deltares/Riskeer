@@ -911,16 +911,30 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        #region BackgroundMapDataContainer
+        #region BackgroundData
 
         private static void AssertBackgroundData(BackgroundData expectedBackgroundData, BackgroundData actualBackgroundData)
         {
             Assert.AreEqual(expectedBackgroundData.Name, actualBackgroundData.Name);
             Assert.AreEqual(expectedBackgroundData.IsVisible, actualBackgroundData.IsVisible);
             Assert.AreEqual(expectedBackgroundData.Transparency, actualBackgroundData.Transparency);
-            Assert.AreEqual(expectedBackgroundData.IsConfigured, actualBackgroundData.IsConfigured);
-            Assert.AreEqual(expectedBackgroundData.BackgroundMapDataType, actualBackgroundData.BackgroundMapDataType);
-            CollectionAssert.AreEquivalent(expectedBackgroundData.Parameters, actualBackgroundData.Parameters);
+
+            var wmtsBackgroundDataConfiguration = expectedBackgroundData.Configuration as WmtsBackgroundDataConfiguration;
+            if (wmtsBackgroundDataConfiguration != null)
+            {
+                var actualWmtsBackgroundDataConfiguration = (WmtsBackgroundDataConfiguration)actualBackgroundData.Configuration;
+                Assert.AreEqual(wmtsBackgroundDataConfiguration.IsConfigured, actualWmtsBackgroundDataConfiguration.IsConfigured);
+                Assert.AreEqual(wmtsBackgroundDataConfiguration.SourceCapabilitiesUrl, actualWmtsBackgroundDataConfiguration.SourceCapabilitiesUrl);
+                Assert.AreEqual(wmtsBackgroundDataConfiguration.SelectedCapabilityIdentifier, actualWmtsBackgroundDataConfiguration.SelectedCapabilityIdentifier);
+                Assert.AreEqual(wmtsBackgroundDataConfiguration.PreferredFormat, actualWmtsBackgroundDataConfiguration.PreferredFormat);
+            }
+
+            var wellKnownBackgroundDataConfiguration = expectedBackgroundData.Configuration as WellKnownBackgroundDataConfiguration;
+            if (wellKnownBackgroundDataConfiguration != null)
+            {
+                var actualWellKnownBackgroundDataConfiguration = (WellKnownBackgroundDataConfiguration)actualBackgroundData.Configuration;
+                Assert.AreEqual(wellKnownBackgroundDataConfiguration.WellKnownTileSource, actualWellKnownBackgroundDataConfiguration.WellKnownTileSource);
+            }
         }
 
         #endregion

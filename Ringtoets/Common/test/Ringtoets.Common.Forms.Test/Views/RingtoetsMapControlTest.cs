@@ -178,9 +178,10 @@ namespace Ringtoets.Common.Forms.Test.Views
             var tileSourceFactory = mocks.StrictMock<ITileSourceFactory>();
 
             var testWellKnownTileSource = new TestWellKnownTileSource(new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial));
-            string sourceCapabilitiesUrl = originalBackgroundData.BackgroundMapDataType == BackgroundMapDataType.Wmts
-                                               ? originalBackgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl]
-                                               : newBackgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl];
+
+            string sourceCapabilitiesUrl = originalBackgroundData.Configuration is WmtsBackgroundDataConfiguration
+                                               ? ((WmtsBackgroundDataConfiguration)originalBackgroundData.Configuration).SourceCapabilitiesUrl
+                                               : ((WmtsBackgroundDataConfiguration)newBackgroundData.Configuration).SourceCapabilitiesUrl;
 
             tileSourceFactory.Expect(tsf => tsf.GetWmtsTileSources(sourceCapabilitiesUrl))
                              .Return(Enumerable.Empty<ITileSource>());
@@ -202,15 +203,8 @@ namespace Ringtoets.Common.Forms.Test.Views
                 // When
                 originalBackgroundData.Name = newBackgroundData.Name;
                 originalBackgroundData.IsVisible = newBackgroundData.IsVisible;
-                originalBackgroundData.IsConfigured = newBackgroundData.IsConfigured;
                 originalBackgroundData.Transparency = newBackgroundData.Transparency;
-                originalBackgroundData.BackgroundMapDataType = newBackgroundData.BackgroundMapDataType;
-                originalBackgroundData.Parameters.Clear();
-
-                foreach (KeyValuePair<string, string> parameter in newBackgroundData.Parameters)
-                {
-                    originalBackgroundData.Parameters.Add(parameter);
-                }
+                originalBackgroundData.Configuration = newBackgroundData.Configuration;
                 originalBackgroundData.NotifyObservers();
 
                 // Then
@@ -281,7 +275,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 ImageBasedMapData oldBackgroundMapData = control.BackgroundMapData;
 
                 // When
-                backgroundData.IsConfigured = false;
+                backgroundData.Configuration = new WmtsBackgroundDataConfiguration(false, null, null, null);
                 backgroundData.NotifyObservers();
 
                 // Then
@@ -321,14 +315,14 @@ namespace Ringtoets.Common.Forms.Test.Views
                 ImageBasedMapData oldBackgroundMapData = control.BackgroundMapData;
 
                 // When
-                backgroundData.Parameters[BackgroundDataIdentifiers.WellKnownTileSource] = "3";
+                ((WellKnownBackgroundDataConfiguration) backgroundData.Configuration).WellKnownTileSource = WellKnownTileSource.BingRoads;
                 backgroundData.NotifyObservers();
 
                 // Then
                 Assert.AreSame(oldBackgroundMapData, control.BackgroundMapData);
 
                 var newWellKnownMapData = (WellKnownTileSourceMapData) control.BackgroundMapData;
-                Assert.AreEqual((WellKnownTileSource) 3, newWellKnownMapData.TileSource);
+                Assert.AreEqual(WellKnownTileSource.BingRoads, newWellKnownMapData.TileSource);
                 mocks.VerifyAll();
             }
         }

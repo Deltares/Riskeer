@@ -43,9 +43,12 @@
     <Compile Include="AssessmentSection\BackgroundDataIdentifiers.cs" />
     <Compile Include="AssessmentSection\BackgroundMapDataType.cs" />
     <Compile Include="AssessmentSection\IAssessmentSection.cs" />
+    <Compile Include="AssessmentSection\IBackgroundDataConfiguration.cs" />
     <Compile Include="AssessmentSection\ReferenceLine.cs" />
     <Compile Include="AssessmentSection\ReferenceLineMeta.cs" />
     <Compile Include="AssessmentSection\RingtoetsWellKnownTileSource.cs" />
+    <Compile Include="AssessmentSection\WellKnownBackgroundDataConfiguration.cs" />
+    <Compile Include="AssessmentSection\WmtsBackgroundDataConfiguration.cs" />
     <Compile Include="Comment.cs" />
     <Compile Include="DikeProfiles\BreakWater.cs" />
     <Compile Include="DikeProfiles\BreakWaterType.cs" />
@@ -123,6 +126,10 @@
       <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
       <Name>Core.Common.Utils</Name>
       <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
+      <Project>{318BA582-88C9-4816-A54A-A7E431461DE3}</Project>
+      <Name>Core.Components.Gis</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

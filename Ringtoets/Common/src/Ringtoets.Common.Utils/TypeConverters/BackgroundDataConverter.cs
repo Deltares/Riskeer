@@ -45,27 +45,30 @@ namespace Ringtoets.Common.Utils.TypeConverters
             {
                 throw new ArgumentNullException(nameof(mapData));
             }
-
-            var backgroundData = new BackgroundData
+            
+            var backgroundData = new BackgroundData(CreateBackgroundDataConfiguration(mapData))
             {
                 Name = mapData.Name,
-                IsConfigured = mapData.IsConfigured,
                 IsVisible = mapData.IsVisible,
                 Transparency = mapData.Transparency
             };
 
+            return backgroundData;
+        }
+
+        private static IBackgroundDataConfiguration CreateBackgroundDataConfiguration(ImageBasedMapData mapData)
+        {
             var wmtsMapData = mapData as WmtsMapData;
             if (wmtsMapData != null)
             {
-                ConvertWmtsMapDataParameters(wmtsMapData, backgroundData);
+                return CreateWmtsBackgroundDataConfiguration(wmtsMapData);
             }
             var wellKnownMapData = mapData as WellKnownTileSourceMapData;
             if (wellKnownMapData != null)
             {
-                ConvertWellKnownMapDataParameters(wellKnownMapData, backgroundData);
+                return CreateWellKnownBackgroundDataConfiguration(wellKnownMapData);
             }
-
-            return backgroundData;
+            throw new InvalidOperationException($"Can't create a background data configuration for {mapData.GetType()}.");
         }
 
         /// <summary>
@@ -75,12 +78,9 @@ namespace Ringtoets.Common.Utils.TypeConverters
         /// <returns>The converted <see cref="ImageBasedMapData"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="backgroundData"/>
         /// is <c>null</c>.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <see cref="BackgroundMapDataType"/>
-        /// is not valid.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="BackgroundData.Parameters"/>
-        /// contains an invalid value for <see cref="WellKnownTileSource"/> when the 
-        /// <see cref="BackgroundData.BackgroundMapDataType"/> is of type 
-        /// <see cref="BackgroundMapDataType.WellKnown"/>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when
+        /// <see cref="WellKnownBackgroundDataConfiguration.WellKnownTileSource"/> contains an 
+        /// invalid value for <see cref="WellKnownTileSource"/>.</exception>
         public static ImageBasedMapData ConvertFrom(BackgroundData backgroundData)
         {
             if (backgroundData == null)
@@ -88,18 +88,18 @@ namespace Ringtoets.Common.Utils.TypeConverters
                 throw new ArgumentNullException(nameof(backgroundData));
             }
 
-            ImageBasedMapData mapData;
+            ImageBasedMapData mapData = null;
 
-            switch (backgroundData.BackgroundMapDataType)
+            var wmtsBackgroundDataConfiguration = backgroundData.Configuration as WmtsBackgroundDataConfiguration;
+            if (wmtsBackgroundDataConfiguration != null)
             {
-                case BackgroundMapDataType.Wmts:
-                    mapData = CreateWmtsMapData(backgroundData);
-                    break;
-                case BackgroundMapDataType.WellKnown:
-                    mapData = CreateWellKnownMapdata(backgroundData);
-                    break;
-                default:
-                    throw new NotSupportedException();
+                mapData = CreateWmtsMapData(wmtsBackgroundDataConfiguration);
+            }
+
+            var wellKnownBackgroundDataConfiguration = backgroundData.Configuration as WellKnownBackgroundDataConfiguration;
+            if (wellKnownBackgroundDataConfiguration != null)
+            {
+                mapData = CreateWellKnownMapdata(wellKnownBackgroundDataConfiguration);
             }
 
             mapData.Name = backgroundData.Name;
@@ -109,50 +109,45 @@ namespace Ringtoets.Common.Utils.TypeConverters
             return mapData;
         }
 
-        private static void ConvertWellKnownMapDataParameters(WellKnownTileSourceMapData mapData, BackgroundData backgroundData)
+        private static WellKnownBackgroundDataConfiguration CreateWellKnownBackgroundDataConfiguration(WellKnownTileSourceMapData mapData)
         {
-            backgroundData.BackgroundMapDataType = BackgroundMapDataType.WellKnown;
-            backgroundData.Parameters[BackgroundDataIdentifiers.WellKnownTileSource] = ((int) mapData.TileSource).ToString();
+            return new WellKnownBackgroundDataConfiguration(mapData.TileSource);
         }
 
-        private static void ConvertWmtsMapDataParameters(WmtsMapData mapData, BackgroundData backgroundData)
+        private static WmtsBackgroundDataConfiguration CreateWmtsBackgroundDataConfiguration(WmtsMapData mapData)
         {
-            backgroundData.BackgroundMapDataType = BackgroundMapDataType.Wmts;
-
-            if (backgroundData.IsConfigured)
-            {
-                backgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl] = mapData.SourceCapabilitiesUrl;
-                backgroundData.Parameters[BackgroundDataIdentifiers.SelectedCapabilityIdentifier] = mapData.SelectedCapabilityIdentifier;
-                backgroundData.Parameters[BackgroundDataIdentifiers.PreferredFormat] = mapData.PreferredFormat;
-            }
+            return new WmtsBackgroundDataConfiguration(mapData.IsConfigured,
+                                                       mapData.SourceCapabilitiesUrl,
+                                                       mapData.SelectedCapabilityIdentifier,
+                                                       mapData.PreferredFormat);
         }
 
-        private static WmtsMapData CreateWmtsMapData(BackgroundData backgroundData)
+        private static WmtsMapData CreateWmtsMapData(WmtsBackgroundDataConfiguration backgroundDataConfiguration)
         {
             WmtsMapData wmtsMapData = WmtsMapData.CreateUnconnectedMapData();
 
-            if (backgroundData.IsConfigured)
+            if (backgroundDataConfiguration.IsConfigured)
             {
-                wmtsMapData.Configure(backgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl],
-                                      backgroundData.Parameters[BackgroundDataIdentifiers.SelectedCapabilityIdentifier],
-                                      backgroundData.Parameters[BackgroundDataIdentifiers.PreferredFormat]);
+                wmtsMapData.Configure(backgroundDataConfiguration.SourceCapabilitiesUrl,
+                                      backgroundDataConfiguration.SelectedCapabilityIdentifier,
+                                      backgroundDataConfiguration.PreferredFormat);
             }
             return wmtsMapData;
         }
 
         /// <summary>
-        /// Creates a <see cref="WellKnownTileSourceMapData"/>, based upon the properties of <paramref name="backgroundData"/>.
+        /// Creates a <see cref="WellKnownTileSourceMapData"/>, based upon the 
+        /// properties of <paramref name="backgroundDataConfiguration"/>.
         /// </summary>
-        /// <param name="backgroundData">The <see cref="BackgroundData"/> to base the <see cref="WellKnownTileSourceMapData"/> upon.</param>
+        /// <param name="backgroundDataConfiguration">The <see cref="BackgroundData"/> 
+        /// to base the <see cref="WellKnownTileSourceMapData"/> upon.</param>
         /// <returns>The newly created <see cref="WellKnownTileSourceMapData"/>.</returns>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="BackgroundData.Parameters"/>
-        /// contains an invalid value for <see cref="WellKnownTileSource"/> when the 
-        /// <see cref="BackgroundData.BackgroundMapDataType"/> is of type 
-        /// <see cref="BackgroundMapDataType.WellKnown"/>.</exception>
-        private static WellKnownTileSourceMapData CreateWellKnownMapdata(BackgroundData backgroundData)
+        /// <exception cref="InvalidEnumArgumentException">Thrown when 
+        /// <see cref="WellKnownBackgroundDataConfiguration.WellKnownTileSource"/>
+        /// contains an invalid value for <see cref="WellKnownTileSource"/>.</exception>
+        private static WellKnownTileSourceMapData CreateWellKnownMapdata(WellKnownBackgroundDataConfiguration backgroundDataConfiguration)
         {
-            var tileSource = (WellKnownTileSource) Convert.ToInt32(backgroundData.Parameters[BackgroundDataIdentifiers.WellKnownTileSource]);
-            return new WellKnownTileSourceMapData(tileSource);
+            return new WellKnownTileSourceMapData(backgroundDataConfiguration.WellKnownTileSource);
         }
     }
 }

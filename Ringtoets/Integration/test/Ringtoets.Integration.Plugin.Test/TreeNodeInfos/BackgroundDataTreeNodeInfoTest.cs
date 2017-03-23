@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -86,7 +87,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnsName()
         {
             // Setup
-            var backgroundMapData = new BackgroundData();
+            var backgroundMapData = new BackgroundData(new TestBackgroundDataConfiguration());
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -104,7 +105,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var backgroundMapData = new BackgroundData();
+            var backgroundMapData = new BackgroundData(new TestBackgroundDataConfiguration());
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -119,8 +120,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ForeColor_ConnectedMapData_ReturnControlText()
+        public void ForeColor_ConnectedWtmsBackgroundDataConfiguration_ReturnControlText()
         {
+            // Setup
             WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
             BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(mapData);
 
@@ -137,8 +139,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ForeColor_UnconnectedMapData_ReturnGrayText()
+        public void ForeColor_UnconnectedWtmsBackgroundDataConfiguration_ReturnGrayText()
         {
+            // Setup
             WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
             BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(mapData);
 
@@ -155,9 +158,12 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ForeColor_MapDataNull_ReturnGrayText()
+        public void ForeColor_WellKnownBackgroundDataConfiguration_ReturnControlText()
         {
-            var backgroundMapData = new BackgroundData();
+            // Setup
+            var random = new Random(21);
+            var wellKnownTileSource = random.NextEnumValue<WellKnownTileSource>();
+            var backgroundMapData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData(wellKnownTileSource);
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -167,7 +173,29 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 Color image = info.ForeColor(backgroundMapData);
 
                 // Assert
-                Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), image);
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), image);
+            }
+        }
+
+        [Test]
+        public void ForeColor_ArbitraryBackgroundDataConfiguration_ReturnControlText()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var configuration = mockRepository.Stub<IBackgroundDataConfiguration>();
+            mockRepository.ReplayAll();
+
+            var backgroundMapData = new BackgroundData(configuration);
+
+            using (var plugin = new RingtoetsPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+
+                // Call
+                Color image = info.ForeColor(backgroundMapData);
+
+                // Assert
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), image);
             }
         }
 
@@ -211,7 +239,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var mockRepository = new MockRepository();
-            var backgroundMapData = new BackgroundData();
+            var configuration = mockRepository.Stub<IBackgroundDataConfiguration>();
+
+            var backgroundMapData = new BackgroundData(configuration);
 
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             using (var treeViewControl = new TreeViewControl())
@@ -304,7 +334,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     contextMenuStrip.Items[selectContextMenuIndex].PerformClick();
 
                     // Then
-                    AssertBackgroundMapDataProperties(newMapData, assessmentSection.BackgroundData);
+                    AssertBackgroundData(newMapData, assessmentSection.BackgroundData);
                 }
             }
             mockRepository.VerifyAll();
@@ -318,11 +348,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSectionObserver = mockRepository.StrictMock<IObserver>();
             var backgroundMapDataObserver = mockRepository.StrictMock<IObserver>();
 
-            var backgroundMapData = new BackgroundData
-            {
-                Name = "background map data",
-                BackgroundMapDataType = BackgroundMapDataType.Wmts
-            };
+            var backgroundMapData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData(WellKnownTileSource.BingHybrid);
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
@@ -364,7 +390,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     contextMenuStrip.Items[selectContextMenuIndex].PerformClick();
 
                     // Then
-                    AssertBackgroundMapDataProperties(oldBackgroundData, assessmentSection.BackgroundData);
+                    AssertBackgroundData(oldBackgroundData, assessmentSection.BackgroundData);
                 }
             }
             mockRepository.VerifyAll();
@@ -428,7 +454,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     contextMenuStrip.Items[selectContextMenuIndex].PerformClick();
 
                     // Then
-                    AssertBackgroundMapDataProperties(newMapData, assessmentSection.BackgroundData);
+                    AssertBackgroundData(newMapData, assessmentSection.BackgroundData);
                 }
             }
             mockRepository.VerifyAll();
@@ -498,7 +524,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     contextMenuStrip.Items[selectContextMenuIndex].PerformClick();
 
                     // Then
-                    AssertBackgroundMapDataProperties(newMapData, assessmentSection.BackgroundData);
+                    AssertBackgroundData(newMapData, assessmentSection.BackgroundData);
                 }
             }
             mockRepository.VerifyAll();
@@ -559,7 +585,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     contextMenuStrip.Items[selectContextMenuIndex].PerformClick();
 
                     // Then
-                    AssertBackgroundMapDataProperties(backgroundData, assessmentSection.BackgroundData);
+                    AssertBackgroundData(backgroundData, assessmentSection.BackgroundData);
                 }
             }
             mockRepository.VerifyAll();
@@ -569,54 +595,73 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         {
             assessmentSection.BackgroundData.Name = mapData.Name;
             assessmentSection.BackgroundData.IsVisible = mapData.IsVisible;
-            assessmentSection.BackgroundData.IsConfigured = mapData.IsConfigured;
             assessmentSection.BackgroundData.Transparency = mapData.Transparency;
-            assessmentSection.BackgroundData.BackgroundMapDataType = BackgroundMapDataType.Wmts;
 
-            if (mapData.IsConfigured)
-            {
-                assessmentSection.BackgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl] = mapData.SourceCapabilitiesUrl;
-                assessmentSection.BackgroundData.Parameters[BackgroundDataIdentifiers.SelectedCapabilityIdentifier] = mapData.SelectedCapabilityIdentifier;
-                assessmentSection.BackgroundData.Parameters[BackgroundDataIdentifiers.PreferredFormat] = mapData.PreferredFormat;
-            }
+            assessmentSection.BackgroundData.Configuration = new WmtsBackgroundDataConfiguration(mapData.IsConfigured,
+                                                                                                 mapData.SourceCapabilitiesUrl,
+                                                                                                 mapData.SelectedCapabilityIdentifier,
+                                                                                                 mapData.PreferredFormat);
         }
 
-        private static void AssertBackgroundMapDataProperties(WmtsMapData mapData, BackgroundData backgroundData)
+        private static void AssertBackgroundData(WmtsMapData mapData, BackgroundData backgroundData)
         {
             Assert.AreEqual(mapData.Name, backgroundData.Name);
             Assert.IsTrue(backgroundData.IsVisible);
-            Assert.AreEqual(mapData.IsConfigured, backgroundData.IsConfigured);
             Assert.AreEqual(mapData.Transparency, backgroundData.Transparency);
 
-            if (mapData.IsConfigured)
-            {
-                Assert.AreEqual(mapData.SourceCapabilitiesUrl, backgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl]);
-                Assert.AreEqual(mapData.SelectedCapabilityIdentifier, backgroundData.Parameters[BackgroundDataIdentifiers.SelectedCapabilityIdentifier]);
-                Assert.AreEqual(mapData.PreferredFormat, backgroundData.Parameters[BackgroundDataIdentifiers.PreferredFormat]);
-            }
-            else
-            {
-                CollectionAssert.IsEmpty(backgroundData.Parameters);
-            }
+            var configuration = (WmtsBackgroundDataConfiguration) backgroundData.Configuration;
+            Assert.AreEqual(mapData.IsConfigured, configuration.IsConfigured);
+
+            Assert.AreEqual(mapData.SourceCapabilitiesUrl, configuration.SourceCapabilitiesUrl);
+            Assert.AreEqual(mapData.SelectedCapabilityIdentifier, configuration.SelectedCapabilityIdentifier);
+            Assert.AreEqual(mapData.PreferredFormat, configuration.PreferredFormat);
         }
 
-        private static void AssertBackgroundMapDataProperties(WellKnownTileSourceMapData mapData, BackgroundData backgroundData)
+        private static void AssertBackgroundData(WellKnownTileSourceMapData mapData, BackgroundData backgroundData)
         {
             Assert.AreEqual(mapData.Name, backgroundData.Name);
             Assert.IsTrue(backgroundData.IsVisible);
-            Assert.AreEqual(mapData.IsConfigured, backgroundData.IsConfigured);
             Assert.AreEqual(mapData.Transparency, backgroundData.Transparency);
 
-            Assert.AreEqual(((int) mapData.TileSource).ToString(), backgroundData.Parameters[BackgroundDataIdentifiers.WellKnownTileSource]);
+            var configuration = (WellKnownBackgroundDataConfiguration) backgroundData.Configuration;
+            Assert.AreEqual(mapData.TileSource, configuration.WellKnownTileSource);
         }
 
-        private static void AssertBackgroundMapDataProperties(BackgroundData expectedBackgroundData, BackgroundData actualBackgroundData)
+        private static void AssertBackgroundData(BackgroundData expectedBackgroundData, BackgroundData actualBackgroundData)
         {
             Assert.AreEqual(expectedBackgroundData.Name, actualBackgroundData.Name);
             Assert.AreEqual(expectedBackgroundData.IsVisible, actualBackgroundData.IsVisible);
-            Assert.AreEqual(expectedBackgroundData.IsConfigured, actualBackgroundData.IsConfigured);
             Assert.AreEqual(expectedBackgroundData.Transparency, actualBackgroundData.Transparency);
-            CollectionAssert.AreEquivalent(expectedBackgroundData.Parameters, actualBackgroundData.Parameters);
+
+            IBackgroundDataConfiguration backgroundDataConfiguration = expectedBackgroundData.Configuration;
+            var wmtsBackgroundDataConfiguration = backgroundDataConfiguration as WmtsBackgroundDataConfiguration;
+            if (wmtsBackgroundDataConfiguration != null)
+            {
+                var actualWmtsBackgroundDataConfiguration = (WmtsBackgroundDataConfiguration) actualBackgroundData.Configuration;
+                AssertWmtsBackgroundConfiguration(wmtsBackgroundDataConfiguration, actualWmtsBackgroundDataConfiguration);
+            }
+
+            var wellKnownBackgroundDataConfiguration = backgroundDataConfiguration as WellKnownBackgroundDataConfiguration;
+            if (wellKnownBackgroundDataConfiguration != null)
+            {
+                var actualWellKnownBackgroundDataConfiguration = (WellKnownBackgroundDataConfiguration) actualBackgroundData.Configuration;
+                AssertWellKnownBackgroundConfiguration(wellKnownBackgroundDataConfiguration, actualWellKnownBackgroundDataConfiguration);
+            }
+        }
+
+        private static void AssertWellKnownBackgroundConfiguration(WellKnownBackgroundDataConfiguration wellKnownBackgroundDataConfiguration,
+                                                                   WellKnownBackgroundDataConfiguration actualWellKnownBackgroundDataConfiguration)
+        {
+            Assert.AreEqual(wellKnownBackgroundDataConfiguration.WellKnownTileSource, actualWellKnownBackgroundDataConfiguration.WellKnownTileSource);
+        }
+
+        private static void AssertWmtsBackgroundConfiguration(WmtsBackgroundDataConfiguration expectedWmtsBackgroundDataConfiguration,
+                                                              WmtsBackgroundDataConfiguration actualWmtsBackgroundDataConfiguration)
+        {
+            Assert.AreEqual(expectedWmtsBackgroundDataConfiguration.IsConfigured, actualWmtsBackgroundDataConfiguration.IsConfigured);
+            Assert.AreEqual(expectedWmtsBackgroundDataConfiguration.SourceCapabilitiesUrl, actualWmtsBackgroundDataConfiguration.SourceCapabilitiesUrl);
+            Assert.AreEqual(expectedWmtsBackgroundDataConfiguration.SelectedCapabilityIdentifier, actualWmtsBackgroundDataConfiguration.SelectedCapabilityIdentifier);
+            Assert.AreEqual(expectedWmtsBackgroundDataConfiguration.PreferredFormat, actualWmtsBackgroundDataConfiguration.PreferredFormat);
         }
 
         private static TreeNodeInfo GetInfo(RingtoetsPlugin plugin)

@@ -73,21 +73,13 @@ namespace Ringtoets.Common.Utils.Test.TypeConverters
             // Assert
             Assert.AreEqual(mapData.Name, backgroundData.Name);
             Assert.AreEqual(mapData.IsVisible, backgroundData.IsVisible);
-            Assert.AreEqual(mapData.IsConfigured, backgroundData.IsConfigured);
             Assert.AreEqual(mapData.Transparency, backgroundData.Transparency);
-            Assert.AreEqual(BackgroundMapDataType.Wmts, backgroundData.BackgroundMapDataType);
 
-            if (configured)
-            {
-                Assert.AreEqual(3, backgroundData.Parameters.Count);
-                Assert.AreEqual(mapData.SourceCapabilitiesUrl, backgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl]);
-                Assert.AreEqual(mapData.SelectedCapabilityIdentifier, backgroundData.Parameters[BackgroundDataIdentifiers.SelectedCapabilityIdentifier]);
-                Assert.AreEqual(mapData.PreferredFormat, backgroundData.Parameters[BackgroundDataIdentifiers.PreferredFormat]);
-            }
-            else
-            {
-                CollectionAssert.IsEmpty(backgroundData.Parameters);
-            }
+            var configuration = (WmtsBackgroundDataConfiguration) backgroundData.Configuration;
+            Assert.AreEqual(configured, configuration.IsConfigured);
+            Assert.AreEqual(mapData.SourceCapabilitiesUrl, configuration.SourceCapabilitiesUrl);
+            Assert.AreEqual(mapData.SelectedCapabilityIdentifier, configuration.SelectedCapabilityIdentifier);
+            Assert.AreEqual(mapData.PreferredFormat, configuration.PreferredFormat);
         }
 
         [Test]
@@ -104,13 +96,10 @@ namespace Ringtoets.Common.Utils.Test.TypeConverters
             // Assert
             Assert.AreEqual(mapData.Name, backgroundData.Name);
             Assert.AreEqual(mapData.IsVisible, backgroundData.IsVisible);
-            Assert.AreEqual(mapData.IsConfigured, backgroundData.IsConfigured);
             Assert.AreEqual(mapData.Transparency, backgroundData.Transparency);
-            Assert.AreEqual(BackgroundMapDataType.WellKnown, backgroundData.BackgroundMapDataType);
 
-            Assert.AreEqual(1, backgroundData.Parameters.Count);
-            var actualWellKnownTileSource = (WellKnownTileSource) Convert.ToInt32(backgroundData.Parameters[BackgroundDataIdentifiers.WellKnownTileSource]);
-            Assert.AreEqual(mapData.TileSource, actualWellKnownTileSource);
+            var configuration = (WellKnownBackgroundDataConfiguration) backgroundData.Configuration;
+            Assert.AreEqual(mapData.TileSource, configuration.WellKnownTileSource);
         }
 
         [Test]
@@ -122,22 +111,6 @@ namespace Ringtoets.Common.Utils.Test.TypeConverters
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("backgroundData", exception.ParamName);
-        }
-
-        [Test]
-        public void ConvertFrom_UnknownBackgroundMapDataType_ThrowNotSupportedException()
-        {
-            // Setup
-            var backgroundData = new BackgroundData
-            {
-                BackgroundMapDataType = (BackgroundMapDataType) 10
-            };
-
-            // Call
-            TestDelegate test = () => BackgroundDataConverter.ConvertFrom(backgroundData);
-
-            // Assert
-            Assert.Throws<NotSupportedException>(test);
         }
 
         [Test]
@@ -173,12 +146,8 @@ namespace Ringtoets.Common.Utils.Test.TypeConverters
         [Test]
         public void ConvertFrom_BackgroundDataWithInvalidWellKnownTileSourceValue_ThrowsInvalidEnumArgumentException()
         {
-            // Setup            
-            var backgroundData = new BackgroundData
-            {
-                BackgroundMapDataType = BackgroundMapDataType.WellKnown
-            };
-            backgroundData.Parameters[BackgroundDataIdentifiers.WellKnownTileSource] = "1337";
+            // Setup
+            var backgroundData = new BackgroundData(new WellKnownBackgroundDataConfiguration((WellKnownTileSource) 999));
 
             // Call
             TestDelegate call = () => BackgroundDataConverter.ConvertFrom(backgroundData);

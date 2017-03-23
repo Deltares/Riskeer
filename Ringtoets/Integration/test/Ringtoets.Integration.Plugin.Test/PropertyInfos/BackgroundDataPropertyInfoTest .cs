@@ -26,6 +26,7 @@ using Core.Common.Gui.PropertyBag;
 using Core.Components.Gis.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Integration.Forms.PropertyClasses;
 
 namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
@@ -42,20 +43,19 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
             WmtsMapData wmtsMapData = WmtsMapData.CreateDefaultPdokMapData();
 
             yield return new TestCaseData(
-                new BackgroundData())
-                .SetName("Default BackgroundData");
+                new BackgroundData(new TestBackgroundDataConfiguration()))
+                .SetName("Arbitrary BackgroundData Configuration");
             yield return new TestCaseData(
-                new BackgroundData
+                new BackgroundData(new WellKnownBackgroundDataConfiguration(wellKnownMapData.TileSource))
             {
-                Name = wellKnownMapData.Name,
-                BackgroundMapDataType = BackgroundMapDataType.WellKnown,
-                IsConfigured = wellKnownMapData.IsConfigured
+                Name = wellKnownMapData.Name
             }).SetName("WellKnown BingRoads BackgroundData");
-            yield return new TestCaseData(new BackgroundData
+            yield return new TestCaseData(new BackgroundData(new WmtsBackgroundDataConfiguration(wmtsMapData.IsConfigured,
+                                                                    wmtsMapData.SourceCapabilitiesUrl,
+                                                                    wmtsMapData.SelectedCapabilityIdentifier,
+                                                                    wmtsMapData.PreferredFormat))
             {
-                Name = wmtsMapData.Name,
-                BackgroundMapDataType = BackgroundMapDataType.Wmts,
-                IsConfigured = wmtsMapData.IsConfigured
+                Name = wmtsMapData.Name
             }).SetName("Wmts DefaultPdok BackgroundData");
         }
 

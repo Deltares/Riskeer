@@ -69,7 +69,6 @@ namespace Application.Ringtoets.Storage.Test.Create
             const string mapDataName = "map data name";
             const double transparency = 0.3;
             const bool isVisible = true;
-            const bool isConfigured = true;
             const BackgroundMapDataType backgroundType = BackgroundMapDataType.Wmts;
             var assessmentSection = new AssessmentSection(assessmentSectionComposition)
             {
@@ -88,11 +87,9 @@ namespace Application.Ringtoets.Storage.Test.Create
                     Name = mapDataName,
                     Transparency = (RoundedDouble) transparency,
                     IsVisible = isVisible,
-                    IsConfigured = isConfigured,
-                    BackgroundMapDataType = backgroundType
+                    Configuration = new WmtsBackgroundDataConfiguration(false, null, null, null)
                 }
             };
-            assessmentSection.BackgroundData.Parameters.Clear();
             var registry = new PersistenceRegistry();
 
             // Call
@@ -133,14 +130,17 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.IsNull(entity.ReferenceLinePointXml);
 
             Assert.AreEqual(1, entity.BackgroundDataEntities.Count);
-            var backgroundMapDataEntity = entity.BackgroundDataEntities.Single();
+            BackgroundDataEntity backgroundMapDataEntity = entity.BackgroundDataEntities.Single();
             Assert.IsNotNull(backgroundMapDataEntity);
             Assert.AreEqual(mapDataName, backgroundMapDataEntity.Name);
             Assert.AreEqual(transparency, backgroundMapDataEntity.Transparency);
             Assert.AreEqual(Convert.ToByte(isVisible), backgroundMapDataEntity.IsVisible);
-            Assert.AreEqual(Convert.ToByte(isConfigured), backgroundMapDataEntity.IsConfigured);
             Assert.AreEqual(Convert.ToByte(backgroundType), backgroundMapDataEntity.BackgroundDataType);
-            CollectionAssert.IsEmpty(backgroundMapDataEntity.BackgroundDataMetaEntities);
+
+            Assert.AreEqual(1, backgroundMapDataEntity.BackgroundDataMetaEntities.Count);
+            BackgroundDataMetaEntity isConfiguredMetaEntity = backgroundMapDataEntity.BackgroundDataMetaEntities.First();
+            Assert.AreEqual("IsConfigured", isConfiguredMetaEntity.Key);
+            Assert.AreEqual("0", isConfiguredMetaEntity.Value);
         }
 
         [Test]

@@ -61,7 +61,13 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.IsConfigured ? data.Name : string.Empty;
+                var configuration = data.Configuration as WmtsBackgroundDataConfiguration;
+
+                return configuration != null
+                           ? (configuration.IsConfigured
+                                  ? data.Name
+                                  : string.Empty)
+                           : data.Name;
             }
         }
 
@@ -100,9 +106,10 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
-            return data.IsConfigured
-                   && data.BackgroundMapDataType == BackgroundMapDataType.Wmts
-                   && WmtsProperties.Contains(propertyName);
+            var configuration = data.Configuration as WmtsBackgroundDataConfiguration;
+
+            return configuration != null
+                   && configuration.IsConfigured;
         }
 
         #region Wmts MapData
@@ -115,7 +122,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return GetBackgroundMapDataParameter(data, BackgroundDataIdentifiers.SourceCapabilitiesUrl);
+                return GetBackgroundMapDataProperty(dataConfiguration => dataConfiguration.SourceCapabilitiesUrl);
             }
         }
 
@@ -127,7 +134,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return GetBackgroundMapDataParameter(data, BackgroundDataIdentifiers.SelectedCapabilityIdentifier);
+                return GetBackgroundMapDataProperty(dataConfiguration => dataConfiguration.SelectedCapabilityIdentifier);
             }
         }
 
@@ -139,31 +146,17 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return GetBackgroundMapDataParameter(data, BackgroundDataIdentifiers.PreferredFormat);
+                return GetBackgroundMapDataProperty(dataConfiguration => dataConfiguration.PreferredFormat);
             }
         }
 
-        private string GetBackgroundMapDataParameter(BackgroundData backgroundData, string parameterName)
+        private string GetBackgroundMapDataProperty(Func<WmtsBackgroundDataConfiguration, string> getProperty)
         {
-            if (backgroundData.IsConfigured
-                && backgroundData.BackgroundMapDataType == BackgroundMapDataType.Wmts
-                && WmtsProperties.Contains(parameterName)
-                && backgroundData.Parameters.ContainsKey(parameterName))
-            {
-                return backgroundData.Parameters[parameterName];
-            }
+            var configuration = data.Configuration as WmtsBackgroundDataConfiguration;
 
-            return string.Empty;
-        }
-
-        private IEnumerable<string> WmtsProperties
-        {
-            get
-            {
-                yield return nameof(SourceCapabilitiesUrl);
-                yield return nameof(SelectedCapabilityIdentifier);
-                yield return nameof(PreferredFormat);
-            }
+            return configuration != null && configuration.IsConfigured
+                       ? (getProperty(configuration) ?? string.Empty)
+                       : string.Empty;
         }
 
         #endregion

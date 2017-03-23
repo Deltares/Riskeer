@@ -25,6 +25,8 @@ using System.Linq;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
+using Core.Common.TestUtil;
+using Core.Components.Gis.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 
@@ -50,7 +52,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Create_Always_ReturnsBackgroundMapDataEntity(bool isConfigured)
+        public void Create_BackgroundDataContainsWMTSConfiguration_ReturnsBackgroundMapDataEntity(bool isConfigured)
         {
             // Setup
             const string name = "background";
@@ -58,48 +60,88 @@ namespace Application.Ringtoets.Storage.Test.Create
             const string selectedCapabilityName = "selectedName";
             const string preferredFormat = "image/png";
             const bool isVisible = true;
-            const BackgroundMapDataType backgroundDataType = BackgroundMapDataType.Wmts;
             RoundedDouble transparancy = (RoundedDouble) 0.3;
 
-            var backgroundData = new BackgroundData
+            var configuration = new WmtsBackgroundDataConfiguration(isConfigured,
+                                                                    sourceCapabilitiesUrl,
+                                                                    selectedCapabilityName,
+                                                                    preferredFormat);
+
+            var backgroundData = new BackgroundData(configuration)
             {
                 IsVisible = isVisible,
                 Transparency = transparancy,
-                Name = name,
-                IsConfigured = isConfigured,
-                Parameters =
-                {
-                    { BackgroundDataIdentifiers.SourceCapabilitiesUrl, sourceCapabilitiesUrl },
-                    { BackgroundDataIdentifiers.SelectedCapabilityIdentifier, selectedCapabilityName },
-                    { BackgroundDataIdentifiers.PreferredFormat, preferredFormat }
-                },
-                BackgroundMapDataType = backgroundDataType
+                Name = name
             };
 
             // Call
             BackgroundDataEntity entity = backgroundData.Create();
 
             // Assert
-            Assert.AreEqual(name, entity.Name);            
+            Assert.AreEqual(name, entity.Name);
             Assert.AreEqual(Convert.ToByte(isVisible), entity.IsVisible);
             Assert.AreEqual(transparancy, entity.Transparency);
-            Assert.AreEqual(Convert.ToByte(backgroundDataType), entity.BackgroundDataType);
-            Assert.AreEqual(Convert.ToByte(isConfigured), entity.IsConfigured);
+
+            var expectedKeyValuePairs = new Dictionary<string, string>
+            {
+                {
+                    BackgroundDataIdentifiers.IsConfigured, Convert.ToByte(isConfigured).ToString()
+                }
+            };
 
             if (isConfigured)
             {
-                Assert.AreEqual(3, entity.BackgroundDataMetaEntities.Count);
+                expectedKeyValuePairs.Add(BackgroundDataIdentifiers.SourceCapabilitiesUrl, sourceCapabilitiesUrl);
+                expectedKeyValuePairs.Add(BackgroundDataIdentifiers.SelectedCapabilityIdentifier, selectedCapabilityName);
+                expectedKeyValuePairs.Add(BackgroundDataIdentifiers.PreferredFormat, preferredFormat);
+            }
 
-                foreach (KeyValuePair<string, string> parameter in backgroundData.Parameters)
-                {
-                    BackgroundDataMetaEntity backgroundDataMetaEntity = entity.BackgroundDataMetaEntities.Single(e => e.Key.Equals(parameter.Key));
-                    Assert.AreEqual(parameter.Value, backgroundDataMetaEntity.Value);
-                }
-            }
-            else
-            {
-                CollectionAssert.IsEmpty(entity.BackgroundDataMetaEntities);
-            }
+            var actualKeyValuePairs = entity.BackgroundDataMetaEntities.Select(
+                metaEntity => new KeyValuePair<string, string>(metaEntity.Key, metaEntity.Value));
+            CollectionAssert.AreEquivalent(expectedKeyValuePairs, actualKeyValuePairs);
         }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Create_BackgroundDataContainsWellKnownConfiguration_ReturnsBackgroundMapDataEntity(bool isConfigured)
+        {
+            // Setup
+            var random = new Random(21);
+            var wellKnownTileSource = random.NextEnumValue<WellKnownTileSource>();
+
+            const string name = "background";
+            const bool isVisible = true;
+            const BackgroundMapDataType backgroundDataType = BackgroundMapDataType.WellKnown;
+            RoundedDouble transparancy = (RoundedDouble)0.3;
+
+            var configuration = new WellKnownBackgroundDataConfiguration(wellKnownTileSource);
+            var backgroundData = new BackgroundData(configuration)
+            {
+                IsVisible = isVisible,
+                Transparency = transparancy,
+                Name = name
+            };
+
+            // Call
+            BackgroundDataEntity entity = backgroundData.Create();
+
+            // Assert
+            Assert.AreEqual(name, entity.Name);
+            Assert.AreEqual(Convert.ToByte(isVisible), entity.IsVisible);
+            Assert.AreEqual(transparancy, entity.Transparency);
+            Assert.AreEqual(Convert.ToByte(backgroundDataType), entity.BackgroundDataType);
+
+            var expectedKeyValuePairs = new Dictionary<string, string>
+            {
+                {
+                    BackgroundDataIdentifiers.WellKnownTileSource, ((int)wellKnownTileSource).ToString()
+                }
+            };
+            var actualKeyValuePairs = entity.BackgroundDataMetaEntities.Select(
+                metaEntity => new KeyValuePair<string, string>(metaEntity.Key, metaEntity.Value));
+            CollectionAssert.AreEquivalent(expectedKeyValuePairs, actualKeyValuePairs);
+        }
+
     }
 }

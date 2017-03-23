@@ -20,12 +20,12 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Common.Data.Test.AssessmentSection
 {
@@ -35,19 +35,31 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
         [Test]
         public void Constructor_ExpectedValues()
         {
+            // Setup
+            var configuration = new TestBackgroundDataConfiguration();
+
             // Call 
-            var backgroundData = new BackgroundData();
+            var backgroundData = new BackgroundData(configuration);
 
             // Assert
             Assert.IsNull(backgroundData.Name);
             Assert.IsTrue(backgroundData.IsVisible);
             Assert.AreEqual(2, backgroundData.Transparency.NumberOfDecimalPlaces);
             Assert.AreEqual(0, backgroundData.Transparency.Value);
-            Assert.AreEqual(BackgroundMapDataType.Wmts, backgroundData.BackgroundMapDataType);
-            Assert.IsFalse(backgroundData.IsConfigured);
-            CollectionAssert.IsEmpty(backgroundData.Parameters);
+            Assert.AreSame(configuration, backgroundData.Configuration);
         }
-        
+
+        [Test]
+        public void Constructor_ConfigurationNull_ThrowArgumentNullException()
+        {
+            // Call 
+            TestDelegate test = () => new BackgroundData(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("configuration", exception.ParamName);
+        }
+
         [Test]
         [TestCase(0)]
         [TestCase(0.8)]
@@ -55,8 +67,8 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
         public void Transparency_ValidValues_ReturnNewlySetValue(double newValue)
         {
             // Setup
-            var backgroundData = new BackgroundData();
-            var originalNumberOfDecimals = backgroundData.Transparency.NumberOfDecimalPlaces;
+            var backgroundData = new BackgroundData(new TestBackgroundDataConfiguration());
+            int originalNumberOfDecimals = backgroundData.Transparency.NumberOfDecimalPlaces;
 
             // Call
             backgroundData.Transparency = (RoundedDouble)newValue;
@@ -76,7 +88,7 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
         public void Transparency_SetInvalidValue_ThrowArgumentOutOfRangeException(double invalidTransparency)
         {
             // Setup
-            var backgroundData = new BackgroundData();
+            var backgroundData = new BackgroundData(new TestBackgroundDataConfiguration());
 
             // Call
             TestDelegate call = () => backgroundData.Transparency = (RoundedDouble)invalidTransparency;
@@ -85,66 +97,6 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
             var message = "De transparantie moet in het bereik [0,00, 1,00] liggen.";
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, message).ParamName;
             Assert.AreEqual("value", paramName);
-        }
-
-        [Test]
-        [TestCase("SourceCapabilitiesUrl")]
-        [TestCase("SelectedCapabilityIdentifier")]
-        [TestCase("PreferredFormat")]
-        [TestCase("WellKnownTileSource")]
-        public void Parameters_AllowedKeys_ItemAddedToDictionary(string allowedKey)
-        {
-            // Setup
-            const string value = "some value";
-            var backgroundData = new BackgroundData();
-
-            // Precondition
-            CollectionAssert.IsEmpty(backgroundData.Parameters);
-
-            // Call
-            backgroundData.Parameters.Add(allowedKey, value);
-
-            // Assert
-            Assert.AreEqual(1, backgroundData.Parameters.Count);
-            KeyValuePair<string, string> item = backgroundData.Parameters.First();
-            Assert.AreEqual(allowedKey, item.Key);
-            Assert.AreEqual(value, item.Value);
-        }
-
-        [Test]
-        public void ParametersAdd_AddOtherThanAllowed_ThrowInvalidOperationException()
-        {
-            // Setup
-            var backgroundData = new BackgroundData();
-            
-            // Precondition
-            CollectionAssert.IsEmpty(backgroundData.Parameters);
-
-            // Call
-            TestDelegate test = () => backgroundData.Parameters.Add("invalid key", "test");
-
-            // Assert
-            var exception = Assert.Throws<InvalidOperationException>(test);
-            Assert.AreEqual("Key 'invalid key' is not allowed to add to the dictionary.", exception.Message);
-            CollectionAssert.IsEmpty(backgroundData.Parameters);
-        }
-
-        [Test]
-        public void ParametersIndexer_AddOtherThanAllowed_ThrowInvalidOperationException()
-        {
-            // Setup
-            var backgroundData = new BackgroundData();
-            
-            // Precondition
-            CollectionAssert.IsEmpty(backgroundData.Parameters);
-
-            // Call
-            TestDelegate test = () => backgroundData.Parameters["invalid key"] = "test";
-
-            // Assert
-            var exception = Assert.Throws<InvalidOperationException>(test);
-            Assert.AreEqual("Key 'invalid key' is not allowed to add to the dictionary.", exception.Message);
-            CollectionAssert.IsEmpty(backgroundData.Parameters);
         }
     }
 }

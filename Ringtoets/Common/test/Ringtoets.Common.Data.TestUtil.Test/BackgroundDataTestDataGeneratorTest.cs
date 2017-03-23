@@ -42,15 +42,15 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(mapData);
 
             // Assert
-            Assert.AreEqual(BackgroundMapDataType.Wmts, backgroundData.BackgroundMapDataType);
             Assert.AreEqual(mapData.Name, backgroundData.Name);
-            Assert.AreEqual(mapData.IsConfigured, backgroundData.IsConfigured);
             Assert.AreEqual(mapData.IsVisible, backgroundData.IsVisible);
             Assert.AreEqual(mapData.Transparency, backgroundData.Transparency);
-            Assert.AreEqual(3, backgroundData.Parameters.Count);
-            Assert.AreEqual(mapData.SourceCapabilitiesUrl, backgroundData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl]);
-            Assert.AreEqual(mapData.SelectedCapabilityIdentifier, backgroundData.Parameters[BackgroundDataIdentifiers.SelectedCapabilityIdentifier]);
-            Assert.AreEqual(mapData.PreferredFormat, backgroundData.Parameters[BackgroundDataIdentifiers.PreferredFormat]);
+            var configuration = (WmtsBackgroundDataConfiguration) backgroundData.Configuration;
+            Assert.AreEqual(mapData.IsConfigured, configuration.IsConfigured);
+
+            Assert.AreEqual(mapData.SourceCapabilitiesUrl, configuration.SourceCapabilitiesUrl);
+            Assert.AreEqual(mapData.SelectedCapabilityIdentifier, configuration.SelectedCapabilityIdentifier);
+            Assert.AreEqual(mapData.PreferredFormat, configuration.PreferredFormat);
         }
 
         [Test]
@@ -63,12 +63,16 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(mapData);
 
             // Assert
-            Assert.AreEqual(BackgroundMapDataType.Wmts, backgroundData.BackgroundMapDataType);
             Assert.AreEqual(mapData.Name, backgroundData.Name);
-            Assert.AreEqual(mapData.IsConfigured, backgroundData.IsConfigured);
             Assert.AreEqual(mapData.IsVisible, backgroundData.IsVisible);
             Assert.AreEqual(mapData.Transparency, backgroundData.Transparency);
-            CollectionAssert.IsEmpty(backgroundData.Parameters);
+
+            var configuration = (WmtsBackgroundDataConfiguration) backgroundData.Configuration;
+            Assert.AreEqual(mapData.IsConfigured, configuration.IsConfigured);
+
+            Assert.IsNull(configuration.SourceCapabilitiesUrl);
+            Assert.IsNull(configuration.SelectedCapabilityIdentifier);
+            Assert.IsNull(configuration.PreferredFormat);
         }
 
         [Test]
@@ -82,16 +86,14 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData(wellKnownTileSource);
 
             // Assert
-            Assert.AreEqual(BackgroundMapDataType.WellKnown, backgroundData.BackgroundMapDataType);
-            Assert.IsTrue(backgroundData.IsConfigured);
             Assert.IsTrue(backgroundData.IsVisible);
             Assert.AreEqual(0, backgroundData.Transparency.Value);
-            Assert.AreEqual(1, backgroundData.Parameters.Count);
+
+            var configuration = (WellKnownBackgroundDataConfiguration) backgroundData.Configuration;
 
             string backgroundDataName = TypeUtils.GetDisplayName(wellKnownTileSource);
             Assert.AreEqual(backgroundDataName, backgroundData.Name);
-            Assert.AreEqual(((int)wellKnownTileSource).ToString(),
-                            backgroundData.Parameters[BackgroundDataIdentifiers.WellKnownTileSource]);
+            Assert.AreEqual(wellKnownTileSource, configuration.WellKnownTileSource);
         }
 
         [Test]

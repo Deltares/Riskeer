@@ -91,11 +91,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void CreateBackgroundMapData_InvalidWellKnownConfiguredBackgroundData_ThrowsInvalidEnumArgumentException()
         {
             // Setup
-            var backgroundData = new BackgroundData
-            {
-                BackgroundMapDataType = BackgroundMapDataType.WellKnown
-            };
-            backgroundData.Parameters[BackgroundDataIdentifiers.WellKnownTileSource] = "1337";
+            var backgroundData = new BackgroundData(new WellKnownBackgroundDataConfiguration((WellKnownTileSource) 1337));
 
             // Call
             TestDelegate call = ()=> RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(backgroundData);

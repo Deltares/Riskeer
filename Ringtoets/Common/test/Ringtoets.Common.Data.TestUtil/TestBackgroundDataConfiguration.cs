@@ -19,22 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 
-namespace Ringtoets.Common.Data.Test.AssessmentSection
+namespace Ringtoets.Common.Data.TestUtil
 {
-    [TestFixture]
-    public class BackgroundDataIdentifiersTest
+    /// <summary>
+    /// A background data configuration which can be used in tests.
+    /// </summary>
+    public class TestBackgroundDataConfiguration : IBackgroundDataConfiguration
     {
-        [Test]
-        public void BackgroundDataIdentifiers_ExpectedValues()
-        {
-            Assert.AreEqual("IsConfigured", BackgroundDataIdentifiers.IsConfigured);
-            Assert.AreEqual("SourceCapabilitiesUrl", BackgroundDataIdentifiers.SourceCapabilitiesUrl);
-            Assert.AreEqual("SelectedCapabilityIdentifier", BackgroundDataIdentifiers.SelectedCapabilityIdentifier);
-            Assert.AreEqual("PreferredFormat", BackgroundDataIdentifiers.PreferredFormat);
-            Assert.AreEqual("WellKnownTileSource", BackgroundDataIdentifiers.WellKnownTileSource);
-        }
     }
 }

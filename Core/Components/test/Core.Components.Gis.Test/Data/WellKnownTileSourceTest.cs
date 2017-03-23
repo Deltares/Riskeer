@@ -63,22 +63,22 @@ namespace Core.Components.Gis.Test.Data
                 return new Dictionary<WellKnownTileSource, byte>
                 {
                     {
-                        WellKnownTileSource.OpenStreetMap, 0
+                        WellKnownTileSource.OpenStreetMap, 1
                     },
                     {
-                        WellKnownTileSource.BingAerial, 1
+                        WellKnownTileSource.BingAerial, 2
                     },
                     {
-                        WellKnownTileSource.BingHybrid, 2
+                        WellKnownTileSource.BingHybrid, 3
                     },
                     {
-                        WellKnownTileSource.BingRoads, 3
+                        WellKnownTileSource.BingRoads, 4
                     },
                     {
-                        WellKnownTileSource.EsriWorldTopo, 4
+                        WellKnownTileSource.EsriWorldTopo, 5
                     },
                     {
-                        WellKnownTileSource.EsriWorldShadedRelief, 5
+                        WellKnownTileSource.EsriWorldShadedRelief, 6
                     }
                 };
             }

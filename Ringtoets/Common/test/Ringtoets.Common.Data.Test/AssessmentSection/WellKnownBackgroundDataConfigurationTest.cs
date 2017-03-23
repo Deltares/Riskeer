@@ -19,22 +19,30 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.TestUtil;
+using Core.Components.Gis.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 
 namespace Ringtoets.Common.Data.Test.AssessmentSection
 {
     [TestFixture]
-    public class BackgroundDataIdentifiersTest
+    public class WellKnownBackgroundDataConfigurationTest
     {
         [Test]
-        public void BackgroundDataIdentifiers_ExpectedValues()
+        public void DefaultConstructor_Always_ReturnsExpectedProperties()
         {
-            Assert.AreEqual("IsConfigured", BackgroundDataIdentifiers.IsConfigured);
-            Assert.AreEqual("SourceCapabilitiesUrl", BackgroundDataIdentifiers.SourceCapabilitiesUrl);
-            Assert.AreEqual("SelectedCapabilityIdentifier", BackgroundDataIdentifiers.SelectedCapabilityIdentifier);
-            Assert.AreEqual("PreferredFormat", BackgroundDataIdentifiers.PreferredFormat);
-            Assert.AreEqual("WellKnownTileSource", BackgroundDataIdentifiers.WellKnownTileSource);
+            // Setup
+            var random = new Random(21);
+            var wellKnownTileSource = random.NextEnumValue<WellKnownTileSource>();
+
+            // Call
+            var configuration = new WellKnownBackgroundDataConfiguration(wellKnownTileSource);
+
+            // Assert
+            Assert.IsInstanceOf<IBackgroundDataConfiguration>(configuration);
+            Assert.AreEqual(wellKnownTileSource, configuration.WellKnownTileSource);
         }
     }
 }

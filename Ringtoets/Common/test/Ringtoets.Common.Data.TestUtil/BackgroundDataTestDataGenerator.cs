@@ -38,21 +38,15 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <returns>The created <see cref="BackgroundData"/>.</returns>
         public static BackgroundData GetWmtsBackgroundMapData(WmtsMapData wmtsMapData)
         {
-            var backgroundMapData = new BackgroundData
+            var backgroundMapData = new BackgroundData(new WmtsBackgroundDataConfiguration(wmtsMapData.IsConfigured,
+                                                                    wmtsMapData.SourceCapabilitiesUrl,
+                                                                    wmtsMapData.SelectedCapabilityIdentifier,
+                                                                    wmtsMapData.PreferredFormat))
             {
                 Name = wmtsMapData.Name,
                 IsVisible = wmtsMapData.IsVisible,
-                IsConfigured = wmtsMapData.IsConfigured,
-                Transparency = wmtsMapData.Transparency,
-                BackgroundMapDataType = BackgroundMapDataType.Wmts
+                Transparency = wmtsMapData.Transparency
             };
-
-            if (wmtsMapData.IsConfigured)
-            {
-                backgroundMapData.Parameters[BackgroundDataIdentifiers.SourceCapabilitiesUrl] = wmtsMapData.SourceCapabilitiesUrl;
-                backgroundMapData.Parameters[BackgroundDataIdentifiers.SelectedCapabilityIdentifier] = wmtsMapData.SelectedCapabilityIdentifier;
-                backgroundMapData.Parameters[BackgroundDataIdentifiers.PreferredFormat] = wmtsMapData.PreferredFormat;
-            }
 
             return backgroundMapData;
         }
@@ -66,16 +60,10 @@ namespace Ringtoets.Common.Data.TestUtil
         /// is an invalid <see cref="WellKnownTileSource"/>.</exception>
         public static BackgroundData GetWellKnownBackgroundMapData(WellKnownTileSource tileSource)
         { 
-            return new BackgroundData
+            return new BackgroundData(new WellKnownBackgroundDataConfiguration(tileSource))
             {
-                BackgroundMapDataType = BackgroundMapDataType.WellKnown,
-                IsConfigured = true,
                 IsVisible = true,
-                Name = TypeUtils.GetDisplayName(tileSource),
-                Parameters =
-                {
-                    { BackgroundDataIdentifiers.WellKnownTileSource, ((int) tileSource).ToString() }
-                }
+                Name = TypeUtils.GetDisplayName(tileSource)
             };
         }
     }

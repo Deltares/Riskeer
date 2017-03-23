@@ -28,6 +28,7 @@ using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
+using Core.Components.Gis.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
@@ -94,21 +95,24 @@ namespace Application.Ringtoets.Storage.Test.Read
         [Test]
         [Combinatorial]
         public void Read_WithBackgroundData_ReturnsNewAssessmentSectionWithBackgroundData(
-            [Values(true, false)]bool isConfigured,
-            [Values(BackgroundMapDataType.WellKnown, BackgroundMapDataType.Wmts)] BackgroundMapDataType backgroundMapDataType)
+            [Values(true, false)]bool isConfigured)
         {
             // Setup
             const string mapDataName = "Background";
             const double transparency = 0.0;
             bool isVisible = isConfigured;
+            const BackgroundMapDataType backgroundMapDataType = BackgroundMapDataType.WellKnown;
 
-            const string wellKnownTileSource = "1";
+            var random = new Random(21);
+            var wellKnownTileSource = random.NextEnumValue<WellKnownTileSource>();
+            string wellKnownTileSourceValue = ((int)wellKnownTileSource).ToString();
+
             var backgroundDataMetaEntities = new[]
             {
                 new BackgroundDataMetaEntity
                 {
                     Key = BackgroundDataIdentifiers.WellKnownTileSource,
-                    Value = wellKnownTileSource
+                    Value = wellKnownTileSourceValue
                 }
             };
 
@@ -118,7 +122,6 @@ namespace Application.Ringtoets.Storage.Test.Read
                 Name = mapDataName,
                 Transparency = transparency,
                 IsVisible = Convert.ToByte(isVisible),
-                IsConfigured = Convert.ToByte(isConfigured),
                 BackgroundDataType = Convert.ToByte(backgroundMapDataType),
                 BackgroundDataMetaEntities = backgroundDataMetaEntities
             };
@@ -134,21 +137,11 @@ namespace Application.Ringtoets.Storage.Test.Read
             BackgroundData backgroundData = section.BackgroundData;
             Assert.AreEqual(isVisible, backgroundData.IsVisible);
             Assert.AreEqual(transparency, backgroundData.Transparency);
-            Assert.AreEqual(isConfigured, backgroundData.IsConfigured);
             Assert.AreEqual(mapDataName, backgroundData.Name);
-            Assert.AreEqual(backgroundMapDataType, backgroundData.BackgroundMapDataType);
 
-            if (isConfigured)
-            {
-                Assert.AreEqual(1, backgroundData.Parameters.Count);
-
-                var expectedKeyValuePairs = backgroundDataMetaEntities.Select(me => new KeyValuePair<string, string>(me.Key, me.Value));
-                CollectionAssert.AreEquivalent(expectedKeyValuePairs, backgroundData.Parameters);
-            }
-            else
-            {
-                CollectionAssert.IsEmpty(backgroundData.Parameters);
-            }
+            Assert.IsNotNull(backgroundData.Configuration);
+            var configuration = (WellKnownBackgroundDataConfiguration) backgroundData.Configuration;
+            Assert.AreEqual(wellKnownTileSource, configuration.WellKnownTileSource);
         }
 
         [Test]
@@ -1210,7 +1203,17 @@ namespace Application.Ringtoets.Storage.Test.Read
             {
                 Name = "Background",
                 Transparency = 0.0,
-                IsVisible = 0
+                IsVisible = 0,
+                BackgroundDataType = 1,
+                BackgroundDataMetaEntities = new []
+                {
+                    new BackgroundDataMetaEntity
+                    {
+                        Key = BackgroundDataIdentifiers.IsConfigured,
+                        Value = "0"
+                    }
+                }
+                
             };
         }
 

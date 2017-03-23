@@ -30,16 +30,21 @@ namespace Core.Components.Gis.Data
     public enum WellKnownTileSource
     {
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.OpenStreetMap_DisplayName))]
-        OpenStreetMap,
+        OpenStreetMap = 1,
+
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.BingAerial_DisplayName))]
-        BingAerial,
+        BingAerial = 2,
+
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.BingHybrid_DisplayName))]
-        BingHybrid,
+        BingHybrid = 3,
+
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.BingRoads_DisplayName))]
-        BingRoads,
+        BingRoads = 4,
+
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.EsriWorldTopo_DisplayName))]
-        EsriWorldTopo,
+        EsriWorldTopo = 5,
+
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.EsriWorldShadedRelief_DisplayName))]
-        EsriWorldShadedRelief
+        EsriWorldShadedRelief = 6
     }
 }

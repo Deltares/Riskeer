@@ -519,9 +519,16 @@ namespace Ringtoets.Integration.Plugin
                 Text = data => RingtoetsIntegrationPluginResources.RingtoetsPlugin_BackgroundDataContext_Text,
                 Image = data => RingtoetsFormsResources.Map,
                 ContextMenuStrip = BackgroundDataMenuStrip,
-                ForeColor = data => data.IsConfigured ?
-                                        Color.FromKnownColor(KnownColor.ControlText) :
-                                        Color.FromKnownColor(KnownColor.GrayText)
+                ForeColor = data =>
+                {
+                    var configuration = data.Configuration as WmtsBackgroundDataConfiguration;
+                    return configuration != null
+                           && configuration.IsConfigured
+                               ? Color.FromKnownColor(KnownColor.ControlText)
+                               : Color.FromKnownColor(configuration == null
+                                                          ? KnownColor.ControlText
+                                                          : KnownColor.GrayText);
+                }
             };
 
             yield return new TreeNodeInfo<ReferenceLineContext>
@@ -921,7 +928,6 @@ namespace Ringtoets.Integration.Plugin
         {
             assessmentSection.BackgroundData.Name = string.Empty;
             assessmentSection.BackgroundData.IsVisible = false;
-            assessmentSection.BackgroundData.Parameters.Clear();
 
             if (selectedMapData != null)
             {
@@ -930,14 +936,8 @@ namespace Ringtoets.Integration.Plugin
                 BackgroundData newBackgroundData = BackgroundDataConverter.ConvertTo(selectedMapData);
                 
                 assessmentSection.BackgroundData.IsVisible = newBackgroundData.IsVisible;
-                assessmentSection.BackgroundData.IsConfigured = newBackgroundData.IsConfigured;
                 assessmentSection.BackgroundData.Name = newBackgroundData.Name;
-                assessmentSection.BackgroundData.BackgroundMapDataType = newBackgroundData.BackgroundMapDataType;
-
-                foreach (KeyValuePair<string, string> parameter in newBackgroundData.Parameters)
-                {
-                    assessmentSection.BackgroundData.Parameters.Add(parameter);
-                }
+                assessmentSection.BackgroundData.Configuration = newBackgroundData.Configuration;
             }
 
             assessmentSection.BackgroundData.NotifyObservers();

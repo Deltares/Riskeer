@@ -19,36 +19,27 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Components.Gis.Data;
+
 namespace Ringtoets.Common.Data.AssessmentSection
 {
     /// <summary>
-    /// Container of general identifiers related to background data.
+    /// A background data configuration of well known tile sources.
     /// </summary>
-    public static class BackgroundDataIdentifiers
+    public class WellKnownBackgroundDataConfiguration : IBackgroundDataConfiguration
     {
         /// <summary>
-        /// The identifier for the configured state.
+        /// Instantiates a <see cref="WellKnownBackgroundDataConfiguration"/>.
         /// </summary>
-        public const string IsConfigured = "IsConfigured";
+        /// <param name="wellKnownTileSource">The type of well known tile source.</param>
+        public WellKnownBackgroundDataConfiguration(WellKnownTileSource wellKnownTileSource)
+        {
+            WellKnownTileSource = wellKnownTileSource;
+        }
 
         /// <summary>
-        /// The identifier for the source capabilities url.
+        /// Gets the type of well known tile source.
         /// </summary>
-        public const string SourceCapabilitiesUrl = "SourceCapabilitiesUrl";
-
-        /// <summary>
-        /// The identifier for the selected capability identifier.
-        /// </summary>
-        public const string SelectedCapabilityIdentifier = "SelectedCapabilityIdentifier";
-
-        /// <summary>
-        /// The identifier for the preferred format.
-        /// </summary>
-        public const string PreferredFormat = "PreferredFormat";
-
-        /// <summary>
-        /// The identifier for the well known tile source.
-        /// </summary>
-        public const string WellKnownTileSource = "WellKnownTileSource";
+        public WellKnownTileSource WellKnownTileSource { get; set; }
     }
 }

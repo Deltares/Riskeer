@@ -42,10 +42,8 @@ namespace Ringtoets.Common.Forms.Views
         /// is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="BackgroundMapDataType"/>
         /// is not valid.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="BackgroundData.Parameters"/>
-        /// contains an invalid value for <see cref="WellKnownTileSource"/> when the 
-        /// <see cref="BackgroundData.BackgroundMapDataType"/> is of type 
-        /// <see cref="BackgroundMapDataType.WellKnown"/>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="BackgroundData.Configuration"/>
+        /// contains an invalid value for <see cref="WellKnownTileSource"/></exception>.
         public static ImageBasedMapData CreateBackgroundMapData(BackgroundData backgroundData)
         {
             if (backgroundData == null)

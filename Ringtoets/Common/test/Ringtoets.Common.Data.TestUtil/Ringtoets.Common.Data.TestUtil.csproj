@@ -60,6 +60,7 @@
     <Compile Include="DistributionAssert.cs" />
     <Compile Include="ObservableTestAssessmentSectionStub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestBackgroundDataConfiguration.cs" />
     <Compile Include="TestCalculation.cs" />
     <Compile Include="TestDikeProfile.cs" />
     <Compile Include="TestFailureMechanism.cs" />

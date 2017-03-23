@@ -22,33 +22,9 @@
 namespace Ringtoets.Common.Data.AssessmentSection
 {
     /// <summary>
-    /// Container of general identifiers related to background data.
+    /// Interface for a background data configuration.
     /// </summary>
-    public static class BackgroundDataIdentifiers
+    public interface IBackgroundDataConfiguration
     {
-        /// <summary>
-        /// The identifier for the configured state.
-        /// </summary>
-        public const string IsConfigured = "IsConfigured";
-
-        /// <summary>
-        /// The identifier for the source capabilities url.
-        /// </summary>
-        public const string SourceCapabilitiesUrl = "SourceCapabilitiesUrl";
-
-        /// <summary>
-        /// The identifier for the selected capability identifier.
-        /// </summary>
-        public const string SelectedCapabilityIdentifier = "SelectedCapabilityIdentifier";
-
-        /// <summary>
-        /// The identifier for the preferred format.
-        /// </summary>
-        public const string PreferredFormat = "PreferredFormat";
-
-        /// <summary>
-        /// The identifier for the well known tile source.
-        /// </summary>
-        public const string WellKnownTileSource = "WellKnownTileSource";
     }
 }

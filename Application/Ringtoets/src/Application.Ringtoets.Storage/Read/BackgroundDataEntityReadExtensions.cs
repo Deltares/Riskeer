@@ -21,8 +21,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
+using Core.Components.Gis.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 
 namespace Application.Ringtoets.Storage.Read
@@ -49,26 +51,70 @@ namespace Application.Ringtoets.Storage.Read
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            var backgroundData = new BackgroundData
+            IBackgroundDataConfiguration configuration = null;
+
+            if ((BackgroundMapDataType) entity.BackgroundDataType == BackgroundMapDataType.Wmts)
+            {
+                configuration = ReadWmtsConfiguration(entity.BackgroundDataMetaEntities);
+            }
+            else if ((BackgroundMapDataType) entity.BackgroundDataType == BackgroundMapDataType.WellKnown)
+            {
+                configuration = ReadWellKnownConfiguration(entity.BackgroundDataMetaEntities);
+            }
+
+            var backgroundData = new BackgroundData(configuration)
             {
                 IsVisible = Convert.ToBoolean(entity.IsVisible),
                 Transparency = (RoundedDouble) entity.Transparency,
                 Name = entity.Name,
-                IsConfigured = Convert.ToBoolean(entity.IsConfigured),
-                BackgroundMapDataType = (BackgroundMapDataType) entity.BackgroundDataType
             };
 
-            if (backgroundData.IsConfigured)
-            {
-                foreach (BackgroundDataMetaEntity backgroundDataMetaEntity in entity.BackgroundDataMetaEntities)
-                {
-                    KeyValuePair<string, string> parameter = backgroundDataMetaEntity.Read();
+            return backgroundData;
+        }
 
-                    backgroundData.Parameters[parameter.Key] = parameter.Value;
+        private static IBackgroundDataConfiguration ReadWmtsConfiguration(IEnumerable<BackgroundDataMetaEntity> backgroundDataMetaEntities)
+        {
+            string sourceCapabilitiesUrl = null;
+            string selectedCapabilityIdentifier = null;
+            string preferredFormat = null;
+
+            bool isConfigured = Convert.ToBoolean(Convert.ToInt16(backgroundDataMetaEntities
+                                                                      .Single(entity => entity.Key.Equals(BackgroundDataIdentifiers.IsConfigured))
+                                                                      .Read().Value));
+
+            if (isConfigured)
+            {
+                foreach (BackgroundDataMetaEntity backgroundDataMetaEntity in backgroundDataMetaEntities)
+                {
+                    if (backgroundDataMetaEntity.Key.Equals(BackgroundDataIdentifiers.SourceCapabilitiesUrl))
+                    {
+                        sourceCapabilitiesUrl = backgroundDataMetaEntity.Read().Value;
+                    }
+                    if (backgroundDataMetaEntity.Key.Equals(BackgroundDataIdentifiers.SelectedCapabilityIdentifier))
+                    {
+                        selectedCapabilityIdentifier = backgroundDataMetaEntity.Read().Value;
+                    }
+                    if (backgroundDataMetaEntity.Key.Equals(BackgroundDataIdentifiers.PreferredFormat))
+                    {
+                        preferredFormat = backgroundDataMetaEntity.Read().Value;
+                    }
                 }
             }
 
-            return backgroundData;
+            return new WmtsBackgroundDataConfiguration(isConfigured,
+                                                       sourceCapabilitiesUrl,
+                                                       selectedCapabilityIdentifier,
+                                                       preferredFormat);
+        }
+
+        private static IBackgroundDataConfiguration ReadWellKnownConfiguration(IEnumerable<BackgroundDataMetaEntity> backgroundDataMetaEntities)
+        {
+            KeyValuePair<string, string> parameter =
+                backgroundDataMetaEntities.Single(metaEntity => metaEntity.Key.Equals(BackgroundDataIdentifiers.WellKnownTileSource))
+                                          .Read();
+
+            var wellKnownTileSource = (WellKnownTileSource) Convert.ToInt32(parameter.Value);
+            return new WellKnownBackgroundDataConfiguration(wellKnownTileSource);
         }
     }
 }

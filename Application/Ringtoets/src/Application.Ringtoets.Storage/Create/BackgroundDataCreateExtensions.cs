@@ -50,30 +50,84 @@ namespace Application.Ringtoets.Storage.Create
             {
                 Name = backgroundData.Name.DeepClone(),
                 IsVisible = Convert.ToByte(backgroundData.IsVisible),
-                Transparency = backgroundData.Transparency,
-                BackgroundDataType = Convert.ToByte(backgroundData.BackgroundMapDataType),
-                IsConfigured = Convert.ToByte(backgroundData.IsConfigured)
+                Transparency = backgroundData.Transparency
             };
 
-            if (backgroundData.IsConfigured)
-            {
-                AddEntitiesForBackgroundDataMeta(backgroundData, entity);
-            }
+            AddEntitiesForBackgroundDataMeta(backgroundData, entity);
+
             return entity;
         }
 
         private static void AddEntitiesForBackgroundDataMeta(BackgroundData backgroundData, BackgroundDataEntity entity)
         {
-            foreach (KeyValuePair<string, string> backgroundDataParameter in backgroundData.Parameters)
-            {
-                var metaEntity = new BackgroundDataMetaEntity
-                {
-                    Key = backgroundDataParameter.Key.DeepClone(),
-                    Value = backgroundDataParameter.Value.DeepClone()
-                };
+            var wmtsBackgroundDataConfiguration = backgroundData.Configuration as WmtsBackgroundDataConfiguration;
+            var wellKnownBackgroundDataConfiguration = backgroundData.Configuration as WellKnownBackgroundDataConfiguration;
 
-                entity.BackgroundDataMetaEntities.Add(metaEntity);
+            var metaEntities = new List<BackgroundDataMetaEntity>();
+            if (wmtsBackgroundDataConfiguration != null)
+            {
+                entity.BackgroundDataType = Convert.ToByte(BackgroundMapDataType.Wmts);
+                metaEntities.AddRange(GetWmtsMetaEntities(wmtsBackgroundDataConfiguration));
             }
+            else if (wellKnownBackgroundDataConfiguration != null)
+            {
+                entity.BackgroundDataType = Convert.ToByte(BackgroundMapDataType.WellKnown);
+                metaEntities.AddRange(GetWellKnownTileSourceMetaEntities(wellKnownBackgroundDataConfiguration));
+            }
+
+            foreach (BackgroundDataMetaEntity backgroundDataMetaEntity in metaEntities)
+            {
+                entity.BackgroundDataMetaEntities.Add(backgroundDataMetaEntity);
+            }
+        }
+
+        private static IEnumerable<BackgroundDataMetaEntity> GetWellKnownTileSourceMetaEntities(WellKnownBackgroundDataConfiguration wellKnownConfiguration)
+        {
+            return new[]
+            {
+                new BackgroundDataMetaEntity
+                {
+                    Key = BackgroundDataIdentifiers.WellKnownTileSource.DeepClone(),
+                    Value = ((int) wellKnownConfiguration.WellKnownTileSource).ToString().DeepClone()
+                }
+            };
+        }
+
+        private static IEnumerable<BackgroundDataMetaEntity> GetWmtsMetaEntities(WmtsBackgroundDataConfiguration wmtsBackgroundDataConfiguration)
+        {
+            var entities = new List<BackgroundDataMetaEntity>
+            {
+                new BackgroundDataMetaEntity
+                {
+                    Key = BackgroundDataIdentifiers.IsConfigured,
+                    Value = Convert.ToByte(wmtsBackgroundDataConfiguration.IsConfigured).ToString()
+                }
+            };
+
+            if (wmtsBackgroundDataConfiguration.IsConfigured)
+            {
+                entities.AddRange(
+                    new[]
+                    {
+                        new BackgroundDataMetaEntity
+                        {
+                            Key = BackgroundDataIdentifiers.SelectedCapabilityIdentifier.DeepClone(),
+                            Value = wmtsBackgroundDataConfiguration.SelectedCapabilityIdentifier.DeepClone()
+                        },
+                        new BackgroundDataMetaEntity
+                        {
+                            Key = BackgroundDataIdentifiers.SourceCapabilitiesUrl.DeepClone(),
+                            Value = wmtsBackgroundDataConfiguration.SourceCapabilitiesUrl.DeepClone()
+                        },
+                        new BackgroundDataMetaEntity
+                        {
+                            Key = BackgroundDataIdentifiers.PreferredFormat.DeepClone(),
+                            Value = wmtsBackgroundDataConfiguration.PreferredFormat.DeepClone()
+                        }
+                    });
+            }
+
+            return entities;
         }
     }
 }

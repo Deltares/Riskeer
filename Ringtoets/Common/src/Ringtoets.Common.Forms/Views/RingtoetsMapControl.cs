@@ -81,8 +81,8 @@ namespace Ringtoets.Common.Forms.Views
 
         private void OnBackgroundDataUpdated()
         {
-            if (backgroundData.BackgroundMapDataType == BackgroundMapDataType.Wmts && BackgroundMapData is WmtsMapData
-                || backgroundData.BackgroundMapDataType == BackgroundMapDataType.WellKnown && BackgroundMapData is WellKnownTileSourceMapData)
+            if (backgroundData.Configuration is WmtsBackgroundDataConfiguration && BackgroundMapData is WmtsMapData
+                || backgroundData.Configuration is WellKnownBackgroundDataConfiguration && BackgroundMapData is WellKnownTileSourceMapData)
             {
                 UpdateBackgroundMapData();
                 BackgroundMapData.NotifyObservers();
@@ -97,7 +97,7 @@ namespace Ringtoets.Common.Forms.Views
         {
             ImageBasedMapData newData = BackgroundDataConverter.ConvertFrom(backgroundData);
 
-            if (backgroundData.BackgroundMapDataType == BackgroundMapDataType.Wmts)
+            if (backgroundData.Configuration is WmtsBackgroundDataConfiguration)
             {
                 if (newData.IsConfigured)
                 {
@@ -111,7 +111,7 @@ namespace Ringtoets.Common.Forms.Views
                     ((WmtsMapData) BackgroundMapData).RemoveConfiguration();
                 }
             }
-            else if (backgroundData.BackgroundMapDataType == BackgroundMapDataType.WellKnown)
+            else if (backgroundData.Configuration is WellKnownBackgroundDataConfiguration)
             {
                 ((WellKnownTileSourceMapData) BackgroundMapData).TileSource = ((WellKnownTileSourceMapData) newData).TileSource;
             }

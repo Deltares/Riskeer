@@ -37,24 +37,19 @@ namespace Ringtoets.Common.Data.AssessmentSection
                                                                                                           new RoundedDouble(transparencyNumberOfDecimals, 1));
 
         private RoundedDouble transparency;
-        private BackgroundMapDataType backgroundMapDataType;
 
         /// <summary>
         /// Creates a new <see cref="BackgroundData"/>.
         /// </summary>
-        public BackgroundData()
+        public BackgroundData(IBackgroundDataConfiguration configuration)
         {
+            if (configuration == null)
+            {
+                throw new ArgumentNullException(nameof(configuration));
+            }
+            Configuration = configuration;
             IsVisible = true;
             transparency = new RoundedDouble(transparencyNumberOfDecimals);
-            BackgroundMapDataType = BackgroundMapDataType.Wmts;
-            Parameters = new FilteredKeyDictionary<string, string>(
-                new[]
-                {
-                    BackgroundDataIdentifiers.SourceCapabilitiesUrl,
-                    BackgroundDataIdentifiers.SelectedCapabilityIdentifier,
-                    BackgroundDataIdentifiers.PreferredFormat,
-                    BackgroundDataIdentifiers.WellKnownTileSource
-                });
         }
 
         /// <summary>
@@ -91,30 +86,7 @@ namespace Ringtoets.Common.Data.AssessmentSection
                 transparency = newValue;
             }
         }
-
-        /// <summary>
-        /// Gets or sets the type of the background map data.
-        /// </summary>
-        public BackgroundMapDataType BackgroundMapDataType
-        {
-            get
-            {
-                return backgroundMapDataType;
-            }
-            set
-            {
-                backgroundMapDataType = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets whether a background map data is configured.
-        /// </summary>
-        public bool IsConfigured { get; set; }
-
-        /// <summary>
-        /// Gets the parameters that are configured for a background map data.
-        /// </summary>
-        public FilteredKeyDictionary<string, string> Parameters { get; }
+        
+        public IBackgroundDataConfiguration Configuration { get; set; }
     }
 }

@@ -22,19 +22,19 @@
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 
-namespace Ringtoets.Common.Data.Test.AssessmentSection
+namespace Ringtoets.Common.Data.TestUtil.Test
 {
     [TestFixture]
-    public class BackgroundDataIdentifiersTest
+    public class TestBackgroundDataConfigurationTest
     {
         [Test]
-        public void BackgroundDataIdentifiers_ExpectedValues()
+        public void Constructor_Always_ReturnsExpectedProperties()
         {
-            Assert.AreEqual("IsConfigured", BackgroundDataIdentifiers.IsConfigured);
-            Assert.AreEqual("SourceCapabilitiesUrl", BackgroundDataIdentifiers.SourceCapabilitiesUrl);
-            Assert.AreEqual("SelectedCapabilityIdentifier", BackgroundDataIdentifiers.SelectedCapabilityIdentifier);
-            Assert.AreEqual("PreferredFormat", BackgroundDataIdentifiers.PreferredFormat);
-            Assert.AreEqual("WellKnownTileSource", BackgroundDataIdentifiers.WellKnownTileSource);
+            // Call
+            var configuration = new TestBackgroundDataConfiguration();
+            
+            // Assert
+            Assert.IsInstanceOf<IBackgroundDataConfiguration>(configuration);
         }
     }
 }

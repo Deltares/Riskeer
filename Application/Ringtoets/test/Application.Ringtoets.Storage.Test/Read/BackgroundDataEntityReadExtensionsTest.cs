@@ -21,9 +21,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
+using Core.Common.TestUtil;
+using Core.Components.Gis.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 
@@ -59,8 +60,13 @@ namespace Application.Ringtoets.Storage.Test.Read
             const bool isConfigured = true;
 
             const BackgroundMapDataType backgroundMapDataType = BackgroundMapDataType.Wmts;
-            var backgroundDataMetaEntities = new []
+            var backgroundDataMetaEntities = new[]
             {
+                new BackgroundDataMetaEntity
+                {
+                    Key = BackgroundDataIdentifiers.IsConfigured,
+                    Value = Convert.ToByte(isConfigured).ToString()
+                },
                 new BackgroundDataMetaEntity
                 {
                     Key = BackgroundDataIdentifiers.SourceCapabilitiesUrl,
@@ -84,23 +90,23 @@ namespace Application.Ringtoets.Storage.Test.Read
                 BackgroundDataMetaEntities = backgroundDataMetaEntities,
                 IsVisible = Convert.ToByte(isVisible),
                 Transparency = transparancy,
-                IsConfigured = Convert.ToByte(isConfigured),
                 BackgroundDataType = Convert.ToByte(backgroundMapDataType)
             };
 
             // Call
-             BackgroundData backgroundData = entity.Read();
+            BackgroundData backgroundData = entity.Read();
 
             // Assert
             Assert.AreEqual(isVisible, backgroundData.IsVisible);
             Assert.AreEqual(transparancy, backgroundData.Transparency.Value);
-
             Assert.AreEqual(name, backgroundData.Name);
-            Assert.AreEqual(3, backgroundData.Parameters.Count);
-            var expectedKeyValuePairs = backgroundDataMetaEntities.Select(me => new KeyValuePair<string, string>(me.Key, me.Value));
-            CollectionAssert.AreEquivalent(expectedKeyValuePairs, backgroundData.Parameters);
-            Assert.AreEqual(isConfigured, backgroundData.IsConfigured);
-            Assert.AreEqual(backgroundMapDataType, backgroundData.BackgroundMapDataType);
+            
+            Assert.IsNotNull(backgroundData.Configuration);
+            var configuration = (WmtsBackgroundDataConfiguration) backgroundData.Configuration;
+            Assert.AreEqual(isConfigured, configuration.IsConfigured);
+            Assert.AreEqual(url, configuration.SourceCapabilitiesUrl);
+            Assert.AreEqual(capabilityName, configuration.SelectedCapabilityIdentifier);
+            Assert.AreEqual(preferredFormat, configuration.PreferredFormat);
         }
 
         [Test]
@@ -113,7 +119,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             const bool isConfigured = true;
 
             BackgroundMapDataType backgroundMapDataType = BackgroundMapDataType.WellKnown;
-            var enumNumber = (int) backgroundMapDataType;
+
+            var random = new Random(21);
+            var wellKnownTileSource = random.NextEnumValue<WellKnownTileSource>();
 
             var entity = new BackgroundDataEntity
             {
@@ -123,7 +131,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                     new BackgroundDataMetaEntity
                     {
                         Key = BackgroundDataIdentifiers.WellKnownTileSource,
-                        Value = enumNumber.ToString()
+                        Value = ((int) wellKnownTileSource).ToString()
                     }
                 },
                 IsVisible = Convert.ToByte(isVisible),
@@ -133,21 +141,21 @@ namespace Application.Ringtoets.Storage.Test.Read
             };
 
             // Call
-             BackgroundData backgroundData = entity.Read();
+            BackgroundData backgroundData = entity.Read();
 
             // Assert
             Assert.AreEqual(isVisible, backgroundData.IsVisible);
             Assert.AreEqual(transparancy, backgroundData.Transparency.Value);
 
             Assert.AreEqual(name, backgroundData.Name);
-            Assert.AreEqual(1, backgroundData.Parameters.Count);
-            Assert.AreEqual(enumNumber, Convert.ToInt32(backgroundData.Parameters[BackgroundDataIdentifiers.WellKnownTileSource]));
-            Assert.AreEqual(isConfigured, backgroundData.IsConfigured);
-            Assert.AreEqual(backgroundMapDataType, backgroundData.BackgroundMapDataType);
+
+            Assert.IsNotNull(backgroundData.Configuration);
+            var configuration = (WellKnownBackgroundDataConfiguration) backgroundData.Configuration;
+            Assert.AreEqual(wellKnownTileSource, configuration.WellKnownTileSource);
         }
 
         [Test]
-        public void Read_IsConfiguredFalse_NoParametersAdded()
+        public void Read_WmtsConfigurationIsConfiguredFalse_NoParametersAdded()
         {
             // Setup
             const bool isConfigured = false;
@@ -156,6 +164,11 @@ namespace Application.Ringtoets.Storage.Test.Read
             {
                 BackgroundDataMetaEntities = new List<BackgroundDataMetaEntity>
                 {
+                    new BackgroundDataMetaEntity
+                    {
+                        Key = BackgroundDataIdentifiers.IsConfigured,
+                        Value = Convert.ToByte(isConfigured).ToString()
+                    },
                     new BackgroundDataMetaEntity
                     {
                         Key = BackgroundDataIdentifiers.SourceCapabilitiesUrl,
@@ -172,15 +185,18 @@ namespace Application.Ringtoets.Storage.Test.Read
                         Value = "image/jpeg"
                     }
                 },
-                IsConfigured = Convert.ToByte(isConfigured)
+                BackgroundDataType = Convert.ToByte(BackgroundMapDataType.Wmts)
             };
 
             // Call
             BackgroundData backgroundData = entity.Read();
 
             // Assert
-            CollectionAssert.IsEmpty(backgroundData.Parameters);
-            Assert.AreEqual(isConfigured, backgroundData.IsConfigured);
+            var configuration = (WmtsBackgroundDataConfiguration) backgroundData.Configuration;
+            Assert.AreEqual(false, configuration.IsConfigured);
+            Assert.IsNull(configuration.SourceCapabilitiesUrl);
+            Assert.IsNull(configuration.SelectedCapabilityIdentifier);
+            Assert.IsNull(configuration.PreferredFormat);
         }
     }
 }

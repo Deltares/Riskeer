@@ -85,7 +85,16 @@ namespace Application.Ringtoets.Storage.Test.Read
                             {
                                 Name = "Background A",
                                 Transparency = 0.0,
-                                IsVisible = 1
+                                IsVisible = 1,
+                                BackgroundDataType = 1,
+                                BackgroundDataMetaEntities = new[]
+                                {
+                                    new BackgroundDataMetaEntity
+                                    {
+                                        Key = BackgroundDataIdentifiers.IsConfigured,
+                                        Value = "0"
+                                    }, 
+                                }
                             }
                         }
                     },
@@ -101,7 +110,16 @@ namespace Application.Ringtoets.Storage.Test.Read
                             {
                                 Name = "Background B",
                                 Transparency = 0.0,
-                                IsVisible = 1
+                                IsVisible = 1,
+                                BackgroundDataType = 2,
+                                BackgroundDataMetaEntities = new[]
+                                {
+                                    new BackgroundDataMetaEntity
+                                    {
+                                        Key = BackgroundDataIdentifiers.WellKnownTileSource,
+                                        Value = "1"
+                                    },
+                                }
                             }
                         }
                     }
