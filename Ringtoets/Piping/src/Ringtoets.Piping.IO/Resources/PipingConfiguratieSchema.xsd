@@ -49,9 +49,6 @@ All rights reserved.
     </xs:complexType>
   </xs:redefine>
 
-  <!--Generieke definitie van de geselecteerde HR locatie voor alle toetssporen.-->
-  <xs:include schemaLocation="HrLocatieSchema.xsd"/>
-
   <!--Generieke definitie van stochasten voor alle toetssporen.-->
   <xs:redefine schemaLocation="StochastSchema.xsd">
     <xs:simpleType name="nameType">
@@ -62,6 +59,7 @@ All rights reserved.
     </xs:simpleType>
   </xs:redefine>
   
+  <!--Generieke definitie voor de standaardafwijking van een stochast..-->
   <xs:include schemaLocation="StochastStandardDeviationSchema.xsd"/>
 
   <!--Elementen die specifiek voor dit toetsspoor nodig zijn.-->
