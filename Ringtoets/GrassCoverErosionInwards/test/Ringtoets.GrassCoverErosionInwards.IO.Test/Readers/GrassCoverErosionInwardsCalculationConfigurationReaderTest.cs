@@ -36,7 +36,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
     public class GrassCoverErosionInwardsCalculationConfigurationReaderTest
     {
         private readonly string testDirectoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                                               "GrassCoverErosionInwardsCalculationConfigurationReader");
+                                                                               nameof(GrassCoverErosionInwardsCalculationConfigurationReader));
 
         private static IEnumerable<TestCaseData> InvalidConfigurations
         {
@@ -46,14 +46,14 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
                                               "The 'hrlocatie' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
                     .SetName("invalidHydraulicBoundaryLocationEmpty");
                 yield return new TestCaseData("invalidMultipleHydraulicBoundaryLocations.xml",
-                                              "The element 'berekening' has invalid child element 'hrlocatie'.")
+                                              "Element 'hrlocatie' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidMultipleHydraulicBoundaryLocations");
 
                 yield return new TestCaseData("invalidDikeProfileEmpty.xml",
                                               "The 'dijkprofiel' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
                     .SetName("invalidDikeProfileEmpty");
                 yield return new TestCaseData("invalidMultipleDikeProfiles.xml",
-                                              "The element 'berekening' has invalid child element 'dijkprofiel'.")
+                                              "Element 'dijkprofiel' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidMultipleDikeProfiles");
 
                 yield return new TestCaseData("invalidOrientationEmpty.xml",
@@ -66,7 +66,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
                                               "The 'orientatie' element is invalid - The value '1,2' is invalid according to its datatype 'Double'")
                     .SetName("invalidOrientationWrongCulture");
                 yield return new TestCaseData("invalidMultipleOrientation.xml",
-                                              "The element 'berekening' has invalid child element 'orientatie'.")
+                                              "Element 'orientatie' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidMultipleOrientation");
 
                 yield return new TestCaseData("invalidDikeHeightEmpty.xml",
@@ -79,14 +79,14 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
                                               "The 'dijkhoogte' element is invalid - The value '1,2' is invalid according to its datatype 'Double'")
                     .SetName("invalidDikeHeightWrongCulture");
                 yield return new TestCaseData("invalidMultipleDikeHeight.xml",
-                                              "The element 'berekening' has invalid child element 'dijkhoogte'.")
+                                              "Element 'dijkhoogte' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidMultipleDikeHeight");
 
                 yield return new TestCaseData("invalidDikeHeightCalculationTypeEmpty.xml",
                                               "The 'hbnberekenen' element is invalid - The value '' is invalid according to its datatype 'String' - The Enumeration constraint failed.")
                     .SetName("invalidDikeHeightCalculationTypeEmpty");
                 yield return new TestCaseData("invalidMultipleDikeHeightCalculationTypes.xml",
-                                              "The element 'berekening' has invalid child element 'hbnberekenen'.")
+                                              "Element 'hbnberekenen' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidMultipleDikeHeightCalculationTypes");
                 yield return new TestCaseData("invalidDikeHeightCalculationTypeUnsupportedString.xml",
                                               "The 'hbnberekenen' element is invalid - The value 'invalid' is invalid according to its datatype 'String' - The Enumeration constraint failed.")
@@ -149,7 +149,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
                                               "The 'verwachtingswaarde' element is invalid - The value '1,2' is invalid according to its datatype 'Double'")
                     .SetName("invalidCriticalFlowRateMeanWrongCulture");
                 yield return new TestCaseData("invalidMultipleCriticalFlowRateMean.xml",
-                                              "The element 'stochast' has invalid child element 'verwachtingswaarde'.")
+                                              "Element 'verwachtingswaarde' cannot appear more than once if content model type is \"all\"")
                     .SetName("invalidMultipleCriticalFlowRateMean");
 
                 yield return new TestCaseData("invalidCriticalFlowRateStandardDeviationEmpty.xml",
@@ -162,7 +162,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
                                               "The 'standaardafwijking' element is invalid - The value '1,2' is invalid according to its datatype 'Double'")
                     .SetName("invalidCriticalFlowRateStandardDeviationWrongCulture");
                 yield return new TestCaseData("invalidMultipleCriticalFlowRateStandardDeviation.xml",
-                                              "The element 'stochast' has invalid child element 'standaardafwijking'.")
+                                              "Element 'standaardafwijking' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidMultipleCriticalFlowRateStandardDeviation");
 
                 yield return new TestCaseData("invalidStochastNoName.xml",
@@ -172,7 +172,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
                                               "The 'naam' attribute is invalid - The value 'unsupported' is invalid according to its datatype 'nameType' - The Enumeration constraint failed.")
                     .SetName("invalidStochastUnknownName");
                 yield return new TestCaseData("invalidMultipleStochasts.xml",
-                                              "The element 'berekening' has invalid child element 'stochasten'.")
+                                              "Element 'stochasten' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidMultipleStochasts");
             }
         }

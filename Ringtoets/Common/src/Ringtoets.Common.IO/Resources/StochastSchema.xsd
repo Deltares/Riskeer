@@ -46,13 +46,10 @@ All rights reserved.
   een standaardafwijking of variatiecoefficient kan worden gegeven.-->
   <xs:element name="stochast">
     <xs:complexType>
-      <xs:sequence>
+      <xs:all>
         <xs:element minOccurs="0" ref="verwachtingswaarde"/>
-        <xs:choice minOccurs="0">
-          <xs:element ref="standaardafwijking"/>
-          <xs:element ref="variatiecoefficient"/>
-        </xs:choice>
-      </xs:sequence>
+        <xs:element minOccurs="0" ref="standaardafwijking-of-variatiecoefficient"/>
+      </xs:all>
       <xs:attribute name="naam" type="nameType" use="required"/>
     </xs:complexType>
   </xs:element>
@@ -72,18 +69,7 @@ All rights reserved.
     </xs:simpleType>
   </xs:element>
 
-  <!--Element definitie voor het opgeven van een standaardafwijking.-->
-  <xs:element name="standaardafwijking">
-    <xs:simpleType>
-      <xs:restriction base="xs:double"/>
-    </xs:simpleType>
-  </xs:element>
-
-  <!--Element definitie voor het opgeven van een variatiecoefficient.-->
-  <xs:element name="variatiecoefficient">
-    <xs:simpleType>
-      <xs:restriction base="xs:double"/>
-    </xs:simpleType>
-  </xs:element>
+  <!--Specificeert de keus van een standaardafwijking of een variatiecoefficient.-->
+  <xs:element name="standaardafwijking-of-variatiecoefficient" abstract="true" />
   
 </xs:schema>

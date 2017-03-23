@@ -36,38 +36,38 @@ namespace Ringtoets.Revetment.IO.Test.Readers
     public class WaveConditionsCalculationConfigurationReaderTest
     {
         private readonly string testDirectoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Revetment.IO,
-                                                                               "WaveConditionsCalculationConfigurationReader");
+                                                                               nameof(WaveConditionsCalculationConfigurationReader));
 
         private static IEnumerable<TestCaseData> InvalidConfigurations
         {
             get
             {
                 yield return new TestCaseData("invalidCalculationMultipleHydraulicBoundaryLocation.xml",
-                                              "The element 'berekening' has invalid child element 'hrlocatie'.")
+                                              "Element 'hrlocatie' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleHydraulicBoundaryLocation");
                 yield return new TestCaseData("invalidCalculationMultipleForeshoreProfile.xml",
-                                              "The element 'berekening' has invalid child element 'voorlandprofiel'.")
+                                              "Element 'voorlandprofiel' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleForeshoreProfile");
                 yield return new TestCaseData("invalidCalculationMultipleOrientation.xml",
-                                              "The element 'berekening' has invalid child element 'orientatie'.")
+                                              "Element 'orientatie' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleOrientation");
                 yield return new TestCaseData("invalidCalculationMultipleLowerBoundaryRevetment.xml",
-                                              "The element 'berekening' has invalid child element 'ondergrensbekleding'.")
+                                              "Element 'ondergrensbekleding' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleLowerBoundaryRevetment");
                 yield return new TestCaseData("invalidCalculationMultipleUpperBoundaryRevetment.xml",
-                                              "The element 'berekening' has invalid child element 'bovengrensbekleding'.")
+                                              "Element 'bovengrensbekleding' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleUpperBoundaryRevetment");
                 yield return new TestCaseData("invalidCalculationMultipleLowerBoundaryWaterLevels.xml",
-                                              "The element 'berekening' has invalid child element 'ondergrenswaterstanden'.")
+                                              "Element 'ondergrenswaterstanden' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleLowerBoundaryWaterLevels");
                 yield return new TestCaseData("invalidCalculationMultipleUpperBoundaryWaterLevels.xml",
-                                              "The element 'berekening' has invalid child element 'bovengrenswaterstanden'.")
+                                              "Element 'bovengrenswaterstanden' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleUpperBoundaryWaterLevels");
                 yield return new TestCaseData("invalidCalculationMultipleStepSize.xml",
-                                              "The element 'berekening' has invalid child element 'stapgrootte'.")
+                                              "Element 'stapgrootte' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleStepSize");
                 yield return new TestCaseData("invalidCalculationMultipleWaveReduction.xml",
-                                              "The element 'berekening' has invalid child element 'golfreductie'.")
+                                              "Element 'golfreductie' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleWaveReduction");
                 yield return new TestCaseData("invalidCalculationMultipleDamUsage.xml",
                                               "The element 'golfreductie' has invalid child element 'damgebruiken'.")

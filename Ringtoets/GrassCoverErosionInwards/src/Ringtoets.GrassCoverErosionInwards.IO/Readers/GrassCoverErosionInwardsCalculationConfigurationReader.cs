@@ -38,6 +38,12 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Readers
     /// </summary>
     public class GrassCoverErosionInwardsCalculationConfigurationReader : CalculationConfigurationReader<ReadGrassCoverErosionInwardsCalculation>
     {
+        private const string hrLocatieSchemaName = "HrLocatieSchema.xsd";
+        private const string orientatieSchemaName = "OrientatieSchema.xsd";
+        private const string golfReductieSchemaName = "GolfReductieSchema.xsd";
+        private const string stochastSchemaName = "StochastSchema.xsd";
+        private const string stochastStandardDeviationSchemaName = "StochastStandardDeviationSchema.xsd";
+
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculationConfigurationReader"/>.
         /// </summary>
@@ -57,16 +63,19 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Readers
                    new Dictionary<string, string>
                    {
                        {
-                           "HrLocatieSchema.xsd", RingtoetsCommonIOResources.HrLocatieSchema
+                           hrLocatieSchemaName, RingtoetsCommonIOResources.HrLocatieSchema
                        },
                        {
-                           "OrientatieSchema.xsd", RingtoetsCommonIOResources.OrientatieSchema
+                           orientatieSchemaName, RingtoetsCommonIOResources.OrientatieSchema
                        },
                        {
-                           "GolfReductieSchema.xsd", RingtoetsCommonIOResources.GolfReductieSchema
+                           golfReductieSchemaName, RingtoetsCommonIOResources.GolfReductieSchema
                        },
                        {
-                           "StochastSchema.xsd", RingtoetsCommonIOResources.StochastSchema
+                           stochastSchemaName, RingtoetsCommonIOResources.StochastSchema
+                       },
+                       {
+                           stochastStandardDeviationSchemaName, RingtoetsCommonIOResources.StochastStandardDeviationSchema
                        }
                    }) {}
 

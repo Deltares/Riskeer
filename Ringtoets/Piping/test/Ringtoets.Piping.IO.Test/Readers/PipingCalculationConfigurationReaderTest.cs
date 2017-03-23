@@ -75,10 +75,10 @@ namespace Ringtoets.Piping.IO.Test.Readers
                                               "The 'naam' attribute is invalid - The value 'Test' is invalid according to its datatype 'nameType' - The Enumeration constraint failed.")
                     .SetName("invalidStochastUnknownName");
                 yield return new TestCaseData("invalidStochastMultipleMean.xml",
-                                              "The element 'stochast' has invalid child element 'verwachtingswaarde'.")
+                                              "Element 'verwachtingswaarde' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidStochastMultipleMean");
                 yield return new TestCaseData("invalidStochastMultipleStandardDeviation.xml",
-                                              "The element 'stochast' has invalid child element 'standaardafwijking'.")
+                                              "Element 'standaardafwijking' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidStochastMultipleStandardDeviation");
                 yield return new TestCaseData("invalidStochastMeanEmpty.xml",
                                               "The 'verwachtingswaarde' element is invalid - The value '' is invalid according to its datatype 'Double'")
@@ -105,31 +105,31 @@ namespace Ringtoets.Piping.IO.Test.Readers
                                               "There is a duplicate key sequence 'dempingsfactor' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
                     .SetName("invalidMultipleDampingFactorExitStochast");
                 yield return new TestCaseData("invalidContainingBothAssessmentLevelAndHydraulicBoundaryLocation.xml",
-                                              "The element 'berekening' has invalid child element 'hrlocatie'.")
+                                              "Element 'hrlocatie' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidContainingBothAssessmentLevelAndHydraulicBoundaryLocation");
                 yield return new TestCaseData("invalidCalculationMultipleAssessmentLevel.xml",
-                                              "The element 'berekening' has invalid child element 'toetspeil'.")
+                                              "Element 'toetspeil' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleAssessmentLevel");
                 yield return new TestCaseData("invalidCalculationMultipleHydraulicBoundaryLocation.xml",
-                                              "The element 'berekening' has invalid child element 'hrlocatie'.")
+                                              "Element 'hrlocatie' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleHydraulicBoundaryLocation");
                 yield return new TestCaseData("invalidCalculationMultipleSurfaceLine.xml",
-                                              "The element 'berekening' has invalid child element 'profielschematisatie'.")
+                                              "Element 'profielschematisatie' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleSurfaceLine");
                 yield return new TestCaseData("invalidCalculationMultipleEntryPoint.xml",
-                                              "The element 'berekening' has invalid child element 'intredepunt'.")
+                                              "Element 'intredepunt' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleEntryPoint");
                 yield return new TestCaseData("invalidCalculationMultipleExitPoint.xml",
-                                              "The element 'berekening' has invalid child element 'uittredepunt'.")
+                                              "Element 'uittredepunt' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleExitPoint");
                 yield return new TestCaseData("invalidCalculationMultipleStochasticSoilModel.xml",
-                                              "The element 'berekening' has invalid child element 'ondergrondmodel'.")
+                                              "Element 'ondergrondmodel' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleStochasticSoilModel");
                 yield return new TestCaseData("invalidCalculationMultipleStochasticSoilProfile.xml",
-                                              "The element 'berekening' has invalid child element 'ondergrondschematisatie'.")
+                                              "Element 'ondergrondschematisatie' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleStochasticSoilProfile");
                 yield return new TestCaseData("invalidCalculationMultipleStochasts.xml",
-                                              "The element 'berekening' has invalid child element 'stochasten'.")
+                                              "Element 'stochasten' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleStochasts");
                 yield return new TestCaseData("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocation.xml",
                                               "The 'hrlocatie' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")

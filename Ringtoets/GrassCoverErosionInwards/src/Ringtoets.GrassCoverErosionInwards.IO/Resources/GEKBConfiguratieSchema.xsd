@@ -31,7 +31,7 @@ All rights reserved.
     <xs:complexType name="berekeningType">
       <xs:complexContent>
         <xs:extension base="berekeningType">
-          <xs:sequence>
+          <xs:all>
             <xs:element ref="hrlocatie" minOccurs="0"/>
             <xs:element ref="dijkprofiel" minOccurs="0"/>
             <xs:element ref="orientatie" minOccurs="0"/>
@@ -39,7 +39,7 @@ All rights reserved.
             <xs:element ref="hbnberekenen" minOccurs="0"/>
             <xs:element ref="golfreductie" minOccurs="0"/>
             <xs:element ref="stochasten" minOccurs="0"/>
-          </xs:sequence>
+          </xs:all>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
@@ -63,6 +63,13 @@ All rights reserved.
       </xs:restriction>
     </xs:simpleType>
   </xs:redefine>
+
+
+  <!--Generieke definitie voor de standaardafwijking van een stochast..-->
+  <xs:include schemaLocation="StochastStandardDeviationSchema.xsd"/>
+
+  <!--Generieke definitie voor de variatiecoefficient van een stochast.-->
+  <xs:include schemaLocation="StochastVariationCoefficientSchema.xsd"/>
 
   <!--Volgende elementen zijn specifiek voor dit toetsspoor.-->
   

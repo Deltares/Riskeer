@@ -559,4 +559,10 @@ Er is geen berekeningenconfiguratie geïmporteerd.</value>
   <data name="Importer_LogMessageText_Update_of_TypeDescriptor_0_cancelled" xml:space="preserve">
     <value>{0} bijwerken afgebroken. Geen data ingelezen.</value>
   </data>
+  <data name="StochastStandardDeviationSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\stochaststandarddeviationschema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="StochastVariationCoefficientSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\stochastvariationcoefficientschema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
 </root>

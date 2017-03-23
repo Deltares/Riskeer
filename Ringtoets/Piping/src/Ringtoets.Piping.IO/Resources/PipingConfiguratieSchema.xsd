@@ -35,25 +35,22 @@ All rights reserved.
     <xs:complexType name="berekeningType">
       <xs:complexContent>
         <xs:extension base="berekeningType">
-          <xs:sequence>
-            <xs:choice minOccurs="0">
-              <xs:element ref="hrlocatie"/>
-              <xs:element ref="toetspeil"/>
-            </xs:choice>
+          <xs:all>
+            <xs:element ref="hrlocatie-of-toetspeil" minOccurs="0"/>
             <xs:element ref="profielschematisatie" minOccurs="0"/>
             <xs:element ref="intredepunt" minOccurs="0"/>
             <xs:element ref="uittredepunt" minOccurs="0"/>
             <xs:element ref="ondergrondmodel" minOccurs="0"/>
             <xs:element ref="ondergrondschematisatie" minOccurs="0"/>
             <xs:element ref="stochasten" minOccurs="0"/>
-          </xs:sequence>
+          </xs:all>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:redefine>
 
   <!--Generieke definitie van de geselecteerde HR locatie voor alle toetssporen.-->
-  <xs:include schemaLocation="HrLocatieSchema.xsd"></xs:include>
+  <xs:include schemaLocation="HrLocatieSchema.xsd"/>
 
   <!--Generieke definitie van stochasten voor alle toetssporen.-->
   <xs:redefine schemaLocation="StochastSchema.xsd">
@@ -64,14 +61,29 @@ All rights reserved.
       </xs:restriction>
     </xs:simpleType>
   </xs:redefine>
+  
+  <xs:include schemaLocation="StochastStandardDeviationSchema.xsd"/>
 
   <!--Elementen die specifiek voor dit toetsspoor nodig zijn.-->
   
+  <!--Specificeert de keus van een HR locatie of een toetspeil.-->
+  <xs:element name="hrlocatie-of-toetspeil" abstract="true" />
+  
   <!--Specificeert het handmatig ingevoerde toetspeil. Indien dit element is
   opgenomen, mag geen HR locatie element worden opgenomen (en andersom).-->
-  <xs:element name="toetspeil">
+  <xs:element name="toetspeil" substitutionGroup="hrlocatie-of-toetspeil" >
     <xs:simpleType>
       <xs:restriction base="xs:double"/>
+    </xs:simpleType>
+  </xs:element>
+  
+  <!--Specificeert de HR locatie. Indien dit element is opgenomen, mag geen 
+  handmatig ingevoerde toetspeil element worden opgenomen (en andersom).-->
+  <xs:element name="hrlocatie" substitutionGroup="hrlocatie-of-toetspeil">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:minLength value="1"/>
+      </xs:restriction>
     </xs:simpleType>
   </xs:element>
 

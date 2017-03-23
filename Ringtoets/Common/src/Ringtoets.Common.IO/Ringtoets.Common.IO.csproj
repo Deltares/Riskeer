@@ -138,6 +138,12 @@
     <None Include="Resources\StochastSchema.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Resources\StochastStandardDeviationSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Resources\StochastVariationCoefficientSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Resources\VoorlandProfielSchema.xsd">
       <SubType>Designer</SubType>
     </None>

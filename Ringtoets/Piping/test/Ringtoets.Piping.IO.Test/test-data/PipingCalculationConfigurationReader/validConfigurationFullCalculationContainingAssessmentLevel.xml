@@ -3,8 +3,8 @@
   <berekening naam="Calculation">
     <toetspeil>1.1</toetspeil>
     <profielschematisatie>Profielschematisatie</profielschematisatie>
-    <intredepunt>2.2</intredepunt>
     <uittredepunt>3.3</uittredepunt>
+    <intredepunt>2.2</intredepunt>
     <ondergrondmodel>Ondergrondmodel</ondergrondmodel>
     <ondergrondschematisatie>Ondergrondschematisatie</ondergrondschematisatie>
     <stochasten>
