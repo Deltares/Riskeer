@@ -116,7 +116,6 @@ namespace Application.Ringtoets.Storage.Test.Read
             const string name = "map data";
             const bool isVisible = false;
             const double transparancy = 0.4;
-            const bool isConfigured = true;
 
             BackgroundMapDataType backgroundMapDataType = BackgroundMapDataType.WellKnown;
 
@@ -136,7 +135,6 @@ namespace Application.Ringtoets.Storage.Test.Read
                 },
                 IsVisible = Convert.ToByte(isVisible),
                 Transparency = transparancy,
-                IsConfigured = Convert.ToByte(isConfigured),
                 BackgroundDataType = Convert.ToByte(backgroundMapDataType)
             };
 

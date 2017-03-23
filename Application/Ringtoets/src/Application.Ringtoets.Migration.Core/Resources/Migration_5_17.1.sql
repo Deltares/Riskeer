@@ -207,13 +207,11 @@ INSERT INTO BackgroundDataEntity (
 		[Name],
 		[IsVisible],
 		[Transparency],
-		[IsConfigured],
 		[BackgroundDataType])
 SELECT AssessmentSectionEntityId,
 		"Bing Maps - Satelliet",
 		1,
 		0.0,
-		1,
 		2
 		FROM AssessmentSectionEntity;
 INSERT INTO BackgroundDataMetaEntity(

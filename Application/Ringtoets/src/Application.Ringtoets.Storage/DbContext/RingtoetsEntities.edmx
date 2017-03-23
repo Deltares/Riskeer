@@ -30,7 +30,6 @@
           <Property Name="Name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="IsVisible" Type="tinyint" Nullable="false" />
           <Property Name="Transparency" Type="real" Nullable="false" />
-          <Property Name="IsConfigured" Type="tinyint" Nullable="false" />
           <Property Name="BackgroundDataType" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="BackgroundDataMetaEntity">
@@ -3046,7 +3045,6 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="IsVisible" Type="Byte" Nullable="false" />
           <Property Name="Transparency" Type="Double" Nullable="false" />
-          <Property Name="IsConfigured" Type="Byte" Nullable="false" />
           <Property Name="BackgroundDataType" Type="Byte" Nullable="false" />
           <NavigationProperty Name="AssessmentSectionEntity" Relationship="RingtoetsEntitiesModel.FK_BackgroundDataEntity_0_0" FromRole="BackgroundDataEntity" ToRole="AssessmentSectionEntity" />
           <NavigationProperty Name="BackgroundDataMetaEntities" Relationship="RingtoetsEntitiesModel.FK_BackgroundDataMetaEntity_0_0" FromRole="BackgroundDataEntity" ToRole="BackgroundDataMetaEntity" />
@@ -5366,7 +5364,6 @@
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.BackgroundDataEntity">
               <MappingFragment StoreEntitySet="BackgroundDataEntity">
                 <ScalarProperty Name="BackgroundDataType" ColumnName="BackgroundDataType" />
-                <ScalarProperty Name="IsConfigured" ColumnName="IsConfigured" />
                 <ScalarProperty Name="Transparency" ColumnName="Transparency" />
                 <ScalarProperty Name="IsVisible" ColumnName="IsVisible" />
                 <ScalarProperty Name="Name" ColumnName="Name" />

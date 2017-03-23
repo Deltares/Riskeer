@@ -46,7 +46,6 @@ namespace Application.Ringtoets.Storage.DbContext
         public string Name { get; set; }
         public byte IsVisible { get; set; }
         public double Transparency { get; set; }
-        public byte IsConfigured { get; set; }
         public byte BackgroundDataType { get; set; }
 
         public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
