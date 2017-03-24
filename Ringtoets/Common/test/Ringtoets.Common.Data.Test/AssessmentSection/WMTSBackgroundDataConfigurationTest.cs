@@ -30,20 +30,30 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
     public class WmtsBackgroundDataConfigurationTest
     {
         [Test]
-        [TestCase(null, null, null)]
+        public void DefaultConstructor_Always_ReturnsExpectedProperties()
+        {
+            // Call
+            var configuration = new WmtsBackgroundDataConfiguration();
+
+            // Assert
+            Assert.IsInstanceOf<IBackgroundDataConfiguration>(configuration);
+
+            Assert.IsFalse(configuration.IsConfigured);
+            Assert.IsNull(configuration.SourceCapabilitiesUrl);
+            Assert.IsNull(configuration.SelectedCapabilityIdentifier);
+            Assert.IsNull(configuration.PreferredFormat);
+        }
+
+        [Test]
         [TestCase("", "", "")]
         [TestCase(" ", " ", " ")]
         [TestCase("Value1", "Value2", "Value3")]
-        public void DefaultConstructor_Always_ReturnsExpectedProperties(string sourceCapabilitiesUrl,
-                                                                        string selectedCapabilityIdentifier,
-                                                                        string preferredFormat)
+        public void ParameteredConstructor_IsConfiguredTrueAndValidParameters_ReturnsExpectedProperties(string sourceCapabilitiesUrl,
+                                                                                                        string selectedCapabilityIdentifier,
+                                                                                                        string preferredFormat)
         {
-            // Setup
-            var random = new Random(21);
-            bool isConfigured = random.NextBoolean();
-
             // Call
-            var configuration = new WmtsBackgroundDataConfiguration(isConfigured,
+            var configuration = new WmtsBackgroundDataConfiguration(true,
                                                                     sourceCapabilitiesUrl,
                                                                     selectedCapabilityIdentifier,
                                                                     preferredFormat);
@@ -51,10 +61,115 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
             // Assert
             Assert.IsInstanceOf<IBackgroundDataConfiguration>(configuration);
 
-            Assert.AreEqual(isConfigured, configuration.IsConfigured);
+            Assert.IsTrue(configuration.IsConfigured);
             Assert.AreEqual(sourceCapabilitiesUrl, configuration.SourceCapabilitiesUrl);
             Assert.AreEqual(selectedCapabilityIdentifier, configuration.SelectedCapabilityIdentifier);
             Assert.AreEqual(preferredFormat, configuration.PreferredFormat);
+        }
+
+        [Test]
+        public void ParameteredConstructor_IsConfiguredFalseAndValidParameters_ReturnsExpectedProperties()
+        {
+            // Call
+            var configuration = new WmtsBackgroundDataConfiguration(false,
+                                                                    null,
+                                                                    null,
+                                                                    null);
+
+            // Assert
+            Assert.IsInstanceOf<IBackgroundDataConfiguration>(configuration);
+
+            Assert.IsFalse(configuration.IsConfigured);
+            Assert.IsNull(configuration.SourceCapabilitiesUrl);
+            Assert.IsNull(configuration.SelectedCapabilityIdentifier);
+            Assert.IsNull(configuration.PreferredFormat);
+        }
+
+        [Test]
+        public void Constructor_IsConfiguredTrueAndSourceCapabilitiesUrlNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new WmtsBackgroundDataConfiguration(true,
+                                                                          null,
+                                                                          string.Empty,
+                                                                          string.Empty);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("sourceCapabilitiesUrl", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_IsConfiguredTrueAndSelectedCapabilityIdentifierNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new WmtsBackgroundDataConfiguration(true,
+                                                                          string.Empty,
+                                                                          null,
+                                                                          string.Empty);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("selectedCapabilityIdentifier", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_IsConfiguredTrueAndPreferredFormatNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new WmtsBackgroundDataConfiguration(true,
+                                                                          string.Empty,
+                                                                          string.Empty,
+                                                                          null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("preferredFormat", exception.ParamName);
+        }
+
+        [Test]
+        public void ParameteredConstructor_IsConfiguredFalseAndSourceCapabilitiesUrlHasValue_ThrowsArgumentException()
+        {
+            // Call
+            TestDelegate call = () => new WmtsBackgroundDataConfiguration(false,
+                                                                          string.Empty,
+                                                                          null,
+                                                                          null);
+
+            // Assert
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
+                call, "Value must be null when instantiating an unconfigured configuration.");
+            Assert.AreEqual("sourceCapabilitiesUrl", exception.ParamName);
+        }
+
+        [Test]
+        public void ParameteredConstructor_IsConfiguredFalseAndSelectedCapabilityIdentifierHasValue_ThrowsArgumentException()
+        {
+            // Call
+            TestDelegate call = () => new WmtsBackgroundDataConfiguration(false,
+                                                                          null,
+                                                                          string.Empty,
+                                                                          null);
+
+            // Assert
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
+                call, "Value must be null when instantiating an unconfigured configuration.");
+            Assert.AreEqual("selectedCapabilityIdentifier", exception.ParamName);
+        }
+
+        [Test]
+        public void ParameteredConstructor_IsConfiguredFalseAndPreferredFormatHasValue_ThrowsArgumentException()
+        {
+            // Call
+            TestDelegate call = () => new WmtsBackgroundDataConfiguration(false,
+                                                                          null,
+                                                                          null,
+                                                                          string.Empty);
+
+            // Assert
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
+                call, "Value must be null when instantiating an unconfigured configuration.");
+            Assert.AreEqual("preferredFormat", exception.ParamName);
         }
     }
 }

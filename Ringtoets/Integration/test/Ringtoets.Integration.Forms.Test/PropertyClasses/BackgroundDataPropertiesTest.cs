@@ -72,16 +72,11 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetProperties_BackgroundDataWithEmptyConfiguredWmtsConfiguration_ReturnExpectedValues()
+        public void GetProperties_BackgroundDataWithUnconfiguredWmtsConfiguration_ReturnExpectedValues()
         {
             // Setup
-            const string name = "A";
-
-            var mapData = new TestImageBasedMapData(name, true);
-
-            var backGroundMapData = new BackgroundData(new WmtsBackgroundDataConfiguration(mapData.IsConfigured, null, null, null))
+            var backGroundMapData = new BackgroundData(new WmtsBackgroundDataConfiguration())
             {
-                Name = mapData.Name,
                 IsVisible = false,
                 Transparency = (RoundedDouble) 0.5
             };
@@ -92,7 +87,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(backGroundMapData.IsVisible, properties.IsVisible);
             Assert.AreEqual(backGroundMapData.Transparency, properties.Transparency);
-            Assert.AreEqual(name, properties.Name);
+            Assert.AreEqual(string.Empty, properties.Name);
             Assert.AreEqual(string.Empty, properties.SourceCapabilitiesUrl);
             Assert.AreEqual(string.Empty, properties.SelectedCapabilityIdentifier);
             Assert.AreEqual(string.Empty, properties.PreferredFormat);

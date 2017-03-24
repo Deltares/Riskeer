@@ -275,7 +275,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 ImageBasedMapData oldBackgroundMapData = control.BackgroundMapData;
 
                 // When
-                backgroundData.Configuration = new WmtsBackgroundDataConfiguration(false, null, null, null);
+                backgroundData.Configuration = new WmtsBackgroundDataConfiguration();
                 backgroundData.NotifyObservers();
 
                 // Then

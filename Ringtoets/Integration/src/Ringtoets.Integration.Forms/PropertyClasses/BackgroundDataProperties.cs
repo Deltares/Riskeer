@@ -155,7 +155,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             var configuration = data.Configuration as WmtsBackgroundDataConfiguration;
 
             return configuration != null && configuration.IsConfigured
-                       ? (getProperty(configuration) ?? string.Empty)
+                       ? getProperty(configuration)
                        : string.Empty;
         }
 

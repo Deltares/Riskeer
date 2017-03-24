@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+
 namespace Ringtoets.Common.Data.AssessmentSection
 {
     /// <summary>
@@ -27,15 +29,93 @@ namespace Ringtoets.Common.Data.AssessmentSection
     public class WmtsBackgroundDataConfiguration : IBackgroundDataConfiguration
     {
         /// <summary>
+        /// Instantiates an unconfigured <see cref="WmtsBackgroundDataConfiguration"/>.
+        /// </summary>
+        public WmtsBackgroundDataConfiguration() : this(false, null, null, null) {}
+
+        /// <summary>
         /// Instantiate a <see cref="WmtsBackgroundDataConfiguration"/>.
         /// </summary>
         /// <param name="isConfigured">Indicates if the configuration is configured to use as a tile source.</param>
         /// <param name="sourceCapabilitiesUrl">The URL to the capabilities of the WMTS.</param>
         /// <param name="selectedCapabilityIdentifier">The name of the capability to use.</param>
         /// <param name="preferredFormat">The MIME-type specification of the preferred tile image format.</param>
-        public WmtsBackgroundDataConfiguration(bool isConfigured, string sourceCapabilitiesUrl, string selectedCapabilityIdentifier, string preferredFormat)
+        /// <exception cref="ArgumentNullException">Thrown when any of the parameters are <c>null</c> when 
+        /// <paramref name="isConfigured"/> is <c>true</c>.</exception>
+        /// /// <exception cref="ArgumentException">Thrown when any of the parameters are not <c>null</c> when 
+        /// <paramref name="isConfigured"/> is <c>false</c>.</exception>
+        public WmtsBackgroundDataConfiguration(bool isConfigured, string sourceCapabilitiesUrl,
+                                               string selectedCapabilityIdentifier, string preferredFormat)
         {
-            IsConfigured = isConfigured;
+            if (isConfigured)
+            {
+                InitalizeConfiguredWmtsBackgroundDataConfiguration(sourceCapabilitiesUrl,
+                                                                   selectedCapabilityIdentifier,
+                                                                   preferredFormat);
+            }
+            else
+            {
+                InitalizeUnconfiguredWmtsBackgroundDataConfiguration(sourceCapabilitiesUrl,
+                                                                     selectedCapabilityIdentifier,
+                                                                     preferredFormat);
+            }
+        }
+
+        /// <summary>
+        /// Initializes the properties of the <see cref="WmtsBackgroundDataConfiguration"/> corresponding
+        /// to an unconfigured WMTS tile source.
+        /// </summary>
+        /// <param name="sourceCapabilitiesUrl">The URL to the capabilities of the WMTS.</param>
+        /// <param name="selectedCapabilityIdentifier">The name of the capability to use.</param>
+        /// <param name="preferredFormat">The MIME-type specification of the preferred tile image format.</param>
+        /// <exception cref="ArgumentException">Thrown when any of the parameters are not <c>null</c>.</exception>
+        private void InitalizeUnconfiguredWmtsBackgroundDataConfiguration(string sourceCapabilitiesUrl,
+                                                                          string selectedCapabilityIdentifier,
+                                                                          string preferredFormat)
+        {
+            const string exceptionMessage = "Value must be null when instantiating an unconfigured configuration.";
+            if (sourceCapabilitiesUrl != null)
+            {
+                throw new ArgumentException(exceptionMessage, nameof(sourceCapabilitiesUrl));
+            }
+            if (selectedCapabilityIdentifier != null)
+            {
+                throw new ArgumentException(exceptionMessage, nameof(selectedCapabilityIdentifier));
+            }
+            if (preferredFormat != null)
+            {
+                throw new ArgumentException(exceptionMessage, nameof(preferredFormat));
+            }
+
+            IsConfigured = false;
+        }
+
+        /// <summary>
+        /// Initializes the properties of the <see cref="WmtsBackgroundDataConfiguration"/> corresponding
+        /// to a configured WMTS tile source.
+        /// </summary>
+        /// <param name="sourceCapabilitiesUrl">The URL to the capabilities of the WMTS.</param>
+        /// <param name="selectedCapabilityIdentifier">The name of the capability to use.</param>
+        /// <param name="preferredFormat">The MIME-type specification of the preferred tile image format.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any of the parameters are <c>null</c>.</exception>
+        private void InitalizeConfiguredWmtsBackgroundDataConfiguration(string sourceCapabilitiesUrl,
+                                                                        string selectedCapabilityIdentifier,
+                                                                        string preferredFormat)
+        {
+            if (sourceCapabilitiesUrl == null)
+            {
+                throw new ArgumentNullException(nameof(sourceCapabilitiesUrl));
+            }
+            if (selectedCapabilityIdentifier == null)
+            {
+                throw new ArgumentNullException(nameof(selectedCapabilityIdentifier));
+            }
+            if (preferredFormat == null)
+            {
+                throw new ArgumentNullException(nameof(preferredFormat));
+            }
+
+            IsConfigured = true;
             SourceCapabilitiesUrl = sourceCapabilitiesUrl;
             SelectedCapabilityIdentifier = selectedCapabilityIdentifier;
             PreferredFormat = preferredFormat;

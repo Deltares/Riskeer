@@ -49,9 +49,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Create_BackgroundDataContainsWMTSConfiguration_ReturnsBackgroundMapDataEntity(bool isConfigured)
+        public void Create_BackgroundDataContainsConfiguredWMTSConfiguration_ReturnsBackgroundMapDataEntity()
         {
             // Setup
             const string name = "background";
@@ -59,6 +57,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             const string selectedCapabilityName = "selectedName";
             const string preferredFormat = "image/png";
             const bool isVisible = true;
+            const bool isConfigured = true;
             RoundedDouble transparancy = (RoundedDouble) 0.3;
 
             var configuration = new WmtsBackgroundDataConfiguration(isConfigured,
@@ -85,15 +84,18 @@ namespace Application.Ringtoets.Storage.Test.Create
             {
                 {
                     BackgroundDataIdentifiers.IsConfigured, Convert.ToByte(isConfigured).ToString()
+                },
+                {
+                    BackgroundDataIdentifiers.SourceCapabilitiesUrl, sourceCapabilitiesUrl
+                },
+                {
+                    BackgroundDataIdentifiers.SelectedCapabilityIdentifier, selectedCapabilityName
+                },
+                {
+                    BackgroundDataIdentifiers.PreferredFormat, preferredFormat
                 }
-            };
 
-            if (isConfigured)
-            {
-                expectedKeyValuePairs.Add(BackgroundDataIdentifiers.SourceCapabilitiesUrl, sourceCapabilitiesUrl);
-                expectedKeyValuePairs.Add(BackgroundDataIdentifiers.SelectedCapabilityIdentifier, selectedCapabilityName);
-                expectedKeyValuePairs.Add(BackgroundDataIdentifiers.PreferredFormat, preferredFormat);
-            }
+            };
 
             var actualKeyValuePairs = entity.BackgroundDataMetaEntities.Select(
                 metaEntity => new KeyValuePair<string, string>(metaEntity.Key, metaEntity.Value));
@@ -101,9 +103,45 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Create_BackgroundDataContainsWellKnownConfiguration_ReturnsBackgroundMapDataEntity(bool isConfigured)
+        public void Create_BackgroundDataContainsUnconfiguredWMTSConfiguration_ReturnsBackgroundMapDataEntity()
+        {
+            // Setup
+            const string name = "background";
+            const bool isVisible = true;
+            const bool isConfigured = false;
+            RoundedDouble transparancy = (RoundedDouble)0.3;
+
+            var configuration = new WmtsBackgroundDataConfiguration();
+
+            var backgroundData = new BackgroundData(configuration)
+            {
+                IsVisible = isVisible,
+                Transparency = transparancy,
+                Name = name
+            };
+
+            // Call
+            BackgroundDataEntity entity = backgroundData.Create();
+
+            // Assert
+            Assert.AreEqual(name, entity.Name);
+            Assert.AreEqual(Convert.ToByte(isVisible), entity.IsVisible);
+            Assert.AreEqual(transparancy, entity.Transparency);
+
+            var expectedKeyValuePairs = new Dictionary<string, string>
+            {
+                {
+                    BackgroundDataIdentifiers.IsConfigured, Convert.ToByte(isConfigured).ToString()
+                }
+            };
+
+            var actualKeyValuePairs = entity.BackgroundDataMetaEntities.Select(
+                metaEntity => new KeyValuePair<string, string>(metaEntity.Key, metaEntity.Value));
+            CollectionAssert.AreEquivalent(expectedKeyValuePairs, actualKeyValuePairs);
+        }
+
+        [Test]
+        public void Create_BackgroundDataContainsWellKnownConfiguration_ReturnsBackgroundMapDataEntity()
         {
             // Setup
             var random = new Random(21);
