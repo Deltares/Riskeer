@@ -26,7 +26,6 @@ using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
-using Core.Components.Gis.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 
@@ -108,12 +107,12 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var random = new Random(21);
-            var wellKnownTileSource = random.NextEnumValue<WellKnownTileSource>();
+            var wellKnownTileSource = random.NextEnumValue<RingtoetsWellKnownTileSource>();
 
             const string name = "background";
             const bool isVisible = true;
             const BackgroundMapDataType backgroundDataType = BackgroundMapDataType.WellKnown;
-            RoundedDouble transparancy = (RoundedDouble)0.3;
+            RoundedDouble transparancy = (RoundedDouble) 0.3;
 
             var configuration = new WellKnownBackgroundDataConfiguration(wellKnownTileSource);
             var backgroundData = new BackgroundData(configuration)
@@ -135,13 +134,12 @@ namespace Application.Ringtoets.Storage.Test.Create
             var expectedKeyValuePairs = new Dictionary<string, string>
             {
                 {
-                    BackgroundDataIdentifiers.WellKnownTileSource, ((int)wellKnownTileSource).ToString()
+                    BackgroundDataIdentifiers.WellKnownTileSource, ((int) wellKnownTileSource).ToString()
                 }
             };
             var actualKeyValuePairs = entity.BackgroundDataMetaEntities.Select(
                 metaEntity => new KeyValuePair<string, string>(metaEntity.Key, metaEntity.Value));
             CollectionAssert.AreEquivalent(expectedKeyValuePairs, actualKeyValuePairs);
         }
-
     }
 }

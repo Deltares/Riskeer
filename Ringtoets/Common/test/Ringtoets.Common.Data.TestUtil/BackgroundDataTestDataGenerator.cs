@@ -52,13 +52,13 @@ namespace Ringtoets.Common.Data.TestUtil
         }
 
         /// <summary>
-        /// Gets the <see cref="BackgroundData"/> with <see cref="WellKnownTileSource"/>.
+        /// Gets the <see cref="BackgroundData"/> with <see cref="RingtoetsWellKnownTileSource"/>.
         /// </summary>
-        /// <param name="tileSource">The <see cref="WellKnownTileSource"/> to create the background data for.</param>
+        /// <param name="tileSource">The <see cref="RingtoetsWellKnownTileSource"/> to create the background data for.</param>
         /// <returns>The created <see cref="BackgroundData"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="tileSource"/>
-        /// is an invalid <see cref="WellKnownTileSource"/>.</exception>
-        public static BackgroundData GetWellKnownBackgroundMapData(WellKnownTileSource tileSource)
+        /// is an invalid <see cref="RingtoetsWellKnownTileSource"/>.</exception>
+        public static BackgroundData GetWellKnownBackgroundMapData(RingtoetsWellKnownTileSource tileSource)
         {
             return new BackgroundData(new WellKnownBackgroundDataConfiguration(tileSource))
             {

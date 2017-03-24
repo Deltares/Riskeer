@@ -162,7 +162,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var random = new Random(21);
-            var wellKnownTileSource = random.NextEnumValue<WellKnownTileSource>();
+            var wellKnownTileSource = random.NextEnumValue<RingtoetsWellKnownTileSource>();
             var backgroundMapData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData(wellKnownTileSource);
 
             using (var plugin = new RingtoetsPlugin())
@@ -348,7 +348,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSectionObserver = mockRepository.StrictMock<IObserver>();
             var backgroundMapDataObserver = mockRepository.StrictMock<IObserver>();
 
-            var backgroundMapData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData(WellKnownTileSource.BingHybrid);
+            var backgroundMapData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData(RingtoetsWellKnownTileSource.BingHybrid);
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
@@ -477,7 +477,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             const WellKnownTileSource wellKnownTileSource = WellKnownTileSource.BingAerial;
             var newMapData = new WellKnownTileSourceMapData(wellKnownTileSource);
-            var newBackgroundData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData(wellKnownTileSource);
+            var newBackgroundData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData((RingtoetsWellKnownTileSource) wellKnownTileSource);
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {

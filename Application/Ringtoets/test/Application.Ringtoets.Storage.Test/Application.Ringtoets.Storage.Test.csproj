@@ -252,10 +252,6 @@
       <Project>{30E4C2AE-719E-4D70-9FA9-668A9767FBFA}</Project>
       <Name>Core.Common.Gui</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
-      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
-      <Name>Core.Common.Utils</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
       <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
       <Name>Core.Common.TestUtil</Name>
@@ -267,10 +263,6 @@
     <ProjectReference Include="..\..\..\..\Migration\Core\src\Migration.Core.Storage\Migration.Core.Storage.csproj">
       <Project>{EFD7E662-5B69-4B71-A448-565B64E9C033}</Project>
       <Name>Migration.Core.Storage</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Migration\Core\test\Migration.Core.Storage.TestUtil\Migration.Core.Storage.TestUtil.csproj">
-      <Project>{92CFD164-3E35-440A-85A7-A7F5A43B1B12}</Project>
-      <Name>Migration.Core.Storage.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Migration\Scripts\src\Migration.Scripts.Data\Migration.Scripts.Data.csproj">
       <Project>{D08DB9E2-6861-44C8-A725-71A70274CC77}</Project>

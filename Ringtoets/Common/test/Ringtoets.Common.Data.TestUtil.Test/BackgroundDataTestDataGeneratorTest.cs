@@ -80,7 +80,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         {
             // Setup
             var random = new Random(21);
-            WellKnownTileSource wellKnownTileSource = random.NextEnumValue<WellKnownTileSource>();
+            RingtoetsWellKnownTileSource wellKnownTileSource = random.NextEnumValue<RingtoetsWellKnownTileSource>();
 
             // Call
             BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData(wellKnownTileSource);
@@ -100,7 +100,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         public void GetWellKnownBackgroundMapData_WithInvalidWellKnownTileSourceValue_ThrowsInvalidEnumArgumentException()
         {
             // Setup
-            const WellKnownTileSource invalidWellKnownTileSource = (WellKnownTileSource) 1337;
+            const RingtoetsWellKnownTileSource invalidWellKnownTileSource = (RingtoetsWellKnownTileSource) 1337;
 
             // Call
             TestDelegate call = () => BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData(invalidWellKnownTileSource);

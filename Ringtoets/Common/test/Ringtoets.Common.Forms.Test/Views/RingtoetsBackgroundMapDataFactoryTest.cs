@@ -76,14 +76,14 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Setup
             var random = new Random(21);
-            WellKnownTileSource wellKnownTileSource = random.NextEnumValue<WellKnownTileSource>();
+            RingtoetsWellKnownTileSource wellKnownTileSource = random.NextEnumValue<RingtoetsWellKnownTileSource>();
             BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData(wellKnownTileSource);
 
             // Call
             ImageBasedMapData backgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(backgroundData);
 
             // Assert
-            var expectedMapData = new WellKnownTileSourceMapData(wellKnownTileSource);
+            var expectedMapData = new WellKnownTileSourceMapData((WellKnownTileSource) wellKnownTileSource);
             MapDataTestHelper.AssertImageBasedMapData(expectedMapData, backgroundMapData);
         }
 
@@ -91,7 +91,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void CreateBackgroundMapData_InvalidWellKnownConfiguredBackgroundData_ThrowsInvalidEnumArgumentException()
         {
             // Setup
-            var backgroundData = new BackgroundData(new WellKnownBackgroundDataConfiguration((WellKnownTileSource) 1337));
+            var backgroundData = new BackgroundData(new WellKnownBackgroundDataConfiguration((RingtoetsWellKnownTileSource) 1337));
 
             // Call
             TestDelegate call = ()=> RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(backgroundData);

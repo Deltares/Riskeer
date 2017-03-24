@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.TestUtil;
-using Core.Components.Gis.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 
@@ -35,7 +34,7 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
         {
             // Setup
             var random = new Random(21);
-            var wellKnownTileSource = random.NextEnumValue<WellKnownTileSource>();
+            var wellKnownTileSource = random.NextEnumValue<RingtoetsWellKnownTileSource>();
 
             // Call
             var configuration = new WellKnownBackgroundDataConfiguration(wellKnownTileSource);

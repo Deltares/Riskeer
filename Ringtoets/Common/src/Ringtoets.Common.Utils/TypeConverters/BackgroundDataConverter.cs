@@ -133,7 +133,7 @@ namespace Ringtoets.Common.Utils.TypeConverters
 
         private static WellKnownBackgroundDataConfiguration CreateWellKnownBackgroundDataConfiguration(WellKnownTileSourceMapData mapData)
         {
-            return new WellKnownBackgroundDataConfiguration(mapData.TileSource);
+            return new WellKnownBackgroundDataConfiguration((RingtoetsWellKnownTileSource) mapData.TileSource);
         }
 
         private static WmtsBackgroundDataConfiguration CreateWmtsBackgroundDataConfiguration(WmtsMapData mapData)
@@ -169,7 +169,7 @@ namespace Ringtoets.Common.Utils.TypeConverters
         /// contains an invalid value for <see cref="WellKnownTileSource"/>.</exception>
         private static WellKnownTileSourceMapData CreateWellKnownMapdata(WellKnownBackgroundDataConfiguration backgroundDataConfiguration)
         {
-            return new WellKnownTileSourceMapData(backgroundDataConfiguration.WellKnownTileSource);
+            return new WellKnownTileSourceMapData((WellKnownTileSource) backgroundDataConfiguration.WellKnownTileSource);
         }
     }
 }

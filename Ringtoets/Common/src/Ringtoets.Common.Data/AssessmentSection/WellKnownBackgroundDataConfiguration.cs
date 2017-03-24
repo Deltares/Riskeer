@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Components.Gis.Data;
-
 namespace Ringtoets.Common.Data.AssessmentSection
 {
     /// <summary>
@@ -32,7 +30,7 @@ namespace Ringtoets.Common.Data.AssessmentSection
         /// Instantiates a <see cref="WellKnownBackgroundDataConfiguration"/>.
         /// </summary>
         /// <param name="wellKnownTileSource">The type of well known tile source.</param>
-        public WellKnownBackgroundDataConfiguration(WellKnownTileSource wellKnownTileSource)
+        public WellKnownBackgroundDataConfiguration(RingtoetsWellKnownTileSource wellKnownTileSource)
         {
             WellKnownTileSource = wellKnownTileSource;
         }
@@ -40,6 +38,6 @@ namespace Ringtoets.Common.Data.AssessmentSection
         /// <summary>
         /// Gets the type of well known tile source.
         /// </summary>
-        public WellKnownTileSource WellKnownTileSource { get; private set; }
+        public RingtoetsWellKnownTileSource WellKnownTileSource { get; private set; }
     }
 }

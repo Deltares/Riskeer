@@ -161,16 +161,16 @@ namespace Ringtoets.Common.Utils.Test.TypeConverters
         [Test]
         public void ConvertFrom_BackgroundData_ReturnWellKnownMapData()
         {
-            // Setup            
+            // Setup
             var random = new Random(21);
-            WellKnownTileSource wellKnownTileSource = random.NextEnumValue<WellKnownTileSource>();
+            RingtoetsWellKnownTileSource wellKnownTileSource = random.NextEnumValue<RingtoetsWellKnownTileSource>();
             BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData(wellKnownTileSource);
 
             // Call
             ImageBasedMapData convertedMapData = BackgroundDataConverter.ConvertFrom(backgroundData);
 
             // Assert
-            var expectedMapData = new WellKnownTileSourceMapData(wellKnownTileSource);
+            var expectedMapData = new WellKnownTileSourceMapData((WellKnownTileSource) wellKnownTileSource);
             MapDataTestHelper.AssertImageBasedMapData(expectedMapData, convertedMapData);
         }
 
@@ -178,7 +178,7 @@ namespace Ringtoets.Common.Utils.Test.TypeConverters
         public void ConvertFrom_BackgroundDataWithInvalidWellKnownTileSourceValue_ThrowsInvalidEnumArgumentException()
         {
             // Setup
-            var backgroundData = new BackgroundData(new WellKnownBackgroundDataConfiguration((WellKnownTileSource) 999));
+            var backgroundData = new BackgroundData(new WellKnownBackgroundDataConfiguration((RingtoetsWellKnownTileSource) 999));
 
             // Call
             TestDelegate call = () => BackgroundDataConverter.ConvertFrom(backgroundData);

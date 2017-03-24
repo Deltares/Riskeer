@@ -23,14 +23,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
-using Core.Components.Gis.Data;
+using Core.Common.Utils.Reflection;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Utils.TypeConverters;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -50,6 +49,7 @@ namespace Ringtoets.Integration.Data
     public sealed class AssessmentSection : Observable, IAssessmentSection
     {
         private ReferenceLine referenceLine;
+        private const RingtoetsWellKnownTileSource defaultWellKnownTileSource = RingtoetsWellKnownTileSource.BingAerial;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AssessmentSection"/> class.
@@ -61,9 +61,11 @@ namespace Ringtoets.Integration.Data
             Name = Resources.AssessmentSection_DisplayName;
             Comments = new Comment();
 
-            var mapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial);
-
-            BackgroundData = BackgroundDataConverter.ConvertTo(mapData);
+            BackgroundData = new BackgroundData(new WellKnownBackgroundDataConfiguration(defaultWellKnownTileSource))
+            {
+                IsVisible = true,
+                Name = TypeUtils.GetDisplayName(defaultWellKnownTileSource)
+            };
 
             PipingFailureMechanism = new PipingFailureMechanism();
             GrassCoverErosionInwards = new GrassCoverErosionInwardsFailureMechanism();

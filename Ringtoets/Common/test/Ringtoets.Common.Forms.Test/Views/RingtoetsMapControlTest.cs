@@ -53,12 +53,12 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             get
             {
-                yield return new TestCaseData(BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData(WellKnownTileSource.BingAerial),
+                yield return new TestCaseData(BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData(RingtoetsWellKnownTileSource.BingAerial),
                                               BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(WmtsMapData.CreateDefaultPdokMapData()))
                     .SetName("WellKnownToWmts");
 
                 yield return new TestCaseData(BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(WmtsMapData.CreateDefaultPdokMapData()),
-                                              BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData(WellKnownTileSource.BingAerial))
+                                              BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData(RingtoetsWellKnownTileSource.BingAerial))
                     .SetName("WmtsToWellKnown");
             }
         }
@@ -298,8 +298,8 @@ namespace Ringtoets.Common.Forms.Test.Views
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            const WellKnownTileSource wellKnownTileSource = WellKnownTileSource.BingAerial;
-            var mapData = new WellKnownTileSourceMapData(wellKnownTileSource);
+            const RingtoetsWellKnownTileSource wellKnownTileSource = RingtoetsWellKnownTileSource.BingAerial;
+            var mapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial);
             BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData(wellKnownTileSource);
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
@@ -315,7 +315,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 ImageBasedMapData oldBackgroundMapData = control.BackgroundMapData;
 
                 // When
-                backgroundData.Configuration = new WellKnownBackgroundDataConfiguration(WellKnownTileSource.BingRoads);
+                backgroundData.Configuration = new WellKnownBackgroundDataConfiguration(RingtoetsWellKnownTileSource.BingRoads);
                 backgroundData.NotifyObservers();
 
                 // Then

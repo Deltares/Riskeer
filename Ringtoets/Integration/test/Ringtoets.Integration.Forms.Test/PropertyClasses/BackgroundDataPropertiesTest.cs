@@ -137,8 +137,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Setup
             const string name = "A";
             var mapData = new TestImageBasedMapData(name, false);
-            
-            var backgroundMapData = new BackgroundData(new WellKnownBackgroundDataConfiguration(WellKnownTileSource.BingAerial))
+
+            var backgroundMapData = new BackgroundData(new WellKnownBackgroundDataConfiguration(RingtoetsWellKnownTileSource.BingAerial))
             {
                 Name = mapData.Name,
                 Transparency = mapData.Transparency,

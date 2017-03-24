@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
-using Core.Components.Gis.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 
 namespace Application.Ringtoets.Storage.Read
@@ -113,7 +112,7 @@ namespace Application.Ringtoets.Storage.Read
                 backgroundDataMetaEntities.Single(metaEntity => metaEntity.Key.Equals(BackgroundDataIdentifiers.WellKnownTileSource))
                                           .Read();
 
-            var wellKnownTileSource = (WellKnownTileSource) Convert.ToInt32(parameter.Value);
+            var wellKnownTileSource = (RingtoetsWellKnownTileSource) Convert.ToInt32(parameter.Value);
             return new WellKnownBackgroundDataConfiguration(wellKnownTileSource);
         }
     }

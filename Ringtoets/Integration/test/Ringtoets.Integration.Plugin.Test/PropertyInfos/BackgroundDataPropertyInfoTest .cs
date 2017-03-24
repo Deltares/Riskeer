@@ -39,14 +39,14 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         
         private static IEnumerable<TestCaseData> ValidBackgroundMapDatas()
         {
-            WellKnownTileSourceMapData wellKnownMapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingRoads);
+            var wellKnownMapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingRoads);
             WmtsMapData wmtsMapData = WmtsMapData.CreateDefaultPdokMapData();
 
             yield return new TestCaseData(
                 new BackgroundData(new TestBackgroundDataConfiguration()))
                 .SetName("Arbitrary BackgroundData Configuration");
             yield return new TestCaseData(
-                new BackgroundData(new WellKnownBackgroundDataConfiguration(wellKnownMapData.TileSource))
+                new BackgroundData(new WellKnownBackgroundDataConfiguration((RingtoetsWellKnownTileSource) wellKnownMapData.TileSource))
             {
                 Name = wellKnownMapData.Name
             }).SetName("WellKnown BingRoads BackgroundData");
