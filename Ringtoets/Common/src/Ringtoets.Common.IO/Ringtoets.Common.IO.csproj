@@ -116,6 +116,7 @@
     <Compile Include="Structures\VarianceType.cs" />
     <Compile Include="Structures\ValidationResult.cs" />
     <Compile Include="Writers\CalculationConfigurationWriter.cs" />
+    <Compile Include="Writers\XmlWriterExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
