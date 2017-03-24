@@ -61,11 +61,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void Constructor_ValidBackgroundData_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var configuration = mocks.Stub<IBackgroundDataConfiguration>();
-            mocks.ReplayAll();
-
-            var backgroundMapData = new BackgroundData(configuration);
+            var backgroundMapData = new BackgroundData(new TestBackgroundDataConfiguration());
 
             // Call
             var properties = new BackgroundDataProperties(backgroundMapData);
@@ -73,7 +69,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Assert
             Assert.IsInstanceOf<ObjectProperties<BackgroundData>>(properties);
             Assert.AreSame(backgroundMapData, properties.Data);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -162,11 +157,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             var mockRepository = new MockRepository();
             var observer = mockRepository.StrictMock<IObserver>();
-            var backgroundDataConfiguration = mockRepository.Stub<IBackgroundDataConfiguration>();
             observer.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             mockRepository.ReplayAll();
 
-            var backgroundMapData = new BackgroundData(backgroundDataConfiguration);
+            var backgroundMapData = new BackgroundData(new TestBackgroundDataConfiguration());
             backgroundMapData.Attach(observer);
 
             var properties = new BackgroundDataProperties(backgroundMapData);
@@ -190,11 +184,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void Constructor_WithNonWmtsMapDataConfiguration_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var backgroundDataConfiguration = mocks.Stub<IBackgroundDataConfiguration>();
-            mocks.ReplayAll();
-
-            var backgroundMapData = new BackgroundData(backgroundDataConfiguration);
+            var backgroundMapData = new BackgroundData(new TestBackgroundDataConfiguration());
 
             // Call
             var properties = new BackgroundDataProperties(backgroundMapData);
@@ -221,8 +211,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                                                             "Algemeen",
                                                                             "Weergeven",
                                                                             "Geeft aan of de geselecteerde achtergrond kaartlaag in alle kaarten van dit traject wordt weergegeven.");
-
-            mocks.VerifyAll();
         }
 
         [Test]

@@ -163,7 +163,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             var random = new Random(21);
             var wellKnownTileSource = random.NextEnumValue<RingtoetsWellKnownTileSource>();
-            var backgroundMapData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData(wellKnownTileSource);
+            BackgroundData backgroundMapData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData(wellKnownTileSource);
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -181,11 +181,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void ForeColor_ArbitraryBackgroundDataConfiguration_ReturnControlText()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var configuration = mockRepository.Stub<IBackgroundDataConfiguration>();
-            mockRepository.ReplayAll();
-
-            var backgroundMapData = new BackgroundData(configuration);
+            var backgroundMapData = new BackgroundData(new TestBackgroundDataConfiguration());
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -238,11 +234,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_ContextMenuItemSelectMapLayerEnabled()
         {
             // Setup
+            var backgroundMapData = new BackgroundData(new TestBackgroundDataConfiguration());
+
             var mockRepository = new MockRepository();
-            var configuration = mockRepository.Stub<IBackgroundDataConfiguration>();
-
-            var backgroundMapData = new BackgroundData(configuration);
-
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             using (var treeViewControl = new TreeViewControl())
             {
