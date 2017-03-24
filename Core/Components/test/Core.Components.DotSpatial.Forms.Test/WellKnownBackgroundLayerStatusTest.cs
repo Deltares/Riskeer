@@ -97,7 +97,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                     var mapData1 = new WellKnownTileSourceMapData(source);
                     var mapData2 = new WellKnownTileSourceMapData(source);
 
-                    layerStatus.SuccessfullyInitializedLayer(layer, mapData1);
+                    layerStatus.LayerInitializationSuccessful(layer, mapData1);
 
                     // Call
                     bool isSame = layerStatus.HasSameConfiguration(mapData2);
@@ -110,7 +110,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void SuccessfullyInitializedLayer_LayerNull_ThrowArgumentNullException()
+        public void LayerInitializationSuccessful_LayerNull_ThrowArgumentNullException()
         {
             // Setup
             using (var layerStatus = new WellKnownBackgroundLayerStatus())
@@ -118,7 +118,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 var dataSource = new WellKnownTileSourceMapData(new Random(789).NextEnum<WellKnownTileSource>());
 
                 // Call
-                TestDelegate call = () => layerStatus.SuccessfullyInitializedLayer(null, dataSource);
+                TestDelegate call = () => layerStatus.LayerInitializationSuccessful(null, dataSource);
 
                 // Assert
                 string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -127,7 +127,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void SuccessfullyInitializedLayer_MapDataNull_ThrowArgumentNullException()
+        public void LayerInitializationSuccessful_MapDataNull_ThrowArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -139,7 +139,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (var layerStatus = new WellKnownBackgroundLayerStatus())
             {
                 // Call
-                TestDelegate call = () => layerStatus.SuccessfullyInitializedLayer(layer, null);
+                TestDelegate call = () => layerStatus.LayerInitializationSuccessful(layer, null);
 
                 // Assert
                 string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -148,7 +148,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void SuccessfullyInitializedLayer_MapDataNotWellKnownMapData_SetCreationFailedTrue()
+        public void LayerInitializationSuccessful_MapDataNotWellKnownMapData_SetCreationFailedTrue()
         {
             // Setup
             var mocks = new MockRepository();
@@ -162,7 +162,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 var mapData = new SimpleImageBasedMapData();
 
                 // Call
-                layerStatus.SuccessfullyInitializedLayer(layer, mapData);
+                layerStatus.LayerInitializationSuccessful(layer, mapData);
 
                 // Assert
                 Assert.IsTrue(layerStatus.PreviousBackgroundLayerCreationFailed);
@@ -170,7 +170,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void SuccessfullyInitializedLayer_InitializationPreviouslyFailed_PreviousBackgroundLayerCreationFailedFalse()
+        public void LayerInitializationSuccessful_InitializationPreviouslyFailed_PreviousBackgroundLayerCreationFailedFalse()
         {
             // Setup
             var mocks = new MockRepository();
@@ -186,7 +186,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 var mapData = new WellKnownTileSourceMapData(new Random(789).NextEnum<WellKnownTileSource>());
 
                 // Call
-                layerStatus.SuccessfullyInitializedLayer(layer, mapData);
+                layerStatus.LayerInitializationSuccessful(layer, mapData);
 
                 // Assert
                 Assert.IsFalse(layerStatus.PreviousBackgroundLayerCreationFailed);
@@ -220,7 +220,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (var layerStatus = new WellKnownBackgroundLayerStatus())
             {
                 var mapData = new WellKnownTileSourceMapData(new Random(789).NextEnum<WellKnownTileSource>());
-                layerStatus.SuccessfullyInitializedLayer(layer, mapData);
+                layerStatus.LayerInitializationSuccessful(layer, mapData);
 
                 // Call
                 layerStatus.LayerInitializationFailed();
@@ -244,7 +244,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (var layerStatus = new WellKnownBackgroundLayerStatus())
             {
                 var mapData = new WellKnownTileSourceMapData(new Random(789).NextEnum<WellKnownTileSource>());
-                layerStatus.SuccessfullyInitializedLayer(layer, mapData);
+                layerStatus.LayerInitializationSuccessful(layer, mapData);
 
                 // Call
                 layerStatus.ClearConfiguration();

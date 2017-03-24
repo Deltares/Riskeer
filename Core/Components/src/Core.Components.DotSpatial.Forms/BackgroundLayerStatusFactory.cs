@@ -30,13 +30,16 @@ namespace Core.Components.DotSpatial.Forms
     public static class BackgroundLayerStatusFactory
     {
         /// <summary>
-        /// Creates a new instance of <see cref="IBackgroundLayerStatus"/> corresponding to the type of <paramref name="mapData"/>.
+        /// Creates a new instance of <see cref="IBackgroundLayerStatus"/> corresponding to 
+        /// the type of <paramref name="mapData"/>.
         /// </summary>
-        /// <param name="mapData">The type of <see cref="ImageBasedMapData"/> to create a <see cref="IBackgroundLayerStatus"/> for.</param>
+        /// <param name="mapData">The type of <see cref="ImageBasedMapData"/> to create a 
+        /// <see cref="IBackgroundLayerStatus"/> for.</param>
         /// <returns>A new instance of <see cref="IBackgroundLayerStatus"/>.</returns>
         /// <exception cref="ArgumentNullException ">Thrown when <paramref name="mapData"/>
         /// is <c>null</c>.</exception>
-        /// <exception cref="NotSupportedException">Thrown when the type of <see cref="ImageBasedMapData"/> is not supported.</exception>
+        /// <exception cref="NotSupportedException">Thrown when the type of <see cref="ImageBasedMapData"/>
+        /// is not supported.</exception>
         internal static IBackgroundLayerStatus CreateBackgroundLayerStatus(ImageBasedMapData mapData)
         {
             if (mapData == null)

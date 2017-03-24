@@ -169,8 +169,8 @@ namespace Core.Components.BruTile.IO
         private bool IsDisposed { get; set; }
 
         /// <summary>
-        /// Thrown an <see cref="ObjectDisposedException"/> when <see cref="IsDisposed"/>
-        /// is true.
+        /// Throws an <see cref="ObjectDisposedException"/> when <see cref="IsDisposed"/>
+        /// is <c>true</c>.
         /// </summary>
         /// <exception cref="ObjectDisposedException">Thrown when calling this method while
         /// this instance is disposed.</exception>

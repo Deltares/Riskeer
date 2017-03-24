@@ -25,6 +25,10 @@ using Core.Components.Gis.Data;
 
 namespace Core.Components.DotSpatial.Forms
 {
+    /// <summary>
+    /// Interface for keeping track of various status information related to the
+    /// <see cref="ImageBasedMapData"/> used to create a background layer in a map view.
+    /// </summary>
     internal interface IBackgroundLayerStatus : IDisposable
     {
         /// <summary>
@@ -34,7 +38,7 @@ namespace Core.Components.DotSpatial.Forms
         bool PreviousBackgroundLayerCreationFailed { get; }
 
         /// <summary>
-        /// Gets a value for the initialized background layer.
+        /// Gets the initialized background layer.
         /// </summary>
         BruTileLayer BackgroundLayer { get; }
 
@@ -44,7 +48,7 @@ namespace Core.Components.DotSpatial.Forms
         /// <param name="backgroundLayer">The constructed layer.</param>
         /// <param name="dataSource">The data used to construct <paramref name="backgroundLayer"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
-        void SuccessfullyInitializedLayer(BruTileLayer backgroundLayer, ImageBasedMapData dataSource);
+        void LayerInitializationSuccessful(BruTileLayer backgroundLayer, ImageBasedMapData dataSource);
 
         /// <summary>
         /// Mark that the attempt to create a new background layer failed.
@@ -57,7 +61,7 @@ namespace Core.Components.DotSpatial.Forms
         /// </summary>
         /// <param name="expectRecreationOfSameBackgroundLayer">Optional: A flag to indicate 
         /// if recreation of <see cref="BackgroundLayer"/> with the same parameters is expected
-        /// (<c>true</c>) or is expected to be replaced (<c>false</c>)</param>
+        /// (<c>true</c>) or is expected to be replaced (<c>false</c>).</param>
         void ClearConfiguration(bool expectRecreationOfSameBackgroundLayer = false);
 
         /// <summary>

@@ -52,7 +52,7 @@ namespace Core.Components.BruTile.Configurations
         /// <param name="preferredFormat">The preferred tile image format, as MIME-type.</param>
         /// <param name="persistentCacheDirectoryPath">The directory path to the persistent tile cache.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="persistentCacheDirectoryPath"/>
-        /// is an invalid folder path</exception>
+        /// is an invalid folder path.</exception>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         private WmtsLayerConfiguration(string wmtsCapabilitiesUrl, string capabilityIdentifier, string preferredFormat,
                                        string persistentCacheDirectoryPath) : base(persistentCacheDirectoryPath)

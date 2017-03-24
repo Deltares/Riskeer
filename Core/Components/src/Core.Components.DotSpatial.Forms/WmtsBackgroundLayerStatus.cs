@@ -27,7 +27,7 @@ namespace Core.Components.DotSpatial.Forms
 {
     /// <summary>
     /// Class responsible for keeping track of various status information related to the
-    /// <see cref="WmtsMapData"/> used to create a background layer in a map view.
+    /// <see cref="WmtsMapData"/> used to create a background layer in a map control.
     /// </summary>
     internal class WmtsBackgroundLayerStatus : IBackgroundLayerStatus
     {
@@ -40,7 +40,7 @@ namespace Core.Components.DotSpatial.Forms
             BackgroundLayer?.Dispose();
         }
 
-        public void SuccessfullyInitializedLayer(BruTileLayer backgroundLayer, ImageBasedMapData dataSource)
+        public void LayerInitializationSuccessful(BruTileLayer backgroundLayer, ImageBasedMapData dataSource)
         {
             if (backgroundLayer == null)
             {

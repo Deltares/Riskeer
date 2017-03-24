@@ -42,7 +42,7 @@ using ILog = log4net.ILog;
 namespace Core.Components.DotSpatial.Forms
 {
     /// <summary>
-    /// This class describes a map view with configured projection and function mode.
+    /// This class describes a map control with configured projection and function mode.
     /// </summary>
     public class MapControl : Control, IMapControl
     {
@@ -213,7 +213,7 @@ namespace Core.Components.DotSpatial.Forms
                 IsVisible = backgroundMapData.IsVisible,
                 Transparency = Convert.ToSingle(backgroundMapData.Transparency)
             };
-            backgroundLayerStatus.SuccessfullyInitializedLayer(backgroundLayer, backgroundMapData);
+            backgroundLayerStatus.LayerInitializationSuccessful(backgroundLayer, backgroundMapData);
 
             return true;
         }

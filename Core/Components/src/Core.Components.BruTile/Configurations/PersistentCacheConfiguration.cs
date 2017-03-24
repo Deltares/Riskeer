@@ -45,7 +45,7 @@ namespace Core.Components.BruTile.Configurations
         private FileCache fileCache;
 
         /// <summary>
-        /// Initialized a new instance of <see cref="PersistentCacheConfiguration"/>.
+        /// Initializes a new instance of <see cref="PersistentCacheConfiguration"/>.
         /// </summary>
         /// <param name="persistentCacheDirectoryPath">The path to the directory for this
         /// cache to keep its data.</param>
@@ -100,7 +100,7 @@ namespace Core.Components.BruTile.Configurations
         }
 
         /// <summary>
-        /// Initialized the configuration based on the given <see cref="ITileSource"/>.
+        /// Initializes the configuration based on the given <see cref="ITileSource"/>.
         /// </summary>
         /// <param name="tileSource">The tile source to initialize for.</param>
         /// <exception cref="CannotCreateTileCacheException">Thrown when a critical error
@@ -131,8 +131,8 @@ namespace Core.Components.BruTile.Configurations
         }
 
         /// <summary>
-        /// Thrown an <see cref="ObjectDisposedException"/> when <see cref="IsDisposed"/>
-        /// is true.
+        /// Throws an <see cref="ObjectDisposedException"/> when <see cref="IsDisposed"/>
+        /// is <c>true</c>.
         /// </summary>
         /// <exception cref="ObjectDisposedException">Thrown when calling this method while
         /// this instance is disposed.</exception>

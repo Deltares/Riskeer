@@ -134,7 +134,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                     var mapData1 = WmtsMapData.CreateDefaultPdokMapData();
                     var mapData2 = WmtsMapData.CreateDefaultPdokMapData();
 
-                    layerStatus.SuccessfullyInitializedLayer(layer, mapData1);
+                    layerStatus.LayerInitializationSuccessful(layer, mapData1);
 
                     // Call
                     bool isSame = layerStatus.HasSameConfiguration(mapData2);
@@ -163,7 +163,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 {
                     var mapData = WmtsMapData.CreateDefaultPdokMapData();
 
-                    layerStatus.SuccessfullyInitializedLayer(layer, mapData);
+                    layerStatus.LayerInitializationSuccessful(layer, mapData);
 
                     // Call
                     bool isSame = layerStatus.HasSameConfiguration(otherData);
@@ -176,7 +176,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void SuccessfullyInitializedLayer_LayerNull_ThrowArgumentNullException()
+        public void LayerInitializationSuccessful_LayerNull_ThrowArgumentNullException()
         {
             // Setup
             using (var layerStatus = new WmtsBackgroundLayerStatus())
@@ -184,7 +184,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 var dataSource = WmtsMapData.CreateDefaultPdokMapData();
 
                 // Call
-                TestDelegate call = () => layerStatus.SuccessfullyInitializedLayer(null, dataSource);
+                TestDelegate call = () => layerStatus.LayerInitializationSuccessful(null, dataSource);
 
                 // Assert
                 string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -193,7 +193,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void SuccessfullyInitializedLayer_MapDataNull_ThrowArgumentNullException()
+        public void LayerInitializationSuccessful_MapDataNull_ThrowArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -205,7 +205,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (var layerStatus = new WmtsBackgroundLayerStatus())
             {
                 // Call
-                TestDelegate call = () => layerStatus.SuccessfullyInitializedLayer(layer, null);
+                TestDelegate call = () => layerStatus.LayerInitializationSuccessful(layer, null);
 
                 // Assert
                 string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -214,7 +214,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void SuccessfullyInitializedLayer_MapDataNotWmtsMapData_SetCreationFailedTrue()
+        public void LayerInitializationSuccessful_MapDataNotWmtsMapData_SetCreationFailedTrue()
         {
             // Setup
             var mocks = new MockRepository();
@@ -228,7 +228,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 var mapData = new SimpleImageBasedMapData();
 
                 // Call
-                layerStatus.SuccessfullyInitializedLayer(layer, mapData);
+                layerStatus.LayerInitializationSuccessful(layer, mapData);
 
                 // Assert
                 Assert.IsTrue(layerStatus.PreviousBackgroundLayerCreationFailed);
@@ -236,7 +236,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void SuccessfullyInitializedLayer_InitializationPreviouslyFailed_PreviousBackgroundLayerCreationFailedFalse()
+        public void LayerInitializationSuccessful_InitializationPreviouslyFailed_PreviousBackgroundLayerCreationFailedFalse()
         {
             // Setup
             var mocks = new MockRepository();
@@ -255,7 +255,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 var mapData = WmtsMapData.CreateDefaultPdokMapData();
 
                 // Call
-                layerStatus.SuccessfullyInitializedLayer(layer, mapData);
+                layerStatus.LayerInitializationSuccessful(layer, mapData);
 
                 // Assert
                 Assert.IsFalse(layerStatus.PreviousBackgroundLayerCreationFailed);
@@ -289,7 +289,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (var layerStatus = new WmtsBackgroundLayerStatus())
             {
                 var mapData = WmtsMapData.CreateDefaultPdokMapData();
-                layerStatus.SuccessfullyInitializedLayer(layer, mapData);
+                layerStatus.LayerInitializationSuccessful(layer, mapData);
 
                 // Call
                 layerStatus.LayerInitializationFailed();
@@ -313,7 +313,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (var layerStatus = new WmtsBackgroundLayerStatus())
             {
                 var mapData = WmtsMapData.CreateDefaultPdokMapData();
-                layerStatus.SuccessfullyInitializedLayer(layer, mapData);
+                layerStatus.LayerInitializationSuccessful(layer, mapData);
 
                 // Call
                 layerStatus.ClearConfiguration();
