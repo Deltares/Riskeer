@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+
 namespace Ringtoets.Common.IO.Configurations
 {
     /// <summary>
@@ -26,10 +28,31 @@ namespace Ringtoets.Common.IO.Configurations
     /// </summary>
     public abstract class StructureCalculationConfiguration
     {
+        private string name;
+
+        protected StructureCalculationConfiguration(string name)
+        {
+            Name = name;
+        }
+
         /// <summary>
         /// Gets or sets the name of the calculation.
         /// </summary>
-        public string Name { get; set; }
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException(nameof(value), @"Name is required for a structure calculation configuration.");
+                }
+                name = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the stochast configuration for the model factor super critical flow.

@@ -52,6 +52,13 @@ namespace Ringtoets.Common.IO.Schema
         public const string HydraulicBoundaryLocationElement = "hrlocatie";
 
         /// <summary>
+        /// The tag of elements containing the orientation of the profile.
+        /// </summary>
+        public const string Orientation = "orientatie";
+
+        #region stochasts
+
+        /// <summary>
         /// The identifier for stochasts elements.
         /// </summary>
         public const string StochastsElement = "stochasten";
@@ -77,9 +84,43 @@ namespace Ringtoets.Common.IO.Schema
         public const string VariationCoefficientElement = "variatiecoefficient";
 
         /// <summary>
-        /// The tag of elements containing the orientation of the profile.
+        /// The identifier for the phreatic level exit stochast name.
         /// </summary>
-        public const string Orientation = "orientatie";
+        internal const string AllowedLevelIncreaseStorageStochastName = "peilverhogingkomberging";
+
+        /// <summary>
+        /// The identifier for the critical overtopping discharge stochast name.
+        /// </summary>
+        internal const string CriticalOvertoppingDischargeStochastName = "kritiekinstromenddebiet";
+
+        /// <summary>
+        /// The identifier for the model factor super critical flow stochast name.
+        /// </summary>
+        internal const string ModelFactorSuperCriticalFlowStochastName = "modelfactoroverloopdebiet";
+
+        /// <summary>
+        /// The identifier for the model factor super critical flow stochast name.
+        /// </summary>
+        internal const string FlowWidthAtBottomProtectionStochastName = "breedtebodembescherming";
+
+        /// <summary>
+        /// The identifier for the storage structure area stochast name.
+        /// </summary>
+        internal const string StorageStructureAreaStochastName = "kombergendoppervlak";
+
+        /// <summary>
+        /// The identifier for the storm duration stochast name.
+        /// </summary>
+        internal const string StormDurationStochastName = "stormduur";
+
+        /// <summary>
+        /// The identifier for the width flow apertures stochast name.
+        /// </summary>
+        internal const string WidthFlowAperturesStochastName = "breedtedoorstroomopening";
+
+        #endregion
+
+        #region wave reduction
 
         /// <summary>
         /// The tag of elements containing parameters that define wave reduction.
@@ -123,5 +164,26 @@ namespace Ringtoets.Common.IO.Schema
         /// wall type of break water.
         /// </summary>
         public const string BreakWaterWall = "verticalewand";
+
+        #endregion
+
+        #region structure calculation
+
+        /// <summary>
+        /// The tag of elements containing the failure probability of a structure with erosion.
+        /// </summary>
+        public const string FailureProbabilityStructureWithErosionElement = "faalkansgegevenerosiebodem";
+
+        /// <summary>
+        /// The tag of elements containing the name of the structure.
+        /// </summary>
+        public const string StructureElement = "kunstwerk";
+
+        /// <summary>
+        /// The tag of elements containing the name of the foreshore profile.
+        /// </summary>
+        public const string ForeshoreProfileNameElement = "voorlandprofiel";
+
+        #endregion
     }
 }

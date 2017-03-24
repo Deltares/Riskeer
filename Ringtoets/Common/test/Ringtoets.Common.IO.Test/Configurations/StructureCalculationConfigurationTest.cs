@@ -29,13 +29,26 @@ namespace Ringtoets.Common.IO.Test.Configurations
     public class StructureCalculationConfigurationTest
     {
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_WithoutName_ThrowsArgumentNullException()
         {
             // Call
-            var configuration = new SimpleStructureCalculationConfiguration();
+            TestDelegate call = () => new SimpleStructureCalculationConfiguration(null);
 
             // Assert
-            Assert.IsNull(configuration.Name);
+            Assert.Throws<ArgumentNullException>(call);
+        }
+
+        [Test]
+        public void Constructor_WithName_ExpectedValues()
+        {
+            // Setup
+            var name = "name";
+
+            // Call
+            var configuration = new SimpleStructureCalculationConfiguration(name);
+
+            // Assert
+            Assert.AreEqual(name, configuration.Name);
             Assert.IsNull(configuration.ModelFactorSuperCriticalFlow);
             Assert.IsNull(configuration.StructureName);
             Assert.IsNull(configuration.HydraulicBoundaryLocationName);
@@ -55,9 +68,9 @@ namespace Ringtoets.Common.IO.Test.Configurations
         public void SimpleProperties_SetNewValue_GetsNewlySetValue()
         {
             // Setup
-            var configuration = new SimpleStructureCalculationConfiguration();
-
             const string configurationName = "some name";
+            var configuration = new SimpleStructureCalculationConfiguration(configurationName);
+
             const string structureName = "some structure";
             const string hydraulicBoundaryLocationName = "some hydraulic boundary location";
             const string foreshoreProfileName = "some foreshore profile";
@@ -110,6 +123,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
 
         public class SimpleStructureCalculationConfiguration : StructureCalculationConfiguration
         {
+            public SimpleStructureCalculationConfiguration(string name) : base(name) {}
         }
     }
 }

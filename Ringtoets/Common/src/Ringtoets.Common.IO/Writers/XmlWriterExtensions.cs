@@ -38,6 +38,19 @@ namespace Ringtoets.Common.IO.Writers
         /// in an invalid state for writing.</exception>
         public static void WriteDistribution(this XmlWriter writer, string name, MeanStandardDeviationStochastConfiguration distribution)
         {
+            if (writer == null)
+            {
+                throw new ArgumentNullException(nameof(writer));
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (distribution == null)
+            {
+                throw new ArgumentNullException(nameof(distribution));
+            }
+
             writer.WriteStartElement(ConfigurationSchemaIdentifiers.StochastElement);
             writer.WriteAttributeString(ConfigurationSchemaIdentifiers.NameAttribute, name);
 
@@ -63,6 +76,19 @@ namespace Ringtoets.Common.IO.Writers
         /// in an invalid state for writing.</exception>
         public static void WriteDistribution(this XmlWriter writer, string name, MeanVariationCoefficientStochastConfiguration distribution)
         {
+            if (writer == null)
+            {
+                throw new ArgumentNullException(nameof(writer));
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (distribution == null)
+            {
+                throw new ArgumentNullException(nameof(distribution));
+            }
+
             writer.WriteStartElement(ConfigurationSchemaIdentifiers.StochastElement);
             writer.WriteAttributeString(ConfigurationSchemaIdentifiers.NameAttribute, name);
 
@@ -87,6 +113,15 @@ namespace Ringtoets.Common.IO.Writers
         /// in an invalid state for writing.</exception>
         public static void WriteWaveReduction(this XmlWriter writer, WaveReductionConfiguration waveReduction)
         {
+            if (writer == null)
+            {
+                throw new ArgumentNullException(nameof(writer));
+            }
+            if (waveReduction == null)
+            {
+                throw new ArgumentNullException(nameof(waveReduction));
+            }
+
             writer.WriteStartElement(ConfigurationSchemaIdentifiers.WaveReduction);
 
             if (waveReduction.UseBreakWater.HasValue)
@@ -104,6 +139,98 @@ namespace Ringtoets.Common.IO.Writers
             if (waveReduction.UseForeshoreProfile.HasValue)
             {
                 writer.WriteElementString(ConfigurationSchemaIdentifiers.UseForeshore, XmlConvert.ToString(waveReduction.UseForeshoreProfile.Value));
+            }
+
+            writer.WriteEndElement();
+        }
+
+        /// <summary>
+        /// Writes the common properties of structure configurations to file, without closing the element.
+        /// </summary>
+        /// <param name="writer">The writer to use to write the properties.</param>
+        /// <param name="structureCalculation">The common properties to write.</param>
+        public static void WriteStartCommonStructureProperties(this XmlWriter writer, StructureCalculationConfiguration structureCalculation)
+        {
+            if (writer == null)
+            {
+                throw new ArgumentNullException(nameof(writer));
+            }
+            if (structureCalculation == null)
+            {
+                throw new ArgumentNullException(nameof(structureCalculation));
+            }
+
+            writer.WriteStartElement(ConfigurationSchemaIdentifiers.CalculationElement);
+            writer.WriteAttributeString(ConfigurationSchemaIdentifiers.NameAttribute, structureCalculation.Name);
+
+            if (structureCalculation.FailureProbabilityStructureWithErosion.HasValue)
+            {
+                writer.WriteElementString(
+                    ConfigurationSchemaIdentifiers.FailureProbabilityStructureWithErosionElement,
+                    XmlConvert.ToString(structureCalculation.FailureProbabilityStructureWithErosion.Value));
+            }
+            if (structureCalculation.StructureNormalOrientation.HasValue)
+            {
+                writer.WriteElementString(
+                    ConfigurationSchemaIdentifiers.Orientation,
+                    XmlConvert.ToString(structureCalculation.StructureNormalOrientation.Value));
+            }
+
+            if (structureCalculation.HydraulicBoundaryLocationName != null)
+            {
+                writer.WriteElementString(
+                    ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
+                    structureCalculation.HydraulicBoundaryLocationName);
+            }
+
+            if (structureCalculation.StructureName != null)
+            {
+                writer.WriteElementString(
+                    ConfigurationSchemaIdentifiers.StructureElement,
+                    structureCalculation.StructureName);
+            }
+
+            if (structureCalculation.ForeshoreProfileName != null)
+            {
+                writer.WriteElementString(
+                    ConfigurationSchemaIdentifiers.ForeshoreProfileNameElement,
+                    structureCalculation.ForeshoreProfileName);
+            }
+
+            if (structureCalculation.WaveReduction != null)
+            {
+                writer.WriteWaveReduction(structureCalculation.WaveReduction);
+            }
+
+            writer.WriteStartElement(ConfigurationSchemaIdentifiers.StochastsElement);
+
+            if (structureCalculation.FlowWidthAtBottomProtection != null)
+            {
+                writer.WriteDistribution(ConfigurationSchemaIdentifiers.FlowWidthAtBottomProtectionStochastName, structureCalculation.FlowWidthAtBottomProtection);
+            }
+            if (structureCalculation.WidthFlowApertures != null)
+            {
+                writer.WriteDistribution(ConfigurationSchemaIdentifiers.WidthFlowAperturesStochastName, structureCalculation.WidthFlowApertures);
+            }
+            if (structureCalculation.StorageStructureArea != null)
+            {
+                writer.WriteDistribution(ConfigurationSchemaIdentifiers.StorageStructureAreaStochastName, structureCalculation.StorageStructureArea);
+            }
+            if (structureCalculation.CriticalOvertoppingDischarge != null)
+            {
+                writer.WriteDistribution(ConfigurationSchemaIdentifiers.CriticalOvertoppingDischargeStochastName, structureCalculation.CriticalOvertoppingDischarge);
+            }
+            if (structureCalculation.ModelFactorSuperCriticalFlow != null)
+            {
+                writer.WriteDistribution(ConfigurationSchemaIdentifiers.ModelFactorSuperCriticalFlowStochastName, structureCalculation.ModelFactorSuperCriticalFlow);
+            }
+            if (structureCalculation.AllowedLevelIncreaseStorage != null)
+            {
+                writer.WriteDistribution(ConfigurationSchemaIdentifiers.AllowedLevelIncreaseStorageStochastName, structureCalculation.AllowedLevelIncreaseStorage);
+            }
+            if (structureCalculation.StormDuration != null)
+            {
+                writer.WriteDistribution(ConfigurationSchemaIdentifiers.StormDurationStochastName, structureCalculation.StormDuration);
             }
 
             writer.WriteEndElement();
