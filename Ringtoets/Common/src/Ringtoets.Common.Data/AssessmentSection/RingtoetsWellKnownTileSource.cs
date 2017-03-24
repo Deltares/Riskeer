@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Utils.Attributes;
+using Ringtoets.Common.Data.Properties;
+
 namespace Ringtoets.Common.Data.AssessmentSection
 {
     /// <summary>
@@ -26,11 +29,22 @@ namespace Ringtoets.Common.Data.AssessmentSection
     /// </summary>
     public enum RingtoetsWellKnownTileSource
     {
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.RingtoetsWellKnownTileSource_OpenStreetMap_DisplayName))]
         OpenStreetMap = 1,
+
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.RingtoetsWellKnownTileSource_BingAerial_DisplayName))]
         BingAerial = 2,
+
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.RingtoetsWellKnownTileSource_BingHybrid_DisplayName))]
         BingHybrid = 3,
+
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.RingtoetsWellKnownTileSource_BingRoads_DisplayName))]
         BingRoads = 4,
+
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.RingtoetsWellKnownTileSource_EsriWorldTopo_DisplayName))]
         EsriWorldTopo = 5,
+
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.RingtoetsWellKnownTileSource_EsriWorldShadedRelief_DisplayName))]
         EsriWorldShadedRelief = 6
     }
 }

@@ -115,7 +115,8 @@ namespace Ringtoets.Common.Utils.Test.TypeConverters
             Assert.AreEqual(mapData.Transparency, backgroundData.Transparency);
 
             var configuration = (WellKnownBackgroundDataConfiguration) backgroundData.Configuration;
-            Assert.AreEqual(mapData.TileSource, configuration.WellKnownTileSource);
+            var mapDataTileSource = (RingtoetsWellKnownTileSource) mapData.TileSource;
+            Assert.AreEqual(mapDataTileSource, configuration.WellKnownTileSource);
         }
 
         [Test]

@@ -36,22 +36,22 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
                 return new Dictionary<RingtoetsWellKnownTileSource, string>
                 {
                     {
-                        RingtoetsWellKnownTileSource.OpenStreetMap, null
+                        RingtoetsWellKnownTileSource.OpenStreetMap, "OpenStreetMap"
                     },
                     {
-                        RingtoetsWellKnownTileSource.BingAerial, null
+                        RingtoetsWellKnownTileSource.BingAerial, "Bing Maps - Satelliet"
                     },
                     {
-                        RingtoetsWellKnownTileSource.BingHybrid, null
+                        RingtoetsWellKnownTileSource.BingHybrid, "Bing Maps - Satelliet + Wegen"
                     },
                     {
-                        RingtoetsWellKnownTileSource.BingRoads, null
+                        RingtoetsWellKnownTileSource.BingRoads, "Bing Maps - Wegen"
                     },
                     {
-                        RingtoetsWellKnownTileSource.EsriWorldTopo, null
+                        RingtoetsWellKnownTileSource.EsriWorldTopo, "Esri World - Topografisch"
                     },
                     {
-                        RingtoetsWellKnownTileSource.EsriWorldShadedRelief, null
+                        RingtoetsWellKnownTileSource.EsriWorldShadedRelief, "Esri World - Reliëf"
                     }
                 };
             }

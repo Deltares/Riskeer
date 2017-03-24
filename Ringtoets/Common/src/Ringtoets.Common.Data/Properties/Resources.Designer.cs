@@ -499,6 +499,60 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bing Maps - Satelliet.
+        /// </summary>
+        public static string RingtoetsWellKnownTileSource_BingAerial_DisplayName {
+            get {
+                return ResourceManager.GetString("RingtoetsWellKnownTileSource_BingAerial_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bing Maps - Satelliet + Wegen.
+        /// </summary>
+        public static string RingtoetsWellKnownTileSource_BingHybrid_DisplayName {
+            get {
+                return ResourceManager.GetString("RingtoetsWellKnownTileSource_BingHybrid_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bing Maps - Wegen.
+        /// </summary>
+        public static string RingtoetsWellKnownTileSource_BingRoads_DisplayName {
+            get {
+                return ResourceManager.GetString("RingtoetsWellKnownTileSource_BingRoads_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Esri World - Reliëf.
+        /// </summary>
+        public static string RingtoetsWellKnownTileSource_EsriWorldShadedRelief_DisplayName {
+            get {
+                return ResourceManager.GetString("RingtoetsWellKnownTileSource_EsriWorldShadedRelief_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Esri World - Topografisch.
+        /// </summary>
+        public static string RingtoetsWellKnownTileSource_EsriWorldTopo_DisplayName {
+            get {
+                return ResourceManager.GetString("RingtoetsWellKnownTileSource_EsriWorldTopo_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OpenStreetMap.
+        /// </summary>
+        public static string RingtoetsWellKnownTileSource_OpenStreetMap_DisplayName {
+            get {
+                return ResourceManager.GetString("RingtoetsWellKnownTileSource_OpenStreetMap_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0..
         /// </summary>
         public static string StandardDeviation_Should_be_greater_or_equal_zero {

@@ -148,7 +148,7 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(0.0, section.BackgroundData.Transparency.Value);
             Assert.AreEqual("Bing Maps - Satelliet", section.BackgroundData.Name);
             var configuration = (WellKnownBackgroundDataConfiguration) section.BackgroundData.Configuration;
-            Assert.AreEqual(WellKnownTileSource.BingAerial, configuration.WellKnownTileSource);
+            Assert.AreEqual(RingtoetsWellKnownTileSource.BingAerial, configuration.WellKnownTileSource);
         }
 
         [Test]

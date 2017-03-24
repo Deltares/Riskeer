@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Core.Common.TestUtil;
-using Core.Components.Gis.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 
@@ -100,7 +99,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(isVisible, backgroundData.IsVisible);
             Assert.AreEqual(transparancy, backgroundData.Transparency.Value);
             Assert.AreEqual(name, backgroundData.Name);
-            
+
             Assert.IsNotNull(backgroundData.Configuration);
             var configuration = (WmtsBackgroundDataConfiguration) backgroundData.Configuration;
             Assert.AreEqual(isConfigured, configuration.IsConfigured);
@@ -117,10 +116,10 @@ namespace Application.Ringtoets.Storage.Test.Read
             const bool isVisible = false;
             const double transparancy = 0.4;
 
-            BackgroundMapDataType backgroundMapDataType = BackgroundMapDataType.WellKnown;
+            const BackgroundMapDataType backgroundMapDataType = BackgroundMapDataType.WellKnown;
 
             var random = new Random(21);
-            var wellKnownTileSource = random.NextEnumValue<WellKnownTileSource>();
+            var wellKnownTileSource = random.NextEnumValue<RingtoetsWellKnownTileSource>();
 
             var entity = new BackgroundDataEntity
             {

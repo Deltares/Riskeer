@@ -28,7 +28,6 @@ using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
-using Core.Components.Gis.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
@@ -104,7 +103,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             const BackgroundMapDataType backgroundMapDataType = BackgroundMapDataType.WellKnown;
 
             var random = new Random(21);
-            var wellKnownTileSource = random.NextEnumValue<WellKnownTileSource>();
+            var wellKnownTileSource = random.NextEnumValue<RingtoetsWellKnownTileSource>();
             string wellKnownTileSourceValue = ((int)wellKnownTileSource).ToString();
 
             var backgroundDataMetaEntities = new[]

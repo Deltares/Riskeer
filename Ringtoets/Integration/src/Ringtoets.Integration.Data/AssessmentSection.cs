@@ -64,7 +64,7 @@ namespace Ringtoets.Integration.Data
             BackgroundData = new BackgroundData(new WellKnownBackgroundDataConfiguration(defaultWellKnownTileSource))
             {
                 IsVisible = true,
-                Name = TypeUtils.GetDisplayName(defaultWellKnownTileSource)
+                Name = "Bing Maps - Satelliet"
             };
 
             PipingFailureMechanism = new PipingFailureMechanism();

@@ -618,7 +618,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             Assert.AreEqual(mapData.Transparency, backgroundData.Transparency);
 
             var configuration = (WellKnownBackgroundDataConfiguration) backgroundData.Configuration;
-            Assert.AreEqual(mapData.TileSource, configuration.WellKnownTileSource);
+            var wellKnownTileSource = (RingtoetsWellKnownTileSource) mapData.TileSource;
+            Assert.AreEqual(wellKnownTileSource, configuration.WellKnownTileSource);
         }
 
         private static TreeNodeInfo GetInfo(RingtoetsPlugin plugin)
