@@ -68,6 +68,8 @@ namespace Ringtoets.Common.Utils.TypeConverters
         /// <exception cref="InvalidEnumArgumentException">Thrown when
         /// <see cref="WellKnownBackgroundDataConfiguration.WellKnownTileSource"/> contains an 
         /// invalid value for <see cref="WellKnownTileSource"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="BackgroundData.Configuration"/>
+        /// doesn't is of a type that can be converted.</exception>
         public static ImageBasedMapData ConvertFrom(BackgroundData backgroundData)
         {
             if (backgroundData == null)
@@ -75,25 +77,36 @@ namespace Ringtoets.Common.Utils.TypeConverters
                 throw new ArgumentNullException(nameof(backgroundData));
             }
 
-            ImageBasedMapData mapData = null;
-
-            var wmtsBackgroundDataConfiguration = backgroundData.Configuration as WmtsBackgroundDataConfiguration;
-            if (wmtsBackgroundDataConfiguration != null)
-            {
-                mapData = CreateWmtsMapData(wmtsBackgroundDataConfiguration);
-            }
-
-            var wellKnownBackgroundDataConfiguration = backgroundData.Configuration as WellKnownBackgroundDataConfiguration;
-            if (wellKnownBackgroundDataConfiguration != null)
-            {
-                mapData = CreateWellKnownMapdata(wellKnownBackgroundDataConfiguration);
-            }
+            ImageBasedMapData mapData = CreateMapData(backgroundData);
 
             mapData.Name = backgroundData.Name;
             mapData.IsVisible = backgroundData.IsVisible;
             mapData.Transparency = backgroundData.Transparency;
 
             return mapData;
+        }
+
+        /// <summary>
+        /// Creates the map data with data of the <see cref="IBackgroundDataConfiguration"/>.
+        /// </summary>
+        /// <param name="backgroundData">The background data to get the configuration from
+        /// and create the data for.</param>
+        /// <returns>The created <see cref="ImageBasedMapData"/>.</returns>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="BackgroundData.Configuration"/>
+        /// doesn't is of a type that can be converted.</exception>
+        private static ImageBasedMapData CreateMapData(BackgroundData backgroundData)
+        {
+            var wmtsBackgroundDataConfiguration = backgroundData.Configuration as WmtsBackgroundDataConfiguration;
+            if (wmtsBackgroundDataConfiguration != null)
+            {
+                return CreateWmtsMapData(wmtsBackgroundDataConfiguration);
+            }
+            var wellKnownBackgroundDataConfiguration = backgroundData.Configuration as WellKnownBackgroundDataConfiguration;
+            if (wellKnownBackgroundDataConfiguration != null)
+            {
+                return CreateWellKnownMapdata(wellKnownBackgroundDataConfiguration);
+            }
+            throw new NotSupportedException($"Can't create a image based map data for {backgroundData.Configuration.GetType()}.");
         }
 
         /// <summary>

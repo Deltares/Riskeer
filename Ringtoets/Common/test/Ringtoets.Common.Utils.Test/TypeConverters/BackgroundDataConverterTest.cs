@@ -34,7 +34,7 @@ using Ringtoets.Common.Utils.TypeConverters;
 namespace Ringtoets.Common.Utils.Test.TypeConverters
 {
     [TestFixture]
-    public class BackgroundDataConverterTest
+    public class BackgroundDataConverterTestW
     {
         private static IEnumerable<TestCaseData> WmtsMapDatas
         {
@@ -69,7 +69,7 @@ namespace Ringtoets.Common.Utils.Test.TypeConverters
 
             // Assert
             var exception = Assert.Throws<NotSupportedException>(call);
-            string expectedMessage = $"Can't create a background data configuration for {unsupportedImageBasedMapData.GetType()}.";
+            string expectedMessage = $"Can't create a background data configuration for {typeof(TestImageBasedMapData)}.";
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -127,6 +127,21 @@ namespace Ringtoets.Common.Utils.Test.TypeConverters
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("backgroundData", exception.ParamName);
+        }
+
+        [Test]
+        public void ConvertFrom_ConfigurationTypeNotSupportedForConversion_ThrowNotSupportedException()
+        {
+            // Setup
+            var backgroundData = new BackgroundData(new TestBackgroundDataConfiguration());
+
+            // Call
+            TestDelegate test = () => BackgroundDataConverter.ConvertFrom(backgroundData);
+
+            // Assert
+            var exception = Assert.Throws<NotSupportedException>(test);
+            string expectedMessage = $"Can't create a image based map data for {typeof(TestBackgroundDataConfiguration)}.";
+            Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]
