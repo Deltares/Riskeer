@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
 using Core.Common.Base.IO;
@@ -60,15 +59,14 @@ namespace Core.Components.Gis.IO.Readers
         {
             IOUtils.ValidateFilePath(path);
 
-            var readConnectionInfos = new WmtsConnectionInfo[0];
             if (!File.Exists(path))
             {
-                return new ReadOnlyCollection<WmtsConnectionInfo>(readConnectionInfos);
+                return new ReadOnlyCollection<WmtsConnectionInfo>(new WmtsConnectionInfo[0]);
             }
 
             try
             {
-                readConnectionInfos = ReadWmtsConnectionInfosFromFile(path).ToArray();
+                return ReadWmtsConnectionInfosFromFile(path);
             }
             catch (Exception exception) when (exception is XmlException
                                               || exception is InvalidOperationException
@@ -78,7 +76,6 @@ namespace Core.Components.Gis.IO.Readers
                     .Build(CoreCommonUtilsResources.Error_General_IO_Import_ErrorMessage);
                 throw new CriticalFileReadException(message, exception);
             }
-            return new ReadOnlyCollection<WmtsConnectionInfo>(readConnectionInfos);
         }
 
         /// <summary>
@@ -89,27 +86,7 @@ namespace Core.Components.Gis.IO.Readers
         {
             using (XmlReader reader = XmlReader.Create(new StringReader(Resources.defaultWmtsConnectionInfo)))
             {
-                var connectionInfos = new List<WmtsConnectionInfo>();
-                while (reader.Read())
-                {
-                    if (IsReadElementWmtsConnectionElement(reader))
-                    {
-                        continue;
-                    }
-
-                    WmtsConnectionInfo readWmtsConnectionElement;
-                    using (XmlReader subtreeReader = reader.ReadSubtree())
-                    {
-                        XElement wmtsConnectionElement = XElement.Load(subtreeReader);
-
-                        readWmtsConnectionElement = CreateWmtsConnectionInfo(wmtsConnectionElement);
-                    }
-                    if (readWmtsConnectionElement != null)
-                    {
-                        connectionInfos.Add(readWmtsConnectionElement);
-                    }
-                }
-                return new ReadOnlyCollection<WmtsConnectionInfo>(connectionInfos);
+                return ReadWntsConnectionInfosFromReader(reader, CreateWmtsConnectionInfo);
             }
         }
 
@@ -120,33 +97,49 @@ namespace Core.Components.Gis.IO.Readers
         /// <returns>The read collection.</returns>
         /// <exception cref="XmlException">Thrown when an error occurred while parsing the XML.</exception>
         /// <exception cref="InvalidOperationException">Thrown when an error occurred while reading the XML.</exception>
-        private static IEnumerable<WmtsConnectionInfo> ReadWmtsConnectionInfosFromFile(string path)
+        private static ReadOnlyCollection<WmtsConnectionInfo> ReadWmtsConnectionInfosFromFile(string path)
         {
             using (XmlReader reader = XmlReader.Create(path))
             {
-                var connectionInfos = new List<WmtsConnectionInfo>();
-                while (reader.Read())
-                {
-                    if (IsReadElementWmtsConnectionElement(reader))
-                    {
-                        continue;
-                    }
-
-                    WmtsConnectionInfo readWmtsConnectionElement;
-                    using (XmlReader subtreeReader = reader.ReadSubtree())
-                    {
-                        XElement wmtsConnectionElement = XElement.Load(subtreeReader);
-
-                        readWmtsConnectionElement = TryCreateWmtsConnectionInfo(path, wmtsConnectionElement);
-                    }
-
-                    if (readWmtsConnectionElement != null)
-                    {
-                        connectionInfos.Add(readWmtsConnectionElement);
-                    }
-                }
-                return connectionInfos;
+                return ReadWntsConnectionInfosFromReader(reader, element => TryCreateWmtsConnectionInfo(path, element));
             }
+        }
+
+        /// <summary>
+        /// Reads the collection of <see cref="WmtsConnectionInfo"/> from an <see cref="XmlReader"/>.
+        /// </summary>
+        /// <param name="reader">The reader to use.</param>
+        /// <param name="tryParseWmtsConnectionElement">Method responsible to turning an
+        /// <see cref="XElement"/> into a <see cref="WmtsConnectionInfo"/>. This method may
+        /// return <c>null</c> or throw any type of <see cref="Exception"/>.</param>
+        /// <returns></returns>
+        /// <remarks>This method only throws exceptions thrown by <paramref name="tryParseWmtsConnectionElement"/>.</remarks>
+        /// <exception cref="XmlException">Thrown when an error occurred while parsing the XML.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when an error occurred while reading the XML.</exception>
+        private static ReadOnlyCollection<WmtsConnectionInfo> ReadWntsConnectionInfosFromReader(XmlReader reader,
+                                                                                                Func<XElement, WmtsConnectionInfo> tryParseWmtsConnectionElement)
+        {
+            var connectionInfos = new List<WmtsConnectionInfo>();
+            while (reader.Read())
+            {
+                if (IsReadElementWmtsConnectionElement(reader))
+                {
+                    continue;
+                }
+
+                WmtsConnectionInfo readWmtsConnectionElement;
+                using (XmlReader subtreeReader = reader.ReadSubtree())
+                {
+                    XElement wmtsConnectionElement = XElement.Load(subtreeReader);
+
+                    readWmtsConnectionElement = tryParseWmtsConnectionElement(wmtsConnectionElement);
+                }
+                if (readWmtsConnectionElement != null)
+                {
+                    connectionInfos.Add(readWmtsConnectionElement);
+                }
+            }
+            return new ReadOnlyCollection<WmtsConnectionInfo>(connectionInfos);
         }
 
         /// <summary>
@@ -193,7 +186,7 @@ namespace Core.Components.Gis.IO.Readers
             XElement nameElement = element.Element(WmtsConnectionInfoXmlDefinitions.WmtsConnectionNameElement);
             XElement urlElement = element.Element(WmtsConnectionInfoXmlDefinitions.WmtsConnectionUrlElement);
 
-            return new WmtsConnectionInfo(nameElement?.Value, urlElement?.Value);
+            return new WmtsConnectionInfo(nameElement.Value, urlElement.Value);
         }
     }
 }
