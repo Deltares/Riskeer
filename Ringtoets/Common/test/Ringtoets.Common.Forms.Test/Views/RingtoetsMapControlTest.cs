@@ -315,7 +315,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 ImageBasedMapData oldBackgroundMapData = control.BackgroundMapData;
 
                 // When
-                ((WellKnownBackgroundDataConfiguration) backgroundData.Configuration).WellKnownTileSource = WellKnownTileSource.BingRoads;
+                backgroundData.Configuration = new WellKnownBackgroundDataConfiguration(WellKnownTileSource.BingRoads);
                 backgroundData.NotifyObservers();
 
                 // Then

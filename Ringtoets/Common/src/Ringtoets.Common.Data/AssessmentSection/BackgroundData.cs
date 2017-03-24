@@ -86,7 +86,10 @@ namespace Ringtoets.Common.Data.AssessmentSection
                 transparency = newValue;
             }
         }
-        
+
+        /// <summary>
+        /// Gets or sets the configuration of the background data.
+        /// </summary>
         public IBackgroundDataConfiguration Configuration { get; set; }
     }
 }
