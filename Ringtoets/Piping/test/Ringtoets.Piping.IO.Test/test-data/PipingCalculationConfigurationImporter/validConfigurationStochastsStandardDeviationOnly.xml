@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <berekening naam="Calculation">
+    <stochasten>
+      <stochast naam="polderpeil">
+        <standaardafwijking>5.5</standaardafwijking>
+      </stochast>
+      <stochast naam="dempingsfactor">
+        <standaardafwijking>7.7</standaardafwijking>
+      </stochast>
+    </stochasten>
+  </berekening>
+</configuratie>
