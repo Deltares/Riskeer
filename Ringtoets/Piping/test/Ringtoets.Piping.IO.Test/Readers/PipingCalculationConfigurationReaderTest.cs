@@ -35,7 +35,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
     public class PipingCalculationConfigurationReaderTest
     {
         private readonly string testDirectoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO,
-                                                                               "PipingCalculationConfigurationReader");
+                                                                               nameof(PipingCalculationConfigurationReader));
 
         private static IEnumerable<TestCaseData> InvalidConfigurations
         {
@@ -188,8 +188,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
 
-            var calculation = readConfigurationItems[0] as ReadPipingCalculation;
-            Assert.IsNotNull(calculation);
+            var calculation = (ReadPipingCalculation) readConfigurationItems[0];
             Assert.AreEqual("Calculation", calculation.Name);
             Assert.IsNull(calculation.AssessmentLevel);
             Assert.IsNull(calculation.HydraulicBoundaryLocation);
@@ -217,8 +216,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
 
-            var calculation = readConfigurationItems[0] as ReadPipingCalculation;
-            Assert.IsNotNull(calculation);
+            var calculation = (ReadPipingCalculation) readConfigurationItems[0];
             Assert.IsNull(calculation.PhreaticLevelExitMean);
             Assert.IsNull(calculation.PhreaticLevelExitStandardDeviation);
             Assert.IsNull(calculation.DampingFactorExitMean);
@@ -238,8 +236,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
 
-            var calculation = readConfigurationItems[0] as ReadPipingCalculation;
-            Assert.IsNotNull(calculation);
+            var calculation = (ReadPipingCalculation) readConfigurationItems[0];
             Assert.IsNaN(calculation.AssessmentLevel);
             Assert.IsNaN(calculation.EntryPointL);
             Assert.IsNaN(calculation.ExitPointL);
@@ -262,8 +259,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
 
-            var calculation = readConfigurationItems[0] as ReadPipingCalculation;
-            Assert.IsNotNull(calculation);
+            var calculation = (ReadPipingCalculation) readConfigurationItems[0];
 
             Assert.IsNotNull(calculation.AssessmentLevel);
             Assert.IsNotNull(calculation.EntryPointL);
@@ -295,8 +291,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
 
-            var calculation = readConfigurationItems[0] as ReadPipingCalculation;
-            Assert.IsNotNull(calculation);
+            var calculation = (ReadPipingCalculation) readConfigurationItems[0];
             Assert.AreEqual("Calculation", calculation.Name);
             Assert.IsNull(calculation.AssessmentLevel);
             Assert.AreEqual("HRlocatie", calculation.HydraulicBoundaryLocation);
@@ -324,8 +319,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
 
-            var calculation = readConfigurationItems[0] as ReadPipingCalculation;
-            Assert.IsNotNull(calculation);
+            var calculation = (ReadPipingCalculation) readConfigurationItems[0];
             Assert.AreEqual("Calculation", calculation.Name);
             Assert.AreEqual(1.1, calculation.AssessmentLevel);
             Assert.IsNull(calculation.HydraulicBoundaryLocation);
@@ -353,8 +347,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
 
-            var calculation = readConfigurationItems[0] as ReadPipingCalculation;
-            Assert.IsNotNull(calculation);
+            var calculation = (ReadPipingCalculation) readConfigurationItems[0];
             Assert.AreEqual("Calculation", calculation.Name);
             Assert.AreEqual(1.1, calculation.AssessmentLevel);
             Assert.IsNull(calculation.HydraulicBoundaryLocation);
@@ -373,7 +366,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
         public void Read_ValidConfigurationWithMissingStochastMean_ExpectedValues()
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, "validConfigurationStochastNoMean.xml");
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationStochastsNoMean.xml");
             var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
@@ -382,8 +375,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
 
-            var calculation = readConfigurationItems[0] as ReadPipingCalculation;
-            Assert.IsNotNull(calculation);
+            var calculation = (ReadPipingCalculation) readConfigurationItems[0];
             Assert.IsNull(calculation.PhreaticLevelExitMean);
             Assert.AreEqual(0.1, calculation.PhreaticLevelExitStandardDeviation);
             Assert.IsNull(calculation.DampingFactorExitMean);
@@ -394,7 +386,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
         public void Read_ValidConfigurationWithMissingStochastStandardDeviation_ExpectedValues()
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, "validConfigurationStochastNoStandardDeviation.xml");
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationStochastsNoStandardDeviation.xml");
             var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
@@ -403,8 +395,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
 
-            var calculation = readConfigurationItems[0] as ReadPipingCalculation;
-            Assert.IsNotNull(calculation);
+            var calculation = (ReadPipingCalculation) readConfigurationItems[0];
             Assert.AreEqual(0.0, calculation.PhreaticLevelExitMean);
             Assert.IsNull(calculation.PhreaticLevelExitStandardDeviation);
             Assert.AreEqual(6.6, calculation.DampingFactorExitMean);
@@ -415,7 +406,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
         public void Read_ValidConfigurationWithEmptyStochast_ExpectedValues()
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, "validConfigurationEmptyStochast.xml");
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationEmptyStochasts.xml");
             var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
@@ -424,8 +415,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
 
-            var calculation = readConfigurationItems[0] as ReadPipingCalculation;
-            Assert.IsNotNull(calculation);
+            var calculation = (ReadPipingCalculation) readConfigurationItems[0];
             Assert.IsNull(calculation.PhreaticLevelExitMean);
             Assert.IsNull(calculation.PhreaticLevelExitStandardDeviation);
             Assert.IsNull(calculation.DampingFactorExitMean);

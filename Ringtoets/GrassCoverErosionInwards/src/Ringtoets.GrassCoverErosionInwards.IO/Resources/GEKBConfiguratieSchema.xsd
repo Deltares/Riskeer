@@ -67,9 +67,6 @@ All rights reserved.
   <!--Generieke definitie voor de standaardafwijking van een stochast.-->
   <xs:include schemaLocation="StochastStandardDeviationSchema.xsd"/>
 
-  <!--Generieke definitie voor de variatiecoefficient van een stochast.-->
-  <xs:include schemaLocation="StochastVariationCoefficientSchema.xsd"/>
-
   <!--Volgende elementen zijn specifiek voor dit toetsspoor.-->
   
   <!--Specificeert het geselecteerde dijkprofiel. In dit element moet de naam van

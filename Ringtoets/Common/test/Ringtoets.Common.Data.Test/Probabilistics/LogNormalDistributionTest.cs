@@ -206,6 +206,9 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             // Assert
             Assert.IsInstanceOf<LogNormalDistribution>(clone);
             var clonedDistribution = (LogNormalDistribution)clone;
+            Assert.AreNotSame(distribution, clonedDistribution);
+            Assert.AreNotSame(distribution.Mean, clonedDistribution.Mean);
+            Assert.AreNotSame(distribution.StandardDeviation, clonedDistribution.StandardDeviation);
             DistributionAssert.AreEqual(distribution, clonedDistribution);
         }
     }
