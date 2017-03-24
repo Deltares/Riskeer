@@ -26,6 +26,7 @@ using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.IO.Properties;
@@ -277,21 +278,30 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
         /// <c>false</c> otherwise.</returns>
         private bool TryReadCriticalWaveReduction(ReadGrassCoverErosionInwardsCalculation readCalculation, GrassCoverErosionInwardsCalculation calculation)
         {
-            return TryReadCriticalFlowRateMean(readCalculation, calculation) && TryReadCriticalFlowRateStandardDeviation(readCalculation, calculation);
-        }
-
-        private bool TryReadCriticalFlowRateMean(ReadGrassCoverErosionInwardsCalculation readCalculation, GrassCoverErosionInwardsCalculation calculation)
-        {
-            if (!readCalculation.CriticalFlowRateMean.HasValue)
+            if (!readCalculation.CriticalFlowRateMean.HasValue || !readCalculation.CriticalFlowRateStandardDeviation.HasValue)
             {
                 return true;
             }
 
+            double criticalFlowRateStandardDeviation = readCalculation.CriticalFlowRateStandardDeviation.Value;
             double criticalFlowRateMean = readCalculation.CriticalFlowRateMean.Value;
 
+            var distribution = new LogNormalDistribution();
+
+            if (!SetMean(distribution, criticalFlowRateMean, calculation.Name) || !SetStandardDeviation(distribution, criticalFlowRateStandardDeviation, calculation.Name))
+            {
+                return false;
+            }
+
+            calculation.InputParameters.CriticalFlowRate = distribution;
+            return true;
+        }
+
+        private bool SetMean(LogNormalDistribution distribution, double criticalFlowRateMean, string calculationName)
+        {
             try
             {
-                calculation.InputParameters.CriticalFlowRate.Mean = (RoundedDouble) criticalFlowRateMean;
+                distribution.Mean = (RoundedDouble) criticalFlowRateMean;
             }
             catch (ArgumentOutOfRangeException e)
             {
@@ -301,7 +311,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
 
                 LogOutOfRangeException(
                     errorMessage,
-                    calculation.Name,
+                    calculationName,
                     e);
 
                 return false;
@@ -309,18 +319,11 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
             return true;
         }
 
-        private bool TryReadCriticalFlowRateStandardDeviation(ReadGrassCoverErosionInwardsCalculation readCalculation, GrassCoverErosionInwardsCalculation calculation)
+        private bool SetStandardDeviation(LogNormalDistribution distribution, double criticalFlowRateStandardDeviation, string calculationName)
         {
-            if (!readCalculation.CriticalFlowRateStandardDeviation.HasValue)
-            {
-                return true;
-            }
-
-            double criticalFlowRateStandardDeviation = readCalculation.CriticalFlowRateStandardDeviation.Value;
-
             try
             {
-                calculation.InputParameters.CriticalFlowRate.StandardDeviation = (RoundedDouble) criticalFlowRateStandardDeviation;
+                distribution.StandardDeviation = (RoundedDouble) criticalFlowRateStandardDeviation;
             }
             catch (ArgumentOutOfRangeException e)
             {
@@ -330,7 +333,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
 
                 LogOutOfRangeException(
                     errorMessage,
-                    calculation.Name,
+                    calculationName,
                     e);
 
                 return false;
