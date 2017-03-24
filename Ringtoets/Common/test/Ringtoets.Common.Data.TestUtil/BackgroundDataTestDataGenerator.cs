@@ -19,8 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.ComponentModel;
-using Core.Common.Utils.Reflection;
+using System;
 using Core.Components.Gis.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 
@@ -56,14 +55,14 @@ namespace Ringtoets.Common.Data.TestUtil
         /// </summary>
         /// <param name="tileSource">The <see cref="RingtoetsWellKnownTileSource"/> to create the background data for.</param>
         /// <returns>The created <see cref="BackgroundData"/>.</returns>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="tileSource"/>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="tileSource"/>
         /// is an invalid <see cref="RingtoetsWellKnownTileSource"/>.</exception>
         public static BackgroundData GetWellKnownBackgroundMapData(RingtoetsWellKnownTileSource tileSource)
         {
             return new BackgroundData(new WellKnownBackgroundDataConfiguration(tileSource))
             {
                 IsVisible = true,
-                Name = TypeUtils.GetDisplayName(tileSource)
+                Name = tileSource.GetDisplayName()
             };
         }
     }

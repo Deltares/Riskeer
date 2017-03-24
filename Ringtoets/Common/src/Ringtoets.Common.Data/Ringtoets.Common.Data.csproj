@@ -45,6 +45,7 @@
     <Compile Include="AssessmentSection\ReferenceLine.cs" />
     <Compile Include="AssessmentSection\ReferenceLineMeta.cs" />
     <Compile Include="AssessmentSection\RingtoetsWellKnownTileSource.cs" />
+    <Compile Include="AssessmentSection\RingtoetsWellKnownTileSourceExtension.cs" />
     <Compile Include="AssessmentSection\WellKnownBackgroundDataConfiguration.cs" />
     <Compile Include="AssessmentSection\WmtsBackgroundDataConfiguration.cs" />
     <Compile Include="Comment.cs" />

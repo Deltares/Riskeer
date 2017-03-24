@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System;
-using System.ComponentModel;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Reflection;
 using Core.Components.Gis.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -91,7 +89,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
 
             var configuration = (WellKnownBackgroundDataConfiguration) backgroundData.Configuration;
 
-            string backgroundDataName = TypeUtils.GetDisplayName(wellKnownTileSource);
+            string backgroundDataName = wellKnownTileSource.GetDisplayName();
             Assert.AreEqual(backgroundDataName, backgroundData.Name);
             Assert.AreEqual(wellKnownTileSource, configuration.WellKnownTileSource);
         }
@@ -106,7 +104,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             TestDelegate call = () => BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData(invalidWellKnownTileSource);
 
             // Assert
-            Assert.Throws<InvalidEnumArgumentException>(call);
+            Assert.Throws<NotSupportedException>(call);
         }
     }
 }

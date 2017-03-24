@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
-using Core.Common.Utils.Reflection;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -48,8 +47,8 @@ namespace Ringtoets.Integration.Data
     /// </summary>
     public sealed class AssessmentSection : Observable, IAssessmentSection
     {
-        private ReferenceLine referenceLine;
         private const RingtoetsWellKnownTileSource defaultWellKnownTileSource = RingtoetsWellKnownTileSource.BingAerial;
+        private ReferenceLine referenceLine;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AssessmentSection"/> class.
@@ -63,8 +62,7 @@ namespace Ringtoets.Integration.Data
 
             BackgroundData = new BackgroundData(new WellKnownBackgroundDataConfiguration(defaultWellKnownTileSource))
             {
-                IsVisible = true,
-                Name = "Bing Maps - Satelliet"
+                Name = defaultWellKnownTileSource.GetDisplayName()
             };
 
             PipingFailureMechanism = new PipingFailureMechanism();
