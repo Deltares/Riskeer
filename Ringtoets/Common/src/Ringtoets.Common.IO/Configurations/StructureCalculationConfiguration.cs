@@ -30,6 +30,11 @@ namespace Ringtoets.Common.IO.Configurations
     {
         private string name;
 
+        /// <summary>
+        /// Creates a new instance of <see cref="StructureCalculationConfiguration"/>.
+        /// </summary>
+        /// <param name="name">The name of the <see cref="StructureCalculationConfiguration"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
         protected StructureCalculationConfiguration(string name)
         {
             Name = name;
@@ -38,6 +43,7 @@ namespace Ringtoets.Common.IO.Configurations
         /// <summary>
         /// Gets or sets the name of the calculation.
         /// </summary>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>
         public string Name
         {
             get

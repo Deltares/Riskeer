@@ -27,7 +27,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Common.IO.Test.Configurations;
 using Ringtoets.Common.IO.Writers;
 
 namespace Ringtoets.Common.IO.Test.Writers
