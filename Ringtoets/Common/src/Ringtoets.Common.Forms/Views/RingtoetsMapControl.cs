@@ -32,7 +32,7 @@ namespace Ringtoets.Common.Forms.Views
     /// </summary>
     public class RingtoetsMapControl : MapControl
     {
-        private readonly Observer backgroundMapDataObserver;
+        private readonly Observer backgroundDataObserver;
 
         private BackgroundData backgroundData;
 
@@ -41,7 +41,7 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         public RingtoetsMapControl()
         {
-            backgroundMapDataObserver = new Observer(OnBackgroundDataUpdated);
+            backgroundDataObserver = new Observer(OnBackgroundDataUpdated);
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace Ringtoets.Common.Forms.Views
             set
             {
                 backgroundData = value;
-                backgroundMapDataObserver.Observable = backgroundData;
+                backgroundDataObserver.Observable = backgroundData;
 
                 BackgroundMapData = backgroundData == null
                                         ? null
@@ -74,7 +74,7 @@ namespace Ringtoets.Common.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            backgroundMapDataObserver.Dispose();
+            backgroundDataObserver.Dispose();
 
             base.Dispose(disposing);
         }

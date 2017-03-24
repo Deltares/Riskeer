@@ -37,17 +37,15 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <returns>The created <see cref="BackgroundData"/>.</returns>
         public static BackgroundData GetWmtsBackgroundMapData(WmtsMapData wmtsMapData)
         {
-            var backgroundMapData = new BackgroundData(new WmtsBackgroundDataConfiguration(wmtsMapData.IsConfigured,
-                                                                                           wmtsMapData.SourceCapabilitiesUrl,
-                                                                                           wmtsMapData.SelectedCapabilityIdentifier,
-                                                                                           wmtsMapData.PreferredFormat))
+            return new BackgroundData(new WmtsBackgroundDataConfiguration(wmtsMapData.IsConfigured,
+                                                                          wmtsMapData.SourceCapabilitiesUrl,
+                                                                          wmtsMapData.SelectedCapabilityIdentifier,
+                                                                          wmtsMapData.PreferredFormat))
             {
                 Name = wmtsMapData.Name,
                 IsVisible = wmtsMapData.IsVisible,
                 Transparency = wmtsMapData.Transparency
             };
-
-            return backgroundMapData;
         }
 
         /// <summary>

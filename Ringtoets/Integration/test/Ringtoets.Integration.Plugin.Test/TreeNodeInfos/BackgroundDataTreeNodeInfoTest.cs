@@ -87,14 +87,14 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnsName()
         {
             // Setup
-            var backgroundMapData = new BackgroundData(new TestBackgroundDataConfiguration());
+            var backgroundData = new BackgroundData(new TestBackgroundDataConfiguration());
 
             using (var plugin = new RingtoetsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                string text = info.Text(backgroundMapData);
+                string text = info.Text(backgroundData);
 
                 // Assert
                 Assert.AreEqual("Achtergrondkaart", text);
@@ -105,14 +105,14 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var backgroundMapData = new BackgroundData(new TestBackgroundDataConfiguration());
+            var backgroundData = new BackgroundData(new TestBackgroundDataConfiguration());
 
             using (var plugin = new RingtoetsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                Image image = info.Image(backgroundMapData);
+                Image image = info.Image(backgroundData);
 
                 // Assert
                 TestHelper.AssertImagesAreEqual(Resources.Map, image);
@@ -181,14 +181,14 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void ForeColor_ArbitraryBackgroundDataConfiguration_ReturnControlText()
         {
             // Setup
-            var backgroundMapData = new BackgroundData(new TestBackgroundDataConfiguration());
+            var backgroundData = new BackgroundData(new TestBackgroundDataConfiguration());
 
             using (var plugin = new RingtoetsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                Color image = info.ForeColor(backgroundMapData);
+                Color image = info.ForeColor(backgroundData);
 
                 // Assert
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), image);
@@ -219,7 +219,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                 using (var plugin = new RingtoetsPlugin())
                 {
-                    var info = GetInfo(plugin);
+                    TreeNodeInfo info = GetInfo(plugin);
                     plugin.Gui = gui;
 
                     // Call
@@ -234,25 +234,25 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_ContextMenuItemSelectMapLayerEnabled()
         {
             // Setup
-            var backgroundMapData = new BackgroundData(new TestBackgroundDataConfiguration());
+            var backgroundData = new BackgroundData(new TestBackgroundDataConfiguration());
 
             var mockRepository = new MockRepository();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mockRepository.Stub<IGui>();
-                gui.Stub(g => g.Get(backgroundMapData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.Get(backgroundData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 mockRepository.ReplayAll();
 
                 using (var plugin = new RingtoetsPlugin())
                 {
-                    var info = GetInfo(plugin);
+                    TreeNodeInfo info = GetInfo(plugin);
                     plugin.Gui = gui;
 
                     // Call
-                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(backgroundMapData, assessmentSection, treeViewControl))
+                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(backgroundData, assessmentSection, treeViewControl))
                     {
                         const string expectedItemText = "&Selecteren...";
                         const string expectedItemTooltip = "Selecteer een achtergrondkaart.";
@@ -272,9 +272,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             // Given
             var mockRepository = new MockRepository();
             var tileFactory = mockRepository.StrictMock<ITileSourceFactory>();
-            WmtsMapData newMapData = new WmtsMapData("Actueel Hoogtebestand Nederland (AHN1)",
-                                                     "https://geodata.nationaalgeoregister.nl/tiles/service/wmts/ahn1?request=GetCapabilities",
-                                                     "()", "image/png");
+            var newMapData = new WmtsMapData("Actueel Hoogtebestand Nederland (AHN1)",
+                                             "https://geodata.nationaalgeoregister.nl/tiles/service/wmts/ahn1?request=GetCapabilities",
+                                             "()", "image/png");
             tileFactory.Expect(tf => tf.GetWmtsTileSources(null)).IgnoreArguments().Return(new[]
             {
                 new TestWmtsTileSource(newMapData)
@@ -282,8 +282,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSectionObserver = mockRepository.StrictMock<IObserver>();
             assessmentSectionObserver.Expect(o => o.UpdateObserver());
 
-            var backgroundMapDataObserver = mockRepository.StrictMock<IObserver>();
-            backgroundMapDataObserver.Expect(o => o.UpdateObserver());
+            var backgroundDataObserver = mockRepository.StrictMock<IObserver>();
+            backgroundDataObserver.Expect(o => o.UpdateObserver());
 
             WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
             BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(mapData);
@@ -309,7 +309,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                 var assessmentSection = new ObservableTestAssessmentSectionStub();
                 assessmentSection.Attach(assessmentSectionObserver);
-                assessmentSection.BackgroundData.Attach(backgroundMapDataObserver);
+                assessmentSection.BackgroundData.Attach(backgroundDataObserver);
 
                 DialogBoxHandler = (name, wnd) =>
                 {
@@ -340,9 +340,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             // Given
             var mockRepository = new MockRepository();
             var assessmentSectionObserver = mockRepository.StrictMock<IObserver>();
-            var backgroundMapDataObserver = mockRepository.StrictMock<IObserver>();
+            var backgroundDataObserver = mockRepository.StrictMock<IObserver>();
 
-            var backgroundMapData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData(RingtoetsWellKnownTileSource.BingHybrid);
+            BackgroundData backgroundMapData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData(RingtoetsWellKnownTileSource.BingHybrid);
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
@@ -364,7 +364,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                 var assessmentSection = new ObservableTestAssessmentSectionStub();
                 assessmentSection.Attach(assessmentSectionObserver);
-                assessmentSection.BackgroundData.Attach(backgroundMapDataObserver);
+                assessmentSection.BackgroundData.Attach(backgroundDataObserver);
 
                 BackgroundData oldBackgroundData = assessmentSection.BackgroundData;
 
@@ -398,13 +398,13 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSectionObserver = mockRepository.StrictMock<IObserver>();
             assessmentSectionObserver.Expect(o => o.UpdateObserver());
 
-            var backgroundMapDataObserver = mockRepository.StrictMock<IObserver>();
-            backgroundMapDataObserver.Expect(o => o.UpdateObserver());
+            var backgroundDataObserver = mockRepository.StrictMock<IObserver>();
+            backgroundDataObserver.Expect(o => o.UpdateObserver());
 
             WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
 
             WmtsMapData newMapData = WmtsMapData.CreateDefaultPdokMapData();
-            var newBackgroundMapdata = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(newMapData);
+            BackgroundData newBackgroundMapdata = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(newMapData);
 
             var assessmentSection = new ObservableTestAssessmentSectionStub();
 
@@ -428,7 +428,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 mockRepository.ReplayAll();
 
                 assessmentSection.Attach(assessmentSectionObserver);
-                assessmentSection.BackgroundData.Attach(backgroundMapDataObserver);
+                assessmentSection.BackgroundData.Attach(backgroundDataObserver);
                 SetBackgroundData(assessmentSection, mapData);
 
                 DialogBoxHandler = (name, wnd) =>
@@ -462,8 +462,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSectionObserver = mockRepository.StrictMock<IObserver>();
             assessmentSectionObserver.Expect(o => o.UpdateObserver());
 
-            var backgroundMapDataObserver = mockRepository.StrictMock<IObserver>();
-            backgroundMapDataObserver.Expect(o => o.UpdateObserver());
+            var backgroundDataObserver = mockRepository.StrictMock<IObserver>();
+            backgroundDataObserver.Expect(o => o.UpdateObserver());
 
             WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
 
@@ -471,7 +471,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             const WellKnownTileSource wellKnownTileSource = WellKnownTileSource.BingAerial;
             var newMapData = new WellKnownTileSourceMapData(wellKnownTileSource);
-            var newBackgroundData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData((RingtoetsWellKnownTileSource) wellKnownTileSource);
+            BackgroundData newBackgroundData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData((RingtoetsWellKnownTileSource) wellKnownTileSource);
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
@@ -492,7 +492,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 mockRepository.ReplayAll();
 
                 assessmentSection.Attach(assessmentSectionObserver);
-                assessmentSection.BackgroundData.Attach(backgroundMapDataObserver);
+                assessmentSection.BackgroundData.Attach(backgroundDataObserver);
                 SetBackgroundData(assessmentSection, mapData);
 
                 DialogBoxHandler = (name, wnd) =>
@@ -530,7 +530,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             // Given
             var mockRepository = new MockRepository();
             var assessmentSectionObserver = mockRepository.StrictMock<IObserver>();
-            var backgroundMapDataObserver = mockRepository.StrictMock<IObserver>();
+            var backgroundDataObserver = mockRepository.StrictMock<IObserver>();
 
             WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
             BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(mapData);
@@ -559,7 +559,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                 var assessmentSection = new ObservableTestAssessmentSectionStub();
                 assessmentSection.Attach(assessmentSectionObserver);
-                assessmentSection.BackgroundData.Attach(backgroundMapDataObserver);
+                assessmentSection.BackgroundData.Attach(backgroundDataObserver);
 
                 SetBackgroundData(assessmentSection, mapData);
 
@@ -605,7 +605,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             var configuration = (WmtsBackgroundDataConfiguration) backgroundData.Configuration;
             Assert.AreEqual(mapData.IsConfigured, configuration.IsConfigured);
-
             Assert.AreEqual(mapData.SourceCapabilitiesUrl, configuration.SourceCapabilitiesUrl);
             Assert.AreEqual(mapData.SelectedCapabilityIdentifier, configuration.SelectedCapabilityIdentifier);
             Assert.AreEqual(mapData.PreferredFormat, configuration.PreferredFormat);

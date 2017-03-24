@@ -121,7 +121,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
 
             using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
             {
-                var mapControl = (RingtoetsMapControl)view.Map;
+                var mapControl = (RingtoetsMapControl) view.Map;
 
                 var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(
                     new WaveImpactAsphaltCoverFailureMechanism(), assessmentSection);
@@ -140,7 +140,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             // Setup
             using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
             {
-                var mapControl = (RingtoetsMapControl)view.Map;
+                var mapControl = (RingtoetsMapControl) view.Map;
 
                 var assessmentSection = new ObservableTestAssessmentSectionStub();
 
@@ -284,7 +284,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
                                           mapDataList[calculationsIndex]);
             }
         }
-        
+
         [Test]
         public void UpdateObserver_AssessmentSectionUpdated_MapDataUpdated()
         {
