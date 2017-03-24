@@ -217,7 +217,7 @@ namespace Ringtoets.Revetment.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het opgegeven voorlandprofiel &apos;{0}&apos; heeft geen geometrie en kan daarom niet gebruikt worden..
+        ///   Looks up a localized string similar to Het opgegeven voorlandprofiel &apos;{0}&apos; heeft geen voorlandgeometrie en kan daarom niet gebruikt worden..
         /// </summary>
         internal static string WaveConditionsCalculationConfigurationImporter_ValidateWaveReduction_ForeshoreProfile_0_has_no_geometry_and_cannot_be_used {
             get {

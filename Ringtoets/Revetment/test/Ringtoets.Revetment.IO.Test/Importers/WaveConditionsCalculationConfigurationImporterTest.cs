@@ -213,7 +213,7 @@ namespace Ringtoets.Revetment.IO.Test.Importers
             Action call = () => successful = importer.Import();
 
             // Assert
-            const string expectedMessage = "Het opgegeven voorlandprofiel 'Voorlandprofiel' heeft geen geometrie en kan daarom niet gebruikt worden. Berekening 'Berekening 1' is overgeslagen.";
+            const string expectedMessage = "Het opgegeven voorlandprofiel 'Voorlandprofiel' heeft geen voorlandgeometrie en kan daarom niet gebruikt worden. Berekening 'Berekening 1' is overgeslagen.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error), 1);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
