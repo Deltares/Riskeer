@@ -390,7 +390,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     contextMenuStrip.Items[selectContextMenuIndex].PerformClick();
 
                     // Then
-                    AssertBackgroundData(oldBackgroundData, assessmentSection.BackgroundData);
+                    BackgroundDataTestHelper.AssertBackgroundData(oldBackgroundData, assessmentSection.BackgroundData);
                 }
             }
             mockRepository.VerifyAll();
@@ -585,7 +585,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     contextMenuStrip.Items[selectContextMenuIndex].PerformClick();
 
                     // Then
-                    AssertBackgroundData(backgroundData, assessmentSection.BackgroundData);
+                    BackgroundDataTestHelper.AssertBackgroundData(backgroundData, assessmentSection.BackgroundData);
                 }
             }
             mockRepository.VerifyAll();
@@ -625,43 +625,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             var configuration = (WellKnownBackgroundDataConfiguration) backgroundData.Configuration;
             Assert.AreEqual(mapData.TileSource, configuration.WellKnownTileSource);
-        }
-
-        private static void AssertBackgroundData(BackgroundData expectedBackgroundData, BackgroundData actualBackgroundData)
-        {
-            Assert.AreEqual(expectedBackgroundData.Name, actualBackgroundData.Name);
-            Assert.AreEqual(expectedBackgroundData.IsVisible, actualBackgroundData.IsVisible);
-            Assert.AreEqual(expectedBackgroundData.Transparency, actualBackgroundData.Transparency);
-
-            IBackgroundDataConfiguration backgroundDataConfiguration = expectedBackgroundData.Configuration;
-            var wmtsBackgroundDataConfiguration = backgroundDataConfiguration as WmtsBackgroundDataConfiguration;
-            if (wmtsBackgroundDataConfiguration != null)
-            {
-                var actualWmtsBackgroundDataConfiguration = (WmtsBackgroundDataConfiguration) actualBackgroundData.Configuration;
-                AssertWmtsBackgroundConfiguration(wmtsBackgroundDataConfiguration, actualWmtsBackgroundDataConfiguration);
-            }
-
-            var wellKnownBackgroundDataConfiguration = backgroundDataConfiguration as WellKnownBackgroundDataConfiguration;
-            if (wellKnownBackgroundDataConfiguration != null)
-            {
-                var actualWellKnownBackgroundDataConfiguration = (WellKnownBackgroundDataConfiguration) actualBackgroundData.Configuration;
-                AssertWellKnownBackgroundConfiguration(wellKnownBackgroundDataConfiguration, actualWellKnownBackgroundDataConfiguration);
-            }
-        }
-
-        private static void AssertWellKnownBackgroundConfiguration(WellKnownBackgroundDataConfiguration wellKnownBackgroundDataConfiguration,
-                                                                   WellKnownBackgroundDataConfiguration actualWellKnownBackgroundDataConfiguration)
-        {
-            Assert.AreEqual(wellKnownBackgroundDataConfiguration.WellKnownTileSource, actualWellKnownBackgroundDataConfiguration.WellKnownTileSource);
-        }
-
-        private static void AssertWmtsBackgroundConfiguration(WmtsBackgroundDataConfiguration expectedWmtsBackgroundDataConfiguration,
-                                                              WmtsBackgroundDataConfiguration actualWmtsBackgroundDataConfiguration)
-        {
-            Assert.AreEqual(expectedWmtsBackgroundDataConfiguration.IsConfigured, actualWmtsBackgroundDataConfiguration.IsConfigured);
-            Assert.AreEqual(expectedWmtsBackgroundDataConfiguration.SourceCapabilitiesUrl, actualWmtsBackgroundDataConfiguration.SourceCapabilitiesUrl);
-            Assert.AreEqual(expectedWmtsBackgroundDataConfiguration.SelectedCapabilityIdentifier, actualWmtsBackgroundDataConfiguration.SelectedCapabilityIdentifier);
-            Assert.AreEqual(expectedWmtsBackgroundDataConfiguration.PreferredFormat, actualWmtsBackgroundDataConfiguration.PreferredFormat);
         }
 
         private static TreeNodeInfo GetInfo(RingtoetsPlugin plugin)

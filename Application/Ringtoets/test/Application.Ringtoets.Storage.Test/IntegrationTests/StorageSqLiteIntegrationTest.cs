@@ -272,7 +272,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 Assert.AreEqual(expectedAssessmentSection.Name, actualAssessmentSection.Name);
                 AssertComments(expectedAssessmentSection.Comments, actualAssessmentSection.Comments);
 
-                AssertBackgroundData(expectedAssessmentSection.BackgroundData, actualAssessmentSection.BackgroundData);
+                BackgroundDataTestHelper.AssertBackgroundData(expectedAssessmentSection.BackgroundData, actualAssessmentSection.BackgroundData);
                 AssertHydraulicBoundaryDatabase(expectedAssessmentSection.HydraulicBoundaryDatabase, actualAssessmentSection.HydraulicBoundaryDatabase);
                 AssertReferenceLine(expectedAssessmentSection.ReferenceLine, actualAssessmentSection.ReferenceLine);
                 AssertPipingFailureMechanism(expectedAssessmentSection.PipingFailureMechanism, actualAssessmentSection.PipingFailureMechanism);
@@ -910,34 +910,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 File.Delete(filePath);
             }
         }
-
-        #region BackgroundData
-
-        private static void AssertBackgroundData(BackgroundData expectedBackgroundData, BackgroundData actualBackgroundData)
-        {
-            Assert.AreEqual(expectedBackgroundData.Name, actualBackgroundData.Name);
-            Assert.AreEqual(expectedBackgroundData.IsVisible, actualBackgroundData.IsVisible);
-            Assert.AreEqual(expectedBackgroundData.Transparency, actualBackgroundData.Transparency);
-
-            var wmtsBackgroundDataConfiguration = expectedBackgroundData.Configuration as WmtsBackgroundDataConfiguration;
-            if (wmtsBackgroundDataConfiguration != null)
-            {
-                var actualWmtsBackgroundDataConfiguration = (WmtsBackgroundDataConfiguration)actualBackgroundData.Configuration;
-                Assert.AreEqual(wmtsBackgroundDataConfiguration.IsConfigured, actualWmtsBackgroundDataConfiguration.IsConfigured);
-                Assert.AreEqual(wmtsBackgroundDataConfiguration.SourceCapabilitiesUrl, actualWmtsBackgroundDataConfiguration.SourceCapabilitiesUrl);
-                Assert.AreEqual(wmtsBackgroundDataConfiguration.SelectedCapabilityIdentifier, actualWmtsBackgroundDataConfiguration.SelectedCapabilityIdentifier);
-                Assert.AreEqual(wmtsBackgroundDataConfiguration.PreferredFormat, actualWmtsBackgroundDataConfiguration.PreferredFormat);
-            }
-
-            var wellKnownBackgroundDataConfiguration = expectedBackgroundData.Configuration as WellKnownBackgroundDataConfiguration;
-            if (wellKnownBackgroundDataConfiguration != null)
-            {
-                var actualWellKnownBackgroundDataConfiguration = (WellKnownBackgroundDataConfiguration)actualBackgroundData.Configuration;
-                Assert.AreEqual(wellKnownBackgroundDataConfiguration.WellKnownTileSource, actualWellKnownBackgroundDataConfiguration.WellKnownTileSource);
-            }
-        }
-
-        #endregion
 
         #region StabilityPointStructures FailureMechanism
 

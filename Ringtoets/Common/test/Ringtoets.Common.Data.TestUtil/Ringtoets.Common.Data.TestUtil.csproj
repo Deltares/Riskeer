@@ -55,6 +55,7 @@
     </Compile>
     <Compile Include="AssessmentSectionHelper.cs" />
     <Compile Include="BackgroundDataTestDataGenerator.cs" />
+    <Compile Include="BackgroundDataTestHelper.cs" />
     <Compile Include="CalculationType.cs" />
     <Compile Include="LimitedPrecisionHelper.cs" />
     <Compile Include="DistributionAssert.cs" />
