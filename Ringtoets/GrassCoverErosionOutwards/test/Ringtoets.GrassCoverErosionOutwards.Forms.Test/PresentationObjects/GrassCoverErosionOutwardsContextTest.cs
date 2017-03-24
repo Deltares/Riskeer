@@ -20,11 +20,13 @@
 // All rights reserved.
 
 using System;
+using System.Collections;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 
@@ -108,6 +110,28 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             Assert.AreSame(observable, context.WrappedData);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
+            Assert.AreSame(failureMechanism.ForeshoreProfiles, context.ForeshoreProfiles);
+            CollectionAssert.IsEmpty(context.HydraulicBoundaryLocations);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void HydraulicBoundaryLocations_Always_ReturnsHydraulicBoundaryLocationsFromFailureMechanism()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var target = mocks.StrictMock<IObservable>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var context = new SimpleGrassCoverErosionOutwardsContext(target, failureMechanism, assessmentSection);
+
+            // Call
+            var availableHydraulicBoundaryLocations = context.HydraulicBoundaryLocations;
+
+            // Assert
+            Assert.AreSame(failureMechanism.HydraulicBoundaryLocations, availableHydraulicBoundaryLocations);
             mocks.VerifyAll();
         }
 

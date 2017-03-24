@@ -27,7 +27,6 @@ using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Revetment.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects
@@ -76,7 +75,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects
         public IAssessmentSection AssessmentSection { get; private set; }
 
         /// <summary>
-        /// Gets the foreshore profiles which can be used to assign to a <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/>.
+        /// Gets the foreshore profiles currently known in the <see cref="FailureMechanism"/>.
         /// </summary>
         public IEnumerable<ForeshoreProfile> ForeshoreProfiles
         {
@@ -87,8 +86,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects
         }
 
         /// <summary>
-        /// Gets the hydraulic boundary locations in order for the user to select one to 
-        /// set <see cref="WaveConditionsInput.HydraulicBoundaryLocation"/>.
+        /// Gets the hydraulic boundary locations currently known in the <see cref="AssessmentSection"/>.
         /// </summary>
         public IEnumerable<HydraulicBoundaryLocation> HydraulicBoundaryLocations
         {

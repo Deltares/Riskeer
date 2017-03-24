@@ -104,8 +104,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                     new WaveConditionsCalculationConfigurationImporter<WaveImpactAsphaltCoverWaveConditionsCalculation>(
                         filePath,
                         context.WrappedData,
-                        context.AssessmentSection.HydraulicBoundaryDatabase.Locations,
-                        context.FailureMechanism.ForeshoreProfiles));
+                        context.HydraulicBoundaryLocations,
+                        context.ForeshoreProfiles));
         }
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()

@@ -106,8 +106,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     new WaveConditionsCalculationConfigurationImporter<GrassCoverErosionOutwardsWaveConditionsCalculation>(
                         filePath,
                         context.WrappedData,
-                        context.AssessmentSection.HydraulicBoundaryDatabase.Locations,
-                        context.FailureMechanism.ForeshoreProfiles));
+                        context.HydraulicBoundaryLocations,
+                        context.ForeshoreProfiles));
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()

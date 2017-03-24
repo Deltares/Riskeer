@@ -20,9 +20,13 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.StabilityStoneCover.Data;
 
 namespace Ringtoets.StabilityStoneCover.Forms.PresentationObjects
@@ -67,5 +71,29 @@ namespace Ringtoets.StabilityStoneCover.Forms.PresentationObjects
         /// Gets the assessment section which the context belongs to.
         /// </summary>
         public IAssessmentSection AssessmentSection { get; private set; }
+
+        /// <summary>
+        /// Gets the foreshore profiles currently known in the <see cref="FailureMechanism"/>.
+        /// </summary>
+        public IEnumerable<ForeshoreProfile> ForeshoreProfiles
+        {
+            get
+            {
+                return FailureMechanism.ForeshoreProfiles;
+            }
+        }
+
+        /// <summary>
+        /// Gets the hydraulic boundary locations currently known in the <see cref="AssessmentSection"/>.
+        /// </summary>
+        public IEnumerable<HydraulicBoundaryLocation> HydraulicBoundaryLocations
+        {
+            get
+            {
+                return AssessmentSection.HydraulicBoundaryDatabase == null ?
+                           Enumerable.Empty<HydraulicBoundaryLocation>() :
+                           AssessmentSection.HydraulicBoundaryDatabase.Locations;
+            }
+        }
     }
 }

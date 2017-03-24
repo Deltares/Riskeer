@@ -20,9 +20,12 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
@@ -68,5 +71,28 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
         /// Gets the assessment section which the calculation group belongs to.
         /// </summary>
         public IAssessmentSection AssessmentSection { get; private set; }
+
+        /// <summary>
+        /// Gets the foreshore profiles currently known in the <see cref="FailureMechanism"/>.
+        /// </summary>
+        public IEnumerable<ForeshoreProfile> ForeshoreProfiles
+        {
+            get
+            {
+                return FailureMechanism.ForeshoreProfiles;
+            }
+        }
+
+        /// <summary>
+        /// Gets the grass cover erosion outward specific hydraulic boundary locations
+        /// currently known in the <see cref="FailureMechanism"/>.
+        /// </summary>
+        public IEnumerable<HydraulicBoundaryLocation> HydraulicBoundaryLocations
+        {
+            get
+            {
+                return FailureMechanism.HydraulicBoundaryLocations;
+            }
+        }
     }
 }
