@@ -29,7 +29,7 @@ namespace Ringtoets.Common.IO.Writers
     public static class XmlWriterExtensions
     {
         /// <summary>
-        /// Writes a single distribution as a stochast element in file.
+        /// Writes a single <see cref="MeanStandardDeviationStochastConfiguration"/> as a stochast element in file.
         /// </summary>
         /// <param name="writer">The writer to use to write the distribution.</param>
         /// <param name="name"></param>
@@ -53,6 +53,14 @@ namespace Ringtoets.Common.IO.Writers
             writer.WriteEndElement();
         }
 
+        /// <summary>
+        /// Writes a single <see cref="MeanVariationCoefficientStochastConfiguration"/> as a stochast element in file.
+        /// </summary>
+        /// <param name="writer">The writer to use to write the distribution.</param>
+        /// <param name="name"></param>
+        /// <param name="distribution">The distribution to write.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is 
+        /// in an invalid state for writing.</exception>
         public static void WriteDistribution(this XmlWriter writer, string name, MeanVariationCoefficientStochastConfiguration distribution)
         {
             writer.WriteStartElement(ConfigurationSchemaIdentifiers.StochastElement);
@@ -65,6 +73,37 @@ namespace Ringtoets.Common.IO.Writers
             if (distribution.VariationCoefficient.HasValue)
             {
                 writer.WriteElementString(ConfigurationSchemaIdentifiers.VariationCoefficientElement, XmlConvert.ToString(distribution.VariationCoefficient.Value));
+            }
+
+            writer.WriteEndElement();
+        }
+
+        /// <summary>
+        /// Writes a single <see cref="WaveReductionConfiguration"/> as a wave reduction element in file.
+        /// </summary>
+        /// <param name="writer">The writer to use to write the wave reduction.</param>
+        /// <param name="waveReduction">The wave reduction to write.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is 
+        /// in an invalid state for writing.</exception>
+        public static void WriteWaveReduction(this XmlWriter writer, WaveReductionConfiguration waveReduction)
+        {
+            writer.WriteStartElement(ConfigurationSchemaIdentifiers.WaveReduction);
+
+            if (waveReduction.UseBreakWater.HasValue)
+            {
+                writer.WriteElementString(ConfigurationSchemaIdentifiers.UseBreakWater, XmlConvert.ToString(waveReduction.UseBreakWater.Value));
+            }
+            if (waveReduction.BreakWaterType.HasValue)
+            {
+                writer.WriteElementString(ConfigurationSchemaIdentifiers.BreakWaterType, new ReadBreakWaterTypeConverter().ConvertToInvariantString(waveReduction.BreakWaterType.Value));
+            }
+            if (waveReduction.BreakWaterHeight.HasValue)
+            {
+                writer.WriteElementString(ConfigurationSchemaIdentifiers.BreakWaterHeight, XmlConvert.ToString(waveReduction.BreakWaterHeight.Value));
+            }
+            if (waveReduction.UseForeshoreProfile.HasValue)
+            {
+                writer.WriteElementString(ConfigurationSchemaIdentifiers.UseForeshore, XmlConvert.ToString(waveReduction.UseForeshoreProfile.Value));
             }
 
             writer.WriteEndElement();
