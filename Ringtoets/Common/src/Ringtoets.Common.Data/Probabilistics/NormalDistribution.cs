@@ -86,5 +86,10 @@ namespace Ringtoets.Common.Data.Probabilistics
                 standardDeviation = roundedValue;
             }
         }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
     }
 }

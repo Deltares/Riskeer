@@ -363,6 +363,118 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
+        public void Import_StochastsWithNoParametersSet_DataAddedToModel()
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, "validConfigurationStochastsNoParameters.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var pipingFailureMechanism = new PipingFailureMechanism();
+
+            var importer = new PipingCalculationConfigurationImporter(filePath,
+                                                                      calculationGroup,
+                                                                      Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                      pipingFailureMechanism);
+
+            // Call
+            bool successful = importer.Import();
+
+            // Assert
+            Assert.IsTrue(successful);
+
+            var expectedCalculation = new PipingCalculationScenario(new GeneralPipingInput())
+            {
+                Name = "Calculation"
+            };
+
+            Assert.AreEqual(1, calculationGroup.Children.Count);
+            AssertPipingCalculationScenario(expectedCalculation, (PipingCalculationScenario) calculationGroup.Children[0]);
+        }
+
+        [Test]
+        public void Import_StochastsWithMeanSet_DataAddedToModel()
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, "validConfigurationStochastsMeanOnly.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var pipingFailureMechanism = new PipingFailureMechanism();
+
+            var importer = new PipingCalculationConfigurationImporter(filePath,
+                                                                      calculationGroup,
+                                                                      Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                      pipingFailureMechanism);
+
+            // Call
+            bool successful = importer.Import();
+
+            // Assert
+            Assert.IsTrue(successful);
+
+            var expectedCalculation = new PipingCalculationScenario(new GeneralPipingInput())
+            {
+                Name = "Calculation",
+                InputParameters =
+                {
+                    PhreaticLevelExit =
+                    {
+                        Mean = (RoundedDouble) 4.4,
+                    },
+                    DampingFactorExit =
+                    {
+                        Mean = (RoundedDouble) 6.6,
+                    }
+                }
+            };
+
+            Assert.AreEqual(1, calculationGroup.Children.Count);
+            AssertPipingCalculationScenario(expectedCalculation, (PipingCalculationScenario) calculationGroup.Children[0]);
+        }
+
+        [Test]
+        public void Import_StochastsWithStandardDeviationSet_DataAddedToModel()
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, "validConfigurationStochastsStandardDeviationOnly.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var pipingFailureMechanism = new PipingFailureMechanism();
+
+            var importer = new PipingCalculationConfigurationImporter(filePath,
+                                                                      calculationGroup,
+                                                                      Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                      pipingFailureMechanism);
+
+            // Call
+            bool successful = importer.Import();
+
+            // Assert
+            Assert.IsTrue(successful);
+
+            var expectedCalculation = new PipingCalculationScenario(new GeneralPipingInput())
+            {
+                Name = "Calculation",
+                InputParameters =
+                {
+                    PhreaticLevelExit =
+                    {
+                        StandardDeviation = (RoundedDouble) 5.5
+                    },
+                    DampingFactorExit =
+                    {
+                        StandardDeviation = (RoundedDouble) 7.7
+                    }
+                }
+            };
+
+            Assert.AreEqual(1, calculationGroup.Children.Count);
+            AssertPipingCalculationScenario(expectedCalculation, (PipingCalculationScenario) calculationGroup.Children[0]);
+        }
+
+        [Test]
         [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml", false)]
         [TestCase("validConfigurationFullCalculationContainingAssessmentLevel.xml", true)]
         public void Import_ValidConfigurationWithValidHydraulicBoundaryData_DataAddedToModel(string file, bool manualAssessmentLevel)

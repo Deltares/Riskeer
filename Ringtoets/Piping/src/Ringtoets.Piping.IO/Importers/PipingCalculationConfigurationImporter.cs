@@ -315,89 +315,74 @@ namespace Ringtoets.Piping.IO.Importers
 
         private bool TryReadDampingFactorExit(ReadPipingCalculation readCalculation, PipingCalculationScenario pipingCalculation)
         {
-            double? mean = readCalculation.DampingFactorExitMean;
-            double? standardDeviation = readCalculation.DampingFactorExitStandardDeviation;
-            if (mean.HasValue && standardDeviation.HasValue)
-            {
-                LogNormalDistribution normalDistribution = TryReadLogNormalDistribution(mean.Value, standardDeviation.Value,
-                                                                                        PipingCalculationConfigurationSchemaIdentifiers.DampingFactorExitStochastName,
-                                                                                        pipingCalculation.Name);
-                if (normalDistribution == null)
-                {
-                    return false;
-                }
+            var distribution = (LogNormalDistribution) pipingCalculation.InputParameters.DampingFactorExit.Clone();
 
-                pipingCalculation.InputParameters.DampingFactorExit = normalDistribution;
+            if (!TrySetDistributionParameters(
+                    distribution,
+                    readCalculation.DampingFactorExitMean,
+                    readCalculation.DampingFactorExitStandardDeviation,
+                    PipingCalculationConfigurationSchemaIdentifiers.DampingFactorExitStochastName,
+                    pipingCalculation.Name))
+            {
+                return false;
             }
+
+            pipingCalculation.InputParameters.DampingFactorExit = distribution;
             return true;
         }
 
         private bool TryReadPhreaticLevelExit(ReadPipingCalculation readCalculation, PipingCalculationScenario pipingCalculation)
         {
-            double? mean = readCalculation.PhreaticLevelExitMean;
-            double? standardDeviation = readCalculation.PhreaticLevelExitStandardDeviation;
-            if (mean.HasValue && standardDeviation.HasValue)
-            {
-                NormalDistribution normalDistribution = TryReadNormalDistribution(mean.Value, standardDeviation.Value,
-                                                                                  PipingCalculationConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName,
-                                                                                  pipingCalculation.Name);
-                if (normalDistribution == null)
-                {
-                    return false;
-                }
+            var distribution = (NormalDistribution) pipingCalculation.InputParameters.PhreaticLevelExit.Clone();
 
-                pipingCalculation.InputParameters.PhreaticLevelExit = normalDistribution;
+            if (!TrySetDistributionParameters(
+                    distribution,
+                    readCalculation.PhreaticLevelExitMean,
+                    readCalculation.PhreaticLevelExitStandardDeviation,
+                    PipingCalculationConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName,
+                    pipingCalculation.Name))
+            {
+                return false;
             }
+
+            pipingCalculation.InputParameters.PhreaticLevelExit = distribution;
             return true;
         }
 
-        private NormalDistribution TryReadNormalDistribution(double mean, double standardDeviation, string stochastName, string calculationName)
+        private bool TrySetDistributionParameters(IDistribution distribution, double? mean, double? standardDeviation, string stochastName, string calculationName)
         {
-            var distribution = new NormalDistribution();
-            if (TryReadDistributionParameters(distribution, mean, standardDeviation, stochastName, calculationName))
+            if (mean.HasValue)
             {
-                return distribution;
-            }
-            return null;
-        }
-
-        private LogNormalDistribution TryReadLogNormalDistribution(double mean, double standardDeviation, string stochastName, string calculationName)
-        {
-            var distribution = new LogNormalDistribution();
-            if (TryReadDistributionParameters(distribution, mean, standardDeviation, stochastName, calculationName))
-            {
-                return distribution;
-            }
-            return null;
-        }
-
-        private bool TryReadDistributionParameters(IDistribution distribution, double mean, double standardDeviation, string stochastName, string calculationName)
-        {
-            try
-            {
-                distribution.Mean = (RoundedDouble) mean;
-            }
-            catch (ArgumentOutOfRangeException e)
-            {
-                LogOutOfRangeException(string.Format(
-                                           Resources.PipingCalculationConfigurationImporter_ReadStochasts_Invalid_Mean_0_for_stochast_with_StochastName_1_,
-                                           mean, stochastName),
-                                       calculationName, e);
-                return false;
+                try
+                {
+                    distribution.Mean = (RoundedDouble) mean;
+                }
+                catch (ArgumentOutOfRangeException e)
+                {
+                    LogOutOfRangeException(string.Format(
+                                               Resources.PipingCalculationConfigurationImporter_ReadStochasts_Invalid_Mean_0_for_stochast_with_StochastName_1_,
+                                               mean, stochastName),
+                                           calculationName, e);
+                    return false;
+                }
             }
 
-            try
+            if (standardDeviation.HasValue)
             {
-                distribution.StandardDeviation = (RoundedDouble) standardDeviation;
+                try
+                {
+                    distribution.StandardDeviation = (RoundedDouble) standardDeviation;
+                }
+                catch (ArgumentOutOfRangeException e)
+                {
+                    LogOutOfRangeException(string.Format(
+                                               Resources.PipingCalculationConfigurationImporter_ReadStochasts_Invalid_StandardDeviation_0_for_stochast_with_StochastName_1_,
+                                               standardDeviation, stochastName),
+                                           calculationName, e);
+                    return false;
+                }
             }
-            catch (ArgumentOutOfRangeException e)
-            {
-                LogOutOfRangeException(string.Format(
-                                           Resources.PipingCalculationConfigurationImporter_ReadStochasts_Invalid_StandardDeviation_0_for_stochast_with_StochastName_1_,
-                                           standardDeviation, stochastName),
-                                       calculationName, e);
-                return false;
-            }
+
             return true;
         }
     }

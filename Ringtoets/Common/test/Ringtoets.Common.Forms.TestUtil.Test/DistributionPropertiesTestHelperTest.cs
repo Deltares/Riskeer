@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Base.Data;
@@ -190,6 +191,11 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             public RoundedDouble Mean { get; set; }
             public RoundedDouble StandardDeviation { get; set; }
             public RoundedDouble CoefficientOfVariation { get; set; }
+
+            public object Clone()
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

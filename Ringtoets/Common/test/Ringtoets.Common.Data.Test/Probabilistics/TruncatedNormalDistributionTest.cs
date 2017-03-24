@@ -19,9 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Common.Data.Test.Probabilistics
 {
@@ -77,6 +80,28 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             // Assert
             Assert.AreEqual(numberOfDecimalPlaces, distribution.UpperBoundary.NumberOfDecimalPlaces);
             Assert.AreEqual(new RoundedDouble(numberOfDecimalPlaces, value), distribution.UpperBoundary);
+        }
+
+        [Test]
+        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            var distribution = new TruncatedNormalDistribution(random.Next(1, 16))
+            {
+                Mean = random.NextRoundedDouble(),
+                StandardDeviation = random.NextRoundedDouble(),
+                LowerBoundary = random.NextRoundedDouble(),
+                UpperBoundary = random.NextRoundedDouble()
+            };
+
+            // Call
+            object clone = distribution.Clone();
+
+            // Assert
+            Assert.IsInstanceOf<TruncatedNormalDistribution>(clone);
+            var clonedDistribution = (TruncatedNormalDistribution)clone;
+            DistributionAssert.AreEqual(distribution, clonedDistribution);
         }
     }
 }

@@ -24,6 +24,7 @@ using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Common.Data.Test.Probabilistics
 {
@@ -112,6 +113,26 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             // Assert
             const string expectedMessage = "Standaardafwijking (\u03C3) moet groter zijn dan of gelijk zijn aan 0.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+        }
+
+        [Test]
+        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            var distribution = new NormalDistribution(random.Next(1, 16))
+            {
+                Mean = random.NextRoundedDouble(),
+                StandardDeviation = random.NextRoundedDouble()
+            };
+
+            // Call
+            object clone = distribution.Clone();
+
+            // Assert
+            Assert.IsInstanceOf<NormalDistribution>(clone);
+            var clonedDistribution = (NormalDistribution)clone;
+            DistributionAssert.AreEqual(distribution, clonedDistribution);
         }
     }
 }

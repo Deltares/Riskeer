@@ -278,19 +278,25 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
         /// <c>false</c> otherwise.</returns>
         private bool TryReadCriticalWaveReduction(ReadGrassCoverErosionInwardsCalculation readCalculation, GrassCoverErosionInwardsCalculation calculation)
         {
-            if (!readCalculation.CriticalFlowRateMean.HasValue || !readCalculation.CriticalFlowRateStandardDeviation.HasValue)
+            var distribution = (LogNormalDistribution) calculation.InputParameters.CriticalFlowRate.Clone();
+
+            if (readCalculation.CriticalFlowRateMean.HasValue)
             {
-                return true;
+                double criticalFlowRateMean = readCalculation.CriticalFlowRateMean.Value;
+
+                if (!SetMean(distribution, criticalFlowRateMean, calculation.Name))
+                {
+                    return false;
+                }
             }
 
-            double criticalFlowRateStandardDeviation = readCalculation.CriticalFlowRateStandardDeviation.Value;
-            double criticalFlowRateMean = readCalculation.CriticalFlowRateMean.Value;
-
-            var distribution = new LogNormalDistribution();
-
-            if (!SetMean(distribution, criticalFlowRateMean, calculation.Name) || !SetStandardDeviation(distribution, criticalFlowRateStandardDeviation, calculation.Name))
+            if (readCalculation.CriticalFlowRateStandardDeviation.HasValue)
             {
-                return false;
+                double criticalFlowRateStandardDeviation = readCalculation.CriticalFlowRateStandardDeviation.Value;
+                if (!SetStandardDeviation(distribution, criticalFlowRateStandardDeviation, calculation.Name))
+                {
+                    return false;
+                }
             }
 
             calculation.InputParameters.CriticalFlowRate = distribution;

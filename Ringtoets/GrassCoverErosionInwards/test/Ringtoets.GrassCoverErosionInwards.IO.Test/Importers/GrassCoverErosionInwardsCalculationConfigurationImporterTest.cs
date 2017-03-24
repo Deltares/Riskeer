@@ -362,6 +362,107 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
         }
 
         [Test]
+        public void Import_ValidConfigurationOnlyCriticalFlowRateMeanSet_DataAddedToModel()
+        {
+            // Setup
+            string filePath = Path.Combine(path, "validConfigurationCriticalFlowRateMeanOnly.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new GrassCoverErosionInwardsCalculationConfigurationImporter(
+                filePath,
+                calculationGroup,
+                Enumerable.Empty<HydraulicBoundaryLocation>(),
+                Enumerable.Empty<DikeProfile>());
+
+            // Call
+            bool successful = importer.Import();
+
+            // Assert
+            Assert.IsTrue(successful);
+
+            var expectedCalculation = new GrassCoverErosionInwardsCalculation
+            {
+                Name = "Berekening 1",
+                InputParameters =
+                {
+                    CriticalFlowRate =
+                    {
+                        Mean = (RoundedDouble) 2.0
+                    }
+                }
+            };
+
+            Assert.AreEqual(1, calculationGroup.Children.Count);
+            AssertCalculation(expectedCalculation, (GrassCoverErosionInwardsCalculation) calculationGroup.Children[0]);
+        }
+
+        [Test]
+        public void Import_ValidConfigurationOnlyCriticalFlowRateNoParametersSet_DataAddedToModel()
+        {
+            // Setup
+            string filePath = Path.Combine(path, "validConfigurationCriticalFlowRateNoParameters.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new GrassCoverErosionInwardsCalculationConfigurationImporter(
+                filePath,
+                calculationGroup,
+                Enumerable.Empty<HydraulicBoundaryLocation>(),
+                Enumerable.Empty<DikeProfile>());
+
+            // Call
+            bool successful = importer.Import();
+
+            // Assert
+            Assert.IsTrue(successful);
+
+            var expectedCalculation = new GrassCoverErosionInwardsCalculation
+            {
+                Name = "Berekening 1"
+            };
+
+            Assert.AreEqual(1, calculationGroup.Children.Count);
+            AssertCalculation(expectedCalculation, (GrassCoverErosionInwardsCalculation) calculationGroup.Children[0]);
+        }
+
+        [Test]
+        public void Import_ValidConfigurationOnlyCriticalFlowRateStandardDeviationSet_DataAddedToModel()
+        {
+            // Setup
+            string filePath = Path.Combine(path, "validConfigurationCriticalFlowRateStandardDeviationOnly.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new GrassCoverErosionInwardsCalculationConfigurationImporter(
+                filePath,
+                calculationGroup,
+                Enumerable.Empty<HydraulicBoundaryLocation>(),
+                Enumerable.Empty<DikeProfile>());
+
+            // Call
+            bool successful = importer.Import();
+
+            // Assert
+            Assert.IsTrue(successful);
+
+            var expectedCalculation = new GrassCoverErosionInwardsCalculation
+            {
+                Name = "Berekening 1",
+                InputParameters =
+                {
+                    CriticalFlowRate =
+                    {
+                        StandardDeviation = (RoundedDouble) 1.1
+                    }
+                }
+            };
+
+            Assert.AreEqual(1, calculationGroup.Children.Count);
+            AssertCalculation(expectedCalculation, (GrassCoverErosionInwardsCalculation) calculationGroup.Children[0]);
+        }
+
+        [Test]
         public void Import_ValidConfigurationWithValidData_DataAddedToModel()
         {
             // Setup

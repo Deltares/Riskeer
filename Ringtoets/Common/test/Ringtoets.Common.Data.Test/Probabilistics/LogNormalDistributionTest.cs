@@ -24,6 +24,7 @@ using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Common.Data.Test.Probabilistics
 {
@@ -186,6 +187,26 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             // Assert
             const string expectedMessage = "De verschuiving mag niet groter zijn dan de verwachtingswaarde.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+        }
+
+        [Test]
+        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            var distribution = new LogNormalDistribution(random.Next(1, 16))
+            {
+                Mean = random.NextRoundedDouble(),
+                StandardDeviation = random.NextRoundedDouble()
+            };
+
+            // Call
+            object clone = distribution.Clone();
+
+            // Assert
+            Assert.IsInstanceOf<LogNormalDistribution>(clone);
+            var clonedDistribution = (LogNormalDistribution)clone;
+            DistributionAssert.AreEqual(distribution, clonedDistribution);
         }
     }
 }

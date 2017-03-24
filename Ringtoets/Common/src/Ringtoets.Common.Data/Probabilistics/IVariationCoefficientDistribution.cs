@@ -28,7 +28,7 @@ namespace Ringtoets.Common.Data.Probabilistics
     /// This object represents a probabilistic distribution.
     /// </summary>
     /// <seealso cref="IDistribution"/>
-    public interface IVariationCoefficientDistribution
+    public interface IVariationCoefficientDistribution : ICloneable
     {
         /// <summary>
         /// Gets or sets the mean (expected value, E(X)) of the distribution.

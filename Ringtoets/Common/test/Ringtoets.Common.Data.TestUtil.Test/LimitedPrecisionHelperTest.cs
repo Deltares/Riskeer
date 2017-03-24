@@ -86,6 +86,11 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         {
             public RoundedDouble Mean { get; set; }
             public RoundedDouble StandardDeviation { get; set; }
+
+            public object Clone()
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }
