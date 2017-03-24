@@ -176,7 +176,7 @@ namespace Ringtoets.Revetment.IO.Importers
             return true;
         }
 
-        private void ReadStepSize(ReadWaveConditionsCalculation readCalculation, IWaveConditionsCalculation calculation)
+        private static void ReadStepSize(ReadWaveConditionsCalculation readCalculation, IWaveConditionsCalculation calculation)
         {
             if (readCalculation.StepSize.HasValue)
             {

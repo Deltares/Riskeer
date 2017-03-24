@@ -261,7 +261,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
         /// </summary>
         /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
-        private void ReadDikeHeightCalculationType(ReadGrassCoverErosionInwardsCalculation readCalculation, GrassCoverErosionInwardsCalculation calculation)
+        private static void ReadDikeHeightCalculationType(ReadGrassCoverErosionInwardsCalculation readCalculation, GrassCoverErosionInwardsCalculation calculation)
         {
             if (readCalculation.DikeHeightCalculationType.HasValue)
             {
