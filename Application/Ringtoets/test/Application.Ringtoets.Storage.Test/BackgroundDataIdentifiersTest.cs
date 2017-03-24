@@ -19,21 +19,22 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Common.Data.AssessmentSection
-{
-    /// <summary>
-    /// Enumeration that defines the possible types of a <see cref="BackgroundData"/>.
-    /// </summary>
-    public enum BackgroundMapDataType
-    {
-        /// <summary>
-        /// Web Map Tile Service background map data type.
-        /// </summary>
-        Wmts = 1,
+using Application.Ringtoets.Storage.Read;
+using NUnit.Framework;
 
-        /// <summary>
-        /// Well known tile source background map data type.
-        /// </summary>
-        WellKnown = 2
+namespace Application.Ringtoets.Storage.Test
+{
+    [TestFixture]
+    public class BackgroundDataIdentifiersTest
+    {
+        [Test]
+        public void BackgroundDataIdentifiers_ExpectedValues()
+        {
+            Assert.AreEqual("IsConfigured", BackgroundDataIdentifiers.IsConfigured);
+            Assert.AreEqual("SourceCapabilitiesUrl", BackgroundDataIdentifiers.SourceCapabilitiesUrl);
+            Assert.AreEqual("SelectedCapabilityIdentifier", BackgroundDataIdentifiers.SelectedCapabilityIdentifier);
+            Assert.AreEqual("PreferredFormat", BackgroundDataIdentifiers.PreferredFormat);
+            Assert.AreEqual("WellKnownTileSource", BackgroundDataIdentifiers.WellKnownTileSource);
+        }
     }
 }

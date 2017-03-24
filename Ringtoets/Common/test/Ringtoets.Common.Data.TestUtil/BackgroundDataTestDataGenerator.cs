@@ -39,9 +39,9 @@ namespace Ringtoets.Common.Data.TestUtil
         public static BackgroundData GetWmtsBackgroundMapData(WmtsMapData wmtsMapData)
         {
             var backgroundMapData = new BackgroundData(new WmtsBackgroundDataConfiguration(wmtsMapData.IsConfigured,
-                                                                    wmtsMapData.SourceCapabilitiesUrl,
-                                                                    wmtsMapData.SelectedCapabilityIdentifier,
-                                                                    wmtsMapData.PreferredFormat))
+                                                                                           wmtsMapData.SourceCapabilitiesUrl,
+                                                                                           wmtsMapData.SelectedCapabilityIdentifier,
+                                                                                           wmtsMapData.PreferredFormat))
             {
                 Name = wmtsMapData.Name,
                 IsVisible = wmtsMapData.IsVisible,
@@ -52,14 +52,14 @@ namespace Ringtoets.Common.Data.TestUtil
         }
 
         /// <summary>
-        /// Gets the <see cref="BackgroundData"/> with <see cref="BackgroundMapDataType.WellKnown"/>.
+        /// Gets the <see cref="BackgroundData"/> with <see cref="WellKnownTileSource"/>.
         /// </summary>
         /// <param name="tileSource">The <see cref="WellKnownTileSource"/> to create the background data for.</param>
         /// <returns>The created <see cref="BackgroundData"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="tileSource"/>
         /// is an invalid <see cref="WellKnownTileSource"/>.</exception>
         public static BackgroundData GetWellKnownBackgroundMapData(WellKnownTileSource tileSource)
-        { 
+        {
             return new BackgroundData(new WellKnownBackgroundDataConfiguration(tileSource))
             {
                 IsVisible = true,

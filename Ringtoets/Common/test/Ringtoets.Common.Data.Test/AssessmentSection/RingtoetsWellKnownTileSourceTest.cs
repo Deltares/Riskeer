@@ -36,28 +36,29 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
                 return new Dictionary<RingtoetsWellKnownTileSource, string>
                 {
                     {
-                        RingtoetsWellKnownTileSource.OpenStreetMap, "OpenStreetMap"
+                        RingtoetsWellKnownTileSource.OpenStreetMap, null
                     },
                     {
-                        RingtoetsWellKnownTileSource.BingAerial, "Bing Maps - Satelliet"
+                        RingtoetsWellKnownTileSource.BingAerial, null
                     },
                     {
-                        RingtoetsWellKnownTileSource.BingHybrid, "Bing Maps - Satelliet + Wegen"
+                        RingtoetsWellKnownTileSource.BingHybrid, null
                     },
                     {
-                        RingtoetsWellKnownTileSource.BingRoads, "Bing Maps - Wegen"
+                        RingtoetsWellKnownTileSource.BingRoads, null
                     },
                     {
-                        RingtoetsWellKnownTileSource.EsriWorldTopo, "Esri World - Topografisch"
+                        RingtoetsWellKnownTileSource.EsriWorldTopo, null
                     },
                     {
-                        RingtoetsWellKnownTileSource.EsriWorldShadedRelief, "Esri World - Reliëf"
+                        RingtoetsWellKnownTileSource.EsriWorldShadedRelief, null
                     }
                 };
             }
         }
 
-        protected override IDictionary<RingtoetsWellKnownTileSource, byte> ExpectedValueForEnumValues {
+        protected override IDictionary<RingtoetsWellKnownTileSource, byte> ExpectedValueForEnumValues
+        {
             get
             {
                 return new Dictionary<RingtoetsWellKnownTileSource, byte>

@@ -40,8 +40,6 @@ namespace Ringtoets.Common.Forms.Views
         /// <returns>The created <see cref="ImageBasedMapData"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="backgroundData"/>
         /// is <c>null</c>.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <see cref="BackgroundMapDataType"/>
-        /// is not valid.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="BackgroundData.Configuration"/>
         /// contains an invalid value for <see cref="WellKnownTileSource"/></exception>.
         public static ImageBasedMapData CreateBackgroundMapData(BackgroundData backgroundData)

@@ -427,60 +427,6 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bing Maps - Satelliet.
-        /// </summary>
-        public static string Map_BingAerial_DisplayName {
-            get {
-                return ResourceManager.GetString("Map_BingAerial_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bing Maps - Satelliet + Wegen.
-        /// </summary>
-        public static string Map_BingHybrid_DisplayName {
-            get {
-                return ResourceManager.GetString("Map_BingHybrid_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bing Maps - Wegen.
-        /// </summary>
-        public static string Map_BingRoads_DisplayName {
-            get {
-                return ResourceManager.GetString("Map_BingRoads_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Esri World - Reliëf.
-        /// </summary>
-        public static string Map_EsriWorldShadedRelief_DisplayName {
-            get {
-                return ResourceManager.GetString("Map_EsriWorldShadedRelief_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Esri World - Topografisch.
-        /// </summary>
-        public static string Map_EsriWorldTopo_DisplayName {
-            get {
-                return ResourceManager.GetString("Map_EsriWorldTopo_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to OpenStreetMap.
-        /// </summary>
-        public static string Map_OpenStreetMap_DisplayName {
-            get {
-                return ResourceManager.GetString("Map_OpenStreetMap_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De waarde voor &apos;N&apos; moet in het bereik {0} liggen..
         /// </summary>
         public static string N_Value_should_be_in_Range_0_ {

@@ -41,6 +41,8 @@ namespace Core.Common.Utils.Reflection
         /// <typeparam name="TEnumType">The type of the enum.</typeparam>
         /// <param name="enumValue">The value of the enum.</param>
         /// <returns>The display name of the enum value.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="enumValue"/>
+        /// is an invalid value for <typeparamref name="TEnumType"/>.</exception>
         public static string GetDisplayName<TEnumType>(TEnumType enumValue) where TEnumType : IConvertible
         {
             string valueString = enumValue.ToString();
@@ -49,7 +51,7 @@ namespace Core.Common.Utils.Reflection
             {
                 throw new InvalidEnumArgumentException(nameof(enumValue), Convert.ToInt32(enumValue), typeof(TEnumType));
             }
-            var resourcesDisplayNameAttribute = (ResourcesDisplayNameAttribute)Attribute.GetCustomAttribute(fieldInfo, typeof(ResourcesDisplayNameAttribute));
+            var resourcesDisplayNameAttribute = (ResourcesDisplayNameAttribute) Attribute.GetCustomAttribute(fieldInfo, typeof(ResourcesDisplayNameAttribute));
             return resourcesDisplayNameAttribute != null ?
                        resourcesDisplayNameAttribute.DisplayName :
                        valueString;

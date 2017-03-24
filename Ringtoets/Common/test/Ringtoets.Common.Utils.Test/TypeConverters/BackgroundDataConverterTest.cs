@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
@@ -55,6 +56,21 @@ namespace Ringtoets.Common.Utils.Test.TypeConverters
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("mapData", exception.ParamName);
+        }
+
+        [Test]
+        public void ConvertTo_MapDataNotSupportedForConversion_ThrowNotSupportedException()
+        {
+            // Setup
+            var unsupportedImageBasedMapData = new TestImageBasedMapData("What's in a name?", false);
+
+            // Call 
+            TestDelegate call = () => BackgroundDataConverter.ConvertTo(unsupportedImageBasedMapData);
+
+            // Assert
+            var exception = Assert.Throws<NotSupportedException>(call);
+            string expectedMessage = $"Can't create a background data configuration for {unsupportedImageBasedMapData.GetType()}.";
+            Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]

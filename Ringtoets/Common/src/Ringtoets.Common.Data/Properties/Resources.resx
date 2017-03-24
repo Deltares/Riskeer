@@ -264,22 +264,4 @@
   <data name="BackgroundData_Transparency_Value_must_be_in_Range_0_" xml:space="preserve">
     <value>De transparantie moet in het bereik {0} liggen.</value>
   </data>
-  <data name="Map_BingAerial_DisplayName" xml:space="preserve">
-    <value>Bing Maps - Satelliet</value>
-  </data>
-  <data name="Map_BingHybrid_DisplayName" xml:space="preserve">
-    <value>Bing Maps - Satelliet + Wegen</value>
-  </data>
-  <data name="Map_BingRoads_DisplayName" xml:space="preserve">
-    <value>Bing Maps - Wegen</value>
-  </data>
-  <data name="Map_EsriWorldShadedRelief_DisplayName" xml:space="preserve">
-    <value>Esri World - Reliëf</value>
-  </data>
-  <data name="Map_EsriWorldTopo_DisplayName" xml:space="preserve">
-    <value>Esri World - Topografisch</value>
-  </data>
-  <data name="Map_OpenStreetMap_DisplayName" xml:space="preserve">
-    <value>OpenStreetMap</value>
-  </data>
 </root>

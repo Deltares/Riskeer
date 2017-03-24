@@ -39,13 +39,15 @@ namespace Ringtoets.Common.Utils.TypeConverters
         /// <returns>The converted <see cref="BackgroundData"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="mapData"/>
         /// is <c>null</c>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when the <see cref="ImageBasedMapData"/></
+        /// is not supported for conversion.</exception>
         public static BackgroundData ConvertTo(ImageBasedMapData mapData)
         {
             if (mapData == null)
             {
                 throw new ArgumentNullException(nameof(mapData));
             }
-            
+
             var backgroundData = new BackgroundData(CreateBackgroundDataConfiguration(mapData))
             {
                 Name = mapData.Name,
@@ -54,21 +56,6 @@ namespace Ringtoets.Common.Utils.TypeConverters
             };
 
             return backgroundData;
-        }
-
-        private static IBackgroundDataConfiguration CreateBackgroundDataConfiguration(ImageBasedMapData mapData)
-        {
-            var wmtsMapData = mapData as WmtsMapData;
-            if (wmtsMapData != null)
-            {
-                return CreateWmtsBackgroundDataConfiguration(wmtsMapData);
-            }
-            var wellKnownMapData = mapData as WellKnownTileSourceMapData;
-            if (wellKnownMapData != null)
-            {
-                return CreateWellKnownBackgroundDataConfiguration(wellKnownMapData);
-            }
-            throw new InvalidOperationException($"Can't create a background data configuration for {mapData.GetType()}.");
         }
 
         /// <summary>
@@ -107,6 +94,28 @@ namespace Ringtoets.Common.Utils.TypeConverters
             mapData.Transparency = backgroundData.Transparency;
 
             return mapData;
+        }
+
+        /// <summary>
+        /// Creates a <see cref="IBackgroundDataConfiguration"/> based on the <see cref="ImageBasedMapData"/>.
+        /// </summary>
+        /// <param name="mapData">The map <see cref="ImageBasedMapData"/> the configuration is based upon.</param>
+        /// <returns>A <see cref="IBackgroundDataConfiguration"/> based on the <see cref="ImageBasedMapData"/>.</returns>
+        /// <exception cref="NotSupportedException">Thrown when the <see cref="ImageBasedMapData"/> is not supported
+        /// for creating the configuration.</exception>
+        private static IBackgroundDataConfiguration CreateBackgroundDataConfiguration(ImageBasedMapData mapData)
+        {
+            var wmtsMapData = mapData as WmtsMapData;
+            if (wmtsMapData != null)
+            {
+                return CreateWmtsBackgroundDataConfiguration(wmtsMapData);
+            }
+            var wellKnownMapData = mapData as WellKnownTileSourceMapData;
+            if (wellKnownMapData != null)
+            {
+                return CreateWellKnownBackgroundDataConfiguration(wellKnownMapData);
+            }
+            throw new NotSupportedException($"Can't create a background data configuration for {mapData.GetType()}.");
         }
 
         private static WellKnownBackgroundDataConfiguration CreateWellKnownBackgroundDataConfiguration(WellKnownTileSourceMapData mapData)

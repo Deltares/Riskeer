@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Common.Data.AssessmentSection
+namespace Application.Ringtoets.Storage
 {
     /// <summary>
     /// Container of general identifiers related to background data.
