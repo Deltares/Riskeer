@@ -26,6 +26,10 @@ using Ringtoets.Common.IO.Schema;
 
 namespace Ringtoets.Common.IO.Writers
 {
+    /// <summary>
+    /// Extension methods for an <see cref="XmlWriter"/>, for writing generic data components in XML format
+    /// to file.
+    /// </summary>
     public static class XmlWriterExtensions
     {
         /// <summary>

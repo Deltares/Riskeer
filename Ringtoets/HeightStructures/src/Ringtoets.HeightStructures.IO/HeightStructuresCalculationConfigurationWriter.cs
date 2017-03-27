@@ -25,8 +25,17 @@ using Ringtoets.Common.IO.Writers;
 
 namespace Ringtoets.HeightStructures.IO
 {
+    /// <summary>
+    /// Extension methods for an <see cref="XmlWriter"/>, for writing <see cref="HeightStructureCalculationConfiguration"/>
+    /// in XML format to file.
+    /// </summary>
     public static class HeightStructuresCalculationConfigurationXmlWriterExtensions
     {
+        /// <summary>
+        /// Writes the <paramref name="configuration"/> in XML format to file.
+        /// </summary>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <param name="configuration">The dictionary of distributions, keyed on name, to write.</param>
         public static void WriteHeightStructure(this XmlWriter writer, HeightStructureCalculationConfiguration configuration)
         {
             writer.WriteStructure(configuration, WriteProperties, WriteStochasts);

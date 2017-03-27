@@ -27,7 +27,8 @@ using Ringtoets.Common.IO.Schema;
 namespace Ringtoets.Common.IO.Writers
 {
     /// <summary>
-    /// Extension methods for an <see cref="XmlWriter"/>, related to writing <see cref="StructureCalculationConfiguration"/>.
+    /// Extension methods for an <see cref="XmlWriter"/>, for writing <see cref="StructureCalculationConfiguration"/>
+    /// in XML format to file.
     /// </summary>
     public static class StructureCalculationConfigurationXmlWriterExtensions
     {
