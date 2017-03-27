@@ -53,6 +53,10 @@ namespace Ringtoets.Revetment.IO
             {
                 return true;
             }
+            if (sourceType == typeof(double?))
+            {
+                return true;
+            }
             return base.CanConvertFrom(context, sourceType);
         }
 
@@ -75,6 +79,24 @@ namespace Ringtoets.Revetment.IO
                     return ReadWaveConditionsInputStepSize.Two;
                 }
             }
+
+            var doubleValue = value as double?;
+            if (doubleValue != null)
+            {
+                if (Math.Abs(doubleValue.Value - 0.5) < double.Epsilon)
+                {
+                    return ReadWaveConditionsInputStepSize.Half;
+                }
+                if (Math.Abs(doubleValue.Value - 1) < double.Epsilon)
+                {
+                    return ReadWaveConditionsInputStepSize.One;
+                }
+                if (Math.Abs(doubleValue.Value - 2) < double.Epsilon)
+                {
+                    return ReadWaveConditionsInputStepSize.Two;
+                }
+            }
+
             return base.ConvertFrom(context, culture, value);
         }
 

@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Xml;
 using System.Xml.Linq;
 using NUnit.Framework;
@@ -215,13 +216,13 @@ namespace Ringtoets.Common.IO.Test.Readers
         }
 
         [Test]
-        public void GetConvertedValueFromDescendantElement_ParentElementNull_ThrowArgumentNullException()
+        public void GetConvertedValueFromDescendantStringElement_ParentElementNull_ThrowArgumentNullException()
         {
             // Setup
             XElement element = null;
 
             // Call
-            TestDelegate test = () => element.GetConvertedValueFromDescendantElement<TypeConverter>("");
+            TestDelegate test = () => element.GetConvertedValueFromDescendantStringElement<TypeConverter>("");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -229,13 +230,13 @@ namespace Ringtoets.Common.IO.Test.Readers
         }
 
         [Test]
-        public void GetConvertedValueFromDescendantElement_DescendantElementNameNull_ThrowArgumentNullException()
+        public void GetConvertedValueFromDescendantStringElement_DescendantElementNameNull_ThrowArgumentNullException()
         {
             // Setup
             var element = new XElement("Root");
 
             // Call
-            TestDelegate test = () => element.GetConvertedValueFromDescendantElement<TypeConverter>(null);
+            TestDelegate test = () => element.GetConvertedValueFromDescendantStringElement<TypeConverter>(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -245,7 +246,7 @@ namespace Ringtoets.Common.IO.Test.Readers
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void GetConvertedValueFromDescendantElement_ValidDescendantElement_ReturnValue(bool value)
+        public void GetConvertedValueFromDescendantStringElement_ValidDescendantElement_ReturnValue(bool value)
         {
             // Setup
             const string descendantElementName = "value";
@@ -254,14 +255,14 @@ namespace Ringtoets.Common.IO.Test.Readers
             var element = new XElement("Root", new XElement(descendantElementName, elementValue));
 
             // Call
-            object readValue = element.GetConvertedValueFromDescendantElement<BooleanConverter>(descendantElementName);
+            object readValue = element.GetConvertedValueFromDescendantStringElement<BooleanConverter>(descendantElementName);
 
             // Assert
             Assert.AreEqual(value, readValue);
         }
 
         [Test]
-        public void GetConvertedValueFromDescendantElement_UnmatchedDescendantElement_ReturnNull()
+        public void GetConvertedValueFromDescendantStringElement_UnmatchedDescendantElement_ReturnNull()
         {
             // Setup
             string elementValue = XmlConvert.ToString(true);
@@ -269,7 +270,55 @@ namespace Ringtoets.Common.IO.Test.Readers
             var element = new XElement("Root", new XElement("value", elementValue));
 
             // Call
-            object readValue = element.GetConvertedValueFromDescendantElement<TypeConverter>("unmatchingChildElementName");
+            object readValue = element.GetConvertedValueFromDescendantStringElement<TypeConverter>("unmatchingChildElementName");
+
+            // Assert
+            Assert.IsNull(readValue);
+        }
+
+        [Test]
+        public void GetConvertedValueFromDescendantDoubleElement_DescendantElementNameNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var element = new XElement("Root");
+
+            // Call
+            TestDelegate test = () => element.GetConvertedValueFromDescendantDoubleElement<TypeConverter>(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("descendantElementName", exception.ParamName);
+        }
+
+        [Test]
+        [TestCase(0, false)]
+        [TestCase(-1, true)]
+        [TestCase(1, true)]
+        public void GetConvertedValueFromDescendantDoubleElement_ValidDescendantElement_ReturnValue(double value, bool expectedConvertedValue)
+        {
+            // Setup
+            const string descendantElementName = "value";
+            string elementValue = XmlConvert.ToString(value);
+
+            var element = new XElement("Root", new XElement(descendantElementName, elementValue));
+
+            // Call
+            object readValue = element.GetConvertedValueFromDescendantDoubleElement<DoubleToBooleanConverter>(descendantElementName);
+
+            // Assert
+            Assert.AreEqual(expectedConvertedValue, readValue);
+        }
+
+        [Test]
+        public void GetConvertedValueFromDescendantDoubleElement_UnmatchedDescendantElement_ReturnNull()
+        {
+            // Setup
+            string elementValue = XmlConvert.ToString(true);
+
+            var element = new XElement("Root", new XElement("value", elementValue));
+
+            // Call
+            object readValue = element.GetConvertedValueFromDescendantDoubleElement<TypeConverter>("unmatchingChildElementName");
 
             // Assert
             Assert.IsNull(readValue);
@@ -429,6 +478,23 @@ namespace Ringtoets.Common.IO.Test.Readers
 
             // Assert
             Assert.IsNull(element);
+        }
+
+        private class DoubleToBooleanConverter : TypeConverter
+        {
+            public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+            {
+                var doubleValue = value as double?;
+                if (doubleValue != null)
+                {
+                    if (Math.Abs(doubleValue.Value) < double.Epsilon)
+                    {
+                        return false;
+                    }
+                    return true;
+                }
+                return base.ConvertFrom(context, culture, value);
+            }
         }
     }
 }

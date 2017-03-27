@@ -110,7 +110,20 @@ namespace Ringtoets.Revetment.IO.Test
         }
 
         [Test]
-        public void CanConvertFrom_NonString_ReturnFalse()
+        public void CanConvertFrom_NullableDouble_ReturnTrue()
+        {
+            // Setup
+            var converter = new ReadWaveConditionsInputStepSizeConverter();
+
+            // Call
+            bool canConvertFromNullableDouble = converter.CanConvertFrom(typeof(double?));
+
+            // Assert
+            Assert.IsTrue(canConvertFromNullableDouble);
+        }
+
+        [Test]
+        public void CanConvertFrom_NonStringOrNullableDouble_ReturnFalse()
         {
             // Setup
             var converter = new ReadWaveConditionsInputStepSizeConverter();
@@ -159,6 +172,23 @@ namespace Ringtoets.Revetment.IO.Test
         }
 
         [Test]
+        [TestCase(0.5, ReadWaveConditionsInputStepSize.Half)]
+        [TestCase(1, ReadWaveConditionsInputStepSize.One)]
+        [TestCase(2.0000000000, ReadWaveConditionsInputStepSize.Two)]
+        public void ConvertFrom_VariousDoubles_ReturnWaveConditionsInputStepSize(double value,
+                                                                                 ReadWaveConditionsInputStepSize expectedResult)
+        {
+            // Setup
+            var converter = new ReadWaveConditionsInputStepSizeConverter();
+
+            // Call
+            object result = converter.ConvertFrom(null, CultureInfo.CurrentCulture, value);
+
+            // Assert
+            Assert.AreEqual(expectedResult, result);
+        }
+
+        [Test]
         [SetCulture("nl-NL")]
         public void ConvertFrom_InvalidText_ThrowNotSupportedException()
         {
@@ -166,9 +196,40 @@ namespace Ringtoets.Revetment.IO.Test
             var converter = new ReadWaveConditionsInputStepSizeConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertFrom("1");
+            TestDelegate call = () => converter.ConvertFrom("1x");
 
             // Assert
+            Assert.Throws<NotSupportedException>(call);
+        }
+
+        [Test]
+        [TestCase(2.001)]
+        [TestCase(double.PositiveInfinity)]
+        [TestCase(double.NegativeInfinity)]
+        [TestCase(double.NaN)]
+        [TestCase(-0.5)]
+        public void ConvertFrom_InvalidDoubleValue_ThrowNotSupportedException(double value)
+        {
+            // Setup
+            var converter = new ReadWaveConditionsInputStepSizeConverter();
+
+            // Call
+            TestDelegate call = () => converter.ConvertFrom(value);
+
+            // Assert
+            Assert.Throws<NotSupportedException>(call);
+        }
+
+        [Test]
+        public void ConvertFrom_Null_ThrowNotSupportedException()
+        {
+            // Setup
+            var converter = new ReadWaveConditionsInputStepSizeConverter();
+
+            // Call
+            TestDelegate call = () => converter.ConvertFrom(null);
+
+            // Assert        
             Assert.Throws<NotSupportedException>(call);
         }
     }

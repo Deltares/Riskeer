@@ -87,7 +87,7 @@ namespace Ringtoets.Common.IO.Readers
         }
 
         /// <summary>
-        /// Gets the converted value from a descendant element.
+        /// Gets the converted value from a descendant element containing a string.
         /// </summary>
         /// <typeparam name="TConverter">The <see cref="TypeConverter"/> to use</typeparam>
         /// <param name="parentElement">The <see cref="XElement"/> that contains the descendant element.</param>
@@ -96,7 +96,7 @@ namespace Ringtoets.Common.IO.Readers
         /// does not have descendant elements of <paramref name="descendantElementName"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when the conversion cannot be performed.</exception>
-        public static object GetConvertedValueFromDescendantElement<TConverter>(this XElement parentElement, string descendantElementName) where TConverter : TypeConverter, new()
+        public static object GetConvertedValueFromDescendantStringElement<TConverter>(this XElement parentElement, string descendantElementName) where TConverter : TypeConverter, new()
         {
             string stringValue = parentElement.GetStringValueFromDescendantElement(descendantElementName);
             if (stringValue == null)
@@ -104,6 +104,26 @@ namespace Ringtoets.Common.IO.Readers
                 return null;
             }
             return new TConverter().ConvertFromInvariantString(stringValue);
+        }
+
+        /// <summary>
+        /// Gets the converted value from a descendant element containing a double.
+        /// </summary>
+        /// <typeparam name="TConverter">The <see cref="TypeConverter"/> to use</typeparam>
+        /// <param name="parentElement">The <see cref="XElement"/> that contains the descendant element.</param>
+        /// <param name="descendantElementName">The name of the descendant element.</param>
+        /// <returns>The converted value, or <c>null</c> when the <paramref name="parentElement"/>
+        /// does not have descendant elements of <paramref name="descendantElementName"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when the conversion cannot be performed.</exception>
+        public static object GetConvertedValueFromDescendantDoubleElement<TConverter>(this XElement parentElement, string descendantElementName) where TConverter : TypeConverter, new()
+        {
+            double? doubleValue = parentElement.GetDoubleValueFromDescendantElement(descendantElementName);
+            if (doubleValue == null)
+            {
+                return null;
+            }
+            return new TConverter().ConvertFrom(doubleValue);
         }
 
         /// <summary>
