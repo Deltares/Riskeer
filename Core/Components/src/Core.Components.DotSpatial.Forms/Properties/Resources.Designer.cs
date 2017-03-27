@@ -94,9 +94,9 @@ namespace Core.Components.DotSpatial.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Verbinden met &apos;{0}&apos; is mislukt waardoor geen kaartgegevens ingeladen kunnen worden..
         /// </summary>
-        internal static string MapControl_InitializeBackgroundLayer_Connect_to_0_failed {
+        internal static string MapControl_InitializeBackgroundLayer_Connect_to_TileSourceName_0_failed {
             get {
-                return ResourceManager.GetString("MapControl_InitializeBackgroundLayer_Connect_to_0_failed", resourceCulture);
+                return ResourceManager.GetString("MapControl_InitializeBackgroundLayer_Connect_to_TileSourceName_0_failed", resourceCulture);
             }
         }
         

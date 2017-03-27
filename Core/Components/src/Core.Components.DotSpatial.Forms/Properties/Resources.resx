@@ -126,7 +126,7 @@
   <data name="MapControl_InitializeBackgroundLayer_Persistent_cache_creation_failed" xml:space="preserve">
     <value>Configuratie van kaartgegevens hulpbestanden is mislukt.</value>
   </data>
-  <data name="MapControl_InitializeBackgroundLayer_Connect_to_0_failed" xml:space="preserve">
+  <data name="MapControl_InitializeBackgroundLayer_Connect_to_TileSourceName_0_failed" xml:space="preserve">
     <value>Verbinden met '{0}' is mislukt waardoor geen kaartgegevens ingeladen kunnen worden.</value>
   </data>
 </root>

@@ -243,7 +243,7 @@ namespace Core.Components.DotSpatial.Forms
             catch (NotSupportedException e)
             {
                 string tileDisplayName = TypeUtils.GetDisplayName(wellKnownMapDataBackgroundMapData.TileSource);
-                HandleBruTileInitializationException(e, string.Format(Resources.MapControl_InitializeBackgroundLayer_Connect_to_0_failed, tileDisplayName));
+                HandleBruTileInitializationException(e, string.Format(Resources.MapControl_InitializeBackgroundLayer_Connect_to_TileSourceName_0_failed, tileDisplayName));
 
                 return null;
             }
