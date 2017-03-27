@@ -217,100 +217,99 @@ namespace Ringtoets.Integration.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Geeft aan of de geselecteerde achtergrond kaartlaag in alle kaarten van dit traject wordt weergegeven..
         /// </summary>
-        public static string BackgroundMapDataContainerProperties_IsVisible_Description {
+        public static string BackgroundDataProperties_IsVisible_Description {
             get {
-                return ResourceManager.GetString("BackgroundMapDataContainerProperties_IsVisible_Description", resourceCulture);
+                return ResourceManager.GetString("BackgroundDataProperties_IsVisible_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Weergeven.
         /// </summary>
-        public static string BackgroundMapDataContainerProperties_IsVisible_DisplayName {
+        public static string BackgroundDataProperties_IsVisible_DisplayName {
             get {
-                return ResourceManager.GetString("BackgroundMapDataContainerProperties_IsVisible_DisplayName", resourceCulture);
+                return ResourceManager.GetString("BackgroundDataProperties_IsVisible_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Omschrijving van de achtergrond kaartlaag..
         /// </summary>
-        public static string BackgroundMapDataContainerProperties_Name_Description {
+        public static string BackgroundDataProperties_Name_Description {
             get {
-                return ResourceManager.GetString("BackgroundMapDataContainerProperties_Name_Description", resourceCulture);
+                return ResourceManager.GetString("BackgroundDataProperties_Name_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Omschrijving.
         /// </summary>
-        public static string BackgroundMapDataContainerProperties_Name_DisplayName {
+        public static string BackgroundDataProperties_Name_DisplayName {
             get {
-                return ResourceManager.GetString("BackgroundMapDataContainerProperties_Name_DisplayName", resourceCulture);
+                return ResourceManager.GetString("BackgroundDataProperties_Name_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Transparantie waarmee de achtergrond kaartlaag wordt weergegeven..
         /// </summary>
-        public static string BackgroundMapDataContainerProperties_Transparency_Description {
+        public static string BackgroundDataProperties_Transparency_Description {
             get {
-                return ResourceManager.GetString("BackgroundMapDataContainerProperties_Transparency_Description", resourceCulture);
+                return ResourceManager.GetString("BackgroundDataProperties_Transparency_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Transparantie.
         /// </summary>
-        public static string BackgroundMapDataContainerProperties_Transparency_DisplayName {
+        public static string BackgroundDataProperties_Transparency_DisplayName {
             get {
-                return ResourceManager.GetString("BackgroundMapDataContainerProperties_Transparency_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het type afbeelding die door de geselecteerde kaartlaag aangeleverd wordt..
-        /// </summary>
-        public static string BackgroundWmtsMapDataContainerProperties_PreferredFormat_Description {
-            get {
-                return ResourceManager.GetString("BackgroundWmtsMapDataContainerProperties_PreferredFormat_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De naam van de geselecteerde kaartlaag..
-        /// </summary>
-        public static string BackgroundWmtsMapDataContainerProperties_SelectedCapabilityIdentifier_Description {
-            get {
-                return ResourceManager.GetString("BackgroundWmtsMapDataContainerProperties_SelectedCapabilityIdentifier_Description" +
-                        "", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Volledige URL naar de Web Map Tile Service (WMTS) die als achtergrond kaartlaag gebruikt wordt..
-        /// </summary>
-        public static string BackgroundWmtsMapDataContainerProperties_Url_Description {
-            get {
-                return ResourceManager.GetString("BackgroundWmtsMapDataContainerProperties_Url_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to URL.
-        /// </summary>
-        public static string BackgroundWmtsMapDataContainerProperties_Url_DisplayName {
-            get {
-                return ResourceManager.GetString("BackgroundWmtsMapDataContainerProperties_Url_DisplayName", resourceCulture);
+                return ResourceManager.GetString("BackgroundDataProperties_Transparency_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to WMTS.
         /// </summary>
-        public static string BackgroundWmtsMapDataContainerProperties_WMTS_Category {
+        public static string BackgroundDataProperties_Wmts_Category {
             get {
-                return ResourceManager.GetString("BackgroundWmtsMapDataContainerProperties_WMTS_Category", resourceCulture);
+                return ResourceManager.GetString("BackgroundDataProperties_Wmts_Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het type afbeelding die door de geselecteerde kaartlaag aangeleverd wordt..
+        /// </summary>
+        public static string BackgroundDataProperties_Wmts_PreferredFormat_Description {
+            get {
+                return ResourceManager.GetString("BackgroundDataProperties_Wmts_PreferredFormat_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De naam van de geselecteerde kaartlaag..
+        /// </summary>
+        public static string BackgroundDataProperties_Wmts_SelectedCapabilityIdentifier_Description {
+            get {
+                return ResourceManager.GetString("BackgroundDataProperties_Wmts_SelectedCapabilityIdentifier_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Volledige URL naar de Web Map Tile Service (WMTS) die als achtergrond kaartlaag gebruikt wordt..
+        /// </summary>
+        public static string BackgroundDataProperties_Wmts_Url_Description {
+            get {
+                return ResourceManager.GetString("BackgroundDataProperties_Wmts_Url_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to URL.
+        /// </summary>
+        public static string BackgroundDataProperties_Wmts_Url_DisplayName {
+            get {
+                return ResourceManager.GetString("BackgroundDataProperties_Wmts_Url_DisplayName", resourceCulture);
             }
         }
         

@@ -144,7 +144,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             // Setup
             using (var view = new HeightStructuresFailureMechanismView())
             {
-                var mapControl = (RingtoetsMapControl)view.Map;
+                var mapControl = (RingtoetsMapControl) view.Map;
 
                 var assessmentSection = new ObservableTestAssessmentSectionStub();
 
@@ -425,7 +425,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(newHydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
             }
         }
-        
+
         [Test]
         public void UpdateObserver_ReferenceLineUpdated_MapDataUpdated()
         {

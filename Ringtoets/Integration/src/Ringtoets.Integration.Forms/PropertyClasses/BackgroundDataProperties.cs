@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
@@ -55,8 +53,8 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.BackgroundMapDataContainerProperties_Name_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.BackgroundMapDataContainerProperties_Name_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.BackgroundDataProperties_Name_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.BackgroundDataProperties_Name_Description))]
         public string Name
         {
             get
@@ -72,8 +70,8 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.BackgroundMapDataContainerProperties_Transparency_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.BackgroundMapDataContainerProperties_Transparency_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.BackgroundDataProperties_Transparency_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.BackgroundDataProperties_Transparency_Description))]
         public RoundedDouble Transparency
         {
             get
@@ -88,8 +86,8 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.BackgroundMapDataContainerProperties_IsVisible_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.BackgroundMapDataContainerProperties_IsVisible_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.BackgroundDataProperties_IsVisible_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.BackgroundDataProperties_IsVisible_Description))]
         public bool IsVisible
         {
             get
@@ -115,9 +113,9 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         #region Wmts MapData
 
         [DynamicVisible]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.BackgroundWmtsMapDataContainerProperties_WMTS_Category))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.BackgroundWmtsMapDataContainerProperties_Url_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.BackgroundWmtsMapDataContainerProperties_Url_Description))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.BackgroundDataProperties_Wmts_Category))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.BackgroundDataProperties_Wmts_Url_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.BackgroundDataProperties_Wmts_Url_Description))]
         public string SourceCapabilitiesUrl
         {
             get
@@ -127,9 +125,9 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         }
 
         [DynamicVisible]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.BackgroundWmtsMapDataContainerProperties_WMTS_Category))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.BackgroundDataProperties_Wmts_Category))]
         [ResourcesDisplayName(typeof(GisFormsResources), nameof(GisFormsResources.WmtsCapability_MapLayer_Id))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.BackgroundWmtsMapDataContainerProperties_SelectedCapabilityIdentifier_Description))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.BackgroundDataProperties_Wmts_SelectedCapabilityIdentifier_Description))]
         public string SelectedCapabilityIdentifier
         {
             get
@@ -139,9 +137,9 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         }
 
         [DynamicVisible]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.BackgroundWmtsMapDataContainerProperties_WMTS_Category))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.BackgroundDataProperties_Wmts_Category))]
         [ResourcesDisplayName(typeof(GisFormsResources), nameof(GisFormsResources.WmtsCapability_MapLayer_Format))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.BackgroundWmtsMapDataContainerProperties_PreferredFormat_Description))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.BackgroundDataProperties_Wmts_PreferredFormat_Description))]
         public string PreferredFormat
         {
             get
