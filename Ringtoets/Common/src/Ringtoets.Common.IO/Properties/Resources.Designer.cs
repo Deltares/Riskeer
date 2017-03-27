@@ -160,6 +160,15 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het XML-document dat de configuratie voor de berekeningen beschrijft is niet geldig. De validatie geeft de volgende melding: {0}.
+        /// </summary>
+        public static string CalculationConfigurationReader_Configuration_contains_no_valid_xml_Reason_2 {
+            get {
+                return ResourceManager.GetString("CalculationConfigurationReader_Configuration_contains_no_valid_xml_Reason_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het XML-document dat de configuratie voor de berekeningen beschrijft bevat geen berekeningselementen..
         /// </summary>
         public static string CalculationConfigurationReader_No_configuration_items_found {
@@ -1236,7 +1245,6 @@ namespace Ringtoets.Common.IO.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-        ///
         ///&lt;!--
         ///Copyright (C) Stichting Deltares 2016. All rights reserved.
         ///
@@ -1248,7 +1256,7 @@ namespace Ringtoets.Common.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warrant [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without even the implied warranty  [rest of string was truncated]&quot;;.
         /// </summary>
         public static string StochastStandardDeviationSchema {
             get {
@@ -1258,7 +1266,6 @@ namespace Ringtoets.Common.IO.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-        ///
         ///&lt;!--
         ///Copyright (C) Stichting Deltares 2016. All rights reserved.
         ///
@@ -1270,7 +1277,7 @@ namespace Ringtoets.Common.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warrant [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without even the implied warranty  [rest of string was truncated]&quot;;.
         /// </summary>
         public static string StochastVariationCoefficientSchema {
             get {

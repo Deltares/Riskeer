@@ -55,6 +55,29 @@ namespace Ringtoets.Common.IO.Test.Readers
             }
         }
 
+        private static IEnumerable<TestCaseData> InvalidXml
+        {
+            get
+            {
+                yield return new TestCaseData(
+                        "empty.xml",
+                        "Root element is missing.")
+                    .SetName("FileDoesNotContainValidXml_empty.xml");
+                yield return new TestCaseData(
+                        "textContent.xml",
+                        "Data at the root level is invalid. Line 1, position 1.")
+                    .SetName("FileDoesNotContainValidXml_textContent.xml");
+                yield return new TestCaseData(
+                        "invalidXmlContent.xml",
+                        "The 'map' start tag on line 4 position 4 does not match the end tag of 'configuratie'. Line 5, position 3.")
+                    .SetName("FileDoesNotContainValidXml_invalidXmlContent.xml");
+                yield return new TestCaseData(
+                        "withoutQoutationMarks.xml",
+                        "'Nieuw' is an unexpected token. The expected token is '\"' or '''. Line 3, position 20.")
+                    .SetName("FileDoesNotContainValidXml_withoutQoutationMarks.xml");
+            }
+        }
+
         [Test]
         [TestCase("")]
         [TestCase("      ")]
@@ -116,10 +139,8 @@ namespace Ringtoets.Common.IO.Test.Readers
         }
 
         [Test]
-        [TestCase("empty.xml")]
-        [TestCase("textContent.xml")]
-        [TestCase("invalidXmlContent.xml")]
-        public void Constructor_FileDoesNotContainValidXml_ThrowCriticalFileReadException(string fileName)
+        [TestCaseSource(nameof(InvalidXml))]
+        public void Constructor_FileDoesNotContainValidXml_ThrowCriticalFileReadException(string fileName, string expectedInnerMessage)
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, fileName);
@@ -128,10 +149,13 @@ namespace Ringtoets.Common.IO.Test.Readers
             TestDelegate call = () => new CalculationConfigurationReader(filePath, validMainSchemaDefinition, new Dictionary<string, string>());
 
             // Assert
-            string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.";
             var exception = Assert.Throws<CriticalFileReadException>(call);
+            string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': " +
+                                     "het XML-document dat de configuratie voor de berekeningen beschrijft is niet geldig. " +
+                                     $"De validatie geeft de volgende melding: {expectedInnerMessage}";
             Assert.AreEqual(expectedMessage, exception.Message);
             Assert.IsInstanceOf<XmlException>(exception.InnerException);
+            Assert.IsTrue(exception.InnerException?.Message.Contains(expectedInnerMessage));
         }
 
         [Test]

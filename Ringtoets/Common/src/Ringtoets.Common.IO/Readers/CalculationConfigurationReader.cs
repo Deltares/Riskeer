@@ -135,10 +135,15 @@ namespace Ringtoets.Common.IO.Readers
             {
                 return XDocument.Load(xmlFilePath, LoadOptions.PreserveWhitespace | LoadOptions.SetLineInfo | LoadOptions.SetBaseUri);
             }
+            catch (XmlException exception)
+            {
+                string exceptionMessage = string.Format(Resources.CalculationConfigurationReader_Configuration_contains_no_valid_xml_Reason_2,
+                                                        exception.Message);
+
+                throw new CriticalFileReadException(new FileReaderErrorMessageBuilder(xmlFilePath).Build(exceptionMessage), exception);
+            }
             catch (Exception exception)
-                when (exception is InvalidOperationException
-                      || exception is XmlException
-                      || exception is IOException)
+                when (exception is InvalidOperationException || exception is IOException)
             {
                 string message = new FileReaderErrorMessageBuilder(xmlFilePath)
                     .Build(CoreCommonUtilsResources.Error_General_IO_Import_ErrorMessage);
