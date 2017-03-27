@@ -170,9 +170,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 // Assert
                 Assert.AreSame(failureMechanismContext, view.Data);
                 AssertEmptyMapData(view.Map.Data);
-                ImageBasedMapData expectedImageBasedMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(
-                    assessmentSection.BackgroundData);
-                MapDataTestHelper.AssertImageBasedMapData(expectedImageBasedMapData, view.Map.BackgroundMapData);
+                MapDataTestHelper.AssertImageBasedMapData(assessmentSection.BackgroundData, view.Map.BackgroundMapData);
             }
         }
 
@@ -226,7 +224,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 // Assert
                 Assert.AreSame(failureMechanismContext, view.Data);
 
-                var mapData = map.Data;
+                MapDataCollection mapData = map.Data;
                 Assert.IsInstanceOf<MapDataCollection>(mapData);
 
                 var mapDataList = mapData.Collection.ToList();
@@ -271,7 +269,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
                 view.Data = failureMechanismContext;
 
-                var hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
+                MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
                 // Precondition
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase1.Locations, hydraulicBoundaryLocationsMapData);
@@ -310,7 +308,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
                 view.Data = failureMechanismContext;
 
-                var hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
+                MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
                 // Precondition
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
@@ -354,7 +352,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
                 view.Data = new FailureMechanismContext<TestFailureMechanism>(new TestFailureMechanism(), assessmentSection);
 
-                var hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
+                MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
                 // Precondition
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(currentHydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
@@ -400,7 +398,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
                 view.Data = failureMechanismContext;
 
-                var referenceLineMapData = map.Data.Collection.ElementAt(referenceLineIndex);
+                MapData referenceLineMapData = map.Data.Collection.ElementAt(referenceLineIndex);
 
                 // Precondition
                 MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
@@ -466,7 +464,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
                 view.Data = failureMechanismContext;
 
-                var mapData = map.Data;
+                MapDataCollection mapData = map.Data;
 
                 var dataToMove = (MapLineData) map.Data.Collection.ElementAt(referenceLineIndex);
                 mapData.Remove(dataToMove);
@@ -495,7 +493,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                     new Point2D(2.0, 5.0),
                     new Point2D(4.0, 3.0)
                 };
-                ReferenceLine referenceLine = new ReferenceLine();
+                var referenceLine = new ReferenceLine();
                 referenceLine.SetGeometry(points);
                 assessmentSection.ReferenceLine = referenceLine;
 

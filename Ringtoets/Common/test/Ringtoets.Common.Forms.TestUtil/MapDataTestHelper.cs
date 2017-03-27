@@ -42,7 +42,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <summary>
         /// Asserts whether the <see cref="MapData"/> contains the data that is representative for the <paramref name="sections"/>.
         /// </summary>
-        /// <param name="sections">The sections that contains the original data.</param>
+        /// <param name="sections">The sections that contain the original data.</param>
         /// <param name="mapData">The <see cref="MapData"/> that needs to be asserted.</param>
         /// <exception cref="AssertionException">Thrown when:
         /// <list type="bullet">
@@ -50,18 +50,19 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <item>The name of the <see cref="MapData"/> is not <c>"Vakindeling"</c>.</item>
         /// <item>The number of sections and features in <see cref="MapData"/> are not the same.</item>
         /// <item>The points of a section and the geometry of a corresponding feature are not the same.</item>        
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public static void AssertFailureMechanismSectionsMapData(IEnumerable<FailureMechanismSection> sections, MapData mapData)
         {
             Assert.IsInstanceOf<MapLineData>(mapData);
             Assert.AreEqual("Vakindeling", mapData.Name);
 
-            MapLineData sectionsMapLinesData = (MapLineData) mapData;
+            var sectionsMapLinesData = (MapLineData) mapData;
             MapFeature[] sectionMapLinesFeatures = sectionsMapLinesData.Features.ToArray();
             FailureMechanismSection[] sectionsArray = sections.ToArray();
             Assert.AreEqual(sectionsArray.Length, sectionMapLinesFeatures.Length);
 
-            for (int index = 0; index < sectionsArray.Length; index++)
+            for (var index = 0; index < sectionsArray.Length; index++)
             {
                 MapGeometry geometry = sectionMapLinesFeatures[index].MapGeometries.First();
                 FailureMechanismSection failureMechanismSection = sectionsArray[index];
@@ -81,13 +82,14 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <item><paramref name="mapData"/> has features when <paramref name="hydraulicBoundaryLocations"/> is <c>null</c>.</item>
         /// <item>The number of hydraulic boundary locations and features in <see cref="MapData"/> are not the same.</item>
         /// <item>The point of a hydraulic boundary location and the geometry of a corresponding feature are not the same.</item>        
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public static void AssertHydraulicBoundaryLocationsMapData(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations, MapData mapData)
         {
             Assert.IsInstanceOf<MapPointData>(mapData);
             Assert.AreEqual("Hydraulische randvoorwaarden", mapData.Name);
 
-            MapPointData hydraulicLocationsMapData = (MapPointData) mapData;
+            var hydraulicLocationsMapData = (MapPointData) mapData;
             if (hydraulicBoundaryLocations == null)
             {
                 CollectionAssert.IsEmpty(hydraulicLocationsMapData.Features);
@@ -105,7 +107,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <summary>
         /// Asserts whether the <see cref="MapData"/> contains the data that is representative for the <paramref name="referenceLine"/>.
         /// </summary>
-        /// <param name="referenceLine">The reference line that contain the original data.</param>
+        /// <param name="referenceLine">The reference line that contains the original data.</param>
         /// <param name="mapData">The <see cref="MapData"/> that needs to be asserted.</param>
         /// <exception cref="AssertionException">Thrown when:
         /// <list type="bullet">
@@ -114,7 +116,8 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <item><paramref name="mapData"/> has features when <paramref name="referenceLine"/> is <c>null</c>.</item>
         /// <item><paramref name="mapData"/> has more than one feature.</item>
         /// <item>The points of the reference line and the geometry of the first feature are not the same.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public static void AssertReferenceLineMapData(ReferenceLine referenceLine, MapData mapData)
         {
             Assert.IsInstanceOf<MapLineData>(mapData);
@@ -135,7 +138,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <summary>
         /// Asserts whether the <see cref="MapData"/> contains the data that is representative for the start points of the <paramref name="sections"/>.
         /// </summary>
-        /// <param name="sections">The sections that contains the original data.</param>
+        /// <param name="sections">The sections that contain the original data.</param>
         /// <param name="mapData">The <see cref="MapData"/> that needs to be asserted.</param>
         /// <exception cref="AssertionException">Thrown when:
         /// <list type="bullet">
@@ -143,7 +146,8 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <item>The name of the <see cref="MapData"/> is not <c>"Vakindeling (startpunten)"</c>.</item>
         /// <item><paramref name="mapData"/> has more than one feature.</item>
         /// <item>The start points of the sections and the geometry of the first feature are not the same.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public static void AssertFailureMechanismSectionsStartPointMapData(IEnumerable<FailureMechanismSection> sections, MapData mapData)
         {
             Assert.IsInstanceOf<MapPointData>(mapData);
@@ -157,7 +161,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <summary>
         /// Asserts whether the <see cref="MapData"/> contains the data that is representative for the end points of the <paramref name="sections"/>.
         /// </summary>
-        /// <param name="sections">The sections that contains the original data.</param>
+        /// <param name="sections">The sections that contain the original data.</param>
         /// <param name="mapData">The <see cref="MapData"/> that needs to be asserted.</param>
         /// <exception cref="AssertionException">Thrown when:
         /// <list type="bullet">
@@ -165,7 +169,8 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <item>The name of the <see cref="MapData"/> is not <c>"Vakindeling (eindpunten)"</c>.</item>
         /// <item><paramref name="mapData"/> has more than one feature.</item>
         /// <item>The end points of the sections and the geometry of the first feature are not the same.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public static void AssertFailureMechanismSectionsEndPointMapData(IEnumerable<FailureMechanismSection> sections, MapData mapData)
         {
             Assert.IsInstanceOf<MapPointData>(mapData);
@@ -179,7 +184,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <summary>
         /// Asserts whether the <see cref="MapData"/> contains the data that is representative for the <paramref name="foreshoreProfiles"/>.
         /// </summary>
-        /// <param name="foreshoreProfiles">The foreshore profiles that contains the original data.</param>
+        /// <param name="foreshoreProfiles">The foreshore profiles that contain the original data.</param>
         /// <param name="mapData">The <see cref="MapData"/> that needs to be asserted.</param>
         /// <exception cref="AssertionException">Thrown when:
         /// <list type="bullet">
@@ -187,18 +192,19 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <item>The name of the <see cref="MapData"/> is not <c>Voorlandprofielen</c>.</item>
         /// <item>The amount of features in <paramref name="mapData"/> is not equal to the length of the <paramref name="foreshoreProfiles"/>.</item>
         /// <item>The geometries of the features in <paramref name="mapData"/> are not equal to the expected geometry of the <paramref name="foreshoreProfiles"/>.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public static void AssertForeshoreProfilesMapData(IEnumerable<ForeshoreProfile> foreshoreProfiles, MapData mapData)
         {
             Assert.IsInstanceOf<MapLineData>(mapData);
             Assert.AreEqual("Voorlandprofielen", mapData.Name);
 
-            MapLineData foreshoreProfilesData = (MapLineData) mapData;
+            var foreshoreProfilesData = (MapLineData) mapData;
             ForeshoreProfile[] foreshoreProfileArray = foreshoreProfiles.ToArray();
 
             Assert.AreEqual(foreshoreProfileArray.Length, foreshoreProfilesData.Features.Length);
 
-            for (int i = 0; i < foreshoreProfileArray.Length; i++)
+            for (var i = 0; i < foreshoreProfileArray.Length; i++)
             {
                 Point2D[] expectedGeometry = GetWorldPoints(foreshoreProfileArray[i]);
                 MapGeometry profileDataA = foreshoreProfilesData.Features[i].MapGeometries.First();
@@ -207,70 +213,51 @@ namespace Ringtoets.Common.Forms.TestUtil
         }
 
         /// <summary>
-        /// Asserts whether the <paramref name="mapData"/> is equivalent to <paramref name="wmtsMapData"/>
+        /// Asserts whether the <see cref="ImageBasedMapData"/> contains the data that is representative for the <paramref name="backgroundData"/>.
         /// </summary>
-        /// <param name="wmtsMapData">The original WMTS map data.</param>
-        /// <param name="mapData">The <see cref="MapData"/> that needs to be asserted.</param>
+        /// <param name="backgroundData">The <see cref="BackgroundData"/> that contains the original data.</param>
+        /// <param name="imageBasedMapData">The <see cref="ImageBasedMapData"/> that needs to be asserted.</param>
         /// <exception cref="AssertionException">Thrown when:
         /// <list type="bullet">
-        /// <item><paramref name="mapData"/> is not <see cref="WmtsMapData"/></item>
-        /// <item>One of the properties of <paramref name="wmtsMapData"/> is not equal to <paramref name="mapData"/></item>
-        /// </list></exception>
-        private static void AssertWmtsMapData(WmtsMapData wmtsMapData, MapData mapData)
+        /// <item><paramref name="imageBasedMapData"/> is not of the expected type.</item>
+        /// <item>One of the properties of <paramref name="imageBasedMapData"/> is not equal to <paramref name="backgroundData"/>.</item>
+        /// </list>
+        /// </exception>
+        public static void AssertImageBasedMapData(BackgroundData backgroundData, ImageBasedMapData imageBasedMapData)
         {
-            Assert.IsInstanceOf<WmtsMapData>(mapData);
-            Assert.IsNotNull(wmtsMapData);
-            Assert.AreEqual(wmtsMapData.Name, mapData.Name);
-            Assert.AreEqual(wmtsMapData.IsVisible, mapData.IsVisible);
+            Assert.IsNotNull(backgroundData);
+            Assert.IsNotNull(imageBasedMapData);
+            Assert.AreEqual(backgroundData.Name, imageBasedMapData.Name);
+            Assert.AreEqual(backgroundData.IsVisible, imageBasedMapData.IsVisible);
+            Assert.AreEqual(backgroundData.Transparency, imageBasedMapData.Transparency);
 
-            var actualMapData = (WmtsMapData) mapData;
-            Assert.AreEqual(wmtsMapData.PreferredFormat, actualMapData.PreferredFormat);
-            Assert.AreEqual(wmtsMapData.SelectedCapabilityIdentifier, actualMapData.SelectedCapabilityIdentifier);
-            Assert.AreEqual(wmtsMapData.SourceCapabilitiesUrl, actualMapData.SourceCapabilitiesUrl);
-            Assert.AreEqual(wmtsMapData.IsConfigured, actualMapData.IsConfigured);
-            Assert.AreEqual(wmtsMapData.Transparency, actualMapData.Transparency);
-        }
-
-        /// <summary>
-        /// Asserts whether the <paramref name="mapData"/> is equivalent to <paramref name="imageBasedMapData"/>
-        /// </summary>
-        /// <param name="imageBasedMapData">The original image based map data.</param>
-        /// <param name="mapData">The <see cref="MapData"/> that needs to be asserted.</param>
-        /// <exception cref="AssertionException">Thrown when:
-        /// <list type="bullet">
-        /// <item><paramref name="mapData"/> is no <see cref="ImageBasedMapData"/>;</item>
-        /// <item>One of the properties of <paramref name="imageBasedMapData"/> is not equal to <paramref name="mapData"/>.</item>
-        /// </list></exception>
-        public static void AssertImageBasedMapData(ImageBasedMapData imageBasedMapData, MapData mapData)
-        {
-            var wmtsMapData = imageBasedMapData as WmtsMapData;
-            if (wmtsMapData != null)
+            var wmtsBackgroundDataConfiguration = backgroundData.Configuration as WmtsBackgroundDataConfiguration;
+            if (wmtsBackgroundDataConfiguration != null)
             {
-                AssertWmtsMapData(wmtsMapData, mapData);
+                Assert.IsInstanceOf<WmtsMapData>(imageBasedMapData);
+
+                var wmtsMapData = (WmtsMapData) imageBasedMapData;
+                Assert.AreEqual(wmtsBackgroundDataConfiguration.PreferredFormat, wmtsMapData.PreferredFormat);
+                Assert.AreEqual(wmtsBackgroundDataConfiguration.SelectedCapabilityIdentifier, wmtsMapData.SelectedCapabilityIdentifier);
+                Assert.AreEqual(wmtsBackgroundDataConfiguration.SourceCapabilitiesUrl, wmtsMapData.SourceCapabilitiesUrl);
+                Assert.AreEqual(wmtsBackgroundDataConfiguration.IsConfigured, wmtsMapData.IsConfigured);
+
                 return;
             }
 
-            var wellKnownTileSourceMapData = imageBasedMapData as WellKnownTileSourceMapData;
-            if (wellKnownTileSourceMapData != null)
+            var wellKnownBackgroundDataConfiguration = backgroundData.Configuration as WellKnownBackgroundDataConfiguration;
+            if (wellKnownBackgroundDataConfiguration != null)
             {
-                AssertWellKnownTileSourceMapData(wellKnownTileSourceMapData, mapData);
+                Assert.IsInstanceOf<WellKnownTileSourceMapData>(imageBasedMapData);
+
+                var wellKnownTileSourceMapData = (WellKnownTileSourceMapData) imageBasedMapData;
+                Assert.AreEqual(wellKnownBackgroundDataConfiguration.WellKnownTileSource, (RingtoetsWellKnownTileSource) wellKnownTileSourceMapData.TileSource);
+                Assert.IsTrue(wellKnownTileSourceMapData.IsConfigured);
+
                 return;
             }
-            Assert.IsInstanceOf<ImageBasedMapData>(imageBasedMapData);
-            Assert.Fail($"unknown type of {nameof(ImageBasedMapData)}");
-        }
 
-        private static void AssertWellKnownTileSourceMapData(WellKnownTileSourceMapData wellKnownTileSourceMapData, MapData mapData)
-        {
-            Assert.IsInstanceOf<WellKnownTileSourceMapData>(mapData);
-            Assert.IsNotNull(wellKnownTileSourceMapData);
-            Assert.AreEqual(wellKnownTileSourceMapData.Name, mapData.Name);
-            Assert.AreEqual(wellKnownTileSourceMapData.IsVisible, mapData.IsVisible);
-
-            var actualMapData = (WellKnownTileSourceMapData) mapData;
-            Assert.AreEqual(wellKnownTileSourceMapData.IsConfigured, actualMapData.IsConfigured);
-            Assert.AreEqual(wellKnownTileSourceMapData.Transparency, actualMapData.Transparency);
-            Assert.AreEqual(wellKnownTileSourceMapData.TileSource, actualMapData.TileSource);
+            Assert.Fail("Unsupported background configuration.");
         }
 
         private static Point2D[] GetWorldPoints(ForeshoreProfile foreshoreProfile)

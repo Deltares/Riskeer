@@ -162,9 +162,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Assert
                 Assert.AreSame(failureMechanismContext, view.Data);
                 AssertEmptyMapData(view.Map.Data);
-                ImageBasedMapData expectedImageBasedMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(
-                    assessmentSection.BackgroundData);
-                MapDataTestHelper.AssertImageBasedMapData(expectedImageBasedMapData, view.Map.BackgroundMapData);
+                MapDataTestHelper.AssertImageBasedMapData(assessmentSection.BackgroundData, view.Map.BackgroundMapData);
             }
         }
 
@@ -308,9 +306,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     stochasticSoilModel2
                 }, arbitraryFilePath);
 
-                var calculationA = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+                PipingCalculationScenario calculationA = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
                 calculationA.InputParameters.SurfaceLine = surfaceLineA;
-                var calculationB = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+                PipingCalculationScenario calculationB = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
                 calculationB.InputParameters.SurfaceLine = surfaceLineB;
                 failureMechanism.CalculationsGroup.Children.Add(calculationA);
                 failureMechanism.CalculationsGroup.Children.Add(calculationB);
@@ -323,7 +321,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Assert
                 Assert.AreSame(failureMechanismContext, view.Data);
 
-                var mapData = map.Data;
+                MapDataCollection mapData = map.Data;
                 Assert.IsInstanceOf<MapDataCollection>(mapData);
 
                 var mapDataList = mapData.Collection.ToList();
@@ -382,7 +380,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
                 mocks.ReplayAll();
 
-                var hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
+                MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
                 // Precondition
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase1.Locations, hydraulicBoundaryLocationsMapData);
@@ -426,7 +424,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 observers[hydraulicBoundaryLocationsIndex].Expect(obs => obs.UpdateObserver());
                 mocks.ReplayAll();
 
-                var hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
+                MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
                 // Precondition
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
@@ -483,7 +481,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
                 mocks.ReplayAll();
 
-                var hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
+                MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
                 // Precondition
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(currentHydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
@@ -540,7 +538,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
                 mocks.ReplayAll();
 
-                var referenceLineMapData = map.Data.Collection.ElementAt(referenceLineIndex);
+                MapData referenceLineMapData = map.Data.Collection.ElementAt(referenceLineIndex);
 
                 // Precondition
                 MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
@@ -750,9 +748,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 surfaceLineA.ReferenceLineIntersectionWorldPoint = new Point2D(1.3, 1.3);
                 surfaceLineB.ReferenceLineIntersectionWorldPoint = new Point2D(1.5, 1.5);
 
-                var calculationA = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+                PipingCalculationScenario calculationA = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
                 calculationA.InputParameters.SurfaceLine = surfaceLineA;
-                var calculationB = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+                PipingCalculationScenario calculationB = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
                 calculationB.InputParameters.SurfaceLine = surfaceLineB;
                 failureMechanism.CalculationsGroup.Children.Add(calculationA);
 
@@ -800,7 +798,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 surfaceLineA.ReferenceLineIntersectionWorldPoint = new Point2D(1.3, 1.3);
                 surfaceLineB.ReferenceLineIntersectionWorldPoint = new Point2D(1.5, 1.5);
 
-                var calculationA = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+                PipingCalculationScenario calculationA = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
                 calculationA.InputParameters.SurfaceLine = surfaceLineA;
 
                 var failureMechanism = new PipingFailureMechanism();
@@ -851,7 +849,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 surfaceLineA.ReferenceLineIntersectionWorldPoint = new Point2D(1.3, 1.3);
                 surfaceLineB.ReferenceLineIntersectionWorldPoint = new Point2D(1.5, 1.5);
 
-                var calculationA = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+                PipingCalculationScenario calculationA = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
                 calculationA.InputParameters.SurfaceLine = surfaceLineA;
 
                 var failureMechanism = new PipingFailureMechanism();
@@ -901,7 +899,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 view.Data = failureMechanismContext;
 
-                var mapData = map.Data;
+                MapDataCollection mapData = map.Data;
 
                 var dataToMove = (MapLineData) map.Data.Collection.ElementAt(referenceLineIndex);
                 mapData.Remove(dataToMove);
@@ -939,7 +937,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     new Point2D(2.0, 5.0),
                     new Point2D(4.0, 3.0)
                 };
-                ReferenceLine referenceLine = new ReferenceLine();
+                var referenceLine = new ReferenceLine();
                 referenceLine.SetGeometry(points);
                 assessmentSection.ReferenceLine = referenceLine;
 
@@ -1015,10 +1013,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var surfaceLinesArray = surfaceLines.ToArray();
             Assert.AreEqual(surfaceLinesArray.Length, surfacelineFeatures.Length);
 
-            for (int index = 0; index < surfaceLinesArray.Length; index++)
+            for (var index = 0; index < surfaceLinesArray.Length; index++)
             {
                 Assert.AreEqual(1, surfacelineFeatures[index].MapGeometries.Count());
-                var surfaceLine = surfaceLinesArray[index];
+                RingtoetsPipingSurfaceLine surfaceLine = surfaceLinesArray[index];
                 CollectionAssert.AreEquivalent(surfaceLine.Points.Select(p => new Point2D(p.X, p.Y)), surfacelineFeatures[index].MapGeometries.First().PointCollections.First());
             }
             Assert.AreEqual("Profielschematisaties", mapData.Name);
@@ -1032,10 +1030,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var stochasticSoilModelsArray = soilModels.ToArray();
             Assert.AreEqual(stochasticSoilModelsArray.Length, soilModelsFeatures.Length);
 
-            for (int index = 0; index < stochasticSoilModelsArray.Length; index++)
+            for (var index = 0; index < stochasticSoilModelsArray.Length; index++)
             {
                 Assert.AreEqual(1, soilModelsFeatures[index].MapGeometries.Count());
-                var stochasticSoilModel = stochasticSoilModelsArray[index];
+                StochasticSoilModel stochasticSoilModel = stochasticSoilModelsArray[index];
                 CollectionAssert.AreEquivalent(stochasticSoilModel.Geometry.Select(p => new Point2D(p.X, p.Y)), soilModelsFeatures[index].MapGeometries.First().PointCollections.First());
             }
             Assert.AreEqual("Stochastische ondergrondmodellen", mapData.Name);
@@ -1049,7 +1047,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var calculationsFeatures = calculationsMapData.Features.ToArray();
             Assert.AreEqual(calculationsArray.Length, calculationsFeatures.Length);
 
-            for (int index = 0; index < calculationsArray.Length; index++)
+            for (var index = 0; index < calculationsArray.Length; index++)
             {
                 var geometries = calculationsFeatures[index].MapGeometries.ToArray();
                 Assert.AreEqual(1, geometries.Length);

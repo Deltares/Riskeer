@@ -122,7 +122,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void BackgroundData_NotNull_BackgroundMapDataSet()
         {
             // Setup
-            var mapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
             BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(mapData);
 
             var control = new RingtoetsMapControl();
@@ -136,7 +136,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 // Assert
                 Assert.AreSame(backgroundData, control.BackgroundData);
                 Assert.IsNotNull(control.BackgroundMapData);
-                MapDataTestHelper.AssertImageBasedMapData(mapData, control.BackgroundMapData);
+                MapDataTestHelper.AssertImageBasedMapData(backgroundData, control.BackgroundMapData);
             }
         }
 

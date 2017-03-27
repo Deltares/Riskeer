@@ -59,7 +59,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
         [Test]
         [TestCaseSource(nameof(WmtsMapDatas))]
-        public void ConvertFrom_WmtsConfiguredBackgroundData_ReturnWmtsMapData(WmtsMapData mapData)
+        public void CreateBackgroundMapData_WmtsConfiguredBackgroundData_ReturnWmtsMapData(WmtsMapData mapData)
         {
             // Setup
             BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(mapData);
@@ -68,7 +68,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             ImageBasedMapData backgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(backgroundData);
 
             // Assert
-            MapDataTestHelper.AssertImageBasedMapData(mapData, backgroundMapData);
+            MapDataTestHelper.AssertImageBasedMapData(backgroundData, backgroundMapData);
         }
 
         [Test]
@@ -76,15 +76,14 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Setup
             var random = new Random(21);
-            RingtoetsWellKnownTileSource wellKnownTileSource = random.NextEnumValue<RingtoetsWellKnownTileSource>();
+            var wellKnownTileSource = random.NextEnumValue<RingtoetsWellKnownTileSource>();
             BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData(wellKnownTileSource);
 
             // Call
             ImageBasedMapData backgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(backgroundData);
 
             // Assert
-            var expectedMapData = new WellKnownTileSourceMapData((WellKnownTileSource) wellKnownTileSource);
-            MapDataTestHelper.AssertImageBasedMapData(expectedMapData, backgroundMapData);
+            MapDataTestHelper.AssertImageBasedMapData(backgroundData, backgroundMapData);
         }
 
         [Test]

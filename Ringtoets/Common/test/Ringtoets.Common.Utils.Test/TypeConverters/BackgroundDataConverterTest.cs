@@ -34,7 +34,7 @@ using Ringtoets.Common.Utils.TypeConverters;
 namespace Ringtoets.Common.Utils.Test.TypeConverters
 {
     [TestFixture]
-    public class BackgroundDataConverterTestW
+    public class BackgroundDataConverterTest
     {
         private static IEnumerable<TestCaseData> WmtsMapDatas
         {
@@ -103,7 +103,7 @@ namespace Ringtoets.Common.Utils.Test.TypeConverters
         {
             // Setup
             var random = new Random(21);
-            WellKnownTileSource wellKnownTileSource = random.NextEnumValue<WellKnownTileSource>();
+            var wellKnownTileSource = random.NextEnumValue<WellKnownTileSource>();
             var mapData = new WellKnownTileSourceMapData(wellKnownTileSource);
 
             // Call
@@ -156,7 +156,7 @@ namespace Ringtoets.Common.Utils.Test.TypeConverters
             ImageBasedMapData convertedMapData = BackgroundDataConverter.ConvertFrom(backgroundData);
 
             // Assert
-            MapDataTestHelper.AssertImageBasedMapData(mapData, convertedMapData);
+            MapDataTestHelper.AssertImageBasedMapData(backgroundData, convertedMapData);
         }
 
         [Test]
@@ -164,15 +164,14 @@ namespace Ringtoets.Common.Utils.Test.TypeConverters
         {
             // Setup
             var random = new Random(21);
-            RingtoetsWellKnownTileSource wellKnownTileSource = random.NextEnumValue<RingtoetsWellKnownTileSource>();
+            var wellKnownTileSource = random.NextEnumValue<RingtoetsWellKnownTileSource>();
             BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData(wellKnownTileSource);
 
             // Call
             ImageBasedMapData convertedMapData = BackgroundDataConverter.ConvertFrom(backgroundData);
 
             // Assert
-            var expectedMapData = new WellKnownTileSourceMapData((WellKnownTileSource) wellKnownTileSource);
-            MapDataTestHelper.AssertImageBasedMapData(expectedMapData, convertedMapData);
+            MapDataTestHelper.AssertImageBasedMapData(backgroundData, convertedMapData);
         }
 
         [Test]

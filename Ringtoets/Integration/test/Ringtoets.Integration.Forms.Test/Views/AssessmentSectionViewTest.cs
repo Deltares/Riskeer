@@ -158,9 +158,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 // Assert
                 Assert.AreSame(assessmentSection, view.Data);
                 AssertEmptyMapData(view.Map.Data);
-                ImageBasedMapData expectedImageBasedMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(
-                    assessmentSection.BackgroundData);
-                MapDataTestHelper.AssertImageBasedMapData(expectedImageBasedMapData, view.Map.BackgroundMapData);
+                MapDataTestHelper.AssertImageBasedMapData(assessmentSection.BackgroundData, view.Map.BackgroundMapData);
             }
         }
 
@@ -218,7 +216,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0));
 
                 view.Data = assessmentSection;
-                var mapData = view.Map.Data;
+                MapDataCollection mapData = view.Map.Data;
 
                 // Precondition
                 AssertHydraulicBoundaryDatabaseData(mapData, assessmentSection.HydraulicBoundaryDatabase);
@@ -247,7 +245,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0));
 
                 view.Data = assessmentSection;
-                var mapData = view.Map.Data;
+                MapDataCollection mapData = view.Map.Data;
 
                 // Precondition
                 AssertHydraulicBoundaryDatabaseData(mapData, assessmentSection.HydraulicBoundaryDatabase);
@@ -289,7 +287,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 assessmentSection.ReferenceLine.SetGeometry(points);
 
                 view.Data = assessmentSection;
-                var mapData = view.Map.Data;
+                MapDataCollection mapData = view.Map.Data;
 
                 // Precondition
                 AssertReferenceLineData(mapData, assessmentSection.ReferenceLine);
@@ -360,7 +358,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
                 MapDataCollection mapData = view.Map.Data;
 
-                var dataToMove = mapData.Collection.ElementAt(0);
+                MapData dataToMove = mapData.Collection.ElementAt(0);
                 mapData.Remove(dataToMove);
                 mapData.Add(dataToMove);
 

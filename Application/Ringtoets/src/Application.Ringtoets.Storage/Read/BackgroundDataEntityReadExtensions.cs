@@ -65,7 +65,7 @@ namespace Application.Ringtoets.Storage.Read
             {
                 IsVisible = Convert.ToBoolean(entity.IsVisible),
                 Transparency = (RoundedDouble) entity.Transparency,
-                Name = entity.Name,
+                Name = entity.Name
             };
 
             return backgroundData;

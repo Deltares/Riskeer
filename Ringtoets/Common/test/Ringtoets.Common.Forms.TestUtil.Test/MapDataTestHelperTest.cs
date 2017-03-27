@@ -32,6 +32,7 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Utils.TypeConverters;
 
 namespace Ringtoets.Common.Forms.TestUtil.Test
 {
@@ -1106,41 +1107,26 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
         #region AssertImageBasedMapData
 
         [Test]
-        public void AssertImageBasedMapData_MapDataNotImageBasedMapData_ThrowAssertionException()
-        {
-            // Setup
-            var mapData = new MapPointData("MapPointData");
-
-            // Call
-            TestDelegate test = () => MapDataTestHelper.AssertImageBasedMapData(WmtsMapData.CreateUnconnectedMapData(),
-                                                                                mapData);
-
-            // Assert
-            Assert.Throws<AssertionException>(test);
-        }
-
-        [Test]
         public void AssertImageBasedMapData_ImageBasedMapDataNotSupported_ThrowAssertionException()
         {
             // Setup
-            var mapData = new MapPointData("MapPointData");
             var imageBasedMapData = new SimpleImageBasedMapData();
 
             // Call
-            TestDelegate test = () => MapDataTestHelper.AssertImageBasedMapData(imageBasedMapData, mapData);
+            TestDelegate test = () => MapDataTestHelper.AssertImageBasedMapData(new BackgroundData(new TestBackgroundDataConfiguration()), imageBasedMapData);
 
             // Assert
             Assert.Throws<AssertionException>(test);
         }
 
         [Test]
-        public void AssertImageBasedMapData_ImageBasedMapDataNull_ThrowAssertionException()
+        public void AssertImageBasedMapData_BackgroundDataNull_ThrowAssertionException()
         {
             // Setup
-            var mapData = new MapPointData("MapPointData");
+            var imageBasedMapData = new SimpleImageBasedMapData();
 
             // Call
-            TestDelegate test = () => MapDataTestHelper.AssertImageBasedMapData(null, mapData);
+            TestDelegate test = () => MapDataTestHelper.AssertImageBasedMapData(null, imageBasedMapData);
 
             // Assert
             Assert.Throws<AssertionException>(test);
@@ -1150,7 +1136,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
         public void AssertImageBasedMapData_DataNull_ThrowAssertionException()
         {
             // Call
-            TestDelegate test = () => MapDataTestHelper.AssertImageBasedMapData(WmtsMapData.CreateUnconnectedMapData(),
+            TestDelegate test = () => MapDataTestHelper.AssertImageBasedMapData(BackgroundDataConverter.ConvertTo(WmtsMapData.CreateUnconnectedMapData()),
                                                                                 null);
 
             // Assert
@@ -1165,7 +1151,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
 
             // Call
-            TestDelegate test = () => MapDataTestHelper.AssertImageBasedMapData(wmtsMapData, mapData);
+            TestDelegate test = () => MapDataTestHelper.AssertImageBasedMapData(BackgroundDataConverter.ConvertTo(wmtsMapData), mapData);
 
             // Assert
             Assert.Throws<AssertionException>(test);
@@ -1179,7 +1165,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             var mapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial);
 
             // Call
-            TestDelegate test = () => MapDataTestHelper.AssertImageBasedMapData(wellKnownTileSourceMapData, mapData);
+            TestDelegate test = () => MapDataTestHelper.AssertImageBasedMapData(BackgroundDataConverter.ConvertTo(wellKnownTileSourceMapData), mapData);
 
             // Assert
             Assert.Throws<AssertionException>(test);
@@ -1193,7 +1179,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             var actualMapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial);
 
             // Call
-            TestDelegate test = () => MapDataTestHelper.AssertImageBasedMapData(expectedMapData, actualMapData);
+            TestDelegate test = () => MapDataTestHelper.AssertImageBasedMapData(BackgroundDataConverter.ConvertTo(expectedMapData), actualMapData);
 
             // Assert
             Assert.DoesNotThrow(test);
@@ -1207,7 +1193,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             WmtsMapData actualMapData = WmtsMapData.CreateUnconnectedMapData();
 
             // Call
-            TestDelegate test = () => MapDataTestHelper.AssertImageBasedMapData(expectedMapData, actualMapData);
+            TestDelegate test = () => MapDataTestHelper.AssertImageBasedMapData(BackgroundDataConverter.ConvertTo(expectedMapData), actualMapData);
 
             // Assert
             Assert.DoesNotThrow(test);
