@@ -156,7 +156,7 @@ namespace Ringtoets.Integration.Forms
 
         private void OnSelectButtonClick(object sender, EventArgs e)
         {
-            SelectedMapData = currentBackgroundMapDataSelectionControl?.SelectedMapData;
+            SelectedMapData = currentBackgroundMapDataSelectionControl.SelectedMapData;
             DialogResult = DialogResult.OK;
             Close();
         }

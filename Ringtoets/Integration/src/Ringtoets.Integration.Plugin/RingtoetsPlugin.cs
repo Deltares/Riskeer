@@ -926,22 +926,14 @@ namespace Ringtoets.Integration.Plugin
 
         private static void SetSelectedMapData(IAssessmentSection assessmentSection, ImageBasedMapData selectedMapData)
         {
-            assessmentSection.BackgroundData.Name = string.Empty;
-            assessmentSection.BackgroundData.IsVisible = false;
+            BackgroundData newBackgroundData = BackgroundDataConverter.ConvertTo(selectedMapData);
 
-            if (selectedMapData != null)
-            {
-                selectedMapData.IsVisible = true;
-
-                BackgroundData newBackgroundData = BackgroundDataConverter.ConvertTo(selectedMapData);
-                
-                assessmentSection.BackgroundData.IsVisible = newBackgroundData.IsVisible;
-                assessmentSection.BackgroundData.Name = newBackgroundData.Name;
-                assessmentSection.BackgroundData.Configuration = newBackgroundData.Configuration;
-            }
+            assessmentSection.BackgroundData.IsVisible = newBackgroundData.IsVisible;
+            assessmentSection.BackgroundData.Name = newBackgroundData.Name;
+            assessmentSection.BackgroundData.Transparency = newBackgroundData.Transparency;
+            assessmentSection.BackgroundData.Configuration = newBackgroundData.Configuration;
 
             assessmentSection.BackgroundData.NotifyObservers();
-            assessmentSection.NotifyObservers();
         }
 
         #endregion

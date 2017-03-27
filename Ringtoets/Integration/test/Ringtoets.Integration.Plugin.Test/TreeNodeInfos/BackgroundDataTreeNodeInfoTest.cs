@@ -279,8 +279,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             {
                 new TestWmtsTileSource(newMapData)
             });
-            var assessmentSectionObserver = mockRepository.StrictMock<IObserver>();
-            assessmentSectionObserver.Expect(o => o.UpdateObserver());
 
             var backgroundDataObserver = mockRepository.StrictMock<IObserver>();
             backgroundDataObserver.Expect(o => o.UpdateObserver());
@@ -308,7 +306,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 mockRepository.ReplayAll();
 
                 var assessmentSection = new ObservableTestAssessmentSectionStub();
-                assessmentSection.Attach(assessmentSectionObserver);
                 assessmentSection.BackgroundData.Attach(backgroundDataObserver);
 
                 DialogBoxHandler = (name, wnd) =>
@@ -395,8 +392,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         {
             // Given
             var mockRepository = new MockRepository();
-            var assessmentSectionObserver = mockRepository.StrictMock<IObserver>();
-            assessmentSectionObserver.Expect(o => o.UpdateObserver());
 
             var backgroundDataObserver = mockRepository.StrictMock<IObserver>();
             backgroundDataObserver.Expect(o => o.UpdateObserver());
@@ -427,7 +422,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(cmp => cmp.Get(newBackgroundMapdata, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mockRepository.ReplayAll();
 
-                assessmentSection.Attach(assessmentSectionObserver);
                 assessmentSection.BackgroundData.Attach(backgroundDataObserver);
                 SetBackgroundData(assessmentSection, mapData);
 
@@ -459,8 +453,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         {
             // Given
             var mockRepository = new MockRepository();
-            var assessmentSectionObserver = mockRepository.StrictMock<IObserver>();
-            assessmentSectionObserver.Expect(o => o.UpdateObserver());
 
             var backgroundDataObserver = mockRepository.StrictMock<IObserver>();
             backgroundDataObserver.Expect(o => o.UpdateObserver());
@@ -491,7 +483,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(cmp => cmp.Get(newBackgroundData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mockRepository.ReplayAll();
 
-                assessmentSection.Attach(assessmentSectionObserver);
                 assessmentSection.BackgroundData.Attach(backgroundDataObserver);
                 SetBackgroundData(assessmentSection, mapData);
 
