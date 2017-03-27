@@ -72,12 +72,46 @@ namespace Ringtoets.Common.IO.Test.Readers
         }
 
         [Test]
-        public void GetDoubleValueFromDescendantElement_ValidDescendantElement_ReturnValue()
+        public void GetDoubleValueFromDescendantElement_DescendantElementInvalidFormat_ThrowFormatException()
         {
             // Setup
             const string descendantElementName = "number";
-            const double descendantElementValue = 3;
+            const string descendantElementValue = "drie";
 
+            var element = new XElement("Root", new XElement(descendantElementName, descendantElementValue));
+
+            // Call
+            TestDelegate test = () => element.GetDoubleValueFromDescendantElement(descendantElementName);
+
+            // Assert
+            Assert.Throws<FormatException>(test);
+        }
+
+        [Test]
+        public void GetDoubleValueFromDescendantElement_DescendantElementOverflows_ThrowOverflowException()
+        {
+            // Setup
+            const string descendantElementName = "number";
+            string descendantElementValue = "1" + double.MaxValue;
+
+            var element = new XElement("Root", new XElement(descendantElementName, descendantElementValue));
+
+            // Call
+            TestDelegate test = () => element.GetDoubleValueFromDescendantElement(descendantElementName);
+
+            // Assert
+            Assert.Throws<OverflowException>(test);
+        }
+
+        [Test]
+        [TestCase(3)]
+        [TestCase(double.NaN)]
+        [TestCase(double.PositiveInfinity)]
+        [TestCase(double.NegativeInfinity)]
+        public void GetDoubleValueFromDescendantElement_ValidDescendantElement_ReturnValue(double descendantElementValue)
+        {
+            // Setup
+            const string descendantElementName = "number";
             var element = new XElement("Root", new XElement(descendantElementName, descendantElementValue));
 
             // Call
@@ -180,6 +214,22 @@ namespace Ringtoets.Common.IO.Test.Readers
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("descendantElementName", exception.ParamName);
+        }
+
+        [Test]
+        public void GetBoolValueFromDescendantElement_DescendantElementIncorrectFormat_ThrowFormatException()
+        {
+            // Setup
+            const string descendantElementName = "booleanValue";
+            const string elementValue = "nope";
+
+            var element = new XElement("Root", new XElement(descendantElementName, elementValue));
+
+            // Call
+            TestDelegate test = () => element.GetBoolValueFromDescendantElement(descendantElementName);
+
+            // Assert
+            Assert.Throws<FormatException>(test);
         }
 
         [Test]
