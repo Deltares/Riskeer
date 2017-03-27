@@ -60,6 +60,8 @@ namespace Ringtoets.Common.Forms.Test.ImportInfos
 
             TestHelper.AssertImagesAreEqual(Resources.GeneralFolderIcon, importInfo.Image);
             Assert.IsTrue(importInfo.IsEnabled(null));
+
+            mocks.VerifyAll();
         }
     }
 }

@@ -70,6 +70,7 @@
     <Compile Include="ChangeHandlers\ObservablePropertyChangeHandlerTest.cs" />
     <Compile Include="ChangeHandlers\FailureMechanismPropertyChangeHandlerTest.cs" />
     <Compile Include="ChangeHandlers\PropertyChangeHelperTest.cs" />
+    <Compile Include="ExportInfos\RingtoetsExportInfoFactoryTest.cs" />
     <Compile Include="GuiServices\HydraulicBoundaryLocationCalculationGuiServiceTest.cs" />
     <Compile Include="Helpers\NamingHelperTest.cs" />
     <Compile Include="Helpers\ProbabilityFormattingHelperTest.cs" />
