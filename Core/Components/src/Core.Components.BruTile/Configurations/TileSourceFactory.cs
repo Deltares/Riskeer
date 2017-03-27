@@ -65,7 +65,7 @@ namespace Core.Components.BruTile.Configurations
             return wmtsTileSources;
         }
 
-        public ITileSource GetKnownTileSources(KnownTileSource knownTileSource)
+        public ITileSource GetKnownTileSource(KnownTileSource knownTileSource)
         {
             return KnownTileSources.Create(knownTileSource);
         }
@@ -73,9 +73,9 @@ namespace Core.Components.BruTile.Configurations
         /// <summary>
         /// Parses the capabilities XML provided by the WMTS.
         /// </summary>
-        /// <param name="capabilitiesUrl">The WMTS url.</param>
+        /// <param name="capabilitiesUrl">The WMTS URL.</param>
         /// <returns>The tile sources offered by the service.</returns>
-        /// <exception cref="Core.Components.Gis.Exceptions.CannotFindTileSourceException">Thrown when unable to connect
+        /// <exception cref="CannotFindTileSourceException">Thrown when unable to connect
         /// to the WMTS and parse the response.</exception>
         private static IEnumerable<ITileSource> ParseWmtsTileSources(string capabilitiesUrl)
         {

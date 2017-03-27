@@ -21,7 +21,6 @@
 
 using System;
 using BruTile;
-using BruTile.Predefined;
 using Core.Common.Gui.TestUtil.Settings;
 using Core.Common.TestUtil;
 using Core.Components.BruTile.Configurations;
@@ -39,10 +38,10 @@ namespace Core.Components.BruTile.Test.Configurations
         private TestSettingsHelper testSettingsHelper;
 
         [Test]
-        public void CreateInitializedConfiguration_InvalidKnownTileSource_ThrowNotSupportedException()
+        public void CreateInitializedConfiguration_InvalidWellKnownTileSource_ThrowNotSupportedException()
         {
             // Setup
-            const KnownTileSource invalidValue = (KnownTileSource) 9999;
+            const WellKnownTileSource invalidValue = (WellKnownTileSource) 9999;
 
             // Call
             TestDelegate call = () => WellKnownTileSourceLayerConfiguration.CreateInitializedConfiguration(invalidValue);
@@ -52,48 +51,24 @@ namespace Core.Components.BruTile.Test.Configurations
         }
 
         [Test]
-        public void WellKnownTileSourceToKnownTileSource_InvalidWellKnownTileSource_ThrowsNotSupportedException()
-        {
-            // Setup
-            const WellKnownTileSource invalidValue = (WellKnownTileSource) 9999;
-
-            // Call
-            TestDelegate call = () => WellKnownTileSourceLayerConfiguration.WellKnownTileSourceToKnownTileSource(invalidValue);
-
-            // Assert
-            string message = Assert.Throws<NotSupportedException>(call).Message;
-            Assert.AreEqual($"Unknown value '{invalidValue}' for 'wellKnownTileSource'", message);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(ValidWellKnownTileSourceToCorrespondingKnownTileSource))]
-        public void WellKnownTileSourceToKnownTileSource_ValidWellKnownTileSource_ReturnsCorrespondingKnownTileSource(
-            WellKnownTileSource wellKnownTileSource, KnownTileSource expectedKnownTileSource)
-        {
-            // Call
-            KnownTileSource knownTileSource = WellKnownTileSourceLayerConfiguration.WellKnownTileSourceToKnownTileSource(wellKnownTileSource);
-
-            // Assert
-            Assert.AreEqual(expectedKnownTileSource, knownTileSource);
-        }
-
-        [Test]
         public void GivenAllAvailableKnownTileSources_WhenCreatingInitializedConfiguration_ThenConfigurationHasExpectedValues()
         {
             // Given
             using (new UseCustomSettingsHelper(testSettingsHelper))
-            using (new UseCustomTileSourceFactoryConfig(new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial)))
             {
-                foreach (KnownTileSource knownTileSource in Enum.GetValues(typeof(KnownTileSource)))
-                {
-                    // When
-                    using (WellKnownTileSourceLayerConfiguration configuration = WellKnownTileSourceLayerConfiguration.CreateInitializedConfiguration(knownTileSource))
+                foreach (WellKnownTileSource wellKnownTileSource in Enum.GetValues(typeof(WellKnownTileSource)))
+                { 
+                    using (new UseCustomTileSourceFactoryConfig(new WellKnownTileSourceMapData(wellKnownTileSource)))
                     {
-                        // Then
-                        Assert.IsTrue(configuration.Initialized);
+                        // When
+                        using (WellKnownTileSourceLayerConfiguration configuration = WellKnownTileSourceLayerConfiguration.CreateInitializedConfiguration(wellKnownTileSource))
+                        {
+                            // Then
+                            Assert.IsTrue(configuration.Initialized);
 
-                        Assert.IsNotNull(configuration.TileSource);
-                        Assert.IsInstanceOf<AsyncTileFetcher>(configuration.TileFetcher);
+                            Assert.IsNotNull(configuration.TileSource);
+                            Assert.IsInstanceOf<AsyncTileFetcher>(configuration.TileFetcher);
+                        }
                     }
                 }
             }
@@ -103,9 +78,9 @@ namespace Core.Components.BruTile.Test.Configurations
         public void Clone_FromFullyInitializedConfiguration_ReturnInitializedConfiguration()
         {
             // Setup
-            const KnownTileSource knownTileSource = KnownTileSource.BingAerial;
+            const WellKnownTileSource knownTileSource = WellKnownTileSource.BingAerial;
             using (new UseCustomSettingsHelper(testSettingsHelper))
-            using (new UseCustomTileSourceFactoryConfig(new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial)))
+            using (new UseCustomTileSourceFactoryConfig(new WellKnownTileSourceMapData(knownTileSource)))
             using (WellKnownTileSourceLayerConfiguration configuration = WellKnownTileSourceLayerConfiguration.CreateInitializedConfiguration(knownTileSource))
             {
                 // Call
@@ -131,7 +106,7 @@ namespace Core.Components.BruTile.Test.Configurations
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial)))
             {
-                WellKnownTileSourceLayerConfiguration configuration = WellKnownTileSourceLayerConfiguration.CreateInitializedConfiguration(KnownTileSource.BingAerial);
+                WellKnownTileSourceLayerConfiguration configuration = WellKnownTileSourceLayerConfiguration.CreateInitializedConfiguration(WellKnownTileSource.BingAerial);
                 configuration.Dispose();
 
                 // Call
@@ -149,7 +124,7 @@ namespace Core.Components.BruTile.Test.Configurations
             // Setup
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial)))
-            using (WellKnownTileSourceLayerConfiguration configuration = WellKnownTileSourceLayerConfiguration.CreateInitializedConfiguration(KnownTileSource.BingAerial))
+            using (WellKnownTileSourceLayerConfiguration configuration = WellKnownTileSourceLayerConfiguration.CreateInitializedConfiguration(WellKnownTileSource.BingAerial))
             {
                 configuration.GetType()
                              .GetProperty(nameof(configuration.Initialized))
@@ -170,7 +145,7 @@ namespace Core.Components.BruTile.Test.Configurations
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial)))
             {
-                WellKnownTileSourceLayerConfiguration configuration = WellKnownTileSourceLayerConfiguration.CreateInitializedConfiguration(KnownTileSource.BingAerial);
+                WellKnownTileSourceLayerConfiguration configuration = WellKnownTileSourceLayerConfiguration.CreateInitializedConfiguration(WellKnownTileSource.BingAerial);
                 configuration.Dispose();
 
                 // Call
@@ -197,19 +172,6 @@ namespace Core.Components.BruTile.Test.Configurations
         public void OneTimeTearDown()
         {
             directoryDisposeHelper.Dispose();
-        }
-
-        private static TestCaseData[] ValidWellKnownTileSourceToCorrespondingKnownTileSource()
-        {
-            return new[]
-            {
-                new TestCaseData(WellKnownTileSource.EsriWorldTopo, KnownTileSource.EsriWorldTopo),
-                new TestCaseData(WellKnownTileSource.EsriWorldShadedRelief, KnownTileSource.EsriWorldShadedRelief),
-                new TestCaseData(WellKnownTileSource.BingAerial, KnownTileSource.BingAerial),
-                new TestCaseData(WellKnownTileSource.BingHybrid, KnownTileSource.BingHybrid),
-                new TestCaseData(WellKnownTileSource.BingRoads, KnownTileSource.BingRoads),
-                new TestCaseData(WellKnownTileSource.OpenStreetMap, KnownTileSource.OpenStreetMap)
-            };
         }
 
         private static void AssertAttribution(Attribution expectedAttribution, Attribution actualAttribution)

@@ -47,9 +47,9 @@ namespace Core.Components.BruTile.Configurations
         /// <summary>
         /// Returns the tile source for <paramref name="knownTileSource"/>.
         /// </summary>
-        /// <param name="knownTileSource">The known tile services to get the tile source for.</param>
+        /// <param name="knownTileSource">The known tile service to get the tile source for.</param>
         /// <returns>The tile source for <paramref name="knownTileSource"/>.</returns>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="knownTileSource"/> is not supported.</exception>
-        ITileSource GetKnownTileSources(KnownTileSource knownTileSource);
+        ITileSource GetKnownTileSource(KnownTileSource knownTileSource);
     }
 }

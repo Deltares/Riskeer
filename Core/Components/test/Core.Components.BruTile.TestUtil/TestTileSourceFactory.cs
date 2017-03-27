@@ -69,7 +69,7 @@ namespace Core.Components.BruTile.TestUtil
             }
         }
 
-        public ITileSource GetKnownTileSources(KnownTileSource knownTileSource)
+        public ITileSource GetKnownTileSource(KnownTileSource knownTileSource)
         {
             if (wellKnownTileSource == null)
             {

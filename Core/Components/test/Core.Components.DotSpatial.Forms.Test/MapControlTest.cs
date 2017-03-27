@@ -1956,7 +1956,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         private static IEnumerable<TestCaseData> GetProblematicKnownTileSourceFactoryTestCaseData(string prefix)
         {
             var factoryThrowingNotSupportedException = MockRepository.GenerateStub<ITileSourceFactory>();
-            factoryThrowingNotSupportedException.Stub(f => f.GetKnownTileSources(Arg<KnownTileSource>.Is.NotNull))
+            factoryThrowingNotSupportedException.Stub(f => f.GetKnownTileSource(Arg<KnownTileSource>.Is.NotNull))
                                                 .Throw(new NotSupportedException());
 
             yield return new TestCaseData(factoryThrowingNotSupportedException)

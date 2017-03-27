@@ -23,7 +23,6 @@ using System;
 using System.IO;
 using BruTile;
 using BruTile.Predefined;
-using BruTile.Web;
 using Core.Components.BruTile.Data;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Exceptions;
@@ -47,7 +46,7 @@ namespace Core.Components.BruTile.Configurations
         /// <param name="knownTileSource">The built-in tile provider to be used.</param>
         /// <param name="persistentCacheDirectoryPath">The directory path to the persistent tile cache.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="persistentCacheDirectoryPath"/>
-        /// is an invalid folder path</exception>
+        /// is an invalid folder path.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="knownTileSource"/>
         /// isn't a supported member.</exception>
         /// <exception cref="CannotCreateTileCacheException">Thrown when creating the file
@@ -57,7 +56,7 @@ namespace Core.Components.BruTile.Configurations
         {
             this.knownTileSource = knownTileSource;
 
-            ITileSource tileSource = TileSourceFactory.Instance.GetKnownTileSources(knownTileSource);
+            ITileSource tileSource = TileSourceFactory.Instance.GetKnownTileSource(knownTileSource);
             InitializeFromTileSource(tileSource);
         }
 
@@ -79,22 +78,6 @@ namespace Core.Components.BruTile.Configurations
         /// <summary>
         /// Creates a fully initialized instance of <see cref="WellKnownTileSourceLayerConfiguration"/>.
         /// </summary>
-        /// <param name="knownTileSource">The built-in tile provider to be used.</param>
-        /// <returns>The new <see cref="WellKnownTileSourceLayerConfiguration"/>.</returns>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="knownTileSource"/>
-        /// isn't a supported member.</exception>
-        /// <exception cref="CannotCreateTileCacheException">Thrown when creating the file
-        /// cache failed.</exception>
-        public static WellKnownTileSourceLayerConfiguration CreateInitializedConfiguration(KnownTileSource knownTileSource)
-        {
-            ITileSource tileSource = TileSourceFactory.Instance.GetKnownTileSources(knownTileSource);
-
-            return new WellKnownTileSourceLayerConfiguration(knownTileSource, tileSource);
-        }
-
-        /// <summary>
-        /// Creates a fully initialized instance of <see cref="WellKnownTileSourceLayerConfiguration"/>.
-        /// </summary>
         /// <param name="wellKnownTileSource">The tile provider to be used.</param>
         /// <returns>The new <see cref="WellKnownTileSourceLayerConfiguration"/>.</returns>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="wellKnownTileSource"/>
@@ -106,16 +89,47 @@ namespace Core.Components.BruTile.Configurations
             return CreateInitializedConfiguration(WellKnownTileSourceToKnownTileSource(wellKnownTileSource));
         }
 
+        public override IConfiguration Clone()
+        {
+            ThrowExceptionIfDisposed();
+
+            return new WellKnownTileSourceLayerConfiguration(PersistentCacheDirectoryPath, knownTileSource);
+        }
+
+        public override void Initialize()
+        {
+            ThrowExceptionIfDisposed();
+
+            Initialized = true;
+        }
+
+        /// <summary>
+        /// Creates a fully initialized instance of <see cref="WellKnownTileSourceLayerConfiguration"/>.
+        /// </summary>
+        /// <param name="knownTileSource">The built-in tile provider to be used.</param>
+        /// <returns>The new <see cref="WellKnownTileSourceLayerConfiguration"/>.</returns>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="knownTileSource"/>
+        /// isn't a supported member.</exception>
+        /// <exception cref="CannotCreateTileCacheException">Thrown when creating the file
+        /// cache failed.</exception>
+        private static WellKnownTileSourceLayerConfiguration CreateInitializedConfiguration(KnownTileSource knownTileSource)
+        {
+            ITileSource tileSource = TileSourceFactory.Instance.GetKnownTileSource(knownTileSource);
+
+            return new WellKnownTileSourceLayerConfiguration(knownTileSource, tileSource);
+        }
+
         /// <summary>
         /// Returns the <see cref="KnownTileSource"/> equivalent of <see cref="WellKnownTileSource"/>.
         /// </summary>
-        /// <param name="wellKnownTileSource"></param>
+        /// <param name="wellKnownTileSource">The tile provider to be used.</param>
         /// <returns>The <see cref="KnownTileSource"/> equivalent of the <paramref name="wellKnownTileSource"/>.</returns>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="wellKnownTileSource"/>
         /// is not a supported member.</exception>
-        public static KnownTileSource WellKnownTileSourceToKnownTileSource(WellKnownTileSource wellKnownTileSource)
+        private static KnownTileSource WellKnownTileSourceToKnownTileSource(WellKnownTileSource wellKnownTileSource)
         {
-            switch (wellKnownTileSource) {
+            switch (wellKnownTileSource)
+            {
                 case WellKnownTileSource.BingAerial:
                     return KnownTileSource.BingAerial;
                 case WellKnownTileSource.BingHybrid:
@@ -131,20 +145,6 @@ namespace Core.Components.BruTile.Configurations
                 default:
                     throw new NotSupportedException($"Unknown value '{wellKnownTileSource}' for '{nameof(wellKnownTileSource)}'");
             }
-        }
-
-        public override IConfiguration Clone()
-        {
-            ThrowExceptionIfDisposed();
-
-            return new WellKnownTileSourceLayerConfiguration(PersistentCacheDirectoryPath, knownTileSource);
-        }
-
-        public override void Initialize()
-        {
-            ThrowExceptionIfDisposed();
-
-            Initialized = true;
         }
 
         private static string SuggestTileCachePath(ITileSource tileSource, KnownTileSource knownTileSource)

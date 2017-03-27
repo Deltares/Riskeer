@@ -107,7 +107,7 @@ namespace Core.Components.BruTile.TestUtil.Test
             var factory = new TestTileSourceFactory(mapData);
 
             // Call
-            TestDelegate test = () => factory.GetKnownTileSources(KnownTileSource.BingHybrid);
+            TestDelegate test = () => factory.GetKnownTileSource(KnownTileSource.BingHybrid);
 
             // Assert
             string message = Assert.Throws<NotSupportedException>(test).Message;
@@ -126,7 +126,7 @@ namespace Core.Components.BruTile.TestUtil.Test
             var factory = new TestTileSourceFactory(mapData);
 
             // Call
-            ITileSource tileSource = factory.GetKnownTileSources(new Random(341).NextEnumValue<KnownTileSource>());
+            ITileSource tileSource = factory.GetKnownTileSource(new Random(341).NextEnumValue<KnownTileSource>());
 
             // Assert
             Assert.IsInstanceOf<TestWellKnownTileSource>(tileSource);

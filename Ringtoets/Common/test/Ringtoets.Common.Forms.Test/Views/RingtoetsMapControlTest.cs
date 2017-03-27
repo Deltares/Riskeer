@@ -185,7 +185,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             tileSourceFactory.Expect(tsf => tsf.GetWmtsTileSources(sourceCapabilitiesUrl))
                              .Return(Enumerable.Empty<ITileSource>());
-            tileSourceFactory.Expect(tsf => tsf.GetKnownTileSources(KnownTileSource.BingAerial)).Return(testWellKnownTileSource);
+            tileSourceFactory.Expect(tsf => tsf.GetKnownTileSource(KnownTileSource.BingAerial)).Return(testWellKnownTileSource);
             mocks.ReplayAll();
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
