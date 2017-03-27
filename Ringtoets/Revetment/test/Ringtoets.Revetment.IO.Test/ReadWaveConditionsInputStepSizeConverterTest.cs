@@ -27,7 +27,7 @@ using NUnit.Framework;
 namespace Ringtoets.Revetment.IO.Test
 {
     [TestFixture]
-    public class ReadWaveConditionsInputStepSizeTypeConverterTest
+    public class ReadWaveConditionsInputStepSizeConverterTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -53,7 +53,7 @@ namespace Ringtoets.Revetment.IO.Test
         }
 
         [Test]
-        public void CanConvertTo_OtherTypeThenString_ReturnFalse()
+        public void CanConvertTo_OtherTypeThanString_ReturnFalse()
         {
             // Setup
             var converter = new ReadWaveConditionsInputStepSizeConverter();
@@ -97,19 +97,6 @@ namespace Ringtoets.Revetment.IO.Test
         }
 
         [Test]
-        public void CanConvertFrom_String_ReturnTrue()
-        {
-            // Setup
-            var converter = new ReadWaveConditionsInputStepSizeConverter();
-
-            // Call
-            bool canConvertFromString = converter.CanConvertFrom(typeof(string));
-
-            // Assert
-            Assert.IsTrue(canConvertFromString);
-        }
-
-        [Test]
         public void CanConvertFrom_NullableDouble_ReturnTrue()
         {
             // Setup
@@ -123,7 +110,7 @@ namespace Ringtoets.Revetment.IO.Test
         }
 
         [Test]
-        public void CanConvertFrom_NonStringOrNullableDouble_ReturnFalse()
+        public void CanConvertFrom_NonNullableDouble_ReturnFalse()
         {
             // Setup
             var converter = new ReadWaveConditionsInputStepSizeConverter();
@@ -136,45 +123,9 @@ namespace Ringtoets.Revetment.IO.Test
         }
 
         [Test]
-        [SetCulture("nl-NL")]
-        [TestCase("0,5", ReadWaveConditionsInputStepSize.Half)]
-        [TestCase("1,0", ReadWaveConditionsInputStepSize.One)]
-        [TestCase("2,0", ReadWaveConditionsInputStepSize.Two)]
-        public void ConvertFrom_VariousCasesInCultureNL_ReturnWaveConditionsInputStepSize(string text,
-                                                                                          ReadWaveConditionsInputStepSize expectedResult)
-        {
-            // Setup
-            var converter = new ReadWaveConditionsInputStepSizeConverter();
-
-            // Call
-            object result = converter.ConvertFrom(null, CultureInfo.CurrentCulture, text);
-
-            // Assert
-            Assert.AreEqual(expectedResult, result);
-        }
-
-        [Test]
-        [SetCulture("en-US")]
-        [TestCase("0.5", ReadWaveConditionsInputStepSize.Half)]
-        [TestCase("1.0", ReadWaveConditionsInputStepSize.One)]
-        [TestCase("2.0", ReadWaveConditionsInputStepSize.Two)]
-        public void ConvertFrom_VariousCasesInCultureEN_ReturnWaveConditionsInputStepSize(string text,
-                                                                                          ReadWaveConditionsInputStepSize expectedResult)
-        {
-            // Setup
-            var converter = new ReadWaveConditionsInputStepSizeConverter();
-
-            // Call
-            object result = converter.ConvertFrom(null, CultureInfo.CurrentCulture, text);
-
-            // Assert
-            Assert.AreEqual(expectedResult, result);
-        }
-
-        [Test]
         [TestCase(0.5, ReadWaveConditionsInputStepSize.Half)]
         [TestCase(1, ReadWaveConditionsInputStepSize.One)]
-        [TestCase(2.0000000000, ReadWaveConditionsInputStepSize.Two)]
+        [TestCase(2, ReadWaveConditionsInputStepSize.Two)]
         public void ConvertFrom_VariousDoubles_ReturnWaveConditionsInputStepSize(double value,
                                                                                  ReadWaveConditionsInputStepSize expectedResult)
         {

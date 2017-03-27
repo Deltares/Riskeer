@@ -49,10 +49,6 @@ namespace Ringtoets.Revetment.IO
 
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
-            if (sourceType == typeof(string))
-            {
-                return true;
-            }
             if (sourceType == typeof(double?))
             {
                 return true;
@@ -62,24 +58,6 @@ namespace Ringtoets.Revetment.IO
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            var text = value as string;
-            if (text != null)
-            {
-                string decimalSeperator = culture.NumberFormat.NumberDecimalSeparator;
-                if ($"0{decimalSeperator}5".Equals(text))
-                {
-                    return ReadWaveConditionsInputStepSize.Half;
-                }
-                if ($"1{decimalSeperator}0".Equals(text))
-                {
-                    return ReadWaveConditionsInputStepSize.One;
-                }
-                if ($"2{decimalSeperator}0".Equals(text))
-                {
-                    return ReadWaveConditionsInputStepSize.Two;
-                }
-            }
-
             var doubleValue = value as double?;
             if (doubleValue != null)
             {
