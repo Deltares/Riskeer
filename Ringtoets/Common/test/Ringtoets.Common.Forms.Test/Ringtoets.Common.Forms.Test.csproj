@@ -123,7 +123,6 @@
     <Compile Include="Views\FailureMechanismSectionResultRowTest.cs" />
     <Compile Include="Views\HydraulicBoundaryLocationRowTest.cs" />
     <Compile Include="Views\HydraulicBoundaryLocationsViewTest.cs" />
-    <Compile Include="Views\RingtoetsBackgroundMapDataFactoryTest.cs" />
     <Compile Include="Views\RingtoetsMapControlTest.cs" />
     <Compile Include="Views\RingtoetsMapDataFactoryTest.cs" />
     <Compile Include="Views\RingtoetsMapDataFeaturesFactoryTest.cs" />

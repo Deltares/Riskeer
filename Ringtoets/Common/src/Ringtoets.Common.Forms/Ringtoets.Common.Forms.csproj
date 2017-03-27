@@ -146,7 +146,6 @@
       <DependentUpon>HydraulicBoundaryLocationsView.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\FailureMechanismSectionResultRowHelper.cs" />
-    <Compile Include="Views\RingtoetsBackgroundMapDataFactory.cs" />
     <Compile Include="Views\RingtoetsMapControl.cs">
       <SubType>Component</SubType>
     </Compile>

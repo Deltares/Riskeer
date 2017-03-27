@@ -914,7 +914,7 @@ namespace Ringtoets.Integration.Plugin
                 return;
             }
 
-            ImageBasedMapData currentData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(backgroundData);
+            ImageBasedMapData currentData = BackgroundDataConverter.ConvertFrom(backgroundData);
             using (var dialog = new BackgroundMapDataSelectionDialog(Gui.MainWindow, currentData))
             {
                 if (dialog.ShowDialog() == DialogResult.OK)

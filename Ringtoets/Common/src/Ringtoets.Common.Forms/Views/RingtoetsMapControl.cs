@@ -58,9 +58,9 @@ namespace Ringtoets.Common.Forms.Views
                 backgroundData = value;
                 backgroundDataObserver.Observable = backgroundData;
 
-                BackgroundMapData = backgroundData == null
-                                        ? null
-                                        : RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(backgroundData);
+                BackgroundMapData = backgroundData != null
+                                        ? BackgroundDataConverter.ConvertFrom(backgroundData)
+                                        : null;
             }
         }
 
@@ -89,7 +89,7 @@ namespace Ringtoets.Common.Forms.Views
             }
             else
             {
-                BackgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(backgroundData);
+                BackgroundMapData = BackgroundDataConverter.ConvertFrom(backgroundData);
             }
         }
 
