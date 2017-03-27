@@ -72,7 +72,7 @@ namespace Ringtoets.Common.IO.Test.Readers
                         "The 'map' start tag on line 4 position 4 does not match the end tag of 'configuratie'. Line 5, position 3.")
                     .SetName("FileDoesNotContainValidXml_invalidXmlContent.xml");
                 yield return new TestCaseData(
-                        "withoutQoutationMarks.xml",
+                        "withoutQuotationMarks.xml",
                         "'Nieuw' is an unexpected token. The expected token is '\"' or '''. Line 3, position 20.")
                     .SetName("FileDoesNotContainValidXml_withoutQoutationMarks.xml");
             }
@@ -155,7 +155,7 @@ namespace Ringtoets.Common.IO.Test.Readers
                                      $"De validatie geeft de volgende melding: {expectedInnerMessage}";
             Assert.AreEqual(expectedMessage, exception.Message);
             Assert.IsInstanceOf<XmlException>(exception.InnerException);
-            Assert.IsTrue(exception.InnerException?.Message.Contains(expectedInnerMessage));
+            Assert.IsTrue(exception.InnerException.Message.Contains(expectedInnerMessage));
         }
 
         [Test]

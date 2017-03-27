@@ -162,7 +162,7 @@ namespace Ringtoets.Common.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Het XML-document dat de configuratie voor de berekeningen beschrijft is niet geldig. De validatie geeft de volgende melding: {0}.
         /// </summary>
-        public static string CalculationConfigurationReader_Configuration_contains_no_valid_xml_Reason_2 {
+        public static string CalculationConfigurationReader_Configuration_contains_no_valid_xml_Reason_0 {
             get {
                 return ResourceManager.GetString("CalculationConfigurationReader_Configuration_contains_no_valid_xml_Reason_2", resourceCulture);
             }
