@@ -300,12 +300,12 @@ namespace Core.Components.BruTile.Test.Configurations
                 InitializeFromTileSource(tileSource);
             }
 
-            public override IConfiguration Clone()
+            protected override IConfiguration OnClone()
             {
                 throw new NotImplementedException();
             }
 
-            public override void Initialize()
+            protected override void OnInitialize()
             {
                 throw new NotImplementedException();
             }

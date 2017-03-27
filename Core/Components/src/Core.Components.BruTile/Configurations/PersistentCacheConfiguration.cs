@@ -81,9 +81,38 @@ namespace Core.Components.BruTile.Configurations
             GC.SuppressFinalize(this);
         }
 
-        public abstract IConfiguration Clone();
+        public IConfiguration Clone()
+        {
+            ThrowExceptionIfDisposed();
 
-        public abstract void Initialize();
+            return OnClone();
+        }
+
+        public void Initialize()
+        {
+            ThrowExceptionIfDisposed();
+
+            OnInitialize();
+        }
+
+        /// <summary>
+        /// Gets a deep copy of the configuration.
+        /// </summary>
+        /// <returns>The cloned configuration.</returns>
+        /// <exception cref="CannotCreateTileCacheException">Thrown when creating the file
+        /// cache failed.</exception>
+        protected abstract IConfiguration OnClone();
+
+        /// <summary>
+        /// Properly initialize the configuration, making it ready for tile fetching.
+        /// </summary>
+        /// <exception cref="CannotFindTileSourceException">Thrown when the configured
+        /// <see cref="ITileSource"/> cannot be found.</exception>
+        /// <exception cref="CannotCreateTileCacheException">Thrown when the configured
+        /// tile cache cannot be created.</exception>
+        /// <exception cref="CannotReceiveTilesException">Thrown when <see cref="TileSource"/>
+        /// doesn't allow for tiles to be received.</exception>
+        protected abstract void OnInitialize();
 
         protected virtual void Dispose(bool disposing)
         {
@@ -109,22 +138,22 @@ namespace Core.Components.BruTile.Configurations
         /// <summary>
         /// Initializes the configuration based on the given <see cref="ITileSource"/>.
         /// </summary>
-        /// <param name="tileSource">The tile source to initialize for.</param>
+        /// <param name="newTileSource">The tile source to initialize for.</param>
         /// <exception cref="CannotCreateTileCacheException">Thrown when a critical error
         /// occurs when creating the tile cache.</exception>
-        /// <exception cref="CannotReceiveTilesException">Thrown when <paramref name="tileSource"/>
+        /// <exception cref="CannotReceiveTilesException">Thrown when <paramref name="newTileSource"/>
         /// does not allow for tiles to be retrieved.</exception>
         /// <exception cref="ObjectDisposedException">Thrown when calling this method while
         /// this instance is disposed.</exception>
-        protected void InitializeFromTileSource(ITileSource tileSource)
+        protected void InitializeFromTileSource(ITileSource newTileSource)
         {
             ThrowExceptionIfDisposed();
 
-            this.tileSource = tileSource;
+            tileSource = newTileSource;
             IPersistentCache<byte[]> tileCache = CreateTileCache();
             try
             {
-                ITileProvider provider = BruTileReflectionHelper.GetProviderFromTileSource(tileSource);
+                ITileProvider provider = BruTileReflectionHelper.GetProviderFromTileSource(newTileSource);
                 TileFetcher = new AsyncTileFetcher(provider,
                                                    BruTileSettings.MemoryCacheMinimum,
                                                    BruTileSettings.MemoryCacheMaximum,

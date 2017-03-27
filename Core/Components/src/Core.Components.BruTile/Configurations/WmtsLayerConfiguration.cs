@@ -106,17 +106,13 @@ namespace Core.Components.BruTile.Configurations
             return new WmtsLayerConfiguration(wmtsCapabilitiesUrl, tileSource);
         }
 
-        public override IConfiguration Clone()
+        protected override IConfiguration OnClone()
         {
-            ThrowExceptionIfDisposed();
-
             return new WmtsLayerConfiguration(capabilitiesUri, capabilityIdentifier, preferredFormat, PersistentCacheDirectoryPath);
         }
 
-        public override void Initialize()
+        protected override void OnInitialize()
         {
-            ThrowExceptionIfDisposed();
-
             if (Initialized)
             {
                 return;

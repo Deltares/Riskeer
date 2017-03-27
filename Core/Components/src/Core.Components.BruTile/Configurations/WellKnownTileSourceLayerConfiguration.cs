@@ -86,37 +86,20 @@ namespace Core.Components.BruTile.Configurations
         /// cache failed.</exception>
         public static WellKnownTileSourceLayerConfiguration CreateInitializedConfiguration(WellKnownTileSource wellKnownTileSource)
         {
-            return CreateInitializedConfiguration(WellKnownTileSourceToKnownTileSource(wellKnownTileSource));
+            KnownTileSource knownTileSource = WellKnownTileSourceToKnownTileSource(wellKnownTileSource);
+
+            ITileSource tileSource = TileSourceFactory.Instance.GetKnownTileSource(knownTileSource);
+            return new WellKnownTileSourceLayerConfiguration(knownTileSource, tileSource);
         }
 
-        public override IConfiguration Clone()
+        protected override IConfiguration OnClone()
         {
-            ThrowExceptionIfDisposed();
-
             return new WellKnownTileSourceLayerConfiguration(PersistentCacheDirectoryPath, knownTileSource);
         }
 
-        public override void Initialize()
+        protected override void OnInitialize()
         {
-            ThrowExceptionIfDisposed();
-
             Initialized = true;
-        }
-
-        /// <summary>
-        /// Creates a fully initialized instance of <see cref="WellKnownTileSourceLayerConfiguration"/>.
-        /// </summary>
-        /// <param name="knownTileSource">The built-in tile provider to be used.</param>
-        /// <returns>The new <see cref="WellKnownTileSourceLayerConfiguration"/>.</returns>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="knownTileSource"/>
-        /// isn't a supported member.</exception>
-        /// <exception cref="CannotCreateTileCacheException">Thrown when creating the file
-        /// cache failed.</exception>
-        private static WellKnownTileSourceLayerConfiguration CreateInitializedConfiguration(KnownTileSource knownTileSource)
-        {
-            ITileSource tileSource = TileSourceFactory.Instance.GetKnownTileSource(knownTileSource);
-
-            return new WellKnownTileSourceLayerConfiguration(knownTileSource, tileSource);
         }
 
         /// <summary>
