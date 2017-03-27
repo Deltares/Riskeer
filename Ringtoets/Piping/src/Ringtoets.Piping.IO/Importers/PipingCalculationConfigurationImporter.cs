@@ -26,6 +26,7 @@ using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.IO;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Properties;
@@ -317,12 +318,10 @@ namespace Ringtoets.Piping.IO.Importers
         {
             var distribution = (LogNormalDistribution) pipingCalculation.InputParameters.DampingFactorExit.Clone();
 
-            if (!TrySetDistributionParameters(
-                    distribution,
-                    readCalculation.DampingFactorExitMean,
-                    readCalculation.DampingFactorExitStandardDeviation,
-                    PipingCalculationConfigurationSchemaIdentifiers.DampingFactorExitStochastName,
-                    pipingCalculation.Name))
+            if (!distribution.TrySetDistributionProperties(readCalculation.DampingFactorExitMean,
+                                                           readCalculation.DampingFactorExitStandardDeviation,
+                                                           PipingCalculationConfigurationSchemaIdentifiers.DampingFactorExitStochastName,
+                                                           pipingCalculation.Name))
             {
                 return false;
             }
@@ -335,54 +334,15 @@ namespace Ringtoets.Piping.IO.Importers
         {
             var distribution = (NormalDistribution) pipingCalculation.InputParameters.PhreaticLevelExit.Clone();
 
-            if (!TrySetDistributionParameters(
-                    distribution,
-                    readCalculation.PhreaticLevelExitMean,
-                    readCalculation.PhreaticLevelExitStandardDeviation,
-                    PipingCalculationConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName,
-                    pipingCalculation.Name))
+            if (!distribution.TrySetDistributionProperties(readCalculation.PhreaticLevelExitMean,
+                                                           readCalculation.PhreaticLevelExitStandardDeviation,
+                                                           PipingCalculationConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName,
+                                                           pipingCalculation.Name))
             {
                 return false;
             }
 
             pipingCalculation.InputParameters.PhreaticLevelExit = distribution;
-            return true;
-        }
-
-        private bool TrySetDistributionParameters(IDistribution distribution, double? mean, double? standardDeviation, string stochastName, string calculationName)
-        {
-            if (mean.HasValue)
-            {
-                try
-                {
-                    distribution.Mean = (RoundedDouble) mean;
-                }
-                catch (ArgumentOutOfRangeException e)
-                {
-                    LogOutOfRangeException(string.Format(
-                                               Resources.PipingCalculationConfigurationImporter_ReadStochasts_Invalid_Mean_0_for_stochast_with_StochastName_1_,
-                                               mean, stochastName),
-                                           calculationName, e);
-                    return false;
-                }
-            }
-
-            if (standardDeviation.HasValue)
-            {
-                try
-                {
-                    distribution.StandardDeviation = (RoundedDouble) standardDeviation;
-                }
-                catch (ArgumentOutOfRangeException e)
-                {
-                    LogOutOfRangeException(string.Format(
-                                               Resources.PipingCalculationConfigurationImporter_ReadStochasts_Invalid_StandardDeviation_0_for_stochast_with_StochastName_1_,
-                                               standardDeviation, stochastName),
-                                           calculationName, e);
-                    return false;
-                }
-            }
-
             return true;
         }
     }

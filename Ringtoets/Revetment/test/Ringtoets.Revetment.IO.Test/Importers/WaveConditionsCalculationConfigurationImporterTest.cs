@@ -90,11 +90,11 @@ namespace Ringtoets.Revetment.IO.Test.Importers
 
         [Test]
         [SetCulture("nl-NL")]
-        [TestCase("validConfigurationInvalidRevetmentBoundaries.xml",
+        [TestCase("validConfigurationUpperRevetmentBoundBelowLowerRevetmentBound.xml",
             "Een waarde van '2,2' als ondergrens bekledingen is ongeldig. De bovengrens van de bekleding moet boven de ondergrens liggen.")]
-        [TestCase("validConfigurationInvalidWaterLevelBoundaries.xml",
+        [TestCase("validConfigurationUpperWaterLevelBoundBelowLowerWaterLevelBound.xml",
             "Een waarde van '2,2' als ondergrens van de rekenreeks is ongeldig. De bovengrens van de rekenreeks moet boven de ondergrens liggen.")]
-        [TestCase("validConfigurationInvalidOrientation.xml",
+        [TestCase("validConfigurationOrientationOutOfRange.xml",
             "Een waarde van '380' als oriëntatie is ongeldig. De waarde voor de oriëntatie moet in het bereik [0,00, 360,00] liggen.")]
         public void Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(string file, string expectedErrorMessage)
         {

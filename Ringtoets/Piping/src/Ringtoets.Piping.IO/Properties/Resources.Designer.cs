@@ -251,26 +251,6 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Een gemiddelde van &apos;{0}&apos; is ongeldig voor stochast &apos;{1}&apos;..
-        /// </summary>
-        public static string PipingCalculationConfigurationImporter_ReadStochasts_Invalid_Mean_0_for_stochast_with_StochastName_1_ {
-            get {
-                return ResourceManager.GetString("PipingCalculationConfigurationImporter_ReadStochasts_Invalid_Mean_0_for_stochast_" +
-                        "with_StochastName_1_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Een standaardafwijking van &apos;{0}&apos; is ongeldig voor stochast &apos;{1}&apos;..
-        /// </summary>
-        public static string PipingCalculationConfigurationImporter_ReadStochasts_Invalid_StandardDeviation_0_for_stochast_with_StochastName_1_ {
-            get {
-                return ResourceManager.GetString("PipingCalculationConfigurationImporter_ReadStochasts_Invalid_StandardDeviation_0_" +
-                        "for_stochast_with_StochastName_1_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Er is geen profielschematisatie, maar wel een intrede- of uittredepunt opgegeven..
         /// </summary>
         public static string PipingCalculationConfigurationImporter_ReadSurfaceLine_EntryPointL_or_ExitPointL_defined_without_SurfaceLine {

@@ -762,6 +762,25 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Een gemiddelde van &apos;{0}&apos; is ongeldig voor stochast &apos;{1}&apos;..
+        /// </summary>
+        public static string IDistributionExtensions_TrySetMean_Mean_0_is_invalid_for_Stochast_1_ {
+            get {
+                return ResourceManager.GetString("IDistributionExtensions_TrySetMean_Mean_0_is_invalid_for_Stochast_1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Een standaardafwijking van &apos;{0}&apos; is ongeldig voor stochast &apos;{1}&apos;..
+        /// </summary>
+        public static string IDistributionExtensions_TrySetStandardDeviation_StandardDeviation_0_is_invalid_for_Stochast_1_ {
+            get {
+                return ResourceManager.GetString("IDistributionExtensions_TrySetStandardDeviation_StandardDeviation_0_is_invalid_fo" +
+                        "r_Stochast_1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to TRAJECT_ID;N
         ///1-1;3
         ///1-2;2

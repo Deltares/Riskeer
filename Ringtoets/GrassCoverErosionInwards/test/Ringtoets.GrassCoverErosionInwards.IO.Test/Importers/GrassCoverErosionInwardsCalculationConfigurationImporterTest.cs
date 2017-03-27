@@ -96,7 +96,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
         public void Import_ValidConfigurationInvalidOrientation_LogMessageAndContinueImport()
         {
             // Setup
-            string filePath = Path.Combine(path, "validConfigurationInvalidOrientation.xml");
+            string filePath = Path.Combine(path, "validConfigurationOrientationOutOfRange.xml");
 
             var calculationGroup = new CalculationGroup();
             var importer = new GrassCoverErosionInwardsCalculationConfigurationImporter(
@@ -125,7 +125,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
         public void Import_ValidConfigurationInvalidCriticalWaveReductionMean_LogMessageAndContinueImport()
         {
             // Setup
-            string filePath = Path.Combine(path, "validConfigurationInvalidCriticalWaveReductionMean.xml");
+            string filePath = Path.Combine(path, "validConfigurationNegativeCriticalWaveReductionMean.xml");
 
             var calculationGroup = new CalculationGroup();
             var importer = new GrassCoverErosionInwardsCalculationConfigurationImporter(
@@ -139,7 +139,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
             Action call = () => successful = importer.Import();
 
             // Assert
-            string expectedMessage = "Een waarde van '-1' als gemiddelde voor het kritisch overslagdebiet is ongeldig. Gemiddelde moet groter zijn dan 0. " +
+            string expectedMessage = "Een gemiddelde van '-1' is ongeldig voor stochast 'overslagdebiet'. " +
+                                     "Gemiddelde moet groter zijn dan 0. " +
                                      "Berekening 'Berekening 1' is overgeslagen.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsTrue(successful);
@@ -151,7 +152,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
         public void Import_ValidConfigurationInvalidCriticalWaveReductionStandardDeviation_LogMessageAndContinueImport()
         {
             // Setup
-            string filePath = Path.Combine(path, "validConfigurationInvalidCriticalWaveReductionStandardDeviation.xml");
+            string filePath = Path.Combine(path, "validConfigurationNegativeCriticalWaveReductionStandardDeviation.xml");
 
             var calculationGroup = new CalculationGroup();
             var importer = new GrassCoverErosionInwardsCalculationConfigurationImporter(
@@ -165,7 +166,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
             Action call = () => successful = importer.Import();
 
             // Assert
-            string expectedMessage = "Een waarde van '-2,1' als standaardafwijking voor het kritisch overslagdebiet is ongeldig. Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0. " +
+            string expectedMessage = "Een standaardafwijking van '-2,1' is ongeldig voor stochast 'overslagdebiet'. " +
+                                     "Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0. " +
                                      "Berekening 'Berekening 1' is overgeslagen.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsTrue(successful);
