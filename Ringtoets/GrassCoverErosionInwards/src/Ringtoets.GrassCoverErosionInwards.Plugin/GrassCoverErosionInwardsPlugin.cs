@@ -25,7 +25,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
-using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
@@ -35,6 +34,7 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.ChangeHandlers;
+using Ringtoets.Common.Forms.ExportInfos;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.ImportInfos;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -90,22 +90,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         public override IEnumerable<ExportInfo> GetExportInfos()
         {
-            yield return new ExportInfo<GrassCoverErosionInwardsCalculationGroupContext>
-            {
-                FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Extension,
-                                                              RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Description),
-                CreateFileExporter = (context, filePath) => new GrassCoverErosionInwardsCalculationConfigurationExporter(context.WrappedData.Children, filePath),
-                IsEnabled = context => context.WrappedData.Children.Any()
-            };
-            yield return new ExportInfo<GrassCoverErosionInwardsCalculationContext>
-            {
-                FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Extension,
-                                                              RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Description),
-                CreateFileExporter = (context, filePath) => new GrassCoverErosionInwardsCalculationConfigurationExporter(new[]
+            yield return RingtoetsExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<GrassCoverErosionInwardsCalculationGroupContext>(
+                (context, filePath) => new GrassCoverErosionInwardsCalculationConfigurationExporter(context.WrappedData.Children, filePath),
+                context => context.WrappedData.Children.Any());
+
+            yield return RingtoetsExportInfoFactory.CreateCalculationConfigurationExportInfo<GrassCoverErosionInwardsCalculationContext>(
+                (context, filePath) => new GrassCoverErosionInwardsCalculationConfigurationExporter(new[]
                 {
                     context.WrappedData
-                }, filePath)
-            };
+                }, filePath));
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()

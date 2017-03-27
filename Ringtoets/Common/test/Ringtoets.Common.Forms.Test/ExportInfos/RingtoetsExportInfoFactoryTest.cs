@@ -48,12 +48,12 @@ namespace Ringtoets.Common.Forms.Test.ExportInfos
             Func<ICalculationContext<ICalculation, IFailureMechanism>, string, IFileExporter> createFileExporter = (context, s) => fileImporter;
 
             // Call
-            ExportInfo<ICalculationContext<ICalculation, IFailureMechanism>> exportInfo = 
+            ExportInfo<ICalculationContext<ICalculation, IFailureMechanism>> exportInfo =
                 RingtoetsExportInfoFactory.CreateCalculationConfigurationExportInfo(createFileExporter);
 
             // Assert
             Assert.AreSame(createFileExporter, exportInfo.CreateFileExporter);
-            Assert.IsNull(exportInfo.Name);
+            Assert.AreEqual("Ringtoets berekeningenconfiguratie (*.xml)", exportInfo.Name);
             Assert.AreEqual("Algemeen", exportInfo.Category);
 
             FileFilterGenerator fileFilterGenerator = exportInfo.FileFilterGenerator;
@@ -77,13 +77,13 @@ namespace Ringtoets.Common.Forms.Test.ExportInfos
             Func<ICalculationContext<CalculationGroup, IFailureMechanism>, string, IFileExporter> createFileExporter = (context, s) => fileImporter;
 
             // Call
-            ExportInfo<ICalculationContext<CalculationGroup, IFailureMechanism>> exportInfo = 
+            ExportInfo<ICalculationContext<CalculationGroup, IFailureMechanism>> exportInfo =
                 RingtoetsExportInfoFactory.CreateCalculationGroupConfigurationExportInfo(createFileExporter, isEnabled);
 
             // Assert
             Assert.AreSame(isEnabled, exportInfo.IsEnabled);
             Assert.AreSame(createFileExporter, exportInfo.CreateFileExporter);
-            Assert.IsNull(exportInfo.Name);
+            Assert.AreEqual("Ringtoets berekeningenconfiguratie (*.xml)", exportInfo.Name);
             Assert.AreEqual("Algemeen", exportInfo.Category);
 
             FileFilterGenerator fileFilterGenerator = exportInfo.FileFilterGenerator;

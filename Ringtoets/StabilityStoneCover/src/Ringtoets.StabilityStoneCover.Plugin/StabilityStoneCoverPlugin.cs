@@ -34,6 +34,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms;
 using Ringtoets.Common.Forms.ChangeHandlers;
+using Ringtoets.Common.Forms.ExportInfos;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.ImportInfos;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -176,16 +177,6 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                     RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
             };
 
-            yield return new ExportInfo<StabilityStoneCoverWaveConditionsCalculationGroupContext>
-            {
-                Name = RingtoetsCommonFormsResources.CalculationConfigurationExporter_DisplayName,
-                CreateFileExporter = (context, filePath) => new StabilityStoneCoverCalculationConfigurationExporter(context.WrappedData.Children, filePath),
-                IsEnabled = context => context.WrappedData.Children.Any(),
-                FileFilterGenerator = new FileFilterGenerator(
-                    RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Extension,
-                    RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Description)
-            };
-
             yield return new ExportInfo<StabilityStoneCoverWaveConditionsCalculationContext>
             {
                 Name = RingtoetsCommonFormsResources.WaveConditionsExporter_DisplayName,
@@ -199,17 +190,15 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                     RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
             };
 
-            yield return new ExportInfo<StabilityStoneCoverWaveConditionsCalculationContext>
-            {
-                Name = RingtoetsCommonFormsResources.CalculationConfigurationExporter_DisplayName,
-                CreateFileExporter = (context, filePath) => new StabilityStoneCoverCalculationConfigurationExporter(new[]
+            yield return RingtoetsExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<StabilityStoneCoverWaveConditionsCalculationGroupContext>(
+                (context, filePath) => new StabilityStoneCoverCalculationConfigurationExporter(context.WrappedData.Children, filePath),
+                context => context.WrappedData.Children.Any());
+
+            yield return RingtoetsExportInfoFactory.CreateCalculationConfigurationExportInfo<StabilityStoneCoverWaveConditionsCalculationContext>(
+                (context, filePath) => new StabilityStoneCoverCalculationConfigurationExporter(new[]
                 {
                     context.WrappedData
-                }, filePath),
-                FileFilterGenerator = new FileFilterGenerator(
-                    RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Extension,
-                    RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Description)
-            };
+                }, filePath));
         }
 
         #region ViewInfos

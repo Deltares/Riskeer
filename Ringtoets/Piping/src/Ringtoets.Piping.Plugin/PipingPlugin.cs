@@ -36,6 +36,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.ChangeHandlers;
+using Ringtoets.Common.Forms.ExportInfos;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.ImportInfos;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -133,20 +134,15 @@ namespace Ringtoets.Piping.Plugin
 
         public override IEnumerable<ExportInfo> GetExportInfos()
         {
-            yield return new ExportInfo<PipingCalculationGroupContext>
-            {
-                FileFilterGenerator = PipingCalculationConfigurationFileFilter,
-                CreateFileExporter = (context, filePath) => new PipingCalculationConfigurationExporter(context.WrappedData.Children, filePath),
-                IsEnabled = context => context.WrappedData.Children.Any()
-            };
-            yield return new ExportInfo<PipingCalculationScenarioContext>
-            {
-                FileFilterGenerator = PipingCalculationConfigurationFileFilter,
-                CreateFileExporter = (context, filePath) => new PipingCalculationConfigurationExporter(new[]
+            yield return RingtoetsExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<PipingCalculationGroupContext>(
+                (context, filePath) => new PipingCalculationConfigurationExporter(context.WrappedData.Children, filePath),
+                context => context.WrappedData.Children.Any());
+
+            yield return RingtoetsExportInfoFactory.CreateCalculationConfigurationExportInfo<PipingCalculationScenarioContext>(
+                (context, filePath) => new PipingCalculationConfigurationExporter(new[]
                 {
                     context.WrappedData
-                }, filePath)
-            };
+                }, filePath));
         }
 
         public override IEnumerable<UpdateInfo> GetUpdateInfos()

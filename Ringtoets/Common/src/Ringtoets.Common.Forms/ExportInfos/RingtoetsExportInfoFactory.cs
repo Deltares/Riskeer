@@ -51,6 +51,7 @@ namespace Ringtoets.Common.Forms.ExportInfos
         {
             return new ExportInfo<TCalculationGroupContext>
             {
+                Name = Resources.CalculationConfigurationExporter_DisplayName,
                 Category = Resources.Ringtoets_Category,
                 Image = CoreCommonGuiResources.ExportIcon,
                 FileFilterGenerator = new FileFilterGenerator(Resources.DataTypeDisplayName_xml_file_filter_Extension,
@@ -74,10 +75,11 @@ namespace Ringtoets.Common.Forms.ExportInfos
         {
             return new ExportInfo<TCalculationContext>
             {
+                Name = Resources.CalculationConfigurationExporter_DisplayName,
                 Category = Resources.Ringtoets_Category,
                 Image = CoreCommonGuiResources.ExportIcon,
                 FileFilterGenerator = new FileFilterGenerator(Resources.DataTypeDisplayName_xml_file_filter_Extension,
-                                                  Resources.DataTypeDisplayName_xml_file_filter_Description),
+                                                              Resources.DataTypeDisplayName_xml_file_filter_Description),
                 CreateFileExporter = createFileExporter,
                 IsEnabled = context => true
             };
