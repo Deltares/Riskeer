@@ -35,7 +35,8 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <param name="expectedBackgroundData">The background data with the expected properties.</param>
         /// <param name="actualBackgroundData">The background data to assert.</param>
         /// <exception cref="AssertionException">Thrown when the properties of the <paramref name="actualBackgroundData"/>
-        /// are not equal to the properties of <paramref name="expectedBackgroundData"/>.</exception>
+        /// are not equal to the properties of <paramref name="expectedBackgroundData"/> or when 
+        /// the set <see cref="BackgroundData.Configuration"/> is not supported.</exception>
         public static void AssertBackgroundData(BackgroundData expectedBackgroundData, BackgroundData actualBackgroundData)
         {
             Assert.AreEqual(expectedBackgroundData.Name, actualBackgroundData.Name);
@@ -44,18 +45,22 @@ namespace Ringtoets.Common.Data.TestUtil
 
             IBackgroundDataConfiguration backgroundDataConfiguration = expectedBackgroundData.Configuration;
             var wmtsBackgroundDataConfiguration = backgroundDataConfiguration as WmtsBackgroundDataConfiguration;
+            var wellKnownBackgroundDataConfiguration = backgroundDataConfiguration as WellKnownBackgroundDataConfiguration;
+
             if (wmtsBackgroundDataConfiguration != null)
             {
-                var actualWmtsBackgroundDataConfiguration = (WmtsBackgroundDataConfiguration)actualBackgroundData.Configuration;
+                var actualWmtsBackgroundDataConfiguration = (WmtsBackgroundDataConfiguration) actualBackgroundData.Configuration;
                 AssertWmtsBackgroundConfiguration(wmtsBackgroundDataConfiguration, actualWmtsBackgroundDataConfiguration);
+                return;
             }
 
-            var wellKnownBackgroundDataConfiguration = backgroundDataConfiguration as WellKnownBackgroundDataConfiguration;
             if (wellKnownBackgroundDataConfiguration != null)
             {
-                var actualWellKnownBackgroundDataConfiguration = (WellKnownBackgroundDataConfiguration)actualBackgroundData.Configuration;
+                var actualWellKnownBackgroundDataConfiguration = (WellKnownBackgroundDataConfiguration) actualBackgroundData.Configuration;
                 AssertWellKnownBackgroundConfiguration(wellKnownBackgroundDataConfiguration, actualWellKnownBackgroundDataConfiguration);
+                return;
             }
+            Assert.Fail($"Unsupported type of {nameof(IBackgroundDataConfiguration)} in {expectedBackgroundData.Configuration}");
         }
 
         private static void AssertWellKnownBackgroundConfiguration(WellKnownBackgroundDataConfiguration wellKnownBackgroundDataConfiguration,

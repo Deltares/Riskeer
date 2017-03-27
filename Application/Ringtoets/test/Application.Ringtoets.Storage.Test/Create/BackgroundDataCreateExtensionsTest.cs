@@ -58,7 +58,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             const string preferredFormat = "image/png";
             const bool isVisible = true;
             const bool isConfigured = true;
-            RoundedDouble transparancy = (RoundedDouble) 0.3;
+            var transparancy = (RoundedDouble) 0.3;
 
             var configuration = new WmtsBackgroundDataConfiguration(isConfigured,
                                                                     sourceCapabilitiesUrl,
@@ -94,7 +94,6 @@ namespace Application.Ringtoets.Storage.Test.Create
                 {
                     BackgroundDataIdentifiers.PreferredFormat, preferredFormat
                 }
-
             };
 
             var actualKeyValuePairs = entity.BackgroundDataMetaEntities.Select(
@@ -109,7 +108,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             const string name = "background";
             const bool isVisible = true;
             const bool isConfigured = false;
-            RoundedDouble transparancy = (RoundedDouble)0.3;
+            var transparancy = (RoundedDouble) 0.3;
 
             var configuration = new WmtsBackgroundDataConfiguration();
 
@@ -150,7 +149,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             const string name = "background";
             const bool isVisible = true;
             const BackgroundDataType backgroundDataType = BackgroundDataType.WellKnown;
-            RoundedDouble transparancy = (RoundedDouble) 0.3;
+            var transparancy = (RoundedDouble) 0.3;
 
             var configuration = new WellKnownBackgroundDataConfiguration(wellKnownTileSource);
             var backgroundData = new BackgroundData(configuration)

@@ -94,7 +94,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             var backgroundData = new BackgroundData(new WellKnownBackgroundDataConfiguration((RingtoetsWellKnownTileSource) 1337));
 
             // Call
-            TestDelegate call = ()=> RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(backgroundData);
+            TestDelegate call = () => RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(backgroundData);
 
             // Assert
             Assert.Throws<InvalidEnumArgumentException>(call);

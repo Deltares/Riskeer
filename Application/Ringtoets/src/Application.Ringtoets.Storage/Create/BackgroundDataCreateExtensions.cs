@@ -79,7 +79,7 @@ namespace Application.Ringtoets.Storage.Create
             entity.BackgroundDataMetaEntities.Add(new BackgroundDataMetaEntity
             {
                 Key = BackgroundDataIdentifiers.WellKnownTileSource.DeepClone(),
-                Value = ((int) wellKnownConfiguration.WellKnownTileSource).ToString().DeepClone()
+                Value = ((int) wellKnownConfiguration.WellKnownTileSource).ToString()
             });
         }
 

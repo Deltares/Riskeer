@@ -56,7 +56,7 @@ namespace Core.Components.BruTile.Test.Configurations
             using (new UseCustomSettingsHelper(testSettingsHelper))
             {
                 foreach (WellKnownTileSource wellKnownTileSource in Enum.GetValues(typeof(WellKnownTileSource)))
-                { 
+                {
                     using (new UseCustomTileSourceFactoryConfig(new WellKnownTileSourceMapData(wellKnownTileSource)))
                     {
                         // When
