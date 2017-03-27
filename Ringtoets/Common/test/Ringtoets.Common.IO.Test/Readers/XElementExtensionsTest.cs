@@ -92,7 +92,7 @@ namespace Ringtoets.Common.IO.Test.Readers
         {
             // Setup
             const string descendantElementName = "number";
-            string descendantElementValue = "1" + double.MaxValue;
+            string descendantElementValue = string.Format(CultureInfo.InvariantCulture, "1{0}", double.MaxValue);
 
             var element = new XElement("Root", new XElement(descendantElementName, descendantElementValue));
 
