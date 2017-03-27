@@ -220,7 +220,7 @@ INSERT INTO BackgroundDataMetaEntity(
 		[Value])
 SELECT BackgroundDataEntityId,
 		"WellKnownTileSource",
-		"1"
+		"2"
 		FROM BackgroundDataEntity;
 DETACH SOURCEPROJECT;
 
