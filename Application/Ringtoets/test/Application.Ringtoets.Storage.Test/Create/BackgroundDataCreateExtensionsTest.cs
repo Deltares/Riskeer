@@ -149,7 +149,7 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             const string name = "background";
             const bool isVisible = true;
-            const BackgroundMapDataType backgroundDataType = BackgroundMapDataType.WellKnown;
+            const BackgroundDataType backgroundDataType = BackgroundDataType.WellKnown;
             RoundedDouble transparancy = (RoundedDouble) 0.3;
 
             var configuration = new WellKnownBackgroundDataConfiguration(wellKnownTileSource);

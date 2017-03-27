@@ -58,7 +58,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             const double transparancy = 0.4;
             const bool isConfigured = true;
 
-            const BackgroundMapDataType backgroundMapDataType = BackgroundMapDataType.Wmts;
+            const BackgroundDataType backgroundDataType = BackgroundDataType.Wmts;
             var backgroundDataMetaEntities = new[]
             {
                 new BackgroundDataMetaEntity
@@ -89,7 +89,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 BackgroundDataMetaEntities = backgroundDataMetaEntities,
                 IsVisible = Convert.ToByte(isVisible),
                 Transparency = transparancy,
-                BackgroundDataType = Convert.ToByte(backgroundMapDataType)
+                BackgroundDataType = Convert.ToByte(backgroundDataType)
             };
 
             // Call
@@ -116,7 +116,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             const bool isVisible = false;
             const double transparancy = 0.4;
 
-            const BackgroundMapDataType backgroundMapDataType = BackgroundMapDataType.WellKnown;
+            const BackgroundDataType backgroundDataType = BackgroundDataType.WellKnown;
 
             var random = new Random(21);
             var wellKnownTileSource = random.NextEnumValue<RingtoetsWellKnownTileSource>();
@@ -134,7 +134,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 },
                 IsVisible = Convert.ToByte(isVisible),
                 Transparency = transparancy,
-                BackgroundDataType = Convert.ToByte(backgroundMapDataType)
+                BackgroundDataType = Convert.ToByte(backgroundDataType)
             };
 
             // Call
@@ -182,7 +182,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                         Value = "image/jpeg"
                     }
                 },
-                BackgroundDataType = Convert.ToByte(BackgroundMapDataType.Wmts)
+                BackgroundDataType = Convert.ToByte(BackgroundDataType.Wmts)
             };
 
             // Call

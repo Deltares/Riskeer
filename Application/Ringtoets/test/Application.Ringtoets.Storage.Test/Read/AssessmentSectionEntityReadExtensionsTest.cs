@@ -100,7 +100,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             const string mapDataName = "Background";
             const double transparency = 0.0;
             bool isVisible = isConfigured;
-            const BackgroundMapDataType backgroundMapDataType = BackgroundMapDataType.WellKnown;
+            const BackgroundDataType backgroundDataType = BackgroundDataType.WellKnown;
 
             var random = new Random(21);
             var wellKnownTileSource = random.NextEnumValue<RingtoetsWellKnownTileSource>();
@@ -121,7 +121,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 Name = mapDataName,
                 Transparency = transparency,
                 IsVisible = Convert.ToByte(isVisible),
-                BackgroundDataType = Convert.ToByte(backgroundMapDataType),
+                BackgroundDataType = Convert.ToByte(backgroundDataType),
                 BackgroundDataMetaEntities = backgroundDataMetaEntities
             };
 

@@ -64,12 +64,12 @@ namespace Application.Ringtoets.Storage.Create
 
             if (wmtsBackgroundDataConfiguration != null)
             {
-                entity.BackgroundDataType = Convert.ToByte(BackgroundMapDataType.Wmts);
+                entity.BackgroundDataType = Convert.ToByte(BackgroundDataType.Wmts);
                 AddWmtsMetaEntities(wmtsBackgroundDataConfiguration, entity);
             }
             else if (wellKnownBackgroundDataConfiguration != null)
             {
-                entity.BackgroundDataType = Convert.ToByte(BackgroundMapDataType.WellKnown);
+                entity.BackgroundDataType = Convert.ToByte(BackgroundDataType.WellKnown);
                 AddWellKnownTileSourceMetaEntities(wellKnownBackgroundDataConfiguration, entity);
             }
         }

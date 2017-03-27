@@ -52,11 +52,11 @@ namespace Application.Ringtoets.Storage.Read
 
             IBackgroundDataConfiguration configuration = null;
 
-            if ((BackgroundMapDataType) entity.BackgroundDataType == BackgroundMapDataType.Wmts)
+            if ((BackgroundDataType) entity.BackgroundDataType == BackgroundDataType.Wmts)
             {
                 configuration = ReadWmtsConfiguration(entity.BackgroundDataMetaEntities);
             }
-            else if ((BackgroundMapDataType) entity.BackgroundDataType == BackgroundMapDataType.WellKnown)
+            else if ((BackgroundDataType) entity.BackgroundDataType == BackgroundDataType.WellKnown)
             {
                 configuration = ReadWellKnownConfiguration(entity.BackgroundDataMetaEntities);
             }

@@ -26,7 +26,7 @@ namespace Application.Ringtoets.Storage
     /// <summary>
     /// Enumeration that defines the possible types of a <see cref="BackgroundData"/>.
     /// </summary>
-    public enum BackgroundMapDataType
+    public enum BackgroundDataType
     {
         /// <summary>
         /// Web Map Tile Service background map data type.

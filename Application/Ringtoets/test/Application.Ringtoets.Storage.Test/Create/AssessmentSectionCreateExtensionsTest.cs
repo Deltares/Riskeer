@@ -69,7 +69,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             const string mapDataName = "map data name";
             const double transparency = 0.3;
             const bool isVisible = true;
-            const BackgroundMapDataType backgroundType = BackgroundMapDataType.Wmts;
+            const BackgroundDataType backgroundType = BackgroundDataType.Wmts;
             var assessmentSection = new AssessmentSection(assessmentSectionComposition)
             {
                 Id = testId,

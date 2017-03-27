@@ -61,7 +61,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="BackgroundDataIdentifiers.cs" />
-    <Compile Include="BackgroundMapDataType.cs" />
+    <Compile Include="BackgroundDataType.cs" />
     <Compile Include="Create\ClosingStructures\ClosingStructureCreateExtensions.cs" />
     <Compile Include="Create\ClosingStructures\GeneralClosingStructuresInputCreateExtensions.cs" />
     <Compile Include="Create\DuneErosion\DuneLocationCreateExtensions.cs" />

@@ -1162,7 +1162,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
         public void AssertImageBasedMapData_WmtsMapDataNotEqual_ThrowAssertionException(WmtsMapData wmtsMapData)
         {
             // Setup
-            var mapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
 
             // Call
             TestDelegate test = () => MapDataTestHelper.AssertImageBasedMapData(wmtsMapData, mapData);
@@ -1203,8 +1203,8 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
         public void AssertImageBasedMapData_WmtsDataCorrect_DoesNotThrow()
         {
             // Setup
-            var expectedMapData = WmtsMapData.CreateUnconnectedMapData();
-            var actualMapData = WmtsMapData.CreateUnconnectedMapData();
+            WmtsMapData expectedMapData = WmtsMapData.CreateUnconnectedMapData();
+            WmtsMapData actualMapData = WmtsMapData.CreateUnconnectedMapData();
 
             // Call
             TestDelegate test = () => MapDataTestHelper.AssertImageBasedMapData(expectedMapData, actualMapData);
@@ -1220,7 +1220,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
 
         private static IEnumerable<TestCaseData> NotEqualToDefaultPdokMapData()
         {
-            var defaultMapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData defaultMapData = WmtsMapData.CreateDefaultPdokMapData();
 
             var otherName = new WmtsMapData("otherName",
                                             defaultMapData.SourceCapabilitiesUrl,
@@ -1228,11 +1228,11 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
                                             defaultMapData.PreferredFormat);
             yield return new TestCaseData(otherName).SetName("WmtsMapDataOtherName");
 
-            var otherPreferredFormat = new WmtsMapData(defaultMapData.Name,
-                                                       defaultMapData.SourceCapabilitiesUrl,
-                                                       defaultMapData.SelectedCapabilityIdentifier,
-                                                       "image/otherPreferredFormat");
-            yield return new TestCaseData(otherPreferredFormat).SetName("WmtsMapDataOtherPreferredFormat");
+            var otherSourceCapabilitiesUrl = new WmtsMapData(defaultMapData.Name,
+                                                             "otherSourceCapabilitiesUrl",
+                                                             defaultMapData.SelectedCapabilityIdentifier,
+                                                             defaultMapData.PreferredFormat);
+            yield return new TestCaseData(otherSourceCapabilitiesUrl).SetName("WmtsMapDataOtherSourceCapabilitiesUrl");
 
             var otherSelectedCapabilityIdentifier = new WmtsMapData(defaultMapData.Name,
                                                                     defaultMapData.SourceCapabilitiesUrl,
@@ -1240,26 +1240,24 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
                                                                     defaultMapData.PreferredFormat);
             yield return new TestCaseData(otherSelectedCapabilityIdentifier).SetName("WmtsMapDataOtherSelectedCapabilityIdentifier");
 
-            var otherSourceCapabilitiesUrl = new WmtsMapData(defaultMapData.Name,
-                                                             "otherSourceCapabilitiesUrl",
-                                                             defaultMapData.SelectedCapabilityIdentifier,
-                                                             defaultMapData.PreferredFormat);
-            yield return new TestCaseData(otherSourceCapabilitiesUrl).SetName("WmtsMapDataSourceCapabilitiesUrl");
+            var otherPreferredFormat = new WmtsMapData(defaultMapData.Name,
+                                                       defaultMapData.SourceCapabilitiesUrl,
+                                                       defaultMapData.SelectedCapabilityIdentifier,
+                                                       "image/otherPreferredFormat");
+            yield return new TestCaseData(otherPreferredFormat).SetName("WmtsMapDataOtherPreferredFormat");
 
-            WmtsMapData otherVisibility = defaultMapData;
+            WmtsMapData otherVisibility = WmtsMapData.CreateDefaultPdokMapData();
             otherVisibility.IsVisible = !otherVisibility.IsVisible;
             yield return new TestCaseData(otherVisibility);
 
-            WmtsMapData otherTransparency = defaultMapData;
-            otherTransparency.Transparency = (RoundedDouble) ((otherVisibility.Transparency + 0.5) % 1);
+            WmtsMapData otherTransparency = WmtsMapData.CreateDefaultPdokMapData();
+            otherTransparency.Transparency = (RoundedDouble) ((otherTransparency.Transparency + 0.5) % 1);
             yield return new TestCaseData(otherTransparency);
         }
 
         private static IEnumerable<TestCaseData> NotEqualToBingAerial()
         {
-            var defaultMapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial);
-
-            var otherName = new WellKnownTileSourceMapData(defaultMapData.TileSource)
+            var otherName = new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial)
             {
                 Name = "otherName"
             };
@@ -1271,12 +1269,12 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             };
             yield return new TestCaseData(otherPreferredFormat).SetName("WellKnownTileSourceOtherPreferredFormat");
 
-            WellKnownTileSourceMapData otherVisibility = defaultMapData;
+            var otherVisibility = new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial);
             otherVisibility.IsVisible = !otherVisibility.IsVisible;
             yield return new TestCaseData(otherVisibility).SetName("WellKnownTileSourceOtherVisibility");
 
-            WellKnownTileSourceMapData otherTransparency = defaultMapData;
-            otherTransparency.Transparency = (RoundedDouble) ((otherVisibility.Transparency + 0.5) % 1);
+            var otherTransparency = new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial);
+            otherTransparency.Transparency = (RoundedDouble) ((otherTransparency.Transparency + 0.5) % 1);
             yield return new TestCaseData(otherTransparency).SetName("WellKnownTileSourceOtherTransparency");
         }
 
