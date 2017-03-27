@@ -29,21 +29,39 @@ namespace Core.Components.Gis.Data
     /// </summary>
     public enum WellKnownTileSource
     {
+        /// <summary>
+        /// OpenStreetMap.
+        /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.OpenStreetMap_DisplayName))]
         OpenStreetMap = 1,
 
+        /// <summary>
+        /// Microsoft Bing's satellite imagery. 
+        /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.BingAerial_DisplayName))]
         BingAerial = 2,
 
+        /// <summary>
+        /// Microsoft Bing's satellite imagery highlighting roads and major landmarks.
+        /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.BingHybrid_DisplayName))]
         BingHybrid = 3,
 
+        /// <summary>
+        /// Microsoft Bing's map showing roads, buildings and geography.
+        /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.BingRoads_DisplayName))]
         BingRoads = 4,
 
+        /// <summary>
+        /// Esri's topographic map showing boundaries, cities, water features, physiographic features, park, landmarks, transportation and buildings.
+        /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.EsriWorldTopo_DisplayName))]
         EsriWorldTopo = 5,
 
+        /// <summary>
+        /// Esri's surface elevation as shaded relief.
+        /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.EsriWorldShadedRelief_DisplayName))]
         EsriWorldShadedRelief = 6
     }

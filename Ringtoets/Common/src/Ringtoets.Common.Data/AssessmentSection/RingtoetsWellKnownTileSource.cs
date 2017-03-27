@@ -26,16 +26,34 @@ namespace Ringtoets.Common.Data.AssessmentSection
     /// </summary>
     public enum RingtoetsWellKnownTileSource
     {
+        /// <summary>
+        /// OpenStreetMap.
+        /// </summary>
         OpenStreetMap = 1,
 
+        /// <summary>
+        /// Microsoft Bing's satellite imagery. 
+        /// </summary>
         BingAerial = 2,
 
+        /// <summary>
+        /// Microsoft Bing's satellite imagery highlighting roads and major landmarks.
+        /// </summary>
         BingHybrid = 3,
 
+        /// <summary>
+        /// Microsoft Bing's map showing roads, buildings and geography.
+        /// </summary>
         BingRoads = 4,
 
+        /// <summary>
+        /// Esri's topographic map showing boundaries, cities, water features, physiographic features, park, landmarks, transportation and buildings.
+        /// </summary>
         EsriWorldTopo = 5,
 
+        /// <summary>
+        /// Esri's surface elevation as shaded relief.
+        /// </summary>
         EsriWorldShadedRelief = 6
     }
 }
