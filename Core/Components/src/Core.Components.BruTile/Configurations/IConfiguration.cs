@@ -36,9 +36,9 @@ namespace Core.Components.BruTile.Configurations
     public interface IConfiguration : IDisposable
     {
         /// <summary>
-        /// Gets the <see cref="ITileSource"/>.
+        /// Gets the <see cref="ITileSchema"/>.
         /// </summary>
-        ITileSource TileSource { get; }
+        ITileSchema TileSchema { get; }
 
         /// <summary>
         /// Gets the <see cref="ITileFetcher"/>.

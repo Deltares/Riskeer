@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using BruTile;
 using Core.Common.Gui.TestUtil.Settings;
 using Core.Common.TestUtil;
 using Core.Components.BruTile.Configurations;
@@ -66,7 +65,7 @@ namespace Core.Components.BruTile.Test.Configurations
                             // Then
                             Assert.IsTrue(configuration.Initialized);
 
-                            Assert.IsNotNull(configuration.TileSource);
+                            Assert.IsNotNull(configuration.TileSchema);
                             Assert.IsInstanceOf<AsyncTileFetcher>(configuration.TileFetcher);
                         }
                     }
@@ -89,10 +88,9 @@ namespace Core.Components.BruTile.Test.Configurations
                     // Assert
                     Assert.IsTrue(clone.Initialized);
 
-                    Assert.AreEqual(configuration.TileSource, clone.TileSource);
-                    Assert.AreEqual(configuration.TileSource.Name, clone.TileSource.Name);
-                    AssertAttribution(configuration.TileSource.Attribution, clone.TileSource.Attribution);
-                    Assert.AreEqual(configuration.TileSource.Schema.Format, clone.TileSource.Schema.Format);
+                    Assert.AreEqual(configuration.TileSchema, clone.TileSchema);
+                    Assert.AreEqual(configuration.TileSchema.Name, clone.TileSchema.Name);
+                    Assert.AreEqual(configuration.TileSchema.Format, clone.TileSchema.Format);
 
                     Assert.IsInstanceOf<AsyncTileFetcher>(clone.TileFetcher);
                 }
@@ -172,19 +170,6 @@ namespace Core.Components.BruTile.Test.Configurations
         public void OneTimeTearDown()
         {
             directoryDisposeHelper.Dispose();
-        }
-
-        private static void AssertAttribution(Attribution expectedAttribution, Attribution actualAttribution)
-        {
-            if (expectedAttribution == null)
-            {
-                Assert.IsNull(actualAttribution);
-            }
-            else
-            {
-                Assert.AreEqual(expectedAttribution.Text, actualAttribution.Text);
-                Assert.AreEqual(expectedAttribution.Url, actualAttribution.Url);
-            }
         }
     }
 }

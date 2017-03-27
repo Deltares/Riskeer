@@ -279,12 +279,9 @@ namespace Core.Components.DotSpatial.Forms.Test
             schema.Stub(s => s.Srs).Return("EPSG:28992");
             schema.Stub(s => s.Extent).Return(new Extent());
 
-            var tileSource = mocks.Stub<ITileSource>();
-            tileSource.Stub(ts => ts.Schema).Return(schema);
-
             var configuration = mocks.Stub<IConfiguration>();
             configuration.Stub(c => c.Initialized).Return(true);
-            configuration.Stub(c => c.TileSource).Return(tileSource);
+            configuration.Stub(c => c.TileSchema).Return(schema);
             configuration.Stub(c => c.TileFetcher).Return(tileFetcher);
             configuration.Stub(c => c.Dispose());
             return configuration;

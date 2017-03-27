@@ -451,19 +451,16 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             schema.Stub(s => s.Srs).Return(authorityCode);
             schema.Stub(s => s.Extent).Return(extent);
 
-            var tileSource = mocks.Stub<ITileSource>();
-            tileSource.Stub(ts => ts.Schema).Return(schema);
-
             var clonedConfiguration = mocks.Stub<IConfiguration>();
             clonedConfiguration.Stub(c => c.Initialized).Return(true);
-            clonedConfiguration.Stub(c => c.TileSource).Return(tileSource);
+            clonedConfiguration.Stub(c => c.TileSchema).Return(schema);
             clonedConfiguration.Stub(c => c.TileFetcher).Return(tileFetcher);
             clonedConfiguration.Stub(c => c.Dispose());
 
             IConfiguration configuration = mocks.Stub<IConfiguration>();
             configuration.Expect(c => c.Clone()).Return(clonedConfiguration);
             configuration.Stub(c => c.Initialized).Return(true);
-            configuration.Stub(c => c.TileSource).Return(tileSource);
+            configuration.Stub(c => c.TileSchema).Return(schema);
             configuration.Stub(c => c.TileFetcher).Return(tileFetcher);
             configuration.Stub(c => c.Dispose());
 
@@ -587,13 +584,10 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             schema.Stub(s => s.Srs).Return("EPSG:28992");
             schema.Stub(s => s.Extent).Return(new Extent());
 
-            var tileSource = mocks.Stub<ITileSource>();
-            tileSource.Stub(ts => ts.Schema).Return(schema);
-
             bool disposedLocked = false;
             IConfiguration configuration = mocks.Stub<IConfiguration>();
             configuration.Stub(c => c.Initialized).Return(true);
-            configuration.Stub(c => c.TileSource).Return(tileSource);
+            configuration.Stub(c => c.TileSchema).Return(schema);
             configuration.Stub(c => c.TileFetcher).Return(tileFetcher);
             configuration.Expect(c => c.Dispose())
                          .WhenCalled(invocation =>
@@ -1022,13 +1016,10 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                                                 Arg<string>.Is.Equal(levelId)))
                       .Return(tileInfoImageLookup.Keys);
 
-            var tileSource = mocks.Stub<ITileSource>();
-            tileSource.Stub(ts => ts.Schema).Return(tileSchema);
-
             IConfiguration configuration = mocks.Stub<IConfiguration>();
             configuration.Stub(c => c.Initialized).Return(true);
             configuration.Stub(c => c.TileFetcher).Return(tileFetcher);
-            configuration.Stub(c => c.TileSource).Return(tileSource);
+            configuration.Stub(c => c.TileSchema).Return(tileSchema);
             configuration.Stub(c => c.Dispose());
             return configuration;
         }
@@ -1096,14 +1087,11 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             schema.Stub(s => s.Srs).Return(tileSchemaSrsString);
             schema.Stub(s => s.Extent).Return(tileSourceExtent);
 
-            var tileSource = mocks.Stub<ITileSource>();
-            tileSource.Stub(ts => ts.Schema).Return(schema);
-
             var tileFetcher = mocks.Stub<ITileFetcher>();
 
             IConfiguration configuration = mocks.Stub<IConfiguration>();
             configuration.Stub(c => c.Initialized).Return(true);
-            configuration.Stub(c => c.TileSource).Return(tileSource);
+            configuration.Stub(c => c.TileSchema).Return(schema);
             configuration.Stub(c => c.TileFetcher).Return(tileFetcher);
             configuration.Stub(c => c.Dispose());
             return configuration;
@@ -1115,9 +1103,6 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             schema.Stub(s => s.Srs).Return("EPSG:28992");
             schema.Stub(s => s.Extent).Return(new Extent());
 
-            var tileSource = mocks.Stub<ITileSource>();
-            tileSource.Stub(ts => ts.Schema).Return(schema);
-
             var tileFetcher = mocks.Stub<ITileFetcher>();
 
             IConfiguration configuration = mocks.Stub<IConfiguration>();
@@ -1125,7 +1110,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             {
                 configuration.Stub(c => c.Initialized).Return(false);
                 configuration.Expect(c => c.Initialize());
-                configuration.Stub(c => c.TileSource).Return(tileSource);
+                configuration.Stub(c => c.TileSchema).Return(schema);
                 configuration.Stub(c => c.TileFetcher).Return(tileFetcher);
                 configuration.Stub(c => c.Dispose());
             }

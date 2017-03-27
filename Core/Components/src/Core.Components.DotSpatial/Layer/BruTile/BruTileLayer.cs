@@ -139,7 +139,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile
             }
             this.configuration = configuration;
 
-            ITileSchema tileSchema = configuration.TileSource.Schema;
+            ITileSchema tileSchema = configuration.TileSchema;
             sourceProjection = GetTileSourceProjectionInfo(tileSchema.Srs);
 
             Projection = sourceProjection;
@@ -243,7 +243,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile
                                                                   args.GeographicExtents
                                                               };
 
-            ITileSchema schema = configuration.TileSource.Schema;
+            ITileSchema schema = configuration.TileSchema;
             foreach (DotSpatialExtent region in regionsToDraw)
             {
                 DrawRegion(args, region, schema);

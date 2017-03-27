@@ -61,7 +61,7 @@ namespace Core.Components.BruTile.Test.Configurations
                 Assert.IsInstanceOf<IConfiguration>(configuration);
 
                 Assert.IsFalse(configuration.Initialized);
-                Assert.IsNull(configuration.TileSource);
+                Assert.IsNull(configuration.TileSchema);
                 Assert.IsNull(configuration.TileFetcher);
             }
         }
@@ -148,7 +148,7 @@ namespace Core.Components.BruTile.Test.Configurations
                         configuration.TestInitializeFromTileSource(tileSource);
 
                         // Assert
-                        Assert.AreSame(tileSource, configuration.TileSource);
+                        Assert.AreSame(tileSource.Schema, configuration.TileSchema);
                         Assert.IsInstanceOf<AsyncTileFetcher>(configuration.TileFetcher);
                         Assert.IsTrue(configuration.Initialized);
                     }

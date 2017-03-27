@@ -144,7 +144,7 @@ namespace Core.Components.BruTile.Test.Configurations
                     // Assert
                     Assert.IsTrue(configuration.Initialized);
                     Assert.IsTrue(configuration.TileFetcher.IsReady());
-                    Assert.AreSame(tileSource2, configuration.TileSource);
+                    Assert.AreSame(tileSource2.Schema, configuration.TileSchema);
                 }
             }
             mocks.VerifyAll();
@@ -184,7 +184,7 @@ namespace Core.Components.BruTile.Test.Configurations
 
                 Assert.IsFalse(clone.Initialized);
                 Assert.IsNull(clone.TileFetcher, "TileFetcher should be null because the clone hasn't been initialized yet.");
-                Assert.IsNull(clone.TileSource, "TileSource should be null because the clone hasn't been initialized yet.");
+                Assert.IsNull(clone.TileSchema, "TileSchema should be null because the clone hasn't been initialized yet.");
             }
             mocks.VerifyAll();
         }
@@ -258,7 +258,7 @@ namespace Core.Components.BruTile.Test.Configurations
                 // Assert
                 Assert.IsTrue(clone.Initialized);
                 Assert.IsTrue(clone.TileFetcher.IsReady());
-                Assert.AreSame(configuration.TileSource, clone.TileSource);
+                Assert.AreSame(configuration.TileSchema, clone.TileSchema);
             }
             mocks.VerifyAll();
         }

@@ -43,6 +43,7 @@ namespace Core.Components.BruTile.Configurations
         protected readonly string PersistentCacheDirectoryPath;
 
         private FileCache fileCache;
+        private ITileSource tileSource;
 
         /// <summary>
         /// Initializes a new instance of <see cref="PersistentCacheConfiguration"/>.
@@ -62,7 +63,13 @@ namespace Core.Components.BruTile.Configurations
             PersistentCacheDirectoryPath = persistentCacheDirectoryPath;
         }
 
-        public ITileSource TileSource { get; private set; }
+        public ITileSchema TileSchema
+        {
+            get
+            {
+                return tileSource?.Schema;
+            }
+        }
 
         public ITileFetcher TileFetcher { get; private set; }
 
@@ -113,7 +120,7 @@ namespace Core.Components.BruTile.Configurations
         {
             ThrowExceptionIfDisposed();
 
-            TileSource = tileSource;
+            this.tileSource = tileSource;
             IPersistentCache<byte[]> tileCache = CreateTileCache();
             try
             {
