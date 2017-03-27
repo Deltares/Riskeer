@@ -54,6 +54,7 @@
     <Compile Include="Exceptions\CannotCreateTileCacheException.cs" />
     <Compile Include="Exceptions\CannotFindTileSourceException.cs" />
     <Compile Include="Exceptions\CannotReceiveTilesException.cs" />
+    <Compile Include="Exceptions\ConfigurationInitializationException.cs" />
     <Compile Include="Features\MapFeature.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

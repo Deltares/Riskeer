@@ -29,7 +29,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Core.Components.DotSpatial.Forms.Properties {
+namespace Core.Components.BruTile.Forms.Properties {
     using System;
     
     
@@ -60,7 +60,7 @@ namespace Core.Components.DotSpatial.Forms.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Core.Components.DotSpatial.Forms.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Core.Components.BruTile.Forms.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -82,12 +82,32 @@ namespace Core.Components.DotSpatial.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} De achtergrondkaart kan nu niet getoond worden..
+        ///   Looks up a localized string similar to Verbinden met &apos;{0}&apos; is mislukt waardoor geen kaartgegevens ingeladen kunnen worden..
         /// </summary>
-        internal static string MapControl_HandleBruTileInitializationException_Message_0_therefore_cannot_show_background_layer {
+        internal static string TryCreateInitializedConfiguration_InitializeBackgroundLayer_Connect_to_TileSourceName_0_failed {
             get {
-                return ResourceManager.GetString("MapControl_HandleBruTileInitializationException_Message_0_therefore_cannot_show_b" +
-                        "ackground_layer", resourceCulture);
+                return ResourceManager.GetString("TryCreateInitializedConfiguration_InitializeBackgroundLayer_Connect_to_TileSource" +
+                        "Name_0_failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configuratie van kaartgegevens hulpbestanden is mislukt..
+        /// </summary>
+        internal static string TryCreateInitializedConfiguration_InitializeBackgroundLayer_Persistent_cache_creation_failed {
+            get {
+                return ResourceManager.GetString("TryCreateInitializedConfiguration_InitializeBackgroundLayer_Persistent_cache_crea" +
+                        "tion_failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verbinden met WMTS is mislukt waardoor geen kaartgegevens ingeladen kunnen worden..
+        /// </summary>
+        internal static string TryCreateInitializedConfiguration_InitializeBackgroundLayer_Wmts_connection_failed {
+            get {
+                return ResourceManager.GetString("TryCreateInitializedConfiguration_InitializeBackgroundLayer_Wmts_connection_faile" +
+                        "d", resourceCulture);
             }
         }
     }

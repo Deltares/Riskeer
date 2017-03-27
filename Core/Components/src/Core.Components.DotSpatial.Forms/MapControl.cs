@@ -26,6 +26,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Utils.Reflection;
 using Core.Components.BruTile.Configurations;
+using Core.Components.BruTile.Forms;
 using Core.Components.DotSpatial.Forms.Properties;
 using Core.Components.DotSpatial.Layer;
 using Core.Components.DotSpatial.Layer.BruTile;
@@ -202,7 +203,25 @@ namespace Core.Components.DotSpatial.Forms
         /// </returns>
         private bool InitializeBackgroundLayer()
         {
-            IConfiguration configuration = CreateInitializedConfiguration(backgroundMapData);
+            IConfiguration configuration;
+
+            try
+            {
+                configuration = BrutileConfigurationFactory.CreateInitializedConfiguration(backgroundMapData);
+            }
+            catch (ConfigurationInitializationException e)
+            {
+                if (!backgroundLayerStatus.PreviousBackgroundLayerCreationFailed)
+                {
+                    string fullMessage = string.Format(Resources.MapControl_HandleBruTileInitializationException_Message_0_therefore_cannot_show_background_layer,
+                                                       e.Message);
+                    log.Error(fullMessage, e);
+                }
+
+                backgroundLayerStatus.LayerInitializationFailed();
+                return false;
+            }
+
             if (configuration == null)
             {
                 return false;
@@ -216,63 +235,6 @@ namespace Core.Components.DotSpatial.Forms
             backgroundLayerStatus.LayerInitializationSuccessful(backgroundLayer, backgroundMapData);
 
             return true;
-        }
-
-        private IConfiguration CreateInitializedConfiguration(ImageBasedMapData mapdata)
-        {
-            var wmtsBackgroundMapData = mapdata as WmtsMapData;
-            var wellKnownMapDataBackgroundMapData = mapdata as WellKnownTileSourceMapData;
-            if (wmtsBackgroundMapData != null)
-            {
-                return TryCreateInitializedConfiguration(wmtsBackgroundMapData);
-            }
-
-            if (wellKnownMapDataBackgroundMapData != null)
-            {
-                return TryCreateInitializedConfiguration(wellKnownMapDataBackgroundMapData);
-            }
-            return null;
-        }
-
-        private IConfiguration TryCreateInitializedConfiguration(WellKnownTileSourceMapData wellKnownMapDataBackgroundMapData)
-        {
-            try
-            {
-                return WellKnownTileSourceLayerConfiguration.CreateInitializedConfiguration(wellKnownMapDataBackgroundMapData.TileSource);
-            }
-            catch (NotSupportedException e)
-            {
-                string tileDisplayName = TypeUtils.GetDisplayName(wellKnownMapDataBackgroundMapData.TileSource);
-                HandleBruTileInitializationException(e, string.Format(Resources.MapControl_InitializeBackgroundLayer_Connect_to_TileSourceName_0_failed, tileDisplayName));
-
-                return null;
-            }
-            catch (CannotCreateTileCacheException e)
-            {
-                HandleBruTileInitializationException(e, Resources.MapControl_InitializeBackgroundLayer_Persistent_cache_creation_failed);
-
-                return null;
-            }
-        }
-
-        private PersistentCacheConfiguration TryCreateInitializedConfiguration(WmtsMapData wmtsMapDataBackgroundMapData)
-        {
-            try
-            {
-                return WmtsLayerConfiguration.CreateInitializedConfiguration(wmtsMapDataBackgroundMapData.SourceCapabilitiesUrl,
-                                                                             wmtsMapDataBackgroundMapData.SelectedCapabilityIdentifier,
-                                                                             wmtsMapDataBackgroundMapData.PreferredFormat);
-            }
-            catch (Exception e) when (e is CannotFindTileSourceException || e is CannotReceiveTilesException)
-            {
-                HandleBruTileInitializationException(e, Resources.MapControl_InitializeBackgroundLayer_Wmts_connection_failed);
-                return null;
-            }
-            catch (CannotCreateTileCacheException e)
-            {
-                HandleBruTileInitializationException(e, Resources.MapControl_InitializeBackgroundLayer_Persistent_cache_creation_failed);
-                return null;
-            }
         }
 
         private void InsertBackgroundLayer()
@@ -327,18 +289,6 @@ namespace Core.Components.DotSpatial.Forms
         private bool HasBackgroundMapDataConfigurationChanged(ImageBasedMapData wmtsMapDataBackgroundMapData)
         {
             return !backgroundLayerStatus.HasSameConfiguration(wmtsMapDataBackgroundMapData);
-        }
-
-        private void HandleBruTileInitializationException(Exception e, string message)
-        {
-            if (!backgroundLayerStatus.PreviousBackgroundLayerCreationFailed)
-            {
-                string fullMessage = string.Format(Resources.MapControl_HandleBruTileInitializationException_Message_0_therefore_cannot_show_background_layer,
-                                                   message);
-                log.Error(fullMessage, e);
-            }
-
-            backgroundLayerStatus.LayerInitializationFailed();
         }
 
         #endregion

@@ -60,6 +60,7 @@
     <Compile Include="Exceptions\CannotCreateTileCacheExceptionTest.cs" />
     <Compile Include="Exceptions\CannotFindTileSourceExceptionTest.cs" />
     <Compile Include="Exceptions\CannotReceiveTilesExceptionTest.cs" />
+    <Compile Include="Exceptions\ConfigurationInitializationExceptionTest.cs" />
     <Compile Include="Features\MapFeatureTest.cs" />
     <Compile Include="Geometries\MapGeometryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

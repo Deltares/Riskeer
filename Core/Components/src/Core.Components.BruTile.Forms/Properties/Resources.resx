@@ -117,7 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="MapControl_HandleBruTileInitializationException_Message_0_therefore_cannot_show_background_layer" xml:space="preserve">
-    <value>{0} De achtergrondkaart kan nu niet getoond worden.</value>
+  <data name="TryCreateInitializedConfiguration_InitializeBackgroundLayer_Connect_to_TileSourceName_0_failed" xml:space="preserve">
+    <value>Verbinden met '{0}' is mislukt waardoor geen kaartgegevens ingeladen kunnen worden.</value>
+  </data>
+  <data name="TryCreateInitializedConfiguration_InitializeBackgroundLayer_Persistent_cache_creation_failed" xml:space="preserve">
+    <value>Configuratie van kaartgegevens hulpbestanden is mislukt.</value>
+  </data>
+  <data name="TryCreateInitializedConfiguration_InitializeBackgroundLayer_Wmts_connection_failed" xml:space="preserve">
+    <value>Verbinden met WMTS is mislukt waardoor geen kaartgegevens ingeladen kunnen worden.</value>
   </data>
 </root>

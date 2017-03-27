@@ -98,6 +98,8 @@ namespace Core.Components.BruTile.Configurations
         /// <exception cref="CannotFindTileSourceException">Thrown when it has become impossible
         /// to create an <see cref="ITileSource"/> based on the given information (for example:
         /// unable to connect to server).</exception>
+        /// <exception cref="CannotReceiveTilesException">Thrown when the configured <see cref="ITileSource"/>
+        /// doesn't contain a <see cref="WmtsTileSchema"/>.</exception>
         public static WmtsLayerConfiguration CreateInitializedConfiguration(string wmtsCapabilitiesUrl, string capabilityIdentifier, string preferredFormat)
         {
             ValidateConfigurationParameters(wmtsCapabilitiesUrl, capabilityIdentifier, preferredFormat);

@@ -33,32 +33,29 @@ namespace Core.Components.BruTile.TestUtil
     /// </summary>
     public class TestTileSourceFactory : ITileSourceFactory
     {
-        private readonly TestWmtsTileSource wmtsTileSource;
-        private readonly TestWellKnownTileSource wellKnownTileSource;
+        private TestWmtsTileSource wmtsTileSource;
+        private TestWellKnownTileSource wellKnownTileSource;
 
         /// <summary>
         /// Initializes a new instance of <see cref="TestTileSourceFactory"/> for a given
-        /// <see cref="WmtsMapData"/>.
+        /// <see cref="ImageBasedMapData"/>.
         /// </summary>
         /// <param name="backgroundMapData">The map data to work for.</param>
         /// <remarks>If <paramref name="backgroundMapData"/> isn't initialized at construction
         /// time, then <see cref="GetWmtsTileSources"/> returns no tile sources.</remarks>
-        public TestTileSourceFactory(WmtsMapData backgroundMapData)
+        public TestTileSourceFactory(ImageBasedMapData backgroundMapData)
         {
-            if (backgroundMapData.IsConfigured)
+            var wellKnownMapData = backgroundMapData as WellKnownTileSourceMapData;
+            if (wellKnownMapData != null)
             {
-                wmtsTileSource = new TestWmtsTileSource(backgroundMapData);
+                SetWellKnownTileSource(wellKnownMapData);
             }
-        }
 
-        /// <summary>
-        /// Initializes a new instance of <see cref="TestTileSourceFactory"/> for a given
-        /// <see cref="WellKnownTileSourceMapData"/>.
-        /// </summary>
-        /// <param name="backgroundMapData">The map data to work for.</param>
-        public TestTileSourceFactory(WellKnownTileSourceMapData backgroundMapData)
-        {
-            wellKnownTileSource = new TestWellKnownTileSource(backgroundMapData);
+            var wmtsMapData = backgroundMapData as WmtsMapData;
+            if (wmtsMapData != null && wmtsMapData.IsConfigured)
+            {
+                SetWmtsTileSource(wmtsMapData);
+            }
         }
 
         public IEnumerable<ITileSource> GetWmtsTileSources(string capabilitiesUrl)
@@ -76,6 +73,19 @@ namespace Core.Components.BruTile.TestUtil
                 throw new NotSupportedException("use TestTileSourceFactory() to set the expected well known tile source");
             }
             return wellKnownTileSource;
+        }
+
+        private void SetWmtsTileSource(WmtsMapData backgroundMapData)
+        {
+            if (backgroundMapData.IsConfigured)
+            {
+                wmtsTileSource = new TestWmtsTileSource(backgroundMapData);
+            }
+        }
+
+        private void SetWellKnownTileSource(WellKnownTileSourceMapData wellKnownMapData)
+        {
+            wellKnownTileSource = new TestWellKnownTileSource(wellKnownMapData);
         }
     }
 }
