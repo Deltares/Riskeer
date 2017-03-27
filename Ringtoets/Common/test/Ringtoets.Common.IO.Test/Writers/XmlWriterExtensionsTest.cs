@@ -159,66 +159,67 @@ namespace Ringtoets.Common.IO.Test.Writers
                 .SetName("Wave reduction without use foreshore profile set.");
         }
 
-        public static IEnumerable<TestCaseData> GetStructureCalculations()
+        [Test]
+        public void WriteStartFolder_WithNameAndWriter_WritesFolderStart()
         {
-            yield return new TestCaseData(
-                    new SimpleStructureCalculationConfiguration("some name"),
-                    "structureCalculationWithoutParametersSet.xml")
-                .SetName("Structure calculation without any of its paramters set.");
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath(nameof(WriteStartFolder_WithNameAndWriter_WritesFolderStart));
+            const string name = "folder";
 
-            yield return new TestCaseData(
-                    new SimpleStructureCalculationConfiguration("some other name")
-                    {
-                        AllowedLevelIncreaseStorage = new MeanStandardDeviationStochastConfiguration
-                        {
-                            Mean = 1.2,
-                            StandardDeviation = 3.4
-                        },
-                        CriticalOvertoppingDischarge = new MeanVariationCoefficientStochastConfiguration
-                        {
-                            Mean = 22.2,
-                            VariationCoefficient = 2.1
-                        },
-                        FailureProbabilityStructureWithErosion = 2.1,
-                        FlowWidthAtBottomProtection = new MeanStandardDeviationStochastConfiguration
-                        {
-                            Mean = 5.4,
-                            StandardDeviation = 1.1
-                        },
-                        ForeshoreProfileName = "Voorland",
-                        HydraulicBoundaryLocationName = "Randvoorwaardelocatie",
-                        ModelFactorSuperCriticalFlow = new MeanStandardDeviationStochastConfiguration
-                        {
-                            Mean = 322.2,
-                            StandardDeviation = 91.2
-                        },
-                        StorageStructureArea = new MeanVariationCoefficientStochastConfiguration
-                        {
-                            Mean = 11.122,
-                            VariationCoefficient = 32.111
-                        },
-                        StormDuration = new MeanVariationCoefficientStochastConfiguration
-                        {
-                            Mean = 21.22,
-                            VariationCoefficient = 1.2
-                        },
-                        StructureNormalOrientation = 5.6,
-                        StructureName = "Kunstwerk",
-                        WaveReduction = new WaveReductionConfiguration
-                        {
-                            BreakWaterType = ReadBreakWaterType.Caisson,
-                            UseBreakWater = false,
-                            BreakWaterHeight = 111111.2,
-                            UseForeshoreProfile = true
-                        },
-                        WidthFlowApertures = new MeanStandardDeviationStochastConfiguration
-                        {
-                            Mean = 121.3,
-                            StandardDeviation = 222.1
-                        }
-                    },
-                    "structureCalculationWithAllParametersSet.xml")
-                .SetName("Structure calculation with all of its paramters set.");
+            try
+            {
+                using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
+                {
+                    // Call
+                    xmlWriter.WriteStartFolder(name);
+
+                    // Assert
+                    Assert.AreEqual(WriteState.Element, xmlWriter.WriteState);
+                }
+
+                string actualXml = File.ReadAllText(filePath);
+                string expectedXml = GetTestFileContent("simpleFolder.xml");
+                Assert.AreEqual(expectedXml, actualXml);
+            }
+            finally
+            {
+                File.Delete(filePath);
+            }
+        }
+
+        [Test]
+        public void WriteStartFolder_WithoutWriter_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate testDelegate = () => ((XmlWriter) null).WriteStartFolder("name");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(testDelegate);
+            Assert.AreEqual("writer", exception.ParamName);
+        }
+
+        [Test]
+        public void WriteStartFolder_WithoutName_ThrowsArgumentNullException()
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath(nameof(WriteDistribution_WithDifferentSetParameters_WritesStochastWithSetParameters));
+
+            try
+            {
+                using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
+                {
+                    // Call
+                    TestDelegate testDelegate = () => xmlWriter.WriteStartFolder(null);
+
+                    // Assert
+                    var exception = Assert.Throws<ArgumentNullException>(testDelegate);
+                    Assert.AreEqual("name", exception.ParamName);
+                }
+            }
+            finally
+            {
+                File.Delete(filePath);
+            }
         }
 
         [Test]
@@ -252,7 +253,7 @@ namespace Ringtoets.Common.IO.Test.Writers
         public void WriteDistribution_StandardDeviationDistributionWithoutWriter_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate testDelegate = () => ((XmlWriter)null).WriteDistribution("name", new MeanStandardDeviationStochastConfiguration());
+            TestDelegate testDelegate = () => ((XmlWriter) null).WriteDistribution("name", new MeanStandardDeviationStochastConfiguration());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(testDelegate);
@@ -338,7 +339,7 @@ namespace Ringtoets.Common.IO.Test.Writers
         public void WriteDistribution_VariationCoefficientDistributionWithoutWriter_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate testDelegate = () => ((XmlWriter)null).WriteDistribution("name", new MeanVariationCoefficientStochastConfiguration());
+            TestDelegate testDelegate = () => ((XmlWriter) null).WriteDistribution("name", new MeanVariationCoefficientStochastConfiguration());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(testDelegate);
@@ -380,7 +381,7 @@ namespace Ringtoets.Common.IO.Test.Writers
                 using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
                 {
                     // Call
-                    TestDelegate testDelegate = () => xmlWriter.WriteDistribution("name", (MeanVariationCoefficientStochastConfiguration)null);
+                    TestDelegate testDelegate = () => xmlWriter.WriteDistribution("name", (MeanVariationCoefficientStochastConfiguration) null);
 
                     // Assert
                     var exception = Assert.Throws<ArgumentNullException>(testDelegate);
@@ -423,7 +424,7 @@ namespace Ringtoets.Common.IO.Test.Writers
         public void WriteWaveReduction_WithoutWriter_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate testDelegate = () => ((XmlWriter)null).WriteWaveReduction(new WaveReductionConfiguration());
+            TestDelegate testDelegate = () => ((XmlWriter) null).WriteWaveReduction(new WaveReductionConfiguration());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(testDelegate);
@@ -453,68 +454,7 @@ namespace Ringtoets.Common.IO.Test.Writers
                 File.Delete(filePath);
             }
         }
-
-        [Test]
-        [TestCaseSource(nameof(GetStructureCalculations))]
-        public void WriteCommonStructureProperties_WithoutDifferentSetParameters_WritesSetStructureProperties(StructureCalculationConfiguration structureCalculation, string fileName)
-        {
-            // Setup
-            string filePath = TestHelper.GetScratchPadPath(nameof(WriteCommonStructureProperties_WithoutDifferentSetParameters_WritesSetStructureProperties));
-
-            try
-            {
-                using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
-                {
-                    // Call
-                    xmlWriter.WriteStartCommonStructureProperties(structureCalculation);
-                }
-
-                // Assert
-                string actualXml = File.ReadAllText(filePath);
-                string expectedXml = GetTestFileContent(fileName);
-                Assert.AreEqual(expectedXml, actualXml);
-            }
-            finally
-            {
-                File.Delete(filePath);
-            }
-        }
-
-        [Test]
-        public void WriteCommonStructureProperties_WithoutWriter_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate testDelegate = () => ((XmlWriter)null).WriteStartCommonStructureProperties(new SimpleStructureCalculationConfiguration(""));
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(testDelegate);
-            Assert.AreEqual("writer", exception.ParamName);
-        }
-
-        [Test]
-        public void WriteCommonStructureProperties_WithoutStructureCalculation_ThrowsArgumentNullException()
-        {
-            // Setup
-            string filePath = TestHelper.GetScratchPadPath(nameof(WriteCommonStructureProperties_WithoutDifferentSetParameters_WritesSetStructureProperties));
-
-            try
-            {
-                using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
-                {
-                    // Call
-                    TestDelegate testDelegate = () => xmlWriter.WriteStartCommonStructureProperties(null);
-
-                    // Assert
-                    var exception = Assert.Throws<ArgumentNullException>(testDelegate);
-                    Assert.AreEqual("structureCalculation", exception.ParamName);
-                }
-            }
-            finally
-            {
-                File.Delete(filePath);
-            }
-        }
-
+        
         private string GetTestFileContent(string testFile)
         {
             return File.ReadAllText(Path.Combine(testDirectory, testFile));

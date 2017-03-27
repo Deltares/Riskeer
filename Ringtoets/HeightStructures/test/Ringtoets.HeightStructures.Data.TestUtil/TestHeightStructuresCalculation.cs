@@ -36,12 +36,18 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
         {
             InputParameters.Structure = new TestHeightStructure();
             InputParameters.LevelCrestStructure.Mean = (RoundedDouble) 5.74;
+            InputParameters.LevelCrestStructure.StandardDeviation = (RoundedDouble) 0.94;
             InputParameters.StorageStructureArea.Mean = (RoundedDouble) 1.0;
+            InputParameters.StorageStructureArea.CoefficientOfVariation = (RoundedDouble) 1.10;
             InputParameters.StructureNormalOrientation = (RoundedDouble) 115;
             InputParameters.AllowedLevelIncreaseStorage.Mean = (RoundedDouble) 1.0;
+            InputParameters.AllowedLevelIncreaseStorage.StandardDeviation = (RoundedDouble) 0.12;
             InputParameters.FlowWidthAtBottomProtection.Mean = (RoundedDouble) 18;
+            InputParameters.FlowWidthAtBottomProtection.StandardDeviation = (RoundedDouble) 8.2;
             InputParameters.CriticalOvertoppingDischarge.Mean = (RoundedDouble) 1;
+            InputParameters.CriticalOvertoppingDischarge.CoefficientOfVariation = (RoundedDouble) 0.88;
             InputParameters.WidthFlowApertures.Mean = (RoundedDouble) 18;
+            InputParameters.WidthFlowApertures.StandardDeviation = (RoundedDouble) 2;
             InputParameters.FailureProbabilityStructureWithErosion = 1.0;
             InputParameters.DeviationWaveDirection = (RoundedDouble) 0;
         }
