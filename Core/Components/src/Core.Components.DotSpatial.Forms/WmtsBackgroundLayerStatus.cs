@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Components.DotSpatial.Layer.BruTile;
 using Core.Components.Gis.Data;
 
@@ -29,27 +28,14 @@ namespace Core.Components.DotSpatial.Forms
     /// Class responsible for keeping track of various status information related to the
     /// <see cref="WmtsMapData"/> used to create a background layer in a map control.
     /// </summary>
-    internal class WmtsBackgroundLayerStatus : IBackgroundLayerStatus
+    internal class WmtsBackgroundLayerStatus : BackgroundLayerStatus
     {
-        public bool PreviousBackgroundLayerCreationFailed { get; private set; }
+        private string sourceCapabilitiesUrl;
+        private string selectedCapabilityId;
+        private string preferredFormat;
 
-        public BruTileLayer BackgroundLayer { get; private set; }
-
-        public void Dispose()
+        protected override void OnLayerInitializationSuccessful(BruTileLayer backgroundLayer, ImageBasedMapData dataSource)
         {
-            BackgroundLayer?.Dispose();
-        }
-
-        public void LayerInitializationSuccessful(BruTileLayer backgroundLayer, ImageBasedMapData dataSource)
-        {
-            if (backgroundLayer == null)
-            {
-                throw new ArgumentNullException(nameof(backgroundLayer));
-            }
-            if (dataSource == null)
-            {
-                throw new ArgumentNullException(nameof(dataSource));
-            }
             var wmtsDataSource = dataSource as WmtsMapData;
             if (wmtsDataSource == null)
             {
@@ -57,25 +43,19 @@ namespace Core.Components.DotSpatial.Forms
                 return;
             }
 
-            SourceCapabilitiesUrl = wmtsDataSource.SourceCapabilitiesUrl;
-            SelectedCapabilityId = wmtsDataSource.SelectedCapabilityIdentifier;
-            PreferredFormat = wmtsDataSource.PreferredFormat;
+            sourceCapabilitiesUrl = wmtsDataSource.SourceCapabilitiesUrl;
+            selectedCapabilityId = wmtsDataSource.SelectedCapabilityIdentifier;
+            preferredFormat = wmtsDataSource.PreferredFormat;
 
             BackgroundLayer = backgroundLayer;
             PreviousBackgroundLayerCreationFailed = false;
         }
 
-        public void LayerInitializationFailed()
+        public override void ClearConfiguration(bool expectRecreationOfSameBackgroundLayer = false)
         {
-            ClearConfiguration();
-            PreviousBackgroundLayerCreationFailed = true;
-        }
-
-        public void ClearConfiguration(bool expectRecreationOfSameBackgroundLayer = false)
-        {
-            SourceCapabilitiesUrl = null;
-            SelectedCapabilityId = null;
-            PreferredFormat = null;
+            sourceCapabilitiesUrl = null;
+            selectedCapabilityId = null;
+            preferredFormat = null;
 
             if (BackgroundLayer != null)
             {
@@ -89,26 +69,13 @@ namespace Core.Components.DotSpatial.Forms
             }
         }
 
-        public bool HasSameConfiguration(ImageBasedMapData mapData)
+        protected override bool OnHasSameConfiguration(ImageBasedMapData mapData)
         {
-            if (mapData == null)
-            {
-                throw new ArgumentNullException(nameof(mapData));
-            }
-
             var wmtsDataSource = mapData as WmtsMapData;
-            if (wmtsDataSource == null)
-            {
-                return false;
-            }
-
-            return Equals(wmtsDataSource.SourceCapabilitiesUrl, SourceCapabilitiesUrl)
-                   && Equals(wmtsDataSource.SelectedCapabilityIdentifier, SelectedCapabilityId)
-                   && Equals(wmtsDataSource.PreferredFormat, PreferredFormat);
+            return wmtsDataSource != null
+                   && Equals(wmtsDataSource.SourceCapabilitiesUrl, sourceCapabilitiesUrl)
+                   && Equals(wmtsDataSource.SelectedCapabilityIdentifier, selectedCapabilityId)
+                   && Equals(wmtsDataSource.PreferredFormat, preferredFormat);
         }
-
-        private string SourceCapabilitiesUrl { get; set; }
-        private string SelectedCapabilityId { get; set; }
-        private string PreferredFormat { get; set; }
     }
 }

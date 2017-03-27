@@ -26,21 +26,21 @@ using Core.Components.Gis.Data;
 namespace Core.Components.DotSpatial.Forms
 {
     /// <summary>
-    /// Interface for keeping track of various status information related to the
+    /// Abstract class for keeping track of various status information related to the
     /// <see cref="ImageBasedMapData"/> used to create a background layer in a map view.
     /// </summary>
-    internal interface IBackgroundLayerStatus : IDisposable
+    internal abstract class BackgroundLayerStatus : IDisposable
     {
         /// <summary>
         /// Gets a value indicating that the most recent attempt to create the background
         /// layer failed (returning <c>true</c>) or was successful (returning <c>false</c>).
         /// </summary>
-        bool PreviousBackgroundLayerCreationFailed { get; }
+        public bool PreviousBackgroundLayerCreationFailed { get; protected set; }
 
         /// <summary>
         /// Gets the initialized background layer.
         /// </summary>
-        BruTileLayer BackgroundLayer { get; }
+        public BruTileLayer BackgroundLayer { get; protected set; }
 
         /// <summary>
         /// Mark that a (new) background layer has successfully been initialized.
@@ -48,12 +48,28 @@ namespace Core.Components.DotSpatial.Forms
         /// <param name="backgroundLayer">The constructed layer.</param>
         /// <param name="dataSource">The data used to construct <paramref name="backgroundLayer"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
-        void LayerInitializationSuccessful(BruTileLayer backgroundLayer, ImageBasedMapData dataSource);
+        public void LayerInitializationSuccessful(BruTileLayer backgroundLayer, ImageBasedMapData dataSource)
+        {
+            if (backgroundLayer == null)
+            {
+                throw new ArgumentNullException(nameof(backgroundLayer));
+            }
+            if (dataSource == null)
+            {
+                throw new ArgumentNullException(nameof(dataSource));
+            }
+
+            OnLayerInitializationSuccessful(backgroundLayer, dataSource);
+        }
 
         /// <summary>
         /// Mark that the attempt to create a new background layer failed.
         /// </summary>
-        void LayerInitializationFailed();
+        public void LayerInitializationFailed()
+        {
+            ClearConfiguration();
+            PreviousBackgroundLayerCreationFailed = true;
+        }
 
         /// <summary>
         /// Clears the status information for the background layer and disposes <see cref="BackgroundLayer"/>
@@ -62,7 +78,7 @@ namespace Core.Components.DotSpatial.Forms
         /// <param name="expectRecreationOfSameBackgroundLayer">Optional: A flag to indicate 
         /// if recreation of <see cref="BackgroundLayer"/> with the same parameters is expected
         /// (<c>true</c>) or is expected to be replaced (<c>false</c>).</param>
-        void ClearConfiguration(bool expectRecreationOfSameBackgroundLayer = false);
+        public abstract void ClearConfiguration(bool expectRecreationOfSameBackgroundLayer = false);
 
         /// <summary>
         /// Indicates if a <see cref="ImageBasedMapData"/> corresponds with the <see cref="BackgroundLayer"/>.
@@ -70,6 +86,32 @@ namespace Core.Components.DotSpatial.Forms
         /// <param name="mapData">The map data.</param>
         /// <returns>Returns <c>true</c> if <paramref name="mapData"/> corresponds with
         /// <see cref="BackgroundLayer"/>, or <c>false</c> when this is not the case.</returns>
-        bool HasSameConfiguration(ImageBasedMapData mapData);
+        public bool HasSameConfiguration(ImageBasedMapData mapData)
+        {
+            if (mapData == null)
+            {
+                throw new ArgumentNullException(nameof(mapData));
+            }
+
+            return OnHasSameConfiguration(mapData);
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                BackgroundLayer?.Dispose();
+            }
+        }
+
+        protected abstract void OnLayerInitializationSuccessful(BruTileLayer backgroundLayer, ImageBasedMapData dataSource);
+
+        protected abstract bool OnHasSameConfiguration(ImageBasedMapData mapData);
     }
 }

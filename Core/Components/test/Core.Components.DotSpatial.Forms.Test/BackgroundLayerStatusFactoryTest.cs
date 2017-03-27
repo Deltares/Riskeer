@@ -61,7 +61,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             WmtsMapData mapData = WmtsMapData.CreateAlternativePdokMapData();
 
             // Call
-            IBackgroundLayerStatus backgroundLayerStatus = BackgroundLayerStatusFactory.CreateBackgroundLayerStatus(mapData);
+            BackgroundLayerStatus backgroundLayerStatus = BackgroundLayerStatusFactory.CreateBackgroundLayerStatus(mapData);
 
             // Assert
             Assert.IsInstanceOf<WmtsBackgroundLayerStatus>(backgroundLayerStatus);
@@ -74,7 +74,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             var mapData = new WellKnownTileSourceMapData(new Random().NextEnum<WellKnownTileSource>());
 
             // Call
-            IBackgroundLayerStatus backgroundLayerStatus = BackgroundLayerStatusFactory.CreateBackgroundLayerStatus(mapData);
+            BackgroundLayerStatus backgroundLayerStatus = BackgroundLayerStatusFactory.CreateBackgroundLayerStatus(mapData);
 
             // Assert
             Assert.IsInstanceOf<WellKnownBackgroundLayerStatus>(backgroundLayerStatus);

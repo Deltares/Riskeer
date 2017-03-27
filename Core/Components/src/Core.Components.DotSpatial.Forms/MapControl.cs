@@ -60,7 +60,7 @@ namespace Core.Components.DotSpatial.Forms
         private RdNewMouseCoordinatesMapExtension mouseCoordinatesMapExtension;
         private MapDataCollection data;
 
-        private IBackgroundLayerStatus backgroundLayerStatus;
+        private BackgroundLayerStatus backgroundLayerStatus;
         private ImageBasedMapData backgroundMapData;
 
         /// <summary>

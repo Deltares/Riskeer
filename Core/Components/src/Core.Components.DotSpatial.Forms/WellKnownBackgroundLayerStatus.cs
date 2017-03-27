@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Components.DotSpatial.Layer.BruTile;
 using Core.Components.Gis.Data;
 
@@ -29,49 +28,13 @@ namespace Core.Components.DotSpatial.Forms
     /// Class responsible for keeping track of various status information related to the
     /// <see cref="WellKnownTileSourceMapData"/> used to create a background layer in a map control.
     /// </summary>
-    internal class WellKnownBackgroundLayerStatus : IBackgroundLayerStatus
+    internal class WellKnownBackgroundLayerStatus : BackgroundLayerStatus
     {
-        public bool PreviousBackgroundLayerCreationFailed { get; private set; }
+        private WellKnownTileSource? wellKnownTileSource;
 
-        public BruTileLayer BackgroundLayer { get; private set; }
-
-        public virtual void Dispose()
+        public override void ClearConfiguration(bool expectRecreationOfSameBackgroundLayer = false)
         {
-            BackgroundLayer?.Dispose();
-        }
-
-        public void LayerInitializationSuccessful(BruTileLayer backgroundLayer, ImageBasedMapData dataSource)
-        {
-            if (backgroundLayer == null)
-            {
-                throw new ArgumentNullException(nameof(backgroundLayer));
-            }
-            if (dataSource == null)
-            {
-                throw new ArgumentNullException(nameof(dataSource));
-            }
-            var wellKnownTileSourceMapData = dataSource as WellKnownTileSourceMapData;
-            if (wellKnownTileSourceMapData == null)
-            {
-                PreviousBackgroundLayerCreationFailed = true;
-                return;
-            }
-
-            WellKnownTileSource = wellKnownTileSourceMapData.TileSource;
-
-            BackgroundLayer = backgroundLayer;
-            PreviousBackgroundLayerCreationFailed = false;
-        }
-
-        public void LayerInitializationFailed()
-        {
-            ClearConfiguration();
-            PreviousBackgroundLayerCreationFailed = true;
-        }
-
-        public void ClearConfiguration(bool expectRecreationOfSameBackgroundLayer = false)
-        {
-            WellKnownTileSource = null;
+            wellKnownTileSource = null;
 
             if (BackgroundLayer != null)
             {
@@ -85,21 +48,26 @@ namespace Core.Components.DotSpatial.Forms
             }
         }
 
-        public bool HasSameConfiguration(ImageBasedMapData mapData)
+        protected override void OnLayerInitializationSuccessful(BruTileLayer backgroundLayer, ImageBasedMapData dataSource)
         {
-            if (mapData == null)
-            {
-                throw new ArgumentNullException(nameof(mapData));
-            }
-
-            var wellKnownTileSourceMapData = mapData as WellKnownTileSourceMapData;
+            var wellKnownTileSourceMapData = dataSource as WellKnownTileSourceMapData;
             if (wellKnownTileSourceMapData == null)
             {
-                return false;
+                PreviousBackgroundLayerCreationFailed = true;
+                return;
             }
-            return Equals(wellKnownTileSourceMapData.TileSource, WellKnownTileSource);
+
+            wellKnownTileSource = wellKnownTileSourceMapData.TileSource;
+
+            BackgroundLayer = backgroundLayer;
+            PreviousBackgroundLayerCreationFailed = false;
         }
 
-        private WellKnownTileSource? WellKnownTileSource { get; set; }
+        protected override bool OnHasSameConfiguration(ImageBasedMapData mapData)
+        {
+            var wellKnownTileSourceMapData = mapData as WellKnownTileSourceMapData;
+            return wellKnownTileSourceMapData != null
+                   && Equals(wellKnownTileSourceMapData.TileSource, wellKnownTileSource);
+        }
     }
 }

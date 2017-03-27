@@ -25,22 +25,22 @@ using Core.Components.Gis.Data;
 namespace Core.Components.DotSpatial.Forms
 {
     /// <summary>
-    /// Factory for creating <see cref="IBackgroundLayerStatus"/>.
+    /// Factory for creating <see cref="BackgroundLayerStatus"/>.
     /// </summary>
     public static class BackgroundLayerStatusFactory
     {
         /// <summary>
-        /// Creates a new instance of <see cref="IBackgroundLayerStatus"/> corresponding to 
+        /// Creates a new instance of <see cref="BackgroundLayerStatus"/> corresponding to 
         /// the type of <paramref name="mapData"/>.
         /// </summary>
         /// <param name="mapData">The type of <see cref="ImageBasedMapData"/> to create a 
-        /// <see cref="IBackgroundLayerStatus"/> for.</param>
-        /// <returns>A new instance of <see cref="IBackgroundLayerStatus"/>.</returns>
+        /// <see cref="BackgroundLayerStatus"/> for.</param>
+        /// <returns>A new instance of <see cref="BackgroundLayerStatus"/>.</returns>
         /// <exception cref="ArgumentNullException ">Thrown when <paramref name="mapData"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when the type of <see cref="ImageBasedMapData"/>
         /// is not supported.</exception>
-        internal static IBackgroundLayerStatus CreateBackgroundLayerStatus(ImageBasedMapData mapData)
+        internal static BackgroundLayerStatus CreateBackgroundLayerStatus(ImageBasedMapData mapData)
         {
             if (mapData == null)
             {

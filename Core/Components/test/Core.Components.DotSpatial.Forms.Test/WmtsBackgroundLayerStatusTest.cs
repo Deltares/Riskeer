@@ -63,26 +63,10 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (var layerStatus = new WmtsBackgroundLayerStatus())
             {
                 // Assert
-                Assert.IsInstanceOf<IBackgroundLayerStatus>(layerStatus);
-                Assert.IsInstanceOf<IDisposable>(layerStatus);
+                Assert.IsInstanceOf<BackgroundLayerStatus>(layerStatus);
 
                 Assert.IsNull(layerStatus.BackgroundLayer);
                 Assert.IsFalse(layerStatus.PreviousBackgroundLayerCreationFailed);
-            }
-        }
-
-        [Test]
-        public void HasSameConfiguration_MapDataNull_ThrowArgumentNullException()
-        {
-            // Setup
-            using (var layerStatus = new WmtsBackgroundLayerStatus())
-            {
-                // Call
-                TestDelegate call = () => layerStatus.HasSameConfiguration(null);
-
-                // Assert
-                string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-                Assert.AreEqual("mapData", paramName);
             }
         }
 
@@ -173,44 +157,6 @@ namespace Core.Components.DotSpatial.Forms.Test
                 }
             }
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void LayerInitializationSuccessful_LayerNull_ThrowArgumentNullException()
-        {
-            // Setup
-            using (var layerStatus = new WmtsBackgroundLayerStatus())
-            {
-                var dataSource = WmtsMapData.CreateDefaultPdokMapData();
-
-                // Call
-                TestDelegate call = () => layerStatus.LayerInitializationSuccessful(null, dataSource);
-
-                // Assert
-                string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-                Assert.AreEqual("backgroundLayer", paramName);
-            }
-        }
-
-        [Test]
-        public void LayerInitializationSuccessful_MapDataNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var tileFetcher = mocks.Stub<ITileFetcher>();
-            IConfiguration configuration = CreateStubConfiguration(mocks, tileFetcher);
-            mocks.ReplayAll();
-
-            using (var layer = new BruTileLayer(configuration))
-            using (var layerStatus = new WmtsBackgroundLayerStatus())
-            {
-                // Call
-                TestDelegate call = () => layerStatus.LayerInitializationSuccessful(layer, null);
-
-                // Assert
-                string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-                Assert.AreEqual("dataSource", paramName);
-            }
         }
 
         [Test]
