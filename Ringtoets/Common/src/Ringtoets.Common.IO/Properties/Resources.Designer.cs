@@ -169,7 +169,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het XML-document dat de configuratie voor de berekeningen beschrijft bevat geen berekeningselementen..
+        ///   Looks up a localized string similar to Het XML-document dat de configuratie voor de berekeningen beschrijft, moet mappen en/of berekeningen bevatten..
         /// </summary>
         public static string CalculationConfigurationReader_No_configuration_items_found {
             get {

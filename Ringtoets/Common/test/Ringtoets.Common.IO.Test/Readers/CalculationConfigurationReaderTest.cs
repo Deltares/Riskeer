@@ -228,7 +228,7 @@ namespace Ringtoets.Common.IO.Test.Readers
         }
 
         [Test]
-        public void Constructor_FileEmpty_ThrowCriticalFileReadException()
+        public void Constructor_EmptyConfiguration_ThrowCriticalFileReadException()
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, "emptyConfiguration.xml");
@@ -237,8 +237,9 @@ namespace Ringtoets.Common.IO.Test.Readers
             TestDelegate call = () => new CalculationConfigurationReader(filePath, validMainSchemaDefinition, new Dictionary<string, string>());
 
             // Assert
-            string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': het XML-document dat de configuratie" +
-                                     " voor de berekeningen beschrijft bevat geen berekeningselementen.";
+            string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': " +
+                                     "het XML-document dat de configuratie voor de berekeningen beschrijft, " +
+                                     "moet mappen en/of berekeningen bevatten.";
             var exception = Assert.Throws<CriticalFileReadException>(call);
             Assert.AreEqual(expectedMessage, exception.Message);
         }

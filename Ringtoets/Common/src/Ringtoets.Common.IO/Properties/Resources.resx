@@ -505,7 +505,7 @@ Er is geen vakindeling geïmporteerd.</value>
     <value>Het XML-document dat de configuratie voor de berekeningen beschrijft is niet geldig. De validatie geeft de volgende melding op regel {0}, positie {1}: {2}</value>
   </data>
   <data name="CalculationConfigurationReader_No_configuration_items_found" xml:space="preserve">
-    <value>Het XML-document dat de configuratie voor de berekeningen beschrijft bevat geen berekeningselementen.</value>
+    <value>Het XML-document dat de configuratie voor de berekeningen beschrijft, moet mappen en/of berekeningen bevatten.</value>
   </data>
   <data name="Importer_ProgressText_Updating_data_in_data_model" xml:space="preserve">
     <value>Bijwerken data in het toetsspoor.</value>
