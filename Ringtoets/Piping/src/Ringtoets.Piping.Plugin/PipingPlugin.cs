@@ -139,6 +139,14 @@ namespace Ringtoets.Piping.Plugin
                 CreateFileExporter = (context, filePath) => new PipingCalculationConfigurationExporter(context.WrappedData.Children, filePath),
                 IsEnabled = context => context.WrappedData.Children.Any()
             };
+            yield return new ExportInfo<PipingCalculationScenarioContext>
+            {
+                FileFilterGenerator = PipingCalculationConfigurationFileFilter,
+                CreateFileExporter = (context, filePath) => new PipingCalculationConfigurationExporter(new[]
+                {
+                    context.WrappedData
+                }, filePath)
+            };
         }
 
         public override IEnumerable<UpdateInfo> GetUpdateInfos()
@@ -720,7 +728,8 @@ namespace Ringtoets.Piping.Plugin
 
             StrictContextMenuItem updateEntryAndExitPoint = CreateUpdateEntryAndExitPointItem(nodeData);
 
-            return builder.AddRenameItem()
+            return builder.AddExportItem()
+                          .AddRenameItem()
                           .AddCustomItem(updateEntryAndExitPoint)
                           .AddValidateCalculationItem(
                               nodeData,

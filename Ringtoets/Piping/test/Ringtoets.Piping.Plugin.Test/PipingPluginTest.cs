@@ -194,8 +194,9 @@ namespace Ringtoets.Piping.Plugin.Test
                 ExportInfo[] exportInfos = plugin.GetExportInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(1, exportInfos.Length);
+                Assert.AreEqual(2, exportInfos.Length);
                 Assert.IsTrue(exportInfos.Any(tni => tni.DataType == typeof(PipingCalculationGroupContext)));
+                Assert.IsTrue(exportInfos.Any(tni => tni.DataType == typeof(PipingCalculationScenarioContext)));
             }
         }
     }

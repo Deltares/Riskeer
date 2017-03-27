@@ -104,7 +104,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 CreateFileExporter = (context, filePath) => new GrassCoverErosionInwardsCalculationConfigurationExporter(new[]
                 {
                     context.WrappedData
-                }, filePath),
+                }, filePath)
             };
         }
 
