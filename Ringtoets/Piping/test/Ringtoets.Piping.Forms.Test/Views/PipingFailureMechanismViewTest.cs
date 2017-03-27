@@ -37,6 +37,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Common.Utils.TypeConverters;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -193,7 +194,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
             var assessmentSection = new ObservableTestAssessmentSectionStub
             {
-                BackgroundData = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(backgroundMapData)
+                BackgroundData = BackgroundDataConverter.ConvertTo(backgroundMapData)
             };
 
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))

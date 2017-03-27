@@ -42,6 +42,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Utils.TypeConverters;
 using Ringtoets.Integration.Forms;
 using Ringtoets.Integration.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -124,7 +125,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
-            BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(mapData);
+            BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(mapData);
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -143,7 +144,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
-            BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(mapData);
+            BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(mapData);
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -162,8 +163,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var random = new Random(21);
-            var wellKnownTileSource = random.NextEnumValue<RingtoetsWellKnownTileSource>();
-            BackgroundData backgroundMapData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData(wellKnownTileSource);
+            var wellKnownTileSource = random.NextEnumValue<WellKnownTileSource>();
+            BackgroundData backgroundMapData = BackgroundDataConverter.ConvertTo(new WellKnownTileSourceMapData(wellKnownTileSource));
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -284,7 +285,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             backgroundDataObserver.Expect(o => o.UpdateObserver());
 
             WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
-            BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(mapData);
+            BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(mapData);
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
@@ -339,7 +340,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSectionObserver = mockRepository.StrictMock<IObserver>();
             var backgroundDataObserver = mockRepository.StrictMock<IObserver>();
 
-            BackgroundData backgroundMapData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData(RingtoetsWellKnownTileSource.BingHybrid);
+            BackgroundData backgroundMapData = BackgroundDataConverter.ConvertTo(new WellKnownTileSourceMapData(WellKnownTileSource.BingHybrid));
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
@@ -399,7 +400,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
 
             WmtsMapData newMapData = WmtsMapData.CreateDefaultPdokMapData();
-            BackgroundData newBackgroundMapdata = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(newMapData);
+            BackgroundData newBackgroundMapdata = BackgroundDataConverter.ConvertTo(newMapData);
 
             var assessmentSection = new ObservableTestAssessmentSectionStub();
 
@@ -463,7 +464,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             const WellKnownTileSource wellKnownTileSource = WellKnownTileSource.BingAerial;
             var newMapData = new WellKnownTileSourceMapData(wellKnownTileSource);
-            BackgroundData newBackgroundData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData((RingtoetsWellKnownTileSource) wellKnownTileSource);
+            BackgroundData newBackgroundData = BackgroundDataConverter.ConvertTo(newMapData);
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
@@ -524,10 +525,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var backgroundDataObserver = mockRepository.StrictMock<IObserver>();
 
             WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
-            BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(mapData);
+            BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(mapData);
 
             WmtsMapData newMapData = WmtsMapData.CreateDefaultPdokMapData();
-            BackgroundData newBackgroundData = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(newMapData);
+            BackgroundData newBackgroundData = BackgroundDataConverter.ConvertTo(newMapData);
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {

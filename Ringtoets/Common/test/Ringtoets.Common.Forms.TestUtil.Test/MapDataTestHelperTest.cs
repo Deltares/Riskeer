@@ -1116,31 +1116,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             TestDelegate test = () => MapDataTestHelper.AssertImageBasedMapData(new BackgroundData(new TestBackgroundDataConfiguration()), imageBasedMapData);
 
             // Assert
-            Assert.Throws<AssertionException>(test);
-        }
-
-        [Test]
-        public void AssertImageBasedMapData_BackgroundDataNull_ThrowAssertionException()
-        {
-            // Setup
-            var imageBasedMapData = new SimpleImageBasedMapData();
-
-            // Call
-            TestDelegate test = () => MapDataTestHelper.AssertImageBasedMapData(null, imageBasedMapData);
-
-            // Assert
-            Assert.Throws<AssertionException>(test);
-        }
-
-        [Test]
-        public void AssertImageBasedMapData_DataNull_ThrowAssertionException()
-        {
-            // Call
-            TestDelegate test = () => MapDataTestHelper.AssertImageBasedMapData(BackgroundDataConverter.ConvertTo(WmtsMapData.CreateUnconnectedMapData()),
-                                                                                null);
-
-            // Assert
-            Assert.Throws<AssertionException>(test);
+            Assert.Throws<AssertionException>(test, "Unsupported background configuration.");
         }
 
         [Test]

@@ -37,9 +37,9 @@ using Core.Components.Gis.Geometries;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Common.Utils.TypeConverters;
 
 namespace Ringtoets.Common.Forms.Test.Views
 {
@@ -53,12 +53,12 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             get
             {
-                yield return new TestCaseData(BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData(RingtoetsWellKnownTileSource.BingAerial),
-                                              BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(WmtsMapData.CreateDefaultPdokMapData()))
+                yield return new TestCaseData(BackgroundDataConverter.ConvertTo(new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial)),
+                                              BackgroundDataConverter.ConvertTo(WmtsMapData.CreateDefaultPdokMapData()))
                     .SetName("WellKnownToWmts");
 
-                yield return new TestCaseData(BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(WmtsMapData.CreateDefaultPdokMapData()),
-                                              BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData(RingtoetsWellKnownTileSource.BingAerial))
+                yield return new TestCaseData(BackgroundDataConverter.ConvertTo(WmtsMapData.CreateDefaultPdokMapData()),
+                                              BackgroundDataConverter.ConvertTo(new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial)))
                     .SetName("WmtsToWellKnown");
             }
         }
@@ -123,7 +123,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Setup
             WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
-            BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(mapData);
+            BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(mapData);
 
             var control = new RingtoetsMapControl();
 
@@ -145,7 +145,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Given
             WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
-            BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(mapData);
+            BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(mapData);
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(mapData))
@@ -180,8 +180,8 @@ namespace Ringtoets.Common.Forms.Test.Views
             var testWellKnownTileSource = new TestWellKnownTileSource(new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial));
 
             string sourceCapabilitiesUrl = originalBackgroundData.Configuration is WmtsBackgroundDataConfiguration
-                                               ? ((WmtsBackgroundDataConfiguration)originalBackgroundData.Configuration).SourceCapabilitiesUrl
-                                               : ((WmtsBackgroundDataConfiguration)newBackgroundData.Configuration).SourceCapabilitiesUrl;
+                                               ? ((WmtsBackgroundDataConfiguration) originalBackgroundData.Configuration).SourceCapabilitiesUrl
+                                               : ((WmtsBackgroundDataConfiguration) newBackgroundData.Configuration).SourceCapabilitiesUrl;
 
             tileSourceFactory.Expect(tsf => tsf.GetWmtsTileSources(sourceCapabilitiesUrl))
                              .Return(Enumerable.Empty<ITileSource>());
@@ -225,7 +225,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             mocks.ReplayAll();
 
             WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
-            BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(mapData);
+            BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(mapData);
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(mapData))
@@ -260,7 +260,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             mocks.ReplayAll();
 
             WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
-            BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(mapData);
+            BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(mapData);
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(mapData))
@@ -298,9 +298,8 @@ namespace Ringtoets.Common.Forms.Test.Views
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            const RingtoetsWellKnownTileSource wellKnownTileSource = RingtoetsWellKnownTileSource.BingAerial;
             var mapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial);
-            BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData(wellKnownTileSource);
+            BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(mapData);
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(mapData))

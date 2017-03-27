@@ -46,10 +46,10 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <param name="mapData">The <see cref="MapData"/> that needs to be asserted.</param>
         /// <exception cref="AssertionException">Thrown when:
         /// <list type="bullet">
-        /// <item><paramref name="mapData"/> is not <see cref="MapLineData"/>.</item>
-        /// <item>The name of the <see cref="MapData"/> is not <c>"Vakindeling"</c>.</item>
-        /// <item>The number of sections and features in <see cref="MapData"/> are not the same.</item>
-        /// <item>The points of a section and the geometry of a corresponding feature are not the same.</item>        
+        /// <item><paramref name="mapData"/> is not <see cref="MapLineData"/>;</item>
+        /// <item>the name of the <see cref="MapData"/> is not <c>"Vakindeling"</c>;</item>
+        /// <item>the number of sections and features in <see cref="MapData"/> are not the same;</item>
+        /// <item>the points of a section and the geometry of a corresponding feature are not the same.</item>
         /// </list>
         /// </exception>
         public static void AssertFailureMechanismSectionsMapData(IEnumerable<FailureMechanismSection> sections, MapData mapData)
@@ -77,11 +77,11 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <param name="mapData">The <see cref="MapData"/> that needs to be asserted.</param>
         /// <exception cref="AssertionException">Thrown when:
         /// <list type="bullet">
-        /// <item><paramref name="mapData"/> is not <see cref="MapPointData"/>.</item>
-        /// <item>The name of the <see cref="MapData"/> is not <c>"Hydraulische randvoorwaarden"</c>.</item>
-        /// <item><paramref name="mapData"/> has features when <paramref name="hydraulicBoundaryLocations"/> is <c>null</c>.</item>
-        /// <item>The number of hydraulic boundary locations and features in <see cref="MapData"/> are not the same.</item>
-        /// <item>The point of a hydraulic boundary location and the geometry of a corresponding feature are not the same.</item>        
+        /// <item><paramref name="mapData"/> is not <see cref="MapPointData"/>;</item>
+        /// <item>the name of the <see cref="MapData"/> is not <c>"Hydraulische randvoorwaarden"</c>;</item>
+        /// <item><paramref name="mapData"/> has features when <paramref name="hydraulicBoundaryLocations"/> is <c>null</c>;</item>
+        /// <item>the number of hydraulic boundary locations and features in <see cref="MapData"/> are not the same;</item>
+        /// <item>the point of a hydraulic boundary location and the geometry of a corresponding feature are not the same.</item>
         /// </list>
         /// </exception>
         public static void AssertHydraulicBoundaryLocationsMapData(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations, MapData mapData)
@@ -111,11 +111,11 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <param name="mapData">The <see cref="MapData"/> that needs to be asserted.</param>
         /// <exception cref="AssertionException">Thrown when:
         /// <list type="bullet">
-        /// <item><paramref name="mapData"/> is not <see cref="MapLineData"/>.</item>
-        /// <item>The name of the <see cref="MapData"/> is not <c>"Referentielijn"</c>.</item>
-        /// <item><paramref name="mapData"/> has features when <paramref name="referenceLine"/> is <c>null</c>.</item>
-        /// <item><paramref name="mapData"/> has more than one feature.</item>
-        /// <item>The points of the reference line and the geometry of the first feature are not the same.</item>
+        /// <item><paramref name="mapData"/> is not <see cref="MapLineData"/>;</item>
+        /// <item>the name of the <see cref="MapData"/> is not <c>"Referentielijn"</c>;</item>
+        /// <item><paramref name="mapData"/> has features when <paramref name="referenceLine"/> is <c>null</c>;</item>
+        /// <item><paramref name="mapData"/> has more than one feature;</item>
+        /// <item>the points of the reference line and the geometry of the first feature are not the same.</item>
         /// </list>
         /// </exception>
         public static void AssertReferenceLineMapData(ReferenceLine referenceLine, MapData mapData)
@@ -142,10 +142,10 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <param name="mapData">The <see cref="MapData"/> that needs to be asserted.</param>
         /// <exception cref="AssertionException">Thrown when:
         /// <list type="bullet">
-        /// <item><paramref name="mapData"/> is not <see cref="MapPointData"/>.</item>
-        /// <item>The name of the <see cref="MapData"/> is not <c>"Vakindeling (startpunten)"</c>.</item>
-        /// <item><paramref name="mapData"/> has more than one feature.</item>
-        /// <item>The start points of the sections and the geometry of the first feature are not the same.</item>
+        /// <item><paramref name="mapData"/> is not <see cref="MapPointData"/>;</item>
+        /// <item>the name of the <see cref="MapData"/> is not <c>"Vakindeling (startpunten)"</c>;</item>
+        /// <item><paramref name="mapData"/> has more than one feature;</item>
+        /// <item>the start points of the sections and the geometry of the first feature are not the same.</item>
         /// </list>
         /// </exception>
         public static void AssertFailureMechanismSectionsStartPointMapData(IEnumerable<FailureMechanismSection> sections, MapData mapData)
@@ -165,10 +165,10 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <param name="mapData">The <see cref="MapData"/> that needs to be asserted.</param>
         /// <exception cref="AssertionException">Thrown when:
         /// <list type="bullet">
-        /// <item><paramref name="mapData"/> is not <see cref="MapPointData"/>.</item>
-        /// <item>The name of the <see cref="MapData"/> is not <c>"Vakindeling (eindpunten)"</c>.</item>
-        /// <item><paramref name="mapData"/> has more than one feature.</item>
-        /// <item>The end points of the sections and the geometry of the first feature are not the same.</item>
+        /// <item><paramref name="mapData"/> is not <see cref="MapPointData"/>;</item>
+        /// <item>the name of the <see cref="MapData"/> is not <c>"Vakindeling (eindpunten)"</c>;</item>
+        /// <item><paramref name="mapData"/> has more than one feature;</item>
+        /// <item>the end points of the sections and the geometry of the first feature are not the same.</item>
         /// </list>
         /// </exception>
         public static void AssertFailureMechanismSectionsEndPointMapData(IEnumerable<FailureMechanismSection> sections, MapData mapData)
@@ -188,10 +188,10 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <param name="mapData">The <see cref="MapData"/> that needs to be asserted.</param>
         /// <exception cref="AssertionException">Thrown when:
         /// <list type="bullet">
-        /// <item><paramref name="mapData"/> is not <see cref="MapLineData"/>.</item>
-        /// <item>The name of the <see cref="MapData"/> is not <c>Voorlandprofielen</c>.</item>
-        /// <item>The amount of features in <paramref name="mapData"/> is not equal to the length of the <paramref name="foreshoreProfiles"/>.</item>
-        /// <item>The geometries of the features in <paramref name="mapData"/> are not equal to the expected geometry of the <paramref name="foreshoreProfiles"/>.</item>
+        /// <item><paramref name="mapData"/> is not <see cref="MapLineData"/>;</item>
+        /// <item>the name of the <see cref="MapData"/> is not <c>Voorlandprofielen</c>;</item>
+        /// <item>the amount of features in <paramref name="mapData"/> is not equal to the length of the <paramref name="foreshoreProfiles"/>;</item>
+        /// <item>the geometries of the features in <paramref name="mapData"/> are not equal to the expected geometry of the <paramref name="foreshoreProfiles"/>.</item>
         /// </list>
         /// </exception>
         public static void AssertForeshoreProfilesMapData(IEnumerable<ForeshoreProfile> foreshoreProfiles, MapData mapData)
@@ -219,14 +219,12 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <param name="imageBasedMapData">The <see cref="ImageBasedMapData"/> that needs to be asserted.</param>
         /// <exception cref="AssertionException">Thrown when:
         /// <list type="bullet">
-        /// <item><paramref name="imageBasedMapData"/> is not of the expected type.</item>
-        /// <item>One of the properties of <paramref name="imageBasedMapData"/> is not equal to <paramref name="backgroundData"/>.</item>
+        /// <item><paramref name="imageBasedMapData"/> is not of the expected type;</item>
+        /// <item>one of the properties of <paramref name="imageBasedMapData"/> is not equal to <paramref name="backgroundData"/>.</item>
         /// </list>
         /// </exception>
         public static void AssertImageBasedMapData(BackgroundData backgroundData, ImageBasedMapData imageBasedMapData)
         {
-            Assert.IsNotNull(backgroundData);
-            Assert.IsNotNull(imageBasedMapData);
             Assert.AreEqual(backgroundData.Name, imageBasedMapData.Name);
             Assert.AreEqual(backgroundData.IsVisible, imageBasedMapData.IsVisible);
             Assert.AreEqual(backgroundData.Transparency, imageBasedMapData.Transparency);

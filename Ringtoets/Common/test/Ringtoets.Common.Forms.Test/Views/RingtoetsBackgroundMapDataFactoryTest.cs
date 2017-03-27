@@ -26,9 +26,9 @@ using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Common.Utils.TypeConverters;
 
 namespace Ringtoets.Common.Forms.Test.Views
 {
@@ -62,7 +62,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void CreateBackgroundMapData_WmtsConfiguredBackgroundData_ReturnWmtsMapData(WmtsMapData mapData)
         {
             // Setup
-            BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(mapData);
+            BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(mapData);
 
             // Call
             ImageBasedMapData backgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(backgroundData);
@@ -76,8 +76,8 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Setup
             var random = new Random(21);
-            var wellKnownTileSource = random.NextEnumValue<RingtoetsWellKnownTileSource>();
-            BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData(wellKnownTileSource);
+            var wellKnownTileSource = random.NextEnumValue<WellKnownTileSource>();
+            BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(new WellKnownTileSourceMapData(wellKnownTileSource));
 
             // Call
             ImageBasedMapData backgroundMapData = RingtoetsBackgroundMapDataFactory.CreateBackgroundMapData(backgroundData);

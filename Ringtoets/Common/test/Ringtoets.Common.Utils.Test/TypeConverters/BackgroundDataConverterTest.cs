@@ -150,7 +150,7 @@ namespace Ringtoets.Common.Utils.Test.TypeConverters
         public void ConvertFrom_BackgroundData_ReturnWmtsMapData(WmtsMapData mapData)
         {
             // Setup
-            BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWmtsBackgroundMapData(mapData);
+            BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(mapData);
 
             // Call
             ImageBasedMapData convertedMapData = BackgroundDataConverter.ConvertFrom(backgroundData);
@@ -164,8 +164,8 @@ namespace Ringtoets.Common.Utils.Test.TypeConverters
         {
             // Setup
             var random = new Random(21);
-            var wellKnownTileSource = random.NextEnumValue<RingtoetsWellKnownTileSource>();
-            BackgroundData backgroundData = BackgroundDataTestDataGenerator.GetWellKnownBackgroundMapData(wellKnownTileSource);
+            var wellKnownTileSource = random.NextEnumValue<WellKnownTileSource>();
+            BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(new WellKnownTileSourceMapData(wellKnownTileSource));
 
             // Call
             ImageBasedMapData convertedMapData = BackgroundDataConverter.ConvertFrom(backgroundData);
