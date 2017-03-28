@@ -280,10 +280,12 @@ namespace Ringtoets.Piping.IO.Test.Readers
         }
 
         [Test]
-        public void Read_ValidConfigurationWithFullCalculationContainingHydraulicBoundaryLocation_ReturnExpectedReadPipingCalculation()
+        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml")]
+        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation_differentOrder.xml")]
+        public void Read_ValidConfigurationWithFullCalculationContainingHydraulicBoundaryLocation_ReturnExpectedReadPipingCalculation(string fileName)
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, "validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml");
+            string filePath = Path.Combine(testDirectoryPath, fileName);
             var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
@@ -308,10 +310,12 @@ namespace Ringtoets.Piping.IO.Test.Readers
         }
 
         [Test]
-        public void Read_ValidConfigurationWithFullCalculationContainingAssessmentLevel_ReturnExpectedReadPipingCalculation()
+        [TestCase("validConfigurationFullCalculationContainingAssessmentLevel.xml")]
+        [TestCase("validConfigurationFullCalculationContainingAssessmentLevel_differentOrder.xml")]
+        public void Read_ValidConfigurationWithFullCalculationContainingAssessmentLevel_ReturnExpectedReadPipingCalculation(string fileName)
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, "validConfigurationFullCalculationContainingAssessmentLevel.xml");
+            string filePath = Path.Combine(testDirectoryPath, fileName);
             var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
