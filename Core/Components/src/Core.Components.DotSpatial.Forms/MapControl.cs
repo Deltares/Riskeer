@@ -60,7 +60,7 @@ namespace Core.Components.DotSpatial.Forms
         private RdNewMouseCoordinatesMapExtension mouseCoordinatesMapExtension;
         private MapDataCollection data;
 
-        private BackgroundLayerStatus backgroundLayerStatus;
+        private readonly MapControlBackgroundLayerStatus backgroundLayerStatus = new MapControlBackgroundLayerStatus();
         private ImageBasedMapData backgroundMapData;
 
         /// <summary>
@@ -114,11 +114,6 @@ namespace Core.Components.DotSpatial.Forms
 
                 backgroundMapData = value;
                 backGroundMapDataObserver.Observable = backgroundMapData;
-
-                if (backgroundMapData != null)
-                {
-                    backgroundLayerStatus = BackgroundLayerStatusFactory.CreateBackgroundLayerStatus(backgroundMapData);
-                }
 
                 if (HasMapData && !Removing)
                 {
@@ -267,7 +262,7 @@ namespace Core.Components.DotSpatial.Forms
         {
             if (backgroundLayerStatus.BackgroundLayer != null)
             {
-                if (HasBackgroundMapDataConfigurationChanged(backgroundMapData))
+                if (!backgroundLayerStatus.HasSameConfiguration(backgroundMapData))
                 {
                     map.Layers.Remove(backgroundLayerStatus.BackgroundLayer);
                     backgroundLayerStatus.ClearConfiguration();
@@ -284,11 +279,6 @@ namespace Core.Components.DotSpatial.Forms
             {
                 InsertBackgroundLayer();
             }
-        }
-
-        private bool HasBackgroundMapDataConfigurationChanged(ImageBasedMapData wmtsMapDataBackgroundMapData)
-        {
-            return !backgroundLayerStatus.HasSameConfiguration(wmtsMapDataBackgroundMapData);
         }
 
         #endregion

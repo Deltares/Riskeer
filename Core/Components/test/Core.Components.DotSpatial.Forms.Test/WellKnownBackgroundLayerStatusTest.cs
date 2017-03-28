@@ -25,6 +25,7 @@ using Core.Components.BruTile.Configurations;
 using Core.Components.BruTile.IO;
 using Core.Components.DotSpatial.Layer.BruTile;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.TestUtil;
 using DotSpatial.Symbology;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -54,7 +55,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Setup
             using (var layerStatus = new WellKnownBackgroundLayerStatus())
             {
-                var mapData = new SimpleImageBasedMapData();
+                var mapData = new TestImageBasedMapData("test", true);
 
                 // Call
                 bool isSame = layerStatus.HasSameConfiguration(mapData);
@@ -105,7 +106,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (var layer = new BruTileLayer(configuration))
             using (var layerStatus = new WellKnownBackgroundLayerStatus())
             {
-                var mapData = new SimpleImageBasedMapData();
+                var mapData = new TestImageBasedMapData("test", true);
 
                 // Call
                 layerStatus.LayerInitializationSuccessful(layer, mapData);
@@ -231,11 +232,6 @@ namespace Core.Components.DotSpatial.Forms.Test
             configuration.Stub(c => c.TileFetcher).Return(tileFetcher);
             configuration.Stub(c => c.Dispose());
             return configuration;
-        }
-
-        private class SimpleImageBasedMapData : ImageBasedMapData
-        {
-            public SimpleImageBasedMapData() : base("SimpleImageBasedMapData") {}
         }
     }
 }

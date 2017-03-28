@@ -35,12 +35,12 @@ namespace Core.Components.DotSpatial.Forms
         /// Gets a value indicating that the most recent attempt to create the background
         /// layer failed (returning <c>true</c>) or was successful (returning <c>false</c>).
         /// </summary>
-        public bool PreviousBackgroundLayerCreationFailed { get; protected set; }
+        public virtual bool PreviousBackgroundLayerCreationFailed { get; protected set; }
 
         /// <summary>
         /// Gets the initialized background layer.
         /// </summary>
-        public BruTileLayer BackgroundLayer { get; protected set; }
+        public virtual BruTileLayer BackgroundLayer { get; protected set; }
 
         /// <summary>
         /// Mark that a (new) background layer has successfully been initialized.
