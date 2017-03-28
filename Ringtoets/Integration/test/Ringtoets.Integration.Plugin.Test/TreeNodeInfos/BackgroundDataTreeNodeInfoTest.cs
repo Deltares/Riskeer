@@ -492,7 +492,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     var dialog = (BackgroundMapDataSelectionDialog) new FormTester(name).TheObject;
 
                     var comboBox = (ComboBox) new ComboBoxTester("mapLayerComboBox", dialog).TheObject;
-                    comboBox.SelectedItem = ((IBackgroundMapDataSelectionControl[]) comboBox.DataSource).OfType<WellKnownMapDataControl>().First();
+                    comboBox.SelectedItem = ((BackgroundMapDataSelectionControl[]) comboBox.DataSource).OfType<WellKnownMapDataControl>().First();
                     var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", dialog).TheObject;
                     dataGridViewControl.SetCurrentCell(dataGridViewControl.GetCell(0, 0));
 

@@ -134,7 +134,7 @@ namespace Ringtoets.Piping.Forms.Views
                     surfaceLineObserver.Observable = null;
                     surfaceLinesObserver.Observable = null;
 
-                    mapControl.RemoveAllData();
+                    ringtoetsMapControl.RemoveAllData();
                 }
                 else
                 {
@@ -150,8 +150,7 @@ namespace Ringtoets.Piping.Forms.Views
 
                     SetAllMapDataFeatures();
 
-                    mapControl.Data = mapDataCollection;
-                    mapControl.BackgroundData = data.Parent.BackgroundData;
+                    ringtoetsMapControl.SetAllData(mapDataCollection, data.Parent.BackgroundData);
                 }
             }
         }
@@ -160,7 +159,7 @@ namespace Ringtoets.Piping.Forms.Views
         {
             get
             {
-                return mapControl;
+                return ringtoetsMapControl.MapControl;
             }
         }
 

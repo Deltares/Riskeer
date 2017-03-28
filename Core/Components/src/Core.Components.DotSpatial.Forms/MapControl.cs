@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Utils.Reflection;
 using Core.Components.BruTile.Configurations;
 using Core.Components.BruTile.Forms;
 using Core.Components.DotSpatial.Forms.Properties;
@@ -52,15 +51,14 @@ namespace Core.Components.DotSpatial.Forms
         private readonly RecursiveObserver<MapDataCollection, MapDataCollection> mapDataCollectionObserver;
         private readonly Observer backGroundMapDataObserver;
         private readonly IList<DrawnMapData> drawnMapDataList = new List<DrawnMapData>();
-        protected bool Removing;
+        private readonly MapControlBackgroundLayerStatus backgroundLayerStatus = new MapControlBackgroundLayerStatus();
 
         private Map map;
+        private bool removing;
         private MapFunctionPan mapFunctionPan;
         private MapFunctionSelectionZoom mapFunctionSelectionZoom;
         private RdNewMouseCoordinatesMapExtension mouseCoordinatesMapExtension;
         private MapDataCollection data;
-
-        private readonly MapControlBackgroundLayerStatus backgroundLayerStatus = new MapControlBackgroundLayerStatus();
         private ImageBasedMapData backgroundMapData;
 
         /// <summary>
@@ -92,7 +90,7 @@ namespace Core.Components.DotSpatial.Forms
 
                 mapDataCollectionObserver.Observable = data;
 
-                if (HasMapData && !Removing)
+                if (HasMapData && !removing)
                 {
                     DrawInitialMapData();
                 }
@@ -115,7 +113,7 @@ namespace Core.Components.DotSpatial.Forms
                 backgroundMapData = value;
                 backGroundMapDataObserver.Observable = backgroundMapData;
 
-                if (HasMapData && !Removing)
+                if (HasMapData && !removing)
                 {
                     DrawInitialMapData();
                 }
@@ -124,10 +122,10 @@ namespace Core.Components.DotSpatial.Forms
 
         public virtual void RemoveAllData()
         {
-            Removing = true;
+            removing = true;
             Data = null;
             BackgroundMapData = null;
-            Removing = false;
+            removing = false;
         }
 
         protected override void Dispose(bool disposing)
@@ -397,7 +395,7 @@ namespace Core.Components.DotSpatial.Forms
         private void DrawMissingMapDataOnCollectionChange(IEnumerable<FeatureBasedMapData> mapDataThatShouldBeDrawn,
                                                           IDictionary<FeatureBasedMapData, DrawnMapData> drawnMapDataLookup)
         {
-            foreach (var mapDataToDraw in mapDataThatShouldBeDrawn.Where(mapDataToDraw => !drawnMapDataLookup.ContainsKey(mapDataToDraw)))
+            foreach (FeatureBasedMapData mapDataToDraw in mapDataThatShouldBeDrawn.Where(mapDataToDraw => !drawnMapDataLookup.ContainsKey(mapDataToDraw)))
             {
                 DrawMapData(mapDataToDraw);
             }
@@ -436,7 +434,7 @@ namespace Core.Components.DotSpatial.Forms
         private void RemoveRedundantMapDataOnCollectionChange(IEnumerable<FeatureBasedMapData> mapDataThatShouldBeDrawn,
                                                               IDictionary<FeatureBasedMapData, DrawnMapData> drawnMapDataLookup)
         {
-            foreach (var featureBasedMapData in drawnMapDataLookup.Keys.Except(mapDataThatShouldBeDrawn))
+            foreach (FeatureBasedMapData featureBasedMapData in drawnMapDataLookup.Keys.Except(mapDataThatShouldBeDrawn))
             {
                 RemoveMapData(drawnMapDataLookup[featureBasedMapData]);
             }
@@ -453,7 +451,7 @@ namespace Core.Components.DotSpatial.Forms
 
         private static void AddPadding(Extent extent)
         {
-            var padding = Math.Min(extent.Height, extent.Width) * 0.05;
+            double padding = Math.Min(extent.Height, extent.Width) * 0.05;
             if (Math.Max(extent.Height, extent.Width) + padding <= double.MaxValue)
             {
                 extent.ExpandBy(padding);

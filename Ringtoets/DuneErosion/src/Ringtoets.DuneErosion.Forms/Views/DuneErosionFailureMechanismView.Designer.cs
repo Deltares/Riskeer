@@ -36,29 +36,29 @@ namespace Ringtoets.DuneErosion.Forms.Views
         /// </summary>
         private void InitializeComponent()
         {
-            this.mapControl = new Common.Forms.Views.RingtoetsMapControl();
+            this.ringtoetsMapControl = new Ringtoets.Common.Forms.Views.RingtoetsMapControl();
             this.SuspendLayout();
             // 
-            // MapView
-            //
-            this.mapControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mapControl.Location = new System.Drawing.Point(0, 0);
-            this.mapControl.Name = "mapControl";
-            this.mapControl.Size = new System.Drawing.Size(150, 150);
-            this.mapControl.TabIndex = 0;
-            this.mapControl.Text = "mapControl1";
+            // ringtoetsMapControl
             // 
-            // ClosingStructuresFailureMechanismView
+            this.ringtoetsMapControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ringtoetsMapControl.Location = new System.Drawing.Point(0, 0);
+            this.ringtoetsMapControl.Name = "ringtoetsMapControl";
+            this.ringtoetsMapControl.Size = new System.Drawing.Size(150, 150);
+            this.ringtoetsMapControl.TabIndex = 0;
+            // 
+            // DuneErosionFailureMechanismView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.mapControl);
+            this.Controls.Add(this.ringtoetsMapControl);
             this.Name = "DuneErosionFailureMechanismView";
             this.ResumeLayout(false);
+
         }
 
         #endregion
 
-        private Common.Forms.Views.RingtoetsMapControl mapControl;
+        private Common.Forms.Views.RingtoetsMapControl ringtoetsMapControl;
     }
 }

@@ -19,24 +19,23 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 using BruTile;
 using BruTile.Predefined;
 using Core.Common.Base;
 using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
 using Core.Common.Gui.TestUtil.Settings;
 using Core.Common.TestUtil;
 using Core.Components.BruTile.Configurations;
 using Core.Components.BruTile.TestUtil;
-using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
-using Core.Components.Gis.Features;
-using Core.Components.Gis.Geometries;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Utils.TypeConverters;
@@ -67,102 +66,89 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Constructor_ExpectedValues()
         {
             // Call
-            var control = new RingtoetsMapControl();
+            var ringtoetsMapControl = new RingtoetsMapControl();
 
             // Assert
-            Assert.IsInstanceOf<MapControl>(control);
-            Assert.IsNull(control.BackgroundData);
+            Assert.IsInstanceOf<UserControl>(ringtoetsMapControl);
+            Assert.IsNotNull(ringtoetsMapControl.MapControl);
+            Assert.IsNull(ringtoetsMapControl.MapControl.Data);
+            Assert.IsNull(ringtoetsMapControl.MapControl.BackgroundMapData);
         }
 
         [Test]
-        public void RemoveAllData_Always_SetDataAndBackgroundMapDataNull()
+        public void SetAllData_MapDataCollectionNull_ThrowsArgumentNullException()
         {
             // Setup
+            var ringtoetsMapControl = new RingtoetsMapControl();
+
+            // Call
+            TestDelegate test = () => ringtoetsMapControl.SetAllData(null, new BackgroundData(new TestBackgroundDataConfiguration()));
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("data", paramName);
+        }
+
+        [Test]
+        public void SetAllData_BackgroundDataNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var ringtoetsMapControl = new RingtoetsMapControl();
+
+            // Call
+            TestDelegate test = () => ringtoetsMapControl.SetAllData(new MapDataCollection("Collection"), null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("background", paramName);
+        }
+
+        [Test]
+        public void SetAllData_Always_SetsAllDataToMapControl()
+        {
+            // Setup
+            var mapDataCollection = new MapDataCollection("Collection");
             WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+            BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(backgroundMapData);
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (var map = new RingtoetsMapControl())
+            using (var ringtoetsMapControl = new RingtoetsMapControl())
             {
-                map.BackgroundMapData = backgroundMapData;
-                var mapDataCollection = new MapDataCollection("A");
-                mapDataCollection.Add(new MapPointData("points")
-                {
-                    Features = new[]
-                    {
-                        new MapFeature(new[]
-                        {
-                            new MapGeometry(new[]
-                            {
-                                new[]
-                                {
-                                    new Point2D(1.1, 2.2)
-                                }
-                            })
-                        })
-                    }
-                });
-                map.Data = mapDataCollection;
-
-                // Precondition
-                Assert.IsNotNull(map.Data);
-                Assert.IsNotNull(map.BackgroundMapData);
-
                 // Call
-                map.RemoveAllData();
+                ringtoetsMapControl.SetAllData(mapDataCollection, backgroundData);
 
                 // Assert
-                Assert.IsNull(map.Data);
-                Assert.IsNull(map.BackgroundData);
-                Assert.IsNull(map.BackgroundMapData);
+                Assert.AreSame(mapDataCollection, ringtoetsMapControl.MapControl.Data);
+                Assert.IsNotNull(ringtoetsMapControl.MapControl.BackgroundMapData);
+                MapDataTestHelper.AssertImageBasedMapData(backgroundData, ringtoetsMapControl.MapControl.BackgroundMapData);
             }
         }
 
         [Test]
-        public void BackgroundData_NotNull_BackgroundMapDataSet()
+        public void RemoveAllData_Always_RemovesAllDataFromMapControl()
         {
             // Setup
-            WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
-            BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(mapData);
-
-            var control = new RingtoetsMapControl();
-
-            using (new UseCustomSettingsHelper(testSettingsHelper))
-            using (new UseCustomTileSourceFactoryConfig(mapData))
-            {
-                // Call
-                control.BackgroundData = backgroundData;
-
-                // Assert
-                Assert.AreSame(backgroundData, control.BackgroundData);
-                Assert.IsNotNull(control.BackgroundMapData);
-                MapDataTestHelper.AssertImageBasedMapData(backgroundData, control.BackgroundMapData);
-            }
-        }
-
-        [Test]
-        public void GivenBackgroundData_WhenSetToNull_ThenBackgroundMapDataSetToNull()
-        {
-            // Given
-            WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
-            BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(mapData);
+            var mapDataCollection = new MapDataCollection("Collection");
+            WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+            BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(backgroundMapData);
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
-            using (new UseCustomTileSourceFactoryConfig(mapData))
+            using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
+            using (var ringtoetsMapControl = new RingtoetsMapControl())
             {
-                var control = new RingtoetsMapControl
-                {
-                    BackgroundData = backgroundData
-                };
+                ringtoetsMapControl.SetAllData(mapDataCollection, backgroundData);
 
                 // Precondition
-                Assert.IsNotNull(control.BackgroundMapData);
+                Assert.IsNotNull(ringtoetsMapControl.MapControl.Data);
+                Assert.IsNotNull(ringtoetsMapControl.MapControl.BackgroundMapData);
 
-                // When
-                control.BackgroundData = null;
+                // Call
+                ringtoetsMapControl.RemoveAllData();
 
-                // Then
-                Assert.IsNull(control.BackgroundMapData);
+                // Assert
+                Assert.IsNull(ringtoetsMapControl.MapControl.Data);
+                Assert.IsNull(ringtoetsMapControl.MapControl.BackgroundMapData);
             }
         }
 
@@ -191,14 +177,11 @@ namespace Ringtoets.Common.Forms.Test.Views
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(tileSourceFactory))
             {
-                var control = new RingtoetsMapControl
-                {
-                    BackgroundData = originalBackgroundData
-                };
+                var ringtoetsMapControl = new RingtoetsMapControl();
+                ringtoetsMapControl.SetAllData(new MapDataCollection("Collection"), originalBackgroundData);
+                ringtoetsMapControl.MapControl.BackgroundMapData.Attach(observer);
 
-                control.BackgroundMapData.Attach(observer);
-
-                ImageBasedMapData oldMapData = control.BackgroundMapData;
+                ImageBasedMapData oldMapData = ringtoetsMapControl.MapControl.BackgroundMapData;
 
                 // When
                 originalBackgroundData.Name = newBackgroundData.Name;
@@ -208,9 +191,9 @@ namespace Ringtoets.Common.Forms.Test.Views
                 originalBackgroundData.NotifyObservers();
 
                 // Then
-                Assert.IsNotNull(control.BackgroundMapData);
-                Assert.AreNotSame(oldMapData, control.BackgroundMapData);
-                Assert.AreNotEqual(oldMapData.GetType(), control.BackgroundMapData.GetType());
+                Assert.IsNotNull(ringtoetsMapControl.MapControl.BackgroundMapData);
+                Assert.AreNotSame(oldMapData, ringtoetsMapControl.MapControl.BackgroundMapData);
+                Assert.AreNotEqual(oldMapData.GetType(), ringtoetsMapControl.MapControl.BackgroundMapData.GetType());
                 mocks.VerifyAll(); // Expect no observers notified
             }
         }
@@ -230,22 +213,19 @@ namespace Ringtoets.Common.Forms.Test.Views
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(mapData))
             {
-                var control = new RingtoetsMapControl
-                {
-                    BackgroundData = backgroundData
-                };
+                var ringtoetsMapControl = new RingtoetsMapControl();
+                ringtoetsMapControl.SetAllData(new MapDataCollection("Collection"), backgroundData);
+                ringtoetsMapControl.MapControl.BackgroundMapData.Attach(observer);
 
-                control.BackgroundMapData.Attach(observer);
-
-                ImageBasedMapData oldBackgroundMapData = control.BackgroundMapData;
+                ImageBasedMapData oldBackgroundMapData = ringtoetsMapControl.MapControl.BackgroundMapData;
 
                 // When
                 backgroundData.Transparency = (RoundedDouble) 0.3;
                 backgroundData.NotifyObservers();
 
                 // Then
-                Assert.AreSame(oldBackgroundMapData, control.BackgroundMapData);
-                Assert.AreEqual(0.3, control.BackgroundMapData.Transparency.Value);
+                Assert.AreSame(oldBackgroundMapData, ringtoetsMapControl.MapControl.BackgroundMapData);
+                Assert.AreEqual(0.3, ringtoetsMapControl.MapControl.BackgroundMapData.Transparency.Value);
                 mocks.VerifyAll();
             }
         }
@@ -265,23 +245,20 @@ namespace Ringtoets.Common.Forms.Test.Views
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(mapData))
             {
-                var control = new RingtoetsMapControl
-                {
-                    BackgroundData = backgroundData
-                };
+                var ringtoetsMapControl = new RingtoetsMapControl();
+                ringtoetsMapControl.SetAllData(new MapDataCollection("Collection"), backgroundData);
+                ringtoetsMapControl.MapControl.BackgroundMapData.Attach(observer);
 
-                control.BackgroundMapData.Attach(observer);
-
-                ImageBasedMapData oldBackgroundMapData = control.BackgroundMapData;
+                ImageBasedMapData oldBackgroundMapData = ringtoetsMapControl.MapControl.BackgroundMapData;
 
                 // When
                 backgroundData.Configuration = new WmtsBackgroundDataConfiguration();
                 backgroundData.NotifyObservers();
 
                 // Then
-                Assert.AreSame(oldBackgroundMapData, control.BackgroundMapData);
+                Assert.AreSame(oldBackgroundMapData, ringtoetsMapControl.MapControl.BackgroundMapData);
 
-                var newWmtsMapData = (WmtsMapData) control.BackgroundMapData;
+                var newWmtsMapData = (WmtsMapData) ringtoetsMapControl.MapControl.BackgroundMapData;
                 Assert.IsNull(newWmtsMapData.SourceCapabilitiesUrl);
                 Assert.IsNull(newWmtsMapData.SelectedCapabilityIdentifier);
                 Assert.IsNull(newWmtsMapData.PreferredFormat);
@@ -304,23 +281,20 @@ namespace Ringtoets.Common.Forms.Test.Views
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(mapData))
             {
-                var control = new RingtoetsMapControl
-                {
-                    BackgroundData = backgroundData
-                };
+                var ringtoetsMapControl = new RingtoetsMapControl();
+                ringtoetsMapControl.SetAllData(new MapDataCollection("Collection"), backgroundData);
+                ringtoetsMapControl.MapControl.BackgroundMapData.Attach(observer);
 
-                control.BackgroundMapData.Attach(observer);
-
-                ImageBasedMapData oldBackgroundMapData = control.BackgroundMapData;
+                ImageBasedMapData oldBackgroundMapData = ringtoetsMapControl.MapControl.BackgroundMapData;
 
                 // When
                 backgroundData.Configuration = new WellKnownBackgroundDataConfiguration(RingtoetsWellKnownTileSource.BingRoads);
                 backgroundData.NotifyObservers();
 
                 // Then
-                Assert.AreSame(oldBackgroundMapData, control.BackgroundMapData);
+                Assert.AreSame(oldBackgroundMapData, ringtoetsMapControl.MapControl.BackgroundMapData);
 
-                var newWellKnownMapData = (WellKnownTileSourceMapData) control.BackgroundMapData;
+                var newWellKnownMapData = (WellKnownTileSourceMapData) ringtoetsMapControl.MapControl.BackgroundMapData;
                 Assert.AreEqual(WellKnownTileSource.BingRoads, newWellKnownMapData.TileSource);
                 mocks.VerifyAll();
             }

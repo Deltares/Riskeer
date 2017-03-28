@@ -30,9 +30,9 @@ namespace Core.Components.Gis.Forms.Views
     /// <summary>
     /// This class represents a <see cref="Control"/> where a well known map data layer can be selected.
     /// </summary>
-    public partial class WellKnownMapDataControl : UserControl, IBackgroundMapDataSelectionControl
+    public partial class WellKnownMapDataControl : BackgroundMapDataSelectionControl
     {
-        public event EventHandler<EventArgs> SelectedMapDataChanged;
+        public override event EventHandler<EventArgs> SelectedMapDataChanged;
 
         /// <summary>
         /// Creates a new instance of <see cref="WellKnownMapDataControl"/>.
@@ -40,6 +40,7 @@ namespace Core.Components.Gis.Forms.Views
         /// <param name="activeWellKnownTileSourceMapData">The active <see cref="WellKnownTileSourceMapData"/> 
         /// or <c>null</c> if none active.</param>
         public WellKnownMapDataControl(WellKnownTileSourceMapData activeWellKnownTileSourceMapData)
+            : base(Resources.WellKnownMapDataControl_DisplayName)
         {
             InitializeComponent();
             InitializeDataGridView();
@@ -48,23 +49,13 @@ namespace Core.Components.Gis.Forms.Views
             PreSelectDataGridView(activeWellKnownTileSourceMapData);
         }
 
-        public string DisplayName
-        {
-            get
-            {
-                return Resources.WellKnownMapDataControl_DisplayName;
-            }
-        }
-
-        public ImageBasedMapData SelectedMapData
+        public override ImageBasedMapData SelectedMapData
         {
             get
             {
                 return dataGridViewControl.CurrentRow?.DataBoundItem as WellKnownTileSourceMapData;
             }
         }
-
-        public UserControl UserControl => this;
 
         private void PreSelectDataGridView(WellKnownTileSourceMapData activeWellKnownTileSourceMapData)
         {

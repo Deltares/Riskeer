@@ -37,8 +37,8 @@ namespace Ringtoets.Integration.Forms
     /// </summary>
     public partial class BackgroundMapDataSelectionDialog : DialogBase
     {
-        private readonly HashSet<IBackgroundMapDataSelectionControl> mapDatas;
-        private IBackgroundMapDataSelectionControl currentBackgroundMapDataSelectionControl;
+        private readonly HashSet<BackgroundMapDataSelectionControl> mapDatas;
+        private BackgroundMapDataSelectionControl currentBackgroundMapDataSelectionControl;
         private bool mapLayerComboBoxUpdating;
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace Ringtoets.Integration.Forms
         public BackgroundMapDataSelectionDialog(IWin32Window dialogParent, ImageBasedMapData mapData)
             : base(dialogParent, RingtoetsCommonFormsResources.SelectionDialogIcon, 500, 350)
         {
-            mapDatas = new HashSet<IBackgroundMapDataSelectionControl>
+            mapDatas = new HashSet<BackgroundMapDataSelectionControl>
             {
                 new WellKnownMapDataControl(mapData as WellKnownTileSourceMapData),
                 new WmtsLocationControl(mapData as WmtsMapData, new BruTileWmtsCapabilityFactory())
@@ -58,9 +58,8 @@ namespace Ringtoets.Integration.Forms
 
             InitializeComponent();
             InitializeButtons();
-            InitializeComboBox();
 
-            IBackgroundMapDataSelectionControl controlToSelect = GetBackgroundMapDataControlToSelect(mapData);
+            BackgroundMapDataSelectionControl controlToSelect = GetBackgroundMapDataControlToSelect(mapData);
             PreSelectComboBox(controlToSelect);
         }
 
@@ -78,7 +77,7 @@ namespace Ringtoets.Integration.Forms
             base.Dispose(disposing);
         }
 
-        private IBackgroundMapDataSelectionControl GetBackgroundMapDataControlToSelect(ImageBasedMapData mapData)
+        private BackgroundMapDataSelectionControl GetBackgroundMapDataControlToSelect(ImageBasedMapData mapData)
         {
             if (mapData is WellKnownTileSourceMapData)
             {
@@ -91,7 +90,7 @@ namespace Ringtoets.Integration.Forms
             return mapDatas.First();
         }
 
-        private void UpdatePropertiesGroupBox(IBackgroundMapDataSelectionControl newBackgroundMapDataSelectionControl)
+        private void UpdatePropertiesGroupBox(BackgroundMapDataSelectionControl newBackgroundMapDataSelectionControl)
         {
             if (currentBackgroundMapDataSelectionControl != null)
             {
@@ -99,9 +98,8 @@ namespace Ringtoets.Integration.Forms
             }
 
             propertiesGroupBox.Controls.Clear();
-            Control userControl = newBackgroundMapDataSelectionControl.UserControl;
-            propertiesGroupBox.Controls.Add(userControl);
-            userControl.Dock = DockStyle.Fill;
+            propertiesGroupBox.Controls.Add(newBackgroundMapDataSelectionControl);
+            newBackgroundMapDataSelectionControl.Dock = DockStyle.Fill;
             newBackgroundMapDataSelectionControl.SelectedMapDataChanged += OnSelectedMapDataSelectionChanged;
 
             currentBackgroundMapDataSelectionControl = newBackgroundMapDataSelectionControl;
@@ -129,18 +127,13 @@ namespace Ringtoets.Integration.Forms
 
         #region ComboBox
 
-        private void InitializeComboBox()
-        {
-            mapLayerComboBox.ValueMember = nameof(IBackgroundMapDataSelectionControl.UserControl);
-        }
-
-        private void PreSelectComboBox(IBackgroundMapDataSelectionControl controlToSelect)
+        private void PreSelectComboBox(BackgroundMapDataSelectionControl controlToSelect)
         {
             mapLayerComboBox.BeginUpdate();
 
             mapLayerComboBoxUpdating = true;
             mapLayerComboBox.DataSource = mapDatas.ToArray();
-            mapLayerComboBox.DisplayMember = nameof(IBackgroundMapDataSelectionControl.DisplayName);
+            mapLayerComboBox.DisplayMember = nameof(BackgroundMapDataSelectionControl.DisplayName);
             mapLayerComboBox.SelectedItem = null;
             mapLayerComboBoxUpdating = false;
 
@@ -173,7 +166,7 @@ namespace Ringtoets.Integration.Forms
                 return;
             }
 
-            UpdatePropertiesGroupBox((IBackgroundMapDataSelectionControl) mapLayerComboBox.SelectedItem);
+            UpdatePropertiesGroupBox((BackgroundMapDataSelectionControl) mapLayerComboBox.SelectedItem);
         }
 
         #endregion

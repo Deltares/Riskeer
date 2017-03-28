@@ -432,21 +432,20 @@ namespace Ringtoets.Integration.Forms.Test
         }
 
         private static void AssertMapDataControls<T>(BackgroundMapDataSelectionDialog dialog)
-            where T : UserControl, IBackgroundMapDataSelectionControl
+            where T : BackgroundMapDataSelectionControl
         {
             var mapLayers = (ComboBox) new ComboBoxTester("mapLayerComboBox", dialog).TheObject;
             Assert.AreEqual("DisplayName", mapLayers.DisplayMember);
-            Assert.AreEqual("UserControl", mapLayers.ValueMember);
             Assert.AreEqual(ComboBoxStyle.DropDownList, mapLayers.DropDownStyle);
             Assert.IsTrue(mapLayers.Sorted);
             Assert.IsInstanceOf<T>(mapLayers.SelectedItem);
 
-            var backgroundMapDataSelectionControls = (IBackgroundMapDataSelectionControl[]) mapLayers.DataSource;
+            var backgroundMapDataSelectionControls = (BackgroundMapDataSelectionControl[]) mapLayers.DataSource;
             Assert.AreEqual(2, backgroundMapDataSelectionControls.Length);
             Assert.IsInstanceOf<WellKnownMapDataControl>(backgroundMapDataSelectionControls[0]);
             Assert.IsInstanceOf<WmtsLocationControl>(backgroundMapDataSelectionControls[1]);
 
-            Assert.IsInstanceOf<IBackgroundMapDataSelectionControl[]>(mapLayers.DataSource);
+            Assert.IsInstanceOf<BackgroundMapDataSelectionControl[]>(mapLayers.DataSource);
             Assert.AreEqual("DisplayName", mapLayers.DisplayMember);
 
             var groupBoxProperties = (GroupBox) new ControlTester("propertiesGroupBox", dialog).TheObject;
@@ -457,7 +456,7 @@ namespace Ringtoets.Integration.Forms.Test
 
         private static T GetComboBoxItem<T>(ComboBox comboBox)
         {
-            return ((IBackgroundMapDataSelectionControl[]) comboBox.DataSource).OfType<T>().First();
+            return ((BackgroundMapDataSelectionControl[]) comboBox.DataSource).OfType<T>().First();
         }
 
         private static Icon BitmapToIcon(Bitmap icon)

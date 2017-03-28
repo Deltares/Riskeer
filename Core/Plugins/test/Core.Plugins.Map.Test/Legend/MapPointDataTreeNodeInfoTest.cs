@@ -21,7 +21,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
@@ -30,7 +32,6 @@ using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
-using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
 using Core.Plugins.Map.Legend;
 using Core.Plugins.Map.Properties;
@@ -57,7 +58,7 @@ namespace Core.Plugins.Map.Test.Legend
 
             mapLegendView = new MapLegendView(contextMenuBuilderProvider);
 
-            TreeViewControl treeViewControl = TypeUtils.GetField<TreeViewControl>(mapLegendView, "treeViewControl");
+            var treeViewControl = TypeUtils.GetField<TreeViewControl>(mapLegendView, "treeViewControl");
             Dictionary<Type, TreeNodeInfo> treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");
 
             info = treeNodeInfoLookup[typeof(MapPointData)];
@@ -106,7 +107,7 @@ namespace Core.Plugins.Map.Test.Legend
             var mapPointData = new MapPointData("MapPointData");
 
             // Call
-            var text = info.Text(mapPointData);
+            string text = info.Text(mapPointData);
 
             // Assert
             Assert.AreEqual(mapPointData.Name, text);
@@ -119,7 +120,7 @@ namespace Core.Plugins.Map.Test.Legend
             mocks.ReplayAll();
 
             // Call
-            var image = info.Image(null);
+            Image image = info.Image(null);
 
             // Assert
             TestHelper.AssertImagesAreEqual(Resources.PointsIcon, image);
@@ -169,7 +170,7 @@ namespace Core.Plugins.Map.Test.Legend
             };
 
             // Call
-            using (var contextMenu = info.ContextMenuStrip(mapData, null, null))
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(mapData, null, null))
             {
                 // Assert
                 TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuZoomToAllIndex,
@@ -194,7 +195,7 @@ namespace Core.Plugins.Map.Test.Legend
             };
 
             // Call
-            using (var contextMenu = info.ContextMenuStrip(mapData, null, null))
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(mapData, null, null))
             {
                 // Assert
                 TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuZoomToAllIndex,
@@ -220,7 +221,7 @@ namespace Core.Plugins.Map.Test.Legend
             };
 
             // Call
-            using (var contextMenu = info.ContextMenuStrip(mapData, null, null))
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(mapData, null, null))
             {
                 // Assert
                 TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuZoomToAllIndex,
@@ -240,20 +241,16 @@ namespace Core.Plugins.Map.Test.Legend
                 IsVisible = true,
                 Features = new[]
                 {
-                    new MapFeature(Enumerable.Empty<MapGeometry>()),
+                    new MapFeature(Enumerable.Empty<MapGeometry>())
                 }
             };
 
             var builder = new CustomItemsOnlyContextMenuBuilder();
             contextMenuBuilderProvider.Stub(p => p.Get(null, null)).IgnoreArguments().Return(builder);
 
-            var mapControl = mocks.Stub<IMapControl>();
-            mapControl.Expect(c => c.ZoomToAllVisibleLayers(mapData));
             mocks.ReplayAll();
 
-            mapLegendView.MapControl = mapControl;
-
-            using (var contextMenu = info.ContextMenuStrip(mapData, null, null))
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(mapData, null, null))
             {
                 // Call
                 contextMenu.Items[contextMenuZoomToAllIndex].PerformClick();
@@ -279,7 +276,7 @@ namespace Core.Plugins.Map.Test.Legend
                 IsVisible = true
             };
 
-            using (var contextMenu = info.ContextMenuStrip(mapData, null, null))
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(mapData, null, null))
             {
                 // Call
                 TestDelegate call = () => contextMenu.Items[contextMenuZoomToAllIndex].PerformClick();
@@ -297,7 +294,7 @@ namespace Core.Plugins.Map.Test.Legend
             var mapPointData = new MapPointData("test data");
 
             // Call
-            var canCheck = info.CanCheck(mapPointData);
+            bool canCheck = info.CanCheck(mapPointData);
 
             // Assert
             Assert.IsTrue(canCheck);
@@ -311,7 +308,7 @@ namespace Core.Plugins.Map.Test.Legend
             var mapPointData = new MapPointData("test data");
 
             // Call
-            var canDrag = info.CanDrag(mapPointData, null);
+            bool canDrag = info.CanDrag(mapPointData, null);
 
             // Assert
             Assert.IsTrue(canDrag);
@@ -329,7 +326,7 @@ namespace Core.Plugins.Map.Test.Legend
             };
 
             // Call
-            var canCheck = info.IsChecked(mapPointData);
+            bool canCheck = info.IsChecked(mapPointData);
 
             // Assert
             Assert.AreEqual(isVisible, canCheck);

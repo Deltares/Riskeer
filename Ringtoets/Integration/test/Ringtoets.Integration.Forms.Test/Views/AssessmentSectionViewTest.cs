@@ -63,7 +63,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 // Assert
                 Assert.AreEqual(1, view.Controls.Count);
-                Assert.AreSame(view.Map, view.Controls[0]);
+                Assert.IsInstanceOf<RingtoetsMapControl>(view.Controls[0]);
+                Assert.AreSame(view.Map, ((RingtoetsMapControl) view.Controls[0]).MapControl);
                 Assert.AreEqual(DockStyle.Fill, ((Control) view.Map).Dock);
                 Assert.IsNull(view.Map.Data);
             }
@@ -109,13 +110,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             using (var view = new AssessmentSectionView())
             {
-                var mapControl = (RingtoetsMapControl) view.Map;
-
                 // Call
                 view.Data = assessmentSection;
 
                 // Assert
-                Assert.AreSame(assessmentSection.BackgroundData, mapControl.BackgroundData);
+                MapDataTestHelper.AssertImageBasedMapData(assessmentSection.BackgroundData, view.Map.BackgroundMapData);
             }
         }
 
@@ -123,24 +122,23 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void Data_SetToNull_MapDataCleared()
         {
             // Setup
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
             using (var view = new AssessmentSectionView
             {
-                Data = new ObservableTestAssessmentSectionStub()
+                Data = assessmentSection
             })
             {
-                var mapControl = (RingtoetsMapControl) view.Map;
-
                 // Precondition
-                Assert.AreEqual(2, mapControl.Data.Collection.Count());
+                Assert.AreEqual(2, view.Map.Data.Collection.Count());
+                MapDataTestHelper.AssertImageBasedMapData(assessmentSection.BackgroundData, view.Map.BackgroundMapData);
 
                 // Call
                 view.Data = null;
 
                 // Assert
                 Assert.IsNull(view.Data);
-                Assert.IsNull(mapControl.Data);
-                Assert.IsNull(mapControl.BackgroundData);
-                Assert.IsNull(mapControl.BackgroundMapData);
+                Assert.IsNull(view.Map.Data);
+                Assert.IsNull(view.Map.BackgroundMapData);
             }
         }
 
@@ -261,7 +259,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 AssertHydraulicBoundaryDatabaseData(mapData, assessmentSection.HydraulicBoundaryDatabase);
             }
         }
-        
+
         [Test]
         public void UpdateObserver_ReferenceLineUpdated_MapDataUpdated()
         {

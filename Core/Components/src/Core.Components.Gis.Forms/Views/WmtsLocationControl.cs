@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -41,7 +40,7 @@ namespace Core.Components.Gis.Forms.Views
     /// <summary>
     /// This class represents a <see cref="Control"/> where a WMTS layer can be selected.
     /// </summary>
-    public partial class WmtsLocationControl : UserControl, IBackgroundMapDataSelectionControl
+    public partial class WmtsLocationControl : BackgroundMapDataSelectionControl
     {
         private const string wmtsConnectionInfoFileName = "wmtsConnectionInfo.config";
         private static readonly ILog log = LogManager.GetLogger(typeof(WmtsLocationControl));
@@ -60,6 +59,7 @@ namespace Core.Components.Gis.Forms.Views
         /// <param name="wmtsCapabilityFactory">The <see cref="IWmtsCapabilityFactory"/> to use.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="wmtsCapabilityFactory"/> is <c>null</c>.</exception>
         public WmtsLocationControl(WmtsMapData activeWmtsMapData, IWmtsCapabilityFactory wmtsCapabilityFactory)
+            : base(Resources.WmtsLocationControl_DisplayName)
         {
             if (wmtsCapabilityFactory == null)
             {
@@ -88,15 +88,7 @@ namespace Core.Components.Gis.Forms.Views
             UpdateButtons();
         }
 
-        public string DisplayName
-        {
-            get
-            {
-                return Resources.WmtsLocationControl_DisplayName;
-            }
-        }
-
-        public ImageBasedMapData SelectedMapData
+        public override ImageBasedMapData SelectedMapData
         {
             get
             {
@@ -113,14 +105,6 @@ namespace Core.Components.Gis.Forms.Views
                 }
 
                 return currentRow.ToWmtsMapdata(selectedWmtsConnectionInfo.Name, selectedWmtsConnectionInfo.Url);
-            }
-        }
-
-        public UserControl UserControl
-        {
-            get
-            {
-                return this;
             }
         }
 
@@ -401,7 +385,7 @@ namespace Core.Components.Gis.Forms.Views
             UpdateComboBoxDataSource(createdWmtsConnectionInfos);
         }
 
-        public event EventHandler<EventArgs> SelectedMapDataChanged;
+        public override event EventHandler<EventArgs> SelectedMapDataChanged;
 
         #endregion
     }

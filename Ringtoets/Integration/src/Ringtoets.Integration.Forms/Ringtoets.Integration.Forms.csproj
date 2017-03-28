@@ -255,6 +255,9 @@
       <DependentUpon>ReferenceLineMetaSelectionDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\AssessmentSectionView.resx">
+      <DependentUpon>AssessmentSectionView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\FailureMechanismContributionView.resx">
       <DependentUpon>FailureMechanismContributionView.cs</DependentUpon>
       <SubType>Designer</SubType>

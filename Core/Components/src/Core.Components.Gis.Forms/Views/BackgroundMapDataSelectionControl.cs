@@ -26,28 +26,32 @@ using Core.Components.Gis.Data;
 namespace Core.Components.Gis.Forms.Views
 {
     /// <summary>
-    /// Interface for a user control that has a background MapData.
+    /// Abstract base class for a user control used for selecting background map data.
     /// </summary>
-    public interface IBackgroundMapDataSelectionControl
+    public abstract class BackgroundMapDataSelectionControl : UserControl
     {
         /// <summary>
-        /// Fired when the <see cref="SelectedMapData"/> has been changed. 
+        /// Fired when the <see cref="SelectedMapData"/> has been changed.
         /// </summary>
-        event EventHandler<EventArgs> SelectedMapDataChanged;
+        public abstract event EventHandler<EventArgs> SelectedMapDataChanged;
 
         /// <summary>
-        /// Gets the display name of the user control;
+        /// Creates a new instance of <see cref="BackgroundMapDataSelectionControl"/>.
         /// </summary>
-        string DisplayName { get; }
+        /// <param name="displayName">The display name of the user control.</param>
+        protected BackgroundMapDataSelectionControl(string displayName)
+        {
+            DisplayName = displayName;
+        }
+
+        /// <summary>
+        /// Gets the display name of the user control.
+        /// </summary>
+        public string DisplayName { get; }
 
         /// <summary>
         /// Gets the selected <see cref="ImageBasedMapData"/> or <c>null</c> if none selected.
         /// </summary>
-        ImageBasedMapData SelectedMapData { get; }
-
-        /// <summary>
-        /// Gets the user control.
-        /// </summary>
-        UserControl UserControl { get; }
+        public abstract ImageBasedMapData SelectedMapData { get; }
     }
 }

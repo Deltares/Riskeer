@@ -167,7 +167,7 @@ namespace Core.Plugins.Map.Test.Legend
         }
 
         [Test]
-        public void Data_ForNull_NullSet()
+        public void Data_Null_NullSet()
         {
             // Setup
             using (var view = new MapLegendView(contextMenuBuilderProvider))
@@ -181,7 +181,7 @@ namespace Core.Plugins.Map.Test.Legend
         }
 
         [Test]
-        public void Data_OtherObject_ThrowsInvalidCastException()
+        public void Data_OtherObjectType_ThrowsInvalidCastException()
         {
             // Setup 
             using (var view = new MapLegendView(contextMenuBuilderProvider))
@@ -200,10 +200,10 @@ namespace Core.Plugins.Map.Test.Legend
         {
             // Setup
             var mapData = new MapDataCollection("A");
-
             var mockRepository = new MockRepository();
             var mapControl = mockRepository.Stub<IMapControl>();
-            mapControl.Data = mapData;
+
+            mapControl.Expect(mc => mc.Data).Return(mapData);
             mockRepository.ReplayAll();
 
             using (var view = new MapLegendView(contextMenuBuilderProvider)
@@ -258,7 +258,7 @@ namespace Core.Plugins.Map.Test.Legend
                 treeViewControl.TrySelectNodeForData(mapData);
 
                 // Call
-                var selection = view.Selection;
+                object selection = view.Selection;
 
                 // Assert
                 Assert.AreSame(mapData, selection);

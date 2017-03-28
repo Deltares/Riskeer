@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Geometry;
-using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
@@ -75,7 +74,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             {
                 // Assert
                 Assert.AreEqual(1, view.Controls.Count);
-                Assert.AreSame(view.Map, view.Controls[0]);
+                Assert.IsInstanceOf<RingtoetsMapControl>(view.Controls[0]);
+                Assert.AreSame(view.Map, ((RingtoetsMapControl) view.Controls[0]).MapControl);
                 Assert.AreEqual(DockStyle.Fill, ((Control) view.Map).Dock);
                 Assert.IsNull(view.Map.Data);
             }
@@ -123,15 +123,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
             using (var view = new GrassCoverErosionInwardsFailureMechanismView())
             {
-                var mapControl = (RingtoetsMapControl) view.Map;
-
                 var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
 
                 // Call
                 view.Data = failureMechanismContext;
 
                 // Assert
-                Assert.AreSame(assessmentSection.BackgroundData, mapControl.BackgroundData);
+                MapDataTestHelper.AssertImageBasedMapData(assessmentSection.BackgroundData, view.Map.BackgroundMapData);
             }
         }
 
@@ -141,8 +139,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             using (var view = new GrassCoverErosionInwardsFailureMechanismView())
             {
-                var mapControl = (RingtoetsMapControl) view.Map;
-
                 var assessmentSection = new ObservableTestAssessmentSectionStub();
 
                 var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
@@ -150,16 +146,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 view.Data = failureMechanismContext;
 
                 // Precondition
-                Assert.AreEqual(8, mapControl.Data.Collection.Count());
+                Assert.AreEqual(8, view.Map.Data.Collection.Count());
+                MapDataTestHelper.AssertImageBasedMapData(assessmentSection.BackgroundData, view.Map.BackgroundMapData);
 
                 // Call
                 view.Data = null;
 
                 // Assert
                 Assert.IsNull(view.Data);
-                Assert.IsNull(mapControl.Data);
-                Assert.IsNull(mapControl.BackgroundData);
-                Assert.IsNull(mapControl.BackgroundMapData);
+                Assert.IsNull(view.Map.Data);
+                Assert.IsNull(view.Map.BackgroundMapData);
             }
         }
 
@@ -189,7 +185,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             using (var view = new GrassCoverErosionInwardsFailureMechanismView())
             {
-                var map = (MapControl) view.Controls[0];
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
                 var geometryPoints = new[]
                 {
@@ -288,7 +284,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             using (var view = new GrassCoverErosionInwardsFailureMechanismView())
             {
-                var map = (MapControl) view.Controls[0];
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
                 var hydraulicBoundaryDatabase1 = new HydraulicBoundaryDatabase
                 {
@@ -335,7 +331,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             using (var view = new GrassCoverErosionInwardsFailureMechanismView())
             {
-                var map = (MapControl) view.Controls[0];
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
                 var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
                 {
@@ -375,7 +371,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             // Given
             using (var view = new GrassCoverErosionInwardsFailureMechanismView())
             {
-                var map = (MapControl) view.Controls[0];
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
                 var currentHydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
                 {
@@ -414,14 +410,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(newHydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
             }
         }
-        
+
         [Test]
         public void NotifyObservers_ReferenceLineUpdated_MapDataUpdated()
         {
             // Setup
             using (var view = new GrassCoverErosionInwardsFailureMechanismView())
             {
-                var map = (MapControl) view.Controls[0];
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
                 var points1 = new List<Point2D>
                 {
@@ -466,7 +462,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             using (var view = new GrassCoverErosionInwardsFailureMechanismView())
             {
-                var map = (MapControl) view.Controls[0];
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
                 var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
                 var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
@@ -499,7 +495,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             using (var view = new GrassCoverErosionInwardsFailureMechanismView())
             {
-                var map = (MapControl) view.Controls[0];
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
                 var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
                 var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
@@ -529,7 +525,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             using (var view = new GrassCoverErosionInwardsFailureMechanismView())
             {
-                var map = (MapControl) view.Controls[0];
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
                 var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
                 var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
@@ -567,7 +563,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             using (var view = new GrassCoverErosionInwardsFailureMechanismView())
             {
-                var map = (MapControl) view.Controls[0];
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
                 var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
                 var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
@@ -613,7 +609,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             using (var view = new GrassCoverErosionInwardsFailureMechanismView())
             {
-                var map = (MapControl) view.Controls[0];
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
                 var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
                 var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
@@ -649,7 +645,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             using (var view = new GrassCoverErosionInwardsFailureMechanismView())
             {
-                var map = (MapControl) view.Controls[0];
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
                 var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
                 var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
@@ -694,7 +690,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
             using (var view = new GrassCoverErosionInwardsFailureMechanismView())
             {
-                var map = (MapControl) view.Controls[0];
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
                 var assessmentSection = new ObservableTestAssessmentSectionStub();
                 var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -792,7 +788,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             var newGrassCoverErosionInwardsFailureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(new GrassCoverErosionInwardsFailureMechanism(), newAssessmentSection);
             using (var view = new GrassCoverErosionInwardsFailureMechanismView())
             {
-                var map = (MapControl) view.Controls[0];
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
                 view.Data = oldGrassCoverErosionInwardsFailureMechanismContext;
                 view.Data = newGrassCoverErosionInwardsFailureMechanismContext;

@@ -52,14 +52,14 @@ namespace Demo.Ringtoets.Views
             this.mapControl = new Core.Components.DotSpatial.Forms.MapControl();
             this.SuspendLayout();
             // 
-            // mapControl1
+            // mapControl
             // 
             this.mapControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mapControl.Location = new System.Drawing.Point(0, 0);
-            this.mapControl.Name = "mapControl1";
+            this.mapControl.Name = "mapControl";
             this.mapControl.Size = new System.Drawing.Size(150, 150);
             this.mapControl.TabIndex = 0;
-            this.mapControl.Text = "mapControl1";
+            this.mapControl.Text = "mapControl";
             // 
             // MapDataView
             // 

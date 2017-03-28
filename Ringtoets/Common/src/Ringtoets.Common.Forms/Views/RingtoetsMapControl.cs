@@ -19,18 +19,20 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Forms;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Utils.TypeConverters;
 
 namespace Ringtoets.Common.Forms.Views
 {
     /// <summary>
-    /// This class describes a map control with background.
+    /// Ringtoets map control with background data synchronization.
     /// </summary>
-    public class RingtoetsMapControl : MapControl
+    public partial class RingtoetsMapControl : UserControl
     {
         private readonly Observer backgroundDataObserver;
 
@@ -41,55 +43,83 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         public RingtoetsMapControl()
         {
+            InitializeComponent();
+
             backgroundDataObserver = new Observer(OnBackgroundDataUpdated);
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="BackgroundData"/>.
+        /// Gets the wrapped <see cref="IMapControl"/>.
         /// </summary>
-        public BackgroundData BackgroundData
+        public IMapControl MapControl
         {
             get
             {
-                return backgroundData;
-            }
-            set
-            {
-                backgroundData = value;
-                backgroundDataObserver.Observable = backgroundData;
-
-                BackgroundMapData = backgroundData != null
-                                        ? BackgroundDataConverter.ConvertFrom(backgroundData)
-                                        : null;
+                return mapControl;
             }
         }
 
-        public override void RemoveAllData()
+        /// <summary>
+        /// Sets all data to the control.
+        /// </summary>
+        /// <param name="data">The <see cref="MapDataCollection"/> to set to the control.</param>
+        /// <param name="background">The <see cref="BackgroundData"/> to set to the control.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any of the parameters is <c>null</c>.</exception>
+        public void SetAllData(MapDataCollection data, BackgroundData background)
         {
-            Removing = true;
-            BackgroundData = null;
-            Data = null;
-            Removing = false;
+            if (data == null)
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
+
+            if (background == null)
+            {
+                throw new ArgumentNullException(nameof(background));
+            }
+
+            backgroundData = background;
+            backgroundDataObserver.Observable = backgroundData;
+
+            mapControl.Data = data;
+            mapControl.BackgroundMapData = backgroundData != null
+                                               ? BackgroundDataConverter.ConvertFrom(backgroundData)
+                                               : null;
+        }
+
+        /// <summary>
+        /// Removes all data from the control.
+        /// </summary>
+        public void RemoveAllData()
+        {
+            backgroundData = null;
+            backgroundDataObserver.Observable = null;
+
+            mapControl.RemoveAllData();
         }
 
         protected override void Dispose(bool disposing)
         {
             backgroundDataObserver.Dispose();
 
+            if (disposing)
+            {
+                components?.Dispose();
+            }
+
             base.Dispose(disposing);
         }
 
         private void OnBackgroundDataUpdated()
         {
-            if (backgroundData.Configuration is WmtsBackgroundDataConfiguration && BackgroundMapData is WmtsMapData
-                || backgroundData.Configuration is WellKnownBackgroundDataConfiguration && BackgroundMapData is WellKnownTileSourceMapData)
+            if (backgroundData.Configuration is WmtsBackgroundDataConfiguration && mapControl.BackgroundMapData is WmtsMapData
+                || backgroundData.Configuration is WellKnownBackgroundDataConfiguration && mapControl.BackgroundMapData is WellKnownTileSourceMapData)
             {
                 UpdateBackgroundMapData();
-                BackgroundMapData.NotifyObservers();
+                mapControl.BackgroundMapData.NotifyObservers();
             }
             else
             {
-                BackgroundMapData = BackgroundDataConverter.ConvertFrom(backgroundData);
+                mapControl.BackgroundMapData = BackgroundDataConverter.ConvertFrom(backgroundData);
             }
         }
 
@@ -102,23 +132,23 @@ namespace Ringtoets.Common.Forms.Views
                 if (newData.IsConfigured)
                 {
                     var newWmtsData = (WmtsMapData) newData;
-                    ((WmtsMapData) BackgroundMapData).Configure(newWmtsData.SourceCapabilitiesUrl,
-                                                                newWmtsData.SelectedCapabilityIdentifier,
-                                                                newWmtsData.PreferredFormat);
+                    ((WmtsMapData) mapControl.BackgroundMapData).Configure(newWmtsData.SourceCapabilitiesUrl,
+                                                                           newWmtsData.SelectedCapabilityIdentifier,
+                                                                           newWmtsData.PreferredFormat);
                 }
                 else
                 {
-                    ((WmtsMapData) BackgroundMapData).RemoveConfiguration();
+                    ((WmtsMapData) mapControl.BackgroundMapData).RemoveConfiguration();
                 }
             }
             else if (backgroundData.Configuration is WellKnownBackgroundDataConfiguration)
             {
-                ((WellKnownTileSourceMapData) BackgroundMapData).SetTileSource(((WellKnownTileSourceMapData) newData).TileSource);
+                ((WellKnownTileSourceMapData) mapControl.BackgroundMapData).SetTileSource(((WellKnownTileSourceMapData) newData).TileSource);
             }
 
-            BackgroundMapData.IsVisible = newData.IsVisible;
-            BackgroundMapData.Name = newData.Name;
-            BackgroundMapData.Transparency = newData.Transparency;
+            mapControl.BackgroundMapData.IsVisible = newData.IsVisible;
+            mapControl.BackgroundMapData.Name = newData.Name;
+            mapControl.BackgroundMapData.Transparency = newData.Transparency;
         }
     }
 }

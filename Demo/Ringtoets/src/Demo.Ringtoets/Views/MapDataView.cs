@@ -46,7 +46,7 @@ namespace Demo.Ringtoets.Views
             }
             set
             {
-                Map.Data = value as MapDataCollection;
+                mapControl.Data = value as MapDataCollection;
             }
         }
 

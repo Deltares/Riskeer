@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Geometry;
-using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using NUnit.Framework;
@@ -72,7 +71,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             {
                 // Assert
                 Assert.AreEqual(1, view.Controls.Count);
-                Assert.AreSame(view.Map, view.Controls[0]);
+                Assert.IsInstanceOf<RingtoetsMapControl>(view.Controls[0]);
+                Assert.AreSame(view.Map, ((RingtoetsMapControl) view.Controls[0]).MapControl);
                 Assert.AreEqual(DockStyle.Fill, ((Control) view.Map).Dock);
                 Assert.IsNull(view.Map.Data);
             }
@@ -121,8 +121,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
 
             using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
             {
-                var mapControl = (RingtoetsMapControl) view.Map;
-
                 var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(
                     new WaveImpactAsphaltCoverFailureMechanism(), assessmentSection);
 
@@ -130,7 +128,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
                 view.Data = failureMechanismContext;
 
                 // Assert
-                Assert.AreSame(assessmentSection.BackgroundData, mapControl.BackgroundData);
+                MapDataTestHelper.AssertImageBasedMapData(assessmentSection.BackgroundData, view.Map.BackgroundMapData);
             }
         }
 
@@ -140,8 +138,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             // Setup
             using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
             {
-                var mapControl = (RingtoetsMapControl) view.Map;
-
                 var assessmentSection = new ObservableTestAssessmentSectionStub();
 
                 var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(
@@ -150,16 +146,16 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
                 view.Data = failureMechanismContext;
 
                 // Precondition
-                Assert.AreEqual(7, mapControl.Data.Collection.Count());
+                Assert.AreEqual(7, view.Map.Data.Collection.Count());
+                MapDataTestHelper.AssertImageBasedMapData(assessmentSection.BackgroundData, view.Map.BackgroundMapData);
 
                 // Call
                 view.Data = null;
 
                 // Assert
                 Assert.IsNull(view.Data);
-                Assert.IsNull(mapControl.Data);
-                Assert.IsNull(mapControl.BackgroundData);
-                Assert.IsNull(mapControl.BackgroundMapData);
+                Assert.IsNull(view.Map.Data);
+                Assert.IsNull(view.Map.BackgroundMapData);
             }
         }
 
@@ -190,7 +186,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             // Setup
             using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
             {
-                var map = (MapControl) view.Controls[0];
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
                 var geometryPoints = new[]
                 {
@@ -289,7 +285,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             // Setup
             using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
             {
-                var map = (MapControl) view.Controls[0];
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
                 var hydraulicBoundaryDatabase1 = new HydraulicBoundaryDatabase
                 {
@@ -335,7 +331,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             // Setup
             using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
             {
-                var map = (MapControl) view.Controls[0];
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
                 var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
                 {
@@ -374,7 +370,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             // Setup
             using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
             {
-                var map = (MapControl) view.Controls[0];
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
                 var points1 = new List<Point2D>
                 {
@@ -418,7 +414,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             // Setup
             using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
             {
-                var map = (MapControl) view.Controls[0];
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
                 var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
                 var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
@@ -450,7 +446,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             // Setup
             using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
             {
-                var map = (MapControl) view.Controls[0];
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
                 var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
                 var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
@@ -487,7 +483,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             // Setup
             using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
             {
-                var map = (MapControl) view.Controls[0];
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
                 var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
                 var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
@@ -533,7 +529,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             // Setup
             using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
             {
-                var map = (MapControl) view.Controls[0];
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
                 var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
                 var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
@@ -569,7 +565,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             // Setup
             using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
             {
-                var map = (MapControl) view.Controls[0];
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
                 var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
                 var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
@@ -613,7 +609,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
 
             using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
             {
-                var map = (MapControl) view.Controls[0];
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
                 var assessmentSection = new ObservableTestAssessmentSectionStub();
                 var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
@@ -705,7 +701,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             var newWaveImpactAsphaltCoverFailureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(new WaveImpactAsphaltCoverFailureMechanism(), newAssessmentSection);
             using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
             {
-                var map = (MapControl) view.Controls[0];
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
                 view.Data = oldWaveImpactAsphaltCoverFailureMechanismContext;
                 view.Data = newWaveImpactAsphaltCoverFailureMechanismContext;

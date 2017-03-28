@@ -45,14 +45,14 @@ namespace Core.Components.Gis.Forms
         bool IsMouseCoordinatesVisible { get; }
 
         /// <summary>
-        /// Gets or sets the data to show in the <see cref="IMapControl"/>.
+        /// Gets the data to show in the <see cref="IMapControl"/>.
         /// </summary>
-        MapDataCollection Data { get; set; }
+        MapDataCollection Data { get; }
 
         /// <summary>
-        /// Gets or sets the data to show in the background of the <see cref="IMapControl"/>.
+        /// Gets the data to show in the background of the <see cref="IMapControl"/>.
         /// </summary>
-        ImageBasedMapData BackgroundMapData { get; set; }
+        ImageBasedMapData BackgroundMapData { get; }
 
         /// <summary>
         /// Removes all the data from the map without redrawing any layers.

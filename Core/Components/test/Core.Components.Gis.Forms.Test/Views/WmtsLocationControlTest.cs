@@ -100,10 +100,9 @@ namespace Core.Components.Gis.Forms.Test.Views
                 {
                     // Assert
                     Assert.IsInstanceOf<UserControl>(control);
-                    Assert.IsInstanceOf<IBackgroundMapDataSelectionControl>(control);
+                    Assert.IsInstanceOf<BackgroundMapDataSelectionControl>(control);
                     Assert.AreEqual("Web Map Tile Service (WMTS)", control.DisplayName);
                     Assert.IsNull(control.SelectedMapData);
-                    Assert.AreSame(control, control.UserControl);
                 }
             }
         }

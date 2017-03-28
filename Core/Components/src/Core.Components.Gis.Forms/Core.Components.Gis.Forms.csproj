@@ -54,7 +54,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Views\IBackgroundMapDataSelectionControl.cs" />
+    <Compile Include="Views\BackgroundMapDataSelectionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Views\WellKnownMapDataControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

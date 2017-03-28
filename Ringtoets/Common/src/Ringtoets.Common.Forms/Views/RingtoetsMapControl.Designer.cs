@@ -19,9 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
+namespace Ringtoets.Common.Forms.Views
 {
-    partial class WaveImpactAsphaltCoverFailureMechanismView
+    partial class RingtoetsMapControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -36,29 +36,32 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
         /// </summary>
         private void InitializeComponent()
         {
-            this.ringtoetsMapControl = new Ringtoets.Common.Forms.Views.RingtoetsMapControl();
+            this.mapControl = new Core.Components.DotSpatial.Forms.MapControl();
             this.SuspendLayout();
             // 
-            // ringtoetsMapControl
+            // mapControl
             // 
-            this.ringtoetsMapControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ringtoetsMapControl.Location = new System.Drawing.Point(0, 0);
-            this.ringtoetsMapControl.Name = "ringtoetsMapControl";
-            this.ringtoetsMapControl.Size = new System.Drawing.Size(150, 150);
-            this.ringtoetsMapControl.TabIndex = 0;
+            this.mapControl.BackgroundMapData = null;
+            this.mapControl.Data = null;
+            this.mapControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mapControl.Location = new System.Drawing.Point(0, 0);
+            this.mapControl.Name = "mapControl";
+            this.mapControl.Size = new System.Drawing.Size(150, 150);
+            this.mapControl.TabIndex = 0;
+            this.mapControl.Text = "mapControl";
             // 
-            // WaveImpactAsphaltCoverFailureMechanismView
+            // RingtoetsMapControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.ringtoetsMapControl);
-            this.Name = "WaveImpactAsphaltCoverFailureMechanismView";
+            this.Controls.Add(this.mapControl);
+            this.Name = "RingtoetsMapControl";
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private Common.Forms.Views.RingtoetsMapControl ringtoetsMapControl;
+        private Core.Components.DotSpatial.Forms.MapControl mapControl;
     }
 }
