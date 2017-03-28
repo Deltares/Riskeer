@@ -94,7 +94,7 @@ namespace Application.Ringtoets
                                    userDisplay));
         }
 
-        private delegate void ExceptionDelegate(Exception exception, bool isTerminating);
+        private delegate void ExceptionDelegate(Exception exception);
 
         protected override void OnExit(ExitEventArgs e)
         {
@@ -295,30 +295,30 @@ namespace Application.Ringtoets
         {
             Exception exception = e.ExceptionObject as Exception ?? new Exception(CoreCommonGuiResources.App_AppDomain_UnhandledException_Unknown_exception_);
 
-            HandleExceptionOnMainThread(exception, e.IsTerminating);
+            HandleExceptionOnMainThread(exception);
         }
 
         private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
-            HandleExceptionOnMainThread(e.Exception, false);
+            HandleExceptionOnMainThread(e.Exception);
         }
 
-        private static void HandleExceptionOnMainThread(Exception exception, bool isTerminating)
+        private static void HandleExceptionOnMainThread(Exception exception)
         {
             var control = (Control) gui.MainWindow.PropertyGrid;
 
             if (control != null && control.InvokeRequired)
             {
                 // Invoke executes a delegate on the thread that owns _MainForms's underlying window handle.
-                control.Invoke(new ExceptionDelegate(HandleException), exception, isTerminating);
+                control.Invoke(new ExceptionDelegate(HandleException), exception);
             }
             else
             {
-                HandleException(exception, isTerminating);
+                HandleException(exception);
             }
         }
 
-        private static void HandleException(Exception exception, bool isTerminating)
+        private static void HandleException(Exception exception)
         {
             log.Error(CoreCommonGuiResources.App_AppDomain_UnhandledException_Unknown_exception_, exception);
 
