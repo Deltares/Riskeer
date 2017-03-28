@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using Core.Common.Base.IO;
+using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Readers;
 using Ringtoets.Common.IO.Schema;
 using Ringtoets.Piping.IO.Properties;
@@ -33,7 +34,7 @@ namespace Ringtoets.Piping.IO.Readers
 {
     /// <summary>
     /// This class reads a piping calculation configuration from XML and creates a collection of corresponding
-    /// <see cref="IReadConfigurationItem"/>, typically containing one or more <see cref="ReadPipingCalculation"/>.
+    /// <see cref="IConfigurationItem"/>, typically containing one or more <see cref="ReadPipingCalculation"/>.
     /// </summary>
     public class PipingCalculationConfigurationReader : CalculationConfigurationReader<ReadPipingCalculation>
     {

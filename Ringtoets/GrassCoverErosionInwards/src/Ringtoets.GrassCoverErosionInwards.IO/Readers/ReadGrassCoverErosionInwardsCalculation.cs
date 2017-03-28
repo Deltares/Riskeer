@@ -21,6 +21,7 @@
 
 using System;
 using Ringtoets.Common.IO;
+using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Readers;
 
 namespace Ringtoets.GrassCoverErosionInwards.IO.Readers
@@ -29,7 +30,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Readers
     /// Class that represents a grass cover erosion inwards calculation that is read via
     /// <see cref="GrassCoverErosionInwardsCalculationConfigurationReader"/>.
     /// </summary>
-    public class ReadGrassCoverErosionInwardsCalculation : IReadConfigurationItem
+    public class ReadGrassCoverErosionInwardsCalculation : IConfigurationItem
     {
         /// <summary>
         /// Creates a new instance of <see cref="ReadGrassCoverErosionInwardsCalculation"/>.

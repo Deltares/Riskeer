@@ -27,50 +27,27 @@ using Ringtoets.Common.IO.Schema;
 namespace Ringtoets.Common.IO.Writers
 {
     /// <summary>
-    /// Extension methods for an <see cref="XmlWriter"/>, for writing <see cref="StructureCalculationConfiguration"/>
-    /// in XML format to file.
+    /// Writer for writing <see cref="StructureCalculationConfiguration"/> in XML format to file.
     /// </summary>
-    public static class StructureCalculationConfigurationXmlWriterExtensions
+    public abstract class StructureCalculationConfigurationWriter<T> : SchemaCalculationConfigurationWriter<T>
+        where T : StructureCalculationConfiguration
     {
         /// <summary>
-        /// Action which is performed for writing parameters specific to <typeparamref name="T"/>.
+        /// Creates a new instance of <see cref="SchemaCalculationConfigurationWriter{T}"/>.
         /// </summary>
-        /// <typeparam name="T">The type of <see cref="StructureCalculationConfiguration"/> of
-        /// which parameters are written.</typeparam>
-        /// <param name="configuration">The instance of type <typeparamref name="T"/> for which
-        /// to write the parameters.</param>
-        /// <param name="writer">The writer that should be used to write the parameters.</param>
-        public delegate void WriteSpecificStructureParameters<in T>(T configuration, XmlWriter writer);
+        /// <param name="filePath">The path of the file to write to.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
+        /// <remarks>A valid path:
+        /// <list type="bullet">
+        /// <item>is not empty or <c>null</c>,</item>
+        /// <item>does not consist out of only whitespace characters,</item>
+        /// <item>does not contain an invalid character,</item>
+        /// <item>does not end with a directory or path separator (empty file name).</item>
+        /// </list></remarks>
+        protected StructureCalculationConfigurationWriter(string filePath) : base(filePath) {}
 
-        /// <summary>
-        /// Writes the properties of structure configurations to file.
-        /// </summary>
-        /// <typeparam name="T">The type of <see cref="StructureCalculationConfiguration"/> of
-        /// which parameters are written.</typeparam>
-        /// <param name="writer">The writer to use for writing out the configuration</param>
-        /// <param name="configuration">The structure configuration properties to write.</param>
-        /// <param name="writeProperties">Action which writes properties specific for a structure of type <typeparamref name="T"/>.</param>
-        /// <param name="writeStochasts">Action which writes stochats definitions specific for a structure of type <typeparamref name="T"/>.</param>
-        public static void WriteStructure<T>(
-            this XmlWriter writer, 
-            T configuration, 
-            WriteSpecificStructureParameters<T> writeProperties,
-            WriteSpecificStructureParameters<T> writeStochasts)
-            where T : StructureCalculationConfiguration
+        protected override void WriteCalculation(T configuration, XmlWriter writer)
         {
-            if (configuration == null)
-            {
-                throw new ArgumentNullException(nameof(configuration));
-            }
-            if (writeProperties == null)
-            {
-                throw new ArgumentNullException(nameof(writeProperties));
-            }
-            if (writeStochasts == null)
-            {
-                throw new ArgumentNullException(nameof(writeStochasts));
-            }
-
             writer.WriteStartElement(ConfigurationSchemaIdentifiers.CalculationElement);
             writer.WriteAttributeString(ConfigurationSchemaIdentifiers.NameAttribute, configuration.Name);
 
@@ -114,7 +91,7 @@ namespace Ringtoets.Common.IO.Writers
                 writer.WriteWaveReduction(configuration.WaveReduction);
             }
 
-            writeProperties(configuration, writer);
+            WriteSpecificStructureParameters(configuration, writer);
 
             writer.WriteStartElement(ConfigurationSchemaIdentifiers.StochastsElement);
 
@@ -147,9 +124,27 @@ namespace Ringtoets.Common.IO.Writers
                 writer.WriteDistribution(ConfigurationSchemaIdentifiers.StormDurationStochastName, configuration.StormDuration);
             }
 
-            writeStochasts(configuration, writer);
+            WriteSpecificStochasts(configuration, writer);
+
+            writer.WriteEndElement();
 
             writer.WriteEndElement();
         }
+
+        /// <summary>
+        /// Writes properties specific for a structure of type <typeparamref name="T"/>.
+        /// </summary>
+        /// <param name="configuration">The instance of type <typeparamref name="T"/> for which
+        /// to write the input.</param>
+        /// <param name="writer">The writer that should be used to write the parameters.</param>
+        protected abstract void WriteSpecificStructureParameters(T configuration, XmlWriter writer);
+
+        /// <summary>        
+        /// Writes stochats definitions specific for a structure of type <typeparamref name="T"/>.
+        /// </summary>
+        /// <param name="configuration">The instance of type <typeparamref name="T"/> for which
+        /// to write the stochasts.</param>
+        /// <param name="writer">The writer that should be used to write the parameters.</param>
+        protected abstract void WriteSpecificStochasts(T configuration, XmlWriter writer);
     }
 }

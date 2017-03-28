@@ -22,6 +22,7 @@
 using System;
 using NUnit.Framework;
 using Ringtoets.Common.IO;
+using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Readers;
 using Ringtoets.Revetment.IO.Readers;
 
@@ -48,7 +49,7 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             var readCalculation = new ReadWaveConditionsCalculation(new ReadWaveConditionsCalculation.ConstructionProperties());
 
             // Assert
-            Assert.IsInstanceOf<IReadConfigurationItem>(readCalculation);
+            Assert.IsInstanceOf<IConfigurationItem>(readCalculation);
             Assert.IsNull(readCalculation.Name);
             Assert.IsNull(readCalculation.HydraulicBoundaryLocation);
             Assert.IsNull(readCalculation.UpperBoundaryRevetment);

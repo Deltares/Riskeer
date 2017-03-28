@@ -38,6 +38,10 @@
       <HintPath>..\..\..\..\packages\NUnit.3.6.0\lib\net40\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
@@ -45,7 +49,9 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="CustomSchemaCalculationConfigurationExporterDesignGuidelinesTestFixture.cs" />
     <Compile Include="CustomCalculationConfigurationExporterDesignGuidelinesTestFixture.cs" />
+    <Compile Include="CustomSchemaCalculationConfigurationWriterDesignGuidelinesTestFixture.cs" />
     <Compile Include="CustomCalculationConfigurationWriterDesignGuidelinesTestFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

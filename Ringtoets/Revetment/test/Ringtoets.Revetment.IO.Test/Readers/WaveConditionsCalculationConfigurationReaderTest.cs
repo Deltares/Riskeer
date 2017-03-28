@@ -27,6 +27,7 @@ using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.IO;
+using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Readers;
 using Ringtoets.Revetment.IO.Readers;
 
@@ -211,7 +212,7 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             var reader = new WaveConditionsCalculationConfigurationReader(filePath);
 
             // Call
-            List<IReadConfigurationItem> readItems = reader.Read().ToList();
+            List<IConfigurationItem> readItems = reader.Read().ToList();
 
             // Assert
             Assert.AreEqual(1, readItems.Count);
@@ -241,7 +242,7 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             var reader = new WaveConditionsCalculationConfigurationReader(filePath);
 
             // Call
-            List<IReadConfigurationItem> readItems = reader.Read().ToList();
+            List<IConfigurationItem> readItems = reader.Read().ToList();
 
             // Assert
             Assert.AreEqual(1, readItems.Count);
@@ -262,7 +263,7 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             var reader = new WaveConditionsCalculationConfigurationReader(filePath);
 
             // Call
-            List<IReadConfigurationItem> readItems = reader.Read().ToList();
+            List<IConfigurationItem> readItems = reader.Read().ToList();
 
             // Assert
             Assert.AreEqual(1, readItems.Count);
@@ -285,7 +286,7 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             var reader = new WaveConditionsCalculationConfigurationReader(filePath);
 
             // Call
-            List<IReadConfigurationItem> readItems = reader.Read().ToList();
+            List<IConfigurationItem> readItems = reader.Read().ToList();
 
             // Assert
             Assert.AreEqual(1, readItems.Count);
@@ -316,7 +317,7 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             var reader = new WaveConditionsCalculationConfigurationReader(filePath);
 
             // Call
-            List<IReadConfigurationItem> readItems = reader.Read().ToList();
+            List<IConfigurationItem> readItems = reader.Read().ToList();
 
             // Assert
             Assert.AreEqual(1, readItems.Count);
@@ -346,7 +347,7 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             var reader = new WaveConditionsCalculationConfigurationReader(filePath);
 
             // Call
-            List<IReadConfigurationItem> readItems = reader.Read().ToList();
+            List<IConfigurationItem> readItems = reader.Read().ToList();
 
             // Assert
             Assert.AreEqual(1, readItems.Count);

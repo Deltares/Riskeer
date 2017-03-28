@@ -21,6 +21,7 @@
 
 using System;
 using NUnit.Framework;
+using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Readers;
 using Ringtoets.Piping.IO.Readers;
 
@@ -47,7 +48,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
             var readPipingCalculation = new ReadPipingCalculation(new ReadPipingCalculation.ConstructionProperties());
 
             // Assert
-            Assert.IsInstanceOf<IReadConfigurationItem>(readPipingCalculation);
+            Assert.IsInstanceOf<IConfigurationItem>(readPipingCalculation);
             Assert.IsNull(readPipingCalculation.Name);
             Assert.IsNull(readPipingCalculation.AssessmentLevel);
             Assert.IsNull(readPipingCalculation.HydraulicBoundaryLocation);

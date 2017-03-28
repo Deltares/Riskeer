@@ -31,11 +31,11 @@ using Ringtoets.Common.IO.Writers;
 namespace Ringtoets.Common.IO.Test.Writers
 {
     [TestFixture]
-    public class StructureCalculationConfigurationXmlWriterExtensionsTest
+    public class StructureCalculationConfigurationWriterTest
     {
         private static readonly string testDirectory = TestHelper.GetTestDataPath(
             TestDataPath.Ringtoets.Common.IO,
-            nameof(StructureCalculationConfigurationXmlWriterExtensions));
+            nameof(StructureCalculationConfigurationWriter<StructureCalculationConfiguration>));
 
         public static IEnumerable<TestCaseData> GetStructureCalculationsWithProperties()
         {
@@ -56,57 +56,14 @@ namespace Ringtoets.Common.IO.Test.Writers
             // Setup
             string filePath = TestHelper.GetScratchPadPath("test.xml");
 
-            using (var writer = CreateXmlWriter(filePath))
+            var writer = new SimpleStructureCalculationConfigurationWriter(filePath);
             {
                 // Call
-                TestDelegate test = () => writer.WriteStructure(
-                    (SimpleStructureCalculationConfiguration) null,
-                    delegate { },
-                    delegate { });
+                TestDelegate test = () => writer.Write(null);
 
                 // Assert
                 var exception = Assert.Throws<ArgumentNullException>(test);
                 Assert.AreEqual("configuration", exception.ParamName);
-            }
-        }
-
-        [Test]
-        public void Write_WithoutWriteProperties_ThrowsArgumentNullException()
-        {
-            // Setup
-            string filePath = TestHelper.GetScratchPadPath("test.xml");
-
-            using (var writer = CreateXmlWriter(filePath))
-            {
-                // Call
-                TestDelegate test = () => writer.WriteStructure(
-                    new SimpleStructureCalculationConfiguration(""),
-                    null,
-                    delegate { });
-
-                // Assert
-                var exception = Assert.Throws<ArgumentNullException>(test);
-                Assert.AreEqual("writeProperties", exception.ParamName);
-            }
-        }
-
-        [Test]
-        public void Write_WithoutWriteStochasts_ThrowsArgumentNullException()
-        {
-            // Setup
-            string filePath = TestHelper.GetScratchPadPath("test.xml");
-
-            using (var writer = CreateXmlWriter(filePath))
-            {
-                // Call
-                TestDelegate test = () => writer.WriteStructure(
-                    new SimpleStructureCalculationConfiguration(""),
-                    delegate { },
-                    null);
-
-                // Assert
-                var exception = Assert.Throws<ArgumentNullException>(test);
-                Assert.AreEqual("writeStochasts", exception.ParamName);
             }
         }
 
@@ -118,21 +75,12 @@ namespace Ringtoets.Common.IO.Test.Writers
             string filePath = TestHelper.GetScratchPadPath(nameof(Write_WithoutDifferentSetParameters_WritesSetStructureProperties));
             try
             {
-                // Call
-                bool writePropertiesCalled = false;
-                bool writeStochastsCalled = false;
+                var writer = new SimpleStructureCalculationConfigurationWriter(filePath);
 
-                using (var writer = CreateXmlWriter(filePath))
-                {
-                    writer.WriteStructure(
-                        structureCalculation,
-                        (configuration, xmlWriter) => writePropertiesCalled = true,
-                        (configuration, xmlWriter) => writeStochastsCalled = true);
-                }
+                // Call
+                writer.Write(new [] { structureCalculation });
 
                 // Assert
-                Assert.IsTrue(writePropertiesCalled);
-                Assert.IsTrue(writeStochastsCalled);
                 string actualXml = File.ReadAllText(filePath);
                 string expectedXml = GetTestFileContent(fileName);
                 Assert.AreEqual(expectedXml, actualXml);
@@ -214,6 +162,20 @@ namespace Ringtoets.Common.IO.Test.Writers
         private class SimpleStructureCalculationConfiguration : StructureCalculationConfiguration
         {
             public SimpleStructureCalculationConfiguration(string name) : base(name) {}
+        }
+        private class SimpleStructureCalculationConfigurationWriter : StructureCalculationConfigurationWriter<SimpleStructureCalculationConfiguration>
+        {
+            public SimpleStructureCalculationConfigurationWriter(string filePath) : base(filePath) {}
+
+            protected override void WriteSpecificStructureParameters(SimpleStructureCalculationConfiguration configuration, XmlWriter writer)
+            {
+                // no specific parameters
+            }
+
+            protected override void WriteSpecificStochasts(SimpleStructureCalculationConfiguration configuration, XmlWriter writer)
+            {
+                // no specific stochasts
+            }
         }
     }
 }

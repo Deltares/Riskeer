@@ -107,8 +107,9 @@
     <Compile Include="Structures\StructuresParameterRowsValidatorTest.cs" />
     <Compile Include="Structures\StructuresParameterRowTest.cs" />
     <Compile Include="Structures\ValidationResultTest.cs" />
+    <Compile Include="Writers\SchemaCalculationConfigurationWriterTest.cs" />
     <Compile Include="Writers\CalculationConfigurationWriterTest.cs" />
-    <Compile Include="Writers\StructureCalculationConfigurationXmlWriterExtensionsTest.cs" />
+    <Compile Include="Writers\StructureCalculationConfigurationWriterTest.cs" />
     <Compile Include="Writers\XmlWriterExtensionsTest.cs" />
   </ItemGroup>
   <ItemGroup>

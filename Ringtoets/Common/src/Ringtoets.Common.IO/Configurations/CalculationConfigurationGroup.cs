@@ -20,29 +20,30 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using Ringtoets.Common.IO.Readers;
 
-namespace Ringtoets.Common.IO.Readers
+namespace Ringtoets.Common.IO.Configurations
 {
     /// <summary>
     /// Class that represents a calculation group that is read via <see cref="CalculationConfigurationReader{TReadCalculation}"/>.
     /// </summary>
-    public class ReadCalculationGroup : IReadConfigurationItem
+    public class CalculationConfigurationGroup : IConfigurationItem
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ReadCalculationGroup"/>.
+        /// Creates a new instance of <see cref="CalculationConfigurationGroup"/>.
         /// </summary>
         /// <param name="name">The name of the calculation group.</param>
-        /// <param name="items">The collection of nested <see cref="IReadConfigurationItem"/>.</param>
-        public ReadCalculationGroup(string name, IEnumerable<IReadConfigurationItem> items)
+        /// <param name="items">The collection of nested <see cref="IConfigurationItem"/>.</param>
+        public CalculationConfigurationGroup(string name, IEnumerable<IConfigurationItem> items)
         {
             Name = name;
             Items = items;
         }
 
         /// <summary>
-        /// Gets the collection of nested <see cref="IReadConfigurationItem"/>.
+        /// Gets the collection of nested <see cref="IConfigurationItem"/>.
         /// </summary>
-        public IEnumerable<IReadConfigurationItem> Items { get; private set; }
+        public IEnumerable<IConfigurationItem> Items { get; private set; }
 
         public string Name { get; }
     }

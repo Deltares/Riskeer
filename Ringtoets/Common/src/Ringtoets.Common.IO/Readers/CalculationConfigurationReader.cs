@@ -29,6 +29,7 @@ using System.Xml.Schema;
 using Core.Common.Base.IO;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
+using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Properties;
 using Ringtoets.Common.IO.Schema;
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
@@ -37,11 +38,11 @@ namespace Ringtoets.Common.IO.Readers
 {
     /// <summary>
     /// Base class for reading a calculation configuration from XML and creating a collection of corresponding
-    /// <see cref="IReadConfigurationItem"/>, typically containing one or more <see cref="TReadCalculation"/>.
+    /// <see cref="IConfigurationItem"/>, typically containing one or more <see cref="TReadCalculation"/>.
     /// </summary>
     /// <typeparam name="TReadCalculation">The type of calculation items read from XML.</typeparam>
     public abstract class CalculationConfigurationReader<TReadCalculation>
-        where TReadCalculation : IReadConfigurationItem
+        where TReadCalculation : IConfigurationItem
     {
         private const string defaultSchemaName = "ConfiguratieSchema.xsd";
 
@@ -93,10 +94,10 @@ namespace Ringtoets.Common.IO.Readers
         }
 
         /// <summary>
-        /// Reads the calculation configuration from the XML and creates a collection of corresponding <see cref="IReadConfigurationItem"/>.
+        /// Reads the calculation configuration from the XML and creates a collection of corresponding <see cref="IConfigurationItem"/>.
         /// </summary>
-        /// <returns>A collection of read <see cref="IReadConfigurationItem"/>.</returns>
-        public IEnumerable<IReadConfigurationItem> Read()
+        /// <returns>A collection of read <see cref="IConfigurationItem"/>.</returns>
+        public IEnumerable<IConfigurationItem> Read()
         {
             return ParseElements(xmlDocument.Root?.Elements());
         }
@@ -211,7 +212,7 @@ namespace Ringtoets.Common.IO.Readers
             }
         }
 
-        private IEnumerable<IReadConfigurationItem> ParseElements(IEnumerable<XElement> elements)
+        private IEnumerable<IConfigurationItem> ParseElements(IEnumerable<XElement> elements)
         {
             foreach (XElement element in elements)
             {
@@ -227,9 +228,9 @@ namespace Ringtoets.Common.IO.Readers
             }
         }
 
-        private ReadCalculationGroup ParseFolderElement(XElement folderElement)
+        private CalculationConfigurationGroup ParseFolderElement(XElement folderElement)
         {
-            return new ReadCalculationGroup(folderElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute)?.Value,
+            return new CalculationConfigurationGroup(folderElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute)?.Value,
                                             ParseElements(folderElement.Elements()));
         }
     }

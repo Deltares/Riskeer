@@ -21,47 +21,73 @@
 
 using System.Collections.Generic;
 using System.IO;
-using System.Xml;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.IO;
 using Ringtoets.Common.IO.Configurations;
+using Ringtoets.Common.IO.TestUtil;
+using Ringtoets.Common.IO.Writers;
 
 namespace Ringtoets.HeightStructures.IO.Test
 {
     [TestFixture]
-    public class HeightStructuresCalculationConfigurationXmlWriterExtensionsTest
+    public class HeightStructuresCalculationConfigurationWriterTest
+        : CustomSchemaCalculationConfigurationWriterDesignGuidelinesTestFixture<
+            HeightStructuresCalculationConfigurationWriter,
+            HeightStructureCalculationConfiguration>
     {
         private readonly string testDataPath = TestHelper.GetTestDataPath(
-                    TestDataPath.Ringtoets.HeightStructures.IO,
-                    nameof(HeightStructuresCalculationConfigurationXmlWriterExtensions));
+            TestDataPath.Ringtoets.HeightStructures.IO,
+            nameof(HeightStructuresCalculationConfigurationWriter));
 
         private static IEnumerable<TestCaseData> Calculations
         {
             get
             {
-                yield return new TestCaseData("completeConfiguration", CreateFullCalculation())
+                yield return new TestCaseData("completeConfiguration", new[]
+                    {
+                        CreateFullCalculation()
+                    })
                     .SetName("Calculation configuration with all parameters set");
-                yield return new TestCaseData("sparseConfiguration", new HeightStructureCalculationConfiguration("sparse config"))
+                yield return new TestCaseData("sparseConfiguration", new[]
+                    {
+                        new HeightStructureCalculationConfiguration("sparse config")
+                    })
+                    .SetName("Calculation configuration with none of its parameters set");
+                yield return new TestCaseData("folderWithSubfolderAndCalculation", new IConfigurationItem[]
+                    {
+                        new CalculationConfigurationGroup("Testmap", new IConfigurationItem[]
+                        {
+                            new HeightStructureCalculationConfiguration("sparse config"),
+                            new CalculationConfigurationGroup("Nested", new IConfigurationItem[]
+                            {
+                                CreateFullCalculation()
+                            })
+                        })
+                    })
                     .SetName("Calculation configuration with none of its parameters set");
             }
         }
 
+        protected override void AssertDefaultConstructedInstance(HeightStructuresCalculationConfigurationWriter writer)
+        {
+            Assert.IsInstanceOf<StructureCalculationConfigurationWriter<HeightStructureCalculationConfiguration>>(writer);
+        }
+
         [Test]
         [TestCaseSource(nameof(Calculations))]
-        public void Write_ValidCalculationCalculation_ValidFile(string expectedFileName, HeightStructureCalculationConfiguration calculation)
+        public void Write_ValidCalculationCalculation_ValidFile(string expectedFileName, HeightStructureCalculationConfiguration[] configuration)
         {
             // Setup
             string filePath = TestHelper.GetScratchPadPath("test.xml");
 
             try
             {
+                var writer = new HeightStructuresCalculationConfigurationWriter(filePath);
+
                 // Call
-                using (var writer = CreateXmlWriter(filePath))
-                {
-                    writer.WriteHeightStructure(calculation);
-                }
+                writer.Write(configuration);
 
                 // Assert
                 Assert.IsTrue(File.Exists(filePath));
@@ -81,7 +107,7 @@ namespace Ringtoets.HeightStructures.IO.Test
         private static HeightStructureCalculationConfiguration CreateFullCalculation()
         {
             return new HeightStructureCalculationConfiguration("Berekening 1")
-            { 
+            {
                 HydraulicBoundaryLocationName = "Locatie1",
                 StructureName = "kunstwerk1",
                 ForeshoreProfileName = "profiel1",
@@ -135,12 +161,9 @@ namespace Ringtoets.HeightStructures.IO.Test
             };
         }
 
-        private static XmlWriter CreateXmlWriter(string filePath)
+        protected override HeightStructuresCalculationConfigurationWriter CreateWriterInstance(string filePath)
         {
-            return XmlWriter.Create(filePath, new XmlWriterSettings
-            {
-                Indent = true
-            });
+            return new HeightStructuresCalculationConfigurationWriter(filePath);
         }
     }
 }

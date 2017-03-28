@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
+using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Readers;
 
 namespace Ringtoets.Common.IO.Test.Readers
@@ -33,22 +34,22 @@ namespace Ringtoets.Common.IO.Test.Readers
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var nestedItems = new List<IReadConfigurationItem>
+            var nestedItems = new List<IConfigurationItem>
             {
                 new TestReadConfigurationItem(),
-                new ReadCalculationGroup("Nested calculation group", Enumerable.Empty<IReadConfigurationItem>())
+                new CalculationConfigurationGroup("Nested calculation group", Enumerable.Empty<IConfigurationItem>())
             };
 
             // Call
-            var readCalculationGroup = new ReadCalculationGroup("Calculation group", nestedItems);
+            var readCalculationGroup = new CalculationConfigurationGroup("Calculation group", nestedItems);
 
             // Assert
-            Assert.IsInstanceOf<IReadConfigurationItem>(readCalculationGroup);
+            Assert.IsInstanceOf<IConfigurationItem>(readCalculationGroup);
             Assert.AreEqual("Calculation group", readCalculationGroup.Name);
             Assert.AreSame(nestedItems, readCalculationGroup.Items);
         }
 
-        private class TestReadConfigurationItem : IReadConfigurationItem
+        private class TestReadConfigurationItem : IConfigurationItem
         {
             public string Name
             {

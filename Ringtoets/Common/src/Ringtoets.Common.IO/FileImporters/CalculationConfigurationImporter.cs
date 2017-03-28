@@ -26,6 +26,7 @@ using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using log4net;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Properties;
 using Ringtoets.Common.IO.Readers;
 
@@ -39,7 +40,7 @@ namespace Ringtoets.Common.IO.FileImporters
     public abstract class CalculationConfigurationImporter<TCalculationConfigurationReader, TReadCalculation>
         : FileImporterBase<CalculationGroup>
         where TCalculationConfigurationReader : CalculationConfigurationReader<TReadCalculation>
-        where TReadCalculation : class, IReadConfigurationItem
+        where TReadCalculation : class, IConfigurationItem
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(CalculationConfigurationImporter<TCalculationConfigurationReader, TReadCalculation>));
 
@@ -61,7 +62,7 @@ namespace Ringtoets.Common.IO.FileImporters
         {
             NotifyProgress(Resources.CalculationConfigurationImporter_ProgressText_Reading_configuration, 1, 3);
 
-            ReadResult<IReadConfigurationItem> readResult = ReadConfiguration();
+            ReadResult<IConfigurationItem> readResult = ReadConfiguration();
             if (readResult.CriticalErrorOccurred || Canceled)
             {
                 return false;
@@ -71,7 +72,7 @@ namespace Ringtoets.Common.IO.FileImporters
 
             var parsedCalculationItems = new List<ICalculationBase>();
 
-            foreach (IReadConfigurationItem readItem in readResult.Items)
+            foreach (IConfigurationItem readItem in readResult.Items)
             {
                 if (Canceled)
                 {
@@ -126,11 +127,11 @@ namespace Ringtoets.Common.IO.FileImporters
                             message, calculationName);
         }
 
-        private ReadResult<IReadConfigurationItem> ReadConfiguration()
+        private ReadResult<IConfigurationItem> ReadConfiguration()
         {
             try
             {
-                return new ReadResult<IReadConfigurationItem>(false)
+                return new ReadResult<IConfigurationItem>(false)
                 {
                     Items = CreateCalculationConfigurationReader(FilePath).Read().ToList()
                 };
@@ -141,7 +142,7 @@ namespace Ringtoets.Common.IO.FileImporters
                 string errorMessage = string.Format(Resources.CalculationConfigurationImporter_HandleCriticalFileReadError_Error_0_no_configuration_imported,
                                                     exception.Message);
                 log.Error(errorMessage, exception);
-                return new ReadResult<IReadConfigurationItem>(true);
+                return new ReadResult<IConfigurationItem>(true);
             }
         }
 
@@ -151,9 +152,9 @@ namespace Ringtoets.Common.IO.FileImporters
         /// <param name="readConfigurationItem">The read item to parse.</param>
         /// <returns>A parsed calculation item.</returns>
         /// <exception cref="InvalidOperationException">Thrown when the item to parse is not valid.</exception>
-        private ICalculationBase ParseReadConfigurationItem(IReadConfigurationItem readConfigurationItem)
+        private ICalculationBase ParseReadConfigurationItem(IConfigurationItem readConfigurationItem)
         {
-            var readCalculationGroup = readConfigurationItem as ReadCalculationGroup;
+            var readCalculationGroup = readConfigurationItem as CalculationConfigurationGroup;
             if (readCalculationGroup != null)
             {
                 return ParseReadCalculationGroup(readCalculationGroup);
@@ -175,11 +176,11 @@ namespace Ringtoets.Common.IO.FileImporters
         /// <returns>A parsed calculation group.</returns>
         /// <exception cref="InvalidOperationException">Thrown when the one of the children
         /// to parse is not valid.</exception>
-        private CalculationGroup ParseReadCalculationGroup(ReadCalculationGroup readCalculationGroup)
+        private CalculationGroup ParseReadCalculationGroup(CalculationConfigurationGroup readCalculationGroup)
         {
             var calculationGroup = new CalculationGroup(readCalculationGroup.Name, true);
 
-            foreach (IReadConfigurationItem item in readCalculationGroup.Items)
+            foreach (IConfigurationItem item in readCalculationGroup.Items)
             {
                 ICalculationBase parsedItem = ParseReadConfigurationItem(item);
                 if (parsedItem != null)

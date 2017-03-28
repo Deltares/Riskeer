@@ -21,6 +21,7 @@
 
 using System;
 using Ringtoets.Common.IO;
+using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Readers;
 
 namespace Ringtoets.Revetment.IO.Readers
@@ -28,7 +29,7 @@ namespace Ringtoets.Revetment.IO.Readers
     /// <summary>
     /// Class that represents a wave conditions calculation that is read via <see cref="WaveConditionsCalculationConfigurationReader"/>.
     /// </summary>
-    public class ReadWaveConditionsCalculation : IReadConfigurationItem
+    public class ReadWaveConditionsCalculation : IConfigurationItem
     {
         /// <summary>
         /// Creates a new instance of <see cref="ReadWaveConditionsCalculation"/>.

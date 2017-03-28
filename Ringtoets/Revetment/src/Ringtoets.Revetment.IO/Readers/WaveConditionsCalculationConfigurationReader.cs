@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using Core.Common.Base.IO;
 using Ringtoets.Common.IO;
+using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Readers;
 using Ringtoets.Common.IO.Schema;
 using Ringtoets.Revetment.IO.Properties;
@@ -33,7 +34,7 @@ namespace Ringtoets.Revetment.IO.Readers
 {
     /// <summary>
     /// This class reads a wave conditions calculation configuration from XML and creates a collection of corresponding
-    /// <see cref="IReadConfigurationItem"/>, typically containing one or more <see cref="ReadWaveConditionsCalculation"/>.
+    /// <see cref="IConfigurationItem"/>, typically containing one or more <see cref="ReadWaveConditionsCalculation"/>.
     /// </summary>
     public class WaveConditionsCalculationConfigurationReader : CalculationConfigurationReader<ReadWaveConditionsCalculation>
     {

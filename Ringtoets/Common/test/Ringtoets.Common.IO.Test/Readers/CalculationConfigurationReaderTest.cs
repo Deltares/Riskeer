@@ -29,6 +29,7 @@ using System.Xml.Schema;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Readers;
 using Ringtoets.Common.IO.Schema;
 
@@ -265,12 +266,12 @@ namespace Ringtoets.Common.IO.Test.Readers
             var calculationConfigurationReader = new CalculationConfigurationReader(filePath, validMainSchemaDefinition, new Dictionary<string, string>());
 
             // Call
-            IList<IReadConfigurationItem> readConfigurationItems = calculationConfigurationReader.Read().ToList();
+            IList<IConfigurationItem> readConfigurationItems = calculationConfigurationReader.Read().ToList();
 
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
 
-            var group = readConfigurationItems[0] as ReadCalculationGroup;
+            var group = readConfigurationItems[0] as CalculationConfigurationGroup;
             Assert.IsNotNull(group);
             Assert.AreEqual("Calculation group", group.Name);
             CollectionAssert.IsEmpty(group.Items);
@@ -284,12 +285,12 @@ namespace Ringtoets.Common.IO.Test.Readers
             var calculationConfigurationReader = new CalculationConfigurationReader(filePath, validMainSchemaDefinition, new Dictionary<string, string>());
 
             // Call
-            IList<IReadConfigurationItem> readConfigurationItems = calculationConfigurationReader.Read().ToList();
+            IList<IConfigurationItem> readConfigurationItems = calculationConfigurationReader.Read().ToList();
 
             // Assert
             Assert.AreEqual(5, readConfigurationItems.Count);
 
-            var group1 = readConfigurationItems[0] as ReadCalculationGroup;
+            var group1 = readConfigurationItems[0] as CalculationConfigurationGroup;
             Assert.IsNotNull(group1);
             Assert.AreEqual("Group 1", group1.Name);
 
@@ -297,7 +298,7 @@ namespace Ringtoets.Common.IO.Test.Readers
             Assert.IsNotNull(calculation1);
             Assert.AreEqual("Calculation 1", calculation1.Name);
 
-            var group2 = readConfigurationItems[2] as ReadCalculationGroup;
+            var group2 = readConfigurationItems[2] as CalculationConfigurationGroup;
             Assert.IsNotNull(group2);
             Assert.AreEqual("Group 2", group2.Name);
 
@@ -305,21 +306,21 @@ namespace Ringtoets.Common.IO.Test.Readers
             Assert.IsNotNull(calculation2);
             Assert.AreEqual("Calculation 2", calculation2.Name);
 
-            var group3 = readConfigurationItems[4] as ReadCalculationGroup;
+            var group3 = readConfigurationItems[4] as CalculationConfigurationGroup;
             Assert.IsNotNull(group3);
             Assert.AreEqual("Group 3", group3.Name);
 
-            List<IReadConfigurationItem> group1Items = group1.Items.ToList();
+            List<IConfigurationItem> group1Items = group1.Items.ToList();
             Assert.AreEqual(1, group1Items.Count);
 
             var calculation3 = group1Items[0] as ReadCalculation;
             Assert.IsNotNull(calculation3);
             Assert.AreEqual("Calculation 3", calculation3.Name);
 
-            List<IReadConfigurationItem> group2Items = group2.Items.ToList();
+            List<IConfigurationItem> group2Items = group2.Items.ToList();
             Assert.AreEqual(2, group2Items.Count);
 
-            var group4 = group2Items[0] as ReadCalculationGroup;
+            var group4 = group2Items[0] as CalculationConfigurationGroup;
             Assert.IsNotNull(group4);
             Assert.AreEqual("Group 4", group4.Name);
 
@@ -327,10 +328,10 @@ namespace Ringtoets.Common.IO.Test.Readers
             Assert.IsNotNull(calculation4);
             Assert.AreEqual("Calculation 4", calculation4.Name);
 
-            List<IReadConfigurationItem> group3Items = group3.Items.ToList();
+            List<IConfigurationItem> group3Items = group3.Items.ToList();
             Assert.AreEqual(0, group3Items.Count);
 
-            List<IReadConfigurationItem> group4Items = group4.Items.ToList();
+            List<IConfigurationItem> group4Items = group4.Items.ToList();
             Assert.AreEqual(1, group4Items.Count);
 
             var calculation5 = group4Items[0] as ReadCalculation;
@@ -356,7 +357,7 @@ namespace Ringtoets.Common.IO.Test.Readers
             }
         }
 
-        private class ReadCalculation : IReadConfigurationItem
+        private class ReadCalculation : IConfigurationItem
         {
             public ReadCalculation(string name)
             {

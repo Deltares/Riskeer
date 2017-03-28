@@ -5,53 +5,56 @@
       <hrlocatie>Locatie1</hrlocatie>
       <kunstwerk>kunstwerk1</kunstwerk>
       <orientatie>67.1</orientatie>
-      <faalkansgegevenerosiebodem>1E-6</faalkansgegevenerosiebodem>
+      <faalkansgegevenerosiebodem>1E-06</faalkansgegevenerosiebodem>
       <voorlandprofiel>profiel1</voorlandprofiel>
       <golfreductie>
         <damgebruiken>true</damgebruiken>
         <damtype>havendam</damtype>
-        <damhoogte>1.234</damhoogte>
+        <damhoogte>1.23</damhoogte>
         <voorlandgebruiken>true</voorlandgebruiken>
       </golfreductie>
       <stochasten>
-        <stochast naam="stormduur">
-          <verwachtingswaarde>6.0</verwachtingswaarde>
-        </stochast>
-        <stochast naam="modelfactoroverloopdebiet">
-          <verwachtingswaarde>1.10</verwachtingswaarde>
-        </stochast>
         <stochast naam="breedtebodembescherming">
           <verwachtingswaarde>15.2</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
         <stochast naam="breedtedoorstroomopening">
           <verwachtingswaarde>13.2</verwachtingswaarde>
-          <standaardafwijking>0.2</standaardafwijking>
+          <standaardafwijking>0.3</standaardafwijking>
         </stochast>
-        <stochast naam="komergendoppervlak">
+        <stochast naam="kombergendoppervlak">
           <verwachtingswaarde>15000</verwachtingswaarde>
           <variatiecoefficient>0.01</variatiecoefficient>
-        </stochast>
-        <stochast naam="peilverhogingkomberging">
-          <verwachtingswaarde>0.2</verwachtingswaarde>
-          <standaardafwijking>0.01</standaardafwijking>
-        </stochast>
-        <stochast naam="kerendehoogte">
-          <verwachtingswaarde>4.3</verwachtingswaarde>
-          <standaardafwijking>0.2</standaardafwijking>
         </stochast>
         <stochast naam="kritiekinstromenddebiet">
           <verwachtingswaarde>2</verwachtingswaarde>
           <variatiecoefficient>0.1</variatiecoefficient>
         </stochast>
+        <stochast naam="modelfactoroverloopdebiet">
+          <verwachtingswaarde>1.1</verwachtingswaarde>
+        </stochast>
+        <stochast naam="peilverhogingkomberging">
+          <verwachtingswaarde>0.2</verwachtingswaarde>
+          <standaardafwijking>0.01</standaardafwijking>
+        </stochast>
+        <stochast naam="stormduur">
+          <verwachtingswaarde>6</verwachtingswaarde>
+        </stochast>
+        <stochast naam="kerendehoogte">
+          <verwachtingswaarde>4.3</verwachtingswaarde>
+          <standaardafwijking>0.2</standaardafwijking>
+        </stochast>
       </stochasten>
     </berekening>
     <map naam="Nested">
       <berekening naam="Berekening 2">
-        <hbnberekenen>niet</hbnberekenen>
+        <golfreductie />
         <stochasten>
+          <stochast naam="modelfactoroverloopdebiet">
+            <verwachtingswaarde>1.1</verwachtingswaarde>
+          </stochast>
           <stochast naam="stormduur">
-            <verwachtingswaarde>13.9</verwachtingswaarde>
+            <verwachtingswaarde>6</verwachtingswaarde>
           </stochast>
         </stochasten>
       </berekening>

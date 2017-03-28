@@ -48,6 +48,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
             var configuration = new SimpleStructureCalculationConfiguration(name);
 
             // Assert
+            Assert.IsInstanceOf<IConfigurationItem>(configuration);
             Assert.AreEqual(name, configuration.Name);
             Assert.IsNull(configuration.ModelFactorSuperCriticalFlow);
             Assert.IsNull(configuration.StructureName);

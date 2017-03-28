@@ -20,13 +20,14 @@
 // All rights reserved.
 
 using System;
+using Ringtoets.Common.IO.Readers;
 
 namespace Ringtoets.Common.IO.Configurations
 {
     /// <summary>
     /// Configuration of a structure calculation.
     /// </summary>
-    public abstract class StructureCalculationConfiguration
+    public abstract class StructureCalculationConfiguration : IConfigurationItem
     {
         private string name;
 

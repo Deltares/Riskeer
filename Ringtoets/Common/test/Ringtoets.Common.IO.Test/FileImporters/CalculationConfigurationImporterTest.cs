@@ -30,6 +30,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.Readers;
 using Ringtoets.Common.IO.Schema;
@@ -240,7 +241,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             }
         }
 
-        private class ReadCalculation : IReadConfigurationItem
+        private class ReadCalculation : IConfigurationItem
         {
             public ReadCalculation(string name)
             {

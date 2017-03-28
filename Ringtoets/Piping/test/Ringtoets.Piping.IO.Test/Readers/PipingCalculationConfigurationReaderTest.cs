@@ -26,6 +26,7 @@ using System.Xml.Schema;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Readers;
 using Ringtoets.Piping.IO.Readers;
 
@@ -183,7 +184,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
             var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
-            IList<IReadConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IList<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
 
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
@@ -211,7 +212,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
             var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
-            IList<IReadConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IList<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
 
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
@@ -231,7 +232,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
             var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
-            IList<IReadConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IList<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
 
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
@@ -254,7 +255,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
             var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
-            IList<IReadConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IList<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
 
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
@@ -286,7 +287,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
             var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
-            IList<IReadConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IList<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
 
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
@@ -314,7 +315,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
             var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
-            IList<IReadConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IList<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
 
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
@@ -342,7 +343,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
             var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
-            IList<IReadConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IList<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
 
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
@@ -370,7 +371,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
             var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
-            IList<IReadConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IList<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
 
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
@@ -390,7 +391,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
             var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
-            IList<IReadConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IList<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
 
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
@@ -410,7 +411,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
             var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
-            IList<IReadConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IList<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
 
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Readers;
 
 namespace Ringtoets.Piping.IO.Readers
@@ -27,7 +28,7 @@ namespace Ringtoets.Piping.IO.Readers
     /// <summary>
     /// Class that represents a piping calculation that is read via <see cref="PipingCalculationConfigurationReader"/>.
     /// </summary>
-    public class ReadPipingCalculation : IReadConfigurationItem
+    public class ReadPipingCalculation : IConfigurationItem
     {
         /// <summary>
         /// Creates a new instance of <see cref="ReadPipingCalculation"/>.

@@ -26,29 +26,34 @@ using Ringtoets.Common.IO.Writers;
 namespace Ringtoets.HeightStructures.IO
 {
     /// <summary>
-    /// Extension methods for an <see cref="XmlWriter"/>, for writing <see cref="HeightStructureCalculationConfiguration"/>
-    /// in XML format to file.
+    /// Writer for writing <see cref="HeightStructureCalculationConfiguration"/> in XML format to file.
     /// </summary>
-    public static class HeightStructuresCalculationConfigurationXmlWriterExtensions
+    public class HeightStructuresCalculationConfigurationWriter : StructureCalculationConfigurationWriter<HeightStructureCalculationConfiguration>
     {
         /// <summary>
-        /// Writes the <paramref name="configuration"/> in XML format to file.
+        /// Creates a new instance of <see cref="HeightStructuresCalculationConfigurationWriter"/>.
         /// </summary>
-        /// <param name="writer">The writer to use for writing.</param>
-        /// <param name="configuration">The dictionary of distributions, keyed on name, to write.</param>
-        public static void WriteHeightStructure(this XmlWriter writer, HeightStructureCalculationConfiguration configuration)
+        /// <param name="filePath">The path of the file to write to.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
+        /// <remarks>A valid path:
+        /// <list type="bullet">
+        /// <item>is not empty or <c>null</c>,</item>
+        /// <item>does not consist out of only whitespace characters,</item>
+        /// <item>does not contain an invalid character,</item>
+        /// <item>does not end with a directory or path separator (empty file name).</item>
+        /// </list></remarks>
+        public HeightStructuresCalculationConfigurationWriter(string filePath) : base(filePath) {}
+        
+        protected override void WriteSpecificStructureParameters(HeightStructureCalculationConfiguration configuration, XmlWriter writer)
         {
-            writer.WriteStructure(configuration, WriteProperties, WriteStochasts);
         }
 
-        private static void WriteStochasts(HeightStructureCalculationConfiguration configuration, XmlWriter writer)
+        protected override void WriteSpecificStochasts(HeightStructureCalculationConfiguration configuration, XmlWriter writer)
         {
             if (configuration.LevelCrestStructure != null)
             {
                 writer.WriteDistribution(HeightStructuresConfigurationSchemaIdentifiers.LevelCrestStructureStochastName, configuration.LevelCrestStructure);
             }
         }
-
-        private static void WriteProperties(HeightStructureCalculationConfiguration configuration, XmlWriter writer) {}
     }
 }

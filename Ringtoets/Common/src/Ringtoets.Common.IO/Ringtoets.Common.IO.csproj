@@ -54,6 +54,7 @@
     </Compile>
     <Compile Include="AssessmentSectionSettings.cs" />
     <Compile Include="AssessmentSectionSettingsReader.cs" />
+    <Compile Include="Configurations\IConfigurationItem.cs" />
     <Compile Include="Configurations\MeanVariationCoefficientStochastConfiguration.cs" />
     <Compile Include="Configurations\MeanStandardDeviationStochastConfiguration.cs" />
     <Compile Include="Configurations\WaveReductionConfiguration.cs" />
@@ -89,8 +90,7 @@
     <Compile Include="Readers\CalculationConfigurationReader.cs" />
     <Compile Include="ReadBreakWaterType.cs" />
     <Compile Include="Readers\XElementExtensions.cs" />
-    <Compile Include="Readers\IReadConfigurationItem.cs" />
-    <Compile Include="Readers\ReadCalculationGroup.cs" />
+    <Compile Include="Configurations\CalculationConfigurationGroup.cs" />
     <Compile Include="Readers\CombinedXmlSchemaDefinition.cs" />
     <Compile Include="ReferenceLines\IReferenceLineReplaceHandler.cs" />
     <Compile Include="ReferenceLines\ReferenceLineExporter.cs" />
@@ -106,6 +106,7 @@
     <Compile Include="ReferenceLines\ReferenceLineImporter.cs" />
     <Compile Include="ReferenceLines\ReferenceLineReader.cs" />
     <Compile Include="ReferenceLines\ReferenceLineWriter.cs" />
+    <Compile Include="Exporters\SchemaCalculationConfigurationExporter.cs" />
     <Compile Include="Schema\ConfigurationSchemaIdentifiers.cs" />
     <Compile Include="Configurations\StructureCalculationConfiguration.cs" />
     <Compile Include="Structures\StructureFilesKeywords.cs" />
@@ -116,8 +117,9 @@
     <Compile Include="Structures\StructureLocationReader.cs" />
     <Compile Include="Structures\VarianceType.cs" />
     <Compile Include="Structures\ValidationResult.cs" />
+    <Compile Include="Writers\SchemaCalculationConfigurationWriter.cs" />
     <Compile Include="Writers\CalculationConfigurationWriter.cs" />
-    <Compile Include="Writers\StructureCalculationConfigurationXmlWriterExtensions.cs" />
+    <Compile Include="Writers\StructureCalculationConfigurationWriter.cs" />
     <Compile Include="Writers\XmlWriterExtensions.cs" />
   </ItemGroup>
   <ItemGroup>

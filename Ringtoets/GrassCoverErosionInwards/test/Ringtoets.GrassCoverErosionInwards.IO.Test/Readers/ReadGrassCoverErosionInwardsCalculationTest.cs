@@ -22,6 +22,7 @@
 using System;
 using NUnit.Framework;
 using Ringtoets.Common.IO;
+using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Readers;
 using Ringtoets.GrassCoverErosionInwards.IO.Readers;
 
@@ -49,7 +50,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
             var readCalculation = new ReadGrassCoverErosionInwardsCalculation(constructionProperties);
 
             // Assert
-            Assert.IsInstanceOf<IReadConfigurationItem>(readCalculation);
+            Assert.IsInstanceOf<IConfigurationItem>(readCalculation);
             Assert.IsNull(readCalculation.Name);
             Assert.IsNull(readCalculation.HydraulicBoundaryLocation);
             Assert.IsNull(readCalculation.DikeProfile);
