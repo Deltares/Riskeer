@@ -77,7 +77,7 @@ namespace Ringtoets.HeightStructures.IO.Test
 
         [Test]
         [TestCaseSource(nameof(Calculations))]
-        public void Write_ValidCalculationCalculation_ValidFile(string expectedFileName, IConfigurationItem[] configuration)
+        public void Write_ValidCalculation_ValidFile(string expectedFileName, IConfigurationItem[] configuration)
         {
             // Setup
             string filePath = TestHelper.GetScratchPadPath("test.xml");

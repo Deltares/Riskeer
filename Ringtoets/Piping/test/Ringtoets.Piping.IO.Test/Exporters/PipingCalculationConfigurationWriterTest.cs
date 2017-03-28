@@ -137,7 +137,7 @@ namespace Ringtoets.Piping.IO.Test.Exporters
 
         [Test]
         [TestCaseSource(nameof(Calculations))]
-        public void Write_ValidCalculationCalculation_ValidFile(string expectedFileName, PipingCalculation calculation)
+        public void Write_ValidCalculation_ValidFile(string expectedFileName, PipingCalculation calculation)
         {
             // Setup
             string filePath = TestHelper.GetScratchPadPath("test.xml");
