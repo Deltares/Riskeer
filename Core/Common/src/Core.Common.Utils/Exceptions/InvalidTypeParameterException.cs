@@ -62,8 +62,8 @@ namespace Core.Common.Utils.Exceptions
         /// with a specified error message.
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
-        /// <param name="inner">The exception that is the cause of the current exception, 
-        /// or a null reference if no inner exception is specified.</param>
+        /// <param name="inner">The exception that is the cause of the current exception,
+        /// or <c>null</c> if no inner exception is specified.</param>
         public InvalidTypeParameterException(string message, Exception inner)
             : base(message, inner) {}
 
@@ -74,8 +74,8 @@ namespace Core.Common.Utils.Exceptions
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
         /// <param name="typeParamName">The name of the type parameter that caused the exception.</param>
-        /// <param name="inner">The exception that is the cause of the current exception, 
-        ///     or a null reference if no inner exception is specified.</param>
+        /// <param name="inner">The exception that is the cause of the current exception,
+        /// or <c>null</c> if no inner exception is specified.</param>
         public InvalidTypeParameterException(string message, string typeParamName, Exception inner) : base(message, inner)
         {
             TypeParamName = typeParamName;

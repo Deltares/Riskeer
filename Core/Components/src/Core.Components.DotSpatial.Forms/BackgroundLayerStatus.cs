@@ -85,7 +85,8 @@ namespace Core.Components.DotSpatial.Forms
         /// </summary>
         /// <param name="mapData">The map data.</param>
         /// <returns>Returns <c>true</c> if <paramref name="mapData"/> corresponds with
-        /// <see cref="BackgroundLayer"/>, or <c>false</c> when this is not the case.</returns>
+        /// <see cref="BackgroundLayer"/>, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="mapData"/> is <c>null</c>.</exception>
         public bool HasSameConfiguration(ImageBasedMapData mapData)
         {
             if (mapData == null)
@@ -110,8 +111,19 @@ namespace Core.Components.DotSpatial.Forms
             }
         }
 
+        /// <summary>
+        /// Template method that marks that a (new) background layer has successfully been initialized.
+        /// </summary>
+        /// <param name="backgroundLayer">The constructed layer.</param>
+        /// <param name="dataSource">The data used to construct <paramref name="backgroundLayer"/>.</param>
         protected abstract void OnLayerInitializationSuccessful(BruTileLayer backgroundLayer, ImageBasedMapData dataSource);
 
+        /// <summary>
+        /// Template method that indicates if a <see cref="ImageBasedMapData"/> corresponds with the <see cref="BackgroundLayer"/>.
+        /// </summary>
+        /// <param name="mapData">The map data.</param>
+        /// <returns>Returns <c>true</c> if <paramref name="mapData"/> corresponds with
+        /// <see cref="BackgroundLayer"/>, <c>false</c> otherwise.</returns>
         protected abstract bool OnHasSameConfiguration(ImageBasedMapData mapData);
     }
 }
