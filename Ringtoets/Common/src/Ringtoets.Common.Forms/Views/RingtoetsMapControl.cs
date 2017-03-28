@@ -113,7 +113,7 @@ namespace Ringtoets.Common.Forms.Views
             }
             else if (backgroundData.Configuration is WellKnownBackgroundDataConfiguration)
             {
-                ((WellKnownTileSourceMapData) BackgroundMapData).TileSource = ((WellKnownTileSourceMapData) newData).TileSource;
+                ((WellKnownTileSourceMapData) BackgroundMapData).SetTileSource(((WellKnownTileSourceMapData) newData).TileSource);
             }
 
             BackgroundMapData.IsVisible = newData.IsVisible;

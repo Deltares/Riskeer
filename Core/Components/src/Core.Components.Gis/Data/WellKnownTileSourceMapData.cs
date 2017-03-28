@@ -32,18 +32,42 @@ namespace Core.Components.Gis.Data
         /// <summary>
         /// Initializes a new instance of <see cref="WellKnownTileSourceMapData"/>.
         /// </summary>
-        /// <param name="source">The tile source.</param>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="source"/>
+        /// <param name="tileSource">The tile source.</param>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="tileSource"/>
         /// isn't a member of <see cref="WellKnownTileSource"/>.</exception>
-        public WellKnownTileSourceMapData(WellKnownTileSource source) : base(TypeUtils.GetDisplayName(source))
+        public WellKnownTileSourceMapData(WellKnownTileSource tileSource) : base(GetTileSourceName(tileSource))
         {
-            TileSource = source;
+            TileSource = tileSource;
             IsConfigured = true;
         }
 
         /// <summary>
         /// Gets or sets the tile source of the map data.
         /// </summary>
-        public WellKnownTileSource TileSource { get; set; }
+        public WellKnownTileSource TileSource { get; private set; }
+
+        /// <summary>
+        /// Sets the tile source of the map data.
+        /// </summary>
+        /// <param name="tileSource">The <see cref="WellKnownTileSource"/> to set.</param>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="tileSource"/>
+        /// isn't a member of <see cref="WellKnownTileSource"/>.</exception>
+        public void SetTileSource(WellKnownTileSource tileSource)
+        {
+            Name = GetTileSourceName(tileSource);
+            TileSource = tileSource;
+        }
+
+        /// <summary>
+        /// Gets the name of the given tile source.
+        /// </summary>
+        /// <param name="tileSource">The tile source to get the name from.</param>
+        /// <returns>The display name of the enum value.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="tileSource"/>
+        /// isn't a member of <see cref="WellKnownTileSource"/>.</exception> 
+        private static string GetTileSourceName(WellKnownTileSource tileSource)
+        {
+            return TypeUtils.GetDisplayName(tileSource);
+        }
     }
 }

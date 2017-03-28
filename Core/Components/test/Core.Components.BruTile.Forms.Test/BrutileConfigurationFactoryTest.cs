@@ -67,24 +67,6 @@ namespace Core.Components.BruTile.Forms.Test
         }
 
         [Test]
-        public void CreateInitializedConfiguration_InvalidWellKnownTileSource_ThrowConfigurationInitializationException()
-        {
-            // Setup
-            var wellKnownMapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial)
-            {
-                TileSource = (WellKnownTileSource) 99
-            };
-
-            // Call
-            TestDelegate test = () => BrutileConfigurationFactory.CreateInitializedConfiguration(wellKnownMapData);
-
-            // Assert
-            var exception = Assert.Throws<ConfigurationInitializationException>(test);
-            Assert.IsInstanceOf<NotSupportedException>(exception.InnerException);
-            Assert.AreEqual("Verbinden met '99' is mislukt waardoor geen kaartgegevens ingeladen kunnen worden.", exception.Message);
-        }
-
-        [Test]
         public void CreateInitializedConfiguration_WellKnownTileSourceFactoryThrowsNotSupportedException_ThrowConfigurationInitializationException()
         {
             // Setup

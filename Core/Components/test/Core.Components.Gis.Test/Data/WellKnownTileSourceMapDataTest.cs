@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
+using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using Core.Components.Gis.Data;
 using NUnit.Framework;
@@ -57,6 +59,48 @@ namespace Core.Components.Gis.Test.Data
             {
                 // Call
                 var mapData = new WellKnownTileSourceMapData(wellKnownTileSource);
+
+                // Assert
+                Assert.AreEqual(TypeUtils.GetDisplayName(wellKnownTileSource), mapData.Name);
+                Assert.AreEqual(wellKnownTileSource, mapData.TileSource);
+            }
+        }
+
+        [Test]
+        public void Constructor_UnknownTileSource_ThrowInvalidEnumArgumentException()
+        {
+            // Call
+            TestDelegate test = () => new WellKnownTileSourceMapData((WellKnownTileSource) 99);
+
+            // Assert
+            const string message = "The value of argument 'enumValue' (99) is invalid for Enum type 'WellKnownTileSource'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
+        }
+
+        [Test]
+        public void SetTileSource_UnknownTileSource_ThrowInvalidEnumArgumentException()
+        {
+            // Setup
+            var mapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial);
+
+            // Call
+            TestDelegate test = () => mapData.SetTileSource((WellKnownTileSource) 99);
+
+            // Assert
+            const string message = "The value of argument 'enumValue' (99) is invalid for Enum type 'WellKnownTileSource'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
+        }
+
+        [Test]
+        public void SetTileSource_ForAllWellKnownTileSources_ProperlySetName()
+        {
+            // Setup
+            var mapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial);
+
+            foreach (WellKnownTileSource wellKnownTileSource in Enum.GetValues(typeof(WellKnownTileSource)))
+            {
+                // Call
+                mapData.SetTileSource(wellKnownTileSource);
 
                 // Assert
                 Assert.AreEqual(TypeUtils.GetDisplayName(wellKnownTileSource), mapData.Name);

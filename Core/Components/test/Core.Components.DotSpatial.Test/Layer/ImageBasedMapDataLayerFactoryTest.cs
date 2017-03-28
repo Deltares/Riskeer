@@ -69,24 +69,6 @@ namespace Core.Components.DotSpatial.Test.Layer
         }
 
         [Test]
-        public void Create_InvalidWellKnownTileSource_ThrowConfigurationInitializationException()
-        {
-            // Setup
-            var wellKnownMapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial)
-            {
-                TileSource = (WellKnownTileSource)99
-            };
-
-            // Call
-            TestDelegate test = () => ImageBasedMapDataLayerFactory.Create(wellKnownMapData);
-
-            // Assert
-            var exception = Assert.Throws<ConfigurationInitializationException>(test);
-            Assert.IsInstanceOf<NotSupportedException>(exception.InnerException);
-            Assert.AreEqual("Verbinden met '99' is mislukt waardoor geen kaartgegevens ingeladen kunnen worden.", exception.Message);
-        }
-
-        [Test]
         public void Create_WellKnownTileSourceFactoryThrowsNotSupportedException_ThrowConfigurationInitializationException()
         {
             // Setup

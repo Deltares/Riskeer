@@ -275,6 +275,248 @@ namespace Core.Components.DotSpatial.Forms.Test
             return new Extent(minX, minY, maxX, maxY);
         }
 
+        [Test]
+        public void GivenMapControlWithoutData_WhenDataSetToMapDataCollection_ThenMapControlUpdated()
+        {
+            // Given
+            using (var map = new MapControl())
+            {
+                var mapPointData = new MapPointData("Points")
+                {
+                    Features = new[]
+                    {
+                        new MapFeature(new[]
+                        {
+                            new MapGeometry(new[]
+                            {
+                                new[]
+                                {
+                                    new Point2D(1.1, 2.2)
+                                }
+                            })
+                        })
+                    }
+                };
+                var mapLineData = new MapLineData("Lines");
+                var mapPolygonData = new MapPolygonData("Polygons");
+                var mapDataCollection = new MapDataCollection("Root collection");
+                var nestedMapDataCollection1 = new MapDataCollection("Nested collection 1");
+                var nestedMapDataCollection2 = new MapDataCollection("Nested collection 2");
+
+                mapDataCollection.Add(mapPointData);
+                mapDataCollection.Add(nestedMapDataCollection1);
+                nestedMapDataCollection1.Add(mapLineData);
+                nestedMapDataCollection1.Add(nestedMapDataCollection2);
+                nestedMapDataCollection2.Add(mapPolygonData);
+
+                // When
+                map.Data = mapDataCollection;
+
+                // Then
+                var mapView = map.Controls.OfType<Map>().First();
+                Assert.AreEqual(3, mapView.Layers.Count);
+                var featureLayers = mapView.Layers.Cast<FeatureLayer>().ToList();
+                Assert.AreEqual("Points", featureLayers[0].Name);
+                Assert.IsTrue(mapView.Projection.Equals(featureLayers[0].Projection));
+                Assert.AreEqual(1.1, featureLayers[0].FeatureSet.Features[0].BasicGeometry.Coordinates[0].X);
+                Assert.AreEqual(2.2, featureLayers[0].FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y);
+                Assert.AreEqual("Lines", featureLayers[1].Name);
+                Assert.IsTrue(mapView.Projection.Equals(featureLayers[1].Projection));
+                Assert.AreEqual("Polygons", featureLayers[2].Name);
+                Assert.IsTrue(mapView.Projection.Equals(featureLayers[2].Projection));
+            }
+        }
+
+        [Test]
+        public void GivenMapControlWithData_WhenDataSetToOtherMapDataCollection_ThenMapControlUpdated()
+        {
+            // Given
+            using (var map = new MapControl())
+            {
+                var mapView = map.Controls.OfType<Map>().First();
+                var mapPointData = new MapPointData("Points");
+                var mapLineData = new MapLineData("Lines");
+                var mapPolygonData = new MapPolygonData("Polygons");
+                var mapDataCollection1 = new MapDataCollection("Collection 1");
+                var mapDataCollection2 = new MapDataCollection("Collection 2");
+
+                mapDataCollection1.Add(mapPointData);
+                mapDataCollection2.Add(mapLineData);
+                mapDataCollection2.Add(mapPolygonData);
+
+                map.Data = mapDataCollection1;
+
+                // Precondition
+                Assert.AreEqual(1, mapView.Layers.Count);
+                Assert.AreEqual("Points", ((FeatureLayer)mapView.Layers[0]).Name);
+
+                // When
+                map.Data = mapDataCollection2;
+
+                // Then
+                Assert.AreEqual(2, mapView.Layers.Count);
+                var featureLayers = mapView.Layers.Cast<FeatureLayer>().ToList();
+                Assert.AreEqual("Lines", featureLayers[0].Name);
+                Assert.AreEqual("Polygons", featureLayers[1].Name);
+            }
+        }
+
+        [Test]
+        public void GivenMapControlWithData_WhenMapDataNotifiesChange_ThenAllLayersReused()
+        {
+            // Given
+            using (var map = new MapControl())
+            {
+                var mapView = map.Controls.OfType<Map>().First();
+                var mapPointData = new MapPointData("Points");
+                var mapLineData = new MapLineData("Lines");
+                var mapPolygonData = new MapPolygonData("Polygons");
+                var mapDataCollection = new MapDataCollection("Root collection");
+                var nestedMapDataCollection1 = new MapDataCollection("Nested collection 1");
+                var nestedMapDataCollection2 = new MapDataCollection("Nested collection 2");
+
+                mapDataCollection.Add(mapPointData);
+                mapDataCollection.Add(nestedMapDataCollection1);
+                nestedMapDataCollection1.Add(mapLineData);
+                nestedMapDataCollection1.Add(nestedMapDataCollection2);
+                nestedMapDataCollection2.Add(mapPolygonData);
+
+                map.Data = mapDataCollection;
+
+                IMapLayer[] layersBeforeUpdate = mapView.Layers.ToArray();
+
+                // When
+                mapLineData.Features = new MapFeature[0];
+                mapLineData.NotifyObservers();
+
+                // Then
+                CollectionAssert.AreEqual(layersBeforeUpdate, mapView.Layers);
+            }
+        }
+
+        [Test]
+        public void GivenMapControlWithData_WhenMapDataRemoved_ThenCorrespondingLayerRemovedAndOtherLayersReused()
+        {
+            // Given
+            using (var map = new MapControl())
+            {
+                var mapView = map.Controls.OfType<Map>().First();
+                var mapPointData = new MapPointData("Points");
+                var mapLineData = new MapLineData("Lines");
+                var mapPolygonData = new MapPolygonData("Polygons");
+                var mapDataCollection = new MapDataCollection("Root collection");
+                var nestedMapDataCollection1 = new MapDataCollection("Nested collection 1");
+                var nestedMapDataCollection2 = new MapDataCollection("Nested collection 2");
+
+                mapDataCollection.Add(mapPointData);
+                mapDataCollection.Add(nestedMapDataCollection1);
+                nestedMapDataCollection1.Add(mapLineData);
+                nestedMapDataCollection1.Add(nestedMapDataCollection2);
+                nestedMapDataCollection2.Add(mapPolygonData);
+
+                map.Data = mapDataCollection;
+
+                var layersBeforeUpdate = mapView.Layers.ToList();
+
+                // Precondition
+                Assert.AreEqual(3, layersBeforeUpdate.Count);
+
+                // When
+                nestedMapDataCollection1.Remove(mapLineData);
+                nestedMapDataCollection1.NotifyObservers();
+
+                // Then
+                Assert.AreEqual(2, mapView.Layers.Count);
+                var featureLayers = mapView.Layers.Cast<FeatureLayer>().ToList();
+                Assert.AreEqual("Points", featureLayers[0].Name);
+                Assert.AreEqual("Polygons", featureLayers[1].Name);
+                Assert.AreEqual(0, mapView.Layers.Except(layersBeforeUpdate).Count());
+            }
+        }
+
+        [Test]
+        public void GivenMapControlWithData_WhenMapDataAdded_ThenCorrespondingLayerAddedAndOtherLayersReused()
+        {
+            // Given
+            using (var map = new MapControl())
+            {
+                var mapView = map.Controls.OfType<Map>().First();
+                var mapPointData = new MapPointData("Points");
+                var mapLineData = new MapLineData("Lines");
+                var mapPolygonData = new MapPolygonData("Polygons");
+                var mapDataCollection = new MapDataCollection("Root collection");
+                var nestedMapDataCollection1 = new MapDataCollection("Nested collection 1");
+                var nestedMapDataCollection2 = new MapDataCollection("Nested collection 2");
+
+                mapDataCollection.Add(mapPointData);
+                mapDataCollection.Add(nestedMapDataCollection1);
+                nestedMapDataCollection1.Add(mapLineData);
+                nestedMapDataCollection1.Add(nestedMapDataCollection2);
+                nestedMapDataCollection2.Add(mapPolygonData);
+
+                map.Data = mapDataCollection;
+
+                var layersBeforeUpdate = mapView.Layers.ToList();
+
+                // Precondition
+                Assert.AreEqual(3, layersBeforeUpdate.Count);
+
+                // When
+                nestedMapDataCollection1.Insert(0, new MapPolygonData("Additional polygons"));
+                nestedMapDataCollection1.NotifyObservers();
+
+                // Then
+                Assert.AreEqual(4, mapView.Layers.Count);
+                var featureLayers = mapView.Layers.Cast<FeatureLayer>().ToList();
+                Assert.AreEqual("Points", featureLayers[0].Name);
+                Assert.AreEqual("Additional polygons", featureLayers[1].Name);
+                Assert.AreEqual("Lines", featureLayers[2].Name);
+                Assert.AreEqual("Polygons", featureLayers[3].Name);
+                Assert.AreEqual(0, layersBeforeUpdate.Except(mapView.Layers).Count());
+            }
+        }
+
+        [Test]
+        public void GivenMapControlWithData_WhenMapDataMoved_ThenCorrespondingLayerMovedAndAllLayersReused()
+        {
+            // Given
+            using (var map = new MapControl())
+            {
+                var mapView = map.Controls.OfType<Map>().First();
+                var mapPointData = new MapPointData("Points");
+                var mapLineData = new MapLineData("Lines");
+                var mapPolygonData = new MapPolygonData("Polygons");
+                var mapDataCollection = new MapDataCollection("Root collection");
+
+                mapDataCollection.Add(mapPointData);
+                mapDataCollection.Add(mapLineData);
+                mapDataCollection.Add(mapPolygonData);
+
+                map.Data = mapDataCollection;
+
+                var layersBeforeUpdate = mapView.Layers.Cast<FeatureLayer>().ToList();
+
+                // Precondition
+                Assert.AreEqual(3, layersBeforeUpdate.Count);
+                Assert.AreEqual("Points", layersBeforeUpdate[0].Name);
+                Assert.AreEqual("Lines", layersBeforeUpdate[1].Name);
+                Assert.AreEqual("Polygons", layersBeforeUpdate[2].Name);
+
+                // When
+                mapDataCollection.Remove(mapPointData);
+                mapDataCollection.Add(mapPointData);
+                mapDataCollection.NotifyObservers();
+
+                // Then
+                Assert.AreEqual(3, mapView.Layers.Count);
+                var featureLayers = mapView.Layers.Cast<FeatureLayer>().ToList();
+                Assert.AreEqual("Lines", featureLayers[0].Name);
+                Assert.AreEqual("Polygons", featureLayers[1].Name);
+                Assert.AreEqual("Points", featureLayers[2].Name);
+                Assert.AreEqual(0, layersBeforeUpdate.Except(featureLayers).Count());
+            }
+        }
+
         #region BackgroundMapData
 
         #region WmtsMapData
@@ -989,58 +1231,6 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void GivenMapControlWithoutData_WhenDataSetToMapDataCollection_ThenMapControlUpdated()
-        {
-            // Given
-            using (var map = new MapControl())
-            {
-                var mapPointData = new MapPointData("Points")
-                {
-                    Features = new[]
-                    {
-                        new MapFeature(new[]
-                        {
-                            new MapGeometry(new[]
-                            {
-                                new[]
-                                {
-                                    new Point2D(1.1, 2.2)
-                                }
-                            })
-                        })
-                    }
-                };
-                var mapLineData = new MapLineData("Lines");
-                var mapPolygonData = new MapPolygonData("Polygons");
-                var mapDataCollection = new MapDataCollection("Root collection");
-                var nestedMapDataCollection1 = new MapDataCollection("Nested collection 1");
-                var nestedMapDataCollection2 = new MapDataCollection("Nested collection 2");
-
-                mapDataCollection.Add(mapPointData);
-                mapDataCollection.Add(nestedMapDataCollection1);
-                nestedMapDataCollection1.Add(mapLineData);
-                nestedMapDataCollection1.Add(nestedMapDataCollection2);
-                nestedMapDataCollection2.Add(mapPolygonData);
-
-                // When
-                map.Data = mapDataCollection;
-
-                // Then
-                var mapView = map.Controls.OfType<Map>().First();
-                Assert.AreEqual(3, mapView.Layers.Count);
-                var featureLayers = mapView.Layers.Cast<FeatureLayer>().ToList();
-                Assert.AreEqual("Points", featureLayers[0].Name);
-                Assert.IsTrue(mapView.Projection.Equals(featureLayers[0].Projection));
-                Assert.AreEqual(1.1, featureLayers[0].FeatureSet.Features[0].BasicGeometry.Coordinates[0].X);
-                Assert.AreEqual(2.2, featureLayers[0].FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y);
-                Assert.AreEqual("Lines", featureLayers[1].Name);
-                Assert.IsTrue(mapView.Projection.Equals(featureLayers[1].Projection));
-                Assert.AreEqual("Polygons", featureLayers[2].Name);
-                Assert.IsTrue(mapView.Projection.Equals(featureLayers[2].Projection));
-            }
-        }
-
-        [Test]
         public void GivenMapControlWithBackground_WhenDataSetToMapDataCollection_FeatureLayersAreReprojected()
         {
             // Given
@@ -1215,196 +1405,6 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Assert.AreSame(originalProjection, pointsLayer.Projection);
 
                 Assert.AreSame(originalProjection, mapView.Projection);
-            }
-        }
-
-        [Test]
-        public void GivenMapControlWithData_WhenDataSetToOtherMapDataCollection_ThenMapControlUpdated()
-        {
-            // Given
-            using (var map = new MapControl())
-            {
-                var mapView = map.Controls.OfType<Map>().First();
-                var mapPointData = new MapPointData("Points");
-                var mapLineData = new MapLineData("Lines");
-                var mapPolygonData = new MapPolygonData("Polygons");
-                var mapDataCollection1 = new MapDataCollection("Collection 1");
-                var mapDataCollection2 = new MapDataCollection("Collection 2");
-
-                mapDataCollection1.Add(mapPointData);
-                mapDataCollection2.Add(mapLineData);
-                mapDataCollection2.Add(mapPolygonData);
-
-                map.Data = mapDataCollection1;
-
-                // Precondition
-                Assert.AreEqual(1, mapView.Layers.Count);
-                Assert.AreEqual("Points", ((FeatureLayer) mapView.Layers[0]).Name);
-
-                // When
-                map.Data = mapDataCollection2;
-
-                // Then
-                Assert.AreEqual(2, mapView.Layers.Count);
-                var featureLayers = mapView.Layers.Cast<FeatureLayer>().ToList();
-                Assert.AreEqual("Lines", featureLayers[0].Name);
-                Assert.AreEqual("Polygons", featureLayers[1].Name);
-            }
-        }
-
-        [Test]
-        public void GivenMapControlWithData_WhenMapDataNotifiesChange_ThenAllLayersReused()
-        {
-            // Given
-            using (var map = new MapControl())
-            {
-                var mapView = map.Controls.OfType<Map>().First();
-                var mapPointData = new MapPointData("Points");
-                var mapLineData = new MapLineData("Lines");
-                var mapPolygonData = new MapPolygonData("Polygons");
-                var mapDataCollection = new MapDataCollection("Root collection");
-                var nestedMapDataCollection1 = new MapDataCollection("Nested collection 1");
-                var nestedMapDataCollection2 = new MapDataCollection("Nested collection 2");
-
-                mapDataCollection.Add(mapPointData);
-                mapDataCollection.Add(nestedMapDataCollection1);
-                nestedMapDataCollection1.Add(mapLineData);
-                nestedMapDataCollection1.Add(nestedMapDataCollection2);
-                nestedMapDataCollection2.Add(mapPolygonData);
-
-                map.Data = mapDataCollection;
-
-                IMapLayer[] layersBeforeUpdate = mapView.Layers.ToArray();
-
-                // When
-                mapLineData.Features = new MapFeature[0];
-                mapLineData.NotifyObservers();
-
-                // Then
-                CollectionAssert.AreEqual(layersBeforeUpdate, mapView.Layers);
-            }
-        }
-
-        [Test]
-        public void GivenMapControlWithData_WhenMapDataRemoved_ThenCorrespondingLayerRemovedAndOtherLayersReused()
-        {
-            // Given
-            using (var map = new MapControl())
-            {
-                var mapView = map.Controls.OfType<Map>().First();
-                var mapPointData = new MapPointData("Points");
-                var mapLineData = new MapLineData("Lines");
-                var mapPolygonData = new MapPolygonData("Polygons");
-                var mapDataCollection = new MapDataCollection("Root collection");
-                var nestedMapDataCollection1 = new MapDataCollection("Nested collection 1");
-                var nestedMapDataCollection2 = new MapDataCollection("Nested collection 2");
-
-                mapDataCollection.Add(mapPointData);
-                mapDataCollection.Add(nestedMapDataCollection1);
-                nestedMapDataCollection1.Add(mapLineData);
-                nestedMapDataCollection1.Add(nestedMapDataCollection2);
-                nestedMapDataCollection2.Add(mapPolygonData);
-
-                map.Data = mapDataCollection;
-
-                var layersBeforeUpdate = mapView.Layers.ToList();
-
-                // Precondition
-                Assert.AreEqual(3, layersBeforeUpdate.Count);
-
-                // When
-                nestedMapDataCollection1.Remove(mapLineData);
-                nestedMapDataCollection1.NotifyObservers();
-
-                // Then
-                Assert.AreEqual(2, mapView.Layers.Count);
-                var featureLayers = mapView.Layers.Cast<FeatureLayer>().ToList();
-                Assert.AreEqual("Points", featureLayers[0].Name);
-                Assert.AreEqual("Polygons", featureLayers[1].Name);
-                Assert.AreEqual(0, mapView.Layers.Except(layersBeforeUpdate).Count());
-            }
-        }
-
-        [Test]
-        public void GivenMapControlWithData_WhenMapDataAdded_ThenCorrespondingLayerAddedAndOtherLayersReused()
-        {
-            // Given
-            using (var map = new MapControl())
-            {
-                var mapView = map.Controls.OfType<Map>().First();
-                var mapPointData = new MapPointData("Points");
-                var mapLineData = new MapLineData("Lines");
-                var mapPolygonData = new MapPolygonData("Polygons");
-                var mapDataCollection = new MapDataCollection("Root collection");
-                var nestedMapDataCollection1 = new MapDataCollection("Nested collection 1");
-                var nestedMapDataCollection2 = new MapDataCollection("Nested collection 2");
-
-                mapDataCollection.Add(mapPointData);
-                mapDataCollection.Add(nestedMapDataCollection1);
-                nestedMapDataCollection1.Add(mapLineData);
-                nestedMapDataCollection1.Add(nestedMapDataCollection2);
-                nestedMapDataCollection2.Add(mapPolygonData);
-
-                map.Data = mapDataCollection;
-
-                var layersBeforeUpdate = mapView.Layers.ToList();
-
-                // Precondition
-                Assert.AreEqual(3, layersBeforeUpdate.Count);
-
-                // When
-                nestedMapDataCollection1.Insert(0, new MapPolygonData("Additional polygons"));
-                nestedMapDataCollection1.NotifyObservers();
-
-                // Then
-                Assert.AreEqual(4, mapView.Layers.Count);
-                var featureLayers = mapView.Layers.Cast<FeatureLayer>().ToList();
-                Assert.AreEqual("Points", featureLayers[0].Name);
-                Assert.AreEqual("Additional polygons", featureLayers[1].Name);
-                Assert.AreEqual("Lines", featureLayers[2].Name);
-                Assert.AreEqual("Polygons", featureLayers[3].Name);
-                Assert.AreEqual(0, layersBeforeUpdate.Except(mapView.Layers).Count());
-            }
-        }
-
-        [Test]
-        public void GivenMapControlWithData_WhenMapDataMoved_ThenCorrespondingLayerMovedAndAllLayersReused()
-        {
-            // Given
-            using (var map = new MapControl())
-            {
-                var mapView = map.Controls.OfType<Map>().First();
-                var mapPointData = new MapPointData("Points");
-                var mapLineData = new MapLineData("Lines");
-                var mapPolygonData = new MapPolygonData("Polygons");
-                var mapDataCollection = new MapDataCollection("Root collection");
-
-                mapDataCollection.Add(mapPointData);
-                mapDataCollection.Add(mapLineData);
-                mapDataCollection.Add(mapPolygonData);
-
-                map.Data = mapDataCollection;
-
-                var layersBeforeUpdate = mapView.Layers.Cast<FeatureLayer>().ToList();
-
-                // Precondition
-                Assert.AreEqual(3, layersBeforeUpdate.Count);
-                Assert.AreEqual("Points", layersBeforeUpdate[0].Name);
-                Assert.AreEqual("Lines", layersBeforeUpdate[1].Name);
-                Assert.AreEqual("Polygons", layersBeforeUpdate[2].Name);
-
-                // When
-                mapDataCollection.Remove(mapPointData);
-                mapDataCollection.Add(mapPointData);
-                mapDataCollection.NotifyObservers();
-
-                // Then
-                Assert.AreEqual(3, mapView.Layers.Count);
-                var featureLayers = mapView.Layers.Cast<FeatureLayer>().ToList();
-                Assert.AreEqual("Lines", featureLayers[0].Name);
-                Assert.AreEqual("Polygons", featureLayers[1].Name);
-                Assert.AreEqual("Points", featureLayers[2].Name);
-                Assert.AreEqual(0, layersBeforeUpdate.Except(featureLayers).Count());
             }
         }
 
