@@ -63,7 +63,7 @@ namespace Ringtoets.Piping.Forms.Views
         }
 
         /// <summary>
-        /// Gets and sets the <see cref="PipingCalculationScenario"/> is relevant.
+        /// Gets or sets the <see cref="PipingCalculationScenario"/> is relevant.
         /// </summary>
         public bool IsRelevant
         {
@@ -79,7 +79,7 @@ namespace Ringtoets.Piping.Forms.Views
         }
 
         /// <summary>
-        /// Gets and sets the contribution of the <see cref="PipingCalculationScenario"/>.
+        /// Gets or sets the contribution of the <see cref="PipingCalculationScenario"/>.
         /// </summary>
         public RoundedDouble Contribution
         {

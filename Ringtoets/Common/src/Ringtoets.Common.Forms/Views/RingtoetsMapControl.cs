@@ -28,7 +28,7 @@ using Ringtoets.Common.Utils.TypeConverters;
 namespace Ringtoets.Common.Forms.Views
 {
     /// <summary>
-    /// This class describes a map view with background.
+    /// This class describes a map control with background.
     /// </summary>
     public class RingtoetsMapControl : MapControl
     {
@@ -45,7 +45,7 @@ namespace Ringtoets.Common.Forms.Views
         }
 
         /// <summary>
-        /// Gets ans sets the <see cref="BackgroundData"/>.
+        /// Gets or sets the <see cref="BackgroundData"/>.
         /// </summary>
         public BackgroundData BackgroundData
         {

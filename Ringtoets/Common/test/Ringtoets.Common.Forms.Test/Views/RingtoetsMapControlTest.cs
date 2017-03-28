@@ -49,7 +49,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         private DirectoryDisposeHelper directoryDisposeHelper;
         private TestSettingsHelper testSettingsHelper;
 
-        private static IEnumerable<TestCaseData> BackgroundTypes
+        private static IEnumerable<TestCaseData> BackgroundDataTypeTransitions
         {
             get
             {
@@ -167,7 +167,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        [TestCaseSource(nameof(BackgroundTypes))]
+        [TestCaseSource(nameof(BackgroundDataTypeTransitions))]
         public void GivenBackgroundData_WhenBackgroundDataChangedToOtherTypeAndNotified_ThenNewInstanceSetOnBackgroundMapData(
             BackgroundData originalBackgroundData,
             BackgroundData newBackgroundData)
@@ -209,7 +209,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
                 // Then
                 Assert.IsNotNull(control.BackgroundMapData);
-                Assert.AreNotEqual(oldMapData, control.BackgroundMapData);
+                Assert.AreNotSame(oldMapData, control.BackgroundMapData);
                 Assert.AreNotEqual(oldMapData.GetType(), control.BackgroundMapData.GetType());
                 mocks.VerifyAll(); // Expect no observers notified
             }

@@ -50,12 +50,12 @@ namespace Core.Common.Controls.DataGrid
         };
 
         /// <summary>
-        /// Gets and sets the color of the text.
+        /// Gets or sets the color of the text.
         /// </summary>
         public Color TextColor { get; private set; }
 
         /// <summary>
-        /// Gets and sets the color of the background.
+        /// Gets or sets the color of the background.
         /// </summary>
         public Color BackgroundColor { get; private set; }
     }

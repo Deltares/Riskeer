@@ -37,7 +37,7 @@ namespace Application.Ringtoets.Storage.DbContext
         double? TargetProbability { get; set; }
 
         /// <summary>
-        /// Gets or set the required (maximum allowed) reliability of the failure mechanism.
+        /// Gets or sets the required (maximum allowed) reliability of the failure mechanism.
         /// </summary>
         double? TargetReliability { get; set; }
 
