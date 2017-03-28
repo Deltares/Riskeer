@@ -100,14 +100,14 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
                                               "The 'damgebruiken' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
                     .SetName("invalidUseBreakWaterNoBoolean");
                 yield return new TestCaseData("invalidMultipleUseBreakWaters.xml",
-                                              "The element 'golfreductie' has invalid child element 'damgebruiken'.")
+                                              "Element 'damgebruiken' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidMultipleUseBreakWaters");
 
                 yield return new TestCaseData("invalidBreakWaterTypeEmpty.xml",
                                               "The 'damtype' element is invalid - The value '' is invalid according to its datatype 'String' - The Enumeration constraint failed.")
                     .SetName("invalidBreakWaterTypeEmpty");
                 yield return new TestCaseData("invalidMultipleBreakWaterTypes.xml",
-                                              "The element 'golfreductie' has invalid child element 'damtype'.")
+                                              "Element 'damtype' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidMultipleBreakWaterTypes");
                 yield return new TestCaseData("invalidBreakWaterTypeUnsupportedString.xml",
                                               "The 'damtype' element is invalid - The value 'invalid' is invalid according to its datatype 'String' - The Enumeration constraint failed.")
@@ -123,7 +123,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
                                               "The 'damhoogte' element is invalid - The value '1,2' is invalid according to its datatype 'Double'")
                     .SetName("invalidBreakWaterHeightWrongCulture");
                 yield return new TestCaseData("invalidMultipleBreakWaterHeights.xml",
-                                              "The element 'golfreductie' has invalid child element 'damhoogte'.")
+                                              "Element 'damhoogte' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidMultipleBreakWaterHeights");
 
                 yield return new TestCaseData("invalidUseForeshoreEmpty.xml",
@@ -133,7 +133,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
                                               "The 'voorlandgebruiken' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
                     .SetName("invalidUseForeshoreNoBoolean");
                 yield return new TestCaseData("invalidMultipleUseForeshore.xml",
-                                              "The element 'golfreductie' has invalid child element 'voorlandgebruiken'.")
+                                              "Element 'voorlandgebruiken' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidMultipleUseForeshores");
 
                 yield return new TestCaseData("invalidMultipleCriticalFlowRateStochast.xml",
@@ -307,10 +307,12 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
         }
 
         [Test]
-        public void Read_ValidConfigurationWithFullCalculation_ReturnExpectedReadCalculation()
+        [TestCase("validConfigurationFullCalculation.xml")]
+        [TestCase("validConfigurationFullCalculation_differentOrder.xml")]
+        public void Read_ValidConfigurationWithFullCalculation_ReturnExpectedReadCalculation(string fileName)
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, "validConfigurationFullCalculation.xml");
+            string filePath = Path.Combine(testDirectoryPath, fileName);
             var reader = new GrassCoverErosionInwardsCalculationConfigurationReader(filePath);
 
             // Call

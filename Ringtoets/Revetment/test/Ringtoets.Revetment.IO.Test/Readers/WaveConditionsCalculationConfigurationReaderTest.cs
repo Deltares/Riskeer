@@ -71,16 +71,16 @@ namespace Ringtoets.Revetment.IO.Test.Readers
                                               "Element 'golfreductie' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleWaveReduction");
                 yield return new TestCaseData("invalidCalculationMultipleDamUsage.xml",
-                                              "The element 'golfreductie' has invalid child element 'damgebruiken'.")
+                                              "Element 'damgebruiken' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleDamUsage");
                 yield return new TestCaseData("invalidCalculationMultipleDamType.xml",
-                                              "The element 'golfreductie' has invalid child element 'damtype'.")
+                                              "Element 'damtype' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleDamType");
                 yield return new TestCaseData("invalidCalculationMultipleDamHeight.xml",
-                                              "The element 'golfreductie' has invalid child element 'damhoogte'.")
+                                              "Element 'damhoogte' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleDamHeight");
                 yield return new TestCaseData("invalidCalculationMultipleForeshoreUsage.xml",
-                                              "The element 'golfreductie' has invalid child element 'voorlandgebruiken'.")
+                                              "Element 'voorlandgebruiken' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleForeshoreUsage");
                 yield return new TestCaseData("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocation.xml",
                                               "The 'hrlocatie' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
@@ -310,10 +310,12 @@ namespace Ringtoets.Revetment.IO.Test.Readers
         }
 
         [Test]
-        public void Read_ValidConfigurationWithFullCalculation_ReturnExpectedReadWaveConditionsCalculation()
+        [TestCase("validConfigurationFullCalculation.xml")]
+        [TestCase("validConfigurationFullCalculation_differentOrder.xml")]
+        public void Read_ValidConfigurationWithFullCalculation_ReturnExpectedReadWaveConditionsCalculation(string fileName)
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, "validConfigurationFullCalculation.xml");
+            string filePath = Path.Combine(testDirectoryPath, fileName);
             var reader = new WaveConditionsCalculationConfigurationReader(filePath);
 
             // Call
