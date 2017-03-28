@@ -185,16 +185,15 @@ namespace Core.Components.DotSpatial.Forms.Test
         {
             get
             {
-                var random = new Random();
-                var source = random.NextEnum<WellKnownTileSource>();
+                var source = new Random().NextEnum<WellKnownTileSource>();
                 yield return new TestCaseData(new WellKnownTileSourceMapData(source),
                                               WmtsMapData.CreateDefaultPdokMapData())
                     .SetName("WellKnownToWmts");
                 yield return new TestCaseData(WmtsMapData.CreateDefaultPdokMapData(),
                                               new WellKnownTileSourceMapData(source))
                     .SetName("WmtsToWellKnown");
-                yield return new TestCaseData(new WellKnownTileSourceMapData(random.NextEnum<WellKnownTileSource>()),
-                                              new WellKnownTileSourceMapData(random.NextEnum<WellKnownTileSource>()))
+                yield return new TestCaseData(new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial),
+                                              new WellKnownTileSourceMapData(WellKnownTileSource.BingHybrid))
                     .SetName("OtherWellKnownConfiguration");
                 yield return new TestCaseData(WmtsMapData.CreateDefaultPdokMapData(),
                                               WmtsMapData.CreateAlternativePdokMapData())
