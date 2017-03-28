@@ -103,6 +103,7 @@
     <Compile Include="Converter\MapPolygonDataConverterTest.cs" />
     <Compile Include="Converter\FeatureBasedMapDataConverterTest.cs" />
     <Compile Include="Layer\BruTile\BruTileLayerTest.cs" />
+    <Compile Include="Layer\ImageBasedMapDataLayerFactoryTest.cs" />
     <Compile Include="Projections\ReprojectExtensionsTest.cs" />
     <Compile Include="Projections\TileReprojectorTest.cs" />
     <Compile Include="Projections\WorldFileTest.cs" />
@@ -125,6 +126,14 @@
       <Project>{3BBFD65B-B277-4E50-AE6D-BD24C3434609}</Project>
       <Name>Core.Common.Base</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Gui\Core.Common.Gui.csproj">
+      <Project>{30e4c2ae-719e-4d70-9fa9-668a9767fbfa}</Project>
+      <Name>Core.Common.Gui</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\test\Core.Common.Gui.TestUtil\Core.Common.Gui.TestUtil.csproj">
+      <Project>{26214BD0-DAFB-4CFC-8EB2-80C5D53C859E}</Project>
+      <Name>Core.Common.Gui.TestUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
       <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
       <Name>Core.Common.TestUtil</Name>
@@ -145,9 +154,17 @@
       <Project>{318ba582-88c9-4816-a54a-a7e431461de3}</Project>
       <Name>Core.Components.Gis</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Core.Components.BruTile.TestUtil\Core.Components.BruTile.TestUtil.csproj">
+      <Project>{1081336C-D919-4249-AB33-9AF15F4D19EC}</Project>
+      <Name>Core.Components.BruTile.TestUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Core.Components.DotSpatial.TestUtil\Core.Components.DotSpatial.TestUtil.csproj">
       <Project>{9b6f3987-eaf7-4733-80c1-3dcab44d87ae}</Project>
       <Name>Core.Components.DotSpatial.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.Components.Gis.TestUtils\Core.Components.Gis.TestUtils.csproj">
+      <Project>{F0FB401A-3494-4237-9E6D-02CDF77912A8}</Project>
+      <Name>Core.Components.Gis.TestUtils</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

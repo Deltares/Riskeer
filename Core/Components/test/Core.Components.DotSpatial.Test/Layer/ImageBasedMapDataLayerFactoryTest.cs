@@ -30,36 +30,38 @@ using Core.Common.Gui.TestUtil.Settings;
 using Core.Common.TestUtil;
 using Core.Components.BruTile.Configurations;
 using Core.Components.BruTile.TestUtil;
+using Core.Components.DotSpatial.Layer;
+using Core.Components.DotSpatial.Layer.BruTile;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Exceptions;
 using Core.Components.Gis.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Components.BruTile.Forms.Test
+namespace Core.Components.DotSpatial.Test.Layer
 {
     [TestFixture]
-    public class BrutileConfigurationFactoryTest
+    public class ImageBasedMapDataLayerFactoryTest
     {
         [Test]
-        public void CreateInitializedConfiguration_MapDataNull_ThrowArgumentNullException()
+        public void Create_MapDataNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => BrutileConfigurationFactory.CreateInitializedConfiguration(null);
+            TestDelegate test = () => ImageBasedMapDataLayerFactory.Create(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("mapData", exception.ParamName);
+            Assert.AreEqual("backgroundMapData", exception.ParamName);
         }
 
         [Test]
-        public void CreateInitializedConfiguration_MapDataNotWellKnownOrWmts_ThrowNotSupportedException()
+        public void Create_MapDataNotWellKnownOrWmts_ThrowNotSupportedException()
         {
             // Setup
             var mapData = new TestImageBasedMapData("test", true);
 
             // Call
-            TestDelegate test = () => BrutileConfigurationFactory.CreateInitializedConfiguration(mapData);
+            TestDelegate test = () => ImageBasedMapDataLayerFactory.Create(mapData);
 
             // Assert
             var exception = Assert.Throws<NotSupportedException>(test);
@@ -67,16 +69,16 @@ namespace Core.Components.BruTile.Forms.Test
         }
 
         [Test]
-        public void CreateInitializedConfiguration_InvalidWellKnownTileSource_ThrowConfigurationInitializationException()
+        public void Create_InvalidWellKnownTileSource_ThrowConfigurationInitializationException()
         {
             // Setup
             var wellKnownMapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial)
             {
-                TileSource = (WellKnownTileSource) 99
+                TileSource = (WellKnownTileSource)99
             };
 
             // Call
-            TestDelegate test = () => BrutileConfigurationFactory.CreateInitializedConfiguration(wellKnownMapData);
+            TestDelegate test = () => ImageBasedMapDataLayerFactory.Create(wellKnownMapData);
 
             // Assert
             var exception = Assert.Throws<ConfigurationInitializationException>(test);
@@ -85,7 +87,7 @@ namespace Core.Components.BruTile.Forms.Test
         }
 
         [Test]
-        public void CreateInitializedConfiguration_WellKnownTileSourceFactoryThrowsNotSupportedException_ThrowConfigurationInitializationException()
+        public void Create_WellKnownTileSourceFactoryThrowsNotSupportedException_ThrowConfigurationInitializationException()
         {
             // Setup
             var factoryThrowingNotSupportedException = MockRepository.GenerateStub<ITileSourceFactory>();
@@ -97,7 +99,7 @@ namespace Core.Components.BruTile.Forms.Test
                 var wellKnownMapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial);
 
                 // Call
-                TestDelegate test = () => BrutileConfigurationFactory.CreateInitializedConfiguration(wellKnownMapData);
+                TestDelegate test = () => ImageBasedMapDataLayerFactory.Create(wellKnownMapData);
 
                 // Assert
                 var exception = Assert.Throws<ConfigurationInitializationException>(test);
@@ -107,21 +109,24 @@ namespace Core.Components.BruTile.Forms.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(GetBackgroundData))]
-        public void CreateInitializedConfiguration_CannotCreateFileCache_ThrowConfigurationInitializationException(ImageBasedMapData mapData)
+        [TestCaseSource(nameof(GetBackgroundData), new object[]
+        {
+            "CannotCreateFileCache"
+        })]
+        public void Create_CannotCreateFileCache_ThrowConfigurationInitializationException(ImageBasedMapData mapData)
         {
             // Setup
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                ApplicationLocalUserSettingsDirectory = Path.Combine(TestHelper.GetScratchPadPath(), nameof(BrutileConfigurationFactoryTest))
+                ApplicationLocalUserSettingsDirectory = Path.Combine(TestHelper.GetScratchPadPath(), nameof(ImageBasedMapDataLayerFactoryTest))
             }))
-            using (var disposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(BrutileConfigurationFactoryTest)))
+            using (var disposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(ImageBasedMapDataLayerFactoryTest)))
             using (new UseCustomTileSourceFactoryConfig(mapData))
             {
                 disposeHelper.LockDirectory(FileSystemRights.Write);
 
                 // Call
-                TestDelegate test = () => BrutileConfigurationFactory.CreateInitializedConfiguration(mapData);
+                TestDelegate test = () => ImageBasedMapDataLayerFactory.Create(mapData);
 
                 // Assert
                 var exception = Assert.Throws<ConfigurationInitializationException>(test);
@@ -131,33 +136,11 @@ namespace Core.Components.BruTile.Forms.Test
         }
 
         [Test]
-        public void CreateInitializedConfiguration_ValidWellKnownMapData_ReturnWellKnownTileSourceLayerConfiguration()
-        {
-            // Setup
-            var wellKnownMapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial);
-
-            using (new UseCustomSettingsHelper(new TestSettingsHelper
-            {
-                ApplicationLocalUserSettingsDirectory = Path.Combine(TestHelper.GetScratchPadPath(), nameof(BrutileConfigurationFactoryTest))
-            }))
-            using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(BrutileConfigurationFactoryTest)))
-            using (new UseCustomTileSourceFactoryConfig(wellKnownMapData))
-            {
-                // Call
-                IConfiguration configuration = BrutileConfigurationFactory.CreateInitializedConfiguration(wellKnownMapData);
-
-                // Assert
-                Assert.IsInstanceOf<WellKnownTileSourceLayerConfiguration>(configuration);
-                Assert.IsTrue(configuration.Initialized);
-            }
-        }
-
-        [Test]
         [TestCaseSource(nameof(GetProblematicTileSourceFactoryTestCaseData), new object[]
         {
-            "CreateInitializedConfiguration"
+            "Create"
         })]
-        public void CreateInitializedConfiguration_ProblematicTileSourceFactory_ThrowConfigurationInitializationException(ITileSourceFactory factory)
+        public void Create_ProblematicTileSourceFactory_ThrowConfigurationInitializationException(ITileSourceFactory factory)
         {
             // Setup
             WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
@@ -165,7 +148,7 @@ namespace Core.Components.BruTile.Forms.Test
             using (new UseCustomTileSourceFactoryConfig(factory))
             {
                 // Call
-                TestDelegate test = () => BrutileConfigurationFactory.CreateInitializedConfiguration(backgroundMapData);
+                TestDelegate test = () => ImageBasedMapDataLayerFactory.Create(backgroundMapData);
 
                 // Assert
                 var exception = Assert.Throws<ConfigurationInitializationException>(test);
@@ -175,24 +158,26 @@ namespace Core.Components.BruTile.Forms.Test
         }
 
         [Test]
-        public void CreateInitializedConfiguration_ValidWmtsMapData_ReturnWmtsTileSourceLayerConfiguration()
+        [TestCaseSource(nameof(GetBackgroundData), new object[]
+        {
+            "ValidData"
+        })]
+        public void Create_ValidData_ReturnBruTileLayer(ImageBasedMapData mapData)
         {
             // Setup
-            WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
-
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                ApplicationLocalUserSettingsDirectory = Path.Combine(TestHelper.GetScratchPadPath(), nameof(BrutileConfigurationFactoryTest))
+                ApplicationLocalUserSettingsDirectory = Path.Combine(TestHelper.GetScratchPadPath(), nameof(ImageBasedMapDataLayerFactoryTest))
             }))
-            using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(BrutileConfigurationFactoryTest)))
+            using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(ImageBasedMapDataLayerFactoryTest)))
             using (new UseCustomTileSourceFactoryConfig(mapData))
             {
                 // Call
-                IConfiguration configuration = BrutileConfigurationFactory.CreateInitializedConfiguration(mapData);
+                BruTileLayer layer = ImageBasedMapDataLayerFactory.Create(mapData);
 
                 // Assert
-                Assert.IsInstanceOf<WmtsLayerConfiguration>(configuration);
-                Assert.IsTrue(configuration.Initialized);
+                Assert.AreEqual(mapData.Transparency.Value, layer.Transparency);
+                Assert.AreEqual(mapData.IsVisible, layer.IsVisible);
             }
         }
 
@@ -221,13 +206,13 @@ namespace Core.Components.BruTile.Forms.Test
                 .SetName($"{prefix}: Tile source factory throws CannotFindTileSourceException.");
         }
 
-        private static IEnumerable<TestCaseData> GetBackgroundData()
+        private static IEnumerable<TestCaseData> GetBackgroundData(string prefix)
         {
             yield return new TestCaseData(new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial))
-                .SetName("WellKnownMapData");
+                .SetName($"{prefix}: WellKnownMapData");
 
             yield return new TestCaseData(WmtsMapData.CreateDefaultPdokMapData())
-                .SetName("WmtsMapData");
+                .SetName($"{prefix}: WmtsMapData");
         }
     }
 }

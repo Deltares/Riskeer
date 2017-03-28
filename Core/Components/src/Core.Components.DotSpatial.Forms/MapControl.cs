@@ -198,11 +198,11 @@ namespace Core.Components.DotSpatial.Forms
         /// </returns>
         private bool InitializeBackgroundLayer()
         {
-            IConfiguration configuration;
+            BruTileLayer backgroundLayer;
 
             try
             {
-                configuration = BrutileConfigurationFactory.CreateInitializedConfiguration(backgroundMapData);
+                backgroundLayer = ImageBasedMapDataLayerFactory.Create(backgroundMapData);
             }
             catch (ConfigurationInitializationException e)
             {
@@ -217,16 +217,11 @@ namespace Core.Components.DotSpatial.Forms
                 return false;
             }
 
-            if (configuration == null)
+            if (backgroundLayer == null)
             {
                 return false;
             }
 
-            var backgroundLayer = new BruTileLayer(configuration)
-            {
-                IsVisible = backgroundMapData.IsVisible,
-                Transparency = Convert.ToSingle(backgroundMapData.Transparency)
-            };
             backgroundLayerStatus.LayerInitializationSuccessful(backgroundLayer, backgroundMapData);
 
             return true;
