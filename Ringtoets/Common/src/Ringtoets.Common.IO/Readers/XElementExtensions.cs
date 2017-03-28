@@ -94,9 +94,12 @@ namespace Ringtoets.Common.IO.Readers
         /// <param name="descendantElementName">The name of the descendant element.</param>
         /// <returns>The converted value, or <c>null</c> when the <paramref name="parentElement"/>
         /// does not have descendant elements of <paramref name="descendantElementName"/>.</returns>
+        /// <exception cref="Exception">Thrown when calling <typeparamref name="TConverter"/>.
+        /// <see cref="TypeConverter.ConvertFrom(object)"/> results in an exception being thrown.</exception>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when the conversion cannot be performed.</exception>
-        public static object GetConvertedValueFromDescendantStringElement<TConverter>(this XElement parentElement, string descendantElementName) where TConverter : TypeConverter, new()
+        public static object GetConvertedValueFromDescendantStringElement<TConverter>(this XElement parentElement, string descendantElementName)
+            where TConverter : TypeConverter, new()
         {
             string stringValue = parentElement.GetStringValueFromDescendantElement(descendantElementName);
             if (stringValue == null)
@@ -114,9 +117,16 @@ namespace Ringtoets.Common.IO.Readers
         /// <param name="descendantElementName">The name of the descendant element.</param>
         /// <returns>The converted value, or <c>null</c> when the <paramref name="parentElement"/>
         /// does not have descendant elements of <paramref name="descendantElementName"/>.</returns>
+        /// <exception cref="Exception">Thrown when calling <typeparamref name="TConverter"/>.
+        /// <see cref="TypeConverter.ConvertFrom(object)"/> results in an exception being thrown.</exception>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="FormatException">Thrown when the value from a descendant element is
+        /// not in the correct format.</exception>
+        /// <exception cref="OverflowException">Thrown when the value from a descendant element 
+        /// represents a number less than <see cref="double.MinValue"/> or greater than <see cref="double.MaxValue"/>.</exception>
         /// <exception cref="NotSupportedException">Thrown when the conversion cannot be performed.</exception>
-        public static object GetConvertedValueFromDescendantDoubleElement<TConverter>(this XElement parentElement, string descendantElementName) where TConverter : TypeConverter, new()
+        public static object GetConvertedValueFromDescendantDoubleElement<TConverter>(this XElement parentElement, string descendantElementName)
+            where TConverter : TypeConverter, new()
         {
             double? doubleValue = parentElement.GetDoubleValueFromDescendantElement(descendantElementName);
             if (doubleValue == null)

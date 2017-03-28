@@ -294,6 +294,39 @@ namespace Ringtoets.Common.IO.Test.Readers
         }
 
         [Test]
+        public void GetConvertedValueFromDescendantStringElement_DescendantElementInvalidToConvert_ThrowException()
+        {
+            // Setup
+            const string descendantElementName = "value";
+            const string elementValue = "three";
+
+            var element = new XElement("Root", new XElement(descendantElementName, elementValue));
+
+            // Call
+            TestDelegate call = () => element.GetConvertedValueFromDescendantStringElement<DoubleConverter>(descendantElementName);
+
+            // Assert
+            Exception exception = Assert.Throws<Exception>(call);
+            Assert.AreEqual($"{elementValue} is not a valid value for Double.", exception.Message);
+        }
+
+        [Test]
+        public void GetConvertedValueFromDescendantStringElement_DescendantElementNotSupported_ThrowNotSupportedException()
+        {
+            // Setup
+            const string descendantElementName = "value";
+            const string elementValue = "3";
+
+            var element = new XElement("Root", new XElement(descendantElementName, elementValue));
+
+            // Call
+            TestDelegate call = () => element.GetConvertedValueFromDescendantStringElement<TypeConverter>(descendantElementName);
+
+            // Assert
+            Assert.Throws<NotSupportedException>(call);
+        }
+
+        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void GetConvertedValueFromDescendantStringElement_ValidDescendantElement_ReturnValue(bool value)
@@ -327,6 +360,20 @@ namespace Ringtoets.Common.IO.Test.Readers
         }
 
         [Test]
+        public void GetConvertedValueFromDescendantDoubleElement_ParentElementNull_ThrowArgumentNullException()
+        {
+            // Setup
+            XElement element = null;
+
+            // Call
+            TestDelegate test = () => element.GetConvertedValueFromDescendantDoubleElement<TypeConverter>("0");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("parentElement", exception.ParamName);
+        }
+
+        [Test]
         public void GetConvertedValueFromDescendantDoubleElement_DescendantElementNameNull_ThrowArgumentNullException()
         {
             // Setup
@@ -338,6 +385,72 @@ namespace Ringtoets.Common.IO.Test.Readers
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("descendantElementName", exception.ParamName);
+        }
+
+        [Test]
+        public void GetConvertedValueFromDescendantDoubleElement_ConvertFromThrowsException_ThrowException()
+        {
+            // Setup
+            const string descendantElementName = "value";
+            const double elementValue = 1;
+
+            var element = new XElement("Root", new XElement(descendantElementName, elementValue));
+
+            // Call
+            TestDelegate call = () => element.GetConvertedValueFromDescendantDoubleElement<ConverterThrowsExceptionOnConvertFrom>(
+                descendantElementName);
+
+            // Assert
+            Exception exception = Assert.Throws<Exception>(call);
+            Assert.AreEqual($"{elementValue} is not a valid value for the target type.", exception.Message);
+        }
+
+        [Test]
+        public void GetConvertedValueFromDescendantDoubleElement_DescendantElementInvalidFormat_ThrowFormatException()
+        {
+            // Setup
+            const string descendantElementName = "number";
+            const string descendantElementValue = "drie";
+
+            var element = new XElement("Root", new XElement(descendantElementName, descendantElementValue));
+
+            // Call
+            TestDelegate test = () => element.GetConvertedValueFromDescendantDoubleElement<TypeConverter>(descendantElementName);
+
+            // Assert
+            Assert.Throws<FormatException>(test);
+        }
+
+        [Test]
+        public void GetConvertedValueFromDescendantDoubleElement_DescendantElementOverflows_ThrowOverflowException()
+        {
+            // Setup
+            const string descendantElementName = "number";
+            string descendantElementValue = string.Format(CultureInfo.InvariantCulture, "1{0}", double.MaxValue);
+
+            var element = new XElement("Root", new XElement(descendantElementName, descendantElementValue));
+
+            // Call
+            TestDelegate test = () => element.GetConvertedValueFromDescendantDoubleElement<TypeConverter>(descendantElementName);
+
+            // Assert
+            Assert.Throws<OverflowException>(test);
+        }
+
+        [Test]
+        public void GetConvertedValueFromDescendantDoubleElement_DescendantElementNotSupportedByConverter_ThrowNotSupportedException()
+        {
+            // Setup
+            const string descendantElementName = "number";
+            const string descendantElementValue = "4";
+
+            var element = new XElement("Root", new XElement(descendantElementName, descendantElementValue));
+
+            // Call
+            TestDelegate test = () => element.GetConvertedValueFromDescendantDoubleElement<TypeConverter>(descendantElementName);
+
+            // Assert
+            Assert.Throws<NotSupportedException>(test);
         }
 
         [Test]
@@ -544,6 +657,14 @@ namespace Ringtoets.Common.IO.Test.Readers
                     return true;
                 }
                 return base.ConvertFrom(context, culture, value);
+            }
+        }
+
+        private class ConverterThrowsExceptionOnConvertFrom : TypeConverter
+        {
+            public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+            {
+                throw new Exception($"{value} is not a valid value for the target type.");
             }
         }
     }
