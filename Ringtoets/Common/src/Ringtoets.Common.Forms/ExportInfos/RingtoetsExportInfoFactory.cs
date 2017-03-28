@@ -38,9 +38,10 @@ namespace Ringtoets.Common.Forms.ExportInfos
     {
         /// <summary>
         /// Creates a <see cref="ExportInfo"/> object for a calculation group configuration
-        /// of the type <typeparamref name="TCalculationGroupContext"/>.        
+        /// of the type <typeparamref name="TCalculationGroupContext"/>.
         /// </summary>
-        /// <typeparam name="TCalculationGroupContext"></typeparam>
+        /// <typeparam name="TCalculationGroupContext">The type of calculation group context
+        /// to create the <see cref="ExportInfo"/> for.</typeparam>
         /// <param name="createFileExporter">The function to create the relevant exporter.</param>
         /// <param name="isEnabled">The function to enable the exporter.</param>
         /// <returns>An <see cref="ExportInfo"/> object.</returns>
@@ -52,8 +53,6 @@ namespace Ringtoets.Common.Forms.ExportInfos
             return new ExportInfo<TCalculationGroupContext>
             {
                 Name = Resources.CalculationConfigurationExporter_DisplayName,
-                Category = Resources.Ringtoets_Category,
-                Image = CoreCommonGuiResources.ExportIcon,
                 FileFilterGenerator = new FileFilterGenerator(Resources.DataTypeDisplayName_xml_file_filter_Extension,
                                                               Resources.DataTypeDisplayName_xml_file_filter_Description),
                 IsEnabled = isEnabled,
@@ -76,8 +75,6 @@ namespace Ringtoets.Common.Forms.ExportInfos
             return new ExportInfo<TCalculationContext>
             {
                 Name = Resources.CalculationConfigurationExporter_DisplayName,
-                Category = Resources.Ringtoets_Category,
-                Image = CoreCommonGuiResources.ExportIcon,
                 FileFilterGenerator = new FileFilterGenerator(Resources.DataTypeDisplayName_xml_file_filter_Extension,
                                                               Resources.DataTypeDisplayName_xml_file_filter_Description),
                 CreateFileExporter = createFileExporter,
