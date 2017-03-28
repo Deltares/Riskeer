@@ -59,10 +59,10 @@ namespace Ringtoets.HeightStructures.IO.Test
                     {
                         new CalculationConfigurationGroup("Testmap", new IConfigurationItem[]
                         {
-                            new HeightStructureCalculationConfiguration("sparse config"),
+                            CreateFullCalculation(),
                             new CalculationConfigurationGroup("Nested", new IConfigurationItem[]
                             {
-                                CreateFullCalculation()
+                                new HeightStructureCalculationConfiguration("Berekening 2")
                             })
                         })
                     })
@@ -77,7 +77,7 @@ namespace Ringtoets.HeightStructures.IO.Test
 
         [Test]
         [TestCaseSource(nameof(Calculations))]
-        public void Write_ValidCalculationCalculation_ValidFile(string expectedFileName, HeightStructureCalculationConfiguration[] configuration)
+        public void Write_ValidCalculationCalculation_ValidFile(string expectedFileName, IConfigurationItem[] configuration)
         {
             // Setup
             string filePath = TestHelper.GetScratchPadPath("test.xml");
@@ -117,7 +117,7 @@ namespace Ringtoets.HeightStructures.IO.Test
                 {
                     UseBreakWater = true,
                     BreakWaterType = ReadBreakWaterType.Dam,
-                    BreakWaterHeight = 1.234,
+                    BreakWaterHeight = 1.23,
                     UseForeshoreProfile = true
                 },
                 StormDuration = new MeanVariationCoefficientStochastConfiguration

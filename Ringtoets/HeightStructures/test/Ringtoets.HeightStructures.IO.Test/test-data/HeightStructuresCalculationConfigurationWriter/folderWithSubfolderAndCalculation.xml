@@ -48,15 +48,7 @@
     </berekening>
     <map naam="Nested">
       <berekening naam="Berekening 2">
-        <golfreductie />
-        <stochasten>
-          <stochast naam="modelfactoroverloopdebiet">
-            <verwachtingswaarde>1.1</verwachtingswaarde>
-          </stochast>
-          <stochast naam="stormduur">
-            <verwachtingswaarde>6</verwachtingswaarde>
-          </stochast>
-        </stochasten>
+        <stochasten />
       </berekening>
     </map>
   </map>
