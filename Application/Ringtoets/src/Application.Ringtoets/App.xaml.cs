@@ -293,7 +293,7 @@ namespace Application.Ringtoets
 
         private static void AppDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            Exception exception = e.ExceptionObject as Exception ?? new Exception(CoreCommonGuiResources.App_AppDomain_UnhandledException_Unknown_exception_);
+            Exception exception = e.ExceptionObject as Exception ?? new Exception(CoreCommonGuiResources.App_Unhandled_exception);
 
             HandleExceptionOnMainThread(exception);
         }
@@ -320,7 +320,7 @@ namespace Application.Ringtoets
 
         private static void HandleException(Exception exception)
         {
-            log.Error(CoreCommonGuiResources.App_AppDomain_UnhandledException_Unknown_exception_, exception);
+            log.Error(CoreCommonGuiResources.App_Unhandled_exception, exception);
 
             if (gui != null && gui.MainWindow != null)
             {

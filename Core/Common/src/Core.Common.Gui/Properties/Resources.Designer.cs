@@ -110,15 +110,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Onbekende kritieke fout opgetreden..
-        /// </summary>
-        public static string App_AppDomain_UnhandledException_Unknown_exception_ {
-            get {
-                return ResourceManager.GetString("App_AppDomain_UnhandledException_Unknown_exception_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Kan niet meerdere instanties van Ringtoets starten. Sluit eerst de andere instantie..
         /// </summary>
         public static string App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Ringtoets_Please_close_the_other_instance_first {
@@ -134,6 +125,15 @@ namespace Core.Common.Gui.Properties {
         public static string App_Starting_Ringtoets_version_0_by_user_0 {
             get {
                 return ResourceManager.GetString("App_Starting_Ringtoets_version_0_by_user_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Onbekende kritieke fout opgetreden..
+        /// </summary>
+        public static string App_Unhandled_exception {
+            get {
+                return ResourceManager.GetString("App_Unhandled_exception", resourceCulture);
             }
         }
         

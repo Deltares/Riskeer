@@ -540,8 +540,7 @@ namespace Application.Ringtoets.Storage.Test
         [OneTimeTearDown]
         public void TearDown()
         {
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
+            CallGarbageCollector();
             directoryDisposeHelper.Dispose();
         }
 

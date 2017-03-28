@@ -901,16 +901,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             AssertBreakWater(expectedInput.BreakWater, actualInput.BreakWater);
         }
 
-        private static void TearDownTempRingtoetsFile(string filePath)
-        {
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
-            if (!string.IsNullOrWhiteSpace(filePath) && File.Exists(filePath))
-            {
-                File.Delete(filePath);
-            }
-        }
-
         #region StabilityPointStructures FailureMechanism
 
         private static void AssertStabilityPointStructuresFailureMechanism(StabilityPointStructuresFailureMechanism expectedFailureMechanism,
