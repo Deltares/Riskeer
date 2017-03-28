@@ -39,53 +39,88 @@ namespace Ringtoets.HeightStructures.IO.Test
     public class HeightStructuresCalculationConfigurationExporterTest
         : CustomSchemaCalculationConfigurationExporterDesignGuidelinesTestFixture<
             HeightStructuresCalculationConfigurationExporter,
-            HeightStructuresCalculationConfigurationWriter, 
-            StructuresCalculation<HeightStructuresInput>, 
+            HeightStructuresCalculationConfigurationWriter,
+            StructuresCalculation<HeightStructuresInput>,
             HeightStructureCalculationConfiguration>
     {
+        private static IEnumerable<TestCaseData> Calculations
+        {
+            get
+            {
+                yield return new TestCaseData("completeConfiguration", new[]
+                    {
+                        CreateFullCalculation()
+                    })
+                    .SetName("Calculation configuration with all parameters set");
+                yield return new TestCaseData("sparseConfiguration", new[]
+                    {
+                        CreateSparseCalculation()
+                    })
+                    .SetName("Calculation configuration with none of its parameters set");
+                yield return new TestCaseData("configurationWithStructure", new[]
+                    {
+                        CreateCalculationWithStructure()
+                    })
+                    .SetName("Calculation configuration with a structure set");
+                yield return new TestCaseData("configurationWithForeshoreProfile", new[]
+                    {
+                        CreateCalculationWithForeshoreProfile()
+                    })
+                    .SetName("Calculation configuration with foreshore profile");
+                yield return new TestCaseData("configurationWithUseBreakWater", new[]
+                    {
+                        CreateCalculationWithUseBreakWater()
+                    })
+                    .SetName("Calculation configuration with use breakwater true");
+                yield return new TestCaseData("folderWithSubfolderAndCalculation", new[]
+                    {
+                        new CalculationGroup("Testmap", false)
+                        {
+                            Children =
+                            {
+                                CreateFullCalculation(),
+                                new CalculationGroup("Nested", false)
+                                {
+                                    Children =
+                                    {
+                                        CreateSparseCalculation()
+                                    }
+                                }
+                            }
+                        }
+                    })
+                    .SetName("Calculation configuration with hierarchy");
+            }
+        }
+
         [Test]
-        public void Export_ValidData_ReturnTrueAndWritesFile()
+        [TestCaseSource(nameof(Calculations))]
+        public void Export_ValidData_ReturnTrueAndWritesFile(string fileName, ICalculationBase[] calculations)
         {
             // Setup
-            StructuresCalculation<HeightStructuresInput> calculation = CreateFullCalculation();
-            StructuresCalculation<HeightStructuresInput> calculation2 = new StructuresCalculation<HeightStructuresInput>
-            {
-                Name = "Berekening 2"
-            };
+            string testDirectory = TestHelper.GetTestDataPath(
+                TestDataPath.Ringtoets.HeightStructures.IO,
+                nameof(HeightStructuresCalculationConfigurationExporter));
 
-            CalculationGroup calculationGroup2 = new CalculationGroup("Nested", false)
-            {
-                Children =
-                {
-                    calculation2
-                }
-            };
-
-            CalculationGroup calculationGroup = new CalculationGroup("Testmap", false)
-            {
-                Children =
-                {
-                    calculation,
-                    calculationGroup2
-                }
-            };
-
-            string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HeightStructures.IO,
-                                                                    Path.Combine(nameof(HeightStructuresCalculationConfigurationWriter),
-                                                                                 "folderWithSubfolderAndCalculation.xml"));
+            string expectedXmlFilePath = Path.Combine(testDirectory, $"{fileName}.xml");
 
             // Call and Assert
-            WriteAndValidate(new[]
+            WriteAndValidate(calculations, expectedXmlFilePath);
+        }
+
+        private static ICalculation CreateSparseCalculation()
+        {
+            return new StructuresCalculation<HeightStructuresInput>
             {
-                calculationGroup
-            }, expectedXmlFilePath);
+                Name = "sparse config"
+            };
         }
 
         private static StructuresCalculation<HeightStructuresInput> CreateFullCalculation()
         {
             return new TestHeightStructuresCalculation
             {
-                Name = "Berekening 1",
+                Name = "full config",
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("Locatie1"),
@@ -100,44 +135,88 @@ namespace Ringtoets.HeightStructures.IO.Test
                         Type = BreakWaterType.Dam,
                         Height = (RoundedDouble) 1.234
                     },
-                    StormDuration = new VariationCoefficientLogNormalDistribution()
+                    StormDuration = new VariationCoefficientLogNormalDistribution
                     {
                         Mean = (RoundedDouble) 6.0
                     },
-                    ModelFactorSuperCriticalFlow = new NormalDistribution()
+                    ModelFactorSuperCriticalFlow = new NormalDistribution
                     {
                         Mean = (RoundedDouble) 1.10
                     },
-                    FlowWidthAtBottomProtection = new LogNormalDistribution()
+                    FlowWidthAtBottomProtection = new LogNormalDistribution
                     {
                         Mean = (RoundedDouble) 15.2,
                         StandardDeviation = (RoundedDouble) 0.1
                     },
-                    WidthFlowApertures = new NormalDistribution()
+                    WidthFlowApertures = new NormalDistribution
                     {
                         Mean = (RoundedDouble) 13.2,
                         StandardDeviation = (RoundedDouble) 0.3
                     },
-                    StorageStructureArea = new VariationCoefficientLogNormalDistribution()
+                    StorageStructureArea = new VariationCoefficientLogNormalDistribution
                     {
                         Mean = (RoundedDouble) 15000,
                         CoefficientOfVariation = (RoundedDouble) 0.01
                     },
-                    AllowedLevelIncreaseStorage = new LogNormalDistribution()
+                    AllowedLevelIncreaseStorage = new LogNormalDistribution
                     {
                         Mean = (RoundedDouble) 0.2,
                         StandardDeviation = (RoundedDouble) 0.01
                     },
-                    LevelCrestStructure = new NormalDistribution()
+                    LevelCrestStructure = new NormalDistribution
                     {
                         Mean = (RoundedDouble) 4.3,
                         StandardDeviation = (RoundedDouble) 0.2
                     },
-                    CriticalOvertoppingDischarge = new VariationCoefficientLogNormalDistribution()
+                    CriticalOvertoppingDischarge = new VariationCoefficientLogNormalDistribution
                     {
                         Mean = (RoundedDouble) 2,
                         CoefficientOfVariation = (RoundedDouble) 0.1
                     }
+                }
+            };
+        }
+
+        private static StructuresCalculation<HeightStructuresInput> CreateCalculationWithForeshoreProfile()
+        {
+            return new StructuresCalculation<HeightStructuresInput>
+            {
+                Name = "with foreshore profile",
+                InputParameters =
+                {
+                    ForeshoreProfile = new TestForeshoreProfile("profiel1"),
+                    UseForeshore = true
+                }
+            };
+        }
+
+        private static StructuresCalculation<HeightStructuresInput> CreateCalculationWithUseBreakWater()
+        {
+            return new StructuresCalculation<HeightStructuresInput>
+            {
+                Name = "with use breakwater",
+                InputParameters =
+                {
+                    ForeshoreProfile = new TestForeshoreProfile("profiel1"),
+                    BreakWater =
+                    {
+                        Type = BreakWaterType.Caisson,
+                        Height = (RoundedDouble) 1.23
+                    },
+                    UseBreakWater = true,
+                    UseForeshore = false
+                }
+            };
+        }
+
+        private static StructuresCalculation<HeightStructuresInput> CreateCalculationWithStructure()
+        {
+            return new StructuresCalculation<HeightStructuresInput>
+            {
+                Name = "with structure",
+                InputParameters =
+                {
+                    Structure = new TestHeightStructure("kunstwerk1"),
                 }
             };
         }

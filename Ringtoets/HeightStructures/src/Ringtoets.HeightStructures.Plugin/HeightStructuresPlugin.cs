@@ -37,6 +37,7 @@ using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms;
 using Ringtoets.Common.Forms.ChangeHandlers;
+using Ringtoets.Common.Forms.ExportInfos;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
@@ -87,9 +88,22 @@ namespace Ringtoets.HeightStructures.Plugin
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = RingtoetsCommonFormsResources.StructuresIcon,
                 FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
-                                              RingtoetsCommonIOResources.Shape_file_filter_Description),
+                                                              RingtoetsCommonIOResources.Shape_file_filter_Description),
                 IsEnabled = context => context.AssessmentSection.ReferenceLine != null
             };
+        }
+
+        public override IEnumerable<ExportInfo> GetExportInfos()
+        {
+            yield return RingtoetsExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<HeightStructuresCalculationGroupContext>(
+                (context, filePath) => new HeightStructuresCalculationConfigurationExporter(context.WrappedData.Children, filePath),
+                context => context.WrappedData.Children.Any());
+
+            yield return RingtoetsExportInfoFactory.CreateCalculationConfigurationExportInfo<HeightStructuresCalculationContext>(
+                (context, filePath) => new HeightStructuresCalculationConfigurationExporter(new[]
+                {
+                    context.WrappedData
+                }, filePath));
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()
@@ -103,28 +117,28 @@ namespace Ringtoets.HeightStructures.Plugin
             };
 
             yield return new ViewInfo<
-                    HeightStructuresScenariosContext,
-                    CalculationGroup,
-                    HeightStructuresScenariosView>
-                {
-                    GetViewData = context => context.WrappedData,
-                    GetViewName = (view, calculationGroup) => RingtoetsCommonFormsResources.Scenarios_DisplayName,
-                    AfterCreate = (view, context) => view.FailureMechanism = context.ParentFailureMechanism,
-                    CloseForData = CloseScenariosViewForData,
-                    Image = RingtoetsCommonFormsResources.ScenariosIcon
-                };
+                HeightStructuresScenariosContext,
+                CalculationGroup,
+                HeightStructuresScenariosView>
+            {
+                GetViewData = context => context.WrappedData,
+                GetViewName = (view, calculationGroup) => RingtoetsCommonFormsResources.Scenarios_DisplayName,
+                AfterCreate = (view, context) => view.FailureMechanism = context.ParentFailureMechanism,
+                CloseForData = CloseScenariosViewForData,
+                Image = RingtoetsCommonFormsResources.ScenariosIcon
+            };
 
             yield return new ViewInfo<
-                    FailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>,
-                    IEnumerable<HeightStructuresFailureMechanismSectionResult>,
-                    HeightStructuresFailureMechanismResultView>
-                {
-                    GetViewName = (view, results) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                    Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
-                    CloseForData = CloseFailureMechanismResultViewForData,
-                    GetViewData = context => context.WrappedData,
-                    AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
-                };
+                FailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>,
+                IEnumerable<HeightStructuresFailureMechanismSectionResult>,
+                HeightStructuresFailureMechanismResultView>
+            {
+                GetViewName = (view, results) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
+                CloseForData = CloseFailureMechanismResultViewForData,
+                GetViewData = context => context.WrappedData,
+                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
+            };
         }
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
@@ -470,6 +484,9 @@ namespace Ringtoets.HeightStructures.Plugin
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
             var isNestedGroup = parentData is HeightStructuresCalculationGroupContext;
 
+            builder.AddExportItem()
+                   .AddSeparator();
+
             if (!isNestedGroup)
             {
                 builder.AddCustomItem(CreateGenerateHeightStructuresCalculationsItem(context))
@@ -639,7 +656,9 @@ namespace Ringtoets.HeightStructures.Plugin
 
             StructuresCalculation<HeightStructuresInput> calculation = context.WrappedData;
 
-            return builder.AddRenameItem()
+            return builder.AddExportItem()
+                          .AddSeparator()
+                          .AddRenameItem()
                           .AddValidateCalculationItem(
                               context,
                               Validate,

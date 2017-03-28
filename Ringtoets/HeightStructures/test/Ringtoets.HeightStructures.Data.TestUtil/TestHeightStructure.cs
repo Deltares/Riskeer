@@ -68,29 +68,29 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
                 },
                 FlowWidthAtBottomProtection =
                 {
-                    Mean = (RoundedDouble) 345.678,
-                    StandardDeviation = (RoundedDouble) 0.34567
+                    Mean = (RoundedDouble) 345.68,
+                    StandardDeviation = (RoundedDouble) 0.35
                 },
                 CriticalOvertoppingDischarge =
                 {
-                    Mean = (RoundedDouble) 456.789,
-                    CoefficientOfVariation = (RoundedDouble) 0.45678
+                    Mean = (RoundedDouble) 456.79,
+                    CoefficientOfVariation = (RoundedDouble) 0.46
                 },
                 WidthFlowApertures =
                 {
-                    Mean = (RoundedDouble) 567.890,
-                    StandardDeviation = (RoundedDouble) 0.56789
+                    Mean = (RoundedDouble) 567.89,
+                    StandardDeviation = (RoundedDouble) 0.57
                 },
                 FailureProbabilityStructureWithErosion = 0.67890,
                 StorageStructureArea =
                 {
-                    Mean = (RoundedDouble) 112.223,
-                    CoefficientOfVariation = (RoundedDouble) 0.11222
+                    Mean = (RoundedDouble) 112.22,
+                    CoefficientOfVariation = (RoundedDouble) 0.11
                 },
                 AllowedLevelIncreaseStorage =
                 {
-                    Mean = (RoundedDouble) 225.336,
-                    StandardDeviation = (RoundedDouble) 0.22533
+                    Mean = (RoundedDouble) 225.34,
+                    StandardDeviation = (RoundedDouble) 0.23
                 }
             }) {}
     }

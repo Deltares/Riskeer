@@ -37,7 +37,7 @@ namespace Ringtoets.HeightStructures.IO
         HeightStructuresCalculationConfigurationWriter,
         StructuresCalculation<HeightStructuresInput>,
         HeightStructureCalculationConfiguration
-        >
+    >
     {
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresCalculationConfigurationExporter"/>.
@@ -46,8 +46,7 @@ namespace Ringtoets.HeightStructures.IO
         /// <param name="filePath">The path of the XML file to export to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        public HeightStructuresCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath) : base(calculations, filePath)
-        {}
+        public HeightStructuresCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath) : base(calculations, filePath) {}
 
         protected override HeightStructureCalculationConfiguration ToConfiguration(StructuresCalculation<HeightStructuresInput> calculation)
         {
@@ -94,20 +93,22 @@ namespace Ringtoets.HeightStructures.IO
                 };
             }
 
-            calculationConfiguration.WaveReduction = new WaveReductionConfiguration();
-
-            if (input.UseBreakWater)
-            {
-                calculationConfiguration.WaveReduction.UseBreakWater = true;
-                calculationConfiguration.WaveReduction.BreakWaterType = (ReadBreakWaterType) input.BreakWater.Type;
-                calculationConfiguration.WaveReduction.BreakWaterHeight = input.BreakWater.Height;
-            }
             if (input.ForeshoreProfile != null)
             {
                 calculationConfiguration.ForeshoreProfileName = input.ForeshoreProfile?.Name;
-                calculationConfiguration.WaveReduction.UseForeshoreProfile = input.UseForeshore;
+                calculationConfiguration.WaveReduction = new WaveReductionConfiguration
+                {
+                    UseForeshoreProfile = input.UseForeshore,
+                    UseBreakWater = input.UseBreakWater
+                };
 
+                if (input.UseBreakWater)
+                {
+                    calculationConfiguration.WaveReduction.BreakWaterType = (ReadBreakWaterType) input.BreakWater.Type;
+                    calculationConfiguration.WaveReduction.BreakWaterHeight = input.BreakWater.Height;
+                }
             }
+
             calculationConfiguration.StormDuration = new MeanVariationCoefficientStochastConfiguration
             {
                 Mean = input.StormDuration.Mean
