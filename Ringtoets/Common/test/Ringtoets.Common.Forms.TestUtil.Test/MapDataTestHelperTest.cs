@@ -1111,9 +1111,10 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
         {
             // Setup
             var imageBasedMapData = new SimpleImageBasedMapData();
+            var backgroundData = new BackgroundData(new TestBackgroundDataConfiguration());
 
             // Call
-            TestDelegate test = () => MapDataTestHelper.AssertImageBasedMapData(new BackgroundData(new TestBackgroundDataConfiguration()), imageBasedMapData);
+            TestDelegate test = () => MapDataTestHelper.AssertImageBasedMapData(backgroundData, imageBasedMapData);
 
             // Assert
             Assert.Throws<AssertionException>(test, "Unsupported background configuration.");
@@ -1125,9 +1126,10 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
         {
             // Setup
             WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
+            BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(wmtsMapData);
 
             // Call
-            TestDelegate test = () => MapDataTestHelper.AssertImageBasedMapData(BackgroundDataConverter.ConvertTo(wmtsMapData), mapData);
+            TestDelegate test = () => MapDataTestHelper.AssertImageBasedMapData(backgroundData, mapData);
 
             // Assert
             Assert.Throws<AssertionException>(test);
@@ -1139,9 +1141,10 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
         {
             // Setup
             var mapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial);
+            BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(wellKnownTileSourceMapData);
 
             // Call
-            TestDelegate test = () => MapDataTestHelper.AssertImageBasedMapData(BackgroundDataConverter.ConvertTo(wellKnownTileSourceMapData), mapData);
+            TestDelegate test = () => MapDataTestHelper.AssertImageBasedMapData(backgroundData, mapData);
 
             // Assert
             Assert.Throws<AssertionException>(test);
@@ -1153,9 +1156,10 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             // Setup
             var expectedMapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial);
             var actualMapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial);
+            BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(expectedMapData);
 
             // Call
-            TestDelegate test = () => MapDataTestHelper.AssertImageBasedMapData(BackgroundDataConverter.ConvertTo(expectedMapData), actualMapData);
+            TestDelegate test = () => MapDataTestHelper.AssertImageBasedMapData(backgroundData, actualMapData);
 
             // Assert
             Assert.DoesNotThrow(test);
@@ -1167,9 +1171,10 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             // Setup
             WmtsMapData expectedMapData = WmtsMapData.CreateUnconnectedMapData();
             WmtsMapData actualMapData = WmtsMapData.CreateUnconnectedMapData();
+            BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(expectedMapData);
 
             // Call
-            TestDelegate test = () => MapDataTestHelper.AssertImageBasedMapData(BackgroundDataConverter.ConvertTo(expectedMapData), actualMapData);
+            TestDelegate test = () => MapDataTestHelper.AssertImageBasedMapData(backgroundData, actualMapData);
 
             // Assert
             Assert.DoesNotThrow(test);
