@@ -148,134 +148,6 @@ namespace Core.Components.DotSpatial.Forms.Test
             }
         }
 
-        [OneTimeSetUp]
-        public void SetUp()
-        {
-            directoryDisposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(MapControlTest));
-            testSettingsHelper = new TestSettingsHelper
-            {
-                ApplicationLocalUserSettingsDirectory = TestHelper.GetScratchPadPath(nameof(MapControlTest))
-            };
-            settingsDirectory = testSettingsHelper.GetApplicationLocalUserSettingsDirectory();
-        }
-
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            directoryDisposeHelper.Dispose();
-        }
-
-        private static MapDataCollection GetTestData()
-        {
-            var mapDataCollection = new MapDataCollection("Test data");
-
-            mapDataCollection.Add(new MapPointData("Test data")
-            {
-                Features = new[]
-                {
-                    new MapFeature(new[]
-                    {
-                        new MapGeometry(new[]
-                        {
-                            new[]
-                            {
-                                new Point2D(1.5, 2)
-                            }
-                        }),
-                        new MapGeometry(new[]
-                        {
-                            new[]
-                            {
-                                new Point2D(1.1, 1)
-                            }
-                        }),
-                        new MapGeometry(new[]
-                        {
-                            new[]
-                            {
-                                new Point2D(0.8, 0.5)
-                            }
-                        })
-                    })
-                }
-            });
-
-            mapDataCollection.Add(new MapLineData("Test data")
-            {
-                Features = new[]
-                {
-                    new MapFeature(new[]
-                    {
-                        new MapGeometry(new[]
-                        {
-                            new[]
-                            {
-                                new Point2D(0.0, 1.1),
-                                new Point2D(1.0, 2.1),
-                                new Point2D(1.6, 1.6)
-                            }
-                        })
-                    })
-                }
-            });
-
-            mapDataCollection.Add(new MapPolygonData("Test data")
-            {
-                Features = new[]
-                {
-                    new MapFeature(new[]
-                    {
-                        new MapGeometry(new[]
-                        {
-                            new[]
-                            {
-                                new Point2D(1.0, 1.3),
-                                new Point2D(3.0, 2.6),
-                                new Point2D(5.6, 1.6)
-                            }
-                        })
-                    })
-                },
-                IsVisible = false
-            });
-
-            return mapDataCollection;
-        }
-
-        private static void ExtendWithExpectedMargin(Extent expectedExtent)
-        {
-            double smallestDimension = Math.Min(expectedExtent.Height, expectedExtent.Width);
-            expectedExtent.ExpandBy(smallestDimension * padding);
-        }
-
-        private static Extent GetExpectedExtent(FeatureBasedMapData visibleMapData)
-        {
-            double minX = double.MaxValue;
-            double maxX = double.MinValue;
-            double minY = double.MaxValue;
-            double maxY = double.MinValue;
-
-            foreach (MapFeature feature in visibleMapData.Features)
-            {
-                foreach (MapGeometry geometry in feature.MapGeometries)
-                {
-                    foreach (IEnumerable<Point2D> pointCollection in geometry.PointCollections)
-                    {
-                        foreach (Point2D point in pointCollection)
-                        {
-                            minX = Math.Min(minX, point.X);
-                            maxX = Math.Max(maxX, point.X);
-
-                            minY = Math.Min(minY, point.Y);
-                            maxY = Math.Max(maxY, point.Y);
-                        }
-                    }
-                }
-            }
-
-            return new Extent(minX, minY, maxX, maxY);
-        }
-
         [Test]
         public void GivenMapControlWithoutData_WhenDataSetToMapDataCollection_ThenMapControlUpdated()
         {
@@ -349,7 +221,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 // Precondition
                 Assert.AreEqual(1, mapView.Layers.Count);
-                Assert.AreEqual("Points", ((FeatureLayer)mapView.Layers[0]).Name);
+                Assert.AreEqual("Points", ((FeatureLayer) mapView.Layers[0]).Name);
 
                 // When
                 map.Data = mapDataCollection2;
@@ -516,6 +388,134 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Assert.AreEqual("Points", featureLayers[2].Name);
                 Assert.AreEqual(0, layersBeforeUpdate.Except(featureLayers).Count());
             }
+        }
+
+        [OneTimeSetUp]
+        public void SetUp()
+        {
+            directoryDisposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(MapControlTest));
+            testSettingsHelper = new TestSettingsHelper
+            {
+                ApplicationLocalUserSettingsDirectory = TestHelper.GetScratchPadPath(nameof(MapControlTest))
+            };
+            settingsDirectory = testSettingsHelper.GetApplicationLocalUserSettingsDirectory();
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            directoryDisposeHelper.Dispose();
+        }
+
+        private static MapDataCollection GetTestData()
+        {
+            var mapDataCollection = new MapDataCollection("Test data");
+
+            mapDataCollection.Add(new MapPointData("Test data")
+            {
+                Features = new[]
+                {
+                    new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            new[]
+                            {
+                                new Point2D(1.5, 2)
+                            }
+                        }),
+                        new MapGeometry(new[]
+                        {
+                            new[]
+                            {
+                                new Point2D(1.1, 1)
+                            }
+                        }),
+                        new MapGeometry(new[]
+                        {
+                            new[]
+                            {
+                                new Point2D(0.8, 0.5)
+                            }
+                        })
+                    })
+                }
+            });
+
+            mapDataCollection.Add(new MapLineData("Test data")
+            {
+                Features = new[]
+                {
+                    new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            new[]
+                            {
+                                new Point2D(0.0, 1.1),
+                                new Point2D(1.0, 2.1),
+                                new Point2D(1.6, 1.6)
+                            }
+                        })
+                    })
+                }
+            });
+
+            mapDataCollection.Add(new MapPolygonData("Test data")
+            {
+                Features = new[]
+                {
+                    new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            new[]
+                            {
+                                new Point2D(1.0, 1.3),
+                                new Point2D(3.0, 2.6),
+                                new Point2D(5.6, 1.6)
+                            }
+                        })
+                    })
+                },
+                IsVisible = false
+            });
+
+            return mapDataCollection;
+        }
+
+        private static void ExtendWithExpectedMargin(Extent expectedExtent)
+        {
+            double smallestDimension = Math.Min(expectedExtent.Height, expectedExtent.Width);
+            expectedExtent.ExpandBy(smallestDimension * padding);
+        }
+
+        private static Extent GetExpectedExtent(FeatureBasedMapData visibleMapData)
+        {
+            double minX = double.MaxValue;
+            double maxX = double.MinValue;
+            double minY = double.MaxValue;
+            double maxY = double.MinValue;
+
+            foreach (MapFeature feature in visibleMapData.Features)
+            {
+                foreach (MapGeometry geometry in feature.MapGeometries)
+                {
+                    foreach (IEnumerable<Point2D> pointCollection in geometry.PointCollections)
+                    {
+                        foreach (Point2D point in pointCollection)
+                        {
+                            minX = Math.Min(minX, point.X);
+                            maxX = Math.Max(maxX, point.X);
+
+                            minY = Math.Min(minY, point.Y);
+                            maxY = Math.Max(maxY, point.Y);
+                        }
+                    }
+                }
+            }
+
+            return new Extent(minX, minY, maxX, maxY);
         }
 
         #region BackgroundMapData

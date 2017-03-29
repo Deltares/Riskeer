@@ -112,14 +112,14 @@ namespace Core.Components.DotSpatial.Forms
         }
 
         /// <summary>
-        /// Template method that marks that a (new) background layer has successfully been initialized.
+        /// Mark that a (new) background layer has successfully been initialized.
         /// </summary>
         /// <param name="backgroundLayer">The constructed layer.</param>
         /// <param name="dataSource">The data used to construct <paramref name="backgroundLayer"/>.</param>
         protected abstract void OnLayerInitializationSuccessful(BruTileLayer backgroundLayer, ImageBasedMapData dataSource);
 
         /// <summary>
-        /// Template method that indicates if a <see cref="ImageBasedMapData"/> corresponds with the <see cref="BackgroundLayer"/>.
+        /// Indicates if a <see cref="ImageBasedMapData"/> corresponds with the <see cref="BackgroundLayer"/>.
         /// </summary>
         /// <param name="mapData">The map data.</param>
         /// <returns>Returns <c>true</c> if <paramref name="mapData"/> corresponds with
