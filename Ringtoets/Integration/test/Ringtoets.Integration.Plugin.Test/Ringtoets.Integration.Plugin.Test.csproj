@@ -180,9 +180,9 @@
       <Project>{1081336C-D919-4249-AB33-9AF15F4D19EC}</Project>
       <Name>Core.Components.BruTile.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Components\test\Core.Components.Gis.TestUtils\Core.Components.Gis.TestUtils.csproj">
+    <ProjectReference Include="..\..\..\..\Core\Components\test\Core.Components.Gis.TestUtil\Core.Components.Gis.TestUtil.csproj">
       <Project>{F0FB401A-3494-4237-9E6D-02CDF77912A8}</Project>
-      <Name>Core.Components.Gis.TestUtils</Name>
+      <Name>Core.Components.Gis.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\ClosingStructures\src\Ringtoets.ClosingStructures.Data\Ringtoets.ClosingStructures.Data.csproj">
       <Project>{c6309704-d67b-434c-bc98-9f8910bc1d10}</Project>

@@ -165,9 +165,9 @@
       <Project>{1081336C-D919-4249-AB33-9AF15F4D19EC}</Project>
       <Name>Core.Components.BruTile.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Components\test\Core.Components.Gis.TestUtils\Core.Components.Gis.TestUtils.csproj">
+    <ProjectReference Include="..\..\..\..\Core\Components\test\Core.Components.Gis.TestUtil\Core.Components.Gis.TestUtil.csproj">
       <Project>{f0fb401a-3494-4237-9e6d-02cdf77912a8}</Project>
-      <Name>Core.Components.Gis.TestUtils</Name>
+      <Name>Core.Components.Gis.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Forms.TestUtil\Ringtoets.Common.Forms.TestUtil.csproj">
       <Project>{D24FA2F7-28A7-413B-AFD3-EE10E985630B}</Project>
