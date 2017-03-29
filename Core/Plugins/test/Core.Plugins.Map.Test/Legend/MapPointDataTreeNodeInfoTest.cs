@@ -59,7 +59,7 @@ namespace Core.Plugins.Map.Test.Legend
             mapLegendView = new MapLegendView(contextMenuBuilderProvider);
 
             var treeViewControl = TypeUtils.GetField<TreeViewControl>(mapLegendView, "treeViewControl");
-            Dictionary<Type, TreeNodeInfo> treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");
+            var treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");
 
             info = treeNodeInfoLookup[typeof(MapPointData)];
         }

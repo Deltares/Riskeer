@@ -114,8 +114,8 @@ namespace Core.Plugins.Chart.Test.Legend
                 Data = rootCollection
             })
             {
-                TreeViewControl treeViewControl = TypeUtils.GetField<TreeViewControl>(chartLegendView, "treeViewControl");
-                Dictionary<Type, TreeNodeInfo> treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");
+                var treeViewControl = TypeUtils.GetField<TreeViewControl>(chartLegendView, "treeViewControl");
+                var treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");
                 var info = treeNodeInfoLookup[typeof(ChartDataCollection)];
 
                 var context = new ChartDataContext(chartLineData, rootCollection);

@@ -81,9 +81,10 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Setup
             var ringtoetsMapControl = new RingtoetsMapControl();
+            var backgroundData = new BackgroundData(new TestBackgroundDataConfiguration());
 
             // Call
-            TestDelegate test = () => ringtoetsMapControl.SetAllData(null, new BackgroundData(new TestBackgroundDataConfiguration()));
+            TestDelegate test = () => { ringtoetsMapControl.SetAllData(null, backgroundData); };
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -95,9 +96,10 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Setup
             var ringtoetsMapControl = new RingtoetsMapControl();
+            var mapDataCollection = new MapDataCollection("Collection");
 
             // Call
-            TestDelegate test = () => ringtoetsMapControl.SetAllData(new MapDataCollection("Collection"), null);
+            TestDelegate test = () => { ringtoetsMapControl.SetAllData(mapDataCollection, null); };
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -179,7 +181,9 @@ namespace Ringtoets.Common.Forms.Test.Views
             using (new UseCustomTileSourceFactoryConfig(tileSourceFactory))
             {
                 var ringtoetsMapControl = new RingtoetsMapControl();
-                ringtoetsMapControl.SetAllData(new MapDataCollection("Collection"), originalBackgroundData);
+                var mapDataCollection = new MapDataCollection("Collection");
+
+                ringtoetsMapControl.SetAllData(mapDataCollection, originalBackgroundData);
                 ringtoetsMapControl.MapControl.BackgroundMapData.Attach(observer);
 
                 ImageBasedMapData oldMapData = ringtoetsMapControl.MapControl.BackgroundMapData;
@@ -210,12 +214,13 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             WmtsMapData mapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
             BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(mapData);
+            var mapDataCollection = new MapDataCollection("Collection");
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(mapData))
             {
                 var ringtoetsMapControl = new RingtoetsMapControl();
-                ringtoetsMapControl.SetAllData(new MapDataCollection("Collection"), backgroundData);
+                ringtoetsMapControl.SetAllData(mapDataCollection, backgroundData);
                 ringtoetsMapControl.MapControl.BackgroundMapData.Attach(observer);
 
                 ImageBasedMapData oldBackgroundMapData = ringtoetsMapControl.MapControl.BackgroundMapData;
@@ -242,12 +247,13 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             WmtsMapData mapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
             BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(mapData);
+            var mapDataCollection = new MapDataCollection("Collection");
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(mapData))
             {
                 var ringtoetsMapControl = new RingtoetsMapControl();
-                ringtoetsMapControl.SetAllData(new MapDataCollection("Collection"), backgroundData);
+                ringtoetsMapControl.SetAllData(mapDataCollection, backgroundData);
                 ringtoetsMapControl.MapControl.BackgroundMapData.Attach(observer);
 
                 ImageBasedMapData oldBackgroundMapData = ringtoetsMapControl.MapControl.BackgroundMapData;
@@ -278,12 +284,13 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             var mapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial);
             BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(mapData);
+            var mapDataCollection = new MapDataCollection("Collection");
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(mapData))
             {
                 var ringtoetsMapControl = new RingtoetsMapControl();
-                ringtoetsMapControl.SetAllData(new MapDataCollection("Collection"), backgroundData);
+                ringtoetsMapControl.SetAllData(mapDataCollection, backgroundData);
                 ringtoetsMapControl.MapControl.BackgroundMapData.Attach(observer);
 
                 ImageBasedMapData oldBackgroundMapData = ringtoetsMapControl.MapControl.BackgroundMapData;

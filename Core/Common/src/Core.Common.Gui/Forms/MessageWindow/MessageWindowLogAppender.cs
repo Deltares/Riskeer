@@ -116,8 +116,8 @@ namespace Core.Common.Gui.Forms.MessageWindow
             var stringFormat = loggingEvent.MessageObject as SystemStringFormat;
             if (stringFormat != null)
             {
-                string format = TypeUtils.GetField<string>(stringFormat, "m_format");
-                object[] args = TypeUtils.GetField<object[]>(stringFormat, "m_args");
+                var format = TypeUtils.GetField<string>(stringFormat, "m_format");
+                var args = TypeUtils.GetField<object[]>(stringFormat, "m_args");
                 message = GetLocalizedMessage(format, args);
             }
 
