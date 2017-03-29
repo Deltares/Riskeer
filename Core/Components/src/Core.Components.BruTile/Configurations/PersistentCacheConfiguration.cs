@@ -159,7 +159,7 @@ namespace Core.Components.BruTile.Configurations
                                                    BruTileSettings.MemoryCacheMaximum,
                                                    tileCache);
             }
-            catch (Exception e) when (e is NotSupportedException)
+            catch (NotSupportedException e)
             {
                 throw new CannotReceiveTilesException(Resources.Configuration_InitializeFromTileSource_TileSource_does_not_allow_access_to_provider, e);
             }

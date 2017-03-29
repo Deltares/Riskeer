@@ -24,7 +24,6 @@ using System.Linq;
 using System.Security.AccessControl;
 using BruTile;
 using BruTile.Web;
-using BruTile.Wmts;
 using Core.Common.Gui.TestUtil.Settings;
 using Core.Common.TestUtil;
 using Core.Components.BruTile.Configurations;
@@ -122,11 +121,14 @@ namespace Core.Components.BruTile.Test.Configurations
 
             IRequest nullRequest = null;
             var tileSource = new HttpTileSource(TileSchemaFactory.CreateWmtsTileSchema(targetMapData),
-                                                 nullRequest);
-            
+                                                nullRequest);
+
             var mocks = new MockRepository();
             var factory = mocks.Stub<ITileSourceFactory>();
-            factory.Stub(f => f.GetWmtsTileSources(targetMapData.SourceCapabilitiesUrl)).Return(new [] { tileSource });
+            factory.Stub(f => f.GetWmtsTileSources(targetMapData.SourceCapabilitiesUrl)).Return(new[]
+            {
+                tileSource
+            });
             mocks.ReplayAll();
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
@@ -153,7 +155,7 @@ namespace Core.Components.BruTile.Test.Configurations
             }
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void CreateInitializedConfiguration_MatchingLayerAvailable_ReturnConfiguration()
         {

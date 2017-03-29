@@ -39,6 +39,10 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="nunit.framework, Version=3.6.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\NUnit.3.6.0\lib\net40\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
@@ -46,12 +50,24 @@
     <Compile Include="..\..\..\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="BruTileSettingsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
       <Link>Copying.Lesser.licenseheader</Link>
     </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Gui\Core.Common.Gui.csproj">
+      <Project>{30E4C2AE-719E-4D70-9FA9-668A9767FBFA}</Project>
+      <Name>Core.Common.Gui</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Core.Components.BruTile.Data\Core.Components.BruTile.Data.csproj">
+      <Project>{3DCEF8F6-CB6D-435C-9539-50143DACD86C}</Project>
+      <Name>Core.Components.BruTile.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
