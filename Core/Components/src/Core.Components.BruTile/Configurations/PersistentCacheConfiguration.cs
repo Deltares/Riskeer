@@ -159,25 +159,11 @@ namespace Core.Components.BruTile.Configurations
                                                    BruTileSettings.MemoryCacheMaximum,
                                                    tileCache);
             }
-            catch (Exception e) when (e is NotSupportedException || e is ArgumentException)
+            catch (Exception e) when (e is NotSupportedException)
             {
                 throw new CannotReceiveTilesException(Resources.Configuration_InitializeFromTileSource_TileSource_does_not_allow_access_to_provider, e);
             }
             Initialized = true;
-        }
-
-        /// <summary>
-        /// Throws an <see cref="ObjectDisposedException"/> when <see cref="IsDisposed"/>
-        /// is <c>true</c>.
-        /// </summary>
-        /// <exception cref="ObjectDisposedException">Thrown when calling this method while
-        /// this instance is disposed.</exception>
-        protected void ThrowExceptionIfDisposed()
-        {
-            if (IsDisposed)
-            {
-                throw new ObjectDisposedException(GetType().Name);
-            }
         }
 
         /// <summary>
@@ -210,6 +196,20 @@ namespace Core.Components.BruTile.Configurations
         }
 
         private bool IsDisposed { get; set; }
+
+        /// <summary>
+        /// Throws an <see cref="ObjectDisposedException"/> when <see cref="IsDisposed"/>
+        /// is <c>true</c>.
+        /// </summary>
+        /// <exception cref="ObjectDisposedException">Thrown when calling this method while
+        /// this instance is disposed.</exception>
+        private void ThrowExceptionIfDisposed()
+        {
+            if (IsDisposed)
+            {
+                throw new ObjectDisposedException(GetType().Name);
+            }
+        }
 
         private static bool SupportedCreateDirectoryExceptions(Exception exception)
         {

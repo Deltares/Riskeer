@@ -74,7 +74,7 @@ namespace Core.Components.BruTile.Configurations
         /// <exception cref="CannotCreateTileCacheException">Thrown when creating the file
         /// cache failed.</exception>
         /// <exception cref="CannotReceiveTilesException">Thrown when <paramref name="tileSource"/>
-        /// doesn't contain a <see cref="WmtsTileSchema"/>.</exception>
+        /// does not allow for tiles to be retrieved.</exception>
         /// <exception cref="CannotCreateTileCacheException">Thrown when a critical error
         /// occurs when creating the tile cache.</exception>
         private WmtsLayerConfiguration(string wmtsCapabilitiesUrl, ITileSource tileSource)
@@ -101,7 +101,7 @@ namespace Core.Components.BruTile.Configurations
         /// to create an <see cref="ITileSource"/> based on the given information (for example:
         /// unable to connect to server).</exception>
         /// <exception cref="CannotReceiveTilesException">Thrown when the configured <see cref="ITileSource"/>
-        /// doesn't contain a <see cref="WmtsTileSchema"/>.</exception>
+        /// does not allow for tiles to be retrieved.</exception>
         /// <exception cref="CannotCreateTileCacheException">Thrown when a critical error
         /// occurs when creating the tile cache.</exception>
         public static WmtsLayerConfiguration CreateInitializedConfiguration(string wmtsCapabilitiesUrl, string capabilityIdentifier, string preferredFormat)
