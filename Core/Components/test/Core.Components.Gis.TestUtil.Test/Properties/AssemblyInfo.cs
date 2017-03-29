@@ -22,6 +22,6 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("Core.Components.Gis.TestUtils.Test")]
-[assembly: AssemblyProduct("Core.Components.Gis.TestUtils.Test")]
+[assembly: AssemblyTitle("Core.Components.Gis.TestUtil.Test")]
+[assembly: AssemblyProduct("Core.Components.Gis.TestUtil.Test")]
 [assembly: Guid("98fd0100-a601-450b-a2cd-718faeb3a408")]

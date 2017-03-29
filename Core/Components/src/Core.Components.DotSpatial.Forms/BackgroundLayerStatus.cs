@@ -43,7 +43,7 @@ namespace Core.Components.DotSpatial.Forms
         public virtual BruTileLayer BackgroundLayer { get; protected set; }
 
         /// <summary>
-        /// Mark that a (new) background layer has successfully been initialized.
+        /// Marks that a (new) background layer has successfully been initialized.
         /// </summary>
         /// <param name="backgroundLayer">The constructed layer.</param>
         /// <param name="dataSource">The data used to construct <paramref name="backgroundLayer"/>.</param>
@@ -112,7 +112,7 @@ namespace Core.Components.DotSpatial.Forms
         }
 
         /// <summary>
-        /// Mark that a (new) background layer has successfully been initialized.
+        /// Marks that a (new) background layer has successfully been initialized.
         /// </summary>
         /// <param name="backgroundLayer">The constructed layer.</param>
         /// <param name="dataSource">The data used to construct <paramref name="backgroundLayer"/>.</param>
