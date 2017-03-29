@@ -24,8 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Components.BruTile.Configurations;
-using Core.Components.BruTile.Forms;
 using Core.Components.DotSpatial.Forms.Properties;
 using Core.Components.DotSpatial.Layer;
 using Core.Components.DotSpatial.Layer.BruTile;
@@ -66,7 +64,7 @@ namespace Core.Components.DotSpatial.Forms
         /// </summary>
         public MapControl()
         {
-            InitializeMapView();
+            InitializeMap();
             TogglePanning();
 
             mapDataCollectionObserver = new RecursiveObserver<MapDataCollection, MapDataCollection>(HandleMapDataCollectionChange, mdc => mdc.Collection);
@@ -146,7 +144,7 @@ namespace Core.Components.DotSpatial.Forms
             }
         }
 
-        private void InitializeMapView()
+        private void InitializeMap()
         {
             map = new DotSpatialMap
             {

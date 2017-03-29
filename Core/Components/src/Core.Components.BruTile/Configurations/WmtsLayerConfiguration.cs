@@ -47,7 +47,7 @@ namespace Core.Components.BruTile.Configurations
         /// <summary>
         /// Creates an instance of <see cref="WmtsLayerConfiguration"/>.
         /// </summary>
-        /// <param name="wmtsCapabilitiesUrl">The capabilities url of the WMTS.</param>
+        /// <param name="wmtsCapabilitiesUrl">The capabilities URL of the WMTS.</param>
         /// <param name="capabilityIdentifier">The capability name to get tiles from.</param>
         /// <param name="preferredFormat">The preferred tile image format, as MIME-type.</param>
         /// <param name="persistentCacheDirectoryPath">The directory path to the persistent tile cache.</param>
@@ -69,7 +69,7 @@ namespace Core.Components.BruTile.Configurations
         /// <summary>
         /// Creates a new initialized instance of <see cref="WmtsLayerConfiguration"/>.
         /// </summary>
-        /// <param name="wmtsCapabilitiesUrl">The capabilities url of the WMTS.</param>
+        /// <param name="wmtsCapabilitiesUrl">The capabilities URL of the WMTS.</param>
         /// <param name="tileSource">The tile source.</param>
         /// <exception cref="CannotCreateTileCacheException">Thrown when creating the file
         /// cache failed.</exception>
@@ -90,7 +90,7 @@ namespace Core.Components.BruTile.Configurations
         /// <summary>
         /// Creates a fully initialized instance of <see cref="WmtsLayerConfiguration"/>.
         /// </summary>
-        /// <param name="wmtsCapabilitiesUrl">The capabilities url of the WMTS.</param>
+        /// <param name="wmtsCapabilitiesUrl">The capabilities URL of the WMTS.</param>
         /// <param name="capabilityIdentifier">The capability name to get tiles from.</param>
         /// <param name="preferredFormat">The preferred tile image format, as MIME-type.</param>
         /// <returns>The new <see cref="WmtsLayerConfiguration"/>.</returns>
@@ -148,7 +148,7 @@ namespace Core.Components.BruTile.Configurations
         /// <summary>
         /// Validate the configuration parameters.
         /// </summary>
-        /// <param name="wmtsCapabilitiesUrl">The capabilities url of the WMTS.</param>
+        /// <param name="wmtsCapabilitiesUrl">The capabilities URL of the WMTS.</param>
         /// <param name="capabilityIdentifier">The capability name to get tiles from.</param>
         /// <param name="preferredFormat">The preferred tile image format, as MIME-type.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>

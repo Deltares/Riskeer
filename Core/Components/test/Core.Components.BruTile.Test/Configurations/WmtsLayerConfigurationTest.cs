@@ -105,7 +105,7 @@ namespace Core.Components.BruTile.Test.Configurations
 
                 // Assert
                 string message = Assert.Throws<CannotFindTileSourceException>(call).Message;
-                string expectedMessage = $"Niet in staat om de databron met naam '{id}' te kunnen vinden bij de WMTS url '{url}'.";
+                string expectedMessage = $"Niet in staat om de databron met naam '{id}' te kunnen vinden bij de WMTS URL '{url}'.";
                 Assert.AreEqual(expectedMessage, message);
             }
             mocks.VerifyAll();

@@ -54,7 +54,7 @@ namespace Core.Components.BruTile.Forms.Test
 
             // Assert
             CannotFindTileSourceException exception = Assert.Throws<CannotFindTileSourceException>(call);
-            Assert.AreEqual($"Niet in staat om de databronnen op te halen bij de WMTS url '{url}'.", exception.Message);
+            Assert.AreEqual($"Niet in staat om de databronnen op te halen bij de WMTS URL '{url}'.", exception.Message);
         }
 
         [Test]

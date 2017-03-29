@@ -120,7 +120,7 @@ namespace Core.Components.BruTile.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Niet in staat om de databronnen op te halen bij de WMTS url &apos;{0}&apos;..
+        ///   Looks up a localized string similar to Niet in staat om de databronnen op te halen bij de WMTS URL &apos;{0}&apos;..
         /// </summary>
         internal static string TileSourceFactory_ParseWmtsTileSources_Cannot_connect_to_WMTS_0_ {
             get {
@@ -129,7 +129,7 @@ namespace Core.Components.BruTile.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Niet in staat om de databron met naam &apos;{0}&apos; te kunnen vinden bij de WMTS url &apos;{1}&apos;..
+        ///   Looks up a localized string similar to Niet in staat om de databron met naam &apos;{0}&apos; te kunnen vinden bij de WMTS URL &apos;{1}&apos;..
         /// </summary>
         internal static string WmtsLayerConfiguration_GetConfiguredTileSource_Cannot_find_LayerId_0_at_WmtsUrl_1_ {
             get {
