@@ -36,6 +36,40 @@ namespace Core.Components.DotSpatial.Forms.Test
     [TestFixture]
     public class MapControlBackgroundLayerStatusTest
     {
+        private static IEnumerable<TestCaseData> SameMapDataTypes
+        {
+            get
+            {
+                var source = new Random().NextEnum<WellKnownTileSource>();
+                yield return new TestCaseData(new WellKnownTileSourceMapData(source),
+                                              new WellKnownTileSourceMapData(source))
+                    .SetName("WellKnownMapDataType");
+                yield return new TestCaseData(WmtsMapDataTestHelper.CreateDefaultPdokMapData(),
+                                              WmtsMapDataTestHelper.CreateDefaultPdokMapData())
+                    .SetName("WmtsMapDataType");
+            }
+        }
+
+        private static IEnumerable<TestCaseData> OtherConfigurations
+        {
+            get
+            {
+                var source = new Random().NextEnum<WellKnownTileSource>();
+                yield return new TestCaseData(new WellKnownTileSourceMapData(source),
+                                              WmtsMapDataTestHelper.CreateDefaultPdokMapData())
+                    .SetName("WellKnownToWmts");
+                yield return new TestCaseData(WmtsMapDataTestHelper.CreateDefaultPdokMapData(),
+                                              new WellKnownTileSourceMapData(source))
+                    .SetName("WmtsToWellKnown");
+                yield return new TestCaseData(new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial),
+                                              new WellKnownTileSourceMapData(WellKnownTileSource.BingHybrid))
+                    .SetName("OtherWellKnownConfiguration");
+                yield return new TestCaseData(WmtsMapDataTestHelper.CreateDefaultPdokMapData(),
+                                              WmtsMapDataTestHelper.CreateAlternativePdokMapData())
+                    .SetName("OtherWmtsConfiguration");
+            }
+        }
+
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -73,11 +107,11 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Setup
             var mocks = new MockRepository();
             var tileFetcher = mocks.Stub<ITileFetcher>();
+            IConfiguration configuration = CreateStubConfiguration(mocks, tileFetcher);
+            mocks.ReplayAll();
+
             using (var layerStatus = new MapControlBackgroundLayerStatus())
             {
-                IConfiguration configuration = CreateStubConfiguration(mocks, tileFetcher);
-                mocks.ReplayAll();
-
                 using (var layer = new BruTileLayer(configuration))
                 {
                     layerStatus.LayerInitializationSuccessful(layer, mapData1);
@@ -99,11 +133,11 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Setup
             var mocks = new MockRepository();
             var tileFetcher = mocks.Stub<ITileFetcher>();
+            IConfiguration configuration = CreateStubConfiguration(mocks, tileFetcher);
+            mocks.ReplayAll();
+
             using (var layerStatus = new MapControlBackgroundLayerStatus())
             {
-                IConfiguration configuration = CreateStubConfiguration(mocks, tileFetcher);
-                mocks.ReplayAll();
-
                 using (var layer = new BruTileLayer(configuration))
                 {
                     layerStatus.LayerInitializationSuccessful(layer, mapData1);
@@ -163,41 +197,6 @@ namespace Core.Components.DotSpatial.Forms.Test
                 // Assert
                 Assert.IsTrue(layerStatus.PreviousBackgroundLayerCreationFailed);
                 Assert.IsFalse(layerStatus.HasSameConfiguration(mapData));
-            }
-        }
-
-        private static IEnumerable<TestCaseData> SameMapDataTypes
-        {
-            get
-            {
-                var source = new Random().NextEnum<WellKnownTileSource>();
-                yield return new TestCaseData(new WellKnownTileSourceMapData(source),
-                                              new WellKnownTileSourceMapData(source))
-                    .SetName("WellKnownMapDataType");
-
-                yield return new TestCaseData(WmtsMapDataTestHelper.CreateDefaultPdokMapData(),
-                                              WmtsMapDataTestHelper.CreateDefaultPdokMapData())
-                    .SetName("WmtsMapDataType");
-            }
-        }
-         
-        private static IEnumerable<TestCaseData> OtherConfigurations
-        {
-            get
-            {
-                var source = new Random().NextEnum<WellKnownTileSource>();
-                yield return new TestCaseData(new WellKnownTileSourceMapData(source),
-                                              WmtsMapDataTestHelper.CreateDefaultPdokMapData())
-                    .SetName("WellKnownToWmts");
-                yield return new TestCaseData(WmtsMapDataTestHelper.CreateDefaultPdokMapData(),
-                                              new WellKnownTileSourceMapData(source))
-                    .SetName("WmtsToWellKnown");
-                yield return new TestCaseData(new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial),
-                                              new WellKnownTileSourceMapData(WellKnownTileSource.BingHybrid))
-                    .SetName("OtherWellKnownConfiguration");
-                yield return new TestCaseData(WmtsMapDataTestHelper.CreateDefaultPdokMapData(),
-                                              WmtsMapDataTestHelper.CreateAlternativePdokMapData())
-                    .SetName("OtherWmtsConfiguration");
             }
         }
 
