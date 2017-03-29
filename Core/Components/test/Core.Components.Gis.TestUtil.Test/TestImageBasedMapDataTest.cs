@@ -21,10 +21,9 @@
 
 using System;
 using Core.Components.Gis.Data;
-using Core.Components.Gis.TestUtil;
 using NUnit.Framework;
 
-namespace Core.Components.Gis.TestUtils.Test
+namespace Core.Components.Gis.TestUtil.Test
 {
     [TestFixture]
     public class TestImageBasedMapDataTest
