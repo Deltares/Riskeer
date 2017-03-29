@@ -35,7 +35,7 @@ namespace Ringtoets.HeightStructures.IO.Test
     public class HeightStructuresCalculationConfigurationWriterTest
         : CustomSchemaCalculationConfigurationWriterDesignGuidelinesTestFixture<
             HeightStructuresCalculationConfigurationWriter,
-            HeightStructureCalculationConfiguration>
+            HeightStructuresCalculationConfiguration>
     {
         private readonly string testDataPath = TestHelper.GetTestDataPath(
             TestDataPath.Ringtoets.HeightStructures.IO,
@@ -52,7 +52,7 @@ namespace Ringtoets.HeightStructures.IO.Test
                     .SetName("Calculation configuration with all parameters set");
                 yield return new TestCaseData("sparseConfiguration", new[]
                     {
-                        new HeightStructureCalculationConfiguration("sparse config")
+                        new HeightStructuresCalculationConfiguration("sparse config")
                     })
                     .SetName("Calculation configuration with none of its parameters set");
                 yield return new TestCaseData("folderWithSubfolderAndCalculation", new IConfigurationItem[]
@@ -62,7 +62,7 @@ namespace Ringtoets.HeightStructures.IO.Test
                             CreateFullCalculation(),
                             new CalculationConfigurationGroup("Nested", new IConfigurationItem[]
                             {
-                                new HeightStructureCalculationConfiguration("Berekening 2")
+                                new HeightStructuresCalculationConfiguration("Berekening 2")
                             })
                         })
                     })
@@ -72,7 +72,7 @@ namespace Ringtoets.HeightStructures.IO.Test
 
         protected override void AssertDefaultConstructedInstance(HeightStructuresCalculationConfigurationWriter writer)
         {
-            Assert.IsInstanceOf<StructureCalculationConfigurationWriter<HeightStructureCalculationConfiguration>>(writer);
+            Assert.IsInstanceOf<StructureCalculationConfigurationWriter<HeightStructuresCalculationConfiguration>>(writer);
         }
 
         [Test]
@@ -104,9 +104,9 @@ namespace Ringtoets.HeightStructures.IO.Test
             }
         }
 
-        private static HeightStructureCalculationConfiguration CreateFullCalculation()
+        private static HeightStructuresCalculationConfiguration CreateFullCalculation()
         {
-            return new HeightStructureCalculationConfiguration("Berekening 1")
+            return new HeightStructuresCalculationConfiguration("Berekening 1")
             {
                 HydraulicBoundaryLocationName = "Locatie1",
                 StructureName = "kunstwerk1",

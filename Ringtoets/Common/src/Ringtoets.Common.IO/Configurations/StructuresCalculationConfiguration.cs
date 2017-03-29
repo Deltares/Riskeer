@@ -20,23 +20,22 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.IO.Readers;
 
 namespace Ringtoets.Common.IO.Configurations
 {
     /// <summary>
     /// Configuration of a structure calculation.
     /// </summary>
-    public abstract class StructureCalculationConfiguration : IConfigurationItem
+    public abstract class StructuresCalculationConfiguration : IConfigurationItem
     {
         private string name;
 
         /// <summary>
-        /// Creates a new instance of <see cref="StructureCalculationConfiguration"/>.
+        /// Creates a new instance of <see cref="StructuresCalculationConfiguration"/>.
         /// </summary>
-        /// <param name="name">The name of the <see cref="StructureCalculationConfiguration"/>.</param>
+        /// <param name="name">The name of the <see cref="StructuresCalculationConfiguration"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
-        protected StructureCalculationConfiguration(string name)
+        protected StructuresCalculationConfiguration(string name)
         {
             Name = name;
         }

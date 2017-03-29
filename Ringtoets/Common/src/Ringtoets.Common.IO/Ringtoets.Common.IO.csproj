@@ -108,7 +108,7 @@
     <Compile Include="ReferenceLines\ReferenceLineWriter.cs" />
     <Compile Include="Exporters\SchemaCalculationConfigurationExporter.cs" />
     <Compile Include="Schema\ConfigurationSchemaIdentifiers.cs" />
-    <Compile Include="Configurations\StructureCalculationConfiguration.cs" />
+    <Compile Include="Configurations\StructuresCalculationConfiguration.cs" />
     <Compile Include="Structures\StructureFilesKeywords.cs" />
     <Compile Include="Structures\StructuresCharacteristicsCsvReader.cs" />
     <Compile Include="Structures\StructureLocation.cs" />
@@ -137,16 +137,19 @@
     <None Include="Resources\HrLocatieSchema.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Resources\KunstwerkenBasisSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Resources\OrientatieSchema.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Resources\StochastSchema.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Resources\StochastStandardDeviationSchema.xsd">
+    <None Include="Resources\StochastStandaardafwijkingSchema.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Resources\StochastVariationCoefficientSchema.xsd">
+    <None Include="Resources\StochastVariatiecoefficientSchema.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Resources\VoorlandProfielSchema.xsd">

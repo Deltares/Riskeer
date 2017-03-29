@@ -26,9 +26,9 @@ using Ringtoets.Common.IO.Writers;
 namespace Ringtoets.HeightStructures.IO
 {
     /// <summary>
-    /// Writer for writing <see cref="HeightStructureCalculationConfiguration"/> in XML format to file.
+    /// Writer for writing <see cref="HeightStructuresCalculationConfiguration"/> in XML format to file.
     /// </summary>
-    public class HeightStructuresCalculationConfigurationWriter : StructureCalculationConfigurationWriter<HeightStructureCalculationConfiguration>
+    public class HeightStructuresCalculationConfigurationWriter : StructureCalculationConfigurationWriter<HeightStructuresCalculationConfiguration>
     {
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresCalculationConfigurationWriter"/>.
@@ -44,11 +44,11 @@ namespace Ringtoets.HeightStructures.IO
         /// </list></remarks>
         public HeightStructuresCalculationConfigurationWriter(string filePath) : base(filePath) {}
         
-        protected override void WriteSpecificStructureParameters(HeightStructureCalculationConfiguration configuration, XmlWriter writer)
+        protected override void WriteSpecificStructureParameters(HeightStructuresCalculationConfiguration configuration, XmlWriter writer)
         {
         }
 
-        protected override void WriteSpecificStochasts(HeightStructureCalculationConfiguration configuration, XmlWriter writer)
+        protected override void WriteSpecificStochasts(HeightStructuresCalculationConfiguration configuration, XmlWriter writer)
         {
             if (configuration.LevelCrestStructure != null)
             {

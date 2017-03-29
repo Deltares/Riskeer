@@ -559,13 +559,7 @@ Er is geen berekeningenconfiguratie geïmporteerd.</value>
   <data name="Importer_LogMessageText_Update_of_TypeDescriptor_0_cancelled" xml:space="preserve">
     <value>{0} bijwerken afgebroken. Geen data ingelezen.</value>
   </data>
-  <data name="StochastStandardDeviationSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\stochaststandarddeviationschema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="StochastVariationCoefficientSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\stochastvariationcoefficientschema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="CalculationConfigurationReader_Configuration_contains_no_valid_xml_Reason_2" xml:space="preserve">
+  <data name="CalculationConfigurationReader_Configuration_contains_no_valid_xml_Reason_0" xml:space="preserve">
     <value>Het XML-document dat de configuratie voor de berekeningen beschrijft is niet geldig. De validatie geeft de volgende melding: {0}</value>
   </data>
   <data name="IDistributionExtensions_TrySetMean_Mean_0_is_invalid_for_Stochast_1_" xml:space="preserve">
@@ -573,5 +567,14 @@ Er is geen berekeningenconfiguratie geïmporteerd.</value>
   </data>
   <data name="IDistributionExtensions_TrySetStandardDeviation_StandardDeviation_0_is_invalid_for_Stochast_1_" xml:space="preserve">
     <value>Een standaardafwijking van '{0}' is ongeldig voor stochast '{1}'.</value>
+  </data>
+  <data name="KunstwerkenBasisSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\KunstwerkenBasisSchema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="StochastStandaardafwijkingSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\stochaststandaardafwijkingschema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="StochastVariatiecoefficientSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\stochastvariatiecoefficientschema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
 </root>

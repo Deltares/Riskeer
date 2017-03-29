@@ -35,12 +35,12 @@ namespace Ringtoets.Common.IO.Test.Writers
     {
         private static readonly string testDirectory = TestHelper.GetTestDataPath(
             TestDataPath.Ringtoets.Common.IO,
-            nameof(StructureCalculationConfigurationWriter<StructureCalculationConfiguration>));
+            nameof(StructureCalculationConfigurationWriter<StructuresCalculationConfiguration>));
 
         public static IEnumerable<TestCaseData> GetStructureCalculationsWithProperties()
         {
             yield return new TestCaseData(
-                    new SimpleStructureCalculationConfiguration("some name"),
+                    new SimpleStructuresCalculationConfiguration("some name"),
                     "structureCalculationWithoutParametersSet.xml")
                 .SetName("Structure calculation without any of its paramters set.");
 
@@ -69,7 +69,7 @@ namespace Ringtoets.Common.IO.Test.Writers
 
         [Test]
         [TestCaseSource(nameof(GetStructureCalculationsWithProperties))]
-        public void Write_WithoutDifferentSetParameters_WritesSetStructureProperties(StructureCalculationConfiguration structureCalculation, string fileName)
+        public void Write_WithoutDifferentSetParameters_WritesSetStructureProperties(StructuresCalculationConfiguration structuresCalculation, string fileName)
         {
             // Setup
             string filePath = TestHelper.GetScratchPadPath(nameof(Write_WithoutDifferentSetParameters_WritesSetStructureProperties));
@@ -78,7 +78,7 @@ namespace Ringtoets.Common.IO.Test.Writers
                 var writer = new SimpleStructureCalculationConfigurationWriter(filePath);
 
                 // Call
-                writer.Write(new [] { structureCalculation });
+                writer.Write(new [] { structuresCalculation });
 
                 // Assert
                 string actualXml = File.ReadAllText(filePath);
@@ -91,9 +91,9 @@ namespace Ringtoets.Common.IO.Test.Writers
             }
         }
 
-        private static SimpleStructureCalculationConfiguration CreateStructureWithAllParametersSet(string name)
+        private static SimpleStructuresCalculationConfiguration CreateStructureWithAllParametersSet(string name)
         {
-            return new SimpleStructureCalculationConfiguration(name)
+            return new SimpleStructuresCalculationConfiguration(name)
             {
                 AllowedLevelIncreaseStorage = new MeanStandardDeviationStochastConfiguration
                 {
@@ -159,20 +159,20 @@ namespace Ringtoets.Common.IO.Test.Writers
             return File.ReadAllText(Path.Combine(testDirectory, testFile));
         }
 
-        private class SimpleStructureCalculationConfiguration : StructureCalculationConfiguration
+        private class SimpleStructuresCalculationConfiguration : StructuresCalculationConfiguration
         {
-            public SimpleStructureCalculationConfiguration(string name) : base(name) {}
+            public SimpleStructuresCalculationConfiguration(string name) : base(name) {}
         }
-        private class SimpleStructureCalculationConfigurationWriter : StructureCalculationConfigurationWriter<SimpleStructureCalculationConfiguration>
+        private class SimpleStructureCalculationConfigurationWriter : StructureCalculationConfigurationWriter<SimpleStructuresCalculationConfiguration>
         {
             public SimpleStructureCalculationConfigurationWriter(string filePath) : base(filePath) {}
 
-            protected override void WriteSpecificStructureParameters(SimpleStructureCalculationConfiguration configuration, XmlWriter writer)
+            protected override void WriteSpecificStructureParameters(SimpleStructuresCalculationConfiguration configuration, XmlWriter writer)
             {
                 // no specific parameters
             }
 
-            protected override void WriteSpecificStochasts(SimpleStructureCalculationConfiguration configuration, XmlWriter writer)
+            protected override void WriteSpecificStochasts(SimpleStructuresCalculationConfiguration configuration, XmlWriter writer)
             {
                 // no specific stochasts
             }

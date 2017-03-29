@@ -470,8 +470,8 @@ namespace Ringtoets.Common.IO.Test.Writers
         }
     }
 
-    public class SimpleStructureCalculationConfiguration : StructureCalculationConfiguration
+    public class SimpleStructuresCalculationConfiguration : StructuresCalculationConfiguration
     {
-        public SimpleStructureCalculationConfiguration(string name) : base(name) {}
+        public SimpleStructuresCalculationConfiguration(string name) : base(name) {}
     }
 }

@@ -55,7 +55,7 @@ All rights reserved.
         <xs:enumeration value="modelfactoroverloopdebiet"/>
         <xs:enumeration value="breedtebodembescherming"/>
         <xs:enumeration value="breedtedoorstroomopening"/>
-        <xs:enumeration value="komergendoppervlak"/>
+        <xs:enumeration value="kombergendoppervlak"/>
         <xs:enumeration value="peilverhogingkomberging"/>
         <xs:enumeration value="kerendehoogte"/>
         <xs:enumeration value="kritiekinstromenddebiet"/>

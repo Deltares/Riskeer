@@ -41,7 +41,7 @@ namespace Ringtoets.HeightStructures.IO.Test
             HeightStructuresCalculationConfigurationExporter,
             HeightStructuresCalculationConfigurationWriter,
             StructuresCalculation<HeightStructuresInput>,
-            HeightStructureCalculationConfiguration>
+            HeightStructuresCalculationConfiguration>
     {
         private static IEnumerable<TestCaseData> Calculations
         {

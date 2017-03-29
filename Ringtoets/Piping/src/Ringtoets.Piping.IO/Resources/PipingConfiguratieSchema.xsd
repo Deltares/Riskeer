@@ -60,7 +60,7 @@ All rights reserved.
   </xs:redefine>
   
   <!--Generieke definitie voor de standaardafwijking van een stochast..-->
-  <xs:include schemaLocation="StochastStandardDeviationSchema.xsd"/>
+  <xs:include schemaLocation="StochastStandaardafwijkingSchema.xsd"/>
 
   <!--Elementen die specifiek voor dit toetsspoor nodig zijn.-->
   

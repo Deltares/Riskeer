@@ -36,7 +36,7 @@ namespace Ringtoets.HeightStructures.IO
     public class HeightStructuresCalculationConfigurationExporter : SchemaCalculationConfigurationExporter<
         HeightStructuresCalculationConfigurationWriter,
         StructuresCalculation<HeightStructuresInput>,
-        HeightStructureCalculationConfiguration
+        HeightStructuresCalculationConfiguration
     >
     {
         /// <summary>
@@ -48,10 +48,10 @@ namespace Ringtoets.HeightStructures.IO
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         public HeightStructuresCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath) : base(calculations, filePath) {}
 
-        protected override HeightStructureCalculationConfiguration ToConfiguration(StructuresCalculation<HeightStructuresInput> calculation)
+        protected override HeightStructuresCalculationConfiguration ToConfiguration(StructuresCalculation<HeightStructuresInput> calculation)
         {
             HeightStructuresInput input = calculation.InputParameters;
-            var calculationConfiguration = new HeightStructureCalculationConfiguration(calculation.Name);
+            var calculationConfiguration = new HeightStructuresCalculationConfiguration(calculation.Name);
 
             calculationConfiguration.HydraulicBoundaryLocationName = input.HydraulicBoundaryLocation?.Name;
 

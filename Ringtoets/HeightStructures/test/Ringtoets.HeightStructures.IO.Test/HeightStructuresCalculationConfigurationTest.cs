@@ -26,16 +26,16 @@ using Ringtoets.Common.IO.Configurations;
 namespace Ringtoets.HeightStructures.IO.Test
 {
     [TestFixture]
-    public class HeightStructureCalculationConfigurationTest
+    public class HeightStructuresCalculationConfigurationTest
     {
         [Test]
         public void Constructor_WithName_ExpectedValues()
         {
             // Call
-            var configuration = new HeightStructureCalculationConfiguration("some name");
+            var configuration = new HeightStructuresCalculationConfiguration("some name");
 
             // Assert
-            Assert.IsInstanceOf<StructureCalculationConfiguration>(configuration);
+            Assert.IsInstanceOf<StructuresCalculationConfiguration>(configuration);
             Assert.AreEqual("some name", configuration.Name);
             Assert.IsNull(configuration.LevelCrestStructure);
         }
@@ -45,7 +45,7 @@ namespace Ringtoets.HeightStructures.IO.Test
         {
             // Setup
             var levelCrestStructure = new MeanStandardDeviationStochastConfiguration();
-            var configuration = new HeightStructureCalculationConfiguration("some name");
+            var configuration = new HeightStructuresCalculationConfiguration("some name");
 
             // Call
             configuration.LevelCrestStructure = levelCrestStructure;

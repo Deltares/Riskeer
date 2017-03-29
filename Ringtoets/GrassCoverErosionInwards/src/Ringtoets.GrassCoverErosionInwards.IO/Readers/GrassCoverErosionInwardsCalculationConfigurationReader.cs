@@ -43,7 +43,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Readers
         private const string orientatieSchemaName = "OrientatieSchema.xsd";
         private const string golfReductieSchemaName = "GolfReductieSchema.xsd";
         private const string stochastSchemaName = "StochastSchema.xsd";
-        private const string stochastStandardDeviationSchemaName = "StochastStandardDeviationSchema.xsd";
+        private const string stochastStandaardafwijkingSchemaName = "StochastStandaardafwijkingSchema.xsd";
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculationConfigurationReader"/>.
@@ -76,7 +76,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Readers
                            stochastSchemaName, RingtoetsCommonIOResources.StochastSchema
                        },
                        {
-                           stochastStandardDeviationSchemaName, RingtoetsCommonIOResources.StochastStandardDeviationSchema
+                           stochastStandaardafwijkingSchemaName, RingtoetsCommonIOResources.StochastStandaardafwijkingSchema
                        }
                    }) {}
 

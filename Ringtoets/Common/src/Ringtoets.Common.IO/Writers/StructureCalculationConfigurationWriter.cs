@@ -27,10 +27,10 @@ using Ringtoets.Common.IO.Schema;
 namespace Ringtoets.Common.IO.Writers
 {
     /// <summary>
-    /// Writer for writing <see cref="StructureCalculationConfiguration"/> in XML format to file.
+    /// Writer for writing <see cref="StructuresCalculationConfiguration"/> in XML format to file.
     /// </summary>
     public abstract class StructureCalculationConfigurationWriter<T> : SchemaCalculationConfigurationWriter<T>
-        where T : StructureCalculationConfiguration
+        where T : StructuresCalculationConfiguration
     {
         /// <summary>
         /// Creates a new instance of <see cref="SchemaCalculationConfigurationWriter{T}"/>.

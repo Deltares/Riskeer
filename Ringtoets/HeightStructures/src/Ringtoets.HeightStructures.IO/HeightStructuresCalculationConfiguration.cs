@@ -26,13 +26,13 @@ namespace Ringtoets.HeightStructures.IO
     /// <summary>
     /// Configuration of a height structure calculation.
     /// </summary>
-    public class HeightStructureCalculationConfiguration : StructureCalculationConfiguration
+    public class HeightStructuresCalculationConfiguration : StructuresCalculationConfiguration
     {
         /// <summary>
-        /// Creates a new instance of <see cref="HeightStructureCalculationConfiguration"/>
+        /// Creates a new instance of <see cref="HeightStructuresCalculationConfiguration"/>
         /// </summary>
         /// <param name="name"></param>
-        public HeightStructureCalculationConfiguration(string name) : base(name) {}
+        public HeightStructuresCalculationConfiguration(string name) : base(name) {}
 
         /// <summary>
         /// Gets or sets the stochast configuration for the level of the crest for the structure.

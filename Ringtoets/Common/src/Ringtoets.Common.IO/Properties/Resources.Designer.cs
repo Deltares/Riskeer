@@ -164,7 +164,7 @@ namespace Ringtoets.Common.IO.Properties {
         /// </summary>
         public static string CalculationConfigurationReader_Configuration_contains_no_valid_xml_Reason_0 {
             get {
-                return ResourceManager.GetString("CalculationConfigurationReader_Configuration_contains_no_valid_xml_Reason_2", resourceCulture);
+                return ResourceManager.GetString("CalculationConfigurationReader_Configuration_contains_no_valid_xml_Reason_0", resourceCulture);
             }
         }
         
@@ -898,6 +898,27 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+        ///&lt;!--
+        ///Copyright (C) Stichting Deltares 2016. All rights reserved.
+        ///
+        ///This file is part of Ringtoets.
+        ///
+        ///Ringtoets is free software: you can redistribute it and/or modify
+        ///it under the terms of the GNU General Public License as published by
+        ///the Free Software Foundation, either version 3 of the License, or
+        ///(at your option) any later version.
+        ///
+        ///This program is distributed in the hope that it will be useful,
+        ///but WITHOUT ANY WARRANTY; without even the implied warranty  [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string KunstwerkenBasisSchema {
+            get {
+                return ResourceManager.GetString("KunstwerkenBasisSchema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;!--
         ///Copyright (C) Stichting Deltares 2016. All rights reserved.
         ///
@@ -1277,9 +1298,9 @@ namespace Ringtoets.Common.IO.Properties {
         ///This program is distributed in the hope that it will be useful,
         ///but WITHOUT ANY WARRANTY; without even the implied warranty  [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string StochastStandardDeviationSchema {
+        public static string StochastStandaardafwijkingSchema {
             get {
-                return ResourceManager.GetString("StochastStandardDeviationSchema", resourceCulture);
+                return ResourceManager.GetString("StochastStandaardafwijkingSchema", resourceCulture);
             }
         }
         
@@ -1298,9 +1319,9 @@ namespace Ringtoets.Common.IO.Properties {
         ///This program is distributed in the hope that it will be useful,
         ///but WITHOUT ANY WARRANTY; without even the implied warranty  [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string StochastVariationCoefficientSchema {
+        public static string StochastVariatiecoefficientSchema {
             get {
-                return ResourceManager.GetString("StochastVariationCoefficientSchema", resourceCulture);
+                return ResourceManager.GetString("StochastVariatiecoefficientSchema", resourceCulture);
             }
         }
         

@@ -32,7 +32,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
         public void Constructor_WithoutName_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SimpleStructureCalculationConfiguration(null);
+            TestDelegate call = () => new SimpleStructuresCalculationConfiguration(null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(call);
@@ -45,7 +45,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
             var name = "name";
 
             // Call
-            var configuration = new SimpleStructureCalculationConfiguration(name);
+            var configuration = new SimpleStructuresCalculationConfiguration(name);
 
             // Assert
             Assert.IsInstanceOf<IConfigurationItem>(configuration);
@@ -70,7 +70,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
         {
             // Setup
             const string configurationName = "some name";
-            var configuration = new SimpleStructureCalculationConfiguration(configurationName);
+            var configuration = new SimpleStructuresCalculationConfiguration(configurationName);
 
             const string structureName = "some structure";
             const string hydraulicBoundaryLocationName = "some hydraulic boundary location";
@@ -122,9 +122,9 @@ namespace Ringtoets.Common.IO.Test.Configurations
             Assert.AreSame(waveReduction, configuration.WaveReduction);
         }
 
-        public class SimpleStructureCalculationConfiguration : StructureCalculationConfiguration
+        public class SimpleStructuresCalculationConfiguration : StructuresCalculationConfiguration
         {
-            public SimpleStructureCalculationConfiguration(string name) : base(name) {}
+            public SimpleStructuresCalculationConfiguration(string name) : base(name) {}
         }
     }
 }
