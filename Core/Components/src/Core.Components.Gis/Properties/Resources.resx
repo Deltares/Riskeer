@@ -120,9 +120,6 @@
   <data name="WmtsMapData_Unconfigured_name" xml:space="preserve">
     <value>&lt;niet bepaald&gt;</value>
   </data>
-  <data name="WmtsMapData_CreateDefaultPdokMapData_Name" xml:space="preserve">
-    <value>PDOK achtergrondkaart</value>
-  </data>
   <data name="BingAerial_DisplayName" xml:space="preserve">
     <value>Bing Maps - Satelliet</value>
   </data>

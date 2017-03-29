@@ -42,6 +42,7 @@ using Core.Components.Gis.Exceptions;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
+using Core.Components.Gis.TestUtil;
 using DotSpatial.Controls;
 using DotSpatial.Projections;
 using DotSpatial.Symbology;
@@ -108,7 +109,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void RemoveAllData_Always_SetDataAndBackgroundMapDataNull()
         {
             // Setup
-            WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
@@ -527,7 +528,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void GivenMapControlWithoutBackgroundMapData_WhenWmtsBackgroundMapDataSet_ThenMapControlUpdated(bool isVisible)
         {
             // Given
-            WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
             backgroundMapData.IsVisible = isVisible;
             backgroundMapData.Transparency = (RoundedDouble) 0.25;
 
@@ -559,7 +560,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             ITileSourceFactory problematicFactory)
         {
             // Given
-            WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(problematicFactory))
@@ -587,7 +588,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         {
             // Given
             string folderWithoutPermission = Path.GetRandomFileName();
-            WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
@@ -624,7 +625,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void GivenMapControlWithFailingBackgroundMapData_WhenBackgroundNotifiesAndInitializationSuccessful_ThenBackgroundLayerAdded(ITileSourceFactory problematicFactory)
         {
             // Given
-            WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(problematicFactory))
@@ -657,7 +658,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         {
             // Given
             string folderWithoutPermission = Path.GetRandomFileName();
-            WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
@@ -698,7 +699,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void GivenMapControlWithFailedBackgroundMapData_WhenBackgroundNotifiesObservers_ThenFailedInitializationShouldNotGenerateLogMessage(ITileSourceFactory problematicFactory)
         {
             // Given
-            WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(problematicFactory))
@@ -731,7 +732,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Given
             string folderWithoutPermission = Path.GetRandomFileName();
 
-            WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
@@ -773,7 +774,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 var mapView = map.Controls.OfType<Map>().First();
                 ProjectionInfo originalProjection = mapView.Projection;
 
-                WmtsMapData backgroundMapData = WmtsMapData.CreateUnconnectedMapData();
+                WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
 
                 // When
                 map.BackgroundMapData = backgroundMapData;
@@ -789,7 +790,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void GivenMapControlWithBackgroundMapData_WhenBackgroundMapDataSetToUnconfigured_ThenMapControlUpdated()
         {
             // Given
-            WmtsMapData originalBackgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData originalBackgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
             originalBackgroundMapData.IsVisible = true;
             originalBackgroundMapData.Transparency = (RoundedDouble) 0.25;
 
@@ -811,7 +812,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Assert.AreEqual(layer.Projection, mapView.Projection);
 
                 // When
-                var newBackgroundMapData = WmtsMapData.CreateUnconnectedMapData();
+                var newBackgroundMapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
                 map.BackgroundMapData = newBackgroundMapData;
 
                 // Then
@@ -824,7 +825,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void GivenMapControlWithUnconfiguredBackgroundMapData_WhenWmtsBackgroundMapDataSet_ThenMapControlUpdated()
         {
             // Given
-            var newBackgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+            var newBackgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
             newBackgroundMapData.IsVisible = true;
             newBackgroundMapData.Transparency = (RoundedDouble) 0.75;
 
@@ -832,7 +833,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (new UseCustomTileSourceFactoryConfig(newBackgroundMapData))
             using (var map = new MapControl())
             {
-                WmtsMapData originalBackgroundMapData = WmtsMapData.CreateUnconnectedMapData();
+                WmtsMapData originalBackgroundMapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
 
                 var mapView = map.Controls.OfType<Map>().First();
                 ProjectionInfo originalProjection = mapView.Projection;
@@ -859,7 +860,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void GivenMapControlWithWmtsBackgroundData_WhenVisibilityPropertiesChangeAndNotified_ThenBackgroundLayerReused()
         {
             // Given
-            WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
             backgroundMapData.IsVisible = true;
             backgroundMapData.Transparency = (RoundedDouble) 0.25;
 
@@ -892,8 +893,8 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void GivenMapWithUnconfiguredWmtsBackgroundAndMapDataCollection_WhenBackgroundMapDataConfigured_ThenLayerIsReusedAndUpdatedFeaturesReprojected()
         {
             // Given
-            var newBackgroundMapData = WmtsMapData.CreateAlternativePdokMapData();
-            var startingBackgroundMapData = WmtsMapData.CreateUnconnectedMapData();
+            var newBackgroundMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
+            var startingBackgroundMapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(newBackgroundMapData))
@@ -955,7 +956,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void GivenMapWithWmtsBackgroundAndMapDataCollection_WhenBackgroundMapDataConfigurationRemoved_ThenLayerIsReusedAndUpdatedFeaturesReprojected()
         {
             // Given
-            var backgroundMapData = WmtsMapData.CreateAlternativePdokMapData();
+            var backgroundMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
@@ -1019,7 +1020,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void GivenMapControlWithData_WhenWmtsBackgroundMapDataSet_ThenDataLayersReprojected()
         {
             // Given
-            WmtsMapData backgroundMapData = WmtsMapData.CreateAlternativePdokMapData();
+            WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
@@ -1070,7 +1071,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void GivenMapControlWithData_WhenUnconfiguredWmtsBackgroundMapDataSet_NoChangesToLayerConfiguration()
         {
             // Given
-            WmtsMapData backgroundMapData = WmtsMapData.CreateUnconnectedMapData();
+            WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
@@ -1118,7 +1119,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void GivenMapControlWithDataAndBackground_WhenDifferentWmtsBackgroundMapDataSet_LayersReprojected()
         {
             // Given
-            WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
@@ -1154,7 +1155,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Assert.AreEqual(2.2, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y);
 
                 // When
-                WmtsMapData differentBackgroundMapData = WmtsMapData.CreateAlternativePdokMapData();
+                WmtsMapData differentBackgroundMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
                 using (new UseCustomTileSourceFactoryConfig(differentBackgroundMapData))
                 {
                     map.BackgroundMapData = differentBackgroundMapData;
@@ -1176,7 +1177,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void GivenMapControlWithDataAndBackground_WhenUnconfiguredWmtsBackgroundMapDataSet_LayersReprojected()
         {
             // Given
-            WmtsMapData backgroundMapData = WmtsMapData.CreateAlternativePdokMapData();
+            WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
@@ -1214,7 +1215,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                                 "Coordinate does not match (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
 
                 // When
-                var differentBackgroundMapData = WmtsMapData.CreateUnconnectedMapData();
+                var differentBackgroundMapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
 
                 using (new UseCustomTileSourceFactoryConfig(differentBackgroundMapData))
                 {
@@ -1234,7 +1235,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void GivenMapControlWithBackground_WhenDataSetToMapDataCollection_FeatureLayersAreReprojected()
         {
             // Given
-            WmtsMapData backgroundMapData = WmtsMapData.CreateAlternativePdokMapData();
+            WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
@@ -1299,7 +1300,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void GivenMapControl_WhenBackgroundAndThenMapDataSetWhileTileSourceFactoryProblematic_MapControlUpdated(ITileSourceFactory problematicFactory)
         {
             // Given
-            WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(problematicFactory))
@@ -1353,7 +1354,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Given
             string folderWithoutPermission = Path.GetRandomFileName();
 
-            WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
@@ -1412,7 +1413,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void GivenMapWithBackgroundAndMapDataCollection_WhenMapDataCollectionFeaturesUpdates_ThenLayerIsReusedAndUpdatedFeaturesReprojected()
         {
             // Given
-            var backgroundMapData = WmtsMapData.CreateAlternativePdokMapData();
+            var backgroundMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))

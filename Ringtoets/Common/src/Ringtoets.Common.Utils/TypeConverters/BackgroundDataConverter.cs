@@ -79,7 +79,6 @@ namespace Ringtoets.Common.Utils.TypeConverters
 
             ImageBasedMapData mapData = CreateMapData(backgroundData);
 
-            mapData.Name = backgroundData.Name;
             mapData.IsVisible = backgroundData.IsVisible;
             mapData.Transparency = backgroundData.Transparency;
 
@@ -99,7 +98,7 @@ namespace Ringtoets.Common.Utils.TypeConverters
             var wmtsBackgroundDataConfiguration = backgroundData.Configuration as WmtsBackgroundDataConfiguration;
             if (wmtsBackgroundDataConfiguration != null)
             {
-                return CreateWmtsMapData(wmtsBackgroundDataConfiguration);
+                return CreateWmtsMapData(backgroundData.Name, wmtsBackgroundDataConfiguration);
             }
             var wellKnownBackgroundDataConfiguration = backgroundData.Configuration as WellKnownBackgroundDataConfiguration;
             if (wellKnownBackgroundDataConfiguration != null)
@@ -144,17 +143,17 @@ namespace Ringtoets.Common.Utils.TypeConverters
                                                        mapData.PreferredFormat);
         }
 
-        private static WmtsMapData CreateWmtsMapData(WmtsBackgroundDataConfiguration backgroundDataConfiguration)
+        private static WmtsMapData CreateWmtsMapData(string name, WmtsBackgroundDataConfiguration backgroundDataConfiguration)
         {
-            WmtsMapData wmtsMapData = WmtsMapData.CreateUnconnectedMapData();
-
             if (backgroundDataConfiguration.IsConfigured)
             {
-                wmtsMapData.Configure(backgroundDataConfiguration.SourceCapabilitiesUrl,
-                                      backgroundDataConfiguration.SelectedCapabilityIdentifier,
-                                      backgroundDataConfiguration.PreferredFormat);
+                return new WmtsMapData(name,
+                                       backgroundDataConfiguration.SourceCapabilitiesUrl,
+                                       backgroundDataConfiguration.SelectedCapabilityIdentifier,
+                                       backgroundDataConfiguration.PreferredFormat);
             }
-            return wmtsMapData;
+
+            return new WmtsMapData(name);
         }
 
         /// <summary>

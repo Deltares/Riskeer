@@ -23,6 +23,7 @@ using System;
 using Core.Common.TestUtil;
 using Core.Components.BruTile.Configurations;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -57,7 +58,7 @@ namespace Core.Components.BruTile.TestUtil.Test
             // Given
             ITileSourceFactory originalFactory = TileSourceFactory.Instance;
 
-            WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData mapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
             // When
             using (new UseCustomTileSourceFactoryConfig(mapData))

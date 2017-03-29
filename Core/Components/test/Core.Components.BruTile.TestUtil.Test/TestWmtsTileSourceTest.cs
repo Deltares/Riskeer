@@ -27,6 +27,7 @@ using BruTile.Web;
 using BruTile.Wmts;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.TestUtil;
 using NUnit.Framework;
 
 namespace Core.Components.BruTile.TestUtil.Test
@@ -38,7 +39,7 @@ namespace Core.Components.BruTile.TestUtil.Test
         public void Constructor_ConfiguredWmtsMapData_ExpectedValues()
         {
             // Setup
-            WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData mapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
             // Call
             var source = new TestWmtsTileSource(mapData);
@@ -58,7 +59,7 @@ namespace Core.Components.BruTile.TestUtil.Test
         public void Constructor_UnconfiguredWmtsMapData_ThrowArgumentException()
         {
             // Setup
-            WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
+            WmtsMapData mapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
 
             // Call
             TestDelegate call = () => new TestWmtsTileSource(mapData);
@@ -73,7 +74,7 @@ namespace Core.Components.BruTile.TestUtil.Test
         public void GetTile_ForAnyTileInfo_ReturnsStubTileData()
         {
             // Setup
-            WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData mapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
             var source = new TestWmtsTileSource(mapData);
 
             // Call
@@ -92,7 +93,7 @@ namespace Core.Components.BruTile.TestUtil.Test
         public void GetUri_ForAnyTileInfo_ReturnStubUrl()
         {
             // Setup
-            WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData mapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
             var source = new TestWmtsTileSource(mapData);
 
             // Call

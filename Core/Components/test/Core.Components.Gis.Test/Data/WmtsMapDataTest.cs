@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.TestUtil;
 using NUnit.Framework;
 
 namespace Core.Components.Gis.Test.Data
@@ -48,6 +48,7 @@ namespace Core.Components.Gis.Test.Data
 
             Assert.AreEqual(name, mapData.Name);
             Assert.IsTrue(mapData.IsVisible);
+            Assert.IsTrue(mapData.IsConfigured);
 
             Assert.AreEqual(url, mapData.SourceCapabilitiesUrl);
             Assert.AreEqual(capabilityIdentifier, mapData.SelectedCapabilityIdentifier);
@@ -55,9 +56,6 @@ namespace Core.Components.Gis.Test.Data
 
             Assert.AreEqual(2, mapData.Transparency.NumberOfDecimalPlaces);
             Assert.AreEqual(0.0, mapData.Transparency.Value);
-
-            Assert.IsTrue(mapData.IsConfigured);
-            Assert.IsTrue(mapData.IsVisible);
         }
 
         [Test]
@@ -120,58 +118,48 @@ namespace Core.Components.Gis.Test.Data
         }
 
         [Test]
-        public void CreateDefaultPdokMapData_ReturnsInitializedWmtsMapData()
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("    ")]
+        public void SingleParameterdConstructor_NameInvalid_ThrowArgumentException(string invalidName)
         {
             // Call
-            WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
+            TestDelegate call = () => new WmtsMapData(invalidName);
 
             // Assert
-            Assert.AreEqual("PDOK achtergrondkaart", mapData.Name);
-            Assert.AreEqual("https://geodata.nationaalgeoregister.nl/wmts/top10nlv2?VERSION=1.0.0&request=GetCapabilities", mapData.SourceCapabilitiesUrl);
-            Assert.AreEqual("brtachtergrondkaart(EPSG:28992)", mapData.SelectedCapabilityIdentifier);
-            Assert.AreEqual("image/png", mapData.PreferredFormat);
-            Assert.AreEqual(0.0, mapData.Transparency.Value);
-            Assert.IsTrue(mapData.IsConfigured);
-            Assert.IsTrue(mapData.IsVisible);
+            string paramName = Assert.Throws<ArgumentException>(call).ParamName;
+            Assert.AreEqual("Name", paramName);
         }
 
         [Test]
-        public void CreateAlternativePdokMapData_ReturnsInitializedWmtsMapData()
+        public void SingleParameteredConstructor_NameValid_Expectedvalues()
         {
+            // Setup
+            const string name = "A";
+
             // Call
-            WmtsMapData mapData = WmtsMapData.CreateAlternativePdokMapData();
+            var mapData = new WmtsMapData(name);
 
             // Assert
-            Assert.AreEqual("PDOK achtergrondkaart", mapData.Name);
-            Assert.AreEqual("https://geodata.nationaalgeoregister.nl/wmts/top10nlv2?VERSION=1.0.0&request=GetCapabilities", mapData.SourceCapabilitiesUrl);
-            Assert.AreEqual("brtachtergrondkaart(EPSG:25831:RWS)", mapData.SelectedCapabilityIdentifier);
-            Assert.AreEqual("image/png", mapData.PreferredFormat);
-            Assert.AreEqual(0.0, mapData.Transparency.Value);
-            Assert.IsTrue(mapData.IsConfigured);
-            Assert.IsTrue(mapData.IsVisible);
-        }
+            Assert.IsInstanceOf<ImageBasedMapData>(mapData);
 
-        [Test]
-        public void CreateUnconnectedMapData_ReturnsUnconfiguredWmtsMapData()
-        {
-            // Call
-            WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
+            Assert.AreEqual(name, mapData.Name);
+            Assert.IsFalse(mapData.IsVisible);
+            Assert.IsFalse(mapData.IsConfigured);
 
-            // Assert
-            Assert.AreEqual("<niet bepaald>", mapData.Name);
             Assert.IsNull(mapData.SourceCapabilitiesUrl);
             Assert.IsNull(mapData.SelectedCapabilityIdentifier);
             Assert.IsNull(mapData.PreferredFormat);
+
+            Assert.AreEqual(2, mapData.Transparency.NumberOfDecimalPlaces);
             Assert.AreEqual(0.0, mapData.Transparency.Value);
-            Assert.IsFalse(mapData.IsConfigured);
-            Assert.IsFalse(mapData.IsVisible);
         }
 
         [Test]
         public void Configure_CapabilitiesUrlNull_ThrowArgumentNullException()
         {
             // Setup
-            WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
+            WmtsMapData mapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
 
             // Call
             TestDelegate call = () => mapData.Configure(null, capabilityIdentifier, imageFormat);
@@ -185,7 +173,7 @@ namespace Core.Components.Gis.Test.Data
         public void Configure_SelectedCapabilityNameNull_ThrowArgumentNullException()
         {
             // Setup
-            WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
+            WmtsMapData mapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
 
             // Call
             TestDelegate call = () => mapData.Configure(url, null, imageFormat);
@@ -199,7 +187,7 @@ namespace Core.Components.Gis.Test.Data
         public void Configure_PreferredImageFormatNull_ThrowArgumentNullException()
         {
             // Setup
-            WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
+            WmtsMapData mapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
 
             // Call
             TestDelegate call = () => mapData.Configure(url, capabilityIdentifier, null);
@@ -213,7 +201,7 @@ namespace Core.Components.Gis.Test.Data
         public void Configure_PreferredImageFormatNotMime_ThrowArgumentException()
         {
             // Setup
-            WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
+            WmtsMapData mapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
 
             // Call
             TestDelegate call = () => mapData.Configure(url, capabilityIdentifier, "png");
@@ -228,7 +216,7 @@ namespace Core.Components.Gis.Test.Data
         public void Configure_ValidArguments_SetConnectionProperties()
         {
             // Setup
-            WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
+            WmtsMapData mapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
 
             // Call
             mapData.Configure(url, capabilityIdentifier, imageFormat);
@@ -244,7 +232,7 @@ namespace Core.Components.Gis.Test.Data
         public void RemoveConfiguration_MapDataConfigured_ConfigurationRemoved()
         {
             // Setup
-            WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData mapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
             // Call
             mapData.RemoveConfiguration();

@@ -142,7 +142,7 @@ namespace Core.Components.BruTile.Forms.Test
         public void CreateInitializedConfiguration_ProblematicTileSourceFactory_ThrowConfigurationInitializationException(ITileSourceFactory factory)
         {
             // Setup
-            WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
             using (new UseCustomTileSourceFactoryConfig(factory))
             {
@@ -160,7 +160,7 @@ namespace Core.Components.BruTile.Forms.Test
         public void CreateInitializedConfiguration_ValidWmtsMapData_ReturnWmtsTileSourceLayerConfiguration()
         {
             // Setup
-            WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData mapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
@@ -208,7 +208,7 @@ namespace Core.Components.BruTile.Forms.Test
             yield return new TestCaseData(new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial))
                 .SetName("WellKnownMapData");
 
-            yield return new TestCaseData(WmtsMapData.CreateDefaultPdokMapData())
+            yield return new TestCaseData(WmtsMapDataTestHelper.CreateDefaultPdokMapData())
                 .SetName("WmtsMapData");
         }
     }

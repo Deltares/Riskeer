@@ -145,15 +145,6 @@ namespace Core.Components.Gis.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PDOK achtergrondkaart.
-        /// </summary>
-        internal static string WmtsMapData_CreateDefaultPdokMapData_Name {
-            get {
-                return ResourceManager.GetString("WmtsMapData_CreateDefaultPdokMapData_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to &lt;niet bepaald&gt;.
         /// </summary>
         internal static string WmtsMapData_Unconfigured_name {

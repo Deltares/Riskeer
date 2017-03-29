@@ -175,8 +175,8 @@ namespace Core.Components.DotSpatial.Forms.Test
                                               new WellKnownTileSourceMapData(source))
                     .SetName("WellKnownMapDataType");
 
-                yield return new TestCaseData(WmtsMapData.CreateDefaultPdokMapData(),
-                                              WmtsMapData.CreateDefaultPdokMapData())
+                yield return new TestCaseData(WmtsMapDataTestHelper.CreateDefaultPdokMapData(),
+                                              WmtsMapDataTestHelper.CreateDefaultPdokMapData())
                     .SetName("WmtsMapDataType");
             }
         }
@@ -187,23 +187,23 @@ namespace Core.Components.DotSpatial.Forms.Test
             {
                 var source = new Random().NextEnum<WellKnownTileSource>();
                 yield return new TestCaseData(new WellKnownTileSourceMapData(source),
-                                              WmtsMapData.CreateDefaultPdokMapData())
+                                              WmtsMapDataTestHelper.CreateDefaultPdokMapData())
                     .SetName("WellKnownToWmts");
-                yield return new TestCaseData(WmtsMapData.CreateDefaultPdokMapData(),
+                yield return new TestCaseData(WmtsMapDataTestHelper.CreateDefaultPdokMapData(),
                                               new WellKnownTileSourceMapData(source))
                     .SetName("WmtsToWellKnown");
                 yield return new TestCaseData(new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial),
                                               new WellKnownTileSourceMapData(WellKnownTileSource.BingHybrid))
                     .SetName("OtherWellKnownConfiguration");
-                yield return new TestCaseData(WmtsMapData.CreateDefaultPdokMapData(),
-                                              WmtsMapData.CreateAlternativePdokMapData())
+                yield return new TestCaseData(WmtsMapDataTestHelper.CreateDefaultPdokMapData(),
+                                              WmtsMapDataTestHelper.CreateAlternativePdokMapData())
                     .SetName("OtherWmtsConfiguration");
             }
         }
 
         private static IEnumerable<TestCaseData> Configurations(string prefix)
         {
-            yield return new TestCaseData(WmtsMapData.CreateDefaultPdokMapData())
+            yield return new TestCaseData(WmtsMapDataTestHelper.CreateDefaultPdokMapData())
                 .SetName($"{prefix}_Wmts");
             yield return new TestCaseData(new WellKnownTileSourceMapData(new Random(21).NextEnum<WellKnownTileSource>()))
                 .SetName($"{prefix}_WellKnown");

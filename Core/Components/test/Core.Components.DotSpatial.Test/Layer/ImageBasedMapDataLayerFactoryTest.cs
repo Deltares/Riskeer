@@ -125,7 +125,7 @@ namespace Core.Components.DotSpatial.Test.Layer
         public void Create_ProblematicTileSourceFactory_ThrowConfigurationInitializationException(ITileSourceFactory factory)
         {
             // Setup
-            WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
             using (new UseCustomTileSourceFactoryConfig(factory))
             {
@@ -193,7 +193,7 @@ namespace Core.Components.DotSpatial.Test.Layer
             yield return new TestCaseData(new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial))
                 .SetName($"{prefix}: WellKnownMapData");
 
-            yield return new TestCaseData(WmtsMapData.CreateDefaultPdokMapData())
+            yield return new TestCaseData(WmtsMapDataTestHelper.CreateDefaultPdokMapData())
                 .SetName($"{prefix}: WmtsMapData");
         }
     }

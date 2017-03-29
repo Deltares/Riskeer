@@ -28,6 +28,7 @@ using Core.Common.Base.Geometry;
 using Core.Components.BruTile.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
+using Core.Components.Gis.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -189,7 +190,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void Data_SetToNull_ClearMapDataProperties()
         {
             // Setup
-            WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
             var assessmentSection = new ObservableTestAssessmentSectionStub
             {
                 BackgroundData = BackgroundDataConverter.ConvertTo(backgroundMapData)

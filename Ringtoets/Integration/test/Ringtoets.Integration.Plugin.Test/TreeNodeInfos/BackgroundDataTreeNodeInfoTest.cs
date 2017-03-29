@@ -37,6 +37,7 @@ using Core.Components.BruTile.Configurations;
 using Core.Components.BruTile.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms.Views;
+using Core.Components.Gis.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -124,7 +125,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void ForeColor_ConnectedWtmsBackgroundDataConfiguration_ReturnControlText()
         {
             // Setup
-            WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData mapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
             BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(mapData);
 
             using (var plugin = new RingtoetsPlugin())
@@ -143,7 +144,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void ForeColor_UnconnectedWtmsBackgroundDataConfiguration_ReturnGrayText()
         {
             // Setup
-            WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
+            WmtsMapData mapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
             BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(mapData);
 
             using (var plugin = new RingtoetsPlugin())
@@ -284,7 +285,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var backgroundDataObserver = mockRepository.StrictMock<IObserver>();
             backgroundDataObserver.Expect(o => o.UpdateObserver());
 
-            WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
+            WmtsMapData mapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
             BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(mapData);
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
@@ -397,9 +398,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var backgroundDataObserver = mockRepository.StrictMock<IObserver>();
             backgroundDataObserver.Expect(o => o.UpdateObserver());
 
-            WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
+            WmtsMapData mapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
 
-            WmtsMapData newMapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData newMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
             BackgroundData newBackgroundMapdata = BackgroundDataConverter.ConvertTo(newMapData);
 
             var assessmentSection = new ObservableTestAssessmentSectionStub();
@@ -458,7 +459,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var backgroundDataObserver = mockRepository.StrictMock<IObserver>();
             backgroundDataObserver.Expect(o => o.UpdateObserver());
 
-            WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
+            WmtsMapData mapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
 
             var assessmentSection = new ObservableTestAssessmentSectionStub();
 
@@ -524,10 +525,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSectionObserver = mockRepository.StrictMock<IObserver>();
             var backgroundDataObserver = mockRepository.StrictMock<IObserver>();
 
-            WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
+            WmtsMapData mapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
             BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(mapData);
 
-            WmtsMapData newMapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData newMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
             BackgroundData newBackgroundData = BackgroundDataConverter.ConvertTo(newMapData);
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper

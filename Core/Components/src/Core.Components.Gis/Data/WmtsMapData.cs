@@ -55,7 +55,7 @@ namespace Core.Components.Gis.Data
         /// </summary>
         /// <param name="name">The name of the map data.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is <c>null</c> or only whitespace.</exception>
-        private WmtsMapData(string name) : base(name)
+        public WmtsMapData(string name) : base(name)
         {
             IsVisible = false;
         }
@@ -75,38 +75,6 @@ namespace Core.Components.Gis.Data
         /// Gets the MIME-type specification of the preferred tile image format.
         /// </summary>
         public string PreferredFormat { get; private set; }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="WmtsMapData"/> configured to the 'brtachtergrondkaart'
-        /// of PDOK in RD-new coordinate system.
-        /// </summary>
-        public static WmtsMapData CreateDefaultPdokMapData()
-        {
-            return new WmtsMapData(Resources.WmtsMapData_CreateDefaultPdokMapData_Name,
-                                   "https://geodata.nationaalgeoregister.nl/wmts/top10nlv2?VERSION=1.0.0&request=GetCapabilities",
-                                   "brtachtergrondkaart(EPSG:28992)",
-                                   "image/png");
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="WmtsMapData"/> configured to the 'brtachtergrondkaart'
-        /// of PDOK in a ETRS89 / UTM zone 31 N coordinate system.
-        /// </summary>
-        public static WmtsMapData CreateAlternativePdokMapData()
-        {
-            return new WmtsMapData(Resources.WmtsMapData_CreateDefaultPdokMapData_Name,
-                                   "https://geodata.nationaalgeoregister.nl/wmts/top10nlv2?VERSION=1.0.0&request=GetCapabilities",
-                                   "brtachtergrondkaart(EPSG:25831:RWS)",
-                                   "image/png");
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="WmtsMapData"/> that hasn't been configured.
-        /// </summary>
-        public static WmtsMapData CreateUnconnectedMapData()
-        {
-            return new WmtsMapData(Resources.WmtsMapData_Unconfigured_name);
-        }
 
         /// <summary>
         /// Configures this instance to use a particular WMTS.

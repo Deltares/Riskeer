@@ -36,6 +36,7 @@ using Core.Components.BruTile.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Exceptions;
 using Core.Components.Gis.Forms.Views;
+using Core.Components.Gis.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -111,7 +112,7 @@ namespace Core.Components.Gis.Forms.Test.Views
         public void Constructor_ValidWmtsMapData_ExpectedProperties()
         {
             // Setup
-            WmtsMapData activeWmtsMapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData activeWmtsMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
             wmtsCapabilityFactory.Expect(wcf => wcf.GetWmtsCapabilities(activeWmtsMapData.SourceCapabilitiesUrl)).Return(new[]
             {
@@ -172,7 +173,7 @@ namespace Core.Components.Gis.Forms.Test.Views
         public void Show_AddedToFormWithWmtsMapData_DefaultProperties()
         {
             // Setup
-            WmtsMapData activeWmtsMapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData activeWmtsMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
             wmtsCapabilityFactory.Expect(wcf => wcf.GetWmtsCapabilities(activeWmtsMapData.SourceCapabilitiesUrl))
                                  .Return(new[]
                                  {
@@ -259,11 +260,11 @@ namespace Core.Components.Gis.Forms.Test.Views
         public void Constructor_ValidMapDataWithITileSources_ExpectedDataGrid()
         {
             // Setup
-            WmtsMapData activeWmtsMapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData activeWmtsMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
             var capabilities = new[]
             {
-                CreateWmtsCapability(new TestWmtsTileSource(WmtsMapData.CreateAlternativePdokMapData())),
+                CreateWmtsCapability(new TestWmtsTileSource(WmtsMapDataTestHelper.CreateAlternativePdokMapData())),
                 CreateWmtsCapability(new TestWmtsTileSource(activeWmtsMapData))
             };
 
@@ -292,7 +293,7 @@ namespace Core.Components.Gis.Forms.Test.Views
         public void Constructor_ValidMapDataWithoutITileSources_DataGridEmpty()
         {
             // Setup
-            WmtsMapData activeWmtsMapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData activeWmtsMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
             wmtsCapabilityFactory.Expect(wcf => wcf.GetWmtsCapabilities(activeWmtsMapData.SourceCapabilitiesUrl)).Return(Enumerable.Empty<WmtsCapability>());
             mockRepository.ReplayAll();
@@ -917,7 +918,7 @@ namespace Core.Components.Gis.Forms.Test.Views
         public void GivenWmtsLocationControlAndConnectClicked_WhenValidDataFromUrl_ThenDataGridUpdated()
         {
             // Given
-            WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
             wmtsCapabilityFactory.Expect(GetWmtsCapabilitiesFromDefaultWmtsCapabilityUrl).Return(Enumerable.Empty<WmtsCapability>());
             wmtsCapabilityFactory.Expect(wcf => wcf.GetWmtsCapabilities(backgroundMapData.SourceCapabilitiesUrl))

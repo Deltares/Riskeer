@@ -27,6 +27,7 @@ using BruTile.Predefined;
 using Core.Common.TestUtil;
 using Core.Components.BruTile.Configurations;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.TestUtil;
 using NUnit.Framework;
 
 namespace Core.Components.BruTile.TestUtil.Test
@@ -38,7 +39,7 @@ namespace Core.Components.BruTile.TestUtil.Test
         public void Constructor_ForWmtsMapData_ExpectedValues()
         {
             // Setup
-            WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
+            WmtsMapData mapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
 
             // Call
             var factory = new TestTileSourceFactory(mapData);
@@ -51,7 +52,7 @@ namespace Core.Components.BruTile.TestUtil.Test
         public void GetWmtsTileSources_FromUninitializedWmtsMapData_ReturnEmpty()
         {
             // Setup
-            WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
+            WmtsMapData mapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
 
             // Precondition
             Assert.IsFalse(mapData.IsConfigured);
@@ -69,7 +70,7 @@ namespace Core.Components.BruTile.TestUtil.Test
         public void GetWmtsTileSources_FromConfiguredWmtsMapData_ReturnTileSource()
         {
             // Setup
-            WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData mapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
             // Precondition
             Assert.IsTrue(mapData.IsConfigured);
@@ -103,7 +104,7 @@ namespace Core.Components.BruTile.TestUtil.Test
         public void GetWellKnownTileSources_NotInitialized_ThrowsNotSupportedException()
         {
             // Setup
-            WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
+            WmtsMapData mapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
             var factory = new TestTileSourceFactory(mapData);
 
             // Call

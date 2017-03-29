@@ -24,6 +24,7 @@ using Core.Components.BruTile.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Exceptions;
 using Core.Components.Gis.Forms;
+using Core.Components.Gis.TestUtil;
 using NUnit.Framework;
 
 namespace Core.Components.BruTile.Forms.Test
@@ -63,7 +64,7 @@ namespace Core.Components.BruTile.Forms.Test
             // Setup
             string url = "validUrl";
             var factory = new BruTileWmtsCapabilityFactory();
-            WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             {

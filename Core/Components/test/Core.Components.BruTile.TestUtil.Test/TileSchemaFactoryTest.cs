@@ -24,6 +24,7 @@ using BruTile;
 using BruTile.Wmts;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.TestUtil;
 using NUnit.Framework;
 
 namespace Core.Components.BruTile.TestUtil.Test
@@ -35,7 +36,7 @@ namespace Core.Components.BruTile.TestUtil.Test
         public void CreateWmtsTileSchema_ForWmtsMapData_ReturnsWmtsTileSchema()
         {
             // Setup
-            WmtsMapData wmtsMapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData wmtsMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
             // Call
             WmtsTileSchema schema = TileSchemaFactory.CreateWmtsTileSchema(wmtsMapData);
@@ -93,7 +94,7 @@ namespace Core.Components.BruTile.TestUtil.Test
         public void CreateWmtsTileSchema_ForUninitializedWmtsMapData_ThrowArgumentException()
         {
             // Setup
-            WmtsMapData mapData = WmtsMapData.CreateUnconnectedMapData();
+            WmtsMapData mapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
 
             // Call
             TestDelegate call = () => TileSchemaFactory.CreateWmtsTileSchema(mapData);

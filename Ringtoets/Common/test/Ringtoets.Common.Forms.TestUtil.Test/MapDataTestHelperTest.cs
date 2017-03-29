@@ -26,6 +26,7 @@ using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
+using Core.Components.Gis.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -1125,7 +1126,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
         public void AssertImageBasedMapData_WmtsMapDataNotEqual_ThrowAssertionException(WmtsMapData wmtsMapData)
         {
             // Setup
-            WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData mapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
             BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(wmtsMapData);
 
             // Call
@@ -1169,8 +1170,8 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
         public void AssertImageBasedMapData_WmtsDataCorrect_DoesNotThrow()
         {
             // Setup
-            WmtsMapData expectedMapData = WmtsMapData.CreateUnconnectedMapData();
-            WmtsMapData actualMapData = WmtsMapData.CreateUnconnectedMapData();
+            WmtsMapData expectedMapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
+            WmtsMapData actualMapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
             BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(expectedMapData);
 
             // Call
@@ -1187,7 +1188,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
 
         private static IEnumerable<TestCaseData> NotEqualToDefaultPdokMapData()
         {
-            WmtsMapData defaultMapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData defaultMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
             var otherName = new WmtsMapData("otherName",
                                             defaultMapData.SourceCapabilitiesUrl,
@@ -1213,11 +1214,11 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
                                                        "image/otherPreferredFormat");
             yield return new TestCaseData(otherPreferredFormat).SetName("WmtsMapDataOtherPreferredFormat");
 
-            WmtsMapData otherVisibility = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData otherVisibility = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
             otherVisibility.IsVisible = !otherVisibility.IsVisible;
             yield return new TestCaseData(otherVisibility);
 
-            WmtsMapData otherTransparency = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData otherTransparency = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
             otherTransparency.Transparency = (RoundedDouble) ((otherTransparency.Transparency + 0.5) % 1);
             yield return new TestCaseData(otherTransparency);
         }

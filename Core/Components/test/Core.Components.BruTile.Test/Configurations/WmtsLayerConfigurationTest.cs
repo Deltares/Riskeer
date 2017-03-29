@@ -27,8 +27,8 @@ using Core.Common.Gui.TestUtil.Settings;
 using Core.Common.TestUtil;
 using Core.Components.BruTile.Configurations;
 using Core.Components.BruTile.TestUtil;
-using Core.Components.Gis.Data;
 using Core.Components.Gis.Exceptions;
+using Core.Components.Gis.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -115,10 +115,10 @@ namespace Core.Components.BruTile.Test.Configurations
         public void CreateInitializedConfiguration_MatchingLayerAvailable_ReturnConfiguration()
         {
             // Setup
-            var targetMapData = WmtsMapData.CreateAlternativePdokMapData();
+            var targetMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
 
             IRequest nullRequest = null;
-            var tileSource1 = new HttpTileSource(TileSchemaFactory.CreateWmtsTileSchema(WmtsMapData.CreateDefaultPdokMapData()),
+            var tileSource1 = new HttpTileSource(TileSchemaFactory.CreateWmtsTileSchema(WmtsMapDataTestHelper.CreateDefaultPdokMapData()),
                                                  nullRequest);
             var tileSource2 = new HttpTileSource(TileSchemaFactory.CreateWmtsTileSchema(targetMapData),
                                                  nullRequest);
@@ -154,7 +154,7 @@ namespace Core.Components.BruTile.Test.Configurations
         public void Clone_FromFullyInitializedConfiguration_CreateNewUninitializedInstance()
         {
             // Setup
-            var targetMapData = WmtsMapData.CreateAlternativePdokMapData();
+            var targetMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
 
             IRequest nullRequest = null;
             var tileSource = new HttpTileSource(TileSchemaFactory.CreateWmtsTileSchema(targetMapData),
@@ -193,7 +193,7 @@ namespace Core.Components.BruTile.Test.Configurations
         public void Clone_ConfigurationDisposed_ThrowObjectDisposedException()
         {
             // Setup
-            var targetMapData = WmtsMapData.CreateAlternativePdokMapData();
+            var targetMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
 
             IRequest nullRequest = null;
             var tileSource = new HttpTileSource(TileSchemaFactory.CreateWmtsTileSchema(targetMapData),
@@ -230,7 +230,7 @@ namespace Core.Components.BruTile.Test.Configurations
         public void GivenFullyInitializedConfiguration_WhenClonedAndInitialized_ConfigurationAreEqual()
         {
             // Given
-            var targetMapData = WmtsMapData.CreateAlternativePdokMapData();
+            var targetMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
 
             IRequest nullRequest = null;
             var tileSource = new HttpTileSource(TileSchemaFactory.CreateWmtsTileSchema(targetMapData),
@@ -267,7 +267,7 @@ namespace Core.Components.BruTile.Test.Configurations
         public void Initialize_ConfigurationDisposed_ThrowsObjectDisposedException()
         {
             // Setup
-            var targetMapData = WmtsMapData.CreateAlternativePdokMapData();
+            var targetMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
 
             IRequest nullRequest = null;
             var tileSource = new HttpTileSource(TileSchemaFactory.CreateWmtsTileSchema(targetMapData),

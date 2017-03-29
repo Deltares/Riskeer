@@ -24,6 +24,7 @@ using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
@@ -40,7 +41,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         private static IEnumerable<TestCaseData> ValidBackgroundMapDatas()
         {
             var wellKnownMapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingRoads);
-            WmtsMapData wmtsMapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData wmtsMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
             yield return new TestCaseData(
                 new BackgroundData(new TestBackgroundDataConfiguration()))

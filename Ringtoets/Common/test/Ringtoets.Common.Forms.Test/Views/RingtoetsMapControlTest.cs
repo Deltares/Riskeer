@@ -32,6 +32,7 @@ using Core.Common.TestUtil;
 using Core.Components.BruTile.Configurations;
 using Core.Components.BruTile.TestUtil;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -53,10 +54,10 @@ namespace Ringtoets.Common.Forms.Test.Views
             get
             {
                 yield return new TestCaseData(BackgroundDataConverter.ConvertTo(new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial)),
-                                              BackgroundDataConverter.ConvertTo(WmtsMapData.CreateDefaultPdokMapData()))
+                                              BackgroundDataConverter.ConvertTo(WmtsMapDataTestHelper.CreateDefaultPdokMapData()))
                     .SetName("WellKnownToWmts");
 
-                yield return new TestCaseData(BackgroundDataConverter.ConvertTo(WmtsMapData.CreateDefaultPdokMapData()),
+                yield return new TestCaseData(BackgroundDataConverter.ConvertTo(WmtsMapDataTestHelper.CreateDefaultPdokMapData()),
                                               BackgroundDataConverter.ConvertTo(new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial)))
                     .SetName("WmtsToWellKnown");
             }
@@ -108,7 +109,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Setup
             var mapDataCollection = new MapDataCollection("Collection");
-            WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
             BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(backgroundMapData);
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
@@ -130,7 +131,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Setup
             var mapDataCollection = new MapDataCollection("Collection");
-            WmtsMapData backgroundMapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
             BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(backgroundMapData);
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
@@ -207,7 +208,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData mapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
             BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(mapData);
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
@@ -239,7 +240,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData mapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
             BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(mapData);
 
             using (new UseCustomSettingsHelper(testSettingsHelper))

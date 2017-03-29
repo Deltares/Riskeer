@@ -21,6 +21,7 @@
 
 using System;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.TestUtil;
 using DotSpatial.Symbology;
 using NUnit.Framework;
 
@@ -58,7 +59,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void CreateBackgroundLayerStatus_WmtsMapData_ReturnsWmtsBackgroundLayerStatus()
         {
             // Setup
-            WmtsMapData mapData = WmtsMapData.CreateAlternativePdokMapData();
+            WmtsMapData mapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
 
             // Call
             BackgroundLayerStatus backgroundLayerStatus = BackgroundLayerStatusFactory.CreateBackgroundLayerStatus(mapData);

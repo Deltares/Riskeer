@@ -40,9 +40,9 @@ namespace Ringtoets.Common.Utils.Test.TypeConverters
         {
             get
             {
-                yield return new TestCaseData(WmtsMapData.CreateDefaultPdokMapData())
+                yield return new TestCaseData(WmtsMapDataTestHelper.CreateDefaultPdokMapData())
                     .SetName("Configured WMTS map data.");
-                yield return new TestCaseData(WmtsMapData.CreateUnconnectedMapData())
+                yield return new TestCaseData(WmtsMapDataTestHelper.CreateUnconnectedMapData())
                     .SetName("Not configured WMTS map data.");
             }
         }
@@ -80,8 +80,8 @@ namespace Ringtoets.Common.Utils.Test.TypeConverters
         {
             // Setup
             WmtsMapData mapData = configured
-                                      ? WmtsMapData.CreateDefaultPdokMapData()
-                                      : WmtsMapData.CreateUnconnectedMapData();
+                                      ? WmtsMapDataTestHelper.CreateDefaultPdokMapData()
+                                      : WmtsMapDataTestHelper.CreateUnconnectedMapData();
 
             // Call
             BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(mapData);

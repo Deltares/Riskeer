@@ -97,7 +97,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void GetProperties_BackgroundDataWithConfiguredWmtsConfiguration_ReturnExpectedValues()
         {
             // Setup
-            var mapData = WmtsMapData.CreateDefaultPdokMapData();
+            var mapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
             var backgroundData = new BackgroundData(new WmtsBackgroundDataConfiguration(mapData.IsConfigured,
                                                                                         mapData.SourceCapabilitiesUrl,
@@ -251,7 +251,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void Constructor_WithConfiguredWmtsMapDataConfiguration_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            WmtsMapData defaultPdokMapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData defaultPdokMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
             var backgroundData = new BackgroundData(new WmtsBackgroundDataConfiguration(defaultPdokMapData.IsConfigured,
                                                                                         defaultPdokMapData.SourceCapabilitiesUrl,
                                                                                         defaultPdokMapData.SelectedCapabilityIdentifier,

@@ -113,7 +113,7 @@ namespace Ringtoets.Integration.Forms.Test
         {
             // Setup
             var dialogParent = mockRepository.Stub<IWin32Window>();
-            WmtsMapData mapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData mapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
             tileFactory.Expect(tf => tf.GetWmtsTileSources(mapData.SourceCapabilitiesUrl)).Return(Enumerable.Empty<ITileSource>());
             mockRepository.ReplayAll();
 
@@ -309,11 +309,11 @@ namespace Ringtoets.Integration.Forms.Test
         public void GivenValidDialog_WhenControlSwitched_ThenDoesNotListenToEventOfOldControl()
         {
             // Given
-            WmtsMapData activeWmtsMapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData activeWmtsMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
             var capabilities = new[]
             {
-                new TestWmtsTileSource(WmtsMapData.CreateAlternativePdokMapData()),
+                new TestWmtsTileSource(WmtsMapDataTestHelper.CreateAlternativePdokMapData()),
                 new TestWmtsTileSource(activeWmtsMapData)
             };
 
@@ -361,11 +361,11 @@ namespace Ringtoets.Integration.Forms.Test
         public void GivenValidDialog_WhenControlSwitched_ThenListenToEventOfNewControl()
         {
             // Given
-            WmtsMapData activeWmtsMapData = WmtsMapData.CreateDefaultPdokMapData();
+            WmtsMapData activeWmtsMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
             var capabilities = new[]
             {
-                new TestWmtsTileSource(WmtsMapData.CreateAlternativePdokMapData()),
+                new TestWmtsTileSource(WmtsMapDataTestHelper.CreateAlternativePdokMapData()),
                 new TestWmtsTileSource(activeWmtsMapData)
             };
 
