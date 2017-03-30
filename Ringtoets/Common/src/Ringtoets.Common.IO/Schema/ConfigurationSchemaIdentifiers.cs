@@ -86,37 +86,37 @@ namespace Ringtoets.Common.IO.Schema
         /// <summary>
         /// The identifier for the phreatic level exit stochast name.
         /// </summary>
-        internal const string AllowedLevelIncreaseStorageStochastName = "peilverhogingkomberging";
+        public const string AllowedLevelIncreaseStorageStochastName = "peilverhogingkomberging";
 
         /// <summary>
         /// The identifier for the critical overtopping discharge stochast name.
         /// </summary>
-        internal const string CriticalOvertoppingDischargeStochastName = "kritiekinstromenddebiet";
+        public const string CriticalOvertoppingDischargeStochastName = "kritiekinstromenddebiet";
 
         /// <summary>
         /// The identifier for the model factor super critical flow stochast name.
         /// </summary>
-        internal const string ModelFactorSuperCriticalFlowStochastName = "modelfactoroverloopdebiet";
+        public const string ModelFactorSuperCriticalFlowStochastName = "modelfactoroverloopdebiet";
 
         /// <summary>
         /// The identifier for the model factor super critical flow stochast name.
         /// </summary>
-        internal const string FlowWidthAtBottomProtectionStochastName = "breedtebodembescherming";
+        public const string FlowWidthAtBottomProtectionStochastName = "breedtebodembescherming";
 
         /// <summary>
         /// The identifier for the storage structure area stochast name.
         /// </summary>
-        internal const string StorageStructureAreaStochastName = "kombergendoppervlak";
+        public const string StorageStructureAreaStochastName = "kombergendoppervlak";
 
         /// <summary>
         /// The identifier for the storm duration stochast name.
         /// </summary>
-        internal const string StormDurationStochastName = "stormduur";
+        public const string StormDurationStochastName = "stormduur";
 
         /// <summary>
         /// The identifier for the width flow apertures stochast name.
         /// </summary>
-        internal const string WidthFlowAperturesStochastName = "breedtedoorstroomopening";
+        public const string WidthFlowAperturesStochastName = "breedtedoorstroomopening";
 
         #endregion
 

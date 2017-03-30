@@ -21,6 +21,8 @@
 
 using System.Collections.Generic;
 using System.Xml.Linq;
+using Ringtoets.Common.IO;
+using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Readers;
 using Ringtoets.Common.IO.Schema;
 using Ringtoets.HeightStructures.IO.Properties;
@@ -72,7 +74,71 @@ namespace Ringtoets.HeightStructures.IO
 
         protected override HeightStructuresCalculationConfiguration ParseCalculationElement(XElement calculationElement)
         {
-            return new HeightStructuresCalculationConfiguration(calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute).Value);
+            var configuration = new HeightStructuresCalculationConfiguration(calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute).Value);
+            configuration.FailureProbabilityStructureWithErosion = calculationElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.FailureProbabilityStructureWithErosionElement);
+            configuration.StructureNormalOrientation = calculationElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.Orientation);
+
+            configuration.ForeshoreProfileName = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.ForeshoreProfileNameElement);
+            configuration.HydraulicBoundaryLocationName = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement);
+            configuration.StructureName = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.StructureElement);
+
+            configuration.WaveReduction = GetWaveReductionParameters(calculationElement);
+
+            configuration.LevelCrestStructure = GetStandardDeviationStochastParameters(calculationElement, HeightStructuresConfigurationSchemaIdentifiers.LevelCrestStructureStochastName);
+            configuration.AllowedLevelIncreaseStorage = GetStandardDeviationStochastParameters(calculationElement, ConfigurationSchemaIdentifiers.AllowedLevelIncreaseStorageStochastName);
+            configuration.FlowWidthAtBottomProtection = GetStandardDeviationStochastParameters(calculationElement, ConfigurationSchemaIdentifiers.FlowWidthAtBottomProtectionStochastName);
+            configuration.ModelFactorSuperCriticalFlow = GetStandardDeviationStochastParameters(calculationElement, ConfigurationSchemaIdentifiers.ModelFactorSuperCriticalFlowStochastName);
+            configuration.WidthFlowApertures = GetStandardDeviationStochastParameters(calculationElement, ConfigurationSchemaIdentifiers.WidthFlowAperturesStochastName);
+
+            configuration.CriticalOvertoppingDischarge = GetVariationCoefficientStochastParameters(calculationElement, ConfigurationSchemaIdentifiers.CriticalOvertoppingDischargeStochastName);
+            configuration.StorageStructureArea = GetVariationCoefficientStochastParameters(calculationElement, ConfigurationSchemaIdentifiers.StorageStructureAreaStochastName);
+            configuration.StormDuration = GetVariationCoefficientStochastParameters(calculationElement, ConfigurationSchemaIdentifiers.StormDurationStochastName);
+
+            return configuration;
+        }
+
+        private WaveReductionConfiguration GetWaveReductionParameters(XElement calculationElement)
+        {
+            XElement waveReduction = calculationElement.GetDescendantElement(ConfigurationSchemaIdentifiers.WaveReduction);
+            if (waveReduction != null)
+            {
+                return new WaveReductionConfiguration
+                {
+                    BreakWaterType = (ReadBreakWaterType?) calculationElement.GetConvertedValueFromDescendantStringElement<ReadBreakWaterTypeConverter>(ConfigurationSchemaIdentifiers.BreakWaterType),
+                    BreakWaterHeight = calculationElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.BreakWaterHeight),
+                    UseBreakWater = calculationElement.GetBoolValueFromDescendantElement(ConfigurationSchemaIdentifiers.UseBreakWater),
+                    UseForeshoreProfile = calculationElement.GetBoolValueFromDescendantElement(ConfigurationSchemaIdentifiers.UseForeshore)
+                };
+            }
+            return null;
+        }
+
+        private static MeanVariationCoefficientStochastConfiguration GetVariationCoefficientStochastParameters(XElement calculationElement, string stochastName)
+        {
+            XElement element = calculationElement.GetStochastElement(stochastName);
+            if (element != null)
+            {
+                return new MeanVariationCoefficientStochastConfiguration
+                {
+                    Mean = element.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.MeanElement),
+                    VariationCoefficient = element.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.VariationCoefficientElement)
+                };
+            }
+            return null;
+        }
+
+        private static MeanStandardDeviationStochastConfiguration GetStandardDeviationStochastParameters(XElement calculationElement, string stochastName)
+        {
+            XElement element = calculationElement.GetStochastElement(stochastName);
+            if (element != null)
+            {
+                return new MeanStandardDeviationStochastConfiguration
+                {
+                    Mean = element.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.MeanElement),
+                    StandardDeviation = element.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.StandardDeviationElement)
+                };
+            }
+            return null;
         }
     }
 }
