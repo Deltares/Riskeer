@@ -513,7 +513,7 @@ Er is geen vakindeling geïmporteerd.</value>
   <data name="Importer_ProgressText_Validating_imported_data" xml:space="preserve">
     <value>Valideren van ingelezen data.</value>
   </data>
-  <data name="CalculationConfigurationExporter_Export_Exception_0_no_configuration_exported" xml:space="preserve">
+  <data name="CalculationConfigurationExporter_Export_ExceptionMessage_0_no_configuration_exported" xml:space="preserve">
     <value>{0} Er is geen configuratie geëxporteerd.</value>
   </data>
   <data name="ConfiguratieSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">

@@ -61,12 +61,12 @@ namespace Ringtoets.Common.IO.Configurations
         }
 
         /// <summary>
-        /// Gets or sets the stochast configuration for the model factor super critical flow.
+        /// Gets or sets the name of the structure.
         /// </summary>
         public string StructureName { get; set; }
 
         /// <summary>
-        /// Gets or sets the stochast configuration for the model factor super critical flow.
+        /// Gets or sets the name of the hydraulic boundary location.
         /// </summary>
         public string HydraulicBoundaryLocationName { get; set; }
 
@@ -81,7 +81,7 @@ namespace Ringtoets.Common.IO.Configurations
         public MeanVariationCoefficientStochastConfiguration StormDuration { get; set; }
 
         /// <summary>
-        /// Gets or sets the stochast configuration for the structure's normal orientation.
+        /// Gets or sets the structure's normal orientation.
         /// </summary>
         public double? StructureNormalOrientation { get; set; }
 
@@ -106,8 +106,7 @@ namespace Ringtoets.Common.IO.Configurations
         public MeanVariationCoefficientStochastConfiguration CriticalOvertoppingDischarge { get; set; }
 
         /// <summary>
-        /// Gets or sets the stochast configuration for the failure probability of structure
-        /// with erosion.
+        /// Gets or sets the failure probability of structure with erosion.
         /// </summary>
         public double? FailureProbabilityStructureWithErosion { get; set; }
 

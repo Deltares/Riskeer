@@ -43,17 +43,14 @@ namespace Ringtoets.HeightStructures.IO
         /// <item>does not end with a directory or path separator (empty file name).</item>
         /// </list></remarks>
         public HeightStructuresCalculationConfigurationWriter(string filePath) : base(filePath) {}
-        
-        protected override void WriteSpecificStructureParameters(HeightStructuresCalculationConfiguration configuration, XmlWriter writer)
-        {
-        }
+
+        protected override void WriteSpecificStructureParameters(HeightStructuresCalculationConfiguration configuration, XmlWriter writer) {}
 
         protected override void WriteSpecificStochasts(HeightStructuresCalculationConfiguration configuration, XmlWriter writer)
         {
-            if (configuration.LevelCrestStructure != null)
-            {
-                writer.WriteDistribution(HeightStructuresConfigurationSchemaIdentifiers.LevelCrestStructureStochastName, configuration.LevelCrestStructure);
-            }
+            WriteDistributionWhenAvailable(writer,
+                                           HeightStructuresConfigurationSchemaIdentifiers.LevelCrestStructureStochastName,
+                                           configuration.LevelCrestStructure);
         }
     }
 }

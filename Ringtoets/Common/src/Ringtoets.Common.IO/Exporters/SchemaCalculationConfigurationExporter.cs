@@ -27,7 +27,6 @@ using log4net;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Properties;
-using Ringtoets.Common.IO.Readers;
 using Ringtoets.Common.IO.Writers;
 
 namespace Ringtoets.Common.IO.Exporters
@@ -36,9 +35,11 @@ namespace Ringtoets.Common.IO.Exporters
     /// Base class for exporting a calculation configuration and storing it as an XML file.
     /// </summary>
     /// <typeparam name="TWriter">The <see cref="SchemaCalculationConfigurationWriter{T}"/> 
-    /// to use for exporting <see cref="TCalculation"/>.</typeparam>
-    /// <typeparam name="TCalculation">The <see cref="TCalculation"/> type to export.</typeparam>
-    /// <typeparam name="TConfiguration">The type of the calculations after conversion for writing.</typeparam>
+    /// to use for exporting <typeparamref name="TCalculation"/>.</typeparam>
+    /// <typeparam name="TCalculation">The <see cref="ICalculation"/> type to export.</typeparam>
+    /// <typeparam name="TConfiguration">The <see cref="IConfigurationItem"/> type used to convert 
+    /// <typeparamref name="TCalculation"/> into before writing to XML using a <typeparamref name="TWriter"/>.
+    /// </typeparam>
     public abstract class SchemaCalculationConfigurationExporter<TWriter, TCalculation, TConfiguration> : IFileExporter
         where TWriter : SchemaCalculationConfigurationWriter<TConfiguration>
         where TCalculation : class, ICalculation
@@ -51,10 +52,11 @@ namespace Ringtoets.Common.IO.Exporters
         /// <summary>
         /// Creates a new instance of <see cref="SchemaCalculationConfigurationExporter{TWriter,TCalculation,TConfiguration}"/>.
         /// </summary>
-        /// <param name="calculations">The calculation configuration to export.</param>
+        /// <param name="calculations">The hierarchy of calculations to export.</param>
         /// <param name="filePath">The path of the XML file to export to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid or when any element
+        /// of <paramref name="calculations"/> is <c>null</c>.</exception>
         protected SchemaCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
         {
             if (calculations == null)
@@ -62,7 +64,7 @@ namespace Ringtoets.Common.IO.Exporters
                 throw new ArgumentNullException(nameof(calculations));
             }
 
-            writer = (TWriter) Activator.CreateInstance(typeof(TWriter), filePath);
+            writer = CreateWriter(filePath);
             configuration = ToConfiguration(calculations);
         }
 
@@ -74,12 +76,19 @@ namespace Ringtoets.Common.IO.Exporters
             }
             catch (CriticalFileWriteException e)
             {
-                log.ErrorFormat(Resources.CalculationConfigurationExporter_Export_Exception_0_no_configuration_exported, e.Message);
+                log.ErrorFormat(Resources.CalculationConfigurationExporter_Export_ExceptionMessage_0_no_configuration_exported, e.Message);
                 return false;
             }
 
             return true;
         }
+
+        /// <summary>
+        /// Creates the writer that will be used in the <see cref="SchemaCalculationConfigurationExporter{TWriter,TCalculation,TConfiguration}"/>.
+        /// </summary>
+        /// <param name="filePath">The path of the file to export to.</param>
+        /// <returns>A new <typeparamref name="TWriter"/>.</returns>
+        protected abstract TWriter CreateWriter(string filePath);
 
         /// <summary>
         /// Converts the <paramref name="calculation"/> to a <typeparamref name="TConfiguration"/>.

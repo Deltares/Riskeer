@@ -120,5 +120,10 @@ namespace Ringtoets.HeightStructures.IO
 
             return calculationConfiguration;
         }
+
+        protected override HeightStructuresCalculationConfigurationWriter CreateWriter(string filePath)
+        {
+            return new HeightStructuresCalculationConfigurationWriter(filePath);
+        }
     }
 }

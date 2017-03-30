@@ -84,9 +84,10 @@ namespace Ringtoets.Common.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to {0} Er is geen configuratie geëxporteerd..
         /// </summary>
-        public static string CalculationConfigurationExporter_Export_Exception_0_no_configuration_exported {
+        public static string CalculationConfigurationExporter_Export_ExceptionMessage_0_no_configuration_exported {
             get {
-                return ResourceManager.GetString("CalculationConfigurationExporter_Export_Exception_0_no_configuration_exported", resourceCulture);
+                return ResourceManager.GetString("CalculationConfigurationExporter_Export_ExceptionMessage_0_no_configuration_expor" +
+                        "ted", resourceCulture);
             }
         }
         

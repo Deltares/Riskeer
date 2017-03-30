@@ -62,6 +62,7 @@
     <Compile Include="Configurations\MeanVariationCoefficientStochastConfigurationTest.cs" />
     <Compile Include="Configurations\MeanStandardDeviationStochastConfigurationTest.cs" />
     <Compile Include="Configurations\WaveReductionConfigurationTest.cs" />
+    <Compile Include="Exporters\SchemaCalculationConfigurationExporterTest.cs" />
     <Compile Include="IDistributionExtensionsTest.cs" />
     <Compile Include="ReadBreakWaterTypeConverterTest.cs" />
     <Compile Include="DikeProfiles\DikeProfileDataReaderTest.cs" />

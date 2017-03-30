@@ -51,84 +51,34 @@ namespace Ringtoets.Common.IO.Writers
             writer.WriteStartElement(ConfigurationSchemaIdentifiers.CalculationElement);
             writer.WriteAttributeString(ConfigurationSchemaIdentifiers.NameAttribute, configuration.Name);
 
-            if (configuration.HydraulicBoundaryLocationName != null)
-            {
-                writer.WriteElementString(
-                    ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
-                    configuration.HydraulicBoundaryLocationName);
-            }
+            WriteParameters(configuration, writer);
 
-            if (configuration.StructureName != null)
-            {
-                writer.WriteElementString(
-                    ConfigurationSchemaIdentifiers.StructureElement,
-                    configuration.StructureName);
-            }
+            WriteWaveReductionWhenAvailable(writer, configuration.WaveReduction);
 
-            if (configuration.StructureNormalOrientation.HasValue)
-            {
-                writer.WriteElementString(
-                    ConfigurationSchemaIdentifiers.Orientation,
-                    XmlConvert.ToString(configuration.StructureNormalOrientation.Value));
-            }
+            WriteStochasts(configuration, writer);
 
-            if (configuration.FailureProbabilityStructureWithErosion.HasValue)
-            {
-                writer.WriteElementString(
-                    ConfigurationSchemaIdentifiers.FailureProbabilityStructureWithErosionElement,
-                    XmlConvert.ToString(configuration.FailureProbabilityStructureWithErosion.Value));
-            }
+            writer.WriteEndElement();
+        }
 
-            if (configuration.ForeshoreProfileName != null)
-            {
-                writer.WriteElementString(
-                    ConfigurationSchemaIdentifiers.ForeshoreProfileNameElement,
-                    configuration.ForeshoreProfileName);
-            }
-
-            if (configuration.WaveReduction != null)
-            {
-                writer.WriteWaveReduction(configuration.WaveReduction);
-            }
+        private void WriteParameters(T configuration, XmlWriter writer)
+        {
+            WriteElementWhenContentAvailable(writer,
+                                             ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
+                                             configuration.HydraulicBoundaryLocationName);
+            WriteElementWhenContentAvailable(writer,
+                                             ConfigurationSchemaIdentifiers.StructureElement,
+                                             configuration.StructureName);
+            WriteElementWhenContentAvailable(writer,
+                                             ConfigurationSchemaIdentifiers.Orientation,
+                                             configuration.StructureNormalOrientation);
+            WriteElementWhenContentAvailable(writer,
+                                             ConfigurationSchemaIdentifiers.FailureProbabilityStructureWithErosionElement,
+                                             configuration.FailureProbabilityStructureWithErosion);
+            WriteElementWhenContentAvailable(writer,
+                                             ConfigurationSchemaIdentifiers.ForeshoreProfileNameElement,
+                                             configuration.ForeshoreProfileName);
 
             WriteSpecificStructureParameters(configuration, writer);
-
-            writer.WriteStartElement(ConfigurationSchemaIdentifiers.StochastsElement);
-
-            if (configuration.FlowWidthAtBottomProtection != null)
-            {
-                writer.WriteDistribution(ConfigurationSchemaIdentifiers.FlowWidthAtBottomProtectionStochastName, configuration.FlowWidthAtBottomProtection);
-            }
-            if (configuration.WidthFlowApertures != null)
-            {
-                writer.WriteDistribution(ConfigurationSchemaIdentifiers.WidthFlowAperturesStochastName, configuration.WidthFlowApertures);
-            }
-            if (configuration.StorageStructureArea != null)
-            {
-                writer.WriteDistribution(ConfigurationSchemaIdentifiers.StorageStructureAreaStochastName, configuration.StorageStructureArea);
-            }
-            if (configuration.CriticalOvertoppingDischarge != null)
-            {
-                writer.WriteDistribution(ConfigurationSchemaIdentifiers.CriticalOvertoppingDischargeStochastName, configuration.CriticalOvertoppingDischarge);
-            }
-            if (configuration.ModelFactorSuperCriticalFlow != null)
-            {
-                writer.WriteDistribution(ConfigurationSchemaIdentifiers.ModelFactorSuperCriticalFlowStochastName, configuration.ModelFactorSuperCriticalFlow);
-            }
-            if (configuration.AllowedLevelIncreaseStorage != null)
-            {
-                writer.WriteDistribution(ConfigurationSchemaIdentifiers.AllowedLevelIncreaseStorageStochastName, configuration.AllowedLevelIncreaseStorage);
-            }
-            if (configuration.StormDuration != null)
-            {
-                writer.WriteDistribution(ConfigurationSchemaIdentifiers.StormDurationStochastName, configuration.StormDuration);
-            }
-
-            WriteSpecificStochasts(configuration, writer);
-
-            writer.WriteEndElement();
-
-            writer.WriteEndElement();
         }
 
         /// <summary>
@@ -140,11 +90,42 @@ namespace Ringtoets.Common.IO.Writers
         protected abstract void WriteSpecificStructureParameters(T configuration, XmlWriter writer);
 
         /// <summary>        
-        /// Writes stochats definitions specific for a structure of type <typeparamref name="T"/>.
+        /// Writes stochasts definitions specific for a structure of type <typeparamref name="T"/>.
         /// </summary>
         /// <param name="configuration">The instance of type <typeparamref name="T"/> for which
         /// to write the stochasts.</param>
         /// <param name="writer">The writer that should be used to write the parameters.</param>
         protected abstract void WriteSpecificStochasts(T configuration, XmlWriter writer);
+
+        private void WriteStochasts(T configuration, XmlWriter writer)
+        {
+            writer.WriteStartElement(ConfigurationSchemaIdentifiers.StochastsElement);
+
+            WriteDistributionWhenAvailable(writer,
+                                           ConfigurationSchemaIdentifiers.FlowWidthAtBottomProtectionStochastName,
+                                           configuration.FlowWidthAtBottomProtection);
+            WriteDistributionWhenAvailable(writer,
+                                           ConfigurationSchemaIdentifiers.WidthFlowAperturesStochastName,
+                                           configuration.WidthFlowApertures);
+            WriteDistributionWhenAvailable(writer,
+                                           ConfigurationSchemaIdentifiers.StorageStructureAreaStochastName,
+                                           configuration.StorageStructureArea);
+            WriteDistributionWhenAvailable(writer,
+                                           ConfigurationSchemaIdentifiers.CriticalOvertoppingDischargeStochastName,
+                                           configuration.CriticalOvertoppingDischarge);
+            WriteDistributionWhenAvailable(writer,
+                                           ConfigurationSchemaIdentifiers.ModelFactorSuperCriticalFlowStochastName,
+                                           configuration.ModelFactorSuperCriticalFlow);
+            WriteDistributionWhenAvailable(writer,
+                                           ConfigurationSchemaIdentifiers.AllowedLevelIncreaseStorageStochastName,
+                                           configuration.AllowedLevelIncreaseStorage);
+            WriteDistributionWhenAvailable(writer,
+                                           ConfigurationSchemaIdentifiers.StormDurationStochastName,
+                                           configuration.StormDuration);
+
+            WriteSpecificStochasts(configuration, writer);
+
+            writer.WriteEndElement();
+        }
     }
 }

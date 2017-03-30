@@ -26,7 +26,6 @@ using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using Core.Common.Utils.Properties;
 using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Common.IO.Readers;
 using Ringtoets.Common.IO.Schema;
 
 namespace Ringtoets.Common.IO.Writers
@@ -62,8 +61,7 @@ namespace Ringtoets.Common.IO.Writers
         /// </summary>
         /// <param name="configuration">The calculation configuration to write.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="CriticalFileWriteException">Thrown when unable to write the file to the file path provided to
-        /// the <see cref="SchemaCalculationConfigurationWriter{T}"/>.</exception>
+        /// <exception cref="CriticalFileWriteException">Thrown when unable to write the file to the provided file path.</exception>
         public void Write(IEnumerable<IConfigurationItem> configuration)
         {
             if (configuration == null)
@@ -102,6 +100,79 @@ namespace Ringtoets.Common.IO.Writers
         /// <param name="writer">The writer to use for writing.</param>
         /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is closed.</exception>
         protected abstract void WriteCalculation(T calculation, XmlWriter writer);
+
+        /// <summary>
+        /// Writes a distribution configuration when it has a value.
+        /// </summary>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <param name="distributionName">The name of the distribution.</param>
+        /// <param name="configuration">The configuration for the distribution that can be <c>null</c>.</param>
+        protected static void WriteDistributionWhenAvailable(XmlWriter writer, string distributionName, MeanVariationCoefficientStochastConfiguration configuration)
+        {
+            if (configuration != null)
+            {
+                writer.WriteDistribution(distributionName, configuration);
+            }
+        }
+
+        /// <summary>
+        /// Writes a distribution configuration when it has a value.
+        /// </summary>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <param name="distributionName">The name of the distribution.</param>
+        /// <param name="configuration">The configuration for the distribution that can be <c>null</c>.</param>
+        protected static void WriteDistributionWhenAvailable(XmlWriter writer, string distributionName, MeanStandardDeviationStochastConfiguration configuration)
+        {
+            if (configuration != null)
+            {
+                writer.WriteDistribution(distributionName, configuration);
+            }
+        }
+
+        /// <summary>
+        /// Writes an element with some content when the content has a value.
+        /// </summary>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <param name="elementName">The name of the element.</param>
+        /// <param name="elementContent">The content of the element that can be <c>null</c>.</param>
+        protected static void WriteElementWhenContentAvailable(XmlWriter writer, string elementName, string elementContent)
+        {
+            if (elementContent != null)
+            {
+                writer.WriteElementString(
+                    elementName,
+                    elementContent);
+            }
+        }
+
+        /// <summary>
+        /// Writes an element with some content when the content has a value.
+        /// </summary>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <param name="elementName">The name of the element.</param>
+        /// <param name="elementContent">The content of the element that can be <c>null</c>.</param>
+        protected static void WriteElementWhenContentAvailable(XmlWriter writer, string elementName, double? elementContent)
+        {
+            if (elementContent.HasValue)
+            {
+                writer.WriteElementString(
+                    elementName,
+                    XmlConvert.ToString(elementContent.Value));
+            }
+        }
+
+        /// <summary>
+        /// Writes a wave reduction configuration when it has a value.
+        /// </summary>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <param name="configuration">The configuration for the wave reduction that can be <c>null</c>.</param>
+        protected static void WriteWaveReductionWhenAvailable(XmlWriter writer, WaveReductionConfiguration configuration)
+        {
+            if (configuration != null)
+            {
+                writer.WriteWaveReduction(configuration);
+            }
+        }
 
         /// <summary>
         /// Writes the <paramref name="configuration"/> in XML format to file.

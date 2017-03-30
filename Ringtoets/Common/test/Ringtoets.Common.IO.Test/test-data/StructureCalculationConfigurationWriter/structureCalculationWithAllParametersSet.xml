@@ -6,6 +6,7 @@
     <orientatie>5.6</orientatie>
     <faalkansgegevenerosiebodem>2.1</faalkansgegevenerosiebodem>
     <voorlandprofiel>Voorland</voorlandprofiel>
+    <testName>testValue</testName>
     <golfreductie>
       <damgebruiken>false</damgebruiken>
       <damtype>caisson</damtype>
@@ -41,6 +42,7 @@
         <verwachtingswaarde>21.22</verwachtingswaarde>
         <variatiecoefficient>1.2</variatiecoefficient>
       </stochast>
+      <stochast naam="testStochastName" />
     </stochasten>
   </berekening>
 </configuratie>

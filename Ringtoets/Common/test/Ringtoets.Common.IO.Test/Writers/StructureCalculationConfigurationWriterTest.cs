@@ -37,26 +37,13 @@ namespace Ringtoets.Common.IO.Test.Writers
             TestDataPath.Ringtoets.Common.IO,
             nameof(StructureCalculationConfigurationWriter<StructuresCalculationConfiguration>));
 
-        public static IEnumerable<TestCaseData> GetStructureCalculationsWithProperties()
-        {
-            yield return new TestCaseData(
-                    new SimpleStructuresCalculationConfiguration("some name"),
-                    "structureCalculationWithoutParametersSet.xml")
-                .SetName("Structure calculation without any of its paramters set.");
-
-            yield return new TestCaseData(
-                    CreateStructureWithAllParametersSet("some other name"),
-                    "structureCalculationWithAllParametersSet.xml")
-                .SetName("Structure calculation with all of its paramters set.");
-        }
-
         [Test]
         public void Write_WithoutConfiguration_ThrowsArgumentNullException()
         {
             // Setup
             string filePath = TestHelper.GetScratchPadPath("test.xml");
 
-            var writer = new SimpleStructureCalculationConfigurationWriter(filePath);
+            var writer = new SimpleStructureCalculationConfigurationWriter(filePath, false);
             {
                 // Call
                 TestDelegate test = () => writer.Write(null);
@@ -68,21 +55,43 @@ namespace Ringtoets.Common.IO.Test.Writers
         }
 
         [Test]
-        [TestCaseSource(nameof(GetStructureCalculationsWithProperties))]
-        public void Write_WithoutDifferentSetParameters_WritesSetStructureProperties(StructuresCalculationConfiguration structuresCalculation, string fileName)
+        public void Write_WithAllParametersSet_WritesCalculationWithAllParametersAndStochasts()
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath(nameof(Write_WithoutDifferentSetParameters_WritesSetStructureProperties));
+            string filePath = TestHelper.GetScratchPadPath(nameof(Write_WithAllParametersSet_WritesCalculationWithAllParametersAndStochasts));
             try
             {
-                var writer = new SimpleStructureCalculationConfigurationWriter(filePath);
+                var writer = new SimpleStructureCalculationConfigurationWriter(filePath, true);
 
                 // Call
-                writer.Write(new [] { structuresCalculation });
+                writer.Write(new [] { CreateStructureWithAllParametersSet("some other name") });
 
                 // Assert
                 string actualXml = File.ReadAllText(filePath);
-                string expectedXml = GetTestFileContent(fileName);
+                string expectedXml = GetTestFileContent("structureCalculationWithAllParametersSet.xml");
+                Assert.AreEqual(expectedXml, actualXml);
+            }
+            finally
+            {
+                File.Delete(filePath);
+            }
+        }
+
+        [Test]
+        public void Write_WithoutParametersSet_WritesCalculationWithOnlyEmptyStochasts()
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath(nameof(Write_WithoutParametersSet_WritesCalculationWithOnlyEmptyStochasts));
+            try
+            {
+                var writer = new SimpleStructureCalculationConfigurationWriter(filePath, false);
+
+                // Call
+                writer.Write(new [] { new SimpleStructuresCalculationConfiguration("some name") });
+
+                // Assert
+                string actualXml = File.ReadAllText(filePath);
+                string expectedXml = GetTestFileContent("structureCalculationWithoutParametersSet.xml");
                 Assert.AreEqual(expectedXml, actualXml);
             }
             finally
@@ -145,15 +154,6 @@ namespace Ringtoets.Common.IO.Test.Writers
             };
         }
 
-        private static XmlWriter CreateXmlWriter(string filePath)
-        {
-            return XmlWriter.Create(filePath, new XmlWriterSettings
-            {
-                Indent = true,
-                ConformanceLevel = ConformanceLevel.Fragment
-            });
-        }
-
         private string GetTestFileContent(string testFile)
         {
             return File.ReadAllText(Path.Combine(testDirectory, testFile));
@@ -163,18 +163,30 @@ namespace Ringtoets.Common.IO.Test.Writers
         {
             public SimpleStructuresCalculationConfiguration(string name) : base(name) {}
         }
+
         private class SimpleStructureCalculationConfigurationWriter : StructureCalculationConfigurationWriter<SimpleStructuresCalculationConfiguration>
         {
-            public SimpleStructureCalculationConfigurationWriter(string filePath) : base(filePath) {}
+            private readonly bool writeExtraParameterAndStochast;
+
+            public SimpleStructureCalculationConfigurationWriter(string filePath, bool writeExtraParameterAndStochast) : base(filePath)
+            {
+                this.writeExtraParameterAndStochast = writeExtraParameterAndStochast;
+            }
 
             protected override void WriteSpecificStructureParameters(SimpleStructuresCalculationConfiguration configuration, XmlWriter writer)
             {
-                // no specific parameters
+                if (writeExtraParameterAndStochast)
+                {
+                    writer.WriteElementString("testName", "testValue");
+                }
             }
 
             protected override void WriteSpecificStochasts(SimpleStructuresCalculationConfiguration configuration, XmlWriter writer)
             {
-                // no specific stochasts
+                if (writeExtraParameterAndStochast)
+                {
+                    writer.WriteDistribution("testStochastName", new MeanStandardDeviationStochastConfiguration());
+                }
             }
         }
     }

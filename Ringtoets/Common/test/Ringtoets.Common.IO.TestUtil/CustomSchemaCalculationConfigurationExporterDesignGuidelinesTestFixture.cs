@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Security.AccessControl;
 using System.Text;
 using Core.Common.TestUtil;
@@ -31,7 +30,6 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Exporters;
-using Ringtoets.Common.IO.Readers;
 using Ringtoets.Common.IO.Writers;
 
 namespace Ringtoets.Common.IO.TestUtil
@@ -62,8 +60,7 @@ namespace Ringtoets.Common.IO.TestUtil
             TestDelegate test = () => CallConfigurationFilePathConstructor(Enumerable.Empty<ICalculationBase>(), filePath);
 
             // Assert
-            var activatorException = Assert.Throws<TargetInvocationException>(test);
-            var exception = (ArgumentException) activatorException.InnerException;
+            var exception = Assert.Throws<ArgumentException>(test);
             AssertInvalidFilePath(exception);
         }
 

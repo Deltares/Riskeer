@@ -44,6 +44,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
@@ -54,6 +55,8 @@
     <Compile Include="CustomSchemaCalculationConfigurationWriterDesignGuidelinesTestFixture.cs" />
     <Compile Include="CustomCalculationConfigurationWriterDesignGuidelinesTestFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestConfigurationItem.cs" />
+    <Compile Include="TestSchemaCalculationConfigurationWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

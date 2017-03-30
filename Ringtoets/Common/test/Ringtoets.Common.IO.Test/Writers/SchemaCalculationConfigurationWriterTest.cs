@@ -23,13 +23,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml;
-using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Common.IO.Readers;
 using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.Common.IO.Writers;
 
@@ -38,7 +36,7 @@ namespace Ringtoets.Common.IO.Test.Writers
     [TestFixture]
     public class SchemaCalculationConfigurationWriterTest
         : CustomSchemaCalculationConfigurationWriterDesignGuidelinesTestFixture<
-            SimpleSchemaCalculationConfigurationWriter,
+            TestSchemaCalculationConfigurationWriter,
             TestConfigurationItem>
     {
         [Test]
@@ -54,7 +52,7 @@ namespace Ringtoets.Common.IO.Test.Writers
             try
             {
                 // Call
-                new SimpleSchemaCalculationConfigurationWriter(filePath).Write(configuration);
+                new TestSchemaCalculationConfigurationWriter(filePath).Write(configuration);
 
                 // Assert
                 Assert.IsTrue(File.Exists(filePath));
@@ -68,6 +66,203 @@ namespace Ringtoets.Common.IO.Test.Writers
             {
                 File.Delete(filePath);
             }
+        }
+
+        [Test]
+        public void WriteDistributionWhenAvailable_MeanStandardDeviationStochastConfigurationNull_WriterNotCalled()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var xmlWriter = mocks.StrictMock<XmlWriter>();
+            mocks.ReplayAll();
+
+            // Call
+            ExposedSchemaCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
+                xmlWriter, 
+                "some name", 
+                (MeanStandardDeviationStochastConfiguration)null);
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void WriteDistributionWhenAvailable_MeanStandardDeviationStochastConfigurationSet_WriterCalledWithExpectedParameters()
+        {
+            // Setup
+            const string name = "some name";
+            var configuration = new MeanStandardDeviationStochastConfiguration();
+
+            var mocks = new MockRepository();
+            var xmlWriter = mocks.StrictMock<XmlWriter>();
+            xmlWriter.Expect(w => w.WriteDistribution(name, configuration));
+            mocks.ReplayAll();
+
+            // Call
+            ExposedSchemaCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
+                xmlWriter, 
+                name, 
+                configuration);
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void WriteDistributionWhenAvailable_MeanVariationCoefficientStochastConfigurationNull_WriterNotCalled()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var xmlWriter = mocks.StrictMock<XmlWriter>();
+            mocks.ReplayAll();
+
+            // Call
+            ExposedSchemaCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
+                xmlWriter, 
+                "some name", 
+                (MeanVariationCoefficientStochastConfiguration)null);
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void WriteDistributionWhenAvailable_MeanVariationCoefficientStochastConfigurationSet_WriterCalledWithExpectedParameters()
+        {
+            // Setup
+            const string name = "some name";
+            var configuration = new MeanVariationCoefficientStochastConfiguration();
+
+            var mocks = new MockRepository();
+            var xmlWriter = mocks.StrictMock<XmlWriter>();
+            xmlWriter.Expect(w => w.WriteDistribution(name, configuration));
+            mocks.ReplayAll();
+
+            // Call
+            ExposedSchemaCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
+                xmlWriter,
+                name,
+                configuration);
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void WriteElementWhenContentAvailable_StringNull_WriterNotCalled()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var xmlWriter = mocks.StrictMock<XmlWriter>();
+            mocks.ReplayAll();
+
+            // Call
+            ExposedSchemaCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
+                xmlWriter, 
+                "some name", 
+                (string)null);
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void WriteElementWhenContentAvailable_StringSet_WriterCalledWithExpectedParameters()
+        {
+            // Setup
+            const string name = "some name";
+            const string value = "some value";
+
+            var mocks = new MockRepository();
+            var xmlWriter = mocks.StrictMock<XmlWriter>();
+            xmlWriter.Expect(w => w.WriteElementString(name, value));
+            mocks.ReplayAll();
+
+            // Call
+            ExposedSchemaCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
+                xmlWriter, 
+                name, 
+                value);
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void WriteElementWhenContentAvailable_DoubleNull_WriterNotCalled()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var xmlWriter = mocks.StrictMock<XmlWriter>();
+            mocks.ReplayAll();
+
+            // Call
+            ExposedSchemaCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
+                xmlWriter, 
+                "some name", 
+                (double?)null);
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void WriteElementWhenContentAvailable_DoubleSet_WriterCalledWithExpectedParameters()
+        {
+            // Setup
+            const string name = "some name";
+            const double value = 3.2;
+
+            var mocks = new MockRepository();
+            var xmlWriter = mocks.StrictMock<XmlWriter>();
+            xmlWriter.Expect(w => w.WriteElementString(name, XmlConvert.ToString(value)));
+            mocks.ReplayAll();
+
+            // Call
+            ExposedSchemaCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
+                xmlWriter,
+                name,
+                value);
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void WriteWaveReductionWhenAvailable_WaveReductionConfigurationNull_WriterNotCalled()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var xmlWriter = mocks.StrictMock<XmlWriter>();
+            mocks.ReplayAll();
+
+            // Call
+            ExposedSchemaCalculationConfigurationWriter.PublicWriteWaveReductionWhenAvailable(
+                xmlWriter,  
+                null);
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void WriteWaveReductionWhenAvailable_WaveReductionConfigurationSet_WriterCalledWithExpectedParameters()
+        {
+            // Setup
+            var configuration = new WaveReductionConfiguration();
+
+            var mocks = new MockRepository();
+            var xmlWriter = mocks.StrictMock<XmlWriter>();
+            xmlWriter.Expect(w => w.WriteWaveReduction(configuration));
+            mocks.ReplayAll();
+
+            // Call
+            ExposedSchemaCalculationConfigurationWriter.PublicWriteWaveReductionWhenAvailable(
+                xmlWriter,
+                configuration);
+
+            // Assert
+            mocks.VerifyAll();
         }
 
         private static IEnumerable<TestCaseData> GetCalculationConfigurations()
@@ -120,26 +315,44 @@ namespace Ringtoets.Common.IO.Test.Writers
                 .SetName("Calculation and group with nesting");
         }
 
-        protected override SimpleSchemaCalculationConfigurationWriter CreateWriterInstance(string filePath)
+        protected override TestSchemaCalculationConfigurationWriter CreateWriterInstance(string filePath)
         {
-            return new SimpleSchemaCalculationConfigurationWriter(filePath);
+            return new TestSchemaCalculationConfigurationWriter(filePath);
         }
     }
 
-    public class SimpleSchemaCalculationConfigurationWriter : SchemaCalculationConfigurationWriter<TestConfigurationItem>
+    public class ExposedSchemaCalculationConfigurationWriter : SchemaCalculationConfigurationWriter<TestConfigurationItem>
     {
-        public const string CalculationElementTag = "calculation";
+        public ExposedSchemaCalculationConfigurationWriter(string filePath) : base(filePath) {}
 
-        public SimpleSchemaCalculationConfigurationWriter(string filePath) : base(filePath) {}
+        public static void PublicWriteDistributionWhenAvailable(XmlWriter writer, string distributionName, MeanVariationCoefficientStochastConfiguration configuration)
+        {
+            WriteDistributionWhenAvailable(writer, distributionName, configuration);
+        }
+
+        public static void PublicWriteDistributionWhenAvailable(XmlWriter writer, string distributionName, MeanStandardDeviationStochastConfiguration configuration)
+        {
+            WriteDistributionWhenAvailable(writer, distributionName, configuration);
+        }
+
+        public static void PublicWriteElementWhenContentAvailable(XmlWriter writer, string elementName, string elementContent)
+        {
+            WriteElementWhenContentAvailable(writer, elementName, elementContent);
+        }
+
+        public static void PublicWriteElementWhenContentAvailable(XmlWriter writer, string elementName, double? elementContent)
+        {
+            WriteElementWhenContentAvailable(writer, elementName, elementContent);
+        }
+
+        public static void PublicWriteWaveReductionWhenAvailable(XmlWriter writer, WaveReductionConfiguration configuration)
+        {
+            WriteWaveReductionWhenAvailable(writer, configuration);
+        }
 
         protected override void WriteCalculation(TestConfigurationItem calculation, XmlWriter writer)
         {
-            writer.WriteElementString(CalculationElementTag, calculation.Name);
+            throw new System.NotImplementedException();
         }
-    }
-
-    public class TestConfigurationItem : IConfigurationItem
-    {
-        public string Name { get; set; }
     }
 }
