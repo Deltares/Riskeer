@@ -4,6 +4,8 @@
     <voorlandprofiel>profiel1</voorlandprofiel>
     <golfreductie>
       <damgebruiken>false</damgebruiken>
+      <damtype>havendam</damtype>
+      <damhoogte>0</damhoogte>
       <voorlandgebruiken>true</voorlandgebruiken>
     </golfreductie>
     <stochasten>

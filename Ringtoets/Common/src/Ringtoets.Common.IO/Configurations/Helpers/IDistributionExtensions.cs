@@ -22,76 +22,76 @@
 using System;
 using Ringtoets.Common.Data.Probabilistics;
 
-namespace Ringtoets.Common.IO.Configurations
+namespace Ringtoets.Common.IO.Configurations.Helpers
 {
     /// <summary>
-    /// Extension methods for converting <see cref="IVariationCoefficientDistribution"/> to <see cref="MeanVariationCoefficientStochastConfiguration"/>.
+    /// Extension methods for converting <see cref="IDistribution"/> to <see cref="MeanStandardDeviationStochastConfiguration"/>.
     /// </summary>
-    public static class IVariationCoefficientDistributionExtensions
+    public static class IDistributionExtensions
     {
         /// <summary>
-        /// Configure a new <see cref="MeanVariationCoefficientStochastConfiguration"/> with 
-        /// <see cref="MeanVariationCoefficientStochastConfiguration.Mean"/> and 
-        /// <see cref="MeanVariationCoefficientStochastConfiguration.VariationCoefficient"/> taken from
+        /// Configure a new <see cref="MeanStandardDeviationStochastConfiguration"/> with 
+        /// <see cref="MeanStandardDeviationStochastConfiguration.Mean"/> and 
+        /// <see cref="MeanStandardDeviationStochastConfiguration.StandardDeviation"/> taken from
         /// <paramref name="distribution"/>.
         /// </summary>
         /// <param name="distribution">The distribution to take the values from.</param>
-        /// <returns>A new <see cref="MeanVariationCoefficientStochastConfiguration"/> with 
-        /// <see cref="MeanVariationCoefficientStochastConfiguration.Mean"/> and 
-        /// <see cref="MeanVariationCoefficientStochastConfiguration.VariationCoefficient"/> set.</returns>
+        /// <returns>A new <see cref="MeanStandardDeviationStochastConfiguration"/> with 
+        /// <see cref="MeanStandardDeviationStochastConfiguration.Mean"/> and 
+        /// <see cref="MeanStandardDeviationStochastConfiguration.StandardDeviation"/> set.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="distribution"/> is <c>null</c>.</exception>
-        public static MeanVariationCoefficientStochastConfiguration ToStochastConfiguration(this IVariationCoefficientDistribution distribution)
+        public static MeanStandardDeviationStochastConfiguration ToStochastConfiguration(this IDistribution distribution)
         {
             if (distribution == null)
             {
                 throw new ArgumentNullException(nameof(distribution));
             }
-            return new MeanVariationCoefficientStochastConfiguration
+            return new MeanStandardDeviationStochastConfiguration
             {
                 Mean = distribution.Mean,
-                VariationCoefficient = distribution.CoefficientOfVariation
+                StandardDeviation = distribution.StandardDeviation
             };
         }
 
         /// <summary>
-        /// Configure a new <see cref="MeanVariationCoefficientStochastConfiguration"/> with 
-        /// <see cref="MeanVariationCoefficientStochastConfiguration.Mean"/> taken from
+        /// Configure a new <see cref="MeanStandardDeviationStochastConfiguration"/> with 
+        /// <see cref="MeanStandardDeviationStochastConfiguration.Mean"/> taken from
         /// <paramref name="distribution"/>.
         /// </summary>
         /// <param name="distribution">The distribution to take the values from.</param>
-        /// <returns>A new <see cref="MeanVariationCoefficientStochastConfiguration"/> with 
-        /// <see cref="MeanVariationCoefficientStochastConfiguration.Mean"/> set.</returns>
+        /// <returns>A new <see cref="MeanStandardDeviationStochastConfiguration"/> with 
+        /// <see cref="MeanStandardDeviationStochastConfiguration.Mean"/> set.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="distribution"/> is <c>null</c>.</exception>
-        public static MeanVariationCoefficientStochastConfiguration ToStochastConfigurationWithMean(this IVariationCoefficientDistribution distribution)
+        public static MeanStandardDeviationStochastConfiguration ToStochastConfigurationWithMean(this IDistribution distribution)
         {
             if (distribution == null)
             {
                 throw new ArgumentNullException(nameof(distribution));
             }
-            return new MeanVariationCoefficientStochastConfiguration
+            return new MeanStandardDeviationStochastConfiguration
             {
                 Mean = distribution.Mean
             };
         }
 
         /// <summary>
-        /// Configure a new <see cref="MeanVariationCoefficientStochastConfiguration"/> with 
-        /// <see cref="MeanVariationCoefficientStochastConfiguration.VariationCoefficient"/> taken from
+        /// Configure a new <see cref="MeanStandardDeviationStochastConfiguration"/> with 
+        /// <see cref="MeanStandardDeviationStochastConfiguration.StandardDeviation"/> taken from
         /// <paramref name="distribution"/>.
         /// </summary>
         /// <param name="distribution">The distribution to take the values from.</param>
-        /// <returns>A new <see cref="MeanVariationCoefficientStochastConfiguration"/> with 
-        /// <see cref="MeanVariationCoefficientStochastConfiguration.VariationCoefficient"/> set.</returns>
+        /// <returns>A new <see cref="MeanStandardDeviationStochastConfiguration"/> with 
+        /// <see cref="MeanStandardDeviationStochastConfiguration.StandardDeviation"/> set.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="distribution"/> is <c>null</c>.</exception>
-        public static MeanVariationCoefficientStochastConfiguration ToStochastConfigurationWithVariationCoefficient(this IVariationCoefficientDistribution distribution)
+        public static MeanStandardDeviationStochastConfiguration ToStochastConfigurationWithStandardDeviation(this IDistribution distribution)
         {
             if (distribution == null)
             {
                 throw new ArgumentNullException(nameof(distribution));
             }
-            return new MeanVariationCoefficientStochastConfiguration
+            return new MeanStandardDeviationStochastConfiguration
             {
-                VariationCoefficient = distribution.CoefficientOfVariation
+                StandardDeviation = distribution.StandardDeviation
             };
         }
     }

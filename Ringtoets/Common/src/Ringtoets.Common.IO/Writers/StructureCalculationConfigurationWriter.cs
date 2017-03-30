@@ -87,7 +87,7 @@ namespace Ringtoets.Common.IO.Writers
         /// <param name="configuration">The instance of type <typeparamref name="T"/> for which
         /// to write the input.</param>
         /// <param name="writer">The writer that should be used to write the parameters.</param>
-        protected abstract void WriteSpecificStructureParameters(T configuration, XmlWriter writer);
+        protected virtual void WriteSpecificStructureParameters(T configuration, XmlWriter writer) {}
 
         /// <summary>        
         /// Writes stochasts definitions specific for a structure of type <typeparamref name="T"/>.

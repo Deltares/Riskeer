@@ -44,7 +44,7 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
             InputParameters.AllowedLevelIncreaseStorage.StandardDeviation = (RoundedDouble) 0.12;
             InputParameters.FlowWidthAtBottomProtection.Mean = (RoundedDouble) 18;
             InputParameters.FlowWidthAtBottomProtection.StandardDeviation = (RoundedDouble) 8.2;
-            InputParameters.CriticalOvertoppingDischarge.Mean = (RoundedDouble) 1;
+            InputParameters.CriticalOvertoppingDischarge.Mean = (RoundedDouble) 1.0;
             InputParameters.CriticalOvertoppingDischarge.CoefficientOfVariation = (RoundedDouble) 0.88;
             InputParameters.WidthFlowApertures.Mean = (RoundedDouble) 18;
             InputParameters.WidthFlowApertures.StandardDeviation = (RoundedDouble) 2;

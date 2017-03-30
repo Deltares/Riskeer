@@ -34,7 +34,7 @@ namespace Ringtoets.Common.IO.Configurations
         /// <summary>
         /// Gets or sets the type of the break water.
         /// </summary>
-        public ReadBreakWaterType? BreakWaterType { get; set; }
+        public SchemaBreakWaterType? BreakWaterType { get; set; }
 
         /// <summary>
         /// Gets or sets the height of the break water.

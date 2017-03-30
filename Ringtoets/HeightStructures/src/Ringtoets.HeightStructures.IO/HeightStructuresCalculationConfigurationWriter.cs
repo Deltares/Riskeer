@@ -44,8 +44,6 @@ namespace Ringtoets.HeightStructures.IO
         /// </list></remarks>
         public HeightStructuresCalculationConfigurationWriter(string filePath) : base(filePath) {}
 
-        protected override void WriteSpecificStructureParameters(HeightStructuresCalculationConfiguration configuration, XmlWriter writer) {}
-
         protected override void WriteSpecificStochasts(HeightStructuresCalculationConfiguration configuration, XmlWriter writer)
         {
             WriteDistributionWhenAvailable(writer,

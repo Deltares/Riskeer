@@ -141,7 +141,7 @@ namespace Ringtoets.Common.IO.Test.Writers
                 StructureName = "Kunstwerk",
                 WaveReduction = new WaveReductionConfiguration
                 {
-                    BreakWaterType = ReadBreakWaterType.Caisson,
+                    BreakWaterType = SchemaBreakWaterType.Caisson,
                     UseBreakWater = false,
                     BreakWaterHeight = 111111.2,
                     UseForeshoreProfile = true

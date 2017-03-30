@@ -25,6 +25,7 @@ using System.Xml.Linq;
 using Core.Common.Base.IO;
 using Ringtoets.Common.IO;
 using Ringtoets.Common.IO.Configurations;
+using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.Readers;
 using Ringtoets.Common.IO.Schema;
 using Ringtoets.GrassCoverErosionInwards.IO.Properties;
@@ -92,7 +93,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Readers
                 DikeHeightCalculationType = (ReadDikeHeightCalculationType?) calculationElement.GetConvertedValueFromDescendantStringElement<ReadDikeHeightCalculationTypeConverter>(
                     GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeHeightCalculationTypeElement),
                 UseBreakWater = calculationElement.GetBoolValueFromDescendantElement(ConfigurationSchemaIdentifiers.UseBreakWater),
-                BreakWaterType = (ReadBreakWaterType?) calculationElement.GetConvertedValueFromDescendantStringElement<ReadBreakWaterTypeConverter>(ConfigurationSchemaIdentifiers.BreakWaterType),
+                BreakWaterType = (SchemaBreakWaterType?) calculationElement.GetConvertedValueFromDescendantStringElement<SchemaBreakWaterTypeConverter>(ConfigurationSchemaIdentifiers.BreakWaterType),
                 BreakWaterHeight = calculationElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.BreakWaterHeight),
                 UseForeshore = calculationElement.GetBoolValueFromDescendantElement(ConfigurationSchemaIdentifiers.UseForeshore)
             };

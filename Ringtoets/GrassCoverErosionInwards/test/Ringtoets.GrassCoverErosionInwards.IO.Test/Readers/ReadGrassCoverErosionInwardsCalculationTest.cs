@@ -76,7 +76,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
             const double dikeHeight = 2.2;
             const ReadDikeHeightCalculationType calculationType = ReadDikeHeightCalculationType.CalculateByAssessmentSectionNorm;
             const bool useBreakWater = true;
-            const ReadBreakWaterType breakWaterType = ReadBreakWaterType.Wall;
+            const SchemaBreakWaterType breakWaterType = SchemaBreakWaterType.Wall;
             const double breakWaterHeight = 3.3;
             const bool useForeshore = true;
             const double criticalFlowMean = 4.4;

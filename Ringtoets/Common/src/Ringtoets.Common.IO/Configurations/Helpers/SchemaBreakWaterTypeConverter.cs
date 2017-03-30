@@ -22,28 +22,53 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.IO.Schema;
 
-namespace Ringtoets.Common.IO
+namespace Ringtoets.Common.IO.Configurations.Helpers
 {
     /// <summary>
-    /// Converts <see cref="ReadBreakWaterType"/> to <see cref="string"/> and back.
+    /// Converts <see cref="SchemaBreakWaterType"/> to <see cref="string"/> and back.
     /// </summary>
-    public class ReadBreakWaterTypeConverter : TypeConverter
+    public class SchemaBreakWaterTypeConverter : TypeConverter
     {
+        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
+        {
+            if (destinationType == typeof(BreakWaterType))
+            {
+                return true;
+            }
+            return base.CanConvertTo(context, destinationType);
+        }
+
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             if (destinationType == typeof(string))
             {
-                var type = (ReadBreakWaterType) value;
+                var type = (SchemaBreakWaterType) value;
                 switch (type)
                 {
-                    case ReadBreakWaterType.Caisson:
+                    case SchemaBreakWaterType.Caisson:
                         return ConfigurationSchemaIdentifiers.BreakWaterCaisson;
-                    case ReadBreakWaterType.Dam:
+                    case SchemaBreakWaterType.Dam:
                         return ConfigurationSchemaIdentifiers.BreakWaterDam;
-                    case ReadBreakWaterType.Wall:
+                    case SchemaBreakWaterType.Wall:
                         return ConfigurationSchemaIdentifiers.BreakWaterWall;
+                    default:
+                        throw new NotSupportedException();
+                }
+            }
+            if (destinationType == typeof(BreakWaterType))
+            {
+                var type = (SchemaBreakWaterType)value;
+                switch (type)
+                {
+                    case SchemaBreakWaterType.Caisson:
+                        return BreakWaterType.Caisson;
+                    case SchemaBreakWaterType.Dam:
+                        return BreakWaterType.Dam;
+                    case SchemaBreakWaterType.Wall:
+                        return BreakWaterType.Wall;
                     default:
                         throw new NotSupportedException();
                 }
@@ -54,6 +79,10 @@ namespace Ringtoets.Common.IO
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
             if (sourceType == typeof(string))
+            {
+                return true;
+            }
+            if (sourceType == typeof(BreakWaterType))
             {
                 return true;
             }
@@ -68,11 +97,24 @@ namespace Ringtoets.Common.IO
                 switch (text)
                 {
                     case ConfigurationSchemaIdentifiers.BreakWaterCaisson:
-                        return ReadBreakWaterType.Caisson;
+                        return SchemaBreakWaterType.Caisson;
                     case ConfigurationSchemaIdentifiers.BreakWaterDam:
-                        return ReadBreakWaterType.Dam;
+                        return SchemaBreakWaterType.Dam;
                     case ConfigurationSchemaIdentifiers.BreakWaterWall:
-                        return ReadBreakWaterType.Wall;
+                        return SchemaBreakWaterType.Wall;
+                }
+            }
+            var breakWaterType = value as BreakWaterType?;
+            if (breakWaterType != null)
+            {
+                switch (breakWaterType)
+                {
+                    case BreakWaterType.Caisson:
+                        return SchemaBreakWaterType.Caisson;
+                    case BreakWaterType.Dam:
+                        return SchemaBreakWaterType.Dam;
+                    case BreakWaterType.Wall:
+                        return SchemaBreakWaterType.Wall;
                 }
             }
             return base.ConvertFrom(context, culture, value);

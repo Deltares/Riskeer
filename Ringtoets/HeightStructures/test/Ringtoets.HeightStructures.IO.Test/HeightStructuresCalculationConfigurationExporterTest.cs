@@ -137,11 +137,13 @@ namespace Ringtoets.HeightStructures.IO.Test
                     },
                     StormDuration = new VariationCoefficientLogNormalDistribution
                     {
-                        Mean = (RoundedDouble) 6.0
+                        Mean = (RoundedDouble) 6.0,
+                        CoefficientOfVariation = (RoundedDouble) 1.2222
                     },
                     ModelFactorSuperCriticalFlow = new NormalDistribution
                     {
-                        Mean = (RoundedDouble) 1.10
+                        Mean = (RoundedDouble) 1.10,
+                        StandardDeviation = (RoundedDouble) 1.2222
                     },
                     FlowWidthAtBottomProtection = new LogNormalDistribution
                     {

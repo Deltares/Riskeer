@@ -22,10 +22,9 @@
 using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.IO;
 using Ringtoets.Common.IO.Configurations;
+using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.Exporters;
 using Ringtoets.HeightStructures.Data;
 
@@ -76,7 +75,7 @@ namespace Ringtoets.HeightStructures.IO
                 {
                     UseForeshoreProfile = input.UseForeshore,
                     UseBreakWater = input.UseBreakWater,
-                    BreakWaterType = (ReadBreakWaterType) input.BreakWater.Type,
+                    BreakWaterType = (SchemaBreakWaterType?) new SchemaBreakWaterTypeConverter().ConvertFrom(input.BreakWater.Type),
                     BreakWaterHeight = input.BreakWater.Height
                 };
             }

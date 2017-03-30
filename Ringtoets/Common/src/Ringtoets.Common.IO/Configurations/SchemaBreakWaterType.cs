@@ -19,12 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Common.IO
+namespace Ringtoets.Common.IO.Configurations
 {
     /// <summary>
     /// Defines the various types of break water values possible in a read calculation configuration.
     /// </summary>
-    public enum ReadBreakWaterType
+    public enum SchemaBreakWaterType
     {
         /// <summary>
         /// A wall.

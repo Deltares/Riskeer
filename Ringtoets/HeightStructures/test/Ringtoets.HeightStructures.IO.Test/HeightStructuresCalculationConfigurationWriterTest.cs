@@ -116,7 +116,7 @@ namespace Ringtoets.HeightStructures.IO.Test
                 WaveReduction = new WaveReductionConfiguration
                 {
                     UseBreakWater = true,
-                    BreakWaterType = ReadBreakWaterType.Dam,
+                    BreakWaterType = SchemaBreakWaterType.Dam,
                     BreakWaterHeight = 1.23,
                     UseForeshoreProfile = true
                 },

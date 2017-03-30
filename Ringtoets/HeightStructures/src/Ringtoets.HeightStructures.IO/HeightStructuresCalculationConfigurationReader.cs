@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using Ringtoets.Common.IO;
 using Ringtoets.Common.IO.Configurations;
+using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.Readers;
 using Ringtoets.Common.IO.Schema;
 using Ringtoets.HeightStructures.IO.Properties;
@@ -104,7 +105,7 @@ namespace Ringtoets.HeightStructures.IO
             {
                 return new WaveReductionConfiguration
                 {
-                    BreakWaterType = (ReadBreakWaterType?) calculationElement.GetConvertedValueFromDescendantStringElement<ReadBreakWaterTypeConverter>(ConfigurationSchemaIdentifiers.BreakWaterType),
+                    BreakWaterType = (SchemaBreakWaterType?) calculationElement.GetConvertedValueFromDescendantStringElement<SchemaBreakWaterTypeConverter>(ConfigurationSchemaIdentifiers.BreakWaterType),
                     BreakWaterHeight = calculationElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.BreakWaterHeight),
                     UseBreakWater = calculationElement.GetBoolValueFromDescendantElement(ConfigurationSchemaIdentifiers.UseBreakWater),
                     UseForeshoreProfile = calculationElement.GetBoolValueFromDescendantElement(ConfigurationSchemaIdentifiers.UseForeshore)

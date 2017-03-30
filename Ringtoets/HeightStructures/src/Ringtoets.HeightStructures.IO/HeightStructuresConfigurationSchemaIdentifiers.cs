@@ -31,7 +31,7 @@ namespace Ringtoets.HeightStructures.IO
         /// <summary>
         /// The identifier for the level crest structure stochast name.
         /// </summary>
-        internal const string LevelCrestStructureStochastName = "kerendehoogte";
+        public const string LevelCrestStructureStochastName = "kerendehoogte";
 
         #endregion
     }

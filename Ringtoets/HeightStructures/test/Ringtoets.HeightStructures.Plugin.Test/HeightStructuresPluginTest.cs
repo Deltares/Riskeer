@@ -144,6 +144,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test
                 Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(HeightStructuresContext)));
             }
         }
+
         [Test]
         public void GetExportInfos_ReturnsSupportedExportInfos()
         {

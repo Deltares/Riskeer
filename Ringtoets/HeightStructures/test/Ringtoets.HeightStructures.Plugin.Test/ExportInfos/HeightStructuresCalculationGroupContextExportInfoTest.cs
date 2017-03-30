@@ -67,8 +67,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ExportInfos
             mocks.ReplayAll();
 
             var context = new HeightStructuresCalculationGroupContext(new CalculationGroup(),
-                                                            new HeightStructuresFailureMechanism(),
-                                                            assessmentSection);
+                                                                      new HeightStructuresFailureMechanism(),
+                                                                      assessmentSection);
 
             using (var plugin = new HeightStructuresPlugin())
             {
@@ -108,8 +108,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ExportInfos
             mocks.ReplayAll();
 
             var context = new HeightStructuresCalculationGroupContext(new CalculationGroup(),
-                                                            new HeightStructuresFailureMechanism(),
-                                                            assessmentSection);
+                                                                      new HeightStructuresFailureMechanism(),
+                                                                      assessmentSection);
 
             using (var plugin = new HeightStructuresPlugin())
             {
@@ -147,8 +147,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ExportInfos
             }
 
             var context = new HeightStructuresCalculationGroupContext(calculationGroup,
-                                                            new HeightStructuresFailureMechanism(),
-                                                            assessmentSection);
+                                                                      new HeightStructuresFailureMechanism(),
+                                                                      assessmentSection);
 
             using (var plugin = new HeightStructuresPlugin())
             {
