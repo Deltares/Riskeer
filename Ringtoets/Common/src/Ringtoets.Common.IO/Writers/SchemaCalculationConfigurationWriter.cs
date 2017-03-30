@@ -109,12 +109,12 @@ namespace Ringtoets.Common.IO.Writers
         /// <param name="configuration">The calculation group(s) and/or calculation(s) to write.</param>
         /// <param name="writer">The writer to use for writing.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="configuration"/> 
-        /// contains a value that is neither <see cref="CalculationConfigurationGroup"/> nor <see cref="T"/>.</exception>
+        /// contains a value that is neither <see cref="CalculationGroupConfiguration"/> nor <see cref="T"/>.</exception>
         private void WriteConfiguration(IEnumerable<IConfigurationItem> configuration, XmlWriter writer)
         {
             foreach (IConfigurationItem child in configuration)
             {
-                var innerGroup = child as CalculationConfigurationGroup;
+                var innerGroup = child as CalculationGroupConfiguration;
                 if (innerGroup != null)
                 {
                     WriteCalculationGroup(innerGroup, writer);
@@ -133,7 +133,7 @@ namespace Ringtoets.Common.IO.Writers
             }
         }
 
-        private void WriteCalculationGroup(CalculationConfigurationGroup group, XmlWriter writer)
+        private void WriteCalculationGroup(CalculationGroupConfiguration group, XmlWriter writer)
         {
             writer.WriteStartElement(ConfigurationSchemaIdentifiers.FolderElement);
             writer.WriteAttributeString(ConfigurationSchemaIdentifiers.NameAttribute, group.Name);

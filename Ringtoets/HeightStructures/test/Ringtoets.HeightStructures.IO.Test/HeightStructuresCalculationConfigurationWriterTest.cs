@@ -57,10 +57,10 @@ namespace Ringtoets.HeightStructures.IO.Test
                     .SetName("Calculation configuration with none of its parameters set");
                 yield return new TestCaseData("folderWithSubfolderAndCalculation", new IConfigurationItem[]
                     {
-                        new CalculationConfigurationGroup("Testmap", new IConfigurationItem[]
+                        new CalculationGroupConfiguration("Testmap", new IConfigurationItem[]
                         {
                             CreateFullCalculation(),
-                            new CalculationConfigurationGroup("Nested", new IConfigurationItem[]
+                            new CalculationGroupConfiguration("Nested", new IConfigurationItem[]
                             {
                                 new HeightStructuresCalculationConfiguration("Berekening 2")
                             })

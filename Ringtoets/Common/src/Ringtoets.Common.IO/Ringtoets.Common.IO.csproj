@@ -90,7 +90,7 @@
     <Compile Include="Readers\CalculationConfigurationReader.cs" />
     <Compile Include="ReadBreakWaterType.cs" />
     <Compile Include="Readers\XElementExtensions.cs" />
-    <Compile Include="Configurations\CalculationConfigurationGroup.cs" />
+    <Compile Include="Configurations\CalculationGroupConfiguration.cs" />
     <Compile Include="Readers\CombinedXmlSchemaDefinition.cs" />
     <Compile Include="ReferenceLines\IReferenceLineReplaceHandler.cs" />
     <Compile Include="ReferenceLines\ReferenceLineExporter.cs" />

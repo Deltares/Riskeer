@@ -112,9 +112,9 @@ namespace Ringtoets.Common.IO.Exporters
             }
         }
 
-        private CalculationConfigurationGroup ToConfiguration(CalculationGroup group)
+        private CalculationGroupConfiguration ToConfiguration(CalculationGroup group)
         {
-            return new CalculationConfigurationGroup(group.Name, ToConfiguration(group.Children));
+            return new CalculationGroupConfiguration(group.Name, ToConfiguration(group.Children));
         }
     }
 }

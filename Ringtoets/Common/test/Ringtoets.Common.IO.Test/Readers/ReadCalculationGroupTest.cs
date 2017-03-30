@@ -37,11 +37,11 @@ namespace Ringtoets.Common.IO.Test.Readers
             var nestedItems = new List<IConfigurationItem>
             {
                 new TestReadConfigurationItem(),
-                new CalculationConfigurationGroup("Nested calculation group", Enumerable.Empty<IConfigurationItem>())
+                new CalculationGroupConfiguration("Nested calculation group", Enumerable.Empty<IConfigurationItem>())
             };
 
             // Call
-            var readCalculationGroup = new CalculationConfigurationGroup("Calculation group", nestedItems);
+            var readCalculationGroup = new CalculationGroupConfiguration("Calculation group", nestedItems);
 
             // Assert
             Assert.IsInstanceOf<IConfigurationItem>(readCalculationGroup);

@@ -27,14 +27,14 @@ namespace Ringtoets.Common.IO.Configurations
     /// <summary>
     /// Class that represents a calculation group that is read via <see cref="CalculationConfigurationReader{TReadCalculation}"/>.
     /// </summary>
-    public class CalculationConfigurationGroup : IConfigurationItem
+    public class CalculationGroupConfiguration : IConfigurationItem
     {
         /// <summary>
-        /// Creates a new instance of <see cref="CalculationConfigurationGroup"/>.
+        /// Creates a new instance of <see cref="CalculationGroupConfiguration"/>.
         /// </summary>
         /// <param name="name">The name of the calculation group.</param>
         /// <param name="items">The collection of nested <see cref="IConfigurationItem"/>.</param>
-        public CalculationConfigurationGroup(string name, IEnumerable<IConfigurationItem> items)
+        public CalculationGroupConfiguration(string name, IEnumerable<IConfigurationItem> items)
         {
             Name = name;
             Items = items;

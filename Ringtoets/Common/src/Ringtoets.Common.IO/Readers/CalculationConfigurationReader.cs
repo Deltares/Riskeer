@@ -228,9 +228,9 @@ namespace Ringtoets.Common.IO.Readers
             }
         }
 
-        private CalculationConfigurationGroup ParseFolderElement(XElement folderElement)
+        private CalculationGroupConfiguration ParseFolderElement(XElement folderElement)
         {
-            return new CalculationConfigurationGroup(folderElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute)?.Value,
+            return new CalculationGroupConfiguration(folderElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute)?.Value,
                                             ParseElements(folderElement.Elements()));
         }
     }

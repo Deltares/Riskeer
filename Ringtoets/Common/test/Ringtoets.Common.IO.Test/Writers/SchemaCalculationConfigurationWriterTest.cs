@@ -81,8 +81,8 @@ namespace Ringtoets.Common.IO.Test.Writers
                 Name = "calculation2"
             };
 
-            var calculationGroup1 = new CalculationConfigurationGroup("group1", Enumerable.Empty<IConfigurationItem>());
-            var calculationGroup2 = new CalculationConfigurationGroup("group2", new IConfigurationItem[]
+            var calculationGroup1 = new CalculationGroupConfiguration("group1", Enumerable.Empty<IConfigurationItem>());
+            var calculationGroup2 = new CalculationGroupConfiguration("group2", new IConfigurationItem[]
             {
                 calculation2,
                 calculationGroup1
