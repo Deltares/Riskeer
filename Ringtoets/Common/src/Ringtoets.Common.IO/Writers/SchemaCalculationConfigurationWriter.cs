@@ -107,8 +107,19 @@ namespace Ringtoets.Common.IO.Writers
         /// <param name="writer">The writer to use for writing.</param>
         /// <param name="distributionName">The name of the distribution.</param>
         /// <param name="configuration">The configuration for the distribution that can be <c>null</c>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="writer"/> or <paramref name="distributionName"/>
+        /// is <c>null</c>.</exception>
         protected static void WriteDistributionWhenAvailable(XmlWriter writer, string distributionName, MeanVariationCoefficientStochastConfiguration configuration)
         {
+            if (writer == null)
+            {
+                throw new ArgumentNullException(nameof(writer));
+            }
+            if (distributionName == null)
+            {
+                throw new ArgumentNullException(nameof(distributionName));
+            }
+
             if (configuration != null)
             {
                 writer.WriteDistribution(distributionName, configuration);
@@ -121,8 +132,19 @@ namespace Ringtoets.Common.IO.Writers
         /// <param name="writer">The writer to use for writing.</param>
         /// <param name="distributionName">The name of the distribution.</param>
         /// <param name="configuration">The configuration for the distribution that can be <c>null</c>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="writer"/> or <paramref name="distributionName"/>
+        /// is <c>null</c>.</exception>
         protected static void WriteDistributionWhenAvailable(XmlWriter writer, string distributionName, MeanStandardDeviationStochastConfiguration configuration)
         {
+            if (writer == null)
+            {
+                throw new ArgumentNullException(nameof(writer));
+            }
+            if (distributionName == null)
+            {
+                throw new ArgumentNullException(nameof(distributionName));
+            }
+
             if (configuration != null)
             {
                 writer.WriteDistribution(distributionName, configuration);
@@ -135,8 +157,19 @@ namespace Ringtoets.Common.IO.Writers
         /// <param name="writer">The writer to use for writing.</param>
         /// <param name="elementName">The name of the element.</param>
         /// <param name="elementContent">The content of the element that can be <c>null</c>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="writer"/> or <paramref name="elementName"/>
+        /// is <c>null</c>.</exception>
         protected static void WriteElementWhenContentAvailable(XmlWriter writer, string elementName, string elementContent)
         {
+            if (writer == null)
+            {
+                throw new ArgumentNullException(nameof(writer));
+            }
+            if (elementName == null)
+            {
+                throw new ArgumentNullException(nameof(elementName));
+            }
+
             if (elementContent != null)
             {
                 writer.WriteElementString(
@@ -151,8 +184,19 @@ namespace Ringtoets.Common.IO.Writers
         /// <param name="writer">The writer to use for writing.</param>
         /// <param name="elementName">The name of the element.</param>
         /// <param name="elementContent">The content of the element that can be <c>null</c>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="writer"/> or <paramref name="elementName"/>
+        /// is <c>null</c>.</exception>
         protected static void WriteElementWhenContentAvailable(XmlWriter writer, string elementName, double? elementContent)
         {
+            if (writer == null)
+            {
+                throw new ArgumentNullException(nameof(writer));
+            }
+            if (elementName == null)
+            {
+                throw new ArgumentNullException(nameof(elementName));
+            }
+
             if (elementContent.HasValue)
             {
                 writer.WriteElementString(
@@ -166,8 +210,14 @@ namespace Ringtoets.Common.IO.Writers
         /// </summary>
         /// <param name="writer">The writer to use for writing.</param>
         /// <param name="configuration">The configuration for the wave reduction that can be <c>null</c>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="writer"/> is <c>null</c>.</exception>
         protected static void WriteWaveReductionWhenAvailable(XmlWriter writer, WaveReductionConfiguration configuration)
         {
+            if (writer == null)
+            {
+                throw new ArgumentNullException(nameof(writer));
+            }
+
             if (configuration != null)
             {
                 writer.WriteWaveReduction(configuration);

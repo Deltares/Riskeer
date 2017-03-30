@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -69,6 +70,39 @@ namespace Ringtoets.Common.IO.Test.Writers
         }
 
         [Test]
+        public void WriteDistributionWhenAvailable_MeanStandardDeviationStochastConfigurationWriterNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => ExposedSchemaCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
+                null, 
+                "some name", 
+                (MeanStandardDeviationStochastConfiguration)null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("writer", exception.ParamName);
+        }
+
+        [Test]
+        public void WriteDistributionWhenAvailable_MeanStandardDeviationStochastConfigurationDistributionNameNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var xmlWriter = mocks.StrictMock<XmlWriter>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => ExposedSchemaCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
+                xmlWriter, 
+                null, 
+                (MeanStandardDeviationStochastConfiguration)null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("distributionName", exception.ParamName);
+        }
+
+        [Test]
         public void WriteDistributionWhenAvailable_MeanStandardDeviationStochastConfigurationNull_WriterNotCalled()
         {
             // Setup
@@ -106,6 +140,39 @@ namespace Ringtoets.Common.IO.Test.Writers
 
             // Assert
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void WriteDistributionWhenAvailable_MeanVariationCoefficientStochastConfigurationWriterNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => ExposedSchemaCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
+                null,
+                "some name",
+                (MeanVariationCoefficientStochastConfiguration)null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("writer", exception.ParamName);
+        }
+
+        [Test]
+        public void WriteDistributionWhenAvailable_MeanVariationCoefficientStochastConfigurationDistributionNameNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var xmlWriter = mocks.StrictMock<XmlWriter>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => ExposedSchemaCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
+                xmlWriter,
+                null,
+                (MeanVariationCoefficientStochastConfiguration)null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("distributionName", exception.ParamName);
         }
 
         [Test]
@@ -149,6 +216,39 @@ namespace Ringtoets.Common.IO.Test.Writers
         }
 
         [Test]
+        public void WriteElementWhenContentAvailable_StringWriterNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => ExposedSchemaCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
+                null,
+                "some name",
+                (string)null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("writer", exception.ParamName);
+        }
+
+        [Test]
+        public void WriteElementWhenContentAvailable_StringElementNameNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var xmlWriter = mocks.StrictMock<XmlWriter>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => ExposedSchemaCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
+                xmlWriter,
+                null,
+                (string)null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("elementName", exception.ParamName);
+        }
+
+        [Test]
         public void WriteElementWhenContentAvailable_StringNull_WriterNotCalled()
         {
             // Setup
@@ -189,6 +289,39 @@ namespace Ringtoets.Common.IO.Test.Writers
         }
 
         [Test]
+        public void WriteElementWhenContentAvailable_DoubleWriterNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => ExposedSchemaCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
+                null,
+                "some name",
+                (double?)null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("writer", exception.ParamName);
+        }
+
+        [Test]
+        public void WriteElementWhenContentAvailable_DoubleElementNameNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var xmlWriter = mocks.StrictMock<XmlWriter>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => ExposedSchemaCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
+                xmlWriter,
+                null,
+                (double?)null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("elementName", exception.ParamName);
+        }
+
+        [Test]
         public void WriteElementWhenContentAvailable_DoubleNull_WriterNotCalled()
         {
             // Setup
@@ -226,6 +359,19 @@ namespace Ringtoets.Common.IO.Test.Writers
 
             // Assert
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void WriteWaveReductionWhenAvailable_WriterNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => ExposedSchemaCalculationConfigurationWriter.PublicWriteWaveReductionWhenAvailable(
+                null,
+                null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("writer", exception.ParamName);
         }
 
         [Test]
