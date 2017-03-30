@@ -36,10 +36,11 @@ namespace Ringtoets.Common.IO.Writers
         /// Writes a single <see cref="MeanStandardDeviationStochastConfiguration"/> as a stochast element in file.
         /// </summary>
         /// <param name="writer">The writer to use to write the distribution.</param>
-        /// <param name="name"></param>
+        /// <param name="name">The name of the distribution to write.</param>
         /// <param name="distribution">The distribution to write.</param>
         /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is 
         /// in an invalid state for writing.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
         public static void WriteDistribution(this XmlWriter writer, string name, MeanStandardDeviationStochastConfiguration distribution)
         {
             if (writer == null)
@@ -74,10 +75,11 @@ namespace Ringtoets.Common.IO.Writers
         /// Writes a single <see cref="MeanVariationCoefficientStochastConfiguration"/> as a stochast element in file.
         /// </summary>
         /// <param name="writer">The writer to use to write the distribution.</param>
-        /// <param name="name"></param>
+        /// <param name="name">The name of the distribution to write.</param>
         /// <param name="distribution">The distribution to write.</param>
         /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is 
         /// in an invalid state for writing.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
         public static void WriteDistribution(this XmlWriter writer, string name, MeanVariationCoefficientStochastConfiguration distribution)
         {
             if (writer == null)
@@ -115,6 +117,7 @@ namespace Ringtoets.Common.IO.Writers
         /// <param name="waveReduction">The wave reduction to write.</param>
         /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is 
         /// in an invalid state for writing.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
         public static void WriteWaveReduction(this XmlWriter writer, WaveReductionConfiguration waveReduction)
         {
             if (writer == null)
@@ -148,6 +151,12 @@ namespace Ringtoets.Common.IO.Writers
             writer.WriteEndElement();
         }
 
+        /// <summary>
+        /// Writes the start tag of a folder element.
+        /// </summary>
+        /// <param name="writer">The writer to use to write the folder.</param>
+        /// <param name="name">The name of the folder.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
         public static void WriteStartFolder(this XmlWriter writer, string name)
         {
             if (writer == null)

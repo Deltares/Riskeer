@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.IO;
 using Ringtoets.Common.IO.Configurations;
@@ -36,8 +37,7 @@ namespace Ringtoets.HeightStructures.IO
     public class HeightStructuresCalculationConfigurationExporter : SchemaCalculationConfigurationExporter<
         HeightStructuresCalculationConfigurationWriter,
         StructuresCalculation<HeightStructuresInput>,
-        HeightStructuresCalculationConfiguration
-    >
+        HeightStructuresCalculationConfiguration>
     {
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresCalculationConfigurationExporter"/>.
@@ -61,36 +61,12 @@ namespace Ringtoets.HeightStructures.IO
                 calculationConfiguration.StructureNormalOrientation = input.StructureNormalOrientation;
                 calculationConfiguration.FailureProbabilityStructureWithErosion = input.FailureProbabilityStructureWithErosion;
 
-                calculationConfiguration.FlowWidthAtBottomProtection = new MeanStandardDeviationStochastConfiguration
-                {
-                    Mean = input.FlowWidthAtBottomProtection.Mean,
-                    StandardDeviation = input.FlowWidthAtBottomProtection.StandardDeviation
-                };
-                calculationConfiguration.WidthFlowApertures = new MeanStandardDeviationStochastConfiguration
-                {
-                    Mean = input.WidthFlowApertures.Mean,
-                    StandardDeviation = input.WidthFlowApertures.StandardDeviation
-                };
-                calculationConfiguration.StorageStructureArea = new MeanVariationCoefficientStochastConfiguration
-                {
-                    Mean = input.StorageStructureArea.Mean,
-                    VariationCoefficient = input.StorageStructureArea.CoefficientOfVariation
-                };
-                calculationConfiguration.AllowedLevelIncreaseStorage = new MeanStandardDeviationStochastConfiguration
-                {
-                    Mean = input.AllowedLevelIncreaseStorage.Mean,
-                    StandardDeviation = input.AllowedLevelIncreaseStorage.StandardDeviation
-                };
-                calculationConfiguration.LevelCrestStructure = new MeanStandardDeviationStochastConfiguration
-                {
-                    Mean = input.LevelCrestStructure.Mean,
-                    StandardDeviation = input.LevelCrestStructure.StandardDeviation
-                };
-                calculationConfiguration.CriticalOvertoppingDischarge = new MeanVariationCoefficientStochastConfiguration
-                {
-                    Mean = input.CriticalOvertoppingDischarge.Mean,
-                    VariationCoefficient = input.CriticalOvertoppingDischarge.CoefficientOfVariation
-                };
+                calculationConfiguration.FlowWidthAtBottomProtection = input.FlowWidthAtBottomProtection.ToStochastConfiguration();
+                calculationConfiguration.WidthFlowApertures = input.WidthFlowApertures.ToStochastConfiguration();
+                calculationConfiguration.StorageStructureArea = input.StorageStructureArea.ToStochastConfiguration();
+                calculationConfiguration.AllowedLevelIncreaseStorage = input.AllowedLevelIncreaseStorage.ToStochastConfiguration();
+                calculationConfiguration.LevelCrestStructure = input.LevelCrestStructure.ToStochastConfiguration();
+                calculationConfiguration.CriticalOvertoppingDischarge = input.CriticalOvertoppingDischarge.ToStochastConfiguration();
             }
 
             if (input.ForeshoreProfile != null)
@@ -99,24 +75,14 @@ namespace Ringtoets.HeightStructures.IO
                 calculationConfiguration.WaveReduction = new WaveReductionConfiguration
                 {
                     UseForeshoreProfile = input.UseForeshore,
-                    UseBreakWater = input.UseBreakWater
+                    UseBreakWater = input.UseBreakWater,
+                    BreakWaterType = (ReadBreakWaterType) input.BreakWater.Type,
+                    BreakWaterHeight = input.BreakWater.Height
                 };
-
-                if (input.UseBreakWater)
-                {
-                    calculationConfiguration.WaveReduction.BreakWaterType = (ReadBreakWaterType) input.BreakWater.Type;
-                    calculationConfiguration.WaveReduction.BreakWaterHeight = input.BreakWater.Height;
-                }
             }
 
-            calculationConfiguration.StormDuration = new MeanVariationCoefficientStochastConfiguration
-            {
-                Mean = input.StormDuration.Mean
-            };
-            calculationConfiguration.ModelFactorSuperCriticalFlow = new MeanStandardDeviationStochastConfiguration
-            {
-                Mean = input.ModelFactorSuperCriticalFlow.Mean
-            };
+            calculationConfiguration.StormDuration = input.StormDuration.ToStochastConfigurationWithMean();
+            calculationConfiguration.ModelFactorSuperCriticalFlow = input.ModelFactorSuperCriticalFlow.ToStochastConfigurationWithMean();
 
             return calculationConfiguration;
         }
