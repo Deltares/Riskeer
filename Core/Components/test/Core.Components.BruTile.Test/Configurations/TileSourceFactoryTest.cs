@@ -38,7 +38,7 @@ namespace Core.Components.BruTile.Test.Configurations
         }
 
         [Test]
-        public void Instance_InstanceSetToNull_RetrunTileSourceFactory()
+        public void Instance_InstanceSetToNull_ReturnTileSourceFactory()
         {
             // Setup
             TileSourceFactory.Instance = null;
