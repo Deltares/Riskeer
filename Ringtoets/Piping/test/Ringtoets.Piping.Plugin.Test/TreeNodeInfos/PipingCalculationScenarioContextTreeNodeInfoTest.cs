@@ -53,11 +53,11 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class PipingCalculationScenarioContextTreeNodeInfoTest : NUnitFormTest
     {
-        private const int contextMenuUpdateEntryAndExitPointIndex = 2;
+        private const int contextMenuUpdateEntryAndExitPointIndex = 3;
 
-        private const int contextMenuValidateIndex = 3;
-        private const int contextMenuCalculateIndex = 4;
-        private const int contextMenuClearIndex = 6;
+        private const int contextMenuValidateIndex = 4;
+        private const int contextMenuCalculateIndex = 5;
+        private const int contextMenuClearIndex = 7;
 
         private MockRepository mocks;
         private PipingPlugin plugin;
@@ -361,6 +361,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 using (mocks.Ordered())
                 {
                     menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
+                    menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                     menuBuilderMock.Expect(mb => mb.AddRenameItem()).Return(menuBuilderMock);
                     menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                     menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);

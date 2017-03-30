@@ -725,6 +725,7 @@ namespace Ringtoets.Piping.Plugin
             StrictContextMenuItem updateEntryAndExitPoint = CreateUpdateEntryAndExitPointItem(nodeData);
 
             return builder.AddExportItem()
+                          .AddSeparator()
                           .AddRenameItem()
                           .AddCustomItem(updateEntryAndExitPoint)
                           .AddValidateCalculationItem(
