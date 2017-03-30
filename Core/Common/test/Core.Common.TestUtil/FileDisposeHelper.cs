@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using Core.Common.Utils;
 
 namespace Core.Common.TestUtil
@@ -113,13 +114,13 @@ namespace Core.Common.TestUtil
                 filePathStream.Value?.Dispose();
                 filePathStreams[filePathStream.Key] = null;
 
-                try
+                var attempts = 0;
+                while (!TryDeleteFile(filePathStream.Key) && attempts < 3)
                 {
-                    DeleteFile(filePathStream.Key);
-                }
-                catch (ArgumentException)
-                {
-                    // ignored
+                    attempts++;
+
+                    GC.WaitForPendingFinalizers();
+                    Thread.Sleep(10);
                 }
             }
 
@@ -128,6 +129,23 @@ namespace Core.Common.TestUtil
                 filePathStreams.Clear();
             }
             disposed = true;
+        }
+
+        private static bool TryDeleteFile(string filePath)
+        {
+            try
+            {
+                DeleteFile(filePath);
+            }
+            catch (ArgumentException)
+            {
+                // ignored
+            }
+            catch (IOException)
+            {
+                return false;
+            }
+            return true;
         }
 
         private void LockFile(string filePath)

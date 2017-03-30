@@ -23,6 +23,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
+using System.Threading;
 
 namespace Core.Common.TestUtil
 {
@@ -120,18 +121,33 @@ namespace Core.Common.TestUtil
                 directoryPermissionsRevoker?.Dispose();
             }
 
-            var directoryDeleted = false;
+            var attempts = 0;
+            while (!TryDeleteRootFolder() && attempts < 3)
+            {
+                attempts++;
+
+                GC.WaitForPendingFinalizers();
+                Thread.Sleep(10);
+            }
+
+            disposed = true;
+        }
+
+        private bool TryDeleteRootFolder()
+        {
             try
             {
                 Directory.Delete(rootPathToTemp, true);
-                directoryDeleted = true;
             }
-            catch
+            catch (Exception e)
             {
-                // ignored
+                if (e is IOException)
+                {
+                    return false;
+                }
+                // Ignore other exceptions
             }
-
-            disposed = !directoryDeleted;
+            return true;
         }
 
         /// <summary>

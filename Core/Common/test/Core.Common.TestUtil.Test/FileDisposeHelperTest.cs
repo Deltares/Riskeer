@@ -387,10 +387,10 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void Dispose_FileInUse_ThrowsIOException()
+        public void Dispose_FileInUse_DoesNotThrowIOException()
         {
             // Setup
-            string filePath = Path.Combine(workingDirectory, nameof(Dispose_FileInUse_ThrowsIOException));
+            string filePath = Path.Combine(workingDirectory, nameof(Dispose_FileInUse_DoesNotThrowIOException));
 
             var disposeHelper = new FileDisposeHelper(filePath);
 
@@ -400,7 +400,7 @@ namespace Core.Common.TestUtil.Test
                 TestDelegate test = () => disposeHelper.Dispose();
 
                 // Assert
-                Assert.Throws<IOException>(test);
+                Assert.DoesNotThrow(test);
                 Assert.True(File.Exists(filePath), $"'{filePath}' should still exist.");
             }
         }
