@@ -52,5 +52,19 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             Assert.IsInstanceOf<StructuresCalculationConfiguration>(configuration);
             Assert.AreEqual(name, configuration.Name);
         }
+
+        [Test]
+        public void Properties_SetNewValues_NewValuesSet()
+        {
+            // Setup
+            var bankWidth = new MeanStandardDeviationStochastConfiguration();
+            var configuration = new StabilityPointStructuresCalculationConfiguration("some name");
+
+            // Call
+            configuration.BankWidth = bankWidth;
+
+            // Assert
+            Assert.AreSame(bankWidth, configuration.BankWidth);
+        }
     }
 }

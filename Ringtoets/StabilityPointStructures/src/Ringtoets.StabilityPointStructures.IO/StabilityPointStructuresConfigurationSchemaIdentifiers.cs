@@ -19,26 +19,16 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using Ringtoets.Common.IO.Configurations;
-
 namespace Ringtoets.StabilityPointStructures.IO
 {
     /// <summary>
-    /// Configuration of a stability point structures calculation.
+    /// Container of identifiers related to stability point structures calculation configuration schema definitions.
     /// </summary>
-    public class StabilityPointStructuresCalculationConfiguration : StructuresCalculationConfiguration
+    public static class StabilityPointStructuresConfigurationSchemaIdentifiers
     {
         /// <summary>
-        /// Creates a new instance of <see cref="StabilityPointStructuresCalculationConfiguration"/>.
+        /// The identifier for the bank width stochast name.
         /// </summary>
-        /// <param name="name">The name of the <see cref="StabilityPointStructuresCalculationConfiguration"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
-        public StabilityPointStructuresCalculationConfiguration(string name) : base(name) {}
-
-        /// <summary>
-        /// Gets or sets the stochast configuration for the bank width of the structure.
-        /// </summary>
-        public MeanStandardDeviationStochastConfiguration BankWidth { get; set; }
+        public const string BankWidthStochastName = "bermbreedte";
     }
 }
