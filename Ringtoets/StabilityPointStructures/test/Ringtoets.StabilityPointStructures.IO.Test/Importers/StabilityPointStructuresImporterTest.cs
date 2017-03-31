@@ -30,8 +30,9 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.StabilityPointStructures.Data;
+using Ringtoets.StabilityPointStructures.IO.Importers;
 
-namespace Ringtoets.StabilityPointStructures.IO.Test
+namespace Ringtoets.StabilityPointStructures.IO.Test.Importers
 {
     [TestFixture]
     public class StabilityPointStructuresImporterTest

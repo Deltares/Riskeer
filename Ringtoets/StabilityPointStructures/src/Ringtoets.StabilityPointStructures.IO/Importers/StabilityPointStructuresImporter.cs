@@ -28,9 +28,8 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.Structures;
 using Ringtoets.StabilityPointStructures.Data;
-using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
-namespace Ringtoets.StabilityPointStructures.IO
+namespace Ringtoets.StabilityPointStructures.IO.Importers
 {
     /// <summary>
     /// Imports point shapefiles containing stability point structure locations and csv files containing stability point structure schematizations.
