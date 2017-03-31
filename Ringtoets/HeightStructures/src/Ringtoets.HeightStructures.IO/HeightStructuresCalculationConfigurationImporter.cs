@@ -38,6 +38,10 @@ using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.IO
 {
+    /// <summary>
+    /// Class for importing a configuration of <see cref="HeightStructuresCalculationConfiguration"/> from an XML file and storing
+    /// it on a <see cref="CalculationGroup"/>.
+    /// </summary>
     public class HeightStructuresCalculationConfigurationImporter
         : CalculationConfigurationImporter<HeightStructuresCalculationConfigurationReader, HeightStructuresCalculationConfiguration>
     {
