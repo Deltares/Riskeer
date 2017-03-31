@@ -71,7 +71,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
                                                "projectdbfilename   = 700001.sql" + Environment.NewLine +
                                                "outputfilename      = designTable.txt" + Environment.NewLine +
                                                "configdbfilename    = " + configurationDatabaseFilePath + Environment.NewLine +
-                                               "hydraulicdbfilename = " + filePath;
+                                               "hydraulicdbfilename = " + filePath + Environment.NewLine + 
+                                               "designpointOutput   = both";
 
             try
             {

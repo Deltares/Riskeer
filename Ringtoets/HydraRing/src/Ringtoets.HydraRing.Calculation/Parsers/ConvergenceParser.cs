@@ -42,7 +42,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
             $"SELECT ConvOnBeta OR ConvOnValue AS {convergedColumnName} " +
             "FROM IterateToGivenBetaConvergence " +
             $"WHERE SectionId = {sectionIdParameterName} " +
-            "AND IterationNr = (SELECT MAX(IterationNr) FROM IterateToGivenBetaConvergence);";
+            "AND OuterIterationId = (SELECT MAX(OuterIterationId) FROM IterateToGivenBetaConvergence);";
 
         /// <summary>
         /// Gets the value indicating whether the calculation for a section has converged.
