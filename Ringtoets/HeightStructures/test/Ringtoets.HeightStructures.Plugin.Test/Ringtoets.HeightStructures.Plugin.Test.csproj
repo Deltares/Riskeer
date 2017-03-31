@@ -65,6 +65,7 @@
     </Compile>
     <Compile Include="ExportInfos\HeightStructuresCalculationContextExportInfoTest.cs" />
     <Compile Include="ExportInfos\HeightStructuresCalculationGroupContextExportInfoTest.cs" />
+    <Compile Include="ImportInfos\HeightStructuresCalculationGroupContextImportInfoTest.cs" />
     <Compile Include="PropertyInfos\HeightStructuresFailureMechanismContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\HeightStructuresInputContextPropertyInfoTest.cs" />
     <Compile Include="TreeNodeInfos\FailureMechanismResultContextTreeNodeInfoTest.cs" />

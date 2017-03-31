@@ -20,8 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Data;
 
@@ -45,5 +48,28 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
                                                        HeightStructuresFailureMechanism failureMechanism,
                                                        IAssessmentSection assessmentSection)
             : base(calculationsGroup, failureMechanism, assessmentSection) {}
+
+
+        /// <summary>
+        /// Gets the available foreshore profiles.
+        /// </summary>
+        public IEnumerable<ForeshoreProfile> AvailableForeshoreProfiles
+        {
+            get
+            {
+                return FailureMechanism.ForeshoreProfiles;
+            }
+        }
+
+        /// <summary>
+        /// Gets the available height structures.
+        /// </summary>
+        public IEnumerable<HeightStructure> AvailableStructures
+        {
+            get
+            {
+                return FailureMechanism.HeightStructures;
+            }
+        }
     }
 }

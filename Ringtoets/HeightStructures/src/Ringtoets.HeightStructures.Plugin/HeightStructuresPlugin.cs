@@ -39,6 +39,7 @@ using Ringtoets.Common.Forms;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.ExportInfos;
 using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.Common.Forms.ImportInfos;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.Service;
@@ -91,6 +92,14 @@ namespace Ringtoets.HeightStructures.Plugin
                                                               RingtoetsCommonIOResources.Shape_file_filter_Description),
                 IsEnabled = context => context.AssessmentSection.ReferenceLine != null
             };
+
+            yield return RingtoetsImportInfoFactory.CreateCalculationConfigurationImportInfo<HeightStructuresCalculationGroupContext>(
+                (context, filePath) => new HeightStructuresCalculationConfigurationImporter(
+                    filePath,
+                    context.WrappedData,
+                    context.AvailableHydraulicBoundaryLocations,
+                    context.AvailableForeshoreProfiles,
+                    context.AvailableStructures));
         }
 
         public override IEnumerable<ExportInfo> GetExportInfos()
@@ -484,7 +493,8 @@ namespace Ringtoets.HeightStructures.Plugin
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
             var isNestedGroup = parentData is HeightStructuresCalculationGroupContext;
 
-            builder.AddExportItem()
+            builder.AddImportItem()
+                   .AddExportItem()
                    .AddSeparator();
 
             if (!isNestedGroup)

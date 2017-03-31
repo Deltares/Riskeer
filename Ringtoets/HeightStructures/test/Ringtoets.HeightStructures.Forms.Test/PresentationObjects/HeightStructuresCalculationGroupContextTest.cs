@@ -52,6 +52,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
             Assert.AreSame(calculationGroup, groupContext.WrappedData);
             Assert.AreSame(failureMechanism, groupContext.FailureMechanism);
             Assert.AreSame(assessmentSection, groupContext.AssessmentSection);
+            Assert.AreSame(failureMechanism.ForeshoreProfiles, groupContext.AvailableForeshoreProfiles);
+            Assert.AreSame(failureMechanism.HeightStructures, groupContext.AvailableStructures);
             mockRepository.VerifyAll();
         }
     }
