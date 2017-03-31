@@ -166,7 +166,7 @@ namespace Core.Common.TestUtil
         /// <exception cref="ArgumentException">Thrown when the file could not be created by the system.</exception>
         private void Create()
         {
-            foreach (string filePath in filePathStreams.Keys)
+            foreach (string filePath in filePathStreams.Keys.ToArray())
             {
                 CreateFile(filePath);
             }
