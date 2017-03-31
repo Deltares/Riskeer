@@ -299,7 +299,6 @@
     <None Include="Resources\table_delete.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\warning.ico" />
     <None Include="Resources\cards.png" />
     <None Include="Resources\application_form.png" />
     <None Include="Resources\DikeProfile.png" />
@@ -308,6 +307,7 @@
     <None Include="Resources\Structures.png" />
     <Resource Include="Resources\MapsIcon.png" />
     <None Include="Resources\update.png" />
+    <None Include="Resources\warning.ico" />
     <Content Include="Resources\wand-hat.png" />
     <None Include="Resources\database.png" />
     <None Include="Resources\chart_single_line.png" />

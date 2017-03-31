@@ -111,7 +111,7 @@ namespace Ringtoets.Common.Forms.Views
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.AutoScrollMinSize = new System.Drawing.Size(516, 85);
+            this.AutoScrollMinSize = new System.Drawing.Size(526, 85);
             this.Controls.Add(this.dataGridViewControl);
             this.Controls.Add(this.ButtonGroupBox);
             this.Name = "CalculatableView";
