@@ -164,21 +164,10 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Given
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
-            var tileSourceFactory = mocks.StrictMock<ITileSourceFactory>();
-
-            var testWellKnownTileSource = new TestWellKnownTileSource(new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial));
-
-            string sourceCapabilitiesUrl = originalBackgroundData.Configuration is WmtsBackgroundDataConfiguration
-                                               ? ((WmtsBackgroundDataConfiguration) originalBackgroundData.Configuration).SourceCapabilitiesUrl
-                                               : ((WmtsBackgroundDataConfiguration) newBackgroundData.Configuration).SourceCapabilitiesUrl;
-
-            tileSourceFactory.Expect(tsf => tsf.GetWmtsTileSources(sourceCapabilitiesUrl))
-                             .Return(Enumerable.Empty<ITileSource>());
-            tileSourceFactory.Expect(tsf => tsf.GetKnownTileSource(KnownTileSource.BingAerial)).Return(testWellKnownTileSource);
             mocks.ReplayAll();
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
-            using (new UseCustomTileSourceFactoryConfig(tileSourceFactory))
+            using (new UseCustomTileSourceFactoryConfig(new TestTileSourceFactory(BackgroundDataConverter.ConvertFrom(originalBackgroundData))))
             {
                 var ringtoetsMapControl = new RingtoetsMapControl();
                 var mapDataCollection = new MapDataCollection("Collection");
