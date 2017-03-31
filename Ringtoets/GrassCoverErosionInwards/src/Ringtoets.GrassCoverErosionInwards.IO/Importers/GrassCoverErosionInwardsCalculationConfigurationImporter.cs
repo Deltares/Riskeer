@@ -129,7 +129,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
         }
 
         /// <summary>
-        /// Reads the foreshore profile.
+        /// Reads the dike profile.
         /// </summary>
         /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>

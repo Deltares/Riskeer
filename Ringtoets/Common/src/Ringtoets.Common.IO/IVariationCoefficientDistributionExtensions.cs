@@ -30,66 +30,66 @@ using Ringtoets.Common.IO.Properties;
 namespace Ringtoets.Common.IO
 {
     /// <summary>
-    /// Extension methods for <see cref="IDistribution"/>, related to the scope of
+    /// Extension methods for <see cref="IVariationCoefficientDistribution"/>, related to the scope of
     /// <see cref="CalculationConfigurationImporter{TCalculationConfigurationReader,TReadCalculation}"/>.
     /// </summary>
-    public static class IDistributionExtensions
+    public static class IVariationCoefficientDistributionExtensions
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(IDistributionExtensions));
+        private static readonly ILog log = LogManager.GetLogger(typeof(IVariationCoefficientDistributionExtensions));
 
         /// <summary>
-        /// Attempts to set the parameters of an <see cref="IDistribution"/>.
+        /// Attempts to set the parameters of an <see cref="IVariationCoefficientDistribution"/>.
         /// </summary>
-        /// <param name="distribution">The <see cref="IDistribution"/> to be updated.</param>
-        /// <param name="mean">The new value for <see cref="IDistribution.Mean"/>.</param>
-        /// <param name="standardDeviation">The new value for <see cref="IDistribution.StandardDeviation"/>.</param>
+        /// <param name="distribution">The <see cref="IVariationCoefficientDistribution"/> to be updated.</param>
+        /// <param name="mean">The new value for <see cref="IVariationCoefficientDistribution.Mean"/>.</param>
+        /// <param name="variationCoefficient">The new value for <see cref="IVariationCoefficientDistribution.CoefficientOfVariation"/>.</param>
         /// <param name="stochastName">The descriptive name of <paramref name="distribution"/>.</param>
         /// <param name="calculationName">The name of the calculation to which <paramref name="distribution"/>
         /// is associated.</param>
         /// <returns><c>true</c> if setting all properties was successful, <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="distribution"/>
         /// is <c>null</c>.</exception>
-        public static bool TrySetDistributionProperties(this IDistribution distribution,
-                                                        double? mean, double? standardDeviation,
+        public static bool TrySetDistributionProperties(this IVariationCoefficientDistribution distribution,
+                                                        double? mean, double? variationCoefficient,
                                                         string stochastName, string calculationName)
         {
             return distribution.TrySetMean(mean, stochastName, calculationName)
-                   && distribution.TrySetStandardDeviation(standardDeviation, stochastName, calculationName);
+                   && distribution.TrySetVariationCoefficient(variationCoefficient, stochastName, calculationName);
         }
 
         /// <summary>
-        /// Attempts to set the parameters of an <see cref="IDistribution"/>.
+        /// Attempts to set the parameters of an <see cref="IVariationCoefficientDistribution"/>.
         /// </summary>
-        /// <param name="distribution">The <see cref="IDistribution"/> to be updated.</param>
+        /// <param name="distribution">The <see cref="IVariationCoefficientDistribution"/> to be updated.</param>
         /// <param name="configuration">The configuration containing the new values for 
-        /// <see cref="IDistribution.Mean"/> and <see cref="IDistribution.StandardDeviation"/>.</param>
+        /// <see cref="IVariationCoefficientDistribution.Mean"/> and <see cref="IVariationCoefficientDistribution.CoefficientOfVariation"/>.</param>
         /// <param name="stochastName">The descriptive name of <paramref name="distribution"/>.</param>
         /// <param name="calculationName">The name of the calculation to which <paramref name="distribution"/>
         /// is associated.</param>
         /// <returns><c>true</c> if setting all properties was successful, <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="distribution"/>
         /// is <c>null</c>.</exception>
-        public static bool TrySetDistributionProperties(this IDistribution distribution,
-                                                        MeanStandardDeviationStochastConfiguration configuration,
+        public static bool TrySetDistributionProperties(this IVariationCoefficientDistribution distribution,
+                                                        MeanVariationCoefficientStochastConfiguration configuration,
                                                         string stochastName, string calculationName)
         {
             return distribution.TrySetMean(configuration.Mean, stochastName, calculationName)
-                   && distribution.TrySetStandardDeviation(configuration.StandardDeviation, stochastName, calculationName);
+                   && distribution.TrySetVariationCoefficient(configuration.VariationCoefficient, stochastName, calculationName);
         }
 
         /// <summary>
-        /// Attempts to set <see cref="IDistribution.Mean"/>.
+        /// Attempts to set <see cref="IVariationCoefficientDistribution.Mean"/>.
         /// </summary>
-        /// <param name="distribution">The <see cref="IDistribution"/> to be updated.</param>
-        /// <param name="mean">The new value for <see cref="IDistribution.Mean"/>.</param>
+        /// <param name="distribution">The <see cref="IVariationCoefficientDistribution"/> to be updated.</param>
+        /// <param name="mean">The new value for <see cref="IVariationCoefficientDistribution.Mean"/>.</param>
         /// <param name="stochastName">The descriptive name of <paramref name="distribution"/>.</param>
         /// <param name="calculationName">The name of the calculation to which <paramref name="distribution"/>
         /// is associated.</param>
-        /// <returns><c>true</c> if setting <see cref="IDistribution.Mean"/> was successful,
+        /// <returns><c>true</c> if setting <see cref="IVariationCoefficientDistribution.Mean"/> was successful,
         /// <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="distribution"/>
         /// is <c>null</c>.</exception>
-        public static bool TrySetMean(this IDistribution distribution, double? mean,
+        public static bool TrySetMean(this IVariationCoefficientDistribution distribution, double? mean,
                                       string stochastName, string calculationName)
         {
             if (distribution == null)
@@ -106,7 +106,7 @@ namespace Ringtoets.Common.IO
                 catch (ArgumentOutOfRangeException e)
                 {
                     string errorMessage = string.Format(
-                        Resources.IDistributionExtensions_TrySetMean_Mean_0_is_invalid_for_Stochast_1_,
+                        Resources.IVariationCoefficientDistributionExtensions_TrySetMean_Mean_0_is_invalid_for_Stochast_1_,
                         mean, stochastName);
 
                     LogOutOfRangeException(errorMessage,
@@ -120,18 +120,18 @@ namespace Ringtoets.Common.IO
         }
 
         /// <summary>
-        /// Attempts to set <see cref="IDistribution.StandardDeviation"/>.
+        /// Attempts to set <see cref="IVariationCoefficientDistribution.CoefficientOfVariation"/>.
         /// </summary>
-        /// <param name="distribution">The <see cref="IDistribution"/> to be updated.</param>
-        /// <param name="standardDeviation">The new value for <see cref="IDistribution.StandardDeviation"/>.</param>
+        /// <param name="distribution">The <see cref="IVariationCoefficientDistribution"/> to be updated.</param>
+        /// <param name="variationCoefficient">The new value for <see cref="IVariationCoefficientDistribution.CoefficientOfVariation"/>.</param>
         /// <param name="stochastName">The descriptive name of <paramref name="distribution"/>.</param>
         /// <param name="calculationName">The name of the calculation to which <paramref name="distribution"/>
         /// is associated.</param>
-        /// <returns><c>true</c> if setting <see cref="IDistribution.StandardDeviation"/>
+        /// <returns><c>true</c> if setting <see cref="IVariationCoefficientDistribution.CoefficientOfVariation"/>
         /// was successful, <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="distribution"/>
         /// is <c>null</c>.</exception>
-        public static bool TrySetStandardDeviation(this IDistribution distribution, double? standardDeviation,
+        public static bool TrySetVariationCoefficient(this IVariationCoefficientDistribution distribution, double? variationCoefficient,
                                                    string stochastName, string calculationName)
         {
             if (distribution == null)
@@ -139,17 +139,17 @@ namespace Ringtoets.Common.IO
                 throw new ArgumentNullException(nameof(distribution));
             }
 
-            if (standardDeviation.HasValue)
+            if (variationCoefficient.HasValue)
             {
                 try
                 {
-                    distribution.StandardDeviation = (RoundedDouble) standardDeviation.Value;
+                    distribution.CoefficientOfVariation = (RoundedDouble) variationCoefficient.Value;
                 }
                 catch (ArgumentOutOfRangeException e)
                 {
                     string errorMessage = string.Format(
-                        Resources.IDistributionExtensions_TrySetStandardDeviation_StandardDeviation_0_is_invalid_for_Stochast_1_,
-                        standardDeviation, stochastName);
+                        Resources.IVariationCoefficientDistributionExtensions_TrySetVariationCoefficient_VariationCoefficient_0_is_invalid_for_Stochast_1_,
+                        variationCoefficient, stochastName);
 
                     LogOutOfRangeException(errorMessage,
                                            calculationName,

@@ -141,6 +141,15 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het kunstwerk &apos;{0}&apos; bestaat niet..
+        /// </summary>
+        public static string CalculationConfigurationImporter_ReadStructure_Structure_0_does_not_exist {
+            get {
+                return ResourceManager.GetString("CalculationConfigurationImporter_ReadStructure_Structure_0_does_not_exist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} Berekening &apos;{1}&apos; is overgeslagen..
         /// </summary>
         public static string CalculationConfigurationImporter_ValidateCalculation_ErrorMessage_0_Calculation_1_skipped {
@@ -895,6 +904,26 @@ namespace Ringtoets.Common.IO.Properties {
         public static string Importer_ProgressText_Validating_imported_data {
             get {
                 return ResourceManager.GetString("Importer_ProgressText_Validating_imported_data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Een gemiddelde van &apos;{0}&apos; is ongeldig voor stochast &apos;{1}&apos;..
+        /// </summary>
+        public static string IVariationCoefficientDistributionExtensions_TrySetMean_Mean_0_is_invalid_for_Stochast_1_ {
+            get {
+                return ResourceManager.GetString("IVariationCoefficientDistributionExtensions_TrySetMean_Mean_0_is_invalid_for_Stoc" +
+                        "hast_1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Een variatiecoëfficiënt van &apos;{0}&apos; is ongeldig voor stochast &apos;{1}&apos;..
+        /// </summary>
+        public static string IVariationCoefficientDistributionExtensions_TrySetVariationCoefficient_VariationCoefficient_0_is_invalid_for_Stochast_1_ {
+            get {
+                return ResourceManager.GetString("IVariationCoefficientDistributionExtensions_TrySetVariationCoefficient_VariationC" +
+                        "oefficient_0_is_invalid_for_Stochast_1_", resourceCulture);
             }
         }
         

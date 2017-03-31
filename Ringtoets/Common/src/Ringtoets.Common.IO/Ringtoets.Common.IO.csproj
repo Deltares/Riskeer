@@ -60,6 +60,7 @@
     <Compile Include="Configurations\MeanVariationCoefficientStochastConfiguration.cs" />
     <Compile Include="Configurations\MeanStandardDeviationStochastConfiguration.cs" />
     <Compile Include="Configurations\WaveReductionConfiguration.cs" />
+    <Compile Include="IVariationCoefficientDistributionExtensions.cs" />
     <Compile Include="IDistributionExtensions.cs" />
     <Compile Include="Configurations\Helpers\SchemaBreakWaterTypeConverter.cs" />
     <Compile Include="DikeProfiles\DamType.cs" />

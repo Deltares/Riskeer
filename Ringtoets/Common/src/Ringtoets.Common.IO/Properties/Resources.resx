@@ -553,6 +553,9 @@ Er is geen berekeningenconfiguratie geïmporteerd.</value>
   <data name="CalculationConfigurationImporter_ReadHydraulicBoundaryLocation_HydraulicBoundaryLocation_0_does_not_exist" xml:space="preserve">
     <value>De locatie met hydraulische randvoorwaarden '{0}' bestaat niet.</value>
   </data>
+  <data name="CalculationConfigurationImporter_ReadStructure_Structure_0_does_not_exist" xml:space="preserve">
+    <value>Het kunstwerk '{0}' bestaat niet.</value>
+  </data>
   <data name="Importer_LogMessageText_Import_of_TypeDescriptor_0_cancelled" xml:space="preserve">
     <value>{0} importeren afgebroken. Geen data ingelezen.</value>
   </data>
@@ -567,6 +570,12 @@ Er is geen berekeningenconfiguratie geïmporteerd.</value>
   </data>
   <data name="IDistributionExtensions_TrySetStandardDeviation_StandardDeviation_0_is_invalid_for_Stochast_1_" xml:space="preserve">
     <value>Een standaardafwijking van '{0}' is ongeldig voor stochast '{1}'.</value>
+  </data>
+  <data name="IVariationCoefficientDistributionExtensions_TrySetMean_Mean_0_is_invalid_for_Stochast_1_" xml:space="preserve">
+    <value>Een gemiddelde van '{0}' is ongeldig voor stochast '{1}'.</value>
+  </data>
+  <data name="IVariationCoefficientDistributionExtensions_TrySetVariationCoefficient_VariationCoefficient_0_is_invalid_for_Stochast_1_" xml:space="preserve">
+    <value>Een variatiecoëfficiënt van '{0}' is ongeldig voor stochast '{1}'.</value>
   </data>
   <data name="KunstwerkenBasisSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\KunstwerkenBasisSchema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>

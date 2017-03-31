@@ -212,7 +212,7 @@ namespace Ringtoets.Common.Data.Structures
                 RoundedDouble newStructureNormalOrientation = value.ToPrecision(structureNormalOrientation.NumberOfDecimalPlaces);
                 if (!double.IsNaN(newStructureNormalOrientation) && !structureNormalOrientationValidityRange.InRange(newStructureNormalOrientation))
                 {
-                    throw new ArgumentOutOfRangeException(nameof(value), string.Format(Resources.Orientation_Value_needs_to_be_in_Range_0_,
+                    throw new ArgumentOutOfRangeException(null, string.Format(Resources.Orientation_Value_needs_to_be_in_Range_0_,
                                                                                        structureNormalOrientationValidityRange));
                 }
                 structureNormalOrientation = newStructureNormalOrientation;
@@ -301,7 +301,7 @@ namespace Ringtoets.Common.Data.Structures
             }
             set
             {
-                ProbabilityHelper.ValidateProbability(value, nameof(value), Resources.FailureProbability_Value_needs_to_be_in_Range_0_);
+                ProbabilityHelper.ValidateProbability(value, null, Resources.FailureProbability_Value_needs_to_be_in_Range_0_);
                 failureProbabilityStructureWithErosion = value;
             }
         }

@@ -46,6 +46,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="HeightStructuresCalculationConfigurationExporter.cs" />
+    <Compile Include="HeightStructuresCalculationConfigurationImporter.cs" />
     <Compile Include="HeightStructuresCalculationConfigurationReader.cs" />
     <Compile Include="HeightStructuresConfigurationSchemaIdentifiers.cs" />
     <Compile Include="HeightStructuresCalculationConfiguration.cs" />

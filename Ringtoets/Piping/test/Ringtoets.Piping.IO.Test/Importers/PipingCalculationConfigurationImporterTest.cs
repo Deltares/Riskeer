@@ -39,8 +39,8 @@ namespace Ringtoets.Piping.IO.Test.Importers
     [TestFixture]
     public class PipingCalculationConfigurationImporterTest
     {
-        private readonly string readerPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "PipingCalculationConfigurationReader");
-        private readonly string importerPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "PipingCalculationConfigurationImporter");
+        private readonly string readerPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, nameof(PipingCalculationConfigurationReader));
+        private readonly string importerPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, nameof(PipingCalculationConfigurationImporter));
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -128,9 +128,9 @@ namespace Ringtoets.Piping.IO.Test.Importers
                                                                       calculationGroup,
                                                                       new HydraulicBoundaryLocation[0],
                                                                       pipingFailureMechanism);
+            var successful = false;
 
             // Call
-            var successful = false;
             Action call = () => successful = importer.Import();
 
             // Assert

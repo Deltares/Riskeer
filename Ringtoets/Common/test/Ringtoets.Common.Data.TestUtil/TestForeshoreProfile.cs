@@ -52,6 +52,13 @@ namespace Ringtoets.Common.Data.TestUtil
         public TestForeshoreProfile(string profileName) : this("id", profileName, new Point2D(0, 0), null, Enumerable.Empty<Point2D>()) {}
 
         /// <summary>
+        /// Creates a new instance of the <see cref="TestForeshoreProfile"/> with a given
+        /// name and geometry.
+        /// </summary>
+        /// <param name="profileName">Name of the profile.</param>
+        public TestForeshoreProfile(string profileName, IEnumerable<Point2D> geometry) : this("id", profileName, new Point2D(0, 0), null, geometry) {}
+
+        /// <summary>
         /// Creates a new instance of <see cref="TestForeshoreProfile"/> with a specified <see cref="BreakWater"/>.
         /// </summary>
         /// <param name="breakWater">The <see cref="BreakWater"/> which needs to be set on the <see cref="ForeshoreProfile"/>.</param>
