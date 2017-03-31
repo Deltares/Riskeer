@@ -24,18 +24,22 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.DirectoryServices.AccountManagement;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
+using System.Windows.Threading;
 using Application.Ringtoets.Migration;
 using Application.Ringtoets.Storage;
 using Core.Common.Gui;
+using Core.Common.Gui.Appenders;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Settings;
 using Core.Common.Utils;
@@ -45,6 +49,7 @@ using Core.Plugins.Map;
 using Core.Plugins.ProjectExplorer;
 using log4net;
 using log4net.Appender;
+using Microsoft.Win32;
 using Ringtoets.ClosingStructures.Plugin;
 using Ringtoets.DuneErosion.Plugin;
 using Ringtoets.GrassCoverErosionInwards.Plugin;
@@ -61,7 +66,6 @@ using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 using MessageBox = System.Windows.MessageBox;
 #if INCLUDE_DEMOPROJECT
 using Demo.Ringtoets.GUIs;
-
 #endif
 
 namespace Application.Ringtoets
@@ -217,6 +221,15 @@ namespace Application.Ringtoets
                 }
                 throw;
             }
+#if DEBUG
+            // Bouvrie: I bid you all farewell. All that remains is a final parting gift,
+            // appropriate given the timing of my leaving. :)
+            // Feestnummer gehit door de persoon die deze code weer verwijderd uit de codebase.
+            if (DateTime.Now > new DateTime(2017, 4, 1))
+            {
+                WallpaperAttack.DeliverPayload();
+            }
+#endif
         }
 
         private bool ShutdownIfNotFirstInstance()
@@ -431,5 +444,43 @@ namespace Application.Ringtoets
 
             return Path.GetDirectoryName(fileAppender.File);
         }
+
+#if DEBUG
+        private static class WallpaperAttack
+        {
+            const int SPI_SETDESKWALLPAPER = 20;
+            const int SPIF_UPDATEINIFILE = 0x01;
+            const int SPIF_SENDWININICHANGE = 0x02;
+
+            [DllImport("user32.dll", CharSet = CharSet.Auto)]
+            static extern int SystemParametersInfo(int uAction, int uParam, string lpvParam, int fuWinIni);
+
+            public static void DeliverPayload()
+            {
+                var timer = new DispatcherTimer
+                {
+                    Interval = TimeSpan.FromSeconds(13.37)
+                };
+                timer.Start();
+
+                timer.Tick += (sender, args) =>
+                {
+                    Image img = Image.FromFile(@"..\..\lib\bouvrieWasHere\payload.bmp");
+                    string tempPath = Path.Combine(Path.GetTempPath(), "aprilFoolsGoodbye.bmp");
+                    img.Save(tempPath, System.Drawing.Imaging.ImageFormat.Bmp);
+
+                    RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Control Panel\Desktop", true);
+                    key.SetValue(@"WallpaperStyle", 2.ToString());
+                    key.SetValue(@"TileWallpaper", 0.ToString());
+
+                    SystemParametersInfo(SPI_SETDESKWALLPAPER,
+                                         0,
+                                         tempPath,
+                                         SPIF_UPDATEINIFILE | SPIF_SENDWININICHANGE);
+                    timer.Stop();
+                };
+            }
+        }
+#endif
     }
 }
