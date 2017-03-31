@@ -27,8 +27,33 @@ namespace Ringtoets.StabilityPointStructures.IO
     public static class StabilityPointStructuresConfigurationSchemaIdentifiers
     {
         /// <summary>
+        /// The identifier for the area flow apertures stochast name.
+        /// </summary>
+        public const string AreaFlowAperturesStochastName = "doorstroomoppervlak";
+
+        /// <summary>
         /// The identifier for the bank width stochast name.
         /// </summary>
         public const string BankWidthStochastName = "bermbreedte";
+
+        /// <summary>
+        /// The identifier for the constructive strength linear load model stochast name.
+        /// </summary>
+        public const string ConstructiveStrengthLinearLoadModelStochastName = "lineairebelastingschematiseringsterkte";
+
+        /// <summary>
+        /// The identifier for the constructive strength quadratic load model stochast name.
+        /// </summary>
+        public const string ConstructiveStrengthQuadraticLoadModelName = "kwadratischebelastingschematiseringsterkte";
+
+        /// <summary>
+        /// The identifier for evaluation level elements.
+        /// </summary>
+        public const string EvaluationLevelElement = "analysehoogte";
+
+        /// <summary>
+        /// The identifier for the failure collision energy stochast name.
+        /// </summary>
+        public const string FailureCollisionEnergyStochastName = "aanvaarenergie";
     }
 }

@@ -44,11 +44,30 @@ namespace Ringtoets.StabilityPointStructures.IO.Exporters
         /// </list></remarks>
         public StabilityPointStructuresCalculationConfigurationWriter(string filePath) : base(filePath) {}
 
+        protected override void WriteSpecificStructureParameters(StabilityPointStructuresCalculationConfiguration configuration, XmlWriter writer)
+        {
+            WriteElementWhenContentAvailable(writer,
+                                             StabilityPointStructuresConfigurationSchemaIdentifiers.EvaluationLevelElement,
+                                             configuration.EvaluationLevel);
+        }
+
         protected override void WriteSpecificStochasts(StabilityPointStructuresCalculationConfiguration configuration, XmlWriter writer)
         {
             WriteDistributionWhenAvailable(writer,
+                                           StabilityPointStructuresConfigurationSchemaIdentifiers.AreaFlowAperturesStochastName,
+                                           configuration.AreaFlowApertures);
+            WriteDistributionWhenAvailable(writer,
                                            StabilityPointStructuresConfigurationSchemaIdentifiers.BankWidthStochastName,
                                            configuration.BankWidth);
+            WriteDistributionWhenAvailable(writer,
+                                           StabilityPointStructuresConfigurationSchemaIdentifiers.ConstructiveStrengthLinearLoadModelStochastName,
+                                           configuration.ConstructiveStrengthLinearLoadModel);
+            WriteDistributionWhenAvailable(writer,
+                                           StabilityPointStructuresConfigurationSchemaIdentifiers.ConstructiveStrengthQuadraticLoadModelName,
+                                           configuration.ConstructiveStrengthQuadraticLoadModel);
+            WriteDistributionWhenAvailable(writer,
+                                           StabilityPointStructuresConfigurationSchemaIdentifiers.FailureCollisionEnergyStochastName,
+                                           configuration.FailureCollisionEnergy);
         }
     }
 }

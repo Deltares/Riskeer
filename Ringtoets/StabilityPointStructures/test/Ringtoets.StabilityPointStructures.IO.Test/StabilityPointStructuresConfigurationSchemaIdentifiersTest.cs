@@ -30,7 +30,12 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
         public void Properties_Always_ExpectedValues()
         {
             // Assert
+            Assert.AreEqual("doorstroomoppervlak", StabilityPointStructuresConfigurationSchemaIdentifiers.AreaFlowAperturesStochastName);
             Assert.AreEqual("bermbreedte", StabilityPointStructuresConfigurationSchemaIdentifiers.BankWidthStochastName);
+            Assert.AreEqual("lineairebelastingschematiseringsterkte", StabilityPointStructuresConfigurationSchemaIdentifiers.ConstructiveStrengthLinearLoadModelStochastName);
+            Assert.AreEqual("kwadratischebelastingschematiseringsterkte", StabilityPointStructuresConfigurationSchemaIdentifiers.ConstructiveStrengthQuadraticLoadModelName);
+            Assert.AreEqual("analysehoogte", StabilityPointStructuresConfigurationSchemaIdentifiers.EvaluationLevelElement);
+            Assert.AreEqual("aanvaarenergie", StabilityPointStructuresConfigurationSchemaIdentifiers.FailureCollisionEnergyStochastName);
         }
     }
 }

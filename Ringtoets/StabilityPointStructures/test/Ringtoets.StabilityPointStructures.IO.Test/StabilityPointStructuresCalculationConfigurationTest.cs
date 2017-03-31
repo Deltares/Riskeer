@@ -51,20 +51,42 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             // Assert
             Assert.IsInstanceOf<StructuresCalculationConfiguration>(configuration);
             Assert.AreEqual(name, configuration.Name);
+            Assert.IsNull(configuration.AreaFlowApertures);
+            Assert.IsNull(configuration.BankWidth);
+            Assert.IsNull(configuration.ConstructiveStrengthLinearLoadModel);
+            Assert.IsNull(configuration.ConstructiveStrengthQuadraticLoadModel);
+            Assert.IsNull(configuration.EvaluationLevel);
+            Assert.IsNull(configuration.FailureCollisionEnergy);
         }
 
         [Test]
         public void Properties_SetNewValues_NewValuesSet()
         {
             // Setup
-            var bankWidth = new MeanStandardDeviationStochastConfiguration();
             var configuration = new StabilityPointStructuresCalculationConfiguration("some name");
+            var random = new Random(5432);
+            var areaFlowApertures = new MeanStandardDeviationStochastConfiguration();
+            var bankWidth = new MeanStandardDeviationStochastConfiguration();
+            var constructiveStrengthLinearLoadModel = new MeanVariationCoefficientStochastConfiguration();
+            var constructiveStrengthQuadraticLoadModel = new MeanVariationCoefficientStochastConfiguration();
+            double evaluationLevel = random.NextDouble();
+            var failureCollisionEnergy = new MeanVariationCoefficientStochastConfiguration();
 
             // Call
+            configuration.AreaFlowApertures = areaFlowApertures;
             configuration.BankWidth = bankWidth;
+            configuration.ConstructiveStrengthLinearLoadModel = constructiveStrengthLinearLoadModel;
+            configuration.ConstructiveStrengthQuadraticLoadModel = constructiveStrengthQuadraticLoadModel;
+            configuration.EvaluationLevel = evaluationLevel;
+            configuration.FailureCollisionEnergy = failureCollisionEnergy;
 
             // Assert
+            Assert.AreSame(areaFlowApertures, configuration.AreaFlowApertures);
             Assert.AreSame(bankWidth, configuration.BankWidth);
+            Assert.AreSame(constructiveStrengthLinearLoadModel, configuration.ConstructiveStrengthLinearLoadModel);
+            Assert.AreSame(constructiveStrengthQuadraticLoadModel, configuration.ConstructiveStrengthQuadraticLoadModel);
+            Assert.AreEqual(evaluationLevel, configuration.EvaluationLevel);
+            Assert.AreSame(failureCollisionEnergy, configuration.FailureCollisionEnergy);
         }
     }
 }

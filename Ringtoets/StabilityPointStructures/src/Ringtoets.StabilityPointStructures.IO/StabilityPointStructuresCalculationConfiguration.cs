@@ -37,8 +37,33 @@ namespace Ringtoets.StabilityPointStructures.IO
         public StabilityPointStructuresCalculationConfiguration(string name) : base(name) {}
 
         /// <summary>
+        /// Gets or sets the stochast configuration for the area flow apertures of the structure.
+        /// </summary>
+        public MeanStandardDeviationStochastConfiguration AreaFlowApertures { get; set; }
+
+        /// <summary>
         /// Gets or sets the stochast configuration for the bank width of the structure.
         /// </summary>
         public MeanStandardDeviationStochastConfiguration BankWidth { get; set; }
+
+        /// <summary>
+        /// Gets or sets the stochast configuration for the constructive strength of the linear load model of the structure.
+        /// </summary>
+        public MeanVariationCoefficientStochastConfiguration ConstructiveStrengthLinearLoadModel { get; set; }
+
+        /// <summary>
+        /// Gets or sets the stochast configuration for the constructive strength of the quadratic load model of the structure.
+        /// </summary>
+        public MeanVariationCoefficientStochastConfiguration ConstructiveStrengthQuadraticLoadModel { get; set; }
+
+        /// <summary>
+        /// Gets or sets the evaluation level of the structure.
+        /// </summary>
+        public double? EvaluationLevel { get; set; }
+
+        /// <summary>
+        /// Gets or sets the stochast configuration for the failure collision energy of the structure.
+        /// </summary>
+        public MeanVariationCoefficientStochastConfiguration FailureCollisionEnergy { get; set; }
     }
 }
