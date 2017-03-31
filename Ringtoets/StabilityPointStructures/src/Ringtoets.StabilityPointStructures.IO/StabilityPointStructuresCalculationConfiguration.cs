@@ -22,23 +22,18 @@
 using System;
 using Ringtoets.Common.IO.Configurations;
 
-namespace Ringtoets.HeightStructures.IO
+namespace Ringtoets.StabilityPointStructures.IO
 {
     /// <summary>
-    /// Configuration of a height structure calculation.
+    /// Configuration of a stability point structures calculation.
     /// </summary>
-    public class HeightStructuresCalculationConfiguration : StructuresCalculationConfiguration
+    public class StabilityPointStructuresCalculationConfiguration : StructuresCalculationConfiguration
     {
         /// <summary>
-        /// Creates a new instance of <see cref="HeightStructuresCalculationConfiguration"/>.
+        /// Creates a new instance of <see cref="StabilityPointStructuresCalculationConfiguration"/>.
         /// </summary>
-        /// <param name="name">The name of the <see cref="HeightStructuresCalculationConfiguration"/>.</param>
+        /// <param name="name">The name of the <see cref="StabilityPointStructuresCalculationConfiguration"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
-        public HeightStructuresCalculationConfiguration(string name) : base(name) {}
-
-        /// <summary>
-        /// Gets or sets the stochast configuration for the crest level for the structure.
-        /// </summary>
-        public MeanStandardDeviationStochastConfiguration LevelCrestStructure { get; set; }
+        public StabilityPointStructuresCalculationConfiguration(string name) : base(name) {}
     }
 }

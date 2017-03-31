@@ -29,6 +29,17 @@ namespace Ringtoets.HeightStructures.IO.Test
     public class HeightStructuresCalculationConfigurationTest
     {
         [Test]
+        public void Constructor_NameNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new HeightStructuresCalculationConfiguration(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("value", paramName);
+        }
+
+        [Test]
         public void Constructor_WithName_ExpectedValues()
         {
             // Call

@@ -20,25 +20,37 @@
 // All rights reserved.
 
 using System;
+using NUnit.Framework;
 using Ringtoets.Common.IO.Configurations;
 
-namespace Ringtoets.HeightStructures.IO
+namespace Ringtoets.StabilityPointStructures.IO.Test
 {
-    /// <summary>
-    /// Configuration of a height structure calculation.
-    /// </summary>
-    public class HeightStructuresCalculationConfiguration : StructuresCalculationConfiguration
+    [TestFixture]
+    public class StabilityPointStructuresCalculationConfigurationTest
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="HeightStructuresCalculationConfiguration"/>.
-        /// </summary>
-        /// <param name="name">The name of the <see cref="HeightStructuresCalculationConfiguration"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
-        public HeightStructuresCalculationConfiguration(string name) : base(name) {}
+        [Test]
+        public void Constructor_NameNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new StabilityPointStructuresCalculationConfiguration(null);
 
-        /// <summary>
-        /// Gets or sets the stochast configuration for the crest level for the structure.
-        /// </summary>
-        public MeanStandardDeviationStochastConfiguration LevelCrestStructure { get; set; }
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("value", paramName);
+        }
+
+        [Test]
+        public void Constructor_WithName_ExpectedValues()
+        {
+            // Setup
+            const string name = "some name";
+
+            // Call
+            var configuration = new StabilityPointStructuresCalculationConfiguration(name);
+
+            // Assert
+            Assert.IsInstanceOf<StructuresCalculationConfiguration>(configuration);
+            Assert.AreEqual(name, configuration.Name);
+        }
     }
 }
