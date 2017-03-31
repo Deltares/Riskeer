@@ -137,7 +137,7 @@
     <value>Een waarde van '{0}' als oriëntatie is ongeldig.</value>
   </data>
   <data name="GrassCoverErosionInwardsCalculationConfigurationImporter_ValidateWaveReduction_DikeProfile_0_has_no_geometry_and_cannot_be_used" xml:space="preserve">
-    <value>Het opgegeven dijkprofiel '{0}' heeft geen geometrie en kan daarom niet gebruikt worden.</value>
+    <value>Het opgegeven dijkprofiel '{0}' heeft geen voorlandgeometrie en kan daarom niet gebruikt worden.</value>
   </data>
   <data name="GrassCoverErosionInwardsCalculationConfigurationImporter_ValidateWaveReduction_No_DikeProfile_provided_for_BreakWater_parameters" xml:space="preserve">
     <value>Er is geen dijkprofiel opgegeven om golfreductie parameters aan toe te voegen.</value>
