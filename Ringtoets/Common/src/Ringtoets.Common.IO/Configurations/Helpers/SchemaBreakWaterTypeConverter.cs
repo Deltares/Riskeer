@@ -28,7 +28,8 @@ using Ringtoets.Common.IO.Schema;
 namespace Ringtoets.Common.IO.Configurations.Helpers
 {
     /// <summary>
-    /// Converts <see cref="SchemaBreakWaterType"/> to <see cref="string"/> and back.
+    /// Converts <see cref="SchemaBreakWaterType"/> to <see cref="string"/> or <see cref="BreakWaterType"/>
+    /// and back.
     /// </summary>
     public class SchemaBreakWaterTypeConverter : TypeConverter
     {

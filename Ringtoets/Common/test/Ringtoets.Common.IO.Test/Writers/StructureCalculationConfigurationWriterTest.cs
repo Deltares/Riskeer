@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using Core.Common.TestUtil;
@@ -64,7 +63,10 @@ namespace Ringtoets.Common.IO.Test.Writers
                 var writer = new SimpleStructureCalculationConfigurationWriter(filePath, true);
 
                 // Call
-                writer.Write(new [] { CreateStructureWithAllParametersSet("some other name") });
+                writer.Write(new[]
+                {
+                    CreateStructureWithAllParametersSet("some other name")
+                });
 
                 // Assert
                 string actualXml = File.ReadAllText(filePath);
@@ -87,7 +89,10 @@ namespace Ringtoets.Common.IO.Test.Writers
                 var writer = new SimpleStructureCalculationConfigurationWriter(filePath, false);
 
                 // Call
-                writer.Write(new [] { new SimpleStructuresCalculationConfiguration("some name") });
+                writer.Write(new[]
+                {
+                    new SimpleStructuresCalculationConfiguration("some name")
+                });
 
                 // Assert
                 string actualXml = File.ReadAllText(filePath);

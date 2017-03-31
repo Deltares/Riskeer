@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using log4net;
@@ -65,7 +66,7 @@ namespace Ringtoets.Common.IO.Exporters
             }
 
             writer = CreateWriter(filePath);
-            configuration = ToConfiguration(calculations);
+            configuration = ToConfiguration(calculations).ToArray();
         }
 
         public bool Export()
@@ -98,6 +99,14 @@ namespace Ringtoets.Common.IO.Exporters
         /// to properties of <paramref name="calculation"/>.</returns>
         protected abstract TConfiguration ToConfiguration(TCalculation calculation);
 
+        /// <summary>
+        /// Converts a sequence of <see cref="ICalculationBase"/> into a sequence of <see cref="IConfigurationItem"/>.
+        /// </summary>
+        /// <param name="calculations">The sequence to be converted into a sequence of
+        /// <see cref="IConfigurationItem"/>.</param>
+        /// <returns>The converted <see cref="IEnumerable{T}"/> of <see cref="IConfigurationItem"/>.</returns>
+        /// <exception cref="ArgumentException">Thrown when an element of <paramref name="calculations"/>
+        /// isn't a <see cref="CalculationGroup"/> nor a <typeparamref name="TCalculation"/>.</exception>
         private IEnumerable<IConfigurationItem> ToConfiguration(IEnumerable<ICalculationBase> calculations)
         {
             foreach (ICalculationBase child in calculations)
@@ -123,7 +132,7 @@ namespace Ringtoets.Common.IO.Exporters
 
         private CalculationGroupConfiguration ToConfiguration(CalculationGroup group)
         {
-            return new CalculationGroupConfiguration(group.Name, ToConfiguration(group.Children));
+            return new CalculationGroupConfiguration(group.Name, ToConfiguration(group.Children).ToArray());
         }
     }
 }

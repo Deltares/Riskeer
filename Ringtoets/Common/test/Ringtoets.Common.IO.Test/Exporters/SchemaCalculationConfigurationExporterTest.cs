@@ -57,7 +57,7 @@ namespace Ringtoets.Common.IO.Test.Exporters
 
         protected override TestConfigurationItem ToConfiguration(TestCalculation calculation)
         {
-            throw new System.NotImplementedException();
+            return null;
         }
     }
 }

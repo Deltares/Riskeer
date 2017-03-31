@@ -86,7 +86,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
         [TestCase(SchemaBreakWaterType.Dam, ConfigurationSchemaIdentifiers.BreakWaterDam)]
         [TestCase(SchemaBreakWaterType.Wall, ConfigurationSchemaIdentifiers.BreakWaterWall)]
         public void ConvertTo_VariousCases_ReturnExpectedText(SchemaBreakWaterType value,
-                                                             string expectedResult)
+                                                              string expectedResult)
         {
             // Setup
             var converter = new SchemaBreakWaterTypeConverter();
@@ -117,7 +117,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
         [TestCase(SchemaBreakWaterType.Dam, BreakWaterType.Dam)]
         [TestCase(SchemaBreakWaterType.Wall, BreakWaterType.Wall)]
         public void ConvertTo_VariousCases_ReturnExpectedText(SchemaBreakWaterType value,
-                                                             BreakWaterType expectedResult)
+                                                              BreakWaterType expectedResult)
         {
             // Setup
             var converter = new SchemaBreakWaterTypeConverter();
@@ -203,7 +203,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
         [TestCase(BreakWaterType.Dam, SchemaBreakWaterType.Dam)]
         [TestCase(BreakWaterType.Wall, SchemaBreakWaterType.Wall)]
         public void ConvertFrom_BreakWaterType_ReturnExpectedBreakWaterType(BreakWaterType value,
-                                                                  SchemaBreakWaterType expectedResult)
+                                                                            SchemaBreakWaterType expectedResult)
         {
             // Setup
             var converter = new SchemaBreakWaterTypeConverter();
