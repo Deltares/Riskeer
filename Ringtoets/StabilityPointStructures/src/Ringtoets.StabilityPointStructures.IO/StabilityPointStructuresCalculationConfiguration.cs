@@ -65,5 +65,15 @@ namespace Ringtoets.StabilityPointStructures.IO
         /// Gets or sets the stochast configuration for the failure collision energy of the structure.
         /// </summary>
         public MeanVariationCoefficientStochastConfiguration FailureCollisionEnergy { get; set; }
+
+        /// <summary>
+        /// Gets or sets the failure probability of repairing a closure of the structure.
+        /// </summary>
+        public double? FailureProbabilityRepairClosure { get; set; }
+
+        /// <summary>
+        /// Gets or sets the stochast configuration for the flow velocity structure closable of the structure.
+        /// </summary>
+        public MeanVariationCoefficientStochastConfiguration FlowVelocityStructureClosable { get; set; }
     }
 }

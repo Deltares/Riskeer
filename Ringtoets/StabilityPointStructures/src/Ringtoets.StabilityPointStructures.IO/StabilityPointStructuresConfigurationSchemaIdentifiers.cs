@@ -44,7 +44,7 @@ namespace Ringtoets.StabilityPointStructures.IO
         /// <summary>
         /// The identifier for the constructive strength quadratic load model stochast name.
         /// </summary>
-        public const string ConstructiveStrengthQuadraticLoadModelName = "kwadratischebelastingschematiseringsterkte";
+        public const string ConstructiveStrengthQuadraticLoadModelStochastName = "kwadratischebelastingschematiseringsterkte";
 
         /// <summary>
         /// The identifier for evaluation level elements.
@@ -55,5 +55,15 @@ namespace Ringtoets.StabilityPointStructures.IO
         /// The identifier for the failure collision energy stochast name.
         /// </summary>
         public const string FailureCollisionEnergyStochastName = "aanvaarenergie";
+
+        /// <summary>
+        /// The identifier for the failure probability of repairing a closure elements.
+        /// </summary>
+        public const string FailureProbabilityRepairClosureElement = "faalkansherstel";
+
+        /// <summary>
+        /// The identifier for the flow velocity structure closable stochast name.
+        /// </summary>
+        public const string FlowVelocityStructureClosableStochastName = "kritiekestroomsnelheid";
     }
 }

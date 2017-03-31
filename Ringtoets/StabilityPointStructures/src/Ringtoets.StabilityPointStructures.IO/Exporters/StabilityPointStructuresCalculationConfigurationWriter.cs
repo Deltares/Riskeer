@@ -49,6 +49,9 @@ namespace Ringtoets.StabilityPointStructures.IO.Exporters
             WriteElementWhenContentAvailable(writer,
                                              StabilityPointStructuresConfigurationSchemaIdentifiers.EvaluationLevelElement,
                                              configuration.EvaluationLevel);
+            WriteElementWhenContentAvailable(writer,
+                                             StabilityPointStructuresConfigurationSchemaIdentifiers.FailureProbabilityRepairClosureElement,
+                                             configuration.FailureProbabilityRepairClosure);
         }
 
         protected override void WriteSpecificStochasts(StabilityPointStructuresCalculationConfiguration configuration, XmlWriter writer)
@@ -63,11 +66,14 @@ namespace Ringtoets.StabilityPointStructures.IO.Exporters
                                            StabilityPointStructuresConfigurationSchemaIdentifiers.ConstructiveStrengthLinearLoadModelStochastName,
                                            configuration.ConstructiveStrengthLinearLoadModel);
             WriteDistributionWhenAvailable(writer,
-                                           StabilityPointStructuresConfigurationSchemaIdentifiers.ConstructiveStrengthQuadraticLoadModelName,
+                                           StabilityPointStructuresConfigurationSchemaIdentifiers.ConstructiveStrengthQuadraticLoadModelStochastName,
                                            configuration.ConstructiveStrengthQuadraticLoadModel);
             WriteDistributionWhenAvailable(writer,
                                            StabilityPointStructuresConfigurationSchemaIdentifiers.FailureCollisionEnergyStochastName,
                                            configuration.FailureCollisionEnergy);
+            WriteDistributionWhenAvailable(writer,
+                                           StabilityPointStructuresConfigurationSchemaIdentifiers.FlowVelocityStructureClosableStochastName,
+                                           configuration.FlowVelocityStructureClosable);
         }
     }
 }

@@ -33,9 +33,11 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             Assert.AreEqual("doorstroomoppervlak", StabilityPointStructuresConfigurationSchemaIdentifiers.AreaFlowAperturesStochastName);
             Assert.AreEqual("bermbreedte", StabilityPointStructuresConfigurationSchemaIdentifiers.BankWidthStochastName);
             Assert.AreEqual("lineairebelastingschematiseringsterkte", StabilityPointStructuresConfigurationSchemaIdentifiers.ConstructiveStrengthLinearLoadModelStochastName);
-            Assert.AreEqual("kwadratischebelastingschematiseringsterkte", StabilityPointStructuresConfigurationSchemaIdentifiers.ConstructiveStrengthQuadraticLoadModelName);
+            Assert.AreEqual("kwadratischebelastingschematiseringsterkte", StabilityPointStructuresConfigurationSchemaIdentifiers.ConstructiveStrengthQuadraticLoadModelStochastName);
             Assert.AreEqual("analysehoogte", StabilityPointStructuresConfigurationSchemaIdentifiers.EvaluationLevelElement);
             Assert.AreEqual("aanvaarenergie", StabilityPointStructuresConfigurationSchemaIdentifiers.FailureCollisionEnergyStochastName);
+            Assert.AreEqual("faalkansherstel", StabilityPointStructuresConfigurationSchemaIdentifiers.FailureProbabilityRepairClosureElement);
+            Assert.AreEqual("kritiekestroomsnelheid", StabilityPointStructuresConfigurationSchemaIdentifiers.FlowVelocityStructureClosableStochastName);
         }
     }
 }

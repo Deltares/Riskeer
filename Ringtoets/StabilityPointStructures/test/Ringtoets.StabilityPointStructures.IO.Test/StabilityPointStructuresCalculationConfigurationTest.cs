@@ -57,6 +57,8 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             Assert.IsNull(configuration.ConstructiveStrengthQuadraticLoadModel);
             Assert.IsNull(configuration.EvaluationLevel);
             Assert.IsNull(configuration.FailureCollisionEnergy);
+            Assert.IsNull(configuration.FailureProbabilityRepairClosure);
+            Assert.IsNull(configuration.FlowVelocityStructureClosable);
         }
 
         [Test]
@@ -71,6 +73,8 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             var constructiveStrengthQuadraticLoadModel = new MeanVariationCoefficientStochastConfiguration();
             double evaluationLevel = random.NextDouble();
             var failureCollisionEnergy = new MeanVariationCoefficientStochastConfiguration();
+            double failureProbabilityRepairClosure = random.NextDouble();
+            var flowVelocityStructureClosable = new MeanVariationCoefficientStochastConfiguration();
 
             // Call
             configuration.AreaFlowApertures = areaFlowApertures;
@@ -79,6 +83,8 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             configuration.ConstructiveStrengthQuadraticLoadModel = constructiveStrengthQuadraticLoadModel;
             configuration.EvaluationLevel = evaluationLevel;
             configuration.FailureCollisionEnergy = failureCollisionEnergy;
+            configuration.FailureProbabilityRepairClosure = failureProbabilityRepairClosure;
+            configuration.FlowVelocityStructureClosable = flowVelocityStructureClosable;
 
             // Assert
             Assert.AreSame(areaFlowApertures, configuration.AreaFlowApertures);
@@ -87,6 +93,8 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             Assert.AreSame(constructiveStrengthQuadraticLoadModel, configuration.ConstructiveStrengthQuadraticLoadModel);
             Assert.AreEqual(evaluationLevel, configuration.EvaluationLevel);
             Assert.AreSame(failureCollisionEnergy, configuration.FailureCollisionEnergy);
+            Assert.AreEqual(failureProbabilityRepairClosure, configuration.FailureProbabilityRepairClosure);
+            Assert.AreEqual(flowVelocityStructureClosable, configuration.FlowVelocityStructureClosable);
         }
     }
 }
