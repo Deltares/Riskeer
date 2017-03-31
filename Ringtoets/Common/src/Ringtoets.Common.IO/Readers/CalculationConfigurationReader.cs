@@ -138,7 +138,7 @@ namespace Ringtoets.Common.IO.Readers
             }
             catch (XmlException exception)
             {
-                string exceptionMessage = string.Format(Resources.CalculationConfigurationReader_Configuration_contains_no_valid_xml_Reason_0,
+                string exceptionMessage = string.Format(Resources.CalculationConfigurationReader_Configuration_contains_no_valid_xml_Reason_0_,
                                                         exception.Message);
 
                 throw new CriticalFileReadException(new FileReaderErrorMessageBuilder(xmlFilePath).Build(exceptionMessage), exception);

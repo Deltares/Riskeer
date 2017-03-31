@@ -19,9 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
-using Ringtoets.Common.IO;
+using Core.Common.Base.IO;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.Readers;
@@ -31,6 +32,10 @@ using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.IO
 {
+    /// <summary>
+    /// Reader for reading a height structure calculation configuration from XML and creating a collection 
+    /// of corresponding <see cref="HeightStructuresCalculationConfiguration"/>.
+    /// </summary>
     public class HeightStructuresCalculationConfigurationReader : CalculationConfigurationReader<HeightStructuresCalculationConfiguration>
     {
         private const string hrLocatieSchemaName = "HrLocatieSchema.xsd";
@@ -42,6 +47,19 @@ namespace Ringtoets.HeightStructures.IO
         private const string stochastVariatiecoefficientSchemaName = "StochastVariatiecoefficientSchema.xsd";
         private const string structureBaseSchemaName = "KunstwerkenBasisSchema.xsd";
 
+        /// <summary>
+        /// Creates a new instance of <see cref="HeightStructuresCalculationConfigurationReader"/>.
+        /// </summary>
+        /// <param name="filePath">The file path to the XML file.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="filePath"/> points to a file that does not exist.</item>
+        /// <item><paramref name="filePath"/> points to a file that does not contain valid XML.</item>
+        /// <item><paramref name="filePath"/> points to a file that does not pass the schema validation.</item>
+        /// <item><paramref name="filePath"/> points to a file that does not contain configuration elements.</item>
+        /// </list>
+        /// </exception>
         public HeightStructuresCalculationConfigurationReader(string filePath)
             : base(filePath,
                    Resources.KunstwerkenHoogteSchema,
@@ -98,7 +116,7 @@ namespace Ringtoets.HeightStructures.IO
             return configuration;
         }
 
-        private WaveReductionConfiguration GetWaveReductionParameters(XElement calculationElement)
+        private static WaveReductionConfiguration GetWaveReductionParameters(XElement calculationElement)
         {
             XElement waveReduction = calculationElement.GetDescendantElement(ConfigurationSchemaIdentifiers.WaveReduction);
             if (waveReduction != null)
