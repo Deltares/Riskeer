@@ -50,6 +50,7 @@
     <Compile Include="ConfigurationClosingStructureInflowModelType.cs" />
     <Compile Include="ClosingStructuresConfigurationSchemaIdentifiers.cs" />
     <Compile Include="ConfigurationClosingStructureInflowModelTypeConverter.cs" />
+    <Compile Include="ClosingStructuresCalculationConfigurationExporter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

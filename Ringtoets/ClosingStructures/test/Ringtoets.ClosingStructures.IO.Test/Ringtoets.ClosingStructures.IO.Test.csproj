@@ -49,6 +49,7 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="ClosingStructuresCalculationConfigurationExporterTest.cs" />
     <Compile Include="ClosingStructuresImporterTest.cs" />
     <Compile Include="ClosingStructuresCalculationConfigurationTest.cs" />
     <Compile Include="ClosingStructuresCalculationConfigurationWriterTest.cs" />
@@ -78,6 +79,10 @@
       <Project>{52BA7627-CBAB-4209-BE77-3B5F31378277}</Project>
       <Name>Ringtoets.Common.IO</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
+      <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
+      <Name>Ringtoets.Common.Data.TestUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.IO.TestUtil\Ringtoets.Common.IO.TestUtil.csproj">
       <Project>{33508D7C-1602-4C0D-8503-73AAE98C19E5}</Project>
       <Name>Ringtoets.Common.IO.TestUtil</Name>
@@ -89,6 +94,10 @@
     <ProjectReference Include="..\..\src\Ringtoets.ClosingStructures.IO\Ringtoets.ClosingStructures.IO.csproj">
       <Project>{24043F46-406D-4719-B94B-033D63D61153}</Project>
       <Name>Ringtoets.ClosingStructures.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.ClosingStructures.Data.TestUtil\Ringtoets.ClosingStructures.Data.TestUtil.csproj">
+      <Project>{F5B43C29-6169-4E9A-859E-09090330B94E}</Project>
+      <Name>Ringtoets.ClosingStructures.Data.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
