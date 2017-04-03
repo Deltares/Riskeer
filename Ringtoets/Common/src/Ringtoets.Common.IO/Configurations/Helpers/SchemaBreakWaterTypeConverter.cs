@@ -28,7 +28,7 @@ using Ringtoets.Common.IO.Schema;
 namespace Ringtoets.Common.IO.Configurations.Helpers
 {
     /// <summary>
-    /// Converts <see cref="SchemaBreakWaterType"/> to <see cref="string"/> or <see cref="BreakWaterType"/>
+    /// Converts <see cref="ConfigurationBreakWaterType"/> to <see cref="string"/> or <see cref="BreakWaterType"/>
     /// and back.
     /// </summary>
     public class SchemaBreakWaterTypeConverter : TypeConverter
@@ -46,14 +46,14 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
         {
             if (destinationType == typeof(string))
             {
-                var type = (SchemaBreakWaterType) value;
+                var type = (ConfigurationBreakWaterType) value;
                 switch (type)
                 {
-                    case SchemaBreakWaterType.Caisson:
+                    case ConfigurationBreakWaterType.Caisson:
                         return ConfigurationSchemaIdentifiers.BreakWaterCaisson;
-                    case SchemaBreakWaterType.Dam:
+                    case ConfigurationBreakWaterType.Dam:
                         return ConfigurationSchemaIdentifiers.BreakWaterDam;
-                    case SchemaBreakWaterType.Wall:
+                    case ConfigurationBreakWaterType.Wall:
                         return ConfigurationSchemaIdentifiers.BreakWaterWall;
                     default:
                         throw new NotSupportedException();
@@ -61,14 +61,14 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             }
             if (destinationType == typeof(BreakWaterType))
             {
-                var type = (SchemaBreakWaterType)value;
+                var type = (ConfigurationBreakWaterType)value;
                 switch (type)
                 {
-                    case SchemaBreakWaterType.Caisson:
+                    case ConfigurationBreakWaterType.Caisson:
                         return BreakWaterType.Caisson;
-                    case SchemaBreakWaterType.Dam:
+                    case ConfigurationBreakWaterType.Dam:
                         return BreakWaterType.Dam;
-                    case SchemaBreakWaterType.Wall:
+                    case ConfigurationBreakWaterType.Wall:
                         return BreakWaterType.Wall;
                     default:
                         throw new NotSupportedException();
@@ -98,11 +98,11 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
                 switch (text)
                 {
                     case ConfigurationSchemaIdentifiers.BreakWaterCaisson:
-                        return SchemaBreakWaterType.Caisson;
+                        return ConfigurationBreakWaterType.Caisson;
                     case ConfigurationSchemaIdentifiers.BreakWaterDam:
-                        return SchemaBreakWaterType.Dam;
+                        return ConfigurationBreakWaterType.Dam;
                     case ConfigurationSchemaIdentifiers.BreakWaterWall:
-                        return SchemaBreakWaterType.Wall;
+                        return ConfigurationBreakWaterType.Wall;
                 }
             }
             var breakWaterType = value as BreakWaterType?;
@@ -111,11 +111,11 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
                 switch (breakWaterType)
                 {
                     case BreakWaterType.Caisson:
-                        return SchemaBreakWaterType.Caisson;
+                        return ConfigurationBreakWaterType.Caisson;
                     case BreakWaterType.Dam:
-                        return SchemaBreakWaterType.Dam;
+                        return ConfigurationBreakWaterType.Dam;
                     case BreakWaterType.Wall:
-                        return SchemaBreakWaterType.Wall;
+                        return ConfigurationBreakWaterType.Wall;
                 }
             }
             return base.ConvertFrom(context, culture, value);

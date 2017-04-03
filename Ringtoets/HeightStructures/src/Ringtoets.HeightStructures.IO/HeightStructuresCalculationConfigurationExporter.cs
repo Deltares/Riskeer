@@ -75,7 +75,7 @@ namespace Ringtoets.HeightStructures.IO
                 {
                     UseForeshoreProfile = input.UseForeshore,
                     UseBreakWater = input.UseBreakWater,
-                    BreakWaterType = (SchemaBreakWaterType?) new SchemaBreakWaterTypeConverter().ConvertFrom(input.BreakWater.Type),
+                    BreakWaterType = (ConfigurationBreakWaterType?) new SchemaBreakWaterTypeConverter().ConvertFrom(input.BreakWater.Type),
                     BreakWaterHeight = input.BreakWater.Height
                 };
             }

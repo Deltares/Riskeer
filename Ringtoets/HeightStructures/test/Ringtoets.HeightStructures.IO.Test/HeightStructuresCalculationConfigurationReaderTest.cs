@@ -306,7 +306,7 @@ namespace Ringtoets.HeightStructures.IO.Test
             Assert.AreEqual(15.2, calculation.WidthFlowApertures.Mean);
             Assert.AreEqual(0.1, calculation.WidthFlowApertures.StandardDeviation);
 
-            Assert.AreEqual(SchemaBreakWaterType.Dam, calculation.WaveReduction.BreakWaterType);
+            Assert.AreEqual(ConfigurationBreakWaterType.Dam, calculation.WaveReduction.BreakWaterType);
             Assert.AreEqual(1.234, calculation.WaveReduction.BreakWaterHeight);
             Assert.IsTrue(calculation.WaveReduction.UseBreakWater);
             Assert.IsTrue(calculation.WaveReduction.UseForeshoreProfile);

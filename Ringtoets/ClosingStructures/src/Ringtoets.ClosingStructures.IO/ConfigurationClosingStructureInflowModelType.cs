@@ -19,31 +19,26 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Common.IO.Configurations
+namespace Ringtoets.ClosingStructures.IO
 {
     /// <summary>
-    /// Configuration of the wave reduction.
+    /// Defines the types of the various <see cref="ClosingStructuresCalculationConfiguration"/> inflow models.
     /// </summary>
-    public class WaveReductionConfiguration
+    public enum ConfigurationClosingStructureInflowModelType
     {
         /// <summary>
-        /// Gets or sets the value indicating whether to use a break water.
+        /// A vertical wall.
         /// </summary>
-        public bool? UseBreakWater { get; set; }
+        VerticalWall = 1,
 
         /// <summary>
-        /// Gets or sets the type of the break water.
+        /// A low sill structure.
         /// </summary>
-        public ConfigurationBreakWaterType? BreakWaterType { get; set; }
+        LowSill = 2,
 
         /// <summary>
-        /// Gets or sets the height of the break water.
+        /// A flooded culvert structure.
         /// </summary>
-        public double? BreakWaterHeight { get; set; }
-
-        /// <summary>
-        /// Gets or sets the value indicating whether to use the foreshore profile.
-        /// </summary>
-        public bool? UseForeshoreProfile { get; set; }
+        FloodedCulvert = 3
     }
 }

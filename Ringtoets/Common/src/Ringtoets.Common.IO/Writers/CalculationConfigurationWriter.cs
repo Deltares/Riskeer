@@ -157,7 +157,7 @@ namespace Ringtoets.Common.IO.Writers
             {
                 writer.WriteElementString(
                     ConfigurationSchemaIdentifiers.BreakWaterType,
-                    BreakWaterTypeAsXmlString((SchemaBreakWaterType) breakWater.Type));
+                    BreakWaterTypeAsXmlString((ConfigurationBreakWaterType) breakWater.Type));
                 writer.WriteElementString(
                     ConfigurationSchemaIdentifiers.BreakWaterHeight,
                     XmlConvert.ToString(breakWater.Height));
@@ -194,7 +194,7 @@ namespace Ringtoets.Common.IO.Writers
             }
         }
 
-        private static string BreakWaterTypeAsXmlString(SchemaBreakWaterType type)
+        private static string BreakWaterTypeAsXmlString(ConfigurationBreakWaterType type)
         {
             return new SchemaBreakWaterTypeConverter().ConvertToInvariantString(type);
         }

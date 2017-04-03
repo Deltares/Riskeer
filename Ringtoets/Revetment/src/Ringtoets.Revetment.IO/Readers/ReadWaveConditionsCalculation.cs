@@ -106,7 +106,7 @@ namespace Ringtoets.Revetment.IO.Readers
         /// <summary>
         /// Gets the breakwater type of the read calculation.
         /// </summary>
-        public SchemaBreakWaterType? BreakWaterType { get; }
+        public ConfigurationBreakWaterType? BreakWaterType { get; }
 
         /// <summary>
         /// Gets the breakwater height of the read calculation.
@@ -178,7 +178,7 @@ namespace Ringtoets.Revetment.IO.Readers
             /// <summary>
             /// Gets or sets the value for <see cref="ReadWaveConditionsCalculation.BreakWaterType"/>.
             /// </summary>
-            public SchemaBreakWaterType? BreakWaterType { internal get; set; }
+            public ConfigurationBreakWaterType? BreakWaterType { internal get; set; }
 
             /// <summary>
             /// Gets or sets the value for <see cref="ReadWaveConditionsCalculation.BreakWaterHeight"/>.

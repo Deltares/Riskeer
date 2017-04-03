@@ -123,7 +123,7 @@ namespace Ringtoets.HeightStructures.IO
             {
                 return new WaveReductionConfiguration
                 {
-                    BreakWaterType = (SchemaBreakWaterType?) calculationElement.GetConvertedValueFromDescendantStringElement<SchemaBreakWaterTypeConverter>(ConfigurationSchemaIdentifiers.BreakWaterType),
+                    BreakWaterType = (ConfigurationBreakWaterType?) calculationElement.GetConvertedValueFromDescendantStringElement<SchemaBreakWaterTypeConverter>(ConfigurationSchemaIdentifiers.BreakWaterType),
                     BreakWaterHeight = calculationElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.BreakWaterHeight),
                     UseBreakWater = calculationElement.GetBoolValueFromDescendantElement(ConfigurationSchemaIdentifiers.UseBreakWater),
                     UseForeshoreProfile = calculationElement.GetBoolValueFromDescendantElement(ConfigurationSchemaIdentifiers.UseForeshore)

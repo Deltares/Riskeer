@@ -330,7 +330,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
             Assert.AreEqual(3.45, calculation.DikeHeight);
             Assert.AreEqual(ReadDikeHeightCalculationType.CalculateByAssessmentSectionNorm, calculation.DikeHeightCalculationType);
             Assert.AreEqual(true, calculation.UseBreakWater);
-            Assert.AreEqual(SchemaBreakWaterType.Dam, calculation.BreakWaterType);
+            Assert.AreEqual(ConfigurationBreakWaterType.Dam, calculation.BreakWaterType);
             Assert.AreEqual(1.234, calculation.BreakWaterHeight);
             Assert.AreEqual(false, calculation.UseForeshore);
             Assert.AreEqual(0.1, calculation.CriticalFlowRateMean);

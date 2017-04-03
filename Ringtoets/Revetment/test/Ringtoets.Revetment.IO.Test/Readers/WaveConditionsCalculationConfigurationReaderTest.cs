@@ -336,7 +336,7 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             Assert.AreEqual("Voorlandprofiel", calculation.ForeshoreProfile);
             Assert.AreEqual(5.5, calculation.Orientation);
             Assert.IsTrue(calculation.UseBreakWater);
-            Assert.AreEqual(SchemaBreakWaterType.Caisson, calculation.BreakWaterType);
+            Assert.AreEqual(ConfigurationBreakWaterType.Caisson, calculation.BreakWaterType);
             Assert.AreEqual(6.6, calculation.BreakWaterHeight);
             Assert.IsFalse(calculation.UseForeshore);
         }
@@ -366,7 +366,7 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             Assert.IsNull(calculation.ForeshoreProfile);
             Assert.IsNull(calculation.Orientation);
             Assert.IsTrue(calculation.UseBreakWater);
-            Assert.AreEqual(SchemaBreakWaterType.Caisson, calculation.BreakWaterType);
+            Assert.AreEqual(ConfigurationBreakWaterType.Caisson, calculation.BreakWaterType);
             Assert.AreEqual(3.3, calculation.BreakWaterHeight);
             Assert.IsNull(calculation.UseForeshore);
         }

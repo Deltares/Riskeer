@@ -24,7 +24,7 @@ namespace Ringtoets.Common.IO.Configurations
     /// <summary>
     /// Defines the various types of break water values possible in a read calculation configuration.
     /// </summary>
-    public enum SchemaBreakWaterType
+    public enum ConfigurationBreakWaterType
     {
         /// <summary>
         /// A wall.

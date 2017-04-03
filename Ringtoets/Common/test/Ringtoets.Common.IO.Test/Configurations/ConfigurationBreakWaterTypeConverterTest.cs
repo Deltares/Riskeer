@@ -30,7 +30,7 @@ using Ringtoets.Common.IO.Schema;
 namespace Ringtoets.Common.IO.Test.Configurations
 {
     [TestFixture]
-    public class SchemaBreakWaterTypeConverterTest
+    public class ConfigurationBreakWaterTypeConverterTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -82,10 +82,10 @@ namespace Ringtoets.Common.IO.Test.Configurations
         }
 
         [Test]
-        [TestCase(SchemaBreakWaterType.Caisson, ConfigurationSchemaIdentifiers.BreakWaterCaisson)]
-        [TestCase(SchemaBreakWaterType.Dam, ConfigurationSchemaIdentifiers.BreakWaterDam)]
-        [TestCase(SchemaBreakWaterType.Wall, ConfigurationSchemaIdentifiers.BreakWaterWall)]
-        public void ConvertTo_VariousCases_ReturnExpectedText(SchemaBreakWaterType value,
+        [TestCase(ConfigurationBreakWaterType.Caisson, ConfigurationSchemaIdentifiers.BreakWaterCaisson)]
+        [TestCase(ConfigurationBreakWaterType.Dam, ConfigurationSchemaIdentifiers.BreakWaterDam)]
+        [TestCase(ConfigurationBreakWaterType.Wall, ConfigurationSchemaIdentifiers.BreakWaterWall)]
+        public void ConvertTo_VariousCases_ReturnExpectedText(ConfigurationBreakWaterType value,
                                                               string expectedResult)
         {
             // Setup
@@ -103,7 +103,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
         {
             // Setup
             var converter = new SchemaBreakWaterTypeConverter();
-            var invalidValue = (SchemaBreakWaterType) 99999999;
+            var invalidValue = (ConfigurationBreakWaterType) 99999999;
 
             // Call
             TestDelegate call = () => converter.ConvertTo(invalidValue, typeof(string));
@@ -113,10 +113,10 @@ namespace Ringtoets.Common.IO.Test.Configurations
         }
 
         [Test]
-        [TestCase(SchemaBreakWaterType.Caisson, BreakWaterType.Caisson)]
-        [TestCase(SchemaBreakWaterType.Dam, BreakWaterType.Dam)]
-        [TestCase(SchemaBreakWaterType.Wall, BreakWaterType.Wall)]
-        public void ConvertTo_VariousCases_ReturnExpectedText(SchemaBreakWaterType value,
+        [TestCase(ConfigurationBreakWaterType.Caisson, BreakWaterType.Caisson)]
+        [TestCase(ConfigurationBreakWaterType.Dam, BreakWaterType.Dam)]
+        [TestCase(ConfigurationBreakWaterType.Wall, BreakWaterType.Wall)]
+        public void ConvertTo_VariousCases_ReturnExpectedText(ConfigurationBreakWaterType value,
                                                               BreakWaterType expectedResult)
         {
             // Setup
@@ -169,11 +169,11 @@ namespace Ringtoets.Common.IO.Test.Configurations
         }
 
         [Test]
-        [TestCase(ConfigurationSchemaIdentifiers.BreakWaterCaisson, SchemaBreakWaterType.Caisson)]
-        [TestCase(ConfigurationSchemaIdentifiers.BreakWaterDam, SchemaBreakWaterType.Dam)]
-        [TestCase(ConfigurationSchemaIdentifiers.BreakWaterWall, SchemaBreakWaterType.Wall)]
+        [TestCase(ConfigurationSchemaIdentifiers.BreakWaterCaisson, ConfigurationBreakWaterType.Caisson)]
+        [TestCase(ConfigurationSchemaIdentifiers.BreakWaterDam, ConfigurationBreakWaterType.Dam)]
+        [TestCase(ConfigurationSchemaIdentifiers.BreakWaterWall, ConfigurationBreakWaterType.Wall)]
         public void ConvertFrom_Text_ReturnExpectedBreakWaterType(string value,
-                                                                  SchemaBreakWaterType expectedResult)
+                                                                  ConfigurationBreakWaterType expectedResult)
         {
             // Setup
             var converter = new SchemaBreakWaterTypeConverter();
@@ -199,11 +199,11 @@ namespace Ringtoets.Common.IO.Test.Configurations
         }
 
         [Test]
-        [TestCase(BreakWaterType.Caisson, SchemaBreakWaterType.Caisson)]
-        [TestCase(BreakWaterType.Dam, SchemaBreakWaterType.Dam)]
-        [TestCase(BreakWaterType.Wall, SchemaBreakWaterType.Wall)]
+        [TestCase(BreakWaterType.Caisson, ConfigurationBreakWaterType.Caisson)]
+        [TestCase(BreakWaterType.Dam, ConfigurationBreakWaterType.Dam)]
+        [TestCase(BreakWaterType.Wall, ConfigurationBreakWaterType.Wall)]
         public void ConvertFrom_BreakWaterType_ReturnExpectedBreakWaterType(BreakWaterType value,
-                                                                            SchemaBreakWaterType expectedResult)
+                                                                            ConfigurationBreakWaterType expectedResult)
         {
             // Setup
             var converter = new SchemaBreakWaterTypeConverter();

@@ -96,7 +96,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Readers
         /// <summary>
         /// Gets the type of break water for the grass cover erosion inwards calculation.
         /// </summary>
-        public SchemaBreakWaterType? BreakWaterType { get; }
+        public ConfigurationBreakWaterType? BreakWaterType { get; }
 
         /// <summary>
         /// Gets the height of the break water for the grass cover erosion inwards calculation.
@@ -166,7 +166,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Readers
             /// <summary>
             /// Gets or sets the value for <see cref="ReadGrassCoverErosionInwardsCalculation.BreakWaterType"/>.
             /// </summary>
-            public SchemaBreakWaterType? BreakWaterType { get; set; }
+            public ConfigurationBreakWaterType? BreakWaterType { get; set; }
 
             /// <summary>
             /// Gets or sets the value for <see cref="ReadGrassCoverErosionInwardsCalculation.BreakWaterHeight"/>.

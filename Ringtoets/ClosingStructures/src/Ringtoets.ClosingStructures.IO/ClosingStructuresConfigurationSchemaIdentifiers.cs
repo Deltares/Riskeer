@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2016. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -19,31 +19,20 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Common.IO.Configurations
+namespace Ringtoets.ClosingStructures.IO
 {
     /// <summary>
-    /// Configuration of the wave reduction.
+    /// Container of identifiers related to closing structure calculation configuration schema definitions.
     /// </summary>
-    public class WaveReductionConfiguration
+    public static class ClosingStructuresConfigurationSchemaIdentifiers
     {
+        #region stochasts
+        
         /// <summary>
-        /// Gets or sets the value indicating whether to use a break water.
+        /// The identifier for the level crest structure not closing stochast name.
         /// </summary>
-        public bool? UseBreakWater { get; set; }
+        public const string LevelCrestStructureNotClosingStochastName = "kruinhoogte";
 
-        /// <summary>
-        /// Gets or sets the type of the break water.
-        /// </summary>
-        public ConfigurationBreakWaterType? BreakWaterType { get; set; }
-
-        /// <summary>
-        /// Gets or sets the height of the break water.
-        /// </summary>
-        public double? BreakWaterHeight { get; set; }
-
-        /// <summary>
-        /// Gets or sets the value indicating whether to use the foreshore profile.
-        /// </summary>
-        public bool? UseForeshoreProfile { get; set; }
+        #endregion
     }
 }

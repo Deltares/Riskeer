@@ -67,7 +67,7 @@
     <Compile Include="Exporters\SchemaCalculationConfigurationExporterTest.cs" />
     <Compile Include="IVariationCoefficientDistributionExtensionsTest.cs" />
     <Compile Include="IDistributionExtensionsTest.cs" />
-    <Compile Include="Configurations\SchemaBreakWaterTypeConverterTest.cs" />
+    <Compile Include="Configurations\ConfigurationBreakWaterTypeConverterTest.cs" />
     <Compile Include="DikeProfiles\DikeProfileDataReaderTest.cs" />
     <Compile Include="DikeProfiles\DikeProfileDataTest.cs" />
     <Compile Include="DikeProfiles\ProfileLocationReaderTest.cs" />

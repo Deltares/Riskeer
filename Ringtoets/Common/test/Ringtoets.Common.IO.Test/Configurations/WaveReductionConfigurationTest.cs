@@ -50,7 +50,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
             var random = new Random(21);
 
             bool useBreakWater = random.NextBoolean();
-            var breakWaterType = random.NextEnumValue<SchemaBreakWaterType>();
+            var breakWaterType = random.NextEnumValue<ConfigurationBreakWaterType>();
             double breakWaterHeight = random.NextDouble();
             bool useForeshore = random.NextBoolean();
 

@@ -111,7 +111,7 @@ namespace Ringtoets.Common.IO.Test.Writers
                     new WaveReductionConfiguration
                     {
                         UseBreakWater = true,
-                        BreakWaterType = SchemaBreakWaterType.Dam,
+                        BreakWaterType = ConfigurationBreakWaterType.Dam,
                         BreakWaterHeight = 2.33,
                         UseForeshoreProfile = false
                     },
@@ -122,7 +122,7 @@ namespace Ringtoets.Common.IO.Test.Writers
                     new WaveReductionConfiguration
                     {
                         UseBreakWater = true,
-                        BreakWaterType = SchemaBreakWaterType.Caisson,
+                        BreakWaterType = ConfigurationBreakWaterType.Caisson,
                         UseForeshoreProfile = false
                     },
                     "waveReductionWithoutBreakWaterHeight.xml")
@@ -141,7 +141,7 @@ namespace Ringtoets.Common.IO.Test.Writers
             yield return new TestCaseData(
                     new WaveReductionConfiguration
                     {
-                        BreakWaterType = SchemaBreakWaterType.Wall,
+                        BreakWaterType = ConfigurationBreakWaterType.Wall,
                         BreakWaterHeight = 23.4,
                         UseForeshoreProfile = false
                     },
@@ -152,7 +152,7 @@ namespace Ringtoets.Common.IO.Test.Writers
                     new WaveReductionConfiguration
                     {
                         UseBreakWater = true,
-                        BreakWaterType = SchemaBreakWaterType.Dam,
+                        BreakWaterType = ConfigurationBreakWaterType.Dam,
                         BreakWaterHeight = 0.2,
                     },
                     "waveReductionWithoutUseForeshoreProfile.xml")

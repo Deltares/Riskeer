@@ -91,7 +91,7 @@
     <Compile Include="Hydraulics\HydraulicBoundaryLocationsWriter.cs" />
     <Compile Include="IConfirmDataChangeHandler.cs" />
     <Compile Include="Readers\CalculationConfigurationReader.cs" />
-    <Compile Include="Configurations\SchemaBreakWaterType.cs" />
+    <Compile Include="Configurations\ConfigurationBreakWaterType.cs" />
     <Compile Include="Readers\XElementExtensions.cs" />
     <Compile Include="Configurations\CalculationGroupConfiguration.cs" />
     <Compile Include="Readers\CombinedXmlSchemaDefinition.cs" />
