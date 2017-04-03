@@ -20,12 +20,11 @@
 // All rights reserved.
 
 using System;
-using System.Globalization;
-using System.IO;
+using System.Data.SQLite;
 using Ringtoets.HydraRing.Calculation.Data.Output;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.HydraRing.Calculation.Properties;
-using Ringtoets.HydraRing.IO;
+using Ringtoets.HydraRing.Calculation.Readers;
 
 namespace Ringtoets.HydraRing.Calculation.Parsers
 {
@@ -34,16 +33,20 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
     /// </summary>
     public class DunesBoundaryConditionsCalculationParser : IHydraRingFileParser
     {
-        private const string waterLevelText = "Considered water level";
-        private const string waveHeightText = "Computed wave height";
-        private const string wavePeriodText = "Computed wave period";
+        private const string sectionIdParameterName = "@sectionId";
+        private const string waveHeightColumnName = "WaveHeight";
+        private const string wavePeriodColumnName = "WavePeriod";
+        private const string waterLevelColumnName = "WaterLevel";
 
-        private const char equalsCharacter = '=';
+        private readonly string query = "SELECT " +
+                                        $"max(case when OutputVarId is 3 then d.Value end) {waveHeightColumnName}, " +
+                                        $"max(case when OutputVarId is 4 then d.Value end) {wavePeriodColumnName}, " +
+                                        $"max(case when OutputVarId is 23 then d.Value end) {waterLevelColumnName} " +
+                                        "FROM DesignPointResults as d " +
+                                        $"WHERE SectionId = {sectionIdParameterName} " +
+                                        "AND OuterIterationId=(select max(OuterIterationId) FROM DesignPointResults) " +
+                                        "GROUP BY OuterIterationId;";
 
-        private double? waterLevel;
-        private double? waveHeight;
-        private double? wavePeriod;
-        
         /// <summary>
         /// Gets the output that was parsed from the output file.
         /// </summary>
@@ -51,137 +54,57 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
 
         public void Parse(string workingDirectory, int sectionId)
         {
-            string fileName = $"{sectionId}{HydraRingFileConstants.OutputFileSuffix}";
+            if (workingDirectory == null)
+            {
+                throw new ArgumentNullException(nameof(workingDirectory));
+            }
 
+            ParseFile(workingDirectory, sectionId);
+        }
+
+        /// <summary>
+        /// Parses the file.
+        /// </summary>
+        /// <param name="workingDirectory">The path to the directory which contains
+        /// the output of the Hydra-Ring calculation.</param>
+        /// <param name="sectionId">The section id to get the output for.</param>
+        /// <exception cref="HydraRingFileParserException">Thrown when the reader
+        /// encounters an error while reading the database.</exception>
+        private void ParseFile(string workingDirectory, int sectionId)
+        {
             try
             {
-                ReadFile(Path.Combine(workingDirectory, fileName));
-                SetOutput();
-            }
-            catch (Exception e)
-            {
-                throw new HydraRingFileParserException(Resources.DunesBoundaryConditionsCalculationParser_Parse_Error_while_parsing_output, e);
-            }
-        }
-
-        private void SetOutput()
-        {
-            if (waterLevel != null && waveHeight != null && wavePeriod != null)
-            {
-                Output = new DunesBoundaryConditionsCalculationOutput(waterLevel.Value,
-                                                                      waveHeight.Value,
-                                                                      wavePeriod.Value);
-            }
-        }
-
-        /// <summary>
-        /// Opens and reads the file at <paramref name="filePath"/>.
-        /// </summary>
-        /// <param name="filePath">The path to the output file.</param>
-        /// <exception cref="ArgumentException">Thrown when the stream does not support reading.</exception>
-        /// <exception cref="PathTooLongException">Thrown when <paramref name="filePath"/> is too long.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown when the file can't be opened due to missing
-        /// the required persmissions.</exception>
-        /// <exception cref="IOException">Thrown when an I/O error occurred while opening the file.</exception>
-        /// <exception cref="FormatException">Thrown when the string that is tried to parse
-        /// does not represent a number in a valid format.</exception>
-        /// <exception cref="OverflowException">Thrown when the string that is tried to parse
-        /// represents a number that is less than <see cref="double.MinValue"/> 
-        /// or greater than <see cref="double.MaxValue"/>.</exception>
-        private void ReadFile(string filePath)
-        {
-            if (File.Exists(filePath))
-            {
-                using (var file = new StreamReader(File.OpenRead(filePath)))
+                using (var reader = new HydraRingDatabaseReader(workingDirectory, query, sectionId))
                 {
-                    while (!file.EndOfStream)
-                    {
-                        string currentLine = file.ReadLine();
-
-                        waterLevel = TryParseWaterLevel(currentLine) ?? waterLevel;
-                        waveHeight = TryParseWaveHeight(currentLine) ?? waveHeight;
-                        wavePeriod = TryParseWavePeriod(currentLine) ?? wavePeriod;
-                    }
+                    reader.Execute();
+                    ReadResult(reader);
                 }
             }
-        }
-
-        /// <summary>
-        /// Tries to parse the water level from the given <paramref name="line"/>.
-        /// </summary>
-        /// <param name="line">The line to parse.</param>
-        /// <returns>When the line contains the water level a numeric value that represents the water level.
-        /// <c>null</c> otherwise.</returns>
-        /// <exception cref="FormatException">Thrown when <paramref name="line"/> 
-        /// does not represent a number in a valid format.</exception>
-        /// <exception cref="OverflowException">Thrown when <paramref name="line"/> 
-        /// represents a number that is less than <see cref="double.MinValue"/> 
-        /// or greater than <see cref="double.MaxValue"/>.</exception>
-        private static double? TryParseWaterLevel(string line)
-        {
-            if (line.Contains(waterLevelText))
+            catch (SQLiteException e)
             {
-                string resultAsString = line.Split(equalsCharacter)[1].Trim();
-                return ParseStringResult(resultAsString);
+                throw new HydraRingFileParserException(Resources.ParseFile_Cannot_read_result_in_output_file, e);
             }
-            return null;
-        }
-
-        /// <summary>
-        /// Tries to parse the wave height from the given <paramref name="line"/>.
-        /// </summary>
-        /// <param name="line">The line to parse.</param>
-        /// <returns>When the line contains the wave height a numeric value that represents the wave height.
-        /// <c>null</c> otherwise.</returns>
-        /// <exception cref="FormatException">Thrown when <paramref name="line"/> 
-        /// does not represent a number in a valid format.</exception>
-        /// <exception cref="OverflowException">Thrown when <paramref name="line"/> 
-        /// represents a number that is less than <see cref="double.MinValue"/> 
-        /// or greater than <see cref="double.MaxValue"/>.</exception>
-        private static double? TryParseWaveHeight(string line)
-        {
-            if (line.Contains(waveHeightText))
+            catch (Exception e) when (e is HydraRingDatabaseReaderException || e is InvalidCastException)
             {
-                string resultAsString = line.Split(equalsCharacter)[1].Trim();
-                return ParseStringResult(resultAsString);
+                throw new HydraRingFileParserException(Resources.DunesBoundaryConditionsCalculationParser_ParseFile_No_dunes_hydraulic_boundaries_found_in_output_file, e);
             }
-            return null;
         }
 
         /// <summary>
-        /// Tries to parse the wave period from the given <paramref name="line"/>.
+        /// Reads the result of the <paramref name="reader"/>.
         /// </summary>
-        /// <param name="line">The line to parse.</param>
-        /// <returns>When the line contains the wave period a numeric value that represents the wave period.
-        /// <c>null</c> otherwise.</returns>
-        /// <exception cref="FormatException">Thrown when <paramref name="line"/> 
-        /// does not represent a number in a valid format.</exception>
-        /// <exception cref="OverflowException">Thrown when <paramref name="line"/> 
-        /// represents a number that is less than <see cref="double.MinValue"/> 
-        /// or greater than <see cref="double.MaxValue"/>.</exception>
-        private static double? TryParseWavePeriod(string line)
+        /// <param name="reader">The reader to get the result from.</param>
+        /// <exception cref="InvalidCastException">Thrown when the the result
+        /// cannot be converted to the output format.</exception>
+        private void ReadResult(HydraRingDatabaseReader reader)
         {
-            if (line.Contains(wavePeriodText))
-            {
-                string resultAsString = line.Split(equalsCharacter)[1].Trim();
-                return ParseStringResult(resultAsString);
-            }
-            return null;
-        }
+            double waveHeight = Convert.ToDouble(reader.ReadColumn(waveHeightColumnName));
+            double wavePeriod = Convert.ToDouble(reader.ReadColumn(wavePeriodColumnName));
+            double waterLevel = Convert.ToDouble(reader.ReadColumn(waterLevelColumnName));
 
-        /// <summary>
-        /// Parses the <paramref name="resultAsString"/> to a <see cref="double"/>.
-        /// </summary>
-        /// <param name="resultAsString">The result to parse.</param>
-        /// <returns>The parsed number.</returns>
-        /// <exception cref="FormatException">Thrown when <paramref name="resultAsString"/> 
-        /// does not represent a number in a valid format.</exception>
-        /// <exception cref="OverflowException">Thrown when <paramref name="resultAsString"/> 
-        /// represents a number that is less than <see cref="double.MinValue"/> 
-        /// or greater than <see cref="double.MaxValue"/>.</exception>
-        private static double ParseStringResult(string resultAsString)
-        {
-            return double.Parse(resultAsString, CultureInfo.InvariantCulture);
+            Output = new DunesBoundaryConditionsCalculationOutput(waterLevel,
+                                                                  waveHeight,
+                                                                  wavePeriod);
         }
     }
 }

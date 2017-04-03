@@ -126,16 +126,16 @@
   <data name="HydraRingCalculatorBase_Calculate_Critical_error_during_calculation" xml:space="preserve">
     <value>Er is een kritische fout opgetreden bij het uitvoeren van de berekening.</value>
   </data>
-  <data name="DunesBoundaryConditionsCalculationParser_Parse_Error_while_parsing_output" xml:space="preserve">
-    <value>Er is een fout opgetreden bij het lezen van het uitvoerbestand.</value>
+  <data name="ParseFile_Cannot_read_result_in_output_file" xml:space="preserve">
+    <value>Er kon geen resultaat gelezen worden uit de Hydra-Ring uitvoerdatabase.</value>
   </data>
-  <data name="Parse_Cannot_read_convergence_in_output_file" xml:space="preserve">
-    <value>Er kon geen resultaat voor convergentie gelezen worden uit de Hydra-Ring uitvoerdatabase.</value>
-  </data>
-  <data name="Parse_No_convergence_found_in_output_file" xml:space="preserve">
+  <data name="ParseFile_No_convergence_found_in_output_file" xml:space="preserve">
     <value>Er is geen resultaat voor convergentie gevonden in de Hydra-Ring uitvoerdatabase.</value>
   </data>
   <data name="HydraRingDatabaseReader_Execute_No_result_found_in_output_file" xml:space="preserve">
     <value>Er is geen resultaat gevonden in de Hydra-Ring uitvoerdatabase.</value>
+  </data>
+  <data name="DunesBoundaryConditionsCalculationParser_ParseFile_No_dunes_hydraulic_boundaries_found_in_output_file" xml:space="preserve">
+    <value>Er zijn geen berekende hydraulische randvoorwaarden voor duinen gevonden in de Hydra-Ring uitvoerdatabase.</value>
   </data>
 </root>

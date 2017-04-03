@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Data.SQLite;
 using System.IO;
 using System.Security.AccessControl;
 using Core.Common.TestUtil;
@@ -32,9 +33,18 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
     [TestFixture]
     public class DunesBoundaryConditionsCalculationParserTest
     {
-        private const int sectionId = 1;
-        private readonly string testDataPath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation, "Parsers"), "DunesBoundaryConditionsParser");
-        private readonly string outputFileName = sectionId + "-output.txt";
+        private const string emptyWorkingDirectory = "EmptyWorkingDirectory";
+        private const string invalidFileInDirectory = "InvalidFile";
+        private const string emptyFileInDirectory = "EmptyDatabase";
+        private const string noResultsOnLastIteration = "ResultsOnAllButLastIteration";
+        private const string permissionDenied = "NoPermissionsToRead";
+        private const string validFileNoWaveHeight = "ValidFileNoWaveHeight";
+        private const string validFileNoWavePeriod = "ValidFileNoWavePeriod";
+        private const string validFileNoWaterLevel = "ValidFileNoWaterLevel";
+        private const string validFile= "ValidFile";
+
+        private readonly string testDirectory = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation, "Parsers"),
+                                                            "DunesBoundaryConditionsParser");
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -48,113 +58,138 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         }
 
         [Test]
-        public void Parse_NotExistingOutputFile_OutputNull()
+        public void Parse_WorkingDirectoryNull_ThrowsArgumentNullException()
         {
             // Setup
             var parser = new DunesBoundaryConditionsCalculationParser();
 
             // Call
-            parser.Parse(testDataPath, sectionId);
+            TestDelegate test = () => parser.Parse(null, 1);
 
             // Assert
-            Assert.IsNull(parser.Output);
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("workingDirectory", exception.ParamName);
         }
 
         [Test]
-        public void Parse_EmptyOutputFile_OutputNull()
+        public void Parse_WithWorkingDirectoryWithoutExpectedFile_ThrowsHydraRingFileParserException()
         {
             // Setup
+            string path = Path.Combine(testDirectory, emptyWorkingDirectory);
             var parser = new DunesBoundaryConditionsCalculationParser();
-            var workingDirectory = Path.Combine(testDataPath, "empty");
 
             // Call
-            parser.Parse(workingDirectory, sectionId);
+            TestDelegate test = () => parser.Parse(path, 1);
 
             // Assert
-            Assert.IsNull(parser.Output);
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, outputFileName)));
+            var exception = Assert.Throws<HydraRingFileParserException>(test);
+            Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
         }
 
         [Test]
-        public void Parse_ValidHydraRingOutputFile_OutputSetWithExpectedCalculationResult()
+        public void Parse_WithWorkingDirectoryWithInvalidOutputFile_ThrowsHydraRingFileParserException()
         {
             // Setup
+            string path = Path.Combine(testDirectory, invalidFileInDirectory);
             var parser = new DunesBoundaryConditionsCalculationParser();
-            var workingDirectory = Path.Combine(testDataPath, "valid");
 
             // Call
-            parser.Parse(workingDirectory, sectionId);
+            TestDelegate test = () => parser.Parse(path, 1);
 
             // Assert
-            Assert.AreEqual(4.82912, parser.Output.WaterLevel);
-            Assert.AreEqual(2.88936, parser.Output.WaveHeight);
-            Assert.AreEqual(10.65437, parser.Output.WavePeriod);
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, outputFileName)));
+            var exception = Assert.Throws<HydraRingFileParserException>(test);
+            Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
+            Assert.AreEqual("Er kon geen resultaat gelezen worden uit de Hydra-Ring uitvoerdatabase.", exception.Message);
         }
 
         [Test]
-        public void Parse_InvalidHydraRingOutputFileWaterLevelMissing_OutputNull()
+        public void Parse_WithWorkingDirectoryWithEmptyFile_ThrowsHydraRingFileParserException()
         {
             // Setup
+            string path = Path.Combine(testDirectory, emptyFileInDirectory);
             var parser = new DunesBoundaryConditionsCalculationParser();
-            var workingDirectory = Path.Combine(testDataPath, "output-no-waterLevel");
 
             // Call
-            parser.Parse(workingDirectory, sectionId);
+            TestDelegate test = () => parser.Parse(path, 1);
 
             // Assert
-            Assert.IsNull(parser.Output);
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, outputFileName)));
+            var exception = Assert.Throws<HydraRingFileParserException>(test);
+            Assert.AreEqual("Er zijn geen berekende hydraulische randvoorwaarden voor duinen gevonden in de Hydra-Ring uitvoerdatabase.", exception.Message);
+            Assert.IsInstanceOf<HydraRingDatabaseReaderException>(exception.InnerException);
         }
 
         [Test]
-        public void Parse_InvalidHydraRingOutputFileWaveHeightMissing_OutputNull()
+        public void Parse_ErrorWhileReadingFile_ThrowsHydraRingFileParserException()
         {
             // Setup
             var parser = new DunesBoundaryConditionsCalculationParser();
-            var workingDirectory = Path.Combine(testDataPath, "output-no-waveHeight");
+            var workingDirectory = Path.Combine(testDirectory, permissionDenied);
 
-            // Call
-            parser.Parse(workingDirectory, sectionId);
-
-            // Assert
-            Assert.IsNull(parser.Output);
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, outputFileName)));
-        }
-
-        [Test]
-        public void Parse_InvalidHydraRingOutputFileWavePeriodMissing_OutputNull()
-        {
-            // Setup
-            var parser = new DunesBoundaryConditionsCalculationParser();
-            var workingDirectory = Path.Combine(testDataPath, "output-no-wavePeriod");
-
-            // Call
-            parser.Parse(workingDirectory, sectionId);
-
-            // Assert
-            Assert.IsNull(parser.Output);
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, outputFileName)));
-        }
-
-        [Test]
-        public void Parse_ErrorWhileReadingFile_ThrowsHydraRingFileParserExceptionWithInnerException()
-        {
-            // Setup
-            var parser = new DunesBoundaryConditionsCalculationParser();
-            var workingDirectory = Path.Combine(testDataPath, "NoPermissionsToRead");
-
-            using (new DirectoryPermissionsRevoker(testDataPath, FileSystemRights.ReadData))
+            using (new DirectoryPermissionsRevoker(testDirectory, FileSystemRights.ReadData))
             {
                 // Call
                 TestDelegate call = () => parser.Parse(workingDirectory, 1);
 
                 // Assert
                 var exception = Assert.Throws<HydraRingFileParserException>(call);
-                var expectedMessage = "Er is een fout opgetreden bij het lezen van het uitvoerbestand.";
+                var expectedMessage = "Er kon geen resultaat gelezen worden uit de Hydra-Ring uitvoerdatabase.";
                 Assert.AreEqual(expectedMessage, exception.Message);
-                Assert.IsInstanceOf<UnauthorizedAccessException>(exception.InnerException);
+                Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
             }
+        }
+
+        [Test]
+        [TestCase(validFileNoWaveHeight)]
+        [TestCase(validFileNoWavePeriod)]
+        [TestCase(validFileNoWaterLevel)]
+        [TestCase(noResultsOnLastIteration)]
+        public void Parse_NotAllColumnsHasResults_ThrowHydraRingFileParserException(string subFolder)
+        {
+            // Setup
+            string path = Path.Combine(testDirectory, subFolder);
+            var parser = new DunesBoundaryConditionsCalculationParser();
+
+            // Call
+            TestDelegate test = () => parser.Parse(path, 1);
+
+            // Assert
+            var exception = Assert.Throws<HydraRingFileParserException>(test);
+            Assert.AreEqual("Er zijn geen berekende hydraulische randvoorwaarden voor duinen gevonden in de Hydra-Ring uitvoerdatabase.", exception.Message);
+            Assert.IsInstanceOf<InvalidCastException>(exception.InnerException);
+        }
+
+
+
+        [Test]
+        public void Parse_ValidDataForOtherSection_ThrowsHydraRingFileParserException()
+        {
+            // Setup
+            string path = Path.Combine(testDirectory, validFile);
+            var parser = new DunesBoundaryConditionsCalculationParser();
+
+            // Call
+            TestDelegate test = () => parser.Parse(path, 0);
+
+            // Assert
+            var exception = Assert.Throws<HydraRingFileParserException>(test);
+            Assert.AreEqual("Er zijn geen berekende hydraulische randvoorwaarden voor duinen gevonden in de Hydra-Ring uitvoerdatabase.", exception.Message);
+            Assert.IsInstanceOf<HydraRingDatabaseReaderException>(exception.InnerException);
+        }
+
+        [Test]
+        public void Parse_ValidData_OutputSet()
+        {
+            // Setup
+            string path = Path.Combine(testDirectory, validFile);
+            var parser = new DunesBoundaryConditionsCalculationParser();
+
+            // Call
+            parser.Parse(path, 1);
+
+            // Assert
+            Assert.AreEqual(4.29026, parser.Output.WaterLevel);
+            Assert.AreEqual(10.1528, parser.Output.WaveHeight);
+            Assert.AreEqual(19.1762, parser.Output.WavePeriod);
         }
     }
 }

@@ -76,11 +76,11 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
             }
             catch (SQLiteException e)
             {
-                throw new HydraRingFileParserException(Resources.Parse_Cannot_read_convergence_in_output_file, e);
+                throw new HydraRingFileParserException(Resources.ParseFile_Cannot_read_result_in_output_file, e);
             }
-            catch (HydraRingDatabaseReaderException)
+            catch (Exception e) when (e is HydraRingDatabaseReaderException || e is InvalidCastException)
             {
-                throw new HydraRingFileParserException(Resources.Parse_No_convergence_found_in_output_file);
+                throw new HydraRingFileParserException(Resources.ParseFile_No_convergence_found_in_output_file, e);
             }
         }
 
@@ -88,13 +88,11 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
         /// Reads the result of the <paramref name="reader"/>.
         /// </summary>
         /// <param name="reader">The reader to get the result from.</param>
+        /// <exception cref="InvalidCastException">Thrown when the the result
+        /// cannot be converted to the output format.</exception>
         private void ReadResult(HydraRingDatabaseReader reader)
         {
-            object result = reader.ReadColumn(convergedColumnName);
-            if (result != null)
-            {
-                Output = Convert.ToBoolean(result);
-            }
+            Output = Convert.ToBoolean(reader.ReadColumn(convergedColumnName));
         }
     }
 }

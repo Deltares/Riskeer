@@ -40,6 +40,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         private const string convergenceOnBothForSection1 = "ConvergenceOnBothSection1";
         private const string noConvergenceForSection1 = "NoConvergenceSection1";
         private const string convergenceOnAllButLastIterationForSection1 = "ConvergenceOnAllButLastIteration";
+        private const string convergenceNull = "ConvergenceNull";
         private static readonly string testDirectory = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation, Path.Combine("Parsers", nameof(ConvergenceParser)));
 
         [Test]
@@ -54,13 +55,13 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         }
 
         [Test]
-        public void Parse_WithoutWorkingDirectory_ThrowsArgumentNullException()
+        public void Parse_WorkingDirectoryNull_ThrowsArgumentNullException()
         {
             // Setup
             var parser = new ConvergenceParser();
 
             // Call
-            TestDelegate test = () => parser.Parse(null, 0);
+            TestDelegate test = () => parser.Parse(null, 1);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -75,7 +76,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             var parser = new ConvergenceParser();
 
             // Call
-            TestDelegate test = () => parser.Parse(path, 0);
+            TestDelegate test = () => parser.Parse(path, 1);
 
             // Assert
             var exception = Assert.Throws<HydraRingFileParserException>(test);
@@ -90,12 +91,12 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             var parser = new ConvergenceParser();
 
             // Call
-            TestDelegate test = () => parser.Parse(path, 0);
+            TestDelegate test = () => parser.Parse(path, 1);
 
             // Assert
             var exception = Assert.Throws<HydraRingFileParserException>(test);
             Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
-            Assert.AreEqual("Er kon geen resultaat voor convergentie gelezen worden uit de Hydra-Ring uitvoerdatabase.", exception.Message);
+            Assert.AreEqual("Er kon geen resultaat gelezen worden uit de Hydra-Ring uitvoerdatabase.", exception.Message);
         }
 
         [Test]
@@ -106,11 +107,12 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             var parser = new ConvergenceParser();
 
             // Call
-            TestDelegate test = () => parser.Parse(path, 0);
+            TestDelegate test = () => parser.Parse(path, 1);
 
             // Assert
             var exception = Assert.Throws<HydraRingFileParserException>(test);
             Assert.AreEqual("Er is geen resultaat voor convergentie gevonden in de Hydra-Ring uitvoerdatabase.", exception.Message);
+            Assert.IsInstanceOf<HydraRingDatabaseReaderException>(exception.InnerException);
         }
 
         [Test]
@@ -126,6 +128,23 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             // Assert
             var exception = Assert.Throws<HydraRingFileParserException>(test);
             Assert.AreEqual("Er is geen resultaat voor convergentie gevonden in de Hydra-Ring uitvoerdatabase.", exception.Message);
+            Assert.IsInstanceOf<HydraRingDatabaseReaderException>(exception.InnerException);
+        }
+
+        [Test]
+        public void Parse_ResultNull_ThrowHydraRingFileParserException()
+        {
+            // Setup
+            string path = Path.Combine(testDirectory, convergenceNull);
+            var parser = new ConvergenceParser();
+
+            // Call
+            TestDelegate test = () => parser.Parse(path, 1);
+
+            // Assert
+            var exception = Assert.Throws<HydraRingFileParserException>(test);
+            Assert.AreEqual("Er is geen resultaat voor convergentie gevonden in de Hydra-Ring uitvoerdatabase.", exception.Message);
+            Assert.IsInstanceOf<InvalidCastException>(exception.InnerException);
         }
 
         [Test]
