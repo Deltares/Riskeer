@@ -26,9 +26,9 @@ using NUnit.Framework;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.Common.IO.Writers;
-using Ringtoets.StabilityPointStructures.IO.Exporters;
+using Ringtoets.StabilityPointStructures.IO.Writers;
 
-namespace Ringtoets.StabilityPointStructures.IO.Test.Exporters
+namespace Ringtoets.StabilityPointStructures.IO.Test.Writers
 {
     [TestFixture]
     public class StabilityPointStructuresCalculationConfigurationWriterTest

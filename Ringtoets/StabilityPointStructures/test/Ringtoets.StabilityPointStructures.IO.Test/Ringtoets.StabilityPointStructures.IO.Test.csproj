@@ -48,7 +48,8 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="ConfigurationInflowModelTypeConverterTest.cs" />
-    <Compile Include="Exporters\StabilityPointStructuresCalculationConfigurationWriterTest.cs" />
+    <Compile Include="Exporters\StabilityPointStructuresCalculationConfigurationExporterTest.cs" />
+    <Compile Include="Writers\StabilityPointStructuresCalculationConfigurationWriterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Importers\StabilityPointStructuresImporterTest.cs" />
     <Compile Include="StabilityPointStructuresCalculationConfigurationTest.cs" />
@@ -89,10 +90,12 @@
       <Project>{9A80CDD2-4681-4A5D-9A2C-A2FEE133E0F9}</Project>
       <Name>Ringtoets.StabilityPointStructures.IO</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.StabilityPointStructures.Data.TestUtil\Ringtoets.StabilityPointStructures.Data.TestUtil.csproj">
+      <Project>{E9AC095B-8F10-41D2-9456-4A85E3BA91AD}</Project>
+      <Name>Ringtoets.StabilityPointStructures.Data.TestUtil</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Writers\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
