@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Configurations;
 
@@ -59,6 +60,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             Assert.IsNull(configuration.FailureCollisionEnergy);
             Assert.IsNull(configuration.FailureProbabilityRepairClosure);
             Assert.IsNull(configuration.FlowVelocityStructureClosable);
+            Assert.IsNull(configuration.InflowModelType);
         }
 
         [Test]
@@ -75,6 +77,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             var failureCollisionEnergy = new MeanVariationCoefficientStochastConfiguration();
             double failureProbabilityRepairClosure = random.NextDouble();
             var flowVelocityStructureClosable = new MeanVariationCoefficientStochastConfiguration();
+            var inflowModelType = random.NextEnumValue<ConfigurationInflowModelType>();
 
             // Call
             configuration.AreaFlowApertures = areaFlowApertures;
@@ -85,6 +88,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             configuration.FailureCollisionEnergy = failureCollisionEnergy;
             configuration.FailureProbabilityRepairClosure = failureProbabilityRepairClosure;
             configuration.FlowVelocityStructureClosable = flowVelocityStructureClosable;
+            configuration.InflowModelType = inflowModelType;
 
             // Assert
             Assert.AreSame(areaFlowApertures, configuration.AreaFlowApertures);
@@ -94,7 +98,8 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             Assert.AreEqual(evaluationLevel, configuration.EvaluationLevel);
             Assert.AreSame(failureCollisionEnergy, configuration.FailureCollisionEnergy);
             Assert.AreEqual(failureProbabilityRepairClosure, configuration.FailureProbabilityRepairClosure);
-            Assert.AreEqual(flowVelocityStructureClosable, configuration.FlowVelocityStructureClosable);
+            Assert.AreSame(flowVelocityStructureClosable, configuration.FlowVelocityStructureClosable);
+            Assert.AreEqual(inflowModelType, configuration.InflowModelType);
         }
     }
 }

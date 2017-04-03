@@ -75,5 +75,10 @@ namespace Ringtoets.StabilityPointStructures.IO
         /// Gets or sets the stochast configuration for the flow velocity structure closable of the structure.
         /// </summary>
         public MeanVariationCoefficientStochastConfiguration FlowVelocityStructureClosable { get; set; }
+
+        /// <summary>
+        /// Gets or sets the inflow model type of the structure.
+        /// </summary>
+        public ConfigurationInflowModelType InflowModelType { get; set; }
     }
 }
