@@ -20,13 +20,10 @@
 // All rights reserved.
 
 using System;
-using System.Data;
 using System.Data.SQLite;
-using System.IO;
-using Core.Common.Utils;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.HydraRing.Calculation.Properties;
-using Ringtoets.HydraRing.IO;
+using Ringtoets.HydraRing.Calculation.Readers;
 
 namespace Ringtoets.HydraRing.Calculation.Parsers
 {
@@ -55,111 +52,48 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
             {
                 throw new ArgumentNullException(nameof(workingDirectory));
             }
-            IOUtils.ValidateFilePath(workingDirectory);
 
             ParseFile(workingDirectory, sectionId);
         }
 
-        private void ParseFile(string workingDirectory, int sectionId)
-        {
-            string outputDatabasePath = Path.Combine(workingDirectory, HydraRingFileConstants.OutputDatabaseFileName);
-
-            using (SQLiteConnection connection = CreateConnection(outputDatabasePath))
-            {
-                ReadIsConverged(connection, sectionId);
-            }
-        }
-
-        private static SQLiteConnection CreateConnection(string databaseFile)
-        {
-            string connectionStringBuilder = new SQLiteConnectionStringBuilder
-            {
-                FailIfMissing = true,
-                DataSource = databaseFile,
-                ReadOnly = true
-            }.ConnectionString;
-
-            return new SQLiteConnection(connectionStringBuilder);
-        }
-
         /// <summary>
-        /// Reads the value indicating whether the calculation for a section has converged.
+        /// Parses the file.
         /// </summary>
-        /// <param name="sqLiteConnection">The connection to the database.</param>
+        /// <param name="workingDirectory">The path to the directory which contains
+        /// the output of the Hydra-Ring calculation.</param>
         /// <param name="sectionId">The section id to get the output for.</param>
-        /// <exception cref="HydraRingFileParserException">Thrown when: 
-        /// <list type="bullet">
-        /// <item>the output file does not exist.</item>
-        /// <item>the convergence result could not be read from the output file.</item>
-        /// </list>
-        /// </exception>
-        private void ReadIsConverged(SQLiteConnection sqLiteConnection, int sectionId)
+        /// <exception cref="HydraRingFileParserException">Thrown when the reader
+        /// encounters an error while reading the database.</exception>
+        private void ParseFile(string workingDirectory, int sectionId)
         {
             try
             {
-                using (SQLiteDataReader reader = CreateReader(sqLiteConnection, sectionId))
+                using (var reader = new HydraRingDatabaseReader(workingDirectory, getLastResultQuery, sectionId))
                 {
-                    SetOutput(reader);
+                    reader.Execute();
+                    ReadResult(reader);
                 }
             }
             catch (SQLiteException e)
             {
                 throw new HydraRingFileParserException(Resources.Parse_Cannot_read_convergence_in_output_file, e);
             }
-        }
-
-        private SQLiteDataReader CreateReader(SQLiteConnection connection, int sectionId)
-        {
-            using (var command = CreateCommand(connection, sectionId))
-            {
-                OpenConnection(connection);
-                return command.ExecuteReader();
-            }
-        }
-
-        private SQLiteCommand CreateCommand(SQLiteConnection connection, int sectionId)
-        {
-            var command = new SQLiteCommand(getLastResultQuery, connection);
-            command.Parameters.Add(new SQLiteParameter
-            {
-                DbType = DbType.Int64,
-                ParameterName = sectionIdParameterName,
-                Value = sectionId
-            });
-            return command;
-        }
-
-        /// <summary>
-        /// Opens the connection using <paramref name="connection"/>.
-        /// </summary>
-        /// <param name="connection">The connection to open.</param>
-        /// <exception cref="HydraRingFileParserException">Thrown when <paramref name="connection"/> could not be opened.</exception>
-        private static void OpenConnection(SQLiteConnection connection)
-        {
-            try
-            {
-                connection.Open();
-            }
-            catch (SQLiteException e)
-            {
-                throw new HydraRingFileParserException(e.Message, e);
-            }
-        }
-
-        /// <summary>
-        /// Sets <see cref="Output"/> with the value read in the <paramref name="reader"/>.
-        /// </summary>
-        /// <param name="reader">The reader to use.</param>
-        /// <exception cref="HydraRingFileParserException">Thrown when no result could be read using the <paramref name="reader"/>.</exception>
-        private void SetOutput(SQLiteDataReader reader)
-        {
-            if (reader.Read())
-            {
-                Output = Convert.ToBoolean(reader[convergedColumnName]);
-            }
-            else
+            catch (HydraRingDatabaseReaderException)
             {
                 throw new HydraRingFileParserException(Resources.Parse_No_convergence_found_in_output_file);
+            }
+        }
+
+        /// <summary>
+        /// Reads the result of the <paramref name="reader"/>.
+        /// </summary>
+        /// <param name="reader">The reader to get the result from.</param>
+        private void ReadResult(HydraRingDatabaseReader reader)
+        {
+            object result = reader.ReadColumn(convergedColumnName);
+            if (result != null)
+            {
+                Output = Convert.ToBoolean(result);
             }
         }
     }

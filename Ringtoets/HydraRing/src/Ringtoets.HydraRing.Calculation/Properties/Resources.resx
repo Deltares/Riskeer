@@ -135,4 +135,7 @@
   <data name="Parse_No_convergence_found_in_output_file" xml:space="preserve">
     <value>Er is geen resultaat voor convergentie gevonden in de Hydra-Ring uitvoerdatabase.</value>
   </data>
+  <data name="HydraRingDatabaseReader_Execute_No_result_found_in_output_file" xml:space="preserve">
+    <value>Er is geen resultaat gevonden in de Hydra-Ring uitvoerdatabase.</value>
+  </data>
 </root>

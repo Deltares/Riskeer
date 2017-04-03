@@ -68,24 +68,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         }
 
         [Test]
-        [TestCaseSource(typeof(InvalidPathHelper), nameof(InvalidPathHelper.InvalidPaths))]
-        public void Parse_WithInvalidWorkingDirectoryPath_ThrowsArgumentException(string invalidPath)
-        {
-            // Setup
-            var parser = new ConvergenceParser();
-
-            // Call
-            TestDelegate test = () => parser.Parse(invalidPath, 0);
-
-            // Assert
-            Assert.Throws<ArgumentException>(test);
-        }
-
-        [Test]
         public void Parse_WithWorkingDirectoryWithoutExpectedFile_ThrowsHydraRingFileParserException()
         {
             // Setup
-            var path = Path.Combine(testDirectory, emptyWorkingDirectory);
+            string path = Path.Combine(testDirectory, emptyWorkingDirectory);
             var parser = new ConvergenceParser();
 
             // Call
@@ -100,7 +86,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_WithWorkingDirectoryWithInvalidOutputFile_ThrowsHydraRingFileParserException()
         {
             // Setup
-            var path = Path.Combine(testDirectory, invalidFileInDirectory);
+            string path = Path.Combine(testDirectory, invalidFileInDirectory);
             var parser = new ConvergenceParser();
 
             // Call
@@ -116,7 +102,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_WithWorkingDirectoryWithEmptyFile_ThrowsHydraRingFileParserException()
         {
             // Setup
-            var path = Path.Combine(testDirectory, emptyFileInDirectory);
+            string path = Path.Combine(testDirectory, emptyFileInDirectory);
             var parser = new ConvergenceParser();
 
             // Call
@@ -131,7 +117,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_WithWorkingDirectoryWithFileWithTrueResultForOtherSection_ThrowsHydraRingFileParserException()
         {
             // Setup
-            var path = Path.Combine(testDirectory, convergenceOnBetaForSection1);
+            string path = Path.Combine(testDirectory, convergenceOnBetaForSection1);
             var parser = new ConvergenceParser();
 
             // Call
@@ -148,7 +134,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_WithWorkingDirectoryWithFileWithFalseResult_SetOutputFalse(string testSubDirectory)
         {
             // Setup
-            var path = Path.Combine(testDirectory, testSubDirectory);
+            string path = Path.Combine(testDirectory, testSubDirectory);
             var parser = new ConvergenceParser();
 
             // Call
@@ -165,7 +151,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_WithWorkingDirectoryWithFileWithTrueResult_SetOutputTrue(string testSubDirectory)
         {
             // Setup
-            var path = Path.Combine(testDirectory, testSubDirectory);
+            string path = Path.Combine(testDirectory, testSubDirectory);
             var parser = new ConvergenceParser();
 
             // Call

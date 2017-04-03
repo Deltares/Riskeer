@@ -46,6 +46,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Data.SQLite, Version=1.0.104.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\System.Data.SQLite.Core.1.0.104.0\lib\net40\System.Data.SQLite.dll</HintPath>
       <Private>True</Private>
@@ -106,10 +107,12 @@
     <Compile Include="Data\Variables\RayleighNHydraRingVariableTest.cs" />
     <Compile Include="Data\Variables\TruncatedNormalHydraRingVariableTest.cs" />
     <Compile Include="Exceptions\HydraRingCalculationExceptionTest.cs" />
+    <Compile Include="Exceptions\HydraRingDatabaseReaderExceptionTest.cs" />
     <Compile Include="Exceptions\HydraRingFileParserExceptionTest.cs" />
     <Compile Include="Parsers\DunesBoundaryConditionsCalculationParserTest.cs" />
     <Compile Include="Parsers\ConvergenceParserTest.cs" />
     <Compile Include="Parsers\ExceedanceProbabilityCalculationParserTest.cs" />
+    <Compile Include="Readers\HydraRingDatabaseReaderTest.cs" />
     <Compile Include="Parsers\LastErrorFileParserTest.cs" />
     <Compile Include="Parsers\OvertoppingCalculationWaveHeightParserTest.cs" />
     <Compile Include="Parsers\ReliabilityIndexCalculationParserTest.cs" />

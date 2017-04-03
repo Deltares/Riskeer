@@ -110,6 +110,15 @@ namespace Ringtoets.HydraRing.Calculation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er is geen resultaat gevonden in de Hydra-Ring uitvoerdatabase..
+        /// </summary>
+        internal static string HydraRingDatabaseReader_Execute_No_result_found_in_output_file {
+            get {
+                return ResourceManager.GetString("HydraRingDatabaseReader_Execute_No_result_found_in_output_file", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Er kon geen resultaat voor convergentie gelezen worden uit de Hydra-Ring uitvoerdatabase..
         /// </summary>
         internal static string Parse_Cannot_read_convergence_in_output_file {
