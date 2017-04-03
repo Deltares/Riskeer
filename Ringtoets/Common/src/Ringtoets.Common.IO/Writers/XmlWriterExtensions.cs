@@ -138,7 +138,7 @@ namespace Ringtoets.Common.IO.Writers
             }
             if (waveReduction.BreakWaterType.HasValue)
             {
-                writer.WriteElementString(ConfigurationSchemaIdentifiers.BreakWaterType, new SchemaBreakWaterTypeConverter().ConvertToInvariantString(waveReduction.BreakWaterType.Value));
+                writer.WriteElementString(ConfigurationSchemaIdentifiers.BreakWaterType, new ConfigurationBreakWaterTypeConverter().ConvertToInvariantString(waveReduction.BreakWaterType.Value));
             }
             if (waveReduction.BreakWaterHeight.HasValue)
             {

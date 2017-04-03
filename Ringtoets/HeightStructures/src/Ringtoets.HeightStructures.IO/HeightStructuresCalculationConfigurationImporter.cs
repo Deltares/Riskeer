@@ -453,7 +453,7 @@ namespace Ringtoets.HeightStructures.IO
 
             if (waveReduction.BreakWaterType.HasValue)
             {
-                calculation.InputParameters.BreakWater.Type = (BreakWaterType) new SchemaBreakWaterTypeConverter().ConvertTo(waveReduction.BreakWaterType.Value, typeof(BreakWaterType));
+                calculation.InputParameters.BreakWater.Type = (BreakWaterType) new ConfigurationBreakWaterTypeConverter().ConvertTo(waveReduction.BreakWaterType.Value, typeof(BreakWaterType));
             }
 
             if (waveReduction.BreakWaterHeight.HasValue)

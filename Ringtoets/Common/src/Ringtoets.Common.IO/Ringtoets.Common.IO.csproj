@@ -62,7 +62,7 @@
     <Compile Include="Configurations\WaveReductionConfiguration.cs" />
     <Compile Include="IVariationCoefficientDistributionExtensions.cs" />
     <Compile Include="IDistributionExtensions.cs" />
-    <Compile Include="Configurations\Helpers\SchemaBreakWaterTypeConverter.cs" />
+    <Compile Include="Configurations\Helpers\ConfigurationBreakWaterTypeConverter.cs" />
     <Compile Include="DikeProfiles\DamType.cs" />
     <Compile Include="DikeProfiles\DikeProfileData.cs" />
     <Compile Include="DikeProfiles\DikeProfileDataReader.cs" />

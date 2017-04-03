@@ -36,7 +36,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
         public void Constructor_ExpectedValues()
         {
             // Call
-            var converter = new SchemaBreakWaterTypeConverter();
+            var converter = new ConfigurationBreakWaterTypeConverter();
 
             // Assert
             Assert.IsInstanceOf<TypeConverter>(converter);
@@ -46,7 +46,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
         public void CanConvertTo_String_ReturnTrue()
         {
             // Setup
-            var converter = new SchemaBreakWaterTypeConverter();
+            var converter = new ConfigurationBreakWaterTypeConverter();
 
             // Call
             bool canConvertToString = converter.CanConvertTo(typeof(string));
@@ -59,7 +59,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
         public void CanConvertTo_BreakWaterType_ReturnTrue()
         {
             // Setup
-            var converter = new SchemaBreakWaterTypeConverter();
+            var converter = new ConfigurationBreakWaterTypeConverter();
 
             // Call
             bool canConvertToString = converter.CanConvertTo(typeof(BreakWaterType));
@@ -72,7 +72,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
         public void CanConvertTo_OtherThanStringOrBreakWaterType_ReturnFalse()
         {
             // Setup
-            var converter = new SchemaBreakWaterTypeConverter();
+            var converter = new ConfigurationBreakWaterTypeConverter();
 
             // Call
             bool canConvertToString = converter.CanConvertTo(typeof(object));
@@ -89,7 +89,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
                                                               string expectedResult)
         {
             // Setup
-            var converter = new SchemaBreakWaterTypeConverter();
+            var converter = new ConfigurationBreakWaterTypeConverter();
 
             // Call
             object result = converter.ConvertTo(value, typeof(string));
@@ -102,7 +102,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
         public void ConvertTo_InvalidBreakWaterType_ThrowNotSupportedException()
         {
             // Setup
-            var converter = new SchemaBreakWaterTypeConverter();
+            var converter = new ConfigurationBreakWaterTypeConverter();
             var invalidValue = (ConfigurationBreakWaterType) 99999999;
 
             // Call
@@ -120,7 +120,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
                                                               BreakWaterType expectedResult)
         {
             // Setup
-            var converter = new SchemaBreakWaterTypeConverter();
+            var converter = new ConfigurationBreakWaterTypeConverter();
 
             // Call
             object result = converter.ConvertTo(value, typeof(BreakWaterType));
@@ -133,7 +133,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
         public void CanConvertFrom_String_ReturnTrue()
         {
             // Setup
-            var converter = new SchemaBreakWaterTypeConverter();
+            var converter = new ConfigurationBreakWaterTypeConverter();
 
             // Call
             bool canConvertFromString = converter.CanConvertFrom(typeof(string));
@@ -146,7 +146,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
         public void CanConvertFrom_BreakWaterType_ReturnTrue()
         {
             // Setup
-            var converter = new SchemaBreakWaterTypeConverter();
+            var converter = new ConfigurationBreakWaterTypeConverter();
 
             // Call
             bool canConvertFromString = converter.CanConvertFrom(typeof(BreakWaterType));
@@ -159,7 +159,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
         public void CanConvertFrom_OtherThanStringOrBreakWaterType_ReturnFalse()
         {
             // Setup
-            var converter = new SchemaBreakWaterTypeConverter();
+            var converter = new ConfigurationBreakWaterTypeConverter();
 
             // Call
             bool canConvertFromString = converter.CanConvertFrom(typeof(object));
@@ -176,7 +176,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
                                                                   ConfigurationBreakWaterType expectedResult)
         {
             // Setup
-            var converter = new SchemaBreakWaterTypeConverter();
+            var converter = new ConfigurationBreakWaterTypeConverter();
 
             // Call
             object result = converter.ConvertFrom(value);
@@ -189,7 +189,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
         public void ConvertFrom_InvalidText_ThrowNotSupportedException()
         {
             // Setup
-            var converter = new SchemaBreakWaterTypeConverter();
+            var converter = new ConfigurationBreakWaterTypeConverter();
 
             // Call
             TestDelegate call = () => converter.ConvertFrom("A");
@@ -206,7 +206,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
                                                                             ConfigurationBreakWaterType expectedResult)
         {
             // Setup
-            var converter = new SchemaBreakWaterTypeConverter();
+            var converter = new ConfigurationBreakWaterTypeConverter();
 
             // Call
             object result = converter.ConvertFrom(value);

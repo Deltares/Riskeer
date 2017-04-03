@@ -27,17 +27,17 @@ using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.Common.IO.Writers;
 
-namespace Ringtoets.HeightStructures.IO.Test
+namespace Ringtoets.ClosingStructures.IO.Test
 {
     [TestFixture]
-    public class HeightStructuresCalculationConfigurationWriterTest
+    public class ClosingStructuresCalculationConfigurationWriterTest
         : CustomSchemaCalculationConfigurationWriterDesignGuidelinesTestFixture<
-            HeightStructuresCalculationConfigurationWriter,
-            HeightStructuresCalculationConfiguration>
+            ClosingStructuresCalculationConfigurationWriter,
+            ClosingStructuresCalculationConfiguration>
     {
         private readonly string testDataPath = TestHelper.GetTestDataPath(
-            TestDataPath.Ringtoets.HeightStructures.IO,
-            nameof(HeightStructuresCalculationConfigurationWriter));
+            TestDataPath.Ringtoets.ClosingStructures.IO,
+            nameof(ClosingStructuresCalculationConfigurationWriter));
 
         private static IEnumerable<TestCaseData> Calculations
         {
@@ -50,7 +50,7 @@ namespace Ringtoets.HeightStructures.IO.Test
                     .SetName("Calculation configuration with all parameters set");
                 yield return new TestCaseData("sparseConfiguration", new[]
                     {
-                        new HeightStructuresCalculationConfiguration("sparse config")
+                        new ClosingStructuresCalculationConfiguration("sparse config")
                     })
                     .SetName("Calculation configuration with none of its parameters set");
                 yield return new TestCaseData("folderWithSubfolderAndCalculation", new IConfigurationItem[]
@@ -60,7 +60,7 @@ namespace Ringtoets.HeightStructures.IO.Test
                             CreateFullCalculation(),
                             new CalculationGroupConfiguration("Nested", new IConfigurationItem[]
                             {
-                                new HeightStructuresCalculationConfiguration("Berekening 2")
+                                new ClosingStructuresCalculationConfiguration("Berekening 2")
                             })
                         })
                     })
@@ -68,9 +68,9 @@ namespace Ringtoets.HeightStructures.IO.Test
             }
         }
 
-        protected override void AssertDefaultConstructedInstance(HeightStructuresCalculationConfigurationWriter writer)
+        protected override void AssertDefaultConstructedInstance(ClosingStructuresCalculationConfigurationWriter writer)
         {
-            Assert.IsInstanceOf<StructureCalculationConfigurationWriter<HeightStructuresCalculationConfiguration>>(writer);
+            Assert.IsInstanceOf<StructureCalculationConfigurationWriter<ClosingStructuresCalculationConfiguration>>(writer);
         }
 
         [Test]
@@ -78,11 +78,11 @@ namespace Ringtoets.HeightStructures.IO.Test
         public void Write_ValidCalculation_ValidFile(string expectedFileName, IConfigurationItem[] configuration)
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath($"{nameof(HeightStructuresCalculationConfigurationWriterTest)}.{nameof(Write_ValidCalculation_ValidFile)}.{expectedFileName}.xml");
+            string filePath = TestHelper.GetScratchPadPath($"{nameof(ClosingStructuresCalculationConfigurationWriterTest)}.{nameof(Write_ValidCalculation_ValidFile)}.{expectedFileName}.xml");
 
             try
             {
-                var writer = new HeightStructuresCalculationConfigurationWriter(filePath);
+                var writer = new ClosingStructuresCalculationConfigurationWriter(filePath);
 
                 // Call
                 writer.Write(configuration);
@@ -102,31 +102,27 @@ namespace Ringtoets.HeightStructures.IO.Test
             }
         }
 
-        private static HeightStructuresCalculationConfiguration CreateFullCalculation()
+        private static ClosingStructuresCalculationConfiguration CreateFullCalculation()
         {
-            return new HeightStructuresCalculationConfiguration("Berekening 1")
+            return new ClosingStructuresCalculationConfiguration("Berekening 1")
             {
                 HydraulicBoundaryLocationName = "Locatie1",
                 StructureName = "kunstwerk1",
                 ForeshoreProfileName = "profiel1",
-                FailureProbabilityStructureWithErosion = 1e-6,
+                FailureProbabilityStructureWithErosion = 1e-4,
                 StructureNormalOrientation = 67.1,
+                FactorStormDurationOpenStructure = 1.0,
+                IdenticalApertures = 1,
+                ProbabilityOrFrequencyOpenStructureBeforeFlooding = 1e-2,
+                FailureProbabilityOpenStructure = 1e-3,
+                FailureProbabilityReparation = 1e-2,
+                InflowModelType = ConfigurationClosingStructureInflowModelType.LowSill,
                 WaveReduction = new WaveReductionConfiguration
                 {
                     UseBreakWater = true,
                     BreakWaterType = ConfigurationBreakWaterType.Dam,
                     BreakWaterHeight = 1.23,
                     UseForeshoreProfile = true
-                },
-                StormDuration = new MeanVariationCoefficientStochastConfiguration
-                {
-                    Mean = 6.0,
-                    VariationCoefficient= 0.22
-                },
-                ModelFactorSuperCriticalFlow = new MeanStandardDeviationStochastConfiguration
-                {
-                    Mean = 1.1,
-                    StandardDeviation = 0.14
                 },
                 FlowWidthAtBottomProtection = new MeanStandardDeviationStochastConfiguration
                 {
@@ -143,27 +139,57 @@ namespace Ringtoets.HeightStructures.IO.Test
                     Mean = 15000,
                     VariationCoefficient = 0.01
                 },
+                CriticalOvertoppingDischarge = new MeanVariationCoefficientStochastConfiguration
+                {
+                    Mean = 2,
+                    VariationCoefficient = 0.1
+                },
+                ModelFactorSuperCriticalFlow = new MeanStandardDeviationStochastConfiguration
+                {
+                    Mean = 1.1,
+                    StandardDeviation = 0.14
+                },
                 AllowedLevelIncreaseStorage = new MeanStandardDeviationStochastConfiguration
                 {
                     Mean = 0.2,
                     StandardDeviation = 0.01
                 },
-                LevelCrestStructure = new MeanStandardDeviationStochastConfiguration
+                StormDuration = new MeanVariationCoefficientStochastConfiguration
+                {
+                    Mean = 6.0,
+                    VariationCoefficient = 0.22
+                },
+                DrainCoefficient = new MeanStandardDeviationStochastConfiguration
+                {
+                    Mean = 1.1,
+                    StandardDeviation = 0.02
+                },
+                InsideWaterLevel = new MeanStandardDeviationStochastConfiguration
+                {
+                    Mean = 0.5,
+                    StandardDeviation = 0.1
+                },
+                AreaFlowApertures = new MeanStandardDeviationStochastConfiguration
+                {
+                    Mean = 80.5,
+                    StandardDeviation = 1
+                },
+                ThresholdHeightOpenWeir = new MeanStandardDeviationStochastConfiguration
+                {
+                    Mean = 1.2,
+                    StandardDeviation = 0.1
+                },
+                LevelCrestStructureNotClosing = new MeanStandardDeviationStochastConfiguration
                 {
                     Mean = 4.3,
                     StandardDeviation = 0.2
-                },
-                CriticalOvertoppingDischarge = new MeanVariationCoefficientStochastConfiguration
-                {
-                    Mean = 2,
-                    VariationCoefficient = 0.1
                 }
             };
         }
 
-        protected override HeightStructuresCalculationConfigurationWriter CreateWriterInstance(string filePath)
+        protected override ClosingStructuresCalculationConfigurationWriter CreateWriterInstance(string filePath)
         {
-            return new HeightStructuresCalculationConfigurationWriter(filePath);
+            return new ClosingStructuresCalculationConfigurationWriter(filePath);
         }
     }
 }

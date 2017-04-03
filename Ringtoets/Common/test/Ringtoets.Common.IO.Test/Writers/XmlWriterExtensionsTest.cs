@@ -399,7 +399,8 @@ namespace Ringtoets.Common.IO.Test.Writers
         public void WriteWaveReduction_WithoutDifferentSetParameters_WritesStochastWithSetParameters(WaveReductionConfiguration waveReduction, string fileName)
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath(nameof(WriteWaveReduction_WithoutDifferentSetParameters_WritesStochastWithSetParameters));
+            string filePath = TestHelper.GetScratchPadPath(
+                $"{nameof(WriteWaveReduction_WithoutDifferentSetParameters_WritesStochastWithSetParameters)}.{fileName}");
 
             try
             {

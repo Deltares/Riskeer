@@ -22,20 +22,22 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
+using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Schema;
 
-namespace Ringtoets.Common.IO.Configurations.Helpers
+namespace Ringtoets.ClosingStructures.IO
 {
     /// <summary>
-    /// Converts <see cref="ConfigurationBreakWaterType"/> to <see cref="string"/> or <see cref="BreakWaterType"/>
-    /// and back.
+    /// Converts <see cref="ConfigurationClosingStructureInflowModelType"/> to <see cref="string"/> 
+    /// or <see cref="ClosingStructureInflowModelType"/> and back.
     /// </summary>
-    public class SchemaBreakWaterTypeConverter : TypeConverter
+    public class ConfigurationClosingStructureInflowModelTypeConverter : TypeConverter
     {
         public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
         {
-            if (destinationType == typeof(BreakWaterType))
+            if (destinationType == typeof(ClosingStructureInflowModelType))
             {
                 return true;
             }
@@ -46,30 +48,30 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
         {
             if (destinationType == typeof(string))
             {
-                var type = (ConfigurationBreakWaterType) value;
+                var type = (ConfigurationClosingStructureInflowModelType)value;
                 switch (type)
                 {
-                    case ConfigurationBreakWaterType.Caisson:
-                        return ConfigurationSchemaIdentifiers.BreakWaterCaisson;
-                    case ConfigurationBreakWaterType.Dam:
-                        return ConfigurationSchemaIdentifiers.BreakWaterDam;
-                    case ConfigurationBreakWaterType.Wall:
-                        return ConfigurationSchemaIdentifiers.BreakWaterWall;
+                    case ConfigurationClosingStructureInflowModelType.FloodedCulvert:
+                        return ClosingStructuresConfigurationSchemaIdentifiers.FloodedCulvert;
+                    case ConfigurationClosingStructureInflowModelType.LowSill:
+                        return ClosingStructuresConfigurationSchemaIdentifiers.LowSill;
+                    case ConfigurationClosingStructureInflowModelType.VerticalWall:
+                        return ClosingStructuresConfigurationSchemaIdentifiers.VerticalWall;
                     default:
                         throw new NotSupportedException();
                 }
             }
-            if (destinationType == typeof(BreakWaterType))
+            if (destinationType == typeof(ClosingStructureInflowModelType))
             {
-                var type = (ConfigurationBreakWaterType)value;
+                var type = (ConfigurationClosingStructureInflowModelType)value;
                 switch (type)
                 {
-                    case ConfigurationBreakWaterType.Caisson:
-                        return BreakWaterType.Caisson;
-                    case ConfigurationBreakWaterType.Dam:
-                        return BreakWaterType.Dam;
-                    case ConfigurationBreakWaterType.Wall:
-                        return BreakWaterType.Wall;
+                    case ConfigurationClosingStructureInflowModelType.FloodedCulvert:
+                        return ClosingStructureInflowModelType.FloodedCulvert;
+                    case ConfigurationClosingStructureInflowModelType.LowSill:
+                        return ClosingStructureInflowModelType.LowSill;
+                    case ConfigurationClosingStructureInflowModelType.VerticalWall:
+                        return ClosingStructureInflowModelType.VerticalWall;
                     default:
                         throw new NotSupportedException();
                 }
@@ -83,7 +85,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             {
                 return true;
             }
-            if (sourceType == typeof(BreakWaterType))
+            if (sourceType == typeof(ClosingStructureInflowModelType))
             {
                 return true;
             }
@@ -97,25 +99,25 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             {
                 switch (text)
                 {
-                    case ConfigurationSchemaIdentifiers.BreakWaterCaisson:
-                        return ConfigurationBreakWaterType.Caisson;
-                    case ConfigurationSchemaIdentifiers.BreakWaterDam:
-                        return ConfigurationBreakWaterType.Dam;
-                    case ConfigurationSchemaIdentifiers.BreakWaterWall:
-                        return ConfigurationBreakWaterType.Wall;
+                    case ClosingStructuresConfigurationSchemaIdentifiers.FloodedCulvert:
+                        return ConfigurationClosingStructureInflowModelType.FloodedCulvert;
+                    case ClosingStructuresConfigurationSchemaIdentifiers.LowSill:
+                        return ConfigurationClosingStructureInflowModelType.LowSill;
+                    case ClosingStructuresConfigurationSchemaIdentifiers.VerticalWall:
+                        return ConfigurationClosingStructureInflowModelType.VerticalWall;
                 }
             }
-            var breakWaterType = value as BreakWaterType?;
+            var breakWaterType = value as ClosingStructureInflowModelType?;
             if (breakWaterType != null)
             {
                 switch (breakWaterType)
                 {
-                    case BreakWaterType.Caisson:
-                        return ConfigurationBreakWaterType.Caisson;
-                    case BreakWaterType.Dam:
-                        return ConfigurationBreakWaterType.Dam;
-                    case BreakWaterType.Wall:
-                        return ConfigurationBreakWaterType.Wall;
+                    case ClosingStructureInflowModelType.FloodedCulvert:
+                        return ConfigurationClosingStructureInflowModelType.FloodedCulvert;
+                    case ClosingStructureInflowModelType.LowSill:
+                        return ConfigurationClosingStructureInflowModelType.LowSill;
+                    case ClosingStructureInflowModelType.VerticalWall:
+                        return ConfigurationClosingStructureInflowModelType.VerticalWall;
                 }
             }
             return base.ConvertFrom(context, culture, value);

@@ -65,7 +65,7 @@ All rights reserved.
         <xs:enumeration value="breedtedoorstroomopening"/>
         <xs:enumeration value="doorstroomoppervlak"/>
         <xs:enumeration value="breedtebodembescherming"/>
-        <xs:enumeration value="komergendoppervlak"/>
+        <xs:enumeration value="kombergendoppervlak"/>
         <xs:enumeration value="peilverhogingkomberging"/>
         <xs:enumeration value="kruinhoogte"/>
         <xs:enumeration value="drempelhoogte"/>
