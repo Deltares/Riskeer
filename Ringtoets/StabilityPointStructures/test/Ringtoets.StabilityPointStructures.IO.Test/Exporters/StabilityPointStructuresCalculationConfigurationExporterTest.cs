@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.IO;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Structures;
@@ -39,6 +41,27 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Exporters
             StructuresCalculation<StabilityPointStructuresInput>,
             StabilityPointStructuresCalculationConfiguration>
     {
+
+        private static IEnumerable<TestCaseData> Calculations
+        {
+            get
+            {
+               yield return new TestCaseData("sparseConfiguration", new[]
+                    {
+                        CreateSparseCalculation()
+                    })
+                    .SetName("Calculation configuration with none of its parameters set");
+            }
+        }
+
+        private static ICalculation CreateSparseCalculation()
+        {
+            return new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                Name = "sparse config"
+            };
+        }
+
         protected override StructuresCalculation<StabilityPointStructuresInput> CreateCalculation()
         {
             return new TestStabilityPointStructuresCalculation();
@@ -49,6 +72,21 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Exporters
             string filePath)
         {
             return new StabilityPointStructuresCalculationConfigurationExporter(calculations, filePath);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(Calculations))]
+        public void Export_ValidData_ReturnTrueAndWritesFile(string fileName, ICalculationBase[] calculations)
+        {
+            // Setup
+            string testDirectory = TestHelper.GetTestDataPath(
+                TestDataPath.Ringtoets.StabilityPointStructures.IO,
+                nameof(StabilityPointStructuresCalculationConfigurationExporter));
+
+            string expectedXmlFilePath = Path.Combine(testDirectory, $"{fileName}.xml");
+
+            // Call and Assert
+            WriteAndValidate(calculations, expectedXmlFilePath);
         }
     }
 }

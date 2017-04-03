@@ -34,7 +34,9 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             Assert.AreEqual("bermbreedte", StabilityPointStructuresConfigurationSchemaIdentifiers.BankWidthStochastName);
             Assert.AreEqual("lineairebelastingschematiseringsterkte", StabilityPointStructuresConfigurationSchemaIdentifiers.ConstructiveStrengthLinearLoadModelStochastName);
             Assert.AreEqual("kwadratischebelastingschematiseringsterkte", StabilityPointStructuresConfigurationSchemaIdentifiers.ConstructiveStrengthQuadraticLoadModelStochastName);
+            Assert.AreEqual("afvoercoefficient", StabilityPointStructuresConfigurationSchemaIdentifiers.DrainCoefficientStochastName);
             Assert.AreEqual("analysehoogte", StabilityPointStructuresConfigurationSchemaIdentifiers.EvaluationLevelElement);
+            Assert.AreEqual("factorstormduur", StabilityPointStructuresConfigurationSchemaIdentifiers.FactorStormDurationOpenStructureElement);
             Assert.AreEqual("aanvaarenergie", StabilityPointStructuresConfigurationSchemaIdentifiers.FailureCollisionEnergyStochastName);
             Assert.AreEqual("faalkansherstel", StabilityPointStructuresConfigurationSchemaIdentifiers.FailureProbabilityRepairClosureElement);
             Assert.AreEqual("kritiekestroomsnelheid", StabilityPointStructuresConfigurationSchemaIdentifiers.FlowVelocityStructureClosableStochastName);
@@ -52,6 +54,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             Assert.AreEqual("kwadratischebelastingschematiseringstabiliteit", StabilityPointStructuresConfigurationSchemaIdentifiers.StabilityQuadraticLoadModelStochastName);
             Assert.AreEqual("drempelhoogte", StabilityPointStructuresConfigurationSchemaIdentifiers.ThresholdHeightOpenWeirStochastName);
             Assert.AreEqual("afstandonderkantwandteendijk", StabilityPointStructuresConfigurationSchemaIdentifiers.VerticalDistanceElement);
+            Assert.AreEqual("volumiekgewichtwater", StabilityPointStructuresConfigurationSchemaIdentifiers.VolumicWeightWaterElement);
         }
     }
 }

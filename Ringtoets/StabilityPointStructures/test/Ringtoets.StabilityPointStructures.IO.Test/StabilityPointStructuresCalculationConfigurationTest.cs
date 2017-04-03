@@ -56,7 +56,9 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             Assert.IsNull(configuration.BankWidth);
             Assert.IsNull(configuration.ConstructiveStrengthLinearLoadModel);
             Assert.IsNull(configuration.ConstructiveStrengthQuadraticLoadModel);
+            Assert.IsNull(configuration.DrainCoefficient);
             Assert.IsNull(configuration.EvaluationLevel);
+            Assert.IsNull(configuration.FactorStormDurationOpenStructure);
             Assert.IsNull(configuration.FailureCollisionEnergy);
             Assert.IsNull(configuration.FailureProbabilityRepairClosure);
             Assert.IsNull(configuration.FlowVelocityStructureClosable);
@@ -72,6 +74,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             Assert.IsNull(configuration.StabilityQuadraticLoadModel);
             Assert.IsNull(configuration.ThresholdHeightOpenWeir);
             Assert.IsNull(configuration.VerticalDistance);
+            Assert.IsNull(configuration.VolumicWeightWater);
         }
 
         [Test]
@@ -84,7 +87,9 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             var bankWidth = new MeanStandardDeviationStochastConfiguration();
             var constructiveStrengthLinearLoadModel = new MeanVariationCoefficientStochastConfiguration();
             var constructiveStrengthQuadraticLoadModel = new MeanVariationCoefficientStochastConfiguration();
+            var drainCoefficient = new MeanStandardDeviationStochastConfiguration();
             double evaluationLevel = random.NextDouble();
+            double factorStormDurationOpenStructure = random.NextDouble();
             var failureCollisionEnergy = new MeanVariationCoefficientStochastConfiguration();
             double failureProbabilityRepairClosure = random.NextDouble();
             var flowVelocityStructureClosable = new MeanVariationCoefficientStochastConfiguration();
@@ -100,13 +105,16 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             var stabilityQuadraticLoadModel = new MeanVariationCoefficientStochastConfiguration();
             var thresholdHeightOpenWeir = new MeanStandardDeviationStochastConfiguration();
             double verticalDistance = random.NextDouble();
+            double volumicWeightWater = random.NextDouble();
 
             // Call
             configuration.AreaFlowApertures = areaFlowApertures;
             configuration.BankWidth = bankWidth;
             configuration.ConstructiveStrengthLinearLoadModel = constructiveStrengthLinearLoadModel;
             configuration.ConstructiveStrengthQuadraticLoadModel = constructiveStrengthQuadraticLoadModel;
+            configuration.DrainCoefficient = drainCoefficient;
             configuration.EvaluationLevel = evaluationLevel;
+            configuration.FactorStormDurationOpenStructure = factorStormDurationOpenStructure;
             configuration.FailureCollisionEnergy = failureCollisionEnergy;
             configuration.FailureProbabilityRepairClosure = failureProbabilityRepairClosure;
             configuration.FlowVelocityStructureClosable = flowVelocityStructureClosable;
@@ -122,13 +130,16 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             configuration.StabilityQuadraticLoadModel = stabilityQuadraticLoadModel;
             configuration.ThresholdHeightOpenWeir = thresholdHeightOpenWeir;
             configuration.VerticalDistance = verticalDistance;
+            configuration.VolumicWeightWater = volumicWeightWater;
 
             // Assert
             Assert.AreSame(areaFlowApertures, configuration.AreaFlowApertures);
             Assert.AreSame(bankWidth, configuration.BankWidth);
             Assert.AreSame(constructiveStrengthLinearLoadModel, configuration.ConstructiveStrengthLinearLoadModel);
             Assert.AreSame(constructiveStrengthQuadraticLoadModel, configuration.ConstructiveStrengthQuadraticLoadModel);
+            Assert.AreSame(drainCoefficient, configuration.DrainCoefficient);
             Assert.AreEqual(evaluationLevel, configuration.EvaluationLevel);
+            Assert.AreEqual(factorStormDurationOpenStructure, configuration.FactorStormDurationOpenStructure);
             Assert.AreSame(failureCollisionEnergy, configuration.FailureCollisionEnergy);
             Assert.AreEqual(failureProbabilityRepairClosure, configuration.FailureProbabilityRepairClosure);
             Assert.AreSame(flowVelocityStructureClosable, configuration.FlowVelocityStructureClosable);
@@ -144,6 +155,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             Assert.AreSame(stabilityQuadraticLoadModel, configuration.StabilityQuadraticLoadModel);
             Assert.AreSame(thresholdHeightOpenWeir, configuration.ThresholdHeightOpenWeir);
             Assert.AreEqual(verticalDistance, configuration.VerticalDistance);
+            Assert.AreEqual(volumicWeightWater, configuration.VolumicWeightWater);
         }
     }
 }

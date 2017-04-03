@@ -57,6 +57,11 @@ namespace Ringtoets.StabilityPointStructures.IO
         public MeanVariationCoefficientStochastConfiguration ConstructiveStrengthQuadraticLoadModel { get; set; }
 
         /// <summary>
+        /// Gets or sets the stochast configuration for the drain coefficient of the structure.
+        /// </summary>
+        public MeanStandardDeviationStochastConfiguration DrainCoefficient { get; set; }
+
+        /// <summary>
         /// Gets or sets the evaluation level of the structure.
         /// </summary>
         public double? EvaluationLevel { get; set; }
@@ -135,5 +140,15 @@ namespace Ringtoets.StabilityPointStructures.IO
         /// Gets or sets the vertical distance of the structure.
         /// </summary>
         public double? VerticalDistance { get; set; }
+
+        /// <summary>
+        /// Gets or sets the factor for the storm duration for an open structure.
+        /// </summary>
+        public double? FactorStormDurationOpenStructure { get; set; }
+
+        /// <summary>
+        /// Gets or sets the volumic weight of water.
+        /// </summary>
+        public double? VolumicWeightWater { get; set; }
     }
 }

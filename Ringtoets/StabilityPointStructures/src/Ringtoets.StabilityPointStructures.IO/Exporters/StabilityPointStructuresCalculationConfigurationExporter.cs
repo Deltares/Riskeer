@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.Exporters;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.IO.Writers;
@@ -54,7 +55,18 @@ namespace Ringtoets.StabilityPointStructures.IO.Exporters
 
         protected override StabilityPointStructuresCalculationConfiguration ToConfiguration(StructuresCalculation<StabilityPointStructuresInput> calculation)
         {
-            return new StabilityPointStructuresCalculationConfiguration(calculation.Name);
+            var calculationConfiguration = new StabilityPointStructuresCalculationConfiguration(calculation.Name);
+            StabilityPointStructuresInput input = calculation.InputParameters;
+
+            calculationConfiguration.HydraulicBoundaryLocationName = input.HydraulicBoundaryLocation?.Name;
+            calculationConfiguration.DrainCoefficient = input.DrainCoefficient.ToStochastConfigurationWithMean();
+            calculationConfiguration.FailureProbabilityStructureWithErosion = input.FailureProbabilityStructureWithErosion;
+            calculationConfiguration.FactorStormDurationOpenStructure = input.FactorStormDurationOpenStructure;
+            calculationConfiguration.ModelFactorSuperCriticalFlow = input.ModelFactorSuperCriticalFlow.ToStochastConfigurationWithMean();
+            calculationConfiguration.StormDuration = input.StormDuration.ToStochastConfigurationWithMean();
+            calculationConfiguration.VolumicWeightWater = input.VolumicWeightWater;
+            
+            return calculationConfiguration;
         }
     }
 }

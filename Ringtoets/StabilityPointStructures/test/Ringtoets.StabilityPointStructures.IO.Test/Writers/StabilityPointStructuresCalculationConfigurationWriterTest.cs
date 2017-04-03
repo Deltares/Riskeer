@@ -133,7 +133,13 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Writers
                     Mean = 0.06,
                     VariationCoefficient = 0.16
                 },
+                DrainCoefficient = new MeanStandardDeviationStochastConfiguration
+                {
+                    Mean = 0.01,
+                    StandardDeviation = 0.02
+                },
                 EvaluationLevel = 1.1,
+                FactorStormDurationOpenStructure = 1.123,
                 FailureCollisionEnergy = new MeanVariationCoefficientStochastConfiguration
                 {
                     Mean = 0.07,
@@ -214,6 +220,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Writers
                     StandardDeviation = 0.30
                 },
                 VerticalDistance = 7.7,
+                VolumicWeightWater = 9.9,
                 WidthFlowApertures = new MeanStandardDeviationStochastConfiguration
                 {
                     Mean = 0.21,

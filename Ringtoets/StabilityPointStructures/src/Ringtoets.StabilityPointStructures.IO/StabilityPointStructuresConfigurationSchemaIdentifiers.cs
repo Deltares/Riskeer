@@ -49,6 +49,11 @@ namespace Ringtoets.StabilityPointStructures.IO
         public const string ConstructiveStrengthQuadraticLoadModelStochastName = "kwadratischebelastingschematiseringsterkte";
 
         /// <summary>
+        /// The identifier for the drain coefficient stochast name.
+        /// </summary>
+        public const string DrainCoefficientStochastName = "afvoercoefficient";
+
+        /// <summary>
         /// The identifier for evaluation level elements.
         /// </summary>
         public const string EvaluationLevelElement = "analysehoogte";
@@ -139,5 +144,15 @@ namespace Ringtoets.StabilityPointStructures.IO
         /// The identifier for the vertical distance of the structure elements.
         /// </summary>
         public const string VerticalDistanceElement = "afstandonderkantwandteendijk";
+
+        /// <summary>
+        /// The identifier for the factor for the storm duration for an open structure elements.
+        /// </summary>
+        public const string FactorStormDurationOpenStructureElement = "factorstormduur";
+
+        /// <summary>
+        /// The identifier for the volumic weight of water elements.
+        /// </summary>
+        public const string VolumicWeightWaterElement = "volumiekgewichtwater";
     }
 }

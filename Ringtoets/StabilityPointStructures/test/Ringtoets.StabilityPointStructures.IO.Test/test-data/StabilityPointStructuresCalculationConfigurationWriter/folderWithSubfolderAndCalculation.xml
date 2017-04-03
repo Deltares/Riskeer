@@ -8,11 +8,13 @@
       <faalkansgegevenerosiebodem>3.3</faalkansgegevenerosiebodem>
       <voorlandprofiel>profiel1</voorlandprofiel>
       <analysehoogte>1.1</analysehoogte>
+      <factorstormduur>1.123</factorstormduur>
       <faalkansherstel>2.2</faalkansherstel>
       <instroommodel>verdronkenkoker</instroommodel>
       <nrnivelleringen>4</nrnivelleringen>
       <kansaanvaringtweedekeermiddel>5.5</kansaanvaringtweedekeermiddel>
       <afstandonderkantwandteendijk>7.7</afstandonderkantwandteendijk>
+      <volumiekgewichtwater>9.9</volumiekgewichtwater>
       <golfreductie>
         <damgebruiken>true</damgebruiken>
         <damtype>havendam</damtype>
@@ -63,6 +65,10 @@
         <stochast naam="kwadratischebelastingschematiseringsterkte">
           <verwachtingswaarde>0.05</verwachtingswaarde>
           <variatiecoefficient>0.15</variatiecoefficient>
+        </stochast>
+        <stochast naam="afvoercoefficient">
+          <verwachtingswaarde>0.01</verwachtingswaarde>
+          <standaardafwijking>0.02</standaardafwijking>
         </stochast>
         <stochast naam="aanvaarenergie">
           <verwachtingswaarde>0.07</verwachtingswaarde>

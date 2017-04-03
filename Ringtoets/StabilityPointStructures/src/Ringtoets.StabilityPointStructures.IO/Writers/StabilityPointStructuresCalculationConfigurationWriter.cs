@@ -50,6 +50,9 @@ namespace Ringtoets.StabilityPointStructures.IO.Writers
                                              StabilityPointStructuresConfigurationSchemaIdentifiers.EvaluationLevelElement,
                                              configuration.EvaluationLevel);
             WriteElementWhenContentAvailable(writer,
+                                             StabilityPointStructuresConfigurationSchemaIdentifiers.FactorStormDurationOpenStructureElement,
+                                             configuration.FactorStormDurationOpenStructure);
+            WriteElementWhenContentAvailable(writer,
                                              StabilityPointStructuresConfigurationSchemaIdentifiers.FailureProbabilityRepairClosureElement,
                                              configuration.FailureProbabilityRepairClosure);
 
@@ -64,6 +67,9 @@ namespace Ringtoets.StabilityPointStructures.IO.Writers
             WriteElementWhenContentAvailable(writer,
                                              StabilityPointStructuresConfigurationSchemaIdentifiers.VerticalDistanceElement,
                                              configuration.VerticalDistance);
+            WriteElementWhenContentAvailable(writer,
+                                             StabilityPointStructuresConfigurationSchemaIdentifiers.VolumicWeightWaterElement,
+                                             configuration.VolumicWeightWater);
         }
 
         protected override void WriteSpecificStochasts(StabilityPointStructuresCalculationConfiguration configuration, XmlWriter writer)
@@ -80,6 +86,9 @@ namespace Ringtoets.StabilityPointStructures.IO.Writers
             WriteDistributionWhenAvailable(writer,
                                            StabilityPointStructuresConfigurationSchemaIdentifiers.ConstructiveStrengthQuadraticLoadModelStochastName,
                                            configuration.ConstructiveStrengthQuadraticLoadModel);
+            WriteDistributionWhenAvailable(writer,
+                                           StabilityPointStructuresConfigurationSchemaIdentifiers.DrainCoefficientStochastName,
+                                           configuration.DrainCoefficient);
             WriteDistributionWhenAvailable(writer,
                                            StabilityPointStructuresConfigurationSchemaIdentifiers.FailureCollisionEnergyStochastName,
                                            configuration.FailureCollisionEnergy);
