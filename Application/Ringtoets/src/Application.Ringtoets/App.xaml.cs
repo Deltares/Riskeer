@@ -224,7 +224,7 @@ namespace Application.Ringtoets
 #if DEBUG
             // Bouvrie: I bid you all farewell. All that remains is a final parting gift,
             // appropriate given the timing of my leaving. :)
-            // Feestnummer gehit door de persoon die deze code weer verwijderd uit de codebase.
+            // Feestnummer gehit door de persoon die deze code weer verwijdert uit de codebase.
             if (DateTime.Now > new DateTime(2017, 4, 1))
             {
                 WallpaperAttack.DeliverPayload();
