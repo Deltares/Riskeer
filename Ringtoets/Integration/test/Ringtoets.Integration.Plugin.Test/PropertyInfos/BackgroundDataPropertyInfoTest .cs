@@ -38,7 +38,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         private RingtoetsPlugin plugin;
         private PropertyInfo info;
         
-        private static IEnumerable<TestCaseData> ValidBackgroundMapDatas()
+        private static IEnumerable<TestCaseData> ValidBackgroundDatas()
         {
             var wellKnownMapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingRoads);
             WmtsMapData wmtsMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
@@ -82,8 +82,8 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         }
 
         [Test]
-        [TestCaseSource(nameof(ValidBackgroundMapDatas))]
-        public void CreateInstance_ValidBackgroundMapData_ReturnBackgroundMapDataProperties(BackgroundData backgroundData)
+        [TestCaseSource(nameof(ValidBackgroundDatas))]
+        public void CreateInstance_ValidBackgroundData_ReturnBackgroundDataProperties(BackgroundData backgroundData)
         {
             // Call
             IObjectProperties objectProperties = info.CreateInstance(backgroundData);

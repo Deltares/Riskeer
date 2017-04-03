@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using Core.Components.Gis.Data;
@@ -91,7 +90,7 @@ namespace Ringtoets.Common.Forms.Views
         /// <returns>The created <see cref="MapPointData"/>.</returns>
         public static MapPointData CreateFailureMechanismSectionsStartPointMapData()
         {
-            var mapDataName = $"{Resources.FailureMechanism_Sections_DisplayName} ({Resources.FailureMechanismSections_StartPoints_DisplayName})";
+            string mapDataName = $"{Resources.FailureMechanism_Sections_DisplayName} ({Resources.FailureMechanismSections_StartPoints_DisplayName})";
 
             return new MapPointData(mapDataName)
             {
@@ -105,7 +104,7 @@ namespace Ringtoets.Common.Forms.Views
         /// <returns>The created <see cref="MapPointData"/>.</returns>
         public static MapPointData CreateFailureMechanismSectionsEndPointMapData()
         {
-            var mapDataName = $"{Resources.FailureMechanism_Sections_DisplayName} ({Resources.FailureMechanismSections_EndPoints_DisplayName})";
+            string mapDataName = $"{Resources.FailureMechanism_Sections_DisplayName} ({Resources.FailureMechanismSections_EndPoints_DisplayName})";
 
             return new MapPointData(mapDataName)
             {

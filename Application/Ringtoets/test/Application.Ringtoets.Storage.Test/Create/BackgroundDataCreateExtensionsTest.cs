@@ -49,7 +49,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Create_BackgroundDataContainsConfiguredWMTSConfiguration_ReturnsBackgroundMapDataEntity()
+        public void Create_BackgroundDataContainsConfiguredWMTSConfiguration_ReturnsBackgroundDataEntity()
         {
             // Setup
             const string name = "background";
@@ -102,7 +102,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Create_BackgroundDataContainsUnconfiguredWMTSConfiguration_ReturnsBackgroundMapDataEntity()
+        public void Create_BackgroundDataContainsUnconfiguredWMTSConfiguration_ReturnsBackgroundDataEntity()
         {
             // Setup
             const string name = "background";
@@ -140,7 +140,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Create_BackgroundDataContainsWellKnownConfiguration_ReturnsBackgroundMapDataEntity()
+        public void Create_BackgroundDataContainsWellKnownConfiguration_ReturnsBackgroundDataEntity()
         {
             // Setup
             var random = new Random(21);

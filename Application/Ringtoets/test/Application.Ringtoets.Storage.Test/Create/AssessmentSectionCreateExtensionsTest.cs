@@ -130,15 +130,15 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.IsNull(entity.ReferenceLinePointXml);
 
             Assert.AreEqual(1, entity.BackgroundDataEntities.Count);
-            BackgroundDataEntity backgroundMapDataEntity = entity.BackgroundDataEntities.Single();
-            Assert.IsNotNull(backgroundMapDataEntity);
-            Assert.AreEqual(mapDataName, backgroundMapDataEntity.Name);
-            Assert.AreEqual(transparency, backgroundMapDataEntity.Transparency);
-            Assert.AreEqual(Convert.ToByte(isVisible), backgroundMapDataEntity.IsVisible);
-            Assert.AreEqual(Convert.ToByte(backgroundType), backgroundMapDataEntity.BackgroundDataType);
+            BackgroundDataEntity backgroundDataEntity = entity.BackgroundDataEntities.Single();
+            Assert.IsNotNull(backgroundDataEntity);
+            Assert.AreEqual(mapDataName, backgroundDataEntity.Name);
+            Assert.AreEqual(transparency, backgroundDataEntity.Transparency);
+            Assert.AreEqual(Convert.ToByte(isVisible), backgroundDataEntity.IsVisible);
+            Assert.AreEqual(Convert.ToByte(backgroundType), backgroundDataEntity.BackgroundDataType);
 
-            Assert.AreEqual(1, backgroundMapDataEntity.BackgroundDataMetaEntities.Count);
-            BackgroundDataMetaEntity isConfiguredMetaEntity = backgroundMapDataEntity.BackgroundDataMetaEntities.First();
+            Assert.AreEqual(1, backgroundDataEntity.BackgroundDataMetaEntities.Count);
+            BackgroundDataMetaEntity isConfiguredMetaEntity = backgroundDataEntity.BackgroundDataMetaEntities.First();
             Assert.AreEqual("IsConfigured", isConfiguredMetaEntity.Key);
             Assert.AreEqual("0", isConfiguredMetaEntity.Value);
         }

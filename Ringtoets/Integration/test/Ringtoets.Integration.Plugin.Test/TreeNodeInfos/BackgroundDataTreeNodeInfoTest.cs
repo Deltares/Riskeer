@@ -165,14 +165,14 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             var random = new Random(21);
             var wellKnownTileSource = random.NextEnumValue<WellKnownTileSource>();
-            BackgroundData backgroundMapData = BackgroundDataConverter.ConvertTo(new WellKnownTileSourceMapData(wellKnownTileSource));
+            BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(new WellKnownTileSourceMapData(wellKnownTileSource));
 
             using (var plugin = new RingtoetsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                Color image = info.ForeColor(backgroundMapData);
+                Color image = info.ForeColor(backgroundData);
 
                 // Assert
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), image);
@@ -341,7 +341,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSectionObserver = mockRepository.StrictMock<IObserver>();
             var backgroundDataObserver = mockRepository.StrictMock<IObserver>();
 
-            BackgroundData backgroundMapData = BackgroundDataConverter.ConvertTo(new WellKnownTileSourceMapData(WellKnownTileSource.BingHybrid));
+            BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(new WellKnownTileSourceMapData(WellKnownTileSource.BingHybrid));
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
@@ -358,7 +358,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(cmp => cmp.Get(backgroundMapData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(cmp => cmp.Get(backgroundData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mockRepository.ReplayAll();
 
                 var assessmentSection = new ObservableTestAssessmentSectionStub();
@@ -377,7 +377,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 TreeNodeInfo info = GetInfo(plugin);
                 plugin.Gui = gui;
 
-                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(backgroundMapData, assessmentSection, treeViewControl))
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(backgroundData, assessmentSection, treeViewControl))
                 {
                     // When
                     contextMenuStrip.Items[selectContextMenuIndex].PerformClick();
@@ -401,7 +401,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             WmtsMapData mapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
 
             WmtsMapData newMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
-            BackgroundData newBackgroundMapdata = BackgroundDataConverter.ConvertTo(newMapData);
+            BackgroundData newBackgroundData = BackgroundDataConverter.ConvertTo(newMapData);
 
             var assessmentSection = new ObservableTestAssessmentSectionStub();
 
@@ -421,7 +421,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(cmp => cmp.Get(newBackgroundMapdata, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(cmp => cmp.Get(newBackgroundData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mockRepository.ReplayAll();
 
                 assessmentSection.BackgroundData.Attach(backgroundDataObserver);
@@ -438,7 +438,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 TreeNodeInfo info = GetInfo(plugin);
                 plugin.Gui = gui;
 
-                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(newBackgroundMapdata, assessmentSection, treeViewControl))
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(newBackgroundData, assessmentSection, treeViewControl))
                 {
                     // When
                     contextMenuStrip.Items[selectContextMenuIndex].PerformClick();

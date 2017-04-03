@@ -29,12 +29,12 @@ namespace Application.Ringtoets.Storage
     public enum BackgroundDataType
     {
         /// <summary>
-        /// Web Map Tile Service background map data type.
+        /// Web Map Tile Service background data type.
         /// </summary>
         Wmts = 1,
 
         /// <summary>
-        /// Well known tile source background map data type.
+        /// Well known tile source background data type.
         /// </summary>
         WellKnown = 2
     }

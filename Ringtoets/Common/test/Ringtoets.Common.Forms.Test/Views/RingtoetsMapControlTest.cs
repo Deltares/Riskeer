@@ -21,15 +21,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
-using BruTile;
-using BruTile.Predefined;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.TestUtil.Settings;
 using Core.Common.TestUtil;
-using Core.Components.BruTile.Configurations;
 using Core.Components.BruTile.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.TestUtil;

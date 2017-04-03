@@ -120,7 +120,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return GetBackgroundMapDataProperty(dataConfiguration => dataConfiguration.SourceCapabilitiesUrl);
+                return GetBackgroundDataProperty(dataConfiguration => dataConfiguration.SourceCapabilitiesUrl);
             }
         }
 
@@ -132,7 +132,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return GetBackgroundMapDataProperty(dataConfiguration => dataConfiguration.SelectedCapabilityIdentifier);
+                return GetBackgroundDataProperty(dataConfiguration => dataConfiguration.SelectedCapabilityIdentifier);
             }
         }
 
@@ -144,11 +144,11 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return GetBackgroundMapDataProperty(dataConfiguration => dataConfiguration.PreferredFormat);
+                return GetBackgroundDataProperty(dataConfiguration => dataConfiguration.PreferredFormat);
             }
         }
 
-        private string GetBackgroundMapDataProperty(Func<WmtsBackgroundDataConfiguration, string> getProperty)
+        private string GetBackgroundDataProperty(Func<WmtsBackgroundDataConfiguration, string> getProperty)
         {
             var configuration = data.Configuration as WmtsBackgroundDataConfiguration;
 
