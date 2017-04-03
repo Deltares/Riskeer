@@ -38,6 +38,9 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             Assert.AreEqual("aanvaarenergie", StabilityPointStructuresConfigurationSchemaIdentifiers.FailureCollisionEnergyStochastName);
             Assert.AreEqual("faalkansherstel", StabilityPointStructuresConfigurationSchemaIdentifiers.FailureProbabilityRepairClosureElement);
             Assert.AreEqual("kritiekestroomsnelheid", StabilityPointStructuresConfigurationSchemaIdentifiers.FlowVelocityStructureClosableStochastName);
+            Assert.AreEqual("instroommodel", StabilityPointStructuresConfigurationSchemaIdentifiers.InflowModelTypeElement);
+            Assert.AreEqual("lagedrempel", StabilityPointStructuresConfigurationSchemaIdentifiers.InflowModelLowSillStructure);
+            Assert.AreEqual("verdronkenkoker", StabilityPointStructuresConfigurationSchemaIdentifiers.InflowModelFloodedCulvertStructure);
         }
     }
 }

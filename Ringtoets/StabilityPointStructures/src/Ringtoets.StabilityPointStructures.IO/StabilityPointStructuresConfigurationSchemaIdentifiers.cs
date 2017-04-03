@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Ringtoets.StabilityPointStructures.Data;
+
 namespace Ringtoets.StabilityPointStructures.IO
 {
     /// <summary>
@@ -65,5 +67,22 @@ namespace Ringtoets.StabilityPointStructures.IO
         /// The identifier for the flow velocity structure closable stochast name.
         /// </summary>
         public const string FlowVelocityStructureClosableStochastName = "kritiekestroomsnelheid";
+
+        /// <summary>
+        /// The identifier for the type of stability point structure inflow model elements.
+        /// </summary>
+        public const string InflowModelTypeElement = "instroommodel";
+
+        /// <summary>
+        /// The possible content of the <see cref="StabilityPointStructureInflowModelType"/> element indicating a
+        /// low sill structure.
+        /// </summary>
+        public const string InflowModelLowSillStructure = "lagedrempel";
+
+        /// <summary>
+        /// The possible content of the <see cref="StabilityPointStructureInflowModelType"/> element indicating a
+        /// flooded culvert structure.
+        /// </summary>
+        public const string InflowModelFloodedCulvertStructure = "verdronkenkoker";
     }
 }
