@@ -60,7 +60,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             Assert.IsNull(configuration.FailureCollisionEnergy);
             Assert.IsNull(configuration.FailureProbabilityRepairClosure);
             Assert.IsNull(configuration.FlowVelocityStructureClosable);
-            Assert.AreEqual((ConfigurationInflowModelType) 0, configuration.InflowModelType);
+            Assert.IsNull(configuration.InflowModelType);
             Assert.IsNull(configuration.InsideWaterLevel);
             Assert.IsNull(configuration.InsideWaterLevelFailureConstruction);
             Assert.IsNull(configuration.LevelCrestStructure);

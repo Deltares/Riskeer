@@ -52,6 +52,18 @@ namespace Ringtoets.StabilityPointStructures.IO.Exporters
             WriteElementWhenContentAvailable(writer,
                                              StabilityPointStructuresConfigurationSchemaIdentifiers.FailureProbabilityRepairClosureElement,
                                              configuration.FailureProbabilityRepairClosure);
+
+            WriteConfigurationInflowModelTypeWhenAvailable(writer, configuration.InflowModelType);
+
+            WriteElementWhenContentAvailable(writer,
+                                             StabilityPointStructuresConfigurationSchemaIdentifiers.LevellingCountElement,
+                                             configuration.LevellingCount);
+            WriteElementWhenContentAvailable(writer,
+                                             StabilityPointStructuresConfigurationSchemaIdentifiers.ProbabilityCollisionSecondaryStructureElement,
+                                             configuration.ProbabilityCollisionSecondaryStructure);
+            WriteElementWhenContentAvailable(writer,
+                                             StabilityPointStructuresConfigurationSchemaIdentifiers.VerticalDistanceElement,
+                                             configuration.VerticalDistance);
         }
 
         protected override void WriteSpecificStochasts(StabilityPointStructuresCalculationConfiguration configuration, XmlWriter writer)
@@ -74,6 +86,42 @@ namespace Ringtoets.StabilityPointStructures.IO.Exporters
             WriteDistributionWhenAvailable(writer,
                                            StabilityPointStructuresConfigurationSchemaIdentifiers.FlowVelocityStructureClosableStochastName,
                                            configuration.FlowVelocityStructureClosable);
+            WriteDistributionWhenAvailable(writer,
+                                           StabilityPointStructuresConfigurationSchemaIdentifiers.InsideWaterLevelStochastName,
+                                           configuration.InsideWaterLevel);
+            WriteDistributionWhenAvailable(writer,
+                                           StabilityPointStructuresConfigurationSchemaIdentifiers.InsideWaterLevelFailureConstructionStochastName,
+                                           configuration.InsideWaterLevelFailureConstruction);
+            WriteDistributionWhenAvailable(writer,
+                                           StabilityPointStructuresConfigurationSchemaIdentifiers.LevelCrestStructureStochastName,
+                                           configuration.LevelCrestStructure);
+            WriteDistributionWhenAvailable(writer,
+                                           StabilityPointStructuresConfigurationSchemaIdentifiers.ShipMassStochastName,
+                                           configuration.ShipMass);
+            WriteDistributionWhenAvailable(writer,
+                                           StabilityPointStructuresConfigurationSchemaIdentifiers.ShipVelocityStochastName,
+                                           configuration.ShipVelocity);
+            WriteDistributionWhenAvailable(writer,
+                                           StabilityPointStructuresConfigurationSchemaIdentifiers.StabilityLinearLoadModelStochastName,
+                                           configuration.StabilityLinearLoadModel);
+            WriteDistributionWhenAvailable(writer,
+                                           StabilityPointStructuresConfigurationSchemaIdentifiers.StabilityQuadraticLoadModelStochastName,
+                                           configuration.StabilityQuadraticLoadModel);
+            WriteDistributionWhenAvailable(writer,
+                                           StabilityPointStructuresConfigurationSchemaIdentifiers.ThresholdHeightOpenWeirStochastName,
+                                           configuration.ThresholdHeightOpenWeir);
+        }
+
+        private static void WriteConfigurationInflowModelTypeWhenAvailable(XmlWriter writer, ConfigurationInflowModelType? configuration)
+        {
+            if (!configuration.HasValue)
+            {
+                return;
+            }
+
+            var converter = new ConfigurationInflowModelTypeConverter();
+            writer.WriteElementString(StabilityPointStructuresConfigurationSchemaIdentifiers.InflowModelTypeElement,
+                                      converter.ConvertToInvariantString(configuration.Value));
         }
     }
 }

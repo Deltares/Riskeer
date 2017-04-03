@@ -79,7 +79,7 @@ namespace Ringtoets.StabilityPointStructures.IO
         /// <summary>
         /// Gets or sets the inflow model type of the structure.
         /// </summary>
-        public ConfigurationInflowModelType InflowModelType { get; set; }
+        public ConfigurationInflowModelType? InflowModelType { get; set; }
 
         /// <summary>
         /// Gets or sets the stochast configuration for the inside water level of the structure.
