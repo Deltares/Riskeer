@@ -60,7 +60,8 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             Assert.IsNull(configuration.FailureCollisionEnergy);
             Assert.IsNull(configuration.FailureProbabilityRepairClosure);
             Assert.IsNull(configuration.FlowVelocityStructureClosable);
-            Assert.IsNull(configuration.InflowModelType);
+            Assert.AreEqual((ConfigurationInflowModelType) 0, configuration.InflowModelType);
+            Assert.IsNull(configuration.InsideWaterLevel);
         }
 
         [Test]
@@ -78,6 +79,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             double failureProbabilityRepairClosure = random.NextDouble();
             var flowVelocityStructureClosable = new MeanVariationCoefficientStochastConfiguration();
             var inflowModelType = random.NextEnumValue<ConfigurationInflowModelType>();
+            var insideWaterLevel = new MeanStandardDeviationStochastConfiguration();
 
             // Call
             configuration.AreaFlowApertures = areaFlowApertures;
@@ -89,6 +91,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             configuration.FailureProbabilityRepairClosure = failureProbabilityRepairClosure;
             configuration.FlowVelocityStructureClosable = flowVelocityStructureClosable;
             configuration.InflowModelType = inflowModelType;
+            configuration.InsideWaterLevel = insideWaterLevel;
 
             // Assert
             Assert.AreSame(areaFlowApertures, configuration.AreaFlowApertures);
@@ -100,6 +103,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             Assert.AreEqual(failureProbabilityRepairClosure, configuration.FailureProbabilityRepairClosure);
             Assert.AreSame(flowVelocityStructureClosable, configuration.FlowVelocityStructureClosable);
             Assert.AreEqual(inflowModelType, configuration.InflowModelType);
+            Assert.AreEqual(insideWaterLevel, configuration.InsideWaterLevel);
         }
     }
 }

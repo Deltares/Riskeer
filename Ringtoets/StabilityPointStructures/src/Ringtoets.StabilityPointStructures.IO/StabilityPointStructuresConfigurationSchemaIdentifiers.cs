@@ -84,5 +84,10 @@ namespace Ringtoets.StabilityPointStructures.IO
         /// flooded culvert structure.
         /// </summary>
         public const string InflowModelFloodedCulvertStructure = "verdronkenkoker";
+
+        /// <summary>
+        /// The identifier for the inside water level stochast name.
+        /// </summary>
+        public const string InsideWaterLevelStochastName = "binnenwaterstand";
     }
 }

@@ -41,6 +41,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             Assert.AreEqual("instroommodel", StabilityPointStructuresConfigurationSchemaIdentifiers.InflowModelTypeElement);
             Assert.AreEqual("lagedrempel", StabilityPointStructuresConfigurationSchemaIdentifiers.InflowModelLowSillStructure);
             Assert.AreEqual("verdronkenkoker", StabilityPointStructuresConfigurationSchemaIdentifiers.InflowModelFloodedCulvertStructure);
+            Assert.AreEqual("binnenwaterstand", StabilityPointStructuresConfigurationSchemaIdentifiers.InsideWaterLevelStochastName);
         }
     }
 }
