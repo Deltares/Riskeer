@@ -94,12 +94,12 @@ namespace Ringtoets.Common.IO.Writers
         }
 
         /// <summary>
-        /// Writes a single <paramref name="calculation"/> in XML format to file.
+        /// Writes a single <paramref name="configuration"/> in XML format to file.
         /// </summary>
-        /// <param name="calculation">The calculation to write.</param>
+        /// <param name="configuration">The calculation configuration to write.</param>
         /// <param name="writer">The writer to use for writing.</param>
         /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is closed.</exception>
-        protected abstract void WriteCalculation(T calculation, XmlWriter writer);
+        protected abstract void WriteCalculation(T configuration, XmlWriter writer);
 
         /// <summary>
         /// Writes a distribution configuration when it has a value.
