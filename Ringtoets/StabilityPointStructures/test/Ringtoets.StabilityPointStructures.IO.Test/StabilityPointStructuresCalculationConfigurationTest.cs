@@ -62,6 +62,12 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             Assert.IsNull(configuration.FlowVelocityStructureClosable);
             Assert.AreEqual((ConfigurationInflowModelType) 0, configuration.InflowModelType);
             Assert.IsNull(configuration.InsideWaterLevel);
+            Assert.IsNull(configuration.InsideWaterLevelFailureConstruction);
+            Assert.IsNull(configuration.LevelCrestStructure);
+            Assert.IsNull(configuration.LevellingCount);
+            Assert.IsNull(configuration.ProbabilityCollisionSecondaryStructure);
+            Assert.IsNull(configuration.ShipMass);
+            Assert.IsNull(configuration.ShipVelocity);
         }
 
         [Test]
@@ -80,6 +86,12 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             var flowVelocityStructureClosable = new MeanVariationCoefficientStochastConfiguration();
             var inflowModelType = random.NextEnumValue<ConfigurationInflowModelType>();
             var insideWaterLevel = new MeanStandardDeviationStochastConfiguration();
+            var insideWaterLevelFailureConstruction = new MeanStandardDeviationStochastConfiguration();
+            var levelCrestStructure = new MeanStandardDeviationStochastConfiguration();
+            int levellingCount = random.Next();
+            double probabilityCollisionSecondaryStructure = random.NextDouble();
+            var shipMass = new MeanVariationCoefficientStochastConfiguration();
+            var shipVelocity = new MeanVariationCoefficientStochastConfiguration();
 
             // Call
             configuration.AreaFlowApertures = areaFlowApertures;
@@ -92,6 +104,12 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             configuration.FlowVelocityStructureClosable = flowVelocityStructureClosable;
             configuration.InflowModelType = inflowModelType;
             configuration.InsideWaterLevel = insideWaterLevel;
+            configuration.InsideWaterLevelFailureConstruction = insideWaterLevelFailureConstruction;
+            configuration.LevelCrestStructure = levelCrestStructure;
+            configuration.LevellingCount = levellingCount;
+            configuration.ProbabilityCollisionSecondaryStructure = probabilityCollisionSecondaryStructure;
+            configuration.ShipMass = shipMass;
+            configuration.ShipVelocity = shipVelocity;
 
             // Assert
             Assert.AreSame(areaFlowApertures, configuration.AreaFlowApertures);
@@ -104,6 +122,12 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             Assert.AreSame(flowVelocityStructureClosable, configuration.FlowVelocityStructureClosable);
             Assert.AreEqual(inflowModelType, configuration.InflowModelType);
             Assert.AreEqual(insideWaterLevel, configuration.InsideWaterLevel);
+            Assert.AreEqual(insideWaterLevelFailureConstruction, configuration.InsideWaterLevelFailureConstruction);
+            Assert.AreEqual(levelCrestStructure, configuration.LevelCrestStructure);
+            Assert.AreEqual(levellingCount, configuration.LevellingCount);
+            Assert.AreEqual(probabilityCollisionSecondaryStructure, configuration.ProbabilityCollisionSecondaryStructure);
+            Assert.AreSame(shipMass, configuration.ShipMass);
+            Assert.AreSame(shipVelocity, configuration.ShipVelocity);
         }
     }
 }

@@ -85,5 +85,35 @@ namespace Ringtoets.StabilityPointStructures.IO
         /// Gets or sets the stochast configuration for the inside water level of the structure.
         /// </summary>
         public MeanStandardDeviationStochastConfiguration InsideWaterLevel { get; set; }
+
+        /// <summary>
+        /// Gets or sets the stochast configuration for the inside water level failure construction of the structure.
+        /// </summary>
+        public MeanStandardDeviationStochastConfiguration InsideWaterLevelFailureConstruction { get; set; }
+
+        /// <summary>
+        /// Gets or sets the stochast configuration for the crest level of the structure.
+        /// </summary>
+        public MeanStandardDeviationStochastConfiguration LevelCrestStructure { get; set; }
+
+        /// <summary>
+        /// Gets or sets the leveling count of the structure.
+        /// </summary>
+        public int? LevellingCount { get; set; }
+
+        /// <summary>
+        /// Gets or sets the probability of a secondary collision on the structure per leveling.
+        /// </summary>
+        public double? ProbabilityCollisionSecondaryStructure { get; set; }
+
+        /// <summary>
+        /// Gets or sets the stochast configuration for the mass of the ship.
+        /// </summary>
+        public MeanVariationCoefficientStochastConfiguration ShipMass { get; set; }
+
+        /// <summary>
+        /// Gets or sets the stochast configuration for the velocity of the ship.
+        /// </summary>
+        public MeanVariationCoefficientStochastConfiguration ShipVelocity { get; set; }
     }
 }

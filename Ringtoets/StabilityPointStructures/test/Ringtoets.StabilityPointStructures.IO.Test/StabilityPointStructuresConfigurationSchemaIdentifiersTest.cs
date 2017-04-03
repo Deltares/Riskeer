@@ -42,6 +42,12 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             Assert.AreEqual("lagedrempel", StabilityPointStructuresConfigurationSchemaIdentifiers.InflowModelLowSillStructure);
             Assert.AreEqual("verdronkenkoker", StabilityPointStructuresConfigurationSchemaIdentifiers.InflowModelFloodedCulvertStructure);
             Assert.AreEqual("binnenwaterstand", StabilityPointStructuresConfigurationSchemaIdentifiers.InsideWaterLevelStochastName);
+            Assert.AreEqual("binnenwaterstandbijfalen", StabilityPointStructuresConfigurationSchemaIdentifiers.InsideWaterLevelFailureConstructionStochastName);
+            Assert.AreEqual("kerendehoogte", StabilityPointStructuresConfigurationSchemaIdentifiers.LevelCrestStructureStochastName);
+            Assert.AreEqual("nrnivelleringen", StabilityPointStructuresConfigurationSchemaIdentifiers.LevellingCountElement);
+            Assert.AreEqual("kansaanvaringtweedekeermiddel", StabilityPointStructuresConfigurationSchemaIdentifiers.ProbabilityCollisionSecondaryStructureElement);
+            Assert.AreEqual("massaschip", StabilityPointStructuresConfigurationSchemaIdentifiers.ShipMassStochastName);
+            Assert.AreEqual("aanvaarsnelheid", StabilityPointStructuresConfigurationSchemaIdentifiers.ShipVelocityStochastName);
         }
     }
 }

@@ -89,5 +89,35 @@ namespace Ringtoets.StabilityPointStructures.IO
         /// The identifier for the inside water level stochast name.
         /// </summary>
         public const string InsideWaterLevelStochastName = "binnenwaterstand";
+
+        /// <summary>
+        /// The identifier for the inside water level failure construction stochast name.
+        /// </summary>
+        public const string InsideWaterLevelFailureConstructionStochastName = "binnenwaterstandbijfalen";
+
+        /// <summary>
+        /// The identifier for the level crest structure stochast name.
+        /// </summary>
+        public const string LevelCrestStructureStochastName = "kerendehoogte";
+
+        /// <summary>
+        /// The identifier for the leveling count elements.
+        /// </summary>
+        public const string LevellingCountElement = "nrnivelleringen";
+
+        /// <summary>
+        /// The identifier for the probability of a secondary collision on the structure per leveling elements.
+        /// </summary>
+        public const string ProbabilityCollisionSecondaryStructureElement = "kansaanvaringtweedekeermiddel";
+
+        /// <summary>
+        /// The identifier for the mass of the ship stochast name.
+        /// </summary>
+        public const string ShipMassStochastName = "massaschip";
+
+        /// <summary>
+        /// The identifier for the velocity of the ship stochast name.
+        /// </summary>
+        public const string ShipVelocityStochastName = "aanvaarsnelheid";
     }
 }
