@@ -43,6 +43,7 @@ using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms;
 using Ringtoets.Common.Forms.ChangeHandlers;
+using Ringtoets.Common.Forms.ExportInfos;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
@@ -71,7 +72,7 @@ namespace Ringtoets.ClosingStructures.Plugin
             yield return new PropertyInfo<ClosingStructuresInputContext, ClosingStructuresInputContextProperties>
             {
                 CreateInstance = context => new ClosingStructuresInputContextProperties(
-                    context, 
+                    context,
                     new ObservablePropertyChangeHandler(context.Calculation, context.WrappedData))
             };
         }
@@ -87,16 +88,16 @@ namespace Ringtoets.ClosingStructures.Plugin
             };
 
             yield return new ViewInfo<
-                    FailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>,
-                    IEnumerable<ClosingStructuresFailureMechanismSectionResult>,
-                    ClosingStructuresFailureMechanismResultView>
-                {
-                    GetViewName = (view, results) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                    Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
-                    CloseForData = CloseFailureMechanismResultViewForData,
-                    GetViewData = context => context.WrappedData,
-                    AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
-                };
+                FailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>,
+                IEnumerable<ClosingStructuresFailureMechanismSectionResult>,
+                ClosingStructuresFailureMechanismResultView>
+            {
+                GetViewName = (view, results) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
+                CloseForData = CloseFailureMechanismResultViewForData,
+                GetViewData = context => context.WrappedData,
+                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
+            };
 
             yield return new ViewInfo<ClosingStructuresScenariosContext, CalculationGroup, ClosingStructuresScenariosView>
             {
@@ -198,6 +199,19 @@ namespace Ringtoets.ClosingStructures.Plugin
                     RingtoetsCommonIOResources.Shape_file_filter_Description),
                 IsEnabled = context => context.AssessmentSection.ReferenceLine != null
             };
+        }
+
+        public override IEnumerable<ExportInfo> GetExportInfos()
+        {
+            yield return RingtoetsExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<ClosingStructuresCalculationGroupContext>(
+                (context, filePath) => new ClosingStructuresCalculationConfigurationExporter(context.WrappedData.Children, filePath),
+                context => context.WrappedData.Children.Any());
+
+            yield return RingtoetsExportInfoFactory.CreateCalculationConfigurationExportInfo<ClosingStructuresCalculationContext>(
+                (context, filePath) => new ClosingStructuresCalculationConfigurationExporter(new[]
+                {
+                    context.WrappedData
+                }, filePath));
         }
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection, IFailureMechanism failureMechanism)
@@ -447,6 +461,9 @@ namespace Ringtoets.ClosingStructures.Plugin
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
             var isNestedGroup = parentData is ClosingStructuresCalculationGroupContext;
 
+            builder.AddExportItem()
+                   .AddSeparator();
+
             if (!isNestedGroup)
             {
                 builder.AddCustomItem(CreateGenerateClosingStructuresCalculationsItem(context))
@@ -613,7 +630,9 @@ namespace Ringtoets.ClosingStructures.Plugin
 
             StructuresCalculation<ClosingStructuresInput> calculation = context.WrappedData;
 
-            return builder.AddRenameItem()
+            return builder.AddExportItem()
+                          .AddSeparator()
+                          .AddRenameItem()
                           .AddValidateCalculationItem(
                               context,
                               ValidateAll,

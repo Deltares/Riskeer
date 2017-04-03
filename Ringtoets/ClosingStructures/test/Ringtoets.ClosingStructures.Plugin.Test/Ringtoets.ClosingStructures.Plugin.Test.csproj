@@ -65,6 +65,8 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="ExportInfos\ClosingStructuresCalculationContextExportInfoTest.cs" />
+    <Compile Include="ExportInfos\ClosingStructuresCalculationGroupContextExportInfoTest.cs" />
     <Compile Include="PropertyInfos\ClosingStructuresInputContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\ClosingStructuresFailureMechanismContextPropertyInfoTest.cs" />
     <Compile Include="ClosingStructuresPluginTest.cs" />

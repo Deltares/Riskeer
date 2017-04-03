@@ -54,18 +54,18 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class ClosingStructuresCalculationGroupContextTreeNodeInfoTest : NUnitFormTest
     {
-        private const int contextMenuGenerateCalculationsIndexRootGroup = 0;
-        private const int contextMenuAddCalculationGroupIndexRootGroup = 2;
-        private const int contextMenuAddCalculationIndexRootGroup = 3;
-        private const int contextMenuValidateAllIndexRootGroup = 5;
-        private const int contextMenuCalculateAllIndexRootGroup = 6;
-        private const int contextMenuClearAllIndexRootGroup = 8;
+        private const int contextMenuGenerateCalculationsIndexRootGroup = 2;
+        private const int contextMenuAddCalculationGroupIndexRootGroup = 4;
+        private const int contextMenuAddCalculationIndexRootGroup = 5;
+        private const int contextMenuValidateAllIndexRootGroup = 7;
+        private const int contextMenuCalculateAllIndexRootGroup = 8;
+        private const int contextMenuClearAllIndexRootGroup = 10;
 
-        private const int contextMenuAddCalculationGroupIndexNestedGroup = 0;
-        private const int contextMenuAddCalculationIndexNestedGroup = 1;
-        private const int contextMenuValidateAllIndexNestedGroup = 4;
-        private const int contextMenuCalculateAllIndexNestedGroup = 5;
-        private const int contextMenuClearAllIndexNestedGroup = 7;
+        private const int contextMenuAddCalculationGroupIndexNestedGroup = 2;
+        private const int contextMenuAddCalculationIndexNestedGroup = 3;
+        private const int contextMenuValidateAllIndexNestedGroup = 6;
+        private const int contextMenuCalculateAllIndexNestedGroup = 7;
+        private const int contextMenuClearAllIndexNestedGroup = 9;
 
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
 
@@ -191,6 +191,8 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
             {
+                menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
@@ -247,7 +249,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, null, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(15, menu.Items.Count);
+                    Assert.AreEqual(17, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuGenerateCalculationsIndexRootGroup,
                                                                   "Genereer &berekeningen...",
@@ -307,7 +309,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, null, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(15, menu.Items.Count);
+                    Assert.AreEqual(17, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuGenerateCalculationsIndexRootGroup,
                                                                   "Genereer &berekeningen...",
@@ -335,6 +337,8 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
             {
+                menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
@@ -390,7 +394,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, parentGroupContext, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(14, menu.Items.Count);
+                    Assert.AreEqual(16, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexNestedGroup,
                                                                   "&Map toevoegen",

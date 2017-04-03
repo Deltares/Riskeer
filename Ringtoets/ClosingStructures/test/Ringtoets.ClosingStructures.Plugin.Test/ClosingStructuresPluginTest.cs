@@ -144,5 +144,21 @@ namespace Ringtoets.ClosingStructures.Plugin.Test
                 Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(ClosingStructuresContext)));
             }
         }
+
+        [Test]
+        public void GetExportInfos_ReturnsSupportedExportInfos()
+        {
+            // Setup
+            using (var plugin = new ClosingStructuresPlugin())
+            {
+                // Call
+                ExportInfo[] exportInfos = plugin.GetExportInfos().ToArray();
+
+                // Assert
+                Assert.AreEqual(2, exportInfos.Length);
+                Assert.IsTrue(exportInfos.Any(tni => tni.DataType == typeof(ClosingStructuresCalculationGroupContext)));
+                Assert.IsTrue(exportInfos.Any(tni => tni.DataType == typeof(ClosingStructuresCalculationContext)));
+            }
+        }
     }
 }
