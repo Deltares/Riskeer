@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Data.SQLite;
-using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.HydraRing.Calculation.Properties;
 using Ringtoets.HydraRing.Calculation.Readers;
 
@@ -53,35 +51,11 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
                 throw new ArgumentNullException(nameof(workingDirectory));
             }
 
-            ParseFile(workingDirectory, sectionId);
-        }
-
-        /// <summary>
-        /// Parses the file.
-        /// </summary>
-        /// <param name="workingDirectory">The path to the directory which contains
-        /// the output of the Hydra-Ring calculation.</param>
-        /// <param name="sectionId">The section id to get the output for.</param>
-        /// <exception cref="HydraRingFileParserException">Thrown when the reader
-        /// encounters an error while reading the database.</exception>
-        private void ParseFile(string workingDirectory, int sectionId)
-        {
-            try
-            {
-                using (var reader = new HydraRingDatabaseReader(workingDirectory, getLastResultQuery, sectionId))
-                {
-                    reader.Execute();
-                    ReadResult(reader);
-                }
-            }
-            catch (SQLiteException e)
-            {
-                throw new HydraRingFileParserException(Resources.ParseFile_Cannot_read_result_in_output_file, e);
-            }
-            catch (Exception e) when (e is HydraRingDatabaseReaderException || e is InvalidCastException)
-            {
-                throw new HydraRingFileParserException(Resources.ParseFile_No_convergence_found_in_output_file, e);
-            }
+            HydraRingDatabaseParseHelper.Parse(workingDirectory,
+                                               getLastResultQuery,
+                                               sectionId,
+                                               Resources.ParseFile_No_convergence_found_in_output_file,
+                                               ReadResult);
         }
 
         /// <summary>

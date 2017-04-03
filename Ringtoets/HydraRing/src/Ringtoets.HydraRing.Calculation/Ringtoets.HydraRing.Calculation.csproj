@@ -111,6 +111,7 @@
     <Compile Include="Exceptions\HydraRingFileParserException.cs" />
     <Compile Include="Parsers\DunesBoundaryConditionsCalculationParser.cs" />
     <Compile Include="Parsers\ConvergenceParser.cs" />
+    <Compile Include="Parsers\HydraRingDatabaseParseHelper.cs" />
     <Compile Include="Readers\HydraRingDatabaseReader.cs" />
     <Compile Include="Parsers\LastErrorFileParser.cs" />
     <Compile Include="Parsers\OvertoppingCalculationWaveHeightParser.cs" />
