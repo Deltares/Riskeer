@@ -299,7 +299,7 @@ namespace Core.Common.Gui
             public IProjectFactory ProjectFactory { get; set; }
 
             /// <summary>
-            /// The object used to open the file at <see name="FilePath"/>.
+            /// The object used to open the file at <see cref="FilePath"/>.
             /// </summary>
             public IStoreProject ProjectStorage { get; set; }
         }
