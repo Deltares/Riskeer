@@ -48,6 +48,10 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             Assert.AreEqual("kansaanvaringtweedekeermiddel", StabilityPointStructuresConfigurationSchemaIdentifiers.ProbabilityCollisionSecondaryStructureElement);
             Assert.AreEqual("massaschip", StabilityPointStructuresConfigurationSchemaIdentifiers.ShipMassStochastName);
             Assert.AreEqual("aanvaarsnelheid", StabilityPointStructuresConfigurationSchemaIdentifiers.ShipVelocityStochastName);
+            Assert.AreEqual("lineairebelastingschematiseringstabiliteit", StabilityPointStructuresConfigurationSchemaIdentifiers.StabilityLinearLoadModelStochastName);
+            Assert.AreEqual("kwadratischebelastingschematiseringstabiliteit", StabilityPointStructuresConfigurationSchemaIdentifiers.StabilityQuadraticLoadModelStochastName);
+            Assert.AreEqual("drempelhoogte", StabilityPointStructuresConfigurationSchemaIdentifiers.ThresholdHeightOpenWeirStochastName);
+            Assert.AreEqual("afstandonderkantwandteendijk", StabilityPointStructuresConfigurationSchemaIdentifiers.VerticalDistanceElement);
         }
     }
 }

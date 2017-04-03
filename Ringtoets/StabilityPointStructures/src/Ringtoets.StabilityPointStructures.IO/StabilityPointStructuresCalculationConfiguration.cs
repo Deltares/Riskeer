@@ -115,5 +115,25 @@ namespace Ringtoets.StabilityPointStructures.IO
         /// Gets or sets the stochast configuration for the velocity of the ship.
         /// </summary>
         public MeanVariationCoefficientStochastConfiguration ShipVelocity { get; set; }
+
+        /// <summary>
+        /// Gets or sets the stochast configuration for the stability properties of the linear load model of the structure.
+        /// </summary>
+        public MeanVariationCoefficientStochastConfiguration StabilityLinearLoadModel { get; set; }
+
+        /// <summary>
+        /// Gets or sets the stochast configuration for the stability properties of the quadratic load model of the structure.
+        /// </summary>
+        public MeanVariationCoefficientStochastConfiguration StabilityQuadraticLoadModel { get; set; }
+
+        /// <summary>
+        /// Gets or sets the stochast configuration for the threshold height of the open weir of the structure.
+        /// </summary>
+        public MeanStandardDeviationStochastConfiguration ThresholdHeightOpenWeir { get; set; }
+
+        /// <summary>
+        /// Gets or sets the vertical distance of the structure.
+        /// </summary>
+        public double? VerticalDistance { get; set; }
     }
 }

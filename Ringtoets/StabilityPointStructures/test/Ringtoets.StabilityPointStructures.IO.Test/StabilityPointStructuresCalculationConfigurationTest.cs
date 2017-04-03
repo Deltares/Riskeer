@@ -68,6 +68,10 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             Assert.IsNull(configuration.ProbabilityCollisionSecondaryStructure);
             Assert.IsNull(configuration.ShipMass);
             Assert.IsNull(configuration.ShipVelocity);
+            Assert.IsNull(configuration.StabilityLinearLoadModel);
+            Assert.IsNull(configuration.StabilityQuadraticLoadModel);
+            Assert.IsNull(configuration.ThresholdHeightOpenWeir);
+            Assert.IsNull(configuration.VerticalDistance);
         }
 
         [Test]
@@ -92,6 +96,10 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             double probabilityCollisionSecondaryStructure = random.NextDouble();
             var shipMass = new MeanVariationCoefficientStochastConfiguration();
             var shipVelocity = new MeanVariationCoefficientStochastConfiguration();
+            var stabilityLinearLoadModel = new MeanVariationCoefficientStochastConfiguration();
+            var stabilityQuadraticLoadModel = new MeanVariationCoefficientStochastConfiguration();
+            var thresholdHeightOpenWeir = new MeanStandardDeviationStochastConfiguration();
+            double verticalDistance = random.NextDouble();
 
             // Call
             configuration.AreaFlowApertures = areaFlowApertures;
@@ -110,6 +118,10 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             configuration.ProbabilityCollisionSecondaryStructure = probabilityCollisionSecondaryStructure;
             configuration.ShipMass = shipMass;
             configuration.ShipVelocity = shipVelocity;
+            configuration.StabilityLinearLoadModel = stabilityLinearLoadModel;
+            configuration.StabilityQuadraticLoadModel = stabilityQuadraticLoadModel;
+            configuration.ThresholdHeightOpenWeir = thresholdHeightOpenWeir;
+            configuration.VerticalDistance = verticalDistance;
 
             // Assert
             Assert.AreSame(areaFlowApertures, configuration.AreaFlowApertures);
@@ -128,6 +140,10 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             Assert.AreEqual(probabilityCollisionSecondaryStructure, configuration.ProbabilityCollisionSecondaryStructure);
             Assert.AreSame(shipMass, configuration.ShipMass);
             Assert.AreSame(shipVelocity, configuration.ShipVelocity);
+            Assert.AreSame(stabilityLinearLoadModel, configuration.StabilityLinearLoadModel);
+            Assert.AreSame(stabilityQuadraticLoadModel, configuration.StabilityQuadraticLoadModel);
+            Assert.AreSame(thresholdHeightOpenWeir, configuration.ThresholdHeightOpenWeir);
+            Assert.AreEqual(verticalDistance, configuration.VerticalDistance);
         }
     }
 }

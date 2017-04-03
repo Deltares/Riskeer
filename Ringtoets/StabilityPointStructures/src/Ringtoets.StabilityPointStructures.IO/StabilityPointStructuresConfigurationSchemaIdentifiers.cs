@@ -119,5 +119,25 @@ namespace Ringtoets.StabilityPointStructures.IO
         /// The identifier for the velocity of the ship stochast name.
         /// </summary>
         public const string ShipVelocityStochastName = "aanvaarsnelheid";
+
+        /// <summary>
+        /// The identifier for the stability properties of the linear load model stochast name.
+        /// </summary>
+        public const string StabilityLinearLoadModelStochastName = "lineairebelastingschematiseringstabiliteit";
+
+        /// <summary>
+        /// The identifier for the stability properties of the quadratic load model stochast name.
+        /// </summary>
+        public const string StabilityQuadraticLoadModelStochastName = "kwadratischebelastingschematiseringstabiliteit";
+
+        /// <summary>
+        /// The identifier for the threshold height of the open weir stochast name.
+        /// </summary>
+        public const string ThresholdHeightOpenWeirStochastName = "drempelhoogte";
+
+        /// <summary>
+        /// The identifier for the vertical distance of the structure elements.
+        /// </summary>
+        public const string VerticalDistanceElement = "afstandonderkantwandteendijk";
     }
 }
