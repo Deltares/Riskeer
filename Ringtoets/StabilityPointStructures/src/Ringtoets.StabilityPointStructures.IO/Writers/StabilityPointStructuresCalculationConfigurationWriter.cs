@@ -121,14 +121,14 @@ namespace Ringtoets.StabilityPointStructures.IO.Writers
                                            configuration.ThresholdHeightOpenWeir);
         }
 
-        private static void WriteConfigurationInflowModelTypeWhenAvailable(XmlWriter writer, ConfigurationInflowModelType? configuration)
+        private static void WriteConfigurationInflowModelTypeWhenAvailable(XmlWriter writer, ConfigurationStabilityPointStructuresInflowModelType? configuration)
         {
             if (!configuration.HasValue)
             {
                 return;
             }
 
-            var converter = new ConfigurationInflowModelTypeConverter();
+            var converter = new ConfigurationStabilityPointStructuresInflowModelTypeConverter();
             writer.WriteElementString(StabilityPointStructuresConfigurationSchemaIdentifiers.InflowModelTypeElement,
                                       converter.ConvertToInvariantString(configuration.Value));
         }

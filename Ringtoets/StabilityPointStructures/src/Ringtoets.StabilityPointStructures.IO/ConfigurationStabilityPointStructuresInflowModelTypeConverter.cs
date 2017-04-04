@@ -27,10 +27,10 @@ using Ringtoets.StabilityPointStructures.Data;
 namespace Ringtoets.StabilityPointStructures.IO
 {
     /// <summary>
-    /// Converts <see cref="ConfigurationInflowModelType"/> to <see cref="string"/> or <see cref="StabilityPointStructureInflowModelType"/>
-    /// and back.
+    /// Converts <see cref="ConfigurationStabilityPointStructuresInflowModelType"/> to <see cref="string"/> 
+    /// or <see cref="StabilityPointStructureInflowModelType"/> and back.
     /// </summary>
-    public class ConfigurationInflowModelTypeConverter : TypeConverter
+    public class ConfigurationStabilityPointStructuresInflowModelTypeConverter : TypeConverter
     {
         public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
         {
@@ -43,7 +43,7 @@ namespace Ringtoets.StabilityPointStructures.IO
 
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            var type = (ConfigurationInflowModelType) value;
+            var type = (ConfigurationStabilityPointStructuresInflowModelType) value;
             if (destinationType == typeof(string))
             {
                 return ConvertToString(type);
@@ -86,16 +86,16 @@ namespace Ringtoets.StabilityPointStructures.IO
         /// <summary>
         /// Converts the given <paramref name="type"/> to a <see cref="StabilityPointStructureInflowModelType"/>.
         /// </summary>
-        /// <param name="type">The <see cref="ConfigurationInflowModelType"/> to convert.</param>
-        /// <returns>The converted <see cref="ConfigurationInflowModelType"/>.</returns>
+        /// <param name="type">The <see cref="ConfigurationStabilityPointStructuresInflowModelType"/> to convert.</param>
+        /// <returns>The converted <see cref="ConfigurationStabilityPointStructuresInflowModelType"/>.</returns>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="type"/> is not supported.</exception>
-        private static object ConvertToStabilityPointStructureInflowModelType(ConfigurationInflowModelType type)
+        private static object ConvertToStabilityPointStructureInflowModelType(ConfigurationStabilityPointStructuresInflowModelType type)
         {
             switch (type)
             {
-                case ConfigurationInflowModelType.LowSill:
+                case ConfigurationStabilityPointStructuresInflowModelType.LowSill:
                     return StabilityPointStructureInflowModelType.LowSill;
-                case ConfigurationInflowModelType.FloodedCulvert:
+                case ConfigurationStabilityPointStructuresInflowModelType.FloodedCulvert:
                     return StabilityPointStructureInflowModelType.FloodedCulvert;
                 default:
                     throw new NotSupportedException($"Value '{type}' is not supported.");
@@ -105,16 +105,16 @@ namespace Ringtoets.StabilityPointStructures.IO
         /// <summary>
         /// Converts the given <paramref name="type"/> to a <see cref="string"/>.
         /// </summary>
-        /// <param name="type">The <see cref="ConfigurationInflowModelType"/> to convert.</param>
-        /// <returns>The converted <see cref="ConfigurationInflowModelType"/>.</returns>
+        /// <param name="type">The <see cref="ConfigurationStabilityPointStructuresInflowModelType"/> to convert.</param>
+        /// <returns>The converted <see cref="ConfigurationStabilityPointStructuresInflowModelType"/>.</returns>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="type"/> is not supported.</exception>
-        private static object ConvertToString(ConfigurationInflowModelType type)
+        private static object ConvertToString(ConfigurationStabilityPointStructuresInflowModelType type)
         {
             switch (type)
             {
-                case ConfigurationInflowModelType.LowSill:
+                case ConfigurationStabilityPointStructuresInflowModelType.LowSill:
                     return StabilityPointStructuresConfigurationSchemaIdentifiers.InflowModelLowSillStructure;
-                case ConfigurationInflowModelType.FloodedCulvert:
+                case ConfigurationStabilityPointStructuresInflowModelType.FloodedCulvert:
                     return StabilityPointStructuresConfigurationSchemaIdentifiers.InflowModelFloodedCulvertStructure;
                 default:
                     throw new NotSupportedException($"Value '{type}' is not supported.");
@@ -122,38 +122,38 @@ namespace Ringtoets.StabilityPointStructures.IO
         }
 
         /// <summary>
-        /// Converts <paramref name="text"/> to <see cref="ConfigurationInflowModelType"/>.
+        /// Converts <paramref name="text"/> to <see cref="ConfigurationStabilityPointStructuresInflowModelType"/>.
         /// </summary>
         /// <param name="text">The <see cref="string"/> to convert.</param>
         /// <returns>The converted <paramref name="text"/>.</returns>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="text"/> is not supported.</exception>
-        private static ConfigurationInflowModelType ConvertToConfigurationInflowModelType(string text)
+        private static ConfigurationStabilityPointStructuresInflowModelType ConvertToConfigurationInflowModelType(string text)
         {
             switch (text)
             {
                 case StabilityPointStructuresConfigurationSchemaIdentifiers.InflowModelLowSillStructure:
-                    return ConfigurationInflowModelType.LowSill;
+                    return ConfigurationStabilityPointStructuresInflowModelType.LowSill;
                 case StabilityPointStructuresConfigurationSchemaIdentifiers.InflowModelFloodedCulvertStructure:
-                    return ConfigurationInflowModelType.FloodedCulvert;
+                    return ConfigurationStabilityPointStructuresInflowModelType.FloodedCulvert;
                 default:
                     throw new NotSupportedException($"Value '{text}' is not supported.");
             }
         }
 
         /// <summary>
-        /// Converts <paramref name="inflowModelType"/> to <see cref="ConfigurationInflowModelType"/>.
+        /// Converts <paramref name="inflowModelType"/> to <see cref="ConfigurationStabilityPointStructuresInflowModelType"/>.
         /// </summary>
         /// <param name="inflowModelType">The <see cref="StabilityPointStructureInflowModelType"/> to convert.</param>
         /// <returns>The converted <paramref name="inflowModelType"/>.</returns>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="inflowModelType"/> is not supported.</exception>
-        private static ConfigurationInflowModelType ConvertToConfigurationInflowModelType(StabilityPointStructureInflowModelType inflowModelType)
+        private static ConfigurationStabilityPointStructuresInflowModelType ConvertToConfigurationInflowModelType(StabilityPointStructureInflowModelType inflowModelType)
         {
             switch (inflowModelType)
             {
                 case StabilityPointStructureInflowModelType.LowSill:
-                    return ConfigurationInflowModelType.LowSill;
+                    return ConfigurationStabilityPointStructuresInflowModelType.LowSill;
                 case StabilityPointStructureInflowModelType.FloodedCulvert:
-                    return ConfigurationInflowModelType.FloodedCulvert;
+                    return ConfigurationStabilityPointStructuresInflowModelType.FloodedCulvert;
                 default:
                     throw new NotSupportedException($"Value '{inflowModelType}' is not supported.");
             }

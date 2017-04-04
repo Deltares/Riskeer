@@ -93,7 +93,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             var failureCollisionEnergy = new MeanVariationCoefficientStochastConfiguration();
             double failureProbabilityRepairClosure = random.NextDouble();
             var flowVelocityStructureClosable = new MeanVariationCoefficientStochastConfiguration();
-            var inflowModelType = random.NextEnumValue<ConfigurationInflowModelType>();
+            var inflowModelType = random.NextEnumValue<ConfigurationStabilityPointStructuresInflowModelType>();
             var insideWaterLevel = new MeanStandardDeviationStochastConfiguration();
             var insideWaterLevelFailureConstruction = new MeanStandardDeviationStochastConfiguration();
             var levelCrestStructure = new MeanStandardDeviationStochastConfiguration();

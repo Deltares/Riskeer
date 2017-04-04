@@ -28,13 +28,13 @@ using Ringtoets.StabilityPointStructures.Data;
 namespace Ringtoets.StabilityPointStructures.IO.Test
 {
     [TestFixture]
-    public class ConfigurationInflowModelTypeConverterTest
+    public class ConfigurationStabilityPointStructuresInflowModelTypeConverterTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var converter = new ConfigurationInflowModelTypeConverter();
+            var converter = new ConfigurationStabilityPointStructuresInflowModelTypeConverter();
 
             // Assert
             Assert.IsInstanceOf<TypeConverter>(converter);
@@ -44,7 +44,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
         public void CanConvertTo_String_ReturnTrue()
         {
             // Setup
-            var converter = new ConfigurationInflowModelTypeConverter();
+            var converter = new ConfigurationStabilityPointStructuresInflowModelTypeConverter();
 
             // Call
             bool canConvertToString = converter.CanConvertTo(typeof(string));
@@ -57,7 +57,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
         public void CanConvertTo_StabilityPointStructureInflowModelType_ReturnTrue()
         {
             // Setup
-            var converter = new ConfigurationInflowModelTypeConverter();
+            var converter = new ConfigurationStabilityPointStructuresInflowModelTypeConverter();
 
             // Call
             bool canConvertToString = converter.CanConvertTo(typeof(StabilityPointStructureInflowModelType));
@@ -70,7 +70,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
         public void CanConvertTo_OtherTypeThanStringOrStabilityPointStructureInflowModelType_ReturnFalse()
         {
             // Setup
-            var converter = new ConfigurationInflowModelTypeConverter();
+            var converter = new ConfigurationStabilityPointStructuresInflowModelTypeConverter();
 
             // Call
             bool canConvertToNonString = converter.CanConvertTo(typeof(object));
@@ -80,13 +80,13 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
         }
 
         [Test]
-        [TestCase(ConfigurationInflowModelType.LowSill, StabilityPointStructuresConfigurationSchemaIdentifiers.InflowModelLowSillStructure)]
-        [TestCase(ConfigurationInflowModelType.FloodedCulvert, StabilityPointStructuresConfigurationSchemaIdentifiers.InflowModelFloodedCulvertStructure)]
-        public void ConvertTo_ForAllEnumValues_ReturnExpectedText(ConfigurationInflowModelType value,
+        [TestCase(ConfigurationStabilityPointStructuresInflowModelType.LowSill, StabilityPointStructuresConfigurationSchemaIdentifiers.InflowModelLowSillStructure)]
+        [TestCase(ConfigurationStabilityPointStructuresInflowModelType.FloodedCulvert, StabilityPointStructuresConfigurationSchemaIdentifiers.InflowModelFloodedCulvertStructure)]
+        public void ConvertTo_ForAllEnumValues_ReturnExpectedText(ConfigurationStabilityPointStructuresInflowModelType value,
                                                                   string expectedText)
         {
             // Setup
-            var converter = new ConfigurationInflowModelTypeConverter();
+            var converter = new ConfigurationStabilityPointStructuresInflowModelTypeConverter();
 
             // Call
             object result = converter.ConvertTo(null, CultureInfo.CurrentCulture, value, typeof(string));
@@ -99,8 +99,8 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
         public void ConvertTo_InvalidType_ThrowNotSupportedException()
         {
             // Setup
-            var converter = new ConfigurationInflowModelTypeConverter();
-            const ConfigurationInflowModelType invalidValue = (ConfigurationInflowModelType) 99999;
+            var converter = new ConfigurationStabilityPointStructuresInflowModelTypeConverter();
+            const ConfigurationStabilityPointStructuresInflowModelType invalidValue = (ConfigurationStabilityPointStructuresInflowModelType) 99999;
 
             // Call
             TestDelegate call = () => converter.ConvertTo(invalidValue, typeof(object));
@@ -113,8 +113,8 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
         public void ConvertTo_ConfigurationInflowModelTypeToString_ThrowNotSupportedException()
         {
             // Setup
-            var converter = new ConfigurationInflowModelTypeConverter();
-            const ConfigurationInflowModelType invalidValue = (ConfigurationInflowModelType) 99999;
+            var converter = new ConfigurationStabilityPointStructuresInflowModelTypeConverter();
+            const ConfigurationStabilityPointStructuresInflowModelType invalidValue = (ConfigurationStabilityPointStructuresInflowModelType) 99999;
 
             // Call
             TestDelegate call = () => converter.ConvertTo(invalidValue, typeof(string));
@@ -128,8 +128,8 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
         public void ConvertTo_InvalidConfigurationInflowModelTypeToStabilityPointStructureInflowModelType_ThrowNotSupportedException()
         {
             // Setup
-            var converter = new ConfigurationInflowModelTypeConverter();
-            const ConfigurationInflowModelType invalidValue = (ConfigurationInflowModelType) 99999;
+            var converter = new ConfigurationStabilityPointStructuresInflowModelTypeConverter();
+            const ConfigurationStabilityPointStructuresInflowModelType invalidValue = (ConfigurationStabilityPointStructuresInflowModelType) 99999;
 
             // Call
             TestDelegate call = () => converter.ConvertTo(invalidValue, typeof(StabilityPointStructureInflowModelType));
@@ -140,13 +140,13 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
         }
 
         [Test]
-        [TestCase(ConfigurationInflowModelType.LowSill, StabilityPointStructureInflowModelType.LowSill)]
-        [TestCase(ConfigurationInflowModelType.FloodedCulvert, StabilityPointStructureInflowModelType.FloodedCulvert)]
-        public void ConvertTo_ForAllEnumValues_ReturnExpectedType(ConfigurationInflowModelType value,
+        [TestCase(ConfigurationStabilityPointStructuresInflowModelType.LowSill, StabilityPointStructureInflowModelType.LowSill)]
+        [TestCase(ConfigurationStabilityPointStructuresInflowModelType.FloodedCulvert, StabilityPointStructureInflowModelType.FloodedCulvert)]
+        public void ConvertTo_ForAllEnumValues_ReturnExpectedType(ConfigurationStabilityPointStructuresInflowModelType value,
                                                                   StabilityPointStructureInflowModelType expectedText)
         {
             // Setup
-            var converter = new ConfigurationInflowModelTypeConverter();
+            var converter = new ConfigurationStabilityPointStructuresInflowModelTypeConverter();
 
             // Call
             object result = converter.ConvertTo(null, CultureInfo.CurrentCulture, value, typeof(StabilityPointStructureInflowModelType));
@@ -159,7 +159,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
         public void CanConvertFrom_String_ReturnTrue()
         {
             // Setup
-            var converter = new ConfigurationInflowModelTypeConverter();
+            var converter = new ConfigurationStabilityPointStructuresInflowModelTypeConverter();
 
             // Call
             bool canConvertFromString = converter.CanConvertFrom(typeof(string));
@@ -172,7 +172,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
         public void CanConvertFrom_StabilityPointStructureInflowModelType_ReturnTrue()
         {
             // Setup
-            var converter = new ConfigurationInflowModelTypeConverter();
+            var converter = new ConfigurationStabilityPointStructuresInflowModelTypeConverter();
 
             // Call
             bool canConvertFromString = converter.CanConvertFrom(typeof(StabilityPointStructureInflowModelType));
@@ -185,7 +185,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
         public void CanConvertFrom_OtherThanStringOrStabilityPointStructureInflowModelType_ReturnFalse()
         {
             // Setup
-            var converter = new ConfigurationInflowModelTypeConverter();
+            var converter = new ConfigurationStabilityPointStructuresInflowModelTypeConverter();
 
             // Call
             bool canConvertFromString = converter.CanConvertFrom(typeof(object));
@@ -195,13 +195,13 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
         }
 
         [Test]
-        [TestCase(StabilityPointStructuresConfigurationSchemaIdentifiers.InflowModelLowSillStructure, ConfigurationInflowModelType.LowSill)]
-        [TestCase(StabilityPointStructuresConfigurationSchemaIdentifiers.InflowModelFloodedCulvertStructure, ConfigurationInflowModelType.FloodedCulvert)]
+        [TestCase(StabilityPointStructuresConfigurationSchemaIdentifiers.InflowModelLowSillStructure, ConfigurationStabilityPointStructuresInflowModelType.LowSill)]
+        [TestCase(StabilityPointStructuresConfigurationSchemaIdentifiers.InflowModelFloodedCulvertStructure, ConfigurationStabilityPointStructuresInflowModelType.FloodedCulvert)]
         public void ConvertFrom_Text_ReturnExpectedConfigurationInflowModelType(string value,
-                                                                                ConfigurationInflowModelType expectedResult)
+                                                                                ConfigurationStabilityPointStructuresInflowModelType expectedResult)
         {
             // Setup
-            var converter = new ConfigurationInflowModelTypeConverter();
+            var converter = new ConfigurationStabilityPointStructuresInflowModelTypeConverter();
 
             // Call
             object result = converter.ConvertFrom(value);
@@ -214,7 +214,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
         public void ConvertFrom_InvalidType_ThrowNotSupportedException()
         {
             // Setup
-            var converter = new ConfigurationInflowModelTypeConverter();
+            var converter = new ConfigurationStabilityPointStructuresInflowModelTypeConverter();
 
             // Call
             TestDelegate call = () => converter.ConvertFrom(new object());
@@ -227,7 +227,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
         public void ConvertFrom_InvalidText_ThrowNotSupportedException()
         {
             // Setup
-            var converter = new ConfigurationInflowModelTypeConverter();
+            var converter = new ConfigurationStabilityPointStructuresInflowModelTypeConverter();
             const string invalidValue = "some text";
 
             // Call
@@ -242,7 +242,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
         public void ConvertFrom_InvalidStabilityPointStructureInflowModelType_ThrowNotSupportedException()
         {
             // Setup
-            var converter = new ConfigurationInflowModelTypeConverter();
+            var converter = new ConfigurationStabilityPointStructuresInflowModelTypeConverter();
             const StabilityPointStructureInflowModelType invalidValue = (StabilityPointStructureInflowModelType) 983;
 
             // Call
@@ -254,13 +254,13 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
         }
 
         [Test]
-        [TestCase(StabilityPointStructureInflowModelType.FloodedCulvert, ConfigurationInflowModelType.FloodedCulvert)]
-        [TestCase(StabilityPointStructureInflowModelType.LowSill, ConfigurationInflowModelType.LowSill)]
+        [TestCase(StabilityPointStructureInflowModelType.FloodedCulvert, ConfigurationStabilityPointStructuresInflowModelType.FloodedCulvert)]
+        [TestCase(StabilityPointStructureInflowModelType.LowSill, ConfigurationStabilityPointStructuresInflowModelType.LowSill)]
         public void ConvertFrom_StabilityPointStructureInflowModelType_ReturnExpectedConfigurationInflowModelType(StabilityPointStructureInflowModelType value,
-                                                                                                                  ConfigurationInflowModelType expectedResult)
+                                                                                                                  ConfigurationStabilityPointStructuresInflowModelType expectedResult)
         {
             // Setup
-            var converter = new ConfigurationInflowModelTypeConverter();
+            var converter = new ConfigurationStabilityPointStructuresInflowModelTypeConverter();
 
             // Call
             object result = converter.ConvertFrom(value);

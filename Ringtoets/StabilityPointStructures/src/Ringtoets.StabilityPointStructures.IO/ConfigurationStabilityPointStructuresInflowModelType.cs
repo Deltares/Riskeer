@@ -22,9 +22,9 @@
 namespace Ringtoets.StabilityPointStructures.IO
 {
     /// <summary>
-    /// Defines the various inflow models.
+    /// Defines the various inflow models for the stability point structures failure mechanism.
     /// </summary>
-    public enum ConfigurationInflowModelType
+    public enum ConfigurationStabilityPointStructuresInflowModelType
     {
         /// <summary>
         /// A low sill structure.
