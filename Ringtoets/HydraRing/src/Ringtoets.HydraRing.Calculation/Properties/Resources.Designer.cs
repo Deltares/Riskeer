@@ -154,5 +154,14 @@ namespace Ringtoets.HydraRing.Calculation.Properties {
                 return ResourceManager.GetString("ParseFile_Cannot_read_result_in_output_file", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er is geen resultaat voor de betrouwbaarheidsindex van de berekende kans van voorkomen gevonden in de Hydra-Ring uitvoerdatabase..
+        /// </summary>
+        internal static string ReliabilityIndexCalculationParser_Parse_No_reliability_found_in_output_file {
+            get {
+                return ResourceManager.GetString("ReliabilityIndexCalculationParser_Parse_No_reliability_found_in_output_file", resourceCulture);
+            }
+        }
     }
 }

@@ -20,12 +20,9 @@
 // All rights reserved.
 
 using System;
-using System.Globalization;
-using System.IO;
-using System.Linq;
 using Ringtoets.HydraRing.Calculation.Data.Output;
-using Ringtoets.HydraRing.Calculation.Exceptions;
-using Ringtoets.HydraRing.IO;
+using Ringtoets.HydraRing.Calculation.Properties;
+using Ringtoets.HydraRing.Calculation.Readers;
 
 namespace Ringtoets.HydraRing.Calculation.Parsers
 {
@@ -34,6 +31,16 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
     /// </summary>
     public class ReliabilityIndexCalculationParser : IHydraRingFileParser
     {
+        private const string sectionIdParameterName = "@sectionId";
+        private const string betaColumnName = "BetaValue";
+        private const string valueColumnName = "Value";
+
+        private readonly string query = $"SELECT {betaColumnName}, {valueColumnName} " +
+                                        "FROM IterateToGivenBetaConvergence " +
+                                        $"WHERE SectionId = {sectionIdParameterName} " +
+                                        "ORDER BY OuterIterationId DESC " +
+                                        "LIMIT 1;";
+
         /// <summary>
         /// Gets a <see cref="ReliabilityIndexCalculationOutput"/> 
         /// corresponding to the section id if <see cref="Parse"/> executed successfully; or <c>null</c> otherwise.
@@ -42,33 +49,29 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
 
         public void Parse(string workingDirectory, int sectionId)
         {
-            try
+            if (workingDirectory == null)
             {
-                using (var streamReader = new StreamReader(Path.Combine(workingDirectory, HydraRingFileConstants.DesignTablesFileName)))
-                {
-                    var fileContents = streamReader.ReadToEnd();
-                    var lines = fileContents.Split('\n');
-
-                    foreach (var resultLine in lines.Skip(3)) // Skip the header lines
-                    {
-                        var results = resultLine.Split((char[]) null, StringSplitOptions.RemoveEmptyEntries);
-
-                        if (results.Any() && results.ElementAt(0) == sectionId.ToString())
-                        {
-                            Output = new ReliabilityIndexCalculationOutput(GetDoubleValueFromElement(results.ElementAt(results.Length - 2)), GetDoubleValueFromElement(results.ElementAt(results.Length - 1)));
-                        }
-                    }
-                }
+                throw new ArgumentNullException(nameof(workingDirectory));
             }
-            catch (Exception e)
-            {
-                throw new HydraRingFileParserException("", e);
-            }
+
+            HydraRingDatabaseParseHelper.Parse(workingDirectory,
+                                               query,
+                                               sectionId,
+                                               Resources.ReliabilityIndexCalculationParser_Parse_No_reliability_found_in_output_file,
+                                               ReadResult);
         }
 
-        private static double GetDoubleValueFromElement(string element)
+        /// <summary>
+        /// Reads the result of the <paramref name="reader"/>.
+        /// </summary>
+        /// <param name="reader">The reader to get the result from.</param>
+        /// <exception cref="InvalidCastException">Thrown when the the result
+        /// cannot be converted to the output format.</exception>
+        private void ReadResult(HydraRingDatabaseReader reader)
         {
-            return double.Parse(element, CultureInfo.InvariantCulture);
+            Output = new ReliabilityIndexCalculationOutput(
+                Convert.ToDouble(reader.ReadColumn("Value")),
+                Convert.ToDouble(reader.ReadColumn("BetaValue")));
         }
     }
 }

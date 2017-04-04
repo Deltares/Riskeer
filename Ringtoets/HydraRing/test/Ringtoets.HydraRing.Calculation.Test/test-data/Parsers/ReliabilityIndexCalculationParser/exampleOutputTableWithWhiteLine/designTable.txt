@@ -1,4 +1,0 @@
-Testing region:
-------------------------------------------------------------------------------------------------------------------------
-      SectionID      Mechanism          Layer    Alternative    XCoordinate    YCoordinate         Result    Reliability
-              1              1              1              1              0              0            1.1          11.11    

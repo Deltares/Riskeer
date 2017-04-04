@@ -19,19 +19,28 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Data.SQLite;
 using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.HydraRing.Calculation.Parsers;
-using Ringtoets.HydraRing.IO;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Parsers
 {
     [TestFixture]
     public class ReliabilityIndexCalculationParserTest
     {
-        private readonly string testDataPath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation, "Parsers"), "ReliabilityIndexCalculationParser");
+        private const string emptyWorkingDirectory = "EmptyWorkingDirectory";
+        private const string invalidFileInDirectory = "InvalidFile";
+        private const string emptyFileInDirectory = "EmptyDatabase";
+        private const string validFile = "ValidFile";
+        private const string betaNull = "BetaNull";
+        private const string valueNull = "ValueNull";
+
+        private readonly string testDirectory = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation, "Parsers"),
+                                                             nameof(ReliabilityIndexCalculationParser));
 
         [Test]
         public void DefaultConstructor_SetDefaultValues()
@@ -45,85 +54,113 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         }
 
         [Test]
-        public void Parse_NotExistingOutputFile_OutputNull()
+        public void Parse_WorkingDirectoryNull_ThrowsArgumentNullException()
         {
             // Setup
-            var reliabilityIndexCalculationExceptionParser = new ReliabilityIndexCalculationParser();
+            var parser = new ReliabilityIndexCalculationParser();
 
             // Call
-            TestDelegate test = () => reliabilityIndexCalculationExceptionParser.Parse(testDataPath, 1);
+            TestDelegate test = () => parser.Parse(null, 1);
 
             // Assert
-            Assert.Throws<HydraRingFileParserException>(test);
-            Assert.IsNull(reliabilityIndexCalculationExceptionParser.Output);
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("workingDirectory", exception.ParamName);
         }
 
         [Test]
-        public void Parse_EmptyOutputFile_OutputNull()
+        public void Parse_WithWorkingDirectoryWithoutExpectedFile_ThrowsHydraRingFileParserException()
         {
             // Setup
-            var reliabilityIndexCalculationExceptionParser = new ReliabilityIndexCalculationParser();
-            var workingDirectory = Path.Combine(testDataPath, "empty");
+            string path = Path.Combine(testDirectory, emptyWorkingDirectory);
+            var parser = new ReliabilityIndexCalculationParser();
 
             // Call
-            reliabilityIndexCalculationExceptionParser.Parse(workingDirectory, 1);
+            TestDelegate test = () => parser.Parse(path, 1);
 
             // Assert
-            Assert.IsNull(reliabilityIndexCalculationExceptionParser.Output);
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileConstants.DesignTablesFileName)));
+            var exception = Assert.Throws<HydraRingFileParserException>(test);
+            Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
         }
 
         [Test]
-        [TestCase(1, 1.1, 11.11)]
-        [TestCase(3, 3.3, 33.33)]
-        public void Parse_ExampleHydraRingOutputFileContainingSectionIds_ReturnsExpectedReliabilityIndexCalculationResult(int sectionId, double result, double actual)
+        public void Parse_WithWorkingDirectoryWithInvalidOutputFile_ThrowsHydraRingFileParserException()
         {
             // Setup
-            var reliabilityIndexCalculationExceptionParser = new ReliabilityIndexCalculationParser();
-            var workingDirectory = Path.Combine(testDataPath, "exampleOutputTable");
+            string path = Path.Combine(testDirectory, invalidFileInDirectory);
+            var parser = new ReliabilityIndexCalculationParser();
 
             // Call
-            reliabilityIndexCalculationExceptionParser.Parse(workingDirectory, sectionId);
+            TestDelegate test = () => parser.Parse(path, 1);
 
             // Assert
-            var reliabilityIndexCalculationOutput = reliabilityIndexCalculationExceptionParser.Output;
-            Assert.IsNotNull(reliabilityIndexCalculationOutput);
-            Assert.AreEqual(result, reliabilityIndexCalculationOutput.Result);
-            Assert.AreEqual(actual, reliabilityIndexCalculationOutput.CalculatedReliabilityIndex);
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileConstants.DesignTablesFileName)));
+            var exception = Assert.Throws<HydraRingFileParserException>(test);
+            Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
+            Assert.AreEqual("Er kon geen resultaat gelezen worden uit de Hydra-Ring uitvoerdatabase.", exception.Message);
         }
 
         [Test]
-        public void Parse_ExampleHydraRingOutputFileContainingExtraWhiteLine_ReturnsExpectedReliabilityIndexCalculationResult()
+        public void Parse_WithWorkingDirectoryWithEmptyFile_ThrowsHydraRingFileParserException()
         {
             // Setup
-            var reliabilityIndexCalculationExceptionParser = new ReliabilityIndexCalculationParser();
-            var workingDirectory = Path.Combine(testDataPath, "exampleOutputTableWithWhiteLine");
+            string path = Path.Combine(testDirectory, emptyFileInDirectory);
+            var parser = new ReliabilityIndexCalculationParser();
 
             // Call
-            reliabilityIndexCalculationExceptionParser.Parse(workingDirectory, 1);
+            TestDelegate test = () => parser.Parse(path, 1);
 
             // Assert
-            var reliabilityIndexCalculationOutput = reliabilityIndexCalculationExceptionParser.Output;
-            Assert.IsNotNull(reliabilityIndexCalculationOutput);
-            Assert.AreEqual(1.1, reliabilityIndexCalculationOutput.Result);
-            Assert.AreEqual(11.11, reliabilityIndexCalculationOutput.CalculatedReliabilityIndex);
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileConstants.DesignTablesFileName)));
+            var exception = Assert.Throws<HydraRingFileParserException>(test);
+            Assert.AreEqual("Er is geen resultaat voor de betrouwbaarheidsindex van de berekende kans van voorkomen gevonden in de Hydra-Ring uitvoerdatabase.", exception.Message);
+            Assert.IsInstanceOf<HydraRingDatabaseReaderException>(exception.InnerException);
         }
 
         [Test]
-        public void Parse_ExampleHydraRingOutputFileNotContainingSectionId_OutputNull()
+        public void Parse_WithBetaResultOnOtherSection_ThrowsHydraRingFileParserException()
         {
             // Setup
-            var reliabilityIndexCalculationExceptionParser = new ReliabilityIndexCalculationParser();
-            var workingDirectory = Path.Combine(testDataPath, "exampleOutputTable");
+            string path = Path.Combine(testDirectory, validFile);
+            var parser = new ReliabilityIndexCalculationParser();
 
             // Call
-            reliabilityIndexCalculationExceptionParser.Parse(workingDirectory, 2);
+            TestDelegate test = () => parser.Parse(path, 0);
 
             // Assert
-            Assert.IsNull(reliabilityIndexCalculationExceptionParser.Output);
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileConstants.DesignTablesFileName)));
+            var exception = Assert.Throws<HydraRingFileParserException>(test);
+            Assert.AreEqual("Er is geen resultaat voor de betrouwbaarheidsindex van de berekende kans van voorkomen gevonden in de Hydra-Ring uitvoerdatabase.", exception.Message);
+            Assert.IsInstanceOf<HydraRingDatabaseReaderException>(exception.InnerException);
+        }
+
+        [Test]
+        public void Parse_ValidFileWithResults_OutputSet()
+        {
+            // Setup
+            string path = Path.Combine(testDirectory, validFile);
+            var parser = new ReliabilityIndexCalculationParser();
+
+            // Call
+            parser.Parse(path, 1);
+
+            // Assert
+            Assert.AreEqual(1.24846, parser.Output.Result);
+            Assert.AreEqual(3.4037, parser.Output.CalculatedReliabilityIndex);
+        }
+
+        [Test]
+        [TestCase(betaNull)]
+        [TestCase(valueNull)]
+        public void Parse_BetaOrValueNull_ThrowHydraRingFileParserException(string subFolder)
+        {
+            // Setup
+            string path = Path.Combine(testDirectory, subFolder);
+            var parser = new ReliabilityIndexCalculationParser();
+
+            // Call
+            TestDelegate test = () => parser.Parse(path, 1);
+
+            // Assert
+            var exception = Assert.Throws<HydraRingFileParserException>(test);
+            Assert.AreEqual("Er is geen resultaat voor de betrouwbaarheidsindex van de berekende kans van voorkomen gevonden in de Hydra-Ring uitvoerdatabase.", exception.Message);
+            Assert.IsInstanceOf<InvalidCastException>(exception.InnerException);
         }
     }
 }
