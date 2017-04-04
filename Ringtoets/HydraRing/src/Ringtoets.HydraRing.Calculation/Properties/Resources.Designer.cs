@@ -92,6 +92,15 @@ namespace Ringtoets.HydraRing.Calculation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er is geen resultaat voor de betrouwbaarheidsindex van de faalkans gevonden in de Hydra-Ring uitvoerdatabase..
+        /// </summary>
+        internal static string ExceedanceProbabilityCalculationParser_Parse_No_beta_found_in_output_file {
+            get {
+                return ResourceManager.GetString("ExceedanceProbabilityCalculationParser_Parse_No_beta_found_in_output_file", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Stap {0} van {1} | {2}.
         /// </summary>
         internal static string HydraRingActivityBase_UpdateProgressText_Step_0_of_TotalSteps_1_CurrentStepName_2 {
@@ -129,20 +138,20 @@ namespace Ringtoets.HydraRing.Calculation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er is geen resultaat voor convergentie gevonden in de Hydra-Ring uitvoerdatabase..
+        /// </summary>
+        internal static string Parse_No_convergence_found_in_output_file {
+            get {
+                return ResourceManager.GetString("Parse_No_convergence_found_in_output_file", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Er kon geen resultaat gelezen worden uit de Hydra-Ring uitvoerdatabase..
         /// </summary>
         internal static string ParseFile_Cannot_read_result_in_output_file {
             get {
                 return ResourceManager.GetString("ParseFile_Cannot_read_result_in_output_file", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Er is geen resultaat voor convergentie gevonden in de Hydra-Ring uitvoerdatabase..
-        /// </summary>
-        internal static string ParseFile_No_convergence_found_in_output_file {
-            get {
-                return ResourceManager.GetString("ParseFile_No_convergence_found_in_output_file", resourceCulture);
             }
         }
     }

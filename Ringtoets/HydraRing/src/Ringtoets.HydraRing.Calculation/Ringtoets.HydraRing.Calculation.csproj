@@ -93,9 +93,6 @@
     <Compile Include="Data\Input\Structures\StructuresOvertoppingCalculationInput.cs" />
     <Compile Include="Data\Input\WaveConditions\WaveConditionsTrapezoidCalculationInput.cs" />
     <Compile Include="Data\Output\DunesBoundaryConditionsCalculationOutput.cs" />
-    <Compile Include="Data\Output\ExceedanceProbabilityCalculationAlphaOutput.cs" />
-    <Compile Include="Data\Output\ExceedanceProbabilityCalculationOutput.cs" />
-    <Compile Include="Data\Output\ExceedanceProbabilityCalculationOutputBase.cs" />
     <Compile Include="Data\Output\ReliabilityIndexCalculationOutput.cs" />
     <Compile Include="Data\Output\OvertoppingCalculationWaveHeightOutput.cs" />
     <Compile Include="Data\Output\WaveConditionsCalculationOutput.cs" />

@@ -71,9 +71,9 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
 
         protected override void SetOutputs()
         {
-            if (exceedanceProbabilityCalculationParser.Output != null)
+            if (exceedanceProbabilityCalculationParser.Output.HasValue)
             {
-                ExceedanceProbabilityBeta = exceedanceProbabilityCalculationParser.Output.Beta;
+                ExceedanceProbabilityBeta = exceedanceProbabilityCalculationParser.Output.Value;
             }
             if (waveHeightParser.Output != null)
             {

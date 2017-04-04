@@ -19,21 +19,27 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
+using System;
+using System.Data.SQLite;
 using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.HydraRing.Calculation.Data.Output;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.HydraRing.Calculation.Parsers;
-using Ringtoets.HydraRing.IO;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Parsers
 {
     [TestFixture]
     public class ExceedanceProbabilityCalculationParserTest
     {
-        private readonly string testDataPath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation, "Parsers"), "ExceedanceProbabilityCalculationParser");
+        private const string emptyWorkingDirectory = "EmptyWorkingDirectory";
+        private const string invalidFileInDirectory = "InvalidFile";
+        private const string emptyFileInDirectory = "EmptyDatabase";
+        private const string validFile = "ValidFile";
+        private const string betaNull = "BetaNull";
+
+        private readonly string testDirectory = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation, "Parsers"),
+                                                             nameof(ExceedanceProbabilityCalculationParser));
 
         [Test]
         public void DefaultConstructor_SetDefaultValues()
@@ -47,129 +53,110 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         }
 
         [Test]
-        public void Parse_NotExistingOutputFile_ThrowsHydraRingFileParserException()
+        public void Parse_WorkingDirectoryNull_ThrowsArgumentNullException()
         {
             // Setup
-            var exceedanceProbabilityCalculationExceptionParser = new ExceedanceProbabilityCalculationParser();
+            var parser = new ExceedanceProbabilityCalculationParser();
 
             // Call
-            TestDelegate test = () => exceedanceProbabilityCalculationExceptionParser.Parse(testDataPath, 1);
+            TestDelegate test = () => parser.Parse(null, 1);
 
             // Assert
-            Assert.Throws<HydraRingFileParserException>(test);
-            Assert.IsNull(exceedanceProbabilityCalculationExceptionParser.Output);
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("workingDirectory", exception.ParamName);
         }
 
         [Test]
-        public void Parse_EmptyOutputFile_ThrowsHydraRingFileParserException()
+        public void Parse_WithWorkingDirectoryWithoutExpectedFile_ThrowsHydraRingFileParserException()
         {
             // Setup
-            var exceedanceProbabilityCalculationExceptionParser = new ExceedanceProbabilityCalculationParser();
-            var workingDirectory = Path.Combine(testDataPath, "empty");
+            string path = Path.Combine(testDirectory, emptyWorkingDirectory);
+            var parser = new ExceedanceProbabilityCalculationParser();
 
             // Call
-            TestDelegate test = () => exceedanceProbabilityCalculationExceptionParser.Parse(workingDirectory, 1);
+            TestDelegate test = () => parser.Parse(path, 1);
 
             // Assert
-            Assert.Throws<HydraRingFileParserException>(test);
-            Assert.IsNull(exceedanceProbabilityCalculationExceptionParser.Output);
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileConstants.WorkingDatabaseFileName)));
+            var exception = Assert.Throws<HydraRingFileParserException>(test);
+            Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
         }
 
         [Test]
-        public void Parse_FileWithoutTableAlphaResults_ThrowsHydraRingFileParserException()
+        public void Parse_WithWorkingDirectoryWithInvalidOutputFile_ThrowsHydraRingFileParserException()
         {
             // Setup
-            var exceedanceProbabilityCalculationExceptionParser = new ExceedanceProbabilityCalculationParser();
-            var workingDirectory = Path.Combine(testDataPath, "withoutAlphaResults");
+            string path = Path.Combine(testDirectory, invalidFileInDirectory);
+            var parser = new ExceedanceProbabilityCalculationParser();
 
             // Call
-            TestDelegate test = () => exceedanceProbabilityCalculationExceptionParser.Parse(workingDirectory, 1);
+            TestDelegate test = () => parser.Parse(path, 1);
 
             // Assert
-            Assert.Throws<HydraRingFileParserException>(test);
-            Assert.IsNull(exceedanceProbabilityCalculationExceptionParser.Output);
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileConstants.WorkingDatabaseFileName)));
+            var exception = Assert.Throws<HydraRingFileParserException>(test);
+            Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
+            Assert.AreEqual("Er kon geen resultaat gelezen worden uit de Hydra-Ring uitvoerdatabase.", exception.Message);
         }
 
         [Test]
-        public void Parse_ExampleHydraRingOutputFileNotContainingSectionId_ThrowsHydraRingFileParserException()
+        public void Parse_WithWorkingDirectoryWithEmptyFile_ThrowsHydraRingFileParserException()
         {
             // Setup
-            var sectionId = 1;
-            var exceedanceProbabilityCalculationExceptionParser = new ExceedanceProbabilityCalculationParser();
-            var workingDirectory = Path.Combine(testDataPath, "complete");
+            string path = Path.Combine(testDirectory, emptyFileInDirectory);
+            var parser = new ExceedanceProbabilityCalculationParser();
 
             // Call
-            TestDelegate test = () => exceedanceProbabilityCalculationExceptionParser.Parse(workingDirectory, sectionId);
+            TestDelegate test = () => parser.Parse(path, 1);
 
             // Assert
-            Assert.Throws<HydraRingFileParserException>(test);
-            Assert.IsNull(exceedanceProbabilityCalculationExceptionParser.Output);
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileConstants.WorkingDatabaseFileName)));
+            var exception = Assert.Throws<HydraRingFileParserException>(test);
+            Assert.AreEqual("Er is geen resultaat voor de betrouwbaarheidsindex van de faalkans gevonden in de Hydra-Ring uitvoerdatabase.", exception.Message);
+            Assert.IsInstanceOf<HydraRingDatabaseReaderException>(exception.InnerException);
         }
 
         [Test]
-        public void Parse_ExampleCompleteOutputFile_ExpectedExceedanceProbabilityCalculationOutputSet()
+        public void Parse_WithBetaResultOnOtherSection_ThrowsHydraRingFileParserException()
         {
             // Setup
-            var ringCombinMethod = 0;
-            var presentationSectionId = 1;
-            var mainMechanismId = 101;
-            var mainMechanismCombinMethod = 0;
-            var mechanismId = 101;
-            var sectionId = 35;
-            var layerId = 1;
-            var alternativeId = 1;
-            var beta = 2.74030893482198;
-            var alphaValues = new List<ExceedanceProbabilityCalculationAlphaOutput>
-            {
-                new ExceedanceProbabilityCalculationAlphaOutput(0, 1, 101, 0, 101, 35, 1, 1, 0, 1, -0.414848705277957),
-                new ExceedanceProbabilityCalculationAlphaOutput(0, 1, 101, 0, 101, 35, 1, 1, 0, 23, -0.499651535355214),
-                new ExceedanceProbabilityCalculationAlphaOutput(0, 1, 101, 0, 101, 35, 1, 1, 0, 51, -0.580660162401853),
-                new ExceedanceProbabilityCalculationAlphaOutput(0, 1, 101, 0, 101, 35, 1, 1, 1, 0, 0.463049288940854),
-                new ExceedanceProbabilityCalculationAlphaOutput(0, 1, 101, 0, 101, 35, 1, 1, 10, 0, 0.0434055709671213),
-                new ExceedanceProbabilityCalculationAlphaOutput(0, 1, 101, 0, 101, 35, 1, 1, 11, 0, 0.150241106274945),
-                new ExceedanceProbabilityCalculationAlphaOutput(0, 1, 101, 0, 101, 35, 1, 1, 17, 0, 0.0470275786268176)
-            };
-
-            var exceedanceProbabilityCalculationExceptionParser = new ExceedanceProbabilityCalculationParser();
-            var workingDirectory = Path.Combine(testDataPath, "complete");
+            string path = Path.Combine(testDirectory, validFile);
+            var parser = new ExceedanceProbabilityCalculationParser();
 
             // Call
-            exceedanceProbabilityCalculationExceptionParser.Parse(workingDirectory, sectionId);
+            TestDelegate test = () => parser.Parse(path, 0);
 
             // Assert
-            ExceedanceProbabilityCalculationOutput exceedanceProbabilityCalculationOutput = exceedanceProbabilityCalculationExceptionParser.Output;
-            Assert.IsNotNull(exceedanceProbabilityCalculationOutput);
-            Assert.AreEqual(ringCombinMethod, exceedanceProbabilityCalculationOutput.RingCombinMethod);
-            Assert.AreEqual(presentationSectionId, exceedanceProbabilityCalculationOutput.PresentationSectionId);
-            Assert.AreEqual(mainMechanismId, exceedanceProbabilityCalculationOutput.MainMechanismId);
-            Assert.AreEqual(mainMechanismCombinMethod, exceedanceProbabilityCalculationOutput.MainMechanismCombinMethod);
-            Assert.AreEqual(mechanismId, exceedanceProbabilityCalculationOutput.MechanismId);
-            Assert.AreEqual(layerId, exceedanceProbabilityCalculationOutput.LayerId);
-            Assert.AreEqual(alternativeId, exceedanceProbabilityCalculationOutput.AlternativeId);
-            Assert.AreEqual(beta, exceedanceProbabilityCalculationOutput.Beta);
+            var exception = Assert.Throws<HydraRingFileParserException>(test);
+            Assert.AreEqual("Er is geen resultaat voor de betrouwbaarheidsindex van de faalkans gevonden in de Hydra-Ring uitvoerdatabase.", exception.Message);
+            Assert.IsInstanceOf<HydraRingDatabaseReaderException>(exception.InnerException);
+        }
 
-            Assert.AreEqual(alphaValues.Count, exceedanceProbabilityCalculationOutput.Alphas.Count);
-            for (var i = 0; i < alphaValues.Count; i++)
-            {
-                var expectedAlpha = alphaValues[i];
-                var actualAlpha = exceedanceProbabilityCalculationOutput.Alphas[i];
+        [Test]
+        public void Parse_ValidFileWithBetaResult_OutputSet()
+        {
+            // Setup
+            string path = Path.Combine(testDirectory, validFile);
+            var parser = new ExceedanceProbabilityCalculationParser();
 
-                Assert.AreEqual(expectedAlpha.RingCombinMethod, actualAlpha.RingCombinMethod);
-                Assert.AreEqual(expectedAlpha.PresentationSectionId, actualAlpha.PresentationSectionId);
-                Assert.AreEqual(expectedAlpha.MainMechanismId, actualAlpha.MainMechanismId);
-                Assert.AreEqual(expectedAlpha.MainMechanismCombinMethod, actualAlpha.MainMechanismCombinMethod);
-                Assert.AreEqual(expectedAlpha.MechanismId, actualAlpha.MechanismId);
-                Assert.AreEqual(expectedAlpha.LayerId, actualAlpha.LayerId);
-                Assert.AreEqual(expectedAlpha.AlternativeId, actualAlpha.AlternativeId);
-                Assert.AreEqual(expectedAlpha.VariableId, actualAlpha.VariableId);
-                Assert.AreEqual(expectedAlpha.LoadVariableId, actualAlpha.LoadVariableId);
-                Assert.AreEqual(expectedAlpha.Alpha, actualAlpha.Alpha);
-            }
+            // Call
+            parser.Parse(path, 1);
 
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileConstants.WorkingDatabaseFileName)));
+            // Assert
+            Assert.AreEqual(3.42848, parser.Output.Value);
+        }
+
+        [Test]
+        public void Parse_BetaNull_ThrowHydraRingFileParserException()
+        {
+            // Setup
+            string path = Path.Combine(testDirectory, betaNull);
+            var parser = new ExceedanceProbabilityCalculationParser();
+
+            // Call
+            TestDelegate test = () => parser.Parse(path, 1);
+
+            // Assert
+            var exception = Assert.Throws<HydraRingFileParserException>(test);
+            Assert.AreEqual("Er is geen resultaat voor de betrouwbaarheidsindex van de faalkans gevonden in de Hydra-Ring uitvoerdatabase.", exception.Message);
+            Assert.IsInstanceOf<InvalidCastException>(exception.InnerException);
         }
     }
 }

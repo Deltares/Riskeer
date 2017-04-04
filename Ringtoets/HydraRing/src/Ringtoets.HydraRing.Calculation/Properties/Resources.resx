@@ -129,7 +129,7 @@
   <data name="ParseFile_Cannot_read_result_in_output_file" xml:space="preserve">
     <value>Er kon geen resultaat gelezen worden uit de Hydra-Ring uitvoerdatabase.</value>
   </data>
-  <data name="ParseFile_No_convergence_found_in_output_file" xml:space="preserve">
+  <data name="Parse_No_convergence_found_in_output_file" xml:space="preserve">
     <value>Er is geen resultaat voor convergentie gevonden in de Hydra-Ring uitvoerdatabase.</value>
   </data>
   <data name="HydraRingDatabaseReader_Execute_No_result_found_in_output_file" xml:space="preserve">
@@ -137,5 +137,8 @@
   </data>
   <data name="DunesBoundaryConditionsCalculationParser_ParseFile_No_dunes_hydraulic_boundaries_found_in_output_file" xml:space="preserve">
     <value>Er zijn geen berekende hydraulische randvoorwaarden voor duinen gevonden in de Hydra-Ring uitvoerdatabase.</value>
+  </data>
+  <data name="ExceedanceProbabilityCalculationParser_Parse_No_beta_found_in_output_file" xml:space="preserve">
+    <value>Er is geen resultaat voor de betrouwbaarheidsindex van de faalkans gevonden in de Hydra-Ring uitvoerdatabase.</value>
   </data>
 </root>

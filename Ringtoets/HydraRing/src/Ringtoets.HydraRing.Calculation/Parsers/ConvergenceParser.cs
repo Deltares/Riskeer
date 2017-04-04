@@ -55,7 +55,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
             HydraRingDatabaseParseHelper.Parse(workingDirectory,
                                                getLastResultQuery,
                                                sectionId,
-                                               Resources.ParseFile_No_convergence_found_in_output_file,
+                                               Resources.Parse_No_convergence_found_in_output_file,
                                                ReadResult);
         }
 
