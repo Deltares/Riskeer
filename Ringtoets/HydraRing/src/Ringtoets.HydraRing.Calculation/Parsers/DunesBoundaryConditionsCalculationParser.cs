@@ -42,8 +42,9 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
                                         $"max(case when OutputVarId is 23 then d.Value end) {waterLevelColumnName} " +
                                         "FROM DesignPointResults as d " +
                                         $"WHERE SectionId = {sectionIdParameterName} " +
-                                        "AND OuterIterationId=(select max(OuterIterationId) FROM DesignPointResults) " +
-                                        "GROUP BY OuterIterationId;";
+                                        "GROUP BY OuterIterationId " +
+                                        "ORDER BY OuterIterationId DESC " +
+                                        "LIMIT 1;";
 
         /// <summary>
         /// Gets the output that was parsed from the output file.
