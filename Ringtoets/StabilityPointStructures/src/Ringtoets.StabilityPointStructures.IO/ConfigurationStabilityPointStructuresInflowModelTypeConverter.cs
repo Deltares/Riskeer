@@ -89,7 +89,7 @@ namespace Ringtoets.StabilityPointStructures.IO
         /// <param name="type">The <see cref="ConfigurationStabilityPointStructuresInflowModelType"/> to convert.</param>
         /// <returns>The converted <see cref="ConfigurationStabilityPointStructuresInflowModelType"/>.</returns>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="type"/> is not supported.</exception>
-        private static object ConvertToStabilityPointStructureInflowModelType(ConfigurationStabilityPointStructuresInflowModelType type)
+        private static StabilityPointStructureInflowModelType ConvertToStabilityPointStructureInflowModelType(ConfigurationStabilityPointStructuresInflowModelType type)
         {
             switch (type)
             {
@@ -108,7 +108,7 @@ namespace Ringtoets.StabilityPointStructures.IO
         /// <param name="type">The <see cref="ConfigurationStabilityPointStructuresInflowModelType"/> to convert.</param>
         /// <returns>The converted <see cref="ConfigurationStabilityPointStructuresInflowModelType"/>.</returns>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="type"/> is not supported.</exception>
-        private static object ConvertToString(ConfigurationStabilityPointStructuresInflowModelType type)
+        private static string ConvertToString(ConfigurationStabilityPointStructuresInflowModelType type)
         {
             switch (type)
             {

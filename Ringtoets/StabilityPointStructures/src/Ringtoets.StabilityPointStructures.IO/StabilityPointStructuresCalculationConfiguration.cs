@@ -107,6 +107,11 @@ namespace Ringtoets.StabilityPointStructures.IO
         public int? LevellingCount { get; set; }
 
         /// <summary>
+        /// Gets or sets the load schematization type of the structure.
+        /// </summary>
+        public ConfigurationStabilityPointStructuresLoadSchematizationType? LoadSchematizationType { get; set; }
+
+        /// <summary>
         /// Gets or sets the probability of a secondary collision on the structure per leveling.
         /// </summary>
         public double? ProbabilityCollisionSecondaryStructure { get; set; }

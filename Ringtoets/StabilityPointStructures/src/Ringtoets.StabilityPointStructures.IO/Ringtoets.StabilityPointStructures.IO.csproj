@@ -46,6 +46,8 @@
     </Compile>
     <Compile Include="ConfigurationStabilityPointStructuresInflowModelType.cs" />
     <Compile Include="ConfigurationStabilityPointStructuresInflowModelTypeConverter.cs" />
+    <Compile Include="ConfigurationStabilityPointStructuresLoadSchematizationType.cs" />
+    <Compile Include="ConfigurationStabilityPointStructuresLoadSchematizationTypeConverter.cs" />
     <Compile Include="Exporters\StabilityPointStructuresCalculationConfigurationExporter.cs" />
     <Compile Include="Writers\StabilityPointStructuresCalculationConfigurationWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

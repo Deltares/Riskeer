@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.StabilityPointStructures.Data;
-
 namespace Ringtoets.StabilityPointStructures.IO
 {
     /// <summary>
@@ -79,13 +77,13 @@ namespace Ringtoets.StabilityPointStructures.IO
         public const string InflowModelTypeElement = "instroommodel";
 
         /// <summary>
-        /// The possible content of the <see cref="StabilityPointStructureInflowModelType"/> element indicating a
+        /// The possible content of the <see cref="ConfigurationStabilityPointStructuresInflowModelType"/> element indicating a
         /// low sill structure.
         /// </summary>
         public const string InflowModelLowSillStructure = "lagedrempel";
 
         /// <summary>
-        /// The possible content of the <see cref="StabilityPointStructureInflowModelType"/> element indicating a
+        /// The possible content of the <see cref="ConfigurationStabilityPointStructuresInflowModelType"/> element indicating a
         /// flooded culvert structure.
         /// </summary>
         public const string InflowModelFloodedCulvertStructure = "verdronkenkoker";
@@ -109,6 +107,23 @@ namespace Ringtoets.StabilityPointStructures.IO
         /// The identifier for the leveling count elements.
         /// </summary>
         public const string LevellingCountElement = "nrnivelleringen";
+
+        /// <summary>
+        /// The identifier for the load schematization type elements.
+        /// </summary>
+        public const string LoadSchematizationTypeElement = "belastingschematisering";
+
+        /// <summary>
+        /// The possible content of the <see cref="ConfigurationStabilityPointStructuresLoadSchematizationType"/>
+        /// element indicating a linear schematization.
+        /// </summary>
+        public const string LoadSchematizationLinearStructure = "lineair";
+
+        /// <summary>
+        /// The possible content of the <see cref="ConfigurationStabilityPointStructuresLoadSchematizationType"/>
+        /// element indicating a quadratic schematization.
+        /// </summary>
+        public const string LoadSchematizationQuadraticStructure = "kwadratisch";
 
         /// <summary>
         /// The identifier for the probability of a secondary collision on the structure per leveling elements.

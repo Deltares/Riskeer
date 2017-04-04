@@ -48,6 +48,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="ConfigurationStabilityPointStructuresInflowModelTypeConverterTest.cs" />
+    <Compile Include="ConfigurationStabilityPointStructuresLoadSchematizationTypeConverterTest.cs" />
     <Compile Include="Exporters\StabilityPointStructuresCalculationConfigurationExporterTest.cs" />
     <Compile Include="Writers\StabilityPointStructuresCalculationConfigurationWriterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

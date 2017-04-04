@@ -67,6 +67,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             Assert.IsNull(configuration.InsideWaterLevelFailureConstruction);
             Assert.IsNull(configuration.LevelCrestStructure);
             Assert.IsNull(configuration.LevellingCount);
+            Assert.IsNull(configuration.LoadSchematizationType);
             Assert.IsNull(configuration.ProbabilityCollisionSecondaryStructure);
             Assert.IsNull(configuration.ShipMass);
             Assert.IsNull(configuration.ShipVelocity);
@@ -83,29 +84,34 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             // Setup
             var configuration = new StabilityPointStructuresCalculationConfiguration("some name");
             var random = new Random(5432);
+
             var areaFlowApertures = new MeanStandardDeviationStochastConfiguration();
             var bankWidth = new MeanStandardDeviationStochastConfiguration();
-            var constructiveStrengthLinearLoadModel = new MeanVariationCoefficientStochastConfiguration();
-            var constructiveStrengthQuadraticLoadModel = new MeanVariationCoefficientStochastConfiguration();
             var drainCoefficient = new MeanStandardDeviationStochastConfiguration();
-            double evaluationLevel = random.NextDouble();
-            double factorStormDurationOpenStructure = random.NextDouble();
-            var failureCollisionEnergy = new MeanVariationCoefficientStochastConfiguration();
-            double failureProbabilityRepairClosure = random.NextDouble();
-            var flowVelocityStructureClosable = new MeanVariationCoefficientStochastConfiguration();
-            var inflowModelType = random.NextEnumValue<ConfigurationStabilityPointStructuresInflowModelType>();
             var insideWaterLevel = new MeanStandardDeviationStochastConfiguration();
             var insideWaterLevelFailureConstruction = new MeanStandardDeviationStochastConfiguration();
             var levelCrestStructure = new MeanStandardDeviationStochastConfiguration();
-            int levellingCount = random.Next();
-            double probabilityCollisionSecondaryStructure = random.NextDouble();
+            var thresholdHeightOpenWeir = new MeanStandardDeviationStochastConfiguration();
+
+            var constructiveStrengthLinearLoadModel = new MeanVariationCoefficientStochastConfiguration();
+            var constructiveStrengthQuadraticLoadModel = new MeanVariationCoefficientStochastConfiguration();
+            var failureCollisionEnergy = new MeanVariationCoefficientStochastConfiguration();
+            var flowVelocityStructureClosable = new MeanVariationCoefficientStochastConfiguration();
             var shipMass = new MeanVariationCoefficientStochastConfiguration();
             var shipVelocity = new MeanVariationCoefficientStochastConfiguration();
             var stabilityLinearLoadModel = new MeanVariationCoefficientStochastConfiguration();
             var stabilityQuadraticLoadModel = new MeanVariationCoefficientStochastConfiguration();
-            var thresholdHeightOpenWeir = new MeanStandardDeviationStochastConfiguration();
+
+            int levellingCount = random.Next();
+            double evaluationLevel = random.NextDouble();
+            double factorStormDurationOpenStructure = random.NextDouble();
+            double failureProbabilityRepairClosure = random.NextDouble();
+            double probabilityCollisionSecondaryStructure = random.NextDouble();
             double verticalDistance = random.NextDouble();
             double volumicWeightWater = random.NextDouble();
+
+            var inflowModelType = random.NextEnumValue<ConfigurationStabilityPointStructuresInflowModelType>();
+            var loadSchematizationType = random.NextEnumValue<ConfigurationStabilityPointStructuresLoadSchematizationType>();
 
             // Call
             configuration.AreaFlowApertures = areaFlowApertures;
@@ -123,6 +129,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             configuration.InsideWaterLevelFailureConstruction = insideWaterLevelFailureConstruction;
             configuration.LevelCrestStructure = levelCrestStructure;
             configuration.LevellingCount = levellingCount;
+            configuration.LoadSchematizationType = loadSchematizationType;
             configuration.ProbabilityCollisionSecondaryStructure = probabilityCollisionSecondaryStructure;
             configuration.ShipMass = shipMass;
             configuration.ShipVelocity = shipVelocity;
@@ -148,6 +155,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             Assert.AreEqual(insideWaterLevelFailureConstruction, configuration.InsideWaterLevelFailureConstruction);
             Assert.AreEqual(levelCrestStructure, configuration.LevelCrestStructure);
             Assert.AreEqual(levellingCount, configuration.LevellingCount);
+            Assert.AreEqual(loadSchematizationType, configuration.LoadSchematizationType);
             Assert.AreEqual(probabilityCollisionSecondaryStructure, configuration.ProbabilityCollisionSecondaryStructure);
             Assert.AreSame(shipMass, configuration.ShipMass);
             Assert.AreSame(shipVelocity, configuration.ShipVelocity);
