@@ -20,12 +20,11 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Ringtoets.Common.IO.Readers;
 
 namespace Ringtoets.Common.IO.Configurations
 {
     /// <summary>
-    /// Class that represents a calculation group that is read via <see cref="CalculationConfigurationReader{TReadCalculation}"/>.
+    /// Class that represents a configuration of a calculation group.
     /// </summary>
     public class CalculationGroupConfiguration : IConfigurationItem
     {

@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Common.IO;
+using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.IO.Properties;

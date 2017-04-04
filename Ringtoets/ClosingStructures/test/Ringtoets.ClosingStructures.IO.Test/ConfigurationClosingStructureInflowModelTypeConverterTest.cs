@@ -212,5 +212,17 @@ namespace Ringtoets.ClosingStructures.IO.Test
             Assert.AreEqual(expectedResult, result);
         }
 
+        [Test]
+        public void ConvertFrom_InvalidClosingStructureInflowModelType_ThrowNotSupportedException()
+        {
+            // Setup
+            var converter = new ConfigurationClosingStructureInflowModelTypeConverter();
+
+            // Call
+            TestDelegate call = () => converter.ConvertFrom((ClosingStructureInflowModelType)(-1));
+
+            // Assert
+            Assert.Throws<NotSupportedException>(call);
+        }
     }
 }

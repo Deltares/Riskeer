@@ -92,6 +92,16 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to faalkans gegeven erosie bodem.
+        /// </summary>
+        public static string CalculationConfigurationImporter_FailureProbabilityStructureWithErosion_DisplayName {
+            get {
+                return ResourceManager.GetString("CalculationConfigurationImporter_FailureProbabilityStructureWithErosion_DisplayNa" +
+                        "me", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} 
         ///Er is geen berekeningenconfiguratie geïmporteerd..
         /// </summary>
@@ -113,6 +123,15 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to oriëntatie.
+        /// </summary>
+        public static string CalculationConfigurationImporter_Orientation_DisplayName {
+            get {
+                return ResourceManager.GetString("CalculationConfigurationImporter_Orientation_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Inlezen berekeningenconfiguratie..
         /// </summary>
         public static string CalculationConfigurationImporter_ProgressText_Reading_configuration {
@@ -127,6 +146,16 @@ namespace Ringtoets.Common.IO.Properties {
         public static string CalculationConfigurationImporter_ProgressText_Validating_imported_data {
             get {
                 return ResourceManager.GetString("CalculationConfigurationImporter_ProgressText_Validating_imported_data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het voorlandprofiel &apos;{0}&apos; bestaat niet..
+        /// </summary>
+        public static string CalculationConfigurationImporter_ReadForeshoreProfile_ForeshoreProfile_0_does_not_exist {
+            get {
+                return ResourceManager.GetString("CalculationConfigurationImporter_ReadForeshoreProfile_ForeshoreProfile_0_does_not" +
+                        "_exist", resourceCulture);
             }
         }
         
@@ -150,12 +179,32 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er is geen kunstwerk opgegeven om de {0} aan toe te voegen..
+        /// </summary>
+        public static string CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_ {
+            get {
+                return ResourceManager.GetString("CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_" +
+                        "", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} Berekening &apos;{1}&apos; is overgeslagen..
         /// </summary>
         public static string CalculationConfigurationImporter_ValidateCalculation_ErrorMessage_0_Calculation_1_skipped {
             get {
                 return ResourceManager.GetString("CalculationConfigurationImporter_ValidateCalculation_ErrorMessage_0_Calculation_1" +
                         "_skipped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er is geen voorlandprofiel opgegeven om golfreductie parameters aan toe te voegen..
+        /// </summary>
+        public static string CalculationConfigurationImporter_ValidateWaveReduction_No_foreshore_profile_provided {
+            get {
+                return ResourceManager.GetString("CalculationConfigurationImporter_ValidateWaveReduction_No_foreshore_profile_provi" +
+                        "ded", resourceCulture);
             }
         }
         
@@ -675,6 +724,26 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er is geen kunstwerk opgegeven om de faalkans gegeven erosie bodem aan toe te voegen..
+        /// </summary>
+        public static string HeightStructuresCalculationConfigurationImporter_TryReadFailureProbabilityStructureWithErosion_No_Structure_to_assign_FailureProbabilityStructureWithErosion {
+            get {
+                return ResourceManager.GetString("HeightStructuresCalculationConfigurationImporter_TryReadFailureProbabilityStructu" +
+                        "reWithErosion_No_Structure_to_assign_FailureProbabilityStructureWithErosion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er is geen kunstwerk opgegeven om de oriëntatie aan toe te voegen..
+        /// </summary>
+        public static string HeightStructuresCalculationConfigurationImporter_TryReadOrientation_No_Structure_to_assign_Orientation {
+            get {
+                return ResourceManager.GetString("HeightStructuresCalculationConfigurationImporter_TryReadOrientation_No_Structure_" +
+                        "to_assign_Orientation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
         ///
         ///&lt;!--
@@ -1111,6 +1180,15 @@ namespace Ringtoets.Common.IO.Properties {
         public static string ProfilesImporter_ReadProfileLocations_reading_profilelocations {
             get {
                 return ResourceManager.GetString("ProfilesImporter_ReadProfileLocations_reading_profilelocations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het opgegeven voorlandprofiel &apos;{0}&apos; heeft geen voorlandgeometrie en kan daarom niet gebruikt worden..
+        /// </summary>
+        public static string ReadForeshoreProfile_ForeshoreProfile_0_has_no_geometry_and_cannot_be_used {
+            get {
+                return ResourceManager.GetString("ReadForeshoreProfile_ForeshoreProfile_0_has_no_geometry_and_cannot_be_used", resourceCulture);
             }
         }
         
@@ -1675,6 +1753,15 @@ namespace Ringtoets.Common.IO.Properties {
         public static string StructuresReader_GetNextStructure_Invalid_KWKIDENT {
             get {
                 return ResourceManager.GetString("StructuresReader_GetNextStructure_Invalid_KWKIDENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Een waarde van &apos;{0}&apos; als {1} is ongeldig..
+        /// </summary>
+        public static string TryReadParameter_Value_0_ParameterName_1_is_invalid {
+            get {
+                return ResourceManager.GetString("TryReadParameter_Value_0_ParameterName_1_is_invalid", resourceCulture);
             }
         }
         

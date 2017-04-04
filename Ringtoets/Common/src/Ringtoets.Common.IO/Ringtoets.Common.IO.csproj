@@ -54,14 +54,11 @@
     </Compile>
     <Compile Include="AssessmentSectionSettings.cs" />
     <Compile Include="AssessmentSectionSettingsReader.cs" />
-    <Compile Include="Configurations\Helpers\IVariationCoefficientDistributionExtensions.cs" />
-    <Compile Include="Configurations\Helpers\IDistributionExtensions.cs" />
+    <Compile Include="Configurations\Helpers\DistributionConversionExtensions.cs" />
     <Compile Include="Configurations\IConfigurationItem.cs" />
     <Compile Include="Configurations\MeanVariationCoefficientStochastConfiguration.cs" />
     <Compile Include="Configurations\MeanStandardDeviationStochastConfiguration.cs" />
     <Compile Include="Configurations\WaveReductionConfiguration.cs" />
-    <Compile Include="IVariationCoefficientDistributionExtensions.cs" />
-    <Compile Include="IDistributionExtensions.cs" />
     <Compile Include="Configurations\Helpers\ConfigurationBreakWaterTypeConverter.cs" />
     <Compile Include="DikeProfiles\DamType.cs" />
     <Compile Include="DikeProfiles\DikeProfileData.cs" />

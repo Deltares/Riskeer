@@ -28,12 +28,12 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.IO;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.Schema;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.HeightStructures.IO.Properties;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.IO
@@ -60,6 +60,7 @@ namespace Ringtoets.HeightStructures.IO
         /// the imported objects contain the right foreshore profile.</param>
         /// <param name="structures">The dike profiles used to check if
         /// the imported objects contain the right profile.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public HeightStructuresCalculationConfigurationImporter(
             string xmlFilePath,
             CalculationGroup importTarget,
@@ -190,7 +191,7 @@ namespace Ringtoets.HeightStructures.IO
         /// <param name="stochastConfiguration">The configuration of the stochast.</param>
         /// <param name="getStochast">The function for obtaining the stochast to read.</param>
         /// <param name="setStochast">The function to set the stochast with the read parameters.</param>
-        /// <returns><c>true</c> if reading all required wave reduction parameters was successful,
+        /// <returns><c>true</c> if reading all required stochast parameters was successful,
         /// <c>false</c> otherwise.</returns>
         private bool TryReadStandardDeviationStochast<T>(
             StructuresCalculation<HeightStructuresInput> calculation,
@@ -198,7 +199,7 @@ namespace Ringtoets.HeightStructures.IO
             MeanStandardDeviationStochastConfiguration stochastConfiguration,
             Func<HeightStructuresInput, T> getStochast,
             Action<HeightStructuresInput, T> setStochast)
-            where T : class, IDistribution
+            where T : IDistribution
         {
             if (stochastConfiguration == null)
             {
@@ -224,7 +225,7 @@ namespace Ringtoets.HeightStructures.IO
         /// <param name="stochastConfiguration">The configuration of the stochast.</param>
         /// <param name="getStochast">The function for obtaining the stochast to read.</param>
         /// <param name="setStochast">The function to set the stochast with the read parameters.</param>
-        /// <returns><c>true</c> if reading all required wave reduction parameters was successful,
+        /// <returns><c>true</c> if reading all required stochast parameters was successful,
         /// <c>false</c> otherwise.</returns>
         private bool TryReadVariationCoefficientStochast<T>(
             StructuresCalculation<HeightStructuresInput> calculation,
@@ -232,7 +233,7 @@ namespace Ringtoets.HeightStructures.IO
             MeanVariationCoefficientStochastConfiguration stochastConfiguration,
             Func<HeightStructuresInput, T> getStochast,
             Action<HeightStructuresInput, T> setStochast)
-            where T : class, IVariationCoefficientDistribution
+            where T : IVariationCoefficientDistribution
         {
             if (stochastConfiguration == null)
             {
@@ -264,7 +265,8 @@ namespace Ringtoets.HeightStructures.IO
                 if (calculation.InputParameters.Structure == null)
                 {
                     LogReadCalculationConversionError(
-                        "Er is geen kunstwerk opgegeven om de oriëntatie aan toe te voegen.",
+                        string.Format(RingtoetsCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
+                                      RingtoetsCommonIOResources.CalculationConfigurationImporter_Orientation_DisplayName),
                         calculation.Name);
 
                     return false;
@@ -279,7 +281,9 @@ namespace Ringtoets.HeightStructures.IO
                 catch (ArgumentOutOfRangeException e)
                 {
                     LogOutOfRangeException(
-                        string.Format("Een waarde van '{0}' als oriëntatie is ongeldig.", orientation),
+                        string.Format(RingtoetsCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
+                                      orientation,
+                                      RingtoetsCommonIOResources.CalculationConfigurationImporter_Orientation_DisplayName),
                         calculation.Name,
                         e);
 
@@ -304,7 +308,8 @@ namespace Ringtoets.HeightStructures.IO
                 if (calculation.InputParameters.Structure == null)
                 {
                     LogReadCalculationConversionError(
-                        "Er is geen kunstwerk opgegeven om de faalkans gegeven erosie bodem aan toe te voegen.",
+                        string.Format(RingtoetsCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
+                                      RingtoetsCommonIOResources.CalculationConfigurationImporter_FailureProbabilityStructureWithErosion_DisplayName),
                         calculation.Name);
 
                     return false;
@@ -319,7 +324,10 @@ namespace Ringtoets.HeightStructures.IO
                 catch (ArgumentOutOfRangeException e)
                 {
                     LogOutOfRangeException(
-                        string.Format("Een waarde van '{0}' als faalkans gegeven erosie bodem is ongeldig.", failureProbability),
+                        string.Format(
+                            RingtoetsCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
+                            failureProbability,
+                            RingtoetsCommonIOResources.CalculationConfigurationImporter_FailureProbabilityStructureWithErosion_DisplayName),
                         calculation.Name,
                         e);
 
@@ -409,7 +417,7 @@ namespace Ringtoets.HeightStructures.IO
                 {
                     LogReadCalculationConversionError(
                         string.Format(
-                            "Het voorlandprofiel '{0}' bestaat niet.",
+                            RingtoetsCommonIOResources.CalculationConfigurationImporter_ReadForeshoreProfile_ForeshoreProfile_0_does_not_exist,
                             readCalculation.ForeshoreProfileName),
                         calculation.Name);
 
@@ -481,7 +489,7 @@ namespace Ringtoets.HeightStructures.IO
                         || readCalculation.WaveReduction.BreakWaterType.HasValue))
                 {
                     LogReadCalculationConversionError(
-                        "Er is geen voorlandprofiel opgegeven om golfreductie parameters aan toe te voegen.",
+                        RingtoetsCommonIOResources.CalculationConfigurationImporter_ValidateWaveReduction_No_foreshore_profile_provided,
                         calculation.Name);
 
                     return false;
@@ -493,7 +501,7 @@ namespace Ringtoets.HeightStructures.IO
                 {
                     LogReadCalculationConversionError(
                         string.Format(
-                            "Het opgegeven voorlandprofiel '{0}' heeft geen geometrie en kan daarom niet gebruikt worden.",
+                            RingtoetsCommonIOResources.ReadForeshoreProfile_ForeshoreProfile_0_has_no_geometry_and_cannot_be_used,
                             readCalculation.ForeshoreProfileName),
                         calculation.Name);
                     return false;

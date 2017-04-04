@@ -149,9 +149,9 @@ namespace Ringtoets.Revetment.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to ondergrens bekledingen.
         /// </summary>
-        internal static string WaveConditionsCalculationConfigurationImporter_DisplayName_LowerBoundaryRevetment {
+        internal static string WaveConditionsCalculationConfigurationImporter_LowerBoundaryRevetment_DisplayName {
             get {
-                return ResourceManager.GetString("WaveConditionsCalculationConfigurationImporter_DisplayName_LowerBoundaryRevetment" +
+                return ResourceManager.GetString("WaveConditionsCalculationConfigurationImporter_LowerBoundaryRevetment_DisplayName" +
                         "", resourceCulture);
             }
         }
@@ -159,19 +159,19 @@ namespace Ringtoets.Revetment.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to ondergrens van de rekenreeks.
         /// </summary>
-        internal static string WaveConditionsCalculationConfigurationImporter_DisplayName_LowerBoundaryWaterlevels {
+        internal static string WaveConditionsCalculationConfigurationImporter_LowerBoundaryWaterlevels_DisplayName {
             get {
-                return ResourceManager.GetString("WaveConditionsCalculationConfigurationImporter_DisplayName_LowerBoundaryWaterleve" +
-                        "ls", resourceCulture);
+                return ResourceManager.GetString("WaveConditionsCalculationConfigurationImporter_LowerBoundaryWaterlevels_DisplayNa" +
+                        "me", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to bovengrens bekledingen.
         /// </summary>
-        internal static string WaveConditionsCalculationConfigurationImporter_DisplayName_UpperBoundaryRevetment {
+        internal static string WaveConditionsCalculationConfigurationImporter_UpperBoundaryRevetment_DisplayName {
             get {
-                return ResourceManager.GetString("WaveConditionsCalculationConfigurationImporter_DisplayName_UpperBoundaryRevetment" +
+                return ResourceManager.GetString("WaveConditionsCalculationConfigurationImporter_UpperBoundaryRevetment_DisplayName" +
                         "", resourceCulture);
             }
         }
@@ -179,60 +179,10 @@ namespace Ringtoets.Revetment.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to bovengrens van de rekenreeks.
         /// </summary>
-        internal static string WaveConditionsCalculationConfigurationImporter_DisplayName_UpperBoundaryWaterlevels {
+        internal static string WaveConditionsCalculationConfigurationImporter_UpperBoundaryWaterlevels_DisplayName {
             get {
-                return ResourceManager.GetString("WaveConditionsCalculationConfigurationImporter_DisplayName_UpperBoundaryWaterleve" +
-                        "ls", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het voorlandprofiel &apos;{0}&apos; bestaat niet..
-        /// </summary>
-        internal static string WaveConditionsCalculationConfigurationImporter_ReadForeshoreProfile_ForeshoreProfile_0_does_not_exist {
-            get {
-                return ResourceManager.GetString("WaveConditionsCalculationConfigurationImporter_ReadForeshoreProfile_ForeshoreProf" +
-                        "ile_0_does_not_exist", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Een waarde van &apos;{0}&apos; als oriëntatie is ongeldig..
-        /// </summary>
-        internal static string WaveConditionsCalculationConfigurationImporter_ReadOrientation_Orientation_0_invalid {
-            get {
-                return ResourceManager.GetString("WaveConditionsCalculationConfigurationImporter_ReadOrientation_Orientation_0_inva" +
-                        "lid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Een waarde van &apos;{0}&apos; als {1} is ongeldig..
-        /// </summary>
-        internal static string WaveConditionsCalculationConfigurationImporter_TryReadParameter_Value_0_ParameterName_1_is_invalid {
-            get {
-                return ResourceManager.GetString("WaveConditionsCalculationConfigurationImporter_TryReadParameter_Value_0_Parameter" +
-                        "Name_1_is_invalid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het opgegeven voorlandprofiel &apos;{0}&apos; heeft geen voorlandgeometrie en kan daarom niet gebruikt worden..
-        /// </summary>
-        internal static string WaveConditionsCalculationConfigurationImporter_ValidateWaveReduction_ForeshoreProfile_0_has_no_geometry_and_cannot_be_used {
-            get {
-                return ResourceManager.GetString("WaveConditionsCalculationConfigurationImporter_ValidateWaveReduction_ForeshorePro" +
-                        "file_0_has_no_geometry_and_cannot_be_used", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Er is geen voorlandprofiel opgegeven om golfreductie parameters aan toe te voegen..
-        /// </summary>
-        internal static string WaveConditionsCalculationConfigurationImporter_ValidateWaveReduction_No_foreshore_profile_provided {
-            get {
-                return ResourceManager.GetString("WaveConditionsCalculationConfigurationImporter_ValidateWaveReduction_No_foreshore" +
-                        "_profile_provided", resourceCulture);
+                return ResourceManager.GetString("WaveConditionsCalculationConfigurationImporter_UpperBoundaryWaterlevels_DisplayNa" +
+                        "me", resourceCulture);
             }
         }
         

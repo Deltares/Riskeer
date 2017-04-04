@@ -167,7 +167,7 @@ namespace Ringtoets.HeightStructures.IO.Test
 
             // Assert
             string expectedMessage = $"{expectedErrorMessage} Berekening 'Berekening 1' is overgeslagen.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -197,7 +197,7 @@ namespace Ringtoets.HeightStructures.IO.Test
 
             // Assert
             string expectedMessage = $"{expectedErrorMessage} Berekening 'Berekening 1' is overgeslagen.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -226,8 +226,8 @@ namespace Ringtoets.HeightStructures.IO.Test
             Action call = () => successful = importer.Import();
 
             // Assert
-            const string expectedMessage = "Het opgegeven voorlandprofiel 'Voorlandprofiel' heeft geen geometrie en kan daarom niet gebruikt worden. Berekening 'Berekening 1' is overgeslagen.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            const string expectedMessage = "Het opgegeven voorlandprofiel 'Voorlandprofiel' heeft geen voorlandgeometrie en kan daarom niet gebruikt worden. Berekening 'Berekening 1' is overgeslagen.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -492,7 +492,7 @@ namespace Ringtoets.HeightStructures.IO.Test
             AssertCalculation(expectedCalculation, (StructuresCalculation<HeightStructuresInput>)calculationGroup.Children[0]);
         }
 
-        private void AssertCalculation(StructuresCalculation<HeightStructuresInput> expectedCalculation, StructuresCalculation<HeightStructuresInput> actualCalculation)
+        private static void AssertCalculation(StructuresCalculation<HeightStructuresInput> expectedCalculation, StructuresCalculation<HeightStructuresInput> actualCalculation)
         {
             Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
             Assert.AreSame(expectedCalculation.InputParameters.HydraulicBoundaryLocation, actualCalculation.InputParameters.HydraulicBoundaryLocation);

@@ -145,31 +145,16 @@
   <data name="BekledingenHrConfiguratieSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BekledingenHrConfiguratieSchema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="WaveConditionsCalculationConfigurationImporter_DisplayName_UpperBoundaryRevetment" xml:space="preserve">
+  <data name="WaveConditionsCalculationConfigurationImporter_UpperBoundaryRevetment_DisplayName" xml:space="preserve">
     <value>bovengrens bekledingen</value>
   </data>
-  <data name="WaveConditionsCalculationConfigurationImporter_DisplayName_LowerBoundaryRevetment" xml:space="preserve">
+  <data name="WaveConditionsCalculationConfigurationImporter_LowerBoundaryRevetment_DisplayName" xml:space="preserve">
     <value>ondergrens bekledingen</value>
   </data>
-  <data name="WaveConditionsCalculationConfigurationImporter_DisplayName_UpperBoundaryWaterlevels" xml:space="preserve">
+  <data name="WaveConditionsCalculationConfigurationImporter_UpperBoundaryWaterlevels_DisplayName" xml:space="preserve">
     <value>bovengrens van de rekenreeks</value>
   </data>
-  <data name="WaveConditionsCalculationConfigurationImporter_DisplayName_LowerBoundaryWaterlevels" xml:space="preserve">
+  <data name="WaveConditionsCalculationConfigurationImporter_LowerBoundaryWaterlevels_DisplayName" xml:space="preserve">
     <value>ondergrens van de rekenreeks</value>
-  </data>
-  <data name="WaveConditionsCalculationConfigurationImporter_ReadOrientation_Orientation_0_invalid" xml:space="preserve">
-    <value>Een waarde van '{0}' als oriëntatie is ongeldig.</value>
-  </data>
-  <data name="WaveConditionsCalculationConfigurationImporter_ReadForeshoreProfile_ForeshoreProfile_0_does_not_exist" xml:space="preserve">
-    <value>Het voorlandprofiel '{0}' bestaat niet.</value>
-  </data>
-  <data name="WaveConditionsCalculationConfigurationImporter_ValidateWaveReduction_ForeshoreProfile_0_has_no_geometry_and_cannot_be_used" xml:space="preserve">
-    <value>Het opgegeven voorlandprofiel '{0}' heeft geen voorlandgeometrie en kan daarom niet gebruikt worden.</value>
-  </data>
-  <data name="WaveConditionsCalculationConfigurationImporter_ValidateWaveReduction_No_foreshore_profile_provided" xml:space="preserve">
-    <value>Er is geen voorlandprofiel opgegeven om golfreductie parameters aan toe te voegen.</value>
-  </data>
-  <data name="WaveConditionsCalculationConfigurationImporter_TryReadParameter_Value_0_ParameterName_1_is_invalid" xml:space="preserve">
-    <value>Een waarde van '{0}' als {1} is ongeldig.</value>
   </data>
 </root>
