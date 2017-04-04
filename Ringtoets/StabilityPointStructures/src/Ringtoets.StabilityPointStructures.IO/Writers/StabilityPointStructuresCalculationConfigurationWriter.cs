@@ -58,6 +58,8 @@ namespace Ringtoets.StabilityPointStructures.IO.Writers
 
             WriteConfigurationInflowModelTypeWhenAvailable(writer, configuration.InflowModelType);
 
+            WriteConfigurationLoadSchematizationTypeWhenAvailable(writer, configuration.LoadSchematizationType);
+
             WriteElementWhenContentAvailable(writer,
                                              StabilityPointStructuresConfigurationSchemaIdentifiers.LevellingCountElement,
                                              configuration.LevellingCount);
@@ -119,6 +121,18 @@ namespace Ringtoets.StabilityPointStructures.IO.Writers
             WriteDistributionWhenAvailable(writer,
                                            StabilityPointStructuresConfigurationSchemaIdentifiers.ThresholdHeightOpenWeirStochastName,
                                            configuration.ThresholdHeightOpenWeir);
+        }
+
+        private static void WriteConfigurationLoadSchematizationTypeWhenAvailable(XmlWriter writer, ConfigurationStabilityPointStructuresLoadSchematizationType? configuration)
+        {
+            if (!configuration.HasValue)
+            {
+                return;
+            }
+
+            var converter = new ConfigurationStabilityPointStructuresLoadSchematizationTypeConverter();
+            writer.WriteElementString(StabilityPointStructuresConfigurationSchemaIdentifiers.LoadSchematizationTypeElement,
+                                      converter.ConvertToInvariantString(configuration.Value));
         }
 
         private static void WriteConfigurationInflowModelTypeWhenAvailable(XmlWriter writer, ConfigurationStabilityPointStructuresInflowModelType? configuration)

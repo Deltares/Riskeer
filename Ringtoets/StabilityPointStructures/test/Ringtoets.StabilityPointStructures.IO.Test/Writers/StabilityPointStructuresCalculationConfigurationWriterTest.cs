@@ -176,6 +176,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Writers
                     StandardDeviation = 0.22
                 },
                 LevellingCount = 4,
+                LoadSchematizationType = ConfigurationStabilityPointStructuresLoadSchematizationType.Linear,
                 ModelFactorSuperCriticalFlow = new MeanStandardDeviationStochastConfiguration
                 {
                     Mean = 0.13,
