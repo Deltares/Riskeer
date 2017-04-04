@@ -72,7 +72,6 @@ namespace Ringtoets.ClosingStructures.IO
                 calculationConfiguration.CriticalOvertoppingDischarge = input.CriticalOvertoppingDischarge.ToStochastConfiguration();
 
                 calculationConfiguration.AreaFlowApertures = input.AreaFlowApertures.ToStochastConfiguration();
-                calculationConfiguration.DrainCoefficient = input.DrainCoefficient.ToStochastConfiguration();
                 calculationConfiguration.InsideWaterLevel = input.InsideWaterLevel.ToStochastConfiguration();
                 calculationConfiguration.LevelCrestStructureNotClosing = input.LevelCrestStructureNotClosing.ToStochastConfiguration();
                 calculationConfiguration.ThresholdHeightOpenWeir = input.ThresholdHeightOpenWeir.ToStochastConfiguration();
