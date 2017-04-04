@@ -29,7 +29,6 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Data.TestUtil;
@@ -78,6 +77,21 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Exporters
                         }
                     })
                     .SetName("Calculation configuration with hierarchy");
+                yield return new TestCaseData("configurationWithForeshoreProfile", new[]
+                    {
+                        CreateCalculationWithForeshoreProfile()
+                    })
+                    .SetName("Calculation configuration with foreshore profile");
+                yield return new TestCaseData("configurationWithUseBreakWater", new[]
+                    {
+                        CreateCalculationWithUseBreakWater()
+                    })
+                    .SetName("Calculation configuration with use breakwater true");
+                yield return new TestCaseData("configurationWithStructure", new[]
+                    {
+                        CreateCalculationWithStructure()
+                    })
+                    .SetName("Calculation configuration with a structure set");
             }
         }
 
@@ -94,6 +108,49 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Exporters
 
             // Call and Assert
             WriteAndValidate(calculations, expectedXmlFilePath);
+        }
+
+        private static StructuresCalculation<StabilityPointStructuresInput> CreateCalculationWithStructure()
+        {
+            return new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                Name = "with structure",
+                InputParameters =
+                {
+                    Structure = new TestStabilityPointStructure("kunstwerk1")
+                }
+            };
+        }
+
+        private static StructuresCalculation<StabilityPointStructuresInput> CreateCalculationWithForeshoreProfile()
+        {
+            return new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                Name = "with foreshore profile",
+                InputParameters =
+                {
+                    ForeshoreProfile = new TestForeshoreProfile("profiel1")
+                }
+            };
+        }
+
+        private static StructuresCalculation<StabilityPointStructuresInput> CreateCalculationWithUseBreakWater()
+        {
+            return new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                Name = "with use breakwater",
+                InputParameters =
+                {
+                    ForeshoreProfile = new TestForeshoreProfile("profiel1"),
+                    BreakWater =
+                    {
+                        Type = BreakWaterType.Wall,
+                        Height = (RoundedDouble) 1.24
+                    },
+                    UseBreakWater = true,
+                    UseForeshore = false
+                }
+            };
         }
 
         private static ICalculationBase CreateSparseCalculation()
@@ -252,140 +309,6 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Exporters
             string filePath)
         {
             return new StabilityPointStructuresCalculationConfigurationExporter(calculations, filePath);
-        }
-
-        private static StabilityPointStructuresCalculationConfiguration CreateFullCalculation2()
-        {
-            return new StabilityPointStructuresCalculationConfiguration("full config")
-            {
-                AllowedLevelIncreaseStorage = new MeanStandardDeviationStochastConfiguration
-                {
-                    Mean = 0.2,
-                    StandardDeviation = 0.01
-                },
-                AreaFlowApertures = new MeanStandardDeviationStochastConfiguration
-                {
-                    Mean = 80.5,
-                    StandardDeviation = 1
-                },
-                BankWidth = new MeanStandardDeviationStochastConfiguration
-                {
-                    Mean = 1.2,
-                    StandardDeviation = 0.1
-                },
-                ConstructiveStrengthLinearLoadModel = new MeanVariationCoefficientStochastConfiguration
-                {
-                    Mean = 2,
-                    VariationCoefficient = 0.1
-                },
-                ConstructiveStrengthQuadraticLoadModel = new MeanVariationCoefficientStochastConfiguration
-                {
-                    Mean = 2,
-                    VariationCoefficient = 0.1
-                },
-                CriticalOvertoppingDischarge = new MeanVariationCoefficientStochastConfiguration
-                {
-                    Mean = 2,
-                    VariationCoefficient = 0.1
-                },
-                DrainCoefficient = new MeanStandardDeviationStochastConfiguration
-                {
-                    Mean = 0.1
-                },
-                EvaluationLevel = 1e-1,
-                FactorStormDurationOpenStructure = 1e-2,
-                FailureCollisionEnergy = new MeanVariationCoefficientStochastConfiguration
-                {
-                    Mean = 1.2,
-                    VariationCoefficient = 0.1
-                },
-                FailureProbabilityRepairClosure = 1e-3,
-                FailureProbabilityStructureWithErosion = 1e-4,
-                FlowVelocityStructureClosable = new MeanVariationCoefficientStochastConfiguration
-                {
-                    Mean = 1.1
-                },
-                FlowWidthAtBottomProtection = new MeanStandardDeviationStochastConfiguration
-                {
-                    Mean = 15.2,
-                    StandardDeviation = 0.1
-                },
-                ForeshoreProfileName = "profiel1",
-                HydraulicBoundaryLocationName = "Locatie1",
-                InflowModelType = ConfigurationStabilityPointStructuresInflowModelType.FloodedCulvert,
-                InsideWaterLevel = new MeanStandardDeviationStochastConfiguration
-                {
-                    Mean = 0.5,
-                    StandardDeviation = 0.1
-                },
-                InsideWaterLevelFailureConstruction = new MeanStandardDeviationStochastConfiguration
-                {
-                    Mean = 0.7,
-                    StandardDeviation = 0.1
-                },
-                LevelCrestStructure = new MeanStandardDeviationStochastConfiguration
-                {
-                    Mean = 4.3,
-                    StandardDeviation = 0.1
-                },
-                LevellingCount = 1,
-                LoadSchematizationType = ConfigurationStabilityPointStructuresLoadSchematizationType.Linear,
-                ModelFactorSuperCriticalFlow = new MeanStandardDeviationStochastConfiguration
-                {
-                    Mean = 0.1
-                },
-                ProbabilityCollisionSecondaryStructure = 1e-5,
-                VolumicWeightWater = 1e-6,
-                StormDuration = new MeanVariationCoefficientStochastConfiguration
-                {
-                    Mean = 6.0
-                },
-                ShipMass = new MeanVariationCoefficientStochastConfiguration
-                {
-                    Mean = 16000,
-                    VariationCoefficient = 0.1
-                },
-                ShipVelocity = new MeanVariationCoefficientStochastConfiguration
-                {
-                    Mean = 1.2,
-                    VariationCoefficient = 0.1
-                },
-                StabilityLinearLoadModel = new MeanVariationCoefficientStochastConfiguration
-                {
-                    Mean = 1.2,
-                    VariationCoefficient = 0.1
-                },
-                StabilityQuadraticLoadModel = new MeanVariationCoefficientStochastConfiguration
-                {
-                    Mean = 1.2,
-                    VariationCoefficient = 0.1
-                },
-                StorageStructureArea = new MeanVariationCoefficientStochastConfiguration
-                {
-                    Mean = 15000,
-                    VariationCoefficient = 0.01
-                },
-                StructureName = "kunstwerk1",
-                StructureNormalOrientation = 1e-7,
-                ThresholdHeightOpenWeir = new MeanStandardDeviationStochastConfiguration
-                {
-                    Mean = 1.2,
-                    StandardDeviation = 0.1
-                },
-                VerticalDistance = 1e-8,
-                WaveReduction = new WaveReductionConfiguration
-                {
-                    UseBreakWater = true,
-                    BreakWaterType = ConfigurationBreakWaterType.Dam,
-                    BreakWaterHeight = 1.23,
-                    UseForeshoreProfile = false
-                },
-                WidthFlowApertures = new MeanStandardDeviationStochastConfiguration
-                {
-                    Mean = 15.2,
-                    StandardDeviation = 0.1
-                }
-            };
         }
     }
 }
