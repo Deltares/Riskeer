@@ -54,6 +54,26 @@ namespace Ringtoets.Common.IO.Readers
         }
 
         /// <summary>
+        /// Gets the <see cref="int"/> value from a descendant element.
+        /// </summary>
+        /// <param name="parentElement">The <see cref="XElement"/> that contains the descendant element.</param>
+        /// <param name="descendantElementName">The name of the descendant element.</param>
+        /// <returns>The value of the element, or <c>null</c> when the <paramref name="parentElement"/>
+        /// does not have descendant elements of <paramref name="descendantElementName"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="FormatException">Thrown when the value isn't in the correct format.</exception>
+        /// <exception cref="OverflowException">Thrown when the value represents a number
+        /// less than <see cref="int.MinValue"/> or greater than <see cref="int.MaxValue"/>.</exception>
+        public static int? GetIntegerValueFromDescendantElement(this XElement parentElement, string descendantElementName)
+        {
+            XElement descendantElement = parentElement.GetDescendantElement(descendantElementName);
+
+            return descendantElement != null
+                       ? (int?) XmlConvert.ToInt32(descendantElement.Value)
+                       : null;
+        }
+
+        /// <summary>
         /// Gets the <see cref="string"/> value from a descendant element.
         /// </summary>
         /// <param name="parentElement">The <see cref="XElement"/> that contains the descendant element.</param>

@@ -3,17 +3,21 @@
   <berekening naam="Berekening 1">
     <orientatie>-INF</orientatie>
     <faalkansgegevenerosiebodem>-INF</faalkansgegevenerosiebodem>
+    <factorstormduur>INF</factorstormduur>
+    <kansopopenstaan>INF</kansopopenstaan>
+    <kansmislukkensluiting>-INF</kansmislukkensluiting>
+    <faalkansherstel>-INF</faalkansherstel>
     <golfreductie>
       <damhoogte>-INF</damhoogte>
     </golfreductie>
     <stochasten>
       <stochast naam="stormduur">
         <verwachtingswaarde>-INF</verwachtingswaarde>
-        <variatiecoefficient>-INF</variatiecoefficient>
+        <variatiecoefficient>INF</variatiecoefficient>
       </stochast>
       <stochast naam="modelfactoroverloopdebiet">
         <verwachtingswaarde>-INF</verwachtingswaarde>
-        <standaardafwijking>INF</standaardafwijking>
+        <standaardafwijking>-INF</standaardafwijking>
       </stochast>
       <stochast naam="breedtebodembescherming">
         <verwachtingswaarde>-INF</verwachtingswaarde>
@@ -31,13 +35,29 @@
         <verwachtingswaarde>INF</verwachtingswaarde>
         <standaardafwijking>-INF</standaardafwijking>
       </stochast>
-      <stochast naam="kerendehoogte">
-        <verwachtingswaarde>-INF</verwachtingswaarde>
-        <standaardafwijking>-INF</standaardafwijking>
-      </stochast>
       <stochast naam="kritiekinstromenddebiet">
         <verwachtingswaarde>INF</verwachtingswaarde>
         <variatiecoefficient>INF</variatiecoefficient>
+      </stochast>
+      <stochast naam="afvoercoefficient">
+        <verwachtingswaarde>-INF</verwachtingswaarde>
+        <standaardafwijking>INF</standaardafwijking>
+      </stochast>
+      <stochast naam="binnenwaterstand">
+        <verwachtingswaarde>INF</verwachtingswaarde>
+        <standaardafwijking>-INF</standaardafwijking>
+      </stochast>
+      <stochast naam="doorstroomoppervlak">
+        <verwachtingswaarde>-INF</verwachtingswaarde>
+        <standaardafwijking>INF</standaardafwijking>
+      </stochast>
+      <stochast naam="drempelhoogte">
+        <verwachtingswaarde>INF</verwachtingswaarde>
+        <standaardafwijking>-INF</standaardafwijking>
+      </stochast>
+      <stochast naam="kruinhoogte">
+        <verwachtingswaarde>INF</verwachtingswaarde>
+        <standaardafwijking>-INF</standaardafwijking>
       </stochast>
     </stochasten>
   </berekening>

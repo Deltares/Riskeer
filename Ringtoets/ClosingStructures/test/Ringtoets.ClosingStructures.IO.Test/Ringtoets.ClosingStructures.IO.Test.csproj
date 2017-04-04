@@ -44,6 +44,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
@@ -54,6 +55,7 @@
     <Compile Include="ClosingStructuresCalculationConfigurationTest.cs" />
     <Compile Include="ClosingStructuresCalculationConfigurationWriterTest.cs" />
     <Compile Include="ConfigurationClosingStructureInflowModelTypeConverterTest.cs" />
+    <Compile Include="ClosingStructuresCalculationConfigurationReaderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

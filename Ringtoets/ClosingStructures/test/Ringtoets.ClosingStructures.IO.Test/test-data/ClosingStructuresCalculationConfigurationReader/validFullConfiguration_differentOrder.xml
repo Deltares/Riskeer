@@ -2,13 +2,29 @@
 <configuratie>
   <berekening naam="Berekening 1">
     <stochasten>
+      <stochast naam="afvoercoefficient">
+        <verwachtingswaarde>1.1</verwachtingswaarde>
+        <standaardafwijking>0.1</standaardafwijking>
+      </stochast>
+      <stochast naam="binnenwaterstand">
+        <verwachtingswaarde>0.5</verwachtingswaarde>
+        <standaardafwijking>0.1</standaardafwijking>
+      </stochast>
+      <stochast naam="doorstroomoppervlak">
+        <verwachtingswaarde>80.5</verwachtingswaarde>
+        <standaardafwijking>1</standaardafwijking>
+      </stochast>
+      <stochast naam="drempelhoogte">
+        <verwachtingswaarde>1.2</verwachtingswaarde>
+        <standaardafwijking>0.1</standaardafwijking>
+      </stochast>
+      <stochast naam="kruinhoogte">
+        <verwachtingswaarde>4.3</verwachtingswaarde>
+        <standaardafwijking>0.2</standaardafwijking>
+      </stochast>
       <stochast naam="stormduur">
         <verwachtingswaarde>6.0</verwachtingswaarde>
         <variatiecoefficient>0.12</variatiecoefficient>
-      </stochast>
-      <stochast naam="kerendehoogte">
-        <verwachtingswaarde>4.3</verwachtingswaarde>
-        <standaardafwijking>0.1</standaardafwijking>
       </stochast>
       <stochast naam="kritiekinstromenddebiet">
         <verwachtingswaarde>2</verwachtingswaarde>
@@ -42,7 +58,13 @@
       <damgebruiken>true</damgebruiken>
     </golfreductie>
     <voorlandprofiel>profiel1</voorlandprofiel>
-    <faalkansgegevenerosiebodem>1E-6</faalkansgegevenerosiebodem>
+    <instroommodel>verticalewand</instroommodel>
+    <nrdoorstroomopeningen>4</nrdoorstroomopeningen>
+    <faalkansherstel>0.0006</faalkansherstel>
+    <kansmislukkensluiting>0.22</kansmislukkensluiting>
+    <kansopopenstaan>0.03</kansopopenstaan>
+    <factorstormduur>0.002</factorstormduur>
+    <faalkansgegevenerosiebodem>0.001</faalkansgegevenerosiebodem>
     <orientatie>67.1</orientatie>
     <kunstwerk>kunstwerk1</kunstwerk>
     <hrlocatie>Locatie1</hrlocatie>

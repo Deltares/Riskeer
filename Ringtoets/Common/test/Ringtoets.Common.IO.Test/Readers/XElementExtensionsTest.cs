@@ -135,6 +135,95 @@ namespace Ringtoets.Common.IO.Test.Readers
         }
 
         [Test]
+        public void GeIntegerValueFromDescendantElement_ParentElementNull_ThrowArgumentNullException()
+        {
+            // Setup
+            XElement rootElement = null;
+
+            // Call
+            TestDelegate test = () => rootElement.GetIntegerValueFromDescendantElement("");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("parentElement", exception.ParamName);
+        }
+
+        [Test]
+        public void GetIntegerValueFromDescendantElement_DescendantElementNameNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var rootElement = new XElement("Root");
+
+            // Call
+            TestDelegate test = () => rootElement.GetIntegerValueFromDescendantElement(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("descendantElementName", exception.ParamName);
+        }
+
+        [Test]
+        public void GetIntegerValueFromDescendantElement_DescendantElementInvalidFormat_ThrowFormatException()
+        {
+            // Setup
+            const string descendantElementName = "number";
+            const string descendantElementValue = "drie";
+
+            var element = new XElement("Root", new XElement(descendantElementName, descendantElementValue));
+
+            // Call
+            TestDelegate test = () => element.GetIntegerValueFromDescendantElement(descendantElementName);
+
+            // Assert
+            Assert.Throws<FormatException>(test);
+        }
+
+        [Test]
+        public void GetIntegerValueFromDescendantElement_DescendantElementOverflows_ThrowOverflowException()
+        {
+            // Setup
+            const string descendantElementName = "number";
+            string descendantElementValue = string.Format(CultureInfo.InvariantCulture, "1{0}", int.MaxValue);
+
+            var element = new XElement("Root", new XElement(descendantElementName, descendantElementValue));
+
+            // Call
+            TestDelegate test = () => element.GetIntegerValueFromDescendantElement(descendantElementName);
+
+            // Assert
+            Assert.Throws<OverflowException>(test);
+        }
+
+        [Test]
+        public void GetIntegerValueFromDescendantElement_ValidDescendantElement_ReturnValue()
+        {
+            // Setup
+            const string descendantElementName = "number";
+            const int descendantElementValue = 3;
+
+            var element = new XElement("Root", new XElement(descendantElementName, descendantElementValue));
+
+            // Call
+            double? readValue = element.GetIntegerValueFromDescendantElement(descendantElementName);
+
+            // Assert
+            Assert.AreEqual(descendantElementValue, readValue.Value);
+        }
+
+        [Test]
+        public void GetIntegerValueFromDescendantElement_InvalidDescendantElement_ReturnNull()
+        {
+            // Setup
+            var element = new XElement("Root", new XElement("number", (double) 3));
+
+            // Call
+            double? readValue = element.GetIntegerValueFromDescendantElement("invalidName");
+
+            // Assert
+            Assert.IsNull(readValue);
+        }
+
+        [Test]
         public void GetStringValueFromDescendantElement_ParentElementNull_ThrowArgumentNullException()
         {
             // Setup

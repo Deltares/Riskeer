@@ -6,6 +6,10 @@
     <golfreductie>
       <damhoogte>NaN</damhoogte>
     </golfreductie>
+    <factorstormduur>NaN</factorstormduur>
+    <kansopopenstaan>NaN</kansopopenstaan>
+    <kansmislukkensluiting>NaN</kansmislukkensluiting>
+    <faalkansherstel>NaN</faalkansherstel>
     <stochasten>
       <stochast naam="stormduur">
         <verwachtingswaarde>NaN</verwachtingswaarde>
@@ -31,13 +35,29 @@
         <verwachtingswaarde>NaN</verwachtingswaarde>
         <standaardafwijking>NaN</standaardafwijking>
       </stochast>
-      <stochast naam="kerendehoogte">
-        <verwachtingswaarde>NaN</verwachtingswaarde>
-        <standaardafwijking>NaN</standaardafwijking>
-      </stochast>
       <stochast naam="kritiekinstromenddebiet">
         <verwachtingswaarde>NaN</verwachtingswaarde>
         <variatiecoefficient>NaN</variatiecoefficient>
+      </stochast>
+      <stochast naam="afvoercoefficient">
+        <verwachtingswaarde>NaN</verwachtingswaarde>
+        <standaardafwijking>NaN</standaardafwijking>
+      </stochast>
+      <stochast naam="binnenwaterstand">
+        <verwachtingswaarde>NaN</verwachtingswaarde>
+        <standaardafwijking>NaN</standaardafwijking>
+      </stochast>
+      <stochast naam="doorstroomoppervlak">
+        <verwachtingswaarde>NaN</verwachtingswaarde>
+        <standaardafwijking>NaN</standaardafwijking>
+      </stochast>
+      <stochast naam="drempelhoogte">
+        <verwachtingswaarde>NaN</verwachtingswaarde>
+        <standaardafwijking>NaN</standaardafwijking>
+      </stochast>
+      <stochast naam="kruinhoogte">
+        <verwachtingswaarde>NaN</verwachtingswaarde>
+        <standaardafwijking>NaN</standaardafwijking>
       </stochast>
     </stochasten>
   </berekening>

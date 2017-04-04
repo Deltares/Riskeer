@@ -29,13 +29,13 @@ using System.Xml.Schema;
 using Core.Common.Base.IO;
 using Ringtoets.Common.IO.Configurations;
 
-namespace Ringtoets.HeightStructures.IO.Test
+namespace Ringtoets.ClosingStructures.IO.Test
 {
     [TestFixture]
-    public class HeightStructuresCalculationConfigurationReaderTest
+    public class ClosingStructuresCalculationConfigurationReaderTest
     {
-        private readonly string testDirectoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HeightStructures.IO,
-                                                                               nameof(HeightStructuresCalculationConfigurationReader));
+        private readonly string testDirectoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.ClosingStructures.IO,
+                                                                               nameof(ClosingStructuresCalculationConfigurationReader));
 
         private static IEnumerable<TestCaseData> InvalidConfigurations
         {
@@ -75,6 +75,25 @@ namespace Ringtoets.HeightStructures.IO.Test
                                               "Element 'kunstwerk' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleStructure");
 
+                yield return new TestCaseData("invalidCalculationMultipleFactorStormDurationOpenStructure.xml",
+                                              "Element 'factorstormduur' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidCalculationMultipleFactorStormDurationOpenStructure");
+                yield return new TestCaseData("invalidCalculationMultipleFailureProbabilityOpenStructure.xml",
+                                              "Element 'kansmislukkensluiting' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidCalculationMultipleFailureProbabilityOpenStructure");
+                yield return new TestCaseData("invalidCalculationMultipleFailureProbabilityReparation.xml",
+                                              "Element 'faalkansherstel' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidCalculationMultipleFailureProbabilityReparation");
+                yield return new TestCaseData("invalidCalculationMultipleIdenticalApertures.xml",
+                                              "Element 'nrdoorstroomopeningen' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidCalculationMultipleIdenticalApertures");
+                yield return new TestCaseData("invalidCalculationMultipleInflowModelTypes.xml",
+                                              "Element 'instroommodel' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidCalculationMultipleInflowModelTypes");
+                yield return new TestCaseData("invalidCalculationMultipleProbabilityOrFrequencyOpenStructureBeforeFlooding.xml",
+                                              "Element 'kansopopenstaan' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidCalculationMultipleProbabilityOrFrequencyOpenStructureBeforeFlooding");
+
                 yield return new TestCaseData("invalidCalculationOrientationEmpty.xml",
                                               "The 'orientatie' element is invalid - The value '' is invalid according to its datatype 'Double'")
                     .SetName("invalidCalculationOrientationEmpty");
@@ -88,6 +107,60 @@ namespace Ringtoets.HeightStructures.IO.Test
                 yield return new TestCaseData("invalidCalculationStructureEmpty.xml",
                                               "The 'kunstwerk' element is invalid - The value '' is invalid according to its datatype 'String'")
                     .SetName("invalidCalculationStructureEmpty");
+
+                yield return new TestCaseData("invalidCalculationFactorStormDurationOpenStructureEmpty.xml",
+                                              "The 'factorstormduur' element is invalid - The value '' is invalid according to its datatype 'Double'")
+                    .SetName("invalidCalculationFactorStormDurationOpenStructureEmpty");
+                yield return new TestCaseData("invalidCalculationFactorStormDurationOpenStructureNoDouble.xml",
+                                              "The 'factorstormduur' element is invalid - The value 'nul' is invalid according to its datatype 'Double'")
+                    .SetName("invalidCalculationFactorStormDurationOpenStructureNoDouble");
+                yield return new TestCaseData("invalidCalculationFactorStormDurationOpenStructureWrongCulture.xml",
+                                              "The 'factorstormduur' element is invalid - The value '0,5' is invalid according to its datatype 'Double'")
+                    .SetName("invalidCalculationFactorStormDurationOpenStructureWrongCulture");
+
+                yield return new TestCaseData("invalidCalculationFailureProbabilityOpenStructureEmpty.xml",
+                                              "The 'kansmislukkensluiting' element is invalid - The value '' is invalid according to its datatype 'Double'")
+                    .SetName("invalidCalculationFailureProbabilityOpenStructureEmpty");
+                yield return new TestCaseData("invalidCalculationFailureProbabilityOpenStructureNoDouble.xml",
+                                              "The 'kansmislukkensluiting' element is invalid - The value 'nul' is invalid according to its datatype 'Double'")
+                    .SetName("invalidCalculationFailureProbabilityOpenStructureNoDouble");
+                yield return new TestCaseData("invalidCalculationFailureProbabilityOpenStructureWrongCulture.xml",
+                                              "The 'kansmislukkensluiting' element is invalid - The value '0,5' is invalid according to its datatype 'Double'")
+                    .SetName("invalidCalculationFailureProbabilityOpenStructureWrongCulture");
+
+                yield return new TestCaseData("invalidCalculationFailureProbabilityReparationEmpty.xml",
+                                              "The 'faalkansherstel' element is invalid - The value '' is invalid according to its datatype 'Double'")
+                    .SetName("invalidCalculationFailureProbabilityReparationEmpty");
+                yield return new TestCaseData("invalidCalculationFailureProbabilityReparationNoDouble.xml",
+                                              "The 'faalkansherstel' element is invalid - The value 'nul' is invalid according to its datatype 'Double'")
+                    .SetName("invalidCalculationFailureProbabilityReparationNoDouble");
+                yield return new TestCaseData("invalidCalculationFailureProbabilityReparationWrongCulture.xml",
+                                              "The 'faalkansherstel' element is invalid - The value '0,5' is invalid according to its datatype 'Double'")
+                    .SetName("invalidCalculationFailureProbabilityReparationWrongCulture");
+
+                yield return new TestCaseData("invalidCalculationProbabilityOrFrequencyOpenStructureBeforeFloodingEmpty.xml",
+                                              "The 'kansopopenstaan' element is invalid - The value '' is invalid according to its datatype 'Double'")
+                    .SetName("invalidCalculationProbabilityOrFrequencyOpenStructureBeforeFloodingEmpty");
+                yield return new TestCaseData("invalidCalculationProbabilityOrFrequencyOpenStructureBeforeFloodingNoDouble.xml",
+                                              "The 'kansopopenstaan' element is invalid - The value 'nul' is invalid according to its datatype 'Double'")
+                    .SetName("invalidCalculationProbabilityOrFrequencyOpenStructureBeforeFloodingNoDouble");
+                yield return new TestCaseData("invalidCalculationProbabilityOrFrequencyOpenStructureBeforeFloodingWrongCulture.xml",
+                                              "The 'kansopopenstaan' element is invalid - The value '0,5' is invalid according to its datatype 'Double'")
+                    .SetName("invalidCalculationProbabilityOrFrequencyOpenStructureBeforeFloodingWrongCulture");
+
+                yield return new TestCaseData("invalidCalculationIdenticalAperturesEmpty.xml",
+                                              "The 'nrdoorstroomopeningen' element is invalid - The value '' is invalid according to its datatype 'Integer'")
+                    .SetName("invalidCalculationIdenticalAperturesEmpty");
+                yield return new TestCaseData("invalidCalculationIdenticalAperturesNoInt.xml",
+                                              "The 'nrdoorstroomopeningen' element is invalid - The value 'nul' is invalid according to its datatype 'Integer'")
+                    .SetName("invalidCalculationIdenticalAperturesNoInt");
+
+                yield return new TestCaseData("invalidCalculationInflowModelTypeEmpty.xml",
+                                              "The 'instroommodel' element is invalid - The value '' is invalid according to its datatype 'String' - The Enumeration constraint failed.")
+                    .SetName("invalidCalculationInflowModelTypeEmpty");
+                yield return new TestCaseData("invalidCalculationInflowModelTypeUnsupportedString.xml",
+                                              "The 'instroommodel' element is invalid - The value 'invalid' is invalid according to its datatype 'String' - The Enumeration constraint failed.")
+                    .SetName("invalidCalculationInflowModelTypeUnsupportedString");
 
                 yield return new TestCaseData("invalidStochastNoName.xml",
                                               "The required attribute 'naam' is missing.")
@@ -141,9 +214,6 @@ namespace Ringtoets.HeightStructures.IO.Test
                 yield return new TestCaseData("invalidMultipleFlowWidthAtBottomProtectionStochast.xml",
                                               "There is a duplicate key sequence 'breedtebodembescherming' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
                     .SetName("invalidMultipleFlowWidthAtBottomProtectionStochast");
-                yield return new TestCaseData("invalidMultipleLevelCrestStructureStochast.xml",
-                                              "There is a duplicate key sequence 'kerendehoogte' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
-                    .SetName("invalidMultipleLevelCrestStructureStochast");
                 yield return new TestCaseData("invalidMultipleModelFactorSuperCriticalFlowStochast.xml",
                                               "There is a duplicate key sequence 'modelfactoroverloopdebiet' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
                     .SetName("invalidMultipleModelFactorSuperCriticalFlowStochast");
@@ -156,6 +226,22 @@ namespace Ringtoets.HeightStructures.IO.Test
                 yield return new TestCaseData("invalidMultipleWidthFlowAperturesStochast.xml",
                                               "There is a duplicate key sequence 'breedtedoorstroomopening' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
                     .SetName("invalidMultipleWidthFlowAperturesStochast");
+
+                yield return new TestCaseData("invalidMultipleAreaFlowAperturesStochast.xml",
+                                              "There is a duplicate key sequence 'doorstroomoppervlak' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
+                    .SetName("invalidMultipleAreaFlowAperturesStochast");
+                yield return new TestCaseData("invalidMultipleDrainCoefficientStochast.xml",
+                                              "There is a duplicate key sequence 'afvoercoefficient' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
+                    .SetName("invalidMultipleDrainCoefficientStochast");
+                yield return new TestCaseData("invalidMultipleInsideWaterLevelStochast.xml",
+                                              "There is a duplicate key sequence 'binnenwaterstand' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
+                    .SetName("invalidMultipleInsideWaterLevelStochast");
+                yield return new TestCaseData("invalidMultipleLevelCrestStructureNotClosingStochast.xml",
+                                              "There is a duplicate key sequence 'kruinhoogte' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
+                    .SetName("invalidMultipleLevelCrestStructureNotClosingStochast");
+                yield return new TestCaseData("invalidMultipleThresholdHeightOpenWeirStochast.xml",
+                                              "There is a duplicate key sequence 'drempelhoogte' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
+                    .SetName("invalidMultipleThresholdHeightOpenWeirStochast");
 
                 yield return new TestCaseData("invalidUseBreakWaterEmpty.xml",
                                               "The 'damgebruiken' element is invalid - The value '' is invalid according to its datatype 'Boolean'")
@@ -209,10 +295,10 @@ namespace Ringtoets.HeightStructures.IO.Test
             var existingPath = Path.Combine(testDirectoryPath, "validConfigurationEmptyCalculation.xml");
 
             // Call
-            var reader = new HeightStructuresCalculationConfigurationReader(existingPath);
+            var reader = new ClosingStructuresCalculationConfigurationReader(existingPath);
 
             // Assert
-            Assert.IsInstanceOf<CalculationConfigurationReader<HeightStructuresCalculationConfiguration>>(reader);
+            Assert.IsInstanceOf<CalculationConfigurationReader<ClosingStructuresCalculationConfiguration>>(reader);
         }
 
         [Test]
@@ -223,7 +309,7 @@ namespace Ringtoets.HeightStructures.IO.Test
             string filePath = Path.Combine(testDirectoryPath, fileName);
 
             // Call
-            TestDelegate call = () => new HeightStructuresCalculationConfigurationReader(filePath);
+            TestDelegate call = () => new ClosingStructuresCalculationConfigurationReader(filePath);
 
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(call);
@@ -238,7 +324,7 @@ namespace Ringtoets.HeightStructures.IO.Test
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, $"{fileName}.xml");
-            var reader = new HeightStructuresCalculationConfigurationReader(filePath);
+            var reader = new ClosingStructuresCalculationConfigurationReader(filePath);
 
             // Call
             IList<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
@@ -246,14 +332,14 @@ namespace Ringtoets.HeightStructures.IO.Test
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
 
-            var calculation = (HeightStructuresCalculationConfiguration) readConfigurationItems[0];
+            var calculation = (ClosingStructuresCalculationConfiguration) readConfigurationItems[0];
             Assert.IsNull(calculation.StructureNormalOrientation);
             Assert.IsNull(calculation.StructureName);
             Assert.IsNull(calculation.HydraulicBoundaryLocationName);
             Assert.IsNull(calculation.ForeshoreProfileName);
             Assert.IsNull(calculation.FailureProbabilityStructureWithErosion);
 
-            Assert.IsNull(calculation.LevelCrestStructure);
+            Assert.IsNull(calculation.LevelCrestStructureNotClosing);
             Assert.IsNull(calculation.AllowedLevelIncreaseStorage);
             Assert.IsNull(calculation.CriticalOvertoppingDischarge);
             Assert.IsNull(calculation.FlowWidthAtBottomProtection);
@@ -272,7 +358,7 @@ namespace Ringtoets.HeightStructures.IO.Test
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, $"{fileName}.xml");
-            var reader = new HeightStructuresCalculationConfigurationReader(filePath);
+            var reader = new ClosingStructuresCalculationConfigurationReader(filePath);
 
             // Call
             IList<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
@@ -280,15 +366,29 @@ namespace Ringtoets.HeightStructures.IO.Test
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
 
-            var calculation = (HeightStructuresCalculationConfiguration) readConfigurationItems[0];
+            var calculation = (ClosingStructuresCalculationConfiguration) readConfigurationItems[0];
             Assert.AreEqual(67.1, calculation.StructureNormalOrientation);
             Assert.AreEqual("kunstwerk1", calculation.StructureName);
             Assert.AreEqual("Locatie1", calculation.HydraulicBoundaryLocationName);
             Assert.AreEqual("profiel1", calculation.ForeshoreProfileName);
-            Assert.AreEqual(1e-6, calculation.FailureProbabilityStructureWithErosion);
+            Assert.AreEqual(0.002, calculation.FactorStormDurationOpenStructure);
+            Assert.AreEqual(0.03, calculation.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
+            Assert.AreEqual(0.22, calculation.FailureProbabilityOpenStructure);
+            Assert.AreEqual(0.0006, calculation.FailureProbabilityReparation);
+            Assert.AreEqual(0.001, calculation.FailureProbabilityStructureWithErosion);
+            Assert.AreEqual(4, calculation.IdenticalApertures);
+            Assert.AreEqual(ConfigurationClosingStructureInflowModelType.VerticalWall, calculation.InflowModelType);
 
-            Assert.AreEqual(4.3, calculation.LevelCrestStructure.Mean);
-            Assert.AreEqual(0.1, calculation.LevelCrestStructure.StandardDeviation);
+            Assert.AreEqual(1.1, calculation.DrainCoefficient.Mean);
+            Assert.AreEqual(0.1, calculation.DrainCoefficient.StandardDeviation);
+            Assert.AreEqual(0.5, calculation.InsideWaterLevel.Mean);
+            Assert.AreEqual(0.1, calculation.InsideWaterLevel.StandardDeviation);
+            Assert.AreEqual(80.5, calculation.AreaFlowApertures.Mean);
+            Assert.AreEqual(1, calculation.AreaFlowApertures.StandardDeviation);
+            Assert.AreEqual(1.2, calculation.ThresholdHeightOpenWeir.Mean);
+            Assert.AreEqual(0.1, calculation.ThresholdHeightOpenWeir.StandardDeviation);
+            Assert.AreEqual(4.3, calculation.LevelCrestStructureNotClosing.Mean);
+            Assert.AreEqual(0.2, calculation.LevelCrestStructureNotClosing.StandardDeviation);
 
             Assert.AreEqual(0.2, calculation.AllowedLevelIncreaseStorage.Mean);
             Assert.AreEqual(0.01, calculation.AllowedLevelIncreaseStorage.StandardDeviation);
@@ -316,7 +416,7 @@ namespace Ringtoets.HeightStructures.IO.Test
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, "validFullConfigurationContainingInfinity.xml");
-            var reader = new HeightStructuresCalculationConfigurationReader(filePath);
+            var reader = new ClosingStructuresCalculationConfigurationReader(filePath);
 
             // Call
             IList<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
@@ -324,15 +424,27 @@ namespace Ringtoets.HeightStructures.IO.Test
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
 
-            var calculation = (HeightStructuresCalculationConfiguration) readConfigurationItems[0];
+            var calculation = (ClosingStructuresCalculationConfiguration) readConfigurationItems[0];
             Assert.IsTrue(double.IsNegativeInfinity(calculation.StructureNormalOrientation.Value));
             Assert.IsNull(calculation.StructureName);
             Assert.IsNull(calculation.HydraulicBoundaryLocationName);
             Assert.IsNull(calculation.ForeshoreProfileName);
+            Assert.IsTrue(double.IsPositiveInfinity(calculation.FactorStormDurationOpenStructure.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(calculation.ProbabilityOrFrequencyOpenStructureBeforeFlooding.Value));
+            Assert.IsTrue(double.IsNegativeInfinity(calculation.FailureProbabilityOpenStructure.Value));
+            Assert.IsTrue(double.IsNegativeInfinity(calculation.FailureProbabilityReparation.Value));
             Assert.IsTrue(double.IsNegativeInfinity(calculation.FailureProbabilityStructureWithErosion.Value));
 
-            Assert.IsTrue(double.IsNegativeInfinity(calculation.LevelCrestStructure.Mean.Value));
-            Assert.IsTrue(double.IsNegativeInfinity(calculation.LevelCrestStructure.StandardDeviation.Value));
+            Assert.IsTrue(double.IsNegativeInfinity(calculation.DrainCoefficient.Mean.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(calculation.DrainCoefficient.StandardDeviation.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(calculation.InsideWaterLevel.Mean.Value));
+            Assert.IsTrue(double.IsNegativeInfinity(calculation.InsideWaterLevel.StandardDeviation.Value));
+            Assert.IsTrue(double.IsNegativeInfinity(calculation.AreaFlowApertures.Mean.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(calculation.AreaFlowApertures.StandardDeviation.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(calculation.ThresholdHeightOpenWeir.Mean.Value));
+            Assert.IsTrue(double.IsNegativeInfinity(calculation.ThresholdHeightOpenWeir.StandardDeviation.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(calculation.LevelCrestStructureNotClosing.Mean.Value));
+            Assert.IsTrue(double.IsNegativeInfinity(calculation.LevelCrestStructureNotClosing.StandardDeviation.Value));
 
             Assert.IsTrue(double.IsPositiveInfinity(calculation.AllowedLevelIncreaseStorage.Mean.Value));
             Assert.IsTrue(double.IsNegativeInfinity(calculation.AllowedLevelIncreaseStorage.StandardDeviation.Value));
@@ -341,11 +453,11 @@ namespace Ringtoets.HeightStructures.IO.Test
             Assert.IsTrue(double.IsNegativeInfinity(calculation.FlowWidthAtBottomProtection.Mean.Value));
             Assert.IsTrue(double.IsPositiveInfinity(calculation.FlowWidthAtBottomProtection.StandardDeviation.Value));
             Assert.IsTrue(double.IsNegativeInfinity(calculation.ModelFactorSuperCriticalFlow.Mean.Value));
-            Assert.IsTrue(double.IsPositiveInfinity(calculation.ModelFactorSuperCriticalFlow.StandardDeviation.Value));
+            Assert.IsTrue(double.IsNegativeInfinity(calculation.ModelFactorSuperCriticalFlow.StandardDeviation.Value));
             Assert.IsTrue(double.IsPositiveInfinity(calculation.StorageStructureArea.Mean.Value));
             Assert.IsTrue(double.IsPositiveInfinity(calculation.StorageStructureArea.VariationCoefficient.Value));
             Assert.IsTrue(double.IsNegativeInfinity(calculation.StormDuration.Mean.Value));
-            Assert.IsTrue(double.IsNegativeInfinity(calculation.StormDuration.VariationCoefficient.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(calculation.StormDuration.VariationCoefficient.Value));
             Assert.IsTrue(double.IsPositiveInfinity(calculation.WidthFlowApertures.Mean.Value));
             Assert.IsTrue(double.IsPositiveInfinity(calculation.WidthFlowApertures.StandardDeviation.Value));
 
@@ -360,7 +472,7 @@ namespace Ringtoets.HeightStructures.IO.Test
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, "validFullConfigurationContainingNaN.xml");
-            var reader = new HeightStructuresCalculationConfigurationReader(filePath);
+            var reader = new ClosingStructuresCalculationConfigurationReader(filePath);
 
             // Call
             IList<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
@@ -368,15 +480,27 @@ namespace Ringtoets.HeightStructures.IO.Test
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
 
-            var calculation = (HeightStructuresCalculationConfiguration) readConfigurationItems[0];
+            var calculation = (ClosingStructuresCalculationConfiguration) readConfigurationItems[0];
             Assert.IsNaN(calculation.StructureNormalOrientation);
             Assert.IsNull(calculation.StructureName);
             Assert.IsNull(calculation.HydraulicBoundaryLocationName);
             Assert.IsNull(calculation.ForeshoreProfileName);
+            Assert.IsNaN(calculation.FactorStormDurationOpenStructure);
+            Assert.IsNaN(calculation.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
+            Assert.IsNaN(calculation.FailureProbabilityOpenStructure);
+            Assert.IsNaN(calculation.FailureProbabilityReparation);
             Assert.IsNaN(calculation.FailureProbabilityStructureWithErosion);
 
-            Assert.IsNaN(calculation.LevelCrestStructure.Mean);
-            Assert.IsNaN(calculation.LevelCrestStructure.StandardDeviation);
+            Assert.IsNaN(calculation.DrainCoefficient.Mean);
+            Assert.IsNaN(calculation.DrainCoefficient.StandardDeviation);
+            Assert.IsNaN(calculation.InsideWaterLevel.Mean);
+            Assert.IsNaN(calculation.InsideWaterLevel.StandardDeviation);
+            Assert.IsNaN(calculation.AreaFlowApertures.Mean);
+            Assert.IsNaN(calculation.AreaFlowApertures.StandardDeviation);
+            Assert.IsNaN(calculation.ThresholdHeightOpenWeir.Mean);
+            Assert.IsNaN(calculation.ThresholdHeightOpenWeir.StandardDeviation);
+            Assert.IsNaN(calculation.LevelCrestStructureNotClosing.Mean);
+            Assert.IsNaN(calculation.LevelCrestStructureNotClosing.StandardDeviation);
 
             Assert.IsNaN(calculation.AllowedLevelIncreaseStorage.Mean);
             Assert.IsNaN(calculation.AllowedLevelIncreaseStorage.StandardDeviation);
@@ -404,7 +528,7 @@ namespace Ringtoets.HeightStructures.IO.Test
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, "validPartialConfiguration.xml");
-            var reader = new HeightStructuresCalculationConfigurationReader(filePath);
+            var reader = new ClosingStructuresCalculationConfigurationReader(filePath);
 
             // Call
             IList<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
@@ -412,14 +536,25 @@ namespace Ringtoets.HeightStructures.IO.Test
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
 
-            var calculation = (HeightStructuresCalculationConfiguration) readConfigurationItems[0];
+            var calculation = (ClosingStructuresCalculationConfiguration) readConfigurationItems[0];
             Assert.IsNull(calculation.StructureNormalOrientation);
             Assert.IsNull(calculation.StructureName);
             Assert.AreEqual("Locatie1", calculation.HydraulicBoundaryLocationName);
             Assert.AreEqual("profiel1", calculation.ForeshoreProfileName);
             Assert.IsNull(calculation.FailureProbabilityStructureWithErosion);
 
-            Assert.IsNull(calculation.LevelCrestStructure);
+            Assert.IsNull(calculation.FailureProbabilityOpenStructure);
+            Assert.IsNull(calculation.FailureProbabilityReparation);
+            Assert.IsNull(calculation.IdenticalApertures);
+            Assert.IsNull(calculation.InflowModelType);
+            Assert.IsNull(calculation.FactorStormDurationOpenStructure);
+            Assert.IsNull(calculation.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
+
+            Assert.IsNull(calculation.AreaFlowApertures);
+            Assert.IsNull(calculation.DrainCoefficient);
+            Assert.IsNull(calculation.InsideWaterLevel);
+            Assert.IsNull(calculation.ThresholdHeightOpenWeir);
+            Assert.IsNull(calculation.LevelCrestStructureNotClosing);
 
             Assert.IsNull(calculation.AllowedLevelIncreaseStorage);
             Assert.AreEqual(2, calculation.CriticalOvertoppingDischarge.Mean);
@@ -444,7 +579,7 @@ namespace Ringtoets.HeightStructures.IO.Test
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, "validConfigurationEmptyStochastElements.xml");
-            var reader = new HeightStructuresCalculationConfigurationReader(filePath);
+            var reader = new ClosingStructuresCalculationConfigurationReader(filePath);
 
             // Call
             IList<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
@@ -452,15 +587,30 @@ namespace Ringtoets.HeightStructures.IO.Test
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
 
-            var calculation = (HeightStructuresCalculationConfiguration) readConfigurationItems[0];
+            var calculation = (ClosingStructuresCalculationConfiguration) readConfigurationItems[0];
             Assert.IsNull(calculation.StructureNormalOrientation);
             Assert.IsNull(calculation.StructureName);
             Assert.IsNull(calculation.HydraulicBoundaryLocationName);
             Assert.IsNull(calculation.ForeshoreProfileName);
             Assert.IsNull(calculation.FailureProbabilityStructureWithErosion);
 
-            Assert.IsNull(calculation.LevelCrestStructure.Mean);
-            Assert.IsNull(calculation.LevelCrestStructure.StandardDeviation);
+            Assert.IsNull(calculation.FailureProbabilityOpenStructure);
+            Assert.IsNull(calculation.FailureProbabilityReparation);
+            Assert.IsNull(calculation.IdenticalApertures);
+            Assert.IsNull(calculation.InflowModelType);
+            Assert.IsNull(calculation.FactorStormDurationOpenStructure);
+            Assert.IsNull(calculation.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
+
+            Assert.IsNull(calculation.AreaFlowApertures.Mean);
+            Assert.IsNull(calculation.AreaFlowApertures.StandardDeviation);
+            Assert.IsNull(calculation.DrainCoefficient.Mean);
+            Assert.IsNull(calculation.DrainCoefficient.StandardDeviation);
+            Assert.IsNull(calculation.InsideWaterLevel.Mean);
+            Assert.IsNull(calculation.InsideWaterLevel.StandardDeviation);
+            Assert.IsNull(calculation.ThresholdHeightOpenWeir.Mean);
+            Assert.IsNull(calculation.ThresholdHeightOpenWeir.StandardDeviation);
+            Assert.IsNull(calculation.LevelCrestStructureNotClosing.Mean);
+            Assert.IsNull(calculation.LevelCrestStructureNotClosing.StandardDeviation);
 
             Assert.IsNull(calculation.AllowedLevelIncreaseStorage.Mean);
             Assert.IsNull(calculation.AllowedLevelIncreaseStorage.StandardDeviation);
