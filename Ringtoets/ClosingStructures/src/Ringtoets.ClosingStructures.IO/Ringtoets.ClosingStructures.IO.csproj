@@ -50,6 +50,7 @@
     <Compile Include="Configurations\ClosingStructuresCalculationConfiguration.cs" />
     <Compile Include="Configurations\ConfigurationClosingStructureInflowModelType.cs" />
     <Compile Include="Configurations\ClosingStructuresConfigurationSchemaIdentifiers.cs" />
+    <Compile Include="Configurations\ClosingStructuresCalculationConfigurationImporter.cs" />
     <Compile Include="Configurations\Helpers\ConfigurationClosingStructureInflowModelTypeConverter.cs" />
     <Compile Include="Configurations\ClosingStructuresCalculationConfigurationExporter.cs" />
     <Compile Include="Configurations\ClosingStructuresCalculationConfigurationReader.cs" />

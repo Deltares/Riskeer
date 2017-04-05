@@ -36,6 +36,7 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.Configurations;
+using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.Readers;
 using Ringtoets.Common.IO.Schema;
@@ -209,166 +210,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Assert.IsTrue(successful);
             AssertCalculationGroup(GetExpectedNestedData(), calculationGroup);
         }
-
-        [Test]
-        public void ValidateWaveReduction_NoCalculationName_ThrowsArgumentNullException()
-        {
-            // Setup
-            string filePath = Path.Combine(readerPath, "validConfiguration.xml");
-
-            var calculationGroup = new CalculationGroup();
-
-            var importer = new CalculationConfigurationImporter(filePath,
-                                                                calculationGroup);
-
-            // Call
-            TestDelegate test = () => importer.PublicValidateWaveReduction(null, null, null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("calculationName", exception.ParamName);
-        }
-
-        [Test]
-        public void ValidateWaveReduction_NoForeshoreProfileNoParameters_ReturnsTrue()
-        {
-            // Setup
-            string filePath = Path.Combine(readerPath, "validConfiguration.xml");
-            const string calculationName = "calculation";
-
-            var calculationGroup = new CalculationGroup();
-
-            var importer = new CalculationConfigurationImporter(filePath,
-                                                                calculationGroup);
-
-            // Call
-            bool valid = importer.PublicValidateWaveReduction(null, null, calculationName);
-
-            // Assert
-            Assert.IsTrue(valid);
-        }
-
-        [Test]
-        public void ValidateWaveReduction_NoForeshoreProfileWaveReductionWithoutParameters_ReturnsTrue()
-        {
-            // Setup
-            string filePath = Path.Combine(readerPath, "validConfiguration.xml");
-            const string calculationName = "calculation";
-
-            var calculationGroup = new CalculationGroup();
-
-            var importer = new CalculationConfigurationImporter(filePath,
-                                                                calculationGroup);
-
-            // Call
-            bool valid = importer.PublicValidateWaveReduction(new WaveReductionConfiguration(), null, calculationName);
-
-            // Assert
-            Assert.IsTrue(valid);
-        }
-
-        [Test]
-        public void ValidateWaveReduction_NoForeshoreProfileWaveReductionWithParameter_LogsErrorReturnsFalse([Values(0, 1, 2, 3)] int propertyToSet)
-        {
-            // Setup
-            string filePath = Path.Combine(readerPath, "validConfiguration.xml");
-            const string calculationName = "calculation";
-
-            var calculationGroup = new CalculationGroup();
-
-            var importer = new CalculationConfigurationImporter(filePath,
-                                                                calculationGroup);
-
-            var waveReductionConfiguration = new WaveReductionConfiguration();
-            var random = new Random(21);
-
-            switch (propertyToSet)
-            {
-                case 0:
-                    waveReductionConfiguration.BreakWaterType = random.NextEnumValue<ConfigurationBreakWaterType>();
-                    break;
-                case 1:
-                    waveReductionConfiguration.BreakWaterHeight = random.NextDouble();
-                    break;
-                case 2:
-                    waveReductionConfiguration.UseBreakWater = random.NextBoolean();
-                    break;
-                case 3:
-                    waveReductionConfiguration.UseForeshoreProfile = random.NextBoolean();
-                    break;
-            }
-            ;
-
-            var valid = true;
-
-            // Call
-            Action validate = () => valid = importer.PublicValidateWaveReduction(waveReductionConfiguration, null, calculationName);
-
-            // Assert
-            string expectedMessage = $"Er is geen voorlandprofiel opgegeven om golfreductie parameters aan toe te voegen. Berekening '{calculationName}' is overgeslagen.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(validate, Tuple.Create(expectedMessage, LogLevelConstant.Error));
-            Assert.IsFalse(valid);
-        }
-
-        [Test]
-        public void ValidateWaveReduction_ForeshoreProfileWithGeometryForeshoreProfileUsed_ReturnsTrue()
-        {
-            // Setup
-            string filePath = Path.Combine(readerPath, "validConfiguration.xml");
-            const string calculationName = "calculation";
-
-            var calculationGroup = new CalculationGroup();
-
-            var importer = new CalculationConfigurationImporter(filePath,
-                                                                calculationGroup);
-
-            var waveReductionConfiguration = new WaveReductionConfiguration
-            {
-                UseForeshoreProfile = true
-            };
-
-            // Call
-            bool valid = importer.PublicValidateWaveReduction(
-                waveReductionConfiguration,
-                new TestForeshoreProfile("voorland", new[]
-                {
-                    new Point2D(0, 2)
-                }),
-                calculationName);
-
-            // Assert
-            Assert.IsTrue(valid);
-        }
-
-        [Test]
-        public void ValidateWaveReduction_ForeshoreProfileWithoutGeometryForeshoreProfileUsed_LogsErrorReturnsFalse()
-        {
-            // Setup
-            string filePath = Path.Combine(readerPath, "validConfiguration.xml");
-            const string calculationName = "calculation";
-
-            var calculationGroup = new CalculationGroup();
-
-            var importer = new CalculationConfigurationImporter(filePath,
-                                                                calculationGroup);
-
-            var waveReductionConfiguration = new WaveReductionConfiguration
-            {
-                UseForeshoreProfile = true
-            };
-
-            var valid = true;
-            var profileName = "voorland";
-
-            // Call
-            Action validate = () => valid = importer.PublicValidateWaveReduction(waveReductionConfiguration, new TestForeshoreProfile(profileName), calculationName);
-
-            // Assert
-            string expectedMessage = $"Het opgegeven voorlandprofiel '{profileName}' heeft geen voorlandgeometrie en kan daarom niet gebruikt worden. Berekening '{calculationName}' is overgeslagen.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(validate, Tuple.Create(expectedMessage, LogLevelConstant.Error));
-            Assert.IsFalse(valid);
-        }
-
+        
         [Test]
         [TestCase(true, true, 1.2, ConfigurationBreakWaterType.Wall, BreakWaterType.Wall)]
         [TestCase(false, false, 2.2, ConfigurationBreakWaterType.Caisson, BreakWaterType.Caisson)]
@@ -862,43 +704,10 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Assert.AreSame(expectedProfile, structure);
         }
 
-        [Test]
-        public void LogOutOfRangeException_Always_LogMessage()
-        {
-            // Setup
-            string filePath = Path.Combine(readerPath, "validConfiguration.xml");
-
-            var calculationGroup = new CalculationGroup();
-
-            var importer = new CalculationConfigurationImporter(filePath,
-                                                                calculationGroup);
-
-            const string message = "an error";
-            const string calculationName = "calculationA";
-            const string innerMessage = "Inner message";
-            var exception = new ArgumentOutOfRangeException(null, innerMessage);
-
-            // Call
-            Action log = () => importer.PublicLogOutOfRangeException(message, calculationName, exception);
-
-            // Assert
-            TestHelper.AssertLogMessageWithLevelIsGenerated(log, Tuple.Create($"{message} {innerMessage} Berekening '{calculationName}' is overgeslagen.", LogLevelConstant.Error));
-        }
-
         private class CalculationConfigurationImporter : CalculationConfigurationImporter<CalculationConfigurationReader, ReadCalculation>
         {
             public CalculationConfigurationImporter(string filePath, CalculationGroup importTarget)
                 : base(filePath, importTarget) {}
-
-            public void PublicLogOutOfRangeException(string errorMessage, string calculationName, ArgumentOutOfRangeException e)
-            {
-                LogOutOfRangeException(errorMessage, calculationName, e);
-            }
-
-            public bool PublicValidateWaveReduction(WaveReductionConfiguration waveReduction, ForeshoreProfile foreshoreProfile, string calculationName)
-            {
-                return ValidateWaveReduction(waveReduction, foreshoreProfile, calculationName);
-            }
 
             public void PublicReadWaveReductionParameters<T>(WaveReductionConfiguration waveReduction, T input)
                 where T : IUseBreakWater, IUseForeshore

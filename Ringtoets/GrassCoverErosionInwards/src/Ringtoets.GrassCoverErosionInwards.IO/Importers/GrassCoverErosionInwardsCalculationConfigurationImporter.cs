@@ -113,11 +113,10 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
 
                 if (location == null)
                 {
-                    LogReadCalculationConversionError(
-                        string.Format(
-                            RingtoetsCommonIOResources.CalculationConfigurationImporter_ReadHydraulicBoundaryLocation_HydraulicBoundaryLocation_0_does_not_exist,
-                            readCalculation.HydraulicBoundaryLocation),
-                        calculation.Name);
+                    Log.LogCalculationConversionError(string.Format(
+                              RingtoetsCommonIOResources.CalculationConfigurationImporter_ReadHydraulicBoundaryLocation_HydraulicBoundaryLocation_0_does_not_exist,
+                              readCalculation.HydraulicBoundaryLocation),
+                          calculation.Name);
 
                     return false;
                 }
@@ -143,11 +142,10 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
 
                 if (dikeProfile == null)
                 {
-                    LogReadCalculationConversionError(
-                        string.Format(
-                            Resources.GrassCoverErosionInwardsCalculationConfigurationImporter_ReadDikeProfile_DikeProfile_0_does_not_exist,
-                            readCalculation.DikeProfile),
-                        calculation.Name);
+                    Log.LogCalculationConversionError(string.Format(
+                              Resources.GrassCoverErosionInwardsCalculationConfigurationImporter_ReadDikeProfile_DikeProfile_0_does_not_exist,
+                              readCalculation.DikeProfile),
+                          calculation.Name);
 
                     return false;
                 }
@@ -171,9 +169,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
             {
                 if (calculation.InputParameters.DikeProfile == null)
                 {
-                    LogReadCalculationConversionError(
-                        Resources.GrassCoverErosionInwardsCalculationConfigurationImporter_ValidateWaveReduction_No_DikeProfile_provided_for_Orientation,
-                        calculation.Name);
+                    Log.LogCalculationConversionError(Resources.GrassCoverErosionInwardsCalculationConfigurationImporter_ValidateWaveReduction_No_DikeProfile_provided_for_Orientation,
+                          calculation.Name);
 
                     return false;
                 }
@@ -186,10 +183,9 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
                 }
                 catch (ArgumentOutOfRangeException e)
                 {
-                    LogOutOfRangeException(
-                        string.Format(Resources.GrassCoverErosionInwardsCalculationConfigurationImporter_ReadOrientation_Orientation_0_invalid, orientation),
-                        calculation.Name,
-                        e);
+                    Log.LogOutOfRangeException(string.Format(Resources.GrassCoverErosionInwardsCalculationConfigurationImporter_ReadOrientation_Orientation_0_invalid, orientation),
+                          calculation.Name,
+                          e);
 
                     return false;
                 }
@@ -246,9 +242,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
             {
                 if (calculation.InputParameters.DikeProfile == null)
                 {
-                    LogReadCalculationConversionError(
-                        Resources.GrassCoverErosionInwardsCalculationConfigurationImporter_ValidateWaveReduction_No_DikeProfile_provided_for_DikeHeight,
-                        calculation.Name);
+                    Log.LogCalculationConversionError(Resources.GrassCoverErosionInwardsCalculationConfigurationImporter_ValidateWaveReduction_No_DikeProfile_provided_for_DikeHeight,
+                          calculation.Name);
 
                     return false;
                 }
@@ -308,9 +303,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
                     || readCalculation.BreakWaterHeight != null
                     || readCalculation.BreakWaterType != null)
                 {
-                    LogReadCalculationConversionError(
-                        Resources.GrassCoverErosionInwardsCalculationConfigurationImporter_ValidateWaveReduction_No_DikeProfile_provided_for_BreakWater_parameters,
-                        calculation.Name);
+                    Log.LogCalculationConversionError(Resources.GrassCoverErosionInwardsCalculationConfigurationImporter_ValidateWaveReduction_No_DikeProfile_provided_for_BreakWater_parameters,
+                          calculation.Name);
 
                     return false;
                 }
@@ -319,11 +313,10 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
             {
                 if (readCalculation.UseForeshore.HasValue && readCalculation.UseForeshore.Value)
                 {
-                    LogReadCalculationConversionError(
-                        string.Format(
-                            Resources.GrassCoverErosionInwardsCalculationConfigurationImporter_ValidateWaveReduction_DikeProfile_0_has_no_geometry_and_cannot_be_used,
-                            readCalculation.DikeProfile),
-                        calculation.Name);
+                    Log.LogCalculationConversionError(string.Format(
+                              Resources.GrassCoverErosionInwardsCalculationConfigurationImporter_ValidateWaveReduction_DikeProfile_0_has_no_geometry_and_cannot_be_used,
+                              readCalculation.DikeProfile),
+                          calculation.Name);
                     return false;
                 }
             }

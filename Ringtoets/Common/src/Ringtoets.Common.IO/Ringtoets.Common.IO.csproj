@@ -54,7 +54,9 @@
     </Compile>
     <Compile Include="AssessmentSectionSettings.cs" />
     <Compile Include="AssessmentSectionSettingsReader.cs" />
+    <Compile Include="Configurations\Helpers\ConfigurationValidationExtensions.cs" />
     <Compile Include="Configurations\Helpers\DistributionConversionExtensions.cs" />
+    <Compile Include="Configurations\Helpers\ILogExtensions.cs" />
     <Compile Include="Configurations\IConfigurationItem.cs" />
     <Compile Include="Configurations\MeanVariationCoefficientStochastConfiguration.cs" />
     <Compile Include="Configurations\MeanStandardDeviationStochastConfiguration.cs" />

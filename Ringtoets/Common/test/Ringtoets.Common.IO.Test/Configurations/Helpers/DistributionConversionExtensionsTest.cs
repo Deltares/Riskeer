@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Helpers;
 
-namespace Ringtoets.Common.IO.Test.Configurations
+namespace Ringtoets.Common.IO.Test.Configurations.Helpers
 {
     [TestFixture]
     public class DistributionConversionExtensionsTest

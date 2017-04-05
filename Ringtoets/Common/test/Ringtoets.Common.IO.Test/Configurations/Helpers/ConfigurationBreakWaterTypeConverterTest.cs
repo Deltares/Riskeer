@@ -27,7 +27,7 @@ using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.Schema;
 
-namespace Ringtoets.Common.IO.Test.Configurations
+namespace Ringtoets.Common.IO.Test.Configurations.Helpers
 {
     [TestFixture]
     public class ConfigurationBreakWaterTypeConverterTest

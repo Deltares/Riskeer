@@ -26,6 +26,7 @@ using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO.Properties;
@@ -117,10 +118,10 @@ namespace Ringtoets.Revetment.IO.Importers
 
                 if (location == null)
                 {
-                    LogReadCalculationConversionError(string.Format(
-                                                          RingtoetsCommonIOResources.CalculationConfigurationImporter_ReadHydraulicBoundaryLocation_HydraulicBoundaryLocation_0_does_not_exist,
-                                                          readCalculation.HydraulicBoundaryLocation),
-                                                      calculation.Name);
+                    Log.LogCalculationConversionError(string.Format(
+                              RingtoetsCommonIOResources.CalculationConfigurationImporter_ReadHydraulicBoundaryLocation_HydraulicBoundaryLocation_0_does_not_exist,
+                              readCalculation.HydraulicBoundaryLocation),
+                          calculation.Name);
                     return false;
                 }
 
@@ -162,14 +163,14 @@ namespace Ringtoets.Revetment.IO.Importers
             {
                 try
                 {
-                    setAsRoundedDouble((RoundedDouble)readValue.Value);
+                    setAsRoundedDouble((RoundedDouble) readValue.Value);
                 }
                 catch (ArgumentOutOfRangeException e)
                 {
-                    LogOutOfRangeException(string.Format(
-                                               RingtoetsCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
-                                               readValue.Value, parameterName),
-                                           calculationName, e);
+                    Log.LogOutOfRangeException(string.Format(
+                              RingtoetsCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
+                              readValue.Value, parameterName),
+                          calculationName, e);
                     return false;
                 }
             }
@@ -200,10 +201,10 @@ namespace Ringtoets.Revetment.IO.Importers
 
                 if (foreshoreProfile == null)
                 {
-                    LogReadCalculationConversionError(string.Format(
-                                                          RingtoetsCommonIOResources.CalculationConfigurationImporter_ReadForeshoreProfile_ForeshoreProfile_0_does_not_exist,
-                                                          readCalculation.ForeshoreProfile),
-                                                      calculation.Name);
+                    Log.LogCalculationConversionError(string.Format(
+                              RingtoetsCommonIOResources.CalculationConfigurationImporter_ReadForeshoreProfile_ForeshoreProfile_0_does_not_exist,
+                              readCalculation.ForeshoreProfile),
+                          calculation.Name);
                     return false;
                 }
 
@@ -230,11 +231,11 @@ namespace Ringtoets.Revetment.IO.Importers
                 }
                 catch (ArgumentOutOfRangeException e)
                 {
-                    LogOutOfRangeException(string.Format(
-                                               RingtoetsCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
-                                               orientation,
-                                               RingtoetsCommonIOResources.CalculationConfigurationImporter_Orientation_DisplayName),
-                                           calculation.Name, e);
+                    Log.LogOutOfRangeException(string.Format(
+                              RingtoetsCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
+                              orientation,
+                              RingtoetsCommonIOResources.CalculationConfigurationImporter_Orientation_DisplayName),
+                          calculation.Name, e);
                     return false;
                 }
             }
@@ -293,9 +294,8 @@ namespace Ringtoets.Revetment.IO.Importers
                     || readCalculation.BreakWaterHeight != null
                     || readCalculation.BreakWaterType != null)
                 {
-                    LogReadCalculationConversionError(
-                        RingtoetsCommonIOResources.CalculationConfigurationImporter_ValidateWaveReduction_No_foreshore_profile_provided,
-                        calculation.Name);
+                    Log.LogCalculationConversionError(RingtoetsCommonIOResources.CalculationConfigurationImporter_ValidateWaveReduction_No_foreshore_profile_provided,
+                          calculation.Name);
                     return false;
                 }
             }
@@ -303,10 +303,10 @@ namespace Ringtoets.Revetment.IO.Importers
             {
                 if (readCalculation.UseForeshore.HasValue && readCalculation.UseForeshore.Value)
                 {
-                    LogReadCalculationConversionError(string.Format(
-                                                          RingtoetsCommonIOResources.ReadForeshoreProfile_ForeshoreProfile_0_has_no_geometry_and_cannot_be_used,
-                                                          readCalculation.ForeshoreProfile),
-                                                      calculation.Name);
+                    Log.LogCalculationConversionError(string.Format(
+                              RingtoetsCommonIOResources.ReadForeshoreProfile_ForeshoreProfile_0_has_no_geometry_and_cannot_be_used,
+                              readCalculation.ForeshoreProfile),
+                          calculation.Name);
                     return false;
                 }
             }

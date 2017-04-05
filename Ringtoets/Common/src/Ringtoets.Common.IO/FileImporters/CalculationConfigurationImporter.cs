@@ -30,6 +30,7 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.Properties;
@@ -47,7 +48,7 @@ namespace Ringtoets.Common.IO.FileImporters
         where TCalculationConfigurationReader : CalculationConfigurationReader<TReadCalculation>
         where TReadCalculation : class, IConfigurationItem
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(CalculationConfigurationImporter<TCalculationConfigurationReader, TReadCalculation>));
+        protected readonly ILog Log = LogManager.GetLogger(typeof(CalculationConfigurationImporter<TCalculationConfigurationReader, TReadCalculation>));
 
         /// <summary>
         /// Creates a new instance of <see cref="CalculationConfigurationImporter{TCalculationConfigurationReader,TReadCalculation}"/>.
@@ -60,7 +61,7 @@ namespace Ringtoets.Common.IO.FileImporters
 
         protected override void LogImportCanceledMessage()
         {
-            log.Info(Resources.CalculationConfigurationImporter_LogImportCanceledMessage_Import_canceled_no_data_read);
+            Log.Info(Resources.CalculationConfigurationImporter_LogImportCanceledMessage_Import_canceled_no_data_read);
         }
 
         protected override bool OnImport()
@@ -121,56 +122,6 @@ namespace Ringtoets.Common.IO.FileImporters
         /// <returns>A parsed calculation instance, or <c>null</c> when something goes wrong while parsing.</returns>
         protected abstract ICalculation ParseReadCalculation(TReadCalculation readCalculation);
 
-        protected void LogOutOfRangeException(string errorMessage, string calculationName, ArgumentOutOfRangeException e)
-        {
-            LogReadCalculationConversionError($"{errorMessage} {e.Message}", calculationName);
-        }
-
-        protected void LogReadCalculationConversionError(string message, string calculationName)
-        {
-            log.ErrorFormat(Resources.CalculationConfigurationImporter_ValidateCalculation_ErrorMessage_0_Calculation_1_skipped,
-                            message, calculationName);
-        }
-
-        /// <summary>
-        /// Validate the defined wave reduction parameters in combination with a given foreshore profile.
-        /// </summary>
-        /// <param name="waveReduction">Configuration possibly containing wave reduction parameters.</param>
-        /// <param name="foreshoreProfile">The foreshore profile currently assigned to the calculation.</param>
-        /// <param name="calculationName">The name of the calculation which is being validated.</param>
-        /// <returns><c>false</c> when there is an invalid wave reduction parameter defined, <c>true</c> otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationName"/> is <c>null</c>.</exception>
-        protected bool ValidateWaveReduction(WaveReductionConfiguration waveReduction, ForeshoreProfile foreshoreProfile, string calculationName)
-        {
-            if (calculationName == null)
-            {
-                throw new ArgumentNullException(nameof(calculationName));
-            }
-
-            if (foreshoreProfile == null)
-            {
-                if (HasParametersDefined(waveReduction))
-                {
-                    LogReadCalculationConversionError(
-                        Resources.CalculationConfigurationImporter_ValidateWaveReduction_No_foreshore_profile_provided,
-                        calculationName);
-
-                    return false;
-                }
-            }
-            else if (!foreshoreProfile.Geometry.Any() && waveReduction.UseForeshoreProfile == true)
-            {
-                LogReadCalculationConversionError(
-                    string.Format(
-                        Resources.ReadForeshoreProfile_ForeshoreProfile_0_has_no_geometry_and_cannot_be_used,
-                        foreshoreProfile.Name),
-                    calculationName);
-
-                return false;
-            }
-            return true;
-        }
-
         /// <summary>
         /// Tries to find the hydraulic boundary location with the given <paramref name="locationName"/> 
         /// in the <paramref name="hydraulicBoundaryLocations"/>.
@@ -204,11 +155,10 @@ namespace Ringtoets.Common.IO.FileImporters
 
                 if (location == null)
                 {
-                    LogReadCalculationConversionError(
-                        string.Format(
-                            Resources.CalculationConfigurationImporter_ReadHydraulicBoundaryLocation_HydraulicBoundaryLocation_0_does_not_exist,
-                            locationName),
-                        calculationName);
+                    Log.LogCalculationConversionError(string.Format(
+                              Resources.CalculationConfigurationImporter_ReadHydraulicBoundaryLocation_HydraulicBoundaryLocation_0_does_not_exist,
+                              locationName),
+                          calculationName);
 
                     return false;
                 }
@@ -222,6 +172,7 @@ namespace Ringtoets.Common.IO.FileImporters
         /// Tries to find the structure with the given <paramref name="structureName"/> 
         /// in the <paramref name="structures"/>.
         /// </summary>
+        /// <typeparam name="T">The type of the <see cref="StructureBase"/> to read.</typeparam>
         /// <param name="structureName">The name of the structure to find.</param>
         /// <param name="calculationName">Name of the calculation to assign the structure to.</param>
         /// <param name="structures">The collection of <typeparamref name="T"/> to search in.</param>
@@ -249,11 +200,10 @@ namespace Ringtoets.Common.IO.FileImporters
 
                 if (structure == null)
                 {
-                    LogReadCalculationConversionError(
-                        string.Format(
-                            Resources.CalculationConfigurationImporter_ReadStructure_Structure_0_does_not_exist,
-                            structureName),
-                        calculationName);
+                    Log.LogCalculationConversionError(string.Format(
+                              Resources.CalculationConfigurationImporter_ReadStructure_Structure_0_does_not_exist,
+                              structureName),
+                          calculationName);
 
                     return false;
                 }
@@ -296,11 +246,10 @@ namespace Ringtoets.Common.IO.FileImporters
 
                 if (foreshoreProfile == null)
                 {
-                    LogReadCalculationConversionError(
-                        string.Format(
-                            Resources.CalculationConfigurationImporter_ReadForeshoreProfile_ForeshoreProfile_0_does_not_exist,
-                            foreshoreProfileName),
-                        calculationName);
+                    Log.LogCalculationConversionError(string.Format(
+                              Resources.CalculationConfigurationImporter_ReadForeshoreProfile_ForeshoreProfile_0_does_not_exist,
+                              foreshoreProfileName),
+                          calculationName);
 
                     return false;
                 }
@@ -344,6 +293,84 @@ namespace Ringtoets.Common.IO.FileImporters
             }
         }
 
+        /// <summary>
+        /// Reads the stochast parameters.
+        /// </summary>
+        /// <typeparam name="TDistribution">The type of the distribution to read.</typeparam>
+        /// <typeparam name="TCalculationInput">The type of the calculation input.</typeparam>
+        /// <param name="calculationName">The name of the calculation to configure.</param>
+        /// <param name="stochastName">The stochast's name.</param>
+        /// <param name="input"></param>
+        /// <param name="stochastConfiguration">The configuration of the stochast.</param>
+        /// <param name="getStochast">The function for obtaining the stochast to read.</param>
+        /// <param name="setStochast">The function to set the stochast with the read parameters.</param>
+        /// <returns><c>true</c> if reading all required stochast parameters was successful,
+        /// <c>false</c> otherwise.</returns>
+        protected bool TryReadStandardDeviationStochast<TDistribution, TCalculationInput>(
+            string calculationName,
+            string stochastName,
+            TCalculationInput input, 
+            MeanStandardDeviationStochastConfiguration stochastConfiguration, 
+            Func<TCalculationInput, TDistribution> getStochast, 
+            Action<TCalculationInput, TDistribution> setStochast)
+            where TDistribution : IDistribution
+            where TCalculationInput : ICalculationInput
+        {
+            if (stochastConfiguration == null)
+            {
+                return true;
+            }
+            var distribution = (TDistribution) getStochast(input).Clone();
+
+            if (!distribution.TrySetDistributionProperties(stochastConfiguration,
+                                                           stochastName,
+                                                           calculationName))
+            {
+                return false;
+            }
+            setStochast(input, distribution);
+            return true;
+        }
+
+        /// <summary>
+        /// Reads the stochast parameters.
+        /// </summary>
+        /// <typeparam name="TDistribution">The type of the distribution to read.</typeparam>
+        /// <typeparam name="TCalculationInput">The type of the calculation input.</typeparam>
+        /// <param name="calculationName">The name of the calculation to configure.</param>
+        /// <param name="stochastName">The stochast's name.</param>
+        /// <param name="input"></param>
+        /// <param name="stochastConfiguration">The configuration of the stochast.</param>
+        /// <param name="getStochast">The function for obtaining the stochast to read.</param>
+        /// <param name="setStochast">The function to set the stochast with the read parameters.</param>
+        /// <returns><c>true</c> if reading all required stochast parameters was successful,
+        /// <c>false</c> otherwise.</returns>
+        protected bool TryReadVariationCoefficientStochast<TDistribution, TCalculationInput>(
+            string calculationName, 
+            string stochastName,
+            TCalculationInput input, 
+            MeanVariationCoefficientStochastConfiguration stochastConfiguration, 
+            Func<TCalculationInput, TDistribution> getStochast,
+            Action<TCalculationInput, TDistribution> setStochast)
+            where TDistribution : IVariationCoefficientDistribution
+            where TCalculationInput : ICalculationInput
+        {
+            if (stochastConfiguration == null)
+            {
+                return true;
+            }
+            var distribution = (TDistribution) getStochast(input).Clone();
+
+            if (!distribution.TrySetDistributionProperties(stochastConfiguration,
+                                                           stochastName,
+                                                           calculationName))
+            {
+                return false;
+            }
+            setStochast(input, distribution);
+            return true;
+        }
+
         private ReadResult<IConfigurationItem> ReadConfiguration()
         {
             try
@@ -358,7 +385,7 @@ namespace Ringtoets.Common.IO.FileImporters
             {
                 string errorMessage = string.Format(Resources.CalculationConfigurationImporter_HandleCriticalFileReadError_Error_0_no_configuration_imported,
                                                     exception.Message);
-                log.Error(errorMessage, exception);
+                Log.Error(errorMessage, exception);
                 return new ReadResult<IConfigurationItem>(true);
             }
         }
@@ -415,15 +442,6 @@ namespace Ringtoets.Common.IO.FileImporters
             {
                 ImportTarget.Children.Add(parsedCalculationItem);
             }
-        }
-
-        private static bool HasParametersDefined(WaveReductionConfiguration waveReduction)
-        {
-            return waveReduction != null
-                   && (waveReduction.UseBreakWater.HasValue
-                       || waveReduction.UseForeshoreProfile.HasValue
-                       || waveReduction.BreakWaterHeight.HasValue
-                       || waveReduction.BreakWaterType.HasValue);
         }
     }
 }
