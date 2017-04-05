@@ -39,7 +39,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
                                                              nameof(ReliabilityIndexCalculationParser));
 
         [Test]
-        public void DefaultConstructor_SetDefaultValues()
+        public void Constructor_ExpectedValues()
         {
             // Call
             var parser = new ReliabilityIndexCalculationParser();
@@ -144,7 +144,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         [Test]
         [TestCase("BetaNull")]
         [TestCase("ValueNull")]
-        public void Parse_BetaOrValueNull_ThrowHydraRingFileParserException(string subFolder)
+        public void Parse_BetaOrValueNull_ThrowsHydraRingFileParserException(string subFolder)
         {
             // Setup
             string path = Path.Combine(testDirectory, subFolder);

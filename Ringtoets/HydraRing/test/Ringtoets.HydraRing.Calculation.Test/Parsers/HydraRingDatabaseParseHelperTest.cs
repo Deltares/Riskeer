@@ -76,7 +76,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         }
 
         [Test]
-        public void Parse_ReaderThrowsSQLiteException_ThrowHydraRingFileParserException()
+        public void Parse_ReaderThrowsSQLiteException_ThrowsHydraRingFileParserException()
         {
             // Setup
             string directory = Path.Combine(testDirectory, emptyWorkingDirectory);
@@ -90,7 +90,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         }
 
         [Test]
-        public void Parse_ReaderThrowsHydraRingDatabaseReaderException_ThrowHydraRingFileParserExceptionWithCustomMessage()
+        public void Parse_ReaderThrowsHydraRingDatabaseReaderException_ThrowsHydraRingFileParserExceptionWithCustomMessage()
         {
             // Setup
             const string customMessage = "Exception message";

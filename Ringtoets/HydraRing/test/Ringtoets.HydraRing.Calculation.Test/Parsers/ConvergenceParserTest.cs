@@ -39,7 +39,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
                                                                     nameof(ConvergenceParser));
 
         [Test]
-        public void Constructor_Always_CreatesNewHydraRingFileParser()
+        public void Constructor_ExpectedValues()
         {
             // Call
             var parser = new ConvergenceParser();
@@ -127,7 +127,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         }
 
         [Test]
-        public void Parse_ResultNull_ThrowHydraRingFileParserException()
+        public void Parse_ResultNull_ThrowsHydraRingFileParserException()
         {
             // Setup
             string path = Path.Combine(testDirectory, "ConvergenceNull");

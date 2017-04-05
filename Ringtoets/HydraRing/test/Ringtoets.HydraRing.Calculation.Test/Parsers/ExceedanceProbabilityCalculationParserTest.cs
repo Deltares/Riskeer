@@ -39,7 +39,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
                                                              nameof(ExceedanceProbabilityCalculationParser));
 
         [Test]
-        public void DefaultConstructor_SetDefaultValues()
+        public void Constructor_ExpectedValues()
         {
             // Call
             var parser = new ExceedanceProbabilityCalculationParser();
@@ -141,7 +141,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         }
 
         [Test]
-        public void Parse_BetaNull_ThrowHydraRingFileParserException()
+        public void Parse_BetaNull_ThrowsHydraRingFileParserException()
         {
             // Setup
             string path = Path.Combine(testDirectory, "BetaNull");

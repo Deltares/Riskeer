@@ -35,7 +35,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         private readonly string outputFileName = sectionId + "-output.txt";
 
         [Test]
-        public void DefaultConstructor_SetDefaultValues()
+        public void Constructor_ExpectedValues()
         {
             // Call
             var parser = new OvertoppingCalculationWaveHeightParser();
