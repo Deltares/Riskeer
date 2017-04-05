@@ -135,6 +135,23 @@ namespace Core.Components.DotSpatial.Test.Layer
             CollectionAssert.AreEqual(drawnFeatures, mapLineDataLayer.DataSet.Features);
         }
 
+        [Test]
+        public void GivenMapLineDataLayer_WhenReprojected_ItemChangedFired()
+        {
+            // Given
+            var count = 0;
+            var mapLineData = new MapLineData("Test name");
+            var mapLineDataLayer = new MapLineDataLayer(mapLineData);
+
+            mapLineDataLayer.ItemChanged += (sender, args) => count++;
+
+            // When
+            mapLineDataLayer.Reproject(KnownCoordinateSystems.Geographic.World.WGS1984);
+
+            // Then
+            Assert.AreEqual(1, count);
+        }
+
         private static void SetMapLineDataTestProperties(MapLineData mapLineData)
         {
             mapLineData.Name = "Another test name";

@@ -67,5 +67,12 @@ namespace Core.Components.DotSpatial.Layer
 
             converter.ConvertLayerProperties(mapPointData, this);
         }
+
+        public override void Reproject(ProjectionInfo targetProjection)
+        {
+            base.Reproject(targetProjection);
+
+            Invalidate();
+        }
     }
 }
