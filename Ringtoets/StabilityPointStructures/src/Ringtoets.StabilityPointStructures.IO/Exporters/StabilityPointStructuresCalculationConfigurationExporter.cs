@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Helpers;
@@ -47,7 +48,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Exporters
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         public StabilityPointStructuresCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
-            : base(calculations, filePath) {}
+            : base(calculations, filePath) { }
 
         protected override StabilityPointStructuresCalculationConfigurationWriter CreateWriter(string filePath)
         {
@@ -97,7 +98,10 @@ namespace Ringtoets.StabilityPointStructures.IO.Exporters
             calculationConfiguration.FailureProbabilityRepairClosure = input.FailureProbabilityRepairClosure;
             calculationConfiguration.FlowVelocityStructureClosable = input.FlowVelocityStructureClosable.ToStochastConfiguration();
             calculationConfiguration.FlowWidthAtBottomProtection = input.FlowWidthAtBottomProtection.ToStochastConfiguration();
-            calculationConfiguration.InflowModelType = (ConfigurationStabilityPointStructuresInflowModelType?) inflowModelTypeConverter.ConvertFrom(input.InflowModelType);
+            if (Enum.IsDefined(typeof(StabilityPointStructureInflowModelType), input.InflowModelType))
+            {
+                calculationConfiguration.InflowModelType = (ConfigurationStabilityPointStructuresInflowModelType?) inflowModelTypeConverter.ConvertFrom(input.InflowModelType);
+            }
 
             calculationConfiguration.InsideWaterLevel = input.InsideWaterLevel.ToStochastConfiguration();
             calculationConfiguration.InsideWaterLevelFailureConstruction = input.InsideWaterLevelFailureConstruction.ToStochastConfiguration();
@@ -122,7 +126,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Exporters
 
         private static void SetConfigurationLoadSchematizationType(StabilityPointStructuresCalculationConfiguration calculationConfiguration, StabilityPointStructuresInput input)
         {
-            if (input.LoadSchematizationType == 0)
+            if (!Enum.IsDefined(typeof(LoadSchematizationType), input.LoadSchematizationType))
             {
                 return;
             }
@@ -137,14 +141,20 @@ namespace Ringtoets.StabilityPointStructures.IO.Exporters
             {
                 return;
             }
+
+            var breakWaterTypeConverter = new ConfigurationBreakWaterTypeConverter();
             calculationConfiguration.ForeshoreProfileName = input.ForeshoreProfile?.Name;
             calculationConfiguration.WaveReduction = new WaveReductionConfiguration
             {
                 UseForeshoreProfile = input.UseForeshore,
                 UseBreakWater = input.UseBreakWater,
-                BreakWaterType = (ConfigurationBreakWaterType?) new ConfigurationBreakWaterTypeConverter().ConvertFrom(input.BreakWater.Type),
                 BreakWaterHeight = input.BreakWater.Height
             };
+
+            if (Enum.IsDefined(typeof(BreakWaterType), input.BreakWater.Type))
+            {
+                calculationConfiguration.WaveReduction.BreakWaterType = (ConfigurationBreakWaterType?) breakWaterTypeConverter.ConvertFrom(input.BreakWater.Type);
+            }
         }
     }
 }
