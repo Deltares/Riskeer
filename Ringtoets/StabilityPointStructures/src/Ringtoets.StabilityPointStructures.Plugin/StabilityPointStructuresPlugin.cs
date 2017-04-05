@@ -491,6 +491,9 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
             bool isNestedGroup = parentData is StabilityPointStructuresCalculationGroupContext;
 
+            builder.AddExportItem()
+                   .AddSeparator();
+
             if (!isNestedGroup)
             {
                 builder.AddCustomItem(CreateGenerateStabilityPointStructuresCalculationsItem(context))
@@ -661,7 +664,9 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
             StructuresCalculation<StabilityPointStructuresInput> calculation = context.WrappedData;
 
-            return builder.AddRenameItem()
+            return builder.AddExportItem()
+                          .AddSeparator()
+                          .AddRenameItem()
                           .AddValidateCalculationItem(
                               context,
                               Validate,
