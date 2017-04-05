@@ -22,6 +22,7 @@
 using System;
 using System.Data.SQLite;
 using System.IO;
+using System.Security.AccessControl;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Exceptions;
@@ -32,19 +33,13 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
     [TestFixture]
     public class ConvergenceParserTest
     {
-        private const string emptyWorkingDirectory = "EmptyWorkingDirectory";
-        private const string invalidFileInDirectory = "InvalidFile";
-        private const string emptyFileInDirectory = "EmptyDatabase";
         private const string convergenceOnBetaForSection1 = "ConvergenceOnBetaSection1";
-        private const string convergenceOnValueForSection1 = "ConvergenceOnValueSection1";
-        private const string convergenceOnBothForSection1 = "ConvergenceOnBothSection1";
-        private const string noConvergenceForSection1 = "NoConvergenceSection1";
-        private const string convergenceOnAllButLastIterationForSection1 = "ConvergenceOnAllButLastIteration";
-        private const string convergenceNull = "ConvergenceNull";
-        private static readonly string testDirectory = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation, Path.Combine("Parsers", nameof(ConvergenceParser)));
+
+        private static readonly string testDirectory = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation, "Parsers"),
+                                                                    nameof(ConvergenceParser));
 
         [Test]
-        public void DefaultConstrutor_Always_CreatesNewHydraRingFileParser()
+        public void Constructor_Always_CreatesNewHydraRingFileParser()
         {
             // Call
             var parser = new ConvergenceParser();
@@ -72,7 +67,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_WithWorkingDirectoryWithoutExpectedFile_ThrowsHydraRingFileParserException()
         {
             // Setup
-            string path = Path.Combine(testDirectory, emptyWorkingDirectory);
+            string path = Path.Combine(testDirectory, "EmptyWorkingDirectory");
             var parser = new ConvergenceParser();
 
             // Call
@@ -87,23 +82,23 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_WithWorkingDirectoryWithInvalidOutputFile_ThrowsHydraRingFileParserException()
         {
             // Setup
-            string path = Path.Combine(testDirectory, invalidFileInDirectory);
+            string path = Path.Combine(testDirectory, "InvalidFile");
             var parser = new ConvergenceParser();
 
             // Call
             TestDelegate test = () => parser.Parse(path, 1);
 
             // Assert
-            var exception = Assert.Throws<HydraRingFileParserException>(test);
-            Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
+            var exception = Assert.Throws<HydraRingFileParserException>(test);            
             Assert.AreEqual("Er kon geen resultaat gelezen worden uit de Hydra-Ring uitvoerdatabase.", exception.Message);
+            Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
         }
 
         [Test]
         public void Parse_WithWorkingDirectoryWithEmptyFile_ThrowsHydraRingFileParserException()
         {
             // Setup
-            string path = Path.Combine(testDirectory, emptyFileInDirectory);
+            string path = Path.Combine(testDirectory, "EmptyDatabase");
             var parser = new ConvergenceParser();
 
             // Call
@@ -135,7 +130,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_ResultNull_ThrowHydraRingFileParserException()
         {
             // Setup
-            string path = Path.Combine(testDirectory, convergenceNull);
+            string path = Path.Combine(testDirectory, "ConvergenceNull");
             var parser = new ConvergenceParser();
 
             // Call
@@ -148,8 +143,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         }
 
         [Test]
-        [TestCase(noConvergenceForSection1)]
-        [TestCase(convergenceOnAllButLastIterationForSection1)]
+        [TestCase("NoConvergenceSection1")]
+        [TestCase("ConvergenceOnAllButLastIteration")]
         public void Parse_WithWorkingDirectoryWithFileWithFalseResult_SetOutputFalse(string testSubDirectory)
         {
             // Setup
@@ -160,13 +155,13 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             parser.Parse(path, 1);
 
             // Assert
-            Assert.IsFalse(parser.Output.Value);
+            Assert.IsFalse(parser.Output);
         }
 
         [Test]
         [TestCase(convergenceOnBetaForSection1)]
-        [TestCase(convergenceOnValueForSection1)]
-        [TestCase(convergenceOnBothForSection1)]
+        [TestCase("ConvergenceOnValueSection1")]
+        [TestCase("ConvergenceOnBothSection1")]
         public void Parse_WithWorkingDirectoryWithFileWithTrueResult_SetOutputTrue(string testSubDirectory)
         {
             // Setup
@@ -177,7 +172,27 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             parser.Parse(path, 1);
 
             // Assert
-            Assert.IsTrue(parser.Output.Value);
+            Assert.IsTrue(parser.Output);
+        }
+
+        [Test]
+        public void Parse_ErrorWhileReadingFile_ThrowsHydraRingFileParserException()
+        {
+            // Setup
+            var parser = new ConvergenceParser();
+            string workingDirectory = Path.Combine(testDirectory, "ValidFile");
+
+            using (new DirectoryPermissionsRevoker(testDirectory, FileSystemRights.ReadData))
+            {
+                // Call
+                TestDelegate call = () => parser.Parse(workingDirectory, 1);
+
+                // Assert
+                var exception = Assert.Throws<HydraRingFileParserException>(call);
+                var expectedMessage = "Er kon geen resultaat gelezen worden uit de Hydra-Ring uitvoerdatabase.";
+                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
+            }
         }
     }
 }

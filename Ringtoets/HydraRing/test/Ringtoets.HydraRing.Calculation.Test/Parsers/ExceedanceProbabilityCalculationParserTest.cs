@@ -22,6 +22,7 @@
 using System;
 using System.Data.SQLite;
 using System.IO;
+using System.Security.AccessControl;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Exceptions;
@@ -32,11 +33,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
     [TestFixture]
     public class ExceedanceProbabilityCalculationParserTest
     {
-        private const string emptyWorkingDirectory = "EmptyWorkingDirectory";
-        private const string invalidFileInDirectory = "InvalidFile";
-        private const string emptyFileInDirectory = "EmptyDatabase";
         private const string validFile = "ValidFile";
-        private const string betaNull = "BetaNull";
 
         private readonly string testDirectory = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation, "Parsers"),
                                                              nameof(ExceedanceProbabilityCalculationParser));
@@ -70,7 +67,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_WithWorkingDirectoryWithoutExpectedFile_ThrowsHydraRingFileParserException()
         {
             // Setup
-            string path = Path.Combine(testDirectory, emptyWorkingDirectory);
+            string path = Path.Combine(testDirectory, "EmptyWorkingDirectory");
             var parser = new ExceedanceProbabilityCalculationParser();
 
             // Call
@@ -85,7 +82,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_WithWorkingDirectoryWithInvalidOutputFile_ThrowsHydraRingFileParserException()
         {
             // Setup
-            string path = Path.Combine(testDirectory, invalidFileInDirectory);
+            string path = Path.Combine(testDirectory, "InvalidFile");
             var parser = new ExceedanceProbabilityCalculationParser();
 
             // Call
@@ -101,7 +98,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_WithWorkingDirectoryWithEmptyFile_ThrowsHydraRingFileParserException()
         {
             // Setup
-            string path = Path.Combine(testDirectory, emptyFileInDirectory);
+            string path = Path.Combine(testDirectory, "EmptyDatabase");
             var parser = new ExceedanceProbabilityCalculationParser();
 
             // Call
@@ -140,14 +137,14 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             parser.Parse(path, 1);
 
             // Assert
-            Assert.AreEqual(3.42848, parser.Output.Value);
+            Assert.AreEqual(3.42848, parser.Output);
         }
 
         [Test]
         public void Parse_BetaNull_ThrowHydraRingFileParserException()
         {
             // Setup
-            string path = Path.Combine(testDirectory, betaNull);
+            string path = Path.Combine(testDirectory, "BetaNull");
             var parser = new ExceedanceProbabilityCalculationParser();
 
             // Call
@@ -157,6 +154,26 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             var exception = Assert.Throws<HydraRingFileParserException>(test);
             Assert.AreEqual("Er is geen resultaat voor de betrouwbaarheidsindex van de faalkans gevonden in de Hydra-Ring uitvoerdatabase.", exception.Message);
             Assert.IsInstanceOf<InvalidCastException>(exception.InnerException);
+        }
+
+        [Test]
+        public void Parse_ErrorWhileReadingFile_ThrowsHydraRingFileParserException()
+        {
+            // Setup
+            var parser = new ExceedanceProbabilityCalculationParser();
+            string workingDirectory = Path.Combine(testDirectory, validFile);
+
+            using (new DirectoryPermissionsRevoker(testDirectory, FileSystemRights.ReadData))
+            {
+                // Call
+                TestDelegate call = () => parser.Parse(workingDirectory, 1);
+
+                // Assert
+                var exception = Assert.Throws<HydraRingFileParserException>(call);
+                var expectedMessage = "Er kon geen resultaat gelezen worden uit de Hydra-Ring uitvoerdatabase.";
+                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
+            }
         }
     }
 }

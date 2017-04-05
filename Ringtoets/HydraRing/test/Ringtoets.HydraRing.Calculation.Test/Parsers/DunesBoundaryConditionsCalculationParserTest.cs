@@ -33,18 +33,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
     [TestFixture]
     public class DunesBoundaryConditionsCalculationParserTest
     {
-        private const string emptyWorkingDirectory = "EmptyWorkingDirectory";
-        private const string invalidFileInDirectory = "InvalidFile";
-        private const string emptyFileInDirectory = "EmptyDatabase";
-        private const string noResultsOnLastIteration = "ResultsOnAllButLastIteration";
-        private const string permissionDenied = "NoPermissionsToRead";
-        private const string validFileNoWaveHeight = "ValidFileNoWaveHeight";
-        private const string validFileNoWavePeriod = "ValidFileNoWavePeriod";
-        private const string validFileNoWaterLevel = "ValidFileNoWaterLevel";
-        private const string validFile= "ValidFile";
+        private const string validFile = "ValidFile";
 
         private readonly string testDirectory = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation, "Parsers"),
-                                                            "DunesBoundaryConditionsParser");
+                                                             nameof(DunesBoundaryConditionsCalculationParser));
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -75,7 +67,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_WithWorkingDirectoryWithoutExpectedFile_ThrowsHydraRingFileParserException()
         {
             // Setup
-            string path = Path.Combine(testDirectory, emptyWorkingDirectory);
+            string path = Path.Combine(testDirectory, "EmptyWorkingDirectory");
             var parser = new DunesBoundaryConditionsCalculationParser();
 
             // Call
@@ -90,7 +82,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_WithWorkingDirectoryWithInvalidOutputFile_ThrowsHydraRingFileParserException()
         {
             // Setup
-            string path = Path.Combine(testDirectory, invalidFileInDirectory);
+            string path = Path.Combine(testDirectory, "InvalidFile");
             var parser = new DunesBoundaryConditionsCalculationParser();
 
             // Call
@@ -106,7 +98,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_WithWorkingDirectoryWithEmptyFile_ThrowsHydraRingFileParserException()
         {
             // Setup
-            string path = Path.Combine(testDirectory, emptyFileInDirectory);
+            string path = Path.Combine(testDirectory, "EmptyDatabase");
             var parser = new DunesBoundaryConditionsCalculationParser();
 
             // Call
@@ -123,7 +115,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         {
             // Setup
             var parser = new DunesBoundaryConditionsCalculationParser();
-            var workingDirectory = Path.Combine(testDirectory, permissionDenied);
+            string workingDirectory = Path.Combine(testDirectory, validFile);
 
             using (new DirectoryPermissionsRevoker(testDirectory, FileSystemRights.ReadData))
             {
@@ -139,10 +131,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         }
 
         [Test]
-        [TestCase(validFileNoWaveHeight)]
-        [TestCase(validFileNoWavePeriod)]
-        [TestCase(validFileNoWaterLevel)]
-        [TestCase(noResultsOnLastIteration)]
+        [TestCase("ValidFileNoWaveHeight")]
+        [TestCase("ValidFileNoWavePeriod")]
+        [TestCase("ValidFileNoWaterLevel")]
+        [TestCase("ResultsOnAllButLastIteration")]
         public void Parse_NotAllColumnsHasResults_ThrowHydraRingFileParserException(string subFolder)
         {
             // Setup
@@ -157,8 +149,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             Assert.AreEqual("Er zijn geen berekende hydraulische randvoorwaarden voor duinen gevonden in de Hydra-Ring uitvoerdatabase.", exception.Message);
             Assert.IsInstanceOf<InvalidCastException>(exception.InnerException);
         }
-
-
 
         [Test]
         public void Parse_ValidDataForOtherSection_ThrowsHydraRingFileParserException()
