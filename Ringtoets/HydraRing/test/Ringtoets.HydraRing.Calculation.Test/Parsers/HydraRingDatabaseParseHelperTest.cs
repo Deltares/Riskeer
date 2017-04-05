@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -45,7 +46,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_WorkingDirectoryNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => HydraRingDatabaseParseHelper.Parse(null, "", 0, "", reader => { });
+            TestDelegate test = () => HydraRingDatabaseParseHelper.ReadSingleLine(null, "", 0, "");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -56,7 +57,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_QueryNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => HydraRingDatabaseParseHelper.Parse("", null, 0, "", reader => { });
+            TestDelegate test = () => HydraRingDatabaseParseHelper.ReadSingleLine("", null, 0, "");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -67,22 +68,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_ExceptionMessageNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => HydraRingDatabaseParseHelper.Parse("", "", 0, null, reader => { });
+            TestDelegate test = () => HydraRingDatabaseParseHelper.ReadSingleLine("", "", 0, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("exceptionMessage", exception.ParamName);
-        }
-
-        [Test]
-        public void Parse_ReadResultActionNull_ThrowArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => HydraRingDatabaseParseHelper.Parse("", "", 0, "", null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("readResultAction", exception.ParamName);
         }
 
         [Test]
@@ -92,7 +82,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             string directory = Path.Combine(testDirectory, emptyWorkingDirectory);
 
             // Call
-            TestDelegate test = () => HydraRingDatabaseParseHelper.Parse(directory, query, 0, "", reader => { });
+            TestDelegate test = () => HydraRingDatabaseParseHelper.ReadSingleLine(directory, query, 0, "");
 
             // Assert
             var exception = Assert.Throws<HydraRingFileParserException>(test);
@@ -107,7 +97,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             string directory = Path.Combine(testDirectory, emptyDatabase);
 
             // Call
-            TestDelegate test = () => HydraRingDatabaseParseHelper.Parse(directory, query, 0, customMessage, reader => { });
+            TestDelegate test = () => HydraRingDatabaseParseHelper.ReadSingleLine(directory, query, 0, customMessage);
 
             // Assert
             var exception = Assert.Throws<HydraRingFileParserException>(test);
@@ -115,32 +105,16 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         }
 
         [Test]
-        public void Parse_ReadResultActionThrowsInvalidCastException_ThrowHydraRingFileParserExceptionWithCustomMessage()
-        {
-            // Setup
-            const string customMessage = "Exception message";
-            string directory = Path.Combine(testDirectory, validFile);
-
-            // Call
-            TestDelegate test = () => HydraRingDatabaseParseHelper.Parse(directory, query, 0, customMessage, reader => { throw new InvalidCastException(); });
-
-            // Assert
-            var exception = Assert.Throws<HydraRingFileParserException>(test);
-            Assert.AreEqual(customMessage, exception.Message);
-        }
-
-        [Test]
-        public void Parse_ValidData_ReadResultActionPerformed()
+        public void Parse_ValidData_ReturnResult()
         {
             // Setup
             string directory = Path.Combine(testDirectory, validFile);
-            var performed = false;
 
             // Call
-            HydraRingDatabaseParseHelper.Parse(directory, query, 0, "", reader => { performed = true; });
+            Dictionary<string, object> result = HydraRingDatabaseParseHelper.ReadSingleLine(directory, query, 0, "");
 
             // Assert
-            Assert.IsTrue(performed);
+            Assert.AreEqual(20, result.Count);
         }
     }
 }

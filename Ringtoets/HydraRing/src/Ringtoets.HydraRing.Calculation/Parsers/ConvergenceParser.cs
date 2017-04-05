@@ -20,8 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.HydraRing.Calculation.Properties;
-using Ringtoets.HydraRing.Calculation.Readers;
 
 namespace Ringtoets.HydraRing.Calculation.Parsers
 {
@@ -47,22 +48,30 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
 
         public void Parse(string workingDirectory, int sectionId)
         {
-            HydraRingDatabaseParseHelper.Parse(workingDirectory,
-                                               getLastResultQuery,
-                                               sectionId,
-                                               Resources.Parse_No_convergence_found_in_output_file,
-                                               ReadResult);
+            Dictionary<string, object> result = HydraRingDatabaseParseHelper.ReadSingleLine(workingDirectory,
+                                                                                            getLastResultQuery,
+                                                                                            sectionId,
+                                                                                            Resources.Parse_No_convergence_found_in_output_file);
+
+            ReadResult(result);
         }
 
         /// <summary>
-        /// Reads the result of the <paramref name="reader"/>.
+        /// Reads the <paramref name="result"/>.
         /// </summary>
-        /// <param name="reader">The reader to get the result from.</param>
-        /// <exception cref="InvalidCastException">Thrown when the result
+        /// <param name="result">The result from the database read.</param>
+        /// <exception cref="HydraRingFileParserException">Thrown when the result
         /// cannot be converted to the output format.</exception>
-        private void ReadResult(HydraRingDatabaseReader reader)
+        private void ReadResult(IDictionary<string, object> result)
         {
-            Output = Convert.ToBoolean(reader.ReadColumn(convergedColumnName));
+            try
+            {
+                Output = Convert.ToBoolean(result[convergedColumnName]);
+            }
+            catch (InvalidCastException e)
+            {
+                throw new HydraRingFileParserException(Resources.Parse_No_convergence_found_in_output_file, e);
+            }
         }
     }
 }

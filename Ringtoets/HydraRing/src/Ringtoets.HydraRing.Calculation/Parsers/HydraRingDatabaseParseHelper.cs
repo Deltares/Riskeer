@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Data.SQLite;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.HydraRing.Calculation.Properties;
@@ -40,31 +41,29 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
         /// <param name="query">The query to perform when reading the database.</param>
         /// <param name="sectionId">The section id to get the output for.</param>
         /// <param name="exceptionMessage">The exception message when there is no result.</param>
-        /// <param name="readResultAction">The action to perform for parsing the results from the database.</param>
+        /// <returns>A <see cref="Dictionary{TKey,TValue}"/> with the key of the column and the value.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         /// <exception cref="HydraRingFileParserException">Thrown when the reader encounters an error while 
         /// reading the database.</exception>
-        public static void Parse(string workingDirectory,
-                                 string query,
-                                 int sectionId,
-                                 string exceptionMessage,
-                                 Action<HydraRingDatabaseReader> readResultAction)
+        public static Dictionary<string, object> ReadSingleLine(string workingDirectory,
+                                                                string query,
+                                                                int sectionId,
+                                                                string exceptionMessage)
         {
-            ValidateParameters(workingDirectory, query, exceptionMessage, readResultAction);
+            ValidateParameters(workingDirectory, query, exceptionMessage);
 
             try
             {
                 using (var reader = new HydraRingDatabaseReader(workingDirectory, query, sectionId))
                 {
-                    reader.Execute();
-                    readResultAction(reader);
+                    return reader.ReadLine();
                 }
             }
             catch (SQLiteException e)
             {
                 throw new HydraRingFileParserException(Resources.Parse_Cannot_read_result_in_output_file, e);
             }
-            catch (Exception e) when (e is HydraRingDatabaseReaderException || e is InvalidCastException)
+            catch (HydraRingDatabaseReaderException e)
             {
                 throw new HydraRingFileParserException(exceptionMessage, e);
             }
@@ -72,8 +71,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
 
         private static void ValidateParameters(string workingDirectory,
                                                string query,
-                                               string exceptionMessage,
-                                               Action<HydraRingDatabaseReader> readResultAction)
+                                               string exceptionMessage)
         {
             if (workingDirectory == null)
             {
@@ -86,10 +84,6 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
             if (exceptionMessage == null)
             {
                 throw new ArgumentNullException(nameof(exceptionMessage));
-            }
-            if (readResultAction == null)
-            {
-                throw new ArgumentNullException(nameof(readResultAction));
             }
         }
     }

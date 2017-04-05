@@ -38,12 +38,10 @@ namespace Ringtoets.HydraRing.Calculation.Readers
     {
         private const string sectionIdParameterName = "@sectionId";
         private readonly string workingDirectory;
+        private readonly SQLiteConnection connection;
 
         private SQLiteDataReader reader;
         private SQLiteCommand command;
-        private SQLiteConnection connection;
-
-        private Dictionary<string, object> results;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraRingDatabaseReader"/>.
@@ -86,42 +84,27 @@ namespace Ringtoets.HydraRing.Calculation.Readers
         }
 
         /// <summary>
-        /// Executes the query on the database.
+        /// Executes the query on the database and reads the next row.
         /// </summary>
+        /// <returns>A <see cref="Dictionary{TKey,TValue}"/> with the key 
+        /// of the column and the value.</returns>
         /// <exception cref="HydraRingDatabaseReaderException">Thrown when 
         /// an error encounters while reading the database.</exception>
-        public void Execute()
+        public Dictionary<string, object> ReadLine()
         {
-            results = new Dictionary<string, object>();
-
             if (reader.Read())
             {
+                var results = new Dictionary<string, object>();
+
                 for (var i = 0; i < reader.FieldCount; i++)
                 {
                     results.Add(reader.GetName(i), reader[i]);
                 }
-            }
-            else
-            {
-                throw new HydraRingDatabaseReaderException(Resources.HydraRingDatabaseReader_Execute_No_result_found_in_output_file);
-            }
-        }
 
-        /// <summary>
-        /// Reads the object of the given column.
-        /// </summary>
-        /// <param name="columnName">The name of the column to read.</param>
-        /// <returns>The object that is stored in the given column.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="columnName"/>
-        /// is <c>null</c>.</exception>
-        public object ReadColumn(string columnName)
-        {
-            if (columnName == null)
-            {
-                throw new ArgumentNullException(nameof(columnName));
+                return results;
             }
 
-            return results[columnName];
+            throw new HydraRingDatabaseReaderException(Resources.HydraRingDatabaseReader_Execute_No_result_found_in_output_file);
         }
 
         public void Dispose()

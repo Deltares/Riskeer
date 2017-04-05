@@ -20,9 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Ringtoets.HydraRing.Calculation.Data.Output;
+using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.HydraRing.Calculation.Properties;
-using Ringtoets.HydraRing.Calculation.Readers;
 
 namespace Ringtoets.HydraRing.Calculation.Parsers
 {
@@ -53,28 +54,37 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
 
         public void Parse(string workingDirectory, int sectionId)
         {
-            HydraRingDatabaseParseHelper.Parse(workingDirectory,
-                                               query,
-                                               sectionId,
-                                               Resources.DunesBoundaryConditionsCalculationParser_Parse_No_dunes_hydraulic_boundaries_found_in_output_file,
-                                               ReadResult);
+            Dictionary<string, object> result = HydraRingDatabaseParseHelper.ReadSingleLine(
+                workingDirectory,
+                query,
+                sectionId,
+                Resources.DunesBoundaryConditionsCalculationParser_Parse_No_dunes_hydraulic_boundaries_found_in_output_file);
+
+            ReadResult(result);
         }
 
         /// <summary>
-        /// Reads the result of the <paramref name="reader"/>.
+        /// Reads the <paramref name="result"/>.
         /// </summary>
-        /// <param name="reader">The reader to get the result from.</param>
-        /// <exception cref="InvalidCastException">Thrown when the result
+        /// <param name="result">The result from the database read.</param>
+        /// <exception cref="HydraRingFileParserException">Thrown when the result
         /// cannot be converted to the output format.</exception>
-        private void ReadResult(HydraRingDatabaseReader reader)
+        private void ReadResult(IDictionary<string, object> result)
         {
-            double waveHeight = Convert.ToDouble(reader.ReadColumn(waveHeightColumnName));
-            double wavePeriod = Convert.ToDouble(reader.ReadColumn(wavePeriodColumnName));
-            double waterLevel = Convert.ToDouble(reader.ReadColumn(waterLevelColumnName));
+            try
+            {
+                double waveHeight = Convert.ToDouble(result[waveHeightColumnName]);
+                double wavePeriod = Convert.ToDouble(result[wavePeriodColumnName]);
+                double waterLevel = Convert.ToDouble(result[waterLevelColumnName]);
 
-            Output = new DunesBoundaryConditionsCalculationOutput(waterLevel,
-                                                                  waveHeight,
-                                                                  wavePeriod);
+                Output = new DunesBoundaryConditionsCalculationOutput(waterLevel,
+                                                                      waveHeight,
+                                                                      wavePeriod);
+            }
+            catch (InvalidCastException e)
+            {
+                throw new HydraRingFileParserException(Resources.DunesBoundaryConditionsCalculationParser_Parse_No_dunes_hydraulic_boundaries_found_in_output_file, e);
+            }
         }
     }
 }

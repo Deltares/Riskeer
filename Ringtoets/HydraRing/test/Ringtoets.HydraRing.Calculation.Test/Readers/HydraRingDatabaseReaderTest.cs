@@ -119,46 +119,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Readers
             using (var reader = new HydraRingDatabaseReader(directory, query, 0))
             {
                 // Call
-                TestDelegate test = () => reader.Execute();
+                TestDelegate test = () => reader.ReadLine();
 
                 // Assert
                 var exception = Assert.Throws<HydraRingDatabaseReaderException>(test);
                 Assert.AreEqual("Er is geen resultaat gevonden in de Hydra-Ring uitvoerdatabase.", exception.Message);
-            }
-        }
-
-        [Test]
-        public void ReadColumn_ColumnNameNull_ThrowArgumentNullException()
-        {
-            // Setup
-            string directory = Path.Combine(testDirectory, validDatabase);
-
-            using (var reader = new HydraRingDatabaseReader(directory, query, 0))
-            {
-                reader.Execute();
-
-                // Call
-                TestDelegate test = () => reader.ReadColumn(null);
-
-                // Assert
-                var exception = Assert.Throws<ArgumentNullException>(test);
-                Assert.AreEqual("columnName", exception.ParamName);
-            }
-        }
-
-        [Test]
-        public void ReadColumn_ValidDatabaseAndWithColumnName_ReturnColumnValue()
-        {
-            // Setup
-            string directory = Path.Combine(testDirectory, validDatabase);
-
-            using (var reader = new HydraRingDatabaseReader(directory, query, 0))
-            {
-                reader.Execute();
-                object value = reader.ReadColumn("OuterIterationId");
-
-                // Assert
-                Assert.AreEqual(6, value);
             }
         }
     }
