@@ -103,8 +103,9 @@ namespace Ringtoets.HeightStructures.IO
                 && TryReadStochasts(readCalculation, calculation)
                 && TryReadOrientation(readCalculation, calculation)
                 && TryReadFailureProbabilityStructureWithErosion(readCalculation, calculation)
-                && TryReadWaveReduction(readCalculation.WaveReduction, calculation))
+                && ValidateWaveReduction(readCalculation.WaveReduction, calculation.InputParameters.ForeshoreProfile, calculation.Name))
             {
+                ReadWaveReductionParameters(readCalculation.WaveReduction, calculation.InputParameters);
                 return calculation;
             }
             return null;
@@ -374,45 +375,6 @@ namespace Ringtoets.HeightStructures.IO
             }
 
             return false;
-        }
-
-        /// <summary>
-        /// Reads the wave reduction parameters.
-        /// </summary>
-        /// <param name="waveReduction"></param>
-        /// <param name="calculation">The calculation to configure.</param>
-        /// <returns><c>false</c> when there is an invalid wave reduction parameter defined, <c>true</c> otherwise.</returns>
-        private bool TryReadWaveReduction(WaveReductionConfiguration waveReduction, StructuresCalculation<HeightStructuresInput> calculation)
-        {
-            if (!ValidateWaveReduction(waveReduction, calculation.InputParameters.ForeshoreProfile, calculation.Name))
-            {
-                return false;
-            }
-
-            if (waveReduction != null)
-            {
-                if (waveReduction.UseForeshoreProfile.HasValue)
-                {
-                    calculation.InputParameters.UseForeshore = waveReduction.UseForeshoreProfile.Value;
-                }
-
-                if (waveReduction.UseBreakWater.HasValue)
-                {
-                    calculation.InputParameters.UseBreakWater = waveReduction.UseBreakWater.Value;
-                }
-
-                if (waveReduction.BreakWaterType.HasValue)
-                {
-                    calculation.InputParameters.BreakWater.Type = (BreakWaterType) new ConfigurationBreakWaterTypeConverter().ConvertTo(waveReduction.BreakWaterType.Value, typeof(BreakWaterType));
-                }
-
-                if (waveReduction.BreakWaterHeight.HasValue)
-                {
-                    calculation.InputParameters.BreakWater.Height = (RoundedDouble) waveReduction.BreakWaterHeight.Value;
-                }
-            }
-
-            return true;
         }
     }
 }

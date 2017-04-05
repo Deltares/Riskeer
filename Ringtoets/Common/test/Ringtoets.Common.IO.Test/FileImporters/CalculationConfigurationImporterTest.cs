@@ -25,6 +25,7 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
@@ -112,7 +113,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(1, msgs.Length);
                 StringAssert.StartsWith($"Fout bij het lezen van bestand '{filePath}': het XML-document dat de configuratie voor de berekeningen beschrijft is niet geldig.", msgs[0]);
             });
@@ -241,7 +242,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                                                                 calculationGroup);
 
             // Call
-            var valid = importer.PublicValidateWaveReduction(null, null, calculationName);
+            bool valid = importer.PublicValidateWaveReduction(null, null, calculationName);
 
             // Assert
             Assert.IsTrue(valid);
@@ -260,7 +261,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                                                                 calculationGroup);
 
             // Call
-            var valid = importer.PublicValidateWaveReduction(new WaveReductionConfiguration(), null, calculationName);
+            bool valid = importer.PublicValidateWaveReduction(new WaveReductionConfiguration(), null, calculationName);
 
             // Assert
             Assert.IsTrue(valid);
@@ -304,7 +305,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action validate = () => valid = importer.PublicValidateWaveReduction(waveReductionConfiguration, null, calculationName);
 
             // Assert
-            var expectedMessage = $"Er is geen voorlandprofiel opgegeven om golfreductie parameters aan toe te voegen. Berekening '{calculationName}' is overgeslagen.";
+            string expectedMessage = $"Er is geen voorlandprofiel opgegeven om golfreductie parameters aan toe te voegen. Berekening '{calculationName}' is overgeslagen.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(validate, Tuple.Create(expectedMessage, LogLevelConstant.Error));
             Assert.IsFalse(valid);
         }
@@ -363,9 +364,133 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action validate = () => valid = importer.PublicValidateWaveReduction(waveReductionConfiguration, new TestForeshoreProfile(profileName), calculationName);
 
             // Assert
-            var expectedMessage = $"Het opgegeven voorlandprofiel '{profileName}' heeft geen voorlandgeometrie en kan daarom niet gebruikt worden. Berekening '{calculationName}' is overgeslagen.";
+            string expectedMessage = $"Het opgegeven voorlandprofiel '{profileName}' heeft geen voorlandgeometrie en kan daarom niet gebruikt worden. Berekening '{calculationName}' is overgeslagen.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(validate, Tuple.Create(expectedMessage, LogLevelConstant.Error));
             Assert.IsFalse(valid);
+        }
+
+        [Test]
+        [TestCase(true, true, 1.2, ConfigurationBreakWaterType.Wall, BreakWaterType.Wall)]
+        [TestCase(false, false, 2.2, ConfigurationBreakWaterType.Caisson, BreakWaterType.Caisson)]
+        [TestCase(false, true, 11.332, ConfigurationBreakWaterType.Wall, BreakWaterType.Wall)]
+        [TestCase(true, false, 9.3, ConfigurationBreakWaterType.Dam, BreakWaterType.Dam)]
+        public void ReadWaveReduction_DifferentScenarios_CorrectParametersSet(bool useForeshoreProfile, bool useBreakWater, double height, ConfigurationBreakWaterType type, BreakWaterType expectedType)
+        {
+            // Setup
+            var testInput = new TestInputWithForeshoreProfileAndBreakWater(new BreakWater(BreakWaterType.Caisson, 0.0));
+
+            string filePath = Path.Combine(readerPath, "validConfiguration.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new CalculationConfigurationImporter(filePath,
+                                                                calculationGroup);
+
+            var waveReductionConfiguration = new WaveReductionConfiguration
+            {
+                UseForeshoreProfile = useForeshoreProfile,
+                UseBreakWater = useBreakWater,
+                BreakWaterHeight = height,
+                BreakWaterType = type
+            };
+
+            // Call
+            importer.PublicReadWaveReductionParameters(waveReductionConfiguration, testInput);
+
+            // Assert
+            Assert.AreEqual(testInput.UseForeshore, useForeshoreProfile);
+            Assert.AreEqual(testInput.UseBreakWater, useBreakWater);
+            Assert.AreEqual(testInput.BreakWater.Height, height, testInput.BreakWater.Height.GetAccuracy());
+            Assert.AreEqual(testInput.BreakWater.Type, expectedType);
+        }
+
+        [Test]
+        public void ReadWaveReduction_WithoutConfiguration_ParametersUnchanged()
+        {
+            // Setup
+            var random = new Random(21);
+            bool useForeshoreProfile = random.NextBoolean();
+            bool useBreakWater = random.NextBoolean();
+            double height = random.NextDouble();
+            var breakWaterType = random.NextEnumValue<BreakWaterType>();
+
+            var testInput = new TestInputWithForeshoreProfileAndBreakWater(new BreakWater(breakWaterType, height))
+            {
+                UseBreakWater = useBreakWater,
+                UseForeshore = useForeshoreProfile
+            };
+
+            string filePath = Path.Combine(readerPath, "validConfiguration.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new CalculationConfigurationImporter(filePath,
+                                                                calculationGroup);
+
+            // Call
+            importer.PublicReadWaveReductionParameters(null, testInput);
+
+            // Assert
+            Assert.AreEqual(testInput.UseForeshore, useForeshoreProfile);
+            Assert.AreEqual(testInput.UseBreakWater, useBreakWater);
+            Assert.AreEqual(testInput.BreakWater.Height, height, testInput.BreakWater.Height.GetAccuracy());
+            Assert.AreEqual(testInput.BreakWater.Type, breakWaterType);
+        }
+
+        [Test]
+        public void ReadWaveReduction_WithConfigurationWithMissingParameter_MissingParameterUnchanged([Values(0, 1, 2, 3)] int parameterNotSet)
+        {
+            // Setup
+            const bool useForeshoreProfile = false;
+            const bool useBreakWater = false;
+            const double height = 2.55;
+            const BreakWaterType breakWaterType = BreakWaterType.Dam;
+
+            const bool newUseForeshoreProfile = true;
+            const bool newUseBreakWater = true;
+            const double newheight = 11.1;
+            const ConfigurationBreakWaterType newBreakWaterType = ConfigurationBreakWaterType.Wall;
+            const BreakWaterType expectedNewBreakWaterType = BreakWaterType.Wall;
+
+            var testInput = new TestInputWithForeshoreProfileAndBreakWater(new BreakWater(breakWaterType, height))
+            {
+                UseBreakWater = useBreakWater,
+                UseForeshore = useForeshoreProfile
+            };
+
+            var waveReductionConfiguration = new WaveReductionConfiguration();
+            if (parameterNotSet != 0)
+            {
+                waveReductionConfiguration.UseForeshoreProfile = newUseForeshoreProfile;
+            }
+            if (parameterNotSet != 1)
+            {
+                waveReductionConfiguration.UseBreakWater = newUseBreakWater;
+            }
+            if (parameterNotSet != 2)
+            {
+                waveReductionConfiguration.BreakWaterHeight = newheight;
+            }
+            if (parameterNotSet != 3)
+            {
+                waveReductionConfiguration.BreakWaterType = newBreakWaterType;
+            }
+
+            string filePath = Path.Combine(readerPath, "validConfiguration.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new CalculationConfigurationImporter(filePath,
+                                                                calculationGroup);
+
+            // Call
+            importer.PublicReadWaveReductionParameters(waveReductionConfiguration, testInput);
+
+            // Assert
+            Assert.AreEqual(testInput.UseForeshore, parameterNotSet == 0 ? useForeshoreProfile : newUseForeshoreProfile);
+            Assert.AreEqual(testInput.UseBreakWater, parameterNotSet == 1 ? useBreakWater : newUseBreakWater);
+            Assert.AreEqual(testInput.BreakWater.Height, parameterNotSet == 2 ? height : newheight, testInput.BreakWater.Height.GetAccuracy());
+            Assert.AreEqual(testInput.BreakWater.Type, parameterNotSet == 3 ? breakWaterType : expectedNewBreakWaterType);
         }
 
         [Test]
@@ -424,7 +549,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             HydraulicBoundaryLocation location;
 
             // Call
-            var valid = importer.PublicTryReadHydraulicBoundaryLocation(null, "name", Enumerable.Empty<HydraulicBoundaryLocation>(), out location);
+            bool valid = importer.PublicTryReadHydraulicBoundaryLocation(null, "name", Enumerable.Empty<HydraulicBoundaryLocation>(), out location);
 
             // Assert
             Assert.IsTrue(valid);
@@ -443,7 +568,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                                                                 calculationGroup);
 
             HydraulicBoundaryLocation location = null;
-            bool valid = true;
+            var valid = true;
 
             const string locationName = "someName";
             const string calculationName = "name";
@@ -452,7 +577,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action validate = () => valid = importer.PublicTryReadHydraulicBoundaryLocation(locationName, calculationName, Enumerable.Empty<HydraulicBoundaryLocation>(), out location);
 
             // Assert
-            var expectedMessage = $"De locatie met hydraulische randvoorwaarden '{locationName}' bestaat niet. Berekening '{calculationName}' is overgeslagen.";
+            string expectedMessage = $"De locatie met hydraulische randvoorwaarden '{locationName}' bestaat niet. Berekening '{calculationName}' is overgeslagen.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(validate, Tuple.Create(expectedMessage, LogLevelConstant.Error));
             Assert.IsFalse(valid);
             Assert.IsNull(location);
@@ -547,7 +672,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             ForeshoreProfile profile;
 
             // Call
-            var valid = importer.PublicTryReadForeshoreProfile(null, "name", Enumerable.Empty<ForeshoreProfile>(), out profile);
+            bool valid = importer.PublicTryReadForeshoreProfile(null, "name", Enumerable.Empty<ForeshoreProfile>(), out profile);
 
             // Assert
             Assert.IsTrue(valid);
@@ -566,7 +691,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                                                                 calculationGroup);
 
             ForeshoreProfile profile = null;
-            bool valid = true;
+            var valid = true;
 
             const string profileName = "someName";
             const string calculationName = "name";
@@ -575,7 +700,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action validate = () => valid = importer.PublicTryReadForeshoreProfile(profileName, calculationName, Enumerable.Empty<ForeshoreProfile>(), out profile);
 
             // Assert
-            var expectedMessage = $"Het voorlandprofiel '{profileName}' bestaat niet. Berekening '{calculationName}' is overgeslagen.";
+            string expectedMessage = $"Het voorlandprofiel '{profileName}' bestaat niet. Berekening '{calculationName}' is overgeslagen.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(validate, Tuple.Create(expectedMessage, LogLevelConstant.Error));
             Assert.IsFalse(valid);
             Assert.IsNull(profile);
@@ -670,7 +795,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             StructureBase structure;
 
             // Call
-            var valid = importer.PublicTryReadStructure(null, "name", Enumerable.Empty<StructureBase>(), out structure);
+            bool valid = importer.PublicTryReadStructure(null, "name", Enumerable.Empty<StructureBase>(), out structure);
 
             // Assert
             Assert.IsTrue(valid);
@@ -689,7 +814,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                                                                 calculationGroup);
 
             StructureBase profile = null;
-            bool valid = true;
+            var valid = true;
 
             const string structureName = "someName";
             const string calculationName = "name";
@@ -698,7 +823,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action validate = () => valid = importer.PublicTryReadStructure(structureName, calculationName, Enumerable.Empty<StructureBase>(), out profile);
 
             // Assert
-            var expectedMessage = $"Het kunstwerk '{structureName}' bestaat niet. Berekening '{calculationName}' is overgeslagen.";
+            string expectedMessage = $"Het kunstwerk '{structureName}' bestaat niet. Berekening '{calculationName}' is overgeslagen.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(validate, Tuple.Create(expectedMessage, LogLevelConstant.Error));
             Assert.IsFalse(valid);
             Assert.IsNull(profile);
@@ -718,7 +843,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             var importer = new CalculationConfigurationImporter(filePath,
                                                                 calculationGroup);
 
-            TestStructure expectedProfile = new TestStructure(structureName);
+            var expectedProfile = new TestStructure(structureName);
             StructureBase structure;
 
             // Call
@@ -751,7 +876,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             const string message = "an error";
             const string calculationName = "calculationA";
             const string innerMessage = "Inner message";
-            ArgumentOutOfRangeException exception = new ArgumentOutOfRangeException(null, innerMessage);
+            var exception = new ArgumentOutOfRangeException(null, innerMessage);
 
             // Call
             Action log = () => importer.PublicLogOutOfRangeException(message, calculationName, exception);
@@ -765,19 +890,6 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             public CalculationConfigurationImporter(string filePath, CalculationGroup importTarget)
                 : base(filePath, importTarget) {}
 
-            protected override CalculationConfigurationReader CreateCalculationConfigurationReader(string xmlFilePath)
-            {
-                return new CalculationConfigurationReader(xmlFilePath);
-            }
-
-            protected override ICalculation ParseReadCalculation(ReadCalculation readCalculation)
-            {
-                return new TestCalculation
-                {
-                    Name = readCalculation.Name
-                };
-            }
-
             public void PublicLogOutOfRangeException(string errorMessage, string calculationName, ArgumentOutOfRangeException e)
             {
                 LogOutOfRangeException(errorMessage, calculationName, e);
@@ -786,6 +898,12 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             public bool PublicValidateWaveReduction(WaveReductionConfiguration waveReduction, ForeshoreProfile foreshoreProfile, string calculationName)
             {
                 return ValidateWaveReduction(waveReduction, foreshoreProfile, calculationName);
+            }
+
+            public void PublicReadWaveReductionParameters<T>(WaveReductionConfiguration waveReduction, T input)
+                where T : IUseBreakWater, IUseForeshore
+            {
+                ReadWaveReductionParameters(waveReduction, input);
             }
 
             public bool PublicTryReadHydraulicBoundaryLocation(string locationName, string calculationName, IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations, out HydraulicBoundaryLocation location)
@@ -801,6 +919,19 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             public bool PublicTryReadStructure(string locationName, string calculationName, IEnumerable<StructureBase> structures, out StructureBase location)
             {
                 return TryReadStructure(locationName, calculationName, structures, out location);
+            }
+
+            protected override CalculationConfigurationReader CreateCalculationConfigurationReader(string xmlFilePath)
+            {
+                return new CalculationConfigurationReader(xmlFilePath);
+            }
+
+            protected override ICalculation ParseReadCalculation(ReadCalculation readCalculation)
+            {
+                return new TestCalculation
+                {
+                    Name = readCalculation.Name
+                };
             }
         }
 
@@ -924,7 +1055,27 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
         private class TestStructure : StructureBase
         {
-            public TestStructure(string name) : base(name, "id", new Point2D(0, 0), 2) { }
+            public TestStructure(string name) : base(name, "id", new Point2D(0, 0), 2) {}
+        }
+
+        private class TestInputWithForeshoreProfileAndBreakWater : Observable, IUseBreakWater, IUseForeshore
+        {
+            public TestInputWithForeshoreProfileAndBreakWater(BreakWater breakWater)
+            {
+                BreakWater = breakWater;
+            }
+
+            public bool UseBreakWater { get; set; }
+            public BreakWater BreakWater { get; }
+            public bool UseForeshore { get; set; }
+
+            public RoundedPoint2DCollection ForeshoreGeometry
+            {
+                get
+                {
+                    throw new NotImplementedException();
+                }
+            }
         }
     }
 }

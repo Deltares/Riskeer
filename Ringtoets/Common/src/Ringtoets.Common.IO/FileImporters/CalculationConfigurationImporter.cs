@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using log4net;
@@ -30,6 +31,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.Configurations;
+using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.Properties;
 using Ringtoets.Common.IO.Readers;
 
@@ -198,7 +200,7 @@ namespace Ringtoets.Common.IO.FileImporters
 
             if (locationName != null)
             {
-                var location = hydraulicBoundaryLocations.FirstOrDefault(l => l.Name == locationName);
+                HydraulicBoundaryLocation location = hydraulicBoundaryLocations.FirstOrDefault(l => l.Name == locationName);
 
                 if (location == null)
                 {
@@ -290,7 +292,7 @@ namespace Ringtoets.Common.IO.FileImporters
 
             if (foreshoreProfileName != null)
             {
-                var foreshoreProfile = foreshoreProfiles.FirstOrDefault(fp => fp.Name == foreshoreProfileName);
+                ForeshoreProfile foreshoreProfile = foreshoreProfiles.FirstOrDefault(fp => fp.Name == foreshoreProfileName);
 
                 if (foreshoreProfile == null)
                 {
@@ -307,6 +309,39 @@ namespace Ringtoets.Common.IO.FileImporters
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Assigns the <paramref name="waveReduction"/> parameters to the <paramref name="input"/>.
+        /// </summary>
+        /// <typeparam name="T">Type of the input for which values are assigned from the configuration.</typeparam>
+        /// <param name="waveReduction">The wave reduction configuration containing values for the parameters.</param>
+        /// <param name="input">The input to assign the values to.</param>
+        protected static void ReadWaveReductionParameters<T>(WaveReductionConfiguration waveReduction, T input)
+            where T : IUseBreakWater, IUseForeshore
+        {
+            if (waveReduction != null)
+            {
+                if (waveReduction.UseForeshoreProfile.HasValue)
+                {
+                    input.UseForeshore = waveReduction.UseForeshoreProfile.Value;
+                }
+
+                if (waveReduction.UseBreakWater.HasValue)
+                {
+                    input.UseBreakWater = waveReduction.UseBreakWater.Value;
+                }
+
+                if (waveReduction.BreakWaterType.HasValue)
+                {
+                    input.BreakWater.Type = (BreakWaterType) new ConfigurationBreakWaterTypeConverter().ConvertTo(waveReduction.BreakWaterType.Value, typeof(BreakWaterType));
+                }
+
+                if (waveReduction.BreakWaterHeight.HasValue)
+                {
+                    input.BreakWater.Height = (RoundedDouble) waveReduction.BreakWaterHeight.Value;
+                }
+            }
         }
 
         private ReadResult<IConfigurationItem> ReadConfiguration()
