@@ -25,7 +25,10 @@ using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using log4net;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Properties;
 using Ringtoets.Common.IO.Readers;
@@ -127,6 +130,185 @@ namespace Ringtoets.Common.IO.FileImporters
                             message, calculationName);
         }
 
+        /// <summary>
+        /// Validate the defined wave reduction parameters in combination with a given foreshore profile.
+        /// </summary>
+        /// <param name="waveReduction">Configuration possibly containing wave reduction parameters.</param>
+        /// <param name="foreshoreProfile">The foreshore profile currently assigned to the calculation.</param>
+        /// <param name="calculationName">The name of the calculation which is being validated.</param>
+        /// <returns><c>false</c> when there is an invalid wave reduction parameter defined, <c>true</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationName"/> is <c>null</c>.</exception>
+        protected bool ValidateWaveReduction(WaveReductionConfiguration waveReduction, ForeshoreProfile foreshoreProfile, string calculationName)
+        {
+            if (calculationName == null)
+            {
+                throw new ArgumentNullException(nameof(calculationName));
+            }
+
+            if (foreshoreProfile == null)
+            {
+                if (HasParametersDefined(waveReduction))
+                {
+                    LogReadCalculationConversionError(
+                        Resources.CalculationConfigurationImporter_ValidateWaveReduction_No_foreshore_profile_provided,
+                        calculationName);
+
+                    return false;
+                }
+            }
+            else if (!foreshoreProfile.Geometry.Any() && waveReduction.UseForeshoreProfile == true)
+            {
+                LogReadCalculationConversionError(
+                    string.Format(
+                        Resources.ReadForeshoreProfile_ForeshoreProfile_0_has_no_geometry_and_cannot_be_used,
+                        foreshoreProfile.Name),
+                    calculationName);
+
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Tries to find the hydraulic boundary location with the given <paramref name="locationName"/> 
+        /// in the <paramref name="hydraulicBoundaryLocations"/>.
+        /// </summary>
+        /// <param name="locationName">The name of the location to find.</param>
+        /// <param name="calculationName">Name of the calculation to assign the location to.</param>
+        /// <param name="hydraulicBoundaryLocations">The collection of <see cref="HydraulicBoundaryLocation"/>
+        /// to search in.</param>
+        /// <param name="foundLocation">The location with the name equal to <paramref name="locationName"/>
+        /// if there was any.</param>
+        /// <returns><c>true</c> if no <paramref name="locationName"/> is given, or when a location with 
+        /// the name <paramref name="locationName"/> was found, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationName"/>
+        ///  or <paramref name="hydraulicBoundaryLocations"/> is <c>null</c>.</exception>
+        protected bool TryReadHydraulicBoundaryLocation(string locationName, string calculationName, IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations, out HydraulicBoundaryLocation foundLocation)
+        {
+            if (calculationName == null)
+            {
+                throw new ArgumentNullException(nameof(calculationName));
+            }
+            if (hydraulicBoundaryLocations == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
+            }
+
+            foundLocation = null;
+
+            if (locationName != null)
+            {
+                var location = hydraulicBoundaryLocations.FirstOrDefault(l => l.Name == locationName);
+
+                if (location == null)
+                {
+                    LogReadCalculationConversionError(
+                        string.Format(
+                            Resources.CalculationConfigurationImporter_ReadHydraulicBoundaryLocation_HydraulicBoundaryLocation_0_does_not_exist,
+                            locationName),
+                        calculationName);
+
+                    return false;
+                }
+
+                foundLocation = location;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Tries to find the structure with the given <paramref name="structureName"/> 
+        /// in the <paramref name="structures"/>.
+        /// </summary>
+        /// <param name="structureName">The name of the structure to find.</param>
+        /// <param name="calculationName">Name of the calculation to assign the structure to.</param>
+        /// <param name="structures">The collection of <typeparamref name="T"/> to search in.</param>
+        /// <param name="foundStructure">The structure with the name equal to <paramref name="structureName"/>
+        /// if there was any.</param>
+        /// <returns><c>true</c> if no <paramref name="structureName"/> is given, or when a structure with 
+        /// the name <paramref name="structureName"/> was found, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationName"/>
+        /// or <paramref name="structures"/> is <c>null</c>.</exception>
+        protected bool TryReadStructure<T>(string structureName, string calculationName, IEnumerable<T> structures, out T foundStructure)
+            where T : StructureBase
+        {
+            if (calculationName == null)
+            {
+                throw new ArgumentNullException(nameof(calculationName));
+            }
+            if (structures == null)
+            {
+                throw new ArgumentNullException(nameof(structures));
+            }
+            foundStructure = null;
+            if (structureName != null)
+            {
+                T structure = structures.FirstOrDefault(l => l.Name == structureName);
+
+                if (structure == null)
+                {
+                    LogReadCalculationConversionError(
+                        string.Format(
+                            Resources.CalculationConfigurationImporter_ReadStructure_Structure_0_does_not_exist,
+                            structureName),
+                        calculationName);
+
+                    return false;
+                }
+
+                foundStructure = structure;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Tries to find the foreshore profile with the given <paramref name="foreshoreProfileName"/> 
+        /// in the <paramref name="foreshoreProfiles"/>.
+        /// </summary>
+        /// <param name="foreshoreProfileName">The name of the foreshore profile to find.</param>
+        /// <param name="calculationName">Name of the calculation to assign the foreshore profile to.</param>
+        /// <param name="foreshoreProfiles">The collection of <see name="ForeshoreProfile"/> to search in.</param>
+        /// <param name="foundForeshoreProfile">The foreshore profile with the name equal to 
+        /// <paramref name="foreshoreProfileName"/> if there was any.</param>
+        /// <returns><c>true</c> if no <paramref name="foreshoreProfileName"/> is given, or when a foreshore profile with 
+        /// the name <paramref name="foreshoreProfileName"/> was found, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationName"/>
+        /// or <paramref name="foreshoreProfiles"/> is <c>null</c>.</exception>
+        protected bool TryReadForeshoreProfile(string foreshoreProfileName, string calculationName, IEnumerable<ForeshoreProfile> foreshoreProfiles, out ForeshoreProfile foundForeshoreProfile)
+        {
+            if (calculationName == null)
+            {
+                throw new ArgumentNullException(nameof(calculationName));
+            }
+            if (foreshoreProfiles == null)
+            {
+                throw new ArgumentNullException(nameof(foreshoreProfiles));
+            }
+
+            foundForeshoreProfile = null;
+
+            if (foreshoreProfileName != null)
+            {
+                var foreshoreProfile = foreshoreProfiles.FirstOrDefault(fp => fp.Name == foreshoreProfileName);
+
+                if (foreshoreProfile == null)
+                {
+                    LogReadCalculationConversionError(
+                        string.Format(
+                            Resources.CalculationConfigurationImporter_ReadForeshoreProfile_ForeshoreProfile_0_does_not_exist,
+                            foreshoreProfileName),
+                        calculationName);
+
+                    return false;
+                }
+
+                foundForeshoreProfile = foreshoreProfile;
+            }
+
+            return true;
+        }
+
         private ReadResult<IConfigurationItem> ReadConfiguration()
         {
             try
@@ -198,6 +380,15 @@ namespace Ringtoets.Common.IO.FileImporters
             {
                 ImportTarget.Children.Add(parsedCalculationItem);
             }
+        }
+
+        private static bool HasParametersDefined(WaveReductionConfiguration waveReduction)
+        {
+            return waveReduction != null
+                   && (waveReduction.UseBreakWater.HasValue
+                       || waveReduction.UseForeshoreProfile.HasValue
+                       || waveReduction.BreakWaterHeight.HasValue
+                       || waveReduction.BreakWaterType.HasValue);
         }
     }
 }

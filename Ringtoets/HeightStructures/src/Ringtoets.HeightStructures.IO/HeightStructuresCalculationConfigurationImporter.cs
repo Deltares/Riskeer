@@ -33,7 +33,6 @@ using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.Schema;
 using Ringtoets.HeightStructures.Data;
-using Ringtoets.HeightStructures.IO.Properties;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.IO
@@ -58,8 +57,8 @@ namespace Ringtoets.HeightStructures.IO
         /// used to check if the imported objects contain the right location.</param>
         /// <param name="foreshoreProfiles">The foreshore profiles used to check if 
         /// the imported objects contain the right foreshore profile.</param>
-        /// <param name="structures">The dike profiles used to check if
-        /// the imported objects contain the right profile.</param>
+        /// <param name="structures">The structures used to check if
+        /// the imported objects contain the right structure.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public HeightStructuresCalculationConfigurationImporter(
             string xmlFilePath,
@@ -93,18 +92,18 @@ namespace Ringtoets.HeightStructures.IO
 
         protected override ICalculation ParseReadCalculation(HeightStructuresCalculationConfiguration readCalculation)
         {
-            var calculation = new StructuresCalculation<HeightStructuresInput>()
+            var calculation = new StructuresCalculation<HeightStructuresInput>
             {
                 Name = readCalculation.Name
             };
 
-            if (TryReadStructure(readCalculation, calculation)
+            if (TryReadStructure(readCalculation.StructureName, calculation)
+                && TryReadHydraulicBoundaryLocation(readCalculation.HydraulicBoundaryLocationName, calculation)
+                && TryReadForeshoreProfile(readCalculation.ForeshoreProfileName, calculation)
                 && TryReadStochasts(readCalculation, calculation)
-                && TryReadHydraulicBoundaryLocation(readCalculation, calculation)
-                && TryReadDikeProfile(readCalculation, calculation)
                 && TryReadOrientation(readCalculation, calculation)
                 && TryReadFailureProbabilityStructureWithErosion(readCalculation, calculation)
-                && TryReadWaveReduction(readCalculation, calculation))
+                && TryReadWaveReduction(readCalculation.WaveReduction, calculation))
             {
                 return calculation;
             }
@@ -338,175 +337,81 @@ namespace Ringtoets.HeightStructures.IO
             return true;
         }
 
-        /// <summary>
-        /// Reads the hydraulic boundary location.
-        /// </summary>
-        /// <param name="readCalculation">The calculation read from the imported file.</param>
-        /// <param name="calculation">The calculation to configure.</param>
-        /// <returns><c>false</c> when the <paramref name="readCalculation"/> has a <see cref="HydraulicBoundaryLocation"/>
-        /// set which is not available in <see cref="availableHydraulicBoundaryLocations"/>, <c>true</c> otherwise.</returns>
-        private bool TryReadHydraulicBoundaryLocation(StructuresCalculationConfiguration readCalculation, StructuresCalculation<HeightStructuresInput> calculation)
+        private bool TryReadHydraulicBoundaryLocation(string locationName, StructuresCalculation<HeightStructuresInput> calculation)
         {
-            if (readCalculation.HydraulicBoundaryLocationName != null)
+            HydraulicBoundaryLocation location;
+
+            if (TryReadHydraulicBoundaryLocation(locationName, calculation.Name, availableHydraulicBoundaryLocations, out location))
             {
-                HydraulicBoundaryLocation location = availableHydraulicBoundaryLocations
-                    .FirstOrDefault(l => l.Name == readCalculation.HydraulicBoundaryLocationName);
-
-                if (location == null)
-                {
-                    LogReadCalculationConversionError(
-                        string.Format(
-                            RingtoetsCommonIOResources.CalculationConfigurationImporter_ReadHydraulicBoundaryLocation_HydraulicBoundaryLocation_0_does_not_exist,
-                            readCalculation.HydraulicBoundaryLocationName),
-                        calculation.Name);
-
-                    return false;
-                }
-
                 calculation.InputParameters.HydraulicBoundaryLocation = location;
+                return true;
             }
 
-            return true;
+            return false;
         }
 
-        /// <summary>
-        /// Reads the hydraulic boundary location.
-        /// </summary>
-        /// <param name="readCalculation">The calculation read from the imported file.</param>
-        /// <param name="calculation">The calculation to configure.</param>
-        /// <returns><c>false</c> when the <paramref name="readCalculation"/> has a <see cref="HydraulicBoundaryLocation"/>
-        /// set which is not available in <see cref="availableStructures"/>, <c>true</c> otherwise.</returns>
-        private bool TryReadStructure(StructuresCalculationConfiguration readCalculation, StructuresCalculation<HeightStructuresInput> calculation)
+        private bool TryReadStructure(string structureName, StructuresCalculation<HeightStructuresInput> calculation)
         {
-            if (readCalculation.StructureName != null)
+            HeightStructure structure;
+
+            if (TryReadStructure(structureName, calculation.Name, availableStructures, out structure))
             {
-                HeightStructure structure = availableStructures
-                    .FirstOrDefault(l => l.Name == readCalculation.StructureName);
-
-                if (structure == null)
-                {
-                    LogReadCalculationConversionError(
-                        string.Format(
-                            RingtoetsCommonIOResources.CalculationConfigurationImporter_ReadStructure_Structure_0_does_not_exist,
-                            readCalculation.StructureName),
-                        calculation.Name);
-
-                    return false;
-                }
-
                 calculation.InputParameters.Structure = structure;
+                return true;
             }
 
-            return true;
+            return false;
         }
 
-        /// <summary>
-        /// Reads the dike profile.
-        /// </summary>
-        /// <param name="readCalculation">The calculation read from the imported file.</param>
-        /// <param name="calculation">The calculation to configure.</param>
-        /// <returns><c>false</c> when the <paramref name="readCalculation"/> has a <see cref="ForeshoreProfile"/> 
-        /// set which is not available in <see cref="availableForeshoreProfiles"/>, <c>true</c> otherwise.</returns>
-        private bool TryReadDikeProfile(StructuresCalculationConfiguration readCalculation, StructuresCalculation<HeightStructuresInput> calculation)
+        private bool TryReadForeshoreProfile(string foreshoreProfileName, StructuresCalculation<HeightStructuresInput> calculation)
         {
-            if (readCalculation.ForeshoreProfileName != null)
+            ForeshoreProfile foreshoreProfile;
+
+            if (TryReadForeshoreProfile(foreshoreProfileName, calculation.Name, availableForeshoreProfiles, out foreshoreProfile))
             {
-                ForeshoreProfile foreshoreProfile = availableForeshoreProfiles.FirstOrDefault(fp => fp.Name == readCalculation.ForeshoreProfileName);
-
-                if (foreshoreProfile == null)
-                {
-                    LogReadCalculationConversionError(
-                        string.Format(
-                            RingtoetsCommonIOResources.CalculationConfigurationImporter_ReadForeshoreProfile_ForeshoreProfile_0_does_not_exist,
-                            readCalculation.ForeshoreProfileName),
-                        calculation.Name);
-
-                    return false;
-                }
-
                 calculation.InputParameters.ForeshoreProfile = foreshoreProfile;
+                return true;
             }
 
-            return true;
+            return false;
         }
 
         /// <summary>
         /// Reads the wave reduction parameters.
         /// </summary>
-        /// <param name="readCalculation">The calculation read from the imported file.</param>
+        /// <param name="waveReduction"></param>
         /// <param name="calculation">The calculation to configure.</param>
         /// <returns><c>false</c> when there is an invalid wave reduction parameter defined, <c>true</c> otherwise.</returns>
-        private bool TryReadWaveReduction(StructuresCalculationConfiguration readCalculation, StructuresCalculation<HeightStructuresInput> calculation)
+        private bool TryReadWaveReduction(WaveReductionConfiguration waveReduction, StructuresCalculation<HeightStructuresInput> calculation)
         {
-            if (!ValidateWaveReduction(readCalculation, calculation))
+            if (!ValidateWaveReduction(waveReduction, calculation.InputParameters.ForeshoreProfile, calculation.Name))
             {
                 return false;
             }
 
-            WaveReductionConfiguration waveReduction = readCalculation.WaveReduction;
-            if (waveReduction == null)
+            if (waveReduction != null)
             {
-                return true;
-            }
-
-            if (waveReduction.UseForeshoreProfile.HasValue)
-            {
-                calculation.InputParameters.UseForeshore = waveReduction.UseForeshoreProfile.Value;
-            }
-
-            if (waveReduction.UseBreakWater.HasValue)
-            {
-                calculation.InputParameters.UseBreakWater = waveReduction.UseBreakWater.Value;
-            }
-
-            if (waveReduction.BreakWaterType.HasValue)
-            {
-                calculation.InputParameters.BreakWater.Type = (BreakWaterType) new ConfigurationBreakWaterTypeConverter().ConvertTo(waveReduction.BreakWaterType.Value, typeof(BreakWaterType));
-            }
-
-            if (waveReduction.BreakWaterHeight.HasValue)
-            {
-                calculation.InputParameters.BreakWater.Height = (RoundedDouble) waveReduction.BreakWaterHeight.Value;
-            }
-
-            return true;
-        }
-
-        /// <summary>
-        /// Validation to check if the defined wave reduction parameters are valid.
-        /// </summary>
-        /// <param name="readCalculation">The calculation read from the imported file.</param>
-        /// <param name="calculation">The calculation to configure.</param>
-        /// <returns><c>false</c> when there is an invalid wave reduction parameter defined, <c>true</c> otherwise.</returns>
-        private bool ValidateWaveReduction(StructuresCalculationConfiguration readCalculation, StructuresCalculation<HeightStructuresInput> calculation)
-        {
-            if (calculation.InputParameters.ForeshoreProfile == null)
-            {
-                if (readCalculation.WaveReduction != null
-                    && (readCalculation.WaveReduction.UseBreakWater.HasValue
-                        || readCalculation.WaveReduction.UseForeshoreProfile.HasValue
-                        || readCalculation.WaveReduction.BreakWaterHeight.HasValue
-                        || readCalculation.WaveReduction.BreakWaterType.HasValue))
+                if (waveReduction.UseForeshoreProfile.HasValue)
                 {
-                    LogReadCalculationConversionError(
-                        RingtoetsCommonIOResources.CalculationConfigurationImporter_ValidateWaveReduction_No_foreshore_profile_provided,
-                        calculation.Name);
+                    calculation.InputParameters.UseForeshore = waveReduction.UseForeshoreProfile.Value;
+                }
 
-                    return false;
+                if (waveReduction.UseBreakWater.HasValue)
+                {
+                    calculation.InputParameters.UseBreakWater = waveReduction.UseBreakWater.Value;
+                }
+
+                if (waveReduction.BreakWaterType.HasValue)
+                {
+                    calculation.InputParameters.BreakWater.Type = (BreakWaterType) new ConfigurationBreakWaterTypeConverter().ConvertTo(waveReduction.BreakWaterType.Value, typeof(BreakWaterType));
+                }
+
+                if (waveReduction.BreakWaterHeight.HasValue)
+                {
+                    calculation.InputParameters.BreakWater.Height = (RoundedDouble) waveReduction.BreakWaterHeight.Value;
                 }
             }
-            else if (!calculation.InputParameters.ForeshoreGeometry.Any())
-            {
-                if (readCalculation.WaveReduction.UseForeshoreProfile.HasValue && readCalculation.WaveReduction.UseForeshoreProfile.Value)
-                {
-                    LogReadCalculationConversionError(
-                        string.Format(
-                            RingtoetsCommonIOResources.ReadForeshoreProfile_ForeshoreProfile_0_has_no_geometry_and_cannot_be_used,
-                            readCalculation.ForeshoreProfileName),
-                        calculation.Name);
-                    return false;
-                }
-            }
+
             return true;
         }
     }

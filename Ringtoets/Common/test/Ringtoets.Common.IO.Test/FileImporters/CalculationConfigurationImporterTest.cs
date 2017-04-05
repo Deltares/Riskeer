@@ -25,11 +25,15 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.Readers;
@@ -205,6 +209,557 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             AssertCalculationGroup(GetExpectedNestedData(), calculationGroup);
         }
 
+        [Test]
+        public void ValidateWaveReduction_NoCalculationName_ThrowsArgumentNullException()
+        {
+            // Setup
+            string filePath = Path.Combine(readerPath, "validConfiguration.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new CalculationConfigurationImporter(filePath,
+                                                                calculationGroup);
+
+            // Call
+            TestDelegate test = () => importer.PublicValidateWaveReduction(null, null, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("calculationName", exception.ParamName);
+        }
+
+        [Test]
+        public void ValidateWaveReduction_NoForeshoreProfileNoParameters_ReturnsTrue()
+        {
+            // Setup
+            string filePath = Path.Combine(readerPath, "validConfiguration.xml");
+            const string calculationName = "calculation";
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new CalculationConfigurationImporter(filePath,
+                                                                calculationGroup);
+
+            // Call
+            var valid = importer.PublicValidateWaveReduction(null, null, calculationName);
+
+            // Assert
+            Assert.IsTrue(valid);
+        }
+
+        [Test]
+        public void ValidateWaveReduction_NoForeshoreProfileWaveReductionWithoutParameters_ReturnsTrue()
+        {
+            // Setup
+            string filePath = Path.Combine(readerPath, "validConfiguration.xml");
+            const string calculationName = "calculation";
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new CalculationConfigurationImporter(filePath,
+                                                                calculationGroup);
+
+            // Call
+            var valid = importer.PublicValidateWaveReduction(new WaveReductionConfiguration(), null, calculationName);
+
+            // Assert
+            Assert.IsTrue(valid);
+        }
+
+        [Test]
+        public void ValidateWaveReduction_NoForeshoreProfileWaveReductionWithParameter_LogsErrorReturnsFalse([Values(0, 1, 2, 3)] int propertyToSet)
+        {
+            // Setup
+            string filePath = Path.Combine(readerPath, "validConfiguration.xml");
+            const string calculationName = "calculation";
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new CalculationConfigurationImporter(filePath,
+                                                                calculationGroup);
+
+            var waveReductionConfiguration = new WaveReductionConfiguration();
+            var random = new Random(21);
+
+            switch (propertyToSet)
+            {
+                case 0:
+                    waveReductionConfiguration.BreakWaterType = random.NextEnumValue<ConfigurationBreakWaterType>();
+                    break;
+                case 1:
+                    waveReductionConfiguration.BreakWaterHeight = random.NextDouble();
+                    break;
+                case 2:
+                    waveReductionConfiguration.UseBreakWater = random.NextBoolean();
+                    break;
+                case 3:
+                    waveReductionConfiguration.UseForeshoreProfile = random.NextBoolean();
+                    break;
+            }
+            ;
+
+            var valid = true;
+
+            // Call
+            Action validate = () => valid = importer.PublicValidateWaveReduction(waveReductionConfiguration, null, calculationName);
+
+            // Assert
+            var expectedMessage = $"Er is geen voorlandprofiel opgegeven om golfreductie parameters aan toe te voegen. Berekening '{calculationName}' is overgeslagen.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(validate, Tuple.Create(expectedMessage, LogLevelConstant.Error));
+            Assert.IsFalse(valid);
+        }
+
+        [Test]
+        public void ValidateWaveReduction_ForeshoreProfileWithGeometryForeshoreProfileUsed_ReturnsTrue()
+        {
+            // Setup
+            string filePath = Path.Combine(readerPath, "validConfiguration.xml");
+            const string calculationName = "calculation";
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new CalculationConfigurationImporter(filePath,
+                                                                calculationGroup);
+
+            var waveReductionConfiguration = new WaveReductionConfiguration
+            {
+                UseForeshoreProfile = true
+            };
+
+            // Call
+            bool valid = importer.PublicValidateWaveReduction(
+                waveReductionConfiguration,
+                new TestForeshoreProfile("voorland", new[]
+                {
+                    new Point2D(0, 2)
+                }),
+                calculationName);
+
+            // Assert
+            Assert.IsTrue(valid);
+        }
+
+        [Test]
+        public void ValidateWaveReduction_ForeshoreProfileWithoutGeometryForeshoreProfileUsed_LogsErrorReturnsFalse()
+        {
+            // Setup
+            string filePath = Path.Combine(readerPath, "validConfiguration.xml");
+            const string calculationName = "calculation";
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new CalculationConfigurationImporter(filePath,
+                                                                calculationGroup);
+
+            var waveReductionConfiguration = new WaveReductionConfiguration
+            {
+                UseForeshoreProfile = true
+            };
+
+            var valid = true;
+            var profileName = "voorland";
+
+            // Call
+            Action validate = () => valid = importer.PublicValidateWaveReduction(waveReductionConfiguration, new TestForeshoreProfile(profileName), calculationName);
+
+            // Assert
+            var expectedMessage = $"Het opgegeven voorlandprofiel '{profileName}' heeft geen voorlandgeometrie en kan daarom niet gebruikt worden. Berekening '{calculationName}' is overgeslagen.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(validate, Tuple.Create(expectedMessage, LogLevelConstant.Error));
+            Assert.IsFalse(valid);
+        }
+
+        [Test]
+        public void TryReadHydraulicBoundaryLocation_NoCalculationName_ThrowsArgumentNullException()
+        {
+            // Setup
+            string filePath = Path.Combine(readerPath, "validConfiguration.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new CalculationConfigurationImporter(filePath,
+                                                                calculationGroup);
+
+            HydraulicBoundaryLocation location;
+
+            // Call
+            TestDelegate test = () => importer.PublicTryReadHydraulicBoundaryLocation(null, null, Enumerable.Empty<HydraulicBoundaryLocation>(), out location);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("calculationName", exception.ParamName);
+        }
+
+        [Test]
+        public void TryReadHydraulicBoundaryLocation_NoHydraulicBoundaryLocations_ThrowsArgumentNullException()
+        {
+            // Setup
+            string filePath = Path.Combine(readerPath, "validConfiguration.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new CalculationConfigurationImporter(filePath,
+                                                                calculationGroup);
+
+            HydraulicBoundaryLocation location;
+
+            // Call
+            TestDelegate test = () => importer.PublicTryReadHydraulicBoundaryLocation(null, "name", null, out location);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("hydraulicBoundaryLocations", exception.ParamName);
+        }
+
+        [Test]
+        public void TryReadHydraulicBoundaryLocation_NoHydraulicBoundaryLocationToFindHydraulicBoundaryLocationsEmpty_ReturnsTrue()
+        {
+            // Setup
+            string filePath = Path.Combine(readerPath, "validConfiguration.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new CalculationConfigurationImporter(filePath,
+                                                                calculationGroup);
+
+            HydraulicBoundaryLocation location;
+
+            // Call
+            var valid = importer.PublicTryReadHydraulicBoundaryLocation(null, "name", Enumerable.Empty<HydraulicBoundaryLocation>(), out location);
+
+            // Assert
+            Assert.IsTrue(valid);
+            Assert.IsNull(location);
+        }
+
+        [Test]
+        public void TryReadHydraulicBoundaryLocation_WithHydraulicBoundaryLocationToFindHydraulicBoundaryLocationsEmpty_LogsErrorReturnsFalse()
+        {
+            // Setup
+            string filePath = Path.Combine(readerPath, "validConfiguration.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new CalculationConfigurationImporter(filePath,
+                                                                calculationGroup);
+
+            HydraulicBoundaryLocation location = null;
+            bool valid = true;
+
+            const string locationName = "someName";
+            const string calculationName = "name";
+
+            // Call
+            Action validate = () => valid = importer.PublicTryReadHydraulicBoundaryLocation(locationName, calculationName, Enumerable.Empty<HydraulicBoundaryLocation>(), out location);
+
+            // Assert
+            var expectedMessage = $"De locatie met hydraulische randvoorwaarden '{locationName}' bestaat niet. Berekening '{calculationName}' is overgeslagen.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(validate, Tuple.Create(expectedMessage, LogLevelConstant.Error));
+            Assert.IsFalse(valid);
+            Assert.IsNull(location);
+        }
+
+        [Test]
+        public void TryReadHydraulicBoundaryLocation_WithHydraulicBoundaryLocationToFindHydraulicBoundaryLocationsContainsLocation_ReturnsTrue()
+        {
+            // Setup
+            const string locationName = "someName";
+            const string calculationName = "name";
+
+            string filePath = Path.Combine(readerPath, "validConfiguration.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new CalculationConfigurationImporter(filePath,
+                                                                calculationGroup);
+
+            HydraulicBoundaryLocation expectedLocation = new TestHydraulicBoundaryLocation(locationName);
+            HydraulicBoundaryLocation location;
+
+            // Call
+            bool valid = importer.PublicTryReadHydraulicBoundaryLocation(locationName,
+                                                                         calculationName,
+                                                                         new[]
+                                                                         {
+                                                                             new TestHydraulicBoundaryLocation("otherNameA"),
+                                                                             expectedLocation,
+                                                                             new TestHydraulicBoundaryLocation("otherNameB")
+                                                                         },
+                                                                         out location);
+
+            // Assert
+            Assert.IsTrue(valid);
+            Assert.AreSame(expectedLocation, location);
+        }
+
+        [Test]
+        public void TryReadForeshoreProfile_NoCalculationName_ThrowsArgumentNullException()
+        {
+            // Setup
+            string filePath = Path.Combine(readerPath, "validConfiguration.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new CalculationConfigurationImporter(filePath,
+                                                                calculationGroup);
+
+            ForeshoreProfile profile;
+
+            // Call
+            TestDelegate test = () => importer.PublicTryReadForeshoreProfile(null, null, Enumerable.Empty<ForeshoreProfile>(), out profile);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("calculationName", exception.ParamName);
+        }
+
+        [Test]
+        public void TryReadForeshoreProfile_NoForeshoreProfiles_ThrowsArgumentNullException()
+        {
+            // Setup
+            string filePath = Path.Combine(readerPath, "validConfiguration.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new CalculationConfigurationImporter(filePath,
+                                                                calculationGroup);
+
+            ForeshoreProfile profile;
+
+            // Call
+            TestDelegate test = () => importer.PublicTryReadForeshoreProfile(null, "name", null, out profile);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("foreshoreProfiles", exception.ParamName);
+        }
+
+        [Test]
+        public void TryReadForeshoreProfile_NoForeshoreProfileToFindForeshoreProfilesEmpty_ReturnsTrue()
+        {
+            // Setup
+            string filePath = Path.Combine(readerPath, "validConfiguration.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new CalculationConfigurationImporter(filePath,
+                                                                calculationGroup);
+
+            ForeshoreProfile profile;
+
+            // Call
+            var valid = importer.PublicTryReadForeshoreProfile(null, "name", Enumerable.Empty<ForeshoreProfile>(), out profile);
+
+            // Assert
+            Assert.IsTrue(valid);
+            Assert.IsNull(profile);
+        }
+
+        [Test]
+        public void TryReadForeshoreProfile_WithForeshoreProfileToFindForeshoreProfilesEmpty_LogsErrorReturnsFalse()
+        {
+            // Setup
+            string filePath = Path.Combine(readerPath, "validConfiguration.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new CalculationConfigurationImporter(filePath,
+                                                                calculationGroup);
+
+            ForeshoreProfile profile = null;
+            bool valid = true;
+
+            const string profileName = "someName";
+            const string calculationName = "name";
+
+            // Call
+            Action validate = () => valid = importer.PublicTryReadForeshoreProfile(profileName, calculationName, Enumerable.Empty<ForeshoreProfile>(), out profile);
+
+            // Assert
+            var expectedMessage = $"Het voorlandprofiel '{profileName}' bestaat niet. Berekening '{calculationName}' is overgeslagen.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(validate, Tuple.Create(expectedMessage, LogLevelConstant.Error));
+            Assert.IsFalse(valid);
+            Assert.IsNull(profile);
+        }
+
+        [Test]
+        public void TryReadForeshoreProfile_WithForeshoreProfileToFindForeshoreProfilesContainsProfile_ReturnsTrue()
+        {
+            // Setup
+            const string profileName = "someName";
+            const string calculationName = "name";
+
+            string filePath = Path.Combine(readerPath, "validConfiguration.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new CalculationConfigurationImporter(filePath,
+                                                                calculationGroup);
+
+            ForeshoreProfile expectedProfile = new TestForeshoreProfile(profileName);
+            ForeshoreProfile profile;
+
+            // Call
+            bool valid = importer.PublicTryReadForeshoreProfile(profileName,
+                                                                calculationName,
+                                                                new[]
+                                                                {
+                                                                    new TestForeshoreProfile("otherNameA"),
+                                                                    expectedProfile,
+                                                                    new TestForeshoreProfile("otherNameB")
+                                                                },
+                                                                out profile);
+
+            // Assert
+            Assert.IsTrue(valid);
+            Assert.AreSame(expectedProfile, profile);
+        }
+
+        [Test]
+        public void TryReadStructure_NoCalculationName_ThrowsArgumentNullException()
+        {
+            // Setup
+            string filePath = Path.Combine(readerPath, "validConfiguration.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new CalculationConfigurationImporter(filePath,
+                                                                calculationGroup);
+
+            StructureBase structure;
+
+            // Call
+            TestDelegate test = () => importer.PublicTryReadStructure(null, null, Enumerable.Empty<TestStructure>(), out structure);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("calculationName", exception.ParamName);
+        }
+
+        [Test]
+        public void TryReadStructure_NoStructures_ThrowsArgumentNullException()
+        {
+            // Setup
+            string filePath = Path.Combine(readerPath, "validConfiguration.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new CalculationConfigurationImporter(filePath,
+                                                                calculationGroup);
+
+            StructureBase structure;
+
+            // Call
+            TestDelegate test = () => importer.PublicTryReadStructure(null, "name", null, out structure);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("structures", exception.ParamName);
+        }
+
+        [Test]
+        public void TryReadStructure_NoStructureToFindStructuresEmpty_ReturnsTrue()
+        {
+            // Setup
+            string filePath = Path.Combine(readerPath, "validConfiguration.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new CalculationConfigurationImporter(filePath,
+                                                                calculationGroup);
+
+            StructureBase structure;
+
+            // Call
+            var valid = importer.PublicTryReadStructure(null, "name", Enumerable.Empty<StructureBase>(), out structure);
+
+            // Assert
+            Assert.IsTrue(valid);
+            Assert.IsNull(structure);
+        }
+
+        [Test]
+        public void TryReadStructure_WithStructureToFindStructuresEmpty_LogsErrorReturnsFalse()
+        {
+            // Setup
+            string filePath = Path.Combine(readerPath, "validConfiguration.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new CalculationConfigurationImporter(filePath,
+                                                                calculationGroup);
+
+            StructureBase profile = null;
+            bool valid = true;
+
+            const string structureName = "someName";
+            const string calculationName = "name";
+
+            // Call
+            Action validate = () => valid = importer.PublicTryReadStructure(structureName, calculationName, Enumerable.Empty<StructureBase>(), out profile);
+
+            // Assert
+            var expectedMessage = $"Het kunstwerk '{structureName}' bestaat niet. Berekening '{calculationName}' is overgeslagen.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(validate, Tuple.Create(expectedMessage, LogLevelConstant.Error));
+            Assert.IsFalse(valid);
+            Assert.IsNull(profile);
+        }
+
+        [Test]
+        public void TryReadStructure_WithStructureToFindStructuresContainsStructure_ReturnsTrue()
+        {
+            // Setup
+            const string structureName = "someName";
+            const string calculationName = "name";
+
+            string filePath = Path.Combine(readerPath, "validConfiguration.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new CalculationConfigurationImporter(filePath,
+                                                                calculationGroup);
+
+            TestStructure expectedProfile = new TestStructure(structureName);
+            StructureBase structure;
+
+            // Call
+            bool valid = importer.PublicTryReadStructure(structureName,
+                                                         calculationName,
+                                                         new[]
+                                                         {
+                                                             new TestStructure("otherNameA"),
+                                                             expectedProfile,
+                                                             new TestStructure("otherNameB")
+                                                         },
+                                                         out structure);
+
+            // Assert
+            Assert.IsTrue(valid);
+            Assert.AreSame(expectedProfile, structure);
+        }
+
+        [Test]
+        public void LogOutOfRangeException_Always_LogMessage()
+        {
+            // Setup
+            string filePath = Path.Combine(readerPath, "validConfiguration.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new CalculationConfigurationImporter(filePath,
+                                                                calculationGroup);
+
+            const string message = "an error";
+            const string calculationName = "calculationA";
+            const string innerMessage = "Inner message";
+            ArgumentOutOfRangeException exception = new ArgumentOutOfRangeException(null, innerMessage);
+
+            // Call
+            Action log = () => importer.PublicLogOutOfRangeException(message, calculationName, exception);
+
+            // Assert
+            TestHelper.AssertLogMessageWithLevelIsGenerated(log, Tuple.Create($"{message} {innerMessage} Berekening '{calculationName}' is overgeslagen.", LogLevelConstant.Error));
+        }
+
         private class CalculationConfigurationImporter : CalculationConfigurationImporter<CalculationConfigurationReader, ReadCalculation>
         {
             public CalculationConfigurationImporter(string filePath, CalculationGroup importTarget)
@@ -221,6 +776,31 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 {
                     Name = readCalculation.Name
                 };
+            }
+
+            public void PublicLogOutOfRangeException(string errorMessage, string calculationName, ArgumentOutOfRangeException e)
+            {
+                LogOutOfRangeException(errorMessage, calculationName, e);
+            }
+
+            public bool PublicValidateWaveReduction(WaveReductionConfiguration waveReduction, ForeshoreProfile foreshoreProfile, string calculationName)
+            {
+                return ValidateWaveReduction(waveReduction, foreshoreProfile, calculationName);
+            }
+
+            public bool PublicTryReadHydraulicBoundaryLocation(string locationName, string calculationName, IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations, out HydraulicBoundaryLocation location)
+            {
+                return TryReadHydraulicBoundaryLocation(locationName, calculationName, hydraulicBoundaryLocations, out location);
+            }
+
+            public bool PublicTryReadForeshoreProfile(string locationName, string calculationName, IEnumerable<ForeshoreProfile> foreshoreProfiles, out ForeshoreProfile location)
+            {
+                return TryReadForeshoreProfile(locationName, calculationName, foreshoreProfiles, out location);
+            }
+
+            public bool PublicTryReadStructure(string locationName, string calculationName, IEnumerable<StructureBase> structures, out StructureBase location)
+            {
+                return TryReadStructure(locationName, calculationName, structures, out location);
             }
         }
 
@@ -256,6 +836,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             public string Name { get; set; }
             public bool HasOutput { get; }
             public Comment Comments { get; }
+
             public void ClearOutput()
             {
                 throw new NotImplementedException();
@@ -339,6 +920,11 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                     Assert.AreEqual(innerCalculation.Name, ((TestCalculation) actualCalculationGroup.Children[i]).Name);
                 }
             }
+        }
+
+        private class TestStructure : StructureBase
+        {
+            public TestStructure(string name) : base(name, "id", new Point2D(0, 0), 2) { }
         }
     }
 }

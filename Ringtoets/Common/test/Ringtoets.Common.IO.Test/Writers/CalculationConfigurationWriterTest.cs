@@ -291,7 +291,7 @@ namespace Ringtoets.Common.IO.Test.Writers
         {
             // Setup
             string filePath = TestHelper.GetScratchPadPath(
-                $"{nameof(WriteBreakWaterProperties_WithBreakWater_WritesPropertiesToFile)}.xml");
+                $"{nameof(WriteBreakWaterProperties_WithBreakWater_WritesPropertiesToFile)} {type}");
 
             string expectedXmlFilePath = TestHelper.GetTestDataPath(
                 TestDataPath.Ringtoets.Common.IO,
