@@ -54,6 +54,7 @@
       </stochast>
       <stochast naam="bermbreedte">
         <verwachtingswaarde>1.2</verwachtingswaarde>
+        <standaardafwijking>0.1</standaardafwijking>
       </stochast>
       <stochast naam="lineairebelastingschematiseringsterkte">
         <verwachtingswaarde>2</verwachtingswaarde>

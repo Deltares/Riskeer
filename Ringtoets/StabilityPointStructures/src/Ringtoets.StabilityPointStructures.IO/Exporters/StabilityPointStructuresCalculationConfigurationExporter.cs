@@ -87,7 +87,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Exporters
 
             calculationConfiguration.AllowedLevelIncreaseStorage = input.AllowedLevelIncreaseStorage.ToStochastConfiguration();
             calculationConfiguration.AreaFlowApertures = input.AreaFlowApertures.ToStochastConfiguration();
-            calculationConfiguration.BankWidth = input.BankWidth.ToStochastConfigurationWithMean();
+            calculationConfiguration.BankWidth = input.BankWidth.ToStochastConfiguration();
             calculationConfiguration.ConstructiveStrengthLinearLoadModel = input.ConstructiveStrengthLinearLoadModel.ToStochastConfiguration();
 
             calculationConfiguration.ConstructiveStrengthQuadraticLoadModel = input.ConstructiveStrengthQuadraticLoadModel.ToStochastConfiguration();
