@@ -77,7 +77,7 @@ namespace Ringtoets.ClosingStructures.IO
         public double? FailureProbabilityOpenStructure { get; set; }
 
         /// <summary>
-        /// Gets or sets the failure probability of reperation.
+        /// Gets or sets the failure probability of reparation.
         /// </summary>
         public double? FailureProbabilityReparation { get; set; }
 

@@ -50,9 +50,11 @@ namespace Ringtoets.ClosingStructures.IO
         protected override ClosingStructuresCalculationConfiguration ToConfiguration(StructuresCalculation<ClosingStructuresInput> calculation)
         {
             ClosingStructuresInput input = calculation.InputParameters;
-            var calculationConfiguration = new ClosingStructuresCalculationConfiguration(calculation.Name);
+            var calculationConfiguration = new ClosingStructuresCalculationConfiguration(calculation.Name)
+            {
+                HydraulicBoundaryLocationName = input.HydraulicBoundaryLocation?.Name
+            };
 
-            calculationConfiguration.HydraulicBoundaryLocationName = input.HydraulicBoundaryLocation?.Name;
 
             if (input.Structure != null)
             {

@@ -49,7 +49,7 @@ namespace Ringtoets.ClosingStructures.IO
         public const string FailureProbabilityReparation = "faalkansherstel";
 
         /// <summary>
-        /// The identifier for theprobability or frequencey open structure before flooding element.
+        /// The identifier for the probability or frequency open structure before flooding element.
         /// </summary>
         public const string ProbabilityOrFrequencyOpenStructureBeforeFlooding = "kansopopenstaan";
 
