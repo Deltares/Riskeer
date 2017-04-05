@@ -24,74 +24,65 @@ All rights reserved.
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
   <!--Algemene structuur met configuratie, mappen en berekeningen.-->
+
+  <!--Basis elementen voor een kunstwerken configuratie.-->
+  <xs:include schemaLocation="KunstwerkenBasisSchema.xsd" />
   
   <!--Herdefinieer berekening, zodat deze de juiste inhoud heeft.-->
   <xs:redefine schemaLocation="ConfiguratieSchema.xsd">
     <xs:complexType name="berekeningType">
       <xs:complexContent>
         <xs:extension base="berekeningType">
-          <xs:sequence>
-            <xs:element ref="hrlocatie" minOccurs="0"/>
-            <xs:element ref="volumiekgewichtwater" minOccurs="0"/>
+          <xs:all>
+            <xs:element ref="afstandonderkantwandteendijk" minOccurs="0"/>
+            <xs:element ref="analysehoogte" minOccurs="0"/>
+            <xs:element ref="belastingschematisering" minOccurs="0"/>
+            <xs:element ref="faalkansgegevenerosiebodem" minOccurs="0"/>
+            <xs:element ref="faalkansherstel" minOccurs="0"/>
             <xs:element ref="factorstormduur" minOccurs="0"/>
-            <xs:element ref="kunstwerk" minOccurs="0"/>
+            <xs:element ref="hrlocatie" minOccurs="0"/>
+            <xs:element ref="golfreductie" minOccurs="0"/>
             <xs:element ref="orientatie" minOccurs="0"/>
             <xs:element ref="instroommodel" minOccurs="0"/>
-            <xs:element ref="belastingschematisering" minOccurs="0"/>
-            <xs:element ref="analysehoogte" minOccurs="0"/>
-            <xs:element ref="afstandonderkantwandteendijk" minOccurs="0"/>
-            <xs:element ref="faalkansherstel" minOccurs="0"/>
-            <xs:element ref="nrnivelleringen" minOccurs="0"/>
+            <xs:element ref="kunstwerk" minOccurs="0"/>
             <xs:element ref="kansaanvaringtweedekeermiddel" minOccurs="0"/>
-            <xs:element ref="faalkansgegevenerosiebodem" minOccurs="0"/>
-            <xs:element ref="voorlandprofiel" minOccurs="0"/>
-            <xs:element ref="golfreductie" minOccurs="0"/>
+            <xs:element ref="nrnivelleringen" minOccurs="0"/>
             <xs:element ref="stochasten" minOccurs="0"/>
-          </xs:sequence>
+            <xs:element ref="volumiekgewichtwater" minOccurs="0"/>
+            <xs:element ref="voorlandprofiel" minOccurs="0"/>
+          </xs:all>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:redefine>
-
-  <!--Generieke definitie van de geselecteerde HR locatie voor alle toetssporen.-->
-  <xs:include schemaLocation="HrLocatieSchema.xsd"/>
-
-  <!--Generieke definitie voor de orientatie voor alle toetssporen.-->
-  <xs:include schemaLocation="OrientatieSchema.xsd"/>
-
-  <!--Generieke definitie voor het voorlandprofiel voor alle toetssporen.-->
-  <xs:include schemaLocation="VoorlandProfielSchema.xsd"/>
-
-  <!--Generieke definitie voor golfreducerende parameters voor alle toetssporen.-->
-  <xs:include schemaLocation="GolfReductieSchema.xsd"/>
 
   <!--Herdefinieer stochastnamen. Voor dit toetsspoor zijn alleen de onderstaande
   namen voor stochasten toegestaan (en ze mogen ook maar maximaal 1 keer voorkomen).-->
   <xs:redefine schemaLocation="StochastSchema.xsd">
     <xs:simpleType name="nameType">
       <xs:restriction base="nameType">
-        <xs:enumeration value="stormduur"/>
+        <xs:enumeration value="aanvaarenergie"/>
+        <xs:enumeration value="aanvaarsnelheid"/>
+        <xs:enumeration value="afvoercoefficient"/>
+        <xs:enumeration value="bermbreedte"/>
         <xs:enumeration value="binnenwaterstand"/>
         <xs:enumeration value="binnenwaterstandbijfalen"/>
-        <xs:enumeration value="modelfactoroverloopdebiet"/>
-        <xs:enumeration value="afvoercoefficient"/>
+        <xs:enumeration value="breedtebodembescherming"/>
         <xs:enumeration value="breedtedoorstroomopening"/>
         <xs:enumeration value="doorstroomoppervlak"/>
-        <xs:enumeration value="breedtebodembescherming"/>
-        <xs:enumeration value="kombergendoppervlak"/>
+        <xs:enumeration value="drempelhoogte"/>
+        <xs:enumeration value="massaschip"/>
+        <xs:enumeration value="modelfactoroverloopdebiet"/>
         <xs:enumeration value="peilverhogingkomberging"/>
         <xs:enumeration value="kerendehoogte"/>
-        <xs:enumeration value="drempelhoogte"/>
+        <xs:enumeration value="kombergendoppervlak"/>
         <xs:enumeration value="kritiekinstromenddebiet"/>
         <xs:enumeration value="kritiekestroomsnelheid"/>
-        <xs:enumeration value="lineairebelastingschematiseringsterkte"/>
-        <xs:enumeration value="kwadratischebelastingschematiseringsterkte"/>
-        <xs:enumeration value="bermbreedte"/>
-        <xs:enumeration value="aanvaarenergie"/>
-        <xs:enumeration value="massaschip"/>
-        <xs:enumeration value="aanvaarsnelheid"/>
-        <xs:enumeration value="lineairebelastingschematiseringstabiliteit"/>
         <xs:enumeration value="kwadratischebelastingschematiseringstabiliteit"/>
+        <xs:enumeration value="kwadratischebelastingschematiseringsterkte"/>
+        <xs:enumeration value="lineairebelastingschematiseringsterkte"/>
+        <xs:enumeration value="lineairebelastingschematiseringstabiliteit"/>
+        <xs:enumeration value="stormduur"/>
       </xs:restriction>
     </xs:simpleType>
   </xs:redefine>
@@ -109,17 +100,6 @@ All rights reserved.
   <xs:element name="factorstormduur">
     <xs:simpleType>
       <xs:restriction base="xs:double"/>
-    </xs:simpleType>
-  </xs:element>
-
-  <!--Specificeert het geselecteerde kunstwerk. De inhoud van dit element moet
-  gelijk zijn aan een van de namen van de geimporteerde kunstwerken voor 
-  het betreffende toetsspoor.-->
-  <xs:element name="kunstwerk">
-    <xs:simpleType>
-      <xs:restriction base="xs:string">
-        <xs:minLength value="1"/>
-      </xs:restriction>
     </xs:simpleType>
   </xs:element>
 
@@ -173,13 +153,6 @@ All rights reserved.
 
   <!--Specificeert de kans op aanvaring van het tweede keermiddel per nivellering.-->
   <xs:element name="kansaanvaringtweedekeermiddel">
-    <xs:simpleType>
-      <xs:restriction base="xs:double"/>
-    </xs:simpleType>
-  </xs:element>
-
-  <!--Specificeert de faalkans van het kunstwerk gegeven erosie van de bodem.-->
-  <xs:element name="faalkansgegevenerosiebodem">
     <xs:simpleType>
       <xs:restriction base="xs:double"/>
     </xs:simpleType>
