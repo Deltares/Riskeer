@@ -36,6 +36,7 @@ using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms;
 using Ringtoets.Common.Forms.ChangeHandlers;
+using Ringtoets.Common.Forms.ExportInfos;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
@@ -45,6 +46,7 @@ using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 using Ringtoets.StabilityPointStructures.Forms.PropertyClasses;
 using Ringtoets.StabilityPointStructures.Forms.Views;
+using Ringtoets.StabilityPointStructures.IO.Exporters;
 using Ringtoets.StabilityPointStructures.IO.Importers;
 using Ringtoets.StabilityPointStructures.Service;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -84,16 +86,16 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             };
 
             yield return new ViewInfo<
-                    FailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>,
-                    IEnumerable<StabilityPointStructuresFailureMechanismSectionResult>,
-                    StabilityPointStructuresFailureMechanismResultView>
-                {
-                    GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                    Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
-                    CloseForData = CloseFailureMechanismResultViewForData,
-                    GetViewData = context => context.WrappedData,
-                    AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
-                };
+                FailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>,
+                IEnumerable<StabilityPointStructuresFailureMechanismSectionResult>,
+                StabilityPointStructuresFailureMechanismResultView>
+            {
+                GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
+                CloseForData = CloseFailureMechanismResultViewForData,
+                GetViewData = context => context.WrappedData,
+                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
+            };
 
             yield return new ViewInfo<StabilityPointStructuresScenariosContext, CalculationGroup, StabilityPointStructuresScenariosView>
             {
@@ -191,9 +193,22 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = RingtoetsCommonFormsResources.StructuresIcon,
                 FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
-                                              RingtoetsCommonIOResources.Shape_file_filter_Description),
+                                                              RingtoetsCommonIOResources.Shape_file_filter_Description),
                 IsEnabled = context => context.AssessmentSection.ReferenceLine != null
             };
+        }
+
+        public override IEnumerable<ExportInfo> GetExportInfos()
+        {
+            yield return RingtoetsExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<StabilityPointStructuresCalculationGroupContext>(
+                (context, filePath) => new StabilityPointStructuresCalculationConfigurationExporter(context.WrappedData.Children, filePath),
+                context => context.WrappedData.Children.Any());
+
+            yield return RingtoetsExportInfoFactory.CreateCalculationConfigurationExportInfo<StabilityPointStructuresCalculationContext>(
+                (context, filePath) => new StabilityPointStructuresCalculationConfigurationExporter(new[]
+                {
+                    context.WrappedData
+                }, filePath));
         }
 
         #region ViewInfo
@@ -206,7 +221,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             var failureMechanism = o as StabilityPointStructuresFailureMechanism;
 
             var viewFailureMechanismContext = (StabilityPointStructuresFailureMechanismContext) view.Data;
-            var viewFailureMechanism = viewFailureMechanismContext.WrappedData;
+            StabilityPointStructuresFailureMechanism viewFailureMechanism = viewFailureMechanismContext.WrappedData;
 
             return assessmentSection != null
                        ? ReferenceEquals(viewFailureMechanismContext.Parent, assessmentSection)
@@ -279,7 +294,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
         private static void ValidateAll(IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> calculations, IAssessmentSection assessmentSection)
         {
-            foreach (var calculation in calculations)
+            foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in calculations)
             {
                 StabilityPointStructuresCalculationService.Validate(calculation, assessmentSection);
             }
@@ -294,7 +309,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                                                                      calc,
                                                                      assessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                      failureMechanism,
-                                                                     assessmentSection)).ToArray());
+                                                                     assessmentSection))
+                                                         .ToArray());
         }
 
         #endregion
@@ -556,7 +572,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
         private static void GenerateStabilityPointStructuresCalculations(IEnumerable<StabilityPointStructuresFailureMechanismSectionResult> sectionResults, IEnumerable<StabilityPointStructure> structures, IList<ICalculationBase> calculations)
         {
-            foreach (var structure in structures)
+            foreach (StabilityPointStructure structure in structures)
             {
                 var calculation = new StructuresCalculation<StabilityPointStructuresInput>
                 {
@@ -578,7 +594,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             var parentGroupContext = (StabilityPointStructuresCalculationGroupContext) parentNodeData;
 
             parentGroupContext.WrappedData.Children.Remove(context.WrappedData);
-            var stabilityPointStructuresCalculations = context.FailureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>().ToArray();
+            StructuresCalculation<StabilityPointStructuresInput>[] stabilityPointStructuresCalculations = context.FailureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>().ToArray();
 
             StructuresHelper.UpdateCalculationToSectionResultAssignments(context.FailureMechanism.SectionResults,
                                                                          stabilityPointStructuresCalculations);

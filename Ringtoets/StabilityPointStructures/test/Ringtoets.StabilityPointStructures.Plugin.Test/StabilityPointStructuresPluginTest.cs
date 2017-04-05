@@ -22,12 +22,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Controls.TreeView;
-using Core.Common.Gui;
-using Core.Common.Gui.Commands;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.StabilityPointStructures.Data;
@@ -145,6 +142,22 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test
                 // Assert
                 Assert.AreEqual(1, importInfos.Length);
                 Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(StabilityPointStructuresContext)));
+            }
+        }
+
+        [Test]
+        public void GetExportInfos_ReturnsSupportedExportInfos()
+        {
+            // Setup
+            using (var plugin = new StabilityPointStructuresPlugin())
+            {
+                // Call
+                ExportInfo[] exportInfos = plugin.GetExportInfos().ToArray();
+
+                // Assert
+                Assert.AreEqual(2, exportInfos.Length);
+                Assert.IsTrue(exportInfos.Any(tni => tni.DataType == typeof(StabilityPointStructuresCalculationGroupContext)));
+                Assert.IsTrue(exportInfos.Any(tni => tni.DataType == typeof(StabilityPointStructuresCalculationContext)));
             }
         }
     }
