@@ -43,7 +43,6 @@ namespace Ringtoets.ClosingStructures.IO.Test
             StructuresCalculation<ClosingStructuresInput>,
             ClosingStructuresCalculationConfiguration>
     {
-
         private static IEnumerable<TestCaseData> Calculations
         {
             get

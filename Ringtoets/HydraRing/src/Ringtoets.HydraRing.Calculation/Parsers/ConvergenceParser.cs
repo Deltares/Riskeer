@@ -47,11 +47,6 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
 
         public void Parse(string workingDirectory, int sectionId)
         {
-            if (workingDirectory == null)
-            {
-                throw new ArgumentNullException(nameof(workingDirectory));
-            }
-
             HydraRingDatabaseParseHelper.Parse(workingDirectory,
                                                getLastResultQuery,
                                                sectionId,
@@ -63,7 +58,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
         /// Reads the result of the <paramref name="reader"/>.
         /// </summary>
         /// <param name="reader">The reader to get the result from.</param>
-        /// <exception cref="InvalidCastException">Thrown when the the result
+        /// <exception cref="InvalidCastException">Thrown when the result
         /// cannot be converted to the output format.</exception>
         private void ReadResult(HydraRingDatabaseReader reader)
         {

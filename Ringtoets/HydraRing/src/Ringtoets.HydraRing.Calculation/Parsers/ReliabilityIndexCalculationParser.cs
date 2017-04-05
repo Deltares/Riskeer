@@ -27,7 +27,7 @@ using Ringtoets.HydraRing.Calculation.Readers;
 namespace Ringtoets.HydraRing.Calculation.Parsers
 {
     /// <summary>
-    /// Parser for the output of Hydra-Ring calculations that iterate towards a reliability index.
+    /// Parser for the reliability index of failure of Hydra-Ring calculations.
     /// </summary>
     public class ReliabilityIndexCalculationParser : IHydraRingFileParser
     {
@@ -49,11 +49,6 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
 
         public void Parse(string workingDirectory, int sectionId)
         {
-            if (workingDirectory == null)
-            {
-                throw new ArgumentNullException(nameof(workingDirectory));
-            }
-
             HydraRingDatabaseParseHelper.Parse(workingDirectory,
                                                query,
                                                sectionId,
@@ -65,13 +60,13 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
         /// Reads the result of the <paramref name="reader"/>.
         /// </summary>
         /// <param name="reader">The reader to get the result from.</param>
-        /// <exception cref="InvalidCastException">Thrown when the the result
+        /// <exception cref="InvalidCastException">Thrown when the result
         /// cannot be converted to the output format.</exception>
         private void ReadResult(HydraRingDatabaseReader reader)
         {
             Output = new ReliabilityIndexCalculationOutput(
-                Convert.ToDouble(reader.ReadColumn("Value")),
-                Convert.ToDouble(reader.ReadColumn("BetaValue")));
+                Convert.ToDouble(reader.ReadColumn(valueColumnName)),
+                Convert.ToDouble(reader.ReadColumn(betaColumnName)));
         }
     }
 }

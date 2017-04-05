@@ -28,22 +28,22 @@ using Ringtoets.HydraRing.Calculation.Readers;
 namespace Ringtoets.HydraRing.Calculation.Parsers
 {
     /// <summary>
-    /// Helper class for methods that apply for parsing the output from the database.
+    /// Helper class for methods that apply for parsing output from a Hydra-Ring database.
     /// </summary>
     internal static class HydraRingDatabaseParseHelper
     {
         /// <summary>
-        /// Parses the file.
+        /// Parses the Hydra-Ring output database.
         /// </summary>
         /// <param name="workingDirectory">The path to the directory which contains
         /// the output of the Hydra-Ring calculation.</param>
         /// <param name="query">The query to perform when reading the database.</param>
         /// <param name="sectionId">The section id to get the output for.</param>
         /// <param name="exceptionMessage">The exception message when there is no result.</param>
-        /// <param name="readResultAction">The action to perform for getting the results of the
-        /// database.</param>
-        /// <exception cref="HydraRingFileParserException">Thrown when the reader
-        /// encounters an error while reading the database.</exception>
+        /// <param name="readResultAction">The action to perform for parsing the results from the database.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        /// <exception cref="HydraRingFileParserException">Thrown when the reader encounters an error while 
+        /// reading the database.</exception>
         public static void Parse(string workingDirectory,
                                  string query,
                                  int sectionId,
@@ -62,7 +62,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
             }
             catch (SQLiteException e)
             {
-                throw new HydraRingFileParserException(Resources.ParseFile_Cannot_read_result_in_output_file, e);
+                throw new HydraRingFileParserException(Resources.Parse_Cannot_read_result_in_output_file, e);
             }
             catch (Exception e) when (e is HydraRingDatabaseReaderException || e is InvalidCastException)
             {

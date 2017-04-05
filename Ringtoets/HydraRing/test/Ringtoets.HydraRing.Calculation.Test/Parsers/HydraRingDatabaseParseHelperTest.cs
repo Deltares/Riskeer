@@ -62,6 +62,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("query", exception.ParamName);
         }
+
         [Test]
         public void Parse_ExceptionMessageNull_ThrowArgumentNullException()
         {
@@ -72,6 +73,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("exceptionMessage", exception.ParamName);
         }
+
         [Test]
         public void Parse_ReadResultActionNull_ThrowArgumentNullException()
         {
@@ -120,10 +122,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             string directory = Path.Combine(testDirectory, validFile);
 
             // Call
-            TestDelegate test = () => HydraRingDatabaseParseHelper.Parse(directory, query, 0, customMessage, reader =>
-            {
-                throw new InvalidCastException();
-            });
+            TestDelegate test = () => HydraRingDatabaseParseHelper.Parse(directory, query, 0, customMessage, reader => { throw new InvalidCastException(); });
 
             // Assert
             var exception = Assert.Throws<HydraRingFileParserException>(test);
@@ -133,16 +132,12 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         [Test]
         public void Parse_ValidData_ReadResultActionPerformed()
         {
-
             // Setup
             string directory = Path.Combine(testDirectory, validFile);
             var performed = false;
 
             // Call
-            HydraRingDatabaseParseHelper.Parse(directory, query, 0, "", reader =>
-            {
-                performed = true;
-            });
+            HydraRingDatabaseParseHelper.Parse(directory, query, 0, "", reader => { performed = true; });
 
             // Assert
             Assert.IsTrue(performed);

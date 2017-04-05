@@ -32,8 +32,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Readers
     [TestFixture]
     public class HydraRingDatabaseReaderTest
     {
-        private const string validWorkingDirectory = "ValidFile";
-        private const string invalidDatabase = "InvalidFile";
+        private const string validDatabase = "ValidDatabase";
+        private const string invalidDatabase = "InvalidDatabase";
         private const string emptyWorkingDirectory = "EmptyWorkingDirectory";
         private const string emptyDatabase = "EmptyDatabase";
         private const string query = "SELECT * FROM IterateToGivenBetaConvergence " +
@@ -46,7 +46,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Readers
         public void Constructor_ExpectedValues()
         {
             // Setup
-            string directory = Path.Combine(testDirectory, validWorkingDirectory);
+            string directory = Path.Combine(testDirectory, validDatabase);
 
             // Call
             using (var reader = new HydraRingDatabaseReader(directory, "", 0))
@@ -71,7 +71,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Readers
         public void Constructor_QueryNull_ThrowArgumentNullException()
         {
             // Setup
-            string directory = Path.Combine(testDirectory, validWorkingDirectory);
+            string directory = Path.Combine(testDirectory, validDatabase);
 
             // Call
             TestDelegate test = () => new HydraRingDatabaseReader(directory, null, 0);
@@ -95,7 +95,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Readers
         [Test]
         [TestCase(emptyWorkingDirectory)]
         [TestCase(invalidDatabase)]
-        public void Constructor_EmptyWorkingDirectory_ThrowSQLiteException(string path)
+        public void Constructor_EmptyWorkingDirectoryOrInvalidDatabase_ThrowSQLiteException(string path)
         {
             // Setup
             string directory = Path.Combine(testDirectory, path);
@@ -131,7 +131,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Readers
         public void ReadColumn_ColumnNameNull_ThrowArgumentNullException()
         {
             // Setup
-            string directory = Path.Combine(testDirectory, validWorkingDirectory);
+            string directory = Path.Combine(testDirectory, validDatabase);
 
             using (var reader = new HydraRingDatabaseReader(directory, query, 0))
             {
@@ -150,7 +150,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Readers
         public void ReadColumn_ValidDatabaseAndWithColumnName_ReturnColumnValue()
         {
             // Setup
-            string directory = Path.Combine(testDirectory, validWorkingDirectory);
+            string directory = Path.Combine(testDirectory, validDatabase);
 
             using (var reader = new HydraRingDatabaseReader(directory, query, 0))
             {

@@ -84,10 +84,10 @@ namespace Ringtoets.HydraRing.Calculation.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Er zijn geen berekende hydraulische randvoorwaarden voor duinen gevonden in de Hydra-Ring uitvoerdatabase..
         /// </summary>
-        internal static string DunesBoundaryConditionsCalculationParser_ParseFile_No_dunes_hydraulic_boundaries_found_in_output_file {
+        internal static string DunesBoundaryConditionsCalculationParser_Parse_No_dunes_hydraulic_boundaries_found_in_output_file {
             get {
-                return ResourceManager.GetString("DunesBoundaryConditionsCalculationParser_ParseFile_No_dunes_hydraulic_boundaries_" +
-                        "found_in_output_file", resourceCulture);
+                return ResourceManager.GetString("DunesBoundaryConditionsCalculationParser_Parse_No_dunes_hydraulic_boundaries_foun" +
+                        "d_in_output_file", resourceCulture);
             }
         }
         
@@ -138,20 +138,20 @@ namespace Ringtoets.HydraRing.Calculation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er kon geen resultaat gelezen worden uit de Hydra-Ring uitvoerdatabase..
+        /// </summary>
+        internal static string Parse_Cannot_read_result_in_output_file {
+            get {
+                return ResourceManager.GetString("Parse_Cannot_read_result_in_output_file", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Er is geen resultaat voor convergentie gevonden in de Hydra-Ring uitvoerdatabase..
         /// </summary>
         internal static string Parse_No_convergence_found_in_output_file {
             get {
                 return ResourceManager.GetString("Parse_No_convergence_found_in_output_file", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Er kon geen resultaat gelezen worden uit de Hydra-Ring uitvoerdatabase..
-        /// </summary>
-        internal static string ParseFile_Cannot_read_result_in_output_file {
-            get {
-                return ResourceManager.GetString("ParseFile_Cannot_read_result_in_output_file", resourceCulture);
             }
         }
         

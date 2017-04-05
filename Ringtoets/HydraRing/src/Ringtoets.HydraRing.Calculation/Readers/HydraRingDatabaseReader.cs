@@ -61,7 +61,8 @@ namespace Ringtoets.HydraRing.Calculation.Readers
         /// <item>contains illegal characters, or</item>
         /// <item>contains a colon which is not part of a volume identifier, or</item>
         /// <item>is too long.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         /// <exception cref="SQLiteException">Thrown when the reader encounters
         /// an error while connecting to the database.</exception>
         public HydraRingDatabaseReader(string workingDirectory, string query, int sectionId)
@@ -78,7 +79,8 @@ namespace Ringtoets.HydraRing.Calculation.Readers
 
             this.workingDirectory = workingDirectory;
 
-            CreateConnectionAndCommand(query, sectionId);
+            connection = CreateConnection();
+            CreateCommand(query, sectionId);
             OpenConnection();
             GetReader();
         }
@@ -87,7 +89,7 @@ namespace Ringtoets.HydraRing.Calculation.Readers
         /// Executes the query on the database.
         /// </summary>
         /// <exception cref="HydraRingDatabaseReaderException">Thrown when 
-        /// the connection could not be opened or when the database is emtpy.</exception>
+        /// an error encounters while reading the database.</exception>
         public void Execute()
         {
             results = new Dictionary<string, object>();
@@ -153,9 +155,8 @@ namespace Ringtoets.HydraRing.Calculation.Readers
             connection.Open();
         }
 
-        private void CreateConnectionAndCommand(string query, int sectionId)
+        private void CreateCommand(string query, int sectionId)
         {
-            connection = CreateConnection();
             command = new SQLiteCommand(query, connection);
             command.Parameters.Add(new SQLiteParameter
             {

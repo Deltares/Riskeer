@@ -27,7 +27,7 @@ using Ringtoets.HydraRing.Calculation.Readers;
 namespace Ringtoets.HydraRing.Calculation.Parsers
 {
     /// <summary>
-    /// Class for parsing dunes boundary condition results from a dunes boundary conditions calculation.
+    /// Parser for the dunes boundary conditions of Hydra-Ring calculations.
     /// </summary>
     public class DunesBoundaryConditionsCalculationParser : IHydraRingFileParser
     {
@@ -53,15 +53,10 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
 
         public void Parse(string workingDirectory, int sectionId)
         {
-            if (workingDirectory == null)
-            {
-                throw new ArgumentNullException(nameof(workingDirectory));
-            }
-
             HydraRingDatabaseParseHelper.Parse(workingDirectory,
                                                query,
                                                sectionId,
-                                               Resources.DunesBoundaryConditionsCalculationParser_ParseFile_No_dunes_hydraulic_boundaries_found_in_output_file,
+                                               Resources.DunesBoundaryConditionsCalculationParser_Parse_No_dunes_hydraulic_boundaries_found_in_output_file,
                                                ReadResult);
         }
 
@@ -69,7 +64,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
         /// Reads the result of the <paramref name="reader"/>.
         /// </summary>
         /// <param name="reader">The reader to get the result from.</param>
-        /// <exception cref="InvalidCastException">Thrown when the the result
+        /// <exception cref="InvalidCastException">Thrown when the result
         /// cannot be converted to the output format.</exception>
         private void ReadResult(HydraRingDatabaseReader reader)
         {
