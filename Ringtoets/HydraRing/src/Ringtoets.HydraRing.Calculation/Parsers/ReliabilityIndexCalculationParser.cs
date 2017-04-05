@@ -28,7 +28,7 @@ using Ringtoets.HydraRing.Calculation.Properties;
 namespace Ringtoets.HydraRing.Calculation.Parsers
 {
     /// <summary>
-    /// Parser for the reliability index of failure of Hydra-Ring calculations.
+    /// Parser for the reliability index result of Hydra-Ring calculations.
     /// </summary>
     public class ReliabilityIndexCalculationParser : IHydraRingFileParser
     {
@@ -43,8 +43,8 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
                                         "LIMIT 1;";
 
         /// <summary>
-        /// Gets a <see cref="ReliabilityIndexCalculationOutput"/> 
-        /// corresponding to the section id if <see cref="Parse"/> executed successfully; or <c>null</c> otherwise.
+        /// Gets a <see cref="ReliabilityIndexCalculationOutput"/> corresponding to the section id
+        /// if <see cref="Parse"/> executed successfully; or <c>null</c> otherwise.
         /// </summary>
         public ReliabilityIndexCalculationOutput Output { get; private set; }
 

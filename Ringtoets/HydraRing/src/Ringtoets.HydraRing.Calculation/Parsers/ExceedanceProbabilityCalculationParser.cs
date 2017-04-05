@@ -27,7 +27,7 @@ using Ringtoets.HydraRing.Calculation.Properties;
 namespace Ringtoets.HydraRing.Calculation.Parsers
 {
     /// <summary>
-    /// Parser for the probability of failure of Hydra-Ring calculations.
+    /// Parser for the probability result of Hydra-Ring calculations.
     /// </summary>
     public class ExceedanceProbabilityCalculationParser : IHydraRingFileParser
     {

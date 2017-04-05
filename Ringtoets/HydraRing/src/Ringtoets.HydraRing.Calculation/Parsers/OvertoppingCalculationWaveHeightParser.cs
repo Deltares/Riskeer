@@ -30,7 +30,7 @@ using Ringtoets.HydraRing.IO;
 namespace Ringtoets.HydraRing.Calculation.Parsers
 {
     /// <summary>
-    /// Class for parsing wave height results from a Grass Cover Erosion Inwards calculation.
+    /// Parser for overtopping wave height results.
     /// </summary>
     public class OvertoppingCalculationWaveHeightParser : IHydraRingFileParser
     {

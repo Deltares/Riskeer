@@ -111,7 +111,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         }
 
         [Test]
-        public void Parse_WithBetaResultOnOtherSection_ThrowsHydraRingFileParserException()
+        public void Parse_WithBetaAndValueResultOnOtherSection_ThrowsHydraRingFileParserException()
         {
             // Setup
             string path = Path.Combine(testDirectory, validFile);

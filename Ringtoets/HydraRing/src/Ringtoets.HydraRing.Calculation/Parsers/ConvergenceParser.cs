@@ -27,7 +27,7 @@ using Ringtoets.HydraRing.Calculation.Properties;
 namespace Ringtoets.HydraRing.Calculation.Parsers
 {
     /// <summary>
-    /// Parser for the convergence of Hydra-Ring calculations.
+    /// Parser for the convergence result of Hydra-Ring calculations.
     /// </summary>
     public class ConvergenceParser : IHydraRingFileParser
     {

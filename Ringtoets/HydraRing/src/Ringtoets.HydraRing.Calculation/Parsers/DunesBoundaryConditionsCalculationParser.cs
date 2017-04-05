@@ -28,7 +28,7 @@ using Ringtoets.HydraRing.Calculation.Properties;
 namespace Ringtoets.HydraRing.Calculation.Parsers
 {
     /// <summary>
-    /// Parser for the dunes boundary conditions of Hydra-Ring calculations.
+    /// Parser for dunes boundary condition results.
     /// </summary>
     public class DunesBoundaryConditionsCalculationParser : IHydraRingFileParser
     {

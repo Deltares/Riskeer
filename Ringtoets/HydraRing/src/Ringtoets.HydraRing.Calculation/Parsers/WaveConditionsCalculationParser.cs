@@ -28,7 +28,7 @@ using Ringtoets.HydraRing.IO;
 namespace Ringtoets.HydraRing.Calculation.Parsers
 {
     /// <summary>
-    /// Class for parsing wave condition results from a wave conditions calculation.
+    /// Parser for wave condition results.
     /// </summary>
     public class WaveConditionsCalculationParser : IHydraRingFileParser
     {
