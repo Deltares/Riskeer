@@ -92,7 +92,48 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Exporters
                         CreateCalculationWithStructure()
                     })
                     .SetName("Calculation configuration with a structure set");
+                yield return new TestCaseData("configurationWithStructureAndLoadSchematizationTypeLinear", new[]
+                    {
+                        CreateCalculationWithStructureAndLoadSchematizationLinearAndInflowModelFloodedCulvert()
+                    })
+                    .SetName("Calculation configuration with LoadSchematizationType set to Linear and InflowModelType to FloodedCulvert");
+
+
+                yield return new TestCaseData("configurationWithStructureAndLoadSchematizationTypeQadratic", new[]
+                    {
+                        CreateCalculationWithStructureAndLoadSchematizationQadraticAndInflowModelLowSill()
+                    })
+                    .SetName("Calculation configuration with LoadSchematizationType set to Qadratic and InflowModelType to LowSil");
             }
+        }
+
+
+        private static StructuresCalculation<StabilityPointStructuresInput> CreateCalculationWithStructureAndLoadSchematizationLinearAndInflowModelFloodedCulvert()
+        {
+            return new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                Name = "with LoadSchematizationType set to Linear and InflowModelType to FloodedCulvert",
+                InputParameters =
+                {
+                    Structure = new TestStabilityPointStructure("kunstwerk1"),
+                    LoadSchematizationType = LoadSchematizationType.Linear,
+                    InflowModelType = StabilityPointStructureInflowModelType.FloodedCulvert
+                }
+            };
+        }
+        
+        private static StructuresCalculation<StabilityPointStructuresInput> CreateCalculationWithStructureAndLoadSchematizationQadraticAndInflowModelLowSill()
+        {
+            return new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                Name = "with LoadSchematizationType set to Qadratic and InflowModelType to LowSil",
+                InputParameters =
+                {
+                    Structure = new TestStabilityPointStructure("kunstwerk1"),
+                    LoadSchematizationType = LoadSchematizationType.Quadratic,
+                    InflowModelType = StabilityPointStructureInflowModelType.LowSill
+                }
+            };
         }
 
         [Test]
