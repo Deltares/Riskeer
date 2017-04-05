@@ -8,6 +8,7 @@
     <factorstormduur>1</factorstormduur>
     <faalkansherstel>0.55</faalkansherstel>
     <instroommodel>verdronkenkoker</instroommodel>
+    <belastingschematisering>lineair</belastingschematisering>
     <nrnivelleringen>42</nrnivelleringen>
     <kansaanvaringtweedekeermiddel>0.55</kansaanvaringtweedekeermiddel>
     <afstandonderkantwandteendijk>555.55</afstandonderkantwandteendijk>

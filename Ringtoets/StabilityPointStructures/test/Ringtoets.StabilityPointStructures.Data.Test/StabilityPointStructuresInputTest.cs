@@ -163,7 +163,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             AssertAreEqual(double.NaN, input.VerticalDistance);
 
             Assert.AreEqual(0, (int) input.InflowModelType);
-            Assert.AreEqual(0, (int) input.LoadSchematizationType);
+            Assert.AreEqual(LoadSchematizationType.Linear, input.LoadSchematizationType);
         }
 
         [Test]
@@ -315,7 +315,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             AssertAreEqual(double.NaN, input.VerticalDistance);
 
             Assert.AreEqual(0, (int) input.InflowModelType);
-            Assert.AreEqual(0, (int) input.LoadSchematizationType);
+            Assert.AreEqual(LoadSchematizationType.Linear, input.LoadSchematizationType);
         }
 
         [Test]
@@ -323,7 +323,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         {
             // Setup
             var input = new StabilityPointStructuresInput();
-            TestStabilityPointStructure structure = new TestStabilityPointStructure();
+            var structure = new TestStabilityPointStructure();
 
             // Call
             input.Structure = structure;
