@@ -96,7 +96,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Exporters
             calculationConfiguration.FailureCollisionEnergy = input.FailureCollisionEnergy.ToStochastConfiguration();
 
             calculationConfiguration.FailureProbabilityRepairClosure = input.FailureProbabilityRepairClosure;
-            calculationConfiguration.FlowVelocityStructureClosable = input.FlowVelocityStructureClosable.ToStochastConfiguration();
+            calculationConfiguration.FlowVelocityStructureClosable = input.FlowVelocityStructureClosable.ToStochastConfigurationWithMean();
             calculationConfiguration.FlowWidthAtBottomProtection = input.FlowWidthAtBottomProtection.ToStochastConfiguration();
             if (Enum.IsDefined(typeof(StabilityPointStructureInflowModelType), input.InflowModelType))
             {

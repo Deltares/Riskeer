@@ -72,7 +72,6 @@
       </stochast>
       <stochast naam="kritiekestroomsnelheid">
         <verwachtingswaarde>1.1</verwachtingswaarde>
-        <variatiecoefficient>0.2</variatiecoefficient>
       </stochast>
       <stochast naam="binnenwaterstand">
         <verwachtingswaarde>0.5</verwachtingswaarde>
