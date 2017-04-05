@@ -21,14 +21,15 @@
 
 using System;
 using System.Collections.Generic;
+using Ringtoets.ClosingStructures.Data;
+using Ringtoets.ClosingStructures.IO.Configurations.Helpers;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.Exporters;
-using Ringtoets.ClosingStructures.Data;
 
-namespace Ringtoets.ClosingStructures.IO
+namespace Ringtoets.ClosingStructures.IO.Configurations
 {
     /// <summary>
     /// Exports a closing structures calculation configuration and stores it as an XML file.

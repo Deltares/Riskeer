@@ -23,11 +23,12 @@ using System.Collections.Generic;
 using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.ClosingStructures.IO.Configurations;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.Common.IO.Writers;
 
-namespace Ringtoets.ClosingStructures.IO.Test
+namespace Ringtoets.ClosingStructures.IO.Test.Configurations
 {
     [TestFixture]
     public class ClosingStructuresCalculationConfigurationWriterTest

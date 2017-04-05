@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.ClosingStructures.IO
+namespace Ringtoets.ClosingStructures.IO.Configurations
 {
     /// <summary>
     /// Container of identifiers related to closing structure calculation configuration schema definitions.

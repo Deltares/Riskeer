@@ -20,16 +20,17 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Core.Common.TestUtil;
-using NUnit.Framework;
-using Ringtoets.Common.IO.Readers;
 using System.IO;
 using System.Linq;
 using System.Xml.Schema;
 using Core.Common.Base.IO;
+using Core.Common.TestUtil;
+using NUnit.Framework;
+using Ringtoets.ClosingStructures.IO.Configurations;
 using Ringtoets.Common.IO.Configurations;
+using Ringtoets.Common.IO.Readers;
 
-namespace Ringtoets.ClosingStructures.IO.Test
+namespace Ringtoets.ClosingStructures.IO.Test.Configurations
 {
     [TestFixture]
     public class ClosingStructuresCalculationConfigurationReaderTest

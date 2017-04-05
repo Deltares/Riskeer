@@ -22,7 +22,7 @@
 using System;
 using Ringtoets.Common.IO.Configurations;
 
-namespace Ringtoets.ClosingStructures.IO
+namespace Ringtoets.ClosingStructures.IO.Configurations
 {
     /// <summary>
     /// Configuration of a closing structure calculation.

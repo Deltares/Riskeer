@@ -21,9 +21,10 @@
 
 using System;
 using System.Xml;
+using Ringtoets.ClosingStructures.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.Writers;
 
-namespace Ringtoets.ClosingStructures.IO
+namespace Ringtoets.ClosingStructures.IO.Configurations
 {
     /// <summary>
     /// Writer for writing <see cref="ClosingStructuresCalculationConfiguration"/> in XML format to file.

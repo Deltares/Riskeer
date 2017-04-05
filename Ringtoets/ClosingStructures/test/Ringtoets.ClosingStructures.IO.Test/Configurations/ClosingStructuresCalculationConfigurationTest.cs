@@ -22,9 +22,10 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.ClosingStructures.IO.Configurations;
 using Ringtoets.Common.IO.Configurations;
 
-namespace Ringtoets.ClosingStructures.IO.Test
+namespace Ringtoets.ClosingStructures.IO.Test.Configurations
 {
     [TestFixture]
     public class ClosingStructuresCalculationConfigurationTest

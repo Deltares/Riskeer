@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using Core.Common.Base.IO;
+using Ringtoets.ClosingStructures.IO.Configurations.Helpers;
 using Ringtoets.ClosingStructures.IO.Properties;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Helpers;
@@ -30,7 +31,7 @@ using Ringtoets.Common.IO.Readers;
 using Ringtoets.Common.IO.Schema;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
-namespace Ringtoets.ClosingStructures.IO
+namespace Ringtoets.ClosingStructures.IO.Configurations
 {
     /// <summary>
     /// Reader for reading a closing structure calculation configuration from XML and creating a collection 

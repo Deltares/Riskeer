@@ -23,11 +23,8 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 using Ringtoets.ClosingStructures.Data;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Common.IO.Schema;
 
-namespace Ringtoets.ClosingStructures.IO
+namespace Ringtoets.ClosingStructures.IO.Configurations.Helpers
 {
     /// <summary>
     /// Converts <see cref="ConfigurationClosingStructureInflowModelType"/> to <see cref="string"/> 
