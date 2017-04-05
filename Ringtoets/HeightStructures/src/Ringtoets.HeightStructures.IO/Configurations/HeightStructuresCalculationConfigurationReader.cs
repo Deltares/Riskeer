@@ -30,7 +30,7 @@ using Ringtoets.Common.IO.Schema;
 using Ringtoets.HeightStructures.IO.Properties;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
-namespace Ringtoets.HeightStructures.IO
+namespace Ringtoets.HeightStructures.IO.Configurations
 {
     /// <summary>
     /// Reader for reading a height structure calculation configuration from XML and creating a collection 

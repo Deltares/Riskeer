@@ -28,8 +28,9 @@ using System.Linq;
 using System.Xml.Schema;
 using Core.Common.Base.IO;
 using Ringtoets.Common.IO.Configurations;
+using Ringtoets.HeightStructures.IO.Configurations;
 
-namespace Ringtoets.HeightStructures.IO.Test
+namespace Ringtoets.HeightStructures.IO.Test.Configurations
 {
     [TestFixture]
     public class HeightStructuresCalculationConfigurationReaderTest

@@ -35,8 +35,9 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
+using Ringtoets.HeightStructures.IO.Configurations;
 
-namespace Ringtoets.HeightStructures.IO.Test
+namespace Ringtoets.HeightStructures.IO.Test.Configurations
 {
     [TestFixture]
     public class HeightStructuresCalculationConfigurationImporterTest

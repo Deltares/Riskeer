@@ -23,7 +23,7 @@ using System;
 using System.Xml;
 using Ringtoets.Common.IO.Writers;
 
-namespace Ringtoets.HeightStructures.IO
+namespace Ringtoets.HeightStructures.IO.Configurations
 {
     /// <summary>
     /// Writer for writing <see cref="HeightStructuresCalculationConfiguration"/> in XML format to file.

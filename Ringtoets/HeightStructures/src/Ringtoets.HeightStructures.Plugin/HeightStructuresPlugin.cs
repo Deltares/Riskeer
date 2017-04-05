@@ -49,6 +49,7 @@ using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Forms.PropertyClasses;
 using Ringtoets.HeightStructures.Forms.Views;
 using Ringtoets.HeightStructures.IO;
+using Ringtoets.HeightStructures.IO.Configurations;
 using Ringtoets.HeightStructures.Service;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;

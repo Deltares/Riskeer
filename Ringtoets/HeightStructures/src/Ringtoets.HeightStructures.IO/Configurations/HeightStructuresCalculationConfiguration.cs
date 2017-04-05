@@ -19,20 +19,26 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.HeightStructures.IO
+using System;
+using Ringtoets.Common.IO.Configurations;
+
+namespace Ringtoets.HeightStructures.IO.Configurations
 {
     /// <summary>
-    /// Container of identifiers related to height structure calculation configuration schema definitions.
+    /// Configuration of a height structure calculation.
     /// </summary>
-    public static class HeightStructuresConfigurationSchemaIdentifiers
+    public class HeightStructuresCalculationConfiguration : StructuresCalculationConfiguration
     {
-        #region stochasts
-        
         /// <summary>
-        /// The identifier for the level crest structure stochast name.
+        /// Creates a new instance of <see cref="HeightStructuresCalculationConfiguration"/>.
         /// </summary>
-        public const string LevelCrestStructureStochastName = "kerendehoogte";
+        /// <param name="name">The name of the <see cref="HeightStructuresCalculationConfiguration"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
+        public HeightStructuresCalculationConfiguration(string name) : base(name) {}
 
-        #endregion
+        /// <summary>
+        /// Gets or sets the stochast configuration for the crest level for the structure.
+        /// </summary>
+        public MeanStandardDeviationStochastConfiguration LevelCrestStructure { get; set; }
     }
 }

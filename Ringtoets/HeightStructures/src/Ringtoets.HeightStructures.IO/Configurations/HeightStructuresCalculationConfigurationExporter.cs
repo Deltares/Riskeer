@@ -28,7 +28,7 @@ using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.Exporters;
 using Ringtoets.HeightStructures.Data;
 
-namespace Ringtoets.HeightStructures.IO
+namespace Ringtoets.HeightStructures.IO.Configurations
 {
     /// <summary>
     /// Exports a height structures calculation configuration and stores it as an XML file.

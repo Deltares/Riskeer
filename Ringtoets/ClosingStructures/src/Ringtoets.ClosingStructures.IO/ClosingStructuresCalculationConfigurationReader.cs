@@ -23,17 +23,17 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using Core.Common.Base.IO;
+using Ringtoets.ClosingStructures.IO.Properties;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.Readers;
 using Ringtoets.Common.IO.Schema;
-using Ringtoets.ClosingStructures.IO.Properties;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.ClosingStructures.IO
 {
     /// <summary>
-    /// Reader for reading a height structure calculation configuration from XML and creating a collection 
+    /// Reader for reading a closing structure calculation configuration from XML and creating a collection 
     /// of corresponding <see cref="ClosingStructuresCalculationConfiguration"/>.
     /// </summary>
     public class ClosingStructuresCalculationConfigurationReader : CalculationConfigurationReader<ClosingStructuresCalculationConfiguration>
@@ -93,39 +93,35 @@ namespace Ringtoets.ClosingStructures.IO
 
         protected override ClosingStructuresCalculationConfiguration ParseCalculationElement(XElement calculationElement)
         {
-            var configuration = new ClosingStructuresCalculationConfiguration(calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute).Value);
-            configuration.FailureProbabilityStructureWithErosion = calculationElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.FailureProbabilityStructureWithErosionElement);
-            configuration.StructureNormalOrientation = calculationElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.Orientation);
-
-            configuration.InflowModelType = (ConfigurationClosingStructureInflowModelType?)
-                calculationElement.GetConvertedValueFromDescendantStringElement<ConfigurationClosingStructureInflowModelTypeConverter>(
-                    ClosingStructuresConfigurationSchemaIdentifiers.InflowModelType);
-            configuration.FactorStormDurationOpenStructure = calculationElement.GetDoubleValueFromDescendantElement(ClosingStructuresConfigurationSchemaIdentifiers.FactorStormDurationOpenStructure);
-            configuration.FailureProbabilityOpenStructure = calculationElement.GetDoubleValueFromDescendantElement(ClosingStructuresConfigurationSchemaIdentifiers.FailureProbabilityOpenStructure);
-            configuration.FailureProbabilityReparation = calculationElement.GetDoubleValueFromDescendantElement(ClosingStructuresConfigurationSchemaIdentifiers.FailureProbabilityReparation);
-            configuration.ProbabilityOrFrequencyOpenStructureBeforeFlooding = calculationElement.GetDoubleValueFromDescendantElement(ClosingStructuresConfigurationSchemaIdentifiers.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
-            configuration.IdenticalApertures = calculationElement.GetIntegerValueFromDescendantElement(ClosingStructuresConfigurationSchemaIdentifiers.IdenticalApertures);
-
-            configuration.ForeshoreProfileName = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.ForeshoreProfileNameElement);
-            configuration.HydraulicBoundaryLocationName = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement);
-            configuration.StructureName = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.StructureElement);
-
-            configuration.WaveReduction = GetWaveReductionParameters(calculationElement);
-
-            configuration.AreaFlowApertures = GetStandardDeviationStochastParameters(calculationElement, ClosingStructuresConfigurationSchemaIdentifiers.AreaFlowAperturesStochastName);
-            configuration.DrainCoefficient = GetStandardDeviationStochastParameters(calculationElement, ClosingStructuresConfigurationSchemaIdentifiers.DrainCoefficientStochastName);
-            configuration.InsideWaterLevel = GetStandardDeviationStochastParameters(calculationElement, ClosingStructuresConfigurationSchemaIdentifiers.InsideWaterLevelStochastName);
-            configuration.LevelCrestStructureNotClosing = GetStandardDeviationStochastParameters(calculationElement, ClosingStructuresConfigurationSchemaIdentifiers.LevelCrestStructureNotClosingStochastName);
-            configuration.ThresholdHeightOpenWeir = GetStandardDeviationStochastParameters(calculationElement, ClosingStructuresConfigurationSchemaIdentifiers.ThresholdHeightOpenWeirStochastName);
-
-            configuration.AllowedLevelIncreaseStorage = GetStandardDeviationStochastParameters(calculationElement, ConfigurationSchemaIdentifiers.AllowedLevelIncreaseStorageStochastName);
-            configuration.FlowWidthAtBottomProtection = GetStandardDeviationStochastParameters(calculationElement, ConfigurationSchemaIdentifiers.FlowWidthAtBottomProtectionStochastName);
-            configuration.ModelFactorSuperCriticalFlow = GetStandardDeviationStochastParameters(calculationElement, ConfigurationSchemaIdentifiers.ModelFactorSuperCriticalFlowStochastName);
-            configuration.WidthFlowApertures = GetStandardDeviationStochastParameters(calculationElement, ConfigurationSchemaIdentifiers.WidthFlowAperturesStochastName);
-
-            configuration.CriticalOvertoppingDischarge = GetVariationCoefficientStochastParameters(calculationElement, ConfigurationSchemaIdentifiers.CriticalOvertoppingDischargeStochastName);
-            configuration.StorageStructureArea = GetVariationCoefficientStochastParameters(calculationElement, ConfigurationSchemaIdentifiers.StorageStructureAreaStochastName);
-            configuration.StormDuration = GetVariationCoefficientStochastParameters(calculationElement, ConfigurationSchemaIdentifiers.StormDurationStochastName);
+            var configuration = new ClosingStructuresCalculationConfiguration(calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute).Value)
+            {
+                FailureProbabilityStructureWithErosion = calculationElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.FailureProbabilityStructureWithErosionElement),
+                StructureNormalOrientation = calculationElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.Orientation),
+                InflowModelType = (ConfigurationClosingStructureInflowModelType?)
+                    calculationElement.GetConvertedValueFromDescendantStringElement<ConfigurationClosingStructureInflowModelTypeConverter>(
+                        ClosingStructuresConfigurationSchemaIdentifiers.InflowModelType),
+                FactorStormDurationOpenStructure = calculationElement.GetDoubleValueFromDescendantElement(ClosingStructuresConfigurationSchemaIdentifiers.FactorStormDurationOpenStructure),
+                FailureProbabilityOpenStructure = calculationElement.GetDoubleValueFromDescendantElement(ClosingStructuresConfigurationSchemaIdentifiers.FailureProbabilityOpenStructure),
+                FailureProbabilityReparation = calculationElement.GetDoubleValueFromDescendantElement(ClosingStructuresConfigurationSchemaIdentifiers.FailureProbabilityReparation),
+                ProbabilityOrFrequencyOpenStructureBeforeFlooding = calculationElement.GetDoubleValueFromDescendantElement(ClosingStructuresConfigurationSchemaIdentifiers.ProbabilityOrFrequencyOpenStructureBeforeFlooding),
+                IdenticalApertures = calculationElement.GetIntegerValueFromDescendantElement(ClosingStructuresConfigurationSchemaIdentifiers.IdenticalApertures),
+                ForeshoreProfileName = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.ForeshoreProfileNameElement),
+                HydraulicBoundaryLocationName = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement),
+                StructureName = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.StructureElement),
+                WaveReduction = GetWaveReductionParameters(calculationElement),
+                AreaFlowApertures = GetStandardDeviationStochastParameters(calculationElement, ClosingStructuresConfigurationSchemaIdentifiers.AreaFlowAperturesStochastName),
+                DrainCoefficient = GetStandardDeviationStochastParameters(calculationElement, ClosingStructuresConfigurationSchemaIdentifiers.DrainCoefficientStochastName),
+                InsideWaterLevel = GetStandardDeviationStochastParameters(calculationElement, ClosingStructuresConfigurationSchemaIdentifiers.InsideWaterLevelStochastName),
+                LevelCrestStructureNotClosing = GetStandardDeviationStochastParameters(calculationElement, ClosingStructuresConfigurationSchemaIdentifiers.LevelCrestStructureNotClosingStochastName),
+                ThresholdHeightOpenWeir = GetStandardDeviationStochastParameters(calculationElement, ClosingStructuresConfigurationSchemaIdentifiers.ThresholdHeightOpenWeirStochastName),
+                AllowedLevelIncreaseStorage = GetStandardDeviationStochastParameters(calculationElement, ConfigurationSchemaIdentifiers.AllowedLevelIncreaseStorageStochastName),
+                FlowWidthAtBottomProtection = GetStandardDeviationStochastParameters(calculationElement, ConfigurationSchemaIdentifiers.FlowWidthAtBottomProtectionStochastName),
+                ModelFactorSuperCriticalFlow = GetStandardDeviationStochastParameters(calculationElement, ConfigurationSchemaIdentifiers.ModelFactorSuperCriticalFlowStochastName),
+                WidthFlowApertures = GetStandardDeviationStochastParameters(calculationElement, ConfigurationSchemaIdentifiers.WidthFlowAperturesStochastName),
+                CriticalOvertoppingDischarge = GetVariationCoefficientStochastParameters(calculationElement, ConfigurationSchemaIdentifiers.CriticalOvertoppingDischargeStochastName),
+                StorageStructureArea = GetVariationCoefficientStochastParameters(calculationElement, ConfigurationSchemaIdentifiers.StorageStructureAreaStochastName),
+                StormDuration = GetVariationCoefficientStochastParameters(calculationElement, ConfigurationSchemaIdentifiers.StormDurationStochastName)
+            };
 
             return configuration;
         }

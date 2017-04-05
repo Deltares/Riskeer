@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -35,7 +34,7 @@ using Ringtoets.Common.IO.Schema;
 using Ringtoets.HeightStructures.Data;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
-namespace Ringtoets.HeightStructures.IO
+namespace Ringtoets.HeightStructures.IO.Configurations
 {
     /// <summary>
     /// Class for importing a configuration of <see cref="HeightStructuresCalculationConfiguration"/> from an XML file and storing

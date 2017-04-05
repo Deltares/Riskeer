@@ -26,8 +26,9 @@ using NUnit.Framework;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.Common.IO.Writers;
+using Ringtoets.HeightStructures.IO.Configurations;
 
-namespace Ringtoets.HeightStructures.IO.Test
+namespace Ringtoets.HeightStructures.IO.Test.Configurations
 {
     [TestFixture]
     public class HeightStructuresCalculationConfigurationWriterTest

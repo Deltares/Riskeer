@@ -31,6 +31,7 @@ using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.IO;
+using Ringtoets.HeightStructures.IO.Configurations;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.Plugin.Test.ExportInfos
