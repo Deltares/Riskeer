@@ -27,10 +27,11 @@ using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.Readers;
 using Ringtoets.Common.IO.Schema;
+using Ringtoets.StabilityPointStructures.IO.Configurations.Helpers;
 using Ringtoets.StabilityPointStructures.IO.Properties;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
-namespace Ringtoets.StabilityPointStructures.IO.Readers
+namespace Ringtoets.StabilityPointStructures.IO.Configurations
 {
     /// <summary>
     /// Reader for reading a stability point structures calculation configuration from XML and creating a collection 

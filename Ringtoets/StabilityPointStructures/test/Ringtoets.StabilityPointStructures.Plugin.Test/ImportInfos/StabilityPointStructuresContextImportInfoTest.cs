@@ -30,7 +30,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
-using Ringtoets.StabilityPointStructures.IO.Importers;
+using Ringtoets.StabilityPointStructures.IO.Configurations;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.StabilityPointStructures.Plugin.Test.ImportInfos

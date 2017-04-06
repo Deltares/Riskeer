@@ -30,7 +30,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.StabilityPointStructures.Data;
-using Ringtoets.StabilityPointStructures.IO.Importers;
+using Ringtoets.StabilityPointStructures.IO.Configurations;
 
 namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
 {
@@ -67,13 +67,13 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                 new Point2D(131270.38, 548367.462),
                 new Point2D(131507.119, 548322.951)
             };
-            ReferenceLine referenceLine = new ReferenceLine();
+            var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(referencePoints);
             var importTarget = new ObservableList<StabilityPointStructure>();
             var structuresImporter = new StabilityPointStructuresImporter(importTarget, referenceLine, filePath);
 
             // Call
-            bool importResult = false;
+            var importResult = false;
             Action call = () => importResult = structuresImporter.Import();
 
             // Assert
@@ -136,14 +136,14 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                 new Point2D(131270.38, 548367.462),
                 new Point2D(131507.119, 548322.951)
             };
-            ReferenceLine referenceLine = new ReferenceLine();
+            var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(referencePoints);
 
             var importTarget = new ObservableList<StabilityPointStructure>();
             var structuresImporter = new StabilityPointStructuresImporter(importTarget, referenceLine, filePath);
 
             // Call
-            bool importResult = false;
+            var importResult = false;
             Action call = () => importResult = structuresImporter.Import();
 
             // Assert
@@ -209,13 +209,13 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                 new Point2D(131270.38, 548367.462),
                 new Point2D(131507.119, 548322.951)
             };
-            ReferenceLine referenceLine = new ReferenceLine();
+            var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(referencePoints);
             var importTarget = new ObservableList<StabilityPointStructure>();
             var structuresImporter = new StabilityPointStructuresImporter(importTarget, referenceLine, filePath);
 
             // Call
-            bool importResult = false;
+            var importResult = false;
             Action call = () => importResult = structuresImporter.Import();
 
             // Assert
@@ -282,7 +282,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                 new Point2D(157910.502, 579115.458),
                 new Point2D(163625.153, 585151.261)
             };
-            ReferenceLine referenceLine = new ReferenceLine();
+            var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(referencePoints);
             var importTarget = new ObservableList<StabilityPointStructure>();
             var structuresImporter = new StabilityPointStructuresImporter(importTarget, referenceLine, filePath);

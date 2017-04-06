@@ -22,8 +22,9 @@
 using System;
 using System.Xml;
 using Ringtoets.Common.IO.Writers;
+using Ringtoets.StabilityPointStructures.IO.Configurations.Helpers;
 
-namespace Ringtoets.StabilityPointStructures.IO.Writers
+namespace Ringtoets.StabilityPointStructures.IO.Configurations
 {
     /// <summary>
     /// Writer for writing <see cref="StabilityPointStructuresCalculationConfiguration"/> in XML format to file.

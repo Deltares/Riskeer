@@ -23,6 +23,7 @@ using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Configurations;
+using Ringtoets.StabilityPointStructures.IO.Configurations;
 
 namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
 {

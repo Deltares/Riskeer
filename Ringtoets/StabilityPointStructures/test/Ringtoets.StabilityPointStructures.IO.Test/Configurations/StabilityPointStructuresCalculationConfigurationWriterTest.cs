@@ -26,7 +26,7 @@ using NUnit.Framework;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.Common.IO.Writers;
-using Ringtoets.StabilityPointStructures.IO.Writers;
+using Ringtoets.StabilityPointStructures.IO.Configurations;
 
 namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
 {

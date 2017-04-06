@@ -19,21 +19,24 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.StabilityPointStructures.IO
+using Ringtoets.StabilityPointStructures.Data;
+
+namespace Ringtoets.StabilityPointStructures.IO.Configurations
 {
     /// <summary>
-    /// Defines the various inflow models for the stability point structures failure mechanism.
+    /// Defines the types of load representations that can be used 
+    /// for the schematization of <see cref="StabilityPointStructure"/>.
     /// </summary>
-    public enum ConfigurationStabilityPointStructuresInflowModelType
+    public enum ConfigurationStabilityPointStructuresLoadSchematizationType
     {
         /// <summary>
-        /// A low sill structure.
+        /// A linear schematization. 
         /// </summary>
-        LowSill = 1,
+        Linear = 1,
 
         /// <summary>
-        /// A flooded culvert structure.
+        /// A quadratic schematization.
         /// </summary>
-        FloodedCulvert = 2
+        Quadratic = 2
     }
 }

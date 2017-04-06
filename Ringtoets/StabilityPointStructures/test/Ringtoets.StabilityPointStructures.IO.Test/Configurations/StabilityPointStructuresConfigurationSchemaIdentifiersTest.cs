@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using Ringtoets.StabilityPointStructures.IO.Configurations;
 
 namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
 {

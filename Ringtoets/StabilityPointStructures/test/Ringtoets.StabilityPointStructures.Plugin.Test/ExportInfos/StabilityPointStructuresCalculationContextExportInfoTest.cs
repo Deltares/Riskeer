@@ -30,7 +30,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
-using Ringtoets.StabilityPointStructures.IO.Exporters;
+using Ringtoets.StabilityPointStructures.IO.Configurations;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Ringtoets.StabilityPointStructures.Plugin.Test.ExportInfos

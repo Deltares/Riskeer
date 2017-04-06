@@ -24,6 +24,8 @@ using System.ComponentModel;
 using System.Globalization;
 using NUnit.Framework;
 using Ringtoets.StabilityPointStructures.Data;
+using Ringtoets.StabilityPointStructures.IO.Configurations;
+using Ringtoets.StabilityPointStructures.IO.Configurations.Helpers;
 
 namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations.Helpers
 {

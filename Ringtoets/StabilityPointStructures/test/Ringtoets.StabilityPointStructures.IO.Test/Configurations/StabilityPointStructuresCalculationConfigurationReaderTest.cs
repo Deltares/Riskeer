@@ -28,9 +28,9 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Readers;
-using Ringtoets.StabilityPointStructures.IO.Readers;
+using Ringtoets.StabilityPointStructures.IO.Configurations;
 
-namespace Ringtoets.StabilityPointStructures.IO.Test.Readers
+namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
 {
     [TestFixture]
     public class StabilityPointStructuresCalculationConfigurationReaderTest

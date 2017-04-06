@@ -29,7 +29,7 @@ using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.Structures;
 using Ringtoets.StabilityPointStructures.Data;
 
-namespace Ringtoets.StabilityPointStructures.IO.Importers
+namespace Ringtoets.StabilityPointStructures.IO.Configurations
 {
     /// <summary>
     /// Imports point shapefiles containing stability point structure locations and csv files containing stability point structure schematizations.
@@ -46,7 +46,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Importers
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="referenceLine"/>, 
         /// <paramref name="filePath"/>, or <paramref name="importTarget"/> is <c>null</c>.</exception>
         public StabilityPointStructuresImporter(ObservableList<StabilityPointStructure> importTarget, ReferenceLine referenceLine, string filePath)
-            : base(importTarget, referenceLine, filePath) {}
+            : base(importTarget, referenceLine, filePath) { }
 
         protected override void CreateSpecificStructures(ICollection<StructureLocation> structureLocations,
                                                          Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
@@ -92,7 +92,9 @@ namespace Ringtoets.StabilityPointStructures.IO.Importers
             return new StabilityPointStructure(
                 new StabilityPointStructure.ConstructionProperties
                 {
-                    Name = structureName, Id = structureLocation.Id, Location = structureLocation.Point,
+                    Name = structureName,
+                    Id = structureLocation.Id,
+                    Location = structureLocation.Point,
                     StructureNormalOrientation = rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword1].NumericalValue,
                     StorageStructureArea =
                     {

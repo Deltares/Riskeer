@@ -28,9 +28,9 @@ using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.Exporters;
 using Ringtoets.StabilityPointStructures.Data;
-using Ringtoets.StabilityPointStructures.IO.Writers;
+using Ringtoets.StabilityPointStructures.IO.Configurations.Helpers;
 
-namespace Ringtoets.StabilityPointStructures.IO.Exporters
+namespace Ringtoets.StabilityPointStructures.IO.Configurations
 {
     /// <summary>
     /// Exports a stability point structures calculation configuration and stores it as an XML file.

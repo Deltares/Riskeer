@@ -51,7 +51,7 @@
     <Compile Include="Configurations\Helpers\ConfigurationStabilityPointStructuresInflowModelTypeConverterTest.cs" />
     <Compile Include="Configurations\Helpers\ConfigurationStabilityPointStructuresLoadSchematizationTypeConverterTest.cs" />
     <Compile Include="Configurations\StabilityPointStructuresCalculationConfigurationExporterTest.cs" />
-    <Compile Include="Readers\StabilityPointStructuresCalculationConfigurationReaderTest.cs" />
+    <Compile Include="Configurations\StabilityPointStructuresCalculationConfigurationReaderTest.cs" />
     <Compile Include="Configurations\StabilityPointStructuresCalculationConfigurationWriterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Configurations\StabilityPointStructuresImporterTest.cs" />
