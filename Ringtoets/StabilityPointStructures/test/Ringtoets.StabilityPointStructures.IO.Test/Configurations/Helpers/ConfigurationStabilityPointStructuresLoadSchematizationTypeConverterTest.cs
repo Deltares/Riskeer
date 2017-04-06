@@ -25,7 +25,7 @@ using System.Globalization;
 using NUnit.Framework;
 using Ringtoets.StabilityPointStructures.Data;
 
-namespace Ringtoets.StabilityPointStructures.IO.Test
+namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations.Helpers
 {
     [TestFixture]
     public class ConfigurationStabilityPointStructuresConfigurationStabilityPointStructuresLoadSchematizationTypeConverterTest

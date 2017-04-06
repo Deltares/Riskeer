@@ -28,7 +28,7 @@ using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.Common.IO.Writers;
 using Ringtoets.StabilityPointStructures.IO.Writers;
 
-namespace Ringtoets.StabilityPointStructures.IO.Test.Writers
+namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
 {
     [TestFixture]
     public class StabilityPointStructuresCalculationConfigurationWriterTest

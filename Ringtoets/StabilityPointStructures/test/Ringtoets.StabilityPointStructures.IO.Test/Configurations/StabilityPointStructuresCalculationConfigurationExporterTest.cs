@@ -35,7 +35,7 @@ using Ringtoets.StabilityPointStructures.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.IO.Exporters;
 using Ringtoets.StabilityPointStructures.IO.Writers;
 
-namespace Ringtoets.StabilityPointStructures.IO.Test.Exporters
+namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
 {
     [TestFixture]
     public class StabilityPointStructuresCalculationConfigurationExporterTest

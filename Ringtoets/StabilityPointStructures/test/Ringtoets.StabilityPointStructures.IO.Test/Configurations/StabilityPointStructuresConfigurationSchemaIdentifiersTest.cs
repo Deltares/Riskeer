@@ -21,7 +21,7 @@
 
 using NUnit.Framework;
 
-namespace Ringtoets.StabilityPointStructures.IO.Test
+namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
 {
     [TestFixture]
     public class StabilityPointStructuresConfigurationSchemaIdentifiersTest

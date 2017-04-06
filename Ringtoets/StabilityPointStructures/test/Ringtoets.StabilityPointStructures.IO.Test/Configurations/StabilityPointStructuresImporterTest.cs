@@ -32,7 +32,7 @@ using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.IO.Importers;
 
-namespace Ringtoets.StabilityPointStructures.IO.Test.Importers
+namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
 {
     [TestFixture]
     public class StabilityPointStructuresImporterTest
