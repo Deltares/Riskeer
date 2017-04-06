@@ -615,10 +615,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             var parentGroupContext = (GrassCoverErosionInwardsCalculationGroupContext) parentNodeData;
 
             parentGroupContext.WrappedData.Children.Remove(context.WrappedData);
-            var grassCoverErosionInwardsCalculations = context.FailureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>().ToArray();
 
-            GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(context.FailureMechanism.SectionResults,
-                                                                                       grassCoverErosionInwardsCalculations);
+            GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
+                context.FailureMechanism.SectionResults,
+                context.FailureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>().ToArray());
 
             parentGroupContext.NotifyObservers();
         }
@@ -728,7 +728,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             if (calculationGroupContext != null)
             {
                 calculationGroupContext.WrappedData.Children.Remove(context.WrappedData);
-                GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(context.FailureMechanism.SectionResults, context.FailureMechanism.Calculations.OfType<GrassCoverErosionInwardsCalculation>());
+                GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
+                    context.FailureMechanism.SectionResults,
+                    context.FailureMechanism.Calculations.OfType<GrassCoverErosionInwardsCalculation>());
                 calculationGroupContext.NotifyObservers();
             }
         }

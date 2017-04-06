@@ -597,10 +597,10 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             var parentGroupContext = (StabilityPointStructuresCalculationGroupContext) parentNodeData;
 
             parentGroupContext.WrappedData.Children.Remove(context.WrappedData);
-            StructuresCalculation<StabilityPointStructuresInput>[] stabilityPointStructuresCalculations = context.FailureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>().ToArray();
 
-            StructuresHelper.UpdateCalculationToSectionResultAssignments(context.FailureMechanism.SectionResults,
-                                                                         stabilityPointStructuresCalculations);
+            StructuresHelper.UpdateCalculationToSectionResultAssignments(
+                context.FailureMechanism.SectionResults,
+                context.FailureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>().ToArray());
 
             parentGroupContext.NotifyObservers();
         }

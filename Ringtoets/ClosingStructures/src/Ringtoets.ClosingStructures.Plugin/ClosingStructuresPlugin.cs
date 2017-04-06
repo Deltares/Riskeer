@@ -601,10 +601,10 @@ namespace Ringtoets.ClosingStructures.Plugin
             var parentGroupContext = (ClosingStructuresCalculationGroupContext) parentNodeData;
 
             parentGroupContext.WrappedData.Children.Remove(context.WrappedData);
-            var closingStructuresCalculations = context.FailureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>().ToArray();
 
-            StructuresHelper.UpdateCalculationToSectionResultAssignments(context.FailureMechanism.SectionResults,
-                                                                         closingStructuresCalculations);
+            StructuresHelper.UpdateCalculationToSectionResultAssignments(
+                context.FailureMechanism.SectionResults,
+                context.FailureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>().ToArray());
 
             parentGroupContext.WrappedData.Children.Remove(context.WrappedData);
             parentGroupContext.NotifyObservers();
@@ -691,8 +691,9 @@ namespace Ringtoets.ClosingStructures.Plugin
             if (calculationGroupContext != null)
             {
                 calculationGroupContext.WrappedData.Children.Remove(context.WrappedData);
-                StructuresHelper.UpdateCalculationToSectionResultAssignments(context.FailureMechanism.SectionResults,
-                                                                             context.FailureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>());
+                StructuresHelper.UpdateCalculationToSectionResultAssignments(
+                    context.FailureMechanism.SectionResults,
+                    context.FailureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>());
                 calculationGroupContext.NotifyObservers();
             }
         }
