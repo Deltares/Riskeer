@@ -1039,12 +1039,22 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 HeightStructure structure1 = new TestHeightStructure("Structure 1");
                 HeightStructure structure2 = new TestHeightStructure("Structure 2");
 
+                var existingCalculationGroup = new CalculationGroup();
+                var existingCalculation = new StructuresCalculation<HeightStructuresInput>();
                 var failureMechanism = new HeightStructuresFailureMechanism
                 {
                     HeightStructures =
                     {
                         structure1,
                         structure2
+                    },
+                    CalculationsGroup =
+                    {
+                        Children =
+                        {
+                            existingCalculationGroup,
+                            existingCalculation
+                        }
                     }
                 };
 
@@ -1079,9 +1089,12 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                     contextMenu.Items[contextMenuGenerateCalculationsIndexRootGroup].PerformClick();
 
                     // Then
-                    var heightStructuresCalculations = failureMechanism.Calculations.OfType<StructuresCalculation<HeightStructuresInput>>().ToArray();
-                    Assert.AreEqual(1, heightStructuresCalculations.Length);
-                    Assert.AreSame(structure1, heightStructuresCalculations[0].InputParameters.Structure);
+                    Assert.AreEqual(3, failureMechanism.CalculationsGroup.Children.Count);
+                    Assert.AreSame(existingCalculationGroup, failureMechanism.CalculationsGroup.Children[0]);
+                    Assert.AreSame(existingCalculation, failureMechanism.CalculationsGroup.Children[1]);
+                    var generatedCalculation = failureMechanism.CalculationsGroup.Children[2] as StructuresCalculation<HeightStructuresInput>;
+                    Assert.IsNotNull(generatedCalculation);
+                    Assert.AreSame(structure1, generatedCalculation.InputParameters.Structure);
                 }
             }
         }

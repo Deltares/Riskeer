@@ -875,12 +875,22 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 StabilityPointStructure structure1 = new TestStabilityPointStructure("Structure 1");
                 StabilityPointStructure structure2 = new TestStabilityPointStructure("Structure 2");
 
+                var existingCalculationGroup = new CalculationGroup();
+                var existingCalculation = new StructuresCalculation<StabilityPointStructuresInput>();
                 var failureMechanism = new StabilityPointStructuresFailureMechanism
                 {
                     StabilityPointStructures =
                     {
                         structure1,
                         structure2
+                    },
+                    CalculationsGroup =
+                    {
+                        Children =
+                        {
+                            existingCalculationGroup,
+                            existingCalculation
+                        }
                     }
                 };
 
@@ -915,9 +925,12 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                     contextMenu.Items[contextMenuGenerateCalculationsIndexRootGroup].PerformClick();
 
                     // Then
-                    StructuresCalculation<StabilityPointStructuresInput>[] stabilityPointStructuresCalculations = failureMechanism.Calculations.OfType<StructuresCalculation<StabilityPointStructuresInput>>().ToArray();
-                    Assert.AreEqual(1, stabilityPointStructuresCalculations.Length);
-                    Assert.AreSame(structure1, stabilityPointStructuresCalculations[0].InputParameters.Structure);
+                    Assert.AreEqual(3, failureMechanism.CalculationsGroup.Children.Count);
+                    Assert.AreSame(existingCalculationGroup, failureMechanism.CalculationsGroup.Children[0]);
+                    Assert.AreSame(existingCalculation, failureMechanism.CalculationsGroup.Children[1]);
+                    var generatedCalculation = failureMechanism.CalculationsGroup.Children[2] as StructuresCalculation<StabilityPointStructuresInput>;
+                    Assert.IsNotNull(generatedCalculation);
+                    Assert.AreSame(structure1, generatedCalculation.InputParameters.Structure);
                 }
             }
         }

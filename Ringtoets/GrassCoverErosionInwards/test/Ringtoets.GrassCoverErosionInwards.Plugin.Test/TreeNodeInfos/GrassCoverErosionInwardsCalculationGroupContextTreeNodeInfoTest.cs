@@ -1100,12 +1100,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 DikeProfile dikeProfile1 = new TestDikeProfile("Dike profile 1");
                 DikeProfile dikeProfile2 = new TestDikeProfile("Dike profile 2");
 
+                var existingCalculationGroup = new CalculationGroup();
+                var existingCalculation = new GrassCoverErosionInwardsCalculation();
                 var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
                 {
                     DikeProfiles =
                     {
                         dikeProfile1,
                         dikeProfile2
+                    },
+                    CalculationsGroup =
+                    {
+                        Children =
+                        {
+                            existingCalculationGroup,
+                            existingCalculation
+                        }
                     }
                 };
 
@@ -1140,9 +1150,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                     contextMenu.Items[contextMenuGenerateCalculationsIndexRootGroup].PerformClick();
 
                     // Then
-                    var grassCoverErosionInwardsCalculations = failureMechanism.Calculations.OfType<GrassCoverErosionInwardsCalculation>().ToArray();
-                    Assert.AreEqual(1, grassCoverErosionInwardsCalculations.Length);
-                    Assert.AreSame(dikeProfile1, grassCoverErosionInwardsCalculations[0].InputParameters.DikeProfile);
+                    Assert.AreEqual(3, failureMechanism.CalculationsGroup.Children.Count);
+                    Assert.AreSame(existingCalculationGroup, failureMechanism.CalculationsGroup.Children[0]);
+                    Assert.AreSame(existingCalculation, failureMechanism.CalculationsGroup.Children[1]);
+                    var generatedCalculation = failureMechanism.CalculationsGroup.Children[2] as GrassCoverErosionInwardsCalculation;
+                    Assert.IsNotNull(generatedCalculation);
+                    Assert.AreSame(dikeProfile1, generatedCalculation.InputParameters.DikeProfile);
                 }
             }
         }
