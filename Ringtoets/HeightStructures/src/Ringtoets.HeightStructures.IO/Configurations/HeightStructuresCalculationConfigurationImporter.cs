@@ -217,8 +217,8 @@ namespace Ringtoets.HeightStructures.IO.Configurations
         /// </summary>
         /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
-        /// <returns><c>false</c> when the orientation is invalid or when there is a failure probability 
-        /// structure with erosion but no structure defined, <c>true</c> otherwise.</returns>
+        /// <returns><c>false</c> when the failure probability structure with erosion is invalid or when there is
+        /// a failure probability structure with erosion but no structure defined, <c>true</c> otherwise.</returns>
         private bool TryReadFailureProbabilityStructureWithErosion(StructuresCalculationConfiguration readCalculation, StructuresCalculation<HeightStructuresInput> calculation)
         {
             if (readCalculation.FailureProbabilityStructureWithErosion.HasValue)

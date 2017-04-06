@@ -33,40 +33,40 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.FileImporters;
-using Ringtoets.HeightStructures.Data;
-using Ringtoets.HeightStructures.Data.TestUtil;
-using Ringtoets.HeightStructures.IO.Configurations;
+using Ringtoets.ClosingStructures.Data;
+using Ringtoets.ClosingStructures.Data.TestUtil;
+using Ringtoets.ClosingStructures.IO.Configurations;
 
-namespace Ringtoets.HeightStructures.IO.Test.Configurations
+namespace Ringtoets.ClosingStructures.IO.Test.Configurations
 {
     [TestFixture]
-    public class HeightStructuresCalculationConfigurationImporterTest
+    public class ClosingStructuresCalculationConfigurationImporterTest
     {
-        private readonly string importerPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HeightStructures.IO, nameof(HeightStructuresCalculationConfigurationImporter));
+        private readonly string importerPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.ClosingStructures.IO, nameof(ClosingStructuresCalculationConfigurationImporter));
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var importer = new HeightStructuresCalculationConfigurationImporter("",
+            var importer = new ClosingStructuresCalculationConfigurationImporter("",
                                                                                 new CalculationGroup(),
                                                                                 Enumerable.Empty<HydraulicBoundaryLocation>(),
                                                                                 Enumerable.Empty<ForeshoreProfile>(),
-                                                                                Enumerable.Empty<HeightStructure>());
+                                                                                Enumerable.Empty<ClosingStructure>());
 
             // Assert
-            Assert.IsInstanceOf<CalculationConfigurationImporter<HeightStructuresCalculationConfigurationReader, HeightStructuresCalculationConfiguration>>(importer);
+            Assert.IsInstanceOf<CalculationConfigurationImporter<ClosingStructuresCalculationConfigurationReader, ClosingStructuresCalculationConfiguration>>(importer);
         }
 
         [Test]
         public void Constructor_HydraulicBoundaryLocationsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new HeightStructuresCalculationConfigurationImporter("",
+            TestDelegate test = () => new ClosingStructuresCalculationConfigurationImporter("",
                                                                                            new CalculationGroup(),
                                                                                            null,
                                                                                            Enumerable.Empty<ForeshoreProfile>(),
-                                                                                           Enumerable.Empty<HeightStructure>());
+                                                                                           Enumerable.Empty<ClosingStructure>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -77,11 +77,11 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
         public void Constructor_ForeshoreProfilesNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new HeightStructuresCalculationConfigurationImporter("",
+            TestDelegate test = () => new ClosingStructuresCalculationConfigurationImporter("",
                                                                                            new CalculationGroup(),
                                                                                            Enumerable.Empty<HydraulicBoundaryLocation>(),
                                                                                            null,
-                                                                                           Enumerable.Empty<HeightStructure>());
+                                                                                           Enumerable.Empty<ClosingStructure>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -92,7 +92,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
         public void Constructor_StructuresNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new HeightStructuresCalculationConfigurationImporter("",
+            TestDelegate test = () => new ClosingStructuresCalculationConfigurationImporter("",
                                                                                            new CalculationGroup(),
                                                                                            Enumerable.Empty<HydraulicBoundaryLocation>(),
                                                                                            Enumerable.Empty<ForeshoreProfile>(),
@@ -109,12 +109,26 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             "Er kan geen standaardafwijking voor stochast 'modelfactoroverloopdebiet' opgegeven worden.")]
         [TestCase("validConfigurationStormDurationVariationCoefficient.xml",
             "Er kan geen variatiecoëfficiënt voor stochast 'stormduur' opgegeven worden.")]
-        [TestCase("validConfigurationFailureProbabilityStructureErosionWithoutStructure.xml",
-            "Er is geen kunstwerk opgegeven om faalkans gegeven erosie bodem aan toe te voegen.")]
+        [TestCase("validConfigurationFailureProbabilityOpenStructureWithoutStructure.xml",
+            "Er is geen kunstwerk opgegeven om kans mislukken sluiting aan toe te voegen.")]
+        [TestCase("validConfigurationFailureProbabilityReparationWithoutStructure.xml",
+            "Er is geen kunstwerk opgegeven om faalkans herstel van gefaalde situatie aan toe te voegen.")]
+        [TestCase("validConfigurationIdenticalAperturesWithoutStructure.xml",
+            "Er is geen kunstwerk opgegeven om aantal identieke doorstroomopeningen aan toe te voegen.")]
+        [TestCase("validConfigurationInflowModelTypeWithoutStructure.xml",
+            "Er is geen kunstwerk opgegeven om instroommodel aan toe te voegen.")]
+        [TestCase("validConfigurationProbabilityOrFrequencyOpenStructureWithoutStructure.xml",
+            "Er is geen kunstwerk opgegeven om kans op open staan bij naderend hoogwater aan toe te voegen.")]
         [TestCase("validConfigurationOrientationWithoutStructure.xml",
             "Er is geen kunstwerk opgegeven om oriëntatie aan toe te voegen.")]
         [TestCase("validConfigurationInvalidFailureProbabilityStructureErosion.xml",
             "Een waarde van '1,1' als faalkans gegeven erosie bodem is ongeldig. De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.")]
+        [TestCase("validConfigurationInvalidProbabilityOrFrequencyOpenStructureBeforeFlooding.xml",
+            "Een waarde van '-1,2' als kans op open staan bij naderend hoogwater is ongeldig. De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.")]
+        [TestCase("validConfigurationInvalidFailureProbabilityOpenStructure.xml",
+            "Een waarde van '1,5' als kans mislukken sluiting is ongeldig. De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.")]
+        [TestCase("validConfigurationInvalidFailureProbabilityReparation.xml",
+            "Een waarde van '-0,9' als faalkans herstel van gefaalde situatie is ongeldig. De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.")]
         [TestCase("validConfigurationInvalidOrientation.xml",
             "Een waarde van '-12' als oriëntatie is ongeldig. De waarde voor de oriëntatie moet in het bereik [0,00, 360,00] liggen.")]
         [TestCase("validConfigurationWaveReductionWithoutForeshoreProfile.xml",
@@ -131,8 +145,8 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             "Een gemiddelde van '-15,2' is ongeldig voor stochast 'breedtebodembescherming'. Gemiddelde moet groter zijn dan 0.")]
         [TestCase("validConfigurationInvalidFlowWidthAtBottomProtectionStandardDeviation.xml",
             "Een standaardafwijking van '-0,1' is ongeldig voor stochast 'breedtebodembescherming'. Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.")]
-        [TestCase("validConfigurationInvalidLevelCrestStructureStandardDeviation.xml",
-            "Een standaardafwijking van '-0,1' is ongeldig voor stochast 'kerendehoogte'. Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.")]
+        [TestCase("validConfigurationInvalidLevelCrestStructureNotClosingStandardDeviation.xml",
+            "Een standaardafwijking van '-0,1' is ongeldig voor stochast 'kruinhoogte'. Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.")]
         [TestCase("validConfigurationInvalidStorageStructureAreaMean.xml",
             "Een gemiddelde van '-15000' is ongeldig voor stochast 'kombergendoppervlak'. Gemiddelde moet groter zijn dan 0.")]
         [TestCase("validConfigurationInvalidStorageStructureAreaVariationCoefficient.xml",
@@ -147,17 +161,17 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             string filePath = Path.Combine(importerPath, file);
 
             var calculationGroup = new CalculationGroup();
-            var structure = new TestHeightStructure("kunstwerk1");
+            var structure = new TestClosingStructure("kunstwerk1");
             var foreshoreProfile = new TestForeshoreProfile("profiel 1");
 
-            var importer = new HeightStructuresCalculationConfigurationImporter(filePath,
+            var importer = new ClosingStructuresCalculationConfigurationImporter(filePath,
                                                                                 calculationGroup,
                                                                                 Enumerable.Empty<HydraulicBoundaryLocation>(),
                                                                                 new ForeshoreProfile[]
                                                                                 {
                                                                                     foreshoreProfile
                                                                                 },
-                                                                                new HeightStructure[]
+                                                                                new ClosingStructure[]
                                                                                 {
                                                                                     structure
                                                                                 });
@@ -186,11 +200,11 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
 
             var calculationGroup = new CalculationGroup();
 
-            var importer = new HeightStructuresCalculationConfigurationImporter(filePath,
+            var importer = new ClosingStructuresCalculationConfigurationImporter(filePath,
                                                                                 calculationGroup,
                                                                                 Enumerable.Empty<HydraulicBoundaryLocation>(),
                                                                                 Enumerable.Empty<ForeshoreProfile>(),
-                                                                                Enumerable.Empty<HeightStructure>());
+                                                                                Enumerable.Empty<ClosingStructure>());
             var successful = false;
 
             // Call
@@ -211,7 +225,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
 
             var calculationGroup = new CalculationGroup();
             var foreshoreProfile = new TestForeshoreProfile("Voorlandprofiel");
-            var importer = new HeightStructuresCalculationConfigurationImporter(
+            var importer = new ClosingStructuresCalculationConfigurationImporter(
                 filePath,
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
@@ -219,7 +233,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
                 {
                     foreshoreProfile
                 },
-                Enumerable.Empty<HeightStructure>());
+                Enumerable.Empty<ClosingStructure>());
 
             var successful = false;
 
@@ -245,8 +259,8 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             {
                 new Point2D(0,3)
             });
-            var structure = new TestHeightStructure("kunstwerk1");
-            var importer = new HeightStructuresCalculationConfigurationImporter(
+            var structure = new TestClosingStructure("kunstwerk1");
+            var importer = new ClosingStructuresCalculationConfigurationImporter(
                 filePath,
                 calculationGroup,
                 new[]
@@ -267,7 +281,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
 
             // Assert
             Assert.IsTrue(successful);
-            var expectedCalculation = new StructuresCalculation<HeightStructuresInput>
+            var expectedCalculation = new StructuresCalculation<ClosingStructuresInput>
             {
                 Name = "Berekening 1",
                 InputParameters =
@@ -276,7 +290,13 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
                     Structure = structure,
                     ForeshoreProfile = foreshoreProfile,
                     StructureNormalOrientation = (RoundedDouble) 67.1,
-                    FailureProbabilityStructureWithErosion = 1e-6,
+                    IdenticalApertures = 4,
+                    InflowModelType = ClosingStructureInflowModelType.VerticalWall,
+                    FailureProbabilityStructureWithErosion = 0.001,
+                    FactorStormDurationOpenStructure = (RoundedDouble) 0.002,
+                    ProbabilityOrFrequencyOpenStructureBeforeFlooding = 0.03,
+                    FailureProbabilityOpenStructure = 0.22,
+                    FailureProbabilityReparation = 0.0006,
                     UseBreakWater = true,
                     UseForeshore = true,
                     BreakWater =
@@ -312,21 +332,41 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
                         Mean = (RoundedDouble) 0.2,
                         StandardDeviation = (RoundedDouble) 0.01
                     },
-                    LevelCrestStructure =
-                    {
-                        Mean = (RoundedDouble) 4.3,
-                        StandardDeviation = (RoundedDouble) 0.1
-                    },
                     CriticalOvertoppingDischarge =
                     {
                         Mean = (RoundedDouble) 2,
                         CoefficientOfVariation = (RoundedDouble) 0.1
+                    },
+                    LevelCrestStructureNotClosing =
+                    {
+                        Mean = (RoundedDouble) 4.3,
+                        StandardDeviation = (RoundedDouble) 0.2
+                    },
+                    AreaFlowApertures = 
+                    {
+                        Mean = (RoundedDouble) 80.5,
+                        StandardDeviation = (RoundedDouble) 1
+                    },
+                    DrainCoefficient = 
+                    {
+                        Mean = (RoundedDouble) 1.1,
+                        StandardDeviation = (RoundedDouble) 0.1
+                    },
+                    InsideWaterLevel = 
+                    {
+                        Mean = (RoundedDouble) 0.5,
+                        StandardDeviation = (RoundedDouble) 0.1
+                    },
+                    ThresholdHeightOpenWeir = 
+                    {
+                        Mean = (RoundedDouble) 1.2,
+                        StandardDeviation = (RoundedDouble) 0.1
                     }
                 }
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertCalculation(expectedCalculation, (StructuresCalculation<HeightStructuresInput>)calculationGroup.Children[0]);
+            AssertCalculation(expectedCalculation, (StructuresCalculation<ClosingStructuresInput>)calculationGroup.Children[0]);
         }
 
         [Test]
@@ -336,8 +376,8 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             string filePath = Path.Combine(importerPath, "validConfigurationStochastMeansOnly.xml");
 
             var calculationGroup = new CalculationGroup();
-            var structure = new TestHeightStructure("kunstwerk1");
-            var importer = new HeightStructuresCalculationConfigurationImporter(
+            var structure = new TestClosingStructure("kunstwerk1");
+            var importer = new ClosingStructuresCalculationConfigurationImporter(
                 filePath,
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
@@ -347,7 +387,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
                     structure
                 });
 
-            var expectedCalculation = new StructuresCalculation<HeightStructuresInput>
+            var expectedCalculation = new StructuresCalculation<ClosingStructuresInput>
             {
                 Name = "Berekening 1",
                 InputParameters =
@@ -377,13 +417,29 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
                     {
                         Mean = (RoundedDouble) 0.2,
                     },
-                    LevelCrestStructure =
-                    {
-                        Mean = (RoundedDouble) 4.3,
-                    },
                     CriticalOvertoppingDischarge =
                     {
                         Mean = (RoundedDouble) 2,
+                    },
+                    LevelCrestStructureNotClosing =
+                    {
+                        Mean = (RoundedDouble) 4.3,
+                    },
+                    AreaFlowApertures =
+                    {
+                        Mean = (RoundedDouble) 80.5,
+                    },
+                    DrainCoefficient =
+                    {
+                        Mean = (RoundedDouble) 1.1,
+                    },
+                    InsideWaterLevel =
+                    {
+                        Mean = (RoundedDouble) 0.5,
+                    },
+                    ThresholdHeightOpenWeir =
+                    {
+                        Mean = (RoundedDouble) 1.2,
                     }
                 }
             };
@@ -394,7 +450,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             // Assert
             Assert.IsTrue(successful);
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertCalculation(expectedCalculation, (StructuresCalculation<HeightStructuresInput>)calculationGroup.Children[0]);
+            AssertCalculation(expectedCalculation, (StructuresCalculation<ClosingStructuresInput>)calculationGroup.Children[0]);
         }
 
         [Test]
@@ -404,8 +460,8 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             string filePath = Path.Combine(importerPath, "validConfigurationStochastStandardDeviationVariationCoefficientOnly.xml");
 
             var calculationGroup = new CalculationGroup();
-            var structure = new TestHeightStructure("kunstwerk1");
-            var importer = new HeightStructuresCalculationConfigurationImporter(
+            var structure = new TestClosingStructure("kunstwerk1");
+            var importer = new ClosingStructuresCalculationConfigurationImporter(
                 filePath,
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
@@ -415,7 +471,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
                     structure
                 });
 
-            var expectedCalculation = new StructuresCalculation<HeightStructuresInput>
+            var expectedCalculation = new StructuresCalculation<ClosingStructuresInput>
             {
                 Name = "Berekening 1",
                 InputParameters =
@@ -437,13 +493,29 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
                     {
                         StandardDeviation = (RoundedDouble) 0.01
                     },
-                    LevelCrestStructure =
-                    {
-                        StandardDeviation = (RoundedDouble) 0.1
-                    },
                     CriticalOvertoppingDischarge =
                     {
                         CoefficientOfVariation = (RoundedDouble) 0.1
+                    },
+                    LevelCrestStructureNotClosing =
+                    {
+                        StandardDeviation = (RoundedDouble) 0.2
+                    },
+                    AreaFlowApertures =
+                    {
+                        StandardDeviation = (RoundedDouble) 1
+                    },
+                    DrainCoefficient =
+                    {
+                        StandardDeviation = (RoundedDouble) 0.1
+                    },
+                    InsideWaterLevel =
+                    {
+                        StandardDeviation = (RoundedDouble) 0.1
+                    },
+                    ThresholdHeightOpenWeir =
+                    {
+                        StandardDeviation = (RoundedDouble) 0.1
                     }
                 }
             };
@@ -454,7 +526,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             // Assert
             Assert.IsTrue(successful);
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertCalculation(expectedCalculation, (StructuresCalculation<HeightStructuresInput>)calculationGroup.Children[0]);
+            AssertCalculation(expectedCalculation, (StructuresCalculation<ClosingStructuresInput>)calculationGroup.Children[0]);
         }
 
         [Test]
@@ -468,8 +540,8 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             string filePath = Path.Combine(importerPath, file);
 
             var calculationGroup = new CalculationGroup();
-            var structure = new TestHeightStructure("kunstwerk1");
-            var importer = new HeightStructuresCalculationConfigurationImporter(
+            var structure = new TestClosingStructure("kunstwerk1");
+            var importer = new ClosingStructuresCalculationConfigurationImporter(
                 filePath,
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
@@ -479,7 +551,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
                     structure
                 });
 
-            var expectedCalculation = new StructuresCalculation<HeightStructuresInput>
+            var expectedCalculation = new StructuresCalculation<ClosingStructuresInput>
             {
                 Name = "Berekening 1"
             };
@@ -490,10 +562,10 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             // Assert
             Assert.IsTrue(successful);
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertCalculation(expectedCalculation, (StructuresCalculation<HeightStructuresInput>)calculationGroup.Children[0]);
+            AssertCalculation(expectedCalculation, (StructuresCalculation<ClosingStructuresInput>)calculationGroup.Children[0]);
         }
 
-        private static void AssertCalculation(StructuresCalculation<HeightStructuresInput> expectedCalculation, StructuresCalculation<HeightStructuresInput> actualCalculation)
+        private static void AssertCalculation(StructuresCalculation<ClosingStructuresInput> expectedCalculation, StructuresCalculation<ClosingStructuresInput> actualCalculation)
         {
             Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
             Assert.AreSame(expectedCalculation.InputParameters.HydraulicBoundaryLocation, actualCalculation.InputParameters.HydraulicBoundaryLocation);
@@ -504,7 +576,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             Assert.AreEqual(expectedCalculation.InputParameters.UseBreakWater, actualCalculation.InputParameters.UseBreakWater);
             Assert.AreEqual(expectedCalculation.InputParameters.BreakWater.Height, actualCalculation.InputParameters.BreakWater.Height);
             Assert.AreEqual(expectedCalculation.InputParameters.BreakWater.Type, actualCalculation.InputParameters.BreakWater.Type);
-            DistributionAssert.AreEqual(expectedCalculation.InputParameters.LevelCrestStructure, actualCalculation.InputParameters.LevelCrestStructure);
+            DistributionAssert.AreEqual(expectedCalculation.InputParameters.LevelCrestStructureNotClosing, actualCalculation.InputParameters.LevelCrestStructureNotClosing);
             DistributionAssert.AreEqual(expectedCalculation.InputParameters.AllowedLevelIncreaseStorage, actualCalculation.InputParameters.AllowedLevelIncreaseStorage);
             DistributionAssert.AreEqual(expectedCalculation.InputParameters.FlowWidthAtBottomProtection, actualCalculation.InputParameters.FlowWidthAtBottomProtection);
             DistributionAssert.AreEqual(expectedCalculation.InputParameters.ModelFactorSuperCriticalFlow, actualCalculation.InputParameters.ModelFactorSuperCriticalFlow);

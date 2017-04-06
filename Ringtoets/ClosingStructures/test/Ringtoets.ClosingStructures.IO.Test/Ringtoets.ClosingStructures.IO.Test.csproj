@@ -54,6 +54,7 @@
     <Compile Include="ClosingStructuresImporterTest.cs" />
     <Compile Include="Configurations\ClosingStructuresCalculationConfigurationTest.cs" />
     <Compile Include="Configurations\ClosingStructuresCalculationConfigurationWriterTest.cs" />
+    <Compile Include="Configurations\ClosingStructuresCalculationConfigurationImporterTest.cs" />
     <Compile Include="Configurations\Helpers\ConfigurationClosingStructureInflowModelTypeConverterTest.cs" />
     <Compile Include="Configurations\ClosingStructuresCalculationConfigurationReaderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

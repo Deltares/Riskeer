@@ -268,7 +268,7 @@ namespace Ringtoets.ClosingStructures.Data
             }
             set
             {
-                ProbabilityHelper.ValidateProbability(value, nameof(value), RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_in_Range_0_);
+                ProbabilityHelper.ValidateProbability(value, null, RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_in_Range_0_);
                 failureProbabilityOpenStructure = value;
             }
         }
@@ -287,7 +287,7 @@ namespace Ringtoets.ClosingStructures.Data
             }
             set
             {
-                ProbabilityHelper.ValidateProbability(value, nameof(value), RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_in_Range_0_);
+                ProbabilityHelper.ValidateProbability(value, null, RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_in_Range_0_);
                 failureProbabilityReparation = value;
             }
         }
@@ -327,7 +327,7 @@ namespace Ringtoets.ClosingStructures.Data
             }
             set
             {
-                ProbabilityHelper.ValidateProbability(value, nameof(value), RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_in_Range_0_);
+                ProbabilityHelper.ValidateProbability(value, null, RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_in_Range_0_);
                 probabilityOrFrequencyOpenStructureBeforeFlooding = value;
             }
         }
