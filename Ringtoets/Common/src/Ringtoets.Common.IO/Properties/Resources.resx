@@ -634,4 +634,10 @@ Er is geen berekeningenconfiguratie geïmporteerd.</value>
   <data name="CalculationConfigurationImporter_InflowModelType_DisplayName" xml:space="preserve">
     <value>instroommodel</value>
   </data>
+  <data name="XElementExtensions_GetVariationCoefficientStochastParameters_Stochast_0_defines_StandardDeviation_instead_of_VariationCoefficient_in_Calculation_1_" xml:space="preserve">
+    <value>Indien voor parameter '{0}' de spreiding wordt opgegeven, moet dit door middel van een variatiecoëfficiënt. Voor berekening '{1}' is een standaardafwijking gevonden.</value>
+  </data>
+  <data name="XElementExtensions_GetStandardDeviationStochastParameters_Stochast_0_defines_VariationCoefficient_instead_of_StandardDeviation_in_Calculation_1_" xml:space="preserve">
+    <value>Indien voor parameter '{0}' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. Voor berekening '{1}' is een variatiecoëfficiënt gevonden.</value>
+  </data>
 </root>

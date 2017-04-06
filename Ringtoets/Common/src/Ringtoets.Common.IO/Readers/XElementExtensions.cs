@@ -24,6 +24,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
+using Core.Common.Base.IO;
+using Ringtoets.Common.IO.Configurations;
+using Ringtoets.Common.IO.Properties;
 using Ringtoets.Common.IO.Schema;
 
 namespace Ringtoets.Common.IO.Readers
@@ -201,6 +204,78 @@ namespace Ringtoets.Common.IO.Readers
             }
 
             return parentElement.Descendants(descendantElementName).FirstOrDefault();
+        }
+
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="FormatException">Thrown when the value isn't in the correct format.</exception>
+        /// <exception cref="OverflowException">Thrown when the value for mean or standard deviation represents a
+        /// number less than <see cref="double.MinValue"/> or greater than <see cref="double.MaxValue"/>.</exception>
+        public static MeanStandardDeviationStochastConfiguration GetStandardDeviationStochastParameters(this XElement calculationElement, string stochastName)
+        {
+            if (calculationElement == null)
+            {
+                throw new ArgumentNullException(nameof(calculationElement));
+            }
+            if (stochastName == null)
+            {
+                throw new ArgumentNullException(nameof(stochastName));
+            }
+
+            XElement element = calculationElement.GetStochastElement(stochastName);
+
+            if (element != null)
+            {
+                if (element.Element(ConfigurationSchemaIdentifiers.VariationCoefficientElement) != null)
+                {
+                    string calculationName = calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute)?.Value;
+                    string message = string.Format(
+                        Resources.XElementExtensions_GetStandardDeviationStochastParameters_Stochast_0_defines_VariationCoefficient_instead_of_StandardDeviation_in_Calculation_1_,
+                        stochastName,
+                        calculationName);
+                    throw new CriticalFileReadException(message);
+                }
+
+                return new MeanStandardDeviationStochastConfiguration
+                {
+                    Mean = element.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.MeanElement),
+                    StandardDeviation = element.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.StandardDeviationElement)
+                };
+            }
+            return null;
+        }
+
+        public static MeanVariationCoefficientStochastConfiguration GetVariationCoefficientStochastParameters(this XElement calculationElement, string stochastName)
+        {
+            if (calculationElement == null)
+            {
+                throw new ArgumentNullException(nameof(calculationElement));
+            }
+            if (stochastName == null)
+            {
+                throw new ArgumentNullException(nameof(stochastName));
+            }
+
+            XElement element = calculationElement.GetStochastElement(stochastName);
+
+            if (element != null)
+            {
+                if (element.Element(ConfigurationSchemaIdentifiers.StandardDeviationElement) != null)
+                {
+                    string calculationName = calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute)?.Value;
+                    string message = string.Format(
+                        Resources.XElementExtensions_GetVariationCoefficientStochastParameters_Stochast_0_defines_StandardDeviation_instead_of_VariationCoefficient_in_Calculation_1_,
+                        stochastName,
+                        calculationName);
+                    throw new CriticalFileReadException(message);
+                }
+
+                return new MeanVariationCoefficientStochastConfiguration
+                {
+                    Mean = element.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.MeanElement),
+                    VariationCoefficient = element.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.VariationCoefficientElement)
+                };
+            }
+            return null;
         }
     }
 }

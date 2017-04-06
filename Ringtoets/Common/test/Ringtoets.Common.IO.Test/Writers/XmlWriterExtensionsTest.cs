@@ -455,7 +455,7 @@ namespace Ringtoets.Common.IO.Test.Writers
                 File.Delete(filePath);
             }
         }
-        
+
         private string GetTestFileContent(string testFile)
         {
             return File.ReadAllText(Path.Combine(testDirectory, testFile));

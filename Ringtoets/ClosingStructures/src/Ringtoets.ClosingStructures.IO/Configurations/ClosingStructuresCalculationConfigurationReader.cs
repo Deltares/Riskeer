@@ -110,18 +110,18 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
                 HydraulicBoundaryLocationName = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement),
                 StructureName = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.StructureElement),
                 WaveReduction = GetWaveReductionParameters(calculationElement),
-                AreaFlowApertures = GetStandardDeviationStochastParameters(calculationElement, ClosingStructuresConfigurationSchemaIdentifiers.AreaFlowAperturesStochastName),
-                DrainCoefficient = GetStandardDeviationStochastParameters(calculationElement, ClosingStructuresConfigurationSchemaIdentifiers.DrainCoefficientStochastName),
-                InsideWaterLevel = GetStandardDeviationStochastParameters(calculationElement, ClosingStructuresConfigurationSchemaIdentifiers.InsideWaterLevelStochastName),
-                LevelCrestStructureNotClosing = GetStandardDeviationStochastParameters(calculationElement, ClosingStructuresConfigurationSchemaIdentifiers.LevelCrestStructureNotClosingStochastName),
-                ThresholdHeightOpenWeir = GetStandardDeviationStochastParameters(calculationElement, ClosingStructuresConfigurationSchemaIdentifiers.ThresholdHeightOpenWeirStochastName),
-                AllowedLevelIncreaseStorage = GetStandardDeviationStochastParameters(calculationElement, ConfigurationSchemaIdentifiers.AllowedLevelIncreaseStorageStochastName),
-                FlowWidthAtBottomProtection = GetStandardDeviationStochastParameters(calculationElement, ConfigurationSchemaIdentifiers.FlowWidthAtBottomProtectionStochastName),
-                ModelFactorSuperCriticalFlow = GetStandardDeviationStochastParameters(calculationElement, ConfigurationSchemaIdentifiers.ModelFactorSuperCriticalFlowStochastName),
-                WidthFlowApertures = GetStandardDeviationStochastParameters(calculationElement, ConfigurationSchemaIdentifiers.WidthFlowAperturesStochastName),
-                CriticalOvertoppingDischarge = GetVariationCoefficientStochastParameters(calculationElement, ConfigurationSchemaIdentifiers.CriticalOvertoppingDischargeStochastName),
-                StorageStructureArea = GetVariationCoefficientStochastParameters(calculationElement, ConfigurationSchemaIdentifiers.StorageStructureAreaStochastName),
-                StormDuration = GetVariationCoefficientStochastParameters(calculationElement, ConfigurationSchemaIdentifiers.StormDurationStochastName)
+                AreaFlowApertures = calculationElement.GetStandardDeviationStochastParameters(ClosingStructuresConfigurationSchemaIdentifiers.AreaFlowAperturesStochastName),
+                DrainCoefficient = calculationElement.GetStandardDeviationStochastParameters(ClosingStructuresConfigurationSchemaIdentifiers.DrainCoefficientStochastName),
+                InsideWaterLevel = calculationElement.GetStandardDeviationStochastParameters(ClosingStructuresConfigurationSchemaIdentifiers.InsideWaterLevelStochastName),
+                LevelCrestStructureNotClosing = calculationElement.GetStandardDeviationStochastParameters(ClosingStructuresConfigurationSchemaIdentifiers.LevelCrestStructureNotClosingStochastName),
+                ThresholdHeightOpenWeir = calculationElement.GetStandardDeviationStochastParameters(ClosingStructuresConfigurationSchemaIdentifiers.ThresholdHeightOpenWeirStochastName),
+                AllowedLevelIncreaseStorage = calculationElement.GetStandardDeviationStochastParameters(ConfigurationSchemaIdentifiers.AllowedLevelIncreaseStorageStochastName),
+                FlowWidthAtBottomProtection = calculationElement.GetStandardDeviationStochastParameters(ConfigurationSchemaIdentifiers.FlowWidthAtBottomProtectionStochastName),
+                ModelFactorSuperCriticalFlow = calculationElement.GetStandardDeviationStochastParameters(ConfigurationSchemaIdentifiers.ModelFactorSuperCriticalFlowStochastName),
+                WidthFlowApertures = calculationElement.GetStandardDeviationStochastParameters(ConfigurationSchemaIdentifiers.WidthFlowAperturesStochastName),
+                CriticalOvertoppingDischarge = calculationElement.GetVariationCoefficientStochastParameters(ConfigurationSchemaIdentifiers.CriticalOvertoppingDischargeStochastName),
+                StorageStructureArea = calculationElement.GetVariationCoefficientStochastParameters(ConfigurationSchemaIdentifiers.StorageStructureAreaStochastName),
+                StormDuration = calculationElement.GetVariationCoefficientStochastParameters(ConfigurationSchemaIdentifiers.StormDurationStochastName)
             };
 
             return configuration;
@@ -138,34 +138,6 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
                     BreakWaterHeight = calculationElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.BreakWaterHeight),
                     UseBreakWater = calculationElement.GetBoolValueFromDescendantElement(ConfigurationSchemaIdentifiers.UseBreakWater),
                     UseForeshoreProfile = calculationElement.GetBoolValueFromDescendantElement(ConfigurationSchemaIdentifiers.UseForeshore)
-                };
-            }
-            return null;
-        }
-
-        private static MeanVariationCoefficientStochastConfiguration GetVariationCoefficientStochastParameters(XElement calculationElement, string stochastName)
-        {
-            XElement element = calculationElement.GetStochastElement(stochastName);
-            if (element != null)
-            {
-                return new MeanVariationCoefficientStochastConfiguration
-                {
-                    Mean = element.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.MeanElement),
-                    VariationCoefficient = element.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.VariationCoefficientElement)
-                };
-            }
-            return null;
-        }
-
-        private static MeanStandardDeviationStochastConfiguration GetStandardDeviationStochastParameters(XElement calculationElement, string stochastName)
-        {
-            XElement element = calculationElement.GetStochastElement(stochastName);
-            if (element != null)
-            {
-                return new MeanStandardDeviationStochastConfiguration
-                {
-                    Mean = element.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.MeanElement),
-                    StandardDeviation = element.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.StandardDeviationElement)
                 };
             }
             return null;

@@ -1850,5 +1850,25 @@ namespace Ringtoets.Common.IO.Properties {
                 return ResourceManager.GetString("VoorlandProfielSchema", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Indien voor parameter &apos;{0}&apos; de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. Voor berekening &apos;{1}&apos; is een variatiecoëfficiënt gevonden..
+        /// </summary>
+        public static string XElementExtensions_GetStandardDeviationStochastParameters_Stochast_0_defines_VariationCoefficient_instead_of_StandardDeviation_in_Calculation_1_ {
+            get {
+                return ResourceManager.GetString("XElementExtensions_GetStandardDeviationStochastParameters_Stochast_0_defines_Vari" +
+                        "ationCoefficient_instead_of_StandardDeviation_in_Calculation_1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Indien voor parameter &apos;{0}&apos; de spreiding wordt opgegeven, moet dit door middel van een variatiecoëfficiënt. Voor berekening &apos;{1}&apos; is een standaardafwijking gevonden..
+        /// </summary>
+        public static string XElementExtensions_GetVariationCoefficientStochastParameters_Stochast_0_defines_StandardDeviation_instead_of_VariationCoefficient_in_Calculation_1_ {
+            get {
+                return ResourceManager.GetString("XElementExtensions_GetVariationCoefficientStochastParameters_Stochast_0_defines_S" +
+                        "tandardDeviation_instead_of_VariationCoefficient_in_Calculation_1_", resourceCulture);
+            }
+        }
     }
 }
