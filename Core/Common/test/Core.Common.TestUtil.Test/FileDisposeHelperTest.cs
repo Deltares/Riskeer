@@ -130,7 +130,7 @@ namespace Core.Common.TestUtil.Test
                 using (new FileDisposeHelper(filePaths))
                 {
                     // Assert
-                    foreach (var filePath in filePaths)
+                    foreach (string filePath in filePaths)
                     {
                         Assert.IsTrue(File.Exists(filePath));
                     }
@@ -211,7 +211,7 @@ namespace Core.Common.TestUtil.Test
                     TestDelegate call = () => fileDisposeHelper.LockFiles();
 
                     // Assert
-                    InvalidOperationException exception = Assert.Throws<InvalidOperationException>(call);
+                    var exception = Assert.Throws<InvalidOperationException>(call);
                     Assert.AreEqual($"Unable to lock '{filePath}'.", exception.Message);
                     Assert.IsNotNull(exception.InnerException);
                 }
@@ -243,7 +243,7 @@ namespace Core.Common.TestUtil.Test
                     TestDelegate call = () => fileDisposeHelper.LockFiles();
 
                     // Assert
-                    InvalidOperationException exception = Assert.Throws<InvalidOperationException>(call);
+                    var exception = Assert.Throws<InvalidOperationException>(call);
                     Assert.AreEqual($"Unable to lock '{filePath}'.", exception.Message);
                     Assert.IsNotNull(exception.InnerException);
                 }
@@ -335,7 +335,7 @@ namespace Core.Common.TestUtil.Test
 
             try
             {
-                foreach (var filePath in filePaths)
+                foreach (string filePath in filePaths)
                 {
                     using (File.Create(filePath)) {}
 
@@ -352,7 +352,7 @@ namespace Core.Common.TestUtil.Test
             }
 
             // Assert
-            foreach (var filePath in filePaths)
+            foreach (string filePath in filePaths)
             {
                 Assert.IsFalse(File.Exists(filePath), $"'{filePath}' should have been deleted.");
             }

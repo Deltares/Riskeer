@@ -35,7 +35,7 @@ namespace Core.Common.TestUtil.Test
         public void Constructor_NullRoot_ThrowsArgumentNullException()
         {
             // Setup
-            string subfolder = "sub folder";
+            var subfolder = "sub folder";
 
             // Call
             TestDelegate test = () => new DirectoryDisposeHelper(null, subfolder);
@@ -52,7 +52,7 @@ namespace Core.Common.TestUtil.Test
             TestDelegate test = () => new DirectoryDisposeHelper(rootFolder, null);
 
             // Assert
-            ArgumentException exception = Assert.Throws<ArgumentException>(test);
+            var exception = Assert.Throws<ArgumentException>(test);
             Assert.AreEqual("subFolders", exception.ParamName);
         }
 
@@ -62,7 +62,7 @@ namespace Core.Common.TestUtil.Test
             // Setup
             string subFolder = Path.GetRandomFileName();
             string folderPath = Path.Combine(rootFolder, subFolder);
-            bool folderExists = false;
+            var folderExists = false;
 
             // Precondition
             Assert.IsFalse(Directory.Exists(folderPath), $"Precondition failed: Folder '{folderPath}' should not exist");
@@ -89,7 +89,7 @@ namespace Core.Common.TestUtil.Test
             string subFolder = Path.GetRandomFileName();
             string subSubFolder = Path.GetRandomFileName();
             string folderPath = Path.Combine(rootFolder, subFolder, subSubFolder);
-            bool folderExists = false;
+            var folderExists = false;
 
             // Precondition
             Assert.IsFalse(Directory.Exists(folderPath), $"Precondition failed: Folder '{folderPath}' should not exist");
@@ -233,7 +233,7 @@ namespace Core.Common.TestUtil.Test
                     TestDelegate call = () => disposeHelper.LockDirectory(FileSystemRights.Synchronize);
 
                     // Assert
-                    InvalidOperationException exception = Assert.Throws<InvalidOperationException>(call);
+                    var exception = Assert.Throws<InvalidOperationException>(call);
                     Assert.AreEqual($"Unable to lock '{folderPath}'.", exception.Message);
                     Assert.IsNotNull(exception.InnerException);
                 }
@@ -272,7 +272,7 @@ namespace Core.Common.TestUtil.Test
                 RemoveDirectoryAndFail(folderPath, exception);
             }
         }
-        
+
         [Test]
         public void UnlockDirectory_DirectoryNotLocked_Unlocksdirectory()
         {
