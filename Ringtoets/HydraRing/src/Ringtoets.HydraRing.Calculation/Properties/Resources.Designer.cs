@@ -163,5 +163,15 @@ namespace Ringtoets.HydraRing.Calculation.Properties {
                 return ResourceManager.GetString("ReliabilityIndexCalculationParser_Parse_No_reliability_found_in_output_file", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er zijn geen berekende golfcondities gevonden in de Hydra-Ring uitvoerdatabase..
+        /// </summary>
+        internal static string WaveConditionsCalculationParser_Parse_No_calculated_wave_conditions_found_in_output_file {
+            get {
+                return ResourceManager.GetString("WaveConditionsCalculationParser_Parse_No_calculated_wave_conditions_found_in_outp" +
+                        "ut_file", resourceCulture);
+            }
+        }
     }
 }

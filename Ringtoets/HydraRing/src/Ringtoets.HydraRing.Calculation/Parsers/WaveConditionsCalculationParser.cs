@@ -19,11 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Globalization;
-using System.IO;
+using System;
+using System.Collections.Generic;
 using Ringtoets.HydraRing.Calculation.Data.Output;
 using Ringtoets.HydraRing.Calculation.Exceptions;
-using Ringtoets.HydraRing.IO;
+using Ringtoets.HydraRing.Calculation.Properties;
 
 namespace Ringtoets.HydraRing.Calculation.Parsers
 {
@@ -32,18 +32,13 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
     /// </summary>
     public class WaveConditionsCalculationParser : IHydraRingFileParser
     {
-        private const string waveAngleText = "Wave angle";
-        private const string waveDirectionText = "Wave direction";
-        private const string waveHeightText = "Wave height";
-        private const string wavePeakPeriodText = "Wave period";
-        private const string reductionFactorText = "reduction factor";
+        private const string waveHeightColumnName = "WaveHeight";
+        private const string wavePeriodColumnName = "WavePeriod";
+        private const string waveDirectionColumnName = "waveDirection";
+        private const string waveAngleColumnName = "WaveAngle";
 
-        private const char equalsCharacter = '=';
-
-        private double? waveAngle;
-        private double? waveDirection;
-        private double? waveHeight;
-        private double? wavePeakPeriod;
+        private readonly string query = $"SELECT {waveHeightColumnName}, {wavePeriodColumnName}, {waveAngleColumnName}, {waveDirectionColumnName} " +
+                                        "FROM QVariantResults";
 
         /// <summary>
         /// Gets the output that was parsed from the output file.
@@ -52,91 +47,36 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
 
         public void Parse(string workingDirectory, int sectionId)
         {
-            string fileName = string.Format("{0}{1}", sectionId, HydraRingFileConstants.OutputFileSuffix);
+            Dictionary<string, object> result = HydraRingDatabaseParseHelper.ReadSingleLine(
+                workingDirectory,
+                query,
+                sectionId,
+                Resources.WaveConditionsCalculationParser_Parse_No_calculated_wave_conditions_found_in_output_file);
 
+            ReadResult(result);
+        }
+
+        /// <summary>
+        /// Reads the <paramref name="result"/>.
+        /// </summary>
+        /// <param name="result">The result from the database read.</param>
+        /// <exception cref="HydraRingFileParserException">Thrown when the result
+        /// cannot be converted to the output format.</exception>
+        private void ReadResult(IDictionary<string, object> result)
+        {
             try
             {
-                ReadFile(Path.Combine(workingDirectory, fileName));
-                SetOutput();
+                double waveHeight = Convert.ToDouble(result[waveHeightColumnName]);
+                double wavePeriod = Convert.ToDouble(result[wavePeriodColumnName]);
+                double waveAngle = Convert.ToDouble(result[waveAngleColumnName]);
+                double waveDirection = Convert.ToDouble(result[waveDirectionColumnName]);
+
+                Output = new WaveConditionsCalculationOutput(waveHeight, wavePeriod, waveAngle, waveDirection);
             }
-            catch
+            catch (InvalidCastException e)
             {
-                throw new HydraRingFileParserException();
+                throw new HydraRingFileParserException(Resources.WaveConditionsCalculationParser_Parse_No_calculated_wave_conditions_found_in_output_file, e);
             }
-        }
-
-        private void SetOutput()
-        {
-            if (waveAngle != null && waveHeight != null && wavePeakPeriod != null && waveDirection != null)
-            {
-                Output = new WaveConditionsCalculationOutput(waveHeight.Value, wavePeakPeriod.Value, waveAngle.Value,
-                                                             waveDirection.Value);
-            }
-        }
-
-        private void ReadFile(string filePath)
-        {
-            if (File.Exists(filePath))
-            {
-                using (var file = new StreamReader(File.OpenRead(filePath)))
-                {
-                    while (!file.EndOfStream)
-                    {
-                        string currentLine = file.ReadLine();
-
-                        waveAngle = TryParseWaveAngle(currentLine) ?? waveAngle;
-                        waveDirection = TryParseWaveDirection(currentLine) ?? waveDirection;
-                        waveHeight = TryParseWaveHeight(currentLine) ?? waveHeight;
-                        wavePeakPeriod = TryParseWavePeakPeriod(currentLine) ?? wavePeakPeriod;
-                    }
-                }
-            }
-        }
-
-        private static double? TryParseWaveAngle(string line)
-        {
-            if (line.Contains(waveAngleText) && !line.Contains(reductionFactorText))
-            {
-                string resultAsString = line.Split(equalsCharacter)[1].Trim();
-                return ParseStringResult(resultAsString);
-            }
-            return null;
-        }
-
-        private static double? TryParseWaveDirection(string line)
-        {
-            if (line.Contains(waveDirectionText))
-            {
-                string resultAsString = line.Split(equalsCharacter)[1].Trim();
-                return ParseStringResult(resultAsString);
-            }
-
-            return null;
-        }
-
-        private static double? TryParseWaveHeight(string line)
-        {
-            if (line.Contains(waveHeightText))
-            {
-                string resultAsString = line.Split(equalsCharacter)[1].Trim();
-                return ParseStringResult(resultAsString);
-            }
-            return null;
-        }
-
-        private static double? TryParseWavePeakPeriod(string line)
-        {
-            if (line.Contains(wavePeakPeriodText))
-            {
-                string resultAsString = line.Split(equalsCharacter)[1].Trim();
-                return ParseStringResult(resultAsString);
-            }
-            return null;
-        }
-
-        private static double ParseStringResult(string resultAsString)
-        {
-            return double.Parse(resultAsString, CultureInfo.InvariantCulture);
         }
     }
 }

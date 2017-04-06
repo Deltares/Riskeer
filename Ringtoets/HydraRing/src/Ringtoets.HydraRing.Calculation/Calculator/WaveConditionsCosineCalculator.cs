@@ -65,6 +65,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         public double WaveDirection { get; private set; }
 
         public double ReliabilityIndex { get; private set; }
+
         public bool? Converged { get; private set; }
 
         public void Calculate(WaveConditionsCosineCalculationInput input)
