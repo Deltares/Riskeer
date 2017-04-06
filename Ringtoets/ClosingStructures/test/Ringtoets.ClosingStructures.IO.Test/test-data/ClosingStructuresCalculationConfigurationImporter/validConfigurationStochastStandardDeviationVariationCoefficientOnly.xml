@@ -23,7 +23,6 @@
         <variatiecoefficient>0.1</variatiecoefficient>
       </stochast>
       <stochast naam="afvoercoefficient">
-        <standaardafwijking>0.1</standaardafwijking>
       </stochast>
       <stochast naam="binnenwaterstand">
         <standaardafwijking>0.1</standaardafwijking>

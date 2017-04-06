@@ -114,7 +114,7 @@ namespace Ringtoets.HeightStructures.IO.Configurations
 
         private bool TryReadStochasts(HeightStructuresCalculationConfiguration readCalculation, StructuresCalculation<HeightStructuresInput> calculation)
         {
-            if (!readCalculation.ValidateStochasts(Log))
+            if (!readCalculation.ValidateStructureBaseStochasts(Log))
             {
                 return false;
             }

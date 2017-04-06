@@ -22,8 +22,10 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base.Data;
+using log4net;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.IO.Configurations.Helpers;
+using Ringtoets.ClosingStructures.IO.Properties;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
@@ -109,6 +111,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
                 && TryReadIdenticalApertures(readCalculation, calculation)
                 && readCalculation.WaveReduction.ValidateWaveReduction(calculation.InputParameters.ForeshoreProfile, calculation.Name, Log))
             {
+                ReadFactorStormDurationOpenStructure(readCalculation, calculation);
                 ReadWaveReductionParameters(readCalculation.WaveReduction, calculation.InputParameters);
                 return calculation;
             }
@@ -117,7 +120,11 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
 
         private bool TryReadStochasts(ClosingStructuresCalculationConfiguration readCalculation, StructuresCalculation<ClosingStructuresInput> calculation)
         {
-            if (!readCalculation.ValidateStochasts(Log))
+            if (!readCalculation.ValidateStructureBaseStochasts(Log))
+            {
+                return false;
+            }
+            if (!ValidateStochasts(readCalculation))
             {
                 return false;
             }
@@ -198,6 +205,17 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
                        (i, d) => i.StormDuration = d);
         }
 
+        private bool ValidateStochasts(ClosingStructuresCalculationConfiguration configuration)
+        {
+            if (configuration.DrainCoefficient?.StandardDeviation != null)
+            {
+                Log.LogCalculationConversionError(Resources.CalculationConfigurationImporter_ValidateStochasts_Cannot_define_StandardDeviation_for_DrainCoefficient,
+                                                  configuration.Name);
+                return false;
+            }
+            return true;
+        }
+
         /// <summary>
         /// Reads the orientation.
         /// </summary>
@@ -270,6 +288,19 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Reads the factor storm duration.
+        /// </summary>
+        /// <param name="readCalculation">The calculation read from the imported file.</param>
+        /// <param name="calculation">The calculation to configure.</param>
+        private void ReadFactorStormDurationOpenStructure(ClosingStructuresCalculationConfiguration readCalculation, StructuresCalculation<ClosingStructuresInput> calculation)
+        {
+            if (readCalculation.FactorStormDurationOpenStructure.HasValue)
+            {
+                calculation.InputParameters.FactorStormDurationOpenStructure = (RoundedDouble) readCalculation.FactorStormDurationOpenStructure.Value;
+            }
         }
 
         /// <summary>

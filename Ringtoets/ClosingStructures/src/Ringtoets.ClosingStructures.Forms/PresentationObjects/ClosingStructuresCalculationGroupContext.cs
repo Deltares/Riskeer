@@ -20,9 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.PresentationObjects;
 
 namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
@@ -45,5 +47,27 @@ namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
                                                         ClosingStructuresFailureMechanism failureMechanism,
                                                         IAssessmentSection assessmentSection)
             : base(calculationGroup, failureMechanism, assessmentSection) {}
+
+        /// <summary>
+        /// Gets the available foreshore profiles.
+        /// </summary>
+        public IEnumerable<ForeshoreProfile> AvailableForeshoreProfiles
+        {
+            get
+            {
+                return FailureMechanism.ForeshoreProfiles;
+            }
+        }
+
+        /// <summary>
+        /// Gets the available closing structures.
+        /// </summary>
+        public IEnumerable<ClosingStructure> AvailableStructures
+        {
+            get
+            {
+                return FailureMechanism.ClosingStructures;
+            }
+        }
     }
 }

@@ -46,6 +46,7 @@ using Ringtoets.Common.Forms;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.ExportInfos;
 using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.Common.Forms.ImportInfos;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.Service;
@@ -200,6 +201,14 @@ namespace Ringtoets.ClosingStructures.Plugin
                     RingtoetsCommonIOResources.Shape_file_filter_Description),
                 IsEnabled = context => context.AssessmentSection.ReferenceLine != null
             };
+
+            yield return RingtoetsImportInfoFactory.CreateCalculationConfigurationImportInfo<ClosingStructuresCalculationGroupContext>(
+                (context, filePath) => new ClosingStructuresCalculationConfigurationImporter(
+                    filePath,
+                    context.WrappedData,
+                    context.AvailableHydraulicBoundaryLocations,
+                    context.AvailableForeshoreProfiles,
+                    context.AvailableStructures));
         }
 
         public override IEnumerable<ExportInfo> GetExportInfos()
@@ -462,7 +471,8 @@ namespace Ringtoets.ClosingStructures.Plugin
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
             var isNestedGroup = parentData is ClosingStructuresCalculationGroupContext;
 
-            builder.AddExportItem()
+            builder.AddImportItem()
+                   .AddExportItem()
                    .AddSeparator();
 
             if (!isNestedGroup)

@@ -47,7 +47,6 @@
       </stochast>
       <stochast naam="afvoercoefficient">
         <verwachtingswaarde>1.1</verwachtingswaarde>
-        <standaardafwijking>0.1</standaardafwijking>
       </stochast>
       <stochast naam="binnenwaterstand">
         <verwachtingswaarde>0.5</verwachtingswaarde>

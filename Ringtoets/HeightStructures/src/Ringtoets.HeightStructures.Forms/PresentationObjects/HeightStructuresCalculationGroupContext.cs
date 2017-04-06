@@ -48,7 +48,6 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
                                                        IAssessmentSection assessmentSection)
             : base(calculationsGroup, failureMechanism, assessmentSection) {}
 
-
         /// <summary>
         /// Gets the available foreshore profiles.
         /// </summary>

@@ -67,6 +67,7 @@
     </Compile>
     <Compile Include="ExportInfos\ClosingStructuresCalculationContextExportInfoTest.cs" />
     <Compile Include="ExportInfos\ClosingStructuresCalculationGroupContextExportInfoTest.cs" />
+    <Compile Include="ImportInfos\ClosingStructuresCalculationGroupContextImportInfoTest.cs" />
     <Compile Include="PropertyInfos\ClosingStructuresInputContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\ClosingStructuresFailureMechanismContextPropertyInfoTest.cs" />
     <Compile Include="ClosingStructuresPluginTest.cs" />

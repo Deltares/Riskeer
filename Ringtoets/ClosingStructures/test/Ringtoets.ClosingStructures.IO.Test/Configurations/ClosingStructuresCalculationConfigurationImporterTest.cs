@@ -109,6 +109,8 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             "Er kan geen standaardafwijking voor stochast 'modelfactoroverloopdebiet' opgegeven worden.")]
         [TestCase("validConfigurationStormDurationVariationCoefficient.xml",
             "Er kan geen variatiecoëfficiënt voor stochast 'stormduur' opgegeven worden.")]
+        [TestCase("validConfigurationDrainCoefficientStandardDeviation.xml",
+            "Er kan geen standaardafwijking voor stochast 'afvoercoefficient' opgegeven worden.")]
         [TestCase("validConfigurationFailureProbabilityOpenStructureWithoutStructure.xml",
             "Er is geen kunstwerk opgegeven om kans mislukken sluiting aan toe te voegen.")]
         [TestCase("validConfigurationFailureProbabilityReparationWithoutStructure.xml",
@@ -350,7 +352,6 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
                     DrainCoefficient = 
                     {
                         Mean = (RoundedDouble) 1.1,
-                        StandardDeviation = (RoundedDouble) 0.1
                     },
                     InsideWaterLevel = 
                     {
@@ -505,10 +506,6 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
                     {
                         StandardDeviation = (RoundedDouble) 1
                     },
-                    DrainCoefficient =
-                    {
-                        StandardDeviation = (RoundedDouble) 0.1
-                    },
                     InsideWaterLevel =
                     {
                         StandardDeviation = (RoundedDouble) 0.1
@@ -570,20 +567,30 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
             Assert.AreSame(expectedCalculation.InputParameters.HydraulicBoundaryLocation, actualCalculation.InputParameters.HydraulicBoundaryLocation);
             Assert.AreEqual(expectedCalculation.InputParameters.StructureNormalOrientation, actualCalculation.InputParameters.StructureNormalOrientation);
+            Assert.AreEqual(expectedCalculation.InputParameters.FactorStormDurationOpenStructure, actualCalculation.InputParameters.FactorStormDurationOpenStructure);
+            Assert.AreEqual(expectedCalculation.InputParameters.FailureProbabilityOpenStructure, actualCalculation.InputParameters.FailureProbabilityOpenStructure);
+            Assert.AreEqual(expectedCalculation.InputParameters.FailureProbabilityReparation, actualCalculation.InputParameters.FailureProbabilityReparation);
+            Assert.AreEqual(expectedCalculation.InputParameters.IdenticalApertures, actualCalculation.InputParameters.IdenticalApertures);
+            Assert.AreEqual(expectedCalculation.InputParameters.InflowModelType, actualCalculation.InputParameters.InflowModelType);
+            Assert.AreEqual(expectedCalculation.InputParameters.ProbabilityOrFrequencyOpenStructureBeforeFlooding, actualCalculation.InputParameters.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
             Assert.AreSame(expectedCalculation.InputParameters.ForeshoreProfile, actualCalculation.InputParameters.ForeshoreProfile);
             Assert.AreSame(expectedCalculation.InputParameters.Structure, actualCalculation.InputParameters.Structure);
             Assert.AreEqual(expectedCalculation.InputParameters.UseForeshore, actualCalculation.InputParameters.UseForeshore);
             Assert.AreEqual(expectedCalculation.InputParameters.UseBreakWater, actualCalculation.InputParameters.UseBreakWater);
             Assert.AreEqual(expectedCalculation.InputParameters.BreakWater.Height, actualCalculation.InputParameters.BreakWater.Height);
             Assert.AreEqual(expectedCalculation.InputParameters.BreakWater.Type, actualCalculation.InputParameters.BreakWater.Type);
-            DistributionAssert.AreEqual(expectedCalculation.InputParameters.LevelCrestStructureNotClosing, actualCalculation.InputParameters.LevelCrestStructureNotClosing);
-            DistributionAssert.AreEqual(expectedCalculation.InputParameters.AllowedLevelIncreaseStorage, actualCalculation.InputParameters.AllowedLevelIncreaseStorage);
-            DistributionAssert.AreEqual(expectedCalculation.InputParameters.FlowWidthAtBottomProtection, actualCalculation.InputParameters.FlowWidthAtBottomProtection);
-            DistributionAssert.AreEqual(expectedCalculation.InputParameters.ModelFactorSuperCriticalFlow, actualCalculation.InputParameters.ModelFactorSuperCriticalFlow);
-            DistributionAssert.AreEqual(expectedCalculation.InputParameters.CriticalOvertoppingDischarge, actualCalculation.InputParameters.CriticalOvertoppingDischarge);
-            DistributionAssert.AreEqual(expectedCalculation.InputParameters.StorageStructureArea, actualCalculation.InputParameters.StorageStructureArea);
             DistributionAssert.AreEqual(expectedCalculation.InputParameters.StormDuration, actualCalculation.InputParameters.StormDuration);
+            DistributionAssert.AreEqual(expectedCalculation.InputParameters.ModelFactorSuperCriticalFlow, actualCalculation.InputParameters.ModelFactorSuperCriticalFlow);
+            DistributionAssert.AreEqual(expectedCalculation.InputParameters.FlowWidthAtBottomProtection, actualCalculation.InputParameters.FlowWidthAtBottomProtection);
             DistributionAssert.AreEqual(expectedCalculation.InputParameters.WidthFlowApertures, actualCalculation.InputParameters.WidthFlowApertures);
+            DistributionAssert.AreEqual(expectedCalculation.InputParameters.StorageStructureArea, actualCalculation.InputParameters.StorageStructureArea);
+            DistributionAssert.AreEqual(expectedCalculation.InputParameters.AllowedLevelIncreaseStorage, actualCalculation.InputParameters.AllowedLevelIncreaseStorage);
+            DistributionAssert.AreEqual(expectedCalculation.InputParameters.CriticalOvertoppingDischarge, actualCalculation.InputParameters.CriticalOvertoppingDischarge);
+            DistributionAssert.AreEqual(expectedCalculation.InputParameters.LevelCrestStructureNotClosing, actualCalculation.InputParameters.LevelCrestStructureNotClosing);
+            DistributionAssert.AreEqual(expectedCalculation.InputParameters.AreaFlowApertures, actualCalculation.InputParameters.AreaFlowApertures);
+            DistributionAssert.AreEqual(expectedCalculation.InputParameters.DrainCoefficient, actualCalculation.InputParameters.DrainCoefficient);
+            DistributionAssert.AreEqual(expectedCalculation.InputParameters.InsideWaterLevel, actualCalculation.InputParameters.InsideWaterLevel);
+            DistributionAssert.AreEqual(expectedCalculation.InputParameters.ThresholdHeightOpenWeir, actualCalculation.InputParameters.ThresholdHeightOpenWeir);
         }
     }
 }

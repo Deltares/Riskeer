@@ -80,7 +80,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
         /// <param name="log">Log used to write out errors.</param>
         /// <returns><c>false</c> when there is an invalid stochast parameter defined, <c>true</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static bool ValidateStochasts(this StructuresCalculationConfiguration configuration, ILog log)
+        public static bool ValidateStructureBaseStochasts(this StructuresCalculationConfiguration configuration, ILog log)
         {
             if (configuration == null)
             {

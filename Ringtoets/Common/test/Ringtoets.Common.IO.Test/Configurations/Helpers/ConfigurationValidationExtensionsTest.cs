@@ -203,7 +203,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             const string calculationName = "calculation";
 
             // Call
-            TestDelegate test = () => new TestStructuresCalculationConfiguration(calculationName).ValidateStochasts(null);
+            TestDelegate test = () => new TestStructuresCalculationConfiguration(calculationName).ValidateStructureBaseStochasts(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -219,7 +219,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => ((StructuresCalculationConfiguration)null).ValidateStochasts(log);
+            TestDelegate test = () => ((StructuresCalculationConfiguration)null).ValidateStructureBaseStochasts(log);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -240,7 +240,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             var configuration = new TestStructuresCalculationConfiguration(calculationName);
 
             // Call
-            configuration.ValidateStochasts(log);
+            configuration.ValidateStructureBaseStochasts(log);
 
             // Assert
             mocks.VerifyAll();
@@ -268,7 +268,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             };
 
             // Call
-            configuration.ValidateStochasts(log);
+            configuration.ValidateStructureBaseStochasts(log);
 
             // Assert
             mocks.VerifyAll();
@@ -293,7 +293,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             };
 
             // Call
-            configuration.ValidateStochasts(log);
+            configuration.ValidateStructureBaseStochasts(log);
 
             // Assert
             mocks.VerifyAll();
@@ -321,7 +321,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             };
 
             // Call
-            configuration.ValidateStochasts(log);
+            configuration.ValidateStructureBaseStochasts(log);
 
             // Assert
             mocks.VerifyAll();
@@ -346,7 +346,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             };
 
             // Call
-            configuration.ValidateStochasts(log);
+            configuration.ValidateStructureBaseStochasts(log);
 
             // Assert
             mocks.VerifyAll();
