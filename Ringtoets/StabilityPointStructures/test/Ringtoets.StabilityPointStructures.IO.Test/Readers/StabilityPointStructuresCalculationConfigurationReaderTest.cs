@@ -42,60 +42,95 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Readers
         {
             get
             {
+                yield return new TestCaseData("invalidMultipleAllowedLevelIncreaseStorageStochast.xml",
+                                              "There is a duplicate key sequence 'peilverhogingkomberging' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
+                    .SetName("invalidMultipleAllowedLevelIncreaseStorageStochast");
+
+                yield return new TestCaseData("invalidMultipleAreaFlowAperturesStochast.xml",
+                                              "There is a duplicate key sequence 'doorstroomoppervlak' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
+                    .SetName("invalidMultipleAreaFlowAperturesStochast");
+
+                yield return new TestCaseData("invalidMultipleBankWidthStochast.xml",
+                                              "There is a duplicate key sequence 'bermbreedte' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
+                    .SetName("invalidMultipleBankWidthStochast");
+
+                yield return new TestCaseData("invalidMultipleCriticalOvertoppingDischargeStochast.xml",
+                                              "There is a duplicate key sequence 'kritiekinstromenddebiet' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
+                    .SetName("invalidMultipleCriticalOvertoppingDischargeStochast");
+
+                yield return new TestCaseData("invalidMultipleConstructiveStrengthLinearLoadModelStochast.xml",
+                                              "There is a duplicate key sequence 'lineairebelastingschematiseringsterkte' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
+                    .SetName("invalidMultipleConstructiveStrengthLinearLoadModelStochast");
+
+                yield return new TestCaseData("invalidMultipleConstructiveStrengthQuadraticLoadModelStochast.xml",
+                                              "There is a duplicate key sequence 'kwadratischebelastingschematiseringsterkte' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
+                    .SetName("invalidMultipleConstructiveStrengthQuadraticLoadModelStochast");
+
+                yield return new TestCaseData("invalidMultipleDrainCoefficientStochast.xml",
+                                              "There is a duplicate key sequence 'afvoercoefficient' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
+                    .SetName("invalidMultipleDrainCoefficientStochast");
+
+                yield return new TestCaseData("invalidCalculationEvaluationLevelEmpty.xml",
+                                              "The 'analysehoogte' element is invalid - The value '' is invalid according to its datatype 'Double'")
+                    .SetName("invalidCalculationEvaluationLevelEmpty");
+                yield return new TestCaseData("invalidCalculationEvaluationLevelNoDouble.xml",
+                                              "The 'analysehoogte' element is invalid - The value 'nul' is invalid according to its datatype 'Double'")
+                    .SetName("invalidCalculationEvaluationLevelNoDouble");
+                yield return new TestCaseData("invalidCalculationEvaluationLevelDuplicate.xml",
+                                              "Element 'analysehoogte' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidCalculationEvaluationLevelDuplicate");
+
+                yield return new TestCaseData("invalidCalculationFactorStormDurationOpenStructureEmpty.xml",
+                                              "The 'factorstormduur' element is invalid - The value '' is invalid according to its datatype 'Double'")
+                    .SetName("invalidCalculationFactorStormDurationOpenStructureEmpty");
+                yield return new TestCaseData("invalidCalculationFactorStormDurationOpenStructureNoDouble.xml",
+                                              "The 'factorstormduur' element is invalid - The value 'nul' is invalid according to its datatype 'Double'")
+                    .SetName("invalidCalculationFactorStormDurationOpenStructureNoDouble");
+                yield return new TestCaseData("invalidCalculationFactorStormDurationOpenStructureDuplicate.xml",
+                                              "Element 'factorstormduur' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidCalculationFactorStormDurationOpenStructureDuplicate");
+
+                yield return new TestCaseData("invalidCalculationFailureProbabilityRepairClosureEmpty.xml",
+                                              "The 'faalkansherstel' element is invalid - The value '' is invalid according to its datatype 'Double'")
+                    .SetName("invalidCalculationFailureProbabilityRepairClosureEmpty");
+                yield return new TestCaseData("invalidCalculationFailureProbabilityRepairClosureNoDouble.xml",
+                                              "The 'faalkansherstel' element is invalid - The value 'nul' is invalid according to its datatype 'Double'")
+                    .SetName("invalidCalculationFailureProbabilityRepairClosureNoDouble");
+                yield return new TestCaseData("invalidCalculationFailureProbabilityRepairClosureDuplicate.xml",
+                                              "Element 'faalkansherstel' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidCalculationFailureProbabilityRepairClosureDuplicate");
+
                 yield return new TestCaseData("invalidCalculationFailureProbabilityStructureWithErosionEmpty.xml",
                                               "The 'faalkansgegevenerosiebodem' element is invalid - The value '' is invalid according to its datatype 'Double'")
                     .SetName("invalidCalculationFailureProbabilityStructureWithErosionEmpty");
                 yield return new TestCaseData("invalidCalculationFailureProbabilityStructureWithErosionNoDouble.xml",
                                               "The 'faalkansgegevenerosiebodem' element is invalid - The value 'nul' is invalid according to its datatype 'Double'")
                     .SetName("invalidCalculationFailureProbabilityStructureWithErosionNoDouble");
-                yield return new TestCaseData("invalidCalculationFailureProbabilityStructureWithErosionWrongCulture.xml",
-                                              "The 'faalkansgegevenerosiebodem' element is invalid - The value '0,5' is invalid according to its datatype 'Double'")
-                    .SetName("invalidCalculationFailureProbabilityStructureWithErosionWrongCulture");
+                yield return new TestCaseData("invalidCalculationFailureProbabilityStructureWithErosionDuplicate.xml",
+                                              "Element 'faalkansgegevenerosiebodem' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidCalculationFailureProbabilityStructureWithErosionDuplicate");
+
+                yield return new TestCaseData("invalidMultipleFlowVelocityStructureClosableStochast.xml",
+                                              "There is a duplicate key sequence 'kritiekestroomsnelheid' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
+                    .SetName("invalidMultipleFlowVelocityStructureClosableStochast");
+
+                yield return new TestCaseData("invalidMultipleFlowWidthAtBottomProtectionStochast.xml",
+                                              "There is a duplicate key sequence 'breedtebodembescherming' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
+                    .SetName("invalidMultipleFlowWidthAtBottomProtectionStochast");
 
                 yield return new TestCaseData("invalidCalculationForeshoreProfileEmpty.xml",
                                               "The 'voorlandprofiel' element is invalid - The value '' is invalid according to its datatype 'String'")
                     .SetName("invalidCalculationForeshoreProfileEmpty");
+                yield return new TestCaseData("invalidCalculationMultipleForeshoreProfile.xml",
+                                              "Element 'voorlandprofiel' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidCalculationMultipleForeshoreProfile");
 
                 yield return new TestCaseData("invalidCalculationHydraulicBoundaryLocationEmpty.xml",
                                               "The 'hrlocatie' element is invalid - The value '' is invalid according to its datatype 'String'")
                     .SetName("invalidCalculationHydraulicBoundaryLocationEmpty");
-
-                yield return new TestCaseData("invalidCalculationMultipleFailureProbabilityStructureWithErosion.xml",
-                                              "Element 'faalkansgegevenerosiebodem' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidCalculationMultipleFailureProbabilityStructureWithErosion");
-                yield return new TestCaseData("invalidCalculationMultipleForeshoreProfile.xml",
-                                              "Element 'voorlandprofiel' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidCalculationMultipleForeshoreProfile");
                 yield return new TestCaseData("invalidCalculationMultipleHydraulicBoundaryLocation.xml",
                                               "Element 'hrlocatie' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleHydraulicBoundaryLocation");
-                yield return new TestCaseData("invalidCalculationMultipleOrientation.xml",
-                                              "Element 'orientatie' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidCalculationMultipleOrientation");
-                yield return new TestCaseData("invalidCalculationMultipleStructure.xml",
-                                              "Element 'kunstwerk' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidCalculationMultipleStructure");
-
-                yield return new TestCaseData("invalidCalculationMultipleFactorStormDurationOpenStructure.xml",
-                                              "Element 'factorstormduur' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidCalculationMultipleFactorStormDurationOpenStructure");
-                yield return new TestCaseData("invalidCalculationMultipleInflowModelTypes.xml",
-                                              "Element 'instroommodel' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidCalculationMultipleInflowModelTypes");
-
-                yield return new TestCaseData("invalidCalculationOrientationEmpty.xml",
-                                              "The 'orientatie' element is invalid - The value '' is invalid according to its datatype 'Double'")
-                    .SetName("invalidCalculationOrientationEmpty");
-                yield return new TestCaseData("invalidCalculationOrientationNoDouble.xml",
-                                              "The 'orientatie' element is invalid - The value 'nul' is invalid according to its datatype 'Double'")
-                    .SetName("invalidCalculationOrientationNoDouble");
-                yield return new TestCaseData("invalidCalculationOrientationWrongCulture.xml",
-                                              "The 'orientatie' element is invalid - The value '0,5' is invalid according to its datatype 'Double'")
-                    .SetName("invalidCalculationOrientationWrongCulture");
-
-                yield return new TestCaseData("invalidCalculationStructureEmpty.xml",
-                                              "The 'kunstwerk' element is invalid - The value '' is invalid according to its datatype 'String'")
-                    .SetName("invalidCalculationStructureEmpty");
 
                 yield return new TestCaseData("invalidCalculationInflowModelTypeEmpty.xml",
                                               "The 'instroommodel' element is invalid - The value '' is invalid according to its datatype 'String' - The Enumeration constraint failed.")
@@ -103,84 +138,117 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Readers
                 yield return new TestCaseData("invalidCalculationInflowModelTypeUnsupportedString.xml",
                                               "The 'instroommodel' element is invalid - The value 'invalid' is invalid according to its datatype 'String' - The Enumeration constraint failed.")
                     .SetName("invalidCalculationInflowModelTypeUnsupportedString");
+                yield return new TestCaseData("invalidCalculationMultipleInflowModelTypes.xml",
+                                              "Element 'instroommodel' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidCalculationMultipleInflowModelTypes");
 
-                yield return new TestCaseData("invalidStochastNoName.xml",
-                                              "The required attribute 'naam' is missing.")
-                    .SetName("invalidStochastNoName");
-                yield return new TestCaseData("invalidStochastUnknownName.xml",
-                                              "The 'naam' attribute is invalid - The value 'Test' is invalid according to its datatype 'nameType' - The Enumeration constraint failed.")
-                    .SetName("invalidStochastUnknownName");
-                yield return new TestCaseData("invalidStochastMultipleMean.xml",
-                                              "Element 'verwachtingswaarde' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidStochastMultipleMean");
-                yield return new TestCaseData("invalidStochastMultipleStandardDeviation.xml",
-                                              "Element 'standaardafwijking' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidStochastMultipleStandardDeviation");
-                yield return new TestCaseData("invalidStochastMultipleVariationCoefficient.xml",
-                                              "Element 'variatiecoefficient' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidStochastMultipleVariationCoefficient");
-                yield return new TestCaseData("invalidStochastMeanEmpty.xml",
-                                              "The 'verwachtingswaarde' element is invalid - The value '' is invalid according to its datatype 'Double'")
-                    .SetName("invalidStochastMeanEmpty");
-                yield return new TestCaseData("invalidStochastMeanNoDouble.xml",
-                                              "The 'verwachtingswaarde' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
-                    .SetName("invalidStochastMeanNoDouble");
-                yield return new TestCaseData("invalidStochastMeanWrongCulture.xml",
-                                              "The 'verwachtingswaarde' element is invalid - The value '1,2' is invalid according to its datatype 'Double'")
-                    .SetName("invalidStochastMeanWrongCulture");
-                yield return new TestCaseData("invalidStochastStandardDeviationEmpty.xml",
-                                              "The 'standaardafwijking' element is invalid - The value '' is invalid according to its datatype 'Double'")
-                    .SetName("invalidStochastStandardDeviationEmpty");
-                yield return new TestCaseData("invalidStochastStandardDeviationNoDouble.xml",
-                                              "The 'standaardafwijking' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
-                    .SetName("invalidStochastStandardDeviationNoDouble");
-                yield return new TestCaseData("invalidStochastStandardDeviationWrongCulture.xml",
-                                              "The 'standaardafwijking' element is invalid - The value '1,2' is invalid according to its datatype 'Double'")
-                    .SetName("invalidStochastStandardDeviationWrongCulture");
-                yield return new TestCaseData("invalidStochastVariationCoefficientEmpty.xml",
-                                              "The 'variatiecoefficient' element is invalid - The value '' is invalid according to its datatype 'Double'")
-                    .SetName("invalidStochastVariationCoefficientEmpty");
-                yield return new TestCaseData("invalidStochastVariationCoefficientNoDouble.xml",
-                                              "The 'variatiecoefficient' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
-                    .SetName("invalidStochastVariationCoefficientNoDouble");
-                yield return new TestCaseData("invalidStochastVariationCoefficientWrongCulture.xml",
-                                              "The 'variatiecoefficient' element is invalid - The value '1,2' is invalid according to its datatype 'Double'")
-                    .SetName("invalidStochastVariationCoefficientWrongCulture");
-
-                yield return new TestCaseData("invalidMultipleAllowedLevelIncreaseStochast.xml",
-                                              "There is a duplicate key sequence 'peilverhogingkomberging' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
-                    .SetName("invalidMultipleAllowedLevelIncreaseStochast");
-                yield return new TestCaseData("invalidMultipleCriticalOvertoppingDischargeStochast.xml",
-                                              "There is a duplicate key sequence 'kritiekinstromenddebiet' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
-                    .SetName("invalidMultipleCriticalOvertoppingDischargeStochast");
-                yield return new TestCaseData("invalidMultipleFlowWidthAtBottomProtectionStochast.xml",
-                                              "There is a duplicate key sequence 'breedtebodembescherming' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
-                    .SetName("invalidMultipleFlowWidthAtBottomProtectionStochast");
-                yield return new TestCaseData("invalidMultipleModelFactorSuperCriticalFlowStochast.xml",
-                                              "There is a duplicate key sequence 'modelfactoroverloopdebiet' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
-                    .SetName("invalidMultipleModelFactorSuperCriticalFlowStochast");
-                yield return new TestCaseData("invalidMultipleStorageStructureAreaStochast.xml",
-                                              "There is a duplicate key sequence 'kombergendoppervlak' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
-                    .SetName("invalidMultipleStorageStructureAreaStochast");
-                yield return new TestCaseData("invalidMultipleStormDurationStochast.xml",
-                                              "There is a duplicate key sequence 'stormduur' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
-                    .SetName("invalidMultipleStormDurationStochast");
-                yield return new TestCaseData("invalidMultipleWidthFlowAperturesStochast.xml",
-                                              "There is a duplicate key sequence 'breedtedoorstroomopening' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
-                    .SetName("invalidMultipleWidthFlowAperturesStochast");
-
-                yield return new TestCaseData("invalidMultipleAreaFlowAperturesStochast.xml",
-                                              "There is a duplicate key sequence 'doorstroomoppervlak' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
-                    .SetName("invalidMultipleAreaFlowAperturesStochast");
-                yield return new TestCaseData("invalidMultipleDrainCoefficientStochast.xml",
-                                              "There is a duplicate key sequence 'afvoercoefficient' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
-                    .SetName("invalidMultipleDrainCoefficientStochast");
                 yield return new TestCaseData("invalidMultipleInsideWaterLevelStochast.xml",
                                               "There is a duplicate key sequence 'binnenwaterstand' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
                     .SetName("invalidMultipleInsideWaterLevelStochast");
+
+                yield return new TestCaseData("invalidMultipleInsideWaterLevelFailureConstructionStochast.xml",
+                                              "There is a duplicate key sequence 'binnenwaterstandbijfalen' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
+                    .SetName("invalidMultipleInsideWaterLevelFailureConstructionStochast");
+
+                yield return new TestCaseData("invalidMultipleLevelCrestStructureStochast.xml",
+                                              "There is a duplicate key sequence 'kerendehoogte' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
+                    .SetName("invalidMultipleLevelCrestStructureStochast");
+
+                yield return new TestCaseData("invalidCalculationLevellingCountEmpty.xml",
+                                              "The 'nrnivelleringen' element is invalid - The value '' is invalid according to its datatype 'Integer'")
+                    .SetName("invalidCalculationLevellingCountEmpty");
+                yield return new TestCaseData("invalidCalculationLevellingCountNoInteger.xml",
+                                              "The 'nrnivelleringen' element is invalid - The value 'nul' is invalid according to its datatype 'Integer'")
+                    .SetName("invalidCalculationLevellingCountNoDouble");
+                yield return new TestCaseData("invalidCalculationLevellingCountDuplicate.xml",
+                                              "Element 'nrnivelleringen' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidCalculationLevellingCountDuplicate");
+
+                yield return new TestCaseData("invalidCalculationLoadSchematizationTypeEmpty.xml",
+                                              "The 'belastingschematisering' element is invalid - The value '' is invalid according to its datatype 'String' - The Enumeration constraint failed.")
+                    .SetName("invalidCalculationLoadSchematizationTypeEmpty");
+                yield return new TestCaseData("invalidCalculationLoadSchematizationTypeUnsupportedString.xml",
+                                              "The 'belastingschematisering' element is invalid - The value 'invalid' is invalid according to its datatype 'String' - The Enumeration constraint failed.")
+                    .SetName("invalidCalculationLoadSchematizationTypeUnsupportedString");
+
+                yield return new TestCaseData("invalidCalculationProbabilityCollisionSecondaryStructureEmpty.xml",
+                                              "The 'kansaanvaringtweedekeermiddel' element is invalid - The value '' is invalid according to its datatype 'Double'")
+                    .SetName("invalidCalculationProbabilityCollisionSecondaryStructureEmpty");
+                yield return new TestCaseData("invalidCalculationProbabilityCollisionSecondaryStructureNoDouble.xml",
+                                              "The 'kansaanvaringtweedekeermiddel' element is invalid - The value 'nul' is invalid according to its datatype 'Double'")
+                    .SetName("invalidCalculationProbabilityCollisionSecondaryStructureNoDouble");
+                yield return new TestCaseData("invalidCalculationProbabilityCollisionSecondaryStructureDuplicate.xml",
+                                              "Element 'kansaanvaringtweedekeermiddel' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidCalculationProbabilityCollisionSecondaryStructureDuplicate");
+
+                yield return new TestCaseData("invalidMultipleModelFactorSuperCriticalFlowStochast.xml",
+                                              "There is a duplicate key sequence 'modelfactoroverloopdebiet' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
+                    .SetName("invalidMultipleModelFactorSuperCriticalFlowStochast");
+
+                yield return new TestCaseData("invalidMultipleShipMassStochast.xml",
+                                              "There is a duplicate key sequence 'massaschip' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
+                    .SetName("invalidMultipleShipMassStochast");
+
+                yield return new TestCaseData("invalidMultipleShipVelocityStochast.xml",
+                                              "There is a duplicate key sequence 'aanvaarsnelheid' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
+                    .SetName("invalidMultipleShipVelocityStochast");
+
+                yield return new TestCaseData("invalidMultipleStabilityLinearLoadModelStochast.xml",
+                                              "There is a duplicate key sequence 'lineairebelastingschematiseringstabiliteit' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
+                    .SetName("invalidMultipleStabilityLinearLoadModelStochast");
+
+                yield return new TestCaseData("invalidMultipleStabilityQuadraticLoadModelStochast.xml",
+                                              "There is a duplicate key sequence 'kwadratischebelastingschematiseringstabiliteit' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
+                    .SetName("invalidMultipleStabilityQuadraticLoadModelStochast");
+
+                yield return new TestCaseData("invalidCalculationStructureEmpty.xml",
+                                              "The 'kunstwerk' element is invalid - The value '' is invalid according to its datatype 'String'")
+                    .SetName("invalidCalculationStructureEmpty");
+                yield return new TestCaseData("invalidCalculationMultipleStructure.xml",
+                                              "Element 'kunstwerk' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidCalculationMultipleStructure");
+
+                yield return new TestCaseData("invalidMultipleStorageStructureAreaStochast.xml",
+                                              "There is a duplicate key sequence 'kombergendoppervlak' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
+                    .SetName("invalidMultipleStorageStructureAreaStochast");
+
+                yield return new TestCaseData("invalidMultipleStormDurationStochast.xml",
+                                              "There is a duplicate key sequence 'stormduur' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
+                    .SetName("invalidMultipleStormDurationStochast");
+
+                yield return new TestCaseData("invalidCalculationOrientationEmpty.xml",
+                                              "The 'orientatie' element is invalid - The value '' is invalid according to its datatype 'Double'")
+                    .SetName("invalidCalculationStructureNormalOrientationEmpty");
+                yield return new TestCaseData("invalidCalculationOrientationNoDouble.xml",
+                                              "The 'orientatie' element is invalid - The value 'nul' is invalid according to its datatype 'Double'")
+                    .SetName("invalidCalculationStructureNormalOrientationNoDouble");
+                yield return new TestCaseData("invalidCalculationMultipleOrientation.xml",
+                                              "Element 'orientatie' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidCalculationMultipleStructureNormalOrientation");
+
                 yield return new TestCaseData("invalidMultipleThresholdHeightOpenWeirStochast.xml",
                                               "There is a duplicate key sequence 'drempelhoogte' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
                     .SetName("invalidMultipleThresholdHeightOpenWeirStochast");
+
+                yield return new TestCaseData("invalidCalculationVerticalDistanceEmpty.xml",
+                                              "The 'afstandonderkantwandteendijk' element is invalid - The value '' is invalid according to its datatype 'Double'")
+                    .SetName("invalidCalculationVerticalDistanceEmpty");
+                yield return new TestCaseData("invalidCalculationVerticalDistanceNoDouble.xml",
+                                              "The 'afstandonderkantwandteendijk' element is invalid - The value 'nul' is invalid according to its datatype 'Double'")
+                    .SetName("invalidCalculationVerticalDistanceNoDouble");
+                yield return new TestCaseData("invalidCalculationVerticalDistanceDuplicate.xml",
+                                              "Element 'afstandonderkantwandteendijk' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidCalculationVerticalDistanceDuplicate");
+
+                yield return new TestCaseData("invalidCalculationVolumicWeightWaterEmpty.xml",
+                                              "The 'volumiekgewichtwater' element is invalid - The value '' is invalid according to its datatype 'Double'")
+                    .SetName("invalidCalculationVolumicWeightWaterEmpty");
+                yield return new TestCaseData("invalidCalculationVolumicWeightWaterNoDouble.xml",
+                                              "The 'volumiekgewichtwater' element is invalid - The value 'nul' is invalid according to its datatype 'Double'")
+                    .SetName("invalidCalculationVolumicWeightWaterNoDouble");
+                yield return new TestCaseData("invalidCalculationVolumicWeightWaterDuplicate.xml",
+                                              "Element 'volumiekgewichtwater' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidCalculationVolumicWeightWaterDuplicate");
 
                 yield return new TestCaseData("invalidUseBreakWaterEmpty.xml",
                                               "The 'damgebruiken' element is invalid - The value '' is invalid according to its datatype 'Boolean'")
@@ -208,9 +276,6 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Readers
                 yield return new TestCaseData("invalidBreakWaterHeightNoDouble.xml",
                                               "The 'damhoogte' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
                     .SetName("invalidBreakWaterHeightNoDouble");
-                yield return new TestCaseData("invalidBreakWaterHeightWrongCulture.xml",
-                                              "The 'damhoogte' element is invalid - The value '1,2' is invalid according to its datatype 'Double'")
-                    .SetName("invalidBreakWaterHeightWrongCulture");
                 yield return new TestCaseData("invalidMultipleBreakWaterHeights.xml",
                                               "Element 'damhoogte' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidMultipleBreakWaterHeights");
@@ -224,6 +289,48 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Readers
                 yield return new TestCaseData("invalidMultipleUseForeshore.xml",
                                               "Element 'voorlandgebruiken' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidMultipleUseForeshores");
+
+                yield return new TestCaseData("invalidMultipleWidthFlowAperturesStochast.xml",
+                                              "There is a duplicate key sequence 'breedtedoorstroomopening' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
+                    .SetName("invalidMultipleWidthFlowAperturesStochast");
+
+                yield return new TestCaseData("invalidStochastNoName.xml",
+                                              "The required attribute 'naam' is missing.")
+                    .SetName("invalidStochastNoName");
+
+                yield return new TestCaseData("invalidStochastUnknownName.xml",
+                                              "The 'naam' attribute is invalid - The value 'Test' is invalid according to its datatype 'nameType' - The Enumeration constraint failed.")
+                    .SetName("invalidStochastUnknownName");
+
+                yield return new TestCaseData("invalidStochastMultipleMean.xml",
+                                              "Element 'verwachtingswaarde' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidStochastMultipleMean");
+                yield return new TestCaseData("invalidStochastMeanNoDouble.xml",
+                                              "The 'verwachtingswaarde' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
+                    .SetName("invalidStochastMeanNoDouble");
+                yield return new TestCaseData("invalidStochastMeanEmpty.xml",
+                                              "The 'verwachtingswaarde' element is invalid - The value '' is invalid according to its datatype 'Double'")
+                    .SetName("invalidStochastMeanEmpty");
+
+                yield return new TestCaseData("invalidStochastStandardDeviationEmpty.xml",
+                                              "The 'standaardafwijking' element is invalid - The value '' is invalid according to its datatype 'Double'")
+                    .SetName("invalidStochastStandardDeviationEmpty");
+                yield return new TestCaseData("invalidStochastStandardDeviationNoDouble.xml",
+                                              "The 'standaardafwijking' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
+                    .SetName("invalidStochastStandardDeviationNoDouble");
+                yield return new TestCaseData("invalidStochastMultipleStandardDeviation.xml",
+                                              "Element 'standaardafwijking' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidStochastMultipleStandardDeviation");
+
+                yield return new TestCaseData("invalidStochastVariationCoefficientEmpty.xml",
+                                              "The 'variatiecoefficient' element is invalid - The value '' is invalid according to its datatype 'Double'")
+                    .SetName("invalidStochastVariationCoefficientEmpty");
+                yield return new TestCaseData("invalidStochastVariationCoefficientNoDouble.xml",
+                                              "The 'variatiecoefficient' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
+                    .SetName("invalidStochastVariationCoefficientNoDouble");
+                yield return new TestCaseData("invalidStochastMultipleVariationCoefficient.xml",
+                                              "Element 'variatiecoefficient' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidStochastMultipleVariationCoefficient");
             }
         }
 
@@ -258,6 +365,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Readers
 
         [Test]
         [TestCase("validFullConfiguration")]
+        [TestCase("validFullConfiguration_differentOrder")]
         public void Read_ValidFullConfigurations_ExpectedValues(string fileName)
         {
             // Setup
