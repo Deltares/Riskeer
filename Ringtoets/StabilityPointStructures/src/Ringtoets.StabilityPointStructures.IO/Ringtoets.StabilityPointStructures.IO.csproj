@@ -58,7 +58,7 @@
     <Compile Include="Configurations\StabilityPointStructuresCalculationConfigurationReader.cs" />
     <Compile Include="Configurations\StabilityPointStructuresCalculationConfigurationWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Configurations\StabilityPointStructuresImporter.cs" />
+    <Compile Include="StabilityPointStructuresImporter.cs" />
     <Compile Include="Configurations\StabilityPointStructuresCalculationConfiguration.cs" />
     <Compile Include="Configurations\StabilityPointStructuresConfigurationSchemaIdentifiers.cs" />
   </ItemGroup>

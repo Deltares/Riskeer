@@ -54,7 +54,7 @@
     <Compile Include="Configurations\StabilityPointStructuresCalculationConfigurationReaderTest.cs" />
     <Compile Include="Configurations\StabilityPointStructuresCalculationConfigurationWriterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Configurations\StabilityPointStructuresImporterTest.cs" />
+    <Compile Include="StabilityPointStructuresImporterTest.cs" />
     <Compile Include="Configurations\StabilityPointStructuresCalculationConfigurationTest.cs" />
     <Compile Include="Configurations\StabilityPointStructuresConfigurationSchemaIdentifiersTest.cs" />
   </ItemGroup>
