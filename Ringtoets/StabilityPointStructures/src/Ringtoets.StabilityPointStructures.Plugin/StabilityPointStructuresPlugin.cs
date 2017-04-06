@@ -565,7 +565,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                 if (dialog.SelectedItems.Any())
                 {
                     GenerateStabilityPointStructuresCalculations(
-                        nodeData.FailureMechanism.SectionResults,
+                        nodeData.FailureMechanism,
                         dialog.SelectedItems.Cast<StabilityPointStructure>(),
                         nodeData.WrappedData.Children);
                     nodeData.NotifyObservers();
@@ -573,7 +573,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             }
         }
 
-        private static void GenerateStabilityPointStructuresCalculations(IEnumerable<StabilityPointStructuresFailureMechanismSectionResult> sectionResults, IEnumerable<StabilityPointStructure> structures, IList<ICalculationBase> calculations)
+        private static void GenerateStabilityPointStructuresCalculations(StabilityPointStructuresFailureMechanism failureMechanism, IEnumerable<StabilityPointStructure> structures, IList<ICalculationBase> calculations)
         {
             foreach (StabilityPointStructure structure in structures)
             {
@@ -588,8 +588,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                 calculations.Add(calculation);
             }
             StructuresHelper.UpdateCalculationToSectionResultAssignments(
-                sectionResults,
-                calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>());
+                failureMechanism.SectionResults,
+                failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>());
         }
 
         private static void CalculationGroupContextOnNodeRemoved(StabilityPointStructuresCalculationGroupContext context, object parentNodeData)

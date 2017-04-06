@@ -544,7 +544,7 @@ namespace Ringtoets.ClosingStructures.Plugin
                 if (dialog.SelectedItems.Any())
                 {
                     GenerateClosingStructuresCalculations(
-                        nodeData.FailureMechanism.SectionResults,
+                        nodeData.FailureMechanism,
                         dialog.SelectedItems.Cast<ClosingStructure>(),
                         nodeData.WrappedData.Children);
                     nodeData.NotifyObservers();
@@ -552,7 +552,7 @@ namespace Ringtoets.ClosingStructures.Plugin
             }
         }
 
-        private static void GenerateClosingStructuresCalculations(IEnumerable<ClosingStructuresFailureMechanismSectionResult> sectionResults, IEnumerable<ClosingStructure> structures, IList<ICalculationBase> calculations)
+        private static void GenerateClosingStructuresCalculations(ClosingStructuresFailureMechanism failureMechanism, IEnumerable<ClosingStructure> structures, IList<ICalculationBase> calculations)
         {
             foreach (var structure in structures)
             {
@@ -566,7 +566,9 @@ namespace Ringtoets.ClosingStructures.Plugin
                 };
                 calculations.Add(calculation);
             }
-            StructuresHelper.UpdateCalculationToSectionResultAssignments(sectionResults, calculations.Cast<StructuresCalculation<ClosingStructuresInput>>());
+            StructuresHelper.UpdateCalculationToSectionResultAssignments(
+                failureMechanism.SectionResults,
+                failureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>());
         }
 
         private static void ValidateAll(ClosingStructuresCalculationGroupContext context)

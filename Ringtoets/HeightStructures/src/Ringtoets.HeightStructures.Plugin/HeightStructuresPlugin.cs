@@ -569,7 +569,7 @@ namespace Ringtoets.HeightStructures.Plugin
                 if (dialog.SelectedItems.Any())
                 {
                     GenerateHeightStructuresCalculations(
-                        nodeData.FailureMechanism.SectionResults,
+                        nodeData.FailureMechanism,
                         dialog.SelectedItems.Cast<HeightStructure>(),
                         nodeData.WrappedData.Children);
                     nodeData.NotifyObservers();
@@ -577,7 +577,7 @@ namespace Ringtoets.HeightStructures.Plugin
             }
         }
 
-        private static void GenerateHeightStructuresCalculations(IEnumerable<HeightStructuresFailureMechanismSectionResult> sectionResults, IEnumerable<HeightStructure> structures, IList<ICalculationBase> calculations)
+        private static void GenerateHeightStructuresCalculations(HeightStructuresFailureMechanism failureMechanism, IEnumerable<HeightStructure> structures, IList<ICalculationBase> calculations)
         {
             foreach (var structure in structures)
             {
@@ -592,8 +592,8 @@ namespace Ringtoets.HeightStructures.Plugin
                 calculations.Add(calculation);
             }
             StructuresHelper.UpdateCalculationToSectionResultAssignments(
-                sectionResults,
-                calculations.Cast<StructuresCalculation<HeightStructuresInput>>());
+                failureMechanism.SectionResults,
+                failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>());
         }
 
         private static void CalculationGroupContextOnNodeRemoved(HeightStructuresCalculationGroupContext context, object parentNodeData)
