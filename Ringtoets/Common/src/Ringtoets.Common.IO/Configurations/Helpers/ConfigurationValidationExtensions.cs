@@ -62,9 +62,9 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
                     return false;
                 }
             }
-            else if (!foreshoreProfile.Geometry.Any() && waveReduction.UseForeshoreProfile == true)
+            else if (!foreshoreProfile.Geometry.Any() && waveReduction?.UseForeshoreProfile == true)
             {
-                log.LogCalculationConversionError(String.Format(
+                log.LogCalculationConversionError(string.Format(
                                                       Resources.ReadForeshoreProfile_ForeshoreProfile_0_has_no_geometry_and_cannot_be_used,
                                                       foreshoreProfile.Name),
                                                   calculationName);

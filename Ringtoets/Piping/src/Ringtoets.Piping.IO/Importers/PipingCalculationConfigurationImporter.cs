@@ -108,23 +108,20 @@ namespace Ringtoets.Piping.IO.Importers
         /// set which is not available in <see cref="availableHydraulicBoundaryLocations"/>, <c>true</c> otherwise.</returns>
         private bool TryReadHydraulicBoundaryData(ReadPipingCalculation readCalculation, PipingCalculationScenario pipingCalculation)
         {
-            if (readCalculation.HydraulicBoundaryLocation != null)
+            HydraulicBoundaryLocation location;
+
+            bool locationRead = TryReadHydraulicBoundaryLocation(readCalculation.HydraulicBoundaryLocation, readCalculation.Name, availableHydraulicBoundaryLocations, out location);
+
+            if (!locationRead)
             {
-                HydraulicBoundaryLocation location = availableHydraulicBoundaryLocations
-                    .FirstOrDefault(l => l.Name == readCalculation.HydraulicBoundaryLocation);
+                return false;
+            }
 
-                if (location == null)
-                {
-                    Log.LogCalculationConversionError(string.Format(
-                              RingtoetsCommonIOResources.CalculationConfigurationImporter_ReadHydraulicBoundaryLocation_HydraulicBoundaryLocation_0_does_not_exist,
-                              readCalculation.HydraulicBoundaryLocation),
-                          pipingCalculation.Name);
-                    return false;
-                }
-
+            if (location != null)
+            {
                 pipingCalculation.InputParameters.HydraulicBoundaryLocation = location;
             }
-            else if (readCalculation.AssessmentLevel.HasValue)
+            else if(readCalculation.AssessmentLevel.HasValue)
             {
                 pipingCalculation.InputParameters.UseAssessmentLevelManualInput = true;
                 pipingCalculation.InputParameters.AssessmentLevel = (RoundedDouble) readCalculation.AssessmentLevel.Value;

@@ -86,8 +86,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
             ReadDikeHeightCalculationType(readCalculation, calculation);
 
             if (TryReadCriticalWaveReduction(readCalculation, calculation)
-                && TryReadHydraulicBoundaryLocation(readCalculation, calculation)
-                && TryReadDikeProfile(readCalculation, calculation)
+                && TryReadHydraulicBoundaryLocation(readCalculation.HydraulicBoundaryLocation, calculation)
+                && TryReadDikeProfile(readCalculation.DikeProfile, calculation)
                 && TryReadOrientation(readCalculation, calculation)
                 && TryReadWaveReduction(readCalculation, calculation)
                 && TryReadDikeHeight(readCalculation, calculation))
@@ -97,54 +97,30 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
             return null;
         }
 
-        /// <summary>
-        /// Reads the hydraulic boundary location.
-        /// </summary>
-        /// <param name="readCalculation">The calculation read from the imported file.</param>
-        /// <param name="calculation">The calculation to configure.</param>
-        /// <returns><c>false</c> when the <paramref name="readCalculation"/> has a <see cref="HydraulicBoundaryLocation"/>
-        /// set which is not available in <see cref="availableHydraulicBoundaryLocations"/>, <c>true</c> otherwise.</returns>
-        private bool TryReadHydraulicBoundaryLocation(ReadGrassCoverErosionInwardsCalculation readCalculation, GrassCoverErosionInwardsCalculation calculation)
+        private bool TryReadHydraulicBoundaryLocation(string locationName, GrassCoverErosionInwardsCalculation calculation)
         {
-            if (readCalculation.HydraulicBoundaryLocation != null)
+            HydraulicBoundaryLocation location;
+
+            if (TryReadHydraulicBoundaryLocation(locationName, calculation.Name, availableHydraulicBoundaryLocations, out location))
             {
-                HydraulicBoundaryLocation location = availableHydraulicBoundaryLocations
-                    .FirstOrDefault(l => l.Name == readCalculation.HydraulicBoundaryLocation);
-
-                if (location == null)
-                {
-                    Log.LogCalculationConversionError(string.Format(
-                              RingtoetsCommonIOResources.CalculationConfigurationImporter_ReadHydraulicBoundaryLocation_HydraulicBoundaryLocation_0_does_not_exist,
-                              readCalculation.HydraulicBoundaryLocation),
-                          calculation.Name);
-
-                    return false;
-                }
-
                 calculation.InputParameters.HydraulicBoundaryLocation = location;
+                return true;
             }
 
-            return true;
+            return false;
         }
 
-        /// <summary>
-        /// Reads the dike profile.
-        /// </summary>
-        /// <param name="readCalculation">The calculation read from the imported file.</param>
-        /// <param name="calculation">The calculation to configure.</param>
-        /// <returns><c>false</c> when the <paramref name="readCalculation"/> has a <see cref="ForeshoreProfile"/> 
-        /// set which is not available in <see cref="availableDikeProfiles"/>, <c>true</c> otherwise.</returns>
-        private bool TryReadDikeProfile(ReadGrassCoverErosionInwardsCalculation readCalculation, GrassCoverErosionInwardsCalculation calculation)
+        private bool TryReadDikeProfile(string dikeProfileName, GrassCoverErosionInwardsCalculation calculation)
         {
-            if (readCalculation.DikeProfile != null)
+            if (dikeProfileName != null)
             {
-                DikeProfile dikeProfile = availableDikeProfiles.FirstOrDefault(fp => fp.Name == readCalculation.DikeProfile);
+                DikeProfile dikeProfile = availableDikeProfiles.FirstOrDefault(fp => fp.Name == dikeProfileName);
 
                 if (dikeProfile == null)
                 {
                     Log.LogCalculationConversionError(string.Format(
                               Resources.GrassCoverErosionInwardsCalculationConfigurationImporter_ReadDikeProfile_DikeProfile_0_does_not_exist,
-                              readCalculation.DikeProfile),
+                              dikeProfileName),
                           calculation.Name);
 
                     return false;

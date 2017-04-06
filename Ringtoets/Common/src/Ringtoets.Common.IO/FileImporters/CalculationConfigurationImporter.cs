@@ -136,7 +136,11 @@ namespace Ringtoets.Common.IO.FileImporters
         /// the name <paramref name="locationName"/> was found, <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationName"/>
         ///  or <paramref name="hydraulicBoundaryLocations"/> is <c>null</c>.</exception>
-        protected bool TryReadHydraulicBoundaryLocation(string locationName, string calculationName, IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations, out HydraulicBoundaryLocation foundLocation)
+        protected bool TryReadHydraulicBoundaryLocation(
+            string locationName,
+            string calculationName,
+            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
+            out HydraulicBoundaryLocation foundLocation)
         {
             if (calculationName == null)
             {
@@ -182,7 +186,11 @@ namespace Ringtoets.Common.IO.FileImporters
         /// the name <paramref name="structureName"/> was found, <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationName"/>
         /// or <paramref name="structures"/> is <c>null</c>.</exception>
-        protected bool TryReadStructure<T>(string structureName, string calculationName, IEnumerable<T> structures, out T foundStructure)
+        protected bool TryReadStructure<T>(
+            string structureName,
+            string calculationName,
+            IEnumerable<T> structures,
+            out T foundStructure)
             where T : StructureBase
         {
             if (calculationName == null)
@@ -227,7 +235,11 @@ namespace Ringtoets.Common.IO.FileImporters
         /// the name <paramref name="foreshoreProfileName"/> was found, <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationName"/>
         /// or <paramref name="foreshoreProfiles"/> is <c>null</c>.</exception>
-        protected bool TryReadForeshoreProfile(string foreshoreProfileName, string calculationName, IEnumerable<ForeshoreProfile> foreshoreProfiles, out ForeshoreProfile foundForeshoreProfile)
+        protected bool TryReadForeshoreProfile(
+            string foreshoreProfileName,
+            string calculationName, 
+            IEnumerable<ForeshoreProfile> foreshoreProfiles,
+            out ForeshoreProfile foundForeshoreProfile)
         {
             if (calculationName == null)
             {
@@ -300,7 +312,7 @@ namespace Ringtoets.Common.IO.FileImporters
         /// <typeparam name="TCalculationInput">The type of the calculation input.</typeparam>
         /// <param name="calculationName">The name of the calculation to configure.</param>
         /// <param name="stochastName">The stochast's name.</param>
-        /// <param name="input"></param>
+        /// <param name="input">The input for which to assign the read stochast.</param>
         /// <param name="stochastConfiguration">The configuration of the stochast.</param>
         /// <param name="getStochast">The function for obtaining the stochast to read.</param>
         /// <param name="setStochast">The function to set the stochast with the read parameters.</param>
@@ -339,7 +351,7 @@ namespace Ringtoets.Common.IO.FileImporters
         /// <typeparam name="TCalculationInput">The type of the calculation input.</typeparam>
         /// <param name="calculationName">The name of the calculation to configure.</param>
         /// <param name="stochastName">The stochast's name.</param>
-        /// <param name="input"></param>
+        /// <param name="input">The input for which to assign the read stochast.</param>
         /// <param name="stochastConfiguration">The configuration of the stochast.</param>
         /// <param name="getStochast">The function for obtaining the stochast to read.</param>
         /// <param name="setStochast">The function to set the stochast with the read parameters.</param>

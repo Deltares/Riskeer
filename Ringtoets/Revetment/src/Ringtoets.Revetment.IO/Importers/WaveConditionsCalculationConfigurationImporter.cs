@@ -45,7 +45,7 @@ namespace Ringtoets.Revetment.IO.Importers
         where T : IWaveConditionsCalculation, new()
     {
         private readonly IEnumerable<HydraulicBoundaryLocation> availableHydraulicBoundaryLocations;
-        private readonly IEnumerable<ForeshoreProfile> foreshoreProfiles;
+        private readonly IEnumerable<ForeshoreProfile> availableForeshoreProfiles;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsCalculationConfigurationImporter{T}"/>.
@@ -73,7 +73,7 @@ namespace Ringtoets.Revetment.IO.Importers
                 throw new ArgumentNullException(nameof(foreshoreProfiles));
             }
             this.availableHydraulicBoundaryLocations = availableHydraulicBoundaryLocations;
-            this.foreshoreProfiles = foreshoreProfiles;
+            this.availableForeshoreProfiles = foreshoreProfiles;
         }
 
         protected override WaveConditionsCalculationConfigurationReader CreateCalculationConfigurationReader(string xmlFilePath)
@@ -90,44 +90,15 @@ namespace Ringtoets.Revetment.IO.Importers
 
             ReadStepSize(readCalculation, waveConditionsCalculation);
 
-            if (TryReadHydraulicBoundaryLocation(readCalculation, waveConditionsCalculation)
+            if (TryReadHydraulicBoundaryLocation(readCalculation.HydraulicBoundaryLocation, waveConditionsCalculation)
                 && TryReadBoundaries(readCalculation, waveConditionsCalculation)
-                && TryReadForeshoreProfile(readCalculation, waveConditionsCalculation)
+                && TryReadForeshoreProfile(readCalculation.ForeshoreProfile, waveConditionsCalculation)
                 && TryReadOrientation(readCalculation, waveConditionsCalculation)
                 && TryReadWaveReduction(readCalculation, waveConditionsCalculation))
             {
                 return waveConditionsCalculation;
             }
             return null;
-        }
-
-        /// <summary>
-        /// Reads the hydraulic boundary location.
-        /// </summary>
-        /// <param name="readCalculation">The calculation read from the imported file.</param>
-        /// <param name="calculation">The calculation to configure.</param>
-        /// <returns><c>false</c> when the <paramref name="readCalculation"/> has a 
-        /// <see cref="HydraulicBoundaryLocation"/> set which is not available in 
-        /// <see cref="availableHydraulicBoundaryLocations"/>, <c>true</c> otherwise.</returns>
-        private bool TryReadHydraulicBoundaryLocation(ReadWaveConditionsCalculation readCalculation, IWaveConditionsCalculation calculation)
-        {
-            if (readCalculation.HydraulicBoundaryLocation != null)
-            {
-                HydraulicBoundaryLocation location = availableHydraulicBoundaryLocations
-                    .FirstOrDefault(l => l.Name == readCalculation.HydraulicBoundaryLocation);
-
-                if (location == null)
-                {
-                    Log.LogCalculationConversionError(string.Format(
-                              RingtoetsCommonIOResources.CalculationConfigurationImporter_ReadHydraulicBoundaryLocation_HydraulicBoundaryLocation_0_does_not_exist,
-                              readCalculation.HydraulicBoundaryLocation),
-                          calculation.Name);
-                    return false;
-                }
-
-                calculation.InputParameters.HydraulicBoundaryLocation = location;
-            }
-            return true;
         }
 
         /// <summary>
@@ -185,32 +156,30 @@ namespace Ringtoets.Revetment.IO.Importers
             }
         }
 
-        /// <summary>
-        /// Reads the foreshore profile.
-        /// </summary>
-        /// <param name="readCalculation">The calculation read from the imported file.</param>
-        /// <param name="calculation">The calculation to configure.</param>
-        /// <returns><c>false</c> when the <paramref name="readCalculation"/> has a
-        /// <see cref="ForeshoreProfile"/> set which is not available in <see cref="foreshoreProfiles"/>,
-        /// <c>true</c> otherwise.</returns>
-        private bool TryReadForeshoreProfile(ReadWaveConditionsCalculation readCalculation, IWaveConditionsCalculation calculation)
+        private bool TryReadHydraulicBoundaryLocation(string locationName, IWaveConditionsCalculation calculation)
         {
-            if (readCalculation.ForeshoreProfile != null)
+            HydraulicBoundaryLocation location;
+
+            if (TryReadHydraulicBoundaryLocation(locationName, calculation.Name, availableHydraulicBoundaryLocations, out location))
             {
-                ForeshoreProfile foreshoreProfile = foreshoreProfiles.FirstOrDefault(fp => fp.Name == readCalculation.ForeshoreProfile);
-
-                if (foreshoreProfile == null)
-                {
-                    Log.LogCalculationConversionError(string.Format(
-                              RingtoetsCommonIOResources.CalculationConfigurationImporter_ReadForeshoreProfile_ForeshoreProfile_0_does_not_exist,
-                              readCalculation.ForeshoreProfile),
-                          calculation.Name);
-                    return false;
-                }
-
-                calculation.InputParameters.ForeshoreProfile = foreshoreProfile;
+                calculation.InputParameters.HydraulicBoundaryLocation = location;
+                return true;
             }
-            return true;
+
+            return false;
+        }
+
+        private bool TryReadForeshoreProfile(string foreshoreProfileName, IWaveConditionsCalculation calculation)
+        {
+            ForeshoreProfile foreshoreProfile;
+
+            if (TryReadForeshoreProfile(foreshoreProfileName, calculation.Name, availableForeshoreProfiles, out foreshoreProfile))
+            {
+                calculation.InputParameters.ForeshoreProfile = foreshoreProfile;
+                return true;
+            }
+
+            return false;
         }
 
         /// <summary>

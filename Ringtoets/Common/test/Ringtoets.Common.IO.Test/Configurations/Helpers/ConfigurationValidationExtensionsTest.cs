@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using log4net;
@@ -132,13 +133,33 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
                     waveReductionConfiguration.UseForeshoreProfile = random.NextBoolean();
                     break;
             }
-            ;
 
             // Call
             bool valid = waveReductionConfiguration.ValidateWaveReduction(null, calculationName, log);
 
             // Assert
             Assert.IsFalse(valid);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ValidateWaveReduction_ForeshoreProfileWithoutGeometryNoWaveReduction_ReturnsTrue()
+        {
+            // Setup
+            const string calculationName = "calculation";
+
+            var mocks = new MockRepository();
+            var log = mocks.StrictMock<ILog>();
+            mocks.ReplayAll();
+
+            // Call
+            bool valid = ((WaveReductionConfiguration) null).ValidateWaveReduction(
+                new TestForeshoreProfile("voorland", Enumerable.Empty<Point2D>()),
+                calculationName, 
+                log);
+
+            // Assert
+            Assert.IsTrue(valid);
             mocks.VerifyAll();
         }
 
