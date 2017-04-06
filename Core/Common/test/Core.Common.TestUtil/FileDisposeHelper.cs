@@ -42,6 +42,7 @@ namespace Core.Common.TestUtil
     /// </example>
     public class FileDisposeHelper : IDisposable
     {
+        private const int numberOfAdditionalDeleteAttempts = 3;
         private readonly Dictionary<string, FileStream> filePathStreams;
         private bool disposed;
 
@@ -115,7 +116,7 @@ namespace Core.Common.TestUtil
                 filePathStreams[filePathStream.Key] = null;
 
                 var attempts = 0;
-                while (!TryDeleteFile(filePathStream.Key) && attempts < 3)
+                while (!TryDeleteFile(filePathStream.Key) && attempts < numberOfAdditionalDeleteAttempts)
                 {
                     attempts++;
 
@@ -128,6 +129,7 @@ namespace Core.Common.TestUtil
             {
                 filePathStreams.Clear();
             }
+
             disposed = true;
         }
 
@@ -137,14 +139,16 @@ namespace Core.Common.TestUtil
             {
                 DeleteFile(filePath);
             }
-            catch (ArgumentException)
+            catch (Exception e)
             {
-                // ignored
+                if (e is IOException)
+                {
+                    return false;
+                }
+
+                // Ignore other exceptions
             }
-            catch (IOException)
-            {
-                return false;
-            }
+
             return true;
         }
 

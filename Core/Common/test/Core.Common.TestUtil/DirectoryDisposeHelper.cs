@@ -42,6 +42,7 @@ namespace Core.Common.TestUtil
     /// </example>
     public class DirectoryDisposeHelper : IDisposable
     {
+        private const int numberOfAdditionalDeleteAttempts = 3;
         private readonly string rootPathToTemp;
         private readonly string fullPath;
         private bool disposed;
@@ -122,7 +123,7 @@ namespace Core.Common.TestUtil
             }
 
             var attempts = 0;
-            while (!TryDeleteRootFolder() && attempts < 3)
+            while (!TryDeleteRootFolder() && attempts < numberOfAdditionalDeleteAttempts)
             {
                 attempts++;
 
@@ -145,8 +146,10 @@ namespace Core.Common.TestUtil
                 {
                     return false;
                 }
+
                 // Ignore other exceptions
             }
+
             return true;
         }
 
