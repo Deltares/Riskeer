@@ -1151,16 +1151,26 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             // Given
             using (var treeViewControl = new TreeViewControl())
             {
-                var group = new CalculationGroup();
+                var existingGroup = new CalculationGroup();
+                var existingcalculation = new StabilityStoneCoverWaveConditionsCalculation();
+                var group = new CalculationGroup
+                {
+                    Children =
+                    {
+                        existingGroup,
+                        existingcalculation
+                    }
+                };
                 var failureMechanism = new StabilityStoneCoverFailureMechanism();
-
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(1, "1", 1, 1);
+                var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(2, "2", 2, 2);
                 assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
                 {
                     Locations =
                     {
-                        new HydraulicBoundaryLocation(1, "1", 1, 1),
-                        new HydraulicBoundaryLocation(2, "2", 2, 2)
+                        hydraulicBoundaryLocation1,
+                        hydraulicBoundaryLocation2
                     }
                 };
 
@@ -1200,9 +1210,17 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     contextMenu.Items[contextMenuAddGenerateCalculationsIndex].PerformClick();
 
                 // Then
-                Assert.AreEqual(2, group.Children.Count);
+                Assert.AreEqual(4, group.Children.Count);
+                Assert.AreSame(existingGroup, group.Children[0]);
+                Assert.AreSame(existingcalculation, group.Children[1]);
                 Assert.NotNull(dialog);
                 Assert.NotNull(grid);
+                var firstCalculation = group.Children[2] as StabilityStoneCoverWaveConditionsCalculation;
+                Assert.IsNotNull(firstCalculation);
+                Assert.AreSame(hydraulicBoundaryLocation1, firstCalculation.InputParameters.HydraulicBoundaryLocation);
+                var secondCalculation = group.Children[3] as StabilityStoneCoverWaveConditionsCalculation;
+                Assert.IsNotNull(secondCalculation);
+                Assert.AreSame(hydraulicBoundaryLocation2, secondCalculation.InputParameters.HydraulicBoundaryLocation);
             }
         }
 
