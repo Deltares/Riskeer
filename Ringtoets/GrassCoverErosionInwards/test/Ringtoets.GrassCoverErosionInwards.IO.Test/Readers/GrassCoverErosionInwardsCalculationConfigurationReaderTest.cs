@@ -26,7 +26,6 @@ using System.Xml.Schema;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.IO;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Readers;
 using Ringtoets.GrassCoverErosionInwards.IO.Readers;
@@ -63,9 +62,6 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
                 yield return new TestCaseData("invalidOrientationNoDouble.xml",
                                               "The 'orientatie' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
                     .SetName("invalidOrientationNoDouble");
-                yield return new TestCaseData("invalidOrientationWrongCulture.xml",
-                                              "The 'orientatie' element is invalid - The value '1,2' is invalid according to its datatype 'Double'")
-                    .SetName("invalidOrientationWrongCulture");
                 yield return new TestCaseData("invalidMultipleOrientation.xml",
                                               "Element 'orientatie' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidMultipleOrientation");
@@ -76,9 +72,6 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
                 yield return new TestCaseData("invalidDikeHeightNoDouble.xml",
                                               "The 'dijkhoogte' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
                     .SetName("invalidDikeHeightNoDouble");
-                yield return new TestCaseData("invalidDikeHeightWrongCulture.xml",
-                                              "The 'dijkhoogte' element is invalid - The value '1,2' is invalid according to its datatype 'Double'")
-                    .SetName("invalidDikeHeightWrongCulture");
                 yield return new TestCaseData("invalidMultipleDikeHeight.xml",
                                               "Element 'dijkhoogte' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidMultipleDikeHeight");
@@ -119,9 +112,6 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
                 yield return new TestCaseData("invalidBreakWaterHeightNoDouble.xml",
                                               "The 'damhoogte' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
                     .SetName("invalidBreakWaterHeightNoDouble");
-                yield return new TestCaseData("invalidBreakWaterHeightWrongCulture.xml",
-                                              "The 'damhoogte' element is invalid - The value '1,2' is invalid according to its datatype 'Double'")
-                    .SetName("invalidBreakWaterHeightWrongCulture");
                 yield return new TestCaseData("invalidMultipleBreakWaterHeights.xml",
                                               "Element 'damhoogte' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidMultipleBreakWaterHeights");
@@ -146,9 +136,6 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
                 yield return new TestCaseData("invalidCriticalFlowRateMeanNoDouble.xml",
                                               "The 'verwachtingswaarde' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
                     .SetName("invalidCriticalFlowRateMeanNoDouble");
-                yield return new TestCaseData("invalidCriticalFlowRateMeanWrongCulture.xml",
-                                              "The 'verwachtingswaarde' element is invalid - The value '1,2' is invalid according to its datatype 'Double'")
-                    .SetName("invalidCriticalFlowRateMeanWrongCulture");
                 yield return new TestCaseData("invalidMultipleCriticalFlowRateMean.xml",
                                               "Element 'verwachtingswaarde' cannot appear more than once if content model type is \"all\"")
                     .SetName("invalidMultipleCriticalFlowRateMean");
@@ -159,9 +146,6 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
                 yield return new TestCaseData("invalidCriticalFlowRateStandardDeviationNoDouble.xml",
                                               "The 'standaardafwijking' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
                     .SetName("invalidCriticalFlowRateStandardDeviationNoDouble");
-                yield return new TestCaseData("invalidCriticalFlowRateStandardDeviationWrongCulture.xml",
-                                              "The 'standaardafwijking' element is invalid - The value '1,2' is invalid according to its datatype 'Double'")
-                    .SetName("invalidCriticalFlowRateStandardDeviationWrongCulture");
                 yield return new TestCaseData("invalidMultipleCriticalFlowRateStandardDeviation.xml",
                                               "Element 'standaardafwijking' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidMultipleCriticalFlowRateStandardDeviation");

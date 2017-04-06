@@ -48,27 +48,18 @@ namespace Ringtoets.Piping.IO.Test.Readers
                 yield return new TestCaseData("invalidAssessmentLevelNoDouble.xml",
                                               "The 'toetspeil' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
                     .SetName("invalidAssessmentLevelNoDouble");
-                yield return new TestCaseData("invalidAssessmentLevelWrongCulture.xml",
-                                              "The 'toetspeil' element is invalid - The value '1,2' is invalid according to its datatype 'Double'")
-                    .SetName("invalidAssessmentLevelWrongCulture");
                 yield return new TestCaseData("invalidEntryPointEmpty.xml",
                                               "The 'intredepunt' element is invalid - The value '' is invalid according to its datatype 'Double'")
                     .SetName("invalidEntryPointEmpty");
                 yield return new TestCaseData("invalidEntryPointNoDouble.xml",
                                               "The 'intredepunt' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
                     .SetName("invalidEntryPointNoDouble");
-                yield return new TestCaseData("invalidEntryPointWrongCulture.xml",
-                                              "The 'intredepunt' element is invalid - The value '1,2' is invalid according to its datatype 'Double'")
-                    .SetName("invalidEntryPointWrongCulture");
                 yield return new TestCaseData("invalidExitPointEmpty.xml",
                                               "The 'uittredepunt' element is invalid - The value '' is invalid according to its datatype 'Double'")
                     .SetName("invalidExitPointEmpty");
                 yield return new TestCaseData("invalidExitPointNoDouble.xml",
                                               "The 'uittredepunt' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
                     .SetName("invalidExitPointNoDouble");
-                yield return new TestCaseData("invalidExitPointWrongCulture.xml",
-                                              "The 'uittredepunt' element is invalid - The value '1,2' is invalid according to its datatype 'Double'")
-                    .SetName("invalidExitPointWrongCulture");
                 yield return new TestCaseData("invalidStochastNoName.xml",
                                               "The required attribute 'naam' is missing.")
                     .SetName("invalidStochastNoName");
@@ -87,18 +78,12 @@ namespace Ringtoets.Piping.IO.Test.Readers
                 yield return new TestCaseData("invalidStochastMeanNoDouble.xml",
                                               "The 'verwachtingswaarde' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
                     .SetName("invalidStochastMeanNoDouble");
-                yield return new TestCaseData("invalidStochastMeanWrongCulture.xml",
-                                              "The 'verwachtingswaarde' element is invalid - The value '1,2' is invalid according to its datatype 'Double'")
-                    .SetName("invalidStochastMeanWrongCulture");
                 yield return new TestCaseData("invalidStochastStandardDeviationEmpty.xml",
                                               "The 'standaardafwijking' element is invalid - The value '' is invalid according to its datatype 'Double'")
                     .SetName("invalidStochastStandardDeviationEmpty");
                 yield return new TestCaseData("invalidStochastStandardDeviationNoDouble.xml",
                                               "The 'standaardafwijking' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
                     .SetName("invalidStochastStandardDeviationNoDouble");
-                yield return new TestCaseData("invalidStochastStandardDeviationWrongCulture.xml",
-                                              "The 'standaardafwijking' element is invalid - The value '1,2' is invalid according to its datatype 'Double'")
-                    .SetName("invalidStochastStandardDeviationWrongCulture");
                 yield return new TestCaseData("invalidMultiplePhreaticLevelExitStochast.xml",
                                               "There is a duplicate key sequence 'polderpeil' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
                     .SetName("invalidMultiplePhreaticLevelExitStochast");

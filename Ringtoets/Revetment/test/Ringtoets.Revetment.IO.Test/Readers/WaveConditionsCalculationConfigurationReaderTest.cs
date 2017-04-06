@@ -26,7 +26,6 @@ using System.Xml.Schema;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.IO;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Readers;
 using Ringtoets.Revetment.IO.Readers;
@@ -94,45 +93,30 @@ namespace Ringtoets.Revetment.IO.Test.Readers
                 yield return new TestCaseData("invalidLowerBoundaryRevetmentNoDouble.xml",
                                               "The 'ondergrensbekleding' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
                     .SetName("invalidLowerBoundaryRevetmentNoDouble");
-                yield return new TestCaseData("invalidLowerBoundaryRevetmentWrongCulture.xml",
-                                              "The 'ondergrensbekleding' element is invalid - The value '1,2' is invalid according to its datatype 'Double'")
-                    .SetName("invalidLowerBoundaryRevetmentWrongCulture");
                 yield return new TestCaseData("invalidUpperBoundaryRevetmentEmpty.xml",
                                               "The 'bovengrensbekleding' element is invalid - The value '' is invalid according to its datatype 'Double'")
                     .SetName("invalidUpperBoundaryRevetmentEmpty");
                 yield return new TestCaseData("invalidUpperBoundaryRevetmentNoDouble.xml",
                                               "The 'bovengrensbekleding' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
                     .SetName("invalidUpperBoundaryRevetmentNoDouble");
-                yield return new TestCaseData("invalidUpperBoundaryRevetmentWrongCulture.xml",
-                                              "The 'bovengrensbekleding' element is invalid - The value '1,2' is invalid according to its datatype 'Double'")
-                    .SetName("invalidUpperBoundaryRevetmentWrongCulture");
                 yield return new TestCaseData("invalidLowerBoundaryWaterLevelsEmpty.xml",
                                               "The 'ondergrenswaterstanden' element is invalid - The value '' is invalid according to its datatype 'Double'")
                     .SetName("invalidLowerBoundaryWaterLevelsEmpty");
                 yield return new TestCaseData("invalidLowerBoundaryWaterLevelsNoDouble.xml",
                                               "The 'ondergrenswaterstanden' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
                     .SetName("invalidLowerBoundaryWaterLevelsNoDouble");
-                yield return new TestCaseData("invalidLowerBoundaryWaterLevelsWrongCulture.xml",
-                                              "The 'ondergrenswaterstanden' element is invalid - The value '1,2' is invalid according to its datatype 'Double'")
-                    .SetName("invalidLowerBoundaryWaterLevelsWrongCulture");
                 yield return new TestCaseData("invalidUpperBoundaryWaterLevelsEmpty.xml",
                                               "The 'bovengrenswaterstanden' element is invalid - The value '' is invalid according to its datatype 'Double'")
                     .SetName("invalidUpperBoundaryWaterLevelsEmpty");
                 yield return new TestCaseData("invalidUpperBoundaryWaterLevelsNoDouble.xml",
                                               "The 'bovengrenswaterstanden' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
                     .SetName("invalidUpperBoundaryWaterLevelsNoDouble");
-                yield return new TestCaseData("invalidUpperBoundaryWaterLevelsWrongCulture.xml",
-                                              "The 'bovengrenswaterstanden' element is invalid - The value '1,2' is invalid according to its datatype 'Double'")
-                    .SetName("invalidUpperBoundaryWaterLevelsWrongCulture");
                 yield return new TestCaseData("invalidStepSizeEmpty.xml",
                                               "The 'stapgrootte' element is invalid - The value '' is invalid according to its datatype 'Double'")
                     .SetName("invalidStepSizeEmpty");
                 yield return new TestCaseData("invalidStepSizeNoDouble.xml",
                                               "The 'stapgrootte' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
                     .SetName("invalidStepSizeNoDouble");
-                yield return new TestCaseData("invalidStepSizeWrongCulture.xml",
-                                              "The 'stapgrootte' element is invalid - The value '0,5' is invalid according to its datatype 'Double'")
-                    .SetName("invalidStepSizeWrongCulture");
                 yield return new TestCaseData("invalidStepSizeUnknownValue.xml",
                                               "The 'stapgrootte' element is invalid - The value '1.3' is invalid according to its datatype 'Double' - The Enumeration constraint failed.")
                     .SetName("invalidStepSizeUnknownValue");
@@ -142,9 +126,6 @@ namespace Ringtoets.Revetment.IO.Test.Readers
                 yield return new TestCaseData("invalidOrientationNoDouble.xml",
                                               "The 'orientatie' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
                     .SetName("invalidOrientationNoDouble");
-                yield return new TestCaseData("invalidOrientationWrongCulture.xml",
-                                              "The 'orientatie' element is invalid - The value '0,5' is invalid according to its datatype 'Double'")
-                    .SetName("invalidOrientationWrongCulture");
                 yield return new TestCaseData("invalidDamUsageEmpty.xml",
                                               "The 'damgebruiken' element is invalid - The value '' is invalid according to its datatype 'Boolean'")
                     .SetName("invalidDamUsageEmpty");
@@ -163,9 +144,6 @@ namespace Ringtoets.Revetment.IO.Test.Readers
                 yield return new TestCaseData("invalidDamHeightNoDouble.xml",
                                               "The 'damhoogte' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
                     .SetName("invalidDamHeightNoDouble");
-                yield return new TestCaseData("invalidDamHeightWrongCulture.xml",
-                                              "The 'damhoogte' element is invalid - The value '0,5' is invalid according to its datatype 'Double'")
-                    .SetName("invalidDamHeightWrongCulture");
                 yield return new TestCaseData("invalidForeshoreUsageEmpty.xml",
                                               "The 'voorlandgebruiken' element is invalid - The value '' is invalid according to its datatype 'Boolean'")
                     .SetName("invalidForeshoreUsageEmpty");

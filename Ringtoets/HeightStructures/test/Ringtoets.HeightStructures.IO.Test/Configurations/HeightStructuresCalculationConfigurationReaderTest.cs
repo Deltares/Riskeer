@@ -20,14 +20,14 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Core.Common.TestUtil;
-using NUnit.Framework;
-using Ringtoets.Common.IO.Readers;
 using System.IO;
 using System.Linq;
 using System.Xml.Schema;
 using Core.Common.Base.IO;
+using Core.Common.TestUtil;
+using NUnit.Framework;
 using Ringtoets.Common.IO.Configurations;
+using Ringtoets.Common.IO.Readers;
 using Ringtoets.HeightStructures.IO.Configurations;
 
 namespace Ringtoets.HeightStructures.IO.Test.Configurations
@@ -48,9 +48,6 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
                 yield return new TestCaseData("invalidCalculationFailureProbabilityStructureWithErosionNoDouble.xml",
                                               "The 'faalkansgegevenerosiebodem' element is invalid - The value 'nul' is invalid according to its datatype 'Double'")
                     .SetName("invalidCalculationFailureProbabilityStructureWithErosionNoDouble");
-                yield return new TestCaseData("invalidCalculationFailureProbabilityStructureWithErosionWrongCulture.xml",
-                                              "The 'faalkansgegevenerosiebodem' element is invalid - The value '0,5' is invalid according to its datatype 'Double'")
-                    .SetName("invalidCalculationFailureProbabilityStructureWithErosionWrongCulture");
 
                 yield return new TestCaseData("invalidCalculationForeshoreProfileEmpty.xml",
                                               "The 'voorlandprofiel' element is invalid - The value '' is invalid according to its datatype 'String'")
@@ -82,9 +79,6 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
                 yield return new TestCaseData("invalidCalculationOrientationNoDouble.xml",
                                               "The 'orientatie' element is invalid - The value 'nul' is invalid according to its datatype 'Double'")
                     .SetName("invalidCalculationOrientationNoDouble");
-                yield return new TestCaseData("invalidCalculationOrientationWrongCulture.xml",
-                                              "The 'orientatie' element is invalid - The value '0,5' is invalid according to its datatype 'Double'")
-                    .SetName("invalidCalculationOrientationWrongCulture");
 
                 yield return new TestCaseData("invalidCalculationStructureEmpty.xml",
                                               "The 'kunstwerk' element is invalid - The value '' is invalid according to its datatype 'String'")
@@ -111,27 +105,18 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
                 yield return new TestCaseData("invalidStochastMeanNoDouble.xml",
                                               "The 'verwachtingswaarde' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
                     .SetName("invalidStochastMeanNoDouble");
-                yield return new TestCaseData("invalidStochastMeanWrongCulture.xml",
-                                              "The 'verwachtingswaarde' element is invalid - The value '1,2' is invalid according to its datatype 'Double'")
-                    .SetName("invalidStochastMeanWrongCulture");
                 yield return new TestCaseData("invalidStochastStandardDeviationEmpty.xml",
                                               "The 'standaardafwijking' element is invalid - The value '' is invalid according to its datatype 'Double'")
                     .SetName("invalidStochastStandardDeviationEmpty");
                 yield return new TestCaseData("invalidStochastStandardDeviationNoDouble.xml",
                                               "The 'standaardafwijking' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
                     .SetName("invalidStochastStandardDeviationNoDouble");
-                yield return new TestCaseData("invalidStochastStandardDeviationWrongCulture.xml",
-                                              "The 'standaardafwijking' element is invalid - The value '1,2' is invalid according to its datatype 'Double'")
-                    .SetName("invalidStochastStandardDeviationWrongCulture");
                 yield return new TestCaseData("invalidStochastVariationCoefficientEmpty.xml",
                                               "The 'variatiecoefficient' element is invalid - The value '' is invalid according to its datatype 'Double'")
                     .SetName("invalidStochastVariationCoefficientEmpty");
                 yield return new TestCaseData("invalidStochastVariationCoefficientNoDouble.xml",
                                               "The 'variatiecoefficient' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
                     .SetName("invalidStochastVariationCoefficientNoDouble");
-                yield return new TestCaseData("invalidStochastVariationCoefficientWrongCulture.xml",
-                                              "The 'variatiecoefficient' element is invalid - The value '1,2' is invalid according to its datatype 'Double'")
-                    .SetName("invalidStochastVariationCoefficientWrongCulture");
 
                 yield return new TestCaseData("invalidMultipleAllowedLevelIncreaseStochast.xml",
                                               "There is a duplicate key sequence 'peilverhogingkomberging' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
@@ -184,9 +169,6 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
                 yield return new TestCaseData("invalidBreakWaterHeightNoDouble.xml",
                                               "The 'damhoogte' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
                     .SetName("invalidBreakWaterHeightNoDouble");
-                yield return new TestCaseData("invalidBreakWaterHeightWrongCulture.xml",
-                                              "The 'damhoogte' element is invalid - The value '1,2' is invalid according to its datatype 'Double'")
-                    .SetName("invalidBreakWaterHeightWrongCulture");
                 yield return new TestCaseData("invalidMultipleBreakWaterHeights.xml",
                                               "Element 'damhoogte' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidMultipleBreakWaterHeights");
@@ -207,7 +189,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
         public void Constructor_WithFilePath_ReturnsNewInstance()
         {
             // Setup
-            var existingPath = Path.Combine(testDirectoryPath, "validConfigurationEmptyCalculation.xml");
+            string existingPath = Path.Combine(testDirectoryPath, "validConfigurationEmptyCalculation.xml");
 
             // Call
             var reader = new HeightStructuresCalculationConfigurationReader(existingPath);
