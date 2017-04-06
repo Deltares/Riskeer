@@ -62,7 +62,7 @@ namespace Core.Common.TestUtil.Test
             // Setup
             string subFolder = Path.GetRandomFileName();
             string folderPath = Path.Combine(rootFolder, subFolder);
-            var folderExists = false;
+            bool folderExists;
 
             // Precondition
             Assert.IsFalse(Directory.Exists(folderPath), $"Precondition failed: Folder '{folderPath}' should not exist");
@@ -89,7 +89,7 @@ namespace Core.Common.TestUtil.Test
             string subFolder = Path.GetRandomFileName();
             string subSubFolder = Path.GetRandomFileName();
             string folderPath = Path.Combine(rootFolder, subFolder, subSubFolder);
-            var folderExists = false;
+            bool folderExists;
 
             // Precondition
             Assert.IsFalse(Directory.Exists(folderPath), $"Precondition failed: Folder '{folderPath}' should not exist");
@@ -192,6 +192,27 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
+        public void Dispose_FolderInUse_DoesNotThrowException()
+        {
+            // Setup
+            string subfolder = Path.GetRandomFileName();
+
+            // Call
+            TestDelegate test = () =>
+            {
+                using (var directoryDisposeHelper1 = new DirectoryDisposeHelper(rootFolder, subfolder))
+                {
+                    directoryDisposeHelper1.LockDirectory(FileSystemRights.Write);
+
+                    using (new DirectoryDisposeHelper(rootFolder, subfolder)) { } // Dispose will face the locked directory
+                }
+            };
+
+            // Assert
+            Assert.DoesNotThrow(test);
+        }
+
+        [Test]
         public void LockDirectory_ValidPath_LocksDirectory()
         {
             // Setup
@@ -274,10 +295,10 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void UnlockDirectory_DirectoryNotLocked_Unlocksdirectory()
+        public void UnlockDirectory_DirectoryNotLocked_UnlocksDirectory()
         {
             // Setup
-            string subfolder = nameof(UnlockDirectory_DirectoryNotLocked_Unlocksdirectory);
+            string subfolder = nameof(UnlockDirectory_DirectoryNotLocked_UnlocksDirectory);
             string folderPath = Path.Combine(rootFolder, subfolder);
 
             using (var disposeHelper = new DirectoryDisposeHelper(rootFolder, subfolder))
@@ -301,10 +322,10 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void UnlockDirectory_DirectoryLocked_Unlocksdirectory()
+        public void UnlockDirectory_DirectoryLocked_UnlocksDirectory()
         {
             // Setup
-            string subfolder = nameof(UnlockDirectory_DirectoryLocked_Unlocksdirectory);
+            string subfolder = nameof(UnlockDirectory_DirectoryLocked_UnlocksDirectory);
             string folderPath = Path.Combine(rootFolder, subfolder);
 
             using (var disposeHelper = new DirectoryDisposeHelper(rootFolder, subfolder))
