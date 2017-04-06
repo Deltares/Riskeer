@@ -26,6 +26,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
@@ -40,6 +41,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
@@ -85,7 +87,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
         private MockRepository mocks;
         private GrassCoverErosionOutwardsPlugin plugin;
-        private TreeNodeInfo info;        
+        private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
@@ -1346,6 +1348,149 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
             // Assert
             CollectionAssert.DoesNotContain(failureMechanism.WaveConditionsCalculationGroup.Children, group);
+        }
+
+        [Test]
+        public void GivenDialogGenerateCalculationButtonClicked_WhenCalculationSelectedAndDialogClosed_ThenUpdateCalculationGroup()
+        {
+            // Given
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var existingGroup = new CalculationGroup();
+                var existingcalculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+                var group = new CalculationGroup
+                {
+                    Children =
+                    {
+                        existingGroup,
+                        existingcalculation
+                    }
+                };
+                var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(1, "1", 1, 1);
+                var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(2, "2", 2, 2);
+                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
+                {
+                    HydraulicBoundaryLocations =
+                    {
+                        hydraulicBoundaryLocation1,
+                        hydraulicBoundaryLocation2
+                    }
+                };
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                {
+                    Locations =
+                    {
+                        hydraulicBoundaryLocation1,
+                        hydraulicBoundaryLocation2
+                    }
+                };
+
+                var observerMock = mocks.StrictMock<IObserver>();
+                observerMock.Expect(o => o.UpdateObserver());
+                var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(group,
+                                                                                                  failureMechanism,
+                                                                                                  assessmentSection);
+
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+                var mainWindow = mocks.Stub<IMainWindow>();
+                var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.MainWindow).Return(mainWindow);
+                gui.Stub(cmp => cmp.ViewCommands).Return(viewCommandsMock);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+                nodeData.Attach(observerMock);
+
+                HydraulicBoundaryLocationSelectionDialog dialog = null;
+                DataGridViewControl grid = null;
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    dialog = (HydraulicBoundaryLocationSelectionDialog) new FormTester(name).TheObject;
+                    grid = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
+                    grid.Rows[0].Cells[0].Value = true;
+                    grid.Rows[1].Cells[0].Value = true;
+                    new ButtonTester("DoForSelectedButton", dialog).Click();
+                };
+
+                // When
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                    contextMenu.Items[contextMenuAddGenerateCalculationsIndex].PerformClick();
+
+                // Then
+                Assert.AreEqual(4, group.Children.Count);
+                Assert.AreSame(existingGroup, group.Children[0]);
+                Assert.AreSame(existingcalculation, group.Children[1]);
+                Assert.NotNull(dialog);
+                Assert.NotNull(grid);
+                var firstCalculation = group.Children[2] as GrassCoverErosionOutwardsWaveConditionsCalculation;
+                Assert.IsNotNull(firstCalculation);
+                Assert.AreSame(hydraulicBoundaryLocation1, firstCalculation.InputParameters.HydraulicBoundaryLocation);
+                var secondCalculation = group.Children[3] as GrassCoverErosionOutwardsWaveConditionsCalculation;
+                Assert.IsNotNull(secondCalculation);
+                Assert.AreSame(hydraulicBoundaryLocation2, secondCalculation.InputParameters.HydraulicBoundaryLocation);
+            }
+        }
+
+        [Test]
+        public void GivenDialogGenerateCalculationButtonClicked_WhenCancelButtonClickedAndDialogClosed_ThenCalculationGroupNotUpdated()
+        {
+            // Given
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var group = new CalculationGroup();
+                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+                var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+                assessmentSectionStub.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                {
+                    Locations =
+                    {
+                        new HydraulicBoundaryLocation(1, "1", 1, 1)
+                    }
+                };
+
+                var observerMock = mocks.StrictMock<IObserver>();
+                var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(group,
+                                                                                                  failureMechanism,
+                                                                                                  assessmentSectionStub);
+
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+                var mainWindow = mocks.Stub<IMainWindow>();
+                var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.MainWindow).Return(mainWindow);
+                gui.Stub(cmp => cmp.ViewCommands).Return(viewCommandsMock);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+                nodeData.Attach(observerMock);
+
+                HydraulicBoundaryLocationSelectionDialog dialog = null;
+                DataGridViewControl grid = null;
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    dialog = (HydraulicBoundaryLocationSelectionDialog) new FormTester(name).TheObject;
+                    grid = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
+                    grid.Rows[0].Cells[0].Value = true;
+                    new ButtonTester("CustomCancelButton", dialog).Click();
+                };
+
+                // When
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                    contextMenu.Items[contextMenuAddGenerateCalculationsIndex].PerformClick();
+
+                // Then
+                Assert.AreEqual(0, group.Children.Count);
+                Assert.NotNull(dialog);
+                Assert.NotNull(grid);
+            }
         }
 
         private static GrassCoverErosionOutwardsWaveConditionsCalculation GetValidCalculation()
