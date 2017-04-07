@@ -44,6 +44,7 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
@@ -650,7 +651,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 Name = "A",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2)
+                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
                 }
             });
             failureMechanism.CalculationsGroup.Children.Add(new TestClosingStructuresCalculation
@@ -658,7 +659,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 Name = "B",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2)
+                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
                 }
             });
 
@@ -730,7 +731,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 Name = "A",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2)
+                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
                 }
             });
             failureMechanism.CalculationsGroup.Children.Add(new TestClosingStructuresCalculation
@@ -738,7 +739,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 Name = "B",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2)
+                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
                 }
             });
 

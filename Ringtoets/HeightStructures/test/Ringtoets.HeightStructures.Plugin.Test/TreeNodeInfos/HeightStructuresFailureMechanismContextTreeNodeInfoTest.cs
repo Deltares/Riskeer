@@ -39,6 +39,7 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
@@ -732,7 +733,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 Name = "A",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2)
+                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
                 }
             });
             failureMechanism.CalculationsGroup.Children.Add(new TestHeightStructuresCalculation
@@ -740,7 +741,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 Name = "B",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2)
+                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
                 }
             });
 
@@ -808,7 +809,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 Name = "A",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2)
+                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
                 }
             });
             failureMechanism.CalculationsGroup.Children.Add(new TestHeightStructuresCalculation
@@ -816,7 +817,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 Name = "B",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2)
+                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
                 }
             });
 

@@ -259,7 +259,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void GivenHydraulicBoundaryLocationThatSucceeds_CalculatingAssessmentLevelFromContextMenu_ThenLogMessagesAddedOutputSet()
         {
             // Given
-            var location = new HydraulicBoundaryLocation(1, "locationName", 1.1, 2.2);
+            var location = new TestHydraulicBoundaryLocation("locationName");
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase

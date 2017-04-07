@@ -454,7 +454,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             {
                 Locations =
                 {
-                    new HydraulicBoundaryLocation(1, "1", 1, 1)
+                    new TestHydraulicBoundaryLocation()
                 }
             };
 
@@ -1366,8 +1366,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         existingcalculation
                     }
                 };
-                var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(1, "1", 1, 1);
-                var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(2, "2", 2, 2);
+                var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
+                var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
                 var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
                 {
                     HydraulicBoundaryLocations =
@@ -1443,8 +1443,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var group = new CalculationGroup();
-                var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(1, "1", 1, 1);
-                var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(2, "2", 2, 2);
+                var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
+                var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
                 var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
                 {
                     HydraulicBoundaryLocations =
@@ -1458,6 +1458,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 {
                     Locations =
                     {
+                        new TestHydraulicBoundaryLocation(),
                         hydraulicBoundaryLocation1,
                         hydraulicBoundaryLocation2
                     }

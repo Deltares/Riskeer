@@ -374,9 +374,9 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual(18, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuImportConfigurationIndex,
-                                                              "&Importeren...",
-                                                              "Importeer de gegevens vanuit een bestand.",
-                                                              CoreCommonGuiResources.ImportIcon);
+                                                                  "&Importeren...",
+                                                                  "Importeer de gegevens vanuit een bestand.",
+                                                                  CoreCommonGuiResources.ImportIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExportConfigurationIndex,
                                                                   "&Exporteren...",
                                                                   "Exporteer de gegevens naar een bestand.",
@@ -451,7 +451,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             {
                 Locations =
                 {
-                    new HydraulicBoundaryLocation(1, "1", 1, 1)
+                    new TestHydraulicBoundaryLocation()
                 }
             };
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
@@ -491,9 +491,9 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual(18, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuImportConfigurationIndex,
-                                                              "&Importeren...",
-                                                              "Importeer de gegevens vanuit een bestand.",
-                                                              CoreCommonGuiResources.ImportIcon);
+                                                                  "&Importeren...",
+                                                                  "Importeer de gegevens vanuit een bestand.",
+                                                                  CoreCommonGuiResources.ImportIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExportConfigurationIndex,
                                                                   "&Exporteren...",
                                                                   "Exporteer de gegevens naar een bestand.",
@@ -757,7 +757,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 Name = "A",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "", 1, 1)
+                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation
                     {
                         DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(12.0)
                     },
@@ -775,7 +775,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 Name = "B",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "", 1, 1)
+                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation
                     {
                         DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(12.0)
                     },
@@ -1163,8 +1163,8 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 };
                 var failureMechanism = new StabilityStoneCoverFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(1, "1", 1, 1);
-                var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(2, "2", 2, 2);
+                var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
+                var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
                 assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
                 {
                     Locations =
@@ -1238,7 +1238,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 {
                     Locations =
                     {
-                        new HydraulicBoundaryLocation(1, "1", 1, 1)
+                        new TestHydraulicBoundaryLocation()
                     }
                 };
 
@@ -1428,7 +1428,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, "", 0.0, 0.0),
+                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,

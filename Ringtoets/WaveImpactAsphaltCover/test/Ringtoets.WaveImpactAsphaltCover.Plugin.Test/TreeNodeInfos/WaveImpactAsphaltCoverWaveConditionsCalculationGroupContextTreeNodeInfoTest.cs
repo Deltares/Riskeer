@@ -380,9 +380,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual(18, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuImportConfigurationIndex,
-                                                              "&Importeren...",
-                                                              "Importeer de gegevens vanuit een bestand.",
-                                                              CoreCommonGuiResources.ImportIcon);
+                                                                  "&Importeren...",
+                                                                  "Importeer de gegevens vanuit een bestand.",
+                                                                  CoreCommonGuiResources.ImportIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExportConfigurationIndex,
                                                                   "&Exporteren...",
                                                                   "Exporteer de gegevens naar een bestand.",
@@ -457,7 +457,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             {
                 Locations =
                 {
-                    new HydraulicBoundaryLocation(1, "1", 1, 1)
+                    new TestHydraulicBoundaryLocation()
                 }
             };
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
@@ -497,9 +497,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual(18, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuImportConfigurationIndex,
-                                                              "&Importeren...",
-                                                              "Importeer de gegevens vanuit een bestand.",
-                                                              CoreCommonGuiResources.ImportIcon);
+                                                                  "&Importeren...",
+                                                                  "Importeer de gegevens vanuit een bestand.",
+                                                                  CoreCommonGuiResources.ImportIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExportConfigurationIndex,
                                                                   "&Exporteren...",
                                                                   "Exporteer de gegevens naar een bestand.",
@@ -1148,8 +1148,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 };
                 var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(1, "1", 1, 1);
-                var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(2, "2", 2, 2);
+                var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
+                var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
                 assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
                 {
                     Locations =
@@ -1222,7 +1222,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 {
                     Locations =
                     {
-                        new HydraulicBoundaryLocation(1, "1", 1, 1)
+                        new TestHydraulicBoundaryLocation()
                     }
                 };
 
