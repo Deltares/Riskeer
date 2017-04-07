@@ -19,7 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Data.SQLite;
 using System.IO;
+using System.Security.AccessControl;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Exceptions;
@@ -30,9 +33,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
     [TestFixture]
     public class OvertoppingCalculationWaveHeightParserTest
     {
-        private const int sectionId = 1;
-        private readonly string testDataPath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation, "Parsers"), "OvertoppingCalculationWaveHeightParser");
-        private readonly string outputFileName = sectionId + "-output.txt";
+        private const string validFile = "ValidFile";
+
+        private static readonly string testDirectory = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation, "Parsers"),
+                                                                    nameof(OvertoppingCalculationWaveHeightParser));
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -46,82 +50,139 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         }
 
         [Test]
-        public void Parse_NotExistingOutputFile_ThrowsHydraRingFileParserException()
+        public void Parse_WorkingDirectoryNull_ThrowsArgumentNullException()
         {
             // Setup
             var parser = new OvertoppingCalculationWaveHeightParser();
 
             // Call
-            TestDelegate test = () => parser.Parse(testDataPath, 1);
+            TestDelegate test = () => parser.Parse(null, 1);
 
             // Assert
-            Assert.Throws<HydraRingFileParserException>(test);
-            Assert.IsNull(parser.Output);
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("workingDirectory", exception.ParamName);
         }
 
         [Test]
-        [TestCase("6-3_0-output-no-overtopping")]
-        [TestCase("6-3_0-output-no-overflow")]
-        [TestCase("6-3_0-output-no-governing-wind-direction")]
-        [TestCase("empty")]
-        public void Parse_PartiallyOrCompletelyEmptyOutputFile_RetunsWithNullOutput(string testDir)
+        public void Parse_WithWorkingDirectoryWithoutExpectedFile_ThrowsHydraRingFileParserException()
         {
             // Setup
+            string path = Path.Combine(testDirectory, "EmptyWorkingDirectory");
             var parser = new OvertoppingCalculationWaveHeightParser();
-            var workingDirectory = Path.Combine(testDataPath, testDir);
 
             // Call
-            parser.Parse(workingDirectory, sectionId);
+            TestDelegate test = () => parser.Parse(path, 1);
 
             // Assert
-            Assert.IsNull(parser.Output);
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, outputFileName)));
+            var exception = Assert.Throws<HydraRingFileParserException>(test);
+            Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
         }
 
         [Test]
-        [TestCase("6-3_0-output", 0.91641, true)]
-        [TestCase("6-3_0-output-not-dominant", 0.91641, false)]
-        [TestCase("304432-fdir-output", 2.78346, true)]
-        [TestCase("304432-form-output", 2.78347, true)]
-        [TestCase("304432-form-output-not-dominant", 2.78347, false)]
-        [TestCase("700003-fdir-output", 1.04899, true)]
-        [TestCase("700003-form-output", 1.04899, true)]
-        [TestCase("700003-form-output-not-dominant", 1.04899, false)]
-        [TestCase("10-1-ZW_HR_L_10_8-NTI", 0.06193, false)]
-        public void Parse_ExampleHydraRingOutputFileContainingSectionIds_OutputSetWithExpectedCalculationResult(string testDir, double expected, bool isOvertoppingDominant)
+        [TestCase("InvalidFile")]
+        [TestCase("MissingTableDesignBeta")]
+        [TestCase("MissingTableDesignPointResults")]
+        [TestCase("MissingTableGoverningWind")]
+        public void Parse_WithWorkingDirectoryWithInvalidOutputFile_ThrowsHydraRingFileParserException(string subFolder)
         {
             // Setup
+            string path = Path.Combine(testDirectory, subFolder);
             var parser = new OvertoppingCalculationWaveHeightParser();
-            var workingDirectory = Path.Combine(testDataPath, testDir);
 
             // Call
-            parser.Parse(workingDirectory, sectionId);
+            TestDelegate test = () => parser.Parse(path, 1);
 
             // Assert
-            Assert.AreEqual(expected, parser.Output.WaveHeight);
-            Assert.AreEqual(isOvertoppingDominant, parser.Output.IsOvertoppingDominant);
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, outputFileName)));
+            var exception = Assert.Throws<HydraRingFileParserException>(test);
+            Assert.AreEqual("Er kon geen resultaat gelezen worden uit de Hydra-Ring uitvoerdatabase.", exception.Message);
+            Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
         }
 
         [Test]
-        [TestCase("6-3_0-output-invalid-hs")]
-        [TestCase("6-3_0-output-invalid-closing")]
-        [TestCase("6-3_0-output-invalid-wind")]
-        [TestCase("6-3_0-output-invalid-beta")]
-        [TestCase("6-3_0-output-no-relevant-overflow")]
-        public void Parse_InvalidHydraRingOutputFile_ThrowsHydraRingFileParserException(string testDir)
+        [TestCase("EmptyDatabase")]
+        [TestCase("EmptyTableDesignBeta")]
+        [TestCase("EmptyTableDesignPointResults")]
+        [TestCase("EmptyTableGoverningWind")]
+        public void Parse_WithDataNotComplete_ThrowsHydraRingFileParserException(string subFolder)
+        {
+            // Setup
+            string path = Path.Combine(testDirectory, subFolder);
+            var parser = new OvertoppingCalculationWaveHeightParser();
+
+            // Call
+            TestDelegate test = () => parser.Parse(path, 1);
+
+            // Assert
+            var exception = Assert.Throws<HydraRingFileParserException>(test);
+            Assert.AreEqual("Er is geen resultaat voor overslag en overloop gevonden in de Hydra-Ring uitvoerdatabase.", exception.Message);
+            Assert.IsInstanceOf<HydraRingDatabaseReaderException>(exception.InnerException);
+        }
+
+        [Test]
+        public void Parse_ValidDataForOtherSection_ThrowsHydraRingFileParserException()
+        {
+            // Setup
+            string path = Path.Combine(testDirectory, validFile);
+            var parser = new OvertoppingCalculationWaveHeightParser();
+
+            // Call
+            TestDelegate test = () => parser.Parse(path, 0);
+
+            // Assert
+            var exception = Assert.Throws<HydraRingFileParserException>(test);
+            Assert.AreEqual("Er is geen resultaat voor overslag en overloop gevonden in de Hydra-Ring uitvoerdatabase.", exception.Message);
+            Assert.IsInstanceOf<HydraRingDatabaseReaderException>(exception.InnerException);
+        }
+
+        [Test]
+        public void Parse_ErrorWhileReadingFile_ThrowsHydraRingFileParserException()
         {
             // Setup
             var parser = new OvertoppingCalculationWaveHeightParser();
-            var workingDirectory = Path.Combine(testDataPath, testDir);
+            string workingDirectory = Path.Combine(testDirectory, validFile);
+
+            using (new DirectoryPermissionsRevoker(testDirectory, FileSystemRights.ReadData))
+            {
+                // Call
+                TestDelegate call = () => parser.Parse(workingDirectory, 1);
+
+                // Assert
+                var exception = Assert.Throws<HydraRingFileParserException>(call);
+                var expectedMessage = "Er kon geen resultaat gelezen worden uit de Hydra-Ring uitvoerdatabase.";
+                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
+            }
+        }
+
+        [Test]
+        public void Parse_NotAllColumnsHasResults_ThrowsHydraRingFileParserException()
+        {
+            // Setup
+            string path = Path.Combine(testDirectory, "ValidFileNoWaveHeight");
+            var parser = new OvertoppingCalculationWaveHeightParser();
 
             // Call
-            TestDelegate test = () => parser.Parse(workingDirectory, sectionId);
+            TestDelegate test = () => parser.Parse(path, 1);
 
             // Assert
-            Assert.Throws<HydraRingFileParserException>(test);
-            Assert.IsNull(parser.Output);
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, outputFileName)));
+            var exception = Assert.Throws<HydraRingFileParserException>(test);
+            Assert.AreEqual("Er is geen resultaat voor overslag en overloop gevonden in de Hydra-Ring uitvoerdatabase.", exception.Message);
+            Assert.IsInstanceOf<InvalidCastException>(exception.InnerException);
+        }
+
+        [Test]
+        public void Parse_ValidData_OutputSet()
+        {
+            // Setup
+            string path = Path.Combine(testDirectory, validFile);
+            var parser = new OvertoppingCalculationWaveHeightParser();
+
+            // Call
+            parser.Parse(path, 1);
+
+            // Assert
+            Assert.AreEqual(1.56783, parser.Output.WaveHeight);
+            Assert.IsTrue(parser.Output.IsOvertoppingDominant);
         }
     }
 }
