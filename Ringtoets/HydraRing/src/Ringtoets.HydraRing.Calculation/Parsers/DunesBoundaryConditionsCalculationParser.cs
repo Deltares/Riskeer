@@ -39,7 +39,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
 
         private readonly string query = "SELECT " +
                                         $"max(case when OutputVarId is 3 then d.Value end) {waveHeightColumnName}, " +
-                                        $"max(case when OutputVarId is 4 then d.Value end) {wavePeriodColumnName}, " +
+                                        $"max(case when OutputVarId is 5 then d.Value end) {wavePeriodColumnName}, " +
                                         $"max(case when OutputVarId is 23 then d.Value end) {waterLevelColumnName} " +
                                         "FROM DesignPointResults as d " +
                                         $"WHERE SectionId = {sectionIdParameterName} " +
