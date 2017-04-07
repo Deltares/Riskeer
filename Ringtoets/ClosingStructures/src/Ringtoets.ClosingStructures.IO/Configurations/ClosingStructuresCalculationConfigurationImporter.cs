@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base.Data;
-using log4net;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.IO.Configurations.Helpers;
 using Ringtoets.ClosingStructures.IO.Properties;
@@ -130,79 +129,76 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
             }
 
             return TryReadStandardDeviationStochast(
-                       calculation.Name,
                        ClosingStructuresConfigurationSchemaIdentifiers.LevelCrestStructureNotClosingStochastName,
+                       calculation.Name,
                        calculation.InputParameters,
                        readCalculation.LevelCrestStructureNotClosing,
-                       i => i.LevelCrestStructureNotClosing,
-                       (i, d) => i.LevelCrestStructureNotClosing = d)
+                       i => i.LevelCrestStructureNotClosing, (i, d) => i.LevelCrestStructureNotClosing = d)
                    && TryReadStandardDeviationStochast(
-                       calculation.Name,
                        ClosingStructuresConfigurationSchemaIdentifiers.AreaFlowAperturesStochastName,
-                       calculation.InputParameters, readCalculation.AreaFlowApertures,
-                       i => i.AreaFlowApertures,
-                       (i, d) => i.AreaFlowApertures = d)
-                   && TryReadStandardDeviationStochast(
                        calculation.Name,
+                       calculation.InputParameters,
+                       readCalculation.AreaFlowApertures,
+                       i => i.AreaFlowApertures, (i, d) => i.AreaFlowApertures = d)
+                   && TryReadStandardDeviationStochast(
                        ClosingStructuresConfigurationSchemaIdentifiers.DrainCoefficientStochastName,
-                       calculation.InputParameters, readCalculation.DrainCoefficient,
-                       i => i.DrainCoefficient,
-                       (i, d) => i.DrainCoefficient = d)
-                   && TryReadStandardDeviationStochast(
                        calculation.Name,
+                       calculation.InputParameters,
+                       readCalculation.DrainCoefficient,
+                       i => i.DrainCoefficient, (i, d) => i.DrainCoefficient = d)
+                   && TryReadStandardDeviationStochast(
                        ClosingStructuresConfigurationSchemaIdentifiers.InsideWaterLevelStochastName,
-                       calculation.InputParameters, readCalculation.InsideWaterLevel,
-                       i => i.InsideWaterLevel,
-                       (i, d) => i.InsideWaterLevel = d)
-                   && TryReadStandardDeviationStochast(
                        calculation.Name,
+                       calculation.InputParameters,
+                       readCalculation.InsideWaterLevel,
+                       i => i.InsideWaterLevel, (i, d) => i.InsideWaterLevel = d)
+                   && TryReadStandardDeviationStochast(
                        ClosingStructuresConfigurationSchemaIdentifiers.ThresholdHeightOpenWeirStochastName,
-                       calculation.InputParameters, readCalculation.ThresholdHeightOpenWeir,
-                       i => i.ThresholdHeightOpenWeir,
-                       (i, d) => i.ThresholdHeightOpenWeir = d)
-                   && TryReadStandardDeviationStochast(
                        calculation.Name,
+                       calculation.InputParameters,
+                       readCalculation.ThresholdHeightOpenWeir,
+                       i => i.ThresholdHeightOpenWeir, (i, d) => i.ThresholdHeightOpenWeir = d)
+                   && TryReadStandardDeviationStochast(
                        ConfigurationSchemaIdentifiers.AllowedLevelIncreaseStorageStochastName,
-                       calculation.InputParameters, readCalculation.AllowedLevelIncreaseStorage,
-                       i => i.AllowedLevelIncreaseStorage,
-                       (i, d) => i.AllowedLevelIncreaseStorage = d)
-                   && TryReadStandardDeviationStochast(
                        calculation.Name,
+                       calculation.InputParameters,
+                       readCalculation.AllowedLevelIncreaseStorage,
+                       i => i.AllowedLevelIncreaseStorage, (i, d) => i.AllowedLevelIncreaseStorage = d)
+                   && TryReadStandardDeviationStochast(
                        ConfigurationSchemaIdentifiers.FlowWidthAtBottomProtectionStochastName,
-                       calculation.InputParameters, readCalculation.FlowWidthAtBottomProtection,
-                       i => i.FlowWidthAtBottomProtection,
-                       (i, d) => i.FlowWidthAtBottomProtection = d)
-                   && TryReadStandardDeviationStochast(
                        calculation.Name,
+                       calculation.InputParameters,
+                       readCalculation.FlowWidthAtBottomProtection,
+                       i => i.FlowWidthAtBottomProtection, (i, d) => i.FlowWidthAtBottomProtection = d)
+                   && TryReadStandardDeviationStochast(
                        ConfigurationSchemaIdentifiers.ModelFactorSuperCriticalFlowStochastName,
-                       calculation.InputParameters, readCalculation.ModelFactorSuperCriticalFlow,
-                       i => i.ModelFactorSuperCriticalFlow,
-                       (i, d) => i.ModelFactorSuperCriticalFlow = d)
+                       calculation.Name,
+                       calculation.InputParameters,
+                       readCalculation.ModelFactorSuperCriticalFlow,
+                       i => i.ModelFactorSuperCriticalFlow, (i, d) => i.ModelFactorSuperCriticalFlow = d)
                    && TryReadStandardDeviationStochast(
-                       calculation.Name,
                        ConfigurationSchemaIdentifiers.WidthFlowAperturesStochastName,
-                       calculation.InputParameters, readCalculation.WidthFlowApertures,
-                       i => i.WidthFlowApertures, (i, d) => i.WidthFlowApertures = d)
-                   && TryReadVariationCoefficientStochast(
                        calculation.Name,
+                       calculation.InputParameters,
+                       readCalculation.WidthFlowApertures, i => i.WidthFlowApertures, (i, d) => i.WidthFlowApertures = d)
+                   && TryReadVariationCoefficientStochast(
                        ConfigurationSchemaIdentifiers.CriticalOvertoppingDischargeStochastName,
-                       calculation.InputParameters, readCalculation.CriticalOvertoppingDischarge,
-                       i => i.CriticalOvertoppingDischarge,
-                       (i, d) => i.CriticalOvertoppingDischarge = d)
-                   && TryReadVariationCoefficientStochast(
                        calculation.Name,
+                       calculation.InputParameters,
+                       readCalculation.CriticalOvertoppingDischarge,
+                       i => i.CriticalOvertoppingDischarge, (i, d) => i.CriticalOvertoppingDischarge = d)
+                   && TryReadVariationCoefficientStochast(
                        ConfigurationSchemaIdentifiers.StorageStructureAreaStochastName,
+                       calculation.Name,
                        calculation.InputParameters,
                        readCalculation.StorageStructureArea,
-                       i => i.StorageStructureArea,
-                       (i, d) => i.StorageStructureArea = d)
+                       i => i.StorageStructureArea, (i, d) => i.StorageStructureArea = d)
                    && TryReadVariationCoefficientStochast(
-                       calculation.Name,
                        ConfigurationSchemaIdentifiers.StormDurationStochastName,
+                       calculation.Name,
                        calculation.InputParameters,
                        readCalculation.StormDuration,
-                       i => i.StormDuration,
-                       (i, d) => i.StormDuration = d);
+                       i => i.StormDuration, (i, d) => i.StormDuration = d);
         }
 
         private bool ValidateStochasts(ClosingStructuresCalculationConfiguration configuration)

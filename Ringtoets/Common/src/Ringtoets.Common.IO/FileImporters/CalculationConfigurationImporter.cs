@@ -33,6 +33,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Helpers;
+using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.Properties;
 using Ringtoets.Common.IO.Readers;
 
@@ -160,9 +161,9 @@ namespace Ringtoets.Common.IO.FileImporters
                 if (location == null)
                 {
                     Log.LogCalculationConversionError(string.Format(
-                              Resources.CalculationConfigurationImporter_ReadHydraulicBoundaryLocation_HydraulicBoundaryLocation_0_does_not_exist,
-                              locationName),
-                          calculationName);
+                                                          Resources.CalculationConfigurationImporter_ReadHydraulicBoundaryLocation_HydraulicBoundaryLocation_0_does_not_exist,
+                                                          locationName),
+                                                      calculationName);
 
                     return false;
                 }
@@ -209,9 +210,9 @@ namespace Ringtoets.Common.IO.FileImporters
                 if (structure == null)
                 {
                     Log.LogCalculationConversionError(string.Format(
-                              Resources.CalculationConfigurationImporter_ReadStructure_Structure_0_does_not_exist,
-                              structureName),
-                          calculationName);
+                                                          Resources.CalculationConfigurationImporter_ReadStructure_Structure_0_does_not_exist,
+                                                          structureName),
+                                                      calculationName);
 
                     return false;
                 }
@@ -237,7 +238,7 @@ namespace Ringtoets.Common.IO.FileImporters
         /// or <paramref name="foreshoreProfiles"/> is <c>null</c>.</exception>
         protected bool TryReadForeshoreProfile(
             string foreshoreProfileName,
-            string calculationName, 
+            string calculationName,
             IEnumerable<ForeshoreProfile> foreshoreProfiles,
             out ForeshoreProfile foundForeshoreProfile)
         {
@@ -259,9 +260,9 @@ namespace Ringtoets.Common.IO.FileImporters
                 if (foreshoreProfile == null)
                 {
                     Log.LogCalculationConversionError(string.Format(
-                              Resources.CalculationConfigurationImporter_ReadForeshoreProfile_ForeshoreProfile_0_does_not_exist,
-                              foreshoreProfileName),
-                          calculationName);
+                                                          Resources.CalculationConfigurationImporter_ReadForeshoreProfile_ForeshoreProfile_0_does_not_exist,
+                                                          foreshoreProfileName),
+                                                      calculationName);
 
                     return false;
                 }
@@ -310,8 +311,8 @@ namespace Ringtoets.Common.IO.FileImporters
         /// </summary>
         /// <typeparam name="TDistribution">The type of the distribution to read.</typeparam>
         /// <typeparam name="TCalculationInput">The type of the calculation input.</typeparam>
-        /// <param name="calculationName">The name of the calculation to configure.</param>
         /// <param name="stochastName">The stochast's name.</param>
+        /// <param name="calculationName">The name of the calculation to configure.</param>
         /// <param name="input">The input for which to assign the read stochast.</param>
         /// <param name="stochastConfiguration">The configuration of the stochast.</param>
         /// <param name="getStochast">The function for obtaining the stochast to read.</param>
@@ -319,11 +320,11 @@ namespace Ringtoets.Common.IO.FileImporters
         /// <returns><c>true</c> if reading all required stochast parameters was successful,
         /// <c>false</c> otherwise.</returns>
         protected bool TryReadStandardDeviationStochast<TDistribution, TCalculationInput>(
-            string calculationName,
             string stochastName,
-            TCalculationInput input, 
-            StochastConfiguration stochastConfiguration, 
-            Func<TCalculationInput, TDistribution> getStochast, 
+            string calculationName,
+            TCalculationInput input,
+            StochastConfiguration stochastConfiguration,
+            Func<TCalculationInput, TDistribution> getStochast,
             Action<TCalculationInput, TDistribution> setStochast)
             where TDistribution : IDistribution
             where TCalculationInput : ICalculationInput
@@ -332,8 +333,18 @@ namespace Ringtoets.Common.IO.FileImporters
             {
                 return true;
             }
-            var distribution = (TDistribution) getStochast(input).Clone();
+            if (stochastConfiguration.VariationCoefficient.HasValue)
+            {
+                Log.LogCalculationConversionError(string.Format(
+                                                      Resources.CalculationConfigurationImporter_TryReadStandardDeviationStochast_Stochast_0_requires_standard_deviation_but_variation_coefficient_found_for_Calculation_1_,
+                                                      stochastName,
+                                                      calculationName),
+                                                  calculationName);
 
+                return false;
+            }
+
+            var distribution = (TDistribution) getStochast(input).Clone();
             if (!distribution.TrySetDistributionProperties(stochastConfiguration,
                                                            stochastName,
                                                            calculationName))
@@ -349,8 +360,8 @@ namespace Ringtoets.Common.IO.FileImporters
         /// </summary>
         /// <typeparam name="TDistribution">The type of the distribution to read.</typeparam>
         /// <typeparam name="TCalculationInput">The type of the calculation input.</typeparam>
-        /// <param name="calculationName">The name of the calculation to configure.</param>
         /// <param name="stochastName">The stochast's name.</param>
+        /// <param name="calculationName">The name of the calculation to configure.</param>
         /// <param name="input">The input for which to assign the read stochast.</param>
         /// <param name="stochastConfiguration">The configuration of the stochast.</param>
         /// <param name="getStochast">The function for obtaining the stochast to read.</param>
@@ -358,10 +369,10 @@ namespace Ringtoets.Common.IO.FileImporters
         /// <returns><c>true</c> if reading all required stochast parameters was successful,
         /// <c>false</c> otherwise.</returns>
         protected bool TryReadVariationCoefficientStochast<TDistribution, TCalculationInput>(
-            string calculationName, 
             string stochastName,
-            TCalculationInput input, 
-            StochastConfiguration stochastConfiguration, 
+            string calculationName,
+            TCalculationInput input,
+            StochastConfiguration stochastConfiguration,
             Func<TCalculationInput, TDistribution> getStochast,
             Action<TCalculationInput, TDistribution> setStochast)
             where TDistribution : IVariationCoefficientDistribution
@@ -371,8 +382,18 @@ namespace Ringtoets.Common.IO.FileImporters
             {
                 return true;
             }
-            var distribution = (TDistribution) getStochast(input).Clone();
+            if (stochastConfiguration.StandardDeviation.HasValue)
+            {
+                Log.LogCalculationConversionError(string.Format(
+                                                      Resources.CalculationConfigurationImporter_TryReadVariationCoefficientStochast_Stochast_0_requires_variation_coefficient_but_standard_deviation_found_for_Calculation_1_,
+                                                      stochastName,
+                                                      calculationName),
+                                                  calculationName);
 
+                return false;
+            }
+
+            var distribution = (TDistribution) getStochast(input).Clone();
             if (!distribution.TrySetDistributionProperties(stochastConfiguration,
                                                            stochastName,
                                                            calculationName))

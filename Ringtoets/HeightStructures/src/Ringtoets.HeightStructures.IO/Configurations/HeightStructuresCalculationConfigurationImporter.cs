@@ -22,16 +22,13 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base.Data;
-using log4net;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.FileImporters;
-using Ringtoets.Common.IO.Properties;
 using Ringtoets.Common.IO.Schema;
 using Ringtoets.HeightStructures.Data;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
@@ -120,55 +117,52 @@ namespace Ringtoets.HeightStructures.IO.Configurations
             }
 
             return TryReadStandardDeviationStochast(
-                       calculation.Name,
                        HeightStructuresConfigurationSchemaIdentifiers.LevelCrestStructureStochastName,
+                       calculation.Name,
                        calculation.InputParameters,
                        readCalculation.LevelCrestStructure,
-                       i => i.LevelCrestStructure,
-                       (i, d) => i.LevelCrestStructure = d)
+                       i => i.LevelCrestStructure, (i, d) => i.LevelCrestStructure = d)
                    && TryReadStandardDeviationStochast(
-                       calculation.Name,
                        ConfigurationSchemaIdentifiers.AllowedLevelIncreaseStorageStochastName,
-                       calculation.InputParameters, readCalculation.AllowedLevelIncreaseStorage,
-                       i => i.AllowedLevelIncreaseStorage,
-                       (i, d) => i.AllowedLevelIncreaseStorage = d)
-                   && TryReadStandardDeviationStochast(
                        calculation.Name,
+                       calculation.InputParameters,
+                       readCalculation.AllowedLevelIncreaseStorage,
+                       i => i.AllowedLevelIncreaseStorage, (i, d) => i.AllowedLevelIncreaseStorage = d)
+                   && TryReadStandardDeviationStochast(
                        ConfigurationSchemaIdentifiers.FlowWidthAtBottomProtectionStochastName,
-                       calculation.InputParameters, readCalculation.FlowWidthAtBottomProtection,
-                       i => i.FlowWidthAtBottomProtection,
-                       (i, d) => i.FlowWidthAtBottomProtection = d)
-                   && TryReadStandardDeviationStochast(
                        calculation.Name,
+                       calculation.InputParameters,
+                       readCalculation.FlowWidthAtBottomProtection,
+                       i => i.FlowWidthAtBottomProtection, (i, d) => i.FlowWidthAtBottomProtection = d)
+                   && TryReadStandardDeviationStochast(
                        ConfigurationSchemaIdentifiers.ModelFactorSuperCriticalFlowStochastName,
-                       calculation.InputParameters, readCalculation.ModelFactorSuperCriticalFlow,
-                       i => i.ModelFactorSuperCriticalFlow,
-                       (i, d) => i.ModelFactorSuperCriticalFlow = d)
+                       calculation.Name,
+                       calculation.InputParameters,
+                       readCalculation.ModelFactorSuperCriticalFlow,
+                       i => i.ModelFactorSuperCriticalFlow, (i, d) => i.ModelFactorSuperCriticalFlow = d)
                    && TryReadStandardDeviationStochast(
-                       calculation.Name,
                        ConfigurationSchemaIdentifiers.WidthFlowAperturesStochastName,
-                       calculation.InputParameters, readCalculation.WidthFlowApertures,
-                       i => i.WidthFlowApertures, (i, d) => i.WidthFlowApertures = d)
-                   && TryReadVariationCoefficientStochast(
                        calculation.Name,
+                       calculation.InputParameters,
+                       readCalculation.WidthFlowApertures, i => i.WidthFlowApertures, (i, d) => i.WidthFlowApertures = d)
+                   && TryReadVariationCoefficientStochast(
                        ConfigurationSchemaIdentifiers.CriticalOvertoppingDischargeStochastName,
-                       calculation.InputParameters, readCalculation.CriticalOvertoppingDischarge,
-                       i => i.CriticalOvertoppingDischarge,
-                       (i, d) => i.CriticalOvertoppingDischarge = d)
-                   && TryReadVariationCoefficientStochast(
                        calculation.Name,
+                       calculation.InputParameters,
+                       readCalculation.CriticalOvertoppingDischarge,
+                       i => i.CriticalOvertoppingDischarge, (i, d) => i.CriticalOvertoppingDischarge = d)
+                   && TryReadVariationCoefficientStochast(
                        ConfigurationSchemaIdentifiers.StorageStructureAreaStochastName,
+                       calculation.Name,
                        calculation.InputParameters,
                        readCalculation.StorageStructureArea,
-                       i => i.StorageStructureArea,
-                       (i, d) => i.StorageStructureArea = d)
+                       i => i.StorageStructureArea, (i, d) => i.StorageStructureArea = d)
                    && TryReadVariationCoefficientStochast(
-                       calculation.Name,
                        ConfigurationSchemaIdentifiers.StormDurationStochastName,
+                       calculation.Name,
                        calculation.InputParameters,
                        readCalculation.StormDuration,
-                       i => i.StormDuration,
-                       (i, d) => i.StormDuration = d);
+                       i => i.StormDuration, (i, d) => i.StormDuration = d);
         }
 
         /// <summary>

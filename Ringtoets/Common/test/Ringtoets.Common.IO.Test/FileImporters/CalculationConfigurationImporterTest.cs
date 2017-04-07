@@ -34,9 +34,9 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.Readers;
 using Ringtoets.Common.IO.Schema;
@@ -46,7 +46,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
     [TestFixture]
     public class CalculationConfigurationImporterTest
     {
-        private readonly string readerPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "CalculationConfigurationReader");
+        private readonly string readerPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(CalculationConfigurationReader));
+        private readonly string importerPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(CalculationConfigurationImporter));
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -210,7 +211,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Assert.IsTrue(successful);
             AssertCalculationGroup(GetExpectedNestedData(), calculationGroup);
         }
-        
+
         [Test]
         [TestCase(true, true, 1.2, ConfigurationBreakWaterType.Wall, BreakWaterType.Wall)]
         [TestCase(false, false, 2.2, ConfigurationBreakWaterType.Caisson, BreakWaterType.Caisson)]
@@ -704,6 +705,172 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Assert.AreSame(expectedProfile, structure);
         }
 
+        [Test]
+        [TestCase(true, false)]
+        [TestCase(false, true)]
+        [TestCase(true, true)]
+        [TestCase(false, false)]
+        public void TryReadStandardDeviationStochast_ValidStochastConfiguration_ReturnsTrueParametersSet(bool setMean, bool setStandardDeviation)
+        {
+            // Setup
+            string filePath = Path.Combine(readerPath, "validConfiguration.xml");
+            var calculationGroup = new CalculationGroup();
+            var importer = new CalculationConfigurationImporter(filePath,
+                                                                calculationGroup);
+
+            var configuration = new StochastConfiguration();
+
+            var random = new Random(21);
+            double mean = random.NextDouble();
+            double standardDeviation = random.NextDouble();
+            if (setMean)
+            {
+                configuration.Mean = mean;
+            }
+            if (setStandardDeviation)
+            {
+                configuration.StandardDeviation = standardDeviation;
+            }
+            var input = new TestInputWithStochasts();
+
+            // Call
+            var valid = importer.PublicTryReadStandardDeviationStochast(
+                "some stochast name",
+                "some calculation name",
+                input,
+                configuration, i => i.Distribution,
+                (i, s) => i.Distribution = s);
+
+            // Assert
+            Assert.IsTrue(valid);
+            var defaultLogNormal = new LogNormalDistribution();
+            Assert.AreEqual(
+                setMean ? mean : defaultLogNormal.Mean,
+                input.Distribution.Mean,
+                input.Distribution.Mean.GetAccuracy());
+            Assert.AreEqual(
+                setStandardDeviation ? standardDeviation : defaultLogNormal.StandardDeviation,
+                input.Distribution.StandardDeviation,
+                input.Distribution.StandardDeviation.GetAccuracy());
+        }
+
+        [Test]
+        public void TryReadStandardDeviationStochast_StochastConfigurationWithStandardDeviation_LogsErrorReturnsFalse()
+        {
+            // Setup
+            string filePath = Path.Combine(readerPath, "validConfiguration.xml");
+            var calculationGroup = new CalculationGroup();
+            var importer = new CalculationConfigurationImporter(filePath,
+                                                                calculationGroup);
+
+            var configuration = new StochastConfiguration
+            {
+                VariationCoefficient = new Random(21).NextDouble()
+            };
+
+            var input = new TestInputWithStochasts();
+            var valid = true;
+            const string stochastName = "some stochast name";
+            const string calculationName = "some calculation name";
+
+            // Call
+            Action validate = () => valid = importer.PublicTryReadStandardDeviationStochast(
+                stochastName,
+                calculationName,
+                input, configuration,
+                i => i.Distribution,
+                (i, s) => i.Distribution = s);
+
+            // Assert
+            var expectedError = $"Indien voor parameter '{stochastName}' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. " +
+                                $"Voor berekening '{calculationName}' is een variatiecoëfficiënt gevonden. Berekening '{calculationName}' is overgeslagen.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(validate, Tuple.Create(expectedError, LogLevelConstant.Error));
+            Assert.IsFalse(valid);
+        }
+
+        [Test]
+        [TestCase(true, false)]
+        [TestCase(false, true)]
+        [TestCase(true, true)]
+        [TestCase(false, false)]
+        public void TryReadVariationCoefficientStochast_ValidStochastConfiguration_ReturnsTrueParametersSet(bool setMean, bool setVariationCoefficient)
+        {
+            // Setup
+            string filePath = Path.Combine(readerPath, "validConfiguration.xml");
+            var calculationGroup = new CalculationGroup();
+            var importer = new CalculationConfigurationImporter(filePath,
+                                                                calculationGroup);
+
+            var configuration = new StochastConfiguration();
+
+            var random = new Random(21);
+            double mean = random.NextDouble();
+            double variationCoefficient = random.NextDouble();
+            if (setMean)
+            {
+                configuration.Mean = mean;
+            }
+            if (setVariationCoefficient)
+            {
+                configuration.VariationCoefficient = variationCoefficient;
+            }
+            var input = new TestInputWithStochasts();
+
+            // Call
+            var valid = importer.PublicTryReadVariationCoefficientStochast(
+                "some stochast name",
+                "some calculation name",
+                input, configuration,
+                i => i.VariationCoefficientDistribution,
+                (i, s) => i.VariationCoefficientDistribution = s);
+
+            // Assert
+            Assert.IsTrue(valid);
+            var defaultLogNormal = new VariationCoefficientLogNormalDistribution();
+            Assert.AreEqual(
+                setMean ? mean : defaultLogNormal.Mean,
+                input.VariationCoefficientDistribution.Mean,
+                input.VariationCoefficientDistribution.Mean.GetAccuracy());
+            Assert.AreEqual(
+                setVariationCoefficient ? variationCoefficient : defaultLogNormal.CoefficientOfVariation,
+                input.VariationCoefficientDistribution.CoefficientOfVariation,
+                input.VariationCoefficientDistribution.CoefficientOfVariation.GetAccuracy());
+        }
+
+        [Test]
+        public void TryReadVariationCoefficientStochast_StochastConfigurationWithStandardDeviation_LogsErrorReturnsFalse()
+        {
+            // Setup
+            string filePath = Path.Combine(readerPath, "validConfiguration.xml");
+            var calculationGroup = new CalculationGroup();
+            var importer = new CalculationConfigurationImporter(filePath,
+                                                                calculationGroup);
+
+            var configuration = new StochastConfiguration
+            {
+                StandardDeviation = new Random(21).NextDouble()
+            };
+
+            var input = new TestInputWithStochasts();
+            var valid = true;
+            const string stochastName = "some stochast name";
+            const string calculationName = "some calculation name";
+
+            // Call
+            Action validate = () => valid = importer.PublicTryReadVariationCoefficientStochast(
+                stochastName,
+                calculationName,
+                input, configuration,
+                i => i.VariationCoefficientDistribution,
+                (i, s) => i.VariationCoefficientDistribution = s);
+
+            // Assert
+            var expectedError = $"Indien voor parameter '{stochastName}' de spreiding wordt opgegeven, moet dit door middel van een variatiecoëfficiënt. " +
+                                $"Voor berekening '{calculationName}' is een standaardafwijking gevonden. Berekening '{calculationName}' is overgeslagen.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(validate, Tuple.Create(expectedError, LogLevelConstant.Error));
+            Assert.IsFalse(valid);
+        }
+
         private class CalculationConfigurationImporter : CalculationConfigurationImporter<CalculationConfigurationReader, ReadCalculation>
         {
             public CalculationConfigurationImporter(string filePath, CalculationGroup importTarget)
@@ -728,6 +895,30 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             public bool PublicTryReadStructure(string locationName, string calculationName, IEnumerable<StructureBase> structures, out StructureBase location)
             {
                 return TryReadStructure(locationName, calculationName, structures, out location);
+            }
+
+            public bool PublicTryReadStandardDeviationStochast<TDistribution>(
+                string stochastName,
+                string calculationName,
+                TestInputWithStochasts input,
+                StochastConfiguration stochastConfiguration,
+                Func<TestInputWithStochasts, TDistribution> getStochast,
+                Action<TestInputWithStochasts, TDistribution> setStochast)
+                where TDistribution : IDistribution
+            {
+                return TryReadStandardDeviationStochast(stochastName, calculationName, input, stochastConfiguration, getStochast, setStochast);
+            }
+
+            public bool PublicTryReadVariationCoefficientStochast<TDistribution>(
+                string stochastName,
+                string calculationName,
+                TestInputWithStochasts input,
+                StochastConfiguration stochastConfiguration,
+                Func<TestInputWithStochasts, TDistribution> getStochast,
+                Action<TestInputWithStochasts, TDistribution> setStochast)
+                where TDistribution : IVariationCoefficientDistribution
+            {
+                return TryReadVariationCoefficientStochast(stochastName, calculationName, input, stochastConfiguration, getStochast, setStochast);
             }
 
             protected override CalculationConfigurationReader CreateCalculationConfigurationReader(string xmlFilePath)
@@ -885,6 +1076,18 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                     throw new NotImplementedException();
                 }
             }
+        }
+
+        private class TestInputWithStochasts : Observable, ICalculationInput
+        {
+            public TestInputWithStochasts()
+            {
+                Distribution = new LogNormalDistribution();
+                VariationCoefficientDistribution = new VariationCoefficientLogNormalDistribution();
+            }
+
+            public IDistribution Distribution { get; set; }
+            public IVariationCoefficientDistribution VariationCoefficientDistribution { get; set; }
         }
     }
 }
