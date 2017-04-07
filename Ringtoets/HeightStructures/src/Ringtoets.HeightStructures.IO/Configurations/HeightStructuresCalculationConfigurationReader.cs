@@ -103,15 +103,15 @@ namespace Ringtoets.HeightStructures.IO.Configurations
 
             configuration.WaveReduction = GetWaveReductionParameters(calculationElement);
 
-            configuration.LevelCrestStructure = calculationElement.GetStandardDeviationStochastParameters(HeightStructuresConfigurationSchemaIdentifiers.LevelCrestStructureStochastName);
-            configuration.AllowedLevelIncreaseStorage = calculationElement.GetStandardDeviationStochastParameters(ConfigurationSchemaIdentifiers.AllowedLevelIncreaseStorageStochastName);
-            configuration.FlowWidthAtBottomProtection = calculationElement.GetStandardDeviationStochastParameters(ConfigurationSchemaIdentifiers.FlowWidthAtBottomProtectionStochastName);
-            configuration.ModelFactorSuperCriticalFlow = calculationElement.GetStandardDeviationStochastParameters(ConfigurationSchemaIdentifiers.ModelFactorSuperCriticalFlowStochastName);
-            configuration.WidthFlowApertures = calculationElement.GetStandardDeviationStochastParameters(ConfigurationSchemaIdentifiers.WidthFlowAperturesStochastName);
+            configuration.LevelCrestStructure = calculationElement.GetStochastParameters(HeightStructuresConfigurationSchemaIdentifiers.LevelCrestStructureStochastName);
+            configuration.AllowedLevelIncreaseStorage = calculationElement.GetStochastParameters(ConfigurationSchemaIdentifiers.AllowedLevelIncreaseStorageStochastName);
+            configuration.FlowWidthAtBottomProtection = calculationElement.GetStochastParameters(ConfigurationSchemaIdentifiers.FlowWidthAtBottomProtectionStochastName);
+            configuration.ModelFactorSuperCriticalFlow = calculationElement.GetStochastParameters(ConfigurationSchemaIdentifiers.ModelFactorSuperCriticalFlowStochastName);
+            configuration.WidthFlowApertures = calculationElement.GetStochastParameters(ConfigurationSchemaIdentifiers.WidthFlowAperturesStochastName);
 
-            configuration.CriticalOvertoppingDischarge = calculationElement.GetVariationCoefficientStochastParameters(ConfigurationSchemaIdentifiers.CriticalOvertoppingDischargeStochastName);
-            configuration.StorageStructureArea = calculationElement.GetVariationCoefficientStochastParameters(ConfigurationSchemaIdentifiers.StorageStructureAreaStochastName);
-            configuration.StormDuration = calculationElement.GetVariationCoefficientStochastParameters(ConfigurationSchemaIdentifiers.StormDurationStochastName);
+            configuration.CriticalOvertoppingDischarge = calculationElement.GetStochastParameters(ConfigurationSchemaIdentifiers.CriticalOvertoppingDischargeStochastName);
+            configuration.StorageStructureArea = calculationElement.GetStochastParameters(ConfigurationSchemaIdentifiers.StorageStructureAreaStochastName);
+            configuration.StormDuration = calculationElement.GetStochastParameters(ConfigurationSchemaIdentifiers.StormDurationStochastName);
 
             return configuration;
         }

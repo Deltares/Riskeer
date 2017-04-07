@@ -734,10 +734,10 @@ namespace Ringtoets.Common.IO.Test.Readers
         }
 
         [Test]
-        public void GetStandardDeviationStochastParameters_CalculationElementNull_ThrowsArgumentNullException()
+        public void GetStochastParameters_CalculationElementNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ((XElement) null).GetStandardDeviationStochastParameters("name");
+            TestDelegate test = () => ((XElement) null).GetStochastParameters("name");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -745,10 +745,10 @@ namespace Ringtoets.Common.IO.Test.Readers
         }
 
         [Test]
-        public void GetStandardDeviationStochastParameters_NameNull_ThrowsArgumentNullException()
+        public void GetStochastParameters_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new XElement("root").GetStandardDeviationStochastParameters(null);
+            TestDelegate test = () => new XElement("root").GetStochastParameters(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -756,33 +756,33 @@ namespace Ringtoets.Common.IO.Test.Readers
         }
 
         [Test]
-        public void GetStandardDeviationStochastParameters_RootWithoutStochastsElement_ReturnsNull()
+        public void GetStochastParameters_RootWithoutStochastsElement_ReturnsNull()
         {
             // Setup
             var xElement = new XElement("root");
 
             // Call
-            var stochast = xElement.GetStandardDeviationStochastParameters("some name");
+            var stochast = xElement.GetStochastParameters("some name");
 
             // Assert
             Assert.IsNull(stochast);
         }
 
         [Test]
-        public void GetStandardDeviationStochastParameters_EmptyStochastsElement_ReturnsNull()
+        public void GetStochastParameters_EmptyStochastsElement_ReturnsNull()
         {
             // Setup
             var xElement = new XElement("root", new XElement("stochasten"));
 
             // Call
-            var stochast = xElement.GetStandardDeviationStochastParameters("some name");
+            var stochast = xElement.GetStochastParameters("some name");
 
             // Assert
             Assert.IsNull(stochast);
         }
 
         [Test]
-        public void GetStandardDeviationStochastParameters_StochastWithDifferentName_ReturnsNull()
+        public void GetStochastParameters_StochastWithDifferentName_ReturnsNull()
         {
             // Setup
             var stochastElement = new XElement("stochast");
@@ -790,14 +790,14 @@ namespace Ringtoets.Common.IO.Test.Readers
             var xElement = new XElement("root", new XElement("stochasten", stochastElement));
 
             // Call
-            var stochast = xElement.GetStandardDeviationStochastParameters("stochastB");
+            var stochast = xElement.GetStochastParameters("stochastB");
 
             // Assert
             Assert.IsNull(stochast);
         }
 
         [Test]
-        public void GetStandardDeviationStochastParameters_StochastWithSameName_ReturnsNewStochast()
+        public void GetStochastParameters_StochastWithSameName_ReturnsNewStochast()
         {
             // Setup
             var stochastName = "stochastA";
@@ -807,7 +807,7 @@ namespace Ringtoets.Common.IO.Test.Readers
             var xElement = new XElement("root", new XElement("stochasten", stochastElement));
 
             // Call
-            var stochast = xElement.GetStandardDeviationStochastParameters(stochastName);
+            var stochast = xElement.GetStochastParameters(stochastName);
 
             // Assert
             Assert.IsNull(stochast.Mean);
@@ -815,7 +815,7 @@ namespace Ringtoets.Common.IO.Test.Readers
         }
 
         [Test]
-        public void GetStandardDeviationStochastParameters_StochastWithParameters_ReturnsNewStochastWithParametersSet()
+        public void GetStochastParameters_StochastWithParameters_ReturnsNewStochastWithParametersSet()
         {
             // Setup
             var stochastName = "stochastA";
@@ -826,169 +826,16 @@ namespace Ringtoets.Common.IO.Test.Readers
             stochastElement.SetAttributeValue("naam", stochastName);
             stochastElement.Add(new XElement("verwachtingswaarde", mean));
             stochastElement.Add(new XElement("standaardafwijking", standardDeviation));
+            stochastElement.Add(new XElement("variatiecoefficient", standardDeviation));
             var xElement = new XElement("root", new XElement("stochasten", stochastElement));
 
             // Call
-            var stochast = xElement.GetStandardDeviationStochastParameters(stochastName);
+            var stochast = xElement.GetStochastParameters(stochastName);
 
             // Assert
             Assert.AreEqual(mean, stochast.Mean);
             Assert.AreEqual(standardDeviation, stochast.StandardDeviation);
-        }
-
-        [Test]
-        public void GetStandardDeviationStochastParameters_StochastWithVariationCoefficient_ThrowsReadException()
-        {
-            // Setup
-            const string stochastName = "stochastA";
-            const string calculationName = "berekeningA";
-            const double mean = 1.2;
-            const double standardDeviation = 3.5;
-
-            var stochastElement = new XElement("stochast");
-            stochastElement.SetAttributeValue("naam", stochastName);
-            stochastElement.Add(new XElement("verwachtingswaarde", mean));
-            stochastElement.Add(new XElement("variatiecoefficient", standardDeviation));
-            var calculationElement = new XElement("root", new XElement("stochasten", stochastElement));
-            calculationElement.SetAttributeValue("naam", calculationName);
-
-            // Call
-            TestDelegate test = () => calculationElement.GetStandardDeviationStochastParameters(stochastName);
-
-            // Assert
-            var exception = Assert.Throws<CriticalFileReadException>(test);
-            string expectedMessage = $"Indien voor parameter '{stochastName}' de spreiding wordt opgegeven, moet dit door middel " +
-                                     $"van een standaardafwijking. Voor berekening '{calculationName}' is een variatiecoëfficiënt gevonden.";
-            Assert.AreEqual(expectedMessage, exception.Message);
-        }
-
-        [Test]
-        public void GetVariationCoefficientStochastParameters_CalculationElementNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => ((XElement)null).GetVariationCoefficientStochastParameters("name");
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("calculationElement", exception.ParamName);
-        }
-
-        [Test]
-        public void GetVariationCoefficientStochastParameters_NameNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new XElement("root").GetVariationCoefficientStochastParameters(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("stochastName", exception.ParamName);
-        }
-
-        [Test]
-        public void GetVariationCoefficientStochastParameters_RootWithoutStochastsElement_ReturnsNull()
-        {
-            // Setup
-            var xElement = new XElement("root");
-
-            // Call
-            var stochast = xElement.GetVariationCoefficientStochastParameters("some name");
-
-            // Assert
-            Assert.IsNull(stochast);
-        }
-
-        [Test]
-        public void GetVariationCoefficientStochastParameters_EmptyStochastsElement_ReturnsNull()
-        {
-            // Setup
-            var xElement = new XElement("root", new XElement("stochasten"));
-
-            // Call
-            var stochast = xElement.GetVariationCoefficientStochastParameters("some name");
-
-            // Assert
-            Assert.IsNull(stochast);
-        }
-
-        [Test]
-        public void GetVariationCoefficientStochastParameters_StochastWithDifferentName_ReturnsNull()
-        {
-            // Setup
-            var stochastElement = new XElement("stochast");
-            stochastElement.SetAttributeValue("naam", "stochastA");
-            var xElement = new XElement("root", new XElement("stochasten", stochastElement));
-
-            // Call
-            var stochast = xElement.GetVariationCoefficientStochastParameters("stochastB");
-
-            // Assert
-            Assert.IsNull(stochast);
-        }
-
-        [Test]
-        public void GetVariationCoefficientStochastParameters_StochastWithSameName_ReturnsNewStochast()
-        {
-            // Setup
-            var stochastName = "stochastA";
-
-            var stochastElement = new XElement("stochast");
-            stochastElement.SetAttributeValue("naam", stochastName);
-            var xElement = new XElement("root", new XElement("stochasten", stochastElement));
-
-            // Call
-            var stochast = xElement.GetVariationCoefficientStochastParameters(stochastName);
-
-            // Assert
-            Assert.IsNull(stochast.Mean);
-            Assert.IsNull(stochast.VariationCoefficient);
-        }
-
-        [Test]
-        public void GetVariationCoefficientStochastParameters_StochastWithParameters_ReturnsNewStochastWithParametersSet()
-        {
-            // Setup
-            var stochastName = "stochastA";
-            var mean = 1.2;
-            var standardDeviation = 3.5;
-
-            var stochastElement = new XElement("stochast");
-            stochastElement.SetAttributeValue("naam", stochastName);
-            stochastElement.Add(new XElement("verwachtingswaarde", mean));
-            stochastElement.Add(new XElement("variatiecoefficient", standardDeviation));
-            var xElement = new XElement("root", new XElement("stochasten", stochastElement));
-
-            // Call
-            var stochast = xElement.GetVariationCoefficientStochastParameters(stochastName);
-
-            // Assert
-            Assert.AreEqual(mean, stochast.Mean);
             Assert.AreEqual(standardDeviation, stochast.VariationCoefficient);
-        }
-
-        [Test]
-        public void GetVariationCoefficientStochastParameters_StochastWithVariationCoefficient_ThrowsReadException()
-        {
-            // Setup
-            const string stochastName = "stochastA";
-            const string calculationName = "berekeningA";
-            const double mean = 1.2;
-            const double standardDeviation = 3.5;
-
-            var stochastElement = new XElement("stochast");
-            stochastElement.SetAttributeValue("naam", stochastName);
-            stochastElement.Add(new XElement("verwachtingswaarde", mean));
-            stochastElement.Add(new XElement("standaardafwijking", standardDeviation));
-            var calculationElement = new XElement("root", new XElement("stochasten", stochastElement));
-            calculationElement.SetAttributeValue("naam", calculationName);
-
-            // Call
-            TestDelegate test = () => calculationElement.GetVariationCoefficientStochastParameters(stochastName);
-
-            // Assert
-            var exception = Assert.Throws<CriticalFileReadException>(test);
-            string expectedMessage = $"Indien voor parameter '{stochastName}' de spreiding wordt opgegeven, moet dit door middel " +
-                                     $"van een variatiecoëfficiënt. Voor berekening '{calculationName}' is een standaardafwijking gevonden.";
-            Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         private class DoubleToBooleanConverter : TypeConverter

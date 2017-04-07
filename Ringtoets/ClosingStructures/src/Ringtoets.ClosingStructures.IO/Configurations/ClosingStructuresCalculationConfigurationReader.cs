@@ -110,18 +110,18 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
                 HydraulicBoundaryLocationName = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement),
                 StructureName = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.StructureElement),
                 WaveReduction = GetWaveReductionParameters(calculationElement),
-                AreaFlowApertures = calculationElement.GetStandardDeviationStochastParameters(ClosingStructuresConfigurationSchemaIdentifiers.AreaFlowAperturesStochastName),
-                DrainCoefficient = calculationElement.GetStandardDeviationStochastParameters(ClosingStructuresConfigurationSchemaIdentifiers.DrainCoefficientStochastName),
-                InsideWaterLevel = calculationElement.GetStandardDeviationStochastParameters(ClosingStructuresConfigurationSchemaIdentifiers.InsideWaterLevelStochastName),
-                LevelCrestStructureNotClosing = calculationElement.GetStandardDeviationStochastParameters(ClosingStructuresConfigurationSchemaIdentifiers.LevelCrestStructureNotClosingStochastName),
-                ThresholdHeightOpenWeir = calculationElement.GetStandardDeviationStochastParameters(ClosingStructuresConfigurationSchemaIdentifiers.ThresholdHeightOpenWeirStochastName),
-                AllowedLevelIncreaseStorage = calculationElement.GetStandardDeviationStochastParameters(ConfigurationSchemaIdentifiers.AllowedLevelIncreaseStorageStochastName),
-                FlowWidthAtBottomProtection = calculationElement.GetStandardDeviationStochastParameters(ConfigurationSchemaIdentifiers.FlowWidthAtBottomProtectionStochastName),
-                ModelFactorSuperCriticalFlow = calculationElement.GetStandardDeviationStochastParameters(ConfigurationSchemaIdentifiers.ModelFactorSuperCriticalFlowStochastName),
-                WidthFlowApertures = calculationElement.GetStandardDeviationStochastParameters(ConfigurationSchemaIdentifiers.WidthFlowAperturesStochastName),
-                CriticalOvertoppingDischarge = calculationElement.GetVariationCoefficientStochastParameters(ConfigurationSchemaIdentifiers.CriticalOvertoppingDischargeStochastName),
-                StorageStructureArea = calculationElement.GetVariationCoefficientStochastParameters(ConfigurationSchemaIdentifiers.StorageStructureAreaStochastName),
-                StormDuration = calculationElement.GetVariationCoefficientStochastParameters(ConfigurationSchemaIdentifiers.StormDurationStochastName)
+                AreaFlowApertures = calculationElement.GetStochastParameters(ClosingStructuresConfigurationSchemaIdentifiers.AreaFlowAperturesStochastName),
+                DrainCoefficient = calculationElement.GetStochastParameters(ClosingStructuresConfigurationSchemaIdentifiers.DrainCoefficientStochastName),
+                InsideWaterLevel = calculationElement.GetStochastParameters(ClosingStructuresConfigurationSchemaIdentifiers.InsideWaterLevelStochastName),
+                LevelCrestStructureNotClosing = calculationElement.GetStochastParameters(ClosingStructuresConfigurationSchemaIdentifiers.LevelCrestStructureNotClosingStochastName),
+                ThresholdHeightOpenWeir = calculationElement.GetStochastParameters(ClosingStructuresConfigurationSchemaIdentifiers.ThresholdHeightOpenWeirStochastName),
+                AllowedLevelIncreaseStorage = calculationElement.GetStochastParameters(ConfigurationSchemaIdentifiers.AllowedLevelIncreaseStorageStochastName),
+                FlowWidthAtBottomProtection = calculationElement.GetStochastParameters(ConfigurationSchemaIdentifiers.FlowWidthAtBottomProtectionStochastName),
+                ModelFactorSuperCriticalFlow = calculationElement.GetStochastParameters(ConfigurationSchemaIdentifiers.ModelFactorSuperCriticalFlowStochastName),
+                WidthFlowApertures = calculationElement.GetStochastParameters(ConfigurationSchemaIdentifiers.WidthFlowAperturesStochastName),
+                CriticalOvertoppingDischarge = calculationElement.GetStochastParameters(ConfigurationSchemaIdentifiers.CriticalOvertoppingDischargeStochastName),
+                StorageStructureArea = calculationElement.GetStochastParameters(ConfigurationSchemaIdentifiers.StorageStructureAreaStochastName),
+                StormDuration = calculationElement.GetStochastParameters(ConfigurationSchemaIdentifiers.StormDurationStochastName)
             };
 
             return configuration;

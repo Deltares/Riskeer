@@ -210,7 +210,7 @@ namespace Ringtoets.Common.IO.Readers
         /// <exception cref="FormatException">Thrown when the value isn't in the correct format.</exception>
         /// <exception cref="OverflowException">Thrown when the value for mean or standard deviation represents a
         /// number less than <see cref="double.MinValue"/> or greater than <see cref="double.MaxValue"/>.</exception>
-        public static StochastConfiguration GetStandardDeviationStochastParameters(this XElement calculationElement, string stochastName)
+        public static StochastConfiguration GetStochastParameters(this XElement calculationElement, string stochastName)
         {
             if (calculationElement == null)
             {
@@ -225,53 +225,10 @@ namespace Ringtoets.Common.IO.Readers
 
             if (element != null)
             {
-                if (element.Element(ConfigurationSchemaIdentifiers.VariationCoefficientElement) != null)
-                {
-                    string calculationName = calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute)?.Value;
-                    string message = string.Format(
-                        Resources.XElementExtensions_GetStandardDeviationStochastParameters_Stochast_0_defines_VariationCoefficient_instead_of_StandardDeviation_in_Calculation_1_,
-                        stochastName,
-                        calculationName);
-                    throw new CriticalFileReadException(message);
-                }
-
                 return new StochastConfiguration
                 {
                     Mean = element.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.MeanElement),
-                    StandardDeviation = element.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.StandardDeviationElement)
-                };
-            }
-            return null;
-        }
-
-        public static StochastConfiguration GetVariationCoefficientStochastParameters(this XElement calculationElement, string stochastName)
-        {
-            if (calculationElement == null)
-            {
-                throw new ArgumentNullException(nameof(calculationElement));
-            }
-            if (stochastName == null)
-            {
-                throw new ArgumentNullException(nameof(stochastName));
-            }
-
-            XElement element = calculationElement.GetStochastElement(stochastName);
-
-            if (element != null)
-            {
-                if (element.Element(ConfigurationSchemaIdentifiers.StandardDeviationElement) != null)
-                {
-                    string calculationName = calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute)?.Value;
-                    string message = string.Format(
-                        Resources.XElementExtensions_GetVariationCoefficientStochastParameters_Stochast_0_defines_StandardDeviation_instead_of_VariationCoefficient_in_Calculation_1_,
-                        stochastName,
-                        calculationName);
-                    throw new CriticalFileReadException(message);
-                }
-
-                return new StochastConfiguration
-                {
-                    Mean = element.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.MeanElement),
+                    StandardDeviation = element.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.StandardDeviationElement),
                     VariationCoefficient = element.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.VariationCoefficientElement)
                 };
             }

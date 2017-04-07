@@ -33,7 +33,6 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Helpers;
-using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.Properties;
 using Ringtoets.Common.IO.Readers;
 
