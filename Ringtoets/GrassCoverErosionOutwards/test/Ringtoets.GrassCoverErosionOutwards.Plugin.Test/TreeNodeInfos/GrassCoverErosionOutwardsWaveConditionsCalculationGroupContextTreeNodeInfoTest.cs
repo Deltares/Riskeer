@@ -1443,20 +1443,29 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var group = new CalculationGroup();
-                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-                var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
-                assessmentSectionStub.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(1, "1", 1, 1);
+                var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(2, "2", 2, 2);
+                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
+                {
+                    HydraulicBoundaryLocations =
+                    {
+                        hydraulicBoundaryLocation1,
+                        hydraulicBoundaryLocation2
+                    }
+                };
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
                 {
                     Locations =
                     {
-                        new HydraulicBoundaryLocation(1, "1", 1, 1)
+                        hydraulicBoundaryLocation1,
+                        hydraulicBoundaryLocation2
                     }
                 };
 
-                var observerMock = mocks.StrictMock<IObserver>();
                 var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(group,
                                                                                                   failureMechanism,
-                                                                                                  assessmentSectionStub);
+                                                                                                  assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
                 var mainWindow = mocks.Stub<IMainWindow>();
@@ -1470,7 +1479,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
-                nodeData.Attach(observerMock);
 
                 HydraulicBoundaryLocationSelectionDialog dialog = null;
                 DataGridViewControl grid = null;
@@ -1479,6 +1487,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     dialog = (HydraulicBoundaryLocationSelectionDialog) new FormTester(name).TheObject;
                     grid = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
                     grid.Rows[0].Cells[0].Value = true;
+                    grid.Rows[1].Cells[0].Value = true;
                     new ButtonTester("CustomCancelButton", dialog).Click();
                 };
 
