@@ -22,14 +22,20 @@
 namespace Ringtoets.Common.IO.Configurations
 {
     /// <summary>
-    /// Configuration of a stochast with possible values for mean and variation coefficient.
+    /// Configuration of a stochast with possible values for mean, standard deviation
+    /// and variation coefficient.
     /// </summary>
-    public class MeanVariationCoefficientStochastConfiguration
+    public class StochastConfiguration
     {
         /// <summary>
         /// Gets or sets the mean of the stochast.
         /// </summary>
         public double? Mean { get; set; }
+
+        /// <summary>
+        /// Gets or sets the standard deviation of the stochast.
+        /// </summary>
+        public double? StandardDeviation { get; set; }
 
         /// <summary>
         /// Gets or sets the variation coefficient of the stochast.

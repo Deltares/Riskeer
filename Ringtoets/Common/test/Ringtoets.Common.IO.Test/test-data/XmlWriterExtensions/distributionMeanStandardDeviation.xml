@@ -1,4 +1,4 @@
-﻿<stochast naam="normal">
+﻿<stochast naam="distribution">
   <verwachtingswaarde>0.2</verwachtingswaarde>
   <standaardafwijking>0.1</standaardafwijking>
 </stochast>

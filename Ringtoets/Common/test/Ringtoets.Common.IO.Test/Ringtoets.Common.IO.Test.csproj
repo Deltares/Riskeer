@@ -66,8 +66,7 @@
     <Compile Include="Configurations\Helpers\ConfigurationValidationExtensionsTest.cs" />
     <Compile Include="Configurations\Helpers\DistributionConversionExtensionsTest.cs" />
     <Compile Include="Configurations\Helpers\ILogExtensionsTest.cs" />
-    <Compile Include="Configurations\MeanVariationCoefficientStochastConfigurationTest.cs" />
-    <Compile Include="Configurations\MeanStandardDeviationStochastConfigurationTest.cs" />
+    <Compile Include="Configurations\StochastConfigurationTest.cs" />
     <Compile Include="Configurations\WaveReductionConfigurationTest.cs" />
     <Compile Include="Exporters\SchemaCalculationConfigurationExporterTest.cs" />
     <Compile Include="Configurations\Helpers\ConfigurationBreakWaterTypeConverterTest.cs" />

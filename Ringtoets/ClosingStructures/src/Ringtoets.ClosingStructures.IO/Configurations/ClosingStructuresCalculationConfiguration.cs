@@ -39,27 +39,27 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
         /// <summary>
         /// Gets or sets the stochast configuration for the inside water level for the structure.
         /// </summary>
-        public MeanStandardDeviationStochastConfiguration InsideWaterLevel { get; set; }
+        public StochastConfiguration InsideWaterLevel { get; set; }
 
         /// <summary>
         /// Gets or sets the stochast configuration for the drain coefficient for the structure.
         /// </summary>
-        public MeanStandardDeviationStochastConfiguration DrainCoefficient { get; set; }
+        public StochastConfiguration DrainCoefficient { get; set; }
 
         /// <summary>
         /// Gets or sets the stochast configuration for the threshold height open weir for the structure.
         /// </summary>
-        public MeanStandardDeviationStochastConfiguration ThresholdHeightOpenWeir { get; set; }
+        public StochastConfiguration ThresholdHeightOpenWeir { get; set; }
 
         /// <summary>
         /// Gets or sets the stochast configuration for the area flow of apertures for the structure.
         /// </summary>
-        public MeanStandardDeviationStochastConfiguration AreaFlowApertures { get; set; }
+        public StochastConfiguration AreaFlowApertures { get; set; }
 
         /// <summary>
         /// Gets or sets the stochast configuration for the level crest of structure not closing.
         /// </summary>
-        public MeanStandardDeviationStochastConfiguration LevelCrestStructureNotClosing { get; set; }
+        public StochastConfiguration LevelCrestStructureNotClosing { get; set; }
 
         /// <summary>
         /// Gets or sets the number of identical apertures.

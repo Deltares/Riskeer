@@ -322,7 +322,7 @@ namespace Ringtoets.Common.IO.FileImporters
             string calculationName,
             string stochastName,
             TCalculationInput input, 
-            MeanStandardDeviationStochastConfiguration stochastConfiguration, 
+            StochastConfiguration stochastConfiguration, 
             Func<TCalculationInput, TDistribution> getStochast, 
             Action<TCalculationInput, TDistribution> setStochast)
             where TDistribution : IDistribution
@@ -361,7 +361,7 @@ namespace Ringtoets.Common.IO.FileImporters
             string calculationName, 
             string stochastName,
             TCalculationInput input, 
-            MeanVariationCoefficientStochastConfiguration stochastConfiguration, 
+            StochastConfiguration stochastConfiguration, 
             Func<TCalculationInput, TDistribution> getStochast,
             Action<TCalculationInput, TDistribution> setStochast)
             where TDistribution : IVariationCoefficientDistribution

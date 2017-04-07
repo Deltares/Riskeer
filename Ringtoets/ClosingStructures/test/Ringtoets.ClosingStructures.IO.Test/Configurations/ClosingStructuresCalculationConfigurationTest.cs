@@ -69,11 +69,11 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             // Setup
             var random = new Random(21);
             var inflowModelType = random.NextEnumValue<ConfigurationClosingStructureInflowModelType>();
-            var insideWaterLevel = new MeanStandardDeviationStochastConfiguration();
-            var drainCoefficient = new MeanStandardDeviationStochastConfiguration();
-            var thresholdHeightOpenWeir = new MeanStandardDeviationStochastConfiguration();
-            var areaFlowApertures = new MeanStandardDeviationStochastConfiguration();
-            var levelCrestStructureNotClosing = new MeanStandardDeviationStochastConfiguration();
+            var insideWaterLevel = new StochastConfiguration();
+            var drainCoefficient = new StochastConfiguration();
+            var thresholdHeightOpenWeir = new StochastConfiguration();
+            var areaFlowApertures = new StochastConfiguration();
+            var levelCrestStructureNotClosing = new StochastConfiguration();
             var identicalApertures = random.Next(1, 5);
             var factorStormDurationOpenStructure = random.NextDouble();
             var failureProbabilityOpenStructure = random.NextDouble();

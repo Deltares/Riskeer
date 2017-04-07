@@ -109,32 +109,7 @@ namespace Ringtoets.Common.IO.Writers
         /// <param name="configuration">The configuration for the distribution that can be <c>null</c>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="writer"/> or <paramref name="distributionName"/>
         /// is <c>null</c>.</exception>
-        protected static void WriteDistributionWhenAvailable(XmlWriter writer, string distributionName, MeanVariationCoefficientStochastConfiguration configuration)
-        {
-            if (writer == null)
-            {
-                throw new ArgumentNullException(nameof(writer));
-            }
-            if (distributionName == null)
-            {
-                throw new ArgumentNullException(nameof(distributionName));
-            }
-
-            if (configuration != null)
-            {
-                writer.WriteDistribution(distributionName, configuration);
-            }
-        }
-
-        /// <summary>
-        /// Writes a distribution configuration when it has a value.
-        /// </summary>
-        /// <param name="writer">The writer to use for writing.</param>
-        /// <param name="distributionName">The name of the distribution.</param>
-        /// <param name="configuration">The configuration for the distribution that can be <c>null</c>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="writer"/> or <paramref name="distributionName"/>
-        /// is <c>null</c>.</exception>
-        protected static void WriteDistributionWhenAvailable(XmlWriter writer, string distributionName, MeanStandardDeviationStochastConfiguration configuration)
+        protected static void WriteDistributionWhenAvailable(XmlWriter writer, string distributionName, StochastConfiguration configuration)
         {
             if (writer == null)
             {

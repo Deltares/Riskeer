@@ -63,7 +63,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             distribution.StandardDeviation = standardDeviation;
 
             // Call
-            MeanStandardDeviationStochastConfiguration configuration = distribution.ToStochastConfiguration();
+            StochastConfiguration configuration = distribution.ToStochastConfiguration();
 
             // Assert
             Assert.AreEqual(mean, configuration.Mean);
@@ -98,7 +98,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             distribution.Mean = mean;
 
             // Call
-            MeanStandardDeviationStochastConfiguration configuration = distribution.ToStochastConfigurationWithMean();
+            StochastConfiguration configuration = distribution.ToStochastConfigurationWithMean();
 
             // Assert
             Assert.AreEqual(mean, configuration.Mean);
@@ -133,7 +133,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             distribution.StandardDeviation = StandardDeviation;
 
             // Call
-            MeanStandardDeviationStochastConfiguration configuration = distribution.ToStochastConfigurationWithStandardDeviation();
+            StochastConfiguration configuration = distribution.ToStochastConfigurationWithStandardDeviation();
 
             // Assert
             Assert.IsNull(configuration.Mean);
@@ -170,7 +170,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             distribution.CoefficientOfVariation = variationCoefficient;
 
             // Call
-            MeanVariationCoefficientStochastConfiguration configuration = distribution.ToStochastConfiguration();
+            StochastConfiguration configuration = distribution.ToStochastConfiguration();
 
             // Assert
             Assert.AreEqual(mean, configuration.Mean);
@@ -205,7 +205,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             distribution.Mean = mean;
 
             // Call
-            MeanVariationCoefficientStochastConfiguration configuration = distribution.ToStochastConfigurationWithMean();
+            StochastConfiguration configuration = distribution.ToStochastConfigurationWithMean();
 
             // Assert
             Assert.AreEqual(mean, configuration.Mean);
@@ -240,7 +240,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             distribution.CoefficientOfVariation = variationCoefficient;
 
             // Call
-            MeanVariationCoefficientStochastConfiguration configuration = distribution.ToStochastConfigurationWithVariationCoefficient();
+            StochastConfiguration configuration = distribution.ToStochastConfigurationWithVariationCoefficient();
 
             // Assert
             Assert.IsNull(configuration.Mean);

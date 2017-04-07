@@ -26,17 +26,18 @@ using Ringtoets.Common.IO.Configurations;
 namespace Ringtoets.Common.IO.Test.Configurations
 {
     [TestFixture]
-    public class MeanStandardDeviationStochastConfigurationTest
+    public class StochastConfigurationTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var configuration = new MeanStandardDeviationStochastConfiguration();
+            var configuration = new StochastConfiguration();
 
             // Assert
             Assert.IsNull(configuration.Mean);
             Assert.IsNull(configuration.StandardDeviation);
+            Assert.IsNull(configuration.VariationCoefficient);
         }
 
         [Test]
@@ -44,18 +45,21 @@ namespace Ringtoets.Common.IO.Test.Configurations
         {
             // Setup
             var random = new Random(236789);
-            var configuration = new MeanStandardDeviationStochastConfiguration();
+            var configuration = new StochastConfiguration();
 
             double mean = random.NextDouble();
             double standardDeviation = random.NextDouble();
+            double variationCoefficient = random.NextDouble();
 
             // Call
             configuration.Mean = mean;
             configuration.StandardDeviation = standardDeviation;
+            configuration.VariationCoefficient = variationCoefficient;
 
             // Assert 
             Assert.AreEqual(mean, configuration.Mean);
             Assert.AreEqual(standardDeviation, configuration.StandardDeviation);
+            Assert.AreEqual(variationCoefficient, configuration.VariationCoefficient);
         }
     }
 }

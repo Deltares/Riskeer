@@ -34,7 +34,7 @@ namespace Ringtoets.Common.IO.Writers
     public static class XmlWriterExtensions
     {
         /// <summary>
-        /// Writes a single <see cref="MeanStandardDeviationStochastConfiguration"/> as a stochast element in file.
+        /// Writes a single <see cref="StochastConfiguration"/> as a stochast element in file.
         /// </summary>
         /// <param name="writer">The writer to use to write the distribution.</param>
         /// <param name="name">The name of the distribution to write.</param>
@@ -42,7 +42,7 @@ namespace Ringtoets.Common.IO.Writers
         /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is 
         /// in an invalid state for writing.</exception>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
-        public static void WriteDistribution(this XmlWriter writer, string name, MeanStandardDeviationStochastConfiguration distribution)
+        public static void WriteDistribution(this XmlWriter writer, string name, StochastConfiguration distribution)
         {
             if (writer == null)
             {
@@ -67,41 +67,6 @@ namespace Ringtoets.Common.IO.Writers
             if (distribution.StandardDeviation.HasValue)
             {
                 writer.WriteElementString(ConfigurationSchemaIdentifiers.StandardDeviationElement, XmlConvert.ToString(distribution.StandardDeviation.Value));
-            }
-
-            writer.WriteEndElement();
-        }
-
-        /// <summary>
-        /// Writes a single <see cref="MeanVariationCoefficientStochastConfiguration"/> as a stochast element in file.
-        /// </summary>
-        /// <param name="writer">The writer to use to write the distribution.</param>
-        /// <param name="name">The name of the distribution to write.</param>
-        /// <param name="distribution">The distribution to write.</param>
-        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is 
-        /// in an invalid state for writing.</exception>
-        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
-        public static void WriteDistribution(this XmlWriter writer, string name, MeanVariationCoefficientStochastConfiguration distribution)
-        {
-            if (writer == null)
-            {
-                throw new ArgumentNullException(nameof(writer));
-            }
-            if (name == null)
-            {
-                throw new ArgumentNullException(nameof(name));
-            }
-            if (distribution == null)
-            {
-                throw new ArgumentNullException(nameof(distribution));
-            }
-
-            writer.WriteStartElement(ConfigurationSchemaIdentifiers.StochastElement);
-            writer.WriteAttributeString(ConfigurationSchemaIdentifiers.NameAttribute, name);
-
-            if (distribution.Mean.HasValue)
-            {
-                writer.WriteElementString(ConfigurationSchemaIdentifiers.MeanElement, XmlConvert.ToString(distribution.Mean.Value));
             }
             if (distribution.VariationCoefficient.HasValue)
             {

@@ -39,6 +39,6 @@ namespace Ringtoets.HeightStructures.IO.Configurations
         /// <summary>
         /// Gets or sets the stochast configuration for the crest level for the structure.
         /// </summary>
-        public MeanStandardDeviationStochastConfiguration LevelCrestStructure { get; set; }
+        public StochastConfiguration LevelCrestStructure { get; set; }
     }
 }

@@ -56,7 +56,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
         public void SimpleProperties_SetNewValues_NewValuesSet()
         {
             // Setup
-            var levelCrestStructure = new MeanStandardDeviationStochastConfiguration();
+            var levelCrestStructure = new StochastConfiguration();
             var configuration = new HeightStructuresCalculationConfiguration("some name");
 
             // Call

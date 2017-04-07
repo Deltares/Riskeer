@@ -109,35 +109,35 @@ namespace Ringtoets.Common.IO.Test.Writers
         {
             return new SimpleStructuresCalculationConfiguration(name)
             {
-                AllowedLevelIncreaseStorage = new MeanStandardDeviationStochastConfiguration
+                AllowedLevelIncreaseStorage = new StochastConfiguration
                 {
                     Mean = 1.2,
                     StandardDeviation = 3.4
                 },
-                CriticalOvertoppingDischarge = new MeanVariationCoefficientStochastConfiguration
+                CriticalOvertoppingDischarge = new StochastConfiguration
                 {
                     Mean = 22.2,
                     VariationCoefficient = 2.1
                 },
                 FailureProbabilityStructureWithErosion = 2.1,
-                FlowWidthAtBottomProtection = new MeanStandardDeviationStochastConfiguration
+                FlowWidthAtBottomProtection = new StochastConfiguration
                 {
                     Mean = 5.4,
                     StandardDeviation = 1.1
                 },
                 ForeshoreProfileName = "Voorland",
                 HydraulicBoundaryLocationName = "Randvoorwaardelocatie",
-                ModelFactorSuperCriticalFlow = new MeanStandardDeviationStochastConfiguration
+                ModelFactorSuperCriticalFlow = new StochastConfiguration
                 {
                     Mean = 322.2,
                     StandardDeviation = 91.2
                 },
-                StorageStructureArea = new MeanVariationCoefficientStochastConfiguration
+                StorageStructureArea = new StochastConfiguration
                 {
                     Mean = 11.122,
                     VariationCoefficient = 32.111
                 },
-                StormDuration = new MeanVariationCoefficientStochastConfiguration
+                StormDuration = new StochastConfiguration
                 {
                     Mean = 21.22,
                     VariationCoefficient = 1.2
@@ -151,7 +151,7 @@ namespace Ringtoets.Common.IO.Test.Writers
                     BreakWaterHeight = 111111.2,
                     UseForeshoreProfile = true
                 },
-                WidthFlowApertures = new MeanStandardDeviationStochastConfiguration
+                WidthFlowApertures = new StochastConfiguration
                 {
                     Mean = 121.3,
                     StandardDeviation = 222.1
@@ -190,7 +190,7 @@ namespace Ringtoets.Common.IO.Test.Writers
             {
                 if (writeExtraParameterAndStochast)
                 {
-                    writer.WriteDistribution("testStochastName", new MeanStandardDeviationStochastConfiguration());
+                    writer.WriteDistribution("testStochastName", new StochastConfiguration());
                 }
             }
         }

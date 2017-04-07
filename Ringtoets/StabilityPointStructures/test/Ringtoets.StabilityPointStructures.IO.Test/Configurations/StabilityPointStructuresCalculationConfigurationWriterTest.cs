@@ -103,56 +103,56 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
         {
             return new StabilityPointStructuresCalculationConfiguration("Berekening 1")
             {
-                AllowedLevelIncreaseStorage = new MeanStandardDeviationStochastConfiguration
+                AllowedLevelIncreaseStorage = new StochastConfiguration
                 {
                     Mean = 0.01,
                     StandardDeviation = 0.11
                 },
-                AreaFlowApertures = new MeanStandardDeviationStochastConfiguration
+                AreaFlowApertures = new StochastConfiguration
                 {
                     Mean = 0.02,
                     StandardDeviation = 0.12
                 },
-                BankWidth = new MeanStandardDeviationStochastConfiguration
+                BankWidth = new StochastConfiguration
                 {
                     Mean = 0.03,
                     StandardDeviation = 0.13
                 },
-                ConstructiveStrengthLinearLoadModel = new MeanVariationCoefficientStochastConfiguration
+                ConstructiveStrengthLinearLoadModel = new StochastConfiguration
                 {
                     Mean = 0.04,
                     VariationCoefficient = 0.14
                 },
-                ConstructiveStrengthQuadraticLoadModel = new MeanVariationCoefficientStochastConfiguration
+                ConstructiveStrengthQuadraticLoadModel = new StochastConfiguration
                 {
                     Mean = 0.05,
                     VariationCoefficient = 0.15
                 },
-                CriticalOvertoppingDischarge = new MeanVariationCoefficientStochastConfiguration
+                CriticalOvertoppingDischarge = new StochastConfiguration
                 {
                     Mean = 0.06,
                     VariationCoefficient = 0.16
                 },
-                DrainCoefficient = new MeanStandardDeviationStochastConfiguration
+                DrainCoefficient = new StochastConfiguration
                 {
                     Mean = 0.01,
                     StandardDeviation = 0.02
                 },
                 EvaluationLevel = 1.1,
                 FactorStormDurationOpenStructure = 1.123,
-                FailureCollisionEnergy = new MeanVariationCoefficientStochastConfiguration
+                FailureCollisionEnergy = new StochastConfiguration
                 {
                     Mean = 0.07,
                     VariationCoefficient = 0.17
                 },
                 FailureProbabilityRepairClosure = 2.2,
                 FailureProbabilityStructureWithErosion = 3.3,
-                FlowVelocityStructureClosable = new MeanVariationCoefficientStochastConfiguration
+                FlowVelocityStructureClosable = new StochastConfiguration
                 {
                     Mean = 0.08,
                     VariationCoefficient = 0.18
                 },
-                FlowWidthAtBottomProtection = new MeanStandardDeviationStochastConfiguration
+                FlowWidthAtBottomProtection = new StochastConfiguration
                 {
                     Mean = 0.09,
                     StandardDeviation = 0.19
@@ -160,69 +160,69 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                 ForeshoreProfileName = "profiel1",
                 HydraulicBoundaryLocationName = "Locatie1",
                 InflowModelType = ConfigurationStabilityPointStructuresInflowModelType.FloodedCulvert,
-                InsideWaterLevel = new MeanStandardDeviationStochastConfiguration
+                InsideWaterLevel = new StochastConfiguration
                 {
                     Mean = 0.1,
                     StandardDeviation = 0.20
                 },
-                InsideWaterLevelFailureConstruction = new MeanStandardDeviationStochastConfiguration
+                InsideWaterLevelFailureConstruction = new StochastConfiguration
                 {
                     Mean = 0.11,
                     StandardDeviation = 0.21
                 },
-                LevelCrestStructure = new MeanStandardDeviationStochastConfiguration
+                LevelCrestStructure = new StochastConfiguration
                 {
                     Mean = 0.12,
                     StandardDeviation = 0.22
                 },
                 LevellingCount = 4,
                 LoadSchematizationType = ConfigurationStabilityPointStructuresLoadSchematizationType.Linear,
-                ModelFactorSuperCriticalFlow = new MeanStandardDeviationStochastConfiguration
+                ModelFactorSuperCriticalFlow = new StochastConfiguration
                 {
                     Mean = 0.13,
                     StandardDeviation = 0.23
                 },
                 ProbabilityCollisionSecondaryStructure = 5.5,
-                ShipMass = new MeanVariationCoefficientStochastConfiguration
+                ShipMass = new StochastConfiguration
                 {
                     Mean = 0.14,
                     VariationCoefficient = 0.24
                 },
-                ShipVelocity = new MeanVariationCoefficientStochastConfiguration
+                ShipVelocity = new StochastConfiguration
                 {
                     Mean = 0.15,
                     VariationCoefficient = 0.25
                 },
-                StabilityLinearLoadModel = new MeanVariationCoefficientStochastConfiguration
+                StabilityLinearLoadModel = new StochastConfiguration
                 {
                     Mean = 0.16,
                     VariationCoefficient = 0.26
                 },
-                StabilityQuadraticLoadModel = new MeanVariationCoefficientStochastConfiguration
+                StabilityQuadraticLoadModel = new StochastConfiguration
                 {
                     Mean = 0.17,
                     VariationCoefficient = 0.27
                 },
-                StormDuration = new MeanVariationCoefficientStochastConfiguration
+                StormDuration = new StochastConfiguration
                 {
                     Mean = 0.18,
                     VariationCoefficient = 0.28
                 },
                 StructureName = "kunstwerk1",
                 StructureNormalOrientation = 6.6,
-                StorageStructureArea = new MeanVariationCoefficientStochastConfiguration
+                StorageStructureArea = new StochastConfiguration
                 {
                     Mean = 0.19,
                     VariationCoefficient = 0.29
                 },
-                ThresholdHeightOpenWeir = new MeanStandardDeviationStochastConfiguration
+                ThresholdHeightOpenWeir = new StochastConfiguration
                 {
                     Mean = 0.20,
                     StandardDeviation = 0.30
                 },
                 VerticalDistance = 7.7,
                 VolumicWeightWater = 9.9,
-                WidthFlowApertures = new MeanStandardDeviationStochastConfiguration
+                WidthFlowApertures = new StochastConfiguration
                 {
                     Mean = 0.21,
                     StandardDeviation = 0.31

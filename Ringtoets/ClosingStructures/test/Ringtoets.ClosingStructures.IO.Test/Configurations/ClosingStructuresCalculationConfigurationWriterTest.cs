@@ -125,62 +125,62 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
                     BreakWaterHeight = 1.23,
                     UseForeshoreProfile = true
                 },
-                FlowWidthAtBottomProtection = new MeanStandardDeviationStochastConfiguration
+                FlowWidthAtBottomProtection = new StochastConfiguration
                 {
                     Mean = 15.2,
                     StandardDeviation = 0.1
                 },
-                WidthFlowApertures = new MeanStandardDeviationStochastConfiguration
+                WidthFlowApertures = new StochastConfiguration
                 {
                     Mean = 13.2,
                     StandardDeviation = 0.3
                 },
-                StorageStructureArea = new MeanVariationCoefficientStochastConfiguration
+                StorageStructureArea = new StochastConfiguration
                 {
                     Mean = 15000,
                     VariationCoefficient = 0.01
                 },
-                CriticalOvertoppingDischarge = new MeanVariationCoefficientStochastConfiguration
+                CriticalOvertoppingDischarge = new StochastConfiguration
                 {
                     Mean = 2,
                     VariationCoefficient = 0.1
                 },
-                ModelFactorSuperCriticalFlow = new MeanStandardDeviationStochastConfiguration
+                ModelFactorSuperCriticalFlow = new StochastConfiguration
                 {
                     Mean = 1.1,
                     StandardDeviation = 0.14
                 },
-                AllowedLevelIncreaseStorage = new MeanStandardDeviationStochastConfiguration
+                AllowedLevelIncreaseStorage = new StochastConfiguration
                 {
                     Mean = 0.2,
                     StandardDeviation = 0.01
                 },
-                StormDuration = new MeanVariationCoefficientStochastConfiguration
+                StormDuration = new StochastConfiguration
                 {
                     Mean = 6.0,
                     VariationCoefficient = 0.22
                 },
-                DrainCoefficient = new MeanStandardDeviationStochastConfiguration
+                DrainCoefficient = new StochastConfiguration
                 {
                     Mean = 1.1,
                     StandardDeviation = 0.02
                 },
-                InsideWaterLevel = new MeanStandardDeviationStochastConfiguration
+                InsideWaterLevel = new StochastConfiguration
                 {
                     Mean = 0.5,
                     StandardDeviation = 0.1
                 },
-                AreaFlowApertures = new MeanStandardDeviationStochastConfiguration
+                AreaFlowApertures = new StochastConfiguration
                 {
                     Mean = 80.5,
                     StandardDeviation = 1
                 },
-                ThresholdHeightOpenWeir = new MeanStandardDeviationStochastConfiguration
+                ThresholdHeightOpenWeir = new StochastConfiguration
                 {
                     Mean = 1.2,
                     StandardDeviation = 0.1
                 },
-                LevelCrestStructureNotClosing = new MeanStandardDeviationStochastConfiguration
+                LevelCrestStructureNotClosing = new StochastConfiguration
                 {
                     Mean = 4.3,
                     StandardDeviation = 0.2

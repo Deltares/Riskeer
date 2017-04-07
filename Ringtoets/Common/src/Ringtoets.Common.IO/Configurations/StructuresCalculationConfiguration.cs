@@ -73,12 +73,12 @@ namespace Ringtoets.Common.IO.Configurations
         /// <summary>
         /// Gets or sets the stochast configuration for the model factor super critical flow.
         /// </summary>
-        public MeanStandardDeviationStochastConfiguration ModelFactorSuperCriticalFlow { get; set; }
+        public StochastConfiguration ModelFactorSuperCriticalFlow { get; set; }
 
         /// <summary>
         /// Gets or sets the stochast configuration for the storm duration.
         /// </summary>
-        public MeanVariationCoefficientStochastConfiguration StormDuration { get; set; }
+        public StochastConfiguration StormDuration { get; set; }
 
         /// <summary>
         /// Gets or sets the structure's normal orientation.
@@ -88,22 +88,22 @@ namespace Ringtoets.Common.IO.Configurations
         /// <summary>
         /// Gets or sets the stochast configuration for the allowed level of storage increase.
         /// </summary>
-        public MeanStandardDeviationStochastConfiguration AllowedLevelIncreaseStorage { get; set; }
+        public StochastConfiguration AllowedLevelIncreaseStorage { get; set; }
 
         /// <summary>
         /// Gets or sets the stochast configuration for the storage structure area.
         /// </summary>
-        public MeanVariationCoefficientStochastConfiguration StorageStructureArea { get; set; }
+        public StochastConfiguration StorageStructureArea { get; set; }
 
         /// <summary>
         /// Gets or sets the stochast configuration for the flow width at bottom protection.
         /// </summary>
-        public MeanStandardDeviationStochastConfiguration FlowWidthAtBottomProtection { get; set; }
+        public StochastConfiguration FlowWidthAtBottomProtection { get; set; }
 
         /// <summary>
         /// Gets or sets the stochast configuration for the critical overtopping discharge.
         /// </summary>
-        public MeanVariationCoefficientStochastConfiguration CriticalOvertoppingDischarge { get; set; }
+        public StochastConfiguration CriticalOvertoppingDischarge { get; set; }
 
         /// <summary>
         /// Gets or sets the failure probability of structure with erosion.
@@ -113,7 +113,7 @@ namespace Ringtoets.Common.IO.Configurations
         /// <summary>
         /// Gets or sets the stochast configuration for the flow width of apertures.
         /// </summary>
-        public MeanStandardDeviationStochastConfiguration WidthFlowApertures { get; set; }
+        public StochastConfiguration WidthFlowApertures { get; set; }
 
         /// <summary>
         /// Gets or sets the wave reduction configuration.

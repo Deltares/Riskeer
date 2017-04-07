@@ -282,7 +282,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
 
             var configuration = new TestStructuresCalculationConfiguration(calculationName)
             {
-                StormDuration = new MeanVariationCoefficientStochastConfiguration
+                StormDuration = new StochastConfiguration
                 {
                     VariationCoefficient = new Random(21).NextDouble()
                 }
@@ -307,7 +307,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
 
             var configuration = new TestStructuresCalculationConfiguration(calculationName)
             {
-                StormDuration = new MeanVariationCoefficientStochastConfiguration
+                StormDuration = new StochastConfiguration
                 {
                     Mean = new Random(21).NextDouble()
                 }
@@ -335,7 +335,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
 
             var configuration = new TestStructuresCalculationConfiguration(calculationName)
             {
-                ModelFactorSuperCriticalFlow = new MeanStandardDeviationStochastConfiguration()
+                ModelFactorSuperCriticalFlow = new StochastConfiguration()
                 {
                     StandardDeviation = new Random(21).NextDouble()
                 }
@@ -360,7 +360,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
 
             var configuration = new TestStructuresCalculationConfiguration(calculationName)
             {
-                ModelFactorSuperCriticalFlow = new MeanStandardDeviationStochastConfiguration()
+                ModelFactorSuperCriticalFlow = new StochastConfiguration()
                 {
                     Mean = new Random(21).NextDouble()
                 }

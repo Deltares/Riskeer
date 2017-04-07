@@ -39,27 +39,27 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
         /// <summary>
         /// Gets or sets the stochast configuration for the area flow apertures of the structure.
         /// </summary>
-        public MeanStandardDeviationStochastConfiguration AreaFlowApertures { get; set; }
+        public StochastConfiguration AreaFlowApertures { get; set; }
 
         /// <summary>
         /// Gets or sets the stochast configuration for the bank width of the structure.
         /// </summary>
-        public MeanStandardDeviationStochastConfiguration BankWidth { get; set; }
+        public StochastConfiguration BankWidth { get; set; }
 
         /// <summary>
         /// Gets or sets the stochast configuration for the constructive strength of the linear load model of the structure.
         /// </summary>
-        public MeanVariationCoefficientStochastConfiguration ConstructiveStrengthLinearLoadModel { get; set; }
+        public StochastConfiguration ConstructiveStrengthLinearLoadModel { get; set; }
 
         /// <summary>
         /// Gets or sets the stochast configuration for the constructive strength of the quadratic load model of the structure.
         /// </summary>
-        public MeanVariationCoefficientStochastConfiguration ConstructiveStrengthQuadraticLoadModel { get; set; }
+        public StochastConfiguration ConstructiveStrengthQuadraticLoadModel { get; set; }
 
         /// <summary>
         /// Gets or sets the stochast configuration for the drain coefficient of the structure.
         /// </summary>
-        public MeanStandardDeviationStochastConfiguration DrainCoefficient { get; set; }
+        public StochastConfiguration DrainCoefficient { get; set; }
 
         /// <summary>
         /// Gets or sets the evaluation level of the structure.
@@ -69,7 +69,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
         /// <summary>
         /// Gets or sets the stochast configuration for the failure collision energy of the structure.
         /// </summary>
-        public MeanVariationCoefficientStochastConfiguration FailureCollisionEnergy { get; set; }
+        public StochastConfiguration FailureCollisionEnergy { get; set; }
 
         /// <summary>
         /// Gets or sets the failure probability of repairing a closure of the structure.
@@ -79,7 +79,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
         /// <summary>
         /// Gets or sets the stochast configuration for the flow velocity structure closable of the structure.
         /// </summary>
-        public MeanVariationCoefficientStochastConfiguration FlowVelocityStructureClosable { get; set; }
+        public StochastConfiguration FlowVelocityStructureClosable { get; set; }
 
         /// <summary>
         /// Gets or sets the inflow model type of the structure.
@@ -89,17 +89,17 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
         /// <summary>
         /// Gets or sets the stochast configuration for the inside water level of the structure.
         /// </summary>
-        public MeanStandardDeviationStochastConfiguration InsideWaterLevel { get; set; }
+        public StochastConfiguration InsideWaterLevel { get; set; }
 
         /// <summary>
         /// Gets or sets the stochast configuration for the inside water level failure construction of the structure.
         /// </summary>
-        public MeanStandardDeviationStochastConfiguration InsideWaterLevelFailureConstruction { get; set; }
+        public StochastConfiguration InsideWaterLevelFailureConstruction { get; set; }
 
         /// <summary>
         /// Gets or sets the stochast configuration for the crest level of the structure.
         /// </summary>
-        public MeanStandardDeviationStochastConfiguration LevelCrestStructure { get; set; }
+        public StochastConfiguration LevelCrestStructure { get; set; }
 
         /// <summary>
         /// Gets or sets the leveling count of the structure.
@@ -119,27 +119,27 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
         /// <summary>
         /// Gets or sets the stochast configuration for the mass of the ship.
         /// </summary>
-        public MeanVariationCoefficientStochastConfiguration ShipMass { get; set; }
+        public StochastConfiguration ShipMass { get; set; }
 
         /// <summary>
         /// Gets or sets the stochast configuration for the velocity of the ship.
         /// </summary>
-        public MeanVariationCoefficientStochastConfiguration ShipVelocity { get; set; }
+        public StochastConfiguration ShipVelocity { get; set; }
 
         /// <summary>
         /// Gets or sets the stochast configuration for the stability properties of the linear load model of the structure.
         /// </summary>
-        public MeanVariationCoefficientStochastConfiguration StabilityLinearLoadModel { get; set; }
+        public StochastConfiguration StabilityLinearLoadModel { get; set; }
 
         /// <summary>
         /// Gets or sets the stochast configuration for the stability properties of the quadratic load model of the structure.
         /// </summary>
-        public MeanVariationCoefficientStochastConfiguration StabilityQuadraticLoadModel { get; set; }
+        public StochastConfiguration StabilityQuadraticLoadModel { get; set; }
 
         /// <summary>
         /// Gets or sets the stochast configuration for the threshold height of the open weir of the structure.
         /// </summary>
-        public MeanStandardDeviationStochastConfiguration ThresholdHeightOpenWeir { get; set; }
+        public StochastConfiguration ThresholdHeightOpenWeir { get; set; }
 
         /// <summary>
         /// Gets or sets the vertical distance of the structure.

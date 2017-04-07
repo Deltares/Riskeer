@@ -76,7 +76,7 @@ namespace Ringtoets.Common.IO.Test.Writers
             TestDelegate test = () => ExposedSchemaCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
                 null, 
                 "some name", 
-                (MeanStandardDeviationStochastConfiguration)null);
+                (StochastConfiguration)null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -95,7 +95,7 @@ namespace Ringtoets.Common.IO.Test.Writers
             TestDelegate test = () => ExposedSchemaCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
                 xmlWriter, 
                 null, 
-                (MeanStandardDeviationStochastConfiguration)null);
+                (StochastConfiguration)null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -114,7 +114,7 @@ namespace Ringtoets.Common.IO.Test.Writers
             ExposedSchemaCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
                 xmlWriter, 
                 "some name", 
-                (MeanStandardDeviationStochastConfiguration)null);
+                (StochastConfiguration)null);
 
             // Assert
             mocks.VerifyAll();
@@ -125,7 +125,7 @@ namespace Ringtoets.Common.IO.Test.Writers
         {
             // Setup
             const string name = "some name";
-            var configuration = new MeanStandardDeviationStochastConfiguration();
+            var configuration = new StochastConfiguration();
 
             var mocks = new MockRepository();
             var xmlWriter = mocks.StrictMock<XmlWriter>();
@@ -143,13 +143,13 @@ namespace Ringtoets.Common.IO.Test.Writers
         }
 
         [Test]
-        public void WriteDistributionWhenAvailable_MeanVariationCoefficientStochastConfigurationWriterNull_ThrowsArgumentNullException()
+        public void WriteDistributionWhenAvailable_StochastConfigurationWriterNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => ExposedSchemaCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
                 null,
                 "some name",
-                (MeanVariationCoefficientStochastConfiguration)null);
+                (StochastConfiguration)null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -157,7 +157,7 @@ namespace Ringtoets.Common.IO.Test.Writers
         }
 
         [Test]
-        public void WriteDistributionWhenAvailable_MeanVariationCoefficientStochastConfigurationDistributionNameNull_ThrowsArgumentNullException()
+        public void WriteDistributionWhenAvailable_StochastConfigurationDistributionNameNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -168,7 +168,7 @@ namespace Ringtoets.Common.IO.Test.Writers
             TestDelegate test = () => ExposedSchemaCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
                 xmlWriter,
                 null,
-                (MeanVariationCoefficientStochastConfiguration)null);
+                (StochastConfiguration)null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -176,7 +176,7 @@ namespace Ringtoets.Common.IO.Test.Writers
         }
 
         [Test]
-        public void WriteDistributionWhenAvailable_MeanVariationCoefficientStochastConfigurationNull_WriterNotCalled()
+        public void WriteDistributionWhenAvailable_StochastConfigurationNull_WriterNotCalled()
         {
             // Setup
             var mocks = new MockRepository();
@@ -187,18 +187,18 @@ namespace Ringtoets.Common.IO.Test.Writers
             ExposedSchemaCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
                 xmlWriter, 
                 "some name", 
-                (MeanVariationCoefficientStochastConfiguration)null);
+                (StochastConfiguration)null);
 
             // Assert
             mocks.VerifyAll();
         }
 
         [Test]
-        public void WriteDistributionWhenAvailable_MeanVariationCoefficientStochastConfigurationSet_WriterCalledWithExpectedParameters()
+        public void WriteDistributionWhenAvailable_StochastConfigurationSet_WriterCalledWithExpectedParameters()
         {
             // Setup
             const string name = "some name";
-            var configuration = new MeanVariationCoefficientStochastConfiguration();
+            var configuration = new StochastConfiguration();
 
             var mocks = new MockRepository();
             var xmlWriter = mocks.StrictMock<XmlWriter>();
@@ -471,12 +471,7 @@ namespace Ringtoets.Common.IO.Test.Writers
     {
         public ExposedSchemaCalculationConfigurationWriter(string filePath) : base(filePath) {}
 
-        public static void PublicWriteDistributionWhenAvailable(XmlWriter writer, string distributionName, MeanVariationCoefficientStochastConfiguration configuration)
-        {
-            WriteDistributionWhenAvailable(writer, distributionName, configuration);
-        }
-
-        public static void PublicWriteDistributionWhenAvailable(XmlWriter writer, string distributionName, MeanStandardDeviationStochastConfiguration configuration)
+        public static void PublicWriteDistributionWhenAvailable(XmlWriter writer, string distributionName, StochastConfiguration configuration)
         {
             WriteDistributionWhenAvailable(writer, distributionName, configuration);
         }

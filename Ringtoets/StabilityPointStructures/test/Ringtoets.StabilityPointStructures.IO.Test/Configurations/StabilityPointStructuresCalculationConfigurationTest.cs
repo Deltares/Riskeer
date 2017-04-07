@@ -86,22 +86,22 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             var configuration = new StabilityPointStructuresCalculationConfiguration("some name");
             var random = new Random(5432);
 
-            var areaFlowApertures = new MeanStandardDeviationStochastConfiguration();
-            var bankWidth = new MeanStandardDeviationStochastConfiguration();
-            var drainCoefficient = new MeanStandardDeviationStochastConfiguration();
-            var insideWaterLevel = new MeanStandardDeviationStochastConfiguration();
-            var insideWaterLevelFailureConstruction = new MeanStandardDeviationStochastConfiguration();
-            var levelCrestStructure = new MeanStandardDeviationStochastConfiguration();
-            var thresholdHeightOpenWeir = new MeanStandardDeviationStochastConfiguration();
+            var areaFlowApertures = new StochastConfiguration();
+            var bankWidth = new StochastConfiguration();
+            var drainCoefficient = new StochastConfiguration();
+            var insideWaterLevel = new StochastConfiguration();
+            var insideWaterLevelFailureConstruction = new StochastConfiguration();
+            var levelCrestStructure = new StochastConfiguration();
+            var thresholdHeightOpenWeir = new StochastConfiguration();
 
-            var constructiveStrengthLinearLoadModel = new MeanVariationCoefficientStochastConfiguration();
-            var constructiveStrengthQuadraticLoadModel = new MeanVariationCoefficientStochastConfiguration();
-            var failureCollisionEnergy = new MeanVariationCoefficientStochastConfiguration();
-            var flowVelocityStructureClosable = new MeanVariationCoefficientStochastConfiguration();
-            var shipMass = new MeanVariationCoefficientStochastConfiguration();
-            var shipVelocity = new MeanVariationCoefficientStochastConfiguration();
-            var stabilityLinearLoadModel = new MeanVariationCoefficientStochastConfiguration();
-            var stabilityQuadraticLoadModel = new MeanVariationCoefficientStochastConfiguration();
+            var constructiveStrengthLinearLoadModel = new StochastConfiguration();
+            var constructiveStrengthQuadraticLoadModel = new StochastConfiguration();
+            var failureCollisionEnergy = new StochastConfiguration();
+            var flowVelocityStructureClosable = new StochastConfiguration();
+            var shipMass = new StochastConfiguration();
+            var shipVelocity = new StochastConfiguration();
+            var stabilityLinearLoadModel = new StochastConfiguration();
+            var stabilityQuadraticLoadModel = new StochastConfiguration();
 
             int levellingCount = random.Next();
             double evaluationLevel = random.NextDouble();

@@ -25,7 +25,6 @@ using System.IO;
 using System.Xml;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Writers;
 
@@ -34,70 +33,56 @@ namespace Ringtoets.Common.IO.Test.Writers
     [TestFixture]
     public class XmlWriterExtensionsTest
     {
-        private static readonly string testDirectory = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(CalculationConfigurationWriter<ICalculation>));
+        private static readonly string testDirectory = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(XmlWriterExtensions));
 
         public static IEnumerable<TestCaseData> GetDistributions()
         {
             yield return new TestCaseData(
-                    new MeanStandardDeviationStochastConfiguration(),
-                    "distributionNoMeanNoStandardDeviation.xml")
-                .SetName("Distribution with no mean and no standard deviation.");
+                    new StochastConfiguration(),
+                    "distributionEmpty.xml")
+                .SetName("Distribution with no parameters.");
 
             yield return new TestCaseData(
-                    new MeanStandardDeviationStochastConfiguration
-                    {
-                        StandardDeviation = 0.1
-                    },
-                    "distributionNoMean.xml")
-                .SetName("Distribution with no mean.");
-
-            yield return new TestCaseData(
-                    new MeanStandardDeviationStochastConfiguration
+                    new StochastConfiguration
                     {
                         Mean = 0.2
                     },
-                    "distributionNoStandardDeviation.xml")
-                .SetName("Distribution with no standard deviation.");
+                    "distributionMean.xml")
+                .SetName("Distribution with mean.");
+
             yield return new TestCaseData(
-                    new MeanStandardDeviationStochastConfiguration
+                    new StochastConfiguration
+                    {
+                        StandardDeviation = 0.1
+                    },
+                    "distributionStandardDeviation.xml")
+                .SetName("Distribution with standard deviation.");
+
+            yield return new TestCaseData(
+                    new StochastConfiguration
                     {
                         Mean = 0.2,
                         StandardDeviation = 0.1
                     },
-                    "distribution.xml")
+                    "distributionMeanStandardDeviation.xml")
                 .SetName("Distribution with mean and standard deviation.");
-        }
-
-        public static IEnumerable<TestCaseData> GetVariationCoefficientDistributions()
-        {
-            yield return new TestCaseData(
-                    new MeanVariationCoefficientStochastConfiguration(),
-                    "variationCoefficientDistributionNoMeanNoVariationCoefficient.xml")
-                .SetName("Variation coefficient distribution with no mean and no variation coefficient.");
 
             yield return new TestCaseData(
-                    new MeanVariationCoefficientStochastConfiguration
+                    new StochastConfiguration
                     {
                         VariationCoefficient = 0.1
                     },
-                    "variationCoefficientDistributionNoMean.xml")
-                .SetName("Variation coefficient distribution with no mean.");
+                    "distributionVariationCoefficient.xml")
+                .SetName("Distribution with variation coefficient.");
 
             yield return new TestCaseData(
-                    new MeanVariationCoefficientStochastConfiguration
-                    {
-                        Mean = 0.2
-                    },
-                    "variationCoefficientDistributionNoVariationCoefficient.xml")
-                .SetName("Variation coefficient distribution with no variation coefficient.");
-            yield return new TestCaseData(
-                    new MeanVariationCoefficientStochastConfiguration
+                    new StochastConfiguration
                     {
                         Mean = 0.2,
                         VariationCoefficient = 0.1
                     },
-                    "variationCoefficientDistribution.xml")
-                .SetName("Variation coefficient distribution with mean and variation coefficient.");
+                    "distributionMeanVariationCoefficient.xml")
+                .SetName("Distribution with mean and variation coefficient.");
         }
 
         public static IEnumerable<TestCaseData> GetWaveReductions()
@@ -223,37 +208,10 @@ namespace Ringtoets.Common.IO.Test.Writers
         }
 
         [Test]
-        [TestCaseSource(nameof(GetDistributions))]
-        public void WriteDistribution_WithDifferentSetParameters_WritesStochastWithSetParameters(MeanStandardDeviationStochastConfiguration distribution, string fileName)
-        {
-            // Setup
-            string filePath = TestHelper.GetScratchPadPath(nameof(WriteDistribution_WithDifferentSetParameters_WritesStochastWithSetParameters));
-            const string name = "normal";
-
-            try
-            {
-                using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
-                {
-                    // Call
-                    xmlWriter.WriteDistribution(name, distribution);
-                }
-
-                // Assert
-                string actualXml = File.ReadAllText(filePath);
-                string expectedXml = GetTestFileContent(fileName);
-                Assert.AreEqual(expectedXml, actualXml);
-            }
-            finally
-            {
-                File.Delete(filePath);
-            }
-        }
-
-        [Test]
         public void WriteDistribution_StandardDeviationDistributionWithoutWriter_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate testDelegate = () => ((XmlWriter) null).WriteDistribution("name", new MeanStandardDeviationStochastConfiguration());
+            TestDelegate testDelegate = () => ((XmlWriter) null).WriteDistribution("name", new StochastConfiguration());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(testDelegate);
@@ -271,7 +229,7 @@ namespace Ringtoets.Common.IO.Test.Writers
                 using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
                 {
                     // Call
-                    TestDelegate testDelegate = () => xmlWriter.WriteDistribution(null, new MeanStandardDeviationStochastConfiguration());
+                    TestDelegate testDelegate = () => xmlWriter.WriteDistribution(null, new StochastConfiguration());
 
                     // Assert
                     var exception = Assert.Throws<ArgumentNullException>(testDelegate);
@@ -295,7 +253,7 @@ namespace Ringtoets.Common.IO.Test.Writers
                 using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
                 {
                     // Call
-                    TestDelegate testDelegate = () => xmlWriter.WriteDistribution("name", (MeanStandardDeviationStochastConfiguration) null);
+                    TestDelegate testDelegate = () => xmlWriter.WriteDistribution("name", (StochastConfiguration) null);
 
                     // Assert
                     var exception = Assert.Throws<ArgumentNullException>(testDelegate);
@@ -309,12 +267,12 @@ namespace Ringtoets.Common.IO.Test.Writers
         }
 
         [Test]
-        [TestCaseSource(nameof(GetVariationCoefficientDistributions))]
-        public void WriteDistribution_WithDifferentSetParameters_WritesStochastWithSetParameters(MeanVariationCoefficientStochastConfiguration distribution, string fileName)
+        [TestCaseSource(nameof(GetDistributions))]
+        public void WriteDistribution_WithDifferentSetParameters_WritesStochastWithSetParameters(StochastConfiguration distribution, string fileName)
         {
             // Setup
             string filePath = TestHelper.GetScratchPadPath(nameof(WriteDistribution_WithDifferentSetParameters_WritesStochastWithSetParameters));
-            const string name = "variation coefficient normal";
+            const string name = "distribution";
 
             try
             {
@@ -339,7 +297,7 @@ namespace Ringtoets.Common.IO.Test.Writers
         public void WriteDistribution_VariationCoefficientDistributionWithoutWriter_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate testDelegate = () => ((XmlWriter) null).WriteDistribution("name", new MeanVariationCoefficientStochastConfiguration());
+            TestDelegate testDelegate = () => ((XmlWriter) null).WriteDistribution("name", new StochastConfiguration());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(testDelegate);
@@ -357,7 +315,7 @@ namespace Ringtoets.Common.IO.Test.Writers
                 using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
                 {
                     // Call
-                    TestDelegate testDelegate = () => xmlWriter.WriteDistribution(null, new MeanVariationCoefficientStochastConfiguration());
+                    TestDelegate testDelegate = () => xmlWriter.WriteDistribution(null, new StochastConfiguration());
 
                     // Assert
                     var exception = Assert.Throws<ArgumentNullException>(testDelegate);
@@ -381,7 +339,7 @@ namespace Ringtoets.Common.IO.Test.Writers
                 using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
                 {
                     // Call
-                    TestDelegate testDelegate = () => xmlWriter.WriteDistribution("name", (MeanVariationCoefficientStochastConfiguration) null);
+                    TestDelegate testDelegate = () => xmlWriter.WriteDistribution("name", (StochastConfiguration) null);
 
                     // Assert
                     var exception = Assert.Throws<ArgumentNullException>(testDelegate);

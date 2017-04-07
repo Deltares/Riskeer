@@ -210,7 +210,7 @@ namespace Ringtoets.Common.IO.Readers
         /// <exception cref="FormatException">Thrown when the value isn't in the correct format.</exception>
         /// <exception cref="OverflowException">Thrown when the value for mean or standard deviation represents a
         /// number less than <see cref="double.MinValue"/> or greater than <see cref="double.MaxValue"/>.</exception>
-        public static MeanStandardDeviationStochastConfiguration GetStandardDeviationStochastParameters(this XElement calculationElement, string stochastName)
+        public static StochastConfiguration GetStandardDeviationStochastParameters(this XElement calculationElement, string stochastName)
         {
             if (calculationElement == null)
             {
@@ -235,7 +235,7 @@ namespace Ringtoets.Common.IO.Readers
                     throw new CriticalFileReadException(message);
                 }
 
-                return new MeanStandardDeviationStochastConfiguration
+                return new StochastConfiguration
                 {
                     Mean = element.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.MeanElement),
                     StandardDeviation = element.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.StandardDeviationElement)
@@ -244,7 +244,7 @@ namespace Ringtoets.Common.IO.Readers
             return null;
         }
 
-        public static MeanVariationCoefficientStochastConfiguration GetVariationCoefficientStochastParameters(this XElement calculationElement, string stochastName)
+        public static StochastConfiguration GetVariationCoefficientStochastParameters(this XElement calculationElement, string stochastName)
         {
             if (calculationElement == null)
             {
@@ -269,7 +269,7 @@ namespace Ringtoets.Common.IO.Readers
                     throw new CriticalFileReadException(message);
                 }
 
-                return new MeanVariationCoefficientStochastConfiguration
+                return new StochastConfiguration
                 {
                     Mean = element.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.MeanElement),
                     VariationCoefficient = element.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.VariationCoefficientElement)

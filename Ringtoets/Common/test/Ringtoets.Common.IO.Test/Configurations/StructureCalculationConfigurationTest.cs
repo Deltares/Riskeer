@@ -80,13 +80,13 @@ namespace Ringtoets.Common.IO.Test.Configurations
             double structureNormalOrientation = random.NextDouble();
             double failureProbabilityStructureWithErosion = random.NextDouble();
 
-            var modelFactorSuperCriticalFlow = new MeanStandardDeviationStochastConfiguration();
-            var stormDuration = new MeanVariationCoefficientStochastConfiguration();
-            var allowedLevelIncreaseStorage = new MeanStandardDeviationStochastConfiguration();
-            var storageStructureArea = new MeanVariationCoefficientStochastConfiguration();
-            var flowWidthAtBottomProtection = new MeanStandardDeviationStochastConfiguration();
-            var criticalOvertoppingDischarge = new MeanVariationCoefficientStochastConfiguration();
-            var widthFlowApertures = new MeanStandardDeviationStochastConfiguration();
+            var modelFactorSuperCriticalFlow = new StochastConfiguration();
+            var stormDuration = new StochastConfiguration();
+            var allowedLevelIncreaseStorage = new StochastConfiguration();
+            var storageStructureArea = new StochastConfiguration();
+            var flowWidthAtBottomProtection = new StochastConfiguration();
+            var criticalOvertoppingDischarge = new StochastConfiguration();
+            var widthFlowApertures = new StochastConfiguration();
             var waveReduction = new WaveReductionConfiguration();
 
             // Call

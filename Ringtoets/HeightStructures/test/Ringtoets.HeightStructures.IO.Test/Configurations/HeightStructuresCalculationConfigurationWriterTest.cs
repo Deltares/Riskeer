@@ -119,42 +119,42 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
                     BreakWaterHeight = 1.23,
                     UseForeshoreProfile = true
                 },
-                StormDuration = new MeanVariationCoefficientStochastConfiguration
+                StormDuration = new StochastConfiguration
                 {
                     Mean = 6.0,
                     VariationCoefficient= 0.22
                 },
-                ModelFactorSuperCriticalFlow = new MeanStandardDeviationStochastConfiguration
+                ModelFactorSuperCriticalFlow = new StochastConfiguration
                 {
                     Mean = 1.1,
                     StandardDeviation = 0.14
                 },
-                FlowWidthAtBottomProtection = new MeanStandardDeviationStochastConfiguration
+                FlowWidthAtBottomProtection = new StochastConfiguration
                 {
                     Mean = 15.2,
                     StandardDeviation = 0.1
                 },
-                WidthFlowApertures = new MeanStandardDeviationStochastConfiguration
+                WidthFlowApertures = new StochastConfiguration
                 {
                     Mean = 13.2,
                     StandardDeviation = 0.3
                 },
-                StorageStructureArea = new MeanVariationCoefficientStochastConfiguration
+                StorageStructureArea = new StochastConfiguration
                 {
                     Mean = 15000,
                     VariationCoefficient = 0.01
                 },
-                AllowedLevelIncreaseStorage = new MeanStandardDeviationStochastConfiguration
+                AllowedLevelIncreaseStorage = new StochastConfiguration
                 {
                     Mean = 0.2,
                     StandardDeviation = 0.01
                 },
-                LevelCrestStructure = new MeanStandardDeviationStochastConfiguration
+                LevelCrestStructure = new StochastConfiguration
                 {
                     Mean = 4.3,
                     StandardDeviation = 0.2
                 },
-                CriticalOvertoppingDischarge = new MeanVariationCoefficientStochastConfiguration
+                CriticalOvertoppingDischarge = new StochastConfiguration
                 {
                     Mean = 2,
                     VariationCoefficient = 0.1
