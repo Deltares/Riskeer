@@ -42,7 +42,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             const string calculationName = "calculation";
 
             // Call
-            TestDelegate test = () => ((WaveReductionConfiguration)null).ValidateWaveReduction(null, calculationName, null);
+            TestDelegate test = () => ((WaveReductionConfiguration) null).ValidateWaveReduction(null, calculationName, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -58,7 +58,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => ((WaveReductionConfiguration)null).ValidateWaveReduction(null, null, log);
+            TestDelegate test = () => ((WaveReductionConfiguration) null).ValidateWaveReduction(null, null, log);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -77,7 +77,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             mocks.ReplayAll();
 
             // Call
-            bool valid = ((WaveReductionConfiguration)null).ValidateWaveReduction(null, calculationName, log);
+            bool valid = ((WaveReductionConfiguration) null).ValidateWaveReduction(null, calculationName, log);
 
             // Assert
             Assert.IsTrue(valid);
@@ -155,7 +155,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             // Call
             bool valid = ((WaveReductionConfiguration) null).ValidateWaveReduction(
                 new TestForeshoreProfile("voorland", Enumerable.Empty<Point2D>()),
-                calculationName, 
+                calculationName,
                 log);
 
             // Assert
@@ -240,7 +240,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => ((StructuresCalculationConfiguration)null).ValidateStructureBaseStochasts(log);
+            TestDelegate test = () => ((StructuresCalculationConfiguration) null).ValidateStructureBaseStochasts(log);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -268,24 +268,34 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
         }
 
         [Test]
-        public void ValidateStochasts_StormDurationWithVariationCoefficient_ReturnsFalseLogsError()
+        [TestCase(true, false)]
+        [TestCase(false, true)]
+        [TestCase(true, true)]
+        public void ValidateStochasts_StormDurationWithVariationCoefficient_ReturnsFalseLogsError(bool standardDeviation, bool variationCoefficient)
         {
             // Setup
             const string calculationName = "calculation";
             const string expectedMessage = "{0} Berekening '{1}' is overgeslagen.";
-            string error = "Er kan geen variatiecoëfficiënt voor stochast 'stormduur' opgegeven worden.";
+            string error = "Er kan geen spreiding voor stochast 'stormduur' opgegeven worden.";
 
             var mocks = new MockRepository();
             var log = mocks.StrictMock<ILog>();
             log.Expect(l => l.ErrorFormat(expectedMessage, error, calculationName));
             mocks.ReplayAll();
 
+            var stochastConfiguration = new StochastConfiguration();
+            if (standardDeviation)
+            {
+                stochastConfiguration.StandardDeviation = new Random(21).NextDouble();
+            }
+            if (variationCoefficient)
+            {
+                stochastConfiguration.VariationCoefficient = new Random(21).NextDouble();
+            }
+
             var configuration = new TestStructuresCalculationConfiguration(calculationName)
             {
-                StormDuration = new StochastConfiguration
-                {
-                    VariationCoefficient = new Random(21).NextDouble()
-                }
+                StormDuration = stochastConfiguration
             };
 
             // Call
@@ -321,24 +331,34 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
         }
 
         [Test]
-        public void ValidateStochasts_ModelFactorSuperCriticalFlowWithStandardDeviation_ReturnsFalseLogsError()
+        [TestCase(true, false)]
+        [TestCase(false, true)]
+        [TestCase(true, true)]
+        public void ValidateStochasts_ModelFactorSuperCriticalFlowWithStandardDeviation_ReturnsFalseLogsError(bool standardDeviation, bool variationCoefficient)
         {
             // Setup
             const string calculationName = "calculation";
             const string expectedMessage = "{0} Berekening '{1}' is overgeslagen.";
-            string error = "Er kan geen standaardafwijking voor stochast 'modelfactoroverloopdebiet' opgegeven worden.";
+            string error = "Er kan geen spreiding voor stochast 'modelfactoroverloopdebiet' opgegeven worden.";
 
             var mocks = new MockRepository();
             var log = mocks.StrictMock<ILog>();
             log.Expect(l => l.ErrorFormat(expectedMessage, error, calculationName));
             mocks.ReplayAll();
 
+            var stochastConfiguration = new StochastConfiguration();
+            if (standardDeviation)
+            {
+                stochastConfiguration.StandardDeviation = new Random(21).NextDouble();
+            }
+            if (variationCoefficient)
+            {
+                stochastConfiguration.VariationCoefficient = new Random(21).NextDouble();
+            }
+
             var configuration = new TestStructuresCalculationConfiguration(calculationName)
             {
-                ModelFactorSuperCriticalFlow = new StochastConfiguration()
-                {
-                    StandardDeviation = new Random(21).NextDouble()
-                }
+                ModelFactorSuperCriticalFlow = stochastConfiguration
             };
 
             // Call
@@ -374,7 +394,8 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
         }
     }
 
-    public class TestStructuresCalculationConfiguration : StructuresCalculationConfiguration {
+    public class TestStructuresCalculationConfiguration : StructuresCalculationConfiguration
+    {
         public TestStructuresCalculationConfiguration(string name) : base(name) {}
     }
 }

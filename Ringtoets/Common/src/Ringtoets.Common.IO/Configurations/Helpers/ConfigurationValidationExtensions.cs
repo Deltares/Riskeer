@@ -73,6 +73,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             }
             return true;
         }
+
         /// <summary>
         /// Validates the parameters of shared stochasts in a structure calculation.
         /// </summary>
@@ -91,15 +92,17 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
                 throw new ArgumentNullException(nameof(log));
             }
 
-            if (configuration.StormDuration?.VariationCoefficient != null)
+            if (configuration.StormDuration?.StandardDeviation != null
+                || configuration.StormDuration?.VariationCoefficient != null)
             {
-                log.LogCalculationConversionError(Resources.CalculationConfigurationImporter_ValidateStochasts_Cannot_define_VariationCoefficient_for_StormDuration,
+                log.LogCalculationConversionError(Resources.CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_StormDuration,
                                                   configuration.Name);
                 return false;
             }
-            if (configuration.ModelFactorSuperCriticalFlow?.StandardDeviation != null)
+            if (configuration.ModelFactorSuperCriticalFlow?.StandardDeviation != null
+                || configuration.ModelFactorSuperCriticalFlow?.VariationCoefficient != null)
             {
-                log.LogCalculationConversionError(Resources.CalculationConfigurationImporter_ValidateStochasts_Cannot_define_StandardDeviation_for_ModelFactorSuperCriticalFlow,
+                log.LogCalculationConversionError(Resources.CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_ModelFactorSuperCriticalFlow,
                                                   configuration.Name);
                 return false;
             }

@@ -82,12 +82,12 @@ namespace Ringtoets.ClosingStructures.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er kan geen standaardafwijking voor stochast &apos;afvoercoefficient&apos; opgegeven worden..
+        ///   Looks up a localized string similar to Er kan geen spreiding voor stochast &apos;afvoercoefficient&apos; opgegeven worden..
         /// </summary>
-        internal static string CalculationConfigurationImporter_ValidateStochasts_Cannot_define_StandardDeviation_for_DrainCoefficient {
+        internal static string CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_DrainCoefficient {
             get {
-                return ResourceManager.GetString("CalculationConfigurationImporter_ValidateStochasts_Cannot_define_StandardDeviatio" +
-                        "n_for_DrainCoefficient", resourceCulture);
+                return ResourceManager.GetString("CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_Drain" +
+                        "Coefficient", resourceCulture);
             }
         }
         

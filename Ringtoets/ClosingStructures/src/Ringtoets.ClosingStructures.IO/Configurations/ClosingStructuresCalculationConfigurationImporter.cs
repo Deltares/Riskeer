@@ -203,9 +203,10 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
 
         private bool ValidateStochasts(ClosingStructuresCalculationConfiguration configuration)
         {
-            if (configuration.DrainCoefficient?.StandardDeviation != null)
+            if (configuration.DrainCoefficient?.StandardDeviation != null
+                || configuration.DrainCoefficient?.VariationCoefficient != null)
             {
-                Log.LogCalculationConversionError(Resources.CalculationConfigurationImporter_ValidateStochasts_Cannot_define_StandardDeviation_for_DrainCoefficient,
+                Log.LogCalculationConversionError(Resources.CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_DrainCoefficient,
                                                   configuration.Name);
                 return false;
             }

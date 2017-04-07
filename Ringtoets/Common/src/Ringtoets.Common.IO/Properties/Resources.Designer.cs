@@ -265,22 +265,22 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er kan geen standaardafwijking voor stochast &apos;modelfactoroverloopdebiet&apos; opgegeven worden..
+        ///   Looks up a localized string similar to Er kan geen spreiding voor stochast &apos;modelfactoroverloopdebiet&apos; opgegeven worden..
         /// </summary>
-        public static string CalculationConfigurationImporter_ValidateStochasts_Cannot_define_StandardDeviation_for_ModelFactorSuperCriticalFlow {
+        public static string CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_ModelFactorSuperCriticalFlow {
             get {
-                return ResourceManager.GetString("CalculationConfigurationImporter_ValidateStochasts_Cannot_define_StandardDeviatio" +
-                        "n_for_ModelFactorSuperCriticalFlow", resourceCulture);
+                return ResourceManager.GetString("CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_Model" +
+                        "FactorSuperCriticalFlow", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er kan geen variatiecoëfficiënt voor stochast &apos;stormduur&apos; opgegeven worden..
+        ///   Looks up a localized string similar to Er kan geen spreiding voor stochast &apos;stormduur&apos; opgegeven worden..
         /// </summary>
-        public static string CalculationConfigurationImporter_ValidateStochasts_Cannot_define_VariationCoefficient_for_StormDuration {
+        public static string CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_StormDuration {
             get {
-                return ResourceManager.GetString("CalculationConfigurationImporter_ValidateStochasts_Cannot_define_VariationCoeffic" +
-                        "ient_for_StormDuration", resourceCulture);
+                return ResourceManager.GetString("CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_Storm" +
+                        "Duration", resourceCulture);
             }
         }
         

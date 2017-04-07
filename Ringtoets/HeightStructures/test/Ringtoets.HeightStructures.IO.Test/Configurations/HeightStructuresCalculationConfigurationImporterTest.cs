@@ -106,9 +106,13 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
         [Test]
         [SetCulture("nl-NL")]
         [TestCase("validConfigurationModelFactorSuperCriticalFlowStandardDeviation.xml",
-            "Er kan geen standaardafwijking voor stochast 'modelfactoroverloopdebiet' opgegeven worden.")]
+            "Er kan geen spreiding voor stochast 'modelfactoroverloopdebiet' opgegeven worden.")]
+        [TestCase("validConfigurationModelFactorSuperCriticalFlowVariationCoefficient.xml",
+            "Er kan geen spreiding voor stochast 'modelfactoroverloopdebiet' opgegeven worden.")]
         [TestCase("validConfigurationStormDurationVariationCoefficient.xml",
-            "Er kan geen variatiecoëfficiënt voor stochast 'stormduur' opgegeven worden.")]
+            "Er kan geen spreiding voor stochast 'stormduur' opgegeven worden.")]
+        [TestCase("validConfigurationStormDurationStandardDeviation.xml",
+            "Er kan geen spreiding voor stochast 'stormduur' opgegeven worden.")]
         [TestCase("validConfigurationFailureProbabilityStructureErosionWithoutStructure.xml",
             "Er is geen kunstwerk opgegeven om faalkans gegeven erosie bodem aan toe te voegen.")]
         [TestCase("validConfigurationOrientationWithoutStructure.xml",
@@ -150,12 +154,8 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             "Indien voor parameter 'breedtebodembescherming' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.")]
         [TestCase("validConfigurationLevelCrestStructureVariationCoefficient.xml",
             "Indien voor parameter 'kerendehoogte' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.")]
-        [TestCase("validConfigurationModelFactorSuperCriticalFlowVariationCoefficient.xml",
-            "Indien voor parameter 'modelfactoroverloopdebiet' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.")]
         [TestCase("validConfigurationStorageStructureAreaStandardDeviation.xml",
             "Indien voor parameter 'kombergendoppervlak' de spreiding wordt opgegeven, moet dit door middel van een variatiecoëfficiënt. Voor berekening 'Berekening 1' is een standaardafwijking gevonden.")]
-        [TestCase("validConfigurationStormDurationStandardDeviation.xml",
-            "Indien voor parameter 'stormduur' de spreiding wordt opgegeven, moet dit door middel van een variatiecoëfficiënt. Voor berekening 'Berekening 1' is een standaardafwijking gevonden.")]
         [TestCase("validConfigurationWidthFlowAperturesVariationCoefficient.xml",
             "Indien voor parameter 'breedtedoorstroomopening' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.")]
         public void Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(string file, string expectedErrorMessage)
