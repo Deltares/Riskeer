@@ -90,8 +90,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
 
             // Assert
             var exception = Assert.Throws<HydraRingFileParserException>(test);
-            Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
             Assert.AreEqual("Er kon geen resultaat gelezen worden uit de Hydra-Ring uitvoerdatabase.", exception.Message);
+            Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
         }
 
         [Test]

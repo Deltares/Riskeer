@@ -41,7 +41,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
                                         "LIMIT 1;";
 
         /// <summary>
-        /// Gets the value of the exceedence probability calculation.
+        /// Gets the output that was parsed from the output file.
         /// </summary>
         public double? Output { get; private set; }
 
@@ -51,7 +51,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
                 workingDirectory,
                 query,
                 sectionId,
-                Resources.ExceedanceProbabilityCalculationParser_Parse_No_beta_found_in_output_file);
+                Resources.ExceedanceProbabilityCalculationParser_No_beta_found_in_output_file);
 
             ReadResult(result);
         }
@@ -70,7 +70,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
             }
             catch (InvalidCastException e)
             {
-                throw new HydraRingFileParserException(Resources.ExceedanceProbabilityCalculationParser_Parse_No_beta_found_in_output_file, e);
+                throw new HydraRingFileParserException(Resources.ExceedanceProbabilityCalculationParser_No_beta_found_in_output_file, e);
             }
         }
     }

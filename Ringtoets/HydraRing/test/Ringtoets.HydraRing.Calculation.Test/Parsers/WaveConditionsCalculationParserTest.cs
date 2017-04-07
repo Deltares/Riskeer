@@ -90,8 +90,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
 
             // Assert
             var exception = Assert.Throws<HydraRingFileParserException>(test);
-            Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
             Assert.AreEqual("Er kon geen resultaat gelezen worden uit de Hydra-Ring uitvoerdatabase.", exception.Message);
+            Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
         }
 
         [Test]
@@ -161,10 +161,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             parser.Parse(path, 1);
 
             // Assert
-            Assert.AreEqual(2.76672,  parser.Output.WaveHeight);
+            Assert.AreEqual(2.76672, parser.Output.WaveHeight);
             Assert.AreEqual(-7.97903, parser.Output.WaveAngle);
-            Assert.AreEqual(292.021,  parser.Output.WaveDirection);
-            Assert.AreEqual(5.02556,  parser.Output.WavePeakPeriod);
+            Assert.AreEqual(292.021, parser.Output.WaveDirection);
+            Assert.AreEqual(5.02556, parser.Output.WavePeakPeriod);
         }
     }
 }

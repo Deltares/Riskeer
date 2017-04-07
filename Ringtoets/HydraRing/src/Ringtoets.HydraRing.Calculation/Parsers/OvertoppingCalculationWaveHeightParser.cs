@@ -67,7 +67,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
                 workingDirectory,
                 query,
                 sectionId,
-                Resources.OvertoppingCalculationWaveHeightParser_Parse_No_overtopping_found_in_output_file);
+                Resources.OvertoppingCalculationWaveHeightParser_No_overtopping_found_in_output_file);
 
             ReadResult(result);
         }
@@ -90,7 +90,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
             }
             catch (InvalidCastException e)
             {
-                throw new HydraRingFileParserException(Resources.OvertoppingCalculationWaveHeightParser_Parse_No_overtopping_found_in_output_file, e);
+                throw new HydraRingFileParserException(Resources.OvertoppingCalculationWaveHeightParser_No_overtopping_found_in_output_file, e);
             }
         }
     }

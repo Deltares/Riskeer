@@ -82,21 +82,30 @@ namespace Ringtoets.HydraRing.Calculation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er is geen resultaat voor convergentie gevonden in de Hydra-Ring uitvoerdatabase..
+        /// </summary>
+        internal static string ConvergenceParser_No_convergence_found_in_output_file {
+            get {
+                return ResourceManager.GetString("ConvergenceParser_No_convergence_found_in_output_file", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Er zijn geen berekende hydraulische randvoorwaarden voor duinen gevonden in de Hydra-Ring uitvoerdatabase..
         /// </summary>
-        internal static string DunesBoundaryConditionsCalculationParser_Parse_No_dunes_hydraulic_boundaries_found_in_output_file {
+        internal static string DunesBoundaryConditionsCalculationParser_No_dunes_hydraulic_boundaries_found_in_output_file {
             get {
-                return ResourceManager.GetString("DunesBoundaryConditionsCalculationParser_Parse_No_dunes_hydraulic_boundaries_foun" +
-                        "d_in_output_file", resourceCulture);
+                return ResourceManager.GetString("DunesBoundaryConditionsCalculationParser_No_dunes_hydraulic_boundaries_found_in_o" +
+                        "utput_file", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Er is geen resultaat voor de betrouwbaarheidsindex van de faalkans gevonden in de Hydra-Ring uitvoerdatabase..
         /// </summary>
-        internal static string ExceedanceProbabilityCalculationParser_Parse_No_beta_found_in_output_file {
+        internal static string ExceedanceProbabilityCalculationParser_No_beta_found_in_output_file {
             get {
-                return ResourceManager.GetString("ExceedanceProbabilityCalculationParser_Parse_No_beta_found_in_output_file", resourceCulture);
+                return ResourceManager.GetString("ExceedanceProbabilityCalculationParser_No_beta_found_in_output_file", resourceCulture);
             }
         }
         
@@ -122,18 +131,18 @@ namespace Ringtoets.HydraRing.Calculation.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Er is geen resultaat gevonden in de Hydra-Ring uitvoerdatabase..
         /// </summary>
-        internal static string HydraRingDatabaseReader_Execute_No_result_found_in_output_file {
+        internal static string HydraRingDatabaseReader_ReadLine_No_result_found_in_output_file {
             get {
-                return ResourceManager.GetString("HydraRingDatabaseReader_Execute_No_result_found_in_output_file", resourceCulture);
+                return ResourceManager.GetString("HydraRingDatabaseReader_ReadLine_No_result_found_in_output_file", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Er is geen resultaat voor overslag en overloop gevonden in de Hydra-Ring uitvoerdatabase..
         /// </summary>
-        internal static string OvertoppingCalculationWaveHeightParser_Parse_No_overtopping_found_in_output_file {
+        internal static string OvertoppingCalculationWaveHeightParser_No_overtopping_found_in_output_file {
             get {
-                return ResourceManager.GetString("OvertoppingCalculationWaveHeightParser_Parse_No_overtopping_found_in_output_file", resourceCulture);
+                return ResourceManager.GetString("OvertoppingCalculationWaveHeightParser_No_overtopping_found_in_output_file", resourceCulture);
             }
         }
         
@@ -156,30 +165,21 @@ namespace Ringtoets.HydraRing.Calculation.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is geen resultaat voor convergentie gevonden in de Hydra-Ring uitvoerdatabase..
-        /// </summary>
-        internal static string Parse_No_convergence_found_in_output_file {
-            get {
-                return ResourceManager.GetString("Parse_No_convergence_found_in_output_file", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Er is geen resultaat voor de betrouwbaarheidsindex van de berekende kans van voorkomen gevonden in de Hydra-Ring uitvoerdatabase..
         /// </summary>
-        internal static string ReliabilityIndexCalculationParser_Parse_No_reliability_found_in_output_file {
+        internal static string ReliabilityIndexCalculationParser_No_reliability_found_in_output_file {
             get {
-                return ResourceManager.GetString("ReliabilityIndexCalculationParser_Parse_No_reliability_found_in_output_file", resourceCulture);
+                return ResourceManager.GetString("ReliabilityIndexCalculationParser_No_reliability_found_in_output_file", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Er zijn geen berekende golfcondities gevonden in de Hydra-Ring uitvoerdatabase..
         /// </summary>
-        internal static string WaveConditionsCalculationParser_Parse_No_calculated_wave_conditions_found_in_output_file {
+        internal static string WaveConditionsCalculationParser_No_calculated_wave_conditions_found_in_output_file {
             get {
-                return ResourceManager.GetString("WaveConditionsCalculationParser_Parse_No_calculated_wave_conditions_found_in_outp" +
-                        "ut_file", resourceCulture);
+                return ResourceManager.GetString("WaveConditionsCalculationParser_No_calculated_wave_conditions_found_in_output_fil" +
+                        "e", resourceCulture);
             }
         }
     }

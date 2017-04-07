@@ -42,7 +42,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
             "LIMIT 1";
 
         /// <summary>
-        /// Gets the value indicating whether the calculation for a section has converged.
+        /// Gets the output that was parsed from the output file.
         /// </summary>
         public bool? Output { get; private set; }
 
@@ -51,7 +51,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
             Dictionary<string, object> result = HydraRingDatabaseParseHelper.ReadSingleLine(workingDirectory,
                                                                                             getLastResultQuery,
                                                                                             sectionId,
-                                                                                            Resources.Parse_No_convergence_found_in_output_file);
+                                                                                            Resources.ConvergenceParser_No_convergence_found_in_output_file);
 
             ReadResult(result);
         }
@@ -70,7 +70,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
             }
             catch (InvalidCastException e)
             {
-                throw new HydraRingFileParserException(Resources.Parse_No_convergence_found_in_output_file, e);
+                throw new HydraRingFileParserException(Resources.ConvergenceParser_No_convergence_found_in_output_file, e);
             }
         }
     }

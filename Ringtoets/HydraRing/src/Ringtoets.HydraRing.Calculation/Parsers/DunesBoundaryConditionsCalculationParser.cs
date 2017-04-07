@@ -58,7 +58,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
                 workingDirectory,
                 query,
                 sectionId,
-                Resources.DunesBoundaryConditionsCalculationParser_Parse_No_dunes_hydraulic_boundaries_found_in_output_file);
+                Resources.DunesBoundaryConditionsCalculationParser_No_dunes_hydraulic_boundaries_found_in_output_file);
 
             ReadResult(result);
         }
@@ -83,7 +83,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
             }
             catch (InvalidCastException e)
             {
-                throw new HydraRingFileParserException(Resources.DunesBoundaryConditionsCalculationParser_Parse_No_dunes_hydraulic_boundaries_found_in_output_file, e);
+                throw new HydraRingFileParserException(Resources.DunesBoundaryConditionsCalculationParser_No_dunes_hydraulic_boundaries_found_in_output_file, e);
             }
         }
     }

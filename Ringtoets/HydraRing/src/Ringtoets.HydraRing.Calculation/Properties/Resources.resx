@@ -129,25 +129,25 @@
   <data name="Parse_Cannot_read_result_in_output_file" xml:space="preserve">
     <value>Er kon geen resultaat gelezen worden uit de Hydra-Ring uitvoerdatabase.</value>
   </data>
-  <data name="Parse_No_convergence_found_in_output_file" xml:space="preserve">
+  <data name="ConvergenceParser_No_convergence_found_in_output_file" xml:space="preserve">
     <value>Er is geen resultaat voor convergentie gevonden in de Hydra-Ring uitvoerdatabase.</value>
   </data>
-  <data name="HydraRingDatabaseReader_Execute_No_result_found_in_output_file" xml:space="preserve">
+  <data name="HydraRingDatabaseReader_ReadLine_No_result_found_in_output_file" xml:space="preserve">
     <value>Er is geen resultaat gevonden in de Hydra-Ring uitvoerdatabase.</value>
   </data>
-  <data name="DunesBoundaryConditionsCalculationParser_Parse_No_dunes_hydraulic_boundaries_found_in_output_file" xml:space="preserve">
+  <data name="DunesBoundaryConditionsCalculationParser_No_dunes_hydraulic_boundaries_found_in_output_file" xml:space="preserve">
     <value>Er zijn geen berekende hydraulische randvoorwaarden voor duinen gevonden in de Hydra-Ring uitvoerdatabase.</value>
   </data>
-  <data name="ExceedanceProbabilityCalculationParser_Parse_No_beta_found_in_output_file" xml:space="preserve">
+  <data name="ExceedanceProbabilityCalculationParser_No_beta_found_in_output_file" xml:space="preserve">
     <value>Er is geen resultaat voor de betrouwbaarheidsindex van de faalkans gevonden in de Hydra-Ring uitvoerdatabase.</value>
   </data>
-  <data name="ReliabilityIndexCalculationParser_Parse_No_reliability_found_in_output_file" xml:space="preserve">
+  <data name="ReliabilityIndexCalculationParser_No_reliability_found_in_output_file" xml:space="preserve">
     <value>Er is geen resultaat voor de betrouwbaarheidsindex van de berekende kans van voorkomen gevonden in de Hydra-Ring uitvoerdatabase.</value>
   </data>
-  <data name="WaveConditionsCalculationParser_Parse_No_calculated_wave_conditions_found_in_output_file" xml:space="preserve">
+  <data name="WaveConditionsCalculationParser_No_calculated_wave_conditions_found_in_output_file" xml:space="preserve">
     <value>Er zijn geen berekende golfcondities gevonden in de Hydra-Ring uitvoerdatabase.</value>
   </data>
-  <data name="OvertoppingCalculationWaveHeightParser_Parse_No_overtopping_found_in_output_file" xml:space="preserve">
+  <data name="OvertoppingCalculationWaveHeightParser_No_overtopping_found_in_output_file" xml:space="preserve">
     <value>Er is geen resultaat voor overslag en overloop gevonden in de Hydra-Ring uitvoerdatabase.</value>
   </data>
 </root>

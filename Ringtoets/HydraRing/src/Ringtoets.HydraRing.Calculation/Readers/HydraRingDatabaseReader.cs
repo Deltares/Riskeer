@@ -38,10 +38,10 @@ namespace Ringtoets.HydraRing.Calculation.Readers
     {
         private const string sectionIdParameterName = "@sectionId";
         private readonly string workingDirectory;
-        private readonly SQLiteConnection connection;
 
-        private SQLiteDataReader reader;
+        private SQLiteConnection connection;
         private SQLiteCommand command;
+        private SQLiteDataReader reader;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraRingDatabaseReader"/>.
@@ -77,7 +77,7 @@ namespace Ringtoets.HydraRing.Calculation.Readers
 
             this.workingDirectory = workingDirectory;
 
-            connection = CreateConnection();
+            CreateConnection();
             CreateCommand(query, sectionId);
             OpenConnection();
             GetReader();
@@ -104,7 +104,7 @@ namespace Ringtoets.HydraRing.Calculation.Readers
                 return results;
             }
 
-            throw new HydraRingDatabaseReaderException(Resources.HydraRingDatabaseReader_Execute_No_result_found_in_output_file);
+            throw new HydraRingDatabaseReaderException(Resources.HydraRingDatabaseReader_ReadLine_No_result_found_in_output_file);
         }
 
         public void Dispose()
@@ -123,19 +123,18 @@ namespace Ringtoets.HydraRing.Calculation.Readers
             }
         }
 
-        private void GetReader()
+        private void CreateConnection()
         {
-            reader = command.ExecuteReader();
-        }
+            string databaseFile = Path.Combine(workingDirectory, HydraRingFileConstants.OutputDatabaseFileName);
 
-        /// <summary>
-        /// Opens the connection.
-        /// </summary>
-        /// <exception cref="SQLiteException">Thrown when 
-        /// the connection could not be opened.</exception>
-        private void OpenConnection()
-        {
-            connection.Open();
+            string connectionStringBuilder = new SQLiteConnectionStringBuilder
+            {
+                FailIfMissing = true,
+                DataSource = databaseFile,
+                ReadOnly = true
+            }.ConnectionString;
+
+            connection = new SQLiteConnection(connectionStringBuilder);
         }
 
         private void CreateCommand(string query, int sectionId)
@@ -149,18 +148,18 @@ namespace Ringtoets.HydraRing.Calculation.Readers
             });
         }
 
-        private SQLiteConnection CreateConnection()
+        private void GetReader()
         {
-            string databaseFile = Path.Combine(workingDirectory, HydraRingFileConstants.OutputDatabaseFileName);
+            reader = command.ExecuteReader();
+        }
 
-            string connectionStringBuilder = new SQLiteConnectionStringBuilder
-            {
-                FailIfMissing = true,
-                DataSource = databaseFile,
-                ReadOnly = true
-            }.ConnectionString;
-
-            return new SQLiteConnection(connectionStringBuilder);
+        /// <summary>
+        /// Opens the connection.
+        /// </summary>
+        /// <exception cref="SQLiteException">Thrown when the connection could not be opened.</exception>
+        private void OpenConnection()
+        {
+            connection.Open();
         }
     }
 }

@@ -43,8 +43,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
                                         "LIMIT 1;";
 
         /// <summary>
-        /// Gets a <see cref="ReliabilityIndexCalculationOutput"/> corresponding to the section id
-        /// if <see cref="Parse"/> executed successfully; or <c>null</c> otherwise.
+        /// Gets the output that was parsed from the output file.
         /// </summary>
         public ReliabilityIndexCalculationOutput Output { get; private set; }
 
@@ -54,7 +53,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
                 workingDirectory,
                 query,
                 sectionId,
-                Resources.ReliabilityIndexCalculationParser_Parse_No_reliability_found_in_output_file);
+                Resources.ReliabilityIndexCalculationParser_No_reliability_found_in_output_file);
 
             ReadResult(result);
         }
@@ -75,7 +74,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
             }
             catch (InvalidCastException e)
             {
-                throw new HydraRingFileParserException(Resources.ReliabilityIndexCalculationParser_Parse_No_reliability_found_in_output_file, e);
+                throw new HydraRingFileParserException(Resources.ReliabilityIndexCalculationParser_No_reliability_found_in_output_file, e);
             }
         }
     }

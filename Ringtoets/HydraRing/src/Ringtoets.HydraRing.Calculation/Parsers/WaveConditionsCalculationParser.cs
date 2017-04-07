@@ -51,7 +51,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
                 workingDirectory,
                 query,
                 sectionId,
-                Resources.WaveConditionsCalculationParser_Parse_No_calculated_wave_conditions_found_in_output_file);
+                Resources.WaveConditionsCalculationParser_No_calculated_wave_conditions_found_in_output_file);
 
             ReadResult(result);
         }
@@ -75,7 +75,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
             }
             catch (InvalidCastException e)
             {
-                throw new HydraRingFileParserException(Resources.WaveConditionsCalculationParser_Parse_No_calculated_wave_conditions_found_in_output_file, e);
+                throw new HydraRingFileParserException(Resources.WaveConditionsCalculationParser_No_calculated_wave_conditions_found_in_output_file, e);
             }
         }
     }
