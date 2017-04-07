@@ -47,7 +47,6 @@ namespace Ringtoets.Common.IO.Test.FileImporters
     public class CalculationConfigurationImporterTest
     {
         private readonly string readerPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(CalculationConfigurationReader));
-        private readonly string importerPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(CalculationConfigurationImporter));
 
         [Test]
         public void Constructor_ExpectedValues()

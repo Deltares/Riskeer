@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Structures;
