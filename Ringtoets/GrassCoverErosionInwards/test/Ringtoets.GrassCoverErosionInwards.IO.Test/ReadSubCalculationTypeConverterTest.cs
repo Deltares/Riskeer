@@ -26,13 +26,13 @@ using NUnit.Framework;
 namespace Ringtoets.GrassCoverErosionInwards.IO.Test
 {
     [TestFixture]
-    public class ReadDikeHeightCalculationTypeConverterTest
+    public class ReadSubCalculationTypeConverterTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var converter = new ReadDikeHeightCalculationTypeConverter();
+            var converter = new ReadSubCalculationTypeConverter();
 
             // Assert
             Assert.IsInstanceOf<TypeConverter>(converter);
@@ -42,7 +42,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
         public void CanConvertTo_String_ReturnTrue()
         {
             // Setup
-            var converter = new ReadDikeHeightCalculationTypeConverter();
+            var converter = new ReadSubCalculationTypeConverter();
 
             // Call
             bool canConvertToString = converter.CanConvertTo(typeof(string));
@@ -55,7 +55,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
         public void CanConvertTo_NotString_ReturnFalse()
         {
             // Setup
-            var converter = new ReadDikeHeightCalculationTypeConverter();
+            var converter = new ReadSubCalculationTypeConverter();
 
             // Call
             bool canConvert = converter.CanConvertTo(typeof(object));
@@ -71,7 +71,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
         public void ConvertTo_VariousCases_ReturnExpectedValues(ReadSubCalculationType value, string expectedResult)
         {
             // Setup
-            var converter = new ReadDikeHeightCalculationTypeConverter();
+            var converter = new ReadSubCalculationTypeConverter();
 
             // Call
             object result = converter.ConvertTo(value, typeof(string));
@@ -84,7 +84,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
         public void ConvertTo_InvalidReadSubCalculationTypeValue_ThrowNotSupportedException()
         {
             // Setup
-            var converter = new ReadDikeHeightCalculationTypeConverter();
+            var converter = new ReadSubCalculationTypeConverter();
 
             var invalidValue = (ReadSubCalculationType) 9999999;
 
@@ -99,7 +99,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
         public void ConvertTo_Object_ThrowNotSupportedException()
         {
             // Setup
-            var converter = new ReadDikeHeightCalculationTypeConverter();
+            var converter = new ReadSubCalculationTypeConverter();
 
             // Call
             TestDelegate call = () => converter.ConvertTo(ReadSubCalculationType.NoCalculation, typeof(object));
@@ -112,7 +112,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
         public void CanConvertFrom_String_ReturnTrue()
         {
             // Setup
-            var converter = new ReadDikeHeightCalculationTypeConverter();
+            var converter = new ReadSubCalculationTypeConverter();
 
             // Call
             bool canConvertFromString = converter.CanConvertFrom(typeof(string));
@@ -125,7 +125,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
         public void CanConvertFrom_NonString_ReturnFalse()
         {
             // Setup
-            var converter = new ReadDikeHeightCalculationTypeConverter();
+            var converter = new ReadSubCalculationTypeConverter();
 
             // Call
             bool canConvert = converter.CanConvertFrom(typeof(object));
@@ -141,7 +141,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
         public void ConvertFrom_VariousCases_ReturnExpectedValue(string value, ReadSubCalculationType expectedResult)
         {
             // Setup
-            var converter = new ReadDikeHeightCalculationTypeConverter();
+            var converter = new ReadSubCalculationTypeConverter();
 
             // Call
             object result = converter.ConvertFrom(value);
@@ -154,7 +154,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
         public void ConvertFrom_UnsupportedString_ThrowNotSupportedException()
         {
             // Setup
-            var converter = new ReadDikeHeightCalculationTypeConverter();
+            var converter = new ReadSubCalculationTypeConverter();
 
             // Call
             TestDelegate call = () => converter.ConvertFrom("<unsupported string value>");

@@ -29,7 +29,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO
     /// <summary>
     /// Converts <see cref="ReadSubCalculationType"/> to <see cref="string"/> and back.
     /// </summary>
-    public class ReadDikeHeightCalculationTypeConverter : TypeConverter
+    public class ReadSubCalculationTypeConverter : TypeConverter
     {
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
@@ -39,11 +39,11 @@ namespace Ringtoets.GrassCoverErosionInwards.IO
                 switch (readSubCalculationType)
                 {
                     case ReadSubCalculationType.NoCalculation:
-                        return Resources.ReadDikeHeightCalculationTypeConverter_NoCalculation;
+                        return Resources.ReadSubCalculationTypeConverter_NoCalculation;
                     case ReadSubCalculationType.CalculateByAssessmentSectionNorm:
-                        return Resources.ReadDikeHeightCalculationTypeConverter_CalculateByAssessmentSectionNorm;
+                        return Resources.ReadSubCalculationTypeConverter_CalculateByAssessmentSectionNorm;
                     case ReadSubCalculationType.CalculateByProfileSpecificRequiredProbability:
-                        return Resources.ReadDikeHeightCalculationTypeConverter_CalculateByProfileSpecificRequiredProbability;
+                        return Resources.ReadSubCalculationTypeConverter_CalculateByProfileSpecificRequiredProbability;
                     default:
                         throw new NotSupportedException();
                 }
@@ -65,15 +65,15 @@ namespace Ringtoets.GrassCoverErosionInwards.IO
             var text = value as string;
             if (text != null)
             {
-                if (text == Resources.ReadDikeHeightCalculationTypeConverter_NoCalculation)
+                if (text == Resources.ReadSubCalculationTypeConverter_NoCalculation)
                 {
                     return ReadSubCalculationType.NoCalculation;
                 }
-                if (text == Resources.ReadDikeHeightCalculationTypeConverter_CalculateByAssessmentSectionNorm)
+                if (text == Resources.ReadSubCalculationTypeConverter_CalculateByAssessmentSectionNorm)
                 {
                     return ReadSubCalculationType.CalculateByAssessmentSectionNorm;
                 }
-                if (text == Resources.ReadDikeHeightCalculationTypeConverter_CalculateByProfileSpecificRequiredProbability)
+                if (text == Resources.ReadSubCalculationTypeConverter_CalculateByProfileSpecificRequiredProbability)
                 {
                     return ReadSubCalculationType.CalculateByProfileSpecificRequiredProbability;
                 }

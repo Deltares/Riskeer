@@ -109,7 +109,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Writers
 
         private static string DikeHeightCalculationTypeAsXmlString(ReadSubCalculationType type)
         {
-            return new ReadDikeHeightCalculationTypeConverter().ConvertToInvariantString(type);
+            return new ReadSubCalculationTypeConverter().ConvertToInvariantString(type);
         }
 
         private static void WriteWaveReduction(GrassCoverErosionInwardsInput input, XmlWriter writer)

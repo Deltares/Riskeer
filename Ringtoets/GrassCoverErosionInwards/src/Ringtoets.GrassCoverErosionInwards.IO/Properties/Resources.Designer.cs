@@ -166,28 +166,27 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to norm.
         /// </summary>
-        internal static string ReadDikeHeightCalculationTypeConverter_CalculateByAssessmentSectionNorm {
+        internal static string ReadSubCalculationTypeConverter_CalculateByAssessmentSectionNorm {
             get {
-                return ResourceManager.GetString("ReadDikeHeightCalculationTypeConverter_CalculateByAssessmentSectionNorm", resourceCulture);
+                return ResourceManager.GetString("ReadSubCalculationTypeConverter_CalculateByAssessmentSectionNorm", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to doorsnede.
         /// </summary>
-        internal static string ReadDikeHeightCalculationTypeConverter_CalculateByProfileSpecificRequiredProbability {
+        internal static string ReadSubCalculationTypeConverter_CalculateByProfileSpecificRequiredProbability {
             get {
-                return ResourceManager.GetString("ReadDikeHeightCalculationTypeConverter_CalculateByProfileSpecificRequiredProbabil" +
-                        "ity", resourceCulture);
+                return ResourceManager.GetString("ReadSubCalculationTypeConverter_CalculateByProfileSpecificRequiredProbability", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to niet.
         /// </summary>
-        internal static string ReadDikeHeightCalculationTypeConverter_NoCalculation {
+        internal static string ReadSubCalculationTypeConverter_NoCalculation {
             get {
-                return ResourceManager.GetString("ReadDikeHeightCalculationTypeConverter_NoCalculation", resourceCulture);
+                return ResourceManager.GetString("ReadSubCalculationTypeConverter_NoCalculation", resourceCulture);
             }
         }
     }
