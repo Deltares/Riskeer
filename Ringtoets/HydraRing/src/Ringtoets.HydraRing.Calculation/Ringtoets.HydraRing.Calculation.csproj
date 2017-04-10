@@ -45,9 +45,11 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Activities\HydraRingActivityBase.cs" />
+    <Compile Include="Calculator\OvertoppingRateCalculator.cs" />
     <Compile Include="Calculator\DunesBoundaryConditionsCalculator.cs" />
     <Compile Include="Calculator\Factory\HydraRingCalculatorFactory.cs" />
     <Compile Include="Calculator\Factory\IHydraRingCalculatorFactory.cs" />
+    <Compile Include="Calculator\IOvertoppingRateCalculator.cs" />
     <Compile Include="Calculator\IDunesBoundaryConditionsCalculator.cs" />
     <Compile Include="Calculator\IStructuresClosureCalculator.cs" />
     <Compile Include="Calculator\IStructuresStabilityPointCalculator.cs" />

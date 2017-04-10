@@ -28,36 +28,36 @@ using Ringtoets.HydraRing.Calculation.Parsers;
 namespace Ringtoets.HydraRing.Calculation.Calculator
 {
     /// <summary>
-    /// Calculator which calculates the dike height associated to the result of iterating towards a
+    /// Calculator which calculates the overtopping rate associated to the result of iterating towards a
     /// probability of failure given a norm.
     /// </summary>
-    internal class DikeHeightCalculator : HydraRingCalculatorBase, IDikeHeightCalculator
+    internal class OvertoppingRateCalculator : HydraRingCalculatorBase, IOvertoppingRateCalculator
     {
         private readonly ReliabilityIndexCalculationParser targetProbabilityParser;
         private readonly ConvergenceParser convergenceParser;
 
         /// <summary>
-        /// Create a new instance of <see cref="DikeHeightCalculator"/>.
+        /// Create a new instance of <see cref="OvertoppingRateCalculator"/>.
         /// </summary>
         /// <param name="hlcdDirectory">The directory in which the Hydraulic Boundary Database can be found.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
-        internal DikeHeightCalculator(string hlcdDirectory)
+        internal OvertoppingRateCalculator(string hlcdDirectory)
             : base(hlcdDirectory)
         {
             targetProbabilityParser = new ReliabilityIndexCalculationParser();
             convergenceParser = new ConvergenceParser();
 
-            DikeHeight = double.NaN;
+            OvertoppingRate = double.NaN;
             ReliabilityIndex = double.NaN;
         }
 
-        public double DikeHeight { get; private set; }
+        public double OvertoppingRate { get; private set; }
 
         public double ReliabilityIndex { get; private set; }
 
         public bool? Converged { get; private set; }
 
-        public void Calculate(DikeHeightCalculationInput input)
+        public void Calculate(OvertoppingRateCalculationInput input)
         {
             Calculate(HydraRingUncertaintiesType.All, input);
         }
@@ -72,7 +72,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         {
             if (targetProbabilityParser.Output != null)
             {
-                DikeHeight = targetProbabilityParser.Output.Result;
+                OvertoppingRate = targetProbabilityParser.Output.Result;
                 ReliabilityIndex = targetProbabilityParser.Output.CalculatedReliabilityIndex;
             }
 
