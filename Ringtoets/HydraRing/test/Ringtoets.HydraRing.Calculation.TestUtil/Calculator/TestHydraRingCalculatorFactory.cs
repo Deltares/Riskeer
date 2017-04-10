@@ -34,8 +34,9 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
     public class TestHydraRingCalculatorFactory : IHydraRingCalculatorFactory
     {
         public readonly TestDesignWaterLevelCalculator DesignWaterLevelCalculator = new TestDesignWaterLevelCalculator();
-        public readonly TestDikeHeightCalculator DikeHeightCalculator = new TestDikeHeightCalculator();
         public readonly TestOvertoppingCalculator OvertoppingCalculator = new TestOvertoppingCalculator();
+        public readonly TestDikeHeightCalculator DikeHeightCalculator = new TestDikeHeightCalculator();
+        public readonly TestOvertoppingRateCalculator OvertoppingRateCalculator = new TestOvertoppingRateCalculator();
         public readonly TestWaveConditionsCosineCalculator WaveConditionsCosineCalculator = new TestWaveConditionsCosineCalculator();
         public readonly TestWaveHeightCalculator WaveHeightCalculator = new TestWaveHeightCalculator();
         public readonly TestStructuresOvertoppingCalculator StructuresOvertoppingCalculator = new TestStructuresOvertoppingCalculator();
@@ -49,16 +50,22 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
             return DesignWaterLevelCalculator;
         }
 
+        public IOvertoppingCalculator CreateOvertoppingCalculator(string hlcdDirectory)
+        {
+            OvertoppingCalculator.HydraulicBoundaryDatabaseDirectory = hlcdDirectory;
+            return OvertoppingCalculator;
+        }
+
         public IDikeHeightCalculator CreateDikeHeightCalculator(string hlcdDirectory)
         {
             DikeHeightCalculator.HydraulicBoundaryDatabaseDirectory = hlcdDirectory;
             return DikeHeightCalculator;
         }
 
-        public IOvertoppingCalculator CreateOvertoppingCalculator(string hlcdDirectory)
+        public IOvertoppingRateCalculator CreateOvertoppingRateCalculator(string hlcdDirectory)
         {
-            OvertoppingCalculator.HydraulicBoundaryDatabaseDirectory = hlcdDirectory;
-            return OvertoppingCalculator;
+            OvertoppingRateCalculator.HydraulicBoundaryDatabaseDirectory = hlcdDirectory;
+            return OvertoppingRateCalculator;
         }
 
         public IWaveConditionsCosineCalculator CreateWaveConditionsCosineCalculator(string hlcdDirectory)
@@ -104,7 +111,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
         public string LastErrorFileContent { get; set; }
         public double WaveHeight { get; set; }
         public double ReliabilityIndex { get; set; }
-        public bool? Converged { get; set;  }
+        public bool? Converged { get; set; }
     }
 
     public class TestWaveConditionsCosineCalculator : TestHydraRingCalculator<WaveConditionsCosineCalculationInput>, IWaveConditionsCosineCalculator
@@ -131,6 +138,15 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
     public class TestDikeHeightCalculator : TestHydraRingCalculator<DikeHeightCalculationInput>, IDikeHeightCalculator
     {
         public double DikeHeight { get; set; }
+        public double ReliabilityIndex { get; set; }
+        public string OutputDirectory { get; set; }
+        public string LastErrorFileContent { get; set; }
+        public bool? Converged { get; set; }
+    }
+
+    public class TestOvertoppingRateCalculator : TestHydraRingCalculator<OvertoppingRateCalculationInput>, IOvertoppingRateCalculator
+    {
+        public double OvertoppingRate { get; set; }
         public double ReliabilityIndex { get; set; }
         public string OutputDirectory { get; set; }
         public string LastErrorFileContent { get; set; }

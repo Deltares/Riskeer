@@ -38,6 +38,14 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
         IDesignWaterLevelCalculator CreateDesignWaterLevelCalculator(string hlcdDirectory);
 
         /// <summary>
+        /// Creates a calculator for performing an overtopping calculation.
+        /// </summary>
+        /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
+        /// <returns>A new <see cref="IOvertoppingCalculator"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
+        IOvertoppingCalculator CreateOvertoppingCalculator(string hlcdDirectory);
+
+        /// <summary>
         /// Creates a calculator for calculating a dike height.
         /// </summary>
         /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
@@ -46,12 +54,12 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
         IDikeHeightCalculator CreateDikeHeightCalculator(string hlcdDirectory);
 
         /// <summary>
-        /// Creates a calculator for performing an overtopping calculation.
+        /// Creates a calculator for calculating an overtopping rate.
         /// </summary>
         /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
-        /// <returns>A new <see cref="IOvertoppingCalculator"/>.</returns>
+        /// <returns>A new <see cref="IOvertoppingRateCalculator"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
-        IOvertoppingCalculator CreateOvertoppingCalculator(string hlcdDirectory);
+        IOvertoppingRateCalculator CreateOvertoppingRateCalculator(string hlcdDirectory);
 
         /// <summary>
         /// Creates a calculator for calculating wave conditions.

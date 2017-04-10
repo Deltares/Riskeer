@@ -49,14 +49,19 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
             return new DesignWaterLevelCalculator(hlcdDirectory);
         }
 
+        public IOvertoppingCalculator CreateOvertoppingCalculator(string hlcdDirectory)
+        {
+            return new OvertoppingCalculator(hlcdDirectory);
+        }
+
         public IDikeHeightCalculator CreateDikeHeightCalculator(string hlcdDirectory)
         {
             return new DikeHeightCalculator(hlcdDirectory);
         }
 
-        public IOvertoppingCalculator CreateOvertoppingCalculator(string hlcdDirectory)
+        public IOvertoppingRateCalculator CreateOvertoppingRateCalculator(string hlcdDirectory)
         {
-            return new OvertoppingCalculator(hlcdDirectory);
+            return new OvertoppingRateCalculator(hlcdDirectory);
         }
 
         public IWaveConditionsCosineCalculator CreateWaveConditionsCosineCalculator(string hlcdDirectory)
