@@ -52,7 +52,7 @@ namespace Ringtoets.Revetment.IO.Importers
         /// </summary>
         /// <param name="xmlFilePath">The path to the XML file to import from.</param>
         /// <param name="importTarget">The calculation group to update.</param>
-        /// <param name="availableHydraulicBoundaryLocations">The hydraulic boundary locations
+        /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations
         /// used to check if the imported objects contain the right location.</param>
         /// <param name="foreshoreProfiles">The foreshore profiles used to check if
         /// the imported objects contain the right profile.</param>
@@ -60,20 +60,20 @@ namespace Ringtoets.Revetment.IO.Importers
         /// <c>null</c>.</exception>
         public WaveConditionsCalculationConfigurationImporter(string xmlFilePath,
                                                               CalculationGroup importTarget,
-                                                              IEnumerable<HydraulicBoundaryLocation> availableHydraulicBoundaryLocations,
+                                                              IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
                                                               IEnumerable<ForeshoreProfile> foreshoreProfiles)
             : base(xmlFilePath, importTarget)
         {
-            if (availableHydraulicBoundaryLocations == null)
+            if (hydraulicBoundaryLocations == null)
             {
-                throw new ArgumentNullException(nameof(availableHydraulicBoundaryLocations));
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
             }
             if (foreshoreProfiles == null)
             {
                 throw new ArgumentNullException(nameof(foreshoreProfiles));
             }
-            this.availableHydraulicBoundaryLocations = availableHydraulicBoundaryLocations;
-            this.availableForeshoreProfiles = foreshoreProfiles;
+            availableHydraulicBoundaryLocations = hydraulicBoundaryLocations;
+            availableForeshoreProfiles = foreshoreProfiles;
         }
 
         protected override WaveConditionsCalculationConfigurationReader CreateCalculationConfigurationReader(string xmlFilePath)

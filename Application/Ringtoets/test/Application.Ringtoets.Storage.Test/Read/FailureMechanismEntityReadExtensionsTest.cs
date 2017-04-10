@@ -978,7 +978,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         #region Height Structures
 
         [Test]
-        public void ReadAsHeightStructuresFailureMechanism_WithForshoreProfiles_ReturnFailureMechanismWithForeshoreProfilesSet()
+        public void ReadAsHeightStructuresFailureMechanism_WithForeshoreProfiles_ReturnFailureMechanismWithForeshoreProfilesSet()
         {
             // Setup
             const int generalInputN = 7;
@@ -1077,7 +1077,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         #region Closing Structures
 
         [Test]
-        public void ReadAsClosingStructuresFailureMechanism_WithForshoreProfiles_ReturnFailureMechanismWithForeshoreProfilesSet()
+        public void ReadAsClosingStructuresFailureMechanism_WithForeshoreProfiles_ReturnFailureMechanismWithForeshoreProfilesSet()
         {
             // Setup
             const int generalInputN2A = 3;
@@ -1222,7 +1222,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         #region Stability Point Structures
 
         [Test]
-        public void ReadAsStabilityPointStructuresFailureMechanism_WithForshoreProfiles_ReturnFailureMechanismWithForeshoreProfilesSet()
+        public void ReadAsStabilityPointStructuresFailureMechanism_WithForeshoreProfiles_ReturnFailureMechanismWithForeshoreProfilesSet()
         {
             // Setup
             const int generalInputN = 5;

@@ -255,16 +255,6 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} Berekening &apos;{1}&apos; is overgeslagen..
-        /// </summary>
-        public static string CalculationConfigurationImporter_ValidateCalculation_ErrorMessage_0_Calculation_1_skipped {
-            get {
-                return ResourceManager.GetString("CalculationConfigurationImporter_ValidateCalculation_ErrorMessage_0_Calculation_1" +
-                        "_skipped", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Er kan geen spreiding voor stochast &apos;modelfactoroverloopdebiet&apos; opgegeven worden..
         /// </summary>
         public static string CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_ModelFactorSuperCriticalFlow {
@@ -1014,6 +1004,16 @@ namespace Ringtoets.Common.IO.Properties {
         public static string IHW_filecontents {
             get {
                 return ResourceManager.GetString("IHW_filecontents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} Berekening &apos;{1}&apos; is overgeslagen..
+        /// </summary>
+        public static string ILogExtensions_LogCalculationConversionError_ErrorMessage_0_Calculation_1_skipped {
+            get {
+                return ResourceManager.GetString("ILogExtensions_LogCalculationConversionError_ErrorMessage_0_Calculation_1_skipped" +
+                        "", resourceCulture);
             }
         }
         

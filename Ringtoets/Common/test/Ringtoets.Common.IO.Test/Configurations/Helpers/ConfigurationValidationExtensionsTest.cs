@@ -261,9 +261,10 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             var configuration = new TestStructuresCalculationConfiguration(calculationName);
 
             // Call
-            configuration.ValidateStructureBaseStochasts(log);
+            bool valid = configuration.ValidateStructureBaseStochasts(log);
 
             // Assert
+            Assert.IsTrue(valid);
             mocks.VerifyAll();
         }
 
@@ -299,9 +300,10 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             };
 
             // Call
-            configuration.ValidateStructureBaseStochasts(log);
+            bool valid = configuration.ValidateStructureBaseStochasts(log);
 
             // Assert
+            Assert.IsFalse(valid);
             mocks.VerifyAll();
         }
 
@@ -324,9 +326,10 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             };
 
             // Call
-            configuration.ValidateStructureBaseStochasts(log);
+            bool valid = configuration.ValidateStructureBaseStochasts(log);
 
             // Assert
+            Assert.IsTrue(valid);
             mocks.VerifyAll();
         }
 
@@ -362,9 +365,10 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             };
 
             // Call
-            configuration.ValidateStructureBaseStochasts(log);
+            bool valid = configuration.ValidateStructureBaseStochasts(log);
 
             // Assert
+            Assert.IsFalse(valid);
             mocks.VerifyAll();
         }
 
@@ -387,15 +391,16 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             };
 
             // Call
-            configuration.ValidateStructureBaseStochasts(log);
+            bool valid = configuration.ValidateStructureBaseStochasts(log);
 
             // Assert
+            Assert.IsTrue(valid);
             mocks.VerifyAll();
         }
-    }
 
-    public class TestStructuresCalculationConfiguration : StructuresCalculationConfiguration
-    {
-        public TestStructuresCalculationConfiguration(string name) : base(name) {}
+        private class TestStructuresCalculationConfiguration : StructuresCalculationConfiguration
+        {
+            public TestStructuresCalculationConfiguration(string name) : base(name) { }
+        }
     }
 }

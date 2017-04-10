@@ -221,7 +221,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
         }
 
         [Test]
-        public void Import_UseForeshoreButForshoreProfileWithoutGeometry_LogMessageAndContinueImport()
+        public void Import_UseForeshoreButForeshoreProfileWithoutGeometry_LogMessageAndContinueImport()
         {
             // Setup
             string filePath = Path.Combine(importerPath, "validConfigurationCalculationUseForeshoreWithoutGeometry.xml");

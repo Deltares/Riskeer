@@ -40,7 +40,8 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
         /// <param name="calculationName">The name of the calculation which is being validated.</param>
         /// <param name="log">Log used to write out errors.</param>
         /// <returns><c>false</c> when there is an invalid wave reduction parameter defined, <c>true</c> otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationName"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationName"/> or <paramref name="log"/>
+        /// is <c>null</c>.</exception>
         public static bool ValidateWaveReduction(this WaveReductionConfiguration waveReduction, ForeshoreProfile foreshoreProfile, string calculationName, ILog log)
         {
             if (calculationName == null)

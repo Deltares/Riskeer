@@ -70,7 +70,7 @@ namespace Ringtoets.Revetment.IO.Test.Importers
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("availableHydraulicBoundaryLocations", exception.ParamName);
+            Assert.AreEqual("hydraulicBoundaryLocations", exception.ParamName);
         }
 
         [Test]

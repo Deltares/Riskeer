@@ -416,7 +416,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
 
         private static void LogOutOfRangeException(string errorMessage, string calculationName, ArgumentOutOfRangeException e)
         {
-            log.ErrorFormat(Resources.CalculationConfigurationImporter_ValidateCalculation_ErrorMessage_0_Calculation_1_skipped,
+            log.ErrorFormat(Resources.ILogExtensions_LogCalculationConversionError_ErrorMessage_0_Calculation_1_skipped,
                             $"{errorMessage} {e.Message}", calculationName);
         }
     }

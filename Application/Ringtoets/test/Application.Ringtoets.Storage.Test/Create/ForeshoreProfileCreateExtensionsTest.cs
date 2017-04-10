@@ -180,16 +180,16 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_ForeshoreProfileAlreadyRegistered_ReturnRegisteredEntity()
         {
             // Setup
-            var forshoreProfile = new TestForeshoreProfile();
+            var foreshoreProfile = new TestForeshoreProfile();
             var registry = new PersistenceRegistry();
 
-            ForeshoreProfileEntity entity1 = forshoreProfile.Create(registry, 0);
+            ForeshoreProfileEntity entity1 = foreshoreProfile.Create(registry, 0);
 
             // Precondition:
-            Assert.IsTrue(registry.Contains(forshoreProfile));
+            Assert.IsTrue(registry.Contains(foreshoreProfile));
 
             // Call
-            ForeshoreProfileEntity entity2 = forshoreProfile.Create(registry, 0);
+            ForeshoreProfileEntity entity2 = foreshoreProfile.Create(registry, 0);
 
             // Assert
             Assert.AreSame(entity1, entity2);

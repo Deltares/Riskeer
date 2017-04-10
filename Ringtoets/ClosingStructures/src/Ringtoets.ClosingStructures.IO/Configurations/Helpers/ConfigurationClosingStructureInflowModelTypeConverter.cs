@@ -104,10 +104,10 @@ namespace Ringtoets.ClosingStructures.IO.Configurations.Helpers
                         return ConfigurationClosingStructureInflowModelType.VerticalWall;
                 }
             }
-            var breakWaterType = value as ClosingStructureInflowModelType?;
-            if (breakWaterType != null)
+            var inflowModelType = value as ClosingStructureInflowModelType?;
+            if (inflowModelType != null)
             {
-                switch (breakWaterType)
+                switch (inflowModelType)
                 {
                     case ClosingStructureInflowModelType.FloodedCulvert:
                         return ConfigurationClosingStructureInflowModelType.FloodedCulvert;

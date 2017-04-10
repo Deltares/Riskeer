@@ -30,15 +30,28 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
     /// </summary>
     public static class ILogExtensions
     {
-        public static void LogOutOfRangeException(this ILog log, string errorMessage, string calculationName, ArgumentOutOfRangeException e)
+        /// <summary>
+        /// Logs an out of range exception that was thrown when converting configuration to actual data model instances.
+        /// </summary>
+        /// <param name="log">The <see cref="ILog"/> to use for logging.</param>
+        /// <param name="errorMessage">Part of the message that precedes the out of range error message.</param>
+        /// <param name="calculationName">The name of the calculation for which the exception was thrown.</param>
+        /// <param name="exception">The exception that was thrown.</param>
+        public static void LogOutOfRangeException(this ILog log, string errorMessage, string calculationName, ArgumentOutOfRangeException exception)
         {
-            log.LogCalculationConversionError($"{errorMessage} {e.Message}", calculationName);
+            log.LogCalculationConversionError($"{errorMessage} {exception.Message}", calculationName);
         }
 
-        public static void LogCalculationConversionError(this ILog log, string message, string calculationName)
+        /// <summary>
+        /// Logs a message for an error which occured when converting configuration to actual data model instances.
+        /// </summary>
+        /// <param name="log">The <see cref="ILog"/> to use for logging.</param>
+        /// <param name="errorMessage">The error message to log.</param>
+        /// <param name="calculationName">The name of the calculation for which the error occured.</param>
+        public static void LogCalculationConversionError(this ILog log, string errorMessage, string calculationName)
         {
-            log.ErrorFormat(Resources.CalculationConfigurationImporter_ValidateCalculation_ErrorMessage_0_Calculation_1_skipped,
-                            message, calculationName);
+            log.ErrorFormat(Resources.ILogExtensions_LogCalculationConversionError_ErrorMessage_0_Calculation_1_skipped,
+                            errorMessage, calculationName);
         }
     }
 }

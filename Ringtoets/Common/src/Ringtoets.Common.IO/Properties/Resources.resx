@@ -538,7 +538,7 @@ Er is geen vakindeling geïmporteerd.</value>
     <value>{0} 
 Er is geen berekeningenconfiguratie geïmporteerd.</value>
   </data>
-  <data name="CalculationConfigurationImporter_ValidateCalculation_ErrorMessage_0_Calculation_1_skipped" xml:space="preserve">
+  <data name="ILogExtensions_LogCalculationConversionError_ErrorMessage_0_Calculation_1_skipped" xml:space="preserve">
     <value>{0} Berekening '{1}' is overgeslagen.</value>
   </data>
   <data name="GolfReductieSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
