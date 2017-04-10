@@ -25,7 +25,6 @@ using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.IO.Schema;
 using Ringtoets.Common.IO.Writers;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.IO.Readers;
 
 namespace Ringtoets.GrassCoverErosionInwards.IO.Writers
 {

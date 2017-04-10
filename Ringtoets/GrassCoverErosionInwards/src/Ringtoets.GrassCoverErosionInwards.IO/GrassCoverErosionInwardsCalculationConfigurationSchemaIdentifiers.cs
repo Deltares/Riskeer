@@ -45,5 +45,10 @@ namespace Ringtoets.GrassCoverErosionInwards.IO
         /// The identifier for the dike height calculation type elements.
         /// </summary>
         internal const string DikeHeightCalculationTypeElement = "hbnberekenen";
+
+        /// <summary>
+        /// The identifier for the overtopping rate calculation type elements.
+        /// </summary>
+        internal const string OvertoppingRateCalculationTypeElement = "overslagdebietberekenen";
     }
 }

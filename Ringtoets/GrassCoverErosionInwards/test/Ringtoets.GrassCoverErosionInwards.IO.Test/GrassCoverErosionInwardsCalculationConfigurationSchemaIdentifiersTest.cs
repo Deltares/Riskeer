@@ -34,6 +34,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
             Assert.AreEqual("overslagdebiet", GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.CriticalFlowRateStochastName);
             Assert.AreEqual("dijkhoogte", GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeHeightElement);
             Assert.AreEqual("hbnberekenen", GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeHeightCalculationTypeElement);
+            Assert.AreEqual("overslagdebietberekenen", GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.OvertoppingRateCalculationTypeElement);
         }
     }
 }
