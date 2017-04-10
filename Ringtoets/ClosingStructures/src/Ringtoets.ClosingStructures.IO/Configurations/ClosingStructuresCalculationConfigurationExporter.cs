@@ -25,7 +25,6 @@ using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.IO.Configurations.Helpers;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.Exporters;
 
@@ -46,7 +45,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
         /// <param name="filePath">The path of the XML file to export to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        public ClosingStructuresCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath) : base(calculations, filePath) {}
+        public ClosingStructuresCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath) : base(calculations, filePath) { }
 
         protected override ClosingStructuresCalculationConfiguration ToConfiguration(StructuresCalculation<ClosingStructuresInput> calculation)
         {
@@ -55,7 +54,6 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
             {
                 HydraulicBoundaryLocationName = input.HydraulicBoundaryLocation?.Name
             };
-
 
             if (input.Structure != null)
             {
@@ -80,17 +78,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
                 calculationConfiguration.ThresholdHeightOpenWeir = input.ThresholdHeightOpenWeir.ToStochastConfiguration();
             }
 
-            if (input.ForeshoreProfile != null)
-            {
-                calculationConfiguration.ForeshoreProfileName = input.ForeshoreProfile?.Name;
-                calculationConfiguration.WaveReduction = new WaveReductionConfiguration
-                {
-                    UseForeshoreProfile = input.UseForeshore,
-                    UseBreakWater = input.UseBreakWater,
-                    BreakWaterType = (ConfigurationBreakWaterType?) new ConfigurationBreakWaterTypeConverter().ConvertFrom(input.BreakWater.Type),
-                    BreakWaterHeight = input.BreakWater.Height
-                };
-            }
+            calculationConfiguration.SetConfigurationForeshoreProfileDependendProperties(input);
 
             calculationConfiguration.FailureProbabilityStructureWithErosion = input.FailureProbabilityStructureWithErosion;
             calculationConfiguration.FactorStormDurationOpenStructure = input.FactorStormDurationOpenStructure;

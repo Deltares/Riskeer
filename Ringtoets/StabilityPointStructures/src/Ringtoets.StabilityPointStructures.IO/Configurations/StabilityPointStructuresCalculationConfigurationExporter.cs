@@ -21,11 +21,8 @@
 
 using System;
 using System.Collections.Generic;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.Exporters;
 using Ringtoets.StabilityPointStructures.Data;
@@ -58,21 +55,22 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
 
         protected override StabilityPointStructuresCalculationConfiguration ToConfiguration(StructuresCalculation<StabilityPointStructuresInput> calculation)
         {
-            var calculationConfiguration = new StabilityPointStructuresCalculationConfiguration(calculation.Name);
             StabilityPointStructuresInput input = calculation.InputParameters;
 
-            calculationConfiguration.DrainCoefficient = input.DrainCoefficient.ToStochastConfigurationWithMean();
-            calculationConfiguration.FactorStormDurationOpenStructure = input.FactorStormDurationOpenStructure;
-            calculationConfiguration.FailureProbabilityStructureWithErosion = input.FailureProbabilityStructureWithErosion;
-            calculationConfiguration.HydraulicBoundaryLocationName = input.HydraulicBoundaryLocation?.Name;
-
-            calculationConfiguration.ModelFactorSuperCriticalFlow = input.ModelFactorSuperCriticalFlow.ToStochastConfigurationWithMean();
-            calculationConfiguration.VolumicWeightWater = input.VolumicWeightWater;
-            calculationConfiguration.StormDuration = input.StormDuration.ToStochastConfigurationWithMean();
+            var calculationConfiguration = new StabilityPointStructuresCalculationConfiguration(calculation.Name)
+            {
+                DrainCoefficient = input.DrainCoefficient.ToStochastConfigurationWithMean(),
+                FactorStormDurationOpenStructure = input.FactorStormDurationOpenStructure,
+                FailureProbabilityStructureWithErosion = input.FailureProbabilityStructureWithErosion,
+                HydraulicBoundaryLocationName = input.HydraulicBoundaryLocation?.Name,
+                ModelFactorSuperCriticalFlow = input.ModelFactorSuperCriticalFlow.ToStochastConfigurationWithMean(),
+                VolumicWeightWater = input.VolumicWeightWater,
+                StormDuration = input.StormDuration.ToStochastConfigurationWithMean()
+            };
 
             SetConfigurationStructureDependendParameters(calculationConfiguration, input);
 
-            SetConfigurationForeshoreProfileDependendParameters(calculationConfiguration, input);
+            calculationConfiguration.SetConfigurationForeshoreProfileDependendProperties(input);
 
             return calculationConfiguration;
         }
@@ -84,7 +82,6 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
             {
                 return;
             }
-            var inflowModelTypeConverter = new ConfigurationStabilityPointStructuresInflowModelTypeConverter();
 
             calculationConfiguration.AllowedLevelIncreaseStorage = input.AllowedLevelIncreaseStorage.ToStochastConfiguration();
             calculationConfiguration.AreaFlowApertures = input.AreaFlowApertures.ToStochastConfiguration();
@@ -101,7 +98,8 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
             calculationConfiguration.FlowWidthAtBottomProtection = input.FlowWidthAtBottomProtection.ToStochastConfiguration();
             if (Enum.IsDefined(typeof(StabilityPointStructureInflowModelType), input.InflowModelType))
             {
-                calculationConfiguration.InflowModelType = (ConfigurationStabilityPointStructuresInflowModelType?) inflowModelTypeConverter.ConvertFrom(input.InflowModelType);
+                calculationConfiguration.InflowModelType = (ConfigurationStabilityPointStructuresInflowModelType?)
+                    new ConfigurationStabilityPointStructuresInflowModelTypeConverter().ConvertFrom(input.InflowModelType);
             }
 
             calculationConfiguration.InsideWaterLevel = input.InsideWaterLevel.ToStochastConfiguration();
@@ -109,7 +107,12 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
             calculationConfiguration.LevelCrestStructure = input.LevelCrestStructure.ToStochastConfiguration();
             calculationConfiguration.LevellingCount = input.LevellingCount;
 
-            SetConfigurationLoadSchematizationType(calculationConfiguration, input);
+            if (Enum.IsDefined(typeof(LoadSchematizationType), input.LoadSchematizationType))
+            {
+                calculationConfiguration.LoadSchematizationType = (ConfigurationStabilityPointStructuresLoadSchematizationType?)
+                    new ConfigurationStabilityPointStructuresLoadSchematizationTypeConverter().ConvertFrom(input.LoadSchematizationType);
+            }
+
             calculationConfiguration.ProbabilityCollisionSecondaryStructure = input.ProbabilityCollisionSecondaryStructure;
             calculationConfiguration.ShipMass = input.ShipMass.ToStochastConfiguration();
             calculationConfiguration.ShipVelocity = input.ShipVelocity.ToStochastConfiguration();
@@ -123,39 +126,6 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
             calculationConfiguration.ThresholdHeightOpenWeir = input.ThresholdHeightOpenWeir.ToStochastConfiguration();
             calculationConfiguration.VerticalDistance = input.VerticalDistance;
             calculationConfiguration.WidthFlowApertures = input.WidthFlowApertures.ToStochastConfiguration();
-        }
-
-        private static void SetConfigurationLoadSchematizationType(StabilityPointStructuresCalculationConfiguration calculationConfiguration, StabilityPointStructuresInput input)
-        {
-            if (!Enum.IsDefined(typeof(LoadSchematizationType), input.LoadSchematizationType))
-            {
-                return;
-            }
-            var loadSchematizationTypeConverter = new ConfigurationStabilityPointStructuresLoadSchematizationTypeConverter();
-            calculationConfiguration.LoadSchematizationType = (ConfigurationStabilityPointStructuresLoadSchematizationType?) loadSchematizationTypeConverter.ConvertFrom(input.LoadSchematizationType);
-        }
-
-        private static void SetConfigurationForeshoreProfileDependendParameters(StructuresCalculationConfiguration calculationConfiguration,
-                                                                                StabilityPointStructuresInput input)
-        {
-            if (input.ForeshoreProfile == null)
-            {
-                return;
-            }
-
-            var breakWaterTypeConverter = new ConfigurationBreakWaterTypeConverter();
-            calculationConfiguration.ForeshoreProfileName = input.ForeshoreProfile?.Name;
-            calculationConfiguration.WaveReduction = new WaveReductionConfiguration
-            {
-                UseForeshoreProfile = input.UseForeshore,
-                UseBreakWater = input.UseBreakWater,
-                BreakWaterHeight = input.BreakWater.Height
-            };
-
-            if (Enum.IsDefined(typeof(BreakWaterType), input.BreakWater.Type))
-            {
-                calculationConfiguration.WaveReduction.BreakWaterType = (ConfigurationBreakWaterType?) breakWaterTypeConverter.ConvertFrom(input.BreakWater.Type);
-            }
         }
     }
 }

@@ -57,6 +57,7 @@
     <Compile Include="Configurations\Helpers\ConfigurationValidationExtensions.cs" />
     <Compile Include="Configurations\Helpers\DistributionConversionExtensions.cs" />
     <Compile Include="Configurations\Helpers\ILogExtensions.cs" />
+    <Compile Include="Configurations\Helpers\WaveReductionConversionExtensions.cs" />
     <Compile Include="Configurations\IConfigurationItem.cs" />
     <Compile Include="Configurations\StochastConfiguration.cs" />
     <Compile Include="Configurations\WaveReductionConfiguration.cs" />

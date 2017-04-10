@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.Exporters;
 using Ringtoets.HeightStructures.Data;
@@ -45,7 +44,7 @@ namespace Ringtoets.HeightStructures.IO.Configurations
         /// <param name="filePath">The path of the XML file to export to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        public HeightStructuresCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath) : base(calculations, filePath) {}
+        public HeightStructuresCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath) : base(calculations, filePath) { }
 
         protected override HeightStructuresCalculationConfiguration ToConfiguration(StructuresCalculation<HeightStructuresInput> calculation)
         {
@@ -68,17 +67,7 @@ namespace Ringtoets.HeightStructures.IO.Configurations
                 calculationConfiguration.CriticalOvertoppingDischarge = input.CriticalOvertoppingDischarge.ToStochastConfiguration();
             }
 
-            if (input.ForeshoreProfile != null)
-            {
-                calculationConfiguration.ForeshoreProfileName = input.ForeshoreProfile?.Name;
-                calculationConfiguration.WaveReduction = new WaveReductionConfiguration
-                {
-                    UseForeshoreProfile = input.UseForeshore,
-                    UseBreakWater = input.UseBreakWater,
-                    BreakWaterType = (ConfigurationBreakWaterType?) new ConfigurationBreakWaterTypeConverter().ConvertFrom(input.BreakWater.Type),
-                    BreakWaterHeight = input.BreakWater.Height
-                };
-            }
+            calculationConfiguration.SetConfigurationForeshoreProfileDependendProperties(input);
 
             calculationConfiguration.StormDuration = input.StormDuration.ToStochastConfigurationWithMean();
             calculationConfiguration.ModelFactorSuperCriticalFlow = input.ModelFactorSuperCriticalFlow.ToStochastConfigurationWithMean();
