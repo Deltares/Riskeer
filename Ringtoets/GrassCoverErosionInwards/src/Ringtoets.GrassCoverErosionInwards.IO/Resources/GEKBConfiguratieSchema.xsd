@@ -37,6 +37,7 @@ All rights reserved.
             <xs:element ref="orientatie" minOccurs="0"/>
             <xs:element ref="dijkhoogte" minOccurs="0"/>
             <xs:element ref="hbnberekenen" minOccurs="0"/>
+            <xs:element ref="overslagdebietberekenen" minOccurs="0"/>
             <xs:element ref="golfreductie" minOccurs="0"/>
             <xs:element ref="stochasten" minOccurs="0"/>
           </xs:all>
@@ -99,5 +100,19 @@ All rights reserved.
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
-  
+
+  <!--Geeft aan hoe een overslagdebiet berekend moet worden. Dit element kent drie geldige waarden:
+  * "niet" -> Overslagdebiet berekening wordt niet uitgevoerd.
+  * "norm" -> Overslagdebiet berekening wordt uitgevoerd bij de trajectnorm.
+  * "doorsnede" -> Overslagdebiet berekening wordt uitgevoerd bij de doorsnede-eis.-->
+  <xs:element name="overslagdebietberekenen">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:enumeration value="niet"/>
+        <xs:enumeration value="norm"/>
+        <xs:enumeration value="doorsnede"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+
 </xs:schema>
