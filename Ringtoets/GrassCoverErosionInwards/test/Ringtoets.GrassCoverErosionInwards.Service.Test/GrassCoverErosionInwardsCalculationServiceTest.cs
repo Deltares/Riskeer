@@ -59,7 +59,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             const string name = "<very nice name>";
 
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation
             {
                 Name = name,
                 InputParameters =
@@ -69,13 +69,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             };
 
             // Call
-            bool isValid = false;
+            var isValid = false;
             Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", msgs[1]);
@@ -92,7 +92,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             // Setup
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            var invalidFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
+            string invalidFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
@@ -102,7 +102,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             const string name = "<very nice name>";
 
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation
             {
                 Name = name,
                 InputParameters =
@@ -113,13 +113,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             };
 
             // Call
-            bool isValid = false;
+            var isValid = false;
             Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
@@ -136,7 +136,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             // Setup
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            var invalidFilePath = Path.Combine(testDataPath, "HRD nosettings.sqlite");
+            string invalidFilePath = Path.Combine(testDataPath, "HRD nosettings.sqlite");
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
@@ -146,7 +146,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             const string name = "<very nice name>";
 
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation
             {
                 Name = name,
                 InputParameters =
@@ -157,13 +157,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             };
 
             // Call
-            bool isValid = false;
+            var isValid = false;
             Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
@@ -188,7 +188,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             const string name = "<very nice name>";
 
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation
             {
                 Name = name,
                 InputParameters =
@@ -199,13 +199,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             };
 
             // Call
-            bool isValid = false;
+            var isValid = false;
             Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Er is geen dijkprofiel geselecteerd.", msgs[1]);
@@ -237,13 +237,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             calculation.InputParameters.UseBreakWater = true;
 
             // Call
-            bool isValid = false;
+            var isValid = false;
             Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 Assert.AreEqual("Validatie mislukt: De waarde voor 'hoogte' van de dam moet een concreet getal zijn.", msgs[1]);
@@ -268,7 +268,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             const string name = "<very nice name>";
 
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation
             {
                 Name = name,
                 InputParameters =
@@ -284,13 +284,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             };
 
             // Call
-            bool isValid = false;
+            var isValid = false;
             Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 Assert.AreEqual("Validatie mislukt: De waarde voor 'oriëntatie' moet een concreet getal zijn.", msgs[1]);
@@ -318,7 +318,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             const string name = "<very nice name>";
 
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation
             {
                 Name = name,
                 InputParameters =
@@ -334,13 +334,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             };
 
             // Call
-            bool isValid = false;
+            var isValid = false;
             Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 Assert.AreEqual("Validatie mislukt: De waarde voor 'dijkhoogte' moet een concreet getal zijn.", msgs[1]);
@@ -374,13 +374,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             calculation.InputParameters.UseBreakWater = useBreakWater;
 
             // Call
-            bool isValid = false;
+            var isValid = false;
             Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(2, msgs.Length);
                 StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[1]);
@@ -404,7 +404,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             const string name = "<very nice name>";
 
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation
             {
                 Name = name,
                 InputParameters =
@@ -415,13 +415,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             };
 
             // Call
-            bool isValid = false;
+            var isValid = false;
             Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(2, msgs.Length);
                 StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[1]);
@@ -438,7 +438,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             // Call
@@ -481,7 +481,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             // Call
@@ -513,7 +513,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                                                            validFile);
             mockRepository.ReplayAll();
 
-            var dikeProfile = GetDikeProfile();
+            DikeProfile dikeProfile = GetDikeProfile();
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -579,7 +579,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                                                            validFile);
             mockRepository.ReplayAll();
 
-            var dikeProfile = GetDikeProfile();
+            DikeProfile dikeProfile = GetDikeProfile();
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -591,7 +591,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 }
             };
 
-            bool expectedExceptionThrown = false;
+            var expectedExceptionThrown = false;
 
             // Call
             Action call = () =>
@@ -600,7 +600,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 {
                     using (new HydraRingCalculatorFactoryConfig())
                     {
-                        var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
+                        TestDikeHeightCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
                         calculator.EndInFailure = true;
                         new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                    assessmentSectionStub,
@@ -618,7 +618,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(5, msgs.Length);
                 StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
                 StringAssert.StartsWith("Overloop berekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
@@ -646,7 +646,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             const string name = "<very nice name>";
 
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation
             {
                 Name = name,
                 InputParameters =
@@ -660,7 +660,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).OvertoppingCalculator;
+                TestOvertoppingCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).OvertoppingCalculator;
                 calculator.CalculationFinishedHandler += (s, e) => service.Cancel();
 
                 // Call
@@ -694,7 +694,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             const string name = "<very nice name>";
 
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation
             {
                 Name = name,
                 InputParameters =
@@ -711,8 +711,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 var testFactory = (TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance;
-                var overToppingCalculator = testFactory.OvertoppingCalculator;
-                var dikeHeightCalculator = testFactory.DikeHeightCalculator;
+                TestOvertoppingCalculator overToppingCalculator = testFactory.OvertoppingCalculator;
+                TestDikeHeightCalculator dikeHeightCalculator = testFactory.DikeHeightCalculator;
 
                 if (cancelBeforeDikeHeightCalculationStarts)
                 {
@@ -763,7 +763,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                                                            validFile);
             mockRepository.ReplayAll();
 
-            var dikeProfile = GetDikeProfile();
+            DikeProfile dikeProfile = GetDikeProfile();
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -777,7 +777,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).OvertoppingCalculator;
+                TestOvertoppingCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).OvertoppingCalculator;
                 calculator.LastErrorFileContent = "An error occurred";
                 calculator.EndInFailure = true;
 
@@ -803,7 +803,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {
-                    var msgs = messages.ToArray();
+                    string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
                     StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
                     StringAssert.StartsWith($"De berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[1]);
@@ -830,7 +830,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                                                            validFile);
             mockRepository.ReplayAll();
 
-            var dikeProfile = GetDikeProfile();
+            DikeProfile dikeProfile = GetDikeProfile();
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -844,7 +844,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).OvertoppingCalculator;
+                TestOvertoppingCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).OvertoppingCalculator;
                 calculator.EndInFailure = true;
 
                 var exceptionThrown = false;
@@ -869,7 +869,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {
-                    var msgs = messages.ToArray();
+                    string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
                     StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
                     StringAssert.StartsWith($"De berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt. Er is geen foutrapport beschikbaar.", msgs[1]);
@@ -896,7 +896,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                                                            validFile);
             mockRepository.ReplayAll();
 
-            var dikeProfile = GetDikeProfile();
+            DikeProfile dikeProfile = GetDikeProfile();
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -910,12 +910,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).OvertoppingCalculator;
+                TestOvertoppingCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).OvertoppingCalculator;
                 calculator.EndInFailure = false;
                 calculator.LastErrorFileContent = "An error occurred";
 
                 var exceptionThrown = false;
-                var exceptionMessage = string.Empty;
+                string exceptionMessage = string.Empty;
 
                 // Call
                 Action call = () =>
@@ -938,7 +938,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {
-                    var msgs = messages.ToArray();
+                    string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
                     StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
                     StringAssert.StartsWith($"De berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[1]);
@@ -965,7 +965,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                                                            validFile);
             mockRepository.ReplayAll();
 
-            var dikeProfile = GetDikeProfile();
+            DikeProfile dikeProfile = GetDikeProfile();
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -979,7 +979,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
+                TestDikeHeightCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
                 calculator.LastErrorFileContent = "An error occurred";
                 calculator.EndInFailure = true;
                 var exceptionThrown = false;
@@ -1004,7 +1004,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {
-                    var msgs = messages.ToArray();
+                    string[] msgs = messages.ToArray();
                     Assert.AreEqual(5, msgs.Length);
                     StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
                     StringAssert.StartsWith("Overloop berekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
@@ -1030,7 +1030,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                                                            validFile);
             mockRepository.ReplayAll();
 
-            var dikeProfile = GetDikeProfile();
+            DikeProfile dikeProfile = GetDikeProfile();
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -1044,7 +1044,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
+                TestDikeHeightCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
                 calculator.EndInFailure = true;
                 var exceptionThrown = false;
 
@@ -1068,7 +1068,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {
-                    var msgs = messages.ToArray();
+                    string[] msgs = messages.ToArray();
                     Assert.AreEqual(5, msgs.Length);
                     StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
                     StringAssert.StartsWith("Overloop berekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
@@ -1095,7 +1095,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                                                            validFile);
             mockRepository.ReplayAll();
 
-            var dikeProfile = GetDikeProfile();
+            DikeProfile dikeProfile = GetDikeProfile();
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -1109,7 +1109,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
+                TestDikeHeightCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
                 calculator.EndInFailure = false;
                 calculator.LastErrorFileContent = "An error occurred";
                 var exceptionThrown = false;
@@ -1134,7 +1134,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {
-                    var msgs = messages.ToArray();
+                    string[] msgs = messages.ToArray();
                     StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
                     StringAssert.StartsWith("Overloop berekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
                     StringAssert.StartsWith($"De HBN berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[2]);

@@ -26,7 +26,6 @@ using System.IO;
 using System.Linq;
 using System.Security;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -71,7 +70,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         {
             CalculationServiceHelper.LogValidationBeginTime(calculation.Name);
 
-            var messages = ValidateInput(calculation.InputParameters, assessmentSection);
+            string[] messages = ValidateInput(calculation.InputParameters, assessmentSection);
             CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Error_in_validation_0, messages);
 
             CalculationServiceHelper.LogValidationEndTime(calculation.Name);
@@ -148,17 +147,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             {
                 throw new ArgumentNullException(nameof(generalInput));
             }
-            var hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
-            var calculateDikeHeight = calculation.InputParameters.DikeHeightCalculationType != DikeHeightCalculationType.NoCalculation;
-            var totalSteps = calculateDikeHeight ? 2 : 1;
-            var calculationName = calculation.Name;
+            string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
+            bool calculateDikeHeight = calculation.InputParameters.DikeHeightCalculationType != DikeHeightCalculationType.NoCalculation;
+            int totalSteps = calculateDikeHeight ? 2 : 1;
+            string calculationName = calculation.Name;
 
             NotifyProgress(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Executing_overtopping_calculation, 1, totalSteps);
 
             CalculationServiceHelper.LogCalculationBeginTime(calculationName);
 
             overtoppingCalculator = HydraRingCalculatorFactory.Instance.CreateOvertoppingCalculator(hlcdDirectory);
-            var overtoppingCalculationInput = CreateOvertoppingInput(calculation, generalInput, hydraulicBoundaryDatabaseFilePath);
+            OvertoppingCalculationInput overtoppingCalculationInput = CreateOvertoppingInput(calculation, generalInput, hydraulicBoundaryDatabaseFilePath);
             DikeHeightAssessmentOutput dikeHeight = null;
 
             try
@@ -176,12 +175,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
                     dikeHeightCalculator = HydraRingCalculatorFactory.Instance.CreateDikeHeightCalculator(hlcdDirectory);
 
-                    var norm = GetProbabilityToUse(assessmentSection.FailureMechanismContribution.Norm,
-                                                   generalInput, failureMechanismContribution,
-                                                   calculation.InputParameters.DikeHeightCalculationType);
-                    var dikeHeightCalculationInput = CreateDikeHeightInput(calculation, norm,
-                                                                           generalInput,
-                                                                           hydraulicBoundaryDatabaseFilePath);
+                    double norm = GetProbabilityToUse(assessmentSection.FailureMechanismContribution.Norm,
+                                                      generalInput, failureMechanismContribution,
+                                                      calculation.InputParameters.DikeHeightCalculationType);
+                    DikeHeightCalculationInput dikeHeightCalculationInput = CreateDikeHeightInput(calculation, norm,
+                                                                                                  generalInput,
+                                                                                                  hydraulicBoundaryDatabaseFilePath);
                     bool dikeHeightCalculated = CalculateDikeHeight(dikeHeightCalculationInput, calculationName);
 
                     if (canceled)
@@ -225,9 +224,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                                                             double targetReliability,
                                                                             double targetProbability)
         {
-            var dikeHeight = dikeHeightCalculator.DikeHeight;
-            var reliability = dikeHeightCalculator.ReliabilityIndex;
-            var probability = StatisticsConverter.ReliabilityToProbability(reliability);
+            double dikeHeight = dikeHeightCalculator.DikeHeight;
+            double reliability = dikeHeightCalculator.ReliabilityIndex;
+            double probability = StatisticsConverter.ReliabilityToProbability(reliability);
 
             CalculationConvergence converged = RingtoetsCommonDataCalculationService.GetCalculationConvergence(dikeHeightCalculator.Converged);
 
@@ -275,7 +274,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             {
                 if (!canceled)
                 {
-                    var lastErrorContent = overtoppingCalculator.LastErrorFileContent;
+                    string lastErrorContent = overtoppingCalculator.LastErrorFileContent;
                     if (string.IsNullOrEmpty(lastErrorContent))
                     {
                         log.ErrorFormat(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Error_in_grass_cover_erosion_inwards_0_calculation_no_error_report, calculationName);
@@ -291,7 +290,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
             finally
             {
-                var lastErrorFileContent = overtoppingCalculator.LastErrorFileContent;
+                string lastErrorFileContent = overtoppingCalculator.LastErrorFileContent;
                 bool errorOccurred = CalculationServiceHelper.HasErrorOccurred(canceled, exceptionThrown, lastErrorFileContent);
                 if (errorOccurred)
                 {
@@ -327,7 +326,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                 {
                     if (!canceled)
                     {
-                        var lastErrorContent = dikeHeightCalculator.LastErrorFileContent;
+                        string lastErrorContent = dikeHeightCalculator.LastErrorFileContent;
                         if (string.IsNullOrEmpty(lastErrorContent))
                         {
                             log.ErrorFormat(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Error_in_hbn_grass_cover_erosion_inwards_0_calculation_no_error_report, calculationName);
@@ -342,7 +341,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                 }
                 finally
                 {
-                    var lastErrorFileContent = dikeHeightCalculator.LastErrorFileContent;
+                    string lastErrorFileContent = dikeHeightCalculator.LastErrorFileContent;
                     if (CalculationServiceHelper.HasErrorOccurred(canceled, exceptionThrown, lastErrorFileContent))
                     {
                         log.ErrorFormat(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Error_in_hbn_grass_cover_erosion_inwards_0_calculation_click_details_for_last_error_report_1, calculationName, lastErrorFileContent);
@@ -473,9 +472,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
         private static string[] ValidateInput(GrassCoverErosionInwardsInput inputParameters, IAssessmentSection assessmentSection)
         {
-            List<string> validationResult = new List<string>();
+            var validationResult = new List<string>();
 
-            var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
+            string validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
             if (!string.IsNullOrEmpty(validationProblem))
             {
                 validationResult.Add(validationProblem);
