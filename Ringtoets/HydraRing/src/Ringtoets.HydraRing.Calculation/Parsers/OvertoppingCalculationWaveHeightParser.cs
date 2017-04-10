@@ -28,16 +28,16 @@ using Ringtoets.HydraRing.Calculation.Properties;
 namespace Ringtoets.HydraRing.Calculation.Parsers
 {
     /// <summary>
-    /// Parser for overtopping wave height results.
+    /// Parser for overtopping results.
     /// </summary>
     public class OvertoppingCalculationWaveHeightParser : IHydraRingFileParser
     {
         private const string sectionIdParameterName = "@sectionId";
-        private const string waveHeighColumn = "WaveHeight";
+        private const string waveHeightColumn = "WaveHeight";
         private const string isOvertoppingDominantColumn = "IsOvertoppingDominant";
 
         private readonly string query =
-            $"SELECT Value as {waveHeighColumn}," +
+            $"SELECT Value as {waveHeightColumn}," +
             $"(case when SubMechanismId is 102 then 1 else 0 end) as {isOvertoppingDominantColumn} FROM " +
             "(SELECT d.OuterIterationId, TidalPeriod, BetaValue, ClosingSituation, WindDirection, LevelType, SubMechanismId " +
             "FROM GoverningWind g " +
@@ -82,7 +82,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
         {
             try
             {
-                double waveHeight = Convert.ToDouble(result[waveHeighColumn]);
+                double waveHeight = Convert.ToDouble(result[waveHeightColumn]);
                 bool isOvertoppingDominant = Convert.ToBoolean(result[isOvertoppingDominantColumn]);
 
                 Output = new OvertoppingCalculationWaveHeightOutput(waveHeight,
