@@ -110,7 +110,7 @@ namespace Ringtoets.Common.Data.Test.Probability
         }
 
         [Test]
-        public void ValidatePropability_WithInvalidCustomMessage_ThrowsArgumentException()
+        public void ValidateProbability_WithInvalidCustomMessage_ThrowsArgumentException()
         {
             // Setup
             const string customMessage = "Test";

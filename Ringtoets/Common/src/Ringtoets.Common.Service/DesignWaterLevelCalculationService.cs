@@ -83,7 +83,7 @@ namespace Ringtoets.Common.Service
         /// <exception cref="ArgumentException">Thrown when 
         /// <list type="bullet">
         /// <item><paramref name="hydraulicBoundaryDatabaseFilePath"/> contains invalid characters.</item>
-        /// <item>The target propability or the calculated propability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</item>
+        /// <item>The target probability or the calculated probability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</item>
         /// </list></exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
@@ -172,7 +172,7 @@ namespace Ringtoets.Common.Service
         /// <param name="targetProbability">The target probability for the calculation.</param>
         /// <returns>A <see cref="HydraulicBoundaryLocationOutput"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="targetProbability"/> 
-        /// or the calculated propability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
+        /// or the calculated probability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
         private HydraulicBoundaryLocationOutput CreateHydraulicBoundaryLocationOutput(
             ICalculationMessageProvider messageProvider,
             string hydraulicBoundaryLocationName,

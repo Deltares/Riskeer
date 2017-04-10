@@ -108,7 +108,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// <list type="bullet">
         /// <item>The <paramref name="hydraulicBoundaryDatabaseFilePath"/> contains invalid characters.</item>
         /// <item>The contribution of the failure mechanism is zero.</item>
-        /// <item>The target propability or the calculated propability of a dike height calculation falls outside 
+        /// <item>The target probability or the calculated probability of a dike height calculation falls outside 
         /// the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</item>
         /// </list></exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
@@ -122,7 +122,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// <exception cref="IOException">Thrown when the specified path is not valid or the network name is not known 
         /// or an I/O error occurred while opening the file</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown when the directory can't be created due to missing
-        /// the required persmissions.</exception>
+        /// the required permissions.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="HydraRingCalculationInput.FailureMechanismType"/>
         /// is not the same with already added input.</exception>
         /// <exception cref="Win32Exception">Thrown when there was an error in opening the associated file
@@ -219,7 +219,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// <param name="targetProbability">The target probability for the calculation.</param>
         /// <returns>A <see cref="DikeHeightAssessmentOutput"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="targetProbability"/> 
-        /// or the calculated propability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
+        /// or the calculated probability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
         private DikeHeightAssessmentOutput CreateDikeHeightAssessmentOutput(string calculationName,
                                                                             double targetReliability,
                                                                             double targetProbability)
