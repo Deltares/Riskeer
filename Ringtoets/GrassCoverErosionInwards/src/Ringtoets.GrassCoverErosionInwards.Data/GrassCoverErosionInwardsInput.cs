@@ -64,6 +64,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
                 StandardDeviation = (RoundedDouble) 0.0006
             };
             DikeHeightCalculationType = DikeHeightCalculationType.NoCalculation;
+            OvertoppingRateCalculationType = OvertoppingRateCalculationType.NoCalculation;
         }
 
         /// <summary>
