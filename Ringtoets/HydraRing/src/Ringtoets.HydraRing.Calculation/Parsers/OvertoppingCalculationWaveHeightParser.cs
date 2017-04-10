@@ -39,19 +39,19 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
         private readonly string query =
             $"SELECT Value as {waveHeightColumn}," +
             $"(case when SubMechanismId is 102 then 1 else 0 end) as {isOvertoppingDominantColumn} FROM " +
-            "(SELECT d.OuterIterationId, TidalPeriod, BetaValue, ClosingSituation, WindDirection, LevelType, SubMechanismId " +
+            "(SELECT d.OuterIterationId, d.PeriodId, BetaValue, ClosingSituation, WindDirection, LevelType, SubMechanismId " +
             "FROM GoverningWind g " +
-            "JOIN DesignBeta d ON d.WindDirection = g.GoverningWind AND d.OuterIterationId = g.OuterIterationId AND d.TidalPeriod = g.PeriodId " +
+            "JOIN DesignBeta d ON d.WindDirection = g.GoverningWind AND d.OuterIterationId = g.OuterIterationId AND d.PeriodId = g.PeriodId " +
             $"WHERE LevelType = 7 AND d.SubMechanismId = 102 AND SectionId = {sectionIdParameterName} " +
-            "ORDER BY d.OuterIterationId DESC, TidalPeriod, BetaValue " +
+            "ORDER BY d.OuterIterationId DESC, d.PeriodId, BetaValue " +
             "LIMIT 1) as g " +
             "JOIN " +
             "(SELECT Value FROM GoverningWind g " +
-            "JOIN DesignPointResults d ON d.WindDirection = g.GoverningWind AND d.OuterIterationId = g.OuterIterationId AND d.TidalPeriod = g.PeriodId " +
+            "JOIN DesignPointResults d ON d.WindDirection = g.GoverningWind AND d.OuterIterationId = g.OuterIterationId AND d.PeriodId = g.PeriodId " +
             "JOIN DesignBeta db ON db.WindDirection = d.WindDirection AND db.ClosingSituation = d.ClosingSituation AND db.OuterIterationId = d.OuterIterationId " +
-            "AND db.TidalPeriod = d.TidalPeriod " +
+            "AND db.PeriodId = d.PeriodId " +
             $"WHERE OutputVarId = 3 AND db.LevelType = 7 AND db.SectionId = {sectionIdParameterName} " +
-            "ORDER BY d.OuterIterationId DESC, d.TidalPeriod, db.BetaValue " +
+            "ORDER BY d.OuterIterationId DESC, d.PeriodId, db.BetaValue " +
             "LIMIT 1) " +
             "Order By g.BetaValue " +
             "LIMIT 1;";

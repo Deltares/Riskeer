@@ -34,7 +34,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
     {
         private const string waveHeightColumnName = "WaveHeight";
         private const string wavePeriodColumnName = "WavePeriod";
-        private const string waveDirectionColumnName = "waveDirection";
+        private const string waveDirectionColumnName = "WaveDirection";
         private const string waveAngleColumnName = "WaveAngle";
 
         private readonly string query = $"SELECT {waveHeightColumnName}, {wavePeriodColumnName}, {waveAngleColumnName}, {waveDirectionColumnName} " +
