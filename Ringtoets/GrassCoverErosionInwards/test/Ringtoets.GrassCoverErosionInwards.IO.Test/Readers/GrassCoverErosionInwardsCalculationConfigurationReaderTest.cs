@@ -86,6 +86,16 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
                                               "The 'hbnberekenen' element is invalid - The value 'invalid' is invalid according to its datatype 'String' - The Enumeration constraint failed.")
                     .SetName("invalidDikeHeightCalculationTypeUnsupportedString");
 
+                yield return new TestCaseData("invalidOvertoppingRateCalculationTypeEmpty.xml",
+                                              "The 'overslagdebietberekenen' element is invalid - The value '' is invalid according to its datatype 'String' - The Enumeration constraint failed.")
+                    .SetName("invalidOvertoppingRateCalculationTypeEmpty");
+                yield return new TestCaseData("invalidMultipleOvertoppingRateCalculationTypes.xml",
+                                              "Element 'overslagdebietberekenen' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidMultipleOvertoppingRateCalculationTypes");
+                yield return new TestCaseData("invalidOvertoppingRateCalculationTypeUnsupportedString.xml",
+                                              "The 'overslagdebietberekenen' element is invalid - The value 'invalid' is invalid according to its datatype 'String' - The Enumeration constraint failed.")
+                    .SetName("invalidOvertoppingRateCalculationTypeUnsupportedString");
+
                 yield return new TestCaseData("invalidUseBreakWaterEmpty.xml",
                                               "The 'damgebruiken' element is invalid - The value '' is invalid according to its datatype 'Boolean'")
                     .SetName("invalidUseBreakWaterEmpty");
@@ -212,6 +222,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
             Assert.IsNull(calculation.Orientation);
             Assert.IsNull(calculation.DikeHeight);
             Assert.IsNull(calculation.DikeHeightCalculationType);
+            Assert.IsNull(calculation.OvertoppingRateCalculationType);
             Assert.IsNull(calculation.UseBreakWater);
             Assert.IsNull(calculation.BreakWaterType);
             Assert.IsNull(calculation.BreakWaterHeight);
@@ -313,6 +324,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
             Assert.AreEqual(67.1, calculation.Orientation);
             Assert.AreEqual(3.45, calculation.DikeHeight);
             Assert.AreEqual(ReadSubCalculationType.CalculateByAssessmentSectionNorm, calculation.DikeHeightCalculationType);
+            Assert.AreEqual(ReadSubCalculationType.CalculateByProfileSpecificRequiredProbability, calculation.OvertoppingRateCalculationType);
             Assert.AreEqual(true, calculation.UseBreakWater);
             Assert.AreEqual(ConfigurationBreakWaterType.Dam, calculation.BreakWaterType);
             Assert.AreEqual(1.234, calculation.BreakWaterHeight);
@@ -342,6 +354,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
             Assert.IsNull(calculation.Orientation);
             Assert.AreEqual(-1.2, calculation.DikeHeight);
             Assert.IsNull(calculation.DikeHeightCalculationType);
+            Assert.IsNull(calculation.OvertoppingRateCalculationType);
             Assert.AreEqual(false, calculation.UseBreakWater);
             Assert.IsNull(calculation.BreakWaterType);
             Assert.AreEqual(3.4, calculation.BreakWaterHeight);

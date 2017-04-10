@@ -90,6 +90,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Readers
                 DikeHeight = calculationElement.GetDoubleValueFromDescendantElement(GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeHeightElement),
                 DikeHeightCalculationType = (ReadSubCalculationType?) calculationElement.GetConvertedValueFromDescendantStringElement<ReadSubCalculationTypeConverter>(
                     GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeHeightCalculationTypeElement),
+                OvertoppingRateCalculationType = (ReadSubCalculationType?) calculationElement.GetConvertedValueFromDescendantStringElement<ReadSubCalculationTypeConverter>(
+                    GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.OvertoppingRateCalculationTypeElement),
                 UseBreakWater = calculationElement.GetBoolValueFromDescendantElement(ConfigurationSchemaIdentifiers.UseBreakWater),
                 BreakWaterType = (ConfigurationBreakWaterType?) calculationElement.GetConvertedValueFromDescendantStringElement<ConfigurationBreakWaterTypeConverter>(ConfigurationSchemaIdentifiers.BreakWaterType),
                 BreakWaterHeight = calculationElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.BreakWaterHeight),

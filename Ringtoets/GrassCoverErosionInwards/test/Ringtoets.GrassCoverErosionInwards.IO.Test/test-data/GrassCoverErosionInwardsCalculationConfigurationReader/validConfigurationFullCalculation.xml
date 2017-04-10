@@ -6,6 +6,7 @@
     <orientatie>67.1</orientatie>
     <dijkhoogte>3.45</dijkhoogte>
     <hbnberekenen>norm</hbnberekenen>
+    <overslagdebietberekenen>doorsnede</overslagdebietberekenen>
     <golfreductie>
       <damgebruiken>true</damgebruiken>
       <damtype>havendam</damtype>
