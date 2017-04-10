@@ -135,7 +135,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         [TestCase("ValidFileNoWavePeriod")]
         [TestCase("ValidFileNoWaterLevel")]
         [TestCase("ResultsOnAllButLastIteration")]
-        public void Parse_NotAllColumnsHasResults_ThrowsHydraRingFileParserException(string subFolder)
+        public void Parse_NotAllColumnsHaveResults_ThrowsHydraRingFileParserException(string subFolder)
         {
             // Setup
             string path = Path.Combine(testDirectory, subFolder);

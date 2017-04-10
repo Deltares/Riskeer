@@ -155,7 +155,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         }
 
         [Test]
-        public void Parse_NotAllColumnsHasResults_ThrowsHydraRingFileParserException()
+        public void Parse_NotAllColumnsHaveResults_ThrowsHydraRingFileParserException()
         {
             // Setup
             string path = Path.Combine(testDirectory, "ValidFileNoWaveHeight");
