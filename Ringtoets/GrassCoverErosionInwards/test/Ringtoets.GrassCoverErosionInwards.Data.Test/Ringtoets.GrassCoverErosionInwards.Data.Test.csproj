@@ -54,6 +54,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="DikeHeightAssessmentOutputTest.cs" />
+    <Compile Include="OvertoppingRateCalculationTypeTest.cs" />
     <Compile Include="DikeHeightCalculationTypeTest.cs" />
     <Compile Include="GeneralGrassCoverErosionInwardsInputTest.cs" />
     <Compile Include="GrassCoverErosionInwardsFailureMechanismSectionResultTest.cs" />

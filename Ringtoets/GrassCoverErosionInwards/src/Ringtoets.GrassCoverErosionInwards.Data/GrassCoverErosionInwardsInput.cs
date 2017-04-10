@@ -164,6 +164,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// </summary>
         public DikeHeightCalculationType DikeHeightCalculationType { get; set; }
 
+        /// <summary>
+        /// Gets or sets how the overtopping rate should be calculated.
+        /// </summary>
+        public OvertoppingRateCalculationType OvertoppingRateCalculationType { get; set; }
+
         public bool UseBreakWater { get; set; }
 
         public BreakWater BreakWater { get; private set; }

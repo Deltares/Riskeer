@@ -126,5 +126,33 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Properties {
                 return ResourceManager.GetString("GrassCoverErosionInwardsFailureMechanism_DisplayName", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Overslagdebiet bij norm.
+        /// </summary>
+        public static string OvertoppingRateCalculationType_CalculateByAssessmentSectionNorm_DisplayName {
+            get {
+                return ResourceManager.GetString("OvertoppingRateCalculationType_CalculateByAssessmentSectionNorm_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Overslagdebiet bij doorsnede-eis.
+        /// </summary>
+        public static string OvertoppingRateCalculationType_CalculateByProfileSpecificRequiredProbability_DisplayName {
+            get {
+                return ResourceManager.GetString("OvertoppingRateCalculationType_CalculateByProfileSpecificRequiredProbability_Disp" +
+                        "layName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Niet.
+        /// </summary>
+        public static string OvertoppingRateCalculationType_NoCalculation_DisplayName {
+            get {
+                return ResourceManager.GetString("OvertoppingRateCalculationType_NoCalculation_DisplayName", resourceCulture);
+            }
+        }
     }
 }

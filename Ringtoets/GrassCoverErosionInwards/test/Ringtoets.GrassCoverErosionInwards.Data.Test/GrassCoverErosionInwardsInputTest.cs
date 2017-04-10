@@ -69,6 +69,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.IsNaN(input.DikeHeight);
             Assert.IsNull(input.HydraulicBoundaryLocation);
             Assert.AreEqual(DikeHeightCalculationType.NoCalculation, input.DikeHeightCalculationType);
+            Assert.AreEqual(OvertoppingRateCalculationType.NoCalculation, input.OvertoppingRateCalculationType);
 
             DistributionAssert.AreEqual(criticalFlowRate, input.CriticalFlowRate);
         }

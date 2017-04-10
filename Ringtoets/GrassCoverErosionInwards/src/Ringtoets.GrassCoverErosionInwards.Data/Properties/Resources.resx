@@ -132,4 +132,13 @@
   <data name="DikeHeightCalculationType_NoCalculation_DisplayName" xml:space="preserve">
     <value>Niet</value>
   </data>
+  <data name="OvertoppingRateCalculationType_CalculateByAssessmentSectionNorm_DisplayName" xml:space="preserve">
+    <value>Overslagdebiet bij norm</value>
+  </data>
+  <data name="OvertoppingRateCalculationType_CalculateByProfileSpecificRequiredProbability_DisplayName" xml:space="preserve">
+    <value>Overslagdebiet bij doorsnede-eis</value>
+  </data>
+  <data name="OvertoppingRateCalculationType_NoCalculation_DisplayName" xml:space="preserve">
+    <value>Niet</value>
+  </data>
 </root>
