@@ -69,15 +69,15 @@
     <Compile Include="Configurations\Helpers\ILogExtensionsTest.cs" />
     <Compile Include="Configurations\StochastConfigurationTest.cs" />
     <Compile Include="Configurations\WaveReductionConfigurationTest.cs" />
-    <Compile Include="Exporters\SchemaCalculationConfigurationExporterTest.cs" />
+    <Compile Include="Configurations\Export\SchemaCalculationConfigurationExporterTest.cs" />
     <Compile Include="Configurations\Helpers\ConfigurationBreakWaterTypeConverterTest.cs" />
     <Compile Include="DikeProfiles\DikeProfileDataReaderTest.cs" />
     <Compile Include="DikeProfiles\DikeProfileDataTest.cs" />
     <Compile Include="DikeProfiles\ProfileLocationReaderTest.cs" />
     <Compile Include="DikeProfiles\ProfileLocationTest.cs" />
     <Compile Include="Exceptions\CriticalFileValidationExceptionTest.cs" />
-    <Compile Include="Exporters\CalculationConfigurationExporterTest.cs" />
-    <Compile Include="FileImporters\CalculationConfigurationImporterTest.cs" />
+    <Compile Include="Configurations\Export\CalculationConfigurationExporterTest.cs" />
+    <Compile Include="Configurations\Import\CalculationConfigurationImporterTest.cs" />
     <Compile Include="FileImporters\DikeProfilesImporterTest.cs" />
     <Compile Include="FileImporters\FailureMechanismSectionsImporterTest.cs" />
     <Compile Include="FileImporters\ForeshoreProfilesImporterTest.cs" />
@@ -94,10 +94,10 @@
     <Compile Include="HydraRing\NumericsSettingsProviderTest.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryLocationsExporterTest.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryLocationsWriterTest.cs" />
-    <Compile Include="Readers\CombinedXmlSchemaDefinitionTest.cs" />
-    <Compile Include="Readers\XElementExtensionsTest.cs" />
-    <Compile Include="Readers\CalculationConfigurationReaderTest.cs" />
-    <Compile Include="Readers\ReadCalculationGroupTest.cs" />
+    <Compile Include="Configurations\Import\CombinedXmlSchemaDefinitionTest.cs" />
+    <Compile Include="Configurations\Helpers\XElementExtensionsTest.cs" />
+    <Compile Include="Configurations\Import\CalculationConfigurationReaderTest.cs" />
+    <Compile Include="Configurations\CalculationGroupConfigurationTest.cs" />
     <Compile Include="ReferenceLines\ReferenceLineExporterTest.cs" />
     <Compile Include="ReferenceLines\ReferenceLineMetaImporterTest.cs" />
     <Compile Include="ReferenceLines\ReferenceLinesMetaReaderTest.cs" />
@@ -106,7 +106,7 @@
     <Compile Include="ReferenceLines\ReferenceLineImporterTest.cs" />
     <Compile Include="ReferenceLines\ReferenceLineReaderTest.cs" />
     <Compile Include="ReferenceLines\ReferenceLineWriterTest.cs" />
-    <Compile Include="Schema\ConfigurationSchemaIdentifiersTest.cs" />
+    <Compile Include="Configurations\ConfigurationSchemaIdentifiersTest.cs" />
     <Compile Include="Configurations\StructureCalculationConfigurationTest.cs" />
     <Compile Include="Structures\StructureLocationReaderTest.cs" />
     <Compile Include="Structures\StructureLocationTest.cs" />
@@ -114,10 +114,10 @@
     <Compile Include="Structures\StructuresParameterRowsValidatorTest.cs" />
     <Compile Include="Structures\StructuresParameterRowTest.cs" />
     <Compile Include="Structures\ValidationResultTest.cs" />
-    <Compile Include="Writers\SchemaCalculationConfigurationWriterTest.cs" />
-    <Compile Include="Writers\CalculationConfigurationWriterTest.cs" />
-    <Compile Include="Writers\StructureCalculationConfigurationWriterTest.cs" />
-    <Compile Include="Writers\XmlWriterExtensionsTest.cs" />
+    <Compile Include="Configurations\Export\SchemaCalculationConfigurationWriterTest.cs" />
+    <Compile Include="Configurations\Export\CalculationConfigurationWriterTest.cs" />
+    <Compile Include="Configurations\Export\StructureCalculationConfigurationWriterTest.cs" />
+    <Compile Include="Configurations\Helpers\XmlWriterExtensionsTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">

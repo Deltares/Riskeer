@@ -21,7 +21,6 @@
 
 using System;
 using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Common.IO.Readers;
 
 namespace Ringtoets.Piping.IO.Readers
 {

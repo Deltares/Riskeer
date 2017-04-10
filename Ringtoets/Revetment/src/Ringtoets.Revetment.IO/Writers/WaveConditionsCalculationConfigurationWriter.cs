@@ -23,10 +23,9 @@ using System.Xml;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.IO.Schema;
-using Ringtoets.Common.IO.Writers;
+using Ringtoets.Common.IO.Configurations;
+using Ringtoets.Common.IO.Configurations.Export;
 using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.IO.Readers;
 
 namespace Ringtoets.Revetment.IO.Writers
 {

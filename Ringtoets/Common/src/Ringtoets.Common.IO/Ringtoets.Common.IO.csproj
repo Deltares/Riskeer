@@ -69,8 +69,8 @@
     <Compile Include="DikeProfiles\ProfileLocationReader.cs" />
     <Compile Include="DikeProfiles\SheetPileType.cs" />
     <Compile Include="Exceptions\CriticalFileValidationException.cs" />
-    <Compile Include="Exporters\CalculationConfigurationExporter.cs" />
-    <Compile Include="FileImporters\CalculationConfigurationImporter.cs" />
+    <Compile Include="Configurations\Export\CalculationConfigurationExporter.cs" />
+    <Compile Include="Configurations\Import\CalculationConfigurationImporter.cs" />
     <Compile Include="FileImporters\DikeProfilesImporter.cs" />
     <Compile Include="FileImporters\FailureMechanismSectionsImporter.cs" />
     <Compile Include="FileImporters\ForeshoreProfilesImporter.cs" />
@@ -89,11 +89,11 @@
     <Compile Include="Hydraulics\HydraulicBoundaryLocationsExporter.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryLocationsWriter.cs" />
     <Compile Include="IConfirmDataChangeHandler.cs" />
-    <Compile Include="Readers\CalculationConfigurationReader.cs" />
+    <Compile Include="Configurations\Import\CalculationConfigurationReader.cs" />
     <Compile Include="Configurations\ConfigurationBreakWaterType.cs" />
-    <Compile Include="Readers\XElementExtensions.cs" />
+    <Compile Include="Configurations\Helpers\XElementExtensions.cs" />
     <Compile Include="Configurations\CalculationGroupConfiguration.cs" />
-    <Compile Include="Readers\CombinedXmlSchemaDefinition.cs" />
+    <Compile Include="Configurations\Import\CombinedXmlSchemaDefinition.cs" />
     <Compile Include="ReferenceLines\IReferenceLineReplaceHandler.cs" />
     <Compile Include="ReferenceLines\ReferenceLineExporter.cs" />
     <Compile Include="ReferenceLines\ReferenceLineMetaImporter.cs" />
@@ -108,8 +108,8 @@
     <Compile Include="ReferenceLines\ReferenceLineImporter.cs" />
     <Compile Include="ReferenceLines\ReferenceLineReader.cs" />
     <Compile Include="ReferenceLines\ReferenceLineWriter.cs" />
-    <Compile Include="Exporters\SchemaCalculationConfigurationExporter.cs" />
-    <Compile Include="Schema\ConfigurationSchemaIdentifiers.cs" />
+    <Compile Include="Configurations\Export\SchemaCalculationConfigurationExporter.cs" />
+    <Compile Include="Configurations\ConfigurationSchemaIdentifiers.cs" />
     <Compile Include="Configurations\StructuresCalculationConfiguration.cs" />
     <Compile Include="Structures\StructureFilesKeywords.cs" />
     <Compile Include="Structures\StructuresCharacteristicsCsvReader.cs" />
@@ -119,10 +119,10 @@
     <Compile Include="Structures\StructureLocationReader.cs" />
     <Compile Include="Structures\VarianceType.cs" />
     <Compile Include="Structures\ValidationResult.cs" />
-    <Compile Include="Writers\SchemaCalculationConfigurationWriter.cs" />
-    <Compile Include="Writers\CalculationConfigurationWriter.cs" />
-    <Compile Include="Writers\StructureCalculationConfigurationWriter.cs" />
-    <Compile Include="Writers\XmlWriterExtensions.cs" />
+    <Compile Include="Configurations\Export\SchemaCalculationConfigurationWriter.cs" />
+    <Compile Include="Configurations\Export\CalculationConfigurationWriter.cs" />
+    <Compile Include="Configurations\Export\StructureCalculationConfigurationWriter.cs" />
+    <Compile Include="Configurations\Helpers\XmlWriterExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
@@ -210,6 +210,7 @@
   <ItemGroup>
     <Content Include="Resources\settings-schema.sql" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\..\..\packages\System.Data.SQLite.Core.1.0.104.0\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.104.0\build\net40\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

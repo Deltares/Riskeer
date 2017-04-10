@@ -32,7 +32,7 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.IO.FileImporters;
+using Ringtoets.Common.IO.Configurations.Import;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HeightStructures.IO.Configurations;
@@ -190,36 +190,6 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
 
-        [TestCase("validConfigurationUnknownForeshoreProfile.xml",
-            "Het voorlandprofiel 'unknown' bestaat niet.")]
-        [TestCase("validConfigurationUnknownHydraulicBoundaryLocation.xml",
-            "De locatie met hydraulische randvoorwaarden 'unknown' bestaat niet.")]
-        [TestCase("validConfigurationUnknownStructure.xml",
-            "Het kunstwerk 'unknown' bestaat niet.")]
-        public void Import_ValidConfigurationUnknownData_LogMessageAndContinueImport(string file, string expectedErrorMessage)
-        {
-            // Setup
-            string filePath = Path.Combine(importerPath, file);
-
-            var calculationGroup = new CalculationGroup();
-
-            var importer = new HeightStructuresCalculationConfigurationImporter(filePath,
-                                                                                calculationGroup,
-                                                                                Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                                Enumerable.Empty<ForeshoreProfile>(),
-                                                                                Enumerable.Empty<HeightStructure>());
-            var successful = false;
-
-            // Call
-            Action call = () => successful = importer.Import();
-
-            // Assert
-            string expectedMessage = $"{expectedErrorMessage} Berekening 'Berekening 1' is overgeslagen.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
-            Assert.IsTrue(successful);
-            CollectionAssert.IsEmpty(calculationGroup.Children);
-        }
-
         [Test]
         public void Import_UseForeshoreButForeshoreProfileWithoutGeometry_LogMessageAndContinueImport()
         {
@@ -260,7 +230,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("Locatie1");
             var foreshoreProfile = new TestForeshoreProfile("profiel1", new List<Point2D>
             {
-                new Point2D(0,3)
+                new Point2D(0, 3)
             });
             var structure = new TestHeightStructure("kunstwerk1");
             var importer = new HeightStructuresCalculationConfigurationImporter(
@@ -278,9 +248,9 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
                 {
                     structure
                 });
-            
+
             // Call
-            var successful = importer.Import();
+            bool successful = importer.Import();
 
             // Assert
             Assert.IsTrue(successful);
@@ -343,7 +313,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertCalculation(expectedCalculation, (StructuresCalculation<HeightStructuresInput>)calculationGroup.Children[0]);
+            AssertCalculation(expectedCalculation, (StructuresCalculation<HeightStructuresInput>) calculationGroup.Children[0]);
         }
 
         [Test]
@@ -404,14 +374,14 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
                     }
                 }
             };
-            
+
             // Call
-            var successful = importer.Import();
+            bool successful = importer.Import();
 
             // Assert
             Assert.IsTrue(successful);
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertCalculation(expectedCalculation, (StructuresCalculation<HeightStructuresInput>)calculationGroup.Children[0]);
+            AssertCalculation(expectedCalculation, (StructuresCalculation<HeightStructuresInput>) calculationGroup.Children[0]);
         }
 
         [Test]
@@ -464,14 +434,14 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
                     }
                 }
             };
-            
+
             // Call
-            var successful = importer.Import();
+            bool successful = importer.Import();
 
             // Assert
             Assert.IsTrue(successful);
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertCalculation(expectedCalculation, (StructuresCalculation<HeightStructuresInput>)calculationGroup.Children[0]);
+            AssertCalculation(expectedCalculation, (StructuresCalculation<HeightStructuresInput>) calculationGroup.Children[0]);
         }
 
         [Test]
@@ -500,14 +470,44 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             {
                 Name = "Berekening 1"
             };
-            
+
             // Call
-            var successful = importer.Import();
+            bool successful = importer.Import();
 
             // Assert
             Assert.IsTrue(successful);
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertCalculation(expectedCalculation, (StructuresCalculation<HeightStructuresInput>)calculationGroup.Children[0]);
+            AssertCalculation(expectedCalculation, (StructuresCalculation<HeightStructuresInput>) calculationGroup.Children[0]);
+        }
+
+        [TestCase("validConfigurationUnknownForeshoreProfile.xml",
+            "Het voorlandprofiel 'unknown' bestaat niet.")]
+        [TestCase("validConfigurationUnknownHydraulicBoundaryLocation.xml",
+            "De locatie met hydraulische randvoorwaarden 'unknown' bestaat niet.")]
+        [TestCase("validConfigurationUnknownStructure.xml",
+            "Het kunstwerk 'unknown' bestaat niet.")]
+        public void Import_ValidConfigurationUnknownData_LogMessageAndContinueImport(string file, string expectedErrorMessage)
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, file);
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new HeightStructuresCalculationConfigurationImporter(filePath,
+                                                                                calculationGroup,
+                                                                                Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                                Enumerable.Empty<ForeshoreProfile>(),
+                                                                                Enumerable.Empty<HeightStructure>());
+            var successful = false;
+
+            // Call
+            Action call = () => successful = importer.Import();
+
+            // Assert
+            string expectedMessage = $"{expectedErrorMessage} Berekening 'Berekening 1' is overgeslagen.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
+            Assert.IsTrue(successful);
+            CollectionAssert.IsEmpty(calculationGroup.Children);
         }
 
         private static void AssertCalculation(StructuresCalculation<HeightStructuresInput> expectedCalculation, StructuresCalculation<HeightStructuresInput> actualCalculation)

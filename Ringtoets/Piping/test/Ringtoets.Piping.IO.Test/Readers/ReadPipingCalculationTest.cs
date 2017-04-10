@@ -22,7 +22,6 @@
 using System;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Common.IO.Readers;
 using Ringtoets.Piping.IO.Readers;
 
 namespace Ringtoets.Piping.IO.Test.Readers

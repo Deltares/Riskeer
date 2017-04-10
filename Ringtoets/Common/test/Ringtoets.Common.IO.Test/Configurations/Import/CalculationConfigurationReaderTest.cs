@@ -30,10 +30,9 @@ using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Common.IO.Readers;
-using Ringtoets.Common.IO.Schema;
+using Ringtoets.Common.IO.Configurations.Import;
 
-namespace Ringtoets.Common.IO.Test.Readers
+namespace Ringtoets.Common.IO.Test.Configurations.Import
 {
     [TestFixture]
     public class CalculationConfigurationReaderTest
@@ -349,7 +348,7 @@ namespace Ringtoets.Common.IO.Test.Readers
             public CalculationConfigurationReader(string xmlFilePath,
                                                   string mainSchemaDefinition,
                                                   IDictionary<string, string> nestedSchemaDefinitions)
-                : base(xmlFilePath, mainSchemaDefinition, nestedSchemaDefinitions) {}
+                : base(xmlFilePath, mainSchemaDefinition, nestedSchemaDefinitions) { }
 
             protected override ReadCalculation ParseCalculationElement(XElement calculationElement)
             {

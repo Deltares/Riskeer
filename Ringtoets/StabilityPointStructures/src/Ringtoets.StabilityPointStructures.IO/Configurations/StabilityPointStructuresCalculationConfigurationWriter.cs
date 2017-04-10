@@ -21,7 +21,7 @@
 
 using System;
 using System.Xml;
-using Ringtoets.Common.IO.Writers;
+using Ringtoets.Common.IO.Configurations.Export;
 using Ringtoets.StabilityPointStructures.IO.Configurations.Helpers;
 
 namespace Ringtoets.StabilityPointStructures.IO.Configurations
@@ -43,7 +43,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
         /// <item>does not contain an invalid character,</item>
         /// <item>does not end with a directory or path separator (empty file name).</item>
         /// </list></remarks>
-        public StabilityPointStructuresCalculationConfigurationWriter(string filePath) : base(filePath) {}
+        public StabilityPointStructuresCalculationConfigurationWriter(string filePath) : base(filePath) { }
 
         protected override void WriteSpecificStructureParameters(StabilityPointStructuresCalculationConfiguration configuration, XmlWriter writer)
         {

@@ -32,7 +32,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.IO.FileImporters;
+using Ringtoets.Common.IO.Configurations.Import;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO.Importers;
 using Ringtoets.Revetment.IO.Readers;

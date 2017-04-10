@@ -26,123 +26,14 @@ using System.Xml;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Common.IO.Writers;
+using Ringtoets.Common.IO.Configurations.Helpers;
 
-namespace Ringtoets.Common.IO.Test.Writers
+namespace Ringtoets.Common.IO.Test.Configurations.Helpers
 {
     [TestFixture]
     public class XmlWriterExtensionsTest
     {
         private static readonly string testDirectory = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(XmlWriterExtensions));
-
-        public static IEnumerable<TestCaseData> GetDistributions()
-        {
-            yield return new TestCaseData(
-                    new StochastConfiguration(),
-                    "distributionEmpty.xml")
-                .SetName("Distribution with no parameters.");
-
-            yield return new TestCaseData(
-                    new StochastConfiguration
-                    {
-                        Mean = 0.2
-                    },
-                    "distributionMean.xml")
-                .SetName("Distribution with mean.");
-
-            yield return new TestCaseData(
-                    new StochastConfiguration
-                    {
-                        StandardDeviation = 0.1
-                    },
-                    "distributionStandardDeviation.xml")
-                .SetName("Distribution with standard deviation.");
-
-            yield return new TestCaseData(
-                    new StochastConfiguration
-                    {
-                        Mean = 0.2,
-                        StandardDeviation = 0.1
-                    },
-                    "distributionMeanStandardDeviation.xml")
-                .SetName("Distribution with mean and standard deviation.");
-
-            yield return new TestCaseData(
-                    new StochastConfiguration
-                    {
-                        VariationCoefficient = 0.1
-                    },
-                    "distributionVariationCoefficient.xml")
-                .SetName("Distribution with variation coefficient.");
-
-            yield return new TestCaseData(
-                    new StochastConfiguration
-                    {
-                        Mean = 0.2,
-                        VariationCoefficient = 0.1
-                    },
-                    "distributionMeanVariationCoefficient.xml")
-                .SetName("Distribution with mean and variation coefficient.");
-        }
-
-        public static IEnumerable<TestCaseData> GetWaveReductions()
-        {
-            yield return new TestCaseData(
-                    new WaveReductionConfiguration(),
-                    "waveReductionWithoutParameters.xml")
-                .SetName("Wave reduction without any of its paramters set.");
-
-            yield return new TestCaseData(
-                    new WaveReductionConfiguration
-                    {
-                        UseBreakWater = true,
-                        BreakWaterType = ConfigurationBreakWaterType.Dam,
-                        BreakWaterHeight = 2.33,
-                        UseForeshoreProfile = false
-                    },
-                    "waveReduction.xml")
-                .SetName("Wave reduction with all its paramters set.");
-
-            yield return new TestCaseData(
-                    new WaveReductionConfiguration
-                    {
-                        UseBreakWater = true,
-                        BreakWaterType = ConfigurationBreakWaterType.Caisson,
-                        UseForeshoreProfile = false
-                    },
-                    "waveReductionWithoutBreakWaterHeight.xml")
-                .SetName("Wave reduction without break water height set.");
-
-            yield return new TestCaseData(
-                    new WaveReductionConfiguration
-                    {
-                        UseBreakWater = false,
-                        BreakWaterHeight = 12.66,
-                        UseForeshoreProfile = true
-                    },
-                    "waveReductionWithoutBreakWaterType.xml")
-                .SetName("Wave reduction without break water type set.");
-
-            yield return new TestCaseData(
-                    new WaveReductionConfiguration
-                    {
-                        BreakWaterType = ConfigurationBreakWaterType.Wall,
-                        BreakWaterHeight = 23.4,
-                        UseForeshoreProfile = false
-                    },
-                    "waveReductionWithoutUseBreakWater.xml")
-                .SetName("Wave reduction without use break water set.");
-
-            yield return new TestCaseData(
-                    new WaveReductionConfiguration
-                    {
-                        UseBreakWater = true,
-                        BreakWaterType = ConfigurationBreakWaterType.Dam,
-                        BreakWaterHeight = 0.2,
-                    },
-                    "waveReductionWithoutUseForeshoreProfile.xml")
-                .SetName("Wave reduction without use foreshore profile set.");
-        }
 
         [Test]
         public void WriteStartFolder_WithNameAndWriter_WritesFolderStart()
@@ -414,6 +305,115 @@ namespace Ringtoets.Common.IO.Test.Writers
             }
         }
 
+        public static IEnumerable<TestCaseData> GetDistributions()
+        {
+            yield return new TestCaseData(
+                    new StochastConfiguration(),
+                    "distributionEmpty.xml")
+                .SetName("Distribution with no parameters.");
+
+            yield return new TestCaseData(
+                    new StochastConfiguration
+                    {
+                        Mean = 0.2
+                    },
+                    "distributionMean.xml")
+                .SetName("Distribution with mean.");
+
+            yield return new TestCaseData(
+                    new StochastConfiguration
+                    {
+                        StandardDeviation = 0.1
+                    },
+                    "distributionStandardDeviation.xml")
+                .SetName("Distribution with standard deviation.");
+
+            yield return new TestCaseData(
+                    new StochastConfiguration
+                    {
+                        Mean = 0.2,
+                        StandardDeviation = 0.1
+                    },
+                    "distributionMeanStandardDeviation.xml")
+                .SetName("Distribution with mean and standard deviation.");
+
+            yield return new TestCaseData(
+                    new StochastConfiguration
+                    {
+                        VariationCoefficient = 0.1
+                    },
+                    "distributionVariationCoefficient.xml")
+                .SetName("Distribution with variation coefficient.");
+
+            yield return new TestCaseData(
+                    new StochastConfiguration
+                    {
+                        Mean = 0.2,
+                        VariationCoefficient = 0.1
+                    },
+                    "distributionMeanVariationCoefficient.xml")
+                .SetName("Distribution with mean and variation coefficient.");
+        }
+
+        public static IEnumerable<TestCaseData> GetWaveReductions()
+        {
+            yield return new TestCaseData(
+                    new WaveReductionConfiguration(),
+                    "waveReductionWithoutParameters.xml")
+                .SetName("Wave reduction without any of its paramters set.");
+
+            yield return new TestCaseData(
+                    new WaveReductionConfiguration
+                    {
+                        UseBreakWater = true,
+                        BreakWaterType = ConfigurationBreakWaterType.Dam,
+                        BreakWaterHeight = 2.33,
+                        UseForeshoreProfile = false
+                    },
+                    "waveReduction.xml")
+                .SetName("Wave reduction with all its paramters set.");
+
+            yield return new TestCaseData(
+                    new WaveReductionConfiguration
+                    {
+                        UseBreakWater = true,
+                        BreakWaterType = ConfigurationBreakWaterType.Caisson,
+                        UseForeshoreProfile = false
+                    },
+                    "waveReductionWithoutBreakWaterHeight.xml")
+                .SetName("Wave reduction without break water height set.");
+
+            yield return new TestCaseData(
+                    new WaveReductionConfiguration
+                    {
+                        UseBreakWater = false,
+                        BreakWaterHeight = 12.66,
+                        UseForeshoreProfile = true
+                    },
+                    "waveReductionWithoutBreakWaterType.xml")
+                .SetName("Wave reduction without break water type set.");
+
+            yield return new TestCaseData(
+                    new WaveReductionConfiguration
+                    {
+                        BreakWaterType = ConfigurationBreakWaterType.Wall,
+                        BreakWaterHeight = 23.4,
+                        UseForeshoreProfile = false
+                    },
+                    "waveReductionWithoutUseBreakWater.xml")
+                .SetName("Wave reduction without use break water set.");
+
+            yield return new TestCaseData(
+                    new WaveReductionConfiguration
+                    {
+                        UseBreakWater = true,
+                        BreakWaterType = ConfigurationBreakWaterType.Dam,
+                        BreakWaterHeight = 0.2,
+                    },
+                    "waveReductionWithoutUseForeshoreProfile.xml")
+                .SetName("Wave reduction without use foreshore profile set.");
+        }
+
         private string GetTestFileContent(string testFile)
         {
             return File.ReadAllText(Path.Combine(testDirectory, testFile));
@@ -431,6 +431,6 @@ namespace Ringtoets.Common.IO.Test.Writers
 
     public class SimpleStructuresCalculationConfiguration : StructuresCalculationConfiguration
     {
-        public SimpleStructuresCalculationConfiguration(string name) : base(name) {}
+        public SimpleStructuresCalculationConfiguration(string name) : base(name) { }
     }
 }

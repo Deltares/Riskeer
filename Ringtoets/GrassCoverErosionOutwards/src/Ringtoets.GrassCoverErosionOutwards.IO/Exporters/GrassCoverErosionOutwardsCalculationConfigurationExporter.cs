@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.IO.Exporters;
+using Ringtoets.Common.IO.Configurations.Export;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.IO.Writers;
 

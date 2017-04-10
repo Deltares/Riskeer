@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.IO.Exporters;
+using Ringtoets.Common.IO.Configurations.Export;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.IO.Writers;
 

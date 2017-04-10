@@ -27,15 +27,15 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.ClosingStructures.Data;
+using Ringtoets.ClosingStructures.Data.TestUtil;
+using Ringtoets.ClosingStructures.IO.Configurations;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.IO.FileImporters;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.ClosingStructures.Data.TestUtil;
-using Ringtoets.ClosingStructures.IO.Configurations;
+using Ringtoets.Common.IO.Configurations.Import;
 
 namespace Ringtoets.ClosingStructures.IO.Test.Configurations
 {
@@ -49,10 +49,10 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
         {
             // Call
             var importer = new ClosingStructuresCalculationConfigurationImporter("",
-                                                                                new CalculationGroup(),
-                                                                                Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                                Enumerable.Empty<ForeshoreProfile>(),
-                                                                                Enumerable.Empty<ClosingStructure>());
+                                                                                 new CalculationGroup(),
+                                                                                 Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                                 Enumerable.Empty<ForeshoreProfile>(),
+                                                                                 Enumerable.Empty<ClosingStructure>());
 
             // Assert
             Assert.IsInstanceOf<CalculationConfigurationImporter<ClosingStructuresCalculationConfigurationReader, ClosingStructuresCalculationConfiguration>>(importer);
@@ -63,10 +63,10 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
         {
             // Call
             TestDelegate test = () => new ClosingStructuresCalculationConfigurationImporter("",
-                                                                                           new CalculationGroup(),
-                                                                                           null,
-                                                                                           Enumerable.Empty<ForeshoreProfile>(),
-                                                                                           Enumerable.Empty<ClosingStructure>());
+                                                                                            new CalculationGroup(),
+                                                                                            null,
+                                                                                            Enumerable.Empty<ForeshoreProfile>(),
+                                                                                            Enumerable.Empty<ClosingStructure>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -78,10 +78,10 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
         {
             // Call
             TestDelegate test = () => new ClosingStructuresCalculationConfigurationImporter("",
-                                                                                           new CalculationGroup(),
-                                                                                           Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                                           null,
-                                                                                           Enumerable.Empty<ClosingStructure>());
+                                                                                            new CalculationGroup(),
+                                                                                            Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                                            null,
+                                                                                            Enumerable.Empty<ClosingStructure>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -93,10 +93,10 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
         {
             // Call
             TestDelegate test = () => new ClosingStructuresCalculationConfigurationImporter("",
-                                                                                           new CalculationGroup(),
-                                                                                           Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                                           Enumerable.Empty<ForeshoreProfile>(),
-                                                                                           null);
+                                                                                            new CalculationGroup(),
+                                                                                            Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                                            Enumerable.Empty<ForeshoreProfile>(),
+                                                                                            null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -200,46 +200,16 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             var foreshoreProfile = new TestForeshoreProfile("profiel 1");
 
             var importer = new ClosingStructuresCalculationConfigurationImporter(filePath,
-                                                                                calculationGroup,
-                                                                                Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                                new ForeshoreProfile[]
-                                                                                {
-                                                                                    foreshoreProfile
-                                                                                },
-                                                                                new ClosingStructure[]
-                                                                                {
-                                                                                    structure
-                                                                                });
-            var successful = false;
-
-            // Call
-            Action call = () => successful = importer.Import();
-
-            // Assert
-            string expectedMessage = $"{expectedErrorMessage} Berekening 'Berekening 1' is overgeslagen.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
-            Assert.IsTrue(successful);
-            CollectionAssert.IsEmpty(calculationGroup.Children);
-        }
-
-        [TestCase("validConfigurationUnknownForeshoreProfile.xml",
-            "Het voorlandprofiel 'unknown' bestaat niet.")]
-        [TestCase("validConfigurationUnknownHydraulicBoundaryLocation.xml",
-            "De locatie met hydraulische randvoorwaarden 'unknown' bestaat niet.")]
-        [TestCase("validConfigurationUnknownStructure.xml",
-            "Het kunstwerk 'unknown' bestaat niet.")]
-        public void Import_ValidConfigurationUnknownData_LogMessageAndContinueImport(string file, string expectedErrorMessage)
-        {
-            // Setup
-            string filePath = Path.Combine(importerPath, file);
-
-            var calculationGroup = new CalculationGroup();
-
-            var importer = new ClosingStructuresCalculationConfigurationImporter(filePath,
-                                                                                calculationGroup,
-                                                                                Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                                Enumerable.Empty<ForeshoreProfile>(),
-                                                                                Enumerable.Empty<ClosingStructure>());
+                                                                                 calculationGroup,
+                                                                                 Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                                 new ForeshoreProfile[]
+                                                                                 {
+                                                                                     foreshoreProfile
+                                                                                 },
+                                                                                 new ClosingStructure[]
+                                                                                 {
+                                                                                     structure
+                                                                                 });
             var successful = false;
 
             // Call
@@ -292,7 +262,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("Locatie1");
             var foreshoreProfile = new TestForeshoreProfile("profiel1", new List<Point2D>
             {
-                new Point2D(0,3)
+                new Point2D(0, 3)
             });
             var structure = new TestClosingStructure("kunstwerk1");
             var importer = new ClosingStructuresCalculationConfigurationImporter(
@@ -310,9 +280,9 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
                 {
                     structure
                 });
-            
+
             // Call
-            var successful = importer.Import();
+            bool successful = importer.Import();
 
             // Assert
             Assert.IsTrue(successful);
@@ -377,21 +347,21 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
                         Mean = (RoundedDouble) 4.3,
                         StandardDeviation = (RoundedDouble) 0.2
                     },
-                    AreaFlowApertures = 
+                    AreaFlowApertures =
                     {
                         Mean = (RoundedDouble) 80.5,
                         StandardDeviation = (RoundedDouble) 1
                     },
-                    DrainCoefficient = 
+                    DrainCoefficient =
                     {
                         Mean = (RoundedDouble) 1.1,
                     },
-                    InsideWaterLevel = 
+                    InsideWaterLevel =
                     {
                         Mean = (RoundedDouble) 0.5,
                         StandardDeviation = (RoundedDouble) 0.1
                     },
-                    ThresholdHeightOpenWeir = 
+                    ThresholdHeightOpenWeir =
                     {
                         Mean = (RoundedDouble) 1.2,
                         StandardDeviation = (RoundedDouble) 0.1
@@ -400,7 +370,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertCalculation(expectedCalculation, (StructuresCalculation<ClosingStructuresInput>)calculationGroup.Children[0]);
+            AssertCalculation(expectedCalculation, (StructuresCalculation<ClosingStructuresInput>) calculationGroup.Children[0]);
         }
 
         [Test]
@@ -477,14 +447,14 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
                     }
                 }
             };
-            
+
             // Call
-            var successful = importer.Import();
+            bool successful = importer.Import();
 
             // Assert
             Assert.IsTrue(successful);
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertCalculation(expectedCalculation, (StructuresCalculation<ClosingStructuresInput>)calculationGroup.Children[0]);
+            AssertCalculation(expectedCalculation, (StructuresCalculation<ClosingStructuresInput>) calculationGroup.Children[0]);
         }
 
         [Test]
@@ -549,14 +519,14 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
                     }
                 }
             };
-            
+
             // Call
-            var successful = importer.Import();
+            bool successful = importer.Import();
 
             // Assert
             Assert.IsTrue(successful);
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertCalculation(expectedCalculation, (StructuresCalculation<ClosingStructuresInput>)calculationGroup.Children[0]);
+            AssertCalculation(expectedCalculation, (StructuresCalculation<ClosingStructuresInput>) calculationGroup.Children[0]);
         }
 
         [Test]
@@ -585,14 +555,44 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             {
                 Name = "Berekening 1"
             };
-            
+
             // Call
-            var successful = importer.Import();
+            bool successful = importer.Import();
 
             // Assert
             Assert.IsTrue(successful);
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertCalculation(expectedCalculation, (StructuresCalculation<ClosingStructuresInput>)calculationGroup.Children[0]);
+            AssertCalculation(expectedCalculation, (StructuresCalculation<ClosingStructuresInput>) calculationGroup.Children[0]);
+        }
+
+        [TestCase("validConfigurationUnknownForeshoreProfile.xml",
+            "Het voorlandprofiel 'unknown' bestaat niet.")]
+        [TestCase("validConfigurationUnknownHydraulicBoundaryLocation.xml",
+            "De locatie met hydraulische randvoorwaarden 'unknown' bestaat niet.")]
+        [TestCase("validConfigurationUnknownStructure.xml",
+            "Het kunstwerk 'unknown' bestaat niet.")]
+        public void Import_ValidConfigurationUnknownData_LogMessageAndContinueImport(string file, string expectedErrorMessage)
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, file);
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new ClosingStructuresCalculationConfigurationImporter(filePath,
+                                                                                 calculationGroup,
+                                                                                 Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                                 Enumerable.Empty<ForeshoreProfile>(),
+                                                                                 Enumerable.Empty<ClosingStructure>());
+            var successful = false;
+
+            // Call
+            Action call = () => successful = importer.Import();
+
+            // Assert
+            string expectedMessage = $"{expectedErrorMessage} Berekening 'Berekening 1' is overgeslagen.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
+            Assert.IsTrue(successful);
+            CollectionAssert.IsEmpty(calculationGroup.Children);
         }
 
         private static void AssertCalculation(StructuresCalculation<ClosingStructuresInput> expectedCalculation, StructuresCalculation<ClosingStructuresInput> actualCalculation)

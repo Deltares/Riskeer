@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.Common.IO.Schema;
+using Ringtoets.Common.IO.Configurations;
 
-namespace Ringtoets.Common.IO.Test.Schema
+namespace Ringtoets.Common.IO.Test.Configurations
 {
     [TestFixture]
     public class ConfigurationSchemaIdentifiersTest

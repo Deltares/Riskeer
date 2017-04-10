@@ -24,12 +24,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
-using Core.Common.Base.IO;
-using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Common.IO.Properties;
-using Ringtoets.Common.IO.Schema;
 
-namespace Ringtoets.Common.IO.Readers
+namespace Ringtoets.Common.IO.Configurations.Helpers
 {
     /// <summary>
     /// Extensions methods for <see cref="XElement"/>.

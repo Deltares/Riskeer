@@ -28,8 +28,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Helpers;
-using Ringtoets.Common.IO.FileImporters;
-using Ringtoets.Common.IO.Schema;
+using Ringtoets.Common.IO.Configurations.Import;
 using Ringtoets.HeightStructures.Data;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 

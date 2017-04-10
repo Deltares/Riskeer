@@ -23,7 +23,6 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.IO.Schema;
 
 namespace Ringtoets.Common.IO.Configurations.Helpers
 {

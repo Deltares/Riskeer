@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.Configurations.Helpers;
-using Ringtoets.Common.IO.FileImporters;
+using Ringtoets.Common.IO.Configurations.Import;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO.Properties;
 using Ringtoets.Revetment.IO.Readers;

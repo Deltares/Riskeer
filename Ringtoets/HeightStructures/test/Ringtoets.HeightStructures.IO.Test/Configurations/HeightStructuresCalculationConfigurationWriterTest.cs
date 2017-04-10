@@ -24,8 +24,8 @@ using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Configurations;
+using Ringtoets.Common.IO.Configurations.Export;
 using Ringtoets.Common.IO.TestUtil;
-using Ringtoets.Common.IO.Writers;
 using Ringtoets.HeightStructures.IO.Configurations;
 
 namespace Ringtoets.HeightStructures.IO.Test.Configurations
@@ -69,11 +69,6 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             }
         }
 
-        protected override void AssertDefaultConstructedInstance(HeightStructuresCalculationConfigurationWriter writer)
-        {
-            Assert.IsInstanceOf<StructureCalculationConfigurationWriter<HeightStructuresCalculationConfiguration>>(writer);
-        }
-
         [Test]
         [TestCaseSource(nameof(Calculations))]
         public void Write_ValidCalculation_ValidFile(string expectedFileName, IConfigurationItem[] configuration)
@@ -103,6 +98,11 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             }
         }
 
+        protected override void AssertDefaultConstructedInstance(HeightStructuresCalculationConfigurationWriter writer)
+        {
+            Assert.IsInstanceOf<StructureCalculationConfigurationWriter<HeightStructuresCalculationConfiguration>>(writer);
+        }
+
         private static HeightStructuresCalculationConfiguration CreateFullCalculation()
         {
             return new HeightStructuresCalculationConfiguration("Berekening 1")
@@ -122,7 +122,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
                 StormDuration = new StochastConfiguration
                 {
                     Mean = 6.0,
-                    VariationCoefficient= 0.22
+                    VariationCoefficient = 0.22
                 },
                 ModelFactorSuperCriticalFlow = new StochastConfiguration
                 {

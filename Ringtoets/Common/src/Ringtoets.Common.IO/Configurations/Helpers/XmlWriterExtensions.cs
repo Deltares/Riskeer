@@ -21,11 +21,8 @@
 
 using System;
 using System.Xml;
-using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Common.IO.Configurations.Helpers;
-using Ringtoets.Common.IO.Schema;
 
-namespace Ringtoets.Common.IO.Writers
+namespace Ringtoets.Common.IO.Configurations.Helpers
 {
     /// <summary>
     /// Extension methods for an <see cref="XmlWriter"/>, for writing generic data components in XML format

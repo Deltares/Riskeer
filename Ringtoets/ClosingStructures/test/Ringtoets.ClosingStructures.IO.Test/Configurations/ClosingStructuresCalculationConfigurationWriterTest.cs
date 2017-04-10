@@ -25,8 +25,8 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.IO.Configurations;
 using Ringtoets.Common.IO.Configurations;
+using Ringtoets.Common.IO.Configurations.Export;
 using Ringtoets.Common.IO.TestUtil;
-using Ringtoets.Common.IO.Writers;
 
 namespace Ringtoets.ClosingStructures.IO.Test.Configurations
 {
@@ -69,11 +69,6 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             }
         }
 
-        protected override void AssertDefaultConstructedInstance(ClosingStructuresCalculationConfigurationWriter writer)
-        {
-            Assert.IsInstanceOf<StructureCalculationConfigurationWriter<ClosingStructuresCalculationConfiguration>>(writer);
-        }
-
         [Test]
         [TestCaseSource(nameof(Calculations))]
         public void Write_ValidCalculation_ValidFile(string expectedFileName, IConfigurationItem[] configuration)
@@ -101,6 +96,11 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             {
                 File.Delete(filePath);
             }
+        }
+
+        protected override void AssertDefaultConstructedInstance(ClosingStructuresCalculationConfigurationWriter writer)
+        {
+            Assert.IsInstanceOf<StructureCalculationConfigurationWriter<ClosingStructuresCalculationConfiguration>>(writer);
         }
 
         private static ClosingStructuresCalculationConfiguration CreateFullCalculation()

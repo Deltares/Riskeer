@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.IO;
 using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Common.IO.Readers;
 
 namespace Ringtoets.Revetment.IO.Readers
 {

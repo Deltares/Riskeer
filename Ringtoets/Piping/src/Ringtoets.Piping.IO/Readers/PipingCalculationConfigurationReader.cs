@@ -24,8 +24,8 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using Core.Common.Base.IO;
 using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Common.IO.Readers;
-using Ringtoets.Common.IO.Schema;
+using Ringtoets.Common.IO.Configurations.Helpers;
+using Ringtoets.Common.IO.Configurations.Import;
 using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.IO.Schema;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
@@ -65,7 +65,7 @@ namespace Ringtoets.Piping.IO.Readers
                        {
                            stochastStandaardafwijkingSchemaName, RingtoetsCommonIOResources.StochastStandaardafwijkingSchema
                        }
-                   }) {}
+                   }) { }
 
         protected override ReadPipingCalculation ParseCalculationElement(XElement calculationElement)
         {

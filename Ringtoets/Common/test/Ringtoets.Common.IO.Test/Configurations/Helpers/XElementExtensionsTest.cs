@@ -27,10 +27,10 @@ using System.Xml;
 using System.Xml.Linq;
 using Core.Common.Base.IO;
 using NUnit.Framework;
-using Ringtoets.Common.IO.Readers;
-using Ringtoets.Common.IO.Schema;
+using Ringtoets.Common.IO.Configurations;
+using Ringtoets.Common.IO.Configurations.Helpers;
 
-namespace Ringtoets.Common.IO.Test.Readers
+namespace Ringtoets.Common.IO.Test.Configurations.Helpers
 {
     [TestFixture]
     public class XElementExtensionsTest

@@ -26,9 +26,9 @@ using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using Core.Common.Utils.Properties;
 using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Common.IO.Schema;
+using Ringtoets.Common.IO.Configurations.Helpers;
 
-namespace Ringtoets.Common.IO.Writers
+namespace Ringtoets.Common.IO.Configurations.Export
 {
     /// <summary>
     /// Base implementation of writing calculation configurations to XML.

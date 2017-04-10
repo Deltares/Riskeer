@@ -26,11 +26,10 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.IO.Exporters;
+using Ringtoets.Common.IO.Configurations.Export;
 using Ringtoets.Common.IO.TestUtil;
-using Ringtoets.Common.IO.Writers;
 
-namespace Ringtoets.Common.IO.Test.Exporters
+namespace Ringtoets.Common.IO.Test.Configurations.Export
 {
     [TestFixture]
     public class CalculationConfigurationExporterTest
@@ -85,7 +84,7 @@ namespace Ringtoets.Common.IO.Test.Exporters
 
     public class SimpleCalculationConfigurationExporter : CalculationConfigurationExporter<SimpleCalculationConfigurationWriter, TestCalculation>
     {
-        public SimpleCalculationConfigurationExporter(IEnumerable<ICalculationBase> configuration, string targetFilePath) : base(configuration, targetFilePath) {}
+        public SimpleCalculationConfigurationExporter(IEnumerable<ICalculationBase> configuration, string targetFilePath) : base(configuration, targetFilePath) { }
     }
 
     public class SimpleCalculationConfigurationWriter : CalculationConfigurationWriter<TestCalculation>

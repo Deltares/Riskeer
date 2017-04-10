@@ -31,10 +31,9 @@ using Core.Common.Utils;
 using Core.Common.Utils.Builders;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Properties;
-using Ringtoets.Common.IO.Schema;
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 
-namespace Ringtoets.Common.IO.Readers
+namespace Ringtoets.Common.IO.Configurations.Import
 {
     /// <summary>
     /// Base class for reading a calculation configuration from XML and creating a collection of corresponding

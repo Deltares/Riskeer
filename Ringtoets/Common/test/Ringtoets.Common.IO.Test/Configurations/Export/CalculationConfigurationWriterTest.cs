@@ -32,15 +32,15 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.IO.Configurations.Export;
 using Ringtoets.Common.IO.TestUtil;
-using Ringtoets.Common.IO.Writers;
 
-namespace Ringtoets.Common.IO.Test.Writers
+namespace Ringtoets.Common.IO.Test.Configurations.Export
 {
     [TestFixture]
     public class CalculationConfigurationWriterTest
         : CustomCalculationConfigurationWriterDesignGuidelinesTestFixture<
-            SimpleCalculationConfigurationWriter,
+            TestCalculationConfigurationWriter,
             TestCalculation>
     {
         [Test]
@@ -53,7 +53,7 @@ namespace Ringtoets.Common.IO.Test.Writers
             {
                 using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
                 {
-                    var writer = new SimpleCalculationConfigurationWriter();
+                    var writer = new TestCalculationConfigurationWriter();
 
                     // Call
                     Assert.Throws<ArgumentNullException>(() => writer.PublicWriteDistributions(null, xmlWriter));
@@ -80,7 +80,7 @@ namespace Ringtoets.Common.IO.Test.Writers
             {
                 using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
                 {
-                    var writer = new SimpleCalculationConfigurationWriter();
+                    var writer = new TestCalculationConfigurationWriter();
 
                     // Call
                     writer.PublicWriteDistributions(new Dictionary<string, IDistribution>(), xmlWriter);
@@ -128,7 +128,7 @@ namespace Ringtoets.Common.IO.Test.Writers
             {
                 using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
                 {
-                    var writer = new SimpleCalculationConfigurationWriter();
+                    var writer = new TestCalculationConfigurationWriter();
 
                     // Call
                     writer.PublicWriteDistributions(distributions, xmlWriter);
@@ -157,7 +157,7 @@ namespace Ringtoets.Common.IO.Test.Writers
             {
                 using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
                 {
-                    var writer = new SimpleCalculationConfigurationWriter();
+                    var writer = new TestCalculationConfigurationWriter();
 
                     // Call
                     Assert.Throws<ArgumentNullException>(() => writer.PublicWriteDistributions(null, xmlWriter));
@@ -185,7 +185,7 @@ namespace Ringtoets.Common.IO.Test.Writers
             {
                 using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
                 {
-                    var writer = new SimpleCalculationConfigurationWriter();
+                    var writer = new TestCalculationConfigurationWriter();
 
                     // Call
                     writer.PublicWriteDistributions(new Dictionary<string, IDistribution>(), xmlWriter);
@@ -234,7 +234,7 @@ namespace Ringtoets.Common.IO.Test.Writers
             {
                 using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
                 {
-                    var writer = new SimpleCalculationConfigurationWriter();
+                    var writer = new TestCalculationConfigurationWriter();
 
                     // Call
                     writer.PublicWriteVariationCoefficientDistributions(distributions, xmlWriter);
@@ -263,7 +263,7 @@ namespace Ringtoets.Common.IO.Test.Writers
             {
                 using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
                 {
-                    var writer = new SimpleCalculationConfigurationWriter();
+                    var writer = new TestCalculationConfigurationWriter();
 
                     // Call
                     writer.PublicWriteBreakWaterProperties(null, xmlWriter);
@@ -303,7 +303,7 @@ namespace Ringtoets.Common.IO.Test.Writers
             {
                 using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
                 {
-                    var writer = new SimpleCalculationConfigurationWriter();
+                    var writer = new TestCalculationConfigurationWriter();
 
                     // Call
                     writer.PublicWriteBreakWaterProperties(breakWater, xmlWriter);
@@ -334,14 +334,14 @@ namespace Ringtoets.Common.IO.Test.Writers
             try
             {
                 // Call
-                TestDelegate test = () => new SimpleCalculationConfigurationWriter().Write(new[]
+                TestDelegate test = () => new TestCalculationConfigurationWriter().Write(new[]
                 {
                     calculation
                 }, filePath);
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileWriteException>(test);
-                var innerException = exception.InnerException;
+                Exception innerException = exception.InnerException;
                 Assert.IsNotNull(innerException);
                 Assert.AreEqual($"Cannot write calculation of type '{calculation.GetType()}' using this writer.", innerException.Message);
             }
@@ -365,7 +365,7 @@ namespace Ringtoets.Common.IO.Test.Writers
             try
             {
                 // Call
-                new SimpleCalculationConfigurationWriter().Write(configuration, filePath);
+                new TestCalculationConfigurationWriter().Write(configuration, filePath);
 
                 // Assert
                 Assert.IsTrue(File.Exists(filePath));
@@ -438,7 +438,7 @@ namespace Ringtoets.Common.IO.Test.Writers
         }
     }
 
-    public class SimpleCalculationConfigurationWriter : CalculationConfigurationWriter<TestCalculation>
+    public class TestCalculationConfigurationWriter : CalculationConfigurationWriter<TestCalculation>
     {
         public const string CalculationElementTag = "calculation";
 
@@ -446,8 +446,9 @@ namespace Ringtoets.Common.IO.Test.Writers
         {
             WriteDistributions(distributions, writer);
         }
+
         public void PublicWriteVariationCoefficientDistributions(
-            IDictionary<string, IVariationCoefficientDistribution> distributions, 
+            IDictionary<string, IVariationCoefficientDistribution> distributions,
             XmlWriter writer)
         {
             WriteVariationCoefficientDistributions(distributions, writer);

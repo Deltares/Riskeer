@@ -28,7 +28,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.IO.Configurations;
 using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Common.IO.Readers;
+using Ringtoets.Common.IO.Configurations.Import;
 
 namespace Ringtoets.ClosingStructures.IO.Test.Configurations
 {

@@ -37,11 +37,9 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Common.IO.FileImporters;
-using Ringtoets.Common.IO.Readers;
-using Ringtoets.Common.IO.Schema;
+using Ringtoets.Common.IO.Configurations.Import;
 
-namespace Ringtoets.Common.IO.Test.FileImporters
+namespace Ringtoets.Common.IO.Test.Configurations.Import
 {
     [TestFixture]
     public class CalculationConfigurationImporterTest
@@ -164,15 +162,21 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             {
                 new ExpectedProgressNotification
                 {
-                    Text = "Inlezen berekeningenconfiguratie.", CurrentStep = 1, TotalNumberOfSteps = 3
+                    Text = "Inlezen berekeningenconfiguratie.",
+                    CurrentStep = 1,
+                    TotalNumberOfSteps = 3
                 },
                 new ExpectedProgressNotification
                 {
-                    Text = "Valideren berekeningenconfiguratie.", CurrentStep = 2, TotalNumberOfSteps = 3
+                    Text = "Valideren berekeningenconfiguratie.",
+                    CurrentStep = 2,
+                    TotalNumberOfSteps = 3
                 },
                 new ExpectedProgressNotification
                 {
-                    Text = "Geïmporteerde data toevoegen aan het toetsspoor.", CurrentStep = 3, TotalNumberOfSteps = 3
+                    Text = "Geïmporteerde data toevoegen aan het toetsspoor.",
+                    CurrentStep = 3,
+                    TotalNumberOfSteps = 3
                 }
             };
 
@@ -733,7 +737,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             var input = new TestInputWithStochasts();
 
             // Call
-            var valid = importer.PublicTryReadStandardDeviationStochast(
+            bool valid = importer.PublicTryReadStandardDeviationStochast(
                 "some stochast name",
                 "some calculation name",
                 input,
@@ -774,11 +778,11 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             // Call
             Action validate = () => valid = importer.PublicTryReadStandardDeviationStochast(
-                stochastName,
-                calculationName,
-                input, configuration,
-                i => i.Distribution,
-                (i, s) => i.Distribution = s);
+                                        stochastName,
+                                        calculationName,
+                                        input, configuration,
+                                        i => i.Distribution,
+                                        (i, s) => i.Distribution = s);
 
             // Assert
             var expectedError = $"Indien voor parameter '{stochastName}' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. " +
@@ -816,7 +820,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             var input = new TestInputWithStochasts();
 
             // Call
-            var valid = importer.PublicTryReadVariationCoefficientStochast(
+            bool valid = importer.PublicTryReadVariationCoefficientStochast(
                 "some stochast name",
                 "some calculation name",
                 input, configuration,
@@ -857,11 +861,11 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             // Call
             Action validate = () => valid = importer.PublicTryReadVariationCoefficientStochast(
-                stochastName,
-                calculationName,
-                input, configuration,
-                i => i.VariationCoefficientDistribution,
-                (i, s) => i.VariationCoefficientDistribution = s);
+                                        stochastName,
+                                        calculationName,
+                                        input, configuration,
+                                        i => i.VariationCoefficientDistribution,
+                                        (i, s) => i.VariationCoefficientDistribution = s);
 
             // Assert
             var expectedError = $"Indien voor parameter '{stochastName}' de spreiding wordt opgegeven, moet dit door middel van een variatiecoëfficiënt. " +
@@ -873,7 +877,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         private class CalculationConfigurationImporter : CalculationConfigurationImporter<CalculationConfigurationReader, ReadCalculation>
         {
             public CalculationConfigurationImporter(string filePath, CalculationGroup importTarget)
-                : base(filePath, importTarget) {}
+                : base(filePath, importTarget) { }
 
             public void PublicReadWaveReductionParameters<T>(WaveReductionConfiguration waveReduction, T input)
                 where T : IUseBreakWater, IUseForeshore
@@ -943,7 +947,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                                               "validConfigurationSchema.xsd"));
 
             public CalculationConfigurationReader(string xmlFilePath)
-                : base(xmlFilePath, mainSchemaDefinition, new Dictionary<string, string>()) {}
+                : base(xmlFilePath, mainSchemaDefinition, new Dictionary<string, string>()) { }
 
             protected override ReadCalculation ParseCalculationElement(XElement calculationElement)
             {
@@ -1054,7 +1058,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
         private class TestStructure : StructureBase
         {
-            public TestStructure(string name) : base(name, "id", new Point2D(0, 0), 2) {}
+            public TestStructure(string name) : base(name, "id", new Point2D(0, 0), 2) { }
         }
 
         private class TestInputWithForeshoreProfileAndBreakWater : Observable, IUseBreakWater, IUseForeshore

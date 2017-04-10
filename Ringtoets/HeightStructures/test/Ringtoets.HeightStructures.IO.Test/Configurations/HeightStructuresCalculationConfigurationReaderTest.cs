@@ -27,7 +27,7 @@ using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Common.IO.Readers;
+using Ringtoets.Common.IO.Configurations.Import;
 using Ringtoets.HeightStructures.IO.Configurations;
 
 namespace Ringtoets.HeightStructures.IO.Test.Configurations

@@ -27,8 +27,7 @@ using Ringtoets.ClosingStructures.IO.Configurations.Helpers;
 using Ringtoets.ClosingStructures.IO.Properties;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Helpers;
-using Ringtoets.Common.IO.Readers;
-using Ringtoets.Common.IO.Schema;
+using Ringtoets.Common.IO.Configurations.Import;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.ClosingStructures.IO.Configurations
@@ -90,7 +89,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
                        {
                            structureBaseSchemaName, RingtoetsCommonIOResources.KunstwerkenBasisSchema
                        }
-                   }) {}
+                   }) { }
 
         protected override ClosingStructuresCalculationConfiguration ParseCalculationElement(XElement calculationElement)
         {

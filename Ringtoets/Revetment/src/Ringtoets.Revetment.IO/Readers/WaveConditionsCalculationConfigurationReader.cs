@@ -23,11 +23,9 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using Core.Common.Base.IO;
-using Ringtoets.Common.IO;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Helpers;
-using Ringtoets.Common.IO.Readers;
-using Ringtoets.Common.IO.Schema;
+using Ringtoets.Common.IO.Configurations.Import;
 using Ringtoets.Revetment.IO.Properties;
 using RingtoestCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 

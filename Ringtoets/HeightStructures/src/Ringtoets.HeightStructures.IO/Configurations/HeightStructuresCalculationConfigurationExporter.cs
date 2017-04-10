@@ -23,8 +23,8 @@ using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.IO.Configurations.Export;
 using Ringtoets.Common.IO.Configurations.Helpers;
-using Ringtoets.Common.IO.Exporters;
 using Ringtoets.HeightStructures.Data;
 
 namespace Ringtoets.HeightStructures.IO.Configurations

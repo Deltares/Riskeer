@@ -27,9 +27,9 @@ using System.Xml.Linq;
 using System.Xml.Schema;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.IO.Readers;
+using Ringtoets.Common.IO.Configurations.Import;
 
-namespace Ringtoets.Common.IO.Test.Readers
+namespace Ringtoets.Common.IO.Test.Configurations.Import
 {
     [TestFixture]
     public class CombinedXmlSchemaDefinitionTest

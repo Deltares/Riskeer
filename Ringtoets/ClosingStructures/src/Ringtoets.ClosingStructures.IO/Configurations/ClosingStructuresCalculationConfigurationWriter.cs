@@ -22,7 +22,7 @@
 using System;
 using System.Xml;
 using Ringtoets.ClosingStructures.IO.Configurations.Helpers;
-using Ringtoets.Common.IO.Writers;
+using Ringtoets.Common.IO.Configurations.Export;
 
 namespace Ringtoets.ClosingStructures.IO.Configurations
 {
@@ -44,7 +44,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
         /// <item>does not end with a directory or path separator (empty file name).</item>
         /// </list></remarks>
         public ClosingStructuresCalculationConfigurationWriter(string filePath)
-            : base(filePath) {}
+            : base(filePath) { }
 
         protected override void WriteSpecificStructureParameters(ClosingStructuresCalculationConfiguration configuration, XmlWriter writer)
         {

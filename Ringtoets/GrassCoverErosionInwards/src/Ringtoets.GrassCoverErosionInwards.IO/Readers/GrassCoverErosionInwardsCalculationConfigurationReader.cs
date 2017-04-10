@@ -25,8 +25,7 @@ using System.Xml.Linq;
 using Core.Common.Base.IO;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Helpers;
-using Ringtoets.Common.IO.Readers;
-using Ringtoets.Common.IO.Schema;
+using Ringtoets.Common.IO.Configurations.Import;
 using Ringtoets.GrassCoverErosionInwards.IO.Properties;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
@@ -78,7 +77,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Readers
                        {
                            stochastStandaardafwijkingSchemaName, RingtoetsCommonIOResources.StochastStandaardafwijkingSchema
                        }
-                   }) {}
+                   }) { }
 
         protected override ReadGrassCoverErosionInwardsCalculation ParseCalculationElement(XElement calculationElement)
         {

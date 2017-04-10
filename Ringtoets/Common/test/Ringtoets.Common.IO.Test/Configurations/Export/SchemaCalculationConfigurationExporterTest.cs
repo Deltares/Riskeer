@@ -23,15 +23,15 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.IO.Exporters;
+using Ringtoets.Common.IO.Configurations.Export;
 using Ringtoets.Common.IO.TestUtil;
 
-namespace Ringtoets.Common.IO.Test.Exporters
+namespace Ringtoets.Common.IO.Test.Configurations.Export
 {
     [TestFixture]
     public class SchemaCalculationConfigurationExporterTest
         : CustomSchemaCalculationConfigurationExporterDesignGuidelinesTestFixture<
-            SimpleStructuresCalculationConfigurationExporter,
+            SimpleSchemaCalculationConfigurationExporter,
             TestSchemaCalculationConfigurationWriter,
             TestCalculation,
             TestConfigurationItem>
@@ -41,15 +41,17 @@ namespace Ringtoets.Common.IO.Test.Exporters
             return new TestCalculation("some name");
         }
 
-        protected override SimpleStructuresCalculationConfigurationExporter CallConfigurationFilePathConstructor(IEnumerable<ICalculationBase> calculations, string filePath)
+        protected override SimpleSchemaCalculationConfigurationExporter CallConfigurationFilePathConstructor(IEnumerable<ICalculationBase> calculations, string filePath)
         {
-            return new SimpleStructuresCalculationConfigurationExporter(calculations, filePath);
+            return new SimpleSchemaCalculationConfigurationExporter(calculations, filePath);
         }
     }
 
-    public class SimpleStructuresCalculationConfigurationExporter
-        : SchemaCalculationConfigurationExporter<TestSchemaCalculationConfigurationWriter, TestCalculation, TestConfigurationItem> {
-        public SimpleStructuresCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath) : base(calculations, filePath) {}
+    public class SimpleSchemaCalculationConfigurationExporter
+        : SchemaCalculationConfigurationExporter<TestSchemaCalculationConfigurationWriter, TestCalculation, TestConfigurationItem>
+    {
+        public SimpleSchemaCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath) : base(calculations, filePath) { }
+
         protected override TestSchemaCalculationConfigurationWriter CreateWriter(string filePath)
         {
             return new TestSchemaCalculationConfigurationWriter(filePath);

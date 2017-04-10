@@ -23,12 +23,11 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Common.IO.Readers;
 
-namespace Ringtoets.Common.IO.Test.Readers
+namespace Ringtoets.Common.IO.Test.Configurations
 {
     [TestFixture]
-    public class ReadCalculationGroupTest
+    public class CalculationGroupConfigurationTest
     {
         [Test]
         public void Constructor_ExpectedValues()

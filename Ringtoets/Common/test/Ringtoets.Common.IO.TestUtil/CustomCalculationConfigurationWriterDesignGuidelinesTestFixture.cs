@@ -27,7 +27,7 @@ using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.IO.Writers;
+using Ringtoets.Common.IO.Configurations.Export;
 
 namespace Ringtoets.Common.IO.TestUtil
 {

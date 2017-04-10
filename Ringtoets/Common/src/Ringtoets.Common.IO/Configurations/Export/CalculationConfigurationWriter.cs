@@ -27,12 +27,9 @@ using Core.Common.Utils.Properties;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Helpers;
-using Ringtoets.Common.IO.Readers;
-using Ringtoets.Common.IO.Schema;
 
-namespace Ringtoets.Common.IO.Writers
+namespace Ringtoets.Common.IO.Configurations.Export
 {
     /// <summary>
     /// Base implementation of writing calculation configurations to XML.

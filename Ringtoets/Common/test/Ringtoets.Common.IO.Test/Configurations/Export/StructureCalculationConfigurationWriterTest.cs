@@ -25,9 +25,10 @@ using System.Xml;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Common.IO.Writers;
+using Ringtoets.Common.IO.Configurations.Export;
+using Ringtoets.Common.IO.Configurations.Helpers;
 
-namespace Ringtoets.Common.IO.Test.Writers
+namespace Ringtoets.Common.IO.Test.Configurations.Export
 {
     [TestFixture]
     public class StructureCalculationConfigurationWriterTest
@@ -166,7 +167,7 @@ namespace Ringtoets.Common.IO.Test.Writers
 
         private class SimpleStructuresCalculationConfiguration : StructuresCalculationConfiguration
         {
-            public SimpleStructuresCalculationConfiguration(string name) : base(name) {}
+            public SimpleStructuresCalculationConfiguration(string name) : base(name) { }
         }
 
         private class SimpleStructureCalculationConfigurationWriter : StructureCalculationConfigurationWriter<SimpleStructuresCalculationConfiguration>

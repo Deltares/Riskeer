@@ -21,7 +21,7 @@
 
 using System;
 using System.Xml;
-using Ringtoets.Common.IO.Writers;
+using Ringtoets.Common.IO.Configurations.Export;
 
 namespace Ringtoets.HeightStructures.IO.Configurations
 {
@@ -42,7 +42,7 @@ namespace Ringtoets.HeightStructures.IO.Configurations
         /// <item>does not contain an invalid character,</item>
         /// <item>does not end with a directory or path separator (empty file name).</item>
         /// </list></remarks>
-        public HeightStructuresCalculationConfigurationWriter(string filePath) : base(filePath) {}
+        public HeightStructuresCalculationConfigurationWriter(string filePath) : base(filePath) { }
 
         protected override void WriteSpecificStochasts(HeightStructuresCalculationConfiguration configuration, XmlWriter writer)
         {

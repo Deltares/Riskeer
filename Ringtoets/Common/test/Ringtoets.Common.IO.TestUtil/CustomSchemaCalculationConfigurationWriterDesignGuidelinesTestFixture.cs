@@ -28,8 +28,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Common.IO.Readers;
-using Ringtoets.Common.IO.Writers;
+using Ringtoets.Common.IO.Configurations.Export;
 
 namespace Ringtoets.Common.IO.TestUtil
 {
@@ -50,7 +49,7 @@ namespace Ringtoets.Common.IO.TestUtil
 
             try
             {
-                var writer = CreateWriterInstance(filePath);
+                TWriter writer = CreateWriterInstance(filePath);
 
                 // Call
                 TestDelegate test = () => writer.Write(new[]
@@ -60,7 +59,7 @@ namespace Ringtoets.Common.IO.TestUtil
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileWriteException>(test);
-                var innerException = exception.InnerException;
+                Exception innerException = exception.InnerException;
                 Assert.IsNotNull(innerException);
                 Assert.AreEqual($"Cannot write calculation of type '{calculation.GetType()}' using this writer.", innerException.Message);
             }
@@ -143,7 +142,7 @@ namespace Ringtoets.Common.IO.TestUtil
             {
                 string filePath = Path.Combine(directoryPath, "test.xml");
                 disposeHelper.LockDirectory(FileSystemRights.Write);
-                var writer = CreateWriterInstance(filePath);
+                TWriter writer = CreateWriterInstance(filePath);
 
                 // Call
                 TestDelegate call = () => writer.Write(Enumerable.Empty<IConfigurationItem>());
@@ -163,7 +162,7 @@ namespace Ringtoets.Common.IO.TestUtil
             using (var fileDisposeHelper = new FileDisposeHelper(path))
             {
                 fileDisposeHelper.LockFiles();
-                var writer = CreateWriterInstance(path);
+                TWriter writer = CreateWriterInstance(path);
 
                 // Call
                 TestDelegate call = () => writer.Write(Enumerable.Empty<IConfigurationItem>());
