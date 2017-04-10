@@ -55,6 +55,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
             Assert.IsNull(readCalculation.Orientation);
             Assert.IsNull(readCalculation.DikeHeight);
             Assert.IsNull(readCalculation.DikeHeightCalculationType);
+            Assert.IsNull(readCalculation.OvertoppingRateCalculationType);
             Assert.IsNull(readCalculation.UseBreakWater);
             Assert.IsNull(readCalculation.BreakWaterType);
             Assert.IsNull(readCalculation.BreakWaterHeight);
@@ -72,7 +73,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
             const string dikeProfileName = "name of the dike profile";
             const double orientation = 1.1;
             const double dikeHeight = 2.2;
-            const ReadSubCalculationType calculationType = ReadSubCalculationType.CalculateByAssessmentSectionNorm;
+            const ReadSubCalculationType dikeHeightCalculationType = ReadSubCalculationType.CalculateByAssessmentSectionNorm;
+            const ReadSubCalculationType overtoppingRateCalculationType = ReadSubCalculationType.CalculateByProfileSpecificRequiredProbability;
             const bool useBreakWater = true;
             const ConfigurationBreakWaterType breakWaterType = ConfigurationBreakWaterType.Wall;
             const double breakWaterHeight = 3.3;
@@ -87,7 +89,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
                 DikeProfile = dikeProfileName,
                 Orientation = orientation,
                 DikeHeight = dikeHeight,
-                DikeHeightCalculationType = calculationType,
+                DikeHeightCalculationType = dikeHeightCalculationType,
+                OvertoppingRateCalculationType = overtoppingRateCalculationType,
                 UseBreakWater = useBreakWater,
                 BreakWaterType = breakWaterType,
                 BreakWaterHeight = breakWaterHeight,
@@ -105,7 +108,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
             Assert.AreEqual(dikeProfileName, constructionProperties.DikeProfile);
             Assert.AreEqual(orientation, readCalculation.Orientation);
             Assert.AreEqual(dikeHeight, readCalculation.DikeHeight);
-            Assert.AreEqual(calculationType, readCalculation.DikeHeightCalculationType);
+            Assert.AreEqual(dikeHeightCalculationType, readCalculation.DikeHeightCalculationType);
+            Assert.AreEqual(overtoppingRateCalculationType, readCalculation.OvertoppingRateCalculationType);
             Assert.AreEqual(useBreakWater, readCalculation.UseBreakWater);
             Assert.AreEqual(breakWaterType, readCalculation.BreakWaterType);
             Assert.AreEqual(breakWaterHeight, readCalculation.BreakWaterHeight);

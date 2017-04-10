@@ -50,6 +50,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Readers
             Orientation = constructionProperties.Orientation;
             DikeHeight = constructionProperties.DikeHeight;
             DikeHeightCalculationType = constructionProperties.DikeHeightCalculationType;
+            OvertoppingRateCalculationType = constructionProperties.OvertoppingRateCalculationType;
             UseBreakWater = constructionProperties.UseBreakWater;
             BreakWaterType = constructionProperties.BreakWaterType;
             BreakWaterHeight = constructionProperties.BreakWaterHeight;
@@ -84,6 +85,12 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Readers
         /// erosion inwards calculation.
         /// </summary>
         public ReadSubCalculationType? DikeHeightCalculationType { get; }
+
+        /// <summary>
+        /// Gets the value for how the overtopping rate should be calculated for the grass cover
+        /// erosion inwards calculation.
+        /// </summary>
+        public ReadSubCalculationType? OvertoppingRateCalculationType { get; }
 
         /// <summary>
         /// Gets the value indicating if the break water for the grass cover erosion inwards
@@ -155,6 +162,11 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Readers
             /// Gets or sets the value for <see cref="ReadGrassCoverErosionInwardsCalculation.DikeHeightCalculationType"/>.
             /// </summary>
             public ReadSubCalculationType? DikeHeightCalculationType { get; set; }
+
+            /// <summary>
+            /// Gets or sets the value for <see cref="ReadGrassCoverErosionInwardsCalculation.OvertoppingRateCalculationType"/>.
+            /// </summary>
+            public ReadSubCalculationType? OvertoppingRateCalculationType { get; set; }
 
             /// <summary>
             /// Gets or sets the value for <see cref="ReadGrassCoverErosionInwardsCalculation.UseBreakWater"/>.
