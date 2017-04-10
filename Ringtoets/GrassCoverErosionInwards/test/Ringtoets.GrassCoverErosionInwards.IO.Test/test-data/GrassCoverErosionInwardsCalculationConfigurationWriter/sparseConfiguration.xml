@@ -2,6 +2,7 @@
 <configuratie>
   <berekening naam="Berekening 1">
     <hbnberekenen>niet</hbnberekenen>
+    <overslagdebietberekenen>niet</overslagdebietberekenen>
     <stochasten>
       <stochast naam="overslagdebiet">
         <verwachtingswaarde>0.004</verwachtingswaarde>

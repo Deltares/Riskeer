@@ -248,7 +248,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
         /// <param name="calculation">The calculation to configure.</param>
         /// <returns><c>true</c> if reading all required wave reduction parameters was successful,
         /// <c>false</c> otherwise.</returns>
-        private bool TryReadCriticalWaveReduction(ReadGrassCoverErosionInwardsCalculation readCalculation, GrassCoverErosionInwardsCalculation calculation)
+        private static bool TryReadCriticalWaveReduction(ReadGrassCoverErosionInwardsCalculation readCalculation, GrassCoverErosionInwardsCalculation calculation)
         {
             var distribution = (LogNormalDistribution) calculation.InputParameters.CriticalFlowRate.Clone();
 
