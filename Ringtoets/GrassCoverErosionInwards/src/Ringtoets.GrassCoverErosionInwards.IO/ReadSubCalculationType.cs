@@ -22,9 +22,9 @@
 namespace Ringtoets.GrassCoverErosionInwards.IO
 {
     /// <summary>
-    /// Defines the various types of dike height calculations in a read calculation configuration.
+    /// Defines the various types of sub calculations in a read calculation configuration.
     /// </summary>
-    public enum ReadDikeHeightCalculationType
+    public enum ReadSubCalculationType
     {
         /// <summary>
         /// No calculation.

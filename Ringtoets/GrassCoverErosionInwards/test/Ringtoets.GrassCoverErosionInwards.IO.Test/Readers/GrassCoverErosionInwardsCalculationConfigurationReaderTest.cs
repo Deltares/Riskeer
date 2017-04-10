@@ -312,7 +312,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
             Assert.AreEqual("some_dike_profile", calculation.DikeProfile);
             Assert.AreEqual(67.1, calculation.Orientation);
             Assert.AreEqual(3.45, calculation.DikeHeight);
-            Assert.AreEqual(ReadDikeHeightCalculationType.CalculateByAssessmentSectionNorm, calculation.DikeHeightCalculationType);
+            Assert.AreEqual(ReadSubCalculationType.CalculateByAssessmentSectionNorm, calculation.DikeHeightCalculationType);
             Assert.AreEqual(true, calculation.UseBreakWater);
             Assert.AreEqual(ConfigurationBreakWaterType.Dam, calculation.BreakWaterType);
             Assert.AreEqual(1.234, calculation.BreakWaterHeight);

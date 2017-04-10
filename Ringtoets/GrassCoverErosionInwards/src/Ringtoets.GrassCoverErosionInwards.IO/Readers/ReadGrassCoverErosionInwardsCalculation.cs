@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.IO;
 using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Common.IO.Readers;
 
 namespace Ringtoets.GrassCoverErosionInwards.IO.Readers
 {
@@ -85,7 +83,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Readers
         /// Gets the value for how the dike height should be calculated for the grass cover
         /// erosion inwards calculation.
         /// </summary>
-        public ReadDikeHeightCalculationType? DikeHeightCalculationType { get; }
+        public ReadSubCalculationType? DikeHeightCalculationType { get; }
 
         /// <summary>
         /// Gets the value indicating if the break water for the grass cover erosion inwards
@@ -156,7 +154,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Readers
             /// <summary>
             /// Gets or sets the value for <see cref="ReadGrassCoverErosionInwardsCalculation.DikeHeightCalculationType"/>.
             /// </summary>
-            public ReadDikeHeightCalculationType? DikeHeightCalculationType { get; set; }
+            public ReadSubCalculationType? DikeHeightCalculationType { get; set; }
 
             /// <summary>
             /// Gets or sets the value for <see cref="ReadGrassCoverErosionInwardsCalculation.UseBreakWater"/>.
