@@ -59,6 +59,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             bool flagValue = random.NextBoolean();
             BreakWaterType breakWaterType = random.NextEnumValue<BreakWaterType>();
             DikeHeightCalculationType dikeHeightCalculationType = random.NextEnumValue<DikeHeightCalculationType>();
+            OvertoppingRateCalculationType overtoppingRateCalculationType = random.NextEnumValue<OvertoppingRateCalculationType>();
             var entity = new GrassCoverErosionInwardsCalculationEntity
             {
                 Name = "sodhfksn",
@@ -73,7 +74,8 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
                 UseBreakWater = Convert.ToByte(flagValue),
                 BreakWaterType = Convert.ToByte(breakWaterType),
                 BreakWaterHeight = 5.7,
-                DikeHeightCalculationType = Convert.ToByte(dikeHeightCalculationType)
+                DikeHeightCalculationType = Convert.ToByte(dikeHeightCalculationType),
+                OvertoppingRateCalculationType = Convert.ToByte(overtoppingRateCalculationType)
             };
 
             var collector = new ReadConversionCollector();
@@ -95,6 +97,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             Assert.AreEqual(breakWaterType, input.BreakWater.Type);
             Assert.AreEqual(entity.BreakWaterHeight, input.BreakWater.Height.Value);
             Assert.AreEqual(dikeHeightCalculationType, input.DikeHeightCalculationType);
+            Assert.AreEqual(overtoppingRateCalculationType, input.OvertoppingRateCalculationType);
 
             Assert.IsNull(input.DikeProfile);
             Assert.IsNull(input.HydraulicBoundaryLocation);

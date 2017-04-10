@@ -89,6 +89,7 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
             entity.CriticalFlowRateStandardDeviation = input.CriticalFlowRate.StandardDeviation.ToNaNAsNull();
             entity.Orientation = input.Orientation.ToNaNAsNull();
             entity.DikeHeightCalculationType = Convert.ToByte(input.DikeHeightCalculationType);
+            entity.OvertoppingRateCalculationType = Convert.ToByte(input.OvertoppingRateCalculationType);
             entity.DikeHeight = input.DikeHeight.ToNaNAsNull();
             entity.UseForeshore = Convert.ToByte(input.UseForeshore);
         }

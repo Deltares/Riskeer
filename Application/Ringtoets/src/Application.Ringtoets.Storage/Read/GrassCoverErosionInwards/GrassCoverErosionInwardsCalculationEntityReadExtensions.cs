@@ -84,6 +84,7 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
             inputParameters.BreakWater.Height = (RoundedDouble) entity.BreakWaterHeight.ToNullAsNaN();
             inputParameters.BreakWater.Type = (BreakWaterType) entity.BreakWaterType;
             inputParameters.DikeHeightCalculationType = (DikeHeightCalculationType) entity.DikeHeightCalculationType;
+            inputParameters.OvertoppingRateCalculationType = (OvertoppingRateCalculationType) entity.OvertoppingRateCalculationType;
         }
 
         private static void ReadOutput(GrassCoverErosionInwardsCalculation calculation, GrassCoverErosionInwardsCalculationEntity entity)

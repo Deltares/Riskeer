@@ -302,6 +302,7 @@
           <Property Name="UseBreakWater" Type="tinyint" Nullable="false" />
           <Property Name="BreakWaterType" Type="tinyint" Nullable="false" />
           <Property Name="BreakWaterHeight" Type="real" />
+          <Property Name="OvertoppingRateCalculationType" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="GrassCoverErosionInwardsDikeHeightOutputEntity">
           <Key>
@@ -338,6 +339,19 @@
           <Property Name="Probability" Type="real" />
           <Property Name="Reliability" Type="real" />
           <Property Name="FactorOfSafety" Type="real" />
+        </EntityType>
+        <EntityType Name="GrassCoverErosionInwardsOvertoppingRateOutputEntity">
+          <Key>
+            <PropertyRef Name="GrassCoverErosionInwardsOvertoppingRateOutputEntityId" />
+          </Key>
+          <Property Name="GrassCoverErosionInwardsOvertoppingRateOutputEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GrassCoverErosionInwardsOutputEntityId" Type="integer" Nullable="false" />
+          <Property Name="OvertoppingRate" Type="real" />
+          <Property Name="TargetProbability" Type="real" />
+          <Property Name="TargetReliability" Type="real" />
+          <Property Name="CalculatedProbability" Type="real" />
+          <Property Name="CalculatedReliability" Type="real" />
+          <Property Name="CalculationConvergence" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="GrassCoverErosionInwardsSectionResultEntity">
           <Key>
@@ -1400,6 +1414,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_GrassCoverErosionInwardsOvertoppingRateOutputEntity_0_0">
+          <End Role="GrassCoverErosionInwardsOutputEntity" Type="Self.GrassCoverErosionInwardsOutputEntity" Multiplicity="1" />
+          <End Role="GrassCoverErosionInwardsOvertoppingRateOutputEntity" Type="Self.GrassCoverErosionInwardsOvertoppingRateOutputEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GrassCoverErosionInwardsOutputEntity">
+              <PropertyRef Name="GrassCoverErosionInwardsOutputEntityId" />
+            </Principal>
+            <Dependent Role="GrassCoverErosionInwardsOvertoppingRateOutputEntity">
+              <PropertyRef Name="GrassCoverErosionInwardsOutputEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_GrassCoverErosionInwardsSectionResultEntity_0_0">
           <End Role="GrassCoverErosionInwardsCalculationEntity" Type="Self.GrassCoverErosionInwardsCalculationEntity" Multiplicity="0..1" />
           <End Role="GrassCoverErosionInwardsSectionResultEntity" Type="Self.GrassCoverErosionInwardsSectionResultEntity" Multiplicity="*" />
@@ -2167,6 +2193,7 @@
           <EntitySet Name="GrassCoverErosionInwardsDikeHeightOutputEntity" EntityType="Self.GrassCoverErosionInwardsDikeHeightOutputEntity" store:Type="Tables" />
           <EntitySet Name="GrassCoverErosionInwardsFailureMechanismMetaEntity" EntityType="Self.GrassCoverErosionInwardsFailureMechanismMetaEntity" store:Type="Tables" />
           <EntitySet Name="GrassCoverErosionInwardsOutputEntity" EntityType="Self.GrassCoverErosionInwardsOutputEntity" store:Type="Tables" />
+          <EntitySet Name="GrassCoverErosionInwardsOvertoppingRateOutputEntity" EntityType="Self.GrassCoverErosionInwardsOvertoppingRateOutputEntity" store:Type="Tables" />
           <EntitySet Name="GrassCoverErosionInwardsSectionResultEntity" EntityType="Self.GrassCoverErosionInwardsSectionResultEntity" store:Type="Tables" />
           <EntitySet Name="GrassCoverErosionOutwardsFailureMechanismMetaEntity" EntityType="Self.GrassCoverErosionOutwardsFailureMechanismMetaEntity" store:Type="Tables" />
           <EntitySet Name="GrassCoverErosionOutwardsHydraulicLocationEntity" EntityType="Self.GrassCoverErosionOutwardsHydraulicLocationEntity" store:Type="Tables" />
@@ -2328,6 +2355,10 @@
           <AssociationSet Name="FK_GrassCoverErosionInwardsOutputEntity_0_0" Association="Self.FK_GrassCoverErosionInwardsOutputEntity_0_0">
             <End Role="GrassCoverErosionInwardsCalculationEntity" EntitySet="GrassCoverErosionInwardsCalculationEntity" />
             <End Role="GrassCoverErosionInwardsOutputEntity" EntitySet="GrassCoverErosionInwardsOutputEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GrassCoverErosionInwardsOvertoppingRateOutputEntity_0_0" Association="Self.FK_GrassCoverErosionInwardsOvertoppingRateOutputEntity_0_0">
+            <End Role="GrassCoverErosionInwardsOutputEntity" EntitySet="GrassCoverErosionInwardsOutputEntity" />
+            <End Role="GrassCoverErosionInwardsOvertoppingRateOutputEntity" EntitySet="GrassCoverErosionInwardsOvertoppingRateOutputEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_GrassCoverErosionInwardsSectionResultEntity_0_0" Association="Self.FK_GrassCoverErosionInwardsSectionResultEntity_0_0">
             <End Role="GrassCoverErosionInwardsCalculationEntity" EntitySet="GrassCoverErosionInwardsCalculationEntity" />
@@ -2605,6 +2636,7 @@
           <EntitySet Name="GrassCoverErosionInwardsDikeHeightOutputEntities" EntityType="RingtoetsEntitiesModel.GrassCoverErosionInwardsDikeHeightOutputEntity" />
           <EntitySet Name="GrassCoverErosionInwardsFailureMechanismMetaEntities" EntityType="RingtoetsEntitiesModel.GrassCoverErosionInwardsFailureMechanismMetaEntity" />
           <EntitySet Name="GrassCoverErosionInwardsOutputEntities" EntityType="RingtoetsEntitiesModel.GrassCoverErosionInwardsOutputEntity" />
+          <EntitySet Name="GrassCoverErosionInwardsOvertoppingRateOutputEntities" EntityType="RingtoetsEntitiesModel.GrassCoverErosionInwardsOvertoppingRateOutputEntity" />
           <EntitySet Name="GrassCoverErosionInwardsSectionResultEntities" EntityType="RingtoetsEntitiesModel.GrassCoverErosionInwardsSectionResultEntity" />
           <EntitySet Name="GrassCoverErosionOutwardsFailureMechanismMetaEntities" EntityType="RingtoetsEntitiesModel.GrassCoverErosionOutwardsFailureMechanismMetaEntity" />
           <EntitySet Name="GrassCoverErosionOutwardsHydraulicLocationEntities" EntityType="RingtoetsEntitiesModel.GrassCoverErosionOutwardsHydraulicLocationEntity" />
@@ -2918,6 +2950,10 @@
           <AssociationSet Name="FK_GrassCoverErosionInwardsDikeHeightOutputEntity_0_0" Association="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsDikeHeightOutputEntity_0_0">
             <End Role="GrassCoverErosionInwardsOutputEntity" EntitySet="GrassCoverErosionInwardsOutputEntities" />
             <End Role="GrassCoverErosionInwardsDikeHeightOutputEntity" EntitySet="GrassCoverErosionInwardsDikeHeightOutputEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GrassCoverErosionInwardsOvertoppingRateOutputEntity_0_0" Association="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsOvertoppingRateOutputEntity_0_0">
+            <End Role="GrassCoverErosionInwardsOutputEntity" EntitySet="GrassCoverErosionInwardsOutputEntities" />
+            <End Role="GrassCoverErosionInwardsOvertoppingRateOutputEntity" EntitySet="GrassCoverErosionInwardsOvertoppingRateOutputEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_GrassCoverErosionOutwardsHydraulicLocationOutputEntity_0_0" Association="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsHydraulicLocationOutputEntity_0_0">
             <End Role="GrassCoverErosionOutwardsHydraulicLocationEntity" EntitySet="GrassCoverErosionOutwardsHydraulicLocationEntities" />
@@ -3396,6 +3432,7 @@
           <Property Name="UseBreakWater" Type="Byte" Nullable="false" />
           <Property Name="BreakWaterType" Type="Byte" Nullable="false" />
           <Property Name="BreakWaterHeight" Type="Double" />
+          <Property Name="OvertoppingRateCalculationType" Type="Byte" Nullable="false" />
           <NavigationProperty Name="CalculationGroupEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsCalculationEntity_2_0" FromRole="GrassCoverErosionInwardsCalculationEntity" ToRole="CalculationGroupEntity" />
           <NavigationProperty Name="DikeProfileEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsCalculationEntity_1_0" FromRole="GrassCoverErosionInwardsCalculationEntity" ToRole="DikeProfileEntity" />
           <NavigationProperty Name="HydraulicLocationEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsCalculationEntity_0_0" FromRole="GrassCoverErosionInwardsCalculationEntity" ToRole="HydraulicLocationEntity" />
@@ -3441,6 +3478,21 @@
           <Property Name="FactorOfSafety" Type="Double" />
           <NavigationProperty Name="GrassCoverErosionInwardsCalculationEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsOutputEntity_0_0" FromRole="GrassCoverErosionInwardsOutputEntity" ToRole="GrassCoverErosionInwardsCalculationEntity" />
           <NavigationProperty Name="GrassCoverErosionInwardsDikeHeightOutputEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsDikeHeightOutputEntity_0_0" FromRole="GrassCoverErosionInwardsOutputEntity" ToRole="GrassCoverErosionInwardsDikeHeightOutputEntity" />
+          <NavigationProperty Name="GrassCoverErosionInwardsOvertoppingRateOutputEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsOvertoppingRateOutputEntity_0_0" FromRole="GrassCoverErosionInwardsOutputEntity" ToRole="GrassCoverErosionInwardsOvertoppingRateOutputEntity" />
+        </EntityType>
+        <EntityType Name="GrassCoverErosionInwardsOvertoppingRateOutputEntity">
+          <Key>
+            <PropertyRef Name="GrassCoverErosionInwardsOvertoppingRateOutputEntityId" />
+          </Key>
+          <Property Name="GrassCoverErosionInwardsOvertoppingRateOutputEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GrassCoverErosionInwardsOutputEntityId" Type="Int64" Nullable="false" />
+          <Property Name="OvertoppingRate" Type="Double" />
+          <Property Name="TargetProbability" Type="Double" />
+          <Property Name="TargetReliability" Type="Double" />
+          <Property Name="CalculatedProbability" Type="Double" />
+          <Property Name="CalculatedReliability" Type="Double" />
+          <Property Name="CalculationConvergence" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="GrassCoverErosionInwardsOutputEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsOvertoppingRateOutputEntity_0_0" FromRole="GrassCoverErosionInwardsOvertoppingRateOutputEntity" ToRole="GrassCoverErosionInwardsOutputEntity" />
         </EntityType>
         <EntityType Name="GrassCoverErosionInwardsSectionResultEntity">
           <Key>
@@ -5049,6 +5101,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_GrassCoverErosionInwardsOvertoppingRateOutputEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.GrassCoverErosionInwardsOutputEntity" Role="GrassCoverErosionInwardsOutputEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.GrassCoverErosionInwardsOvertoppingRateOutputEntity" Role="GrassCoverErosionInwardsOvertoppingRateOutputEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GrassCoverErosionInwardsOutputEntity">
+              <PropertyRef Name="GrassCoverErosionInwardsOutputEntityId" />
+            </Principal>
+            <Dependent Role="GrassCoverErosionInwardsOvertoppingRateOutputEntity">
+              <PropertyRef Name="GrassCoverErosionInwardsOutputEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_GrassCoverErosionOutwardsHydraulicLocationOutputEntity_0_0">
           <End Type="RingtoetsEntitiesModel.GrassCoverErosionOutwardsHydraulicLocationEntity" Role="GrassCoverErosionOutwardsHydraulicLocationEntity" Multiplicity="1" />
           <End Type="RingtoetsEntitiesModel.GrassCoverErosionOutwardsHydraulicLocationOutputEntity" Role="GrassCoverErosionOutwardsHydraulicLocationOutputEntity" Multiplicity="*" />
@@ -5641,6 +5705,7 @@
           <EntitySetMapping Name="GrassCoverErosionInwardsCalculationEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.GrassCoverErosionInwardsCalculationEntity">
               <MappingFragment StoreEntitySet="GrassCoverErosionInwardsCalculationEntity">
+                <ScalarProperty Name="OvertoppingRateCalculationType" ColumnName="OvertoppingRateCalculationType" />
                 <ScalarProperty Name="BreakWaterHeight" ColumnName="BreakWaterHeight" />
                 <ScalarProperty Name="BreakWaterType" ColumnName="BreakWaterType" />
                 <ScalarProperty Name="UseBreakWater" ColumnName="UseBreakWater" />
@@ -5696,6 +5761,20 @@
                 <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="GrassCoverErosionInwardsCalculationEntityId" ColumnName="GrassCoverErosionInwardsCalculationEntityId" />
                 <ScalarProperty Name="GrassCoverErosionInwardsOutputEntityId" ColumnName="GrassCoverErosionInwardsOutputEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GrassCoverErosionInwardsOvertoppingRateOutputEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.GrassCoverErosionInwardsOvertoppingRateOutputEntity">
+              <MappingFragment StoreEntitySet="GrassCoverErosionInwardsOvertoppingRateOutputEntity">
+                <ScalarProperty Name="CalculationConvergence" ColumnName="CalculationConvergence" />
+                <ScalarProperty Name="CalculatedReliability" ColumnName="CalculatedReliability" />
+                <ScalarProperty Name="CalculatedProbability" ColumnName="CalculatedProbability" />
+                <ScalarProperty Name="TargetReliability" ColumnName="TargetReliability" />
+                <ScalarProperty Name="TargetProbability" ColumnName="TargetProbability" />
+                <ScalarProperty Name="OvertoppingRate" ColumnName="OvertoppingRate" />
+                <ScalarProperty Name="GrassCoverErosionInwardsOutputEntityId" ColumnName="GrassCoverErosionInwardsOutputEntityId" />
+                <ScalarProperty Name="GrassCoverErosionInwardsOvertoppingRateOutputEntityId" ColumnName="GrassCoverErosionInwardsOvertoppingRateOutputEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

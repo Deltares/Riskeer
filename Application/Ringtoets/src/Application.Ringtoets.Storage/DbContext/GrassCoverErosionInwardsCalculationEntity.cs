@@ -59,6 +59,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public byte UseBreakWater { get; set; }
         public byte BreakWaterType { get; set; }
         public Nullable<double> BreakWaterHeight { get; set; }
+        public byte OvertoppingRateCalculationType { get; set; }
 
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
         public virtual DikeProfileEntity DikeProfileEntity { get; set; }

@@ -76,7 +76,43 @@ SELECT
 	[X0],
 	[Order]
 	FROM [SOURCEPROJECT].ForeshoreProfileEntity;
-INSERT INTO GrassCoverErosionInwardsCalculationEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsCalculationEntity;
+INSERT INTO GrassCoverErosionInwardsCalculationEntity (
+	[GrassCoverErosionInwardsCalculationEntityId],
+	[CalculationGroupEntityId],
+	[HydraulicLocationEntityId],
+	[DikeProfileEntityId],
+	[Order],
+	[Name],
+	[Comments],
+	[Orientation],
+	[CriticalFlowRateMean],
+	[CriticalFlowRateStandardDeviation],
+	[UseForeshore],
+	[DikeHeightCalculationType],
+	[DikeHeight],
+	[UseBreakWater],
+	[BreakWaterType],
+	[BreakWaterHeight],
+	[OvertoppingRateCalculationType])
+SELECT
+	[GrassCoverErosionInwardsCalculationEntityId],
+	[CalculationGroupEntityId],
+	[HydraulicLocationEntityId],
+	[DikeProfileEntityId],
+	[Order],
+	[Name],
+	[Comments],
+	[Orientation],
+	[CriticalFlowRateMean],
+	[CriticalFlowRateStandardDeviation],
+	[UseForeshore],
+	[DikeHeightCalculationType],
+	[DikeHeight],
+	[UseBreakWater],
+	[BreakWaterType],
+	[BreakWaterHeight],
+	1
+	FROM [SOURCEPROJECT].GrassCoverErosionInwardsCalculationEntity;
 INSERT INTO GrassCoverErosionInwardsDikeHeightOutputEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsDikeHeightOutputEntity;
 INSERT INTO GrassCoverErosionInwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsFailureMechanismMetaEntity;
 INSERT INTO GrassCoverErosionInwardsOutputEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsOutputEntity;

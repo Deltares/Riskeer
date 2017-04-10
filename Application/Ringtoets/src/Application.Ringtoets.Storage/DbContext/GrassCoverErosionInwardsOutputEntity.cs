@@ -40,6 +40,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public GrassCoverErosionInwardsOutputEntity()
         {
             GrassCoverErosionInwardsDikeHeightOutputEntities = new HashSet<GrassCoverErosionInwardsDikeHeightOutputEntity>();
+            GrassCoverErosionInwardsOvertoppingRateOutputEntities = new HashSet<GrassCoverErosionInwardsOvertoppingRateOutputEntity>();
         }
 
         public long GrassCoverErosionInwardsOutputEntityId { get; set; }
@@ -57,5 +58,8 @@ namespace Application.Ringtoets.Storage.DbContext
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GrassCoverErosionInwardsDikeHeightOutputEntity> GrassCoverErosionInwardsDikeHeightOutputEntities { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GrassCoverErosionInwardsOvertoppingRateOutputEntity> GrassCoverErosionInwardsOvertoppingRateOutputEntities { get; set; }
     }
 }

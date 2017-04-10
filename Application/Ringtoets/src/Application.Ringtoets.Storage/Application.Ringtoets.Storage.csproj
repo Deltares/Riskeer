@@ -150,6 +150,9 @@
     <Compile Include="DbContext\GrassCoverErosionInwardsOutputEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbContext\GrassCoverErosionInwardsOvertoppingRateOutputEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="DbContext\GrassCoverErosionInwardsSectionResultEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
