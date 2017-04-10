@@ -34,11 +34,8 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations.Helpers
     {
         public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
         {
-            if (destinationType == typeof(LoadSchematizationType))
-            {
-                return true;
-            }
-            return base.CanConvertTo(context, destinationType);
+            return destinationType == typeof(LoadSchematizationType)
+                   || base.CanConvertTo(context, destinationType);
         }
 
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
@@ -57,15 +54,9 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations.Helpers
 
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
-            if (sourceType == typeof(string))
-            {
-                return true;
-            }
-            if (sourceType == typeof(LoadSchematizationType))
-            {
-                return true;
-            }
-            return base.CanConvertFrom(context, sourceType);
+            return sourceType == typeof(string)
+                   || sourceType == typeof(LoadSchematizationType)
+                   || base.CanConvertFrom(context, sourceType);
         }
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
