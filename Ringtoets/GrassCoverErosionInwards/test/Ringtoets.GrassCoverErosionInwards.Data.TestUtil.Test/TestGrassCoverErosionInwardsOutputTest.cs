@@ -39,6 +39,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil.Test
             Assert.IsTrue(output.IsOvertoppingDominant);
             Assert.IsInstanceOf<ProbabilityAssessmentOutput>(output.ProbabilityAssessmentOutput);
             Assert.IsInstanceOf<TestDikeHeightAssessmentOutput>(output.DikeHeightAssessmentOutput);
+            Assert.IsInstanceOf<TestOvertoppingRateAssessmentOutput>(output.OvertoppingRateAssessmentOutput);
         }
     }
 }

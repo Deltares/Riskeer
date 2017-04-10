@@ -240,7 +240,8 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             var calculation = new GrassCoverErosionInwardsCalculation
             {
                 Output = new GrassCoverErosionInwardsOutput(1, true, new ProbabilityAssessmentOutput(1, 1, 1, 1, 1),
-                                                            new TestDikeHeightAssessmentOutput(2))
+                                                            new TestDikeHeightAssessmentOutput(2),
+                                                            new TestOvertoppingRateAssessmentOutput(3))
             };
 
             var registry = new PersistenceRegistry();

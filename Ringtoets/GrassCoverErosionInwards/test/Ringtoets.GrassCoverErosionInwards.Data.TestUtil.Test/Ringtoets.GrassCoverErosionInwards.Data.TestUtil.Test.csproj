@@ -54,6 +54,7 @@
     <Compile Include="TestDikeHeightAssessmentOutputTest.cs" />
     <Compile Include="TestGrassCoverErosionInwardsFailureMechanismTest.cs" />
     <Compile Include="TestGrassCoverErosionInwardsOutputTest.cs" />
+    <Compile Include="TestOvertoppingRateAssessmentOutputTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

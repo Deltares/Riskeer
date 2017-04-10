@@ -203,7 +203,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                         failureMechanismContribution,
                         generalInput.N,
                         overtoppingCalculator.ExceedanceProbabilityBeta),
-                    dikeHeight);
+                    dikeHeight,
+                    null);
             }
             finally
             {

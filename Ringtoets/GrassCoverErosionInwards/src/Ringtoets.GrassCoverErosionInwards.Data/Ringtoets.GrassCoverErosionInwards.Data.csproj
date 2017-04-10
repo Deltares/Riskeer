@@ -40,6 +40,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="DikeHeightAssessmentOutput.cs" />
+    <Compile Include="OvertoppingRateAssessmentOutput.cs" />
     <Compile Include="OvertoppingRateCalculationType.cs" />
     <Compile Include="DikeHeightCalculationType.cs" />
     <Compile Include="GeneralGrassCoverErosionInwardsInput.cs" />

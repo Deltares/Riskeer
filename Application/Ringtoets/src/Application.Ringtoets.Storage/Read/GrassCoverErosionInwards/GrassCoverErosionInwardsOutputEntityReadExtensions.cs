@@ -45,7 +45,8 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
             return new GrassCoverErosionInwardsOutput(entity.WaveHeight.ToNullAsNaN(),
                                                       Convert.ToBoolean(entity.IsOvertoppingDominant),
                                                       ReadProbabilityAssessmentOutput(entity),
-                                                      GetDikeHeightAssessmentOutput(entity));
+                                                      GetDikeHeightAssessmentOutput(entity),
+                                                      null);
         }
 
         private static ProbabilityAssessmentOutput ReadProbabilityAssessmentOutput(GrassCoverErosionInwardsOutputEntity entity)

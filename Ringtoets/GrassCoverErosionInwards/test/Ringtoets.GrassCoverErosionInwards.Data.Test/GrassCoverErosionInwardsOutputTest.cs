@@ -35,19 +35,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void ParameteredConstructor_DefaultValues()
         {
             // Setup
-            double waveHeight = 3.2934;
-            double dikeHeight = 7.3892;
-            double requiredProbability = 0.2;
-            double requiredReliability = 0.3;
-            double probability = 0.4;
-            double reliability = 0.1;
-            double factorOfSafety = 0.7;
+            const double waveHeight = 3.2934;
+            const double dikeHeight = 7.3892;
+            const double requiredProbability = 0.2;
+            const double requiredReliability = 0.3;
+            const double probability = 0.4;
+            const double reliability = 0.1;
+            const double factorOfSafety = 0.7;
+            const double overtoppingRate = 0.9;
 
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(requiredProbability, requiredReliability, probability, reliability, factorOfSafety);
             var dikeHeightAssessmentOutput = new TestDikeHeightAssessmentOutput(dikeHeight);
+            var overtoppingRateAssessmentOutput = new TestOvertoppingRateAssessmentOutput(overtoppingRate);
 
             // Call
-            var output = new GrassCoverErosionInwardsOutput(waveHeight, true, probabilityAssessmentOutput, dikeHeightAssessmentOutput);
+            var output = new GrassCoverErosionInwardsOutput(waveHeight, true, probabilityAssessmentOutput, dikeHeightAssessmentOutput, overtoppingRateAssessmentOutput);
 
             // Assert
             Assert.IsInstanceOf<ICalculationOutput>(output);
@@ -59,6 +61,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             Assert.AreSame(probabilityAssessmentOutput, output.ProbabilityAssessmentOutput);
             Assert.AreSame(dikeHeightAssessmentOutput, output.DikeHeightAssessmentOutput);
+            Assert.AreSame(overtoppingRateAssessmentOutput, output.OvertoppingRateAssessmentOutput);
         }
     }
 }
