@@ -83,6 +83,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
                 Name = readCalculation.Name
             };
             ReadDikeHeightCalculationType(readCalculation, calculation);
+            ReadOvertoppingRateCalculationType(readCalculation, calculation);
 
             if (TryReadCriticalWaveReduction(readCalculation, calculation)
                 && TryReadHydraulicBoundaryLocation(readCalculation.HydraulicBoundaryLocation, calculation)
@@ -237,6 +238,19 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
             if (readCalculation.DikeHeightCalculationType.HasValue)
             {
                 calculation.InputParameters.DikeHeightCalculationType = (DikeHeightCalculationType) readCalculation.DikeHeightCalculationType.Value;
+            }
+        }
+
+        /// <summary>
+        /// Reads the overtopping rate calculation type.
+        /// </summary>
+        /// <param name="readCalculation">The calculation read from the imported file.</param>
+        /// <param name="calculation">The calculation to configure.</param>
+        private static void ReadOvertoppingRateCalculationType(ReadGrassCoverErosionInwardsCalculation readCalculation, GrassCoverErosionInwardsCalculation calculation)
+        {
+            if (readCalculation.OvertoppingRateCalculationType.HasValue)
+            {
+                calculation.InputParameters.OvertoppingRateCalculationType = (OvertoppingRateCalculationType) readCalculation.OvertoppingRateCalculationType.Value;
             }
         }
 

@@ -515,6 +515,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     DikeProfile = dikeProfile,
                     DikeHeightCalculationType = DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
+                    OvertoppingRateCalculationType = OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability,
                     Orientation = (RoundedDouble) 5.5,
                     UseForeshore = true,
                     UseBreakWater = true,
@@ -535,13 +536,14 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
             AssertCalculation(expectedCalculation, (GrassCoverErosionInwardsCalculation) calculationGroup.Children[0]);
         }
 
-        private void AssertCalculation(GrassCoverErosionInwardsCalculation expectedCalculation, GrassCoverErosionInwardsCalculation actualCalculation)
+        private static void AssertCalculation(GrassCoverErosionInwardsCalculation expectedCalculation, GrassCoverErosionInwardsCalculation actualCalculation)
         {
             Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
             Assert.AreSame(expectedCalculation.InputParameters.HydraulicBoundaryLocation, actualCalculation.InputParameters.HydraulicBoundaryLocation);
             Assert.AreEqual(expectedCalculation.InputParameters.Orientation, actualCalculation.InputParameters.Orientation);
             Assert.AreEqual(expectedCalculation.InputParameters.DikeProfile, actualCalculation.InputParameters.DikeProfile);
             Assert.AreEqual(expectedCalculation.InputParameters.DikeHeightCalculationType, actualCalculation.InputParameters.DikeHeightCalculationType);
+            Assert.AreEqual(expectedCalculation.InputParameters.OvertoppingRateCalculationType, actualCalculation.InputParameters.OvertoppingRateCalculationType);
             Assert.AreEqual(expectedCalculation.InputParameters.DikeHeight, actualCalculation.InputParameters.DikeHeight);
             Assert.AreEqual(expectedCalculation.InputParameters.UseForeshore, actualCalculation.InputParameters.UseForeshore);
             Assert.AreEqual(expectedCalculation.InputParameters.UseBreakWater, actualCalculation.InputParameters.UseBreakWater);
