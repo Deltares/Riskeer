@@ -201,6 +201,12 @@
   <data name="DikeHeightCalculationType_DisplayName" xml:space="preserve">
     <value>HBN berekenen</value>
   </data>
+  <data name="OvertoppingRateCalculationType_Description" xml:space="preserve">
+    <value>Geeft aan of ook het overslagdebiet moet worden berekend.</value>
+  </data>
+  <data name="OvertoppingRateCalculationType_DisplayName" xml:space="preserve">
+    <value>Overslagdebiet berekenen</value>
+  </data>
   <data name="GrassCoverErosionInwardsOutput_DikeHeight_Description" xml:space="preserve">
     <value>Het berekende Hydraulisch Belasting Niveau (HBN).</value>
   </data>

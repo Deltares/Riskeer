@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
@@ -62,6 +61,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         private const int criticalFlowRatePropertyIndex = 8;
         private const int hydraulicBoundaryLocationPropertyIndex = 9;
         private const int calculateDikeHeightPropertyIndex = 10;
+        private const int calculateOvertoppingRatePropertyIndex = 11;
 
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
@@ -219,6 +219,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             set
             {
                 PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.DikeHeightCalculationType = value, propertyChangeHandler);
+            }
+        }
+
+        [PropertyOrder(calculateOvertoppingRatePropertyIndex)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.OvertoppingRateCalculationType_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.OvertoppingRateCalculationType_Description))]
+        [TypeConverter(typeof(EnumTypeConverter))]
+        public OvertoppingRateCalculationType OvertoppingRateCalculationType
+        {
+            get
+            {
+                return data.WrappedData.OvertoppingRateCalculationType;
+            }
+            set
+            {
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.OvertoppingRateCalculationType = value, propertyChangeHandler);
             }
         }
 

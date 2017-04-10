@@ -380,6 +380,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Geeft aan of ook het overslagdebiet moet worden berekend..
+        /// </summary>
+        public static string OvertoppingRateCalculationType_Description {
+            get {
+                return ResourceManager.GetString("OvertoppingRateCalculationType_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Overslagdebiet berekenen.
+        /// </summary>
+        public static string OvertoppingRateCalculationType_DisplayName {
+            get {
+                return ResourceManager.GetString("OvertoppingRateCalculationType_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De coördinaten van de locatie van de dijk in het Rijksdriehoeksstelsel..
         /// </summary>
         public static string WorldReferencePoint_DikeProfile_Description {

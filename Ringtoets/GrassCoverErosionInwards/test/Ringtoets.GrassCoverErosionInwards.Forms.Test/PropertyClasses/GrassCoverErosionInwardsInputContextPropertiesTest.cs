@@ -59,6 +59,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         private const int criticalFlowRatePropertyIndex = 7;
         private const int hydraulicBoundaryLocationPropertyIndex = 8;
         private const int calculateDikeHeightPropertyIndex = 9;
+        private const int calculateOvertoppingRatePropertyIndex = 10;
         private MockRepository mockRepository;
         private IObservablePropertyChangeHandler handler;
         private IAssessmentSection assessmentSection;
@@ -144,10 +145,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var calculation = mockRepository.Stub<GrassCoverErosionInwardsCalculation>();
             mockRepository.ReplayAll();
 
-            var input = new GrassCoverErosionInwardsInput
-            {
-                DikeHeightCalculationType = DikeHeightCalculationType.NoCalculation
-            };
+            var input = new GrassCoverErosionInwardsInput();
             var inputContext = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSection);
 
             // Call
@@ -170,6 +168,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(input.DikeHeightCalculationType, properties.DikeHeightCalculationType);
             Assert.IsTrue(TypeUtils.HasTypeConverter<GrassCoverErosionInwardsInputContextProperties,
                               EnumTypeConverter>(p => p.DikeHeightCalculationType));
+            Assert.AreEqual(input.OvertoppingRateCalculationType, properties.OvertoppingRateCalculationType);
+            Assert.IsTrue(TypeUtils.HasTypeConverter<GrassCoverErosionInwardsInputContextProperties,
+                              EnumTypeConverter>(p => p.OvertoppingRateCalculationType));
             Assert.IsNull(properties.WorldReferencePoint);
             mockRepository.VerifyAll();
         }
@@ -207,6 +208,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(input.CriticalFlowRate.StandardDeviation, properties.CriticalFlowRate.StandardDeviation);
             Assert.AreSame(input.HydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
             Assert.AreEqual(input.DikeHeightCalculationType, properties.DikeHeightCalculationType);
+            Assert.AreEqual(input.OvertoppingRateCalculationType, properties.OvertoppingRateCalculationType);
             Assert.AreEqual(new Point2D(12, 57), properties.WorldReferencePoint);
             mockRepository.VerifyAll();
         }
@@ -233,6 +235,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         {
             var dikeHeightCalculationType = new Random(21).NextEnumValue<DikeHeightCalculationType>();
             SetPropertyAndVerifyNotifcationsAndOutput(properties => properties.DikeHeightCalculationType = dikeHeightCalculationType);
+        }
+
+        [Test]
+        public void OvertoppingRateCalculationType_Always_InputChangedAndObsevablesNotified()
+        {
+            var overtoppingRateCalculationType = new Random(21).NextEnumValue<OvertoppingRateCalculationType>();
+            SetPropertyAndVerifyNotifcationsAndOutput(properties => properties.OvertoppingRateCalculationType = overtoppingRateCalculationType);
         }
 
         [Test]
@@ -423,7 +432,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                     new HydraulicBoundaryLocation(1, "A", 0, 1),
                     new HydraulicBoundaryLocation(4, "C", 0, 2),
                     new HydraulicBoundaryLocation(3, "D", 0, 3),
-                    new HydraulicBoundaryLocation(2, "B", 0, 4),
+                    new HydraulicBoundaryLocation(2, "B", 0, 4)
                 }
             };
             mockRepository.ReplayAll();
@@ -466,7 +475,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             };
             mockRepository.ReplayAll();
 
-            var input = new GrassCoverErosionInwardsInput()
+            var input = new GrassCoverErosionInwardsInput
             {
                 DikeProfile = new TestDikeProfile()
             };
@@ -508,7 +517,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                 }
             };
             mockRepository.ReplayAll();
-            var input = new GrassCoverErosionInwardsInput()
+            var input = new GrassCoverErosionInwardsInput
             {
                 DikeProfile = new TestDikeProfile()
             };
@@ -552,7 +561,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var input = new GrassCoverErosionInwardsInput();
             var calculation = new GrassCoverErosionInwardsCalculation();
 
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism()
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
             {
                 DikeProfiles =
                 {
@@ -594,7 +603,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(10, dynamicProperties.Count);
+            Assert.AreEqual(11, dynamicProperties.Count);
 
             PropertyDescriptor dikeProfileProperty = dynamicProperties[dikeProfilePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dikeProfileProperty,
@@ -665,6 +674,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                             "Schematisatie",
                                                                             "HBN berekenen",
                                                                             "Geeft aan of ook het Hydraulisch Belasting Niveau (HBN) moet worden berekend.");
+
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[calculateOvertoppingRatePropertyIndex],
+                                                                            "Schematisatie",
+                                                                            "Overslagdebiet berekenen",
+                                                                            "Geeft aan of ook het overslagdebiet moet worden berekend.");
 
             mockRepository.VerifyAll();
         }
