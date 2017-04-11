@@ -48,11 +48,33 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             get
             {
                 yield return new TestCaseData(
+                    "validConfigurationDrainCoefficientStandardDeviation.xml",
+                    "Er kan geen spreiding voor stochast 'afvoercoefficient' opgegeven worden.");
+                yield return new TestCaseData(
+                    "validConfigurationDrainCoefficientVariationCoefficient.xml",
+                    "Er kan geen spreiding voor stochast 'afvoercoefficient' opgegeven worden.");
+
+                yield return new TestCaseData(
                     "validConfigurationInvalidFailureProbabilityStructureErosion.xml",
                     "Een waarde van '1,1' als faalkans gegeven erosie bodem is ongeldig. De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.");
+
+                yield return new TestCaseData(
+                    "validConfigurationFailureProbabilityRepairClosureWithoutStructure.xml",
+                    "Er is geen kunstwerk opgegeven om faalkans herstel van gefaalde situatie aan toe te voegen.");
                 yield return new TestCaseData(
                     "validConfigurationInvalidFailureProbabilityRepairClosureElement.xml",
                     "Een waarde van '1,1' als faalkans herstel van gefaalde situatie is ongeldig. De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.");
+
+                yield return new TestCaseData(
+                    "validConfigurationInflowModelTypeWithoutStructure.xml",
+                    "Er is geen kunstwerk opgegeven om instroommodel aan toe te voegen.");
+
+                yield return new TestCaseData(
+                    "validConfigurationStructureNormalOrientationWithoutStructure.xml",
+                    "Er is geen kunstwerk opgegeven om oriëntatie aan toe te voegen.");
+                yield return new TestCaseData(
+                    "validConfigurationInvalidStructureNormalOrientation.xml",
+                    "Een waarde van '-12' als oriëntatie is ongeldig. De waarde voor de oriëntatie moet in het bereik [0,00, 360,00] liggen.");
             }
         }
 

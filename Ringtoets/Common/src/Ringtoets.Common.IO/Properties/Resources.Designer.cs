@@ -255,6 +255,16 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er kan geen spreiding voor stochast &apos;afvoercoefficient&apos; opgegeven worden..
+        /// </summary>
+        public static string CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_DrainCoefficient {
+            get {
+                return ResourceManager.GetString("CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_Drain" +
+                        "Coefficient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Er kan geen spreiding voor stochast &apos;modelfactoroverloopdebiet&apos; opgegeven worden..
         /// </summary>
         public static string CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_ModelFactorSuperCriticalFlow {
@@ -937,7 +947,7 @@ namespace Ringtoets.Common.IO.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to TRAJECT_ID;N
-        ///1-1;3
+        ///1-1;Duin
         ///1-2;2
         ///2-1;Duin
         ///2-2;2
@@ -998,8 +1008,7 @@ namespace Ringtoets.Common.IO.Properties {
         ///15-2;2
         ///15-3;2
         ///16-1;1
-        ///16-2;2
-        /// [rest of string was truncated]&quot;;.
+        ///16-2; [rest of string was truncated]&quot;;.
         /// </summary>
         public static string IHW_filecontents {
             get {

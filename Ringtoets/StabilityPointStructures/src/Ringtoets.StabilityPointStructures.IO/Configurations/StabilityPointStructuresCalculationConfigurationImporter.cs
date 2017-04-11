@@ -175,7 +175,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
             if (configuration.DrainCoefficient?.StandardDeviation != null
                 || configuration.DrainCoefficient?.VariationCoefficient != null)
             {
-                Log.LogCalculationConversionError("Er kan geen spreiding voor stochast 'afvoercoefficient' opgegeven worden.",
+                Log.LogCalculationConversionError(RingtoetsCommonIOResources.CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_DrainCoefficient,
                                                   configuration.Name);
                 return false;
             }
@@ -183,7 +183,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
         }
 
         /// <summary>
-        /// Reads the orientation.
+        /// Reads the structure normal orientation.
         /// </summary>
         /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
@@ -191,35 +191,33 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
         /// no structure defined, <c>true</c> otherwise.</returns>
         private bool TryReadOrientation(StructuresCalculationConfiguration readCalculation, StructuresCalculation<StabilityPointStructuresInput> calculation)
         {
-            if (!readCalculation.StructureNormalOrientation.HasValue)
+            if (readCalculation.StructureNormalOrientation.HasValue)
             {
-                return true;
-            }
+                if (calculation.InputParameters.Structure == null)
+                {
+                    Log.LogCalculationConversionError(string.Format(RingtoetsCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
+                                                                    RingtoetsCommonIOResources.CalculationConfigurationImporter_Orientation_DisplayName),
+                                                      calculation.Name);
 
-            if (calculation.InputParameters.Structure == null)
-            {
-                Log.LogCalculationConversionError(string.Format(RingtoetsCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
-                                                                RingtoetsCommonIOResources.CalculationConfigurationImporter_Orientation_DisplayName),
-                                                  calculation.Name);
+                    return false;
+                }
 
-                return false;
-            }
+                double orientation = readCalculation.StructureNormalOrientation.Value;
 
-            double orientation = readCalculation.StructureNormalOrientation.Value;
+                try
+                {
+                    calculation.InputParameters.StructureNormalOrientation = (RoundedDouble) orientation;
+                }
+                catch (ArgumentOutOfRangeException e)
+                {
+                    Log.LogOutOfRangeException(string.Format(RingtoetsCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
+                                                             orientation,
+                                                             RingtoetsCommonIOResources.CalculationConfigurationImporter_Orientation_DisplayName),
+                                               calculation.Name,
+                                               e);
 
-            try
-            {
-                calculation.InputParameters.StructureNormalOrientation = (RoundedDouble) orientation;
-            }
-            catch (ArgumentOutOfRangeException e)
-            {
-                Log.LogOutOfRangeException(string.Format(RingtoetsCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
-                                                         orientation,
-                                                         RingtoetsCommonIOResources.CalculationConfigurationImporter_Orientation_DisplayName),
-                                           calculation.Name,
-                                           e);
-
-                return false;
+                    return false;
+                }
             }
 
             return true;

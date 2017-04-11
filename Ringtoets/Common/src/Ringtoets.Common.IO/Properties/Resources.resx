@@ -640,4 +640,7 @@ Er is geen berekeningenconfiguratie geïmporteerd.</value>
   <data name="CalculationConfigurationImporter_TryReadVariationCoefficientStochast_Stochast_0_requires_variation_coefficient_but_standard_deviation_found_for_Calculation_1_" xml:space="preserve">
     <value>Indien voor parameter '{0}' de spreiding wordt opgegeven, moet dit door middel van een variatiecoëfficiënt. Voor berekening '{1}' is een standaardafwijking gevonden.</value>
   </data>
+  <data name="CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_DrainCoefficient" xml:space="preserve">
+    <value>Er kan geen spreiding voor stochast 'afvoercoefficient' opgegeven worden.</value>
+  </data>
 </root>

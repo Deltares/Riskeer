@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using Core.Common.Base.Data;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.IO.Configurations.Helpers;
-using Ringtoets.ClosingStructures.IO.Properties;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
@@ -205,7 +204,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
             if (configuration.DrainCoefficient?.StandardDeviation != null
                 || configuration.DrainCoefficient?.VariationCoefficient != null)
             {
-                Log.LogCalculationConversionError(Resources.CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_DrainCoefficient,
+                Log.LogCalculationConversionError(RingtoetsCommonIOResources.CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_DrainCoefficient,
                                                   configuration.Name);
                 return false;
             }
