@@ -7,7 +7,7 @@
     <kunstwerk>kunstwerk1</kunstwerk>
     <orientatie>7</orientatie>
     <instroommodel>verdronkenkoker</instroommodel>
-    <belastingschematisering>lineair</belastingschematisering>
+    <belastingschematisering>kwadratisch</belastingschematisering>
     <analysehoogte>0.1</analysehoogte>
     <afstandonderkantwandteendijk>2</afstandonderkantwandteendijk>
     <faalkansherstel>0.001</faalkansherstel>

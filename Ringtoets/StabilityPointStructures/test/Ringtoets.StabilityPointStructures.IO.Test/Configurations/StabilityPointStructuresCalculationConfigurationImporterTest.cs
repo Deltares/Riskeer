@@ -61,6 +61,10 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                     "Er kan geen spreiding voor stochast 'afvoercoefficient' opgegeven worden.");
 
                 yield return new TestCaseData(
+                    "validConfigurationEvaluationLevelWithoutStructure.xml",
+                    "Er is geen kunstwerk opgegeven om analysehoogte aan toe te voegen.");
+
+                yield return new TestCaseData(
                     "validConfigurationInvalidFailureProbabilityStructureErosion.xml",
                     "Een waarde van '1,1' als faalkans gegeven erosie bodem is ongeldig. De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.");
 
@@ -73,6 +77,9 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
 
                 yield return new TestCaseData(
                     "validConfigurationInflowModelTypeWithoutStructure.xml",
+                    "Er is geen kunstwerk opgegeven om instroommodel aan toe te voegen.");
+                yield return new TestCaseData(
+                    "validConfigurationLoadSchematizationTypeWithoutStructure.xml",
                     "Er is geen kunstwerk opgegeven om instroommodel aan toe te voegen.");
 
                 yield return new TestCaseData(
@@ -215,36 +222,6 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             AssertCalculation(expectedCalculation, (StructuresCalculation<StabilityPointStructuresInput>) calculationGroup.Children[0]);
         }
 
-        [TestCase("validConfigurationUnknownForeshoreProfile.xml",
-            "Het voorlandprofiel 'unknown' bestaat niet.")]
-        [TestCase("validConfigurationUnknownHydraulicBoundaryLocation.xml",
-            "De locatie met hydraulische randvoorwaarden 'unknown' bestaat niet.")]
-        [TestCase("validConfigurationUnknownStructure.xml",
-            "Het kunstwerk 'unknown' bestaat niet.")]
-        public void Import_ValidConfigurationUnknownData_LogMessageAndContinueImport(string file, string expectedErrorMessage)
-        {
-            // Setup
-            string filePath = Path.Combine(importerPath, file);
-
-            var calculationGroup = new CalculationGroup();
-
-            var importer = new StabilityPointStructuresCalculationConfigurationImporter(filePath,
-                                                                                        calculationGroup,
-                                                                                        Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                                        Enumerable.Empty<ForeshoreProfile>(),
-                                                                                        Enumerable.Empty<StabilityPointStructure>());
-            var successful = false;
-
-            // Call
-            Action call = () => successful = importer.Import();
-
-            // Assert
-            string expectedMessage = $"{expectedErrorMessage} Berekening 'Berekening 1' is overgeslagen.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
-            Assert.IsTrue(successful);
-            CollectionAssert.IsEmpty(calculationGroup.Children);
-        }
-
         [Test]
         public void Import_FullCalculationConfiguration_DataAddedToModel()
         {
@@ -288,6 +265,16 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                     Structure = structure,
                     ForeshoreProfile = foreshoreProfile,
 
+                    AllowedLevelIncreaseStorage =
+                    {
+                        Mean = (RoundedDouble) 0.2,
+                        StandardDeviation = (RoundedDouble) 0.01
+                    },
+                    AreaFlowApertures =
+                    {
+                        Mean = (RoundedDouble) 80.5,
+                        StandardDeviation = (RoundedDouble) 1
+                    },
                     BankWidth =
                     {
                         Mean = (RoundedDouble) 1.2,
@@ -298,99 +285,102 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                         Height = (RoundedDouble) 1.23,
                         Type = BreakWaterType.Dam
                     },
-
-                    FactorStormDurationOpenStructure = (RoundedDouble) 0.002,
-                    FailureProbabilityRepairClosure = 0.001,
-                    FailureProbabilityStructureWithErosion = 0.0001,
-
-
-
-
-                    InflowModelType = StabilityPointStructureInflowModelType.FloodedCulvert,
-                    
-
-
-
-
-
-
-
-
-
-
-
-                    StructureNormalOrientation = (RoundedDouble) 7,
-
-
-                    
-                    UseBreakWater = true,
-                    UseForeshore = false,
-
-
-
-
-
-
-
-
-                    StormDuration =
+                    ConstructiveStrengthLinearLoadModel =
                     {
-                        Mean = (RoundedDouble) 6.0
+                        Mean = (RoundedDouble) 2,
+                        CoefficientOfVariation = (RoundedDouble) 0.1
                     },
-                    ModelFactorSuperCriticalFlow =
+                    ConstructiveStrengthQuadraticLoadModel =
                     {
-                        Mean = (RoundedDouble) 1.10
-                    },
-                    FlowWidthAtBottomProtection =
-                    {
-                        Mean = (RoundedDouble) 15.2,
-                        StandardDeviation = (RoundedDouble) 0.1
-                    },
-                    WidthFlowApertures =
-                    {
-                        Mean = (RoundedDouble) 15.2,
-                        StandardDeviation = (RoundedDouble) 0.1
-                    },
-                    StorageStructureArea =
-                    {
-                        Mean = (RoundedDouble) 15000,
-                        CoefficientOfVariation = (RoundedDouble) 0.01
-                    },
-                    AllowedLevelIncreaseStorage =
-                    {
-                        Mean = (RoundedDouble) 0.2,
-                        StandardDeviation = (RoundedDouble) 0.01
+                        Mean = (RoundedDouble) 2,
+                        CoefficientOfVariation = (RoundedDouble) 0.1
                     },
                     CriticalOvertoppingDischarge =
                     {
                         Mean = (RoundedDouble) 2,
                         CoefficientOfVariation = (RoundedDouble) 0.1
                     },
-
-                    AreaFlowApertures =
-                    {
-                        Mean = (RoundedDouble) 80.5,
-                        StandardDeviation = (RoundedDouble) 1
-                    },
                     DrainCoefficient =
                     {
                         Mean = (RoundedDouble) 0.1
                     },
+                    EvaluationLevel = (RoundedDouble) 0.1,
+                    FactorStormDurationOpenStructure = (RoundedDouble) 0.002,
+                    FailureProbabilityRepairClosure = 0.001,
+                    FailureProbabilityStructureWithErosion = 0.0001,
+                    FlowWidthAtBottomProtection =
+                    {
+                        Mean = (RoundedDouble) 15.2,
+                        StandardDeviation = (RoundedDouble) 0.1
+                    },
+                    InflowModelType = StabilityPointStructureInflowModelType.FloodedCulvert,
                     InsideWaterLevel =
                     {
                         Mean = (RoundedDouble) 0.5,
                         StandardDeviation = (RoundedDouble) 0.1
                     },
+                    LoadSchematizationType = LoadSchematizationType.Quadratic,
+                    ModelFactorSuperCriticalFlow =
+                    {
+                        Mean = (RoundedDouble) 1.10
+                    },
+                    StormDuration =
+                    {
+                        Mean = (RoundedDouble) 6.0
+                    },
+                    StructureNormalOrientation = (RoundedDouble) 7,
+                    UseBreakWater = true,
+                    UseForeshore = false,
+                    StorageStructureArea =
+                    {
+                        Mean = (RoundedDouble) 15000,
+                        CoefficientOfVariation = (RoundedDouble) 0.01
+                    },
                     ThresholdHeightOpenWeir =
                     {
                         Mean = (RoundedDouble) 1.2,
+                        StandardDeviation = (RoundedDouble) 0.1
+                    },
+                    WidthFlowApertures =
+                    {
+                        Mean = (RoundedDouble) 15.2,
                         StandardDeviation = (RoundedDouble) 0.1
                     }
                 }
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertCalculation(expectedCalculation, (StructuresCalculation<StabilityPointStructuresInput>)calculationGroup.Children[0]);
+            AssertCalculation(expectedCalculation, (StructuresCalculation<StabilityPointStructuresInput>) calculationGroup.Children[0]);
+        }
+
+        [TestCase("validConfigurationUnknownForeshoreProfile.xml",
+            "Het voorlandprofiel 'unknown' bestaat niet.")]
+        [TestCase("validConfigurationUnknownHydraulicBoundaryLocation.xml",
+            "De locatie met hydraulische randvoorwaarden 'unknown' bestaat niet.")]
+        [TestCase("validConfigurationUnknownStructure.xml",
+            "Het kunstwerk 'unknown' bestaat niet.")]
+        public void Import_ValidConfigurationUnknownData_LogMessageAndContinueImport(string file, string expectedErrorMessage)
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, file);
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new StabilityPointStructuresCalculationConfigurationImporter(filePath,
+                                                                                        calculationGroup,
+                                                                                        Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                                        Enumerable.Empty<ForeshoreProfile>(),
+                                                                                        Enumerable.Empty<StabilityPointStructure>());
+            var successful = false;
+
+            // Call
+            Action call = () => successful = importer.Import();
+
+            // Assert
+            string expectedMessage = $"{expectedErrorMessage} Berekening 'Berekening 1' is overgeslagen.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
+            Assert.IsTrue(successful);
+            CollectionAssert.IsEmpty(calculationGroup.Children);
         }
 
         private static void AssertCalculation(StructuresCalculation<StabilityPointStructuresInput> expectedCalculation,

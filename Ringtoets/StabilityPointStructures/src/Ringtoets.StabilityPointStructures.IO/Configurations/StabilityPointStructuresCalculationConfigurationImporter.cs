@@ -103,10 +103,12 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
                 && TrySetHydraulicBoundaryLocation(readCalculation.HydraulicBoundaryLocationName, calculation)
                 && TrySetForeshoreProfile(readCalculation.ForeshoreProfileName, calculation)
                 && TryReadFailureProbabilityRepairClosure(readCalculation, calculation)
+                && TryReadEvaluationLevel(readCalculation, calculation)
                 && TryReadStochasts(readCalculation, calculation)
                 && TryReadOrientation(readCalculation, calculation)
                 && TryReadFailureProbabilityStructureWithErosion(readCalculation, calculation)
                 && TryReadInflowModelType(readCalculation, calculation)
+                && TryReadLoadSchematizationType(readCalculation, calculation)
                 && readCalculation.WaveReduction.ValidateWaveReduction(calculation.InputParameters.ForeshoreProfile, calculation.Name, Log))
             {
                 ReadFactorStormDurationOpenStructure(readCalculation, calculation);
@@ -116,8 +118,34 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
             return null;
         }
 
-        private bool TryReadStochasts(StabilityPointStructuresCalculationConfiguration readCalculation, 
-            StructuresCalculation<StabilityPointStructuresInput> calculation)
+        /// <summary>
+        /// Reads the evaluation level.
+        /// </summary>
+        /// <param name="readCalculation">The calculation read from the imported file.</param>
+        /// <param name="calculation">The calculation to configure.</param>
+        /// <returns><c>false</c> when the evaluation level is invalid or when there is an
+        /// evaluation level but no structure defined, <c>true</c> otherwise.</returns>
+        private bool TryReadEvaluationLevel(StabilityPointStructuresCalculationConfiguration readCalculation, StructuresCalculation<StabilityPointStructuresInput> calculation)
+        {
+            if (readCalculation.EvaluationLevel.HasValue)
+            {
+                if (calculation.InputParameters.Structure == null)
+                {
+                    Log.LogCalculationConversionError(string.Format(RingtoetsCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
+                                                                    Resources.CalculationConfigurationImporter_EvaluationLevel_DisplayName),
+                                                      calculation.Name);
+
+                    return false;
+                }
+
+                calculation.InputParameters.EvaluationLevel = (RoundedDouble) readCalculation.EvaluationLevel.Value;
+            }
+
+            return true;
+        }
+
+        private bool TryReadStochasts(StabilityPointStructuresCalculationConfiguration readCalculation,
+                                      StructuresCalculation<StabilityPointStructuresInput> calculation)
         {
             if (!readCalculation.ValidateStructureBaseStochasts(Log))
             {
@@ -176,6 +204,18 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
                        calculation.InputParameters,
                        readCalculation.ModelFactorSuperCriticalFlow,
                        i => i.ModelFactorSuperCriticalFlow, (i, d) => i.ModelFactorSuperCriticalFlow = d)
+                   && TryReadVariationCoefficientStochast(
+                       StabilityPointStructuresConfigurationSchemaIdentifiers.ConstructiveStrengthLinearLoadModelStochastName,
+                       calculation.Name,
+                       calculation.InputParameters,
+                       readCalculation.ConstructiveStrengthLinearLoadModel,
+                       i => i.ConstructiveStrengthLinearLoadModel, (i, d) => i.ConstructiveStrengthLinearLoadModel = d)
+                   && TryReadVariationCoefficientStochast(
+                       StabilityPointStructuresConfigurationSchemaIdentifiers.ConstructiveStrengthQuadraticLoadModelStochastName,
+                       calculation.Name,
+                       calculation.InputParameters,
+                       readCalculation.ConstructiveStrengthQuadraticLoadModel,
+                       i => i.ConstructiveStrengthQuadraticLoadModel, (i, d) => i.ConstructiveStrengthQuadraticLoadModel = d)
                    && TryReadVariationCoefficientStochast(
                        ConfigurationSchemaIdentifiers.StorageStructureAreaStochastName,
                        calculation.Name,
@@ -360,6 +400,34 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
                 calculation.InputParameters.InflowModelType = (StabilityPointStructureInflowModelType)
                     new ConfigurationStabilityPointStructuresInflowModelTypeConverter()
                         .ConvertTo(readCalculation.InflowModelType.Value, typeof(StabilityPointStructureInflowModelType));
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Reads the load schematization type.
+        /// </summary>
+        /// <param name="readCalculation">The calculation read from the imported file.</param>
+        /// <param name="calculation">The calculation to configure.</param>
+        /// <returns><c>false</c> when the load schematization type is invalid or when there is a 
+        /// load schematization type but no structure defined, <c>true</c> otherwise.</returns>
+        private bool TryReadLoadSchematizationType(StabilityPointStructuresCalculationConfiguration readCalculation, StructuresCalculation<StabilityPointStructuresInput> calculation)
+        {
+            if (readCalculation.LoadSchematizationType.HasValue)
+            {
+                if (calculation.InputParameters.Structure == null)
+                {
+                    Log.LogCalculationConversionError(string.Format(RingtoetsCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
+                                                                    RingtoetsCommonIOResources.CalculationConfigurationImporter_InflowModelType_DisplayName),
+                                                      calculation.Name);
+
+                    return false;
+                }
+
+                calculation.InputParameters.LoadSchematizationType = (LoadSchematizationType)
+                    new ConfigurationStabilityPointStructuresLoadSchematizationTypeConverter()
+                        .ConvertTo(readCalculation.LoadSchematizationType.Value, typeof(LoadSchematizationType));
             }
 
             return true;

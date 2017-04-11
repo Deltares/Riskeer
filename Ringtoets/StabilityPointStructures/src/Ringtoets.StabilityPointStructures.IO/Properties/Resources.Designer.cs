@@ -82,6 +82,15 @@ namespace Ringtoets.StabilityPointStructures.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to analysehoogte.
+        /// </summary>
+        internal static string CalculationConfigurationImporter_EvaluationLevel_DisplayName {
+            get {
+                return ResourceManager.GetString("CalculationConfigurationImporter_EvaluationLevel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to faalkans herstel van gefaalde situatie.
         /// </summary>
         internal static string CalculationConfigurationImporter_FailureProbabilityRepairClosure_DisplayName {
