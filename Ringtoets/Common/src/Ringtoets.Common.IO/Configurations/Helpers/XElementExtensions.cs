@@ -202,11 +202,16 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             return parentElement.Descendants(descendantElementName).FirstOrDefault();
         }
 
+        /// <summary>
+        /// Gets a configuration based on the values found in the <paramref name="calculationElement"/>.
+        /// </summary>
+        /// <param name="calculationElement">The element containing values for stochast parameters.</param>
+        /// <param name="stochastName">The name of the stochast to find the parameter values for.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="FormatException">Thrown when the value isn't in the correct format.</exception>
-        /// <exception cref="OverflowException">Thrown when the value for mean or standard deviation represents a
-        /// number less than <see cref="double.MinValue"/> or greater than <see cref="double.MaxValue"/>.</exception>
-        public static StochastConfiguration GetStochastParameters(this XElement calculationElement, string stochastName)
+        /// <exception cref="FormatException">Thrown when the value for a parameter isn't in the correct format.</exception>
+        /// <exception cref="OverflowException">Thrown when the value for a parameter represents a number less
+        /// than <see cref="double.MinValue"/> or greater than <see cref="double.MaxValue"/>.</exception>
+        public static StochastConfiguration GetStochastConfiguration(this XElement calculationElement, string stochastName)
         {
             if (calculationElement == null)
             {

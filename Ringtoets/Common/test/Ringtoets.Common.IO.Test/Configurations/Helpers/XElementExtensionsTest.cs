@@ -734,10 +734,10 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
         }
 
         [Test]
-        public void GetStochastParameters_CalculationElementNull_ThrowsArgumentNullException()
+        public void GetStochastConfiguration_CalculationElementNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ((XElement) null).GetStochastParameters("name");
+            TestDelegate test = () => ((XElement) null).GetStochastConfiguration("name");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -745,10 +745,10 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
         }
 
         [Test]
-        public void GetStochastParameters_NameNull_ThrowsArgumentNullException()
+        public void GetStochastConfiguration_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new XElement("root").GetStochastParameters(null);
+            TestDelegate test = () => new XElement("root").GetStochastConfiguration(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -756,33 +756,33 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
         }
 
         [Test]
-        public void GetStochastParameters_RootWithoutStochastsElement_ReturnsNull()
+        public void GetStochastConfiguration_RootWithoutStochastsElement_ReturnsNull()
         {
             // Setup
             var xElement = new XElement("root");
 
             // Call
-            var stochast = xElement.GetStochastParameters("some name");
+            var stochast = xElement.GetStochastConfiguration("some name");
 
             // Assert
             Assert.IsNull(stochast);
         }
 
         [Test]
-        public void GetStochastParameters_EmptyStochastsElement_ReturnsNull()
+        public void GetStochastConfiguration_EmptyStochastsElement_ReturnsNull()
         {
             // Setup
             var xElement = new XElement("root", new XElement("stochasten"));
 
             // Call
-            var stochast = xElement.GetStochastParameters("some name");
+            var stochast = xElement.GetStochastConfiguration("some name");
 
             // Assert
             Assert.IsNull(stochast);
         }
 
         [Test]
-        public void GetStochastParameters_StochastWithDifferentName_ReturnsNull()
+        public void GetStochastConfiguration_StochastWithDifferentName_ReturnsNull()
         {
             // Setup
             var stochastElement = new XElement("stochast");
@@ -790,14 +790,14 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             var xElement = new XElement("root", new XElement("stochasten", stochastElement));
 
             // Call
-            var stochast = xElement.GetStochastParameters("stochastB");
+            var stochast = xElement.GetStochastConfiguration("stochastB");
 
             // Assert
             Assert.IsNull(stochast);
         }
 
         [Test]
-        public void GetStochastParameters_StochastWithSameName_ReturnsNewStochast()
+        public void GetStochastConfiguration_StochastWithSameName_ReturnsNewStochast()
         {
             // Setup
             var stochastName = "stochastA";
@@ -807,7 +807,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             var xElement = new XElement("root", new XElement("stochasten", stochastElement));
 
             // Call
-            var stochast = xElement.GetStochastParameters(stochastName);
+            var stochast = xElement.GetStochastConfiguration(stochastName);
 
             // Assert
             Assert.IsNull(stochast.Mean);
@@ -815,7 +815,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
         }
 
         [Test]
-        public void GetStochastParameters_StochastWithParameters_ReturnsNewStochastWithParametersSet()
+        public void GetStochastConfiguration_StochastWithParameters_ReturnsNewStochastWithParametersSet()
         {
             // Setup
             var stochastName = "stochastA";
@@ -830,7 +830,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             var xElement = new XElement("root", new XElement("stochasten", stochastElement));
 
             // Call
-            var stochast = xElement.GetStochastParameters(stochastName);
+            var stochast = xElement.GetStochastConfiguration(stochastName);
 
             // Assert
             Assert.AreEqual(mean, stochast.Mean);
