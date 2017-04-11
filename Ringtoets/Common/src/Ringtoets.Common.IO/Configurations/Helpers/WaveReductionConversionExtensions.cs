@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.Structures;
 namespace Ringtoets.Common.IO.Configurations.Helpers
 {
     /// <summary>
-    /// Helper methods for setting wave reduction properties of configuration elements.
+    /// Extension methods for setting wave reduction properties of configuration elements.
     /// </summary>
     public static class WaveReductionConversionExtensions
     {
