@@ -123,6 +123,21 @@
   <data name="CalculationConfigurationImporter_FailureProbabilityRepairClosure_DisplayName" xml:space="preserve">
     <value>faalkans herstel van gefaalde situatie</value>
   </data>
+  <data name="CalculationConfigurationImporter_LevellingCount_DisplayName" xml:space="preserve">
+    <value>het aantal nivelleringen per jaar</value>
+  </data>
+  <data name="CalculationConfigurationImporter_LoadSchematizationType_DisplayName" xml:space="preserve">
+    <value>belastingschematisering</value>
+  </data>
+  <data name="CalculationConfigurationImporter_ProbabilityCollisionSecondaryStructure_DisplayName" xml:space="preserve">
+    <value>de kans op aanvaring tweede keermiddel per nivellering</value>
+  </data>
+  <data name="CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_FlowVelocityStructureClosable" xml:space="preserve">
+    <value>Er kan geen spreiding voor stochast 'kritiekestroomsnelheid' opgegeven worden.</value>
+  </data>
+  <data name="CalculationConfigurationImporter_VerticalDistance_DisplayName" xml:space="preserve">
+    <value>de afstand onderkant wand en teen van de dijk/berm</value>
+  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="StabilityPointStructuresConfigurationSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\KunstwerkenConstructiefFalenSchema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>

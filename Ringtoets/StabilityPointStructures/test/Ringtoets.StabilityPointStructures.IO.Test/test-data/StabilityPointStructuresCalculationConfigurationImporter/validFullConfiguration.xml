@@ -73,7 +73,6 @@
       </stochast>
       <stochast naam="kritiekestroomsnelheid">
         <verwachtingswaarde>1.1</verwachtingswaarde>
-        <variatiecoefficient>0.12</variatiecoefficient>
       </stochast>
       <stochast naam="kwadratischebelastingschematiseringsterkte">
         <verwachtingswaarde>2</verwachtingswaarde>

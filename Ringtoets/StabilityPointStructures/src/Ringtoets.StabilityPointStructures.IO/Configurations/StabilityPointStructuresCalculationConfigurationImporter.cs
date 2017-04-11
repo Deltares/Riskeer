@@ -109,6 +109,9 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
                 && TryReadFailureProbabilityStructureWithErosion(readCalculation, calculation)
                 && TryReadInflowModelType(readCalculation, calculation)
                 && TryReadLoadSchematizationType(readCalculation, calculation)
+                && TryReadLevellingCount(readCalculation, calculation)
+                && TryReadProbabilityCollisionSecondaryStructure(readCalculation, calculation)
+                && TryReadVerticalDistance(readCalculation, calculation)
                 && readCalculation.WaveReduction.ValidateWaveReduction(calculation.InputParameters.ForeshoreProfile, calculation.Name, Log))
             {
                 ReadFactorStormDurationOpenStructure(readCalculation, calculation);
@@ -186,6 +189,18 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
                        calculation.InputParameters,
                        readCalculation.DrainCoefficient,
                        i => i.DrainCoefficient, (i, d) => i.DrainCoefficient = d)
+                   && TryReadVariationCoefficientStochast(
+                       StabilityPointStructuresConfigurationSchemaIdentifiers.FailureCollisionEnergyStochastName,
+                       calculation.Name,
+                       calculation.InputParameters,
+                       readCalculation.FailureCollisionEnergy,
+                       i => i.FailureCollisionEnergy, (i, d) => i.FailureCollisionEnergy = d)
+                   && TryReadVariationCoefficientStochast(
+                       StabilityPointStructuresConfigurationSchemaIdentifiers.FlowVelocityStructureClosableStochastName,
+                       calculation.Name,
+                       calculation.InputParameters,
+                       readCalculation.FlowVelocityStructureClosable,
+                       i => i.FlowVelocityStructureClosable, (i, d) => i.FlowVelocityStructureClosable = d)
                    && TryReadStandardDeviationStochast(
                        ConfigurationSchemaIdentifiers.FlowWidthAtBottomProtectionStochastName,
                        calculation.Name,
@@ -199,11 +214,23 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
                        readCalculation.InsideWaterLevel,
                        i => i.InsideWaterLevel, (i, d) => i.InsideWaterLevel = d)
                    && TryReadStandardDeviationStochast(
+                       StabilityPointStructuresConfigurationSchemaIdentifiers.InsideWaterLevelFailureConstructionStochastName,
+                       calculation.Name,
+                       calculation.InputParameters,
+                       readCalculation.InsideWaterLevelFailureConstruction,
+                       i => i.InsideWaterLevelFailureConstruction, (i, d) => i.InsideWaterLevelFailureConstruction = d)
+                   && TryReadStandardDeviationStochast(
                        ConfigurationSchemaIdentifiers.ModelFactorSuperCriticalFlowStochastName,
                        calculation.Name,
                        calculation.InputParameters,
                        readCalculation.ModelFactorSuperCriticalFlow,
                        i => i.ModelFactorSuperCriticalFlow, (i, d) => i.ModelFactorSuperCriticalFlow = d)
+                   && TryReadStandardDeviationStochast(
+                       StabilityPointStructuresConfigurationSchemaIdentifiers.LevelCrestStructureStochastName,
+                       calculation.Name,
+                       calculation.InputParameters,
+                       readCalculation.LevelCrestStructure,
+                       i => i.LevelCrestStructure, (i, d) => i.LevelCrestStructure = d)
                    && TryReadVariationCoefficientStochast(
                        StabilityPointStructuresConfigurationSchemaIdentifiers.ConstructiveStrengthLinearLoadModelStochastName,
                        calculation.Name,
@@ -216,6 +243,30 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
                        calculation.InputParameters,
                        readCalculation.ConstructiveStrengthQuadraticLoadModel,
                        i => i.ConstructiveStrengthQuadraticLoadModel, (i, d) => i.ConstructiveStrengthQuadraticLoadModel = d)
+                   && TryReadVariationCoefficientStochast(
+                       StabilityPointStructuresConfigurationSchemaIdentifiers.ShipMassStochastName,
+                       calculation.Name,
+                       calculation.InputParameters,
+                       readCalculation.ShipMass,
+                       i => i.ShipMass, (i, d) => i.ShipMass = d)
+                   && TryReadVariationCoefficientStochast(
+                       StabilityPointStructuresConfigurationSchemaIdentifiers.ShipVelocityStochastName,
+                       calculation.Name,
+                       calculation.InputParameters,
+                       readCalculation.ShipVelocity,
+                       i => i.ShipVelocity, (i, d) => i.ShipVelocity = d)
+                   && TryReadVariationCoefficientStochast(
+                       StabilityPointStructuresConfigurationSchemaIdentifiers.StabilityLinearLoadModelStochastName,
+                       calculation.Name,
+                       calculation.InputParameters,
+                       readCalculation.StabilityLinearLoadModel,
+                       i => i.StabilityLinearLoadModel, (i, d) => i.StabilityLinearLoadModel = d)
+                   && TryReadVariationCoefficientStochast(
+                       StabilityPointStructuresConfigurationSchemaIdentifiers.StabilityQuadraticLoadModelStochastName,
+                       calculation.Name,
+                       calculation.InputParameters,
+                       readCalculation.StabilityQuadraticLoadModel,
+                       i => i.StabilityQuadraticLoadModel, (i, d) => i.StabilityQuadraticLoadModel = d)
                    && TryReadVariationCoefficientStochast(
                        ConfigurationSchemaIdentifiers.StorageStructureAreaStochastName,
                        calculation.Name,
@@ -247,6 +298,13 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
                 || configuration.DrainCoefficient?.VariationCoefficient != null)
             {
                 Log.LogCalculationConversionError(RingtoetsCommonIOResources.CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_DrainCoefficient,
+                                                  configuration.Name);
+                return false;
+            }
+            if (configuration.FlowVelocityStructureClosable?.StandardDeviation != null
+                || configuration.FlowVelocityStructureClosable?.VariationCoefficient != null)
+            {
+                Log.LogCalculationConversionError(Resources.CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_FlowVelocityStructureClosable,
                                                   configuration.Name);
                 return false;
             }
@@ -365,6 +423,50 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
         }
 
         /// <summary>
+        /// Reads the probability collision secondary structure.
+        /// </summary>
+        /// <param name="readCalculation">The calculation read from the imported file.</param>
+        /// <param name="calculation">The calculation to configure.</param>
+        /// <returns><c>false</c> when the probability collision secondary structure is invalid or 
+        /// when there is a probability collision secondary structure but no structure defined, 
+        /// <c>true</c> otherwise.</returns>
+        private bool TryReadProbabilityCollisionSecondaryStructure(StabilityPointStructuresCalculationConfiguration readCalculation,
+                                                                   StructuresCalculation<StabilityPointStructuresInput> calculation)
+        {
+            if (readCalculation.ProbabilityCollisionSecondaryStructure.HasValue)
+            {
+                if (calculation.InputParameters.Structure == null)
+                {
+                    Log.LogCalculationConversionError(string.Format(RingtoetsCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
+                                                                    Resources.CalculationConfigurationImporter_ProbabilityCollisionSecondaryStructure_DisplayName),
+                                                      calculation.Name);
+
+                    return false;
+                }
+
+                double failureProbability = readCalculation.ProbabilityCollisionSecondaryStructure.Value;
+
+                try
+                {
+                    calculation.InputParameters.ProbabilityCollisionSecondaryStructure = failureProbability;
+                }
+                catch (ArgumentOutOfRangeException e)
+                {
+                    Log.LogOutOfRangeException(string.Format(
+                                                   RingtoetsCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
+                                                   failureProbability,
+                                                   Resources.CalculationConfigurationImporter_ProbabilityCollisionSecondaryStructure_DisplayName),
+                                               calculation.Name,
+                                               e);
+
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
         /// Reads the factor storm duration.
         /// </summary>
         /// <param name="readCalculation">The calculation read from the imported file.</param>
@@ -419,7 +521,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
                 if (calculation.InputParameters.Structure == null)
                 {
                     Log.LogCalculationConversionError(string.Format(RingtoetsCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
-                                                                    RingtoetsCommonIOResources.CalculationConfigurationImporter_InflowModelType_DisplayName),
+                                                                    Resources.CalculationConfigurationImporter_LoadSchematizationType_DisplayName),
                                                       calculation.Name);
 
                     return false;
@@ -428,6 +530,58 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
                 calculation.InputParameters.LoadSchematizationType = (LoadSchematizationType)
                     new ConfigurationStabilityPointStructuresLoadSchematizationTypeConverter()
                         .ConvertTo(readCalculation.LoadSchematizationType.Value, typeof(LoadSchematizationType));
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Reads the leveling count.
+        /// </summary>
+        /// <param name="readCalculation">The calculation read from the imported file.</param>
+        /// <param name="calculation">The calculation to configure.</param>
+        /// <returns><c>false</c> when the leveling count is invalid or when there is a 
+        /// leveling count but no structure defined, <c>true</c> otherwise.</returns>
+        private bool TryReadLevellingCount(StabilityPointStructuresCalculationConfiguration readCalculation, StructuresCalculation<StabilityPointStructuresInput> calculation)
+        {
+            if (readCalculation.LevellingCount.HasValue)
+            {
+                if (calculation.InputParameters.Structure == null)
+                {
+                    Log.LogCalculationConversionError(string.Format(RingtoetsCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
+                                                                    Resources.CalculationConfigurationImporter_LevellingCount_DisplayName),
+                                                      calculation.Name);
+
+                    return false;
+                }
+
+                calculation.InputParameters.LevellingCount = readCalculation.LevellingCount.Value;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Reads the vertical distance.
+        /// </summary>
+        /// <param name="readCalculation">The calculation read from the imported file.</param>
+        /// <param name="calculation">The calculation to configure.</param>
+        /// <returns><c>false</c> when the vertical distance is invalid or when there is a 
+        /// vertical distance but no structure defined, <c>true</c> otherwise.</returns>
+        private bool TryReadVerticalDistance(StabilityPointStructuresCalculationConfiguration readCalculation, StructuresCalculation<StabilityPointStructuresInput> calculation)
+        {
+            if (readCalculation.VerticalDistance.HasValue)
+            {
+                if (calculation.InputParameters.Structure == null)
+                {
+                    Log.LogCalculationConversionError(string.Format(RingtoetsCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
+                                                                    Resources.CalculationConfigurationImporter_VerticalDistance_DisplayName),
+                                                      calculation.Name);
+
+                    return false;
+                }
+
+                calculation.InputParameters.VerticalDistance = (RoundedDouble) readCalculation.VerticalDistance.Value;
             }
 
             return true;

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <berekening naam="Berekening 1">
+    <kunstwerk>kunstwerk1</kunstwerk>
+    <stochasten>
+      <stochast naam="kritiekestroomsnelheid">
+        <standaardafwijking>0.1</standaardafwijking>
+      </stochast>
+    </stochasten>
+  </berekening>
+</configuratie>

@@ -76,11 +76,30 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                     "Een waarde van '1,1' als faalkans herstel van gefaalde situatie is ongeldig. De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.");
 
                 yield return new TestCaseData(
+                    "validConfigurationFlowVelocityStructureClosableStandardDeviation.xml",
+                    "Er kan geen spreiding voor stochast 'kritiekestroomsnelheid' opgegeven worden.");
+                yield return new TestCaseData(
+                    "validConfigurationFlowVelocityStructureClosableVariationCoefficient.xml",
+                    "Er kan geen spreiding voor stochast 'kritiekestroomsnelheid' opgegeven worden.");
+
+                yield return new TestCaseData(
                     "validConfigurationInflowModelTypeWithoutStructure.xml",
                     "Er is geen kunstwerk opgegeven om instroommodel aan toe te voegen.");
                 yield return new TestCaseData(
                     "validConfigurationLoadSchematizationTypeWithoutStructure.xml",
-                    "Er is geen kunstwerk opgegeven om instroommodel aan toe te voegen.");
+                    "Er is geen kunstwerk opgegeven om belastingschematisering aan toe te voegen.");
+
+                yield return new TestCaseData(
+                    "validConfigurationProbabilityCollisionSecondaryStructureWithoutStructure.xml",
+                    "Er is geen kunstwerk opgegeven om de kans op aanvaring tweede keermiddel per nivellering aan toe te voegen.");
+
+                yield return new TestCaseData(
+                    "validConfigurationLevellingCountWithoutStructure.xml",
+                    "Er is geen kunstwerk opgegeven om het aantal nivelleringen per jaar aan toe te voegen.");
+
+                yield return new TestCaseData(
+                    "validConfigurationVerticalDistanceWithoutStructure.xml",
+                    "Er is geen kunstwerk opgegeven om de afstand onderkant wand en teen van de dijk/berm aan toe te voegen.");
 
                 yield return new TestCaseData(
                     "validConfigurationStructureNormalOrientationWithoutStructure.xml",
@@ -306,8 +325,17 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                     },
                     EvaluationLevel = (RoundedDouble) 0.1,
                     FactorStormDurationOpenStructure = (RoundedDouble) 0.002,
+                    FailureCollisionEnergy =
+                    {
+                        Mean = (RoundedDouble) 1.2,
+                        CoefficientOfVariation = (RoundedDouble) 0.1
+                    },
                     FailureProbabilityRepairClosure = 0.001,
                     FailureProbabilityStructureWithErosion = 0.0001,
+                    FlowVelocityStructureClosable =
+                    {
+                        Mean = (RoundedDouble) 1.1
+                    },
                     FlowWidthAtBottomProtection =
                     {
                         Mean = (RoundedDouble) 15.2,
@@ -319,18 +347,50 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                         Mean = (RoundedDouble) 0.5,
                         StandardDeviation = (RoundedDouble) 0.1
                     },
+                    InsideWaterLevelFailureConstruction =
+                    {
+                        Mean = (RoundedDouble) 0.7,
+                        StandardDeviation = (RoundedDouble) 0.1
+                    },
+                    LevelCrestStructure =
+                    {
+                        Mean = (RoundedDouble) 4.3,
+                        StandardDeviation = (RoundedDouble) 0.1
+                    },
+                    LevellingCount = 1,
                     LoadSchematizationType = LoadSchematizationType.Quadratic,
                     ModelFactorSuperCriticalFlow =
                     {
                         Mean = (RoundedDouble) 1.10
+                    },
+                    ProbabilityCollisionSecondaryStructure = 0.00001,
+                    UseBreakWater = true,
+                    UseForeshore = false,
+                    ShipMass =
+                    {
+                        Mean = (RoundedDouble) 16000,
+                        CoefficientOfVariation = (RoundedDouble) 0.1
+                    },
+                    ShipVelocity =
+                    {
+                        Mean = (RoundedDouble) 1.2,
+                        CoefficientOfVariation = (RoundedDouble) 0.1
+                    },
+                    StabilityLinearLoadModel =
+                    {
+                        Mean = (RoundedDouble) 1.2,
+                        CoefficientOfVariation = (RoundedDouble) 0.1
+                    },
+                    StabilityQuadraticLoadModel =
+                    {
+                        Mean = (RoundedDouble) 1.2,
+                        CoefficientOfVariation = (RoundedDouble) 0.1
                     },
                     StormDuration =
                     {
                         Mean = (RoundedDouble) 6.0
                     },
                     StructureNormalOrientation = (RoundedDouble) 7,
-                    UseBreakWater = true,
-                    UseForeshore = false,
                     StorageStructureArea =
                     {
                         Mean = (RoundedDouble) 15000,
@@ -341,6 +401,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                         Mean = (RoundedDouble) 1.2,
                         StandardDeviation = (RoundedDouble) 0.1
                     },
+                    VerticalDistance = (RoundedDouble) 2,
                     WidthFlowApertures =
                     {
                         Mean = (RoundedDouble) 15.2,

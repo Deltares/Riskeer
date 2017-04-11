@@ -100,6 +100,53 @@ namespace Ringtoets.StabilityPointStructures.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to het aantal nivelleringen per jaar.
+        /// </summary>
+        internal static string CalculationConfigurationImporter_LevellingCount_DisplayName {
+            get {
+                return ResourceManager.GetString("CalculationConfigurationImporter_LevellingCount_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to belastingschematisering.
+        /// </summary>
+        internal static string CalculationConfigurationImporter_LoadSchematizationType_DisplayName {
+            get {
+                return ResourceManager.GetString("CalculationConfigurationImporter_LoadSchematizationType_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to de kans op aanvaring tweede keermiddel per nivellering.
+        /// </summary>
+        internal static string CalculationConfigurationImporter_ProbabilityCollisionSecondaryStructure_DisplayName {
+            get {
+                return ResourceManager.GetString("CalculationConfigurationImporter_ProbabilityCollisionSecondaryStructure_DisplayNa" +
+                        "me", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er kan geen spreiding voor stochast &apos;kritiekestroomsnelheid&apos; opgegeven worden..
+        /// </summary>
+        internal static string CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_FlowVelocityStructureClosable {
+            get {
+                return ResourceManager.GetString("CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_FlowV" +
+                        "elocityStructureClosable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to de afstand onderkant wand en teen van de dijk/berm.
+        /// </summary>
+        internal static string CalculationConfigurationImporter_VerticalDistance_DisplayName {
+            get {
+                return ResourceManager.GetString("CalculationConfigurationImporter_VerticalDistance_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
         ///&lt;!--
         ///Copyright (C) Stichting Deltares 2016. All rights reserved.

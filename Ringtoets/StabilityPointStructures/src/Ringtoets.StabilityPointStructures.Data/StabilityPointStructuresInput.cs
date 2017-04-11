@@ -330,6 +330,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// Gets or sets the flow velocity structure closable.
         /// [m/s]
         /// </summary>
+        /// <remarks>Only sets the mean.</remarks>
         public VariationCoefficientNormalDistribution FlowVelocityStructureClosable
         {
             get
