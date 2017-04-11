@@ -40,6 +40,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
 
             // Assert
             Assert.IsInstanceOf<IVariationCoefficientDistribution>(distribution);
+            Assert.IsInstanceOf<ILogNormalDistribution>(distribution);
 
             int numberOfDecimals = RoundedDouble.MaximumNumberOfDecimalPlaces;
 
@@ -60,6 +61,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
 
             // Assert
             Assert.IsInstanceOf<IVariationCoefficientDistribution>(distribution);
+            Assert.IsInstanceOf<ILogNormalDistribution>(distribution);
 
             Assert.AreEqual(numberOfDecimals, distribution.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(1.0, distribution.Mean.Value);

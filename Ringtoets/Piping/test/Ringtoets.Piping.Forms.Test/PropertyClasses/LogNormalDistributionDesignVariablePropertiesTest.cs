@@ -50,7 +50,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             var distribution = new LogNormalDistribution();
-            var designVariable = new LogNormalDistributionDesignVariable(distribution);
+            var designVariable = new LogNormalDistributionDesignVariable<LogNormalDistribution>(distribution);
 
             // Call
             var properties = new LogNormalDistributionDesignVariableProperties(designVariable);
@@ -91,7 +91,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             var distribution = new LogNormalDistribution();
-            var designVariable = new LogNormalDistributionDesignVariable(distribution);
+            var designVariable = new LogNormalDistributionDesignVariable<LogNormalDistribution>(distribution);
 
             // Call
             var properties = new LogNormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.All,
@@ -116,7 +116,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             var distribution = new LogNormalDistribution();
-            var designVariable = new LogNormalDistributionDesignVariable(distribution);
+            var designVariable = new LogNormalDistributionDesignVariable<LogNormalDistribution>(distribution);
 
             // Call
             var properties = new LogNormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.None,
@@ -168,7 +168,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 Mean = new RoundedDouble(2, 1),
                 StandardDeviation = new RoundedDouble(2, 2)
             };
-            var designVariable = new LogNormalDistributionDesignVariable(distribution);
+            var designVariable = new LogNormalDistributionDesignVariable<LogNormalDistribution>(distribution);
 
             // Call
             var properties = new LogNormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.None,

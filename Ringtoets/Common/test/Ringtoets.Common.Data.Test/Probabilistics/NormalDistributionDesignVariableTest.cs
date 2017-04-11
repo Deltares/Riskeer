@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base.Data;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.Probabilistics;
 
 namespace Ringtoets.Common.Data.Test.Probabilistics
@@ -33,18 +34,21 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         public void ParameterdConstructor_ValidLogNormalDistribution_ExpectedValues()
         {
             // Setup
-            var normalDistribution = new NormalDistribution(3);
+            var mocks = new MockRepository();
+            var normalDistribution = mocks.Stub<IDistributionBase>();
+            mocks.ReplayAll();
 
             // Call
-            var designValue = new NormalDistributionDesignVariable(normalDistribution);
+            var designValue = new NormalDistributionDesignVariable<IDistributionBase>(normalDistribution);
 
             // Assert
             Assert.AreSame(normalDistribution, designValue.Distribution);
             Assert.AreEqual(0.5, designValue.Percentile);
+            mocks.VerifyAll();
         }
 
         /// <summary>
-        /// Tests the <see cref="NormalDistributionDesignVariable.GetDesignValue"/>
+        /// Tests the <see cref="NormalDistributionDesignVariable{TDistribution}.GetDesignValue"/>
         /// against the values calculated with the excel sheet in WTI-33 (timestamp: 27-11-2015 10:27).
         /// </summary>
         /// <param name="expectedValue">MEAN.</param>
@@ -64,13 +68,15 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             double expectedResult)
         {
             // Setup
-            var normalDistribution = new NormalDistribution(4)
-            {
-                Mean = (RoundedDouble) expectedValue,
-                StandardDeviation = (RoundedDouble) Math.Sqrt(variance)
-            };
+            const int numberOfDecimalPlaces = 4;
 
-            var designVariable = new NormalDistributionDesignVariable(normalDistribution)
+            var mocks = new MockRepository();
+            var normalDistribution = mocks.Stub<IDistributionBase>();
+            normalDistribution.Stub(d => d.Mean).Return(new RoundedDouble(numberOfDecimalPlaces, expectedValue));
+            normalDistribution.Stub(d => d.StandardDeviation).Return(new RoundedDouble(numberOfDecimalPlaces, Math.Sqrt(variance)));
+            mocks.ReplayAll();
+
+            var designVariable = new NormalDistributionDesignVariable<IDistributionBase>(normalDistribution)
             {
                 Percentile = percentile
             };

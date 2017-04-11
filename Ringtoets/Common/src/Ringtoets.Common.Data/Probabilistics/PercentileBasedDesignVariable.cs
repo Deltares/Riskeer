@@ -34,7 +34,7 @@ namespace Ringtoets.Common.Data.Probabilistics
     /// </summary>
     /// <typeparam name="TDistributionType">The type of the underlying distribution from which a value is 
     /// derived.</typeparam>
-    public abstract class PercentileBasedDesignVariable<TDistributionType> : DesignVariable<TDistributionType> where TDistributionType : IDistribution
+    public abstract class PercentileBasedDesignVariable<TDistributionType> : DesignVariable<TDistributionType> where TDistributionType : IDistributionBase
     {
         private static readonly Range<double> percentileValidityRange = new Range<double>(0, 1);
         private double percentile;

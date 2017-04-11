@@ -19,26 +19,17 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Data;
 
 namespace Ringtoets.Common.Data.Probabilistics
 {
-    /// <summary>
-    /// This class defines a design variable for a normal distribution.
-    /// </summary>
-    public class NormalDistributionDesignVariable<TDistribution> : PercentileBasedDesignVariable<TDistribution>
-        where TDistribution : IDistributionBase
+    public interface ILogNormalDistribution : IDistributionBase
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="NormalDistributionDesignVariable{T}"/> class.
+        /// Gets or sets the shift of the normal distribution which is the log of the log-normal distribution.
         /// </summary>
-        /// <param name="distribution">A normal distribution.</param>
-        public NormalDistributionDesignVariable(TDistribution distribution) : base(distribution) {}
-
-        public override RoundedDouble GetDesignValue()
-        {
-            return new RoundedDouble(Distribution.Mean.NumberOfDecimalPlaces,
-                                     DetermineDesignValue(Distribution.Mean, Distribution.StandardDeviation));
-        }
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the shift is larger than the mean.</exception>
+        RoundedDouble Shift { get; set; }
     }
 }

@@ -28,17 +28,17 @@ namespace Ringtoets.Common.Data.Probabilistics
     /// This object represents a probabilistic distribution.
     /// </summary>
     /// <seealso cref="IVariationCoefficientDistribution"/>
-    public interface IDistribution : ICloneable
+    public interface IDistribution : IDistributionBase
     {
         /// <summary>
         /// Gets or sets the mean (expected value, E(X)) of the distribution.
         /// </summary>
-        RoundedDouble Mean { get; set; }
+        new RoundedDouble Mean { get; set; }
 
         /// <summary>
         /// Gets or sets the standard deviation (square root of the Var(X)) of the distribution.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Standard deviation is less than 0.</exception>
-        RoundedDouble StandardDeviation { get; set; }
+        new RoundedDouble StandardDeviation { get; set; }
     }
 }

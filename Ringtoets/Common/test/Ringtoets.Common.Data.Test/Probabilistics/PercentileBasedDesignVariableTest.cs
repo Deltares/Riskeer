@@ -35,14 +35,14 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         {
             // Setup
             var mocks = new MockRepository();
-            var distributionMock = mocks.StrictMock<IDistribution>();
+            var distributionMock = mocks.StrictMock<IDistributionBase>();
             mocks.ReplayAll();
 
             // Call
             var designVariable = new SimpleDesignVariable(distributionMock);
 
             // Assert
-            Assert.IsInstanceOf<DesignVariable<IDistribution>>(designVariable);
+            Assert.IsInstanceOf<DesignVariable<IDistributionBase>>(designVariable);
             Assert.AreSame(distributionMock, designVariable.Distribution);
             Assert.AreEqual(0.5, designVariable.Percentile);
             mocks.VerifyAll(); // Expect no calls on mocks
@@ -59,7 +59,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         {
             // Setup
             var mocks = new MockRepository();
-            var distributionMock = mocks.StrictMock<IDistribution>();
+            var distributionMock = mocks.StrictMock<IDistributionBase>();
             mocks.ReplayAll();
 
             var designVariable = new SimpleDesignVariable(distributionMock);
@@ -85,7 +85,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         {
             // Setup
             var mocks = new MockRepository();
-            var distributionMock = mocks.StrictMock<IDistribution>();
+            var distributionMock = mocks.StrictMock<IDistributionBase>();
             mocks.ReplayAll();
 
             var designVariable = new SimpleDesignVariable(distributionMock);
@@ -98,9 +98,9 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             mocks.VerifyAll(); // Expect no calls on mocks
         }
 
-        private class SimpleDesignVariable : PercentileBasedDesignVariable<IDistribution>
+        private class SimpleDesignVariable : PercentileBasedDesignVariable<IDistributionBase>
         {
-            public SimpleDesignVariable(IDistribution distribution) : base(distribution) {}
+            public SimpleDesignVariable(IDistributionBase distribution) : base(distribution) {}
 
             public override RoundedDouble GetDesignValue()
             {

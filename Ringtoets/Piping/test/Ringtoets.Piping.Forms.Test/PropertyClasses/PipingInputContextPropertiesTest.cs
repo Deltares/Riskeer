@@ -564,13 +564,13 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             RingtoetsPipingSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
             StochasticSoilModel soilModel = ValidStochasticSoilModel(0.0, 4.0);
             StochasticSoilProfile soilProfile = soilModel.StochasticSoilProfiles.First();
-            var dampingFactorExit = new LogNormalDistributionDesignVariable(
+            var dampingFactorExit = new LogNormalDistributionDesignVariable<LogNormalDistribution>(
                 new LogNormalDistribution(3)
                 {
                     Mean = (RoundedDouble) 1.55,
                     StandardDeviation = (RoundedDouble) 0.22
                 });
-            var phreaticLevelExit = new NormalDistributionDesignVariable(
+            var phreaticLevelExit = new NormalDistributionDesignVariable<NormalDistribution>(
                 new NormalDistribution(3)
                 {
                     Mean = (RoundedDouble) 1.55,

@@ -84,9 +84,9 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             mocks.VerifyAll(); // Expect no calls on mocks
         }
 
-        private class SimpleDesignVariable : DesignVariable<IDistribution>
+        private class SimpleDesignVariable : DesignVariable<IDistributionBase>
         {
-            public SimpleDesignVariable(IDistribution distribution) : base(distribution) {}
+            public SimpleDesignVariable(IDistributionBase distribution) : base(distribution) {}
 
             public override RoundedDouble GetDesignValue()
             {

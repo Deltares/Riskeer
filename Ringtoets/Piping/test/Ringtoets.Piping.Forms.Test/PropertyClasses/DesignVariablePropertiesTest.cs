@@ -64,7 +64,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             var distribution = new LogNormalDistribution();
-            var designVariable = new LogNormalDistributionDesignVariable(distribution);
+            var designVariable = new LogNormalDistributionDesignVariable<LogNormalDistribution>(distribution);
 
             PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
 
@@ -93,7 +93,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 Mean = (RoundedDouble) 1,
                 StandardDeviation = (RoundedDouble) 2
             };
-            var designVariable = new LogNormalDistributionDesignVariable(distribution);
+            var designVariable = new LogNormalDistributionDesignVariable<LogNormalDistribution>(distribution);
 
             PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
 

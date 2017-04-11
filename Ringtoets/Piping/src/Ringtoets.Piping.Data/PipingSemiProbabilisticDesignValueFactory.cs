@@ -30,7 +30,7 @@ namespace Ringtoets.Piping.Data
     {
         private static DesignVariable<NormalDistribution> CreateDesignVariable(NormalDistribution distribution, double percentile)
         {
-            return new NormalDistributionDesignVariable(distribution)
+            return new NormalDistributionDesignVariable<NormalDistribution>(distribution)
             {
                 Percentile = percentile
             };
@@ -38,7 +38,7 @@ namespace Ringtoets.Piping.Data
 
         private static DesignVariable<LogNormalDistribution> CreateDesignVariable(LogNormalDistribution distribution, double percentile)
         {
-            return new LogNormalDistributionDesignVariable(distribution)
+            return new LogNormalDistributionDesignVariable<LogNormalDistribution>(distribution)
             {
                 Percentile = percentile
             };

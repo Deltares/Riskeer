@@ -82,15 +82,17 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreEqual(expectedPrecision, accuracy);
         }
 
-        private class SimpleDistribution : IDistribution
+        private class SimpleDistribution : IDistributionBase
         {
             public RoundedDouble Mean { get; set; }
-            public RoundedDouble StandardDeviation { get; set; }
+            public RoundedDouble StandardDeviation { get;  }
+            public RoundedDouble CoefficientOfVariation { get; }
 
             public object Clone()
             {
                 throw new NotImplementedException();
             }
+
         }
     }
 }

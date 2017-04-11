@@ -28,14 +28,14 @@ namespace Ringtoets.Common.Data.Probabilistics
     /// This object represents a probabilistic distribution.
     /// </summary>
     /// <seealso cref="IDistribution"/>
-    public interface IVariationCoefficientDistribution : ICloneable
+    public interface IVariationCoefficientDistribution : IDistributionBase
     {
         /// <summary>
         /// Gets or sets the mean (expected value, E(X)) of the distribution.
         /// </summary>
         /// <remarks>As <see cref="CoefficientOfVariation"/> cannot be negative, the absolute
         /// value of the mean is used when the standard deviation needs to be calculated.</remarks>
-        RoundedDouble Mean { get; set; }
+        new RoundedDouble Mean { get; set; }
 
         /// <summary>
         /// Gets or sets the coefficient of variation (CV, also known as relative standard
@@ -43,6 +43,6 @@ namespace Ringtoets.Common.Data.Probabilistics
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when coefficient of variation
         /// is less than 0.</exception>
-        RoundedDouble CoefficientOfVariation { get; set; }
+        new RoundedDouble CoefficientOfVariation { get; set; }
     }
 }

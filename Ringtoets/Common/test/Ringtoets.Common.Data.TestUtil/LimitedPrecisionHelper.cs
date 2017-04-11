@@ -42,7 +42,7 @@ namespace Ringtoets.Common.Data.TestUtil
         /// Gets the accuracy for a <see cref="IDistribution"/>.
         /// </summary>
         /// <remarks>Assumes that all the parameters of the distribution share the same accuracy.</remarks>
-        public static double GetAccuracy(this IDistribution distribution)
+        public static double GetAccuracy(this IDistributionBase distribution)
         {
             return distribution.Mean.GetAccuracy();
         }

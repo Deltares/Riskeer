@@ -87,6 +87,14 @@ namespace Ringtoets.Common.Data.Probabilistics
             }
         }
 
+        public RoundedDouble CoefficientOfVariation
+        {
+            get
+            {
+                return new RoundedDouble(StandardDeviation.NumberOfDecimalPlaces, StandardDeviation / Mean);
+            }
+        }
+
         public object Clone()
         {
             return MemberwiseClone();

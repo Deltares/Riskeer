@@ -19,26 +19,28 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Data;
 
 namespace Ringtoets.Common.Data.Probabilistics
 {
-    /// <summary>
-    /// This class defines a design variable for a normal distribution.
-    /// </summary>
-    public class NormalDistributionDesignVariable<TDistribution> : PercentileBasedDesignVariable<TDistribution>
-        where TDistribution : IDistributionBase
+    public interface IDistributionBase : ICloneable
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="NormalDistributionDesignVariable{T}"/> class.
+        /// Gets the mean (expected value, E(X)) of the distribution.
         /// </summary>
-        /// <param name="distribution">A normal distribution.</param>
-        public NormalDistributionDesignVariable(TDistribution distribution) : base(distribution) {}
+        RoundedDouble Mean { get; }
 
-        public override RoundedDouble GetDesignValue()
-        {
-            return new RoundedDouble(Distribution.Mean.NumberOfDecimalPlaces,
-                                     DetermineDesignValue(Distribution.Mean, Distribution.StandardDeviation));
-        }
+        /// <summary>
+        /// Gets the standard deviation (square root of the Var(X)) of the distribution.
+        /// </summary>
+        RoundedDouble StandardDeviation { get; }
+
+        /// <summary>
+        /// Gets the coefficient of variation (CV, also known as relative standard
+        /// deviation (SRD). Defined as standard deviation / |E(X)|) of the distribution.
+        /// </summary>
+        /// <exception cref="DivideByZeroException">Thrown when <see cref="Mean"/> is 0.</exception>
+        RoundedDouble CoefficientOfVariation { get; }
     }
 }

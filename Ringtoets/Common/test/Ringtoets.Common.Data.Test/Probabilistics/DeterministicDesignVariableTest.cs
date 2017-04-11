@@ -36,12 +36,12 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         {
             // Setup
             var mocks = new MockRepository();
-            var distributionMock = mocks.Stub<IDistribution>();
-            distributionMock.Mean = new RoundedDouble();
+            var distributionMock = mocks.Stub<IDistributionBase>();
+            distributionMock.Stub(d => d.Mean).Return(new RoundedDouble());
             mocks.ReplayAll();
 
             // Call
-            var designVariable = new DeterministicDesignVariable<IDistribution>(distributionMock);
+            var designVariable = new DeterministicDesignVariable<IDistributionBase>(distributionMock);
 
             // Assert
             Assert.AreSame(distributionMock, designVariable.Distribution);
@@ -53,7 +53,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         public void ParameteredConstructor_DistributionIsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new DeterministicDesignVariable<IDistribution>(null);
+            TestDelegate call = () => new DeterministicDesignVariable<IDistributionBase>(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -69,10 +69,10 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         {
             // Setup
             var mocks = new MockRepository();
-            var distributionMock = mocks.StrictMock<IDistribution>();
+            var distributionMock = mocks.StrictMock<IDistributionBase>();
             mocks.ReplayAll();
 
-            var designVariable = new DeterministicDesignVariable<IDistribution>(distributionMock);
+            var designVariable = new DeterministicDesignVariable<IDistributionBase>(distributionMock);
 
             // Call
             TestDelegate call = () => designVariable.Distribution = null;
@@ -95,11 +95,11 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             int numberOfDecimalPlaces = 2;
 
             var mocks = new MockRepository();
-            var distributionMock = mocks.Stub<IDistribution>();
-            distributionMock.Mean = new RoundedDouble(numberOfDecimalPlaces);
+            var distributionMock = mocks.Stub<IDistributionBase>();
+            distributionMock.Stub(d => d.Mean).Return(new RoundedDouble(numberOfDecimalPlaces));
             mocks.ReplayAll();
 
-            var designVariable = new DeterministicDesignVariable<IDistribution>(distributionMock, testValue);
+            var designVariable = new DeterministicDesignVariable<IDistributionBase>(distributionMock, testValue);
 
             // Call
             var designValue = designVariable.GetDesignValue();
