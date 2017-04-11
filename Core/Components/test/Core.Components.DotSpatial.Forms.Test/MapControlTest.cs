@@ -50,6 +50,7 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Extent = DotSpatial.Data.Extent;
+using IMapView = DotSpatial.Controls.IMapView;
 
 namespace Core.Components.DotSpatial.Forms.Test
 {
@@ -186,9 +187,9 @@ namespace Core.Components.DotSpatial.Forms.Test
                 map.Data = mapDataCollection;
 
                 // Then
-                var mapView = map.Controls.OfType<Map>().First();
+                Map mapView = map.Controls.OfType<Map>().First();
                 Assert.AreEqual(3, mapView.Layers.Count);
-                var featureLayers = mapView.Layers.Cast<FeatureLayer>().ToList();
+                List<FeatureLayer> featureLayers = mapView.Layers.Cast<FeatureLayer>().ToList();
                 Assert.AreEqual("Points", featureLayers[0].Name);
                 Assert.IsTrue(mapView.Projection.Equals(featureLayers[0].Projection));
                 Assert.AreEqual(1.1, featureLayers[0].FeatureSet.Features[0].BasicGeometry.Coordinates[0].X);
@@ -206,7 +207,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Given
             using (var map = new MapControl())
             {
-                var mapView = map.Controls.OfType<Map>().First();
+                Map mapView = map.Controls.OfType<Map>().First();
                 var mapPointData = new MapPointData("Points");
                 var mapLineData = new MapLineData("Lines");
                 var mapPolygonData = new MapPolygonData("Polygons");
@@ -228,7 +229,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 // Then
                 Assert.AreEqual(2, mapView.Layers.Count);
-                var featureLayers = mapView.Layers.Cast<FeatureLayer>().ToList();
+                List<FeatureLayer> featureLayers = mapView.Layers.Cast<FeatureLayer>().ToList();
                 Assert.AreEqual("Lines", featureLayers[0].Name);
                 Assert.AreEqual("Polygons", featureLayers[1].Name);
             }
@@ -240,7 +241,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Given
             using (var map = new MapControl())
             {
-                var mapView = map.Controls.OfType<Map>().First();
+                Map mapView = map.Controls.OfType<Map>().First();
                 var mapPointData = new MapPointData("Points");
                 var mapLineData = new MapLineData("Lines");
                 var mapPolygonData = new MapPolygonData("Polygons");
@@ -273,7 +274,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Given
             using (var map = new MapControl())
             {
-                var mapView = map.Controls.OfType<Map>().First();
+                Map mapView = map.Controls.OfType<Map>().First();
                 var mapPointData = new MapPointData("Points");
                 var mapLineData = new MapLineData("Lines");
                 var mapPolygonData = new MapPolygonData("Polygons");
@@ -289,7 +290,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 map.Data = mapDataCollection;
 
-                var layersBeforeUpdate = mapView.Layers.ToList();
+                List<IMapLayer> layersBeforeUpdate = mapView.Layers.ToList();
 
                 // Precondition
                 Assert.AreEqual(3, layersBeforeUpdate.Count);
@@ -300,7 +301,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 // Then
                 Assert.AreEqual(2, mapView.Layers.Count);
-                var featureLayers = mapView.Layers.Cast<FeatureLayer>().ToList();
+                List<FeatureLayer> featureLayers = mapView.Layers.Cast<FeatureLayer>().ToList();
                 Assert.AreEqual("Points", featureLayers[0].Name);
                 Assert.AreEqual("Polygons", featureLayers[1].Name);
                 Assert.AreEqual(0, mapView.Layers.Except(layersBeforeUpdate).Count());
@@ -313,7 +314,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Given
             using (var map = new MapControl())
             {
-                var mapView = map.Controls.OfType<Map>().First();
+                Map mapView = map.Controls.OfType<Map>().First();
                 var mapPointData = new MapPointData("Points");
                 var mapLineData = new MapLineData("Lines");
                 var mapPolygonData = new MapPolygonData("Polygons");
@@ -329,7 +330,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 map.Data = mapDataCollection;
 
-                var layersBeforeUpdate = mapView.Layers.ToList();
+                List<IMapLayer> layersBeforeUpdate = mapView.Layers.ToList();
 
                 // Precondition
                 Assert.AreEqual(3, layersBeforeUpdate.Count);
@@ -340,7 +341,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 // Then
                 Assert.AreEqual(4, mapView.Layers.Count);
-                var featureLayers = mapView.Layers.Cast<FeatureLayer>().ToList();
+                List<FeatureLayer> featureLayers = mapView.Layers.Cast<FeatureLayer>().ToList();
                 Assert.AreEqual("Points", featureLayers[0].Name);
                 Assert.AreEqual("Additional polygons", featureLayers[1].Name);
                 Assert.AreEqual("Lines", featureLayers[2].Name);
@@ -355,7 +356,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Given
             using (var map = new MapControl())
             {
-                var mapView = map.Controls.OfType<Map>().First();
+                Map mapView = map.Controls.OfType<Map>().First();
                 var mapPointData = new MapPointData("Points");
                 var mapLineData = new MapLineData("Lines");
                 var mapPolygonData = new MapPolygonData("Polygons");
@@ -367,7 +368,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 map.Data = mapDataCollection;
 
-                var layersBeforeUpdate = mapView.Layers.Cast<FeatureLayer>().ToList();
+                List<FeatureLayer> layersBeforeUpdate = mapView.Layers.Cast<FeatureLayer>().ToList();
 
                 // Precondition
                 Assert.AreEqual(3, layersBeforeUpdate.Count);
@@ -382,7 +383,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 // Then
                 Assert.AreEqual(3, mapView.Layers.Count);
-                var featureLayers = mapView.Layers.Cast<FeatureLayer>().ToList();
+                List<FeatureLayer> featureLayers = mapView.Layers.Cast<FeatureLayer>().ToList();
                 Assert.AreEqual("Lines", featureLayers[0].Name);
                 Assert.AreEqual("Polygons", featureLayers[1].Name);
                 Assert.AreEqual("Points", featureLayers[2].Name);
@@ -518,6 +519,56 @@ namespace Core.Components.DotSpatial.Forms.Test
             return new Extent(minX, minY, maxX, maxY);
         }
 
+        private static void SetTestExtents(IMapView mapView)
+        {
+            mapView.ViewExtents.MinX = 0.2;
+            mapView.ViewExtents.MaxX = 2.2;
+            mapView.ViewExtents.MinY = 3.2;
+            mapView.ViewExtents.MaxY = 5.7;
+        }
+
+        private static void SetReprojectedExtents(Map mapView)
+        {
+            mapView.ViewExtents.MinX = 523413.98162662971;
+            mapView.ViewExtents.MaxX = 523415.89786963863;
+            mapView.ViewExtents.MinY = 5313601.4625104629;
+            mapView.ViewExtents.MaxY = 5313604.0206882581;
+        }
+
+        private static void AssertReprojectedTo28992TestExtents(IMapView mapView)
+        {
+            Assert.AreEqual(523413.98162662971, mapView.ViewExtents.MinX,
+                            "Coordinate does not match. (Ball park expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=0.2000000&y=3.2000000).");
+            Assert.AreEqual(5313601.4625104629, mapView.ViewExtents.MinY,
+                            "Coordinate does not match. (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=0.2000000&y=3.2000000).");
+
+            Assert.AreEqual(523415.89786963863, mapView.ViewExtents.MaxX,
+                            "Coordinate does not match. (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=2.2000000&y=5.7000000).");
+            Assert.AreEqual(5313604.0206882581, mapView.ViewExtents.MaxY,
+                            "Coordinate does not match. (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=2.2000000&y=5.7000000).");
+        }
+
+        private static void AssertReprojectedTo3857TestExtents(IMapView mapView)
+        {
+            Assert.AreEqual(368863.7429899415, mapView.ViewExtents.MinX,
+                            "Coordinate does not match. (Ball park expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=3857&x=0.2000000&y=3.2000000).");
+            Assert.AreEqual(6102662.6528704129, mapView.ViewExtents.MinY,
+                            "Coordinate does not match. (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=3857&x=0.2000000&y=3.2000000).");
+
+            Assert.AreEqual(368866.61636522325, mapView.ViewExtents.MaxX,
+                            "Coordinate does not match. (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=3857&x=2.2000000&y=5.7000000).");
+            Assert.AreEqual(6102666.467949939, mapView.ViewExtents.MaxY,
+                            "Coordinate does not match. (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=3857&x=2.2000000&y=5.7000000).");
+        }
+
+        private static void AssertOriginalExtents(IMapView mapView)
+        {
+            Assert.AreEqual(0.2, mapView.ViewExtents.MinX, 1e-3);
+            Assert.AreEqual(2.2, mapView.ViewExtents.MaxX, 1e-3);
+            Assert.AreEqual(3.2, mapView.ViewExtents.MinY, 1e-3);
+            Assert.AreEqual(5.7, mapView.ViewExtents.MaxY, 1e-3);
+        }
+
         #region BackgroundMapData
 
         #region WmtsMapData
@@ -540,9 +591,9 @@ namespace Core.Components.DotSpatial.Forms.Test
                 map.BackgroundMapData = backgroundMapData;
 
                 // Then
-                var mapView = map.Controls.OfType<Map>().First();
+                Map mapView = map.Controls.OfType<Map>().First();
                 Assert.AreEqual(1, mapView.Layers.Count);
-                BruTileLayer bruTileLayer = (BruTileLayer) mapView.Layers[0];
+                var bruTileLayer = (BruTileLayer) mapView.Layers[0];
                 Assert.AreEqual(isVisible, bruTileLayer.IsVisible);
                 Assert.AreEqual(backgroundMapData.Transparency.Value, bruTileLayer.Transparency);
 
@@ -566,7 +617,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (new UseCustomTileSourceFactoryConfig(problematicFactory))
             using (var map = new MapControl())
             {
-                var mapView = map.Controls.OfType<Map>().First();
+                Map mapView = map.Controls.OfType<Map>().First();
                 ProjectionInfo originalProjection = mapView.Projection;
 
                 // When
@@ -598,7 +649,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var map = new MapControl())
             {
-                var mapView = map.Controls.OfType<Map>().First();
+                Map mapView = map.Controls.OfType<Map>().First();
                 ProjectionInfo originalProjection = mapView.Projection;
 
                 disposeHelper.LockDirectory(FileSystemRights.Write);
@@ -643,7 +694,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                     backgroundMapData.NotifyObservers();
 
                     // Then
-                    var mapView = map.Controls.OfType<Map>().First();
+                    Map mapView = map.Controls.OfType<Map>().First();
                     Assert.AreEqual(1, mapView.Layers.Count);
                     IMapLayer backgroundLayer = mapView.Layers[0];
 
@@ -682,7 +733,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 backgroundMapData.NotifyObservers();
 
                 // Then
-                var mapView = map.Controls.OfType<Map>().First();
+                Map mapView = map.Controls.OfType<Map>().First();
                 Assert.AreEqual(1, mapView.Layers.Count);
                 IMapLayer backgroundLayer = mapView.Layers[0];
 
@@ -705,8 +756,8 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (new UseCustomTileSourceFactoryConfig(problematicFactory))
             using (var map = new MapControl())
             {
-                var mapView = map.Controls.OfType<Map>().First();
-                var originalProjection = mapView.Projection;
+                Map mapView = map.Controls.OfType<Map>().First();
+                ProjectionInfo originalProjection = mapView.Projection;
 
                 // Precondition
                 Action setAndCauseFailToInitializeLayer = () => map.BackgroundMapData = backgroundMapData;
@@ -742,7 +793,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var map = new MapControl())
             {
-                var mapView = map.Controls.OfType<Map>().First();
+                Map mapView = map.Controls.OfType<Map>().First();
                 ProjectionInfo originalProjection = mapView.Projection;
 
                 disposeHelper.LockDirectory(FileSystemRights.Write);
@@ -771,7 +822,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Given
             using (var map = new MapControl())
             {
-                var mapView = map.Controls.OfType<Map>().First();
+                Map mapView = map.Controls.OfType<Map>().First();
                 ProjectionInfo originalProjection = mapView.Projection;
 
                 WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
@@ -799,7 +850,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (var map = new MapControl())
 
             {
-                var mapView = map.Controls.OfType<Map>().First();
+                Map mapView = map.Controls.OfType<Map>().First();
                 ProjectionInfo originalProjection = mapView.Projection;
 
                 map.BackgroundMapData = originalBackgroundMapData;
@@ -812,7 +863,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Assert.AreEqual(layer.Projection, mapView.Projection);
 
                 // When
-                var newBackgroundMapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
+                WmtsMapData newBackgroundMapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
                 map.BackgroundMapData = newBackgroundMapData;
 
                 // Then
@@ -825,7 +876,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void GivenMapControlWithUnconfiguredBackgroundMapData_WhenWmtsBackgroundMapDataSet_ThenMapControlUpdated()
         {
             // Given
-            var newBackgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
+            WmtsMapData newBackgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
             newBackgroundMapData.IsVisible = true;
             newBackgroundMapData.Transparency = (RoundedDouble) 0.75;
 
@@ -835,7 +886,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             {
                 WmtsMapData originalBackgroundMapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
 
-                var mapView = map.Controls.OfType<Map>().First();
+                Map mapView = map.Controls.OfType<Map>().First();
                 ProjectionInfo originalProjection = mapView.Projection;
 
                 map.BackgroundMapData = originalBackgroundMapData;
@@ -871,7 +922,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 BackgroundMapData = backgroundMapData
             })
             {
-                var mapView = map.Controls.OfType<Map>().First();
+                Map mapView = map.Controls.OfType<Map>().First();
                 IMapLayer[] layersBeforeUpdate = mapView.Layers.ToArray();
 
                 // When
@@ -890,11 +941,11 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void GivenMapWithUnconfiguredWmtsBackgroundAndMapDataCollection_WhenBackgroundMapDataConfigured_ThenLayerIsReusedAndUpdatedFeaturesReprojected()
+        public void GivenMapWithUnconfiguredWmtsBackgroundAndMapDataCollection_WhenBackgroundMapDataConfigured_ThenLayerIsReusedAndUpdatedFeaturesAndViewExtentReprojected()
         {
             // Given
-            var newBackgroundMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
-            var startingBackgroundMapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
+            WmtsMapData newBackgroundMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
+            WmtsMapData startingBackgroundMapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(newBackgroundMapData))
@@ -903,7 +954,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 BackgroundMapData = startingBackgroundMapData
             })
             {
-                var mapView = map.Controls.OfType<Map>().First();
+                Map mapView = map.Controls.OfType<Map>().First();
 
                 var mapPointData = new MapPointData("Points")
                 {
@@ -925,6 +976,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 mapDataCollection.Add(mapPointData);
 
                 map.Data = mapDataCollection;
+                SetTestExtents(mapView);
 
                 // Precondition
                 IMapLayer[] layersBeforeUpdate = mapView.Layers.ToArray();
@@ -932,6 +984,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Assert.IsTrue(mapView.Projection.Equals(pointFeatureLayer.Projection));
                 Assert.AreEqual(1.1, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].X);
                 Assert.AreEqual(2.2, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y);
+                AssertOriginalExtents(mapView);
 
                 // When
                 startingBackgroundMapData.Configure(newBackgroundMapData.SourceCapabilitiesUrl,
@@ -949,14 +1002,15 @@ namespace Core.Components.DotSpatial.Forms.Test
                                 "Coordinate does not match. (Ball park expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
                 Assert.AreEqual(5313600.4932731427, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y,
                                 "Coordinate does not match (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
+                AssertReprojectedTo28992TestExtents(mapView);
             }
         }
 
         [Test]
-        public void GivenMapWithWmtsBackgroundAndMapDataCollection_WhenBackgroundMapDataConfigurationRemoved_ThenLayerIsReusedAndUpdatedFeaturesReprojected()
+        public void GivenMapWithWmtsBackgroundAndMapDataCollection_WhenBackgroundMapDataConfigurationRemoved_ThenLayerIsReusedAndUpdatedFeaturesAndViewExtentsReprojected()
         {
             // Given
-            var backgroundMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
+            WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
@@ -965,7 +1019,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 BackgroundMapData = backgroundMapData
             })
             {
-                var mapView = map.Controls.OfType<Map>().First();
+                Map mapView = map.Controls.OfType<Map>().First();
 
                 var mapPointData = new MapPointData("Points")
                 {
@@ -987,6 +1041,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 mapDataCollection.Add(mapPointData);
 
                 map.Data = mapDataCollection;
+                SetReprojectedExtents(mapView);
 
                 // Precondition
                 Assert.AreEqual(2, mapView.Layers.Count);
@@ -1013,11 +1068,12 @@ namespace Core.Components.DotSpatial.Forms.Test
                                 "Minimal drift is acceptable (if it becomes a problem, we need to keep original coordinates in the layer).");
                 Assert.AreEqual(2.2, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y, 1e-6,
                                 "Minimal drift is acceptable (if it becomes a problem, we need to keep original coordinates in the layer).");
+                AssertOriginalExtents(mapView);
             }
         }
 
         [Test]
-        public void GivenMapControlWithData_WhenWmtsBackgroundMapDataSet_ThenDataLayersReprojected()
+        public void GivenMapControlWithData_WhenWmtsBackgroundMapDataSet_ThenDataLayersAndViewExtentsReprojected()
         {
             // Given
             WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
@@ -1045,10 +1101,12 @@ namespace Core.Components.DotSpatial.Forms.Test
                 });
                 map.Data = mapDataCollection;
 
+                Map mapView = map.Controls.OfType<Map>().First();
+                SetTestExtents(mapView);
+
                 // Precondition
-                var mapView = map.Controls.OfType<Map>().First();
-                var pointFeatureLayer = (FeatureLayer) mapView.Layers[0];
                 Assert.AreEqual(1, mapView.Layers.Count);
+                var pointFeatureLayer = (FeatureLayer) mapView.Layers[0];
                 Assert.AreEqual(1.1, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].X);
                 Assert.AreEqual(2.2, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y);
 
@@ -1064,6 +1122,8 @@ namespace Core.Components.DotSpatial.Forms.Test
                                 "Coordinate does not match. (Ball park expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
                 Assert.AreEqual(5313600.4932731427, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y,
                                 "Coordinate does not match (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
+
+                AssertReprojectedTo28992TestExtents(mapView);
             }
         }
 
@@ -1096,10 +1156,12 @@ namespace Core.Components.DotSpatial.Forms.Test
                 });
                 map.Data = mapDataCollection;
 
+                Map mapView = map.Controls.OfType<Map>().First();
+                SetTestExtents(mapView);
+
                 // Precondition
-                var mapView = map.Controls.OfType<Map>().First();
-                var pointFeatureLayer = (FeatureLayer) mapView.Layers[0];
                 Assert.AreEqual(1, mapView.Layers.Count);
+                var pointFeatureLayer = (FeatureLayer) mapView.Layers[0];
                 Assert.AreEqual(1.1, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].X);
                 Assert.AreEqual(2.2, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y);
 
@@ -1112,11 +1174,12 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Assert.IsTrue(mapView.Projection.Equals(pointFeatureLayer.Projection));
                 Assert.AreEqual(1.1, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].X);
                 Assert.AreEqual(2.2, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y);
+                AssertOriginalExtents(mapView);
             }
         }
 
         [Test]
-        public void GivenMapControlWithDataAndBackground_WhenDifferentWmtsBackgroundMapDataSet_LayersReprojected()
+        public void GivenMapControlWithDataAndBackground_WhenDifferentWmtsBackgroundMapDataSet_LayersAndViewExtentsReprojected()
         {
             // Given
             WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
@@ -1145,8 +1208,10 @@ namespace Core.Components.DotSpatial.Forms.Test
                 map.Data = mapDataCollection;
                 map.BackgroundMapData = backgroundMapData;
 
+                Map mapView = map.Controls.OfType<Map>().First();
+                SetTestExtents(mapView);
+
                 // Precondition
-                var mapView = map.Controls.OfType<Map>().First();
                 Assert.AreEqual(2, mapView.Layers.Count);
                 Assert.IsInstanceOf<BruTileLayer>(mapView.Layers[0]);
                 var pointFeatureLayer = (FeatureLayer) mapView.Layers[1];
@@ -1169,12 +1234,14 @@ namespace Core.Components.DotSpatial.Forms.Test
                                     "Coordinate does not match. (Ball park expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
                     Assert.AreEqual(5313600.4932731427, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y,
                                     "Coordinate does not match (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
+
+                    AssertReprojectedTo28992TestExtents(mapView);
                 }
             }
         }
 
         [Test]
-        public void GivenMapControlWithDataAndBackground_WhenUnconfiguredWmtsBackgroundMapDataSet_LayersReprojected()
+        public void GivenMapControlWithDataAndBackground_WhenUnconfiguredWmtsBackgroundMapDataSet_LayersAndViewExtentsReprojected()
         {
             // Given
             WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
@@ -1203,8 +1270,10 @@ namespace Core.Components.DotSpatial.Forms.Test
                 map.Data = mapDataCollection;
                 map.BackgroundMapData = backgroundMapData;
 
+                Map mapView = map.Controls.OfType<Map>().First();
+                SetReprojectedExtents(mapView);
+
                 // Precondition
-                var mapView = map.Controls.OfType<Map>().First();
                 Assert.AreEqual(2, mapView.Layers.Count);
                 Assert.IsInstanceOf<BruTileLayer>(mapView.Layers[0]);
                 var pointFeatureLayer = (FeatureLayer) mapView.Layers[1];
@@ -1215,7 +1284,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                                 "Coordinate does not match (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
 
                 // When
-                var differentBackgroundMapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
+                WmtsMapData differentBackgroundMapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
 
                 using (new UseCustomTileSourceFactoryConfig(differentBackgroundMapData))
                 {
@@ -1227,6 +1296,8 @@ namespace Core.Components.DotSpatial.Forms.Test
                     Assert.IsTrue(mapView.Projection.Equals(pointFeatureLayer.Projection));
                     Assert.AreEqual(1.1, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].X);
                     Assert.AreEqual(2.2, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y);
+
+                    AssertOriginalExtents(mapView);
                 }
             }
         }
@@ -1272,13 +1343,14 @@ namespace Core.Components.DotSpatial.Forms.Test
                 nestedMapDataCollection1.Add(nestedMapDataCollection2);
                 nestedMapDataCollection2.Add(mapPolygonData);
 
+                Map mapView = map.Controls.OfType<Map>().First();
+
                 // When
                 map.Data = mapDataCollection;
 
                 // Then
-                var mapView = map.Controls.OfType<Map>().First();
                 Assert.AreEqual(4, mapView.Layers.Count);
-                var featureLayers = mapView.Layers.Skip(1).Cast<FeatureLayer>().ToList();
+                List<FeatureLayer> featureLayers = mapView.Layers.Skip(1).Cast<FeatureLayer>().ToList();
                 Assert.AreEqual("Points", featureLayers[0].Name);
                 Assert.IsTrue(mapView.Projection.Equals(featureLayers[0].Projection));
                 Assert.AreEqual(523414.9114786592, featureLayers[0].FeatureSet.Features[0].BasicGeometry.Coordinates[0].X,
@@ -1306,8 +1378,8 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (new UseCustomTileSourceFactoryConfig(problematicFactory))
             using (var map = new MapControl())
             {
-                var mapView = map.Controls.OfType<Map>().First();
-                var originalProjection = mapView.Projection;
+                Map mapView = map.Controls.OfType<Map>().First();
+                ProjectionInfo originalProjection = mapView.Projection;
 
                 var mapPointData = new MapPointData("Points")
                 {
@@ -1364,8 +1436,8 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var map = new MapControl())
             {
-                var mapView = map.Controls.OfType<Map>().First();
-                var originalProjection = mapView.Projection;
+                Map mapView = map.Controls.OfType<Map>().First();
+                ProjectionInfo originalProjection = mapView.Projection;
 
                 disposeHelper.LockDirectory(FileSystemRights.Write);
 
@@ -1413,7 +1485,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void GivenMapWithBackgroundAndMapDataCollection_WhenMapDataCollectionFeaturesUpdates_ThenLayerIsReusedAndUpdatedFeaturesReprojected()
         {
             // Given
-            var backgroundMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
+            WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
@@ -1422,7 +1494,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 BackgroundMapData = backgroundMapData
             })
             {
-                var mapView = map.Controls.OfType<Map>().First();
+                Map mapView = map.Controls.OfType<Map>().First();
 
                 var mapPointData = new MapPointData("Points")
                 {
@@ -1529,9 +1601,9 @@ namespace Core.Components.DotSpatial.Forms.Test
                 map.BackgroundMapData = backgroundMapData;
 
                 // Then
-                var mapView = map.Controls.OfType<Map>().First();
+                Map mapView = map.Controls.OfType<Map>().First();
                 Assert.AreEqual(1, mapView.Layers.Count);
-                BruTileLayer bruTileLayer = (BruTileLayer) mapView.Layers[0];
+                var bruTileLayer = (BruTileLayer) mapView.Layers[0];
                 Assert.AreEqual(isVisible, bruTileLayer.IsVisible);
                 Assert.AreEqual(backgroundMapData.Transparency.Value, bruTileLayer.Transparency);
 
@@ -1555,7 +1627,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (new UseCustomTileSourceFactoryConfig(problematicFactory))
             using (var map = new MapControl())
             {
-                var mapView = map.Controls.OfType<Map>().First();
+                Map mapView = map.Controls.OfType<Map>().First();
                 ProjectionInfo originalProjection = mapView.Projection;
 
                 // When
@@ -1588,7 +1660,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var map = new MapControl())
             {
-                var mapView = map.Controls.OfType<Map>().First();
+                Map mapView = map.Controls.OfType<Map>().First();
                 ProjectionInfo originalProjection = mapView.Projection;
 
                 disposeHelper.LockDirectory(FileSystemRights.Write);
@@ -1634,7 +1706,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                     backgroundMapData.NotifyObservers();
 
                     // Then
-                    var mapView = map.Controls.OfType<Map>().First();
+                    Map mapView = map.Controls.OfType<Map>().First();
                     Assert.AreEqual(1, mapView.Layers.Count);
                     IMapLayer backgroundLayer = mapView.Layers[0];
 
@@ -1671,7 +1743,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 backgroundMapData.NotifyObservers();
 
                 // Then
-                var mapView = map.Controls.OfType<Map>().First();
+                Map mapView = map.Controls.OfType<Map>().First();
                 Assert.AreEqual(1, mapView.Layers.Count);
                 IMapLayer backgroundLayer = mapView.Layers[0];
 
@@ -1694,8 +1766,8 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (new UseCustomTileSourceFactoryConfig(problematicFactory))
             using (var map = new MapControl())
             {
-                var mapView = map.Controls.OfType<Map>().First();
-                var originalProjection = mapView.Projection;
+                Map mapView = map.Controls.OfType<Map>().First();
+                ProjectionInfo originalProjection = mapView.Projection;
 
                 // Precondition
                 string tileDisplayName = TypeUtils.GetDisplayName(backgroundMapData.TileSource);
@@ -1729,7 +1801,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var map = new MapControl())
             {
-                var mapView = map.Controls.OfType<Map>().First();
+                Map mapView = map.Controls.OfType<Map>().First();
                 ProjectionInfo originalProjection = mapView.Projection;
 
                 disposeHelper.LockDirectory(FileSystemRights.Write);
@@ -1768,7 +1840,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 BackgroundMapData = backgroundMapData
             })
             {
-                var mapView = map.Controls.OfType<Map>().First();
+                Map mapView = map.Controls.OfType<Map>().First();
                 IMapLayer[] layersBeforeUpdate = mapView.Layers.ToArray();
 
                 // When
@@ -1787,7 +1859,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void GivenMapControlWithData_WhenWellKnownBackgroundMapDataSet_ThenDataLayersReprojected()
+        public void GivenMapControlWithData_WhenWellKnownBackgroundMapDataSet_ThenDataLayersAndViewExtentsReprojected()
         {
             // Given
             var backgroundMapData = new WellKnownTileSourceMapData(new Random(123).NextEnum<WellKnownTileSource>());
@@ -1815,10 +1887,12 @@ namespace Core.Components.DotSpatial.Forms.Test
                 });
                 map.Data = mapDataCollection;
 
+                Map mapView = map.Controls.OfType<Map>().First();
+                SetTestExtents(mapView);
+
                 // Precondition
-                var mapView = map.Controls.OfType<Map>().First();
-                var pointFeatureLayer = (FeatureLayer) mapView.Layers[0];
                 Assert.AreEqual(1, mapView.Layers.Count);
+                var pointFeatureLayer = (FeatureLayer) mapView.Layers[0];
                 Assert.AreEqual(1.1, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].X);
                 Assert.AreEqual(2.2, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y);
 
@@ -1834,6 +1908,8 @@ namespace Core.Components.DotSpatial.Forms.Test
                                 "Coordinate does not match. (Ball park expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=3857&x=1.1000000&y=2.2000000).");
                 Assert.AreEqual(6102661.13, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y, 1e-1,
                                 "Coordinate does not match (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=3857&x=1.1000000&y=2.2000000).");
+
+                AssertReprojectedTo3857TestExtents(mapView);
             }
         }
 
@@ -1851,8 +1927,8 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (new UseCustomTileSourceFactoryConfig(problematicFactory))
             using (var map = new MapControl())
             {
-                var mapView = map.Controls.OfType<Map>().First();
-                var originalProjection = mapView.Projection;
+                Map mapView = map.Controls.OfType<Map>().First();
+                ProjectionInfo originalProjection = mapView.Projection;
 
                 var mapPointData = new MapPointData("Points")
                 {
@@ -1910,8 +1986,8 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var map = new MapControl())
             {
-                var mapView = map.Controls.OfType<Map>().First();
-                var originalProjection = mapView.Projection;
+                Map mapView = map.Controls.OfType<Map>().First();
+                ProjectionInfo originalProjection = mapView.Projection;
 
                 disposeHelper.LockDirectory(FileSystemRights.Write);
 
@@ -1980,7 +2056,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 var mapDataCollection = new MapDataCollection("Collection");
                 var mapData = new MapPointData("Test data");
                 var invalidated = 0;
-                var mapView = map.Controls.OfType<Map>().First();
+                Map mapView = map.Controls.OfType<Map>().First();
 
                 mapDataCollection.Add(mapData);
 
@@ -1995,7 +2071,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 // Assert
                 Assert.AreEqual(0, invalidated);
-                Extent expectedExtent = new Extent(0.0, 0.0, 0.0, 0.0);
+                var expectedExtent = new Extent(0.0, 0.0, 0.0, 0.0);
                 Assert.AreEqual(expectedExtent, mapView.ViewExtents);
             }
         }
@@ -2027,7 +2103,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 {
                     Features = mapFeatures
                 };
-                var mapView = map.Controls.OfType<Map>().First();
+                Map mapView = map.Controls.OfType<Map>().First();
                 var invalidated = 0;
 
                 mapDataCollection.Add(mapData);
@@ -2060,7 +2136,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Setup
             using (var map = new MapControl())
             {
-                var mapView = map.Controls.OfType<Map>().First();
+                Map mapView = map.Controls.OfType<Map>().First();
 
                 map.Data = GetTestData();
 
@@ -2091,7 +2167,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Setup
             using (var map = new MapControl())
             {
-                var mapView = map.Controls.OfType<Map>().First();
+                Map mapView = map.Controls.OfType<Map>().First();
                 var mapDataCollection = new MapDataCollection("Test data");
 
                 mapDataCollection.Add(new MapPointData("Test data")
@@ -2151,7 +2227,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 TestDelegate call = () => map.ZoomToAllVisibleLayers(mapData);
 
                 // Assert
-                string message = "Can only zoom to MapData that is part of this MapControls drawn mapData.";
+                var message = "Can only zoom to MapData that is part of this MapControls drawn mapData.";
                 string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message).ParamName;
                 Assert.AreEqual("mapData", paramName);
             }
@@ -2167,7 +2243,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 var mapDataCollection = new MapDataCollection("Collection");
                 var mapData = new MapPointData("Test data");
                 var invalidated = 0;
-                var mapView = map.Controls.OfType<Map>().First();
+                Map mapView = map.Controls.OfType<Map>().First();
 
                 mapDataCollection.Add(mapData);
 
@@ -2182,7 +2258,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 // Assert
                 Assert.AreEqual(0, invalidated);
-                Extent expectedExtent = new Extent(0.0, 0.0, 0.0, 0.0);
+                var expectedExtent = new Extent(0.0, 0.0, 0.0, 0.0);
                 Assert.AreEqual(expectedExtent, mapView.ViewExtents);
             }
         }
@@ -2214,7 +2290,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 {
                     Features = mapFeatures
                 };
-                var mapView = map.Controls.OfType<Map>().First();
+                Map mapView = map.Controls.OfType<Map>().First();
                 var invalidated = 0;
 
                 mapDataCollection.Add(mapData);
@@ -2247,13 +2323,13 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Setup
             using (var map = new MapControl())
             {
-                var mapView = map.Controls.OfType<Map>().First();
+                Map mapView = map.Controls.OfType<Map>().First();
 
                 MapDataCollection dataCollection = GetTestData();
                 map.Data = dataCollection;
 
                 MapData mapData = dataCollection.Collection.ElementAt(0);
-                var expectedExtent = GetExpectedExtent((FeatureBasedMapData) mapData);
+                Extent expectedExtent = GetExpectedExtent((FeatureBasedMapData) mapData);
                 ExtendWithExpectedMargin(expectedExtent);
 
                 // Precondition
@@ -2274,7 +2350,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Setup
             using (var map = new MapControl())
             {
-                var mapView = map.Controls.OfType<Map>().First();
+                Map mapView = map.Controls.OfType<Map>().First();
 
                 MapDataCollection dataCollection = GetTestData();
                 map.Data = dataCollection;
@@ -2309,7 +2385,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Setup
             using (var map = new MapControl())
             {
-                var mapView = map.Controls.OfType<Map>().First();
+                Map mapView = map.Controls.OfType<Map>().First();
 
                 MapData mapData = new MapPointData("Test data")
                 {
@@ -2369,7 +2445,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 form.Show();
 
                 var map = (Map) new ControlTester("Map").TheObject;
-                var mapFunctionSelectionZoom = map.MapFunctions.OfType<MapFunctionSelectionZoom>().First();
+                MapFunctionSelectionZoom mapFunctionSelectionZoom = map.MapFunctions.OfType<MapFunctionSelectionZoom>().First();
 
                 map.Cursor = Cursors.WaitCursor;
 
@@ -2393,7 +2469,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 form.Show();
 
                 var map = (Map) new ControlTester("Map").TheObject;
-                var mapFunctionSelectionZoom = map.MapFunctions.OfType<MapFunctionSelectionZoom>().First();
+                MapFunctionSelectionZoom mapFunctionSelectionZoom = map.MapFunctions.OfType<MapFunctionSelectionZoom>().First();
 
                 map.Cursor = Cursors.WaitCursor;
 
@@ -2419,7 +2495,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 form.Show();
 
                 var map = (Map) new ControlTester("Map").TheObject;
-                var mapFunctionSelectionZoom = map.MapFunctions.OfType<MapFunctionSelectionZoom>().First();
+                MapFunctionSelectionZoom mapFunctionSelectionZoom = map.MapFunctions.OfType<MapFunctionSelectionZoom>().First();
 
                 map.Cursor = Cursors.WaitCursor;
 
@@ -2443,7 +2519,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 form.Show();
 
                 var map = (Map) new ControlTester("Map").TheObject;
-                var mapFunctionSelectionZoom = map.MapFunctions.OfType<MapFunctionSelectionZoom>().First();
+                MapFunctionSelectionZoom mapFunctionSelectionZoom = map.MapFunctions.OfType<MapFunctionSelectionZoom>().First();
 
                 map.Cursor = Cursors.WaitCursor;
 
@@ -2469,7 +2545,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 form.Show();
 
                 var map = (Map) new ControlTester("Map").TheObject;
-                var mapFunctionSelectionZoom = map.MapFunctions.OfType<MapFunctionSelectionZoom>().First();
+                MapFunctionSelectionZoom mapFunctionSelectionZoom = map.MapFunctions.OfType<MapFunctionSelectionZoom>().First();
 
                 map.IsBusy = true;
                 map.Cursor = Cursors.WaitCursor;
@@ -2498,7 +2574,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 form.Show();
 
                 var map = (Map) new ControlTester("Map").TheObject;
-                var mapFunctionPan = map.MapFunctions.OfType<MapFunctionPan>().First();
+                MapFunctionPan mapFunctionPan = map.MapFunctions.OfType<MapFunctionPan>().First();
 
                 map.Cursor = Cursors.WaitCursor;
 
@@ -2522,7 +2598,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 form.Show();
 
                 var map = (Map) new ControlTester("Map").TheObject;
-                var mapFunctionPan = map.MapFunctions.OfType<MapFunctionPan>().First();
+                MapFunctionPan mapFunctionPan = map.MapFunctions.OfType<MapFunctionPan>().First();
 
                 map.Cursor = Cursors.WaitCursor;
 
@@ -2546,7 +2622,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 form.Show();
 
                 var map = (Map) new ControlTester("Map").TheObject;
-                var mapFunctionPan = map.MapFunctions.OfType<MapFunctionPan>().First();
+                MapFunctionPan mapFunctionPan = map.MapFunctions.OfType<MapFunctionPan>().First();
 
                 map.Cursor = Cursors.WaitCursor;
 
@@ -2570,7 +2646,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 form.Show();
 
                 var map = (Map) new ControlTester("Map").TheObject;
-                var mapFunctionPan = map.MapFunctions.OfType<MapFunctionPan>().First();
+                MapFunctionPan mapFunctionPan = map.MapFunctions.OfType<MapFunctionPan>().First();
 
                 map.Cursor = Cursors.WaitCursor;
 
@@ -2594,7 +2670,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 form.Show();
 
                 var map = (Map) new ControlTester("Map").TheObject;
-                var mapFunctionPan = map.MapFunctions.OfType<MapFunctionPan>().First();
+                MapFunctionPan mapFunctionPan = map.MapFunctions.OfType<MapFunctionPan>().First();
 
                 map.Cursor = Cursors.WaitCursor;
 
@@ -2622,8 +2698,8 @@ namespace Core.Components.DotSpatial.Forms.Test
                 form.Show();
 
                 var map = (Map) new ControlTester("Map").TheObject;
-                var mapFunctionPan = map.MapFunctions.OfType<MapFunctionPan>().First();
-                var mapFunctionSelectionZoom = map.MapFunctions.OfType<MapFunctionSelectionZoom>().First();
+                MapFunctionPan mapFunctionPan = map.MapFunctions.OfType<MapFunctionPan>().First();
+                MapFunctionSelectionZoom mapFunctionSelectionZoom = map.MapFunctions.OfType<MapFunctionSelectionZoom>().First();
 
                 // Call
                 mapControl.ToggleRectangleZooming();
@@ -2649,8 +2725,8 @@ namespace Core.Components.DotSpatial.Forms.Test
                 mapControl.ToggleRectangleZooming();
 
                 var map = (Map) new ControlTester("Map").TheObject;
-                var mapFunctionPan = map.MapFunctions.OfType<MapFunctionPan>().First();
-                var mapFunctionSelectionZoom = map.MapFunctions.OfType<MapFunctionSelectionZoom>().First();
+                MapFunctionPan mapFunctionPan = map.MapFunctions.OfType<MapFunctionPan>().First();
+                MapFunctionSelectionZoom mapFunctionSelectionZoom = map.MapFunctions.OfType<MapFunctionSelectionZoom>().First();
 
                 // Call
                 mapControl.TogglePanning();

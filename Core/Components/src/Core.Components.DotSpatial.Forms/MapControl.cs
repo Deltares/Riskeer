@@ -33,6 +33,7 @@ using Core.Components.Gis.Exceptions;
 using Core.Components.Gis.Forms;
 using DotSpatial.Controls;
 using DotSpatial.Data;
+using DotSpatial.Projections;
 using DotSpatial.Topology;
 using log4net;
 using ILog = log4net.ILog;
@@ -136,6 +137,20 @@ namespace Core.Components.DotSpatial.Forms
             base.Dispose(disposing);
         }
 
+        private ProjectionInfo Projection
+        {
+            get
+            {
+                return map.Projection;
+            }
+            set
+            {
+                ProjectionInfo oldProjectInfo = map.Projection;
+                map.Projection = value;
+                ReprojectViewExtents(oldProjectInfo, value);
+            }
+        }
+
         private bool HasMapData
         {
             get
@@ -173,13 +188,33 @@ namespace Core.Components.DotSpatial.Forms
             Controls.Add(map);
         }
 
+        private void ReprojectViewExtents(ProjectionInfo projectFrom, ProjectionInfo projectTo)
+        {
+            double[] viewExtentXY =
+            {
+                map.ViewExtents.MinX,
+                map.ViewExtents.MinY,
+                map.ViewExtents.MaxX,
+                map.ViewExtents.MaxY
+            };
+            double[] viewExtentZ =
+            {
+                0.0,
+                0.0
+            };
+
+            Reproject.ReprojectPoints(viewExtentXY, viewExtentZ, projectFrom, projectTo, 0, 2);
+
+            map.ViewExtents = new Extent(viewExtentXY);
+        }
+
         private void ReprojectLayers(IEnumerable<IMapLayer> layersToReproject)
         {
             foreach (IMapLayer mapLayer in layersToReproject)
             {
-                if (!mapLayer.Projection.Equals(map.Projection))
+                if (!mapLayer.Projection.Equals(Projection))
                 {
-                    mapLayer.Reproject(map.Projection);
+                    mapLayer.Reproject(Projection);
                 }
             }
         }
@@ -234,7 +269,7 @@ namespace Core.Components.DotSpatial.Forms
             }
             else
             {
-                map.Projection = MapDataConstants.FeatureBasedMapDataCoordinateSystem;
+                Projection = MapDataConstants.FeatureBasedMapDataCoordinateSystem;
                 ReprojectLayers(map.Layers);
             }
         }
@@ -243,7 +278,7 @@ namespace Core.Components.DotSpatial.Forms
         {
             IMapLayer[] existingMapLayers = map.Layers.ToArray();
 
-            map.Projection = backgroundLayerStatus.BackgroundLayer.Projection;
+            Projection = backgroundLayerStatus.BackgroundLayer.Projection;
             map.Layers.Insert(0, backgroundLayerStatus.BackgroundLayer);
 
             ReprojectLayers(existingMapLayers);
@@ -341,7 +376,7 @@ namespace Core.Components.DotSpatial.Forms
             drawnMapDataList.Clear();
 
             map.ClearLayers();
-            map.Projection = MapDataConstants.FeatureBasedMapDataCoordinateSystem;
+            Projection = MapDataConstants.FeatureBasedMapDataCoordinateSystem;
 
             backgroundLayerStatus?.ClearConfiguration(expectedRecreationOfBackgroundLayer);
         }
@@ -352,7 +387,7 @@ namespace Core.Components.DotSpatial.Forms
             {
                 if (InitializeBackgroundLayer())
                 {
-                    map.Projection = backgroundLayerStatus.BackgroundLayer.Projection;
+                    Projection = backgroundLayerStatus.BackgroundLayer.Projection;
                     map.Layers.Add(backgroundLayerStatus.BackgroundLayer);
                 }
             }
@@ -383,9 +418,9 @@ namespace Core.Components.DotSpatial.Forms
 
             drawnMapDataList.Add(drawnMapData);
 
-            if (!map.Projection.Equals(featureBasedMapDataLayer.Projection))
+            if (!Projection.Equals(featureBasedMapDataLayer.Projection))
             {
-                featureBasedMapDataLayer.Reproject(map.Projection);
+                featureBasedMapDataLayer.Reproject(Projection);
             }
             map.Layers.Add(featureBasedMapDataLayer);
         }
@@ -401,8 +436,8 @@ namespace Core.Components.DotSpatial.Forms
 
         private void HandleMapDataCollectionChange()
         {
-            var mapDataThatShouldBeDrawn = Data.GetFeatureBasedMapDataRecursively().ToList();
-            var drawnMapDataLookup = drawnMapDataList.ToDictionary(dmd => dmd.FeatureBasedMapData, dmd => dmd);
+            List<FeatureBasedMapData> mapDataThatShouldBeDrawn = Data.GetFeatureBasedMapDataRecursively().ToList();
+            Dictionary<FeatureBasedMapData, DrawnMapData> drawnMapDataLookup = drawnMapDataList.ToDictionary(dmd => dmd.FeatureBasedMapData, dmd => dmd);
 
             DrawMissingMapDataOnCollectionChange(mapDataThatShouldBeDrawn, drawnMapDataLookup);
             RemoveRedundantMapDataOnCollectionChange(mapDataThatShouldBeDrawn, drawnMapDataLookup);
