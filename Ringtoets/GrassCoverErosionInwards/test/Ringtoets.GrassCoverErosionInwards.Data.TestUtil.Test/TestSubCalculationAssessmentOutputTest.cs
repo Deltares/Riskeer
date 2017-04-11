@@ -28,21 +28,21 @@ using Ringtoets.Common.Data.TestUtil;
 namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil.Test
 {
     [TestFixture]
-    public class TestOvertoppingRateAssessmentOutputTest
+    public class TestSubCalculationAssessmentOutputTest
     {
         [Test]
         public void TestDikeHeightAssessmentOutput_WithoutConvergence_ReturnsExpectedValues()
         {
             // Setup
             var random = new Random(12);
-            double overtoppingRate = random.NextDouble();
+            double result = random.NextDouble();
 
             // Call
-            var output = new TestOvertoppingRateAssessmentOutput(overtoppingRate);
+            var output = new TestSubCalculationAssessmentOutput(result);
 
             // Assert
-            Assert.IsInstanceOf<OvertoppingRateAssessmentOutput>(output);
-            Assert.AreEqual(overtoppingRate, output.OvertoppingRate, output.OvertoppingRate.GetAccuracy());
+            Assert.IsInstanceOf<SubCalculationAssessmentOutput>(output);
+            Assert.AreEqual(result, output.Result, output.Result.GetAccuracy());
             Assert.IsNaN(output.TargetProbability);
             Assert.IsNaN(output.TargetReliability);
             Assert.IsNaN(output.CalculatedProbability);
@@ -55,15 +55,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil.Test
         {
             // Setup
             var random = new Random(12);
-            double overtoppingRate = random.NextDouble();
-            CalculationConvergence convergence = random.NextEnumValue<CalculationConvergence>();
+            double result = random.NextDouble();
+            var convergence = random.NextEnumValue<CalculationConvergence>();
 
             // Call
-            var output = new TestOvertoppingRateAssessmentOutput(overtoppingRate, convergence);
+            var output = new TestSubCalculationAssessmentOutput(result, convergence);
 
             // Assert
-            Assert.IsInstanceOf<OvertoppingRateAssessmentOutput>(output);
-            Assert.AreEqual(overtoppingRate, output.OvertoppingRate, output.OvertoppingRate.GetAccuracy());
+            Assert.IsInstanceOf<SubCalculationAssessmentOutput>(output);
+            Assert.AreEqual(result, output.Result, output.Result.GetAccuracy());
             Assert.IsNaN(output.TargetProbability);
             Assert.IsNaN(output.TargetReliability);
             Assert.IsNaN(output.CalculatedProbability);

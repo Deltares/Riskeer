@@ -44,8 +44,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// based on the grass cover erosion inwards calculation output.</param>
         public GrassCoverErosionInwardsOutput(double waveHeight, bool isOvertoppingDominant,
                                               ProbabilityAssessmentOutput probabilityAssessmentOutput,
-                                              DikeHeightAssessmentOutput dikeHeightAssessmentOutput,
-                                              OvertoppingRateAssessmentOutput overtoppingRateAssessmentOutput)
+                                              SubCalculationAssessmentOutput dikeHeightAssessmentOutput,
+                                              SubCalculationAssessmentOutput overtoppingRateAssessmentOutput)
         {
             IsOvertoppingDominant = isOvertoppingDominant;
             WaveHeight = new RoundedDouble(2, waveHeight);
@@ -75,12 +75,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// Gets the dike height assessment output based on the grass cover erosion 
         /// inwards calculation output.
         /// </summary>
-        public DikeHeightAssessmentOutput DikeHeightAssessmentOutput { get; private set; }
+        public SubCalculationAssessmentOutput DikeHeightAssessmentOutput { get; private set; }
 
         /// <summary>
         /// Gets the overtopping rate assessment output based on the grass cover erosion 
         /// inwards calculation output.
         /// </summary>
-        public OvertoppingRateAssessmentOutput OvertoppingRateAssessmentOutput { get; private set; }
+        public SubCalculationAssessmentOutput OvertoppingRateAssessmentOutput { get; private set; }
     }
 }

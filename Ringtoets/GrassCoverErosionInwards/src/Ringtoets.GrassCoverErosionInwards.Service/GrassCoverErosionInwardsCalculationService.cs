@@ -158,7 +158,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
             overtoppingCalculator = HydraRingCalculatorFactory.Instance.CreateOvertoppingCalculator(hlcdDirectory);
             OvertoppingCalculationInput overtoppingCalculationInput = CreateOvertoppingInput(calculation, generalInput, hydraulicBoundaryDatabaseFilePath);
-            DikeHeightAssessmentOutput dikeHeight = null;
+            SubCalculationAssessmentOutput dikeHeight = null;
 
             try
             {
@@ -217,10 +217,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// <param name="calculationName">The name of the calculation.</param>
         /// <param name="targetReliability">The target reliability for the calculation.</param>
         /// <param name="targetProbability">The target probability for the calculation.</param>
-        /// <returns>A <see cref="DikeHeightAssessmentOutput"/>.</returns>
+        /// <returns>A <see cref="SubCalculationAssessmentOutput"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="targetProbability"/> 
         /// or the calculated probability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
-        private DikeHeightAssessmentOutput CreateDikeHeightAssessmentOutput(string calculationName,
+        private SubCalculationAssessmentOutput CreateDikeHeightAssessmentOutput(string calculationName,
                                                                             double targetReliability,
                                                                             double targetProbability)
         {
@@ -235,7 +235,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                 log.Warn(string.Format(Resources.GrassCoverErosionInwardsCalculationService_DikeHeight_calculation_for_calculation_0_not_converged, calculationName));
             }
 
-            return new DikeHeightAssessmentOutput(dikeHeight, targetProbability,
+            return new SubCalculationAssessmentOutput(dikeHeight, targetProbability,
                                                   targetReliability, probability, reliability,
                                                   converged);
         }

@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.TestUtil;
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 {
     [TestFixture]
-    public class DikeHeightAssessmentOutputTest
+    public class SubCalculationAssessmentOutputTest
     {
         [Test]
         [SetCulture("nl-NL")]
@@ -38,21 +38,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             var random = new Random(32);
-            double dikeHeight = random.NextDouble();
+            double result = random.NextDouble();
             double targetReliability = random.NextDouble();
             double calculatedProbability = random.NextDouble();
             double calculatedReliability = random.NextDouble();
-            CalculationConvergence convergence = random.NextEnumValue<CalculationConvergence>();
+            var convergence = random.NextEnumValue<CalculationConvergence>();
 
             // Call
-            TestDelegate call = () => new DikeHeightAssessmentOutput(dikeHeight, targetProbability,
-                                                                     targetReliability,
-                                                                     calculatedProbability,
-                                                                     calculatedReliability,
-                                                                     convergence);
+            TestDelegate call = () => new SubCalculationAssessmentOutput(result, targetProbability,
+                                                                         targetReliability,
+                                                                         calculatedProbability,
+                                                                         calculatedReliability,
+                                                                         convergence);
 
             // Assert
-            ArgumentOutOfRangeException exception = Assert.Throws<ArgumentOutOfRangeException>(call);
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(call);
             Assert.AreEqual("targetProbability", exception.ParamName);
             StringAssert.Contains("Kans moet in het bereik [0,0, 1,0] liggen.", exception.Message);
         }
@@ -65,21 +65,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             var random = new Random(32);
-            double dikeHeight = random.NextDouble();
+            double result = random.NextDouble();
             double targetProbability = random.NextDouble();
             double targetReliability = random.NextDouble();
             double calculatedReliability = random.NextDouble();
-            CalculationConvergence convergence = random.NextEnumValue<CalculationConvergence>();
+            var convergence = random.NextEnumValue<CalculationConvergence>();
 
             // Call
-            TestDelegate call = () => new DikeHeightAssessmentOutput(dikeHeight, targetProbability,
-                                                                     targetReliability,
-                                                                     calculatedProbability,
-                                                                     calculatedReliability,
-                                                                     convergence);
+            TestDelegate call = () => new SubCalculationAssessmentOutput(result, targetProbability,
+                                                                         targetReliability,
+                                                                         calculatedProbability,
+                                                                         calculatedReliability,
+                                                                         convergence);
 
             // Assert
-            ArgumentOutOfRangeException exception = Assert.Throws<ArgumentOutOfRangeException>(call);
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(call);
             Assert.AreEqual("calculatedProbability", exception.ParamName);
             StringAssert.Contains("Kans moet in het bereik [0,0, 1,0] liggen.", exception.Message);
         }
@@ -91,20 +91,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             var random = new Random(32);
-            double dikeHeight = random.NextDouble();
+            double result = random.NextDouble();
             double targetReliability = random.NextDouble();
             double calculatedReliability = random.NextDouble();
-            CalculationConvergence convergence = random.NextEnumValue<CalculationConvergence>();
+            var convergence = random.NextEnumValue<CalculationConvergence>();
 
             // Call
-            var output = new DikeHeightAssessmentOutput(dikeHeight, targetProbability,
-                                                        targetReliability,
-                                                        calculatedProbability,
-                                                        calculatedReliability,
-                                                        convergence);
+            var output = new SubCalculationAssessmentOutput(result, targetProbability,
+                                                            targetReliability,
+                                                            calculatedProbability,
+                                                            calculatedReliability,
+                                                            convergence);
 
             // Assert
-            Assert.AreEqual(dikeHeight, output.DikeHeight, output.DikeHeight.GetAccuracy());
+            Assert.AreEqual(result, output.Result, output.Result.GetAccuracy());
             Assert.AreEqual(targetProbability, output.TargetProbability);
             Assert.AreEqual(targetReliability, output.TargetReliability, output.TargetReliability.GetAccuracy());
             Assert.AreEqual(calculatedProbability, output.CalculatedProbability);

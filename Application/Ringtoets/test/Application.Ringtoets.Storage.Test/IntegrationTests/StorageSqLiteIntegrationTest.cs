@@ -1567,15 +1567,15 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             AssertDikeHeightAssessmentOutput(expectedOutput.DikeHeightAssessmentOutput, actualOutput.DikeHeightAssessmentOutput);
         }
 
-        private static void AssertDikeHeightAssessmentOutput(DikeHeightAssessmentOutput expectedOutput,
-                                                             DikeHeightAssessmentOutput actualOutput)
+        private static void AssertDikeHeightAssessmentOutput(SubCalculationAssessmentOutput expectedOutput,
+                                                             SubCalculationAssessmentOutput actualOutput)
         {
             if (expectedOutput == null)
             {
                 Assert.IsNull(actualOutput);
                 return;
             }
-            Assert.AreEqual(expectedOutput.DikeHeight, actualOutput.DikeHeight);
+            Assert.AreEqual(expectedOutput.Result, actualOutput.Result);
             Assert.AreEqual(expectedOutput.TargetProbability, actualOutput.TargetProbability);
             Assert.AreEqual(expectedOutput.TargetReliability, actualOutput.TargetReliability);
             Assert.AreEqual(expectedOutput.CalculatedProbability, actualOutput.CalculatedProbability);

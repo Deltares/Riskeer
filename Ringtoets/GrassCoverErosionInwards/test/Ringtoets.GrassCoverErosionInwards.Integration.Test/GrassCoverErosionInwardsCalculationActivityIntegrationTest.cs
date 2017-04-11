@@ -558,9 +558,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             Assert.IsNotNull(calculation.Output);
             ProbabilityAssessmentOutput probabilisticAssessmentOutput = calculation.Output.ProbabilityAssessmentOutput;
             Assert.IsFalse(double.IsNaN(probabilisticAssessmentOutput.Reliability));
-            DikeHeightAssessmentOutput dikeHeightAssessmentOutput = calculation.Output.DikeHeightAssessmentOutput;
+            SubCalculationAssessmentOutput dikeHeightAssessmentOutput = calculation.Output.DikeHeightAssessmentOutput;
             Assert.IsNotNull(dikeHeightAssessmentOutput);
-            Assert.IsFalse(double.IsNaN(dikeHeightAssessmentOutput.DikeHeight));
+            Assert.IsFalse(double.IsNaN(dikeHeightAssessmentOutput.Result));
             mocks.VerifyAll();
         }
 

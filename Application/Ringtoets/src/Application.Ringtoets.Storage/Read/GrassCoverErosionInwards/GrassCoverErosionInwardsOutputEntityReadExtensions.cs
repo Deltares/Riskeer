@@ -58,7 +58,7 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
                                                    entity.FactorOfSafety.ToNullAsNaN());
         }
 
-        private static DikeHeightAssessmentOutput GetDikeHeightAssessmentOutput(GrassCoverErosionInwardsOutputEntity entity)
+        private static SubCalculationAssessmentOutput GetDikeHeightAssessmentOutput(GrassCoverErosionInwardsOutputEntity entity)
         {
             GrassCoverErosionInwardsDikeHeightOutputEntity dikeHeightOutputEntity = entity.GrassCoverErosionInwardsDikeHeightOutputEntities.FirstOrDefault();
             return dikeHeightOutputEntity != null ? dikeHeightOutputEntity.Read() : null;

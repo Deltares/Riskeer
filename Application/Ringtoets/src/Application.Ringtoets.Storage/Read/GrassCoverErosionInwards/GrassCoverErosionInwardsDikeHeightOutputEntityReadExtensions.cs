@@ -27,18 +27,18 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
 {
     /// <summary>
     /// Extension methods for <see cref="GrassCoverErosionInwardsDikeHeightOutputEntity"/> related to creating 
-    /// a <see cref="DikeHeightAssessmentOutput"/>.
+    /// a <see cref="SubCalculationAssessmentOutput"/>.
     /// </summary>
     internal static class GrassCoverErosionInwardsDikeHeightOutputEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="GrassCoverErosionInwardsDikeHeightOutputEntity"/> and use the information to construct a <see cref="DikeHeightAssessmentOutput"/>.
+        /// Reads the <see cref="GrassCoverErosionInwardsDikeHeightOutputEntity"/> and use the information to construct a <see cref="SubCalculationAssessmentOutput"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="GrassCoverErosionInwardsDikeHeightOutputEntity"/> to create <see cref="DikeHeightAssessmentOutput"/> for.</param>
-        /// <returns>A new <see cref="DikeHeightAssessmentOutput"/>.</returns>
-        internal static DikeHeightAssessmentOutput Read(this GrassCoverErosionInwardsDikeHeightOutputEntity entity)
+        /// <param name="entity">The <see cref="GrassCoverErosionInwardsDikeHeightOutputEntity"/> to create <see cref="SubCalculationAssessmentOutput"/> for.</param>
+        /// <returns>A new <see cref="SubCalculationAssessmentOutput"/>.</returns>
+        internal static SubCalculationAssessmentOutput Read(this GrassCoverErosionInwardsDikeHeightOutputEntity entity)
         {
-            return new DikeHeightAssessmentOutput(entity.DikeHeight.ToNullAsNaN(),
+            return new SubCalculationAssessmentOutput(entity.DikeHeight.ToNullAsNaN(),
                                                   entity.TargetProbability.ToNullAsNaN(),
                                                   entity.TargetReliability.ToNullAsNaN(),
                                                   entity.CalculatedProbability.ToNullAsNaN(),

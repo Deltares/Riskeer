@@ -25,22 +25,22 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
 {
     /// <summary>
-    /// Extension methods for <see cref="DikeHeightAssessmentOutput"/> related to creating a <see cref="GrassCoverErosionInwardsDikeHeightOutputEntity"/>.
+    /// Extension methods for <see cref="SubCalculationAssessmentOutput"/> related to creating a <see cref="GrassCoverErosionInwardsDikeHeightOutputEntity"/>.
     /// </summary>
     internal static class DikeHeightAssessmentOutputCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="GrassCoverErosionInwardsDikeHeightOutputEntity"/> based on the information of the <see cref="DikeHeightAssessmentOutput"/>.
+        /// Creates a <see cref="GrassCoverErosionInwardsDikeHeightOutputEntity"/> based on the information of the <see cref="SubCalculationAssessmentOutput"/>.
         /// </summary>
         /// <param name="output">The output to create a database entity for.</param>
         /// <returns>A new <see cref="GrassCoverErosionInwardsDikeHeightOutputEntity"/>.</returns>
-        internal static GrassCoverErosionInwardsDikeHeightOutputEntity Create(this DikeHeightAssessmentOutput output)
+        internal static GrassCoverErosionInwardsDikeHeightOutputEntity Create(this SubCalculationAssessmentOutput output)
         {
             return new GrassCoverErosionInwardsDikeHeightOutputEntity
             {
-                DikeHeight = double.IsNaN(output.DikeHeight)
+                DikeHeight = double.IsNaN(output.Result)
                                  ? (double?) null
-                                 : output.DikeHeight,
+                                 : output.Result,
                 TargetProbability = double.IsNaN(output.TargetProbability)
                                         ? (double?) null
                                         : output.TargetProbability,

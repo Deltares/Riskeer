@@ -38,7 +38,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         {
             // Setup
             var random = new Random(21);
-            var output = new DikeHeightAssessmentOutput(
+            var output = new SubCalculationAssessmentOutput(
                 random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
                 random.NextDouble(), random.NextEnumValue<CalculationConvergence>());
 
@@ -47,7 +47,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual(output.DikeHeight, entity.DikeHeight, output.DikeHeight.GetAccuracy());
+            Assert.AreEqual(output.Result, entity.DikeHeight, output.Result.GetAccuracy());
             Assert.AreEqual(output.TargetProbability, entity.TargetProbability);
             Assert.AreEqual(output.TargetReliability, entity.TargetReliability, output.TargetReliability.GetAccuracy());
             Assert.AreEqual(output.CalculatedProbability, entity.CalculatedProbability);
@@ -60,7 +60,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         {
             // Setup
             var random = new Random(21);
-            var output = new DikeHeightAssessmentOutput(double.NaN, double.NaN, double.NaN,
+            var output = new SubCalculationAssessmentOutput(double.NaN, double.NaN, double.NaN,
                                                         double.NaN, double.NaN, random.NextEnumValue<CalculationConvergence>());
 
             // Call

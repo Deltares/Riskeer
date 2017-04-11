@@ -347,8 +347,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var calculation = new GrassCoverErosionInwardsCalculation
                 {
                     Output = new GrassCoverErosionInwardsOutput(1.0, false, probabilityAssessmentOutput,
-                                                                new TestDikeHeightAssessmentOutput(0),
-                                                                new TestOvertoppingRateAssessmentOutput(0))
+                                                                new TestSubCalculationAssessmentOutput(0),
+                                                                new TestSubCalculationAssessmentOutput(0))
                 };
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
                 var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
@@ -389,8 +389,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var calculation = new GrassCoverErosionInwardsCalculation
                 {
                     Output = new GrassCoverErosionInwardsOutput(1.1, true, probabilityAssessmentOutput,
-                                                                new TestDikeHeightAssessmentOutput(0),
-                                                                new TestOvertoppingRateAssessmentOutput(0))
+                                                                new TestSubCalculationAssessmentOutput(0),
+                                                                new TestSubCalculationAssessmentOutput(0))
                 };
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
                 var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
@@ -457,16 +457,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var successfulCalculation = new GrassCoverErosionInwardsCalculation
                 {
                     Output = new GrassCoverErosionInwardsOutput(1.1, true, successfulCalculationOutput,
-                                                                new TestDikeHeightAssessmentOutput(0),
-                                                                new TestOvertoppingRateAssessmentOutput(0))
+                                                                new TestSubCalculationAssessmentOutput(0),
+                                                                new TestSubCalculationAssessmentOutput(0))
                 };
 
                 var failedCalculationOutput = new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0);
                 var failedCalculation = new GrassCoverErosionInwardsCalculation
                 {
                     Output = new GrassCoverErosionInwardsOutput(1.1, true, failedCalculationOutput,
-                                                                new TestDikeHeightAssessmentOutput(0),
-                                                                new TestOvertoppingRateAssessmentOutput(0))
+                                                                new TestSubCalculationAssessmentOutput(0),
+                                                                new TestSubCalculationAssessmentOutput(0))
                 };
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
                 var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
@@ -521,8 +521,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 {
                     Output = new GrassCoverErosionInwardsOutput(1.1, true,
                                                                 new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0),
-                                                                new TestDikeHeightAssessmentOutput(0),
-                                                                new TestOvertoppingRateAssessmentOutput(0))
+                                                                new TestSubCalculationAssessmentOutput(0),
+                                                                new TestSubCalculationAssessmentOutput(0))
                 }
             }, "-").SetName("SectionWithInvalidCalculationOutput");
             yield return new TestCaseData(new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
@@ -532,8 +532,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 {
                     Output = new GrassCoverErosionInwardsOutput(1.1, true,
                                                                 new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0),
-                                                                new TestDikeHeightAssessmentOutput(0),
-                                                                new TestOvertoppingRateAssessmentOutput(0))
+                                                                new TestSubCalculationAssessmentOutput(0),
+                                                                new TestSubCalculationAssessmentOutput(0))
                 }
             }, ProbabilityFormattingHelper.Format(probability)).SetName("SectionWithValidCalculationOutput");
         }

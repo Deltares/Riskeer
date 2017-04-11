@@ -56,7 +56,7 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
             return entity;
         }
 
-        private static void AddEntityForDikeHeightAssessmentOutput(GrassCoverErosionInwardsOutputEntity entity, DikeHeightAssessmentOutput output)
+        private static void AddEntityForDikeHeightAssessmentOutput(GrassCoverErosionInwardsOutputEntity entity, SubCalculationAssessmentOutput output)
         {
             if (output == null)
             {
