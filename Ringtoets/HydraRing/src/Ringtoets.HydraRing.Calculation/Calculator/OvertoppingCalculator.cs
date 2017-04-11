@@ -29,7 +29,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
 {
     /// <summary>
     /// Calculator for calculating probability of failure by overtopping or overflow and the
-    /// associated wave height. This is used in a Grass Cover Erosion Inwards assessment.
+    /// associated wave height. This is used in a grass cover erosion inwards assessment.
     /// </summary>
     internal class OvertoppingCalculator : HydraRingCalculatorBase, IOvertoppingCalculator
     {

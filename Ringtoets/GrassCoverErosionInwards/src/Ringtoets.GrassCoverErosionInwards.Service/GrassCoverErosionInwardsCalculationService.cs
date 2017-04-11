@@ -139,26 +139,40 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             {
                 throw new ArgumentNullException(nameof(calculation));
             }
+
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
+
             if (generalInput == null)
             {
                 throw new ArgumentNullException(nameof(generalInput));
             }
-            string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
-            bool calculateDikeHeight = calculation.InputParameters.DikeHeightCalculationType != DikeHeightCalculationType.NoCalculation;
-            int totalSteps = calculateDikeHeight ? 2 : 1;
+
+            var totalSteps = 1;
             string calculationName = calculation.Name;
+            string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
+            SubCalculationAssessmentOutput dikeHeightOutput = null;
+            SubCalculationAssessmentOutput overtoppingRateOutput = null;
+
+            bool calculateDikeHeight = calculation.InputParameters.DikeHeightCalculationType != DikeHeightCalculationType.NoCalculation;
+            if (calculateDikeHeight)
+            {
+                totalSteps++;
+            }
+
+            bool calculateOvertoppingRate = calculation.InputParameters.OvertoppingRateCalculationType != OvertoppingRateCalculationType.NoCalculation;
+            if (calculateOvertoppingRate)
+            {
+                totalSteps++;
+            }
 
             NotifyProgress(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Executing_overtopping_calculation, 1, totalSteps);
-
             CalculationServiceHelper.LogCalculationBeginTime(calculationName);
 
             overtoppingCalculator = HydraRingCalculatorFactory.Instance.CreateOvertoppingCalculator(hlcdDirectory);
             OvertoppingCalculationInput overtoppingCalculationInput = CreateOvertoppingInput(calculation, generalInput, hydraulicBoundaryDatabaseFilePath);
-            SubCalculationAssessmentOutput dikeHeight = null;
 
             try
             {
@@ -190,7 +204,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
                     if (dikeHeightCalculated)
                     {
-                        dikeHeight = CreateDikeHeightAssessmentOutput(calculationName, dikeHeightCalculationInput.Beta, norm);
+                        dikeHeightOutput = CreateDikeHeightAssessmentOutput(calculationName, dikeHeightCalculationInput.Beta, norm);
                     }
                 }
 
@@ -202,7 +216,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                         failureMechanismContribution,
                         generalInput.N,
                         overtoppingCalculator.ExceedanceProbabilityBeta),
-                    dikeHeight,
+                    dikeHeightOutput,
                     null);
             }
             finally
@@ -221,8 +235,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="targetProbability"/> 
         /// or the calculated probability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
         private SubCalculationAssessmentOutput CreateDikeHeightAssessmentOutput(string calculationName,
-                                                                            double targetReliability,
-                                                                            double targetProbability)
+                                                                                double targetReliability,
+                                                                                double targetProbability)
         {
             double dikeHeight = dikeHeightCalculator.DikeHeight;
             double reliability = dikeHeightCalculator.ReliabilityIndex;
@@ -236,8 +250,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
 
             return new SubCalculationAssessmentOutput(dikeHeight, targetProbability,
-                                                  targetReliability, probability, reliability,
-                                                  converged);
+                                                      targetReliability, probability, reliability,
+                                                      converged);
         }
 
         private static double GetProbabilityToUse(double assessmentSectionNorm, GeneralGrassCoverErosionInwardsInput generalInput,

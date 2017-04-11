@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.Probability;
 namespace Ringtoets.GrassCoverErosionInwards.Data
 {
     /// <summary>
-    /// This class contains the result of a dike height calculation.
+    /// This class contains the result of a grass cover erosion inwards sub calculation.
     /// </summary>
     public class SubCalculationAssessmentOutput
     {

@@ -27,7 +27,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for configuration of scenarios for the Grass Cover Erosion Inwards
+    /// Presentation object for configuration of scenarios for the grass cover erosion inwards
     /// failure mechanism.
     /// </summary>
     public class GrassCoverErosionInwardsScenariosContext : WrappedObjectContextBase<CalculationGroup>

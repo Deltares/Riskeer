@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.Probability;
 namespace Ringtoets.GrassCoverErosionInwards.Data
 {
     /// <summary>
-    /// The result of a Grass Cover Erosion Inwards assessment.
+    /// The result of a grass cover erosion inwards assessment.
     /// </summary>
     public class GrassCoverErosionInwardsOutput : Observable, ICalculationOutput
     {
