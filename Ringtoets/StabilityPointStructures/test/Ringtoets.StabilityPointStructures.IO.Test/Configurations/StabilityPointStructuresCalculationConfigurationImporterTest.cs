@@ -182,17 +182,18 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             var structure = new TestStabilityPointStructure("kunstwerk1");
             var foreshoreProfile = new TestForeshoreProfile("profiel 1");
 
-            var importer = new StabilityPointStructuresCalculationConfigurationImporter(filePath,
-                                                                                        calculationGroup,
-                                                                                        Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                                        new ForeshoreProfile[]
-                                                                                        {
-                                                                                            foreshoreProfile
-                                                                                        },
-                                                                                        new StabilityPointStructure[]
-                                                                                        {
-                                                                                            structure
-                                                                                        });
+            var importer = new StabilityPointStructuresCalculationConfigurationImporter(
+                filePath,
+                calculationGroup,
+                Enumerable.Empty<HydraulicBoundaryLocation>(),
+                new ForeshoreProfile[]
+                {
+                    foreshoreProfile
+                },
+                new StabilityPointStructure[]
+                {
+                    structure
+                });
             var successful = false;
 
             // Call
@@ -200,6 +201,37 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
 
             // Assert
             string expectedMessage = $"{expectedErrorMessage} Berekening 'Berekening 1' is overgeslagen.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
+            Assert.IsTrue(successful);
+            CollectionAssert.IsEmpty(calculationGroup.Children);
+        }
+
+        [Test]
+        public void Import_UseForeshoreButForeshoreProfileWithoutGeometry_LogMessageAndContinueImport()
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, "validConfigurationCalculationUseForeshoreWithoutGeometry.xml");
+
+            var calculationGroup = new CalculationGroup();
+            var foreshoreProfile = new TestForeshoreProfile("Voorlandprofiel");
+            var importer = new StabilityPointStructuresCalculationConfigurationImporter(
+                filePath,
+                calculationGroup,
+                Enumerable.Empty<HydraulicBoundaryLocation>(),
+                new[]
+                {
+                    foreshoreProfile
+                },
+                Enumerable.Empty<StabilityPointStructure>());
+
+            var successful = false;
+
+            // Call
+            Action call = () => successful = importer.Import();
+
+            // Assert
+            const string expectedMessage = "Het opgegeven voorlandprofiel 'Voorlandprofiel' heeft geen voorlandgeometrie en kan daarom niet gebruikt worden. " +
+                                           "Berekening 'Berekening 1' is overgeslagen.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
@@ -259,15 +291,18 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                 calculationGroup,
                 new[]
                 {
-                    hydraulicBoundaryLocation
+                    hydraulicBoundaryLocation,
+                    new TestHydraulicBoundaryLocation("Other location")
                 },
                 new[]
                 {
-                    foreshoreProfile
+                    foreshoreProfile,
+                    new TestForeshoreProfile("Other profile")
                 },
                 new[]
                 {
-                    structure
+                    structure,
+                    new TestStabilityPointStructure("other structure")
                 });
 
             // Call
@@ -283,7 +318,6 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     Structure = structure,
                     ForeshoreProfile = foreshoreProfile,
-
                     AllowedLevelIncreaseStorage =
                     {
                         Mean = (RoundedDouble) 0.2,
@@ -402,6 +436,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                         StandardDeviation = (RoundedDouble) 0.1
                     },
                     VerticalDistance = (RoundedDouble) 2,
+                    VolumicWeightWater = (RoundedDouble) 9.91,
                     WidthFlowApertures =
                     {
                         Mean = (RoundedDouble) 15.2,

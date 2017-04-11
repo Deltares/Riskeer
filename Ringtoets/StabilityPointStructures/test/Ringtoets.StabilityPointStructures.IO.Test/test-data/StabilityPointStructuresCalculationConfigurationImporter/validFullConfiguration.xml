@@ -2,7 +2,7 @@
 <configuratie>
   <berekening naam="Berekening 1">
     <hrlocatie>Locatie1</hrlocatie>
-    <volumiekgewichtwater>9.81</volumiekgewichtwater>
+    <volumiekgewichtwater>9.91</volumiekgewichtwater>
     <factorstormduur>0.002</factorstormduur>
     <kunstwerk>kunstwerk1</kunstwerk>
     <orientatie>7</orientatie>

@@ -115,6 +115,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
                 && readCalculation.WaveReduction.ValidateWaveReduction(calculation.InputParameters.ForeshoreProfile, calculation.Name, Log))
             {
                 ReadFactorStormDurationOpenStructure(readCalculation, calculation);
+                ReadVolumicWeightWater(readCalculation, calculation);
                 ReadWaveReductionParameters(readCalculation.WaveReduction, calculation.InputParameters);
                 return calculation;
             }
@@ -128,7 +129,8 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
         /// <param name="calculation">The calculation to configure.</param>
         /// <returns><c>false</c> when the evaluation level is invalid or when there is an
         /// evaluation level but no structure defined, <c>true</c> otherwise.</returns>
-        private bool TryReadEvaluationLevel(StabilityPointStructuresCalculationConfiguration readCalculation, StructuresCalculation<StabilityPointStructuresInput> calculation)
+        private bool TryReadEvaluationLevel(StabilityPointStructuresCalculationConfiguration readCalculation,
+                                            StructuresCalculation<StabilityPointStructuresInput> calculation)
         {
             if (readCalculation.EvaluationLevel.HasValue)
             {
@@ -396,7 +398,8 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
         /// <param name="calculation">The calculation to configure.</param>
         /// <returns><c>false</c> when the orientation is invalid or when there is a failure probability 
         /// structure with erosion but no structure defined, <c>true</c> otherwise.</returns>
-        private bool TryReadFailureProbabilityStructureWithErosion(StructuresCalculationConfiguration readCalculation, StructuresCalculation<StabilityPointStructuresInput> calculation)
+        private bool TryReadFailureProbabilityStructureWithErosion(StructuresCalculationConfiguration readCalculation,
+                                                                   StructuresCalculation<StabilityPointStructuresInput> calculation)
         {
             if (readCalculation.FailureProbabilityStructureWithErosion.HasValue)
             {
@@ -471,11 +474,25 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
         /// </summary>
         /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
-        private void ReadFactorStormDurationOpenStructure(StabilityPointStructuresCalculationConfiguration readCalculation, StructuresCalculation<StabilityPointStructuresInput> calculation)
+        private void ReadFactorStormDurationOpenStructure(StabilityPointStructuresCalculationConfiguration readCalculation,
+                                                          StructuresCalculation<StabilityPointStructuresInput> calculation)
         {
             if (readCalculation.FactorStormDurationOpenStructure.HasValue)
             {
                 calculation.InputParameters.FactorStormDurationOpenStructure = (RoundedDouble) readCalculation.FactorStormDurationOpenStructure.Value;
+            }
+        }
+        /// <summary>
+        /// Reads the volumic weight water.
+        /// </summary>
+        /// <param name="readCalculation">The calculation read from the imported file.</param>
+        /// <param name="calculation">The calculation to configure.</param>
+        private void ReadVolumicWeightWater(StabilityPointStructuresCalculationConfiguration readCalculation,
+                                                          StructuresCalculation<StabilityPointStructuresInput> calculation)
+        {
+            if (readCalculation.VolumicWeightWater.HasValue)
+            {
+                calculation.InputParameters.VolumicWeightWater = (RoundedDouble) readCalculation.VolumicWeightWater.Value;
             }
         }
 
@@ -486,7 +503,8 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
         /// <param name="calculation">The calculation to configure.</param>
         /// <returns><c>false</c> when the inflow model type is invalid or when there is a 
         /// inflow model type but no structure defined, <c>true</c> otherwise.</returns>
-        private bool TryReadInflowModelType(StabilityPointStructuresCalculationConfiguration readCalculation, StructuresCalculation<StabilityPointStructuresInput> calculation)
+        private bool TryReadInflowModelType(StabilityPointStructuresCalculationConfiguration readCalculation,
+                                            StructuresCalculation<StabilityPointStructuresInput> calculation)
         {
             if (readCalculation.InflowModelType.HasValue)
             {
@@ -514,7 +532,8 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
         /// <param name="calculation">The calculation to configure.</param>
         /// <returns><c>false</c> when the load schematization type is invalid or when there is a 
         /// load schematization type but no structure defined, <c>true</c> otherwise.</returns>
-        private bool TryReadLoadSchematizationType(StabilityPointStructuresCalculationConfiguration readCalculation, StructuresCalculation<StabilityPointStructuresInput> calculation)
+        private bool TryReadLoadSchematizationType(StabilityPointStructuresCalculationConfiguration readCalculation,
+                                                   StructuresCalculation<StabilityPointStructuresInput> calculation)
         {
             if (readCalculation.LoadSchematizationType.HasValue)
             {
@@ -542,7 +561,8 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
         /// <param name="calculation">The calculation to configure.</param>
         /// <returns><c>false</c> when the leveling count is invalid or when there is a 
         /// leveling count but no structure defined, <c>true</c> otherwise.</returns>
-        private bool TryReadLevellingCount(StabilityPointStructuresCalculationConfiguration readCalculation, StructuresCalculation<StabilityPointStructuresInput> calculation)
+        private bool TryReadLevellingCount(StabilityPointStructuresCalculationConfiguration readCalculation,
+                                           StructuresCalculation<StabilityPointStructuresInput> calculation)
         {
             if (readCalculation.LevellingCount.HasValue)
             {
@@ -568,7 +588,8 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
         /// <param name="calculation">The calculation to configure.</param>
         /// <returns><c>false</c> when the vertical distance is invalid or when there is a 
         /// vertical distance but no structure defined, <c>true</c> otherwise.</returns>
-        private bool TryReadVerticalDistance(StabilityPointStructuresCalculationConfiguration readCalculation, StructuresCalculation<StabilityPointStructuresInput> calculation)
+        private bool TryReadVerticalDistance(StabilityPointStructuresCalculationConfiguration readCalculation,
+                                             StructuresCalculation<StabilityPointStructuresInput> calculation)
         {
             if (readCalculation.VerticalDistance.HasValue)
             {
