@@ -193,7 +193,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// <returns>The created working directory.</returns>
         /// <exception cref="SecurityException">Thrown when the temporary path can't be accessed due to missing permissions.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown when the directory can't be created due to missing
-        /// the required persmissions.</exception>
+        /// the required permissions.</exception>
         private static string CreateWorkingDirectory()
         {
             var workingDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
