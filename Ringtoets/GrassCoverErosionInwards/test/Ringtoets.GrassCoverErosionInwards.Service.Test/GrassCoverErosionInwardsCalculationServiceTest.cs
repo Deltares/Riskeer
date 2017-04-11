@@ -732,19 +732,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
                 // Assert
                 Assert.IsNull(calculation.Output);
-
-                if (cancelBeforeDikeHeightCalculationStarts)
-                {
-                    Assert.IsTrue(overToppingCalculator.IsCanceled);
-
-                    // dikeheightCalculator is initialized after the overtopping calculation successfully finishes.
-                    Assert.IsFalse(dikeHeightCalculator.IsCanceled);
-                }
-                else
-                {
-                    Assert.IsTrue(overToppingCalculator.IsCanceled);
-                    Assert.IsTrue(dikeHeightCalculator.IsCanceled);
-                }
+                Assert.IsTrue(overToppingCalculator.IsCanceled);
+                Assert.IsTrue(dikeHeightCalculator.IsCanceled);
             }
         }
 
