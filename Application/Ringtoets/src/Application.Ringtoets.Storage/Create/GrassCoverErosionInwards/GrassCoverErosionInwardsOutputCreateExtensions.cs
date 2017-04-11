@@ -52,17 +52,27 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
             };
 
             AddEntityForDikeHeightAssessmentOutput(entity, output.DikeHeightAssessmentOutput);
+            AddEntityForOvertoppingRateAssessmentOutput(entity, output.OvertoppingRateAssessmentOutput);
 
             return entity;
         }
 
-        private static void AddEntityForDikeHeightAssessmentOutput(GrassCoverErosionInwardsOutputEntity entity, SubCalculationAssessmentOutput output)
+        private static void AddEntityForDikeHeightAssessmentOutput(GrassCoverErosionInwardsOutputEntity entity,
+                                                                   SubCalculationAssessmentOutput output)
         {
-            if (output == null)
+            if (output != null)
             {
-                return;
+                entity.GrassCoverErosionInwardsDikeHeightOutputEntities.Add(output.CreateDikeHeight());
             }
-            entity.GrassCoverErosionInwardsDikeHeightOutputEntities.Add(output.Create());
+        }
+
+        private static void AddEntityForOvertoppingRateAssessmentOutput(GrassCoverErosionInwardsOutputEntity entity,
+                                                                        SubCalculationAssessmentOutput output)
+        {
+            if (output != null)
+            {
+                entity.GrassCoverErosionInwardsOvertoppingRateOutputEntities.Add(output.CreateOvertoppingRate());
+            }
         }
     }
 }

@@ -19,26 +19,73 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
 {
     /// <summary>
-    /// Extension methods for <see cref="SubCalculationAssessmentOutput"/> related to creating a <see cref="GrassCoverErosionInwardsDikeHeightOutputEntity"/>.
+    /// Extension methods for <see cref="SubCalculationAssessmentOutput"/>
+    /// related to creating a <see cref="GrassCoverErosionInwardsDikeHeightOutputEntity"/>
+    /// or a <see cref="GrassCoverErosionInwardsOvertoppingRateOutputEntity"/>.
     /// </summary>
     internal static class DikeHeightAssessmentOutputCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="GrassCoverErosionInwardsDikeHeightOutputEntity"/> based on the information of the <see cref="SubCalculationAssessmentOutput"/>.
+        /// Creates a <see cref="GrassCoverErosionInwardsDikeHeightOutputEntity"/>
+        /// based on the information of the <see cref="SubCalculationAssessmentOutput"/>.
         /// </summary>
         /// <param name="output">The output to create a database entity for.</param>
         /// <returns>A new <see cref="GrassCoverErosionInwardsDikeHeightOutputEntity"/>.</returns>
-        internal static GrassCoverErosionInwardsDikeHeightOutputEntity Create(this SubCalculationAssessmentOutput output)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/>
+        /// is <c>null</c>.</exception>
+        internal static GrassCoverErosionInwardsDikeHeightOutputEntity CreateDikeHeight(this SubCalculationAssessmentOutput output)
         {
+            if (output == null)
+            {
+                throw new ArgumentNullException(nameof(output));
+            }
+
             return new GrassCoverErosionInwardsDikeHeightOutputEntity
             {
                 DikeHeight = double.IsNaN(output.Result)
+                                 ? (double?) null
+                                 : output.Result,
+                TargetProbability = double.IsNaN(output.TargetProbability)
+                                        ? (double?) null
+                                        : output.TargetProbability,
+                TargetReliability = double.IsNaN(output.TargetReliability)
+                                        ? (double?) null
+                                        : output.TargetReliability,
+                CalculatedProbability = double.IsNaN(output.CalculatedProbability)
+                                            ? (double?) null
+                                            : output.CalculatedProbability,
+                CalculatedReliability = double.IsNaN(output.CalculatedReliability)
+                                            ? (double?) null
+                                            : output.CalculatedReliability,
+                CalculationConvergence = (byte) output.CalculationConvergence
+            };
+        }
+
+        /// <summary>
+        /// Creates a <see cref="GrassCoverErosionInwardsOvertoppingRateOutputEntity"/>
+        /// based on the information of the <see cref="SubCalculationAssessmentOutput"/>.
+        /// </summary>
+        /// <param name="output">The output to create a database entity for.</param>
+        /// <returns>A new <see cref="GrassCoverErosionInwardsOvertoppingRateOutputEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/>
+        /// is <c>null</c>.</exception>
+        internal static GrassCoverErosionInwardsOvertoppingRateOutputEntity CreateOvertoppingRate(this SubCalculationAssessmentOutput output)
+        {
+            if (output == null)
+            {
+                throw new ArgumentNullException(nameof(output));
+            }
+
+            return new GrassCoverErosionInwardsOvertoppingRateOutputEntity
+            {
+                OvertoppingRate = double.IsNaN(output.Result)
                                  ? (double?) null
                                  : output.Result,
                 TargetProbability = double.IsNaN(output.TargetProbability)

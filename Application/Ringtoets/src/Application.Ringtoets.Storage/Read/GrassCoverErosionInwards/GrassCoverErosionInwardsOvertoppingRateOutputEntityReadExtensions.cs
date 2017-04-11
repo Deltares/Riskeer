@@ -27,33 +27,33 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
 {
     /// <summary>
-    /// Extension methods for <see cref="GrassCoverErosionInwardsDikeHeightOutputEntity"/>
+    /// Extension methods for <see cref="GrassCoverErosionInwardsOvertoppingRateOutputEntity"/>
     /// related to creating a <see cref="SubCalculationAssessmentOutput"/>.
     /// </summary>
-    internal static class GrassCoverErosionInwardsDikeHeightOutputEntityReadExtensions
+    internal static class GrassCoverErosionInwardsOvertoppingRateOutputEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="GrassCoverErosionInwardsDikeHeightOutputEntity"/> and use
+        /// Reads the <see cref="GrassCoverErosionInwardsOvertoppingRateOutputEntity"/> and use
         /// the information to construct a <see cref="SubCalculationAssessmentOutput"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="GrassCoverErosionInwardsDikeHeightOutputEntity"/>
+        /// <param name="entity">The <see cref="GrassCoverErosionInwardsOvertoppingRateOutputEntity"/>
         /// to create <see cref="SubCalculationAssessmentOutput"/> for.</param>
         /// <returns>A new <see cref="SubCalculationAssessmentOutput"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/>
         /// is <c>null</c>.</exception>
-        internal static SubCalculationAssessmentOutput Read(this GrassCoverErosionInwardsDikeHeightOutputEntity entity)
+        internal static SubCalculationAssessmentOutput Read(this GrassCoverErosionInwardsOvertoppingRateOutputEntity entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            return new SubCalculationAssessmentOutput(entity.DikeHeight.ToNullAsNaN(),
-                                                  entity.TargetProbability.ToNullAsNaN(),
-                                                  entity.TargetReliability.ToNullAsNaN(),
-                                                  entity.CalculatedProbability.ToNullAsNaN(),
-                                                  entity.CalculatedReliability.ToNullAsNaN(),
-                                                  (CalculationConvergence) entity.CalculationConvergence);
+            return new SubCalculationAssessmentOutput(entity.OvertoppingRate.ToNullAsNaN(),
+                                                      entity.TargetProbability.ToNullAsNaN(),
+                                                      entity.TargetReliability.ToNullAsNaN(),
+                                                      entity.CalculatedProbability.ToNullAsNaN(),
+                                                      entity.CalculatedReliability.ToNullAsNaN(),
+                                                      (CalculationConvergence) entity.CalculationConvergence);
         }
     }
 }

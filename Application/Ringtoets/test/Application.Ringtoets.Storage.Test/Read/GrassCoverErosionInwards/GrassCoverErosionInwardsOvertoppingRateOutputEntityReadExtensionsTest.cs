@@ -31,13 +31,13 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsDikeHeightOutputEntityReadExtensionsTest
+    public class GrassCoverErosionInwardsOvertoppingRateOutputEntityReadExtensionsTest
     {
         [Test]
         public void Read_EntityNull_ThrowArgumentNullException()
         {
             // Setup
-            GrassCoverErosionInwardsDikeHeightOutputEntity entity = null;
+            GrassCoverErosionInwardsOvertoppingRateOutputEntity entity = null;
 
             // Call
             TestDelegate test = () => entity.Read();
@@ -48,19 +48,19 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
         }
 
         [Test]
-        public void Read_ValidParameters_ReturnsDikeHeightAssessmentOutput()
+        public void Read_ValidParameters_ReturnsOvertoppingRateAssessmentOutput()
         {
             // Setup
             var random = new Random(22);
-            double dikeHeight = random.NextDouble();
+            double overtoppingRate = random.NextDouble();
             double targetProbability = random.NextDouble();
             double targetReliability = random.NextDouble();
             double calculatedProbability = random.NextDouble();
             double calculatedReliability = random.NextDouble();
             var convergence = random.NextEnumValue<CalculationConvergence>();
-            var entity = new GrassCoverErosionInwardsDikeHeightOutputEntity
+            var entity = new GrassCoverErosionInwardsOvertoppingRateOutputEntity
             {
-                DikeHeight = dikeHeight,
+                OvertoppingRate = overtoppingRate,
                 TargetProbability = targetProbability,
                 TargetReliability = targetReliability,
                 CalculatedProbability = calculatedProbability,
@@ -72,7 +72,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             SubCalculationAssessmentOutput output = entity.Read();
 
             // Assert
-            Assert.AreEqual(dikeHeight, output.Result, output.Result.GetAccuracy());
+            Assert.AreEqual(overtoppingRate, output.Result, output.Result.GetAccuracy());
             Assert.AreEqual(targetProbability, output.TargetProbability);
             Assert.AreEqual(targetReliability, output.TargetReliability, output.TargetReliability.GetAccuracy());
             Assert.AreEqual(calculatedProbability, output.CalculatedProbability);
@@ -81,12 +81,12 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
         }
 
         [Test]
-        public void Read_NullParameters_ReturnsDikeHeightAssessmentOutputWithNaN()
+        public void Read_NullParameters_ReturnsOvertoppingRateAssessmentOutputWithNaN()
         {
             // Setup
             var random = new Random(22);
             var convergence = random.NextEnumValue<CalculationConvergence>();
-            var entity = new GrassCoverErosionInwardsDikeHeightOutputEntity
+            var entity = new GrassCoverErosionInwardsOvertoppingRateOutputEntity
             {
                 CalculationConvergence = (byte) convergence
             };
