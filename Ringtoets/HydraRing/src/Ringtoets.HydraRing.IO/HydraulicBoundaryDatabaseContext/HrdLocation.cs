@@ -24,7 +24,7 @@ using System;
 namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
 {
     /// <summary>
-    /// Location of an hydraulic boundary in the Hydraulic Boundary Database.
+    /// Location of an hydraulic boundary in the hydraulic boundary database.
     /// </summary>
     public class HrdLocation
     {

@@ -39,7 +39,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// <summary>
         /// Create a new instance of <see cref="OvertoppingRateCalculator"/>.
         /// </summary>
-        /// <param name="hlcdDirectory">The directory in which the Hydraulic Boundary Database can be found.</param>
+        /// <param name="hlcdDirectory">The directory in which the hydraulic boundary database can be found.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
         internal OvertoppingRateCalculator(string hlcdDirectory)
             : base(hlcdDirectory)
