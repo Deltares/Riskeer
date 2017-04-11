@@ -292,9 +292,9 @@ namespace Ringtoets.Common.Data.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Een kansverdeling moet opgegeven zijn om op basis van die data een rekenwaarde te bepalen..
         /// </summary>
-        public static string DesignVariable_GetDesignValue_Distribution_must_be_set {
+        public static string DesignVariable_Distribution_must_be_set {
             get {
-                return ResourceManager.GetString("DesignVariable_GetDesignValue_Distribution_must_be_set", resourceCulture);
+                return ResourceManager.GetString("DesignVariable_Distribution_must_be_set", resourceCulture);
             }
         }
         

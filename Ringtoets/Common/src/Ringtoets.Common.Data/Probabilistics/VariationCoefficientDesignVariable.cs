@@ -25,16 +25,16 @@ using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Common.Data.Probabilistics
 {
-    public abstract class DesignVariable<TDistributionType> where TDistributionType : IDistribution
+    public abstract class VariationCoefficientDesignVariable<TDistributionType> where TDistributionType : IVariationCoefficientDistribution
     {
         private TDistributionType distribution;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DesignVariable{T}"/> class.
+        /// Initializes a new instance of the <see cref="VariationCoefficientDesignVariable{T}"/> class.
         /// </summary>
         /// <exception cref="ArgumentNullException">Thrown when <see cref="Distribution"/> is 
         /// <c>null</c>.</exception>
-        protected DesignVariable(TDistributionType distribution)
+        protected VariationCoefficientDesignVariable(TDistributionType distribution)
         {
             Distribution = distribution;
         }

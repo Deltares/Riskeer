@@ -144,7 +144,7 @@
   <data name="ReferenceLine_DisplayName" xml:space="preserve">
     <value>Referentielijn</value>
   </data>
-  <data name="DesignVariable_GetDesignValue_Distribution_must_be_set" xml:space="preserve">
+  <data name="DesignVariable_Distribution_must_be_set" xml:space="preserve">
     <value>Een kansverdeling moet opgegeven zijn om op basis van die data een rekenwaarde te bepalen.</value>
   </data>
   <data name="DesignVariable_Percentile_must_be_in_Range_0_" xml:space="preserve">
