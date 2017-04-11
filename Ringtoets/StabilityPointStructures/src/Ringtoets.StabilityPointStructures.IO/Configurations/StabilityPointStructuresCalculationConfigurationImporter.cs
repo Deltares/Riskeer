@@ -116,7 +116,8 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
             return null;
         }
 
-        private bool TryReadStochasts(StabilityPointStructuresCalculationConfiguration readCalculation, StructuresCalculation<StabilityPointStructuresInput> calculation)
+        private bool TryReadStochasts(StabilityPointStructuresCalculationConfiguration readCalculation, 
+            StructuresCalculation<StabilityPointStructuresInput> calculation)
         {
             if (!readCalculation.ValidateStructureBaseStochasts(Log))
             {
@@ -134,28 +135,47 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
                        readCalculation.AllowedLevelIncreaseStorage,
                        i => i.AllowedLevelIncreaseStorage, (i, d) => i.AllowedLevelIncreaseStorage = d)
                    && TryReadStandardDeviationStochast(
-                       ConfigurationSchemaIdentifiers.FlowWidthAtBottomProtectionStochastName,
+                       StabilityPointStructuresConfigurationSchemaIdentifiers.AreaFlowAperturesStochastName,
                        calculation.Name,
                        calculation.InputParameters,
-                       readCalculation.FlowWidthAtBottomProtection,
-                       i => i.FlowWidthAtBottomProtection, (i, d) => i.FlowWidthAtBottomProtection = d)
+                       readCalculation.AreaFlowApertures,
+                       i => i.AreaFlowApertures, (i, d) => i.AreaFlowApertures = d)
                    && TryReadStandardDeviationStochast(
-                       ConfigurationSchemaIdentifiers.ModelFactorSuperCriticalFlowStochastName,
+                       StabilityPointStructuresConfigurationSchemaIdentifiers.BankWidthStochastName,
                        calculation.Name,
                        calculation.InputParameters,
-                       readCalculation.ModelFactorSuperCriticalFlow,
-                       i => i.ModelFactorSuperCriticalFlow, (i, d) => i.ModelFactorSuperCriticalFlow = d)
-                   && TryReadStandardDeviationStochast(
-                       ConfigurationSchemaIdentifiers.WidthFlowAperturesStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
-                       readCalculation.WidthFlowApertures, i => i.WidthFlowApertures, (i, d) => i.WidthFlowApertures = d)
+                       readCalculation.BankWidth,
+                       i => i.BankWidth, (i, d) => i.BankWidth = d)
                    && TryReadVariationCoefficientStochast(
                        ConfigurationSchemaIdentifiers.CriticalOvertoppingDischargeStochastName,
                        calculation.Name,
                        calculation.InputParameters,
                        readCalculation.CriticalOvertoppingDischarge,
                        i => i.CriticalOvertoppingDischarge, (i, d) => i.CriticalOvertoppingDischarge = d)
+                   && TryReadStandardDeviationStochast(
+                       StabilityPointStructuresConfigurationSchemaIdentifiers.DrainCoefficientStochastName,
+                       calculation.Name,
+                       calculation.InputParameters,
+                       readCalculation.DrainCoefficient,
+                       i => i.DrainCoefficient, (i, d) => i.DrainCoefficient = d)
+                   && TryReadStandardDeviationStochast(
+                       ConfigurationSchemaIdentifiers.FlowWidthAtBottomProtectionStochastName,
+                       calculation.Name,
+                       calculation.InputParameters,
+                       readCalculation.FlowWidthAtBottomProtection,
+                       i => i.FlowWidthAtBottomProtection, (i, d) => i.FlowWidthAtBottomProtection = d)
+                   && TryReadStandardDeviationStochast(
+                       StabilityPointStructuresConfigurationSchemaIdentifiers.InsideWaterLevelStochastName,
+                       calculation.Name,
+                       calculation.InputParameters,
+                       readCalculation.InsideWaterLevel,
+                       i => i.InsideWaterLevel, (i, d) => i.InsideWaterLevel = d)
+                   && TryReadStandardDeviationStochast(
+                       ConfigurationSchemaIdentifiers.ModelFactorSuperCriticalFlowStochastName,
+                       calculation.Name,
+                       calculation.InputParameters,
+                       readCalculation.ModelFactorSuperCriticalFlow,
+                       i => i.ModelFactorSuperCriticalFlow, (i, d) => i.ModelFactorSuperCriticalFlow = d)
                    && TryReadVariationCoefficientStochast(
                        ConfigurationSchemaIdentifiers.StorageStructureAreaStochastName,
                        calculation.Name,
@@ -167,7 +187,18 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
                        calculation.Name,
                        calculation.InputParameters,
                        readCalculation.StormDuration,
-                       i => i.StormDuration, (i, d) => i.StormDuration = d);
+                       i => i.StormDuration, (i, d) => i.StormDuration = d)
+                   && TryReadStandardDeviationStochast(
+                       ConfigurationSchemaIdentifiers.WidthFlowAperturesStochastName,
+                       calculation.Name,
+                       calculation.InputParameters,
+                       readCalculation.WidthFlowApertures, i => i.WidthFlowApertures, (i, d) => i.WidthFlowApertures = d)
+                   && TryReadStandardDeviationStochast(
+                       StabilityPointStructuresConfigurationSchemaIdentifiers.ThresholdHeightOpenWeirStochastName,
+                       calculation.Name,
+                       calculation.InputParameters,
+                       readCalculation.ThresholdHeightOpenWeir,
+                       i => i.ThresholdHeightOpenWeir, (i, d) => i.ThresholdHeightOpenWeir = d);
         }
 
         private bool ValidateStochasts(StabilityPointStructuresCalculationConfiguration configuration)

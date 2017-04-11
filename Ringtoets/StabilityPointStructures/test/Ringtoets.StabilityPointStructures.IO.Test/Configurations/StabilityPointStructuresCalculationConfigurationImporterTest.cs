@@ -23,6 +23,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
@@ -47,6 +49,10 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
         {
             get
             {
+                yield return new TestCaseData(
+                    "validConfigurationAreaFlowAperturesVariationCoefficient.xml",
+                    "Indien voor parameter 'doorstroomoppervlak' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.");
+
                 yield return new TestCaseData(
                     "validConfigurationDrainCoefficientStandardDeviation.xml",
                     "Er kan geen spreiding voor stochast 'afvoercoefficient' opgegeven worden.");
@@ -237,6 +243,154 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
+        }
+
+        [Test]
+        public void Import_FullCalculationConfiguration_DataAddedToModel()
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, "validFullConfiguration.xml");
+
+            var calculationGroup = new CalculationGroup();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("Locatie1");
+            var foreshoreProfile = new TestForeshoreProfile("profiel1", new List<Point2D>
+            {
+                new Point2D(0, 3)
+            });
+            var structure = new TestStabilityPointStructure("kunstwerk1");
+            var importer = new StabilityPointStructuresCalculationConfigurationImporter(
+                filePath,
+                calculationGroup,
+                new[]
+                {
+                    hydraulicBoundaryLocation
+                },
+                new[]
+                {
+                    foreshoreProfile
+                },
+                new[]
+                {
+                    structure
+                });
+
+            // Call
+            bool successful = importer.Import();
+
+            // Assert
+            Assert.IsTrue(successful);
+            var expectedCalculation = new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                Name = "Berekening 1",
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    Structure = structure,
+                    ForeshoreProfile = foreshoreProfile,
+
+                    BankWidth =
+                    {
+                        Mean = (RoundedDouble) 1.2,
+                        StandardDeviation = (RoundedDouble) 0.1
+                    },
+                    BreakWater =
+                    {
+                        Height = (RoundedDouble) 1.23,
+                        Type = BreakWaterType.Dam
+                    },
+
+                    FactorStormDurationOpenStructure = (RoundedDouble) 0.002,
+                    FailureProbabilityRepairClosure = 0.001,
+                    FailureProbabilityStructureWithErosion = 0.0001,
+
+
+
+
+                    InflowModelType = StabilityPointStructureInflowModelType.FloodedCulvert,
+                    
+
+
+
+
+
+
+
+
+
+
+
+                    StructureNormalOrientation = (RoundedDouble) 7,
+
+
+                    
+                    UseBreakWater = true,
+                    UseForeshore = false,
+
+
+
+
+
+
+
+
+                    StormDuration =
+                    {
+                        Mean = (RoundedDouble) 6.0
+                    },
+                    ModelFactorSuperCriticalFlow =
+                    {
+                        Mean = (RoundedDouble) 1.10
+                    },
+                    FlowWidthAtBottomProtection =
+                    {
+                        Mean = (RoundedDouble) 15.2,
+                        StandardDeviation = (RoundedDouble) 0.1
+                    },
+                    WidthFlowApertures =
+                    {
+                        Mean = (RoundedDouble) 15.2,
+                        StandardDeviation = (RoundedDouble) 0.1
+                    },
+                    StorageStructureArea =
+                    {
+                        Mean = (RoundedDouble) 15000,
+                        CoefficientOfVariation = (RoundedDouble) 0.01
+                    },
+                    AllowedLevelIncreaseStorage =
+                    {
+                        Mean = (RoundedDouble) 0.2,
+                        StandardDeviation = (RoundedDouble) 0.01
+                    },
+                    CriticalOvertoppingDischarge =
+                    {
+                        Mean = (RoundedDouble) 2,
+                        CoefficientOfVariation = (RoundedDouble) 0.1
+                    },
+
+                    AreaFlowApertures =
+                    {
+                        Mean = (RoundedDouble) 80.5,
+                        StandardDeviation = (RoundedDouble) 1
+                    },
+                    DrainCoefficient =
+                    {
+                        Mean = (RoundedDouble) 0.1
+                    },
+                    InsideWaterLevel =
+                    {
+                        Mean = (RoundedDouble) 0.5,
+                        StandardDeviation = (RoundedDouble) 0.1
+                    },
+                    ThresholdHeightOpenWeir =
+                    {
+                        Mean = (RoundedDouble) 1.2,
+                        StandardDeviation = (RoundedDouble) 0.1
+                    }
+                }
+            };
+
+            Assert.AreEqual(1, calculationGroup.Children.Count);
+            AssertCalculation(expectedCalculation, (StructuresCalculation<StabilityPointStructuresInput>)calculationGroup.Children[0]);
         }
 
         private static void AssertCalculation(StructuresCalculation<StabilityPointStructuresInput> expectedCalculation,
