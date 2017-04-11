@@ -82,6 +82,15 @@ namespace Ringtoets.StabilityPointStructures.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to faalkans herstel van gefaalde situatie.
+        /// </summary>
+        internal static string CalculationConfigurationImporter_FailureProbabilityRepairClosure_DisplayName {
+            get {
+                return ResourceManager.GetString("CalculationConfigurationImporter_FailureProbabilityRepairClosure_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
         ///&lt;!--
         ///Copyright (C) Stichting Deltares 2016. All rights reserved.

@@ -479,7 +479,7 @@ namespace Ringtoets.StabilityPointStructures.Data
             }
             set
             {
-                ProbabilityHelper.ValidateProbability(value, nameof(value), RingtoetsDataCommonResources.FailureProbability_Value_needs_to_be_in_Range_0_);
+                ProbabilityHelper.ValidateProbability(value, null, RingtoetsDataCommonResources.FailureProbability_Value_needs_to_be_in_Range_0_);
                 failureProbabilityRepairClosure = value;
             }
         }

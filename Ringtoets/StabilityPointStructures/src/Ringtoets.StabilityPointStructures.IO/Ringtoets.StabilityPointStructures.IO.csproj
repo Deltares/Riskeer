@@ -50,6 +50,7 @@
     <Compile Include="Configurations\ConfigurationStabilityPointStructuresLoadSchematizationType.cs" />
     <Compile Include="Configurations\Helpers\ConfigurationStabilityPointStructuresLoadSchematizationTypeConverter.cs" />
     <Compile Include="Configurations\StabilityPointStructuresCalculationConfigurationExporter.cs" />
+    <Compile Include="Configurations\StabilityPointStructuresCalculationConfigurationImporter.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
