@@ -152,27 +152,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                 throw new ArgumentNullException(nameof(generalInput));
             }
 
-            var totalSteps = 1;
             string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
             SubCalculationAssessmentOutput dikeHeightOutput = null;
             SubCalculationAssessmentOutput overtoppingRateOutput = null;
 
-            if (calculation.InputParameters.DikeHeightCalculationType != DikeHeightCalculationType.NoCalculation)
-            {
-                dikeHeightCalculator = HydraRingCalculatorFactory.Instance.CreateDikeHeightCalculator(hlcdDirectory);
-                totalSteps++;
-            }
+            int numberOfCalculators = CreateCalculators(calculation, hlcdDirectory);
 
-            if (calculation.InputParameters.OvertoppingRateCalculationType != OvertoppingRateCalculationType.NoCalculation)
-            {
-                totalSteps++;
-                overtoppingRateCalculator = HydraRingCalculatorFactory.Instance.CreateOvertoppingRateCalculator(hlcdDirectory);
-            }
-
-            NotifyProgress(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Executing_overtopping_calculation, 1, totalSteps);
+            NotifyProgress(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Executing_overtopping_calculation, 1, numberOfCalculators);
             CalculationServiceHelper.LogCalculationBeginTime(calculation.Name);
-
-            overtoppingCalculator = HydraRingCalculatorFactory.Instance.CreateOvertoppingCalculator(hlcdDirectory);
 
             try
             {
@@ -183,27 +170,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                     return;
                 }
 
-                if (dikeHeightCalculator != null)
+                dikeHeightOutput = CalculateDikeHeight(calculation,
+                                                       assessmentSection,
+                                                       generalInput,
+                                                       failureMechanismContribution,
+                                                       hydraulicBoundaryDatabaseFilePath,
+                                                       numberOfCalculators);
+
+                if (canceled)
                 {
-                    NotifyProgress(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Executing_dikeheight_calculation, 2, totalSteps);
-
-                    double norm = GetProbabilityToUse(assessmentSection.FailureMechanismContribution.Norm,
-                                                      generalInput, failureMechanismContribution,
-                                                      calculation.InputParameters.DikeHeightCalculationType);
-                    DikeHeightCalculationInput dikeHeightCalculationInput = CreateDikeHeightInput(calculation, norm,
-                                                                                                  generalInput,
-                                                                                                  hydraulicBoundaryDatabaseFilePath);
-                    bool dikeHeightCalculated = CalculateDikeHeight(dikeHeightCalculationInput, calculation.Name);
-
-                    if (canceled)
-                    {
-                        return;
-                    }
-
-                    if (dikeHeightCalculated)
-                    {
-                        dikeHeightOutput = CreateDikeHeightAssessmentOutput(calculation.Name, dikeHeightCalculationInput.Beta, norm);
-                    }
+                    return;
                 }
 
                 calculation.Output = new GrassCoverErosionInwardsOutput(
@@ -225,6 +201,63 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                 dikeHeightCalculator = null;
                 overtoppingRateCalculator = null;
             }
+        }
+
+        private SubCalculationAssessmentOutput CalculateDikeHeight(GrassCoverErosionInwardsCalculation calculation,
+                                                                   IAssessmentSection assessmentSection,
+                                                                   GeneralGrassCoverErosionInwardsInput generalInput,
+                                                                   double failureMechanismContribution,
+                                                                   string hydraulicBoundaryDatabaseFilePath,
+                                                                   int numberOfCalculators)
+        {
+            if (dikeHeightCalculator == null)
+            {
+                return null;
+            }
+
+            NotifyProgress(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Executing_dikeheight_calculation, 2, numberOfCalculators);
+
+            double norm = GetProbabilityToUse(assessmentSection.FailureMechanismContribution.Norm,
+                                              generalInput, failureMechanismContribution,
+                                              calculation.InputParameters.DikeHeightCalculationType);
+            DikeHeightCalculationInput dikeHeightCalculationInput = CreateDikeHeightInput(calculation, norm,
+                                                                                          generalInput,
+                                                                                          hydraulicBoundaryDatabaseFilePath);
+
+            bool dikeHeightCalculated = CalculateDikeHeight(dikeHeightCalculationInput, calculation.Name);
+
+            if (canceled)
+            {
+                return null;
+            }
+
+            if (dikeHeightCalculated)
+            {
+                return CreateDikeHeightAssessmentOutput(calculation.Name, dikeHeightCalculationInput.Beta, norm);
+            }
+
+            return null;
+        }
+
+        private int CreateCalculators(GrassCoverErosionInwardsCalculation calculation, string hlcdDirectory)
+        {
+            var numberOfCalculators = 1;
+
+            overtoppingCalculator = HydraRingCalculatorFactory.Instance.CreateOvertoppingCalculator(hlcdDirectory);
+
+            if (calculation.InputParameters.DikeHeightCalculationType != DikeHeightCalculationType.NoCalculation)
+            {
+                dikeHeightCalculator = HydraRingCalculatorFactory.Instance.CreateDikeHeightCalculator(hlcdDirectory);
+                numberOfCalculators++;
+            }
+
+            if (calculation.InputParameters.OvertoppingRateCalculationType != OvertoppingRateCalculationType.NoCalculation)
+            {
+                numberOfCalculators++;
+                overtoppingRateCalculator = HydraRingCalculatorFactory.Instance.CreateOvertoppingRateCalculator(hlcdDirectory);
+            }
+
+            return numberOfCalculators;
         }
 
         /// <summary>
