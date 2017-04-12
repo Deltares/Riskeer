@@ -102,15 +102,15 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
             if (TrySetStructure(readCalculation.StructureName, calculation)
                 && TrySetHydraulicBoundaryLocation(readCalculation.HydraulicBoundaryLocationName, calculation)
                 && TrySetForeshoreProfile(readCalculation.ForeshoreProfileName, calculation)
-                && TryReadFailureProbabilityRepairClosure(readCalculation, calculation)
                 && TryReadEvaluationLevel(readCalculation, calculation)
-                && TryReadStochasts(readCalculation, calculation)
-                && TryReadOrientation(readCalculation, calculation)
+                && TryReadFailureProbabilityRepairClosure(readCalculation, calculation)
                 && TryReadFailureProbabilityStructureWithErosion(readCalculation, calculation)
                 && TryReadInflowModelType(readCalculation, calculation)
-                && TryReadLoadSchematizationType(readCalculation, calculation)
                 && TryReadLevellingCount(readCalculation, calculation)
+                && TryReadLoadSchematizationType(readCalculation, calculation)
                 && TryReadProbabilityCollisionSecondaryStructure(readCalculation, calculation)
+                && TryReadStochasts(readCalculation, calculation)
+                && TryReadStructureNormalOrientation(readCalculation, calculation)
                 && TryReadVerticalDistance(readCalculation, calculation)
                 && readCalculation.WaveReduction.ValidateWaveReduction(calculation.InputParameters.ForeshoreProfile, calculation.Name, Log))
             {
@@ -318,9 +318,10 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
         /// </summary>
         /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
-        /// <returns><c>false</c> when the orientation is invalid or when there is an orientation but
-        /// no structure defined, <c>true</c> otherwise.</returns>
-        private bool TryReadOrientation(StructuresCalculationConfiguration readCalculation, StructuresCalculation<StabilityPointStructuresInput> calculation)
+        /// <returns><c>false</c> when the structure normal orientation is invalid or when there 
+        /// is a structure normal orientation but no structure defined, <c>true</c> otherwise.</returns>
+        private bool TryReadStructureNormalOrientation(StructuresCalculationConfiguration readCalculation, 
+            StructuresCalculation<StabilityPointStructuresInput> calculation)
         {
             if (readCalculation.StructureNormalOrientation.HasValue)
             {
@@ -354,6 +355,13 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
             return true;
         }
 
+        /// <summary>
+        /// Reads the failure probability repair closure.
+        /// </summary>
+        /// <param name="readCalculation">The calculation read from the imported file.</param>
+        /// <param name="calculation">The calculation to configure.</param>
+        /// <returns><c>false</c> when the failure probability repair closure is invalid or when there 
+        /// is a failure probability repair closure but no structure defined, <c>true</c> otherwise.</returns>
         private bool TryReadFailureProbabilityRepairClosure(StabilityPointStructuresCalculationConfiguration readCalculation,
                                                             StructuresCalculation<StabilityPointStructuresInput> calculation)
         {

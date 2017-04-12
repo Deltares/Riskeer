@@ -72,7 +72,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                     "validConfigurationFailureProbabilityRepairClosureWithoutStructure.xml",
                     "Er is geen kunstwerk opgegeven om faalkans herstel van gefaalde situatie aan toe te voegen.");
                 yield return new TestCaseData(
-                    "validConfigurationInvalidFailureProbabilityRepairClosureElement.xml",
+                    "validConfigurationInvalidFailureProbabilityRepairClosure.xml",
                     "Een waarde van '1,1' als faalkans herstel van gefaalde situatie is ongeldig. De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.");
 
                 yield return new TestCaseData(
@@ -92,6 +92,9 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                 yield return new TestCaseData(
                     "validConfigurationProbabilityCollisionSecondaryStructureWithoutStructure.xml",
                     "Er is geen kunstwerk opgegeven om de kans op aanvaring tweede keermiddel per nivellering aan toe te voegen.");
+                yield return new TestCaseData(
+                    "validConfigurationInvalidProbabilityCollisionSecondaryStructure.xml",
+                    "Een waarde van '1,1' als de kans op aanvaring tweede keermiddel per nivellering is ongeldig. Kans moet in het bereik [0,0, 1,0] liggen.");
 
                 yield return new TestCaseData(
                     "validConfigurationLevellingCountWithoutStructure.xml",

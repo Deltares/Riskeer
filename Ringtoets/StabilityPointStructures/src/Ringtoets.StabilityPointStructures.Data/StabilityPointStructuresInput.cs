@@ -556,7 +556,7 @@ namespace Ringtoets.StabilityPointStructures.Data
             }
             set
             {
-                ProbabilityHelper.ValidateProbability(value, nameof(value));
+                ProbabilityHelper.ValidateProbability(value, null);
                 probabilityCollisionSecondaryStructure = value;
             }
         }
