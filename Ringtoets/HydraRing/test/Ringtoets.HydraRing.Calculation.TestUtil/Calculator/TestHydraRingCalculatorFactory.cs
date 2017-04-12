@@ -62,7 +62,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
             return DikeHeightCalculator;
         }
 
-        public IOvertoppingRateCalculator CreateOvertoppingRateCalculator(string hlcdDirectory)
+        public IOvertoppingSubCalculator CreateOvertoppingRateCalculator(string hlcdDirectory)
         {
             OvertoppingRateCalculator.HydraulicBoundaryDatabaseDirectory = hlcdDirectory;
             return OvertoppingRateCalculator;
@@ -144,9 +144,9 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
         public bool? Converged { get; set; }
     }
 
-    public class TestOvertoppingRateCalculator : TestHydraRingCalculator<OvertoppingRateCalculationInput>, IOvertoppingRateCalculator
+    public class TestOvertoppingRateCalculator : TestHydraRingCalculator<OvertoppingRateCalculationInput>, IOvertoppingSubCalculator
     {
-        public double OvertoppingRate { get; set; }
+        public double Value { get; set; }
         public double ReliabilityIndex { get; set; }
         public string OutputDirectory { get; set; }
         public string LastErrorFileContent { get; set; }

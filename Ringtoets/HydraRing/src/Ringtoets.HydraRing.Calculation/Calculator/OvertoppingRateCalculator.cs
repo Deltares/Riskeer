@@ -31,7 +31,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
     /// Calculator which calculates the overtopping rate associated to the result of iterating towards a
     /// probability of failure given a norm.
     /// </summary>
-    internal class OvertoppingRateCalculator : HydraRingCalculatorBase, IOvertoppingRateCalculator
+    internal class OvertoppingRateCalculator : HydraRingCalculatorBase, IOvertoppingSubCalculator
     {
         private readonly ReliabilityIndexCalculationParser targetProbabilityParser;
         private readonly ConvergenceParser convergenceParser;
@@ -47,11 +47,11 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
             targetProbabilityParser = new ReliabilityIndexCalculationParser();
             convergenceParser = new ConvergenceParser();
 
-            OvertoppingRate = double.NaN;
+            Value = double.NaN;
             ReliabilityIndex = double.NaN;
         }
 
-        public double OvertoppingRate { get; private set; }
+        public double Value { get; private set; }
 
         public double ReliabilityIndex { get; private set; }
 
@@ -72,7 +72,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         {
             if (targetProbabilityParser.Output != null)
             {
-                OvertoppingRate = targetProbabilityParser.Output.Result;
+                Value = targetProbabilityParser.Output.Result;
                 ReliabilityIndex = targetProbabilityParser.Output.CalculatedReliabilityIndex;
             }
 

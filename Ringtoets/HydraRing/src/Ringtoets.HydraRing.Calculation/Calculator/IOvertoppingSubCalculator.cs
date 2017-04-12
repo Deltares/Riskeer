@@ -25,15 +25,15 @@ using Ringtoets.HydraRing.Calculation.Exceptions;
 namespace Ringtoets.HydraRing.Calculation.Calculator
 {
     /// <summary>
-    /// Interface for a calculator which calculates an overtopping rate associated to the result of iterating towards a
+    /// Interface for a calculator which calculates an overtopping value associated to the result of iterating towards a
     /// probability of failure given a norm.
     /// </summary>
-    public interface IOvertoppingRateCalculator
+    public interface IOvertoppingSubCalculator
     {
         /// <summary>
-        /// Gets the calculated overtopping rate.
+        /// Gets the calculated value.
         /// </summary>
-        double OvertoppingRate { get; }
+        double Value { get; }
 
         /// <summary>
         /// Gets the reliability index.

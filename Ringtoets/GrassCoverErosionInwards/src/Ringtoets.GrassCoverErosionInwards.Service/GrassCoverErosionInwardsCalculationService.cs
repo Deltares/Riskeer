@@ -58,7 +58,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         private bool canceled;
         private IOvertoppingCalculator overtoppingCalculator;
         private IDikeHeightCalculator dikeHeightCalculator;
-        private IOvertoppingRateCalculator overtoppingRateCalculator;
+        private IOvertoppingSubCalculator overtoppingRateCalculator;
 
         /// <summary>
         /// Performs validation over the values on the given <paramref name="calculation"/>. Error and status information is logged during
@@ -627,7 +627,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                                                                      double targetReliability,
                                                                                      double targetProbability)
         {
-            double overtoppingRate = overtoppingRateCalculator.OvertoppingRate;
+            double overtoppingRate = overtoppingRateCalculator.Value;
             double reliability = overtoppingRateCalculator.ReliabilityIndex;
             double probability = StatisticsConverter.ReliabilityToProbability(reliability);
 

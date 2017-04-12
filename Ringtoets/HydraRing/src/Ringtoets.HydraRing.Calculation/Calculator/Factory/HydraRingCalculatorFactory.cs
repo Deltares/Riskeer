@@ -59,7 +59,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
             return new DikeHeightCalculator(hlcdDirectory);
         }
 
-        public IOvertoppingRateCalculator CreateOvertoppingRateCalculator(string hlcdDirectory)
+        public IOvertoppingSubCalculator CreateOvertoppingRateCalculator(string hlcdDirectory)
         {
             return new OvertoppingRateCalculator(hlcdDirectory);
         }

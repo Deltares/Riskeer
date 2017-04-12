@@ -35,7 +35,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
 
             // Assert
             Assert.IsInstanceOf<HydraRingCalculatorBase>(calculator);
-            Assert.IsNaN(calculator.OvertoppingRate);
+            Assert.IsNaN(calculator.Value);
             Assert.IsNaN(calculator.ReliabilityIndex);
             Assert.IsNull(calculator.Converged);
             Assert.IsNull(calculator.OutputDirectory);
