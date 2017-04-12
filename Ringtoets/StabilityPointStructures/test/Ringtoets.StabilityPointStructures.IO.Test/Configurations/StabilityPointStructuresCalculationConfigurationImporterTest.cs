@@ -326,6 +326,45 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                     .SetName(testNameFormat);
 
                 yield return new TestCaseData(
+                        "validConfigurationStormDurationMeanInvalid.xml",
+                        "Een gemiddelde van '-0,2' is ongeldig voor stochast 'stormduur'. " +
+                        "Gemiddelde moet groter zijn dan 0.")
+                    .SetName(testNameFormat);
+                yield return new TestCaseData(
+                        "validConfigurationStormDurationVariationCoefficient.xml",
+                        "Er kan geen spreiding voor stochast 'stormduur' opgegeven worden.")
+                    .SetName(testNameFormat);
+                yield return new TestCaseData(
+                        "validConfigurationStormDurationStandardDeviation.xml",
+                        "Er kan geen spreiding voor stochast 'stormduur' opgegeven worden.")
+                    .SetName(testNameFormat);
+
+                yield return new TestCaseData(
+                        "validConfigurationStructureNormalOrientationWithoutStructure.xml",
+                        "Er is geen kunstwerk opgegeven om oriëntatie aan toe te voegen.")
+                    .SetName(testNameFormat);
+                yield return new TestCaseData(
+                        "validConfigurationStructureNormalOrientationInvalid.xml",
+                        "Een waarde van '-12' als oriëntatie is ongeldig. De waarde voor de oriëntatie moet in het bereik [0,00, 360,00] liggen.")
+                    .SetName(testNameFormat);
+
+                yield return new TestCaseData(
+                        "validConfigurationStorageStructureAreaMeanInvalid.xml",
+                        "Een gemiddelde van '-0,2' is ongeldig voor stochast 'kombergendoppervlak'. " +
+                        "Gemiddelde moet groter zijn dan 0.")
+                    .SetName(testNameFormat);
+                yield return new TestCaseData(
+                        "validConfigurationStorageStructureAreaVariationCoefficientInvalid.xml",
+                        "Een variatiecoëfficiënt van '-0,01' is ongeldig voor stochast 'kombergendoppervlak'. " +
+                        "Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0.")
+                    .SetName(testNameFormat);
+                yield return new TestCaseData(
+                        "validConfigurationStorageStructureAreaStandardDeviation.xml",
+                        "Indien voor parameter 'kombergendoppervlak' de spreiding wordt opgegeven, moet dit door middel van een variatiecoëfficiënt. " +
+                        "Voor berekening 'Berekening 1' is een standaardafwijking gevonden.")
+                    .SetName(testNameFormat);
+
+                yield return new TestCaseData(
                         "validConfigurationThresholdHeightOpenWeirStandardDeviationInvalid.xml",
                         "Een standaardafwijking van '-0,01' is ongeldig voor stochast 'drempelhoogte'. " +
                         "Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.")
@@ -342,12 +381,14 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                     .SetName(testNameFormat);
 
                 yield return new TestCaseData(
-                        "validConfigurationStructureNormalOrientationWithoutStructure.xml",
-                        "Er is geen kunstwerk opgegeven om oriëntatie aan toe te voegen.")
+                        "validConfigurationWidthFlowAperturesStandardDeviationInvalid.xml",
+                        "Een standaardafwijking van '-0,1' is ongeldig voor stochast 'breedtedoorstroomopening'. " +
+                        "Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.")
                     .SetName(testNameFormat);
                 yield return new TestCaseData(
-                        "validConfigurationStructureNormalOrientationInvalid.xml",
-                        "Een waarde van '-12' als oriëntatie is ongeldig. De waarde voor de oriëntatie moet in het bereik [0,00, 360,00] liggen.")
+                        "validConfigurationWidthFlowAperturesVariationCoefficient.xml",
+                        "Indien voor parameter 'breedtedoorstroomopening' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. " +
+                        "Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.")
                     .SetName(testNameFormat);
             }
         }
