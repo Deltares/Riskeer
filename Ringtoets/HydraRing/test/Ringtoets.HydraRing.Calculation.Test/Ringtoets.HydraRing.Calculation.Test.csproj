@@ -59,7 +59,6 @@
     <Compile Include="Activities\HydraRingActivityBaseTest.cs" />
     <Compile Include="Calculator\DesignWaterLevelCalculatorTest.cs" />
     <Compile Include="Calculator\HydraulicLoadsCalculatorTest.cs" />
-    <Compile Include="Calculator\DikeHeightCalculatorTest.cs" />
     <Compile Include="Calculator\DunesBoundaryConditionsCalculatorTest.cs" />
     <Compile Include="Calculator\HydraRingCalculatorBaseTest.cs" />
     <Compile Include="Calculator\OvertoppingCalculatorTest.cs" />

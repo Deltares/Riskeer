@@ -56,7 +56,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
 
         public IHydraulicLoadsCalculator CreateDikeHeightCalculator(string hlcdDirectory)
         {
-            return new DikeHeightCalculator(hlcdDirectory);
+            return new HydraulicLoadsCalculator(hlcdDirectory);
         }
 
         public IHydraulicLoadsCalculator CreateOvertoppingRateCalculator(string hlcdDirectory)
