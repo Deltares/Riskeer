@@ -49,182 +49,306 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
         {
             get
             {
+                const string testNameFormat = "StabilityPointStructuresConfigImporter.Import_InvalidData({0:80})";
                 yield return new TestCaseData(
-                    "validConfigurationAllowedLevelIncreaseStorageMeanInvalid.xml",
-                    "Een gemiddelde van '-0,2' is ongeldig voor stochast 'peilverhogingkomberging'. " +
-                    "Gemiddelde moet groter zijn dan 0.");
+                        "validConfigurationAllowedLevelIncreaseStorageMeanInvalid.xml",
+                        "Een gemiddelde van '-0,2' is ongeldig voor stochast 'peilverhogingkomberging'. " +
+                        "Gemiddelde moet groter zijn dan 0.")
+                    .SetName(testNameFormat);
                 yield return new TestCaseData(
-                    "validConfigurationAllowedLevelIncreaseStorageStandardDeviationInvalid.xml",
-                    "Een standaardafwijking van '-0,01' is ongeldig voor stochast 'peilverhogingkomberging'. " +
-                    "Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.");
+                        "validConfigurationAllowedLevelIncreaseStorageStandardDeviationInvalid.xml",
+                        "Een standaardafwijking van '-0,01' is ongeldig voor stochast 'peilverhogingkomberging'. " +
+                        "Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.")
+                    .SetName(testNameFormat);
                 yield return new TestCaseData(
-                    "validConfigurationAllowedLevelIncreaseStorageVariationCoefficient.xml",
-                    "Indien voor parameter 'peilverhogingkomberging' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. " +
-                    "Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.");
+                        "validConfigurationAllowedLevelIncreaseStorageVariationCoefficient.xml",
+                        "Indien voor parameter 'peilverhogingkomberging' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. " +
+                        "Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.")
+                    .SetName(testNameFormat);
 
                 yield return new TestCaseData(
-                    "validConfigurationAreaFlowAperturesMeanInvalid.xml",
-                    "Een gemiddelde van '-0,2' is ongeldig voor stochast 'doorstroomoppervlak'. " +
-                    "Gemiddelde moet groter zijn dan 0.");
+                        "validConfigurationAreaFlowAperturesMeanInvalid.xml",
+                        "Een gemiddelde van '-0,2' is ongeldig voor stochast 'doorstroomoppervlak'. " +
+                        "Gemiddelde moet groter zijn dan 0.")
+                    .SetName(testNameFormat);
                 yield return new TestCaseData(
-                    "validConfigurationAreaFlowAperturesStandardDeviationInvalid.xml",
-                    "Een standaardafwijking van '-0,01' is ongeldig voor stochast 'doorstroomoppervlak'. " +
-                    "Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.");
+                        "validConfigurationAreaFlowAperturesStandardDeviationInvalid.xml",
+                        "Een standaardafwijking van '-0,01' is ongeldig voor stochast 'doorstroomoppervlak'. " +
+                        "Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.")
+                    .SetName(testNameFormat);
                 yield return new TestCaseData(
-                    "validConfigurationAreaFlowAperturesVariationCoefficient.xml",
-                    "Indien voor parameter 'doorstroomoppervlak' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. " +
-                    "Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.");
+                        "validConfigurationAreaFlowAperturesVariationCoefficient.xml",
+                        "Indien voor parameter 'doorstroomoppervlak' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. " +
+                        "Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.")
+                    .SetName(testNameFormat);
 
                 yield return new TestCaseData(
-                    "validConfigurationBankWidthStandardDeviationInvalid.xml",
-                    "Een standaardafwijking van '-0,01' is ongeldig voor stochast 'bermbreedte'. " +
-                    "Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.");
+                        "validConfigurationBankWidthStandardDeviationInvalid.xml",
+                        "Een standaardafwijking van '-0,01' is ongeldig voor stochast 'bermbreedte'. " +
+                        "Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.")
+                    .SetName(testNameFormat);
                 yield return new TestCaseData(
-                    "validConfigurationBankWidthVariationCoefficient.xml",
-                    "Indien voor parameter 'bermbreedte' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. " +
-                    "Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.");
+                        "validConfigurationBankWidthVariationCoefficient.xml",
+                        "Indien voor parameter 'bermbreedte' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. " +
+                        "Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.")
+                    .SetName(testNameFormat);
 
                 yield return new TestCaseData(
-                    "validConfigurationConstructiveStrengthLinearLoadModelVariationCoeffInvalid.xml",
-                    "Een variatiecoëfficiënt van '-0,01' is ongeldig voor stochast 'lineairebelastingschematiseringsterkte'. " +
-                    "Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0.");
+                        "validConfigurationConstructiveStrengthLinearLoadModelMeanInvalid.xml",
+                        "Een gemiddelde van '-0,2' is ongeldig voor stochast 'lineairebelastingschematiseringsterkte'. " +
+                        "Gemiddelde moet groter zijn dan 0.")
+                    .SetName(testNameFormat);
                 yield return new TestCaseData(
-                    "validConfigurationConstructiveStrengthLinearLoadModelStandardDeviation.xml",
-                    "Indien voor parameter 'lineairebelastingschematiseringsterkte' de spreiding wordt opgegeven, moet dit door middel van een variatiecoëfficiënt. " +
-                    "Voor berekening 'Berekening 1' is een standaardafwijking gevonden.");
+                        "validConfigurationConstructiveStrengthLinearLoadModelVariationCoeffInvalid.xml",
+                        "Een variatiecoëfficiënt van '-0,01' is ongeldig voor stochast 'lineairebelastingschematiseringsterkte'. " +
+                        "Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0.")
+                    .SetName(testNameFormat);
+                yield return new TestCaseData(
+                        "validConfigurationConstructiveStrengthLinearLoadModelStandardDeviation.xml",
+                        "Indien voor parameter 'lineairebelastingschematiseringsterkte' de spreiding wordt opgegeven, moet dit door middel van een variatiecoëfficiënt. " +
+                        "Voor berekening 'Berekening 1' is een standaardafwijking gevonden.")
+                    .SetName(testNameFormat);
 
                 yield return new TestCaseData(
-                    "validConfigurationConstructiveStrengthQuadraticLoadModelMeanInvalid.xml",
-                    "Een gemiddelde van '-0,2' is ongeldig voor stochast 'kwadratischebelastingschematiseringsterkte'. " +
-                    "Gemiddelde moet groter zijn dan 0.");
+                        "validConfigurationConstructiveStrengthQuadraticLoadModelMeanInvalid.xml",
+                        "Een gemiddelde van '-0,2' is ongeldig voor stochast 'kwadratischebelastingschematiseringsterkte'. " +
+                        "Gemiddelde moet groter zijn dan 0.")
+                    .SetName(testNameFormat);
                 yield return new TestCaseData(
-                    "validConfigurationConstructiveStrengthQuadraticLoadModelVariationCoefInvalid.xml",
-                    "Een variatiecoëfficiënt van '-0,01' is ongeldig voor stochast 'kwadratischebelastingschematiseringsterkte'. " +
-                    "Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0.");
+                        "validConfigurationConstructiveStrengthQuadraticLoadModelVariationCoefInvalid.xml",
+                        "Een variatiecoëfficiënt van '-0,01' is ongeldig voor stochast 'kwadratischebelastingschematiseringsterkte'. " +
+                        "Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0.")
+                    .SetName(testNameFormat);
                 yield return new TestCaseData(
-                    "validConfigurationConstructiveStrengthQuadraticLoadModelStandardDeviation.xml",
-                    "Indien voor parameter 'kwadratischebelastingschematiseringsterkte' de spreiding wordt opgegeven, moet dit door middel van een variatiecoëfficiënt. " +
-                    "Voor berekening 'Berekening 1' is een standaardafwijking gevonden.");
+                        "validConfigurationConstructiveStrengthQuadraticLoadModelStandardDeviation.xml",
+                        "Indien voor parameter 'kwadratischebelastingschematiseringsterkte' de spreiding wordt opgegeven, moet dit door middel van een variatiecoëfficiënt. " +
+                        "Voor berekening 'Berekening 1' is een standaardafwijking gevonden.")
+                    .SetName(testNameFormat);
 
                 yield return new TestCaseData(
-                    "validConfigurationCriticalOvertoppingDischargeMeanInvalid.xml",
-                    "Een gemiddelde van '-2' is ongeldig voor stochast 'kritiekinstromenddebiet'. Gemiddelde moet groter zijn dan 0.");
+                        "validConfigurationCriticalOvertoppingDischargeMeanInvalid.xml",
+                        "Een gemiddelde van '-2' is ongeldig voor stochast 'kritiekinstromenddebiet'. " +
+                        "Gemiddelde moet groter zijn dan 0.")
+                    .SetName(testNameFormat);
 
                 yield return new TestCaseData(
-                    "validConfigurationCriticalOvertoppingDischargeStandardDeviation.xml",
-                    "Indien voor parameter 'kritiekinstromenddebiet' de spreiding wordt opgegeven, moet dit door middel van een variatiecoëfficiënt. " +
-                    "Voor berekening 'Berekening 1' is een standaardafwijking gevonden.");
+                        "validConfigurationCriticalOvertoppingDischargeStandardDeviation.xml",
+                        "Indien voor parameter 'kritiekinstromenddebiet' de spreiding wordt opgegeven, moet dit door middel van een variatiecoëfficiënt. " +
+                        "Voor berekening 'Berekening 1' is een standaardafwijking gevonden.")
+                    .SetName(testNameFormat);
                 yield return new TestCaseData(
-                    "validConfigurationCriticalOvertoppingDischargeVariationCoefficientInvalid.xml",
-                    "Een variatiecoëfficiënt van '-0,1' is ongeldig voor stochast 'kritiekinstromenddebiet'. " +
-                    "Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0.");
+                        "validConfigurationCriticalOvertoppingDischargeVariationCoefficientInvalid.xml",
+                        "Een variatiecoëfficiënt van '-0,1' is ongeldig voor stochast 'kritiekinstromenddebiet'. " +
+                        "Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0.")
+                    .SetName(testNameFormat);
 
                 yield return new TestCaseData(
-                    "validConfigurationDrainCoefficientStandardDeviation.xml",
-                    "Er kan geen spreiding voor stochast 'afvoercoefficient' opgegeven worden.");
+                        "validConfigurationDrainCoefficientStandardDeviation.xml",
+                        "Er kan geen spreiding voor stochast 'afvoercoefficient' opgegeven worden.")
+                    .SetName(testNameFormat);
                 yield return new TestCaseData(
-                    "validConfigurationDrainCoefficientVariationCoefficient.xml",
-                    "Er kan geen spreiding voor stochast 'afvoercoefficient' opgegeven worden.");
+                        "validConfigurationDrainCoefficientVariationCoefficient.xml",
+                        "Er kan geen spreiding voor stochast 'afvoercoefficient' opgegeven worden.")
+                    .SetName(testNameFormat);
 
                 yield return new TestCaseData(
-                    "validConfigurationEvaluationLevelWithoutStructure.xml",
-                    "Er is geen kunstwerk opgegeven om analysehoogte aan toe te voegen.");
-                
-                yield return new TestCaseData(
-                    "validConfigurationFailureCollisionEnergyMeanInvalid.xml",
-                    "Een gemiddelde van '-0,2' is ongeldig voor stochast 'aanvaarenergie'. " +
-                    "Gemiddelde moet groter zijn dan 0.");
-                yield return new TestCaseData(
-                    "validConfigurationFailureCollisionEnergyVariationCoefficientInvalid.xml",
-                    "Een variatiecoëfficiënt van '-0,01' is ongeldig voor stochast 'aanvaarenergie'. " +
-                    "Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0.");
-                yield return new TestCaseData(
-                    "validConfigurationFailureCollisionEnergyStandardDeviation.xml",
-                    "Indien voor parameter 'aanvaarenergie' de spreiding wordt opgegeven, moet dit door middel van een variatiecoëfficiënt. " +
-                    "Voor berekening 'Berekening 1' is een standaardafwijking gevonden.");
+                        "validConfigurationEvaluationLevelWithoutStructure.xml",
+                        "Er is geen kunstwerk opgegeven om analysehoogte aan toe te voegen.")
+                    .SetName(testNameFormat);
 
                 yield return new TestCaseData(
-                    "validConfigurationFailureProbabilityRepairClosureInvalid.xml",
-                    "Een waarde van '1,1' als faalkans herstel van gefaalde situatie is ongeldig. De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.");
+                        "validConfigurationFailureCollisionEnergyMeanInvalid.xml",
+                        "Een gemiddelde van '-0,2' is ongeldig voor stochast 'aanvaarenergie'. " +
+                        "Gemiddelde moet groter zijn dan 0.")
+                    .SetName(testNameFormat);
                 yield return new TestCaseData(
-                    "validConfigurationFailureProbabilityRepairClosureWithoutStructure.xml",
-                    "Er is geen kunstwerk opgegeven om faalkans herstel van gefaalde situatie aan toe te voegen.");
+                        "validConfigurationFailureCollisionEnergyVariationCoefficientInvalid.xml",
+                        "Een variatiecoëfficiënt van '-0,01' is ongeldig voor stochast 'aanvaarenergie'. " +
+                        "Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0.")
+                    .SetName(testNameFormat);
+                yield return new TestCaseData(
+                        "validConfigurationFailureCollisionEnergyStandardDeviation.xml",
+                        "Indien voor parameter 'aanvaarenergie' de spreiding wordt opgegeven, moet dit door middel van een variatiecoëfficiënt. " +
+                        "Voor berekening 'Berekening 1' is een standaardafwijking gevonden.")
+                    .SetName(testNameFormat);
 
                 yield return new TestCaseData(
-                    "validConfigurationFailureProbabilityStructureErosionInvalid.xml",
-                    "Een waarde van '1,1' als faalkans gegeven erosie bodem is ongeldig. De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.");
+                        "validConfigurationFailureProbabilityRepairClosureInvalid.xml",
+                        "Een waarde van '1,1' als faalkans herstel van gefaalde situatie is ongeldig. " +
+                        "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.")
+                    .SetName(testNameFormat);
+                yield return new TestCaseData(
+                        "validConfigurationFailureProbabilityRepairClosureWithoutStructure.xml",
+                        "Er is geen kunstwerk opgegeven om faalkans herstel van gefaalde situatie aan toe te voegen.")
+                    .SetName(testNameFormat);
 
                 yield return new TestCaseData(
-                    "validConfigurationFlowVelocityStructureClosableStandardDeviation.xml",
-                    "Er kan geen spreiding voor stochast 'kritiekestroomsnelheid' opgegeven worden.");
-                yield return new TestCaseData(
-                    "validConfigurationFlowVelocityStructureClosableVariationCoefficient.xml",
-                    "Er kan geen spreiding voor stochast 'kritiekestroomsnelheid' opgegeven worden.");
+                        "validConfigurationFailureProbabilityStructureErosionInvalid.xml",
+                        "Een waarde van '1,1' als faalkans gegeven erosie bodem is ongeldig. " +
+                        "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.")
+                    .SetName(testNameFormat);
 
                 yield return new TestCaseData(
-                    "validConfigurationFlowWidthAtBottomProtectionMeanInvalid.xml",
-                    "Een gemiddelde van '-0,2' is ongeldig voor stochast 'breedtebodembescherming'. " +
-                    "Gemiddelde moet groter zijn dan 0.");
+                        "validConfigurationFlowVelocityStructureClosableStandardDeviation.xml",
+                        "Er kan geen spreiding voor stochast 'kritiekestroomsnelheid' opgegeven worden.")
+                    .SetName(testNameFormat);
                 yield return new TestCaseData(
-                    "validConfigurationFlowWidthAtBottomProtectionStandardDeviationInvalid.xml",
-                    "Een standaardafwijking van '-0,01' is ongeldig voor stochast 'breedtebodembescherming'. " +
-                    "Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.");
-                yield return new TestCaseData(
-                    "validConfigurationFlowWidthAtBottomProtectionVariationCoefficient.xml",
-                    "Indien voor parameter 'breedtebodembescherming' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. " +
-                    "Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.");
+                        "validConfigurationFlowVelocityStructureClosableVariationCoefficient.xml",
+                        "Er kan geen spreiding voor stochast 'kritiekestroomsnelheid' opgegeven worden.")
+                    .SetName(testNameFormat);
 
                 yield return new TestCaseData(
-                    "validConfigurationInflowModelTypeWithoutStructure.xml",
-                    "Er is geen kunstwerk opgegeven om instroommodel aan toe te voegen.");
+                        "validConfigurationFlowWidthAtBottomProtectionMeanInvalid.xml",
+                        "Een gemiddelde van '-0,2' is ongeldig voor stochast 'breedtebodembescherming'. " +
+                        "Gemiddelde moet groter zijn dan 0.")
+                    .SetName(testNameFormat);
+                yield return new TestCaseData(
+                        "validConfigurationFlowWidthAtBottomProtectionStandardDeviationInvalid.xml",
+                        "Een standaardafwijking van '-0,01' is ongeldig voor stochast 'breedtebodembescherming'. " +
+                        "Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.")
+                    .SetName(testNameFormat);
+                yield return new TestCaseData(
+                        "validConfigurationFlowWidthAtBottomProtectionVariationCoefficient.xml",
+                        "Indien voor parameter 'breedtebodembescherming' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. " +
+                        "Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.")
+                    .SetName(testNameFormat);
 
                 yield return new TestCaseData(
-                    "validConfigurationInsideWaterLevelStandardDeviationInvalid.xml",
-                    "Een standaardafwijking van '-0,01' is ongeldig voor stochast 'binnenwaterstand'. " +
-                    "Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.");
-                yield return new TestCaseData(
-                    "validConfigurationInsideWaterLevelVariationCoefficient.xml",
-                    "Indien voor parameter 'binnenwaterstand' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. " +
-                    "Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.");
-
+                        "validConfigurationInflowModelTypeWithoutStructure.xml",
+                        "Er is geen kunstwerk opgegeven om instroommodel aan toe te voegen.")
+                    .SetName(testNameFormat);
 
                 yield return new TestCaseData(
-                    "validConfigurationInsideWaterLevelFailureConstructionStandardDeviatioInvalid.xml",
-                    "Een standaardafwijking van '-0,01' is ongeldig voor stochast 'binnenwaterstandbijfalen'. " +
-                    "Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.");
+                        "validConfigurationInsideWaterLevelStandardDeviationInvalid.xml",
+                        "Een standaardafwijking van '-0,01' is ongeldig voor stochast 'binnenwaterstand'. " +
+                        "Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.")
+                    .SetName(testNameFormat);
                 yield return new TestCaseData(
-                    "validConfigurationInsideWaterLevelFailureConstructionVariationCoefficient.xml",
-                    "Indien voor parameter 'binnenwaterstandbijfalen' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. " +
-                    "Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.");
-
-
-
-
-                yield return new TestCaseData(
-                    "validConfigurationLoadSchematizationTypeWithoutStructure.xml",
-                    "Er is geen kunstwerk opgegeven om belastingschematisering aan toe te voegen.");
+                        "validConfigurationInsideWaterLevelVariationCoefficient.xml",
+                        "Indien voor parameter 'binnenwaterstand' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. " +
+                        "Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.")
+                    .SetName(testNameFormat);
 
                 yield return new TestCaseData(
-                    "validConfigurationProbabilityCollisionSecondaryStructureWithoutStructure.xml",
-                    "Er is geen kunstwerk opgegeven om de kans op aanvaring tweede keermiddel per nivellering aan toe te voegen.");
+                        "validConfigurationInsideWaterLevelFailureConstructionStandardDeviatioInvalid.xml",
+                        "Een standaardafwijking van '-0,01' is ongeldig voor stochast 'binnenwaterstandbijfalen'. " +
+                        "Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.")
+                    .SetName(testNameFormat);
                 yield return new TestCaseData(
-                    "validConfigurationProbabilityCollisionSecondaryStructureInvalid.xml",
-                    "Een waarde van '1,1' als de kans op aanvaring tweede keermiddel per nivellering is ongeldig. Kans moet in het bereik [0,0, 1,0] liggen.");
+                        "validConfigurationInsideWaterLevelFailureConstructionVariationCoefficient.xml",
+                        "Indien voor parameter 'binnenwaterstandbijfalen' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. " +
+                        "Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.")
+                    .SetName(testNameFormat);
 
                 yield return new TestCaseData(
-                    "validConfigurationLevellingCountWithoutStructure.xml",
-                    "Er is geen kunstwerk opgegeven om het aantal nivelleringen per jaar aan toe te voegen.");
+                        "validConfigurationLevelCrestStructureStandardDeviationInvalid.xml",
+                        "Een standaardafwijking van '-0,01' is ongeldig voor stochast 'kerendehoogte'. " +
+                        "Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.")
+                    .SetName(testNameFormat);
+                yield return new TestCaseData(
+                        "validConfigurationLevelCrestStructureVariationCoefficient.xml",
+                        "Indien voor parameter 'kerendehoogte' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. " +
+                        "Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.")
+                    .SetName(testNameFormat);
 
                 yield return new TestCaseData(
-                    "validConfigurationVerticalDistanceWithoutStructure.xml",
-                    "Er is geen kunstwerk opgegeven om de afstand onderkant wand en teen van de dijk/berm aan toe te voegen.");
+                        "validConfigurationLevellingCountWithoutStructure.xml",
+                        "Er is geen kunstwerk opgegeven om het aantal nivelleringen per jaar aan toe te voegen.")
+                    .SetName(testNameFormat);
 
                 yield return new TestCaseData(
-                    "validConfigurationStructureNormalOrientationWithoutStructure.xml",
-                    "Er is geen kunstwerk opgegeven om oriëntatie aan toe te voegen.");
+                        "validConfigurationLoadSchematizationTypeWithoutStructure.xml",
+                        "Er is geen kunstwerk opgegeven om belastingschematisering aan toe te voegen.")
+                    .SetName(testNameFormat);
+
                 yield return new TestCaseData(
-                    "validConfigurationStructureNormalOrientationInvalid.xml",
-                    "Een waarde van '-12' als oriëntatie is ongeldig. De waarde voor de oriëntatie moet in het bereik [0,00, 360,00] liggen.");
+                        "validConfigurationProbabilityCollisionSecondaryStructureWithoutStructure.xml",
+                        "Er is geen kunstwerk opgegeven om de kans op aanvaring tweede keermiddel per nivellering aan toe te voegen.")
+                    .SetName(testNameFormat);
+                yield return new TestCaseData(
+                        "validConfigurationProbabilityCollisionSecondaryStructureInvalid.xml",
+                        "Een waarde van '1,1' als de kans op aanvaring tweede keermiddel per nivellering is ongeldig. " +
+                        "Kans moet in het bereik [0,0, 1,0] liggen.")
+                    .SetName(testNameFormat);
+
+                yield return new TestCaseData(
+                        "validConfigurationShipMassVariationCoefficientInvalid.xml",
+                        "Een variatiecoëfficiënt van '-0,01' is ongeldig voor stochast 'massaschip'. " +
+                        "Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0.")
+                    .SetName(testNameFormat);
+                yield return new TestCaseData(
+                        "validConfigurationShipMassStandardDeviation.xml",
+                        "Indien voor parameter 'massaschip' de spreiding wordt opgegeven, moet dit door middel van een variatiecoëfficiënt. " +
+                        "Voor berekening 'Berekening 1' is een standaardafwijking gevonden.")
+                    .SetName(testNameFormat);
+
+                yield return new TestCaseData(
+                        "validConfigurationShipVelocityVariationCoefficientInvalid.xml",
+                        "Een variatiecoëfficiënt van '-0,01' is ongeldig voor stochast 'aanvaarsnelheid'. " +
+                        "Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0.")
+                    .SetName(testNameFormat);
+                yield return new TestCaseData(
+                        "validConfigurationShipVelocityStandardDeviation.xml",
+                        "Indien voor parameter 'aanvaarsnelheid' de spreiding wordt opgegeven, moet dit door middel van een variatiecoëfficiënt. " +
+                        "Voor berekening 'Berekening 1' is een standaardafwijking gevonden.")
+                    .SetName(testNameFormat);
+
+                yield return new TestCaseData(
+                        "validConfigurationStabilityLinearLoadModelMeanInvalid.xml",
+                        "Een gemiddelde van '-0,2' is ongeldig voor stochast 'lineairebelastingschematiseringstabiliteit'. " +
+                        "Gemiddelde moet groter zijn dan 0.")
+                    .SetName(testNameFormat);
+                yield return new TestCaseData(
+                        "validConfigurationStabilityLinearLoadModelVariationCoefficientInvalid.xml",
+                        "Een variatiecoëfficiënt van '-0,01' is ongeldig voor stochast 'lineairebelastingschematiseringstabiliteit'. " +
+                        "Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0.")
+                    .SetName(testNameFormat);
+                yield return new TestCaseData(
+                        "validConfigurationStabilityLinearLoadModelStandardDeviation.xml",
+                        "Indien voor parameter 'lineairebelastingschematiseringstabiliteit' de spreiding wordt opgegeven, moet dit door middel van een variatiecoëfficiënt. " +
+                        "Voor berekening 'Berekening 1' is een standaardafwijking gevonden.")
+                    .SetName(testNameFormat);
+
+                yield return new TestCaseData(
+                        "validConfigurationStabilityQuadraticLoadModelMeanInvalid.xml",
+                        "Een gemiddelde van '-0,2' is ongeldig voor stochast 'kwadratischebelastingschematiseringstabiliteit'. " +
+                        "Gemiddelde moet groter zijn dan 0.")
+                    .SetName(testNameFormat);
+                yield return new TestCaseData(
+                        "validConfigurationStabilityQuadraticLoadModelVariationCoefficientInvalid.xml",
+                        "Een variatiecoëfficiënt van '-0,01' is ongeldig voor stochast 'kwadratischebelastingschematiseringstabiliteit'. " +
+                        "Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0.")
+                    .SetName(testNameFormat);
+                yield return new TestCaseData(
+                        "validConfigurationStabilityQuadraticLoadModelStandardDeviation.xml",
+                        "Indien voor parameter 'kwadratischebelastingschematiseringstabiliteit' de spreiding wordt opgegeven, moet dit door middel van een variatiecoëfficiënt. " +
+                        "Voor berekening 'Berekening 1' is een standaardafwijking gevonden.")
+                    .SetName(testNameFormat);
+
+                yield return new TestCaseData(
+                        "validConfigurationThresholdHeightOpenWeirStandardDeviationInvalid.xml",
+                        "Een standaardafwijking van '-0,01' is ongeldig voor stochast 'drempelhoogte'. " +
+                        "Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.")
+                    .SetName(testNameFormat);
+                yield return new TestCaseData(
+                        "validConfigurationThresholdHeightOpenWeirVariationCoefficient.xml",
+                        "Indien voor parameter 'drempelhoogte' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. " +
+                        "Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.")
+                    .SetName(testNameFormat);
+
+                yield return new TestCaseData(
+                        "validConfigurationVerticalDistanceWithoutStructure.xml",
+                        "Er is geen kunstwerk opgegeven om de afstand onderkant wand en teen van de dijk/berm aan toe te voegen.")
+                    .SetName(testNameFormat);
+
+                yield return new TestCaseData(
+                        "validConfigurationStructureNormalOrientationWithoutStructure.xml",
+                        "Er is geen kunstwerk opgegeven om oriëntatie aan toe te voegen.")
+                    .SetName(testNameFormat);
+                yield return new TestCaseData(
+                        "validConfigurationStructureNormalOrientationInvalid.xml",
+                        "Een waarde van '-12' als oriëntatie is ongeldig. De waarde voor de oriëntatie moet in het bereik [0,00, 360,00] liggen.")
+                    .SetName(testNameFormat);
             }
         }
 
