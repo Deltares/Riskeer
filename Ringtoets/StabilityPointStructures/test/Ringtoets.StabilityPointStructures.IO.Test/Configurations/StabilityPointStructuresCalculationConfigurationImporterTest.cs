@@ -521,6 +521,240 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
         }
 
         [Test]
+        public void Import_StochastWithMeanOnly_DataAddedToModel()
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, "validConfigurationStochastMeansOnly.xml");
+
+            var calculationGroup = new CalculationGroup();
+            var structure = new TestStabilityPointStructure("kunstwerk1");
+            var importer = new StabilityPointStructuresCalculationConfigurationImporter(
+                filePath,
+                calculationGroup,
+                Enumerable.Empty<HydraulicBoundaryLocation>(),
+                Enumerable.Empty<ForeshoreProfile>(),
+                new[]
+                {
+                    structure,
+                    new TestStabilityPointStructure("other structure")
+                });
+
+            // Call
+            bool successful = importer.Import();
+
+            // Assert
+            Assert.IsTrue(successful);
+            var expectedCalculation = new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                Name = "Berekening 1",
+                InputParameters =
+                {
+                    Structure = structure,
+                    AllowedLevelIncreaseStorage =
+                    {
+                        Mean = (RoundedDouble) 0.2
+                    },
+                    AreaFlowApertures =
+                    {
+                        Mean = (RoundedDouble) 80.5
+                    },
+                    BankWidth =
+                    {
+                        Mean = (RoundedDouble) 1.2
+                    },
+                    ConstructiveStrengthLinearLoadModel =
+                    {
+                        Mean = (RoundedDouble) 2
+                    },
+                    ConstructiveStrengthQuadraticLoadModel =
+                    {
+                        Mean = (RoundedDouble) 2
+                    },
+                    CriticalOvertoppingDischarge =
+                    {
+                        Mean = (RoundedDouble) 2
+                    },
+                    DrainCoefficient =
+                    {
+                        Mean = (RoundedDouble) 0.1
+                    },
+                    FailureCollisionEnergy =
+                    {
+                        Mean = (RoundedDouble) 1.2
+                    },
+                    FlowVelocityStructureClosable =
+                    {
+                        Mean = (RoundedDouble) 1.1
+                    },
+                    FlowWidthAtBottomProtection =
+                    {
+                        Mean = (RoundedDouble) 15.2
+                    },
+                    InsideWaterLevel =
+                    {
+                        Mean = (RoundedDouble) 0.5
+                    },
+                    InsideWaterLevelFailureConstruction =
+                    {
+                        Mean = (RoundedDouble) 0.7
+                    },
+                    LevelCrestStructure =
+                    {
+                        Mean = (RoundedDouble) 4.3
+                    },
+                    ModelFactorSuperCriticalFlow =
+                    {
+                        Mean = (RoundedDouble) 1.10
+                    },
+                    ShipMass =
+                    {
+                        Mean = (RoundedDouble) 16000
+                    },
+                    ShipVelocity =
+                    {
+                        Mean = (RoundedDouble) 1.2
+                    },
+                    StabilityLinearLoadModel =
+                    {
+                        Mean = (RoundedDouble) 1.2
+                    },
+                    StabilityQuadraticLoadModel =
+                    {
+                        Mean = (RoundedDouble) 1.2
+                    },
+                    StormDuration =
+                    {
+                        Mean = (RoundedDouble) 6.0
+                    },
+                    StorageStructureArea =
+                    {
+                        Mean = (RoundedDouble) 15000
+                    },
+                    ThresholdHeightOpenWeir =
+                    {
+                        Mean = (RoundedDouble) 1.2
+                    },
+                    WidthFlowApertures =
+                    {
+                        Mean = (RoundedDouble) 15.2
+                    }
+                }
+            };
+
+            Assert.AreEqual(1, calculationGroup.Children.Count);
+            AssertCalculation(expectedCalculation, (StructuresCalculation<StabilityPointStructuresInput>) calculationGroup.Children[0]);
+        }
+
+        [Test]
+        public void Import_StochastWithStandardDeviationOrVariationCoefficientOnly_DataAddedToModel()
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, "validConfigurationStochastStandardDeviationVariationCoefficientOnly.xml");
+
+            var calculationGroup = new CalculationGroup();
+            var structure = new TestStabilityPointStructure("kunstwerk1");
+            var importer = new StabilityPointStructuresCalculationConfigurationImporter(
+                filePath,
+                calculationGroup,
+                Enumerable.Empty<HydraulicBoundaryLocation>(),
+                Enumerable.Empty<ForeshoreProfile>(),
+                new[]
+                {
+                    structure,
+                    new TestStabilityPointStructure("other structure")
+                });
+
+            // Call
+            bool successful = importer.Import();
+
+            // Assert
+            Assert.IsTrue(successful);
+            var expectedCalculation = new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                Name = "Berekening 1",
+                InputParameters =
+                {
+                    Structure = structure,
+                    AllowedLevelIncreaseStorage =
+                    {
+                        StandardDeviation = (RoundedDouble) 0.01
+                    },
+                    AreaFlowApertures =
+                    {
+                        StandardDeviation = (RoundedDouble) 1
+                    },
+                    BankWidth =
+                    {
+                        StandardDeviation = (RoundedDouble) 0.1
+                    },
+                    ConstructiveStrengthLinearLoadModel =
+                    {
+                        CoefficientOfVariation = (RoundedDouble) 0.1
+                    },
+                    ConstructiveStrengthQuadraticLoadModel =
+                    {
+                        CoefficientOfVariation = (RoundedDouble) 0.1
+                    },
+                    CriticalOvertoppingDischarge =
+                    {
+                        CoefficientOfVariation = (RoundedDouble) 0.1
+                    },
+                    FailureCollisionEnergy =
+                    {
+                        CoefficientOfVariation = (RoundedDouble) 0.1
+                    },
+                    FlowWidthAtBottomProtection =
+                    {
+                        StandardDeviation = (RoundedDouble) 0.1
+                    },
+                    InsideWaterLevel =
+                    {
+                        StandardDeviation = (RoundedDouble) 0.1
+                    },
+                    InsideWaterLevelFailureConstruction =
+                    {
+                        StandardDeviation = (RoundedDouble) 0.1
+                    },
+                    LevelCrestStructure =
+                    {
+                        StandardDeviation = (RoundedDouble) 0.1
+                    },
+                    ShipMass =
+                    {
+                        CoefficientOfVariation = (RoundedDouble) 0.1
+                    },
+                    ShipVelocity =
+                    {
+                        CoefficientOfVariation = (RoundedDouble) 0.1
+                    },
+                    StabilityLinearLoadModel =
+                    {
+                        CoefficientOfVariation = (RoundedDouble) 0.1
+                    },
+                    StabilityQuadraticLoadModel =
+                    {
+                        CoefficientOfVariation = (RoundedDouble) 0.1
+                    },
+                    StorageStructureArea =
+                    {
+                        CoefficientOfVariation = (RoundedDouble) 0.01
+                    },
+                    ThresholdHeightOpenWeir =
+                    {
+                        StandardDeviation = (RoundedDouble) 0.1
+                    },
+                    WidthFlowApertures =
+                    {
+                        StandardDeviation = (RoundedDouble) 0.1
+                    }
+                }
+            };
+
+            Assert.AreEqual(1, calculationGroup.Children.Count);
+            AssertCalculation(expectedCalculation, (StructuresCalculation<StabilityPointStructuresInput>) calculationGroup.Children[0]);
+        }
+
+        [Test]
         [TestCase("validConfigurationEmptyCalculation.xml")]
         [TestCase("validConfigurationEmptyStochasts.xml")]
         [TestCase("validConfigurationEmptyStochastElements.xml")]
