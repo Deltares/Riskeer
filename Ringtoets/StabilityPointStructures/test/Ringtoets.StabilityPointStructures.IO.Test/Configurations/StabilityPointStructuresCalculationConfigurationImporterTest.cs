@@ -85,7 +85,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                     "Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.");
 
                 yield return new TestCaseData(
-                    "validConfigurationConstructiveStrengthLinearLoadModelVariationCoefficientInvalid.xml",
+                    "validConfigurationConstructiveStrengthLinearLoadModelVariationCoeffInvalid.xml",
                     "Een variatiecoëfficiënt van '-0,01' is ongeldig voor stochast 'lineairebelastingschematiseringsterkte'. " +
                     "Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0.");
                 yield return new TestCaseData(
@@ -98,7 +98,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                     "Een gemiddelde van '-0,2' is ongeldig voor stochast 'kwadratischebelastingschematiseringsterkte'. " +
                     "Gemiddelde moet groter zijn dan 0.");
                 yield return new TestCaseData(
-                    "validConfigurationConstructiveStrengthQuadraticLoadModelVariationCoefficientInvalid.xml",
+                    "validConfigurationConstructiveStrengthQuadraticLoadModelVariationCoeffInvalid.xml",
                     "Een variatiecoëfficiënt van '-0,01' is ongeldig voor stochast 'kwadratischebelastingschematiseringsterkte'. " +
                     "Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0.");
                 yield return new TestCaseData(
@@ -129,17 +129,40 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                 yield return new TestCaseData(
                     "validConfigurationEvaluationLevelWithoutStructure.xml",
                     "Er is geen kunstwerk opgegeven om analysehoogte aan toe te voegen.");
+                
+                yield return new TestCaseData(
+                    "validConfigurationFailureCollisionEnergyMeanInvalid.xml",
+                    "Een gemiddelde van '-0,2' is ongeldig voor stochast 'aanvaarenergie'. " +
+                    "Gemiddelde moet groter zijn dan 0.");
+                yield return new TestCaseData(
+                    "validConfigurationFailureCollisionEnergyVariationCoefficientInvalid.xml",
+                    "Een variatiecoëfficiënt van '-0,01' is ongeldig voor stochast 'aanvaarenergie'. " +
+                    "Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0.");
+                yield return new TestCaseData(
+                    "validConfigurationFailureCollisionEnergyStandardDeviation.xml",
+                    "Indien voor parameter 'aanvaarenergie' de spreiding wordt opgegeven, moet dit door middel van een variatiecoëfficiënt. " +
+                    "Voor berekening 'Berekening 1' is een standaardafwijking gevonden.");
+
+                yield return new TestCaseData(
+                    "validConfigurationFailureProbabilityRepairClosureInvalid.xml",
+                    "Een waarde van '1,1' als faalkans herstel van gefaalde situatie is ongeldig. De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.");
+                yield return new TestCaseData(
+                    "validConfigurationFailureProbabilityRepairClosureWithoutStructure.xml",
+                    "Er is geen kunstwerk opgegeven om faalkans herstel van gefaalde situatie aan toe te voegen.");
 
                 yield return new TestCaseData(
                     "validConfigurationFailureProbabilityStructureErosionInvalid.xml",
                     "Een waarde van '1,1' als faalkans gegeven erosie bodem is ongeldig. De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.");
 
-                yield return new TestCaseData(
-                    "validConfigurationFailureProbabilityRepairClosureWithoutStructure.xml",
-                    "Er is geen kunstwerk opgegeven om faalkans herstel van gefaalde situatie aan toe te voegen.");
-                yield return new TestCaseData(
-                    "validConfigurationFailureProbabilityRepairClosureInvalid.xml",
-                    "Een waarde van '1,1' als faalkans herstel van gefaalde situatie is ongeldig. De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.");
+
+
+
+
+
+
+
+                
+                
 
                 yield return new TestCaseData(
                     "validConfigurationFlowVelocityStructureClosableStandardDeviation.xml",
