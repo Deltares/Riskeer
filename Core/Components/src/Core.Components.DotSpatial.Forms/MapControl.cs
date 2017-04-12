@@ -215,6 +215,7 @@ namespace Core.Components.DotSpatial.Forms
                 if (!mapLayer.Projection.Equals(Projection))
                 {
                     mapLayer.Reproject(Projection);
+                    mapLayer.Invalidate();
                 }
             }
         }

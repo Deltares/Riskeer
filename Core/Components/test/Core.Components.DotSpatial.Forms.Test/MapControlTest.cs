@@ -571,6 +571,60 @@ namespace Core.Components.DotSpatial.Forms.Test
 
         #region BackgroundMapData
 
+        [Test]
+        public void GivenMapControlWithBackgroundData_WhenProjectionChanged_MapLayersItemChangedFired()
+        {
+            // Given
+            var itemChangedCount = 0;
+            WmtsMapData newBackgroundMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
+            WmtsMapData startingBackgroundMapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
+
+            using (new UseCustomSettingsHelper(testSettingsHelper))
+            using (new UseCustomTileSourceFactoryConfig(newBackgroundMapData))
+            using (var map = new MapControl
+            {
+                BackgroundMapData = startingBackgroundMapData
+            })
+            {
+                Map mapView = map.Controls.OfType<Map>().First();
+
+                var mapPointData = new MapPointData("Points")
+                {
+                    Features = new[]
+                    {
+                        new MapFeature(new[]
+                        {
+                            new MapGeometry(new[]
+                            {
+                                new[]
+                                {
+                                    new Point2D(1.1, 2.2)
+                                }
+                            })
+                        })
+                    }
+                };
+                var mapDataCollection = new MapDataCollection("Root collection");
+                mapDataCollection.Add(mapPointData);
+
+                map.Data = mapDataCollection;
+                SetTestExtents(mapView);
+
+                IMapLayer[] layersBeforeUpdate = mapView.Layers.ToArray();
+                var pointFeatureLayer = (FeatureLayer) layersBeforeUpdate[0];
+                pointFeatureLayer.ItemChanged += (sender, args) => itemChangedCount++;
+
+                // When
+                startingBackgroundMapData.Configure(newBackgroundMapData.SourceCapabilitiesUrl,
+                                                    newBackgroundMapData.SelectedCapabilityIdentifier,
+                                                    newBackgroundMapData.PreferredFormat);
+                startingBackgroundMapData.NotifyObservers();
+
+                // Then
+                Assert.AreEqual(1, itemChangedCount);
+            }
+        }
+
         #region WmtsMapData
 
         [Test]

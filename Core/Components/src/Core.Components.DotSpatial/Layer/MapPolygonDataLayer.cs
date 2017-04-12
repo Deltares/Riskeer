@@ -24,7 +24,6 @@ using Core.Components.DotSpatial.Converter;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using DotSpatial.Controls;
-using DotSpatial.Projections;
 
 namespace Core.Components.DotSpatial.Layer
 {
@@ -66,13 +65,6 @@ namespace Core.Components.DotSpatial.Layer
             }
 
             converter.ConvertLayerProperties(mapPolygonData, this);
-        }
-
-        public override void Reproject(ProjectionInfo targetProjection)
-        {
-            base.Reproject(targetProjection);
-
-            Invalidate();
         }
     }
 }

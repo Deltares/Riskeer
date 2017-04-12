@@ -134,23 +134,6 @@ namespace Core.Components.DotSpatial.Test.Layer
             CollectionAssert.AreEqual(drawnFeatures, mapPointDataLayer.DataSet.Features);
         }
 
-        [Test]
-        public void GivenMapPointDataLayer_WhenReprojected_ItemChangedFired()
-        {
-            // Given
-            var count = 0;
-            var mapPointData = new MapPointData("Test name");
-            var mapPointDataLayer = new MapPointDataLayer(mapPointData);
-
-            mapPointDataLayer.ItemChanged += (sender, args) => count++;
-
-            // When
-            mapPointDataLayer.Reproject(KnownCoordinateSystems.Geographic.World.WGS1984);
-
-            // Then
-            Assert.AreEqual(1, count);
-        }
-
         private static void SetMapPointDataTestProperties(MapPointData mapPointData)
         {
             mapPointData.Name = "Another test name";
