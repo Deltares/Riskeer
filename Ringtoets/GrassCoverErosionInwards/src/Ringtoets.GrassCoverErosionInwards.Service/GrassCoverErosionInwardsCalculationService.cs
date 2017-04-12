@@ -439,19 +439,27 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                                                                           generalInput,
                                                                                           hydraulicBoundaryDatabaseFilePath);
 
-            bool dikeHeightCalculated = CalculateDikeHeight(dikeHeightCalculationInput, calculation.Name);
+            var dikeHeightCalculated = true;
 
-            if (canceled)
+            try
+            {
+                PerformCalculation(() => dikeHeightCalculator.Calculate(dikeHeightCalculationInput),
+                                   () => dikeHeightCalculator.LastErrorFileContent,
+                                   () => dikeHeightCalculator.OutputDirectory,
+                                   calculation.Name,
+                                   Resources.GrassCoverErosionInwardsCalculationService_DikeHeight);
+            }
+            catch (HydraRingCalculationException)
+            {
+                dikeHeightCalculated = false;
+            }
+
+            if (canceled || !dikeHeightCalculated)
             {
                 return null;
             }
 
-            if (dikeHeightCalculated)
-            {
-                return CreateDikeHeightAssessmentOutput(calculation.Name, dikeHeightCalculationInput.Beta, norm);
-            }
-
-            return null;
+            return CreateDikeHeightAssessmentOutput(calculation.Name, dikeHeightCalculationInput.Beta, norm);
         }
 
         /// <summary>
@@ -507,57 +515,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(dikeHeightCalculationInput, hydraulicBoundaryDatabaseFilePath);
 
             return dikeHeightCalculationInput;
-        }
-
-        /// <summary>
-        /// Performs the dike height calculation.
-        /// </summary>
-        /// <param name="dikeHeightCalculationInput">The input of the dike height calculation.</param>
-        /// <param name="calculationName">The name of the calculation.</param>
-        /// <returns><c>True</c> when the calculation was successful. <c>False</c> otherwise.</returns>
-        private bool CalculateDikeHeight(DikeHeightCalculationInput dikeHeightCalculationInput, string calculationName)
-        {
-            var exceptionThrown = false;
-            var dikeHeightCalculated = false;
-            if (!canceled)
-            {
-                try
-                {
-                    dikeHeightCalculator.Calculate(dikeHeightCalculationInput);
-                }
-                catch (HydraRingCalculationException)
-                {
-                    if (!canceled)
-                    {
-                        string lastErrorContent = dikeHeightCalculator.LastErrorFileContent;
-                        if (string.IsNullOrEmpty(lastErrorContent))
-                        {
-                            log.ErrorFormat(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Error_in_hbn_grass_cover_erosion_inwards_0_calculation_no_error_report, calculationName);
-                        }
-                        else
-                        {
-                            log.ErrorFormat(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Error_in_hbn_grass_cover_erosion_inwards_0_calculation_click_details_for_last_error_report_1, calculationName, lastErrorContent);
-                        }
-
-                        exceptionThrown = true;
-                    }
-                }
-                finally
-                {
-                    string lastErrorFileContent = dikeHeightCalculator.LastErrorFileContent;
-                    if (CalculationServiceHelper.HasErrorOccurred(canceled, exceptionThrown, lastErrorFileContent))
-                    {
-                        log.ErrorFormat(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Error_in_hbn_grass_cover_erosion_inwards_0_calculation_click_details_for_last_error_report_1, calculationName, lastErrorFileContent);
-                    }
-                    if (!exceptionThrown && string.IsNullOrEmpty(lastErrorFileContent))
-                    {
-                        dikeHeightCalculated = true;
-                    }
-
-                    log.InfoFormat(Resources.GrassCoverErosionInwardsCalculationService_CalculateDikeHeight_calculation_temporary_directory_can_be_found_on_location_0, dikeHeightCalculator.OutputDirectory);
-                }
-            }
-            return dikeHeightCalculated;
         }
 
         /// <summary>

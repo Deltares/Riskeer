@@ -120,17 +120,11 @@
   <data name="GrassCoverErosionInwardsCalculationService_Calculate_Error_in_calculation_of_type_0_for_calculation_with_name_1_no_error_report" xml:space="preserve">
     <value>De {0} berekening voor grasbekleding erosie kruin en binnentalud '{1}' is niet gelukt. Er is geen foutrapport beschikbaar.</value>
   </data>
-  <data name="GrassCoverErosionInwardsCalculationService_Calculate_Error_in_hbn_grass_cover_erosion_inwards_0_calculation_no_error_report" xml:space="preserve">
-    <value>De HBN berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt. Er is geen foutrapport beschikbaar.</value>
-  </data>
   <data name="GrassCoverErosionInwardsCalculationService_Calculate_Error_in_overtopping_rate_grass_cover_erosion_inwards_0_calculation_no_error_report" xml:space="preserve">
     <value>De overslagdebiet berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt. Er is geen foutrapport beschikbaar.</value>
   </data>
   <data name="GrassCoverErosionInwardsCalculationService_Calculate_Calculation_of_type_0_performed_in_temporary_directory_1" xml:space="preserve">
     <value>De {0} berekening is uitgevoerd op de tijdelijke locatie '{1}'. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.</value>
-  </data>
-  <data name="GrassCoverErosionInwardsCalculationService_CalculateDikeHeight_calculation_temporary_directory_can_be_found_on_location_0" xml:space="preserve">
-    <value>Dijkhoogte berekening is uitgevoerd op de tijdelijke locatie '{0}'. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.</value>
   </data>
   <data name="GrassCoverErosionInwardsCalculationService_CalculateOvertoppingRate_calculation_temporary_directory_can_be_found_on_location_0" xml:space="preserve">
     <value>Overslagdebiet berekening is uitgevoerd op de tijdelijke locatie '{0}'. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.</value>
@@ -142,16 +136,12 @@
     <value>De {0} berekening voor grasbekleding erosie kruin en binnentalud '{1}' is niet gelukt. Bekijk het foutrapport door op details te klikken.
 {2}</value>
   </data>
-  <data name="GrassCoverErosionInwardsCalculationService_Calculate_Error_in_hbn_grass_cover_erosion_inwards_0_calculation_click_details_for_last_error_report_1" xml:space="preserve">
-    <value>De HBN berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt. Bekijk het foutrapport door op details te klikken.
-{1}</value>
-  </data>
   <data name="GrassCoverErosionInwardsCalculationService_Calculate_Error_in_overtopping_rate_grass_cover_erosion_inwards_0_calculation_click_details_for_last_error_report_1" xml:space="preserve">
     <value>De overslagdebiet berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt. Bekijk het foutrapport door op details te klikken.
 {1}</value>
   </data>
   <data name="GrassCoverErosionInwardsCalculationService_DikeHeight_calculation_for_calculation_0_not_converged" xml:space="preserve">
-    <value>De HBN berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet geconvergeerd.</value>
+    <value>De dijkhoogte berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet geconvergeerd.</value>
   </data>
   <data name="GrassCoverErosionInwardsCalculationService_OvertoppingRate_calculation_for_calculation_0_not_converged" xml:space="preserve">
     <value>De overslagdebiet berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet geconvergeerd.</value>
