@@ -130,11 +130,8 @@
     <value>De {0} berekening voor grasbekleding erosie kruin en binnentalud '{1}' is niet gelukt. Bekijk het foutrapport door op details te klikken.
 {2}</value>
   </data>
-  <data name="GrassCoverErosionInwardsCalculationService_DikeHeight_calculation_for_calculation_0_not_converged" xml:space="preserve">
-    <value>De dijkhoogte berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet geconvergeerd.</value>
-  </data>
-  <data name="GrassCoverErosionInwardsCalculationService_OvertoppingRate_calculation_for_calculation_0_not_converged" xml:space="preserve">
-    <value>De overslagdebiet berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet geconvergeerd.</value>
+  <data name="GrassCoverErosionInwardsCalculationService_Calculation_of_type_0_for_calculation_with_name_1_not_converged" xml:space="preserve">
+    <value>De {0} berekening voor grasbekleding erosie kruin en binnentalud '{1}' is niet geconvergeerd.</value>
   </data>
   <data name="GrassCoverErosionInwardsCalculationService_DikeHeight" xml:space="preserve">
     <value>dijkhoogte</value>

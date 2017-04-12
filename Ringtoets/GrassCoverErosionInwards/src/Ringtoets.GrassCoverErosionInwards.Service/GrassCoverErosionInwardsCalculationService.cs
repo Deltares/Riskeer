@@ -308,7 +308,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                 return null;
             }
 
-            return CreateDikeHeightAssessmentOutput(calculation.Name, dikeHeightCalculationInput.Beta, norm);
+            return CreateHydraulicLoadsAssessmentOutput(dikeHeightCalculator,
+                                                        calculation.Name,
+                                                        Resources.GrassCoverErosionInwardsCalculationService_DikeHeight,
+                                                        dikeHeightCalculationInput.Beta,
+                                                        norm);
         }
 
         private SubCalculationAssessmentOutput CalculateOvertoppingRate(GrassCoverErosionInwardsCalculation calculation,
@@ -358,7 +362,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                 return null;
             }
 
-            return CreateOvertoppingRateAssessmentOutput(calculation.Name, overtoppingRateCalculationInput.Beta, norm);
+            return CreateHydraulicLoadsAssessmentOutput(overtoppingRateCalculator,
+                                                        calculation.Name,
+                                                        Resources.GrassCoverErosionInwardsCalculationService_OvertoppingRate,
+                                                        overtoppingRateCalculationInput.Beta,
+                                                        norm);
         }
 
         private void PerformCalculation(Action performCalculation,
@@ -586,59 +594,37 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         }
 
         /// <summary>
-        /// Creates the output of a dike height calculation.
+        /// Creates the output of a hydraulic loads calculation.
         /// </summary>
+        /// <param name="calculator">The calculator to used for performing the calculation.</param>
         /// <param name="calculationName">The name of the calculation.</param>
+        /// <param name="stepName">The name of the step that is performed.</param>
         /// <param name="targetReliability">The target reliability for the calculation.</param>
         /// <param name="targetProbability">The target probability for the calculation.</param>
         /// <returns>A <see cref="SubCalculationAssessmentOutput"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="targetProbability"/> 
         /// or the calculated probability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
-        private SubCalculationAssessmentOutput CreateDikeHeightAssessmentOutput(string calculationName,
-                                                                                double targetReliability,
-                                                                                double targetProbability)
+        private static SubCalculationAssessmentOutput CreateHydraulicLoadsAssessmentOutput(IHydraulicLoadsCalculator calculator,
+                                                                                           string calculationName,
+                                                                                           string stepName,
+                                                                                           double targetReliability,
+                                                                                           double targetProbability)
         {
-            double dikeHeight = dikeHeightCalculator.Value;
-            double reliability = dikeHeightCalculator.ReliabilityIndex;
+            double value = calculator.Value;
+            double reliability = calculator.ReliabilityIndex;
             double probability = StatisticsConverter.ReliabilityToProbability(reliability);
 
-            CalculationConvergence converged = RingtoetsCommonDataCalculationService.GetCalculationConvergence(dikeHeightCalculator.Converged);
+            CalculationConvergence converged = RingtoetsCommonDataCalculationService.GetCalculationConvergence(calculator.Converged);
 
             if (converged != CalculationConvergence.CalculatedConverged)
             {
-                log.Warn(string.Format(Resources.GrassCoverErosionInwardsCalculationService_DikeHeight_calculation_for_calculation_0_not_converged, calculationName));
+                log.Warn(
+                    string.Format(Resources.GrassCoverErosionInwardsCalculationService_Calculation_of_type_0_for_calculation_with_name_1_not_converged,
+                                  stepName,
+                                  calculationName));
             }
 
-            return new SubCalculationAssessmentOutput(dikeHeight, targetProbability,
-                                                      targetReliability, probability, reliability,
-                                                      converged);
-        }
-
-        /// <summary>
-        /// Creates the output of an overtopping rate calculation.
-        /// </summary>
-        /// <param name="calculationName">The name of the calculation.</param>
-        /// <param name="targetReliability">The target reliability for the calculation.</param>
-        /// <param name="targetProbability">The target probability for the calculation.</param>
-        /// <returns>A <see cref="SubCalculationAssessmentOutput"/>.</returns>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="targetProbability"/> 
-        /// or the calculated probability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
-        private SubCalculationAssessmentOutput CreateOvertoppingRateAssessmentOutput(string calculationName,
-                                                                                     double targetReliability,
-                                                                                     double targetProbability)
-        {
-            double overtoppingRate = overtoppingRateCalculator.Value;
-            double reliability = overtoppingRateCalculator.ReliabilityIndex;
-            double probability = StatisticsConverter.ReliabilityToProbability(reliability);
-
-            CalculationConvergence converged = RingtoetsCommonDataCalculationService.GetCalculationConvergence(overtoppingRateCalculator.Converged);
-
-            if (converged != CalculationConvergence.CalculatedConverged)
-            {
-                log.Warn(string.Format(Resources.GrassCoverErosionInwardsCalculationService_OvertoppingRate_calculation_for_calculation_0_not_converged, calculationName));
-            }
-
-            return new SubCalculationAssessmentOutput(overtoppingRate, targetProbability,
+            return new SubCalculationAssessmentOutput(value, targetProbability,
                                                       targetReliability, probability, reliability,
                                                       converged);
         }

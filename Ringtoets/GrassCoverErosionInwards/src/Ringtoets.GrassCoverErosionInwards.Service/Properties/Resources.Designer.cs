@@ -123,21 +123,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De {0} berekening voor grasbekleding erosie kruin en binnentalud &apos;{1}&apos; is niet geconvergeerd..
+        /// </summary>
+        internal static string GrassCoverErosionInwardsCalculationService_Calculation_of_type_0_for_calculation_with_name_1_not_converged {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_Calculation_of_type_0_for_calculation_" +
+                        "with_name_1_not_converged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to dijkhoogte.
         /// </summary>
         internal static string GrassCoverErosionInwardsCalculationService_DikeHeight {
             get {
                 return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_DikeHeight", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De dijkhoogte berekening voor grasbekleding erosie kruin en binnentalud &apos;{0}&apos; is niet geconvergeerd..
-        /// </summary>
-        internal static string GrassCoverErosionInwardsCalculationService_DikeHeight_calculation_for_calculation_0_not_converged {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_DikeHeight_calculation_for_calculation" +
-                        "_0_not_converged", resourceCulture);
             }
         }
         
@@ -156,16 +156,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Properties {
         internal static string GrassCoverErosionInwardsCalculationService_OvertoppingRate {
             get {
                 return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_OvertoppingRate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De overslagdebiet berekening voor grasbekleding erosie kruin en binnentalud &apos;{0}&apos; is niet geconvergeerd..
-        /// </summary>
-        internal static string GrassCoverErosionInwardsCalculationService_OvertoppingRate_calculation_for_calculation_0_not_converged {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_OvertoppingRate_calculation_for_calcul" +
-                        "ation_0_not_converged", resourceCulture);
             }
         }
     }
