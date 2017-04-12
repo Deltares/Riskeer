@@ -158,15 +158,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
             int numberOfCalculators = CreateCalculators(calculation, Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath));
 
-            NotifyProgress(string.Format(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Executing_calculation_of_type_0,
-                                         Resources.GrassCoverErosionInwardsCalculationService_Overtopping),
-                           1, numberOfCalculators);
-
             CalculationServiceHelper.LogCalculationBeginTime(calculation.Name);
 
             try
             {
-                CalculateOvertopping(calculation, generalInput, hydraulicBoundaryDatabaseFilePath);
+                CalculateOvertopping(calculation, generalInput, hydraulicBoundaryDatabaseFilePath, numberOfCalculators);
 
                 if (canceled)
                 {
@@ -263,8 +259,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
             if (calculation.InputParameters.OvertoppingRateCalculationType != OvertoppingRateCalculationType.NoCalculation)
             {
-                numberOfCalculators++;
                 overtoppingRateCalculator = HydraRingCalculatorFactory.Instance.CreateOvertoppingRateCalculator(hlcdDirectory);
+                numberOfCalculators++;
             }
 
             return numberOfCalculators;
@@ -281,29 +277,57 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// <param name="calculation">The calculation containing the input for the overtopping calculation.</param>
         /// <param name="generalInput">The general grass cover erosion inwards calculation input parameters.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
+        /// <param name="numberOfCalculators">The total number of calculations to perform.</param>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
-        private void CalculateOvertopping(GrassCoverErosionInwardsCalculation calculation, GeneralGrassCoverErosionInwardsInput generalInput, string hydraulicBoundaryDatabaseFilePath)
+        private void CalculateOvertopping(GrassCoverErosionInwardsCalculation calculation,
+                                          GeneralGrassCoverErosionInwardsInput generalInput,
+                                          string hydraulicBoundaryDatabaseFilePath,
+                                          int numberOfCalculators)
         {
+            NotifyProgress(string.Format(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Executing_calculation_of_type_0,
+                                         Resources.GrassCoverErosionInwardsCalculationService_Overtopping),
+                           1, numberOfCalculators);
+
             OvertoppingCalculationInput overtoppingCalculationInput = CreateOvertoppingInput(calculation, generalInput, hydraulicBoundaryDatabaseFilePath);
 
+            PerformCalculation(() => overtoppingCalculator.Calculate(overtoppingCalculationInput),
+                               () => overtoppingCalculator.LastErrorFileContent,
+                               () => overtoppingCalculator.OutputDirectory,
+                               calculation.Name,
+                               Resources.GrassCoverErosionInwardsCalculationService_Overtopping);
+        }
+
+        private void PerformCalculation(Action performCalculation,
+                                        Func<string> getLastErrorFileContent,
+                                        Func<string> getOutputDirectory,
+                                        string calculationName,
+                                        string stepName)
+        {
             var exceptionThrown = false;
 
             try
             {
-                overtoppingCalculator.Calculate(overtoppingCalculationInput);
+                performCalculation();
             }
             catch (HydraRingCalculationException)
             {
                 if (!canceled)
                 {
-                    string lastErrorContent = overtoppingCalculator.LastErrorFileContent;
-                    if (string.IsNullOrEmpty(lastErrorContent))
+                    string lastErrorFileContent = getLastErrorFileContent();
+                    if (string.IsNullOrEmpty(lastErrorFileContent))
                     {
-                        log.ErrorFormat(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Error_in_grass_cover_erosion_inwards_0_calculation_no_error_report, calculation.Name);
+                        log.ErrorFormat(
+                            Resources.GrassCoverErosionInwardsCalculationService_Calculate_Error_in_calculation_of_type_0_for_calculation_with_name_1_no_error_report,
+                            stepName,
+                            calculationName);
                     }
                     else
                     {
-                        log.ErrorFormat(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Error_in_grass_cover_erosion_inwards_0_calculation_click_details_for_last_error_report_1, calculation.Name, lastErrorContent);
+                        log.ErrorFormat(
+                            Resources.GrassCoverErosionInwardsCalculationService_Calculate_Error_in_calculation_of_type_0_for_calculation_with_name_1_click_details_for_last_error_report_2,
+                            stepName,
+                            calculationName,
+                            lastErrorFileContent);
                     }
 
                     exceptionThrown = true;
@@ -312,14 +336,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
             finally
             {
-                string lastErrorFileContent = overtoppingCalculator.LastErrorFileContent;
+                string lastErrorFileContent = getLastErrorFileContent();
                 bool errorOccurred = CalculationServiceHelper.HasErrorOccurred(canceled, exceptionThrown, lastErrorFileContent);
                 if (errorOccurred)
                 {
-                    log.ErrorFormat(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Error_in_grass_cover_erosion_inwards_0_calculation_click_details_for_last_error_report_1, calculation.Name, lastErrorFileContent);
+                    log.ErrorFormat(
+                        Resources.GrassCoverErosionInwardsCalculationService_Calculate_Error_in_calculation_of_type_0_for_calculation_with_name_1_click_details_for_last_error_report_2,
+                        stepName,
+                        calculationName,
+                        lastErrorFileContent);
                 }
 
-                log.InfoFormat(Resources.GrassCoverErosionInwardsCalculationService_CalculateOvertopping_calculation_temporary_directory_can_be_found_on_location_0, overtoppingCalculator.OutputDirectory);
+                log.InfoFormat(
+                    Resources.GrassCoverErosionInwardsCalculationService_Calculate_Calculation_of_type_0_performed_in_temporary_directory_1,
+                    stepName,
+                    getOutputDirectory());
 
                 if (errorOccurred)
                 {

@@ -82,23 +82,33 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De berekening voor grasbekleding erosie kruin en binnentalud &apos;{0}&apos; is niet gelukt. Bekijk het foutrapport door op details te klikken.
-        ///{1}.
+        ///   Looks up a localized string similar to De {0} berekening is uitgevoerd op de tijdelijke locatie &apos;{1}&apos;. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden..
         /// </summary>
-        internal static string GrassCoverErosionInwardsCalculationService_Calculate_Error_in_grass_cover_erosion_inwards_0_calculation_click_details_for_last_error_report_1 {
+        internal static string GrassCoverErosionInwardsCalculationService_Calculate_Calculation_of_type_0_performed_in_temporary_directory_1 {
             get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_Calculate_Error_in_grass_cover_erosion" +
-                        "_inwards_0_calculation_click_details_for_last_error_report_1", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_Calculate_Calculation_of_type_0_perfor" +
+                        "med_in_temporary_directory_1", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De berekening voor grasbekleding erosie kruin en binnentalud &apos;{0}&apos; is niet gelukt. Er is geen foutrapport beschikbaar..
+        ///   Looks up a localized string similar to De {0} berekening voor grasbekleding erosie kruin en binnentalud &apos;{1}&apos; is niet gelukt. Bekijk het foutrapport door op details te klikken.
+        ///{2}.
         /// </summary>
-        internal static string GrassCoverErosionInwardsCalculationService_Calculate_Error_in_grass_cover_erosion_inwards_0_calculation_no_error_report {
+        internal static string GrassCoverErosionInwardsCalculationService_Calculate_Error_in_calculation_of_type_0_for_calculation_with_name_1_click_details_for_last_error_report_2 {
             get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_Calculate_Error_in_grass_cover_erosion" +
-                        "_inwards_0_calculation_no_error_report", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_Calculate_Error_in_calculation_of_type" +
+                        "_0_for_calculation_with_name_1_click_details_for_last_error_report_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De {0} berekening voor grasbekleding erosie kruin en binnentalud &apos;{1}&apos; is niet gelukt. Er is geen foutrapport beschikbaar..
+        /// </summary>
+        internal static string GrassCoverErosionInwardsCalculationService_Calculate_Error_in_calculation_of_type_0_for_calculation_with_name_1_no_error_report {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_Calculate_Error_in_calculation_of_type" +
+                        "_0_for_calculation_with_name_1_no_error_report", resourceCulture);
             }
         }
         
@@ -161,16 +171,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Properties {
             get {
                 return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_CalculateDikeHeight_calculation_tempor" +
                         "ary_directory_can_be_found_on_location_0", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Overloop berekening is uitgevoerd op de tijdelijke locatie &apos;{0}&apos;. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden..
-        /// </summary>
-        internal static string GrassCoverErosionInwardsCalculationService_CalculateOvertopping_calculation_temporary_directory_can_be_found_on_location_0 {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_CalculateOvertopping_calculation_tempo" +
-                        "rary_directory_can_be_found_on_location_0", resourceCulture);
             }
         }
         

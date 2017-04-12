@@ -765,12 +765,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                         StringAssert.StartsWith("Validatie van 'A' gestart om: ", messageList[0]);
                         StringAssert.StartsWith("Validatie van 'A' beëindigd om: ", messageList[1]);
                         StringAssert.StartsWith("Berekening van 'A' gestart om: ", messageList[2]);
-                        StringAssert.StartsWith("Overloop berekening is uitgevoerd op de tijdelijke locatie", messageList[3]);
+                        StringAssert.StartsWith("De overloop en overslag berekening is uitgevoerd op de tijdelijke locatie", messageList[3]);
                         StringAssert.StartsWith("Berekening van 'A' beëindigd om: ", messageList[4]);
                         StringAssert.StartsWith("Validatie van 'B' gestart om: ", messageList[5]);
                         StringAssert.StartsWith("Validatie van 'B' beëindigd om: ", messageList[6]);
                         StringAssert.StartsWith("Berekening van 'B' gestart om: ", messageList[7]);
-                        StringAssert.StartsWith("Overloop berekening is uitgevoerd op de tijdelijke locatie", messageList[8]);
+                        StringAssert.StartsWith("De overloop en overslag berekening is uitgevoerd op de tijdelijke locatie", messageList[8]);
                         StringAssert.StartsWith("Berekening van 'B' beëindigd om: ", messageList[9]);
                         Assert.AreEqual("Uitvoeren van 'A' is gelukt.", messageList[10]);
                         Assert.AreEqual("Uitvoeren van 'B' is gelukt.", messageList[11]);
