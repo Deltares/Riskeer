@@ -57,9 +57,9 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
         /// Creates a calculator for calculating an overtopping rate.
         /// </summary>
         /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
-        /// <returns>A new <see cref="IOvertoppingSubCalculator"/>.</returns>
+        /// <returns>A new <see cref="IHydraulicLoadsCalculator"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
-        IOvertoppingSubCalculator CreateOvertoppingRateCalculator(string hlcdDirectory);
+        IHydraulicLoadsCalculator CreateOvertoppingRateCalculator(string hlcdDirectory);
 
         /// <summary>
         /// Creates a calculator for calculating wave conditions.

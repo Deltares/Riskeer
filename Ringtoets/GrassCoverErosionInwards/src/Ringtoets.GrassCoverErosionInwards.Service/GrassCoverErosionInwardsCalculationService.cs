@@ -58,7 +58,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         private bool canceled;
         private IOvertoppingCalculator overtoppingCalculator;
         private IDikeHeightCalculator dikeHeightCalculator;
-        private IOvertoppingSubCalculator overtoppingRateCalculator;
+        private IHydraulicLoadsCalculator overtoppingRateCalculator;
 
         /// <summary>
         /// Performs validation over the values on the given <paramref name="calculation"/>. Error and status information is logged during

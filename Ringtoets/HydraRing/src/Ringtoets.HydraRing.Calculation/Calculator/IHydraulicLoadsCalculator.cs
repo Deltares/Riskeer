@@ -25,13 +25,13 @@ using Ringtoets.HydraRing.Calculation.Exceptions;
 namespace Ringtoets.HydraRing.Calculation.Calculator
 {
     /// <summary>
-    /// Interface for a calculator which calculates an overtopping value associated to the result of iterating towards a
+    /// Interface for a calculator which calculates a hydraulic loads value associated to the result of iterating towards a
     /// probability of failure given a norm.
     /// </summary>
-    public interface IOvertoppingSubCalculator
+    public interface IHydraulicLoadsCalculator
     {
         /// <summary>
-        /// Gets the calculated value.
+        /// Gets the calculated hydraulic loads value.
         /// </summary>
         double Value { get; }
 
@@ -58,10 +58,10 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// <summary>
         /// Performs the actual calculation by running the Hydra-Ring executable.
         /// </summary>
-        /// <param name="input">The <see cref="OvertoppingRateCalculationInput"/> which contains all the necessary input
+        /// <param name="input">The <see cref="HydraulicLoadsCalculationInput"/> which contains all the necessary input
         /// for the calculation.</param>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
-        void Calculate(OvertoppingRateCalculationInput input);
+        void Calculate(HydraulicLoadsCalculationInput input);
 
         /// <summary>
         /// Cancels any currently running Hydra-Ring calculation.

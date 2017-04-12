@@ -31,7 +31,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
     /// Calculator which calculates the overtopping rate associated to the result of iterating towards a
     /// probability of failure given a norm.
     /// </summary>
-    internal class OvertoppingRateCalculator : HydraRingCalculatorBase, IOvertoppingSubCalculator
+    internal class OvertoppingRateCalculator : HydraRingCalculatorBase, IHydraulicLoadsCalculator
     {
         private readonly ReliabilityIndexCalculationParser targetProbabilityParser;
         private readonly ConvergenceParser convergenceParser;

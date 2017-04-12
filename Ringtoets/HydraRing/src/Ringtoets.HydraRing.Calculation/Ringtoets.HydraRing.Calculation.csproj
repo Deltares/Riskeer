@@ -49,7 +49,7 @@
     <Compile Include="Calculator\DunesBoundaryConditionsCalculator.cs" />
     <Compile Include="Calculator\Factory\HydraRingCalculatorFactory.cs" />
     <Compile Include="Calculator\Factory\IHydraRingCalculatorFactory.cs" />
-    <Compile Include="Calculator\IOvertoppingSubCalculator.cs" />
+    <Compile Include="Calculator\IHydraulicLoadsCalculator.cs" />
     <Compile Include="Calculator\IDunesBoundaryConditionsCalculator.cs" />
     <Compile Include="Calculator\IStructuresClosureCalculator.cs" />
     <Compile Include="Calculator\IStructuresStabilityPointCalculator.cs" />
