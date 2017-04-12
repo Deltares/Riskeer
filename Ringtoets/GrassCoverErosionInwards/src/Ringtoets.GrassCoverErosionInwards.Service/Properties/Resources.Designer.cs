@@ -145,32 +145,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Uitvoeren dijkhoogte berekening.
+        ///   Looks up a localized string similar to Uitvoeren {0} berekening.
         /// </summary>
-        internal static string GrassCoverErosionInwardsCalculationService_Calculate_Executing_dikeheight_calculation {
+        internal static string GrassCoverErosionInwardsCalculationService_Calculate_Executing_calculation_of_type_0 {
             get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_Calculate_Executing_dikeheight_calcula" +
-                        "tion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Uitvoeren overloop en overslag berekening.
-        /// </summary>
-        internal static string GrassCoverErosionInwardsCalculationService_Calculate_Executing_overtopping_calculation {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_Calculate_Executing_overtopping_calcul" +
-                        "ation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Uitvoeren overslagdebiet berekening.
-        /// </summary>
-        internal static string GrassCoverErosionInwardsCalculationService_Calculate_Executing_overtopping_rate_calculation {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_Calculate_Executing_overtopping_rate_c" +
-                        "alculation", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_Calculate_Executing_calculation_of_typ" +
+                        "e_0", resourceCulture);
             }
         }
         
@@ -205,12 +185,39 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to dijkhoogte.
+        /// </summary>
+        internal static string GrassCoverErosionInwardsCalculationService_DikeHeight {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_DikeHeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De HBN berekening voor grasbekleding erosie kruin en binnentalud &apos;{0}&apos; is niet geconvergeerd..
         /// </summary>
         internal static string GrassCoverErosionInwardsCalculationService_DikeHeight_calculation_for_calculation_0_not_converged {
             get {
                 return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_DikeHeight_calculation_for_calculation" +
                         "_0_not_converged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to overloop en overslag.
+        /// </summary>
+        internal static string GrassCoverErosionInwardsCalculationService_Overtopping {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_Overtopping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to overslagdebiet.
+        /// </summary>
+        internal static string GrassCoverErosionInwardsCalculationService_OvertoppingRate {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_OvertoppingRate", resourceCulture);
             }
         }
         
