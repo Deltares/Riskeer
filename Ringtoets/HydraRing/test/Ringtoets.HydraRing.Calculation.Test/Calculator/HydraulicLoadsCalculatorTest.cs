@@ -25,13 +25,13 @@ using Ringtoets.HydraRing.Calculation.Calculator;
 namespace Ringtoets.HydraRing.Calculation.Test.Calculator
 {
     [TestFixture]
-    public class OvertoppingRateCalculatorTest
+    public class HydraulicLoadsCalculatorTest
     {
         [Test]
         public void DefaultConstructor_InitializesOutputWithoutValues()
         {
             // Call
-            var calculator = new OvertoppingRateCalculator(string.Empty);
+            var calculator = new HydraulicLoadsCalculator(string.Empty);
 
             // Assert
             Assert.IsInstanceOf<HydraRingCalculatorBase>(calculator);

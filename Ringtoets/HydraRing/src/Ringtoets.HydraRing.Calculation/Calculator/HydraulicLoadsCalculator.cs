@@ -28,20 +28,20 @@ using Ringtoets.HydraRing.Calculation.Parsers;
 namespace Ringtoets.HydraRing.Calculation.Calculator
 {
     /// <summary>
-    /// Calculator which calculates the overtopping rate associated to the result of iterating towards a
+    /// Calculator which calculates a hydraulic loads value associated to the result of iterating towards a
     /// probability of failure given a norm.
     /// </summary>
-    internal class OvertoppingRateCalculator : HydraRingCalculatorBase, IHydraulicLoadsCalculator
+    internal class HydraulicLoadsCalculator : HydraRingCalculatorBase, IHydraulicLoadsCalculator
     {
         private readonly ReliabilityIndexCalculationParser targetProbabilityParser;
         private readonly ConvergenceParser convergenceParser;
 
         /// <summary>
-        /// Create a new instance of <see cref="OvertoppingRateCalculator"/>.
+        /// Create a new instance of <see cref="HydraulicLoadsCalculator"/>.
         /// </summary>
         /// <param name="hlcdDirectory">The directory in which the hydraulic boundary database can be found.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
-        internal OvertoppingRateCalculator(string hlcdDirectory)
+        internal HydraulicLoadsCalculator(string hlcdDirectory)
             : base(hlcdDirectory)
         {
             targetProbabilityParser = new ReliabilityIndexCalculationParser();

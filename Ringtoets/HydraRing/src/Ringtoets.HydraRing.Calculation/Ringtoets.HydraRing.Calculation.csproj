@@ -45,7 +45,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Activities\HydraRingActivityBase.cs" />
-    <Compile Include="Calculator\OvertoppingRateCalculator.cs" />
+    <Compile Include="Calculator\HydraulicLoadsCalculator.cs" />
     <Compile Include="Calculator\DunesBoundaryConditionsCalculator.cs" />
     <Compile Include="Calculator\Factory\HydraRingCalculatorFactory.cs" />
     <Compile Include="Calculator\Factory\IHydraRingCalculatorFactory.cs" />
