@@ -51,13 +51,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.UITypeEditors
         public void EditValue_WithCurrentItemNotInAvailableItems_ReturnsOriginalValue()
         {
             // Setup
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.DikeProfiles.AddRange(new[]
             {
-                DikeProfiles =
-                {
-                    new TestDikeProfile()
-                }
-            };
+                new TestDikeProfile()
+            }, "path");
             var grassCoverErosionInwardsInput = new GrassCoverErosionInwardsInput();
             var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
 
@@ -83,7 +81,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.UITypeEditors
             var someValue = new object();
 
             // Call
-            var result = editor.EditValue(descriptorContextMock, serviceProviderMock, someValue);
+            object result = editor.EditValue(descriptorContextMock, serviceProviderMock, someValue);
 
             // Assert
             Assert.AreSame(someValue, result);
@@ -96,13 +94,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.UITypeEditors
         {
             // Setup
             DikeProfile dikeProfile = new TestDikeProfile();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.DikeProfiles.AddRange(new[]
             {
-                DikeProfiles =
-                {
-                    dikeProfile
-                }
-            };
+                dikeProfile
+            }, "path");
+
             var grassCoverErosionInwardsInput = new GrassCoverErosionInwardsInput
             {
                 DikeProfile = dikeProfile
@@ -114,7 +111,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.UITypeEditors
                                                                         grassCoverErosionInwardsCalculation,
                                                                         failureMechanism,
                                                                         assessmentSection);
-            
+
             var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             var properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, handler);
 
@@ -133,7 +130,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.UITypeEditors
             var someValue = new object();
 
             // Call
-            var result = editor.EditValue(descriptorContextMock, serviceProviderMock, someValue);
+            object result = editor.EditValue(descriptorContextMock, serviceProviderMock, someValue);
 
             // Assert
             Assert.AreSame(dikeProfile, result);

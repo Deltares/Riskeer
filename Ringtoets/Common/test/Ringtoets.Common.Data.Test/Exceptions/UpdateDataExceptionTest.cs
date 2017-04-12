@@ -20,31 +20,13 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Create.GrassCoverErosionInwards;
-using Application.Ringtoets.Storage.DbContext;
+using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.Common.Data.Exceptions;
 
-namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
+namespace Ringtoets.Common.Data.Test.Exceptions
 {
     [TestFixture]
-    public class GeneralGrassCoverErosionInwardsInputCreateExtensionsTest
-    {
-        [Test]
-        public void Create_ValidGeneralInput_ReturnEntity()
-        {
-            // Setup
-            var n = new Random(21).Next(0, 20);
-            var input = new GeneralGrassCoverErosionInwardsInput
-            {
-                N = n
-            };
-
-            // Call
-            GrassCoverErosionInwardsFailureMechanismMetaEntity entity = input.Create();
-
-            // Assert
-            Assert.AreEqual(n, entity.N);
-        }
-    }
+    public class UpdateDataExceptionTest :
+        CustomExceptionDesignGuidelinesTestFixture<UpdateDataException, Exception> {}
 }

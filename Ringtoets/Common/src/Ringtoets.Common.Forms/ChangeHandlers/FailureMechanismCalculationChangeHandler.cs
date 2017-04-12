@@ -20,34 +20,33 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Gui;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.IO;
-using Ringtoets.Piping.Data;
 
-namespace Ringtoets.Piping.Plugin.ChangeHandlers
+namespace Ringtoets.Common.Forms.ChangeHandlers
 {
     /// <summary>
     /// Class which can, if required, inquire the user for a confirmation when a change to the
-    /// surface line collection requires calculation results to be altered.
+    /// failure mechanism requires calculation results to be altered.
     /// </summary>
-    public class RingtoetsPipingSurfaceLineChangeHandler : IConfirmDataChangeHandler
+    public class FailureMechanismCalculationChangeHandler : IConfirmDataChangeHandler
     {
-        private readonly IInquiryHelper inquiryHandler;
-        private readonly PipingFailureMechanism failureMechanism;
         private readonly string query;
+        private readonly IFailureMechanism failureMechanism;
+        private readonly IInquiryHelper inquiryHandler;
 
         /// <summary>
-        /// Creates a new instance of <see cref="RingtoetsPipingSurfaceLineChangeHandler"/>.
+        /// Creates a new instance of <see cref="FailureMechanismCalculationChangeHandler"/>.
         /// </summary>
-        /// <param name="failureMechanism">Failure mechanism for which to handle changes in stochastic soil models.</param>
+        /// <param name="failureMechanism">Failure mechanism for which to handle changes of the failure mechanism.</param>
         /// <param name="query">The query which should be displayed when inquiring for a confirmation.</param>
         /// <param name="inquiryHandler">Object responsible for inquiring required data.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public RingtoetsPipingSurfaceLineChangeHandler(PipingFailureMechanism failureMechanism,
-                                                       string query,
-                                                       IInquiryHelper inquiryHandler)
+        public FailureMechanismCalculationChangeHandler(IFailureMechanism failureMechanism,
+                                                        string query,
+                                                        IInquiryHelper inquiryHandler)
         {
             if (failureMechanism == null)
             {
@@ -61,26 +60,20 @@ namespace Ringtoets.Piping.Plugin.ChangeHandlers
             {
                 throw new ArgumentNullException(nameof(inquiryHandler));
             }
-            this.query = query;
+
             this.failureMechanism = failureMechanism;
+            this.query = query;
             this.inquiryHandler = inquiryHandler;
         }
 
         public bool RequireConfirmation()
         {
-            IEnumerable<PipingCalculation> calculations = failureMechanism.Calculations.Cast<PipingCalculation>();
-
-            return calculations.Any(HasOutput);
+            return failureMechanism.Calculations.Any(calc => calc.HasOutput);
         }
 
         public bool InquireConfirmation()
         {
             return inquiryHandler.InquireContinuation(query);
-        }
-
-        private static bool HasOutput(PipingCalculation calculation)
-        {
-            return calculation.HasOutput;
         }
     }
 }

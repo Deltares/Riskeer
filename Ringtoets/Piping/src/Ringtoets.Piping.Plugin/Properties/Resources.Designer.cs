@@ -82,15 +82,6 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er zijn geen berekeningen om bij te werken..
-        /// </summary>
-        public static string PipingPlugin_CreateUpdateEntryAndExitPointItem_No_calculations_to_update_ToolTip {
-            get {
-                return ResourceManager.GetString("PipingPlugin_CreateUpdateEntryAndExitPointItem_No_calculations_to_update_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Er zijn geen berekeningen met een profielschematisatie..
         /// </summary>
         public static string PipingPlugin_CreateUpdateEntryAndExitPointItem_No_calculations_with_surfaceline_Tooltip {
@@ -208,10 +199,10 @@ namespace Ringtoets.Piping.Plugin.Properties {
         ///
         ///Weet u zeker dat u wilt doorgaan?.
         /// </summary>
-        public static string PipingPlugin_VerifyEntryAndExitPointUpdates_When_updating_entry_and_exit_points_definitions_assigned_to_calculation_output_will_be_cleared_confirm {
+        public static string PipingPlugin_VerifyEntryAndExitPointUpdates_Confirm_calculation_output_cleared_when_updating_entry_and_exit_points_definitions {
             get {
-                return ResourceManager.GetString("PipingPlugin_VerifyEntryAndExitPointUpdates_When_updating_entry_and_exit_points_d" +
-                        "efinitions_assigned_to_calculation_output_will_be_cleared_confirm", resourceCulture);
+                return ResourceManager.GetString("PipingPlugin_VerifyEntryAndExitPointUpdates_Confirm_calculation_output_cleared_wh" +
+                        "en_updating_entry_and_exit_points_definitions", resourceCulture);
             }
         }
         
@@ -220,10 +211,10 @@ namespace Ringtoets.Piping.Plugin.Properties {
         ///
         ///Weet u zeker dat u wilt doorgaan?.
         /// </summary>
-        public static string PipingPlugin_VerifyEntryAndExitPointUpdates_When_updating_entry_and_exit_points_definitions_assigned_to_calculations_output_will_be_cleared_confirm {
+        public static string PipingPlugin_VerifyEntryAndExitPointUpdates_Confirm_calculation_outputs_cleared_when_updating_entry_and_exit_points_definitions {
             get {
-                return ResourceManager.GetString("PipingPlugin_VerifyEntryAndExitPointUpdates_When_updating_entry_and_exit_points_d" +
-                        "efinitions_assigned_to_calculations_output_will_be_cleared_confirm", resourceCulture);
+                return ResourceManager.GetString("PipingPlugin_VerifyEntryAndExitPointUpdates_Confirm_calculation_outputs_cleared_w" +
+                        "hen_updating_entry_and_exit_points_definitions", resourceCulture);
             }
         }
         
@@ -494,12 +485,22 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bijwerken van de profielschematisaties is mislukt..
+        ///   Looks up a localized string similar to Het importeren van profielschematisaties is mislukt: {0}.
         /// </summary>
-        public static string RingtoetsPipingSurfaceLineUpdateDataStrategy_UpdateSurfaceLinesWithImportedData_Update_of_RingtoetsPipingSurfaceLine_has_failed {
+        public static string RingtoetsPipingSurfaceLineReplaceDataStrategy_UpdateSurfaceLinesWithImportedData_Importing_RingtoetsPipingSurfaceLines_failed_Reason_0 {
+            get {
+                return ResourceManager.GetString("RingtoetsPipingSurfaceLineReplaceDataStrategy_UpdateSurfaceLinesWithImportedData_" +
+                        "Importing_RingtoetsPipingSurfaceLines_failed_Reason_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het bijwerken van de profielschematisaties is mislukt: {0}.
+        /// </summary>
+        public static string RingtoetsPipingSurfaceLineUpdateDataStrategy_UpdateSurfaceLinesWithImportedData_Update_of_RingtoetsPipingSurfaceLine_has_failed_Reason_0 {
             get {
                 return ResourceManager.GetString("RingtoetsPipingSurfaceLineUpdateDataStrategy_UpdateSurfaceLinesWithImportedData_U" +
-                        "pdate_of_RingtoetsPipingSurfaceLine_has_failed", resourceCulture);
+                        "pdate_of_RingtoetsPipingSurfaceLine_has_failed_Reason_0", resourceCulture);
             }
         }
         
@@ -532,12 +533,22 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bijwerken van de stochastische ondergrondmodellen is mislukt..
+        ///   Looks up a localized string similar to Het importeren van stochastische ondergrondmodellen is mislukt: {0}.
         /// </summary>
-        public static string StochasticSoilModelUpdateDataStrategy_UpdateModelWithImportedData_Update_of_StochasticSoilModel_failed {
+        public static string StochasticSoilModelReplaceDataStrategy_UpdateModelWithImportedData_Importing_StochasticSoilModels_failed_Reason_0 {
+            get {
+                return ResourceManager.GetString("StochasticSoilModelReplaceDataStrategy_UpdateModelWithImportedData_Importing_Stoc" +
+                        "hasticSoilModels_failed_Reason_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het bijwerken van de stochastische ondergrondmodellen is mislukt: {0}.
+        /// </summary>
+        public static string StochasticSoilModelUpdateDataStrategy_UpdateModelWithImportedData_Update_of_StochasticSoilModel_failed_Reason_0 {
             get {
                 return ResourceManager.GetString("StochasticSoilModelUpdateDataStrategy_UpdateModelWithImportedData_Update_of_Stoch" +
-                        "asticSoilModel_failed", resourceCulture);
+                        "asticSoilModel_failed_Reason_0", resourceCulture);
             }
         }
     }

@@ -20,18 +20,20 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Gui;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.IO;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.KernelWrapper.TestUtil;
-using Ringtoets.Piping.Plugin.ChangeHandlers;
 
-namespace Ringtoets.Piping.Plugin.Test.ChangeHandlers
+namespace Ringtoets.Common.Forms.Test.ChangeHandlers
 {
     [TestFixture]
-    public class RingtoetsPipingSurfaceLineChangeHandlerTest
+    public class FailureMechanismCalculationChangeHandlerTest
     {
         [Test]
         public void Constructor_WithoutFailureMechanism_ThrowsArgumentNullException()
@@ -42,7 +44,7 @@ namespace Ringtoets.Piping.Plugin.Test.ChangeHandlers
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => new RingtoetsPipingSurfaceLineChangeHandler(null, string.Empty, inquiryHandler);
+            TestDelegate test = () => new FailureMechanismCalculationChangeHandler(null, string.Empty, inquiryHandler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -56,10 +58,11 @@ namespace Ringtoets.Piping.Plugin.Test.ChangeHandlers
             // Setup
             var mockRepository = new MockRepository();
             var inquiryHandler = mockRepository.Stub<IInquiryHelper>();
+            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => new RingtoetsPipingSurfaceLineChangeHandler(new PipingFailureMechanism(), null, inquiryHandler);
+            TestDelegate test = () => new FailureMechanismCalculationChangeHandler(failureMechanism, null, inquiryHandler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -70,12 +73,18 @@ namespace Ringtoets.Piping.Plugin.Test.ChangeHandlers
         [Test]
         public void Constructor_WithoutInquiryHandler_ThrowsArgumentNullException()
         {
+            // Setup
+            var mockRepository = new MockRepository();
+            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
+            mockRepository.ReplayAll();
+
             // Call
-            TestDelegate test = () => new RingtoetsPipingSurfaceLineChangeHandler(new PipingFailureMechanism(), string.Empty, null);
+            TestDelegate test = () => new FailureMechanismCalculationChangeHandler(failureMechanism, string.Empty, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("inquiryHandler", paramName);
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -84,13 +93,34 @@ namespace Ringtoets.Piping.Plugin.Test.ChangeHandlers
             // Setup
             var mockRepository = new MockRepository();
             var inquiryHandler = mockRepository.Stub<IInquiryHelper>();
+            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
             mockRepository.ReplayAll();
 
             // Call
-            var handler = new RingtoetsPipingSurfaceLineChangeHandler(new PipingFailureMechanism(), string.Empty, inquiryHandler);
+            var handler = new FailureMechanismCalculationChangeHandler(failureMechanism, string.Empty, inquiryHandler);
 
             // Assert
             Assert.IsInstanceOf<IConfirmDataChangeHandler>(handler);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void RequireConfirmation_FailureMechanismWithoutCalculations_ReturnsFalse()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var inquiryHandler = mockRepository.StrictMock<IInquiryHelper>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
+
+            var handler = new FailureMechanismCalculationChangeHandler(failureMechanism, string.Empty, inquiryHandler);
+
+            // Call
+            bool requireConfirmation = handler.RequireConfirmation();
+
+            // Assert
+            Assert.IsFalse(requireConfirmation);
             mockRepository.VerifyAll();
         }
 
@@ -100,12 +130,17 @@ namespace Ringtoets.Piping.Plugin.Test.ChangeHandlers
             // Setup
             var mockRepository = new MockRepository();
             var inquiryHandler = mockRepository.StrictMock<IInquiryHelper>();
+
+            var calculation = mockRepository.StrictMock<ICalculation>();
+            calculation.Expect(calc => calc.HasOutput).Return(false);
             mockRepository.ReplayAll();
 
-            var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new PipingCalculationScenario(new GeneralPipingInput()));
+            var failureMechanism = new TestFailureMechanism(new[]
+            {
+                calculation
+            });
 
-            var handler = new RingtoetsPipingSurfaceLineChangeHandler(failureMechanism, string.Empty, inquiryHandler);
+            var handler = new FailureMechanismCalculationChangeHandler(failureMechanism, string.Empty, inquiryHandler);
 
             // Call
             bool requireConfirmation = handler.RequireConfirmation();
@@ -121,15 +156,17 @@ namespace Ringtoets.Piping.Plugin.Test.ChangeHandlers
             // Setup
             var mockRepository = new MockRepository();
             var inquiryHandler = mockRepository.StrictMock<IInquiryHelper>();
+
+            var calculation = mockRepository.StrictMock<ICalculation>();
+            calculation.Expect(calc => calc.HasOutput).Return(true);
             mockRepository.ReplayAll();
 
-            var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new PipingCalculationScenario(new GeneralPipingInput())
+            var failureMechanism = new TestFailureMechanism(new[]
             {
-                Output = new TestPipingOutput()
+                calculation
             });
 
-            var handler = new RingtoetsPipingSurfaceLineChangeHandler(failureMechanism, string.Empty, inquiryHandler);
+            var handler = new FailureMechanismCalculationChangeHandler(failureMechanism, string.Empty, inquiryHandler);
 
             // Call
             bool requireConfirmation = handler.RequireConfirmation();
@@ -152,9 +189,10 @@ namespace Ringtoets.Piping.Plugin.Test.ChangeHandlers
             var mockRepository = new MockRepository();
             var inquiryHandler = mockRepository.StrictMock<IInquiryHelper>();
             inquiryHandler.Expect(ih => ih.InquireContinuation(message)).Return(expectedResult);
+            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
             mockRepository.ReplayAll();
 
-            var handler = new RingtoetsPipingSurfaceLineChangeHandler(new PipingFailureMechanism(), message, inquiryHandler);
+            var handler = new FailureMechanismCalculationChangeHandler(failureMechanism, message, inquiryHandler);
 
             // Call
             bool result = handler.InquireConfirmation();

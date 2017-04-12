@@ -509,6 +509,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.IsEmpty(failureMechanism.Sections);
 
             Assert.AreEqual(3, failureMechanism.GeneralInput.N);
+            Assert.IsNull(failureMechanism.DikeProfiles.SourcePath);
         }
 
         [Test]
@@ -517,13 +518,15 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Setup
             string emptyDikeGeometryXml = new RoughnessPointXmlSerializer().ToXml(new RoughnessPoint[0]);
             string emptyForeshoreBinaryXml = new Point2DXmlSerializer().ToXml(new Point2D[0]);
+            const string sourcePath = "some/path/to/my/dikeprofiles";
             var entity = new FailureMechanismEntity
             {
                 GrassCoverErosionInwardsFailureMechanismMetaEntities =
                 {
                     new GrassCoverErosionInwardsFailureMechanismMetaEntity
                     {
-                        N = 3
+                        N = 3,
+                        DikeProfileCollectionSourcePath = sourcePath
                     }
                 },
                 DikeProfileEntities =
@@ -551,6 +554,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(2, failureMechanism.DikeProfiles.Count);
+            Assert.AreEqual(sourcePath, failureMechanism.DikeProfiles.SourcePath);
         }
 
         [Test]

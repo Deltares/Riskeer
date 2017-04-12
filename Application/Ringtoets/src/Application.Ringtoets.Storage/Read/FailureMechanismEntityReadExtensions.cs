@@ -192,11 +192,17 @@ namespace Application.Ringtoets.Storage.Read
             entity.GrassCoverErosionInwardsFailureMechanismMetaEntities.Single().Read(input);
         }
 
-        private static void ReadDikeProfiles(this FailureMechanismEntity entity, ICollection<DikeProfile> dikeProfiles, ReadConversionCollector collector)
+        private static void ReadDikeProfiles(this FailureMechanismEntity entity, DikeProfileCollection dikeProfiles, ReadConversionCollector collector)
         {
-            foreach (DikeProfileEntity dikeProfileEntity in entity.DikeProfileEntities)
+            if (entity.DikeProfileEntities.Any())
             {
-                dikeProfiles.Add(dikeProfileEntity.Read(collector));
+                GrassCoverErosionInwardsFailureMechanismMetaEntity metaEntity =
+                    entity.GrassCoverErosionInwardsFailureMechanismMetaEntities.Single();
+                string sourcePath = metaEntity.DikeProfileCollectionSourcePath;
+
+                dikeProfiles.AddRange(entity.DikeProfileEntities
+                                            .OrderBy(dp => dp.Order)
+                                            .Select(dp => dp.Read(collector)), sourcePath);
             }
         }
 

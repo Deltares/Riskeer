@@ -149,15 +149,6 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dijkprofiellocaties.
-        /// </summary>
-        public static string DikeProfilesImporter_DisplayName {
-            get {
-                return ResourceManager.GetString("DikeProfilesImporter_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Als u de norm aanpast, dan worden alle rekenresultaten van alle hydraulische randvoorwaarden en toetssporen verwijderd.
         ///
         ///Weet u zeker dat u wilt doorgaan?.

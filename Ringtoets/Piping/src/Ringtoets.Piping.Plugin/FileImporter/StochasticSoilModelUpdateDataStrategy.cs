@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Utils;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Exceptions;
@@ -48,28 +49,31 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         public StochasticSoilModelUpdateDataStrategy(PipingFailureMechanism failureMechanism)
             : base(failureMechanism, new SoilModelNameEqualityComparer()) {}
 
-        public IEnumerable<IObservable> UpdateModelWithImportedData(StochasticSoilModelCollection targetCollection,
+        public IEnumerable<IObservable> UpdateModelWithImportedData(StochasticSoilModelCollection targetDataCollection,
                                                                     IEnumerable<StochasticSoilModel> readStochasticSoilModels,
                                                                     string sourceFilePath)
         {
             try
             {
-                return UpdateTargetCollectionData(targetCollection, readStochasticSoilModels, sourceFilePath);
+                return UpdateTargetCollectionData(targetDataCollection, readStochasticSoilModels, sourceFilePath);
             }
-            catch (ArgumentNullException)
+            catch (UpdateDataException e)
             {
-                throw;
-            }
-            catch (ArgumentException e)
-            {
-                throw new StochasticSoilModelUpdateException(e.Message, e);
-            }
-            catch (InvalidOperationException e)
-            {
-                string message = Resources.StochasticSoilModelUpdateDataStrategy_UpdateModelWithImportedData_Update_of_StochasticSoilModel_failed;
+                string message =
+                    string.Format(Resources.StochasticSoilModelUpdateDataStrategy_UpdateModelWithImportedData_Update_of_StochasticSoilModel_failed_Reason_0,
+                                  e.Message);
                 throw new StochasticSoilModelUpdateException(message, e);
             }
         }
+
+        #region Remove Data Functions
+
+        protected override IEnumerable<IObservable> RemoveObjectAndDependentData(StochasticSoilModel removedModel)
+        {
+            return PipingDataSynchronizationService.RemoveStochasticSoilModel(FailureMechanism, removedModel);
+        }
+
+        #endregion
 
         /// <summary>
         /// Class for comparing <see cref="StochasticSoilModel"/> by just the name.
@@ -112,26 +116,17 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             };
             foreach (StochasticSoilProfile removedProfile in difference.RemovedProfiles)
             {
-                affectedObjects.AddRange(PipingDataSynchronizationService.RemoveStochasticSoilProfileFromInput(failureMechanism, removedProfile));
+                affectedObjects.AddRange(PipingDataSynchronizationService.RemoveStochasticSoilProfileFromInput(FailureMechanism, removedProfile));
             }
             foreach (StochasticSoilProfile updatedProfile in difference.UpdatedProfiles)
             {
                 if (!oldProfiles[updatedProfile].Equals(updatedProfile.SoilProfile))
                 {
-                    affectedObjects.AddRange(PipingDataSynchronizationService.ClearStochasticSoilProfileDependentData(failureMechanism, updatedProfile));
+                    affectedObjects.AddRange(PipingDataSynchronizationService.ClearStochasticSoilProfileDependentData(FailureMechanism, updatedProfile));
                 }
                 affectedObjects.Add(updatedProfile);
             }
             return affectedObjects;
-        }
-
-        #endregion
-
-        #region Remove Data Functions
-
-        protected override IEnumerable<IObservable> RemoveObjectAndDependentData(StochasticSoilModel removedModel)
-        {
-            return PipingDataSynchronizationService.RemoveStochasticSoilModel(failureMechanism, removedModel);
         }
 
         #endregion

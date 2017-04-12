@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.Properties;
@@ -31,7 +32,7 @@ namespace Ringtoets.Common.Data.DikeProfiles
     /// <summary>
     /// Definition for a dike profile for a failure mechanism.
     /// </summary>
-    public class DikeProfile
+    public class DikeProfile : Observable
     {
         /// <summary>
         /// Creates a new instance of the <see cref="DikeProfile"/> class.
@@ -44,8 +45,13 @@ namespace Ringtoets.Common.Data.DikeProfiles
         /// <exception cref="ArgumentNullException">Thrown when either <paramref name="dikeGeometry"/>,
         /// <paramref name="foreshoreGeometry"/>, <paramref name="worldCoordinate"/> or 
         /// <paramref name="properties"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when any element of <paramref name="dikeGeometry"/>
-        /// or <paramref name="foreshoreGeometry"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when:
+        /// <list type="bullet">
+        /// <item>any element of <paramref name="dikeGeometry"/>
+        /// or <paramref name="foreshoreGeometry"/> is <c>null</c>.</item>
+        /// <item><paramref name="properties.Id"/> is <c>null</c>, is empty
+        /// or whitespaces.</item>
+        /// </list> </exception>
         public DikeProfile(Point2D worldCoordinate, IEnumerable<RoughnessPoint> dikeGeometry, IEnumerable<Point2D> foreshoreGeometry,
                            BreakWater breakWater, ConstructionProperties properties)
         {
@@ -70,7 +76,7 @@ namespace Ringtoets.Common.Data.DikeProfiles
         /// <summary>
         /// Gets the foreshore profile.
         /// </summary>
-        public ForeshoreProfile ForeshoreProfile { get; }
+        public ForeshoreProfile ForeshoreProfile { get; private set; }
 
         /// <summary>
         /// Gets the ID of the dike profile.
@@ -177,9 +183,83 @@ namespace Ringtoets.Common.Data.DikeProfiles
         /// </summary>
         public RoundedDouble DikeHeight { get; private set; }
 
+        /// <summary>
+        /// Copies all the properties of the <paramref name="fromDikeProfile"/> to
+        /// the current instance.
+        /// </summary>
+        /// <param name="fromDikeProfile">The dike profile to copy the properties
+        /// from.</param>
+        /// <exception cref="ArgumentNullException">Thrown when 
+        /// <paramref name="fromDikeProfile"/> is <c>null</c>.</exception>
+        public void CopyProperties(DikeProfile fromDikeProfile)
+        {
+            if (fromDikeProfile == null)
+            {
+                throw new ArgumentNullException(nameof(fromDikeProfile));
+            }
+
+            SetGeometry(fromDikeProfile.DikeGeometry);
+            DikeHeight = fromDikeProfile.DikeHeight;
+            CopyForeshoreProfileProperties(fromDikeProfile);
+        }
+
         public override string ToString()
         {
             return Name;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+            return Equals((DikeProfile) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hashCode = ForeshoreProfile.GetHashCode();
+                hashCode = (hashCode * 397) ^ DikeHeight.GetHashCode();
+
+                foreach (RoughnessPoint point in DikeGeometry)
+                {
+                    hashCode = (hashCode * 397) ^ point.GetHashCode();
+                }
+
+                return hashCode;
+            }
+        }
+
+        private void CopyForeshoreProfileProperties(DikeProfile fromDikeProfile)
+        {
+            ForeshoreProfile = new ForeshoreProfile(fromDikeProfile.WorldReferencePoint,
+                                                    fromDikeProfile.ForeshoreGeometry,
+                                                    fromDikeProfile.BreakWater,
+                                                    new ForeshoreProfile.ConstructionProperties
+                                                    {
+                                                        Id = fromDikeProfile.Id,
+                                                        Name = fromDikeProfile.Name,
+                                                        Orientation = fromDikeProfile.Orientation,
+                                                        X0 = fromDikeProfile.X0
+                                                    });
+        }
+
+        private bool Equals(DikeProfile other)
+        {
+            return Equals(ForeshoreProfile, other.ForeshoreProfile)
+                   && DikeHeight.Equals(other.DikeHeight)
+                   && EqualDikeGeometry(other.DikeGeometry);
         }
 
         private void SetGeometry(IEnumerable<RoughnessPoint> points)
@@ -189,13 +269,32 @@ namespace Ringtoets.Common.Data.DikeProfiles
                 throw new ArgumentNullException(nameof(points), Resources.DikeProfile_SetGeometry_Collection_of_points_for_geometry_is_null);
             }
 
-            var roughnessPoints = points.ToArray();
+            RoughnessPoint[] roughnessPoints = points.ToArray();
             if (roughnessPoints.Any(p => p == null))
             {
                 throw new ArgumentException(Resources.DikeProfile_SetGeometry_A_point_in_the_collection_is_null);
             }
 
             DikeGeometry = roughnessPoints;
+        }
+
+        private bool EqualDikeGeometry(RoughnessPoint[] otherPoints)
+        {
+            int nrOfPoints = DikeGeometry.Length;
+            if (otherPoints.Length != nrOfPoints)
+            {
+                return false;
+            }
+
+            for (var i = 0; i < nrOfPoints; i++)
+            {
+                if (!DikeGeometry[i].Equals(otherPoints[i]))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         /// <summary>

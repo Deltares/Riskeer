@@ -286,18 +286,19 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
-                                                                  contextMenuCalculateIndex,
-                                                                  "Be&rekenen",
-                                                                  "De bijdrage van dit toetsspoor is nul.",
-                                                                  RingtoetsCommonFormsResources.CalculateIcon,
-                                                                  false);
 
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu,
                                                                   contextMenuValidateIndex,
                                                                   "&Valideren",
                                                                   "De bijdrage van dit toetsspoor is nul.",
                                                                   RingtoetsCommonFormsResources.ValidateIcon,
+                                                                  false);
+
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  contextMenuCalculateIndex,
+                                                                  "Be&rekenen",
+                                                                  "De bijdrage van dit toetsspoor is nul.",
+                                                                  RingtoetsCommonFormsResources.CalculateIcon,
                                                                   false);
                 }
             }
@@ -329,16 +330,16 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 {
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu,
-                                                                  contextMenuCalculateIndex,
-                                                                  "Be&rekenen",
-                                                                  "Voer deze berekening uit.",
-                                                                  RingtoetsCommonFormsResources.CalculateIcon);
-
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
                                                                   contextMenuValidateIndex,
                                                                   "&Valideren",
                                                                   "Valideer de invoer voor deze berekening.",
                                                                   RingtoetsCommonFormsResources.ValidateIcon);
+
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  contextMenuCalculateIndex,
+                                                                  "Be&rekenen",
+                                                                  "Voer deze berekening uit.",
+                                                                  RingtoetsCommonFormsResources.CalculateIcon);
                 }
             }
         }

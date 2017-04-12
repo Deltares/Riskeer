@@ -162,7 +162,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         private static void SetSectionResults(IEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> sectionResults)
         {
             var random = new Random(21);
-            foreach (var sectionResult in sectionResults)
+            foreach (StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
                 sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
@@ -172,7 +172,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         private static void SetSectionResults(IEnumerable<TechnicalInnovationFailureMechanismSectionResult> sectionResults)
         {
             var random = new Random(21);
-            foreach (var sectionResult in sectionResults)
+            foreach (TechnicalInnovationFailureMechanismSectionResult sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
                 sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
@@ -182,7 +182,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         private static void SetSectionResults(IEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResult> sectionResults)
         {
             var random = new Random(21);
-            foreach (var sectionResult in sectionResults)
+            foreach (WaterPressureAsphaltCoverFailureMechanismSectionResult sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
                 sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
@@ -192,7 +192,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         private static void SetSectionResults(IEnumerable<MacrostabilityOutwardsFailureMechanismSectionResult> sectionResults)
         {
             var random = new Random(21);
-            foreach (var sectionResult in sectionResults)
+            foreach (MacrostabilityOutwardsFailureMechanismSectionResult sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
                 sectionResult.AssessmentLayerTwoA = (RoundedDouble) random.NextDouble();
@@ -203,7 +203,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         private static void SetSectionResults(IEnumerable<MacrostabilityInwardsFailureMechanismSectionResult> sectionResults)
         {
             var random = new Random(21);
-            foreach (var sectionResult in sectionResults)
+            foreach (MacrostabilityInwardsFailureMechanismSectionResult sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
                 sectionResult.AssessmentLayerTwoA = (RoundedDouble) random.NextDouble();
@@ -214,7 +214,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         private static void SetSectionResults(IEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResult> sectionResults)
         {
             var random = new Random(21);
-            foreach (var sectionResult in sectionResults)
+            foreach (GrassCoverSlipOffInwardsFailureMechanismSectionResult sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
                 sectionResult.AssessmentLayerTwoA = GetAssessmentLayerTwoAResult();
@@ -225,7 +225,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         private static void SetSectionResults(IEnumerable<GrassCoverSlipOffOutwardsFailureMechanismSectionResult> sectionResults)
         {
             var random = new Random(21);
-            foreach (var sectionResult in sectionResults)
+            foreach (GrassCoverSlipOffOutwardsFailureMechanismSectionResult sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
                 sectionResult.AssessmentLayerTwoA = GetAssessmentLayerTwoAResult();
@@ -236,7 +236,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         private static void SetSectionResults(IEnumerable<MicrostabilityFailureMechanismSectionResult> sectionResults)
         {
             var random = new Random(21);
-            foreach (var sectionResult in sectionResults)
+            foreach (MicrostabilityFailureMechanismSectionResult sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
                 sectionResult.AssessmentLayerTwoA = GetAssessmentLayerTwoAResult();
@@ -247,7 +247,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         private static void SetSectionResults(IEnumerable<PipingStructureFailureMechanismSectionResult> sectionResults)
         {
             var random = new Random(21);
-            foreach (var sectionResult in sectionResults)
+            foreach (PipingStructureFailureMechanismSectionResult sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
                 sectionResult.AssessmentLayerTwoA = GetAssessmentLayerTwoAResult();
@@ -412,7 +412,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         {
             var random = new Random(21);
             var firstSectionResultHasCalculation = false;
-            foreach (var sectionResult in sectionResults)
+            foreach (StabilityPointStructuresFailureMechanismSectionResult sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
                 sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
@@ -490,7 +490,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         {
             var random = new Random(21);
             var firstSectionResultHasCalculation = false;
-            foreach (var sectionResult in sectionResults)
+            foreach (ClosingStructuresFailureMechanismSectionResult sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
                 sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
@@ -515,7 +515,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         private static void SetSectionResults(IEnumerable<DuneErosionFailureMechanismSectionResult> sectionResults)
         {
             var random = new Random(21);
-            foreach (var sectionResult in sectionResults)
+            foreach (DuneErosionFailureMechanismSectionResult sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
                 sectionResult.AssessmentLayerTwoA = GetAssessmentLayerTwoAResult();
@@ -571,7 +571,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         {
             failureMechanism.GeneralInput.N = 5;
 
-            var hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
+            List<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
 
             var heightStructure = new TestHeightStructure();
             failureMechanism.HeightStructures.Add(heightStructure);
@@ -615,7 +615,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         {
             var random = new Random(21);
             var firstSectionResultHasCalculation = false;
-            foreach (var sectionResult in sectionResults)
+            foreach (HeightStructuresFailureMechanismSectionResult sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
                 sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
@@ -635,7 +635,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         {
             pipingFailureMechanism.PipingProbabilityAssessmentInput.A = 0.9;
 
-            var referenceLineGeometryPoints = assessmentSection.ReferenceLine.Points.ToArray();
+            Point2D[] referenceLineGeometryPoints = assessmentSection.ReferenceLine.Points.ToArray();
 
             PipingSoilProfile pipingSoilProfile = new TestPipingSoilProfile();
             PipingSoilLayer pipingSoilLayer = pipingSoilProfile.Layers.First();
@@ -794,7 +794,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         private static void SetSectionResults(IEnumerable<PipingFailureMechanismSectionResult> sectionResults)
         {
             var random = new Random(21);
-            foreach (var sectionResult in sectionResults)
+            foreach (PipingFailureMechanismSectionResult sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
                 sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
@@ -842,43 +842,48 @@ namespace Application.Ringtoets.Storage.TestUtil
                                                                               IAssessmentSection assessmentSection)
         {
             failureMechanism.GeneralInput.N = 15;
-            var dikeProfile = new DikeProfile(new Point2D(1, 2),
-                                              new[]
-                                              {
-                                                  new RoughnessPoint(new Point2D(1, 2), 1),
-                                                  new RoughnessPoint(new Point2D(3, 4), 0.5)
-                                              },
-                                              new[]
-                                              {
-                                                  new Point2D(5, 6),
-                                                  new Point2D(7, 8)
-                                              },
-                                              new BreakWater(BreakWaterType.Caisson, 15),
-                                              new DikeProfile.ConstructionProperties
-                                              {
-                                                  Id = "id",
-                                                  DikeHeight = 1.1,
-                                                  Name = "2.2",
-                                                  Orientation = 3.3,
-                                                  X0 = 4.4
-                                              });
-            failureMechanism.DikeProfiles.Add(dikeProfile);
-            failureMechanism.DikeProfiles.Add(new DikeProfile(new Point2D(9, 10),
-                                                              new[]
-                                                              {
-                                                                  new RoughnessPoint(new Point2D(11, 12), 1),
-                                                                  new RoughnessPoint(new Point2D(13, 14), 0.5)
-                                                              },
-                                                              new Point2D[0],
-                                                              null,
-                                                              new DikeProfile.ConstructionProperties
-                                                              {
-                                                                  Id = "id",
-                                                                  DikeHeight = 5.5,
-                                                                  Name = "6.6",
-                                                                  Orientation = 7.7,
-                                                                  X0 = 8.8
-                                                              }));
+            var dikeProfile1 = new DikeProfile(new Point2D(1, 2),
+                                               new[]
+                                               {
+                                                   new RoughnessPoint(new Point2D(1, 2), 1),
+                                                   new RoughnessPoint(new Point2D(3, 4), 0.5)
+                                               },
+                                               new[]
+                                               {
+                                                   new Point2D(5, 6),
+                                                   new Point2D(7, 8)
+                                               },
+                                               new BreakWater(BreakWaterType.Caisson, 15),
+                                               new DikeProfile.ConstructionProperties
+                                               {
+                                                   Id = "id",
+                                                   DikeHeight = 1.1,
+                                                   Name = "2.2",
+                                                   Orientation = 3.3,
+                                                   X0 = 4.4
+                                               });
+            var dikeProfile2 = new DikeProfile(new Point2D(9, 10),
+                                               new[]
+                                               {
+                                                   new RoughnessPoint(new Point2D(11, 12), 1),
+                                                   new RoughnessPoint(new Point2D(13, 14), 0.5)
+                                               },
+                                               new Point2D[0],
+                                               null,
+                                               new DikeProfile.ConstructionProperties
+                                               {
+                                                   Id = "id2",
+                                                   DikeHeight = 5.5,
+                                                   Name = "6.6",
+                                                   Orientation = 7.7,
+                                                   X0 = 8.8
+                                               });
+            failureMechanism.DikeProfiles.AddRange(new[]
+            {
+                dikeProfile1,
+                dikeProfile2
+            }, "some/path/to/dikeprofiles");
+
             failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
             {
                 Name = "GEKB A",
@@ -893,15 +898,15 @@ namespace Application.Ringtoets.Storage.TestUtil
                         },
                         InputParameters =
                         {
-                            DikeProfile = dikeProfile,
+                            DikeProfile = dikeProfile1,
                             HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0],
                             BreakWater =
                             {
-                                Height = (RoundedDouble) (dikeProfile.BreakWater.Height + 0.3),
+                                Height = (RoundedDouble) (dikeProfile1.BreakWater.Height + 0.3),
                                 Type = BreakWaterType.Wall
                             },
-                            DikeHeight = (RoundedDouble) (dikeProfile.DikeHeight + 0.2),
-                            Orientation = dikeProfile.Orientation,
+                            DikeHeight = (RoundedDouble) (dikeProfile1.DikeHeight + 0.2),
+                            Orientation = dikeProfile1.Orientation,
                             CriticalFlowRate =
                             {
                                 Mean = (RoundedDouble) 1.1,
@@ -937,7 +942,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         {
             var random = new Random(21);
             var firstSectionResultHasCalculation = false;
-            foreach (var sectionResult in sectionResults)
+            foreach (GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
                 sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
@@ -957,7 +962,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         {
             failureMechanism.GeneralInput.N = 15;
 
-            var hydraulicBoundaryLocations = failureMechanism.HydraulicBoundaryLocations;
+            ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations = failureMechanism.HydraulicBoundaryLocations;
             hydraulicBoundaryLocations.Add(new HydraulicBoundaryLocation(0, "HL 1", 100, 200));
             hydraulicBoundaryLocations.Add(new HydraulicBoundaryLocation(45, "HL 2", 123, 150));
 
@@ -1036,7 +1041,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         private static void SetSectionResults(IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> sectionResults)
         {
             var random = new Random(21);
-            foreach (var sectionResult in sectionResults)
+            foreach (GrassCoverErosionOutwardsFailureMechanismSectionResult sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
                 sectionResult.AssessmentLayerTwoA = GetAssessmentLayerTwoAResult();
@@ -1129,7 +1134,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         private static void SetSectionResults(IEnumerable<StabilityStoneCoverFailureMechanismSectionResult> sectionResults)
         {
             var random = new Random(21);
-            foreach (var sectionResult in sectionResults)
+            foreach (StabilityStoneCoverFailureMechanismSectionResult sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
                 sectionResult.AssessmentLayerTwoA = GetAssessmentLayerTwoAResult();
@@ -1218,7 +1223,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         private static void SetSectionResults(IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> sectionResults)
         {
             var random = new Random(21);
-            foreach (var sectionResult in sectionResults)
+            foreach (WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
                 sectionResult.AssessmentLayerTwoA = GetAssessmentLayerTwoAResult();

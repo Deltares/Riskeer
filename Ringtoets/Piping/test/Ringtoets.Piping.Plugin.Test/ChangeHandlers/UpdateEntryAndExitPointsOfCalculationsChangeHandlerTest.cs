@@ -103,7 +103,7 @@ namespace Ringtoets.Piping.Plugin.Test.ChangeHandlers
             var inquiryHandler = mockRepository.StrictMock<IInquiryHelper>();
             mockRepository.ReplayAll();
 
-            IEnumerable<PipingCalculation> calculations = new List<PipingCalculation>
+            IEnumerable<PipingCalculation> calculations = new[]
             {
                 new PipingCalculationScenario(new GeneralPipingInput())
             };
@@ -126,7 +126,7 @@ namespace Ringtoets.Piping.Plugin.Test.ChangeHandlers
             var inquiryHandler = mockRepository.StrictMock<IInquiryHelper>();
             mockRepository.ReplayAll();
 
-            IEnumerable<PipingCalculation> calculations = new List<PipingCalculation>
+            IEnumerable<PipingCalculation> calculations = new[]
             {
                 new PipingCalculationScenario(new GeneralPipingInput())
                 {

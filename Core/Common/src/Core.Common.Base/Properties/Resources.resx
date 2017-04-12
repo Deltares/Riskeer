@@ -186,4 +186,7 @@
   <data name="FileFilterGenerator_File_filter_format" xml:space="preserve">
     <value>{0} (*.{1})|*.{2}</value>
   </data>
+  <data name="ObservableUniqueItemCollectionWithSourcePath_ValidateItems_TypeDescriptor_0_must_have_unique_FeatureDescription_1_Found_duplicate_items_DuplicateFeatures_2" xml:space="preserve">
+    <value>{0} moeten een unieke {1} hebben. Gevonden dubbele elementen: {2}.</value>
+  </data>
 </root>

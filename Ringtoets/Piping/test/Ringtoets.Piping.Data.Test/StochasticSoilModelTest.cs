@@ -368,6 +368,42 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        public void Update_ModelsWithAddedProfilesWithSameNames_ThrowsInvalidOperationException()
+        {
+            // Setup 
+            var addedProfile = new StochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, 3)
+            {
+                SoilProfile = new TestPipingSoilProfile()
+            };
+            StochasticSoilModel otherModel = CreateEmptyModel();
+            otherModel.StochasticSoilProfiles.Add(addedProfile);
+
+            var existingProfile = new StochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, 3)
+            {
+                SoilProfile = new TestPipingSoilProfile()
+            };
+            StochasticSoilModel model = CreateEmptyModel();
+            model.StochasticSoilProfiles.Add(existingProfile);
+            model.StochasticSoilProfiles.Add(existingProfile);
+
+            // Call 
+            TestDelegate call = () => model.Update(otherModel);
+
+            // Assert 
+            Assert.Throws<InvalidOperationException>(call);
+
+            Assert.AreEqual(1, otherModel.StochasticSoilProfiles.Count);
+            Assert.AreEqual(addedProfile, otherModel.StochasticSoilProfiles[0]);
+
+            Assert.AreEqual(2, model.StochasticSoilProfiles.Count);
+            CollectionAssert.AreEqual(new[]
+            {
+                existingProfile,
+                existingProfile
+            }, model.StochasticSoilProfiles);
+        }
+
+        [Test]
         [TestCase(null)]
         [TestCase("")]
         [TestCase("some name")]

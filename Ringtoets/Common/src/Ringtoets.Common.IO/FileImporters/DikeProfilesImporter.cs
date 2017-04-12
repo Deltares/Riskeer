@@ -27,15 +27,20 @@ using Core.Common.IO.Readers;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.IO.DikeProfiles;
+using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.Properties;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Common.IO.FileImporters
 {
     /// <summary>
     /// Imports point shapefiles containing dike profile locations and text files containing dike schematizations.
     /// </summary>
-    public class DikeProfilesImporter : ProfilesImporter<ObservableList<DikeProfile>>
+    public class DikeProfilesImporter : ProfilesImporter<DikeProfileCollection>
     {
+        private readonly IDikeProfileUpdateDataStrategy dikeProfileUpdateDataStrategy;
+        private IEnumerable<IObservable> updatedInstances;
+
         /// <summary>
         /// Creates a new instance of <see cref="DikeProfilesImporter"/>.
         /// </summary>
@@ -43,10 +48,24 @@ namespace Ringtoets.Common.IO.FileImporters
         /// <param name="referenceLine">The reference line used to check if the <see cref="DikeProfile"/>
         /// objects found in the file are intersecting it.</param>
         /// <param name="filePath">The path to the file to import from.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="referenceLine"/>, 
-        /// <paramref name="filePath"/> or <paramref name="importTarget"/> is <c>null</c>.</exception>
-        public DikeProfilesImporter(ObservableList<DikeProfile> importTarget, ReferenceLine referenceLine, string filePath)
-            : base(referenceLine, filePath, importTarget) {}
+        /// <param name="dikeProfileUpdateStrategy">The strategy to update the dike profiles 
+        /// with the imported data.</param>
+        /// <param name="messageProvider">The message provide to provide the messages during importer action.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        public DikeProfilesImporter(DikeProfileCollection importTarget, ReferenceLine referenceLine,
+                                    string filePath,
+                                    IDikeProfileUpdateDataStrategy dikeProfileUpdateStrategy,
+                                    IImporterMessageProvider messageProvider)
+            : base(referenceLine, filePath, importTarget, messageProvider)
+        {
+            if (dikeProfileUpdateStrategy == null)
+            {
+                throw new ArgumentNullException(nameof(dikeProfileUpdateStrategy));
+            }
+
+            dikeProfileUpdateDataStrategy = dikeProfileUpdateStrategy;
+            updatedInstances = Enumerable.Empty<IObservable>();
+        }
 
         protected override void CreateProfiles(ReadResult<ProfileLocation> importProfileLocationResult,
                                                ReadResult<DikeProfileData> importDikeProfileDataResult)
@@ -54,15 +73,16 @@ namespace Ringtoets.Common.IO.FileImporters
             IEnumerable<DikeProfile> importedDikeProfiles = CreateDikeProfiles(importProfileLocationResult.Items,
                                                                                importDikeProfileDataResult.Items);
 
-            foreach (DikeProfile dikeProfile in importedDikeProfiles)
-            {
-                ImportTarget.Add(dikeProfile);
-            }
+            updatedInstances = dikeProfileUpdateDataStrategy.UpdateDikeProfilesWithImportedData(ImportTarget,
+                                                                                                importedDikeProfiles,
+                                                                                                FilePath);
         }
 
         protected override void LogImportCanceledMessage()
         {
-            Log.Info(Resources.DikeProfilesImporter_HandleUserCancelingImport_dikeprofile_import_aborted);
+            string logMessage = MessageProvider.GetCancelledLogMessageText(
+                RingtoetsCommonDataResources.DikeProfileCollection_TypeDescriptor);
+            Log.Info(logMessage);
         }
 
         protected override bool DikeProfileDataIsValid(DikeProfileData data, string prflFilePath)
@@ -75,6 +95,14 @@ namespace Ringtoets.Common.IO.FileImporters
             return false;
         }
 
+        protected override void DoPostImportUpdates()
+        {
+            foreach (IObservable updatedInstance in updatedInstances)
+            {
+                updatedInstance.NotifyObservers();
+            }
+        }
+
         private IEnumerable<DikeProfile> CreateDikeProfiles(IEnumerable<ProfileLocation> dikeProfileLocationCollection,
                                                             ICollection<DikeProfileData> dikeProfileDataCollection)
         {
@@ -83,7 +111,7 @@ namespace Ringtoets.Common.IO.FileImporters
             {
                 string id = dikeProfileLocation.Id;
 
-                var dikeProfileData = GetMatchingDikeProfileData(dikeProfileDataCollection, id);
+                DikeProfileData dikeProfileData = GetMatchingDikeProfileData(dikeProfileDataCollection, id);
                 if (dikeProfileData == null)
                 {
                     Log.ErrorFormat(Resources.DikeProfilesImporter_GetMatchingDikeProfileData_no_dikeprofiledata_for_location_0_, id);
@@ -99,7 +127,7 @@ namespace Ringtoets.Common.IO.FileImporters
 
         private static DikeProfile CreateDikeProfile(ProfileLocation dikeProfileLocation, DikeProfileData dikeProfileData)
         {
-            var dikeProfile = new DikeProfile(dikeProfileLocation.Point, dikeProfileData.DikeGeometry,
+            return new DikeProfile(dikeProfileLocation.Point, dikeProfileData.DikeGeometry,
                                               dikeProfileData.ForeshoreGeometry.Select(fg => fg.Point).ToArray(),
                                               CreateBreakWater(dikeProfileData),
                                               new DikeProfile.ConstructionProperties
@@ -110,8 +138,6 @@ namespace Ringtoets.Common.IO.FileImporters
                                                   Orientation = dikeProfileData.Orientation,
                                                   DikeHeight = dikeProfileData.DikeHeight
                                               });
-
-            return dikeProfile;
         }
     }
 }

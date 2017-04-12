@@ -354,9 +354,6 @@ Bovenstaande kolomtitels moeten gescheiden zijn door het karakter ';'.</value>
   <data name="DikeProfilesImporter_GetMatchingDikeProfileData_no_dikeprofiledata_for_location_0_" xml:space="preserve">
     <value>Kan geen geldige gegevens vinden voor dijkprofiellocatie met ID '{0}'.</value>
   </data>
-  <data name="DikeProfilesImporter_HandleUserCancelingImport_dikeprofile_import_aborted" xml:space="preserve">
-    <value>Dijkprofielen importeren is afgebroken. Geen gegevens ingelezen.</value>
-  </data>
   <data name="DikeProfilesImporter_No_dike_geometry_file_0_skipped" xml:space="preserve">
     <value>Profielgegevens definiëren geen dijkgeometrie. Bestand '{0}' wordt overgeslagen.</value>
   </data>
@@ -642,5 +639,8 @@ Er is geen berekeningenconfiguratie geïmporteerd.</value>
   </data>
   <data name="CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_DrainCoefficient" xml:space="preserve">
     <value>Er kan geen spreiding voor stochast 'afvoercoefficient' opgegeven worden.</value>
+  </data>
+  <data name="DikeProfilesImporter_DisplayName" xml:space="preserve">
+    <value>Dijkprofiellocaties</value>
   </data>
 </root>

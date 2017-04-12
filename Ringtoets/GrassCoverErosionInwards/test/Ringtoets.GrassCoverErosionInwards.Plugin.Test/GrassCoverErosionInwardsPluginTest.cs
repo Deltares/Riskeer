@@ -57,7 +57,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(4, propertyInfos.Length);
+                Assert.AreEqual(5, propertyInfos.Length);
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -78,6 +78,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                     propertyInfos,
                     typeof(GrassCoverErosionInwardsOutput),
                     typeof(GrassCoverErosionInwardsOutputProperties));
+
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(DikeProfilesContext),
+                    typeof(DikeProfileCollectionProperties));
             }
         }
 
@@ -123,6 +128,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
         }
 
         [Test]
+        public void GetUpdateInfos_ReturnsSupportedUpdateInfos()
+        {
+            // Setup
+            using (var plugin = new GrassCoverErosionInwardsPlugin())
+            {
+                // Call
+                UpdateInfo[] updateInfos = plugin.GetUpdateInfos().ToArray();
+
+                // Assert
+                Assert.AreEqual(1, updateInfos.Length);
+                Assert.IsTrue(updateInfos.Any(i => i.DataType == typeof(DikeProfilesContext)));
+            }
+        }
+
+        [Test]
         public void GetImportInfos_ReturnsSupportedImportInfos()
         {
             // Setup
@@ -132,8 +152,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                 ImportInfo[] importInfos = plugin.GetImportInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(1, importInfos.Length);
+                Assert.AreEqual(2, importInfos.Length);
                 Assert.IsTrue(importInfos.Any(tni => tni.DataType == typeof(GrassCoverErosionInwardsCalculationGroupContext)));
+                Assert.IsTrue(importInfos.Any(tni => tni.DataType == typeof(DikeProfilesContext)));
             }
         }
 

@@ -29,7 +29,6 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
@@ -55,8 +54,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            DikeProfile dikeProfile1 = new TestDikeProfile(new Point2D(0.51, 0.51));
-            DikeProfile dikeProfile2 = new TestDikeProfile(new Point2D(1.51, 1.51));
+            DikeProfile dikeProfile1 = new TestDikeProfile(new Point2D(0.51, 0.51), "id1");
+            DikeProfile dikeProfile2 = new TestDikeProfile(new Point2D(1.51, 1.51), "id2");
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -67,9 +66,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             };
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            failureMechanism.DikeProfiles.Add(dikeProfile1);
-            failureMechanism.DikeProfiles.Add(dikeProfile2);
+            failureMechanism.DikeProfiles.AddRange(new[]
+            {
+                dikeProfile1,
+                dikeProfile2
+            }, "path");
 
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
@@ -82,7 +83,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 new Point2D(1.1, 1.1), new Point2D(2.2, 2.2)
             }));
 
-            var sectionResults = failureMechanism.SectionResults.ToArray();
+            GrassCoverErosionInwardsFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults.ToArray();
             sectionResults[0].Calculation = calculation;
 
             var inputContext = new GrassCoverErosionInwardsInputContext(calculation.InputParameters, calculation, failureMechanism, assessmentSection);
@@ -107,8 +108,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            DikeProfile dikeProfile1 = new TestDikeProfile(new Point2D(0.51, 0.51));
-            DikeProfile dikeProfile2 = new TestDikeProfile(new Point2D(1.51, 1.51));
+            DikeProfile dikeProfile1 = new TestDikeProfile(new Point2D(0.51, 0.51), "id1");
+            DikeProfile dikeProfile2 = new TestDikeProfile(new Point2D(1.51, 1.51), "id2");
 
             var calculation1 = new GrassCoverErosionInwardsCalculation
             {
@@ -128,9 +129,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             };
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            failureMechanism.DikeProfiles.Add(dikeProfile1);
-            failureMechanism.DikeProfiles.Add(dikeProfile2);
+            failureMechanism.DikeProfiles.AddRange(new[]
+            {
+                dikeProfile1,
+                dikeProfile2
+            }, "path");
 
             failureMechanism.CalculationsGroup.Children.Add(calculation1);
             failureMechanism.CalculationsGroup.Children.Add(calculation2);
@@ -144,7 +147,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 new Point2D(1.1, 1.1), new Point2D(2.2, 2.2)
             }));
 
-            var sectionResults = failureMechanism.SectionResults.ToArray();
+            GrassCoverErosionInwardsFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults.ToArray();
             sectionResults[0].Calculation = calculation1;
             sectionResults[1].Calculation = calculation2;
 

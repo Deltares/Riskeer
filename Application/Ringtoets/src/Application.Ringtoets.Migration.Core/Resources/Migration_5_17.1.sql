@@ -33,8 +33,8 @@ INSERT INTO DikeProfileEntity (
 SELECT
 	[DikeProfileEntityId],
 	[FailureMechanismEntityId],
-	[Name],
-	[Name],
+	CASE WHEN Suffix THEN [Name] || '(' || Suffix || ')' ELSE [Name] END as [Name],
+	CASE WHEN Suffix THEN [Name] || '(' || Suffix || ')' ELSE [Name] END as [Name],
 	[Orientation],
 	[BreakWaterType],
 	[BreakWaterHeight],
@@ -44,8 +44,13 @@ SELECT
 	[X],
 	[Y],
 	[X0],
-	[Order] 
-	FROM [SOURCEPROJECT].DikeProfileEntity;
+	[Order]
+	FROM (SELECT *, (SELECT count(*)
+                     FROM [SOURCEPROJECT].DikeProfileEntity
+                     WHERE DP.DikeProfileEntityId > DikeProfileEntityId
+                     AND DP.Name IS Name
+                     AND DP.FailuremechanismEntityId = FailuremechanismEntityId) as Suffix
+	FROM [SOURCEPROJECT].DikeProfileEntity DP);
 INSERT INTO DuneErosionSectionResultEntity SELECT * FROM [SOURCEPROJECT].DuneErosionSectionResultEntity;
 INSERT INTO FailureMechanismEntity SELECT * FROM [SOURCEPROJECT].FailureMechanismEntity;
 INSERT INTO FailureMechanismSectionEntity SELECT * FROM [SOURCEPROJECT].FailureMechanismSectionEntity;
@@ -114,7 +119,17 @@ SELECT
 	1
 	FROM [SOURCEPROJECT].GrassCoverErosionInwardsCalculationEntity;
 INSERT INTO GrassCoverErosionInwardsDikeHeightOutputEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsDikeHeightOutputEntity;
-INSERT INTO GrassCoverErosionInwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsFailureMechanismMetaEntity;
+INSERT INTO GrassCoverErosionInwardsFailureMechanismMetaEntity (
+	[GrassCoverErosionInwardsFailureMechanismMetaEntityId],
+	[FailureMechanismEntityId],
+	[N],
+	[DikeProfileCollectionSourcePath])
+SELECT 
+	[GrassCoverErosionInwardsFailureMechanismMetaEntityId],
+	[FailureMechanismEntityId],
+	[N],
+	"Onbekend"
+	FROM [SOURCEPROJECT].GrassCoverErosionInwardsFailureMechanismMetaEntity;
 INSERT INTO GrassCoverErosionInwardsOutputEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsOutputEntity;
 INSERT INTO GrassCoverErosionInwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsSectionResultEntity;
 INSERT INTO GrassCoverErosionOutwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity;

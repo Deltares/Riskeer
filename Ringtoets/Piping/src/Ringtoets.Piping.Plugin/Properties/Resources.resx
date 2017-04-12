@@ -213,16 +213,16 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="PipingPlugin_UpdateStochasticSoilModelsMenuItem_ToolTip_No_SourcePath_set" xml:space="preserve">
     <value>Geen bronbestand bekend om vanaf bij te werken.</value>
   </data>
-  <data name="StochasticSoilModelUpdateDataStrategy_UpdateModelWithImportedData_Update_of_StochasticSoilModel_failed" xml:space="preserve">
-    <value>Het bijwerken van de stochastische ondergrondmodellen is mislukt.</value>
+  <data name="StochasticSoilModelUpdateDataStrategy_UpdateModelWithImportedData_Update_of_StochasticSoilModel_failed_Reason_0" xml:space="preserve">
+    <value>Het bijwerken van de stochastische ondergrondmodellen is mislukt: {0}</value>
   </data>
   <data name="PipingPlugin_VerifyStochasticSoilModelImport_When_importing_StochasticSoilModels_calculation_output_will_be_cleared_confirm" xml:space="preserve">
     <value>Als u stochastische ondergrondmodellen importeert, dan worden alle rekenresultaten van dit toetsspoor verwijderd.
 
 Weet u zeker dat u wilt doorgaan?</value>
   </data>
-  <data name="RingtoetsPipingSurfaceLineUpdateDataStrategy_UpdateSurfaceLinesWithImportedData_Update_of_RingtoetsPipingSurfaceLine_has_failed" xml:space="preserve">
-    <value>Het bijwerken van de profielschematisaties is mislukt.</value>
+  <data name="RingtoetsPipingSurfaceLineUpdateDataStrategy_UpdateSurfaceLinesWithImportedData_Update_of_RingtoetsPipingSurfaceLine_has_failed_Reason_0" xml:space="preserve">
+    <value>Het bijwerken van de profielschematisaties is mislukt: {0}</value>
   </data>
   <data name="PipingPlugin_VerifyRingtoetsPipingSurfaceLineUpdates_When_updating_surfacelines_definitions_assigned_to_calculation_output_will_be_cleared_confirm" xml:space="preserve">
     <value>Als profielschematisaties wijzigen door het bijwerken, dan worden de resultaten van berekeningen die deze profielschematisaties gebruiken verwijderd.
@@ -244,18 +244,15 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_entry_and_exit_points" xml:space="preserve">
     <value>&amp;Bijwerken alle intrede- en uittredepunten</value>
   </data>
-  <data name="PipingPlugin_CreateUpdateEntryAndExitPointItem_No_calculations_to_update_ToolTip" xml:space="preserve">
-    <value>Er zijn geen berekeningen om bij te werken.</value>
-  </data>
   <data name="PipingPlugin_CreateUpdateEntryAndExitPointItem_No_calculations_with_surfaceline_Tooltip" xml:space="preserve">
     <value>Er zijn geen berekeningen met een profielschematisatie.</value>
   </data>
-  <data name="PipingPlugin_VerifyEntryAndExitPointUpdates_When_updating_entry_and_exit_points_definitions_assigned_to_calculations_output_will_be_cleared_confirm" xml:space="preserve">
+  <data name="PipingPlugin_VerifyEntryAndExitPointUpdates_Confirm_calculation_outputs_cleared_when_updating_entry_and_exit_points_definitions" xml:space="preserve">
     <value>Wanneer de intrede- of uittredepunten wijzigen als gevolg van het bijwerken, zullen de resultaten van berekeningen die deze profielschematisaties gebruiken, worden verwijderd.
 
 Weet u zeker dat u wilt doorgaan?</value>
   </data>
-  <data name="PipingPlugin_VerifyEntryAndExitPointUpdates_When_updating_entry_and_exit_points_definitions_assigned_to_calculation_output_will_be_cleared_confirm" xml:space="preserve">
+  <data name="PipingPlugin_VerifyEntryAndExitPointUpdates_Confirm_calculation_output_cleared_when_updating_entry_and_exit_points_definitions" xml:space="preserve">
     <value>Wanneer het intrede- of uittredepunt wijzigt als gevolg van het bijwerken, zal het resultaat van deze berekening worden verwijderd.
 
 Weet u zeker dat u wilt doorgaan?</value>
@@ -269,5 +266,11 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Als ondergrondschematisaties wijzigen door het bijwerken, dan worden de resultaten van berekeningen die deze ondergrondschematisaties gebruiken verwijderd.
 
 Weet u zeker dat u wilt doorgaan?</value>
+  </data>
+  <data name="RingtoetsPipingSurfaceLineReplaceDataStrategy_UpdateSurfaceLinesWithImportedData_Importing_RingtoetsPipingSurfaceLines_failed_Reason_0" xml:space="preserve">
+    <value>Het importeren van profielschematisaties is mislukt: {0}</value>
+  </data>
+  <data name="StochasticSoilModelReplaceDataStrategy_UpdateModelWithImportedData_Importing_StochasticSoilModels_failed_Reason_0" xml:space="preserve">
+    <value>Het importeren van stochastische ondergrondmodellen is mislukt: {0}</value>
   </data>
 </root>

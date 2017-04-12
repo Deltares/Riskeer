@@ -640,21 +640,21 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dijkprofiellocaties.
+        /// </summary>
+        public static string DikeProfilesImporter_DisplayName {
+            get {
+                return ResourceManager.GetString("DikeProfilesImporter_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kan geen geldige gegevens vinden voor dijkprofiellocatie met ID &apos;{0}&apos;..
         /// </summary>
         public static string DikeProfilesImporter_GetMatchingDikeProfileData_no_dikeprofiledata_for_location_0_ {
             get {
                 return ResourceManager.GetString("DikeProfilesImporter_GetMatchingDikeProfileData_no_dikeprofiledata_for_location_0" +
                         "_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dijkprofielen importeren is afgebroken. Geen gegevens ingelezen..
-        /// </summary>
-        public static string DikeProfilesImporter_HandleUserCancelingImport_dikeprofile_import_aborted {
-            get {
-                return ResourceManager.GetString("DikeProfilesImporter_HandleUserCancelingImport_dikeprofile_import_aborted", resourceCulture);
             }
         }
         

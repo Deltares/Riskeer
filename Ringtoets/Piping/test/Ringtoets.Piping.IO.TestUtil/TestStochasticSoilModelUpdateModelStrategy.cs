@@ -54,7 +54,7 @@ namespace Ringtoets.Piping.IO.TestUtil
         /// </summary>
         public IEnumerable<IObservable> UpdatedInstances { get; set; } = Enumerable.Empty<IObservable>();
 
-        public IEnumerable<IObservable> UpdateModelWithImportedData(StochasticSoilModelCollection targetCollection,
+        public IEnumerable<IObservable> UpdateModelWithImportedData(StochasticSoilModelCollection targetDataCollection,
                                                                     IEnumerable<StochasticSoilModel> readStochasticSoilModels,
                                                                     string sourceFilePath)
         {

@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
@@ -128,8 +129,10 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             var exception = Assert.Throws<StochasticSoilModelUpdateException>(test);
-            Assert.AreEqual("Het bijwerken van de stochastische ondergrondmodellen is mislukt.", exception.Message);
-            Assert.IsInstanceOf<InvalidOperationException>(exception.InnerException);
+            const string expectedMessage = "Het bijwerken van de stochastische ondergrondmodellen is mislukt: " +
+                                           "Geïmporteerde data moet unieke elementen bevatten.";
+            Assert.AreEqual(expectedMessage, exception.Message);
+            Assert.IsInstanceOf<UpdateDataException>(exception.InnerException);
         }
 
         [Test]
@@ -152,8 +155,10 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             var exception = Assert.Throws<StochasticSoilModelUpdateException>(test);
-            Assert.AreEqual("Stochastische ondergrondmodellen moeten een unieke naam hebben. Gevonden dubbele elementen: non-unique name.", exception.Message);
-            Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
+            const string expectedMessage = "Het bijwerken van de stochastische ondergrondmodellen is mislukt: " +
+                                           "Stochastische ondergrondmodellen moeten een unieke naam hebben. Gevonden dubbele elementen: non-unique name.";
+            Assert.AreEqual(expectedMessage, exception.Message);
+            Assert.IsInstanceOf<UpdateDataException>(exception.InnerException);
 
             CollectionAssert.IsEmpty(targetCollection);
         }
@@ -162,7 +167,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void UpdateModelWithImportedData_WithoutCurrentModelAndNoImportedModels_NoChangeNoNotification()
         {
             // Setup
-            var importedStochasticSoilModels = Enumerable.Empty<TestStochasticSoilModel>();
+            IEnumerable<TestStochasticSoilModel> importedStochasticSoilModels = Enumerable.Empty<TestStochasticSoilModel>();
             var strategy = new StochasticSoilModelUpdateDataStrategy(new PipingFailureMechanism());
             var targetCollection = new StochasticSoilModelCollection();
 

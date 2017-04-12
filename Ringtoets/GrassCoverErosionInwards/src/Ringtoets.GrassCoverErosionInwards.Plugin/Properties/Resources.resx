@@ -123,4 +123,48 @@
   <data name="GrassCoverErosionInwardsPlugin_CreateGenerateCalculationsItem_ToolTip" xml:space="preserve">
     <value>Genereer berekeningen op basis van geselecteerde dijkprofielen.</value>
   </data>
+  <data name="DikeProfileReplaceDataStrategy_UpdateDikeProfilesWithImportedData_Importing_DikeProfiles_failed_Reason_0" xml:space="preserve">
+    <value>Het importeren van dijkprofielen is mislukt: {0}</value>
+  </data>
+  <data name="DikeProfileReplaceDataStrategy_UpdateDikeProfilesWithImportedData_Updating_DikeProfiles_failed_Reason_0" xml:space="preserve">
+    <value>Het bijwerken van de dijkprofielen is mislukt: {0}</value>
+  </data>
+  <data name="GrassCoverErosionInwardsPlugin_VerifyDikeProfileImport_When_importing_DikeProfiles_Calculation_output_will_be_cleared_confirm" xml:space="preserve">
+    <value>Als u dijkprofielen importeert, dan worden alle rekenresultaten van dit toetsspoor verwijderd.
+
+Weet u zeker dat u wilt doorgaan?</value>
+  </data>
+  <data name="GrassCoverErosionInwardsPlugin_VerifyDikeProfileUpdate_When_updating_Calculation_with_DikeProfile_data_output_will_be_cleared_confirm" xml:space="preserve">
+    <value>Als dijkprofielen wijzigen door het bijwerken, dan worden de resultaten van berekeningen die deze dijkprofielen gebruiken verwijderd.
+
+Weet u zeker dat u wilt doorgaan?</value>
+  </data>
+  <data name="GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_DikeProfile_data" xml:space="preserve">
+    <value>&amp;Bijwerken dijkprofiel</value>
+  </data>
+  <data name="GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_calculation_with_DikeProfile_data_ToolTip" xml:space="preserve">
+    <value>Berekening bijwerken met het dijkprofiel.</value>
+  </data>
+  <data name="GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_calculation_no_DikeProfile_ToolTip" xml:space="preserve">
+    <value>Er moet een dijkprofiel geselecteerd zijn.</value>
+  </data>
+  <data name="GrassCoverErosionInwardsPlugin_VerifyDikeProfileUpdate_Confirm_calculation_output_cleared_when_updating_DikeProfile_dependent_data" xml:space="preserve">
+    <value>Wanneer het dijkprofiel wijzigt als gevolg van het bijwerken, zal het resultaat van deze berekening worden verwijderd.
+
+Weet u zeker dat u wilt doorgaan?</value>
+  </data>
+  <data name="GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_all_calculations_with_DikeProfile_Tooltip" xml:space="preserve">
+    <value>Alle berekeningen bijwerken met het dijkprofiel.</value>
+  </data>
+  <data name="GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_No_calculations_with_DikeProfile_ToolTip" xml:space="preserve">
+    <value>Er zijn geen berekeningen met een dijkprofiel.</value>
+  </data>
+  <data name="GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_all_DikeProfiles" xml:space="preserve">
+    <value>&amp;Bijwerken dijkprofielen</value>
+  </data>
+  <data name="GrassCoverErosionInwardsPlugin_VerifyDikeProfileUpdate_Confirm_calculation_outputs_cleared_when_updating_DikeProfile_dependent_data" xml:space="preserve">
+    <value>Wanneer de dijkprofielen wijzigen als gevolg van het bijwerken, zullen de resultaten van berekeningen die deze dijkprofielen gebruiken, worden verwijderd.
+
+Weet u zeker dat u wilt doorgaan?</value>
+  </data>
 </root>

@@ -35,6 +35,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public long GrassCoverErosionInwardsFailureMechanismMetaEntityId { get; set; }
         public long FailureMechanismEntityId { get; set; }
         public int N { get; set; }
+        public string DikeProfileCollectionSourcePath { get; set; }
 
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
     }

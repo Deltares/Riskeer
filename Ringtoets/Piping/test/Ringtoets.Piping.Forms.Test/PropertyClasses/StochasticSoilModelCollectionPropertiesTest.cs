@@ -74,14 +74,14 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(1, dynamicProperties.Count);
 
-            PropertyDescriptor stochasticSoilModelIdProperty = dynamicProperties[0];
-            Assert.IsNotNull(stochasticSoilModelIdProperty);
-            Assert.IsTrue(stochasticSoilModelIdProperty.IsReadOnly);
-            Assert.AreEqual("Algemeen", stochasticSoilModelIdProperty.Category);
-            Assert.AreEqual("Bronlocatie", stochasticSoilModelIdProperty.DisplayName);
+            PropertyDescriptor stochasticSoilModelSourcePathProperty = dynamicProperties[0];
+            Assert.IsNotNull(stochasticSoilModelSourcePathProperty);
+            Assert.IsTrue(stochasticSoilModelSourcePathProperty.IsReadOnly);
+            Assert.AreEqual("Algemeen", stochasticSoilModelSourcePathProperty.Category);
+            Assert.AreEqual("Bronlocatie", stochasticSoilModelSourcePathProperty.DisplayName);
             Assert.AreEqual(
                 "De locatie van het bestand waaruit de stochastische ondergrondmodellen zijn geïmporteerd.",
-                stochasticSoilModelIdProperty.Description);
+                stochasticSoilModelSourcePathProperty.Description);
         }
     }
 }

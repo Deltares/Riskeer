@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -29,19 +28,18 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
 {
     /// <summary>
-    /// This is a presentation object for <see cref="ObservableList{T}"/> for elements
-    /// of type <see cref="DikeProfile"/>.
+    /// This is a presentation object for the <see cref="DikeProfileCollection"/>. 
     /// </summary>
-    public class DikeProfilesContext : ObservableWrappedObjectContextBase<ObservableList<DikeProfile>>
+    public class DikeProfilesContext : ObservableWrappedObjectContextBase<DikeProfileCollection>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DikeProfilesContext"/> class.
         /// </summary>
-        /// <param name="dikeProfilesList">The observable list of dike profiles.</param>
+        /// <param name="dikeProfiles">The observable collection of dike profiles.</param>
         /// <param name="parentFailureMechanism">The parent failure mechanism.</param>
         /// <param name="parentAssessmentSection">The parent assessment section.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is null.</exception>
-        public DikeProfilesContext(ObservableList<DikeProfile> dikeProfilesList, GrassCoverErosionInwardsFailureMechanism parentFailureMechanism, IAssessmentSection parentAssessmentSection) : base(dikeProfilesList)
+        public DikeProfilesContext(DikeProfileCollection dikeProfiles, GrassCoverErosionInwardsFailureMechanism parentFailureMechanism, IAssessmentSection parentAssessmentSection) : base(dikeProfiles)
         {
             if (parentAssessmentSection == null)
             {

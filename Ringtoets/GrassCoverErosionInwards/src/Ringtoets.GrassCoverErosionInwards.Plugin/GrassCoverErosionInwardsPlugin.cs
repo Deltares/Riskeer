@@ -24,7 +24,10 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
@@ -39,6 +42,8 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.ImportInfos;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
+using Ringtoets.Common.IO.FileImporters;
+using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms;
@@ -47,9 +52,12 @@ using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.IO.Exporters;
 using Ringtoets.GrassCoverErosionInwards.IO.Importers;
+using Ringtoets.GrassCoverErosionInwards.Plugin.ChangeHandlers;
+using Ringtoets.GrassCoverErosionInwards.Plugin.FileImporters;
+using Ringtoets.GrassCoverErosionInwards.Plugin.Properties;
 using Ringtoets.GrassCoverErosionInwards.Service;
 using Ringtoets.GrassCoverErosionInwards.Utils;
-using GrassCoverErosionInwardsPluginResources = Ringtoets.GrassCoverErosionInwards.Plugin.Properties.Resources;
+using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -76,6 +84,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                     new ObservablePropertyChangeHandler(context.Calculation, context.WrappedData))
             };
             yield return new PropertyInfo<GrassCoverErosionInwardsOutput, GrassCoverErosionInwardsOutputProperties>();
+            yield return new PropertyInfo<DikeProfilesContext, DikeProfileCollectionProperties>
+            {
+                CreateInstance = context => new DikeProfileCollectionProperties(context.WrappedData)
+            };
         }
 
         public override IEnumerable<ImportInfo> GetImportInfos()
@@ -86,6 +98,42 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                     context.WrappedData,
                     context.AvailableHydraulicBoundaryLocations,
                     context.AvailableDikeProfiles));
+
+            yield return new ImportInfo<DikeProfilesContext>
+            {
+                CreateFileImporter = (context, filePath) => new DikeProfilesImporter(context.WrappedData,
+                                                                                     context.ParentAssessmentSection.ReferenceLine,
+                                                                                     filePath,
+                                                                                     new GrassCoverErosionInwardsDikeProfileReplaceDataStrategy(context.ParentFailureMechanism),
+                                                                                     new ImportMessageProvider()),
+                Name = RingtoetsCommonIOResources.DikeProfilesImporter_DisplayName,
+                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
+                Image = RingtoetsCommonFormsResources.DikeProfile,
+                FileFilterGenerator = DikeProfileImporterFileFilterGenerator(),
+                IsEnabled = IsDikeProfileImporterEnabled,
+                VerifyUpdates = context => VerifyDikeProfilesShouldUpdate(context,
+                                                                          Resources.GrassCoverErosionInwardsPlugin_VerifyDikeProfileImport_When_importing_DikeProfiles_Calculation_output_will_be_cleared_confirm)
+            };
+        }
+
+        public override IEnumerable<UpdateInfo> GetUpdateInfos()
+        {
+            yield return new UpdateInfo<DikeProfilesContext>
+            {
+                CreateFileImporter = (context, filePath) => new DikeProfilesImporter(context.WrappedData,
+                                                                                     context.ParentAssessmentSection.ReferenceLine,
+                                                                                     filePath,
+                                                                                     new GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(context.ParentFailureMechanism),
+                                                                                     new UpdateMessageProvider()),
+                Name = RingtoetsCommonIOResources.DikeProfilesImporter_DisplayName,
+                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
+                Image = RingtoetsCommonFormsResources.DikeProfile,
+                FileFilterGenerator = DikeProfileImporterFileFilterGenerator(),
+                CurrentPath = context => context.WrappedData.SourcePath,
+                IsEnabled = IsDikeProfileImporterEnabled,
+                VerifyUpdates = context => VerifyDikeProfilesShouldUpdate(context,
+                                                                          Resources.GrassCoverErosionInwardsPlugin_VerifyDikeProfileUpdate_When_updating_Calculation_with_DikeProfile_data_output_will_be_cleared_confirm)
+            };
         }
 
         public override IEnumerable<ExportInfo> GetExportInfos()
@@ -164,11 +212,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                                                      .ToArray(),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddImportItem()
-                                                                                 .AddSeparator()
-                                                                                 .AddDeleteChildrenItem()
+                                                                                 .AddUpdateItem()
                                                                                  .AddSeparator()
                                                                                  .AddCollapseAllItem()
                                                                                  .AddExpandAllItem()
+                                                                                 .AddSeparator()
+                                                                                 .AddPropertiesItem()
                                                                                  .Build()
             };
 
@@ -251,7 +300,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             var failureMechanism = o as GrassCoverErosionInwardsFailureMechanism;
 
             var viewFailureMechanismContext = (GrassCoverErosionInwardsFailureMechanismContext) view.Data;
-            var viewFailureMechanism = viewFailureMechanismContext.WrappedData;
+            GrassCoverErosionInwardsFailureMechanism viewFailureMechanism = viewFailureMechanismContext.WrappedData;
 
             return assessmentSection != null
                        ? ReferenceEquals(viewFailureMechanismContext.Parent, assessmentSection)
@@ -361,7 +410,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private static void ValidateAll(IEnumerable<GrassCoverErosionInwardsCalculation> grassCoverErosionInwardsCalculations, IAssessmentSection assessmentSection)
         {
-            foreach (var calculation in grassCoverErosionInwardsCalculations)
+            foreach (GrassCoverErosionInwardsCalculation calculation in grassCoverErosionInwardsCalculations)
             {
                 GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
             }
@@ -510,9 +559,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         {
             CalculationGroup group = context.WrappedData;
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
-            var isNestedGroup = parentData is GrassCoverErosionInwardsCalculationGroupContext;
+            bool isNestedGroup = parentData is GrassCoverErosionInwardsCalculationGroupContext;
 
             StrictContextMenuItem generateCalculationsItem = CreateGenerateCalculationsItem(context);
+            StrictContextMenuItem updateDikeProfileItem = CreateUpdateDikeProfileItem(context);
 
             builder.AddImportItem()
                    .AddExportItem()
@@ -533,7 +583,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 builder.AddRenameItem();
             }
 
-            builder.AddValidateAllCalculationsInGroupItem(
+            builder.AddCustomItem(updateDikeProfileItem)
+                   .AddValidateAllCalculationsInGroupItem(
                        context,
                        ValidateAll,
                        ValidateAllDataAvailableAndGetErrorMessage)
@@ -562,13 +613,60 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                           .Build();
         }
 
+        private StrictContextMenuItem CreateUpdateDikeProfileItem(GrassCoverErosionInwardsCalculationGroupContext nodeData)
+        {
+            IEnumerable<GrassCoverErosionInwardsCalculation> calculations = nodeData.WrappedData
+                                                                                    .GetCalculations()
+                                                                                    .OfType<GrassCoverErosionInwardsCalculation>();
+
+            var isContextMenuItemEnabled = true;
+            string toolTipText =
+                Resources.GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_all_calculations_with_DikeProfile_Tooltip;
+            if (!calculations.Any())
+            {
+                toolTipText = RingtoetsCommonFormsResources.CreateUpdateContextMenuItem_No_calculations_to_update_ToolTip;
+                isContextMenuItemEnabled = false;
+            }
+            else if (calculations.All(calc => calc.InputParameters.DikeProfile == null))
+            {
+                toolTipText = Resources.GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_No_calculations_with_DikeProfile_ToolTip;
+                isContextMenuItemEnabled = false;
+            }
+
+            return new StrictContextMenuItem(Resources.GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_all_DikeProfiles,
+                                             toolTipText,
+                                             RingtoetsCommonFormsResources.UpdateItemIcon,
+                                             (o, args) => UpdateDikeProfileDependentDataOfAllCalculations(nodeData))
+            {
+                Enabled = isContextMenuItemEnabled
+            };
+        }
+
+        private void UpdateDikeProfileDependentDataOfAllCalculations(GrassCoverErosionInwardsCalculationGroupContext nodeData)
+        {
+            GrassCoverErosionInwardsCalculation[] calculations = nodeData.WrappedData
+                                                                         .GetCalculations()
+                                                                         .OfType<GrassCoverErosionInwardsCalculation>()
+                                                                         .ToArray();
+
+            string message =
+                Resources.GrassCoverErosionInwardsPlugin_VerifyDikeProfileUpdate_Confirm_calculation_outputs_cleared_when_updating_DikeProfile_dependent_data;
+            if (DikeProfileDependentDataShouldUpdate(calculations, message))
+            {
+                foreach (GrassCoverErosionInwardsCalculation calculation in calculations)
+                {
+                    UpdateDikeProfileDerivedCalculationInput(calculation);
+                }
+            }
+        }
+
         private StrictContextMenuItem CreateGenerateCalculationsItem(GrassCoverErosionInwardsCalculationGroupContext nodeData)
         {
             bool isDikeProfileAvailable = nodeData.AvailableDikeProfiles.Any();
 
             string calculationGroupGenerateCalculationsToolTip = isDikeProfileAvailable
-                                                                     ? GrassCoverErosionInwardsPluginResources.GrassCoverErosionInwardsPlugin_CreateGenerateCalculationsItem_ToolTip
-                                                                     : GrassCoverErosionInwardsPluginResources.GrassCoverErosionInwardsPlugin_CreateGenerateCalculationsItem_NoDikeLocations_ToolTip;
+                                                                     ? Resources.GrassCoverErosionInwardsPlugin_CreateGenerateCalculationsItem_ToolTip
+                                                                     : Resources.GrassCoverErosionInwardsPlugin_CreateGenerateCalculationsItem_NoDikeLocations_ToolTip;
 
             var generateCalculationsItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.CalculationGroup_Generate_calculations,
@@ -592,7 +690,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private static void GenerateCalculations(CalculationGroup target, GrassCoverErosionInwardsFailureMechanism failureMechanism, IEnumerable<DikeProfile> dikeProfiles)
         {
-            foreach (var profile in dikeProfiles)
+            foreach (DikeProfile profile in dikeProfiles)
             {
                 var calculation = new GrassCoverErosionInwardsCalculation
                 {
@@ -681,9 +779,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             GrassCoverErosionInwardsCalculation calculation = context.WrappedData;
 
+            StrictContextMenuItem updateDikeProfile = CreateUpdateDikeProfileItem(context);
+
             return builder.AddExportItem()
                           .AddSeparator()
                           .AddRenameItem()
+                          .AddCustomItem(updateDikeProfile)
                           .AddValidateCalculationItem(
                               context,
                               Validate,
@@ -733,6 +834,117 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                     context.FailureMechanism.Calculations.OfType<GrassCoverErosionInwardsCalculation>());
                 calculationGroupContext.NotifyObservers();
             }
+        }
+
+        private StrictContextMenuItem CreateUpdateDikeProfileItem(GrassCoverErosionInwardsCalculationContext context)
+        {
+            GrassCoverErosionInwardsInput inputParameters = context.WrappedData.InputParameters;
+            bool hasDikeProfile = inputParameters.DikeProfile != null;
+
+            string toolTipMessage = hasDikeProfile
+                                        ? Resources.GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_calculation_with_DikeProfile_data_ToolTip
+                                        : Resources.GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_calculation_no_DikeProfile_ToolTip;
+
+            return new StrictContextMenuItem(
+                Resources.GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_DikeProfile_data,
+                toolTipMessage,
+                RingtoetsCommonFormsResources.UpdateItemIcon,
+                (o, args) => UpdateDikeProfileDependentDataOfCalculation(context.WrappedData))
+            {
+                Enabled = hasDikeProfile
+            };
+        }
+
+        private void UpdateDikeProfileDependentDataOfCalculation(GrassCoverErosionInwardsCalculation calculation)
+        {
+            string message =
+                Resources.GrassCoverErosionInwardsPlugin_VerifyDikeProfileUpdate_Confirm_calculation_output_cleared_when_updating_DikeProfile_dependent_data;
+            if (DikeProfileDependentDataShouldUpdate(new[]
+            {
+                calculation
+            }, message))
+            {
+                UpdateDikeProfileDerivedCalculationInput(calculation);
+            }
+        }
+
+        private bool DikeProfileDependentDataShouldUpdate(IEnumerable<GrassCoverErosionInwardsCalculation> calculations, string query)
+        {
+            var changeHandler = new UpdateDikeProfileParametersChangeHandler(calculations,
+                                                                             query,
+                                                                             new DialogBasedInquiryHelper(Gui.MainWindow));
+
+            return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
+        }
+
+        private static void UpdateDikeProfileDerivedCalculationInput(GrassCoverErosionInwardsCalculation calculation)
+        {
+            GrassCoverErosionInwardsInput inputParameters = calculation.InputParameters;
+            bool currentUseBreakWater = inputParameters.UseBreakWater;
+            BreakWater currentBreakWater = inputParameters.BreakWater;
+            RoundedDouble currentOrientation = inputParameters.Orientation;
+            RoundedDouble currentDikeHeight = inputParameters.DikeHeight;
+            bool currentUseForeshore = inputParameters.UseForeshore;
+
+            DikeProfile currentDikeProfile = inputParameters.DikeProfile;
+
+            // Reapply the dike profile will update the derived inputs
+            inputParameters.DikeProfile = currentDikeProfile;
+
+            var affectedObjects = new List<IObservable>();
+            if (IsDerivedInputUpdated(currentUseBreakWater,
+                                      currentBreakWater,
+                                      currentOrientation,
+                                      currentDikeHeight,
+                                      currentUseForeshore,
+                                      inputParameters))
+            {
+                affectedObjects.Add(inputParameters);
+                affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
+            }
+
+            foreach (IObservable affectedObject in affectedObjects)
+            {
+                affectedObject.NotifyObservers();
+            }
+        }
+
+        private static bool IsDerivedInputUpdated(bool currentUseBreakWater,
+                                                  BreakWater currentBreakWater,
+                                                  RoundedDouble currentOrientation,
+                                                  RoundedDouble currentDikeHeight,
+                                                  bool currentUseForeshore,
+                                                  GrassCoverErosionInwardsInput actualInput)
+        {
+            return currentUseBreakWater != actualInput.UseBreakWater
+                   && !Equals(currentBreakWater, actualInput.BreakWater)
+                   && currentOrientation != actualInput.Orientation
+                   && currentDikeHeight != actualInput.DikeHeight
+                   && currentUseForeshore != actualInput.UseForeshore;
+        }
+
+        #endregion
+
+        #region Dike Profiles Importer
+
+        private static FileFilterGenerator DikeProfileImporterFileFilterGenerator()
+        {
+            return new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
+                                           RingtoetsCommonIOResources.Shape_file_filter_Description);
+        }
+
+        private static bool IsDikeProfileImporterEnabled(DikeProfilesContext context)
+        {
+            return context.ParentAssessmentSection.ReferenceLine != null;
+        }
+
+        private bool VerifyDikeProfilesShouldUpdate(DikeProfilesContext context, string query)
+        {
+            var changeHandler = new FailureMechanismCalculationChangeHandler(context.ParentFailureMechanism,
+                                                                             query,
+                                                                             new DialogBasedInquiryHelper(Gui.MainWindow));
+
+            return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
         }
 
         #endregion

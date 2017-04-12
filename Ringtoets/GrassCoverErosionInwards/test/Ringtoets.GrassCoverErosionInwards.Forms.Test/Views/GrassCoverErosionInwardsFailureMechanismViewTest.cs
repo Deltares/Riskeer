@@ -22,11 +22,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -241,16 +244,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 failureMechanism.AddSection(new FailureMechanismSection("B", geometryPoints.Skip(1).Take(2)));
                 failureMechanism.AddSection(new FailureMechanismSection("C", geometryPoints.Skip(2).Take(2)));
 
-                failureMechanism.DikeProfiles.Add(new TestDikeProfile(new[]
+                failureMechanism.DikeProfiles.AddRange(new[]
                 {
-                    new Point2D(0, 0),
-                    new Point2D(1, 1)
-                }));
-                failureMechanism.DikeProfiles.Add(new TestDikeProfile(new[]
-                {
-                    new Point2D(2, 2),
-                    new Point2D(3, 3)
-                }));
+                    new TestDikeProfile(new[]
+                    {
+                        new Point2D(0, 0),
+                        new Point2D(1, 1)
+                    }, "id1"),
+                    new TestDikeProfile(new[]
+                    {
+                        new Point2D(2, 2),
+                        new Point2D(3, 3)
+                    }, "id2")
+                }, "path");
+
                 failureMechanism.CalculationsGroup.Children.Add(calculationA);
                 failureMechanism.CalculationsGroup.Children.Add(calculationB);
 
@@ -265,7 +272,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 MapDataCollection mapData = map.Data;
                 Assert.IsInstanceOf<MapDataCollection>(mapData);
 
-                var mapDataList = mapData.Collection.ToList();
+                List<MapData> mapDataList = mapData.Collection.ToList();
                 Assert.AreEqual(8, mapDataList.Count);
                 MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, mapDataList[referenceLineIndex]);
                 MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, mapDataList[sectionsIndex]);
@@ -312,6 +319,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
                 MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
+                observers[sectionsIndex].Expect(obs => obs.UpdateObserver());
+                observers[sectionsStartPointIndex].Expect(obs => obs.UpdateObserver());
+                observers[sectionsEndPointIndex].Expect(obs => obs.UpdateObserver());
+                observers[hydraulicBoundaryLocationsIndex].Expect(obs => obs.UpdateObserver());
+                observers[dikeProfilesIndex].Expect(obs => obs.UpdateObserver());
+                observers[foreshoreProfilesIndex].Expect(obs => obs.UpdateObserver());
+                observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
+
                 // Precondition
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase1.Locations, hydraulicBoundaryLocationsMapData);
 
@@ -322,6 +341,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
                 // Assert
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase2.Locations, hydraulicBoundaryLocationsMapData);
+
+                mocks.VerifyAll();
             }
         }
 
@@ -352,6 +373,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
                 MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[hydraulicBoundaryLocationsIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
+
                 // Precondition
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
 
@@ -362,6 +388,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
                 // Assert
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
+
+                mocks.VerifyAll();
             }
         }
 
@@ -397,6 +425,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
                 MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
+                observers[sectionsIndex].Expect(obs => obs.UpdateObserver());
+                observers[sectionsStartPointIndex].Expect(obs => obs.UpdateObserver());
+                observers[sectionsEndPointIndex].Expect(obs => obs.UpdateObserver());
+                observers[hydraulicBoundaryLocationsIndex].Expect(obs => obs.UpdateObserver()).Repeat.Twice();
+                observers[dikeProfilesIndex].Expect(obs => obs.UpdateObserver());
+                observers[foreshoreProfilesIndex].Expect(obs => obs.UpdateObserver());
+                observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
+
                 // Precondition
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(currentHydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
 
@@ -408,6 +448,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
                 // Then
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(newHydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
+
+                mocks.VerifyAll();
             }
         }
 
@@ -443,6 +485,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
                 MapData referenceLineMapData = map.Data.Collection.ElementAt(referenceLineIndex);
 
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
+                observers[sectionsIndex].Expect(obs => obs.UpdateObserver());
+                observers[sectionsStartPointIndex].Expect(obs => obs.UpdateObserver());
+                observers[sectionsEndPointIndex].Expect(obs => obs.UpdateObserver());
+                observers[hydraulicBoundaryLocationsIndex].Expect(obs => obs.UpdateObserver());
+                observers[dikeProfilesIndex].Expect(obs => obs.UpdateObserver());
+                observers[foreshoreProfilesIndex].Expect(obs => obs.UpdateObserver());
+                observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
+
                 // Precondition
                 MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
 
@@ -453,6 +507,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
                 // Assert
                 MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
+                mocks.VerifyAll();
             }
         }
 
@@ -473,6 +528,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var sectionStartsMapData = (MapPointData) map.Data.Collection.ElementAt(sectionsStartPointIndex);
                 var sectionsEndsMapData = (MapPointData) map.Data.Collection.ElementAt(sectionsEndPointIndex);
 
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
+                observers[sectionsIndex].Expect(obs => obs.UpdateObserver());
+                observers[sectionsStartPointIndex].Expect(obs => obs.UpdateObserver());
+                observers[sectionsEndPointIndex].Expect(obs => obs.UpdateObserver());
+                observers[hydraulicBoundaryLocationsIndex].Expect(obs => obs.UpdateObserver());
+                observers[dikeProfilesIndex].Expect(obs => obs.UpdateObserver());
+                observers[foreshoreProfilesIndex].Expect(obs => obs.UpdateObserver());
+                observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
+
                 failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new[]
                 {
                     new Point2D(1, 2),
@@ -486,6 +553,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, sectionMapData);
                 MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, sectionStartsMapData);
                 MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, sectionsEndsMapData);
+
+                mocks.VerifyAll();
             }
         }
 
@@ -500,22 +569,76 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
                 var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
 
-                failureMechanism.DikeProfiles.Add(new TestDikeProfile());
+                failureMechanism.DikeProfiles.AddRange(new[]
+                {
+                    new TestDikeProfile(string.Empty, "id1")
+                }, "path");
 
                 view.Data = failureMechanismContext;
 
                 MapData dikeProfileData = map.Data.Collection.ElementAt(dikeProfilesIndex);
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[dikeProfilesIndex].Expect(obs => obs.UpdateObserver());
+                observers[foreshoreProfilesIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
 
                 // Precondition
                 AssertDikeProfiles(failureMechanism.DikeProfiles, dikeProfileData);
 
-                failureMechanism.DikeProfiles.Add(new TestDikeProfile());
+                failureMechanism.DikeProfiles.AddRange(new[]
+                {
+                    new TestDikeProfile(string.Empty, "id2")
+                }, "path");
 
                 // Call
                 failureMechanism.DikeProfiles.NotifyObservers();
 
                 // Assert
                 AssertDikeProfiles(failureMechanism.DikeProfiles, dikeProfileData);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void NotifyObservers_DikeProfileUpdated_MapDataUpdated()
+        {
+            // Setup
+            using (var view = new GrassCoverErosionInwardsFailureMechanismView())
+            {
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+
+                var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+                var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
+
+                var dikeProfile = new TestDikeProfile(string.Empty, "id1");
+                failureMechanism.DikeProfiles.AddRange(new[]
+                {
+                    dikeProfile
+                }, "path");
+
+                view.Data = failureMechanismContext;
+
+                MapData dikeProfileData = map.Data.Collection.ElementAt(dikeProfilesIndex);
+
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[dikeProfilesIndex].Expect(obs => obs.UpdateObserver());
+                observers[foreshoreProfilesIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
+
+                // Precondition
+                AssertDikeProfiles(failureMechanism.DikeProfiles, dikeProfileData);
+
+                var dikeProfileToUpdateFrom = new TestDikeProfile("A new name", "id1");
+                dikeProfile.CopyProperties(dikeProfileToUpdateFrom);
+
+                // Call
+                dikeProfile.NotifyObservers();
+
+                // Assert
+                AssertDikeProfiles(failureMechanism.DikeProfiles, dikeProfileData);
+                mocks.VerifyAll();
             }
         }
 
@@ -530,30 +653,44 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
                 var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
 
-                failureMechanism.DikeProfiles.Add(new TestDikeProfile(new[]
+                var dikeProfile = new TestDikeProfile(new[]
                 {
                     new Point2D(0, 0),
                     new Point2D(1, 1)
-                }));
+                }, "id1");
+                failureMechanism.DikeProfiles.AddRange(new[]
+                {
+                    dikeProfile
+                }, "path");
 
                 view.Data = failureMechanismContext;
 
                 MapData dikeProfileData = map.Data.Collection.ElementAt(foreshoreProfilesIndex);
 
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[dikeProfilesIndex].Expect(obs => obs.UpdateObserver());
+                observers[foreshoreProfilesIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
+
                 // Precondition
                 MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.DikeProfiles.Select(dp => dp.ForeshoreProfile), dikeProfileData);
 
-                failureMechanism.DikeProfiles.Add(new TestDikeProfile(new[]
+                var dikeProfileToUpdateFrom = new TestDikeProfile(new[]
                 {
                     new Point2D(2, 2),
                     new Point2D(3, 3)
-                }));
+                }, "id1");
+
+                dikeProfile.CopyProperties(dikeProfileToUpdateFrom);
 
                 // Call
                 failureMechanism.DikeProfiles.NotifyObservers();
 
                 // Assert
                 MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.DikeProfiles.Select(dp => dp.ForeshoreProfile), dikeProfileData);
+
+                mocks.VerifyAll();
             }
         }
 
@@ -592,6 +729,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 view.Data = failureMechanismContext;
 
                 var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
 
                 failureMechanism.CalculationsGroup.Children.Add(calculationB);
 
@@ -600,6 +741,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
                 // Assert
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>(), calculationMapData);
+
+                mocks.VerifyAll();
             }
         }
 
@@ -610,9 +753,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             using (var view = new GrassCoverErosionInwardsFailureMechanismView())
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-                var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
 
                 var dikeProfileA = new TestDikeProfile(new Point2D(1.3, 1.3));
                 var dikeProfileB = new TestDikeProfile(new Point2D(1.5, 1.5));
@@ -625,9 +765,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                         HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
                     }
                 };
+
+                var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+                failureMechanism.CalculationsGroup.Children.Add(calculationA);
+                var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
                 view.Data = failureMechanismContext;
 
                 var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
+
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
 
                 calculationA.InputParameters.DikeProfile = dikeProfileB;
 
@@ -636,6 +785,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
                 // Assert
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>(), calculationMapData);
+
+                mocks.VerifyAll();
             }
         }
 
@@ -646,9 +797,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             using (var view = new GrassCoverErosionInwardsFailureMechanismView())
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-                var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
 
                 var dikeProfileA = new TestDikeProfile(new Point2D(1.3, 1.3));
 
@@ -661,9 +809,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                     }
                 };
 
+                var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+                failureMechanism.CalculationsGroup.Children.Add(calculationA);
+                var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
                 view.Data = failureMechanismContext;
 
                 var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
+
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
 
                 calculationA.Name = "new name";
 
@@ -672,6 +828,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
                 // Assert
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>(), calculationMapData);
+
+                mocks.VerifyAll();
             }
         }
 
@@ -704,7 +862,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 mapData.Remove(dataToMove);
                 mapData.Add(dataToMove);
 
-                var mapDataList = mapData.Collection.ToList();
+                List<MapData> mapDataList = mapData.Collection.ToList();
 
                 // Precondition
                 var referenceLineData = (MapLineData) mapDataList[updatedRefenceLineLayerIndex];
@@ -809,7 +967,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             Assert.NotNull(dikeProfiles, "dikeProfiles should never be null.");
 
             var dikeProfilesData = (MapLineData) mapData;
-            var dikeProfileArray = dikeProfiles.ToArray();
+            DikeProfile[] dikeProfileArray = dikeProfiles.ToArray();
 
             Assert.IsInstanceOf<MapLineData>(mapData);
             Assert.AreEqual(dikeProfileArray.Length, dikeProfilesData.Features.Length);
@@ -827,13 +985,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         {
             Assert.IsInstanceOf<MapLineData>(mapData);
             var calculationsMapData = (MapLineData) mapData;
-            var calculationsArray = calculations.ToArray();
-            var calculationsFeatures = calculationsMapData.Features.ToArray();
+            GrassCoverErosionInwardsCalculation[] calculationsArray = calculations.ToArray();
+            MapFeature[] calculationsFeatures = calculationsMapData.Features.ToArray();
             Assert.AreEqual(calculationsArray.Length, calculationsFeatures.Length);
 
             for (var index = 0; index < calculationsArray.Length; index++)
             {
-                var geometries = calculationsFeatures[index].MapGeometries.ToArray();
+                MapGeometry[] geometries = calculationsFeatures[index].MapGeometries.ToArray();
                 Assert.AreEqual(1, geometries.Length);
 
                 GrassCoverErosionInwardsCalculation calculation = calculationsArray[index];
@@ -851,7 +1009,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         {
             Assert.AreEqual("Dijken en dammen - Grasbekleding erosie kruin en binnentalud", mapDataCollection.Name);
 
-            var mapDataList = mapDataCollection.Collection.ToList();
+            List<MapData> mapDataList = mapDataCollection.Collection.ToList();
 
             Assert.AreEqual(8, mapDataList.Count);
 
@@ -881,6 +1039,54 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             Assert.AreEqual("Vakindeling (eindpunten)", sectionsEndPointMapData.Name);
             Assert.AreEqual("Hydraulische randvoorwaarden", hydraulicBoundaryLocationsMapData.Name);
             Assert.AreEqual("Berekeningen", calculationsMapData.Name);
+        }
+
+        /// <summary>
+        /// Attaches mocked observers to all <see cref="IObservable"/> map data components.
+        /// </summary>
+        /// <param name="mocks">The <see cref="MockRepository"/>.</param>
+        /// <param name="mapData">The map data collection containing the <see cref="IObservable"/>
+        /// elements.</param>
+        /// <returns>An array of mocked observers attached to the data in <paramref name="mapData"/>.</returns>
+        private static IObserver[] AttachMapDataObservers(MockRepository mocks, IEnumerable<MapData> mapData)
+        {
+            MapData[] mapDataArray = mapData.ToArray();
+
+            var referenceLineMapDataObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[referenceLineIndex].Attach(referenceLineMapDataObserver);
+
+            var sectionsMapDataObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[sectionsIndex].Attach(sectionsMapDataObserver);
+
+            var sectionsStartPointMapDataObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[sectionsStartPointIndex].Attach(sectionsStartPointMapDataObserver);
+
+            var sectionsEndPointMapDataObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[sectionsEndPointIndex].Attach(sectionsEndPointMapDataObserver);
+
+            var hydraulicBoundaryLocationsMapDataObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[hydraulicBoundaryLocationsIndex].Attach(hydraulicBoundaryLocationsMapDataObserver);
+
+            var dikeProfilesObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[dikeProfilesIndex].Attach(dikeProfilesObserver);
+
+            var foreshoreProfilesObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[foreshoreProfilesIndex].Attach(foreshoreProfilesObserver);
+
+            var calculationsMapDataObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[calculationsIndex].Attach(calculationsMapDataObserver);
+
+            return new[]
+            {
+                referenceLineMapDataObserver,
+                sectionsMapDataObserver,
+                sectionsStartPointMapDataObserver,
+                sectionsEndPointMapDataObserver,
+                hydraulicBoundaryLocationsMapDataObserver,
+                dikeProfilesObserver,
+                foreshoreProfilesObserver,
+                calculationsMapDataObserver
+            };
         }
     }
 }

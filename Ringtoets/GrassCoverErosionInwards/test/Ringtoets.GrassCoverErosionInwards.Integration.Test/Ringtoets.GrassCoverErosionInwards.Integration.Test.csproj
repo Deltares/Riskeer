@@ -116,6 +116,10 @@
       <Project>{D24FA2F7-28A7-413B-AFD3-EE10E985630B}</Project>
       <Name>Ringtoets.Common.Forms.TestUtil</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.IO.TestUtil\Ringtoets.Common.IO.TestUtil.csproj">
+      <Project>{33508D7C-1602-4C0D-8503-73AAE98C19E5}</Project>
+      <Name>Ringtoets.Common.IO.TestUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Calculation\Ringtoets.HydraRing.Calculation.csproj">
       <Project>{888D4097-8BC2-4703-9FB1-8744C94D525E}</Project>
       <Name>Ringtoets.HydraRing.Calculation</Name>
@@ -139,6 +143,10 @@
     <ProjectReference Include="..\..\src\Ringtoets.GrassCoverErosionInwards.Forms\Ringtoets.GrassCoverErosionInwards.Forms.csproj">
       <Project>{C540E627-B95B-4CC0-A1B6-A0BDF74936C7}</Project>
       <Name>Ringtoets.GrassCoverErosionInwards.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.GrassCoverErosionInwards.Plugin\Ringtoets.GrassCoverErosionInwards.Plugin.csproj">
+      <Project>{20955E2A-8CEB-46B0-ADC4-A97D4C6BBDF5}</Project>
+      <Name>Ringtoets.GrassCoverErosionInwards.Plugin</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.GrassCoverErosionInwards.Service\Ringtoets.GrassCoverErosionInwards.Service.csproj">
       <Project>{5D158D8E-A5EB-489C-A885-87E13BC0D3B3}</Project>

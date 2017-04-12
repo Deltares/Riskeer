@@ -33,6 +33,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.IO.DikeProfiles;
 using Ringtoets.Common.IO.Exceptions;
+using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.Properties;
 
 namespace Ringtoets.Common.IO.FileImporters
@@ -46,6 +47,7 @@ namespace Ringtoets.Common.IO.FileImporters
     {
         protected readonly ILog Log = LogManager.GetLogger(typeof(ProfilesImporter<T>));
         private readonly ReferenceLine referenceLine;
+        protected readonly IImporterMessageProvider MessageProvider;
 
         /// <summary>
         /// Initializes a new instance of <see cref="ProfilesImporter{T}"/>.
@@ -53,16 +55,23 @@ namespace Ringtoets.Common.IO.FileImporters
         /// <param name="referenceLine">The reference line used to check if the imported profiles are intersecting it.</param>
         /// <param name="filePath">The path to the file to import from.</param>
         /// <param name="importTarget">The import target.</param>
+        /// <param name="messageProvider">The message provider to provide messages during the import.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="referenceLine"/>, 
         /// <paramref name="filePath"/> or <paramref name="importTarget"/> is <c>null</c>.</exception>
-        protected ProfilesImporter(ReferenceLine referenceLine, string filePath, T importTarget) : base(filePath, importTarget)
+        protected ProfilesImporter(ReferenceLine referenceLine, string filePath, T importTarget, 
+            IImporterMessageProvider messageProvider) : base(filePath, importTarget)
         {
             if (referenceLine == null)
             {
                 throw new ArgumentNullException(nameof(referenceLine));
             }
+            if (messageProvider == null)
+            {
+                throw new ArgumentNullException(nameof(messageProvider));
+            }
 
             this.referenceLine = referenceLine;
+            MessageProvider = messageProvider;
         }
 
         protected override bool OnImport()
@@ -81,7 +90,7 @@ namespace Ringtoets.Common.IO.FileImporters
                 return false;
             }
 
-            NotifyProgress(Resources.Importer_ProgressText_Adding_imported_data_to_data_model, 1, 1);
+            NotifyProgress(MessageProvider.GetAddDataToModelProgressText(), 1, 1);
             CreateProfiles(importDikeProfilesResult, importDikeProfileDataResult);
 
             return true;

@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -100,7 +101,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
 
             var affectedItems = new List<IObservable>();
-            foreach (var calculation in failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>())
+            foreach (GrassCoverErosionInwardsCalculation calculation in failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>())
             {
                 affectedItems.AddRange(ClearCalculationOutput(calculation)
                                            .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters)));
@@ -124,11 +125,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
 
             var observables = new List<IObservable>();
-            var removedObjects = failureMechanism.Sections.OfType<object>()
-                                                 .Concat(failureMechanism.SectionResults)
-                                                 .Concat(failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
-                                                 .Concat(failureMechanism.DikeProfiles)
-                                                 .ToArray();
+            object[] removedObjects = failureMechanism.Sections
+                                                      .OfType<object>()
+                                                      .Concat(failureMechanism.SectionResults)
+                                                      .Concat(failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
+                                                      .Concat(failureMechanism.DikeProfiles)
+                                                      .ToArray();
 
             failureMechanism.ClearAllSections();
             observables.Add(failureMechanism);
@@ -140,6 +142,91 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             observables.Add(failureMechanism.DikeProfiles);
 
             return new ClearResults(observables, removedObjects);
+        }
+
+        /// <summary>
+        /// Removes the <see cref="DikeProfile"/> from the <see cref="GrassCoverErosionInwardsFailureMechanism"/>
+        /// and clears all the data that depends on it, either directly or indirectly.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism.</param>
+        /// <param name="dikeProfile">The dike profile to be removed.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> of all affected objects by this operation.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> RemoveDikeProfile(GrassCoverErosionInwardsFailureMechanism failureMechanism,
+                                                                 DikeProfile dikeProfile)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+            if (dikeProfile == null)
+            {
+                throw new ArgumentNullException(nameof(dikeProfile));
+            }
+
+            IEnumerable<GrassCoverErosionInwardsCalculation> affectedCalculations = failureMechanism.Calculations
+                                                                                                    .Cast<GrassCoverErosionInwardsCalculation>()
+                                                                                                    .Where(calc => ReferenceEquals(dikeProfile, calc.InputParameters.DikeProfile));
+
+            var affectedObjects = new List<IObservable>
+            {
+                failureMechanism.DikeProfiles
+            };
+            foreach (GrassCoverErosionInwardsCalculation calculation in affectedCalculations)
+            {
+                affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
+                affectedObjects.AddRange(ClearDikeProfile(calculation.InputParameters));
+            }
+
+            failureMechanism.DikeProfiles.Remove(dikeProfile);
+            return affectedObjects;
+        }
+
+        /// <summary>
+        /// Removes all the <see cref="DikeProfile"/> from the <see cref="GrassCoverErosionInwardsFailureMechanism"/>
+        /// and clears all data that depends on it, either directly or indirectly.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism for which all
+        /// the dike profiles need to be removed.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> of all affected objects.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> RemoveAllDikeProfiles(GrassCoverErosionInwardsFailureMechanism failureMechanism)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            IEnumerable<GrassCoverErosionInwardsCalculation> affectedCalculations =
+                failureMechanism.Calculations
+                                .Cast<GrassCoverErosionInwardsCalculation>()
+                                .Where(calc => calc.InputParameters.DikeProfile != null)
+                                .ToArray();
+
+            var affectedObjects = new List<IObservable>();
+            foreach (GrassCoverErosionInwardsCalculation calculation in affectedCalculations)
+            {
+                affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
+                affectedObjects.AddRange(ClearDikeProfile(calculation.InputParameters));
+            }
+
+            failureMechanism.DikeProfiles.Clear();
+            affectedObjects.Add(failureMechanism.DikeProfiles);
+            return affectedObjects;
+        }
+
+        private static IEnumerable<IObservable> ClearDikeProfile(GrassCoverErosionInwardsInput inputParameters)
+        {
+            if (inputParameters.DikeProfile != null)
+            {
+                inputParameters.DikeProfile = null;
+                return new[]
+                {
+                    inputParameters
+                };
+            }
+            return Enumerable.Empty<IObservable>();
         }
 
         private static IEnumerable<IObservable> ClearHydraulicBoundaryLocation(GrassCoverErosionInwardsInput input)

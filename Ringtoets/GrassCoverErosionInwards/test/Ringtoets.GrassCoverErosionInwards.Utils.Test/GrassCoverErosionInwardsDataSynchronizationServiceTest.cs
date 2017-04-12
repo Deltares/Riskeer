@@ -25,8 +25,10 @@ using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
@@ -52,7 +54,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
         public void ClearCalculationOutput_WithCalculation_ClearsOutput()
         {
             // Setup
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation
             {
                 Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0),
                                                             new TestSubCalculationAssessmentOutput(0),
@@ -182,11 +184,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
 
-            var expectedRemovedObjectInstances = failureMechanism.Sections.OfType<object>()
-                                                                 .Concat(failureMechanism.SectionResults)
-                                                                 .Concat(failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
-                                                                 .Concat(failureMechanism.DikeProfiles)
-                                                                 .ToArray();
+            object[] expectedRemovedObjectInstances = failureMechanism.Sections.OfType<object>()
+                                                                      .Concat(failureMechanism.SectionResults)
+                                                                      .Concat(failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
+                                                                      .Concat(failureMechanism.DikeProfiles)
+                                                                      .ToArray();
 
             // Call
             ClearResults result = GrassCoverErosionInwardsDataSynchronizationService.ClearReferenceLineDependentData(failureMechanism);
@@ -206,9 +208,135 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             CollectionAssert.AreEquivalent(expectedRemovedObjectInstances, result.RemovedObjects);
         }
 
+        [Test]
+        public void RemoveAllDikeProfiles_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => GrassCoverErosionInwardsDataSynchronizationService.RemoveAllDikeProfiles(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void RemoveAllDikeProfiles_FullyConfiguredFailureMechanism_RemovesAllDikeProfilesAndDependentData()
+        {
+            // Setup
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
+
+            GrassCoverErosionInwardsCalculation[] calculationsWithDikeProfiles =
+                failureMechanism.Calculations
+                                .Cast<GrassCoverErosionInwardsCalculation>()
+                                .Where(calc => calc.InputParameters.DikeProfile != null)
+                                .ToArray();
+            GrassCoverErosionInwardsCalculation[] calculationsWithDikeProfilesAndOutput =
+                calculationsWithDikeProfiles.Where(calc => calc.HasOutput).ToArray();
+
+            // Pre-condition
+            CollectionAssert.IsNotEmpty(calculationsWithDikeProfiles);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects =
+                GrassCoverErosionInwardsDataSynchronizationService.RemoveAllDikeProfiles(failureMechanism);
+
+            // Assert
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should be called before these assertions:
+            CollectionAssert.IsEmpty(failureMechanism.DikeProfiles);
+            foreach (GrassCoverErosionInwardsCalculation calculation in calculationsWithDikeProfilesAndOutput)
+            {
+                Assert.IsFalse(calculation.HasOutput);
+            }
+
+            IEnumerable<IObservable> expectedAffectedObjects =
+                calculationsWithDikeProfiles.Select(calc => calc.InputParameters)
+                                            .Cast<IObservable>()
+                                            .Concat(calculationsWithDikeProfilesAndOutput)
+                                            .Concat(new IObservable[]
+                                            {
+                                                failureMechanism.DikeProfiles
+                                            });
+            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
+        }
+
+        [Test]
+        public void RemoveDikeProfile_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () =>
+                GrassCoverErosionInwardsDataSynchronizationService.RemoveDikeProfile(null, new TestDikeProfile());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void RemoveDikeProfile_DikeProfileNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () =>
+                GrassCoverErosionInwardsDataSynchronizationService.RemoveDikeProfile(new GrassCoverErosionInwardsFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("dikeProfile", exception.ParamName);
+        }
+
+        [Test]
+        public void RemoveDikeProfile_FullyConfiguredFailureMechanism_ReturnsOnlyAffectedCalculations()
+        {
+            // Setup
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
+            DikeProfile profileToBeCleared = failureMechanism.DikeProfiles[0];
+
+            GrassCoverErosionInwardsCalculation[] affectedCalculationsWithProfile =
+                failureMechanism.Calculations
+                                .Cast<GrassCoverErosionInwardsCalculation>()
+                                .Where(calc => ReferenceEquals(profileToBeCleared, calc.InputParameters.DikeProfile))
+                                .ToArray();
+            GrassCoverErosionInwardsCalculation[] affectedCalculationsWithOutput =
+                affectedCalculationsWithProfile.Where(calc => calc.HasOutput).ToArray();
+
+            // Pre-condition
+            CollectionAssert.IsNotEmpty(affectedCalculationsWithOutput);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects =
+                GrassCoverErosionInwardsDataSynchronizationService.RemoveDikeProfile(failureMechanism, profileToBeCleared);
+
+            // Assert
+            CollectionAssert.DoesNotContain(failureMechanism.DikeProfiles, profileToBeCleared);
+
+            foreach (GrassCoverErosionInwardsCalculation calculation in affectedCalculationsWithOutput)
+            {
+                Assert.IsFalse(calculation.HasOutput);
+            }
+
+            IEnumerable<IObservable> expectedAffectedObjects =
+                affectedCalculationsWithProfile.Select(calc => calc.InputParameters)
+                                               .Cast<IObservable>()
+                                               .Concat(affectedCalculationsWithOutput)
+                                               .Concat(new IObservable[]
+                                               {
+                                                   failureMechanism.DikeProfiles
+                                               });
+            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
+        }
+
         private static GrassCoverErosionInwardsFailureMechanism CreateFullyConfiguredFailureMechanism()
         {
+            var testDikeProfile1 = new TestDikeProfile("Profile 1", "ID 1");
+            var testDikeProfile2 = new TestDikeProfile("Profile 2", "ID 2");
+
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.DikeProfiles.AddRange(new[]
+            {
+                testDikeProfile1,
+                testDikeProfile2
+            }, "some/path/to/dikeprofiles");
+
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
 
             var calculation = new GrassCoverErosionInwardsCalculation();
@@ -235,6 +363,30 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             };
+            var calculationWithHydraulicBoundaryLocationAndDikeProfile = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    DikeProfile = testDikeProfile1
+                }
+            };
+            var calculationWithDikeProfile = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    DikeProfile = testDikeProfile2
+                }
+            };
+            var calculationWithOutputHydraulicBoundaryLocationAndDikeProfile = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    DikeProfile = testDikeProfile1
+                },
+                Output = new TestGrassCoverErosionInwardsOutput()
+            };
 
             var subCalculation = new GrassCoverErosionInwardsCalculation();
             var subCalculationWithOutput = new GrassCoverErosionInwardsCalculation
@@ -260,11 +412,38 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             };
+            var subCalculationWithHydraulicBoundaryLocationAndDikeProfile = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    DikeProfile = testDikeProfile1
+                }
+            };
+            var subCalculationWithDikeProfile = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    DikeProfile = testDikeProfile2
+                }
+            };
+            var subCalculationWithOutputHydraulicBoundaryLocationAndDikeProfile = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    DikeProfile = testDikeProfile1
+                },
+                Output = new TestGrassCoverErosionInwardsOutput()
+            };
 
             failureMechanism.CalculationsGroup.Children.Add(calculation);
             failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
             failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
             failureMechanism.CalculationsGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithDikeProfile);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithHydraulicBoundaryLocationAndDikeProfile);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputHydraulicBoundaryLocationAndDikeProfile);
             failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
             {
                 Children =
@@ -272,7 +451,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
                     subCalculation,
                     subCalculationWithOutput,
                     subCalculationWithOutputAndHydraulicBoundaryLocation,
-                    subCalculationWithHydraulicBoundaryLocation
+                    subCalculationWithHydraulicBoundaryLocation,
+                    subCalculationWithDikeProfile,
+                    subCalculationWithHydraulicBoundaryLocationAndDikeProfile,
+                    subCalculationWithOutputHydraulicBoundaryLocationAndDikeProfile
                 }
             });
 

@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 
@@ -64,7 +65,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("targetCollection", paramName);
+            Assert.AreEqual("targetDataCollection", paramName);
         }
 
         [Test]
@@ -112,7 +113,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
         }
 
         [Test]
-        public void ReplaceData_ImportedDataCollectionContainsDuplicateItems_ThrowsArgumentException()
+        public void ReplaceData_ImportedDataCollectionContainsDuplicateItems_ThrowsUpdateDataException()
         {
             // Setup
             var strategy = new ConcreteStrategyClass(new TestFailureMechanism());
@@ -130,13 +131,14 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
 
             // Assert
             CollectionAssert.IsEmpty(collection);
-            var exception = Assert.Throws<ArgumentException>(call);
+            var exception = Assert.Throws<UpdateDataException>(call);
             string expectedMessage = $"TestItem moeten een unieke naam hebben. Gevonden dubbele elementen: {duplicateName}.";
             Assert.AreEqual(expectedMessage, exception.Message);
+            Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
         }
 
         [Test]
-        public void ReplaceData_ImportedDataCollectionContainsNull_ThrowsArgumentException()
+        public void ReplaceData_ImportedDataCollectionContainsNull_ThrowsUpdateDataException()
         {
             // Setup
             var strategy = new ConcreteStrategyClass(new TestFailureMechanism());
@@ -154,13 +156,15 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
 
             // Assert
             CollectionAssert.IsEmpty(collection);
-            Assert.Throws<ArgumentException>(call);
+
+            var exception = Assert.Throws<UpdateDataException>(call);
+            Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
         }
 
         [Test]
         [TestCase("")]
         [TestCase("    ")]
-        public void ReplaceData_InvalidSourceFilePath_ThrowsArgumentException(string invalidPath)
+        public void ReplaceData_InvalidSourceFilePath_ThrowsUpdateDataException(string invalidPath)
         {
             // Setup
             var strategy = new ConcreteStrategyClass(new TestFailureMechanism());
@@ -178,7 +182,9 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
 
             // Assert
             CollectionAssert.IsEmpty(collection);
-            Assert.Throws<ArgumentException>(call);
+
+            var exception = Assert.Throws<UpdateDataException>(call);
+            Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
         }
 
         [Test]

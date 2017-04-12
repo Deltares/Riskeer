@@ -59,5 +59,38 @@ namespace Ringtoets.Common.Data.DikeProfiles
         /// Gets the roughness of the <see cref="RoughnessPoint"/>.
         /// </summary>
         public RoundedDouble Roughness { get; private set; }
+
+        public override bool Equals(object obj)
+        {
+
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+            return Equals((RoughnessPoint)obj);
+        }
+
+        private bool Equals(RoughnessPoint other)
+        {
+            return Equals(Point, other.Point) && Roughness.Equals(other.Roughness);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hashCode = Roughness.GetHashCode();
+                hashCode = (hashCode * 397) ^ (Point?.GetHashCode() ?? 0);
+                return hashCode;
+            }
+        }
     }
 }

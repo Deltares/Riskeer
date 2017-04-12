@@ -282,4 +282,13 @@
   <data name="RingtoetsWellKnownTileSource_OpenStreetMap_DisplayName" xml:space="preserve">
     <value>OpenStreetMap</value>
   </data>
+  <data name="UpdateDataStrategyBase_UpdateTargetCollectionData_Imported_data_must_contain_unique_items" xml:space="preserve">
+    <value>Geïmporteerde data moet unieke elementen bevatten.</value>
+  </data>
+  <data name="DikeProfileCollection_TypeDescriptor" xml:space="preserve">
+    <value>Dijkprofielen</value>
+  </data>
+  <data name="DikeProfileCollection_UniqueFeature_id_FeatureDescription" xml:space="preserve">
+    <value>id</value>
+  </data>
 </root>

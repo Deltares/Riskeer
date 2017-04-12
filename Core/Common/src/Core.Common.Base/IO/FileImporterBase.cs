@@ -58,12 +58,6 @@ namespace Core.Common.Base.IO
             ImportTarget = importTarget;
         }
 
-        protected virtual void DoPostImportUpdates()
-        {
-            var observableTarget = ImportTarget as IObservable;
-            observableTarget?.NotifyObservers();
-        }
-
         public void SetProgressChanged(OnProgressChanged action)
         {
             ProgressChanged = action;
@@ -125,8 +119,14 @@ namespace Core.Common.Base.IO
         /// </summary>
         protected bool Canceled { get; private set; }
 
+        protected virtual void DoPostImportUpdates()
+        {
+            var observableTarget = ImportTarget as IObservable;
+            observableTarget?.NotifyObservers();
+        }
+
         /// <summary>
-        /// This method logs messages when the importer is canceled in a cancelable state.
+        /// This method logs messages when the importer is canceled in a cancellable state.
         /// </summary>
         protected abstract void LogImportCanceledMessage();
 
@@ -134,6 +134,7 @@ namespace Core.Common.Base.IO
         /// This method returns the result of the import action.
         /// </summary>
         /// <returns><c>True</c> if the import was successful, <c>false</c> if otherwise.</returns>
+        /// <remarks>Implementations of this method are allowed to throw exceptions of any kind.</remarks>
         protected abstract bool OnImport();
 
         protected void NotifyProgress(string currentStepName, int currentStep, int totalNumberOfSteps)

@@ -142,7 +142,6 @@
     <Compile Include="Create\DuneErosion\DuneErosionFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\DuneErosion\DuneErosionFailureMechanismSectionResultCreateExtensionsTest.cs" />
     <Compile Include="Create\GrassCoverErosionInwards\DikeProfileCreateExtensionsTest.cs" />
-    <Compile Include="Create\GrassCoverErosionInwards\GeneralGrassCoverErosionInwardsInputCreateExtensionsTest.cs" />
     <Compile Include="Create\GrassCoverErosionInwards\GrassCoverErosionInwardsCalculationCreateExtensionsTest.cs" />
     <Compile Include="Create\GrassCoverErosionInwards\GrassCoverErosionInwardsFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\GrassCoverErosionInwards\GrassCoverErosionInwardsFailureMechanismSectionResultCreateExtensionsTest.cs" />

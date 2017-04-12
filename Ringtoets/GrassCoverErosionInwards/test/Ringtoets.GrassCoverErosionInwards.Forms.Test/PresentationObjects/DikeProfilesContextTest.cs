@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -48,7 +47,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             var context = new DikeProfilesContext(failureMechanism.DikeProfiles, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<WrappedObjectContextBase<ObservableList<DikeProfile>>>(context);
+            Assert.IsInstanceOf<WrappedObjectContextBase<DikeProfileCollection>>(context);
             Assert.AreSame(failureMechanism.DikeProfiles, context.WrappedData);
             Assert.AreSame(failureMechanism, context.ParentFailureMechanism);
             Assert.AreSame(assessmentSection, context.ParentAssessmentSection);
@@ -82,7 +81,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var dikeProfiles = new ObservableList<DikeProfile>();
+            var dikeProfiles = new DikeProfileCollection();
 
             // Call
             TestDelegate call = () => new DikeProfilesContext(dikeProfiles, null, assessmentSection);

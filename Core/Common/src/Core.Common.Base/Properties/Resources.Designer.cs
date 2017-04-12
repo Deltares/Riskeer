@@ -218,6 +218,16 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} moeten een unieke {1} hebben. Gevonden dubbele elementen: {2}..
+        /// </summary>
+        public static string ObservableUniqueItemCollectionWithSourcePath_ValidateItems_TypeDescriptor_0_must_have_unique_FeatureDescription_1_Found_duplicate_items_DuplicateFeatures_2 {
+            get {
+                return ResourceManager.GetString("ObservableUniqueItemCollectionWithSourcePath_ValidateItems_TypeDescriptor_0_must_" +
+                        "have_unique_FeatureDescription_1_Found_duplicate_items_DuplicateFeatures_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Vector moet 2 dimensies hebben, maar heeft er {0}..
         /// </summary>
         public static string Point2D_AddVector_Vector_must_be_2D_but_has_Dimensionality_0_ {

@@ -561,13 +561,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var input = new GrassCoverErosionInwardsInput();
             var calculation = new GrassCoverErosionInwardsCalculation();
 
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
-            {
-                DikeProfiles =
-                {
-                    new TestDikeProfile()
-                }
-            };
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.DikeProfiles.AddRange(new []
+           {
+                new TestDikeProfile() 
+            }, "path");
 
             var inputContext = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSection);
             var properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, handler);
@@ -576,7 +574,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             IEnumerable<DikeProfile> availableDikeProfiles = properties.GetAvailableDikeProfiles();
 
             // Assert
-            List<DikeProfile> expectedHydraulicBoundaryLocations = failureMechanism.DikeProfiles;
+            DikeProfileCollection expectedHydraulicBoundaryLocations = failureMechanism.DikeProfiles;
             Assert.AreSame(expectedHydraulicBoundaryLocations, availableDikeProfiles);
             mockRepository.VerifyAll();
         }

@@ -22,10 +22,12 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Importers;
+using Ringtoets.Piping.Plugin.Properties;
 using Ringtoets.Piping.Service;
 
 namespace Ringtoets.Piping.Plugin.FileImporter
@@ -44,21 +46,20 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         public StochasticSoilModelReplaceDataStrategy(PipingFailureMechanism failureMechanism) : base(failureMechanism) {}
 
-        public IEnumerable<IObservable> UpdateModelWithImportedData(StochasticSoilModelCollection targetCollection,
+        public IEnumerable<IObservable> UpdateModelWithImportedData(StochasticSoilModelCollection targetDataCollection,
                                                                     IEnumerable<StochasticSoilModel> readStochasticSoilModels,
                                                                     string sourceFilePath)
         {
             try
             {
-                return ReplaceTargetCollectionWithImportedData(targetCollection, readStochasticSoilModels, sourceFilePath);
+                return ReplaceTargetCollectionWithImportedData(targetDataCollection, readStochasticSoilModels, sourceFilePath);
             }
-            catch (ArgumentNullException)
+            catch (UpdateDataException e)
             {
-                throw;
-            }
-            catch (ArgumentException e)
-            {
-                throw new StochasticSoilModelUpdateException(e.Message, e);
+                string message =
+                    string.Format(Resources.StochasticSoilModelReplaceDataStrategy_UpdateModelWithImportedData_Importing_StochasticSoilModels_failed_Reason_0,
+                                  e.Message);
+                throw new StochasticSoilModelUpdateException(message, e);
             }
         }
 

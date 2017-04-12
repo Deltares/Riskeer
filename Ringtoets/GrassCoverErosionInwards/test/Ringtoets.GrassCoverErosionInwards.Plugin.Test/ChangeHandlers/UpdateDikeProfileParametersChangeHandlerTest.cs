@@ -20,22 +20,22 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Gui;
-using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.IO;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.KernelWrapper.TestUtil;
-using Ringtoets.Piping.Plugin.ChangeHandlers;
+using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
+using Ringtoets.GrassCoverErosionInwards.Plugin.ChangeHandlers;
 
-namespace Ringtoets.Piping.Plugin.Test.ChangeHandlers
+namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ChangeHandlers
 {
     [TestFixture]
-    public class StochasticSoilModelChangeHandlerTest : NUnitFormTest
+    public class UpdateDikeProfileParametersChangeHandlerTest
     {
         [Test]
-        public void Constructor_WithoutFailureMechanism_ThrowsArgumentNullException()
+        public void Constructor_WithoutCalculations_ThrowsArgumentNullException()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -43,12 +43,25 @@ namespace Ringtoets.Piping.Plugin.Test.ChangeHandlers
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => new StochasticSoilModelChangeHandler(null, string.Empty, inquiryHandler);
+            TestDelegate test = () => new UpdateDikeProfileParametersChangeHandler(null, string.Empty, inquiryHandler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
+            Assert.AreEqual("calculations", paramName);
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_WithoutInquiryHandler_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new UpdateDikeProfileParametersChangeHandler(Enumerable.Empty<GrassCoverErosionInwardsCalculation>(),
+                                                                                   string.Empty,
+                                                                                   null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("inquiryHandler", paramName);
         }
 
         [Test]
@@ -60,23 +73,13 @@ namespace Ringtoets.Piping.Plugin.Test.ChangeHandlers
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => new StochasticSoilModelChangeHandler(new PipingFailureMechanism(), null, inquiryHandler);
+            TestDelegate test = () => new UpdateDikeProfileParametersChangeHandler(Enumerable.Empty<GrassCoverErosionInwardsCalculation>(),
+                                                                                   null,
+                                                                                   inquiryHandler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("query", paramName);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_WithoutInquiryHandler_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new StochasticSoilModelChangeHandler(new PipingFailureMechanism(), string.Empty, null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("inquiryHandler", paramName);
         }
 
         [Test]
@@ -84,11 +87,13 @@ namespace Ringtoets.Piping.Plugin.Test.ChangeHandlers
         {
             // Setup
             var mockRepository = new MockRepository();
-            var inquiryHandler = mockRepository.Stub<IInquiryHelper>();
+            var inquiryHandler = mockRepository.StrictMock<IInquiryHelper>();
             mockRepository.ReplayAll();
 
             // Call
-            var handler = new StochasticSoilModelChangeHandler(new PipingFailureMechanism(), string.Empty, inquiryHandler);
+            var handler = new UpdateDikeProfileParametersChangeHandler(Enumerable.Empty<GrassCoverErosionInwardsCalculation>(),
+                                                                       string.Empty,
+                                                                       inquiryHandler);
 
             // Assert
             Assert.IsInstanceOf<IConfirmDataChangeHandler>(handler);
@@ -96,17 +101,21 @@ namespace Ringtoets.Piping.Plugin.Test.ChangeHandlers
         }
 
         [Test]
-        public void RequireConfirmation_FailureMechanismWithCalculationWithoutOutput_ReturnFalse()
+        public void RequireConfirmation_WithAllCalculationsWithoutOutput_ReturnFalse()
         {
             // Setup
             var mockRepository = new MockRepository();
             var inquiryHandler = mockRepository.StrictMock<IInquiryHelper>();
             mockRepository.ReplayAll();
 
-            var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new PipingCalculationScenario(new GeneralPipingInput()));
+            var calculations = new[]
+            {
+                new GrassCoverErosionInwardsCalculation()
+            };
 
-            var handler = new StochasticSoilModelChangeHandler(failureMechanism, string.Empty, inquiryHandler);
+            var handler = new UpdateDikeProfileParametersChangeHandler(calculations,
+                                                                       string.Empty,
+                                                                       inquiryHandler);
 
             // Call
             bool requireConfirmation = handler.RequireConfirmation();
@@ -117,20 +126,25 @@ namespace Ringtoets.Piping.Plugin.Test.ChangeHandlers
         }
 
         [Test]
-        public void RequireConfirmation_FailureMechanismWithCalculationWithOutput_ReturnTrue()
+        public void RequireConfirmation_CalculationsWithOutput_ReturnTrue()
         {
             // Setup
             var mockRepository = new MockRepository();
             var inquiryHandler = mockRepository.StrictMock<IInquiryHelper>();
             mockRepository.ReplayAll();
 
-            var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new PipingCalculationScenario(new GeneralPipingInput())
+            var calculations = new[]
             {
-                Output = new TestPipingOutput()
-            });
+                new GrassCoverErosionInwardsCalculation
+                {
+                    Output = new TestGrassCoverErosionInwardsOutput()
+                },
+                new GrassCoverErosionInwardsCalculation()
+            };
 
-            var handler = new StochasticSoilModelChangeHandler(failureMechanism, string.Empty, inquiryHandler);
+            var handler = new UpdateDikeProfileParametersChangeHandler(calculations,
+                                                                       string.Empty,
+                                                                       inquiryHandler);
 
             // Call
             bool requireConfirmation = handler.RequireConfirmation();
@@ -155,7 +169,9 @@ namespace Ringtoets.Piping.Plugin.Test.ChangeHandlers
             inquiryHandler.Expect(ih => ih.InquireContinuation(message)).Return(expectedResult);
             mockRepository.ReplayAll();
 
-            var handler = new StochasticSoilModelChangeHandler(new PipingFailureMechanism(), message, inquiryHandler);
+            var handler = new UpdateDikeProfileParametersChangeHandler(Enumerable.Empty<GrassCoverErosionInwardsCalculation>(),
+                                                                       message,
+                                                                       inquiryHandler);
 
             // Call
             bool result = handler.InquireConfirmation();

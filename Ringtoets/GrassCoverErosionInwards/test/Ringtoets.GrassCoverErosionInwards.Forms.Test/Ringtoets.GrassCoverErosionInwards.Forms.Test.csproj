@@ -65,6 +65,7 @@
     <Compile Include="GrassCoverErosionInwardsDikeProfileSelectionDialogTest.cs" />
     <Compile Include="PresentationObjects\DikeProfilesContextTest.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionInwardsScenariosContextTest.cs" />
+    <Compile Include="PropertyClasses\DikeProfileCollectionPropertiesTest.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsOutputPropertiesTest.cs" />
     <Compile Include="PropertyClasses\DikeGeometryHelperTest.cs" />
     <Compile Include="PropertyClasses\DikeProfilePropertiesTest.cs" />

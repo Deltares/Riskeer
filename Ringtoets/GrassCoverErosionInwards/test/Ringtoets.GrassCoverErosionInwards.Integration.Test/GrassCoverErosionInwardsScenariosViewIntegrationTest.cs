@@ -26,13 +26,17 @@ using System.Windows.Forms;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.IO.FileImporters;
+using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
+using Ringtoets.GrassCoverErosionInwards.Plugin.FileImporters;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.TestUtils;
 
@@ -74,7 +78,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 // Assert
                 Assert.AreEqual(283, dataGridView.RowCount);
 
-                var expectedValues = assessmentSection.GrassCoverErosionInwards.SectionResults.Select(sr => sr.Section.Name);
+                IEnumerable<string> expectedValues = assessmentSection.GrassCoverErosionInwards.SectionResults.Select(sr => sr.Section.Name);
                 var foundValues = new List<string>();
                 foreach (DataGridViewRow row in dataGridView.Rows)
                 {
@@ -90,6 +94,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             // Setup
             using (var form = new Form())
             {
+                var mocks = new MockRepository();
+                var messageProvider = mocks.Stub<IImporterMessageProvider>();
+                mocks.ReplayAll();
+
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
                 DataImportHelper.ImportReferenceLine(assessmentSection);
                 IFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionInwards;
@@ -108,11 +116,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
                 var dikeProfilesImporter = new DikeProfilesImporter(assessmentSection.GrassCoverErosionInwards.DikeProfiles,
                                                                     assessmentSection.ReferenceLine,
-                                                                    filePath);
+                                                                    filePath, new GrassCoverErosionInwardsDikeProfileReplaceDataStrategy(
+                                                                        (GrassCoverErosionInwardsFailureMechanism) failureMechanism), 
+                                                                    messageProvider);
                 dikeProfilesImporter.Import();
 
                 // Call
-                foreach (var profile in assessmentSection.GrassCoverErosionInwards.DikeProfiles)
+                foreach (DikeProfile profile in assessmentSection.GrassCoverErosionInwards.DikeProfiles)
                 {
                     calculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
                     {
@@ -130,6 +140,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 Assert.AreEqual(2, ((DataGridViewComboBoxCell) dataGridViewCell).Items.Count);
                 Assert.AreEqual("<geen>", ((DataGridViewComboBoxCell) dataGridViewCell).Items[0].ToString());
                 Assert.AreEqual("profiel63p1Naam", ((DataGridViewComboBoxCell) dataGridViewCell).Items[1].ToString());
+
+                mocks.VerifyAll();
             }
         }
 
@@ -139,6 +151,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             // Setup
             using (var form = new Form())
             {
+                var mocks = new MockRepository();
+                var messageProvider = mocks.Stub<IImporterMessageProvider>();
+                mocks.ReplayAll();
+
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
                 DataImportHelper.ImportReferenceLine(assessmentSection);
                 IFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionInwards;
@@ -157,10 +173,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
                 var dikeProfilesImporter = new DikeProfilesImporter(assessmentSection.GrassCoverErosionInwards.DikeProfiles,
                                                                     assessmentSection.ReferenceLine,
-                                                                    filePath);
+                                                                    filePath,
+                                                                    new GrassCoverErosionInwardsDikeProfileReplaceDataStrategy(
+                                                                        (GrassCoverErosionInwardsFailureMechanism) failureMechanism), 
+                                                                    messageProvider);
                 dikeProfilesImporter.Import();
 
-                foreach (var profile in assessmentSection.GrassCoverErosionInwards.DikeProfiles)
+                foreach (DikeProfile profile in assessmentSection.GrassCoverErosionInwards.DikeProfiles)
                 {
                     calculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
                     {
@@ -174,7 +193,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 calculationsGroup.NotifyObservers();
 
                 // Call
-                foreach (var calculationBase in calculationsGroup.Children)
+                foreach (ICalculationBase calculationBase in calculationsGroup.Children)
                 {
                     var calculation = (GrassCoverErosionInwardsCalculation) calculationBase;
                     calculation.Name += "_changed";
@@ -185,6 +204,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 Assert.AreEqual(2, ((DataGridViewComboBoxCell) dataGridViewCell).Items.Count);
                 Assert.AreEqual("<geen>", ((DataGridViewComboBoxCell) dataGridViewCell).Items[0].ToString());
                 Assert.AreEqual("profiel63p1Naam_changed", ((DataGridViewComboBoxCell) dataGridViewCell).Items[1].ToString());
+
+                mocks.VerifyAll();
             }
         }
 
@@ -194,6 +215,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             // Setup
             using (var form = new Form())
             {
+                var mocks = new MockRepository();
+                var messageProvider = mocks.Stub<IImporterMessageProvider>();
+                mocks.ReplayAll();
+
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
                 DataImportHelper.ImportReferenceLine(assessmentSection);
                 IFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionInwards;
@@ -211,10 +236,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
                 var dikeProfilesImporter = new DikeProfilesImporter(assessmentSection.GrassCoverErosionInwards.DikeProfiles,
                                                                     assessmentSection.ReferenceLine,
-                                                                    filePath);
+                                                                    filePath, new GrassCoverErosionInwardsDikeProfileReplaceDataStrategy(
+                                                                        (GrassCoverErosionInwardsFailureMechanism) failureMechanism), 
+                                                                    messageProvider);
                 dikeProfilesImporter.Import();
 
-                foreach (var profile in assessmentSection.GrassCoverErosionInwards.DikeProfiles)
+                foreach (DikeProfile profile in assessmentSection.GrassCoverErosionInwards.DikeProfiles)
                 {
                     assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
                     {
@@ -227,7 +254,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 }
 
                 // Call
-                var calculationsGroup = assessmentSection.GrassCoverErosionInwards.CalculationsGroup;
+                CalculationGroup calculationsGroup = assessmentSection.GrassCoverErosionInwards.CalculationsGroup;
                 ((GrassCoverErosionInwardsCalculation) calculationsGroup.Children[1]).InputParameters.DikeProfile =
                     ((GrassCoverErosionInwardsCalculation) calculationsGroup.Children[0]).InputParameters.DikeProfile;
                 calculationsGroup.NotifyObservers();
@@ -242,6 +269,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 DataGridViewCell dataGridViewCellWithRemovedCalculation = dataGridView.Rows[56].Cells[1];
                 Assert.AreEqual(1, ((DataGridViewComboBoxCell) dataGridViewCellWithRemovedCalculation).Items.Count);
                 Assert.AreEqual("<geen>", ((DataGridViewComboBoxCell) dataGridViewCellWithRemovedCalculation).Items[0].ToString());
+
+                mocks.VerifyAll();
             }
         }
     }

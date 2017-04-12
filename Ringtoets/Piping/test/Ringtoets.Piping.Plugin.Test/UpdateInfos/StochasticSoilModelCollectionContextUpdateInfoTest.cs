@@ -162,10 +162,10 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
             var context = new StochasticSoilModelCollectionContext(stochasticSoilModelCollection, failureMechanism, assessmentSection);
 
             // Call
-            bool requiresUpdateConfirmation = updateInfo.VerifyUpdates(context);
+            bool updatesVerified = updateInfo.VerifyUpdates(context);
 
             // Assert
-            Assert.IsTrue(requiresUpdateConfirmation);
+            Assert.IsTrue(updatesVerified);
             mocks.VerifyAll();
         }
 
@@ -212,14 +212,14 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
             };
 
             // Call
-            bool requiresUpdateConfirmation = updateInfo.VerifyUpdates(context);
+            bool updatesVerified = updateInfo.VerifyUpdates(context);
 
             // Assert
             string expectedInquiryMessage = "Als ondergrondschematisaties wijzigen door het bijwerken, " +
                                             "dan worden de resultaten van berekeningen die deze ondergrondschematisaties gebruiken " +
                                             $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
             Assert.AreEqual(expectedInquiryMessage, textBoxMessage);
-            Assert.AreEqual(isActionConfirmed, requiresUpdateConfirmation);
+            Assert.AreEqual(isActionConfirmed, updatesVerified);
             mocks.VerifyAll();
         }
 

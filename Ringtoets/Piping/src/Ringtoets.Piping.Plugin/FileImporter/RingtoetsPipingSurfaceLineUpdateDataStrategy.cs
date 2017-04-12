@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.Service;
 using Ringtoets.Piping.Data;
@@ -50,28 +51,31 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         public RingtoetsPipingSurfaceLineUpdateDataStrategy(PipingFailureMechanism failureMechanism)
             : base(failureMechanism, new RingtoetsPipingSurfaceLineNameEqualityComparer()) {}
 
-        public IEnumerable<IObservable> UpdateSurfaceLinesWithImportedData(RingtoetsPipingSurfaceLineCollection targetCollection,
+        public IEnumerable<IObservable> UpdateSurfaceLinesWithImportedData(RingtoetsPipingSurfaceLineCollection targetDataCollection,
                                                                            IEnumerable<RingtoetsPipingSurfaceLine> readRingtoetsPipingSurfaceLines,
                                                                            string sourceFilePath)
         {
             try
             {
-                return UpdateTargetCollectionData(targetCollection, readRingtoetsPipingSurfaceLines, sourceFilePath);
+                return UpdateTargetCollectionData(targetDataCollection, readRingtoetsPipingSurfaceLines, sourceFilePath);
             }
-            catch (ArgumentNullException)
+            catch (UpdateDataException e)
             {
-                throw;
-            }
-            catch (ArgumentException e)
-            {
-                throw new RingtoetsPipingSurfaceLineUpdateException(e.Message, e);
-            }
-            catch (InvalidOperationException e)
-            {
-                string message = Resources.RingtoetsPipingSurfaceLineUpdateDataStrategy_UpdateSurfaceLinesWithImportedData_Update_of_RingtoetsPipingSurfaceLine_has_failed;
+                string message =
+                    string.Format(Resources.RingtoetsPipingSurfaceLineUpdateDataStrategy_UpdateSurfaceLinesWithImportedData_Update_of_RingtoetsPipingSurfaceLine_has_failed_Reason_0,
+                                  e.Message);
                 throw new RingtoetsPipingSurfaceLineUpdateException(message, e);
             }
         }
+
+        #region Removing Data Functions
+
+        protected override IEnumerable<IObservable> RemoveObjectAndDependentData(RingtoetsPipingSurfaceLine removedSurfaceLine)
+        {
+            return PipingDataSynchronizationService.RemoveSurfaceLine(FailureMechanism, removedSurfaceLine);
+        }
+
+        #endregion
 
         /// <summary>
         /// Class for comparing <see cref="RingtoetsPipingSurfaceLine"/> by only the name.
@@ -144,7 +148,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         private IEnumerable<PipingCalculation> GetAffectedCalculationWithSurfaceLine(RingtoetsPipingSurfaceLine surfaceLine)
         {
             IEnumerable<PipingCalculation> affectedCalculations =
-                failureMechanism.Calculations
+                FailureMechanism.Calculations
                                 .Cast<PipingCalculation>()
                                 .Where(calc => ReferenceEquals(calc.InputParameters.SurfaceLine, surfaceLine));
             return affectedCalculations;
@@ -153,7 +157,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         private IEnumerable<StochasticSoilModel> GetAvailableStochasticSoilModels(RingtoetsPipingSurfaceLine surfaceLine)
         {
             return PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(surfaceLine,
-                                                                                              failureMechanism.StochasticSoilModels);
+                                                                                              FailureMechanism.StochasticSoilModels);
         }
 
         private void ValidateEntryAndExitPoints(RingtoetsPipingSurfaceLine surfaceLine)
@@ -176,15 +180,6 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         private static bool ValidateLocalCoordinateOnSurfaceLine(RingtoetsPipingSurfaceLine surfaceLine, double localCoordinateL)
         {
             return surfaceLine.ValidateInRange(localCoordinateL);
-        }
-
-        #endregion
-
-        #region Removing Data Functions
-
-        protected override IEnumerable<IObservable> RemoveObjectAndDependentData(RingtoetsPipingSurfaceLine removedSurfaceLine)
-        {
-            return PipingDataSynchronizationService.RemoveSurfaceLine(failureMechanism, removedSurfaceLine);
         }
 
         #endregion

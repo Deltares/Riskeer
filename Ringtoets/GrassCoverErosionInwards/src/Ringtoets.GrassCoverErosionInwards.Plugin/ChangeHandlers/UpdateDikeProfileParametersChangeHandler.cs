@@ -24,32 +24,34 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Gui;
 using Ringtoets.Common.IO;
-using Ringtoets.Piping.Data;
+using Ringtoets.GrassCoverErosionInwards.Data;
 
-namespace Ringtoets.Piping.Plugin.ChangeHandlers
+namespace Ringtoets.GrassCoverErosionInwards.Plugin.ChangeHandlers
 {
     /// <summary>
     /// Class which can, if required, inquire the user for a confirmation when a change to the
-    /// stochastic soil model collection requires calculation results to be altered.
+    /// derived dike profile parameters requires calculations results to be altered.
     /// </summary>
-    public class StochasticSoilModelChangeHandler : IConfirmDataChangeHandler
+    public class UpdateDikeProfileParametersChangeHandler : IConfirmDataChangeHandler
     {
-        private readonly PipingFailureMechanism failureMechanism;
         private readonly string query;
+        private readonly IEnumerable<GrassCoverErosionInwardsCalculation> calculations;
         private readonly IInquiryHelper inquiryHandler;
 
         /// <summary>
-        /// Creates new instance of <see cref="StochasticSoilModelChangeHandler"/>
+        /// Instantiates a <see cref="UpdateDikeProfileParametersChangeHandler"/>.
         /// </summary>
-        /// <param name="failureMechanism">Failure mechanism for which to handle changes in stochastic soil models.</param>
+        /// <param name="calculations">The calculations for which to handle the change in parameters.</param>
         /// <param name="query">The query which should be displayed when inquiring for a confirmation.</param>
-        /// <param name="inquiryHandler">Object responsible for inquiring required data.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public StochasticSoilModelChangeHandler(PipingFailureMechanism failureMechanism, string query, IInquiryHelper inquiryHandler)
+        /// <param name="inquiryHandler">Object responsible for inquiring the required data.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public UpdateDikeProfileParametersChangeHandler(IEnumerable<GrassCoverErosionInwardsCalculation> calculations,
+                                                        string query,
+                                                        IInquiryHelper inquiryHandler)
         {
-            if (failureMechanism == null)
+            if (calculations == null)
             {
-                throw new ArgumentNullException(nameof(failureMechanism));
+                throw new ArgumentNullException(nameof(calculations));
             }
             if (query == null)
             {
@@ -59,26 +61,19 @@ namespace Ringtoets.Piping.Plugin.ChangeHandlers
             {
                 throw new ArgumentNullException(nameof(inquiryHandler));
             }
-            this.failureMechanism = failureMechanism;
+            this.calculations = calculations;
             this.query = query;
             this.inquiryHandler = inquiryHandler;
         }
 
         public bool RequireConfirmation()
         {
-            IEnumerable<PipingCalculationScenario> calculations = failureMechanism.Calculations.Cast<PipingCalculationScenario>();
-
-            return calculations.Any(HasOutput);
+            return calculations.Any(calc => calc.HasOutput);
         }
 
         public bool InquireConfirmation()
         {
             return inquiryHandler.InquireContinuation(query);
-        }
-
-        private static bool HasOutput(PipingCalculationScenario calculation)
-        {
-            return calculation.HasOutput;
         }
     }
 }

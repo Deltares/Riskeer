@@ -20,10 +20,12 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
@@ -54,9 +56,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class GrassCoverErosionInwardsCalculationContextTreeNodeInfoTest : NUnitFormTest
     {
-        private const int contextMenuValidateIndex = 3;
-        private const int contextMenuCalculateIndex = 4;
-        private const int contextMenuClearIndex = 6;
+        private const int contextMenuUpdateDikeProfileIndex = 3;
+
+        private const int contextMenuValidateIndex = 4;
+        private const int contextMenuCalculateIndex = 5;
+        private const int contextMenuClearIndex = 7;
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
 
         private MockRepository mocks;
@@ -105,7 +109,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             // Call
-            var image = info.Image(null);
+            Image image = info.Image(null);
 
             // Assert
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculationIcon, image);
@@ -122,7 +126,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var calculationContext = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSection);
 
             // Call
-            var children = info.ChildNodeObjects(calculationContext).ToArray();
+            object[] children = info.ChildNodeObjects(calculationContext).ToArray();
 
             // Assert
             Assert.AreEqual(3, children.Length);
@@ -154,7 +158,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var calculationContext = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSection);
 
             // Call
-            var children = info.ChildNodeObjects(calculationContext).ToArray();
+            object[] children = info.ChildNodeObjects(calculationContext).ToArray();
 
             // Assert
             Assert.AreEqual(3, children.Length);
@@ -185,6 +189,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddRenameItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
@@ -243,23 +248,393 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(13, menu.Items.Count);
+                    Assert.AreEqual(14, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateIndex,
-                                                                  RingtoetsCommonFormsResources.Validate,
-                                                                  RingtoetsCommonFormsResources.Validate_ToolTip,
+                                                                  "&Valideren",
+                                                                  "Valideer de invoer voor deze berekening.",
                                                                   RingtoetsCommonFormsResources.ValidateIcon);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateIndex,
-                                                                  RingtoetsCommonFormsResources.Calculate,
-                                                                  RingtoetsCommonFormsResources.Calculate_ToolTip,
+                                                                  "Be&rekenen",
+                                                                  "Voer deze berekening uit.",
                                                                   RingtoetsCommonFormsResources.CalculateIcon);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIndex,
-                                                                  RingtoetsCommonFormsResources.Clear_output,
-                                                                  RingtoetsCommonFormsResources.ClearOutput_No_output_to_clear,
+                                                                  "&Wis uitvoer...",
+                                                                  "Deze berekening heeft geen uitvoer om te wissen.",
                                                                   RingtoetsCommonFormsResources.ClearIcon,
                                                                   false);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenu_CalculationWithoutDikeProfile_ContextMenuItemUpdateDikeProfileDisabled()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
+            var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
+                {
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                                  contextMenuUpdateDikeProfileIndex,
+                                                                  "&Bijwerken dijkprofiel",
+                                                                  "Er moet een dijkprofiel geselecteerd zijn.",
+                                                                  RingtoetsCommonFormsResources.UpdateItemIcon,
+                                                                  false);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenu_CalculationWithDikeProfile_ContextMenuItemUpdateDikeProfileEnabled()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    DikeProfile = new TestDikeProfile()
+                }
+            };
+            var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
+            var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
+                {
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                                  contextMenuUpdateDikeProfileIndex,
+                                                                  "&Bijwerken dijkprofiel",
+                                                                  "Berekening bijwerken met het dijkprofiel.",
+                                                                  RingtoetsCommonFormsResources.UpdateItemIcon);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationWithDikeProfileWithoutOutput_WhenDikeProfileUpdatedAndUpdateDikeProfileClicked_ThenNoInquiryAndCalculationUpdatedAndInputObserverNotified()
+        {
+            using (var treeViewControl = new TreeViewControl())
+            {
+                // Given
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var dikeProfile = new TestDikeProfile();
+                var calculation = new GrassCoverErosionInwardsCalculation
+                {
+                    InputParameters =
+                    {
+                        DikeProfile = dikeProfile
+                    }
+                };
+                var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+                var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSection);
+
+                var inputObserver = mocks.StrictMock<IObserver>();
+                inputObserver.Expect(obs => obs.UpdateObserver());
+                calculation.InputParameters.Attach(inputObserver);
+
+                var calculationObserver = mocks.StrictMock<IObserver>();
+                calculation.Attach(calculationObserver);
+
+                var mainWindow = mocks.Stub<IMainWindow>();
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
+                {
+                    // When
+                    UpdateDikeProfile(dikeProfile);
+                    menu.Items[contextMenuUpdateDikeProfileIndex].PerformClick();
+
+                    // Then
+                    Assert.IsFalse(calculation.HasOutput);
+
+                    GrassCoverErosionInwardsInput inputParameters = calculation.InputParameters;
+                    Assert.AreSame(dikeProfile, inputParameters.DikeProfile);
+                    Assert.AreEqual(dikeProfile.Orientation, inputParameters.Orientation);
+                    Assert.AreEqual(dikeProfile.DikeHeight, inputParameters.DikeHeight);
+
+                    Assert.AreEqual(dikeProfile.HasBreakWater, inputParameters.UseBreakWater);
+                    Assert.AreEqual(dikeProfile.BreakWater, inputParameters.BreakWater);
+                    bool expectedUseForeShore = dikeProfile.ForeshoreGeometry.Count() > 1;
+                    Assert.AreEqual(expectedUseForeShore, inputParameters.UseForeshore);
+
+                    // Note: observer assertions are verified in the Teardown()
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationWithDikeProfileWithOutput_WhenDikeProfileHasChangesInDerivedInputAndUpdateDikeProfileClickedAndCancelled_ThenOutputNotRemovedAndObserversNotNotified()
+        {
+            using (var treeViewControl = new TreeViewControl())
+            {
+                // Given
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var dikeProfile = new TestDikeProfile();
+                var calculation = new GrassCoverErosionInwardsCalculation
+                {
+                    InputParameters =
+                    {
+                        DikeProfile = dikeProfile
+                    },
+                    Output = new TestGrassCoverErosionInwardsOutput()
+                };
+
+                GrassCoverErosionInwardsInput calculationInput = calculation.InputParameters;
+                RoundedDouble expectedOrientation = calculationInput.Orientation;
+                RoundedDouble expectedDikeHeight = calculationInput.DikeHeight;
+                bool expectedUseBreakWater = calculationInput.UseBreakWater;
+                BreakWater expectedBreakWater = calculationInput.BreakWater;
+                bool expectedUseForeshore = calculationInput.UseForeshore;
+
+                var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+                var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSection);
+
+                var inputObserver = mocks.StrictMock<IObserver>();
+                calculationInput.Attach(inputObserver);
+
+                var calculationObserver = mocks.StrictMock<IObserver>();
+                calculation.Attach(calculationObserver);
+
+                var mainWindow = mocks.Stub<IMainWindow>();
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                string textBoxMessage = null;
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var helper = new MessageBoxTester(wnd);
+                    textBoxMessage = helper.Text;
+                    helper.ClickCancel();
+                };
+
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
+                {
+                    // When
+                    UpdateDikeProfile(dikeProfile);
+                    menu.Items[contextMenuUpdateDikeProfileIndex].PerformClick();
+
+                    // Then
+                    Assert.IsTrue(calculation.HasOutput);
+
+                    Assert.AreSame(dikeProfile, calculationInput.DikeProfile);
+                    Assert.AreEqual(expectedOrientation, calculationInput.Orientation);
+                    Assert.AreEqual(expectedDikeHeight, calculationInput.DikeHeight);
+
+                    Assert.AreEqual(expectedUseBreakWater, calculationInput.UseBreakWater);
+                    Assert.AreEqual(expectedBreakWater, calculationInput.BreakWater);
+                    Assert.AreEqual(expectedUseForeshore, calculationInput.UseForeshore);
+
+                    string expectedMessage = "Wanneer het dijkprofiel wijzigt als gevolg van het bijwerken, " +
+                                             "zal het resultaat van deze berekening worden " +
+                                             $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
+                    Assert.AreEqual(expectedMessage, textBoxMessage);
+
+                    // Note: observer assertions are verified in the Teardown()
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationWithDikeProfileWithOutput_WhenDikeProfileHasChangesInDerivedInputAndUpdateDikeProfileClickedAndContinued_ThenOutputRemovedAndObserversNotified()
+        {
+            using (var treeViewControl = new TreeViewControl())
+            {
+                // Given
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var dikeProfile = new TestDikeProfile();
+                var calculation = new GrassCoverErosionInwardsCalculation
+                {
+                    InputParameters =
+                    {
+                        DikeProfile = dikeProfile
+                    },
+                    Output = new TestGrassCoverErosionInwardsOutput()
+                };
+                var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+                var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSection);
+
+                var inputObserver = mocks.StrictMock<IObserver>();
+                inputObserver.Expect(obs => obs.UpdateObserver());
+                calculation.InputParameters.Attach(inputObserver);
+
+                var calculationObserver = mocks.StrictMock<IObserver>();
+                calculationObserver.Expect(obs => obs.UpdateObserver());
+                calculation.Attach(calculationObserver);
+
+                var mainWindow = mocks.Stub<IMainWindow>();
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                string textBoxMessage = null;
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var helper = new MessageBoxTester(wnd);
+                    textBoxMessage = helper.Text;
+                    helper.ClickOk();
+                };
+
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
+                {
+                    // When
+                    UpdateDikeProfile(dikeProfile);
+                    menu.Items[contextMenuUpdateDikeProfileIndex].PerformClick();
+
+                    // Then
+                    Assert.IsFalse(calculation.HasOutput);
+
+                    GrassCoverErosionInwardsInput inputParameters = calculation.InputParameters;
+                    Assert.AreSame(dikeProfile, inputParameters.DikeProfile);
+                    Assert.AreEqual(dikeProfile.Orientation, inputParameters.Orientation);
+                    Assert.AreEqual(dikeProfile.DikeHeight, inputParameters.DikeHeight);
+
+                    Assert.AreEqual(dikeProfile.HasBreakWater, inputParameters.UseBreakWater);
+                    Assert.AreEqual(dikeProfile.BreakWater, inputParameters.BreakWater);
+                    bool expectedUseForeShore = dikeProfile.ForeshoreGeometry.Count() > 1;
+                    Assert.AreEqual(expectedUseForeShore, inputParameters.UseForeshore);
+
+                    string expectedMessage = "Wanneer het dijkprofiel wijzigt als gevolg van het bijwerken, " +
+                                             "zal het resultaat van deze berekening worden " +
+                                             $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
+                    Assert.AreEqual(expectedMessage, textBoxMessage);
+
+                    // Note: observer assertions are verified in the Teardown()
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationWithDikeProfileWithOutput_WhenDikeProfileHasNoChangeInDerivedInputAndUpdateDikeProfileClicked_ThenOutputNotRemovedAndObserversNotNotified()
+        {
+            using (var treeViewControl = new TreeViewControl())
+            {
+                // Given
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+                var dikeProfile = new DikeProfile(new Point2D(0, 0),
+                                                  new[]
+                                                  {
+                                                      new RoughnessPoint(new Point2D(1.1, 2.2), 3),
+                                                      new RoughnessPoint(new Point2D(3.3, 4.4), 5)
+                                                  },
+                                                  new[]
+                                                  {
+                                                      new Point2D(1.1, 2.2),
+                                                      new Point2D(3.3, 4.4)
+                                                  },
+                                                  new BreakWater(BreakWaterType.Caisson, 10),
+                                                  new DikeProfile.ConstructionProperties
+                                                  {
+                                                      Id = "ID"
+                                                  });
+                const double orientation = 10;
+                const double dikeHeight = 10;
+                const bool useBreakWater = true;
+                const bool useForeshore = true;
+                var calculation = new GrassCoverErosionInwardsCalculation
+                {
+                    InputParameters =
+                    {
+                        DikeProfile = dikeProfile,
+                        DikeHeight = (RoundedDouble) dikeHeight,
+                        Orientation = (RoundedDouble) orientation,
+                        UseForeshore = useForeshore,
+                        UseBreakWater = useBreakWater
+                    },
+                    Output = new TestGrassCoverErosionInwardsOutput()
+                };
+                var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+                var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSection);
+
+                var inputObserver = mocks.StrictMock<IObserver>();
+                calculation.InputParameters.Attach(inputObserver);
+
+                var calculationObserver = mocks.StrictMock<IObserver>();
+                calculation.Attach(calculationObserver);
+
+                var mainWindow = mocks.Stub<IMainWindow>();
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                string textBoxMessage = null;
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var helper = new MessageBoxTester(wnd);
+                    textBoxMessage = helper.Text;
+                    helper.ClickOk();
+                };
+
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
+                {
+                    // When
+                    UpdateDikeProfile(dikeProfile);
+                    menu.Items[contextMenuUpdateDikeProfileIndex].PerformClick();
+
+                    // Then
+                    Assert.IsTrue(calculation.HasOutput);
+
+                    GrassCoverErosionInwardsInput inputParameters = calculation.InputParameters;
+                    Assert.AreSame(dikeProfile, inputParameters.DikeProfile);
+                    Assert.AreEqual(dikeProfile.Orientation, inputParameters.Orientation);
+                    Assert.AreEqual(dikeProfile.DikeHeight, inputParameters.DikeHeight);
+
+                    Assert.AreEqual(dikeProfile.HasBreakWater, inputParameters.UseBreakWater);
+                    Assert.AreEqual(dikeProfile.BreakWater, inputParameters.BreakWater);
+                    bool expectedUseForeShore = dikeProfile.ForeshoreGeometry.Count() > 1;
+                    Assert.AreEqual(expectedUseForeShore, inputParameters.UseForeshore);
+
+                    string expectedMessage = "Wanneer het dijkprofiel wijzigt als gevolg van het bijwerken, " +
+                                             "zal het resultaat van deze berekening worden " +
+                                             $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
+                    Assert.AreEqual(expectedMessage, textBoxMessage);
+
+                    // Note: observer assertions are verified in the Teardown()
                 }
             }
         }
@@ -560,7 +935,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             {
                 FilePath = validFilePath,
                 Version = "random",
-                Locations = { hydraulicBoundaryLocation }
+                Locations =
+                {
+                    hydraulicBoundaryLocation
+                }
             };
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 1));
 
@@ -605,7 +983,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                     // Then
                     TestHelper.AssertLogMessages(action, messages =>
                     {
-                        var msgs = messages.ToArray();
+                        string[] msgs = messages.ToArray();
                         Assert.AreEqual(6, msgs.Length);
                         StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
                         StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
@@ -637,7 +1015,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             {
                 FilePath = validFilePath,
                 Version = "random",
-                Locations = { hydraulicBoundaryLocation }
+                Locations =
+                {
+                    hydraulicBoundaryLocation
+                }
             };
 
             var calculation = new GrassCoverErosionInwardsCalculation
@@ -669,7 +1050,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                     // Then
                     TestHelper.AssertLogMessages(action, messages =>
                     {
-                        var msgs = messages.ToArray();
+                        string[] msgs = messages.ToArray();
                         StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
                         StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
                     });
@@ -728,7 +1109,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 new Point2D(1.0, 1.0)
             }));
             DikeProfile dikeProfile = new TestDikeProfile(new Point2D(0.5, 0.5));
-            failureMechanism.DikeProfiles.Add(dikeProfile);
+            failureMechanism.DikeProfiles.AddRange(new[]
+            {
+                dikeProfile
+            }, "path");
 
             var elementToBeRemoved = new GrassCoverErosionInwardsCalculation
             {
@@ -738,7 +1122,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            var sectionResult = failureMechanism.SectionResults.First();
+            GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.First();
             sectionResult.Calculation = elementToBeRemoved;
 
             var calculationContext = new GrassCoverErosionInwardsCalculationContext(elementToBeRemoved,
@@ -797,6 +1181,26 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             // Assert
             Assert.IsNull(result.Calculation);
+        }
+
+        private static void UpdateDikeProfile(DikeProfile dikeProfile)
+        {
+            var dikeProfileToUpdateFrom = new DikeProfile(dikeProfile.WorldReferencePoint,
+                                                          dikeProfile.DikeGeometry,
+                                                          new[]
+                                                          {
+                                                              new Point2D(1.1, 2.2),
+                                                              new Point2D(3.3, 4.4)
+                                                          },
+                                                          new BreakWater(BreakWaterType.Caisson, 10),
+                                                          new DikeProfile.ConstructionProperties
+                                                          {
+                                                              Id = dikeProfile.Id,
+                                                              DikeHeight = 10,
+                                                              Orientation = 10
+                                                          });
+
+            dikeProfile.CopyProperties(dikeProfileToUpdateFrom);
         }
 
         public override void TearDown()

@@ -23,6 +23,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Properties;
 using Core.Common.Utils;
 
 namespace Core.Common.Base
@@ -186,13 +187,17 @@ namespace Core.Common.Base
         private void ValidateItems(IEnumerable<TElement> items)
         {
             IEnumerable<IGrouping<object, TElement>> duplicateItems =
-                items.GroupBy(getUniqueFeature)
+                items.Concat(collection).GroupBy(getUniqueFeature)
                      .Where(group => group.Count() > 1);
 
             if (duplicateItems.Any())
             {
-                var duplicateFeatures = string.Join(", ", duplicateItems.Select(group => group.First()));
-                string exceptionMessage = $"{typeDescriptor} moeten een unieke {featureDescription} hebben. Gevonden dubbele elementen: {duplicateFeatures}.";
+                string duplicateFeatures = string.Join(", ", duplicateItems.Select(group => getUniqueFeature(group.First())));
+                string exceptionMessage = string.Format(
+                    Resources.ObservableUniqueItemCollectionWithSourcePath_ValidateItems_TypeDescriptor_0_must_have_unique_FeatureDescription_1_Found_duplicate_items_DuplicateFeatures_2,
+                    typeDescriptor,
+                    featureDescription,
+                    duplicateFeatures);
                 throw new ArgumentException(exceptionMessage);
             }
         }

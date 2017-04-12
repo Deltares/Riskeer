@@ -53,9 +53,11 @@
     <Compile Include="DikeProfiles\BreakWaterType.cs" />
     <Compile Include="Calculation\CalculationScenarioStatus.cs" />
     <Compile Include="DikeProfiles\DikeProfile.cs" />
+    <Compile Include="DikeProfiles\DikeProfileCollection.cs" />
     <Compile Include="DikeProfiles\ForeshoreProfile.cs" />
     <Compile Include="DikeProfiles\IUseBreakWater.cs" />
     <Compile Include="DikeProfiles\IUseForeshore.cs" />
+    <Compile Include="Exceptions\DikeProfileUpdateException.cs" />
     <Compile Include="FailureMechanism\AssessmentLayerOneState.cs" />
     <Compile Include="Hydraulics\CalculationConvergence.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryDatabase.cs" />
@@ -110,6 +112,7 @@
     <Compile Include="Structures\StructuresCalculation.cs" />
     <Compile Include="Structures\StructuresFailureMechanismSectionResult.cs" />
     <Compile Include="Structures\StructuresInputBase.cs" />
+    <Compile Include="Exceptions\UpdateDataException.cs" />
     <Compile Include="UpdateDataStrategies\ReplaceDataStrategyBase.cs" />
     <Compile Include="UpdateDataStrategies\UpdateDataStrategyBase.cs" />
   </ItemGroup>

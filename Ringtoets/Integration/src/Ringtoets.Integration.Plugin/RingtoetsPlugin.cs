@@ -436,19 +436,6 @@ namespace Ringtoets.Integration.Plugin
                                                               RingtoetsCommonIOResources.Shape_file_filter_Description),
                 IsEnabled = context => context.ParentAssessmentSection.ReferenceLine != null
             };
-
-            yield return new ImportInfo<DikeProfilesContext>
-            {
-                CreateFileImporter = (context, filePath) => new DikeProfilesImporter(context.WrappedData,
-                                                                                     context.ParentAssessmentSection.ReferenceLine,
-                                                                                     filePath),
-                Name = RingtoetsIntegrationPluginResources.DikeProfilesImporter_DisplayName,
-                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
-                Image = RingtoetsCommonFormsResources.DikeProfile,
-                FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
-                                                              RingtoetsCommonIOResources.Shape_file_filter_Description),
-                IsEnabled = context => context.ParentAssessmentSection.ReferenceLine != null
-            };
         }
 
         public override IEnumerable<ExportInfo> GetExportInfos()
@@ -482,7 +469,7 @@ namespace Ringtoets.Integration.Plugin
             var project = viewData as RingtoetsProject;
             if (project != null)
             {
-                foreach (var item in project.AssessmentSections)
+                foreach (AssessmentSection item in project.AssessmentSections)
                 {
                     yield return item;
                 }
@@ -630,12 +617,8 @@ namespace Ringtoets.Integration.Plugin
                 Text = dikeProfile => dikeProfile.Name,
                 Image = context => RingtoetsCommonFormsResources.DikeProfile,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddDeleteItem()
-                                                                                 .AddSeparator()
                                                                                  .AddPropertiesItem()
-                                                                                 .Build(),
-                CanRemove = CanRemoveDikeProfile,
-                OnNodeRemoved = OnDikeProfileRemoved
+                                                                                 .Build()
             };
 
             yield return new TreeNodeInfo<ForeshoreProfile>
@@ -762,11 +745,11 @@ namespace Ringtoets.Integration.Plugin
             {
                 return;
             }
-            var sectionsWithDatabase = ringtoetsProject.AssessmentSections.Where(i => i.HydraulicBoundaryDatabase != null);
+            IEnumerable<AssessmentSection> sectionsWithDatabase = ringtoetsProject.AssessmentSections.Where(i => i.HydraulicBoundaryDatabase != null);
             foreach (AssessmentSection section in sectionsWithDatabase)
             {
                 string selectedFile = section.HydraulicBoundaryDatabase.FilePath;
-                var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(selectedFile);
+                string validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(selectedFile);
                 if (validationProblem != null)
                 {
                     log.WarnFormat(
@@ -784,7 +767,7 @@ namespace Ringtoets.Integration.Plugin
             var failureMechanism = o as IFailureMechanism;
 
             var viewFailureMechanismContext = (FailureMechanismContext<IFailureMechanism>) view.Data;
-            var viewFailureMechanism = viewFailureMechanismContext.WrappedData;
+            IFailureMechanism viewFailureMechanism = viewFailureMechanismContext.WrappedData;
 
             return assessmentSection != null
                        ? ReferenceEquals(viewFailureMechanismContext.Parent, assessmentSection)
@@ -807,7 +790,7 @@ namespace Ringtoets.Integration.Plugin
 
         private static bool CloseFailureMechanismResultViewForData<T>(T view, object dataToCloseFor) where T : IView
         {
-            var viewData = view.Data;
+            object viewData = view.Data;
             var assessmentSection = dataToCloseFor as IAssessmentSection;
             var failureMechanism = dataToCloseFor as IFailureMechanism;
             var failureMechanismContext = dataToCloseFor as IFailureMechanismContext<IFailureMechanism>;
@@ -837,7 +820,7 @@ namespace Ringtoets.Integration.Plugin
 
         private static bool CloseDesignWaterLevelLocationsViewForData(DesignWaterLevelLocationsView view, object dataToCloseFor)
         {
-            var viewData = view.AssessmentSection;
+            IAssessmentSection viewData = view.AssessmentSection;
             var assessmentSection = dataToCloseFor as IAssessmentSection;
 
             return assessmentSection != null && ReferenceEquals(viewData, assessmentSection);
@@ -849,7 +832,7 @@ namespace Ringtoets.Integration.Plugin
 
         private static bool CloseWaveHeightLocationsViewForData(WaveHeightLocationsView view, object dataToCloseFor)
         {
-            var viewData = view.AssessmentSection;
+            IAssessmentSection viewData = view.AssessmentSection;
             var assessmentSection = dataToCloseFor as IAssessmentSection;
 
             return assessmentSection != null && ReferenceEquals(viewData, assessmentSection);
@@ -960,7 +943,7 @@ namespace Ringtoets.Integration.Plugin
             var stabilityStoneCoverFailureMechanism = failureMechanism as StabilityStoneCoverFailureMechanism;
             if (stabilityStoneCoverFailureMechanism != null)
             {
-                var affectedObservables = RingtoetsDataSynchronizationService.RemoveForeshoreProfile(stabilityStoneCoverFailureMechanism, nodeData);
+                IEnumerable<IObservable> affectedObservables = RingtoetsDataSynchronizationService.RemoveForeshoreProfile(stabilityStoneCoverFailureMechanism, nodeData);
                 foreach (IObservable affectedObservable in affectedObservables)
                 {
                     affectedObservable.NotifyObservers();
@@ -969,7 +952,7 @@ namespace Ringtoets.Integration.Plugin
             var waveImpactAsphaltCoverFailureMechanism = failureMechanism as WaveImpactAsphaltCoverFailureMechanism;
             if (waveImpactAsphaltCoverFailureMechanism != null)
             {
-                var affectedObservables = RingtoetsDataSynchronizationService.RemoveForeshoreProfile(waveImpactAsphaltCoverFailureMechanism, nodeData);
+                IEnumerable<IObservable> affectedObservables = RingtoetsDataSynchronizationService.RemoveForeshoreProfile(waveImpactAsphaltCoverFailureMechanism, nodeData);
                 foreach (IObservable affectedObservable in affectedObservables)
                 {
                     affectedObservable.NotifyObservers();
@@ -978,7 +961,7 @@ namespace Ringtoets.Integration.Plugin
             var grassCoverErosionOutwardsFailureMechanism = failureMechanism as GrassCoverErosionOutwardsFailureMechanism;
             if (grassCoverErosionOutwardsFailureMechanism != null)
             {
-                var affectedObservables = RingtoetsDataSynchronizationService.RemoveForeshoreProfile(grassCoverErosionOutwardsFailureMechanism, nodeData);
+                IEnumerable<IObservable> affectedObservables = RingtoetsDataSynchronizationService.RemoveForeshoreProfile(grassCoverErosionOutwardsFailureMechanism, nodeData);
                 foreach (IObservable affectedObservable in affectedObservables)
                 {
                     affectedObservable.NotifyObservers();
@@ -987,7 +970,7 @@ namespace Ringtoets.Integration.Plugin
             var heightStructuresFailureMechanism = failureMechanism as HeightStructuresFailureMechanism;
             if (heightStructuresFailureMechanism != null)
             {
-                var affectedObservables = RingtoetsDataSynchronizationService.RemoveForeshoreProfile(heightStructuresFailureMechanism, nodeData);
+                IEnumerable<IObservable> affectedObservables = RingtoetsDataSynchronizationService.RemoveForeshoreProfile(heightStructuresFailureMechanism, nodeData);
                 foreach (IObservable affectedObservable in affectedObservables)
                 {
                     affectedObservable.NotifyObservers();
@@ -996,7 +979,7 @@ namespace Ringtoets.Integration.Plugin
             var closingStructuresFailureMechanism = failureMechanism as ClosingStructuresFailureMechanism;
             if (closingStructuresFailureMechanism != null)
             {
-                var affectedObservables = RingtoetsDataSynchronizationService.RemoveForeshoreProfile(closingStructuresFailureMechanism, nodeData);
+                IEnumerable<IObservable> affectedObservables = RingtoetsDataSynchronizationService.RemoveForeshoreProfile(closingStructuresFailureMechanism, nodeData);
                 foreach (IObservable affectedObservable in affectedObservables)
                 {
                     affectedObservable.NotifyObservers();
@@ -1005,32 +988,11 @@ namespace Ringtoets.Integration.Plugin
             var stabilityPointStructuresFailureMechanism = failureMechanism as StabilityPointStructuresFailureMechanism;
             if (stabilityPointStructuresFailureMechanism != null)
             {
-                var affectedObservables = RingtoetsDataSynchronizationService.RemoveForeshoreProfile(stabilityPointStructuresFailureMechanism, nodeData);
+                IEnumerable<IObservable> affectedObservables = RingtoetsDataSynchronizationService.RemoveForeshoreProfile(stabilityPointStructuresFailureMechanism, nodeData);
                 foreach (IObservable affectedObservable in affectedObservables)
                 {
                     affectedObservable.NotifyObservers();
                 }
-            }
-        }
-
-        #endregion
-
-        #region DikeProfile TreeNodeInfo
-
-        private static bool CanRemoveDikeProfile(DikeProfile nodeData, object parentData)
-        {
-            return parentData is DikeProfilesContext;
-        }
-
-        private static void OnDikeProfileRemoved(DikeProfile nodeData, object parentData)
-        {
-            var parentContext = (DikeProfilesContext) parentData;
-            var changedObservables = RingtoetsDataSynchronizationService.RemoveDikeProfile(parentContext.ParentFailureMechanism,
-                                                                                           nodeData).ToArray();
-
-            foreach (IObservable observable in changedObservables)
-            {
-                observable.NotifyObservers();
             }
         }
 
@@ -1499,18 +1461,18 @@ namespace Ringtoets.Integration.Plugin
         /// failed.</exception>
         private void ImportHydraulicBoundaryDatabase(string databaseFile, AssessmentSection assessmentSection)
         {
-            var hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
 
-            var isHydraulicBoundaryDatabaseSet = hydraulicBoundaryDatabase != null;
-            var isClearConfirmationRequired = isHydraulicBoundaryDatabaseSet && !HydraulicDatabaseHelper.HaveEqualVersion(hydraulicBoundaryDatabase, databaseFile);
-            var isClearConfirmationGiven = isClearConfirmationRequired && IsClearCalculationConfirmationGiven();
+            bool isHydraulicBoundaryDatabaseSet = hydraulicBoundaryDatabase != null;
+            bool isClearConfirmationRequired = isHydraulicBoundaryDatabaseSet && !HydraulicDatabaseHelper.HaveEqualVersion(hydraulicBoundaryDatabase, databaseFile);
+            bool isClearConfirmationGiven = isClearConfirmationRequired && IsClearCalculationConfirmationGiven();
 
             if (isHydraulicBoundaryDatabaseSet && isClearConfirmationRequired && !isClearConfirmationGiven)
             {
                 return;
             }
 
-            var previousHydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
+            HydraulicBoundaryDatabase previousHydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
             using (var hydraulicBoundaryLocationsImporter = new HydraulicBoundaryDatabaseImporter())
             {
                 if (hydraulicBoundaryLocationsImporter.Import(assessmentSection, databaseFile))
@@ -1542,7 +1504,7 @@ namespace Ringtoets.Integration.Plugin
 
         private static bool IsClearCalculationConfirmationGiven()
         {
-            var confirmation = MessageBox.Show(
+            DialogResult confirmation = MessageBox.Show(
                 RingtoetsFormsResources.Delete_Calculations_Text,
                 BaseResources.Confirm,
                 MessageBoxButtons.OKCancel);

@@ -60,5 +60,36 @@ namespace Ringtoets.Common.Data.DikeProfiles
                 height = value.ToPrecision(height.NumberOfDecimalPlaces);
             }
         }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+            return Equals((BreakWater) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hashCode = height.GetHashCode();
+                return (hashCode * 397) ^ (int) Type;
+            }
+        }
+
+        private bool Equals(BreakWater other)
+        {
+            return height.Equals(other.height) && Type == other.Type;
+        }
     }
 }

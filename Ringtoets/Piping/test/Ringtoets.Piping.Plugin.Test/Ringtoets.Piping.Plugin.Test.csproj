@@ -75,10 +75,8 @@
     <Compile Include="ChangeHandlers\UpdateEntryAndExitPointsOfCalculationsChangeHandlerTest.cs" />
     <Compile Include="ExportInfos\PipingCalculationContextExportInfoTest.cs" />
     <Compile Include="ExportInfos\PipingCalculationGroupContextExportInfoTest.cs" />
-    <Compile Include="ChangeHandlers\RingtoetsPipingSurfaceLineChangeHandlerTest.cs" />
     <Compile Include="FileImporter\RingtoetsPipingSurfaceLineReplaceDataStrategyTest.cs" />
     <Compile Include="FileImporter\RingtoetsPipingSurfaceLineUpdateDataStrategyTest.cs" />
-    <Compile Include="ChangeHandlers\StochasticSoilModelChangeHandlerTest.cs" />
     <Compile Include="FileImporter\PipingSurfaceLinesCsvImporterTest.cs" />
     <Compile Include="FileImporter\RingtoetsPipingSurfaceLineExtensionsTest.cs" />
     <Compile Include="FileImporter\StochasticSoilModelReplaceDataStrategyTest.cs" />

@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 
@@ -203,7 +204,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
         }
 
         [Test]
-        public void UpdateTargetCollectionData_ImportedDataContainsDuplicateData_ThrowsArgumentException()
+        public void UpdateTargetCollectionData_ImportedDataContainsDuplicateData_ThrowsUpdateDataException()
         {
             // Setup
             var collection = new TestUniqueItemCollection();
@@ -225,9 +226,10 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             TestDelegate call = () => strategy.ConcreteUpdateData(collection, importedCollection, sourceFilePath);
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(call);
+            var exception = Assert.Throws<UpdateDataException>(call);
             string message = $"TestItem moeten een unieke naam hebben. Gevonden dubbele elementen: {duplicateName}.";
             Assert.AreEqual(message, exception.Message);
+            Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
 
             CollectionAssert.IsEmpty(collection);
         }
@@ -437,6 +439,37 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             {
                 Assert.AreSame(currentCollection[i], removeDataCallArguments[i].Item1);
             }
+        }
+
+        [Test]
+        public void UpdateTargetCollectionData_CollectionNotEmptyAndImportedDataHasDuplicateDefinitions_ThrowsUpdateDataException()
+        {
+            // Setup
+            const string name = "Double Defined Name";
+            var currentCollection = new[]
+            {
+                new TestItem(name)
+            };
+            var collection = new TestUniqueItemCollection();
+            collection.AddRange(currentCollection, sourceFilePath);
+
+            var importedItems = new[]
+            {
+                new TestItem(name),
+                new TestItem(name)
+            };
+
+            var strategy = new ConcreteUpdateDataStrategy(new TestFailureMechanism());
+
+            // Call
+            TestDelegate call = () => strategy.ConcreteUpdateData(collection,
+                                                                  importedItems,
+                                                                  sourceFilePath);
+
+            // Assert
+            var exception = Assert.Throws<UpdateDataException>(call);
+            Assert.AreEqual("Geïmporteerde data moet unieke elementen bevatten.", exception.Message);
+            Assert.IsInstanceOf<InvalidOperationException>(exception.InnerException);
         }
 
         [Test]

@@ -52,7 +52,12 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
 
         private static void AddEntitiesForGeneralInput(GrassCoverErosionInwardsFailureMechanism mechanism, FailureMechanismEntity entity)
         {
-            entity.GrassCoverErosionInwardsFailureMechanismMetaEntities.Add(mechanism.GeneralInput.Create());
+            var metaEntity = new GrassCoverErosionInwardsFailureMechanismMetaEntity
+            {
+                N = mechanism.GeneralInput.N,
+                DikeProfileCollectionSourcePath = mechanism.DikeProfiles.SourcePath
+            };
+            entity.GrassCoverErosionInwardsFailureMechanismMetaEntities.Add(metaEntity);
         }
 
         private static void AddEntitiesForDikeProfiles(GrassCoverErosionInwardsFailureMechanism mechanism, PersistenceRegistry registry, FailureMechanismEntity entity)

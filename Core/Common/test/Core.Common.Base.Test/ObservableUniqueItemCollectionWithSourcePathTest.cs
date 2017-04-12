@@ -30,9 +30,9 @@ namespace Core.Common.Base.Test
     [TestFixture]
     public class ObservableUniqueItemCollectionWithSourcePathTest
     {
-        private readonly Func<TestItem, string> getUniqueFeature = item => item.Name;
         private const string typeDescriptor = "TestItems";
         private const string featureDescription = "Feature";
+        private readonly Func<TestItem, string> getUniqueFeature = item => item.Name;
 
         [Test]
         public void DefaultConstructor_getUniqueFeatureNull_ThrowsArgumentNullException()
@@ -116,7 +116,7 @@ namespace Core.Common.Base.Test
             TestDelegate call = () => collection.AddRange(items, "path");
 
             // Assert
-            string message = "Collection cannot contain null.";
+            var message = "Collection cannot contain null.";
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message).ParamName;
             Assert.AreEqual("items", paramName);
         }
@@ -245,6 +245,39 @@ namespace Core.Common.Base.Test
             // Assert
             string message = $"TestItems moeten een unieke Feature hebben. Gevonden dubbele elementen: {duplicateNameOne}, {duplicateNameTwo}.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
+        }
+
+        [Test]
+        public void GivenCollectionWithItems_WhenAddRangeWithItemsAlreadyInCollection_ThenThrowsArgumentException()
+        {
+            // Given
+            const string filePath = "some/file/path";
+            var collection = new ConcreteObservableUniqueItemCollectionWithSourcePath<TestItem>(
+                getUniqueFeature, typeDescriptor, featureDescription);
+
+            const string duplicateNameOne = "Item A";
+            const string duplicateNameTwo = "Item B";
+            var expectedCollection = new[]
+            {
+                new TestItem(duplicateNameOne),
+                new TestItem(duplicateNameTwo),
+                new TestItem("Item C"),
+                new TestItem("Item D")
+            };
+            collection.AddRange(expectedCollection, filePath);
+
+            // When
+            TestDelegate call = () => collection.AddRange(new[]
+            {
+                new TestItem(duplicateNameOne),
+                new TestItem(duplicateNameTwo)
+            }, "other/path");
+
+            // Then
+            string message = $"TestItems moeten een unieke Feature hebben. Gevonden dubbele elementen: {duplicateNameOne}, {duplicateNameTwo}.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
+            CollectionAssert.AreEqual(expectedCollection, collection);
+            Assert.AreEqual(filePath, collection.SourcePath);
         }
 
         [Test]
@@ -493,23 +526,18 @@ namespace Core.Common.Base.Test
         private class ConcreteObservableUniqueItemCollectionWithSourcePath<TObject> : ObservableUniqueItemCollectionWithSourcePath<TObject>
             where TObject : class
         {
-            public ConcreteObservableUniqueItemCollectionWithSourcePath(Func<TObject, object> getUniqueFeature, string typeDescriptor, string featureDescription) 
+            public ConcreteObservableUniqueItemCollectionWithSourcePath(Func<TObject, object> getUniqueFeature, string typeDescriptor, string featureDescription)
                 : base(getUniqueFeature, typeDescriptor, featureDescription) {}
         }
 
         private class TestItem
         {
-            public string Name { get; }
-
             public TestItem(string name)
             {
                 Name = name;
             }
 
-            public override string ToString()
-            {
-                return Name;
-            }
+            public string Name { get; }
         }
     }
 }

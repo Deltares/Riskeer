@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Exceptions;
@@ -72,7 +73,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("targetCollection", paramName);
+            Assert.AreEqual("targetDataCollection", paramName);
         }
 
         [Test]
@@ -82,7 +83,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var strategy = new RingtoetsPipingSurfaceLineReplaceDataStrategy(new PipingFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateSurfaceLinesWithImportedData(new RingtoetsPipingSurfaceLineCollection(), 
+            TestDelegate test = () => strategy.UpdateSurfaceLinesWithImportedData(new RingtoetsPipingSurfaceLineCollection(),
                                                                                   null,
                                                                                   string.Empty);
 
@@ -98,7 +99,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var strategy = new RingtoetsPipingSurfaceLineReplaceDataStrategy(new PipingFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateSurfaceLinesWithImportedData(new RingtoetsPipingSurfaceLineCollection(), 
+            TestDelegate test = () => strategy.UpdateSurfaceLinesWithImportedData(new RingtoetsPipingSurfaceLineCollection(),
                                                                                   Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                                   null);
 
@@ -236,8 +237,12 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Assert
             Assert.IsFalse(calculation.HasOutput);
             Assert.IsNull(calculation.InputParameters.SurfaceLine);
-            CollectionAssert.Contains(affectedObjects, calculation);
-            CollectionAssert.Contains(affectedObjects, calculation.InputParameters);
+            CollectionAssert.AreEquivalent(new IObservable[]
+            {
+                calculation,
+                calculation.InputParameters,
+                failureMechanism.SurfaceLines
+            }, affectedObjects);
         }
 
         [Test]
@@ -268,9 +273,10 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             var exception = Assert.Throws<RingtoetsPipingSurfaceLineUpdateException>(call);
-            string expectedMessage = $"Profielschematisaties moeten een unieke naam hebben. Gevonden dubbele elementen: {duplicateName}.";
+            string expectedMessage = "Het importeren van profielschematisaties is mislukt: " +
+                                     $"Profielschematisaties moeten een unieke naam hebben. Gevonden dubbele elementen: {duplicateName}.";
             Assert.AreEqual(expectedMessage, exception.Message);
-            Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
+            Assert.IsInstanceOf<UpdateDataException>(exception.InnerException);
         }
     }
 }

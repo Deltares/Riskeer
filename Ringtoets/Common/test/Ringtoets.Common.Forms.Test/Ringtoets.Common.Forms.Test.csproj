@@ -67,6 +67,7 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="ChangeHandlers\FailureMechanismCalculationChangeHandlerTest.cs" />
     <Compile Include="ChangeHandlers\ObservablePropertyChangeHandlerTest.cs" />
     <Compile Include="ChangeHandlers\FailureMechanismPropertyChangeHandlerTest.cs" />
     <Compile Include="ChangeHandlers\PropertyChangeHelperTest.cs" />
@@ -195,6 +196,10 @@
     <ProjectReference Include="..\..\src\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj">
       <Project>{4d840673-3812-4338-a352-84854e32b8a0}</Project>
       <Name>Ringtoets.Common.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
+      <Project>{52BA7627-CBAB-4209-BE77-3B5F31378277}</Project>
+      <Name>Ringtoets.Common.IO</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Common.Service\Ringtoets.Common.Service.csproj">
       <Project>{d951d6da-fe83-4920-9fdb-63bf96480b54}</Project>

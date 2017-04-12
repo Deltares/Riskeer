@@ -302,8 +302,11 @@ namespace Ringtoets.Integration.TestUtils
                                                    X0 = 0
                                                });
 
-            failureMechanism.DikeProfiles.Add(dikeprofile1);
-            failureMechanism.DikeProfiles.Add(dikeprofile2);
+            failureMechanism.DikeProfiles.AddRange(new[]
+            {
+                dikeprofile1,
+                dikeprofile2
+            }, "some/path/to/dikeprofiles");
 
             var calculation = new GrassCoverErosionInwardsCalculation();
             var calculationWithOutputAndDikeProfileAndHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation
@@ -860,10 +863,10 @@ namespace Ringtoets.Integration.TestUtils
         private static void SetFullyConfiguredFailureMechanism(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
                                                                HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            HydraulicBoundaryLocation internalHydroLocation = new HydraulicBoundaryLocation(hydraulicBoundaryLocation.Id,
-                                                                                            hydraulicBoundaryLocation.Name,
-                                                                                            hydraulicBoundaryLocation.Location.X,
-                                                                                            hydraulicBoundaryLocation.Location.Y)
+            var internalHydroLocation = new HydraulicBoundaryLocation(hydraulicBoundaryLocation.Id,
+                                                                      hydraulicBoundaryLocation.Name,
+                                                                      hydraulicBoundaryLocation.Location.X,
+                                                                      hydraulicBoundaryLocation.Location.Y)
             {
                 WaveHeightOutput = new HydraulicBoundaryLocationOutput(
                     hydraulicBoundaryLocation.WaveHeight + 0.2, double.NaN, double.NaN, double.NaN, double.NaN,

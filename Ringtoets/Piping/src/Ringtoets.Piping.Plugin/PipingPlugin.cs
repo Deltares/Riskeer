@@ -346,15 +346,6 @@ namespace Ringtoets.Piping.Plugin
             };
         }
 
-        private static FileFilterGenerator PipingCalculationConfigurationFileFilter
-        {
-            get
-            {
-                return new FileFilterGenerator(RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Extension,
-                                               RingtoetsCommonFormsResources.DataTypeDisplayName_xml_file_filter_Description);
-            }
-        }
-
         private static FileFilterGenerator StochasticSoilModelFileFilter
         {
             get
@@ -379,7 +370,9 @@ namespace Ringtoets.Piping.Plugin
 
         private bool VerifyStochasticSoilModelUpdates(StochasticSoilModelCollectionContext context, string query)
         {
-            var changeHandler = new StochasticSoilModelChangeHandler(context.FailureMechanism, query, new DialogBasedInquiryHelper(Gui.MainWindow));
+            var changeHandler = new FailureMechanismCalculationChangeHandler(context.FailureMechanism,
+                                                                             query,
+                                                                             new DialogBasedInquiryHelper(Gui.MainWindow));
             return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
         }
 
@@ -580,7 +573,6 @@ namespace Ringtoets.Piping.Plugin
             return Gui.Get(nodeData, treeViewControl)
                       .AddImportItem()
                       .AddUpdateItem()
-                      .AddSeparator()
                       .AddSeparator()
                       .AddCollapseAllItem()
                       .AddExpandAllItem()
@@ -830,7 +822,7 @@ namespace Ringtoets.Piping.Plugin
         private void UpdatedSurfaceLineDependentDataOfCalculation(PipingCalculation scenario)
         {
             string message =
-                Resources.PipingPlugin_VerifyEntryAndExitPointUpdates_When_updating_entry_and_exit_points_definitions_assigned_to_calculation_output_will_be_cleared_confirm;
+                Resources.PipingPlugin_VerifyEntryAndExitPointUpdates_Confirm_calculation_output_cleared_when_updating_entry_and_exit_points_definitions;
             if (VerifyEntryAndExitPointUpdates(new[]
             {
                 scenario
@@ -1050,7 +1042,7 @@ namespace Ringtoets.Piping.Plugin
             if (!calculations.Any())
             {
                 isItemEnabled = false;
-                toolTipText = Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_No_calculations_to_update_ToolTip;
+                toolTipText = RingtoetsCommonFormsResources.CreateUpdateContextMenuItem_No_calculations_to_update_ToolTip;
             }
             else if (calculations.All(calc => calc.InputParameters.SurfaceLine == null))
             {
@@ -1073,7 +1065,7 @@ namespace Ringtoets.Piping.Plugin
             PipingCalculationScenario[] calculations = nodeData.WrappedData.GetCalculations().OfType<PipingCalculationScenario>().ToArray();
 
             string message =
-                Resources.PipingPlugin_VerifyEntryAndExitPointUpdates_When_updating_entry_and_exit_points_definitions_assigned_to_calculations_output_will_be_cleared_confirm;
+                Resources.PipingPlugin_VerifyEntryAndExitPointUpdates_Confirm_calculation_outputs_cleared_when_updating_entry_and_exit_points_definitions;
             if (VerifyEntryAndExitPointUpdates(calculations, message))
             {
                 foreach (PipingCalculationScenario calculation in calculations)
@@ -1124,8 +1116,9 @@ namespace Ringtoets.Piping.Plugin
 
         private bool VerifyPipingSurfaceLineUpdates(RingtoetsPipingSurfaceLinesContext context, string query)
         {
-            var changeHandler = new RingtoetsPipingSurfaceLineChangeHandler(context.FailureMechanism, query,
-                                                                            new DialogBasedInquiryHelper(Gui.MainWindow));
+            var changeHandler = new FailureMechanismCalculationChangeHandler(context.FailureMechanism,
+                                                                             query,
+                                                                             new DialogBasedInquiryHelper(Gui.MainWindow));
 
             return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
         }

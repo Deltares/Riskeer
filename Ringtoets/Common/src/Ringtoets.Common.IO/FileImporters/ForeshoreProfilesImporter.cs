@@ -27,6 +27,7 @@ using Core.Common.IO.Readers;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.IO.DikeProfiles;
+using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.Properties;
 
 namespace Ringtoets.Common.IO.FileImporters
@@ -46,7 +47,7 @@ namespace Ringtoets.Common.IO.FileImporters
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="referenceLine"/>, 
         /// <paramref name="filePath"/> or <paramref name="importTarget"/> is <c>null</c>.</exception>
         public ForeshoreProfilesImporter(ObservableList<ForeshoreProfile> importTarget, ReferenceLine referenceLine, string filePath)
-            : base(referenceLine, filePath, importTarget) {}
+            : base(referenceLine, filePath, importTarget, new ImportMessageProvider()) {}
 
         protected override void CreateProfiles(ReadResult<ProfileLocation> importProfileLocationResult,
                                                ReadResult<DikeProfileData> importDikeProfileDataResult)

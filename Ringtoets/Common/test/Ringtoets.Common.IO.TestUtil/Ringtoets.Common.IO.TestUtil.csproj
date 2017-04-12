@@ -56,6 +56,7 @@
     <Compile Include="CustomCalculationConfigurationWriterDesignGuidelinesTestFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestConfigurationItem.cs" />
+    <Compile Include="TestDikeProfileUpdateStrategy.cs" />
     <Compile Include="TestSchemaCalculationConfigurationWriter.cs" />
   </ItemGroup>
   <ItemGroup>

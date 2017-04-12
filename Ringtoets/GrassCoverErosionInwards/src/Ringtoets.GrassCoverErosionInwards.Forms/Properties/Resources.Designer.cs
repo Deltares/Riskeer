@@ -235,6 +235,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De locatie van het bestand waaruit de dijkprofielen zijn geïmporteerd..
+        /// </summary>
+        public static string DikeProfileCollection_SourcePath_Description {
+            get {
+                return ResourceManager.GetString("DikeProfileCollection_SourcePath_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - {1}.
         /// </summary>
         public static string GrassCoverErosionInwardsChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_ {

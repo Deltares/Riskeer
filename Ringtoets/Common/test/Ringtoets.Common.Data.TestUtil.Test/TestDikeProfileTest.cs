@@ -75,6 +75,31 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
+        public void Constructor_WithNameAndId_ExpectedValues()
+        {
+            // Setup
+            const string name = "A";
+            const string id = "Just an id";
+
+            // Call
+            var testProfile = new TestDikeProfile(name, id);
+
+            // Assert
+            Assert.IsInstanceOf<DikeProfile>(testProfile);
+            Assert.IsNotNull(testProfile.ForeshoreProfile);
+            Assert.IsNull(testProfile.BreakWater);
+            CollectionAssert.IsEmpty(testProfile.DikeGeometry);
+            Assert.AreEqual(0, testProfile.DikeHeight.Value);
+            CollectionAssert.IsEmpty(testProfile.ForeshoreGeometry);
+            Assert.IsFalse(testProfile.HasBreakWater);
+            Assert.AreEqual(id, testProfile.Id);
+            Assert.AreEqual(name, testProfile.Name);
+            Assert.AreEqual(0, testProfile.Orientation.Value);
+            Assert.AreEqual(new Point2D(0, 0), testProfile.WorldReferencePoint);
+            Assert.AreEqual(0, testProfile.X0);
+        }
+
+        [Test]
         public void Constructor_WithPoint_ExpectedValues()
         {
             // Setup
@@ -93,6 +118,31 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.IsFalse(testProfile.HasBreakWater);
             Assert.AreEqual("id", testProfile.Id);
             Assert.AreEqual("id", testProfile.Name);
+            Assert.AreEqual(0, testProfile.Orientation.Value);
+            Assert.AreEqual(point, testProfile.WorldReferencePoint);
+            Assert.AreEqual(0, testProfile.X0);
+        }
+
+        [Test]
+        public void Constructor_WithPointAndId_ExpectedValues()
+        {
+            // Setup
+            var point = new Point2D(1.1, 2.2);
+            const string id = "Just an id";
+
+            // Call
+            var testProfile = new TestDikeProfile(point, id);
+
+            // Assert
+            Assert.IsInstanceOf<DikeProfile>(testProfile);
+            Assert.IsNotNull(testProfile.ForeshoreProfile);
+            Assert.IsNull(testProfile.BreakWater);
+            CollectionAssert.IsEmpty(testProfile.DikeGeometry);
+            Assert.AreEqual(0, testProfile.DikeHeight.Value);
+            CollectionAssert.IsEmpty(testProfile.ForeshoreGeometry);
+            Assert.IsFalse(testProfile.HasBreakWater);
+            Assert.AreEqual(id, testProfile.Id);
+            Assert.AreEqual(id, testProfile.Name);
             Assert.AreEqual(0, testProfile.Orientation.Value);
             Assert.AreEqual(point, testProfile.WorldReferencePoint);
             Assert.AreEqual(0, testProfile.X0);
@@ -127,10 +177,10 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         public void Constructor_WithForeshoreGeometry_ExpectedValues()
         {
             // Setup
-            IEnumerable<Point2D> foreshoreProfileGeometry = new []
+            IEnumerable<Point2D> foreshoreProfileGeometry = new[]
             {
-                new Point2D(0, 0), 
-                new Point2D(1, 1), 
+                new Point2D(0, 0),
+                new Point2D(1, 1),
                 new Point2D(2, 2),
             };
 
@@ -145,6 +195,64 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreEqual(0, testProfile.DikeHeight.Value);
             CollectionAssert.AreEqual(foreshoreProfileGeometry, testProfile.ForeshoreGeometry);
             Assert.IsFalse(testProfile.HasBreakWater);
+            Assert.AreEqual("id", testProfile.Name);
+            Assert.AreEqual(0, testProfile.Orientation.Value);
+            Assert.AreEqual(new Point2D(0, 0), testProfile.WorldReferencePoint);
+            Assert.AreEqual(0, testProfile.X0);
+        }
+
+        [Test]
+        public void Constructor_WithForeshoreProfileAndId_ExpectedValues()
+        {
+            // Setup
+            const string id = "Just an id";
+            IEnumerable<Point2D> foreshoreProfileGeometry = new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1),
+                new Point2D(2, 2),
+            };
+
+            // Call
+            var testProfile = new TestDikeProfile(foreshoreProfileGeometry, id);
+
+            // Assert
+            Assert.IsInstanceOf<DikeProfile>(testProfile);
+            Assert.IsNotNull(testProfile.ForeshoreProfile);
+            Assert.IsNull(testProfile.BreakWater);
+            CollectionAssert.IsEmpty(testProfile.DikeGeometry);
+            Assert.AreEqual(0, testProfile.DikeHeight.Value);
+            CollectionAssert.AreEqual(foreshoreProfileGeometry, testProfile.ForeshoreGeometry);
+            Assert.IsFalse(testProfile.HasBreakWater);
+            Assert.AreEqual(id, testProfile.Id);
+            Assert.AreEqual(id, testProfile.Name);
+            Assert.AreEqual(0, testProfile.Orientation.Value);
+            Assert.AreEqual(new Point2D(0, 0), testProfile.WorldReferencePoint);
+            Assert.AreEqual(0, testProfile.X0);
+        }
+
+        [Test]
+        public void Constructor_WithDikeGeometry_ExpectedValues()
+        {
+            // Setup
+            IEnumerable<RoughnessPoint> foreshoreProfileGeometry = new[]
+            {
+                new RoughnessPoint(new Point2D(0, 0), 5),
+                new RoughnessPoint(new Point2D(1, 1), 6),
+                new RoughnessPoint(new Point2D(2, 2), 7)
+            };
+
+            var testProfile = new TestDikeProfile(foreshoreProfileGeometry);
+
+            // Assert
+            Assert.IsInstanceOf<DikeProfile>(testProfile);
+            Assert.IsNotNull(testProfile.ForeshoreProfile);
+            Assert.IsNull(testProfile.BreakWater);
+            CollectionAssert.AreEqual(foreshoreProfileGeometry, testProfile.DikeGeometry);
+            Assert.AreEqual(0, testProfile.DikeHeight.Value);
+            CollectionAssert.IsEmpty(testProfile.ForeshoreGeometry);
+            Assert.IsFalse(testProfile.HasBreakWater);
+            Assert.AreEqual("id", testProfile.Id);
             Assert.AreEqual("id", testProfile.Name);
             Assert.AreEqual(0, testProfile.Orientation.Value);
             Assert.AreEqual(new Point2D(0, 0), testProfile.WorldReferencePoint);

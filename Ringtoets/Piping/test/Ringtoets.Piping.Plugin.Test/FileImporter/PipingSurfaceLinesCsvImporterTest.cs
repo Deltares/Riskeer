@@ -191,9 +191,9 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var failureMechanism = new PipingFailureMechanism();
 
-            int callCount = 0;
-            bool progressStarted = false;
-            bool progressCharacteristicPointsStarted = false;
+            var callCount = 0;
+            var progressStarted = false;
+            var progressCharacteristicPointsStarted = false;
 
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
             var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, validFilePath, messageProvider, surfaceLineUpdateStrategy);
@@ -287,7 +287,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.IsTrue(File.Exists(validFilePath));
 
             // Call
-            bool importResult = false;
+            var importResult = false;
             Action call = () => importResult = importer.Import();
 
             // Assert
@@ -308,7 +308,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Sample some of the imported data:
             RingtoetsPipingSurfaceLine firstSurfaceLine = importTargetArray[0];
             Assert.AreEqual("Rotterdam1", firstSurfaceLine.Name);
-            var geometryPoints = firstSurfaceLine.Points.ToArray();
+            Point3D[] geometryPoints = firstSurfaceLine.Points.ToArray();
             Assert.AreEqual(8, geometryPoints.Length);
             Assert.AreNotEqual(geometryPoints[0].X, geometryPoints[1].X,
                                "Originally duplicate points at the start have been removed.");
@@ -349,7 +349,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
             Assert.IsTrue(File.Exists(validFilePath));
 
-            bool importResult = true;
+            var importResult = true;
 
             // Call
             Action call = () => importResult = importer.Import();
@@ -388,7 +388,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
             Assert.IsTrue(File.Exists(validFilePath));
 
-            bool importResult = true;
+            var importResult = true;
 
             // Call
             Action call = () => importResult = importer.Import();
@@ -435,7 +435,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
             Assert.IsTrue(File.Exists(validFilePath));
 
-            bool importResult = false;
+            var importResult = false;
 
             // Call
             Action call = () => importResult = importer.Import();
@@ -482,7 +482,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
             Assert.IsTrue(File.Exists(validFilePath));
 
-            bool importResult = false;
+            var importResult = false;
 
             // Call
             Action call = () => importResult = importer.Import();
@@ -523,7 +523,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.IsTrue(File.Exists(validFilePath));
 
             // Setup (second part)
-            var importResult = importer.Import();
+            bool importResult = importer.Import();
             Assert.IsFalse(importResult);
 
             importer.SetProgressChanged(null);
@@ -549,7 +549,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
             var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, new ReferenceLine(), corruptPath, messageProvider, surfaceLineUpdateStrategy);
 
-            bool importResult = true;
+            var importResult = true;
 
             // Call
             Action call = () => importResult = importer.Import();
@@ -557,8 +557,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Assert
             string internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath)
                 .Build("Er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.");
-            var expectedLogMessage = string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped,
-                                                   internalErrorMessage);
+            string expectedLogMessage = string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped,
+                                                      internalErrorMessage);
             Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedLogMessage, LogLevelConstant.Error);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel, 1);
             AssertUnsuccessfulImport(importResult, surfaceLineUpdateStrategy);
@@ -646,7 +646,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
             var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, new ReferenceLine(), corruptPath, messageProvider, surfaceLineUpdateStrategy);
 
-            bool importResult = true;
+            var importResult = true;
 
             // Call
             Action call = () => importResult = importer.Import();
@@ -675,7 +675,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             mocks.ReplayAll();
 
-            var copyTargetPath = TestHelper.GetScratchPadPath($"{nameof(Import_FileDeletedDuringRead_AbortImportAndLog)}.csv");
+            string copyTargetPath = TestHelper.GetScratchPadPath($"{nameof(Import_FileDeletedDuringRead_AbortImportAndLog)}.csv");
             string validFilePath = Path.Combine(ioTestDataPath, "TwoValidSurfaceLines.csv");
             File.Copy(validFilePath, copyTargetPath);
 
@@ -787,7 +787,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var failureMechanism = new PipingFailureMechanism();
 
-            int progressCallCount = 0;
+            var progressCallCount = 0;
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
             var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, corruptPath, messageProvider, surfaceLineUpdateStrategy);
             importer.SetProgressChanged((name, step, steps) => progressCallCount++);
@@ -959,8 +959,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importResult = importer.Import();
 
             // Assert
-            var expectedLogMessage = string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_Import_No_characteristic_points_file_for_surface_line_file_expecting_file_0_,
-                                                   nonExistingCharacteristicFile);
+            string expectedLogMessage = string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_Import_No_characteristic_points_file_for_surface_line_file_expecting_file_0_,
+                                                      nonExistingCharacteristicFile);
             Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedLogMessage, LogLevelConstant.Info);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel, 3);
 
@@ -1201,7 +1201,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var failureMechanism = new PipingFailureMechanism();
 
-            int progressCallCount = 0;
+            var progressCallCount = 0;
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
             var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, surfaceLinesFile, messageProvider, surfaceLineUpdateStrategy);
             importer.SetProgressChanged((name, step, steps) => progressCallCount++);
@@ -1274,7 +1274,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var failureMechanism = new PipingFailureMechanism();
 
-            int progressCallCount = 0;
+            var progressCallCount = 0;
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
             var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, surfaceLinesPath, messageProvider, surfaceLineUpdateStrategy);
             importer.SetProgressChanged((name, step, steps) => progressCallCount++);
@@ -1341,7 +1341,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var failureMechanism = new PipingFailureMechanism();
 
-            int progressCallCount = 0;
+            var progressCallCount = 0;
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
             var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, surfaceLinesPath, messageProvider, surfaceLineUpdateStrategy);
             importer.SetProgressChanged((name, step, steps) => progressCallCount++);
@@ -1413,7 +1413,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var failureMechanism = new PipingFailureMechanism();
 
-            int progressCallCount = 0;
+            var progressCallCount = 0;
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
             var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, surfaceLinesPath, messageProvider, surfaceLineUpdateStrategy);
             importer.SetProgressChanged((name, step, steps) => progressCallCount++);
@@ -1424,9 +1424,9 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importResult = importer.Import();
 
             // Assert
-            var pointFormat = string.Format(PipingDataResources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
-                                            new Point3D(0, 1, 2),
-                                            characteristicPointName);
+            string pointFormat = string.Format(PipingDataResources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
+                                               new Point3D(0, 1, 2),
+                                               characteristicPointName);
             var expectedLogMessages = new[]
             {
                 Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Start_reading_surface_lines_from_File_0_,
@@ -1492,9 +1492,9 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var failureMechanism = new PipingFailureMechanism();
 
-            int callCount = 0;
-            bool progressStarted = false;
-            bool progressCharacteristicPointsStarted = false;
+            var callCount = 0;
+            var progressStarted = false;
+            var progressCharacteristicPointsStarted = false;
 
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
             var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, validSurfaceLinesFilePath, messageProvider, surfaceLineUpdateStrategy);
@@ -1709,8 +1709,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importResult = importer.Import();
 
             // Assert
-            var message = string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_CheckCharacteristicPoints_EntryPointL_greater_or_equal_to_ExitPointL_for_0_,
-                                        "ArtifcialLocal");
+            string message = string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_CheckCharacteristicPoints_EntryPointL_greater_or_equal_to_ExitPointL_for_0_,
+                                           "ArtifcialLocal");
             Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(message, LogLevelConstant.Warn);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel);
 
@@ -1727,7 +1727,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void DoPostImport_AfterImport_ObserversNotified()
         {
             // Setup
-            var mocks = new MockRepository();
             var observableA = mocks.StrictMock<IObservable>();
             observableA.Expect(o => o.NotifyObservers());
             var observableB = mocks.StrictMock<IObservable>();
@@ -1805,7 +1804,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             public RingtoetsPipingSurfaceLine[] ReadSurfaceLines { get; private set; }
             public IEnumerable<IObservable> UpdatedInstances { private get; set; } = Enumerable.Empty<IObservable>();
 
-            public IEnumerable<IObservable> UpdateSurfaceLinesWithImportedData(RingtoetsPipingSurfaceLineCollection targetCollection,
+            public IEnumerable<IObservable> UpdateSurfaceLinesWithImportedData(RingtoetsPipingSurfaceLineCollection targetDataCollection,
                                                                                IEnumerable<RingtoetsPipingSurfaceLine> readRingtoetsPipingSurfaceLines,
                                                                                string sourceFilePath)
             {

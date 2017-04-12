@@ -82,6 +82,26 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het importeren van dijkprofielen is mislukt: {0}.
+        /// </summary>
+        internal static string DikeProfileReplaceDataStrategy_UpdateDikeProfilesWithImportedData_Importing_DikeProfiles_failed_Reason_0 {
+            get {
+                return ResourceManager.GetString("DikeProfileReplaceDataStrategy_UpdateDikeProfilesWithImportedData_Importing_DikeP" +
+                        "rofiles_failed_Reason_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het bijwerken van de dijkprofielen is mislukt: {0}.
+        /// </summary>
+        internal static string DikeProfileReplaceDataStrategy_UpdateDikeProfilesWithImportedData_Updating_DikeProfiles_failed_Reason_0 {
+            get {
+                return ResourceManager.GetString("DikeProfileReplaceDataStrategy_UpdateDikeProfilesWithImportedData_Updating_DikePr" +
+                        "ofiles_failed_Reason_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Er zijn geen dijkprofielen beschikbaar om berekeningen voor te genereren..
         /// </summary>
         internal static string GrassCoverErosionInwardsPlugin_CreateGenerateCalculationsItem_NoDikeLocations_ToolTip {
@@ -97,6 +117,114 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Properties {
         internal static string GrassCoverErosionInwardsPlugin_CreateGenerateCalculationsItem_ToolTip {
             get {
                 return ResourceManager.GetString("GrassCoverErosionInwardsPlugin_CreateGenerateCalculationsItem_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er zijn geen berekeningen met een dijkprofiel..
+        /// </summary>
+        internal static string GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_No_calculations_with_DikeProfile_ToolTip {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_No_calculations_with_D" +
+                        "ikeProfile_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alle berekeningen bijwerken met het dijkprofiel..
+        /// </summary>
+        internal static string GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_all_calculations_with_DikeProfile_Tooltip {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_all_calculation" +
+                        "s_with_DikeProfile_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Bijwerken dijkprofielen.
+        /// </summary>
+        internal static string GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_all_DikeProfiles {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_all_DikeProfile" +
+                        "s", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er moet een dijkprofiel geselecteerd zijn..
+        /// </summary>
+        internal static string GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_calculation_no_DikeProfile_ToolTip {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_calculation_no_" +
+                        "DikeProfile_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Berekening bijwerken met het dijkprofiel..
+        /// </summary>
+        internal static string GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_calculation_with_DikeProfile_data_ToolTip {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_calculation_wit" +
+                        "h_DikeProfile_data_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Bijwerken dijkprofiel.
+        /// </summary>
+        internal static string GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_DikeProfile_data {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_DikeProfile_dat" +
+                        "a", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Als u dijkprofielen importeert, dan worden alle rekenresultaten van dit toetsspoor verwijderd.
+        ///
+        ///Weet u zeker dat u wilt doorgaan?.
+        /// </summary>
+        internal static string GrassCoverErosionInwardsPlugin_VerifyDikeProfileImport_When_importing_DikeProfiles_Calculation_output_will_be_cleared_confirm {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsPlugin_VerifyDikeProfileImport_When_importing_DikeProfile" +
+                        "s_Calculation_output_will_be_cleared_confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wanneer het dijkprofiel wijzigt als gevolg van het bijwerken, zal het resultaat van deze berekening worden verwijderd.
+        ///
+        ///Weet u zeker dat u wilt doorgaan?.
+        /// </summary>
+        internal static string GrassCoverErosionInwardsPlugin_VerifyDikeProfileUpdate_Confirm_calculation_output_cleared_when_updating_DikeProfile_dependent_data {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsPlugin_VerifyDikeProfileUpdate_Confirm_calculation_output" +
+                        "_cleared_when_updating_DikeProfile_dependent_data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wanneer de dijkprofielen wijzigen als gevolg van het bijwerken, zullen de resultaten van berekeningen die deze dijkprofielen gebruiken, worden verwijderd.
+        ///
+        ///Weet u zeker dat u wilt doorgaan?.
+        /// </summary>
+        internal static string GrassCoverErosionInwardsPlugin_VerifyDikeProfileUpdate_Confirm_calculation_outputs_cleared_when_updating_DikeProfile_dependent_data {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsPlugin_VerifyDikeProfileUpdate_Confirm_calculation_output" +
+                        "s_cleared_when_updating_DikeProfile_dependent_data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Als dijkprofielen wijzigen door het bijwerken, dan worden de resultaten van berekeningen die deze dijkprofielen gebruiken verwijderd.
+        ///
+        ///Weet u zeker dat u wilt doorgaan?.
+        /// </summary>
+        internal static string GrassCoverErosionInwardsPlugin_VerifyDikeProfileUpdate_When_updating_Calculation_with_DikeProfile_data_output_will_be_cleared_confirm {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsPlugin_VerifyDikeProfileUpdate_When_updating_Calculation_" +
+                        "with_DikeProfile_data_output_will_be_cleared_confirm", resourceCulture);
             }
         }
     }

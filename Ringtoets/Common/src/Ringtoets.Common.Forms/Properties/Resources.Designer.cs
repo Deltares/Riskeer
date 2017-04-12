@@ -710,6 +710,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er zijn geen berekeningen om bij te werken..
+        /// </summary>
+        public static string CreateUpdateContextMenuItem_No_calculations_to_update_ToolTip {
+            get {
+                return ResourceManager.GetString("CreateUpdateContextMenuItem_No_calculations_to_update_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap DatabaseIcon {

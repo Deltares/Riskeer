@@ -78,7 +78,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             var registry = new PersistenceRegistry();
 
             // Call
-            var entity = failureMechanism.Create(registry);
+            FailureMechanismEntity entity = failureMechanism.Create(registry);
 
             // Assert
             Assert.IsNotNull(entity);
@@ -91,6 +91,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             Assert.AreEqual(1, entity.GrassCoverErosionInwardsFailureMechanismMetaEntities.Count);
             GrassCoverErosionInwardsFailureMechanismMetaEntity generalInputEntity = entity.GrassCoverErosionInwardsFailureMechanismMetaEntities.First();
             Assert.AreEqual(failureMechanism.GeneralInput.N, generalInputEntity.N);
+            Assert.IsNull(generalInputEntity.DikeProfileCollectionSourcePath);
         }
 
         [Test]
@@ -139,7 +140,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
-            var entity = failureMechanism.Create(new PersistenceRegistry());
+            FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
 
             // Assert
             Assert.IsEmpty(entity.FailureMechanismSectionEntities);
@@ -153,7 +154,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             failureMechanism.AddSection(new TestFailureMechanismSection());
 
             // Call
-            var entity = failureMechanism.Create(new PersistenceRegistry());
+            FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
 
             // Assert
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.Count);
@@ -168,7 +169,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             var registry = new PersistenceRegistry();
 
             // Call
-            var entity = failureMechanism.Create(registry);
+            FailureMechanismEntity entity = failureMechanism.Create(registry);
 
             // Assert
             CollectionAssert.IsEmpty(entity.DikeProfileEntities);
@@ -178,16 +179,25 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         public void Create_WithDikeProfiles_AddDikeProfileEntities()
         {
             // Setup
+            const string sourcePath = "some/path/to/my/dikeprofiles";
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.DikeProfiles.Add(new TestDikeProfile());
-            failureMechanism.DikeProfiles.Add(new TestDikeProfile());
+            failureMechanism.DikeProfiles.AddRange(new[]
+            {
+                new TestDikeProfile(string.Empty, "id1"),
+                new TestDikeProfile(string.Empty, "id2")
+            }, sourcePath);
+
             var registry = new PersistenceRegistry();
 
             // Call
-            var entity = failureMechanism.Create(registry);
+            FailureMechanismEntity entity = failureMechanism.Create(registry);
 
             // Assert
             Assert.AreEqual(2, entity.DikeProfileEntities.Count);
+
+            GrassCoverErosionInwardsFailureMechanismMetaEntity generalInputEntity =
+                entity.GrassCoverErosionInwardsFailureMechanismMetaEntities.First();
+            Assert.AreEqual(sourcePath, generalInputEntity.DikeProfileCollectionSourcePath);
         }
 
         [Test]

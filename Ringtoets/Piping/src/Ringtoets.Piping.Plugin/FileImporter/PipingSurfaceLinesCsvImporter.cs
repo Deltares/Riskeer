@@ -60,6 +60,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         private readonly IImporterMessageProvider messageProvider;
         private readonly ISurfaceLineUpdateDataStrategy surfaceLineUpdateStrategy;
         private readonly ILog log = LogManager.GetLogger(typeof(PipingSurfaceLinesCsvImporter));
+        private IEnumerable<IObservable> updatedInstances;
 
         private readonly ReferenceLine referenceLine;
 
@@ -96,6 +97,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             this.messageProvider = messageProvider;
             this.surfaceLineUpdateStrategy = surfaceLineUpdateStrategy;
             this.referenceLine = referenceLine;
+            updatedInstances = Enumerable.Empty<IObservable>();
         }
 
         protected override bool OnImport()
@@ -120,7 +122,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
 
             NotifyProgress(messageProvider.GetAddDataToModelProgressText(), 1, 1);
-            UpdatedInstances = surfaceLineUpdateStrategy.UpdateSurfaceLinesWithImportedData(ImportTarget, importResults, FilePath);
+            updatedInstances = surfaceLineUpdateStrategy.UpdateSurfaceLinesWithImportedData(ImportTarget, importResults, FilePath);
             return true;
         }
 
@@ -132,13 +134,11 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         protected override void DoPostImportUpdates()
         {
-            foreach (IObservable observable in UpdatedInstances)
+            foreach (IObservable observable in updatedInstances)
             {
                 observable.NotifyObservers();
             }
         }
-
-        private IEnumerable<IObservable> UpdatedInstances { get; set; } = Enumerable.Empty<IObservable>();
 
         private ReadResult<T> HandleCriticalReadError<T>(Exception e)
         {

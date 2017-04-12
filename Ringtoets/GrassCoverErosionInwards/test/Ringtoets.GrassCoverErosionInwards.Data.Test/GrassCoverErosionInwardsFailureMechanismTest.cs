@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
@@ -123,7 +124,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             mocks.ReplayAll();
 
             // Call
-            var calculations = failureMechanism.Calculations.ToList();
+            List<ICalculation> calculations = failureMechanism.Calculations.ToList();
 
             // Assert
             Assert.AreEqual(2, calculations.Count);
@@ -136,16 +137,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Scenario
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            const string filePath = "path";
 
-            DikeProfile dikeProfile1 = new TestDikeProfile(new Point2D(0, 0));
-            DikeProfile dikeProfile2 = new TestDikeProfile(new Point2D(1, 1));
-            DikeProfile dikeProfile3 = new TestDikeProfile(new Point2D(2, 2));
+            DikeProfile dikeProfile1 = new TestDikeProfile(new Point2D(0, 0), "id1");
+            DikeProfile dikeProfile2 = new TestDikeProfile(new Point2D(1, 1), "id2");
+            DikeProfile dikeProfile3 = new TestDikeProfile(new Point2D(2, 2), "id3");
 
-            failureMechanism.DikeProfiles.Add(dikeProfile1);
+            failureMechanism.DikeProfiles.AddRange(new[]
+            {
+                dikeProfile1
+            }, filePath);
 
             // Event
-            failureMechanism.DikeProfiles.Add(dikeProfile2);
-            failureMechanism.DikeProfiles.Insert(0, dikeProfile3);
+            failureMechanism.DikeProfiles.AddRange(new[]
+            {
+                dikeProfile3,
+                dikeProfile2
+            }, filePath);
             failureMechanism.DikeProfiles.Remove(dikeProfile1);
 
             // Result

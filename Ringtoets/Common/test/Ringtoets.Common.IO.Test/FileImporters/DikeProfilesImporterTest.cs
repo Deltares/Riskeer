@@ -22,40 +22,63 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.IO.FileImporters;
+using Ringtoets.Common.IO.FileImporters.MessageProviders;
+using Ringtoets.Common.IO.TestUtil;
 
 namespace Ringtoets.Common.IO.Test.FileImporters
 {
     [TestFixture]
     public class DikeProfilesImporterTest
     {
+        private MockRepository mocks;
+
+        [SetUp]
+        public void Setup()
+        {
+            mocks = new MockRepository();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            mocks.VerifyAll();
+        }
+
         [Test]
         public void Constructor_WithValidParameters_ReturnsNewInstance()
         {
             // Setup
-            var importTarget = new ObservableList<DikeProfile>();
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
+            var importTarget = new DikeProfileCollection();
             var referenceLine = new ReferenceLine();
 
             // Call
-            var importer = new DikeProfilesImporter(importTarget, referenceLine, "");
+            var importer = new DikeProfilesImporter(importTarget, referenceLine, "", new TestDikeProfileUpdateStrategy(), messageProvider);
 
             // Assert
-            Assert.IsInstanceOf<ProfilesImporter<ObservableList<DikeProfile>>>(importer);
+            Assert.IsInstanceOf<ProfilesImporter<DikeProfileCollection>>(importer);
         }
 
         [Test]
         public void Constructor_ImportTargetNull_ThrowArgumentNullException()
         {
+            // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             // Call
-            TestDelegate call = () => new DikeProfilesImporter(null, new ReferenceLine(), "");
+            TestDelegate call = () => new DikeProfilesImporter(null, new ReferenceLine(), "", new TestDikeProfileUpdateStrategy(), messageProvider);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -65,8 +88,12 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         [Test]
         public void Constructor_ReferenceLineNull_ThrowArgumentNullException()
         {
+            // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             // Call
-            TestDelegate call = () => new DikeProfilesImporter(new ObservableList<DikeProfile>(), null, "");
+            TestDelegate call = () => new DikeProfilesImporter(new DikeProfileCollection(), null, "", new TestDikeProfileUpdateStrategy(), messageProvider);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -76,8 +103,12 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         [Test]
         public void Constructor_FilePathNull_ThrowArgumentNullException()
         {
+            // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             // Call
-            TestDelegate call = () => new DikeProfilesImporter(new ObservableList<DikeProfile>(), new ReferenceLine(), null);
+            TestDelegate call = () => new DikeProfilesImporter(new DikeProfileCollection(), new ReferenceLine(), null, new TestDikeProfileUpdateStrategy(), messageProvider);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -85,28 +116,55 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
+        public void Constructor_UpdateStrategyNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new DikeProfilesImporter(new DikeProfileCollection(), new ReferenceLine(), string.Empty, null, messageProvider);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("dikeProfileUpdateStrategy", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_MessageProviderNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new DikeProfilesImporter(new DikeProfileCollection(), new ReferenceLine(), string.Empty,
+                                                               new TestDikeProfileUpdateStrategy(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("messageProvider", exception.ParamName);
+        }
+
+        [Test]
         public void Import_FromFileWithUnmatchableId_TrueAndLogError()
         {
             // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("DikeProfiles", "IpflWithUnmatchableId", "Voorlanden_12-2_UnmatchableId.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
-            var dikeProfiles = new ObservableList<DikeProfile>();
-
-            var dikeProfilesImporter = new DikeProfilesImporter(dikeProfiles, referenceLine, filePath);
+            var dikeProfilesImporter = new DikeProfilesImporter(new DikeProfileCollection(),
+                                                                referenceLine, filePath,
+                                                                new TestDikeProfileUpdateStrategy(), messageProvider);
             var importResult = false;
 
             // Call
             Action call = () => importResult = dikeProfilesImporter.Import();
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                string[] messageArray = messages.ToArray();
-                string expectedMessage = "Kan geen geldige gegevens vinden voor dijkprofiellocatie met ID 'unmatchable'.";
-                Assert.AreEqual(expectedMessage, messageArray[0]);
-            });
+            const string expectedMessage = "Kan geen geldige gegevens vinden voor dijkprofiellocatie met ID 'unmatchable'.";
+            var expectedLogMessage = new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage, 1);
             Assert.IsTrue(importResult);
         }
 
@@ -114,37 +172,49 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_FiveDikeProfilesWithoutGeometries_TrueAndLogWarningAndNoDikeProfiles()
         {
             // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             string fileDirectory = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
                                                               Path.Combine("DikeProfiles", "NoDikeProfileGeometries"));
             string filePath = Path.Combine(fileDirectory, "Voorlanden 12-2.shp");
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
 
-            var dikeProfiles = new ObservableList<DikeProfile>();
-            var dikeProfilesImporter = new DikeProfilesImporter(dikeProfiles, referenceLine, filePath);
+            var updateStrategy = new TestDikeProfileUpdateStrategy();
+            var dikeProfilesImporter = new DikeProfilesImporter(new DikeProfileCollection(), referenceLine, filePath, updateStrategy, messageProvider);
 
             // Call
-            bool importResult = false;
+            var importResult = false;
             Action call = () => importResult = dikeProfilesImporter.Import();
 
             // Assert
-            string[] expectedMessages =
+            var expectedMessages = new[]
             {
-                string.Format("Profielgegevens definiëren geen dijkgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel001 - Ringtoets.prfl")),
-                string.Format("Profielgegevens definiëren geen dijkgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel002 - Ringtoets.prfl")),
-                string.Format("Profielgegevens definiëren geen dijkgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel003 - Ringtoets.prfl")),
-                string.Format("Profielgegevens definiëren geen dijkgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel004 - Ringtoets.prfl")),
-                string.Format("Profielgegevens definiëren geen dijkgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel005 - Ringtoets.prfl"))
+                Tuple.Create($"Profielgegevens definiëren geen dijkgeometrie. Bestand '{Path.Combine(fileDirectory, "profiel001 - Ringtoets.prfl")}' wordt overgeslagen.",
+                             LogLevelConstant.Warn),
+                Tuple.Create($"Profielgegevens definiëren geen dijkgeometrie. Bestand '{Path.Combine(fileDirectory, "profiel002 - Ringtoets.prfl")}' wordt overgeslagen.",
+                             LogLevelConstant.Warn),
+                Tuple.Create($"Profielgegevens definiëren geen dijkgeometrie. Bestand '{Path.Combine(fileDirectory, "profiel003 - Ringtoets.prfl")}' wordt overgeslagen.",
+                             LogLevelConstant.Warn),
+                Tuple.Create($"Profielgegevens definiëren geen dijkgeometrie. Bestand '{Path.Combine(fileDirectory, "profiel004 - Ringtoets.prfl")}' wordt overgeslagen.",
+                             LogLevelConstant.Warn),
+                Tuple.Create($"Profielgegevens definiëren geen dijkgeometrie. Bestand '{Path.Combine(fileDirectory, "profiel005 - Ringtoets.prfl")}' wordt overgeslagen.",
+                             LogLevelConstant.Warn)
             };
-            TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages);
             Assert.IsTrue(importResult);
-            Assert.AreEqual(0, dikeProfiles.Count);
+            Assert.IsTrue(updateStrategy.Updated);
+            Assert.AreEqual(0, updateStrategy.ReadDikeProfiles.Length);
         }
 
         [Test]
         public void Import_OneDikeProfileLocationNotCloseEnoughToReferenceLine_TrueAndLogErrorAndFourDikeProfiles()
         {
             // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
@@ -159,8 +229,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(referencePoints);
 
-            var dikeProfiles = new ObservableList<DikeProfile>();
-            var dikeProfilesImporter = new DikeProfilesImporter(dikeProfiles, referenceLine, filePath);
+            var updateDataStrategy = new TestDikeProfileUpdateStrategy();
+            var dikeProfilesImporter = new DikeProfilesImporter(new DikeProfileCollection(), referenceLine, filePath, updateDataStrategy, messageProvider);
 
             var importResult = false;
 
@@ -171,15 +241,23 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             string expectedMessage = "Fout bij het lezen van profiellocatie 5. De profiellocatie met " +
                                      "ID 'profiel005' ligt niet op de referentielijn. " +
                                      "Dit profiel wordt overgeslagen.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
+            var expectedLogMessage = new Tuple<string, LogLevelConstant>(expectedMessage,
+                                                                         LogLevelConstant.Error);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage, 1);
             Assert.IsTrue(importResult);
-            Assert.AreEqual(4, dikeProfiles.Count);
+            Assert.IsTrue(updateDataStrategy.Updated);
+            Assert.AreEqual(4, updateDataStrategy.ReadDikeProfiles.Length);
         }
 
         [Test]
         public void Import_AllOkTestData_TrueAndLogMessagesAndFiveDikeProfiles()
         {
             // Setup
+            const string expectedAddDataToModelProgressText = "Adding data";
+            var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
+            messageProvider.Expect(mp => mp.GetAddDataToModelProgressText()).Return(expectedAddDataToModelProgressText);
+            mocks.ReplayAll();
+
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
@@ -187,8 +265,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             var progressChangeNotifications = new List<ProgressNotification>();
 
-            var dikeProfiles = new ObservableList<DikeProfile>();
-            var dikeProfilesImporter = new DikeProfilesImporter(dikeProfiles, referenceLine, filePath);
+            var updateDataStrategy = new TestDikeProfileUpdateStrategy();
+            var dikeProfilesImporter = new DikeProfilesImporter(new DikeProfileCollection(), referenceLine, filePath, updateDataStrategy, messageProvider);
             dikeProfilesImporter.SetProgressChanged((description, step, steps) => { progressChangeNotifications.Add(new ProgressNotification(description, step, steps)); });
 
             // Call
@@ -196,7 +274,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             // Assert
             Assert.IsTrue(importResult);
-            List<ProgressNotification> expectedProgressMessages = new List<ProgressNotification>
+            var expectedProgressMessages = new List<ProgressNotification>
             {
                 new ProgressNotification("Inlezen van profiellocaties uit een shapebestand.", 1, 1),
                 new ProgressNotification("Inlezen van profiellocatie.", 1, 5),
@@ -210,28 +288,36 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 new ProgressNotification("Inlezen van profielgegevens.", 3, 5),
                 new ProgressNotification("Inlezen van profielgegevens.", 4, 5),
                 new ProgressNotification("Inlezen van profielgegevens.", 5, 5),
-                new ProgressNotification("Geïmporteerde data toevoegen aan het toetsspoor.", 1, 1)
+                new ProgressNotification(expectedAddDataToModelProgressText, 1, 1)
             };
             ValidateProgressMessages(expectedProgressMessages, progressChangeNotifications);
-            Assert.AreEqual(5, dikeProfiles.Count);
+
+            Assert.IsTrue(updateDataStrategy.Updated);
+            Assert.AreEqual(5, updateDataStrategy.ReadDikeProfiles.Length);
         }
 
         [Test]
         public void Import_AllOkTestData_CorrectDikeProfileProperties()
         {
             // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
 
-            var dikeProfiles = new ObservableList<DikeProfile>();
-            var dikeProfilesImporter = new DikeProfilesImporter(dikeProfiles, referenceLine, filePath);
+            var updateDataStrategy = new TestDikeProfileUpdateStrategy();
+            var dikeProfilesImporter = new DikeProfilesImporter(new DikeProfileCollection(), referenceLine, filePath, updateDataStrategy, messageProvider);
 
             // Call
             dikeProfilesImporter.Import();
 
             // Assert
+            Assert.IsTrue(updateDataStrategy.Updated);
+
+            DikeProfile[] dikeProfiles = updateDataStrategy.ReadDikeProfiles;
             DikeProfile dikeProfile1 = dikeProfiles[0];
             Assert.AreEqual("profiel001", dikeProfile1.Id);
             Assert.AreEqual("profiel001", dikeProfile1.Name);
@@ -266,6 +352,11 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_AllDamTypes_TrueAndLogMessagesAndFiveDikeProfiles()
         {
             // Setup
+            const string expectedAddDataToModelProgressText = "Adding data";
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            messageProvider.Expect(mp => mp.GetAddDataToModelProgressText()).Return(expectedAddDataToModelProgressText);
+            mocks.ReplayAll();
+
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllDamTypes", "Voorlanden 12-2.shp"));
 
@@ -273,8 +364,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             var progressChangeNotifications = new List<ProgressNotification>();
 
-            var dikeProfiles = new ObservableList<DikeProfile>();
-            var dikeProfilesImporter = new DikeProfilesImporter(dikeProfiles, referenceLine, filePath);
+            var updateDataStrategy = new TestDikeProfileUpdateStrategy();
+            var dikeProfilesImporter = new DikeProfilesImporter(new DikeProfileCollection(), referenceLine, filePath, updateDataStrategy, messageProvider);
             dikeProfilesImporter.SetProgressChanged((description, step, steps) => progressChangeNotifications.Add(new ProgressNotification(description, step, steps)));
 
             // Call
@@ -282,7 +373,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             // Assert
             Assert.IsTrue(importResult);
-            List<ProgressNotification> expectedProgressMessages = new List<ProgressNotification>
+            var expectedProgressMessages = new List<ProgressNotification>
             {
                 new ProgressNotification("Inlezen van profiellocaties uit een shapebestand.", 1, 1),
                 new ProgressNotification("Inlezen van profiellocatie.", 1, 5),
@@ -296,22 +387,31 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 new ProgressNotification("Inlezen van profielgegevens.", 3, 5),
                 new ProgressNotification("Inlezen van profielgegevens.", 4, 5),
                 new ProgressNotification("Inlezen van profielgegevens.", 5, 5),
-                new ProgressNotification("Geïmporteerde data toevoegen aan het toetsspoor.", 1, 1)
+                new ProgressNotification(expectedAddDataToModelProgressText, 1, 1)
             };
             ValidateProgressMessages(expectedProgressMessages, progressChangeNotifications);
-            Assert.AreEqual(5, dikeProfiles.Count);
+            Assert.IsTrue(updateDataStrategy.Updated);
+            Assert.AreEqual(5, updateDataStrategy.ReadDikeProfiles.Length);
         }
 
         [Test]
         public void Import_CancelOfImportWhileReadingProfileLocations_CancelImportAndLogs()
         {
             // Setup
+            const string cancelledLogMessage = "Operation Cancelled";
+
+            var mocks = new MockRepository();
+            var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
+            messageProvider.Expect(mp => mp.GetCancelledLogMessageText("Dijkprofielen")).Return(cancelledLogMessage);
+            mocks.ReplayAll();
+
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
-            var dikeProfiles = new ObservableList<DikeProfile>();
-            var dikeProfilesImporter = new DikeProfilesImporter(dikeProfiles, referenceLine, filePath);
+            var updateDataStrategy = new TestDikeProfileUpdateStrategy();
+            var dikeProfilesImporter = new DikeProfilesImporter(new DikeProfileCollection(), referenceLine, filePath,
+                                                                updateDataStrategy, messageProvider);
             dikeProfilesImporter.SetProgressChanged((description, step, steps) =>
             {
                 if (description.Contains("Inlezen van profiellocaties uit een shapebestand."))
@@ -320,27 +420,35 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 }
             });
 
-            bool importResult = true;
+            var importResult = true;
 
             // Call
             Action call = () => importResult = dikeProfilesImporter.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Dijkprofielen importeren is afgebroken. Geen gegevens ingelezen.", 1);
+            var expectedLogMessage = new Tuple<string, LogLevelConstant>(cancelledLogMessage,
+                                                                         LogLevelConstant.Info);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage, 1);
             Assert.IsFalse(importResult);
-			CollectionAssert.IsEmpty(dikeProfiles);
+            Assert.IsFalse(updateDataStrategy.Updated);
         }
 
         [Test]
         public void Import_CancelOfImportWhileReadingDikeProfileData_CancelImportAndLogs()
         {
             // Setup
+            const string cancelledLogMessage = "Operation Cancelled";
+            var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
+            messageProvider.Expect(mp => mp.GetCancelledLogMessageText("Dijkprofielen")).Return(cancelledLogMessage);
+            mocks.ReplayAll();
+
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
-            var dikeProfiles = new ObservableList<DikeProfile>();
-            var dikeProfilesImporter = new DikeProfilesImporter(dikeProfiles, referenceLine, filePath);
+            var updateDataStrategy = new TestDikeProfileUpdateStrategy();
+            var dikeProfilesImporter = new DikeProfilesImporter(new DikeProfileCollection(), referenceLine, filePath,
+                                                                updateDataStrategy, messageProvider);
             dikeProfilesImporter.SetProgressChanged((description, step, steps) =>
             {
                 if (description.Contains("Inlezen van profielgegevens uit een prfl bestand."))
@@ -349,34 +457,39 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 }
             });
 
-            bool importResult = true;
+            var importResult = true;
 
             // Call
             Action call = () => importResult = dikeProfilesImporter.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Dijkprofielen importeren is afgebroken. Geen gegevens ingelezen.", 1);
+            var expectedLogMessage = new Tuple<string, LogLevelConstant>(cancelledLogMessage,
+                                                                         LogLevelConstant.Info);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage, 1);
             Assert.IsFalse(importResult);
-			CollectionAssert.IsEmpty(dikeProfiles);
+            Assert.IsFalse(updateDataStrategy.Updated);
         }
 
         [Test]
         public void Import_ReuseOfCanceledImportToValidTargetWithValidFile_TrueAndLogMessagesAndFiveDikeProfiles()
         {
             // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
 
-            var dikeProfiles = new ObservableList<DikeProfile>();
-            var dikeProfilesImporter = new DikeProfilesImporter(dikeProfiles, referenceLine, filePath);
+            var updateDataStrategy = new TestDikeProfileUpdateStrategy();
+            var dikeProfilesImporter = new DikeProfilesImporter(new DikeProfileCollection(), referenceLine, filePath, updateDataStrategy, messageProvider);
             dikeProfilesImporter.SetProgressChanged((description, step, steps) => dikeProfilesImporter.Cancel());
 
-			// Pre-condition
+            // Pre-condition
             bool importResult = dikeProfilesImporter.Import();
             Assert.IsFalse(importResult);
-			CollectionAssert.IsEmpty(dikeProfiles);
+            CollectionAssert.IsEmpty(new DikeProfileCollection());
 
             dikeProfilesImporter.SetProgressChanged(null);
 
@@ -385,10 +498,46 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             // Assert
             Assert.IsTrue(importResult);
-            Assert.AreEqual(5, dikeProfiles.Count);
+            Assert.IsTrue(updateDataStrategy.Updated);
+            Assert.AreEqual(5, updateDataStrategy.ReadDikeProfiles.Length);
         }
 
-        private ReferenceLine CreateMatchingReferenceLine()
+        [Test]
+        public void DoPostImport_AfterImport_ObserversNotified()
+        {
+            // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            var observableA = mocks.StrictMock<IObservable>();
+            observableA.Expect(o => o.NotifyObservers());
+            var observableB = mocks.StrictMock<IObservable>();
+            observableB.Expect(o => o.NotifyObservers());
+            mocks.ReplayAll();
+
+            var updateDataStrategy = new TestDikeProfileUpdateStrategy();
+            updateDataStrategy.UpdatedInstances = new[]
+            {
+                observableA,
+                observableB
+            };
+
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                         Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
+            ReferenceLine referenceLine = CreateMatchingReferenceLine();
+
+            var importer = new DikeProfilesImporter(new DikeProfileCollection(),
+                                                    referenceLine,
+                                                    filePath,
+                                                    updateDataStrategy, messageProvider);
+            importer.Import();
+
+            // Call
+            importer.DoPostImport();
+
+            // Assert
+            // Asserts done in TearDown()
+        }
+
+        private static ReferenceLine CreateMatchingReferenceLine()
         {
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(new[]
@@ -402,13 +551,14 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             return referenceLine;
         }
 
-        private static void ValidateProgressMessages(List<ProgressNotification> expectedProgressMessages, List<ProgressNotification> progressChangeNotifications)
+        private static void ValidateProgressMessages(List<ProgressNotification> expectedProgressMessages,
+                                                     List<ProgressNotification> progressChangeNotifications)
         {
             Assert.AreEqual(expectedProgressMessages.Count, progressChangeNotifications.Count);
             for (var i = 0; i < expectedProgressMessages.Count; i++)
             {
-                var notification = expectedProgressMessages[i];
-                var actualNotification = progressChangeNotifications[i];
+                ProgressNotification notification = expectedProgressMessages[i];
+                ProgressNotification actualNotification = progressChangeNotifications[i];
                 Assert.AreEqual(notification.Text, actualNotification.Text);
                 Assert.AreEqual(notification.CurrentStep, actualNotification.CurrentStep);
                 Assert.AreEqual(notification.TotalSteps, actualNotification.TotalSteps);

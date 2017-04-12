@@ -30,9 +30,11 @@ using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.DikeProfiles;
 using Ringtoets.Common.IO.FileImporters;
+using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Ringtoets.Common.IO.Test.FileImporters
@@ -44,11 +46,29 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         private readonly ReferenceLine testReferenceLine = new ReferenceLine();
         private readonly string testFilePath = string.Empty;
 
+        private MockRepository mocks;
+
+        [SetUp]
+        public void Setup()
+        {
+            mocks = new MockRepository();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            mocks.VerifyAll();
+        }
+
         [Test]
         public void ParameteredConstructor_ExpectedValues()
         {
+            // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             // Call
-            var importer = new TestProfilesImporter(testImportTarget, testReferenceLine, testFilePath);
+            var importer = new TestProfilesImporter(testImportTarget, testReferenceLine, testFilePath, messageProvider);
 
             // Assert
             Assert.IsInstanceOf<IFileImporter>(importer);
@@ -57,8 +77,12 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         [Test]
         public void ParameteredConstructor_ImportTargetNull_ThrowArgumentNullException()
         {
+            // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             // Call
-            TestDelegate call = () => new TestProfilesImporter(null, testReferenceLine, testFilePath);
+            TestDelegate call = () => new TestProfilesImporter(null, testReferenceLine, testFilePath, messageProvider);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -68,8 +92,12 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         [Test]
         public void ParameteredConstructor_ReferenceLineNull_ThrowArgumentNullException()
         {
+            // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             // Call
-            TestDelegate call = () => new TestProfilesImporter(testImportTarget, null, testFilePath);
+            TestDelegate call = () => new TestProfilesImporter(testImportTarget, null, testFilePath, messageProvider);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -79,12 +107,27 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         [Test]
         public void ParameteredConstructor_FilePathNull_ThrowArgumentNullException()
         {
+            // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             // Call
-            TestDelegate call = () => new TestProfilesImporter(testImportTarget, testReferenceLine, null);
+            TestDelegate call = () => new TestProfilesImporter(testImportTarget, testReferenceLine, null, messageProvider);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("filePath", exception.ParamName);
+        }
+
+        [Test]
+        public void ParameteredConstructor_MessageProviderNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new TestProfilesImporter(testImportTarget, testReferenceLine, testFilePath, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("messageProvider", exception.ParamName);
         }
 
         [Test]
@@ -93,7 +136,10 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_FromInvalidEmptyPath_FalseAndLogError(string filePath)
         {
             // Setup
-            var testProfilesImporter = new TestProfilesImporter(testImportTarget, testReferenceLine, filePath);
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
+            var testProfilesImporter = new TestProfilesImporter(testImportTarget, testReferenceLine, filePath, messageProvider);
 
             // Call
             var importResult = true;
@@ -114,12 +160,15 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_FromPathContainingInvalidPathCharacters_FalseAndLogError()
         {
             // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             const string filePath = "c:\\Invalid_Characters.shp";
 
             var invalidPathChars = Path.GetInvalidPathChars();
             var invalidPath = filePath.Replace('_', invalidPathChars[0]);
 
-            var testProfilesImporter = new TestProfilesImporter(testImportTarget, testReferenceLine, invalidPath);
+            var testProfilesImporter = new TestProfilesImporter(testImportTarget, testReferenceLine, invalidPath, messageProvider);
 
             // Call
             var importResult = true;
@@ -140,9 +189,12 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_FromDirectoryPath_FalseAndLogError()
         {
             // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             string folderPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin) + Path.DirectorySeparatorChar;
 
-            var testProfilesImporter = new TestProfilesImporter(testImportTarget, testReferenceLine, folderPath);
+            var testProfilesImporter = new TestProfilesImporter(testImportTarget, testReferenceLine, folderPath, messageProvider);
 
             // Call
             var importResult = true;
@@ -169,10 +221,13 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_FromFileWithNonPointFeatures_FalseAndLogError(string shapeFileName)
         {
             // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                          shapeFileName);
 
-            var testProfilesImporter = new TestProfilesImporter(testImportTarget, testReferenceLine, filePath);
+            var testProfilesImporter = new TestProfilesImporter(testImportTarget, testReferenceLine, filePath, messageProvider);
 
             // Call
             var importResult = true;
@@ -197,10 +252,13 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             string shapeFileName, string missingColumnName)
         {
             // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
                                                          Path.Combine("DikeProfiles", shapeFileName));
 
-            var testProfilesImporter = new TestProfilesImporter(testImportTarget, testReferenceLine, filePath);
+            var testProfilesImporter = new TestProfilesImporter(testImportTarget, testReferenceLine, filePath, messageProvider);
 
             // Call
             var importResult = true;
@@ -223,11 +281,14 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_FromFileWithIllegalCharactersInId_TrueAndLogError(string fileName)
         {
             // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
                                                          Path.Combine("DikeProfiles", fileName));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
-            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath);
+            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath, messageProvider);
 
             // Call
             var importResult = true;
@@ -247,11 +308,14 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_FromFileWithEmptyEntryForId_TrueAndLogError()
         {
             // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
                                                          Path.Combine("DikeProfiles", "Voorlanden_12-2_EmptyId.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
-            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath);
+            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath, messageProvider);
 
             // Call
             var importResult = true;
@@ -275,10 +339,13 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_FromFileWithUnrelatedInvalidPrflFilesInSameFolder_TrueAndIgnoresUnrelatedFiles()
         {
             // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
                                                          Path.Combine("DikeProfiles", "OkTestDataWithUnrelatedPrfl", "Voorland 12-2.shp"));
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
-            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath);
+            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath, messageProvider);
 
             // Call
             var importResult = true;
@@ -293,11 +360,14 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_FromFileWithEmptyEntryForX0_TrueAndLogError()
         {
             // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
                                                          Path.Combine("DikeProfiles", "Voorlanden_12-2_EmptyX0.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
-            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath);
+            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath, messageProvider);
 
             // Call
             var importResult = true;
@@ -317,6 +387,9 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_DikeProfileLocationsNotCloseEnoughToReferenceLine_TrueAndLogError()
         {
             // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
@@ -330,7 +403,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             };
             ReferenceLine referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(referencePoints);
-            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath);
+            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath, messageProvider);
 
             // Call
             var importResult = true;
@@ -348,11 +421,14 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_InvalidDamType_TrueAndLogMessage()
         {
             // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
                                                          Path.Combine("DikeProfiles", "InvalidDamType", "Voorlanden 12-2.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
-            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath);
+            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath, messageProvider);
 
             // Call
             var importResult = true;
@@ -372,6 +448,9 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_TwoPrflWithSameId_TrueAndErrorLog()
         {
             // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
                                                          Path.Combine("DikeProfiles", "TwoPrflWithSameId", "profiel001.shp"));
 
@@ -382,7 +461,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             };
             ReferenceLine referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(referencePoints);
-            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath);
+            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath, messageProvider);
 
             // Call
             var importResult = true;
@@ -404,11 +483,14 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_FromFileWithDupplicateId_TrueAndLogWarnings()
         {
             // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
                                                          Path.Combine("DikeProfiles", "Voorlanden_12-2_same_id_3_times.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
-            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath);
+            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath, messageProvider);
 
             // Call
             var importResult = true;
@@ -429,11 +511,14 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_PrflWithProfileNotZero_TrueAndErrorLog()
         {
             // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
                                                          Path.Combine("DikeProfiles", "PrflWithProfileNotZero", "Voorland_12-2.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
-            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath);
+            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath, messageProvider);
 
             // Call
             var importResult = true;
@@ -453,6 +538,9 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_PrflIsIncomplete_FalseAndErrorLog()
         {
             // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
                                                          Path.Combine("DikeProfiles", "PrflIsIncomplete", "Voorland_12-2.shp"));
 
@@ -463,7 +551,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             };
             ReferenceLine referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(referencePoints);
-            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath);
+            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath, messageProvider);
 
             // Call
             var importResult = true;
@@ -483,10 +571,13 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_CancelOfImportWhileReadingProfileLocations_CancelsImportAndLogs()
         {
             // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
-            var testProfilesImporter = new TestProfilesImporter(testImportTarget, testReferenceLine, filePath);
+            var testProfilesImporter = new TestProfilesImporter(testImportTarget, testReferenceLine, filePath, messageProvider);
             testProfilesImporter.SetProgressChanged((description, step, steps) =>
             {
                 if (description.Contains("Inlezen van profiellocaties uit een shapebestand."))
@@ -506,6 +597,9 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_CancelOfImportWhileReadingDikeProfileLocations_CancelsImportAndLogs()
         {
             // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
@@ -516,7 +610,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 new Point2D(130084.3, 543727.4)
             });
 
-            var testProfilesImporter = new TestProfilesImporter(testImportTarget, referenceLine, filePath);
+            var testProfilesImporter = new TestProfilesImporter(testImportTarget, referenceLine, filePath, messageProvider);
             testProfilesImporter.SetProgressChanged((description, step, steps) =>
             {
                 if (description.Contains("Inlezen van profielgegevens uit een prfl bestand."))
@@ -536,14 +630,19 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_CancelOfImportWhileCreateProfiles_ContinuesImportAndLogs()
         {
             // Setup
+            const string addingDataToModel = "Adding Data to Model";
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            messageProvider.Stub(mp => mp.GetAddDataToModelProgressText()).Return(addingDataToModel);
+            mocks.ReplayAll();
+
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
-            var testProfilesImporter = new TestProfilesImporter(testImportTarget, referenceLine, filePath);
+            var testProfilesImporter = new TestProfilesImporter(testImportTarget, referenceLine, filePath, messageProvider);
             testProfilesImporter.SetProgressChanged((description, step, steps) =>
             {
-                if (description.Contains("Geïmporteerde data toevoegen aan het toetsspoor."))
+                if (description.Contains(addingDataToModel))
                 {
                     testProfilesImporter.Cancel();
                 }
@@ -563,6 +662,9 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_ReuseOfCanceledImportToValidTargetWithValidFile_True()
         {
             // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
@@ -573,7 +675,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             };
             ReferenceLine referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(referencePoints);
-            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath);
+            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath, messageProvider);
             testProfilesImporter.SetProgressChanged((description, step, steps) => testProfilesImporter.Cancel());
 
             bool importResult = testProfilesImporter.Import();
@@ -587,6 +689,44 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             // Assert
             Assert.IsTrue(importResult);
+        }
+
+        [Test]
+        public void Import_AddingDataToModel_SetsProgressText()
+        {
+            // Setup
+            const string expectedProgressText = "Adding Data to model";
+            var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
+            messageProvider.Expect(mp => mp.GetAddDataToModelProgressText()).Return(expectedProgressText);
+            mocks.ReplayAll();
+
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                         Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
+
+            var referencePoints = new List<Point2D>
+            {
+                new Point2D(130074.3, 543717.4),
+                new Point2D(130084.3, 543727.4)
+            };
+            ReferenceLine referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(referencePoints);
+            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath, messageProvider);
+
+            int callcount = 0;
+            testProfilesImporter.SetProgressChanged((description, step, steps) =>
+            {
+                if (callcount == 12)
+                {
+                    Assert.AreEqual(expectedProgressText, description);
+                }
+                callcount++;
+            });
+
+            // Call
+            testProfilesImporter.Import();
+
+            // Assert
+            // Assert done in TearDown
         }
 
         private ReferenceLine CreateMatchingReferenceLine()
@@ -605,8 +745,9 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
         private class TestProfilesImporter : ProfilesImporter<ObservableList<TestProfile>>
         {
-            public TestProfilesImporter(ObservableList<TestProfile> importTarget, ReferenceLine referenceLine, string filePath)
-                : base(referenceLine, filePath, importTarget) {}
+            public TestProfilesImporter(ObservableList<TestProfile> importTarget, ReferenceLine referenceLine, string filePath,
+                                        IImporterMessageProvider messageProvider)
+                : base(referenceLine, filePath, importTarget, messageProvider) {}
 
             protected override void CreateProfiles(ReadResult<ProfileLocation> importProfileLocationResult, ReadResult<DikeProfileData> importDikeProfileDataResult) {}
 
@@ -619,5 +760,19 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         private class TestProfile {}
+
+        private class ProgressNotification
+        {
+            public ProgressNotification(string description, int currentStep, int totalSteps)
+            {
+                Text = description;
+                CurrentStep = currentStep;
+                TotalSteps = totalSteps;
+            }
+
+            public string Text { get; private set; }
+            public int CurrentStep { get; private set; }
+            public int TotalSteps { get; private set; }
+        }
     }
 }

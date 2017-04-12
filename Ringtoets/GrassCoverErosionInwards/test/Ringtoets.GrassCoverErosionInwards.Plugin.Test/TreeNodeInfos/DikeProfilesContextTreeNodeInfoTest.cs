@@ -131,13 +131,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var asssessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.DikeProfiles.AddRange(new[]
             {
-                DikeProfiles =
-                {
-                    new TestDikeProfile()
-                }
-            };
+                new TestDikeProfile()
+            }, "path");
 
             // Precondition
             CollectionAssert.IsNotEmpty(failureMechanism.DikeProfiles);
@@ -160,21 +158,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            DikeProfile dikeProfile1 = new TestDikeProfile();
-            DikeProfile dikeProfile2 = new TestDikeProfile();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
+            DikeProfile dikeProfile1 = new TestDikeProfile(string.Empty, "id1");
+            DikeProfile dikeProfile2 = new TestDikeProfile(string.Empty, "id2");
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.DikeProfiles.AddRange(new[]
             {
-                DikeProfiles =
-                {
-                    dikeProfile1,
-                    dikeProfile2
-                }
-            };
+                dikeProfile1,
+                dikeProfile2
+            }, "path");
 
             var dikeProfilesContext = new DikeProfilesContext(failureMechanism.DikeProfiles, failureMechanism, assessmentSection);
 
             // Call
-            var children = info.ChildNodeObjects(dikeProfilesContext);
+            object[] children = info.ChildNodeObjects(dikeProfilesContext);
 
             // Assert
             Assert.AreEqual(2, children.Length);
@@ -193,11 +189,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             using (mocks.Ordered())
             {
                 menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddDeleteChildrenItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddUpdateItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.Build()).Return(null);
             }
 

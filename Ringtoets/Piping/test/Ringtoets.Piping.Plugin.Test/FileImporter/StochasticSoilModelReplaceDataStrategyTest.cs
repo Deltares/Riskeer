@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
@@ -99,7 +100,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("targetCollection", paramName);
+            Assert.AreEqual("targetDataCollection", paramName);
         }
 
         [Test]
@@ -210,8 +211,12 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.IsFalse(calculation.HasOutput);
             Assert.IsNull(calculation.InputParameters.StochasticSoilModel);
             Assert.IsNull(calculation.InputParameters.StochasticSoilProfile);
-            CollectionAssert.Contains(affectedObjects, calculation);
-            CollectionAssert.Contains(affectedObjects, calculation.InputParameters);
+            CollectionAssert.AreEquivalent(new IObservable[]
+           {
+                calculation,
+                calculation.InputParameters,
+                failureMechanism.StochasticSoilModels
+           }, affectedObjects); 
         }
 
         [Test]
@@ -231,8 +236,9 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             var exception = Assert.Throws<StochasticSoilModelUpdateException>(test);
-            Assert.AreEqual("Stochastische ondergrondmodellen moeten een unieke naam hebben. Gevonden dubbele elementen: B.", exception.Message);
-            Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
+            Assert.AreEqual("Het importeren van stochastische ondergrondmodellen is mislukt: " +
+                            "Stochastische ondergrondmodellen moeten een unieke naam hebben. Gevonden dubbele elementen: B.", exception.Message);
+            Assert.IsInstanceOf<UpdateDataException>(exception.InnerException);
         }
     }
 }

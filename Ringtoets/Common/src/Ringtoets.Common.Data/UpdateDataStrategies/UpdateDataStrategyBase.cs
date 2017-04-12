@@ -24,7 +24,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Utils;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Common.Data.UpdateDataStrategies
 {
@@ -42,7 +44,7 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
         where TTargetData : class
         where TFailureMechanism : IFailureMechanism
     {
-        protected readonly TFailureMechanism failureMechanism;
+        protected readonly TFailureMechanism FailureMechanism;
         private readonly IEqualityComparer<TTargetData> equalityComparer;
 
         /// <summary>
@@ -63,7 +65,7 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
             }
 
             this.equalityComparer = equalityComparer;
-            this.failureMechanism = failureMechanism;
+            FailureMechanism = failureMechanism;
         }
 
         /// <summary>
@@ -92,11 +94,7 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
         /// the <paramref name="targetDataCollection"/>.</param>
         /// <param name="sourceFilePath">The source file path.</param>
         /// <returns>A <see cref="IEnumerable{T}"/> of affected objects.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters are <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when duplicate items are being added to the 
-        /// <paramref name="targetDataCollection"/>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown when duplicate items are found during the 
-        /// update of the items in the <paramref name="targetDataCollection"/>.</exception>
+        /// <exception cref="UpdateDataException">Thrown when an error occurred while updating the data.</exception>
         protected IEnumerable<IObservable> UpdateTargetCollectionData(ObservableUniqueItemCollectionWithSourcePath<TTargetData> targetDataCollection,
                                                                       IEnumerable<TTargetData> importedDataCollection,
                                                                       string sourceFilePath)
@@ -114,7 +112,18 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
                 throw new ArgumentNullException(nameof(sourceFilePath));
             }
 
-            return ModifyDataCollection(targetDataCollection, importedDataCollection, sourceFilePath);
+            try
+            {
+                return ModifyDataCollection(targetDataCollection, importedDataCollection, sourceFilePath);
+            }
+            catch (ArgumentException e)
+            {
+                throw new UpdateDataException(e.Message, e);
+            }
+            catch (InvalidOperationException e)
+            {
+                throw new UpdateDataException(Resources.UpdateDataStrategyBase_UpdateTargetCollectionData_Imported_data_must_contain_unique_items, e);
+            }
         }
 
         /// <summary>
@@ -169,11 +178,14 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
         }
 
         /// <summary>
-        /// Updates all the objects and their dependent data that needs to be updated with data from the imported data collection.
+        /// Updates all the objects and their dependent data that needs to be 
+        /// updated with data from the imported data collection.
         /// </summary>
         /// <param name="objectsToUpdate">The objects that need to be updated.</param>
         /// <param name="importedDataCollection">The data to update from.</param>
         /// <returns>A <see cref="IEnumerable{T}"/> of affected items.</returns>
+        /// <exception cref="InvalidOperationException">Thrown when the imported 
+        /// <paramref name="importedDataCollection"/> contains duplicate items.</exception>
         private IEnumerable<IObservable> UpdateData(IEnumerable<TTargetData> objectsToUpdate,
                                                     IEnumerable<TTargetData> importedDataCollection)
         {

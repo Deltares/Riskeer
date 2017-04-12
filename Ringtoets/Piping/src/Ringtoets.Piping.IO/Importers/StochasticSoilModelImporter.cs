@@ -46,6 +46,7 @@ namespace Ringtoets.Piping.IO.Importers
         private readonly ILog log = LogManager.GetLogger(typeof(StochasticSoilModelImporter));
         private readonly IImporterMessageProvider messageProvider;
         private readonly IStochasticSoilModelUpdateModelStrategy modelUpdateStrategy;
+        private IEnumerable<IObservable> updatedInstances;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StochasticSoilModelImporter"/> class.
@@ -70,11 +71,12 @@ namespace Ringtoets.Piping.IO.Importers
             }
             this.messageProvider = messageProvider;
             this.modelUpdateStrategy = modelUpdateStrategy;
+            updatedInstances = Enumerable.Empty<IObservable>();
         }
 
         protected override void DoPostImportUpdates()
         {
-            foreach (IObservable observable in UpdatedInstances)
+            foreach (IObservable observable in updatedInstances)
             {
                 observable.NotifyObservers();
             }
@@ -109,7 +111,7 @@ namespace Ringtoets.Piping.IO.Importers
             }
 
             NotifyProgress(messageProvider.GetAddDataToModelProgressText(), 1, 1);
-            UpdatedInstances = modelUpdateStrategy.UpdateModelWithImportedData(ImportTarget, validStochasticSoilModels, FilePath);
+            updatedInstances = modelUpdateStrategy.UpdateModelWithImportedData(ImportTarget, validStochasticSoilModels, FilePath);
 
             return true;
         }
@@ -119,8 +121,6 @@ namespace Ringtoets.Piping.IO.Importers
             string message = messageProvider.GetCancelledLogMessageText(RingtoetsPipingDataResources.StochasticSoilModelCollection_TypeDescriptor);
             log.Info(message);
         }
-
-        private IEnumerable<IObservable> UpdatedInstances { get; set; } = Enumerable.Empty<IObservable>();
 
         /// <summary>
         /// Validate the definition of a <see cref="StochasticSoilModel"/>.

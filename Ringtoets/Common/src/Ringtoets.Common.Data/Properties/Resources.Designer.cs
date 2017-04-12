@@ -335,6 +335,24 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dijkprofielen.
+        /// </summary>
+        public static string DikeProfileCollection_TypeDescriptor {
+            get {
+                return ResourceManager.GetString("DikeProfileCollection_TypeDescriptor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to id.
+        /// </summary>
+        public static string DikeProfileCollection_UniqueFeature_id_FeatureDescription {
+            get {
+                return ResourceManager.GetString("DikeProfileCollection_UniqueFeature_id_FeatureDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Berekeningen.
         /// </summary>
         public static string FailureMechanism_Calculations_DisplayName {
@@ -576,6 +594,16 @@ namespace Ringtoets.Common.Data.Properties {
         public static string StructureInflowModelType_LowSill_DisplayName {
             get {
                 return ResourceManager.GetString("StructureInflowModelType_LowSill_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geïmporteerde data moet unieke elementen bevatten..
+        /// </summary>
+        public static string UpdateDataStrategyBase_UpdateTargetCollectionData_Imported_data_must_contain_unique_items {
+            get {
+                return ResourceManager.GetString("UpdateDataStrategyBase_UpdateTargetCollectionData_Imported_data_must_contain_uniq" +
+                        "ue_items", resourceCulture);
             }
         }
     }

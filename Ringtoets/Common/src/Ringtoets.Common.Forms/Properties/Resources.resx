@@ -935,4 +935,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="CalculationConfigurationExporter_DisplayName" xml:space="preserve">
     <value>Ringtoets berekeningenconfiguratie (*.xml)</value>
   </data>
+  <data name="CreateUpdateContextMenuItem_No_calculations_to_update_ToolTip" xml:space="preserve">
+    <value>Er zijn geen berekeningen om bij te werken.</value>
+  </data>
 </root>

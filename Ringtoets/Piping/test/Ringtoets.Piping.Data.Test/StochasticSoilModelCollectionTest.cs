@@ -40,7 +40,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void AddRange_SurfaceLinesWithDifferentNames_AddsSurfaceLines()
+        public void AddRange_StochasticSoilModelsWithDifferentNames_AddsSoilModels()
         {
             // Setup
             var stochasticSoilModelsToAdd = new[]
