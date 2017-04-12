@@ -117,7 +117,7 @@ namespace Ringtoets.Common.IO.Configurations.Import
         /// Parses a calculation from the provided <paramref name="readCalculation"/>.
         /// </summary>
         /// <param name="readCalculation">The calculation read from XML.</param>
-        /// <returns>A parsed calculation instance, or <c>null</c> when something goes wrong while parsing.</returns>
+        /// <returns>A parsed calculation instance, or <c>null</c> when parsing failed.</returns>
         protected abstract ICalculation ParseReadCalculation(TReadCalculation readCalculation);
 
         /// <summary>
