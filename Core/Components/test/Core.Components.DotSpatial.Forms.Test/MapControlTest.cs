@@ -537,27 +537,27 @@ namespace Core.Components.DotSpatial.Forms.Test
 
         private static void AssertReprojectedTo28992TestExtents(IMapView mapView)
         {
-            Assert.AreEqual(523413.98162662971, mapView.ViewExtents.MinX,
+            Assert.AreEqual(523413.98162662971, mapView.ViewExtents.MinX, 1e-6,
                             "Coordinate does not match. (Ball park expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=0.2000000&y=3.2000000).");
-            Assert.AreEqual(5313601.4625104629, mapView.ViewExtents.MinY,
+            Assert.AreEqual(5313601.4625104629, mapView.ViewExtents.MinY, 1e-6,
                             "Coordinate does not match. (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=0.2000000&y=3.2000000).");
 
-            Assert.AreEqual(523415.89786963863, mapView.ViewExtents.MaxX,
+            Assert.AreEqual(523415.89786963863, mapView.ViewExtents.MaxX, 1e-6,
                             "Coordinate does not match. (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=2.2000000&y=5.7000000).");
-            Assert.AreEqual(5313604.0206882581, mapView.ViewExtents.MaxY,
+            Assert.AreEqual(5313604.0206882581, mapView.ViewExtents.MaxY, 1e-6,
                             "Coordinate does not match. (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=2.2000000&y=5.7000000).");
         }
 
         private static void AssertReprojectedTo3857TestExtents(IMapView mapView)
         {
-            Assert.AreEqual(368863.7429899415, mapView.ViewExtents.MinX,
+            Assert.AreEqual(368863.7429899415, mapView.ViewExtents.MinX, 1e-6,
                             "Coordinate does not match. (Ball park expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=3857&x=0.2000000&y=3.2000000).");
-            Assert.AreEqual(6102662.6528704129, mapView.ViewExtents.MinY,
+            Assert.AreEqual(6102662.6528704129, mapView.ViewExtents.MinY, 1e-6,
                             "Coordinate does not match. (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=3857&x=0.2000000&y=3.2000000).");
 
-            Assert.AreEqual(368866.61636522325, mapView.ViewExtents.MaxX,
+            Assert.AreEqual(368866.61636522325, mapView.ViewExtents.MaxX, 1e-6,
                             "Coordinate does not match. (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=3857&x=2.2000000&y=5.7000000).");
-            Assert.AreEqual(6102666.467949939, mapView.ViewExtents.MaxY,
+            Assert.AreEqual(6102666.467949939, mapView.ViewExtents.MaxY, 1e-6,
                             "Coordinate does not match. (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=3857&x=2.2000000&y=5.7000000).");
         }
 
