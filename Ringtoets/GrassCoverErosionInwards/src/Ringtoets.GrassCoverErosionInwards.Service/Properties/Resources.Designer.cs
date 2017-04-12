@@ -113,43 +113,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De overslagdebiet berekening voor grasbekleding erosie kruin en binnentalud &apos;{0}&apos; is niet gelukt. Bekijk het foutrapport door op details te klikken.
-        ///{1}.
-        /// </summary>
-        internal static string GrassCoverErosionInwardsCalculationService_Calculate_Error_in_overtopping_rate_grass_cover_erosion_inwards_0_calculation_click_details_for_last_error_report_1 {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_Calculate_Error_in_overtopping_rate_gr" +
-                        "ass_cover_erosion_inwards_0_calculation_click_details_for_last_error_report_1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De overslagdebiet berekening voor grasbekleding erosie kruin en binnentalud &apos;{0}&apos; is niet gelukt. Er is geen foutrapport beschikbaar..
-        /// </summary>
-        internal static string GrassCoverErosionInwardsCalculationService_Calculate_Error_in_overtopping_rate_grass_cover_erosion_inwards_0_calculation_no_error_report {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_Calculate_Error_in_overtopping_rate_gr" +
-                        "ass_cover_erosion_inwards_0_calculation_no_error_report", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Uitvoeren {0} berekening.
         /// </summary>
         internal static string GrassCoverErosionInwardsCalculationService_Calculate_Executing_calculation_of_type_0 {
             get {
                 return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_Calculate_Executing_calculation_of_typ" +
                         "e_0", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Overslagdebiet berekening is uitgevoerd op de tijdelijke locatie &apos;{0}&apos;. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden..
-        /// </summary>
-        internal static string GrassCoverErosionInwardsCalculationService_CalculateOvertoppingRate_calculation_temporary_directory_can_be_found_on_location_0 {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_CalculateOvertoppingRate_calculation_t" +
-                        "emporary_directory_can_be_found_on_location_0", resourceCulture);
             }
         }
         
