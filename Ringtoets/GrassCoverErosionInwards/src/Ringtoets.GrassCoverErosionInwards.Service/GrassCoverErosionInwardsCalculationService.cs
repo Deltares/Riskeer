@@ -350,7 +350,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                    () => overtoppingRateCalculator.LastErrorFileContent,
                                    () => overtoppingRateCalculator.OutputDirectory,
                                    calculation.Name,
-                                   Resources.GrassCoverErosionInwardsCalculationService_DikeHeight);
+                                   Resources.GrassCoverErosionInwardsCalculationService_OvertoppingRate);
             }
             catch (HydraRingCalculationException)
             {
@@ -369,6 +369,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                                         norm);
         }
 
+        /// <summary>
+        /// Performs a grass cover erosion inwards calculation.
+        /// </summary>
+        /// <param name="performCalculation">The action that performs the calculation.</param>
+        /// <param name="getLastErrorFileContent">The function for obtaining the last error file content.</param>
+        /// <param name="getOutputDirectory">The function for obtaining the output directory.</param>
+        /// <param name="calculationName">The name of the calculation to perform.</param>
+        /// <param name="stepName">The name of the step to perform.</param>
+        /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
         private void PerformCalculation(Action performCalculation,
                                         Func<string> getLastErrorFileContent,
                                         Func<string> getOutputDirectory,
@@ -431,23 +440,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
         }
 
-        /// <summary>
-        /// Creates the input for an overtopping calculation.
-        /// </summary>
-        /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/> that holds all the information required to perform the calculation.</param>
-        /// <param name="generalInput">Calculation input parameters that apply to all <see cref="GrassCoverErosionInwardsCalculation"/> instances.</param>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The path to the hydraulic boundary database file.</param>
-        /// <returns>An <see cref="OvertoppingCalculationInput"/>.</returns>
-        /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 
-        /// contains invalid characters.</exception>
-        /// <exception cref="CriticalFileReadException">Thrown when:
-        /// <list type="bullet">
-        /// <item>No settings database file could be found at the location of <paramref name="hydraulicBoundaryDatabaseFilePath"/>
-        /// with the same name.</item>
-        /// <item>Unable to open settings database file.</item>
-        /// <item>Unable to read required data from database file.</item>
-        /// </list>
-        /// </exception>
         private static OvertoppingCalculationInput CreateOvertoppingInput(GrassCoverErosionInwardsCalculation calculation,
                                                                           GeneralGrassCoverErosionInwardsInput generalInput,
                                                                           string hydraulicBoundaryDatabaseFilePath)
@@ -484,24 +476,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             return overtoppingCalculationInput;
         }
 
-        /// <summary>
-        /// Creates the input for a dike height calculation.
-        /// </summary>
-        /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/> that holds all the information required to perform the calculation.</param>
-        /// <param name="norm">The norm to use in the calculation.</param>
-        /// <param name="generalInput">Calculation input parameters that apply to all <see cref="GrassCoverErosionInwardsCalculation"/> instances.</param>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The path to the hydraulic boundary database file.</param>
-        /// <returns>A <see cref="DikeHeightCalculationInput"/>.</returns>
-        /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 
-        /// contains invalid characters.</exception>
-        /// <exception cref="CriticalFileReadException">Thrown when:
-        /// <list type="bullet">
-        /// <item>No settings database file could be found at the location of <paramref name="hydraulicBoundaryDatabaseFilePath"/>
-        /// with the same name.</item>
-        /// <item>Unable to open settings database file.</item>
-        /// <item>Unable to read required data from database file.</item>
-        /// </list>
-        /// </exception>
         private static DikeHeightCalculationInput CreateDikeHeightInput(GrassCoverErosionInwardsCalculation calculation,
                                                                         double norm,
                                                                         GeneralGrassCoverErosionInwardsInput generalInput,
@@ -539,24 +513,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             return dikeHeightCalculationInput;
         }
 
-        /// <summary>
-        /// Creates the input for a overtopping rate calculation.
-        /// </summary>
-        /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/> that holds all the information required to perform the calculation.</param>
-        /// <param name="norm">The norm to use in the calculation.</param>
-        /// <param name="generalInput">Calculation input parameters that apply to all <see cref="GrassCoverErosionInwardsCalculation"/> instances.</param>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The path to the hydraulic boundary database file.</param>
-        /// <returns>A <see cref="OvertoppingRateCalculationInput"/>.</returns>
-        /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 
-        /// contains invalid characters.</exception>
-        /// <exception cref="CriticalFileReadException">Thrown when:
-        /// <list type="bullet">
-        /// <item>No settings database file could be found at the location of <paramref name="hydraulicBoundaryDatabaseFilePath"/>
-        /// with the same name.</item>
-        /// <item>Unable to open settings database file.</item>
-        /// <item>Unable to read required data from database file.</item>
-        /// </list>
-        /// </exception>
         private static OvertoppingRateCalculationInput CreateOvertoppingRateInput(GrassCoverErosionInwardsCalculation calculation,
                                                                                   double norm,
                                                                                   GeneralGrassCoverErosionInwardsInput generalInput,

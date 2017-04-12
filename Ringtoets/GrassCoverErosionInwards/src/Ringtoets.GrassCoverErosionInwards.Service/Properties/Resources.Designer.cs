@@ -133,7 +133,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to dijkhoogte.
+        ///   Looks up a localized string similar to HBN.
         /// </summary>
         internal static string GrassCoverErosionInwardsCalculationService_DikeHeight {
             get {

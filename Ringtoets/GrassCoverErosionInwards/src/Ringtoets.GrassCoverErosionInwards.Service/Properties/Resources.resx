@@ -134,7 +134,7 @@
     <value>De {0} berekening voor grasbekleding erosie kruin en binnentalud '{1}' is niet geconvergeerd.</value>
   </data>
   <data name="GrassCoverErosionInwardsCalculationService_DikeHeight" xml:space="preserve">
-    <value>dijkhoogte</value>
+    <value>HBN</value>
   </data>
   <data name="GrassCoverErosionInwardsCalculationService_Overtopping" xml:space="preserve">
     <value>overloop en overslag</value>
