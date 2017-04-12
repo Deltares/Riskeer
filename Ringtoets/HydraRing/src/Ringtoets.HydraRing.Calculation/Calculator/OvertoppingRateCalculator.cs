@@ -57,7 +57,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
 
         public bool? Converged { get; private set; }
 
-        public void Calculate(OvertoppingRateCalculationInput input)
+        public void Calculate(HydraulicLoadsCalculationInput input)
         {
             Calculate(HydraRingUncertaintiesType.All, input);
         }

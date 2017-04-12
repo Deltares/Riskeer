@@ -144,7 +144,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
         public bool? Converged { get; set; }
     }
 
-    public class TestOvertoppingRateCalculator : TestHydraRingCalculator<OvertoppingRateCalculationInput>, IHydraulicLoadsCalculator
+    public class TestOvertoppingRateCalculator : TestHydraRingCalculator<HydraulicLoadsCalculationInput>, IHydraulicLoadsCalculator
     {
         public double Value { get; set; }
         public double ReliabilityIndex { get; set; }
