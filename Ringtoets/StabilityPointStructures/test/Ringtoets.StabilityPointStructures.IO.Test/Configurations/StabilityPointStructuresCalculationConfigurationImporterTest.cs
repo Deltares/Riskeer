@@ -98,7 +98,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                     "Een gemiddelde van '-0,2' is ongeldig voor stochast 'kwadratischebelastingschematiseringsterkte'. " +
                     "Gemiddelde moet groter zijn dan 0.");
                 yield return new TestCaseData(
-                    "validConfigurationConstructiveStrengthQuadraticLoadModelVariationCoeffInvalid.xml",
+                    "validConfigurationConstructiveStrengthQuadraticLoadModelVariationCoefInvalid.xml",
                     "Een variatiecoëfficiënt van '-0,01' is ongeldig voor stochast 'kwadratischebelastingschematiseringsterkte'. " +
                     "Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0.");
                 yield return new TestCaseData(
@@ -154,16 +154,6 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                     "validConfigurationFailureProbabilityStructureErosionInvalid.xml",
                     "Een waarde van '1,1' als faalkans gegeven erosie bodem is ongeldig. De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.");
 
-
-
-
-
-
-
-
-                
-                
-
                 yield return new TestCaseData(
                     "validConfigurationFlowVelocityStructureClosableStandardDeviation.xml",
                     "Er kan geen spreiding voor stochast 'kritiekestroomsnelheid' opgegeven worden.");
@@ -172,8 +162,44 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                     "Er kan geen spreiding voor stochast 'kritiekestroomsnelheid' opgegeven worden.");
 
                 yield return new TestCaseData(
+                    "validConfigurationFlowWidthAtBottomProtectionMeanInvalid.xml",
+                    "Een gemiddelde van '-0,2' is ongeldig voor stochast 'breedtebodembescherming'. " +
+                    "Gemiddelde moet groter zijn dan 0.");
+                yield return new TestCaseData(
+                    "validConfigurationFlowWidthAtBottomProtectionStandardDeviationInvalid.xml",
+                    "Een standaardafwijking van '-0,01' is ongeldig voor stochast 'breedtebodembescherming'. " +
+                    "Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.");
+                yield return new TestCaseData(
+                    "validConfigurationFlowWidthAtBottomProtectionVariationCoefficient.xml",
+                    "Indien voor parameter 'breedtebodembescherming' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. " +
+                    "Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.");
+
+                yield return new TestCaseData(
                     "validConfigurationInflowModelTypeWithoutStructure.xml",
                     "Er is geen kunstwerk opgegeven om instroommodel aan toe te voegen.");
+
+                yield return new TestCaseData(
+                    "validConfigurationInsideWaterLevelStandardDeviationInvalid.xml",
+                    "Een standaardafwijking van '-0,01' is ongeldig voor stochast 'binnenwaterstand'. " +
+                    "Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.");
+                yield return new TestCaseData(
+                    "validConfigurationInsideWaterLevelVariationCoefficient.xml",
+                    "Indien voor parameter 'binnenwaterstand' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. " +
+                    "Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.");
+
+
+                yield return new TestCaseData(
+                    "validConfigurationInsideWaterLevelFailureConstructionStandardDeviatioInvalid.xml",
+                    "Een standaardafwijking van '-0,01' is ongeldig voor stochast 'binnenwaterstandbijfalen'. " +
+                    "Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.");
+                yield return new TestCaseData(
+                    "validConfigurationInsideWaterLevelFailureConstructionVariationCoefficient.xml",
+                    "Indien voor parameter 'binnenwaterstandbijfalen' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. " +
+                    "Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.");
+
+
+
+
                 yield return new TestCaseData(
                     "validConfigurationLoadSchematizationTypeWithoutStructure.xml",
                     "Er is geen kunstwerk opgegeven om belastingschematisering aan toe te voegen.");
