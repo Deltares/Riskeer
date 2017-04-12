@@ -61,6 +61,9 @@
     <Compile Include="Hydraulics\HydraulicBoundaryDatabase.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryLocation.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryLocationOutput.cs" />
+    <Compile Include="Probabilistics\LogNormalDistributionDesignVariableCalculator.cs" />
+    <Compile Include="Probabilistics\NormalDistributionDesignVariableCalculator.cs" />
+    <Compile Include="Probabilistics\PercentileBasedDesignVariableCalculator.cs" />
     <Compile Include="Probabilistics\VariationCoefficientLogNormalDistributionDesignVariable.cs" />
     <Compile Include="Probabilistics\VariationCoefficientDesignVariable.cs" />
     <Compile Include="Probabilistics\DeterministicDesignVariable.cs" />

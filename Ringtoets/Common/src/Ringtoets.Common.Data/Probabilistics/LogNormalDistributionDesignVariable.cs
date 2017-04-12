@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base.Data;
 
 namespace Ringtoets.Common.Data.Probabilistics
@@ -37,30 +36,13 @@ namespace Ringtoets.Common.Data.Probabilistics
 
         public override RoundedDouble GetDesignValue()
         {
-            double normalSpaceDesignValue = DetermineDesignValueInNormalDistributionSpace();
-            return ProjectFromNormalToLogNormalSpace(normalSpaceDesignValue) + Distribution.Shift;
-        }
-
-        /// <summary>
-        /// Projects <see cref="PercentileBasedDesignVariable{TDistributionType}.Distribution"/> into 'normal
-        /// distribution' space and calculates the design value for that value space.
-        /// </summary>
-        /// <returns>The design value in 'normal distribution' space.</returns>
-        private double DetermineDesignValueInNormalDistributionSpace()
-        {
-            // Determine normal distribution parameters from log-normal parameters, as
-            // design value can only be determined in 'normal distribution' space.
-            // Below formula's come from Tu-Delft College dictaat "b3 Probabilistisch Ontwerpen"
-            // by ir. A.C.W.M. Vrouwenvelder and ir.J.K. Vrijling 5th reprint 1987.
-            double sigmaLogOverMuLog = Distribution.StandardDeviation/(Distribution.Mean - Distribution.Shift);
-            double sigmaNormal = Math.Sqrt(Math.Log(sigmaLogOverMuLog*sigmaLogOverMuLog + 1.0));
-            double muNormal = Math.Log(Distribution.Mean - Distribution.Shift) - 0.5*sigmaNormal*sigmaNormal;
-            return DetermineDesignValue(muNormal, sigmaNormal);
-        }
-
-        private RoundedDouble ProjectFromNormalToLogNormalSpace(double normalSpaceDesignValue)
-        {
-            return new RoundedDouble(Distribution.Mean.NumberOfDecimalPlaces, Math.Exp(normalSpaceDesignValue));
+            return new RoundedDouble(
+                Distribution.Mean.NumberOfDecimalPlaces,
+                LogNormalDistributionDesignVariableCalculator.CreateWithStandardDeviation(
+                                                                 Distribution.Mean,
+                                                                 Distribution.StandardDeviation,
+                                                                 Distribution.Shift)
+                                                             .GetDesignValue(Percentile));
         }
     }
 }

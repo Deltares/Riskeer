@@ -71,45 +71,13 @@ namespace Ringtoets.Common.Data.Probabilistics
 
         public override RoundedDouble GetDesignValue()
         {
-            double normalSpaceDesignValue = DetermineDesignValueInNormalDistributionSpace();
-            return ProjectFromNormalToLogNormalSpace(normalSpaceDesignValue);
-        }
-
-        /// <summary>
-        /// Projects <see cref="VariationCoefficientDesignVariable{TDistributionType}.Distribution"/> into 'normal
-        /// distribution' space and calculates the design value for that value space.
-        /// </summary>
-        /// <returns>The design value in 'normal distribution' space.</returns>
-        private double DetermineDesignValueInNormalDistributionSpace()
-        {
-            // Determine normal distribution parameters from log-normal parameters, as
-            // design value can only be determined in 'normal distribution' space.
-            // Below formula's come from Tu-Delft College dictaat "b3 Probabilistisch Ontwerpen"
-            // by ir. A.C.W.M. Vrouwenvelder and ir.J.K. Vrijling 5th reprint 1987.
-            double sigmaLogOverMuLog = Distribution.CoefficientOfVariation;
-            double sigmaNormal = Math.Sqrt(Math.Log(sigmaLogOverMuLog * sigmaLogOverMuLog + 1.0));
-            double muNormal = Math.Log(Distribution.Mean) - 0.5 * sigmaNormal * sigmaNormal;
-            return DetermineDesignValue(muNormal, sigmaNormal);
-        }
-
-        /// <summary>
-        /// Determines the design value based on a 'normal space' expected value and variation coefficient.
-        /// </summary>
-        /// <param name="expectedValue">The expected value.</param>
-        /// <param name="variationCoefficient">The standard deviation.</param>
-        /// <returns>The design value</returns>
-        private double DetermineDesignValue(double expectedValue, double variationCoefficient)
-        {
-            // Design factor is determined using the 'probit function', which is the inverse
-            // CDF function of the standard normal distribution. For more information see:
-            // "Quantile function" https://en.wikipedia.org/wiki/Normal_distribution
-            double designFactor = Normal.InvCDF(0.0, 1.0, Percentile);
-            return expectedValue + designFactor * variationCoefficient;
-        }
-
-        private RoundedDouble ProjectFromNormalToLogNormalSpace(double normalSpaceDesignValue)
-        {
-            return new RoundedDouble(Distribution.Mean.NumberOfDecimalPlaces, Math.Exp(normalSpaceDesignValue));
+            return new RoundedDouble(
+                Distribution.Mean.NumberOfDecimalPlaces,
+                LogNormalDistributionDesignVariableCalculator.CreateWithCoefficientOfVariation(
+                                                                 Distribution.Mean,
+                                                                 Distribution.CoefficientOfVariation,
+                                                                 0)
+                                                             .GetDesignValue(Percentile));
         }
     }
 }
