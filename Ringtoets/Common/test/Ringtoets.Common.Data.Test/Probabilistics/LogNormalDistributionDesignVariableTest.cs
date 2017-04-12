@@ -22,7 +22,6 @@
 using System;
 using Core.Common.Base.Data;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
 
@@ -35,21 +34,18 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         public void ParameteredConstructor_ValidLogNormalDistribution_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var logNormalDistribution = mocks.Stub<ILogNormalDistribution>();
-            mocks.ReplayAll();
+            var logNormalDistribution = new LogNormalDistribution(2);
 
             // Call
-            var designValue = new LogNormalDistributionDesignVariable<ILogNormalDistribution>(logNormalDistribution);
+            var designValue = new LogNormalDistributionDesignVariable(logNormalDistribution);
 
             // Assert
             Assert.AreSame(logNormalDistribution, designValue.Distribution);
             Assert.AreEqual(0.5, designValue.Percentile);
-            mocks.VerifyAll();
         }
 
         /// <summary>
-        /// Tests the <see cref="LogNormalDistributionDesignVariable{TDistribution}.GetDesignValue"/>
+        /// Tests the <see cref="LogNormalDistributionDesignVariable.GetDesignValue"/>
         /// against the values calculated with the excel sheet in WTI-33 (timestamp: 27-11-2015 10:27).
         /// </summary>
         /// <param name="expectedValue">MEAN.</param>
@@ -70,16 +66,13 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         {
             // Setup
             const int numberOfDecimalPlaces = 4;
+            var logNormalDistribution = new LogNormalDistribution(numberOfDecimalPlaces)
+            {
+                Mean = (RoundedDouble) expectedValue,
+                StandardDeviation = (RoundedDouble) Math.Sqrt(variance)
+            };
 
-            var mocks = new MockRepository();
-            var logNormalDistribution = mocks.Stub<ILogNormalDistribution>();
-            logNormalDistribution.Stub(l => l.Mean).Return(new RoundedDouble(numberOfDecimalPlaces, expectedValue));
-            logNormalDistribution.Stub(l => l.StandardDeviation).Return(new RoundedDouble(numberOfDecimalPlaces, Math.Sqrt(variance)));
-            mocks.ReplayAll();
-
-            logNormalDistribution.Shift = new RoundedDouble(numberOfDecimalPlaces, 0);
-
-            var designVariable = new LogNormalDistributionDesignVariable<ILogNormalDistribution>(logNormalDistribution)
+            var designVariable = new LogNormalDistributionDesignVariable(logNormalDistribution)
             {
                 Percentile = percentile
             };
@@ -90,11 +83,10 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             // Assert
             Assert.AreEqual(numberOfDecimalPlaces, result.NumberOfDecimalPlaces);
             Assert.AreEqual(expectedResult, result, result.GetAccuracy());
-            mocks.VerifyAll();
         }
 
         /// <summary>
-        /// Tests the <see cref="LogNormalDistributionDesignVariable{TDistribution}.GetDesignValue"/>
+        /// Tests the <see cref="LogNormalDistributionDesignVariable.GetDesignValue"/>
         /// against the values calculated with the excel sheet in WTI-688 (timestamp: 04-08-2016 09:59).
         /// </summary>
         /// <param name="expectedValue">MEAN.</param>
@@ -117,16 +109,14 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         {
             // Setup
             const int numberOfDecimalPlaces = 4;
+            var logNormalDistribution = new LogNormalDistribution(numberOfDecimalPlaces)
+            {
+                Mean = (RoundedDouble) expectedValue,
+                StandardDeviation = (RoundedDouble) Math.Sqrt(variance),
+                Shift = (RoundedDouble) shift
+            };
 
-            var mocks = new MockRepository();
-            var logNormalDistribution = mocks.Stub<ILogNormalDistribution>();
-            logNormalDistribution.Stub(l => l.Mean).Return(new RoundedDouble(numberOfDecimalPlaces, expectedValue));
-            logNormalDistribution.Stub(l => l.StandardDeviation).Return(new RoundedDouble(numberOfDecimalPlaces, Math.Sqrt(variance)));
-            mocks.ReplayAll();
-
-            logNormalDistribution.Shift = (RoundedDouble) shift;
-
-            var designVariable = new LogNormalDistributionDesignVariable<ILogNormalDistribution>(logNormalDistribution)
+            var designVariable = new LogNormalDistributionDesignVariable(logNormalDistribution)
             {
                 Percentile = percentile
             };
@@ -152,15 +142,14 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         {
             // Setup
             const int numberOfDecimalPlaces = 6;
-            var mocks = new MockRepository();
-            var logNormalDistribution = mocks.Stub<ILogNormalDistribution>();
-            logNormalDistribution.Stub(l => l.Mean).Return(new RoundedDouble(numberOfDecimalPlaces, expectedValue));
-            logNormalDistribution.Stub(l => l.StandardDeviation).Return(new RoundedDouble(numberOfDecimalPlaces, Math.Sqrt(variance)));
-            mocks.ReplayAll();
+            var logNormalDistribution = new LogNormalDistribution(numberOfDecimalPlaces)
+            {
+                Mean = (RoundedDouble) expectedValue,
+                StandardDeviation = (RoundedDouble) Math.Sqrt(variance),
+                Shift = (RoundedDouble) 0.0
+            };
 
-            logNormalDistribution.Shift = (RoundedDouble) 0;
-
-            var designVariable = new LogNormalDistributionDesignVariable<ILogNormalDistribution>(logNormalDistribution)
+            var designVariable = new LogNormalDistributionDesignVariable(logNormalDistribution)
             {
                 Percentile = percentile
             };
@@ -169,7 +158,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             RoundedDouble result = designVariable.GetDesignValue();
 
             // Assert
-            RoundedDouble expectedResult = new LogNormalDistributionDesignVariable<ILogNormalDistribution>(logNormalDistribution)
+            RoundedDouble expectedResult = new LogNormalDistributionDesignVariable(logNormalDistribution)
             {
                 Percentile = percentile
             }.GetDesignValue();

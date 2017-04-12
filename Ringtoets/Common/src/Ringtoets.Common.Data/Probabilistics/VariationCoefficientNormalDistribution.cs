@@ -87,14 +87,6 @@ namespace Ringtoets.Common.Data.Probabilistics
             }
         }
 
-        public RoundedDouble StandardDeviation
-        {
-            get
-            {
-                return Mean * CoefficientOfVariation;
-            }
-        }
-
         public object Clone()
         {
             return MemberwiseClone();

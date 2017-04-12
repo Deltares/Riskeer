@@ -30,7 +30,7 @@ namespace Ringtoets.Piping.Data
     {
         private static DesignVariable<NormalDistribution> CreateDesignVariable(NormalDistribution distribution, double percentile)
         {
-            return new NormalDistributionDesignVariable<NormalDistribution>(distribution)
+            return new NormalDistributionDesignVariable(distribution)
             {
                 Percentile = percentile
             };
@@ -38,7 +38,16 @@ namespace Ringtoets.Piping.Data
 
         private static DesignVariable<LogNormalDistribution> CreateDesignVariable(LogNormalDistribution distribution, double percentile)
         {
-            return new LogNormalDistributionDesignVariable<LogNormalDistribution>(distribution)
+            return new LogNormalDistributionDesignVariable(distribution)
+            {
+                Percentile = percentile
+            };
+        }
+
+        private static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> CreateDesignVariable(
+            VariationCoefficientLogNormalDistribution distribution, double percentile)
+        {
+            return new VariationCoefficientLogNormalDistributionDesignVariable(distribution)
             {
                 Percentile = percentile
             };
@@ -110,7 +119,7 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Creates the design variable for <see cref="PipingInput.SeepageLength"/>.
         /// </summary>
-        public static DesignVariable<LogNormalDistribution> GetSeepageLength(PipingInput parameters)
+        public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetSeepageLength(PipingInput parameters)
         {
             return CreateDesignVariable(parameters.SeepageLength, 0.05);
         }

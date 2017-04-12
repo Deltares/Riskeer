@@ -521,7 +521,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(inputParameters.PiezometricHeadExit, properties.PiezometricHeadExit);
 
             Assert.AreEqual(inputParameters.SeepageLength.Mean, properties.SeepageLength.Mean);
-            Assert.AreEqual(inputParameters.SeepageLength.StandardDeviation, properties.SeepageLength.StandardDeviation);
+            Assert.AreEqual(inputParameters.SeepageLength.CoefficientOfVariation, properties.SeepageLength.CoefficientOfVariation);
             Assert.AreEqual(inputParameters.SeepageLength.Mean, properties.ExitPointL - properties.EntryPointL);
             Assert.AreEqual(inputParameters.ExitPointL, properties.ExitPointL);
 
@@ -564,13 +564,13 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             RingtoetsPipingSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
             StochasticSoilModel soilModel = ValidStochasticSoilModel(0.0, 4.0);
             StochasticSoilProfile soilProfile = soilModel.StochasticSoilProfiles.First();
-            var dampingFactorExit = new LogNormalDistributionDesignVariable<LogNormalDistribution>(
+            var dampingFactorExit = new LogNormalDistributionDesignVariable(
                 new LogNormalDistribution(3)
                 {
                     Mean = (RoundedDouble) 1.55,
                     StandardDeviation = (RoundedDouble) 0.22
                 });
-            var phreaticLevelExit = new NormalDistributionDesignVariable<NormalDistribution>(
+            var phreaticLevelExit = new NormalDistributionDesignVariable(
                 new NormalDistribution(3)
                 {
                     Mean = (RoundedDouble) 1.55,

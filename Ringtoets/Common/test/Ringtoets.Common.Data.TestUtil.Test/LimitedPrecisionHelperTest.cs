@@ -40,10 +40,10 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             var roundedDouble = new RoundedDouble(precision);
 
             // Call
-            var accuracy = roundedDouble.GetAccuracy();
+            double accuracy = roundedDouble.GetAccuracy();
 
             // Assert
-            var expectedPrecision = 0.5*Math.Pow(10.0, -precision);
+            double expectedPrecision = 0.5 * Math.Pow(10.0, -precision);
             Assert.AreEqual(expectedPrecision, accuracy);
         }
 
@@ -59,10 +59,29 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             };
 
             // Call
-            var accuracy = distribution.GetAccuracy();
+            double accuracy = distribution.GetAccuracy();
 
             // Assert
-            var expectedPrecision = 0.5*Math.Pow(10.0, -precision);
+            double expectedPrecision = 0.5 * Math.Pow(10.0, -precision);
+            Assert.AreEqual(expectedPrecision, accuracy);
+        }
+
+        [Test]
+        [TestCase(1)]
+        [TestCase(2)]
+        public void GetAccuracy_VariationCoefficientDistribution_ReturnsAccuracy(int precision)
+        {
+            // Setup
+            var distribution = new SimpleVariationCoefficientDistribution
+            {
+                Mean = new RoundedDouble(precision)
+            };
+
+            // Call
+            double accuracy = distribution.GetAccuracy();
+
+            // Assert
+            double expectedPrecision = 0.5 * Math.Pow(10.0, -precision);
             Assert.AreEqual(expectedPrecision, accuracy);
         }
 
@@ -75,24 +94,33 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             var roundedCollectoin = new RoundedPoint2DCollection(precision, Enumerable.Empty<Point2D>());
 
             // Call
-            var accuracy = roundedCollectoin.GetAccuracy();
+            double accuracy = roundedCollectoin.GetAccuracy();
 
             // Assert
-            var expectedPrecision = 0.5*Math.Pow(10.0, -precision);
+            double expectedPrecision = 0.5 * Math.Pow(10.0, -precision);
             Assert.AreEqual(expectedPrecision, accuracy);
         }
 
-        private class SimpleDistribution : IDistributionBase
+        private class SimpleDistribution : IDistribution
         {
             public RoundedDouble Mean { get; set; }
-            public RoundedDouble StandardDeviation { get;  }
-            public RoundedDouble CoefficientOfVariation { get; }
+            public RoundedDouble StandardDeviation { get; set; }
 
             public object Clone()
             {
                 throw new NotImplementedException();
             }
+        }
 
+        private class SimpleVariationCoefficientDistribution : IVariationCoefficientDistribution
+        {
+            public RoundedDouble Mean { get; set; }
+            public RoundedDouble CoefficientOfVariation { get; set; }
+
+            public object Clone()
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

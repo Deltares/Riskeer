@@ -26,7 +26,7 @@ namespace Ringtoets.Common.Data.Probabilistics
     /// <summary>
     /// This class defines a design variable for a distribution.
     /// </summary>
-    public class DeterministicDesignVariable<T> : DesignVariable<T> where T : IDistributionBase
+    public class DeterministicDesignVariable<T> : DesignVariable<T> where T : IDistribution
     {
         private readonly double deterministicValue;
 

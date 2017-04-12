@@ -582,7 +582,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.AreEqual(0.5, seepageLength.Mean.Value);
-            Assert.AreEqual(0.05, seepageLength.StandardDeviation.Value);
+            Assert.AreEqual(0.1, seepageLength.CoefficientOfVariation.Value);
         }
 
         [Test]
@@ -598,7 +598,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.IsNaN(seepageLength.Mean);
-            Assert.IsNaN(seepageLength.StandardDeviation);
+            Assert.AreEqual(0.1, seepageLength.CoefficientOfVariation);
         }
 
         [Test]
@@ -614,7 +614,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.IsNaN(seepageLength.Mean);
-            Assert.IsNaN(seepageLength.StandardDeviation);
+            Assert.AreEqual(0.1, seepageLength.CoefficientOfVariation);
         }
 
         [Test]

@@ -92,10 +92,10 @@ namespace Ringtoets.Piping.Data.Test
                 StandardDeviation = (RoundedDouble) 0.5
             };
 
-            var seepageLength = new LogNormalDistribution(2)
+            var seepageLength = new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
-                StandardDeviation = RoundedDouble.NaN
+                CoefficientOfVariation = (RoundedDouble) 0.1
             };
 
             GeneralPipingInput generalInputParameters = new GeneralPipingInput();
@@ -123,8 +123,8 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(generalInputParameters.SellmeijerReductionFactor, inputParameters.SellmeijerReductionFactor);
             Assert.AreEqual(generalInputParameters.Gravity, inputParameters.Gravity);
             Assert.AreEqual(generalInputParameters.WaterKinematicViscosity, inputParameters.WaterKinematicViscosity);
-            Assert.AreEqual(generalInputParameters.WaterVolumetricWeight.Value, inputParameters.WaterVolumetricWeight);
-            Assert.AreEqual(generalInputParameters.SandParticlesVolumicWeight.Value, inputParameters.SandParticlesVolumicWeight);
+            Assert.AreEqual(generalInputParameters.WaterVolumetricWeight, inputParameters.WaterVolumetricWeight);
+            Assert.AreEqual(generalInputParameters.SandParticlesVolumicWeight, inputParameters.SandParticlesVolumicWeight);
             Assert.AreEqual(generalInputParameters.WhitesDragCoefficient, inputParameters.WhitesDragCoefficient);
             Assert.AreEqual(generalInputParameters.BeddingAngle, inputParameters.BeddingAngle);
             Assert.AreEqual(generalInputParameters.MeanDiameter70, inputParameters.MeanDiameter70);
@@ -134,7 +134,7 @@ namespace Ringtoets.Piping.Data.Test
 
             DistributionAssert.AreEqual(saturatedVolumicWeightOfCoverageLayer, inputParameters.SaturatedVolumicWeightOfCoverageLayer);
             Assert.AreEqual(2, inputParameters.SaturatedVolumicWeightOfCoverageLayer.Shift.NumberOfDecimalPlaces);
-            Assert.IsNaN(inputParameters.SaturatedVolumicWeightOfCoverageLayer.Shift.Value);
+            Assert.IsNaN(inputParameters.SaturatedVolumicWeightOfCoverageLayer.Shift);
 
             DistributionAssert.AreEqual(thicknessAquiferLayer, inputParameters.ThicknessAquiferLayer);
             DistributionAssert.AreEqual(seepageLength, inputParameters.SeepageLength);
@@ -650,7 +650,7 @@ namespace Ringtoets.Piping.Data.Test
             LogNormalDistribution thicknessAquiferLayer = input.ThicknessAquiferLayer;
 
             // Assert
-            Assert.AreEqual(1.0, thicknessAquiferLayer.Mean.Value);
+            Assert.AreEqual(1.0, thicknessAquiferLayer.Mean);
         }
 
         [Test]
@@ -757,7 +757,7 @@ namespace Ringtoets.Piping.Data.Test
             LogNormalDistribution thicknessAquiferLayer = input.ThicknessAquiferLayer;
 
             // Assert
-            Assert.AreEqual(1.0, thicknessAquiferLayer.Mean.Value);
+            Assert.AreEqual(1.0, thicknessAquiferLayer.Mean);
         }
 
         [Test]
@@ -840,7 +840,7 @@ namespace Ringtoets.Piping.Data.Test
             LogNormalDistribution thicknessAquiferLayer = input.ThicknessAquiferLayer;
 
             // Assert
-            Assert.AreEqual(2.0, thicknessAquiferLayer.Mean.Value, 1e-6);
+            Assert.AreEqual(2.0, thicknessAquiferLayer.Mean, 1e-6);
         }
 
         [Test]
@@ -1068,11 +1068,11 @@ namespace Ringtoets.Piping.Data.Test
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
 
             // Call
-            LogNormalDistribution seepageLength = input.SeepageLength;
+            VariationCoefficientLogNormalDistribution seepageLength = input.SeepageLength;
 
             // Assert
-            Assert.AreEqual(0.5, seepageLength.Mean.Value);
-            Assert.AreEqual(0.05, seepageLength.StandardDeviation.Value);
+            Assert.AreEqual(0.5, seepageLength.Mean);
+            Assert.AreEqual(0.1, seepageLength.CoefficientOfVariation);
         }
 
         [Test]
@@ -1083,11 +1083,11 @@ namespace Ringtoets.Piping.Data.Test
             input.EntryPointL = RoundedDouble.NaN;
 
             // Call
-            LogNormalDistribution seepageLength = input.SeepageLength;
+            VariationCoefficientLogNormalDistribution seepageLength = input.SeepageLength;
 
             // Assert
             Assert.IsNaN(seepageLength.Mean);
-            Assert.IsNaN(seepageLength.StandardDeviation);
+            Assert.AreEqual(0.1, seepageLength.CoefficientOfVariation);
         }
 
         [Test]
@@ -1098,11 +1098,11 @@ namespace Ringtoets.Piping.Data.Test
             input.ExitPointL = RoundedDouble.NaN;
 
             // Call
-            LogNormalDistribution seepageLength = input.SeepageLength;
+            VariationCoefficientLogNormalDistribution seepageLength = input.SeepageLength;
 
             // Assert
             Assert.IsNaN(seepageLength.Mean);
-            Assert.IsNaN(seepageLength.StandardDeviation);
+            Assert.AreEqual(0.1, seepageLength.CoefficientOfVariation);
         }
 
         private static RingtoetsPipingSurfaceLine CreateSurfaceLine()

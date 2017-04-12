@@ -23,63 +23,67 @@ using System;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Common.Data.Test.Probabilistics
 {
     [TestFixture]
-    public class NormalDistributionDesignVariableTest
+    public class VariationCoefficientLogNormalDistributionDesignVariableTest
     {
         [Test]
-        public void ParameterdConstructor_ValidLogNormalDistribution_ExpectedValues()
+        public void ParameteredConstructor_ValidLogNormalDistribution_ExpectedValues()
         {
             // Setup
-            var normalDistribution = new NormalDistribution(3);
+            var logNormalDistribution = new VariationCoefficientLogNormalDistribution(2);
 
             // Call
-            var designValue = new NormalDistributionDesignVariable(normalDistribution);
+            var designValue = new VariationCoefficientLogNormalDistributionDesignVariable(logNormalDistribution);
 
             // Assert
-            Assert.AreSame(normalDistribution, designValue.Distribution);
+            Assert.AreSame(logNormalDistribution, designValue.Distribution);
             Assert.AreEqual(0.5, designValue.Percentile);
         }
 
         /// <summary>
-        /// Tests the <see cref="NormalDistributionDesignVariable.GetDesignValue"/>
-        /// against the values calculated with the excel sheet in WTI-33 (timestamp: 27-11-2015 10:27).
+        /// Tests the <see cref="VariationCoefficientLogNormalDistributionDesignVariable.GetDesignValue"/>
+        /// against the values calculated with the excel sheet in WTI-33 (timestamp: 27-11-2015 10:27), but 
+        /// keeping in mind the rounding that occurs in the calculation of CoefficientOfVariation.
         /// </summary>
         /// <param name="expectedValue">MEAN.</param>
         /// <param name="variance">VARIANCE.</param>
         /// <param name="percentile">Percentile.</param>
         /// <param name="expectedResult">Rekenwaarde.</param>
         [Test]
-        [TestCase(75, 70, 0.95, 88.76183279)]
-        [TestCase(75, 70, 0.5, 75)]
-        [TestCase(75, 70, 0.05, 61.23816721)]
-        [TestCase(75, 123.45, 0.95, 93.27564881)]
-        [TestCase(75, 1.2345, 0.95, 76.82756488)]
-        [TestCase(123.45, 70, 0.95, 137.2118328)]
-        [TestCase(1.2345, 70, 0.95, 14.99633279)]
-        public void GetDesignVariable_ValidNormalDistribution_ReturnExpectedValue(
+        [TestCase(75, 70, 0.95, 89.50524481)]
+        [TestCase(75, 70, 0.5, 74.53727185)]
+        [TestCase(75, 70, 0.05, 62.07239483)]
+        [TestCase(75, 123.45, 0.95, 94.53050044)]
+        [TestCase(75, 1.2345, 0.95, 76.83967484)]
+        [TestCase(123.45, 70, 0.95, 137.6805705)]
+        [TestCase(1.2345, 70, 0.95, 4.541272847)]
+        public void GetDesignVariable_ValidLogNormalDistribution_ReturnExpectedValue(
             double expectedValue, double variance, double percentile,
             double expectedResult)
         {
             // Setup
-            var normalDistribution = new NormalDistribution(4)
+            const int numberOfDecimalPlaces = 4;
+            var logNormalDistribution = new VariationCoefficientLogNormalDistribution(numberOfDecimalPlaces)
             {
                 Mean = (RoundedDouble) expectedValue,
-                StandardDeviation = (RoundedDouble) Math.Sqrt(variance)
+                CoefficientOfVariation = (RoundedDouble) (Math.Sqrt(variance) / expectedValue)
             };
 
-            var designVariable = new NormalDistributionDesignVariable(normalDistribution)
+            var designVariable = new VariationCoefficientLogNormalDistributionDesignVariable(logNormalDistribution)
             {
                 Percentile = percentile
             };
 
             // Call
-            double result = designVariable.GetDesignValue();
+            RoundedDouble result = designVariable.GetDesignValue();
 
             // Assert
-            Assert.AreEqual(expectedResult, result, 1e-4);
+            Assert.AreEqual(numberOfDecimalPlaces, result.NumberOfDecimalPlaces);
+            Assert.AreEqual(expectedResult, result, result.GetAccuracy());
         }
     }
 }

@@ -26,14 +26,13 @@ namespace Ringtoets.Common.Data.Probabilistics
     /// <summary>
     /// This class defines a design variable for a normal distribution.
     /// </summary>
-    public class NormalDistributionDesignVariable<TDistribution> : PercentileBasedDesignVariable<TDistribution>
-        where TDistribution : IDistributionBase
+    public class NormalDistributionDesignVariable : PercentileBasedDesignVariable<NormalDistribution>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="NormalDistributionDesignVariable{T}"/> class.
+        /// Initializes a new instance of the <see cref="NormalDistributionDesignVariable"/> class.
         /// </summary>
         /// <param name="distribution">A normal distribution.</param>
-        public NormalDistributionDesignVariable(TDistribution distribution) : base(distribution) {}
+        public NormalDistributionDesignVariable(NormalDistribution distribution) : base(distribution) {}
 
         public override RoundedDouble GetDesignValue()
         {

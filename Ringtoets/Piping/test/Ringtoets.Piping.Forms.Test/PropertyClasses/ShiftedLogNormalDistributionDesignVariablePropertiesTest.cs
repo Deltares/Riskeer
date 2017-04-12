@@ -50,7 +50,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             var distribution = new LogNormalDistribution();
-            var designVariable = new LogNormalDistributionDesignVariable<LogNormalDistribution>(distribution);
+            var designVariable = new LogNormalDistributionDesignVariable(distribution);
 
             // Call
             var properties = new ShiftedLogNormalDistributionDesignVariableProperties(designVariable);
@@ -91,7 +91,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             var distribution = new LogNormalDistribution();
-            var designVariable = new LogNormalDistributionDesignVariable<LogNormalDistribution>(distribution);
+            var designVariable = new LogNormalDistributionDesignVariable(distribution);
 
             // Call
             var properties = new ShiftedLogNormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.All,
@@ -116,7 +116,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             var distribution = new LogNormalDistribution();
-            var designVariable = new LogNormalDistributionDesignVariable<LogNormalDistribution>(distribution);
+            var designVariable = new LogNormalDistributionDesignVariable(distribution);
 
             // Call
             var properties = new ShiftedLogNormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.None,
@@ -175,7 +175,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 Mean = new RoundedDouble(2, 1),
                 StandardDeviation = new RoundedDouble(2, 2)
             };
-            var designVariable = new LogNormalDistributionDesignVariable<LogNormalDistribution>(distribution);
+            var designVariable = new LogNormalDistributionDesignVariable(distribution);
 
             // Call
             var properties = new ShiftedLogNormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.None,
@@ -204,7 +204,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 StandardDeviation = new RoundedDouble(2, 2),
                 Shift = new RoundedDouble(2, 0.3)
             };
-            var designVariable = new LogNormalDistributionDesignVariable<LogNormalDistribution>(distribution);
+            var designVariable = new LogNormalDistributionDesignVariable(distribution);
 
             // Call
             var properties = new ShiftedLogNormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.None,

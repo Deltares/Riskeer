@@ -30,11 +30,10 @@ namespace Ringtoets.Common.Data.Probabilistics
     /// of variation.
     /// </summary>
     /// <seealso cref="LogNormalDistribution"/>
-    public class VariationCoefficientLogNormalDistribution : IVariationCoefficientDistribution, ILogNormalDistribution
+    public class VariationCoefficientLogNormalDistribution : IVariationCoefficientDistribution
     {
         private RoundedDouble mean;
         private RoundedDouble coefficientOfVariation;
-        private RoundedDouble shift;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="VariationCoefficientLogNormalDistribution"/> class,
@@ -55,28 +54,6 @@ namespace Ringtoets.Common.Data.Probabilistics
         {
             mean = new RoundedDouble(numberOfDecimalPlaces, 1.0);
             coefficientOfVariation = new RoundedDouble(numberOfDecimalPlaces, 1.0);
-            shift = new RoundedDouble(numberOfDecimalPlaces);
-        }
-
-        /// <summary>
-        /// Gets or sets the shift of the normal distribution which is the log of the log-normal distribution.
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when the shift is larger than the mean.</exception>
-        public RoundedDouble Shift
-        {
-            get
-            {
-                return shift;
-            }
-            set
-            {
-                RoundedDouble newShift = value.ToPrecision(shift.NumberOfDecimalPlaces);
-                if (newShift > Mean)
-                {
-                    throw new ArgumentOutOfRangeException(null, Resources.LogNormalDistribution_Shift_may_not_exceed_Mean);
-                }
-                shift = newShift;
-            }
         }
 
         /// <summary>
@@ -120,14 +97,6 @@ namespace Ringtoets.Common.Data.Probabilistics
                 }
 
                 coefficientOfVariation = roundedValue;
-            }
-        }
-
-        public RoundedDouble StandardDeviation
-        {
-            get
-            {
-                return Mean * CoefficientOfVariation;
             }
         }
 

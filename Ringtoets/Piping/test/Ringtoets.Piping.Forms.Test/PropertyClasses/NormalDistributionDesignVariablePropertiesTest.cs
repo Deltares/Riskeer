@@ -62,7 +62,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             var distribution = new NormalDistribution();
-            var designVariable = new NormalDistributionDesignVariable<NormalDistribution>(distribution);
+            var designVariable = new NormalDistributionDesignVariable(distribution);
 
             // Call
             var properties = new NormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.All,
@@ -87,7 +87,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             var distribution = new NormalDistribution();
-            var designVariable = new NormalDistributionDesignVariable<NormalDistribution>(distribution);
+            var designVariable = new NormalDistributionDesignVariable(distribution);
 
             // Call
             var properties = new NormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.None,
@@ -139,7 +139,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 Mean = new RoundedDouble(2, 1),
                 StandardDeviation = new RoundedDouble(2, 2)
             };
-            var designVariable = new NormalDistributionDesignVariable<NormalDistribution>(distribution);
+            var designVariable = new NormalDistributionDesignVariable(distribution);
 
             // Call
             var properties = new NormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.None,

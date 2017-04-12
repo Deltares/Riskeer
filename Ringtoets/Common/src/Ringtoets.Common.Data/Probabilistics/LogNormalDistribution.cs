@@ -29,7 +29,7 @@ namespace Ringtoets.Common.Data.Probabilistics
     /// Class representing a log-normal distribution expressed in terms of standard deviation.
     /// </summary>
     /// <seealso cref="VariationCoefficientLogNormalDistribution"/>
-    public class LogNormalDistribution : IDistribution, ILogNormalDistribution
+    public class LogNormalDistribution : IDistribution
     {
         private RoundedDouble mean;
         private RoundedDouble standardDeviation;
@@ -61,7 +61,7 @@ namespace Ringtoets.Common.Data.Probabilistics
             // Initialize mean, standard deviation and shift of the normal distribution which is the log of the 
             // log-normal distribution with scale parameter mu=0, shape parameter sigma=1 and location parameter theta=0.
             mean = new RoundedDouble(numberOfDecimalPlaces, Math.Exp(-0.5));
-            standardDeviation = new RoundedDouble(numberOfDecimalPlaces, Math.Sqrt((Math.Exp(1) - 1) * Math.Exp(1)));
+            standardDeviation = new RoundedDouble(numberOfDecimalPlaces, Math.Sqrt((Math.Exp(1) - 1)*Math.Exp(1)));
             shift = new RoundedDouble(numberOfDecimalPlaces);
         }
 
@@ -137,14 +137,6 @@ namespace Ringtoets.Common.Data.Probabilistics
                 }
 
                 standardDeviation = roundedValue;
-            }
-        }
-
-        public RoundedDouble CoefficientOfVariation
-        {
-            get
-            {
-                return new RoundedDouble(StandardDeviation.NumberOfDecimalPlaces, StandardDeviation / Mean);
             }
         }
 

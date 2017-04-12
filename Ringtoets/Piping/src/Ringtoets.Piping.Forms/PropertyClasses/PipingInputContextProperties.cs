@@ -368,11 +368,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_SeepageLength_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_SeepageLength_Description))]
-        public LogNormalDistributionDesignVariableProperties SeepageLength
+        public VariationCoefficientLogNormalDistributionDesignVariableProperties SeepageLength
         {
             get
             {
-                return new LogNormalDistributionDesignVariableProperties(PipingSemiProbabilisticDesignValueFactory.GetSeepageLength(data.WrappedData));
+                return new VariationCoefficientLogNormalDistributionDesignVariableProperties(
+                    PipingSemiProbabilisticDesignValueFactory.GetSeepageLength(data.WrappedData));
             }
         }
 

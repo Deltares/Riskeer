@@ -137,7 +137,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             var inputParameters = new PipingInput(new GeneralPipingInput());
 
             // Call
-            DesignVariable<LogNormalDistribution> seepageLength =
+            VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> seepageLength =
                 PipingSemiProbabilisticDesignValueFactory.GetSeepageLength(inputParameters);
 
             // Assert
@@ -230,6 +230,13 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         {
             Assert.IsInstanceOf<PercentileBasedDesignVariable<T>>(designVariable);
             var percentileBasedDesignVariable = (PercentileBasedDesignVariable<T>) designVariable;
+            Assert.AreEqual(percentile, percentileBasedDesignVariable.Percentile);
+        }
+
+        private void AssertPercentile(double percentile, VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> designVariable)
+        {
+            Assert.IsInstanceOf<VariationCoefficientLogNormalDistributionDesignVariable>(designVariable);
+            var percentileBasedDesignVariable = (VariationCoefficientLogNormalDistributionDesignVariable)designVariable;
             Assert.AreEqual(percentile, percentileBasedDesignVariable.Percentile);
         }
     }

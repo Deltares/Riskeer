@@ -74,15 +74,15 @@ namespace Ringtoets.Piping.Data
         /// Gets the horizontal distance between entry and exit point.
         /// [m]
         /// </summary>
-        public LogNormalDistribution SeepageLength
+        public VariationCoefficientLogNormalDistribution SeepageLength
         {
             get
             {
-                LogNormalDistribution seepageLength = new LogNormalDistribution(2);
+                VariationCoefficientLogNormalDistribution seepageLength = new VariationCoefficientLogNormalDistribution(2);
                 double seepageLengthMean = input.ExitPointL - input.EntryPointL;
 
                 seepageLength.Mean = (RoundedDouble) seepageLengthMean;
-                seepageLength.StandardDeviation = (RoundedDouble) seepageLengthMean*seepageLengthStandardDeviationFraction;
+                seepageLength.CoefficientOfVariation = (RoundedDouble) seepageLengthStandardDeviationFraction;
 
                 return seepageLength;
             }

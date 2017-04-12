@@ -39,7 +39,6 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
 
             // Assert
             Assert.IsInstanceOf<IDistribution>(distribution);
-            Assert.IsInstanceOf<ILogNormalDistribution>(distribution);
 
             int numberOfDecimalPlaces = RoundedDouble.MaximumNumberOfDecimalPlaces;
             double expectedAccuracy = Math.Pow(10.0, -numberOfDecimalPlaces);
@@ -63,7 +62,6 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
 
             // Assert
             Assert.IsInstanceOf<IDistribution>(distribution);
-            Assert.IsInstanceOf<ILogNormalDistribution>(distribution);
 
             double expectedAccuracy = Math.Pow(10.0, -numberOfDecimalPlaces);
 

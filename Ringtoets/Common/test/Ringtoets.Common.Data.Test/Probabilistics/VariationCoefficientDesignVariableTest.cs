@@ -28,18 +28,18 @@ using Ringtoets.Common.Data.Probabilistics;
 namespace Ringtoets.Common.Data.Test.Probabilistics
 {
     [TestFixture]
-    public class DesignVariableTest
+    public class VariationCoefficientDesignVariableTest
     {
         [Test]
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
             var mocks = new MockRepository();
-            var distributionMock = mocks.StrictMock<IDistribution>();
+            var distributionMock = mocks.StrictMock<IVariationCoefficientDistribution>();
             mocks.ReplayAll();
 
             // Call
-            var designVariable = new SimpleDesignVariable(distributionMock);
+            var designVariable = new SimpleVariationCoefficientDesignVariable(distributionMock);
 
             // Assert
             Assert.AreSame(distributionMock, designVariable.Distribution);
@@ -50,7 +50,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         public void ParameteredConstructor_DistributionIsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SimpleDesignVariable(null);
+            TestDelegate call = () => new SimpleVariationCoefficientDesignVariable(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -66,10 +66,10 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         {
             // Setup
             var mocks = new MockRepository();
-            var distributionMock = mocks.StrictMock<IDistribution>();
+            var distributionMock = mocks.StrictMock<IVariationCoefficientDistribution>();
             mocks.ReplayAll();
 
-            var designVariable = new SimpleDesignVariable(distributionMock);
+            var designVariable = new SimpleVariationCoefficientDesignVariable(distributionMock);
 
             // Call
             TestDelegate call = () => designVariable.Distribution = null;
@@ -84,9 +84,9 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             mocks.VerifyAll(); // Expect no calls on mocks
         }
 
-        private class SimpleDesignVariable : DesignVariable<IDistribution>
+        private class SimpleVariationCoefficientDesignVariable : VariationCoefficientDesignVariable<IVariationCoefficientDistribution>
         {
-            public SimpleDesignVariable(IDistribution distribution) : base(distribution) {}
+            public SimpleVariationCoefficientDesignVariable(IVariationCoefficientDistribution distribution) : base(distribution) {}
 
             public override RoundedDouble GetDesignValue()
             {

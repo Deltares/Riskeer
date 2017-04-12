@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2016. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -29,23 +29,19 @@ using Ringtoets.Common.Data.Properties;
 namespace Ringtoets.Common.Data.Probabilistics
 {
     /// <summary>
-    /// This class is a representation of a variable derived from a probabilistic distribution,
-    /// based on a percentile.
+    /// This class defines a percentile based design variable for a log-normal distribution
+    /// defined with a variation coefficient.
     /// </summary>
-    /// <typeparam name="TDistributionType">The type of the underlying distribution from which a value is 
-    /// derived.</typeparam>
-    public abstract class PercentileBasedDesignVariable<TDistributionType> : DesignVariable<TDistributionType> where TDistributionType : IDistribution
+    public class VariationCoefficientLogNormalDistributionDesignVariable : VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution>
     {
         private static readonly Range<double> percentileValidityRange = new Range<double>(0, 1);
         private double percentile;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PercentileBasedDesignVariable{TDistributionType}"/> class with 
-        /// <see cref="Percentile"/> equal to 0.5.
+        /// Initializes a new instance of the <see cref="LogNormalDistributionDesignVariable"/> class.
         /// </summary>
-        /// <exception cref="ArgumentNullException">Thrown when <see cref="DesignVariable{TDistributionType}.Distribution"/> is 
-        /// <c>null</c>.</exception>
-        protected PercentileBasedDesignVariable(TDistributionType distribution) : base(distribution)
+        /// <param name="distribution">A log-normal distribution.</param>
+        public VariationCoefficientLogNormalDistributionDesignVariable(VariationCoefficientLogNormalDistribution distribution) : base(distribution)
         {
             percentile = 0.5;
         }
@@ -73,19 +69,47 @@ namespace Ringtoets.Common.Data.Probabilistics
             }
         }
 
+        public override RoundedDouble GetDesignValue()
+        {
+            double normalSpaceDesignValue = DetermineDesignValueInNormalDistributionSpace();
+            return ProjectFromNormalToLogNormalSpace(normalSpaceDesignValue);
+        }
+
         /// <summary>
-        /// Determines the design value based on a 'normal space' expected value and standard deviation.
+        /// Projects <see cref="VariationCoefficientDesignVariable{TDistributionType}.Distribution"/> into 'normal
+        /// distribution' space and calculates the design value for that value space.
+        /// </summary>
+        /// <returns>The design value in 'normal distribution' space.</returns>
+        private double DetermineDesignValueInNormalDistributionSpace()
+        {
+            // Determine normal distribution parameters from log-normal parameters, as
+            // design value can only be determined in 'normal distribution' space.
+            // Below formula's come from Tu-Delft College dictaat "b3 Probabilistisch Ontwerpen"
+            // by ir. A.C.W.M. Vrouwenvelder and ir.J.K. Vrijling 5th reprint 1987.
+            double sigmaLogOverMuLog = Distribution.CoefficientOfVariation;
+            double sigmaNormal = Math.Sqrt(Math.Log(sigmaLogOverMuLog * sigmaLogOverMuLog + 1.0));
+            double muNormal = Math.Log(Distribution.Mean) - 0.5 * sigmaNormal * sigmaNormal;
+            return DetermineDesignValue(muNormal, sigmaNormal);
+        }
+
+        /// <summary>
+        /// Determines the design value based on a 'normal space' expected value and variation coefficient.
         /// </summary>
         /// <param name="expectedValue">The expected value.</param>
-        /// <param name="standardDeviation">The standard deviation.</param>
+        /// <param name="variationCoefficient">The standard deviation.</param>
         /// <returns>The design value</returns>
-        protected double DetermineDesignValue(double expectedValue, double standardDeviation)
+        private double DetermineDesignValue(double expectedValue, double variationCoefficient)
         {
             // Design factor is determined using the 'probit function', which is the inverse
             // CDF function of the standard normal distribution. For more information see:
             // "Quantile function" https://en.wikipedia.org/wiki/Normal_distribution
             double designFactor = Normal.InvCDF(0.0, 1.0, Percentile);
-            return expectedValue + designFactor * standardDeviation;
+            return expectedValue + designFactor * variationCoefficient;
+        }
+
+        private RoundedDouble ProjectFromNormalToLogNormalSpace(double normalSpaceDesignValue)
+        {
+            return new RoundedDouble(Distribution.Mean.NumberOfDecimalPlaces, Math.Exp(normalSpaceDesignValue));
         }
     }
 }

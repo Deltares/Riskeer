@@ -467,7 +467,7 @@ namespace Ringtoets.Piping.Data
         /// Gets the horizontal distance between entry and exit point.
         /// [m]
         /// </summary>
-        public LogNormalDistribution SeepageLength
+        public VariationCoefficientLogNormalDistribution SeepageLength
         {
             get
             {
