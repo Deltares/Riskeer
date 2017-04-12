@@ -65,6 +65,7 @@
     </Compile>
     <Compile Include="ExportInfos\StabilityPointStructuresCalculationContextExportInfoTest.cs" />
     <Compile Include="ExportInfos\StabilityPointStructuresCalculationGroupContextExportInfoTest.cs" />
+    <Compile Include="ImportInfos\StabilityPointStructuresCalculationGroupContextImportInfoTest.cs" />
     <Compile Include="ImportInfos\StabilityPointStructuresContextImportInfoTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyInfos\StabilityPointStructuresFailureMechanismContextPropertyInfoTest.cs" />

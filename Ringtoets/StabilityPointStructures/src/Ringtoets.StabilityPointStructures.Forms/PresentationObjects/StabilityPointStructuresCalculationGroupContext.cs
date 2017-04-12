@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.StabilityPointStructures.Data;
 
@@ -44,6 +46,28 @@ namespace Ringtoets.StabilityPointStructures.Forms.PresentationObjects
         public StabilityPointStructuresCalculationGroupContext(CalculationGroup calculationsGroup,
                                                                StabilityPointStructuresFailureMechanism failureMechanism,
                                                                IAssessmentSection assessmentSection)
-            : base(calculationsGroup, failureMechanism, assessmentSection) {}
+            : base(calculationsGroup, failureMechanism, assessmentSection) { }
+
+        /// <summary>
+        /// Gets the available foreshore profiles.
+        /// </summary>
+        public IEnumerable<ForeshoreProfile> AvailableForeshoreProfiles
+        {
+            get
+            {
+                return FailureMechanism.ForeshoreProfiles;
+            }
+        }
+
+        /// <summary>
+        /// Gets the available stability point structures.
+        /// </summary>
+        public IEnumerable<StabilityPointStructure> AvailableStructures
+        {
+            get
+            {
+                return FailureMechanism.StabilityPointStructures;
+            }
+        }
     }
 }

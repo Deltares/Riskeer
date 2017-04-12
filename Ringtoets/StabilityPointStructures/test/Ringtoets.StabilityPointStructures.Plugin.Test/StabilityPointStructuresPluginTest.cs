@@ -140,8 +140,9 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test
                 ImportInfo[] importInfos = plugin.GetImportInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(1, importInfos.Length);
+                Assert.AreEqual(2, importInfos.Length);
                 Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(StabilityPointStructuresContext)));
+                Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(StabilityPointStructuresCalculationGroupContext)));
             }
         }
 
