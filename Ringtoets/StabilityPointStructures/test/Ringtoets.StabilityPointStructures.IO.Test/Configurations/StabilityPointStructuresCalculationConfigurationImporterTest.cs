@@ -50,8 +50,74 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             get
             {
                 yield return new TestCaseData(
+                    "validConfigurationAllowedLevelIncreaseStorageMeanInvalid.xml",
+                    "Een gemiddelde van '-0,2' is ongeldig voor stochast 'peilverhogingkomberging'. " +
+                    "Gemiddelde moet groter zijn dan 0.");
+                yield return new TestCaseData(
+                    "validConfigurationAllowedLevelIncreaseStorageStandardDeviationInvalid.xml",
+                    "Een standaardafwijking van '-0,01' is ongeldig voor stochast 'peilverhogingkomberging'. " +
+                    "Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.");
+                yield return new TestCaseData(
+                    "validConfigurationAllowedLevelIncreaseStorageVariationCoefficient.xml",
+                    "Indien voor parameter 'peilverhogingkomberging' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. " +
+                    "Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.");
+
+                yield return new TestCaseData(
+                    "validConfigurationAreaFlowAperturesMeanInvalid.xml",
+                    "Een gemiddelde van '-0,2' is ongeldig voor stochast 'doorstroomoppervlak'. " +
+                    "Gemiddelde moet groter zijn dan 0.");
+                yield return new TestCaseData(
+                    "validConfigurationAreaFlowAperturesStandardDeviationInvalid.xml",
+                    "Een standaardafwijking van '-0,01' is ongeldig voor stochast 'doorstroomoppervlak'. " +
+                    "Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.");
+                yield return new TestCaseData(
                     "validConfigurationAreaFlowAperturesVariationCoefficient.xml",
-                    "Indien voor parameter 'doorstroomoppervlak' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.");
+                    "Indien voor parameter 'doorstroomoppervlak' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. " +
+                    "Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.");
+
+                yield return new TestCaseData(
+                    "validConfigurationBankWidthStandardDeviationInvalid.xml",
+                    "Een standaardafwijking van '-0,01' is ongeldig voor stochast 'bermbreedte'. " +
+                    "Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.");
+                yield return new TestCaseData(
+                    "validConfigurationBankWidthVariationCoefficient.xml",
+                    "Indien voor parameter 'bermbreedte' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. " +
+                    "Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.");
+
+                yield return new TestCaseData(
+                    "validConfigurationConstructiveStrengthLinearLoadModelVariationCoefficientInvalid.xml",
+                    "Een variatiecoëfficiënt van '-0,01' is ongeldig voor stochast 'lineairebelastingschematiseringsterkte'. " +
+                    "Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0.");
+                yield return new TestCaseData(
+                    "validConfigurationConstructiveStrengthLinearLoadModelStandardDeviation.xml",
+                    "Indien voor parameter 'lineairebelastingschematiseringsterkte' de spreiding wordt opgegeven, moet dit door middel van een variatiecoëfficiënt. " +
+                    "Voor berekening 'Berekening 1' is een standaardafwijking gevonden.");
+
+                yield return new TestCaseData(
+                    "validConfigurationConstructiveStrengthQuadraticLoadModelMeanInvalid.xml",
+                    "Een gemiddelde van '-0,2' is ongeldig voor stochast 'kwadratischebelastingschematiseringsterkte'. " +
+                    "Gemiddelde moet groter zijn dan 0.");
+                yield return new TestCaseData(
+                    "validConfigurationConstructiveStrengthQuadraticLoadModelVariationCoefficientInvalid.xml",
+                    "Een variatiecoëfficiënt van '-0,01' is ongeldig voor stochast 'kwadratischebelastingschematiseringsterkte'. " +
+                    "Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0.");
+                yield return new TestCaseData(
+                    "validConfigurationConstructiveStrengthQuadraticLoadModelStandardDeviation.xml",
+                    "Indien voor parameter 'kwadratischebelastingschematiseringsterkte' de spreiding wordt opgegeven, moet dit door middel van een variatiecoëfficiënt. " +
+                    "Voor berekening 'Berekening 1' is een standaardafwijking gevonden.");
+
+                yield return new TestCaseData(
+                    "validConfigurationCriticalOvertoppingDischargeMeanInvalid.xml",
+                    "Een gemiddelde van '-2' is ongeldig voor stochast 'kritiekinstromenddebiet'. Gemiddelde moet groter zijn dan 0.");
+
+                yield return new TestCaseData(
+                    "validConfigurationCriticalOvertoppingDischargeStandardDeviation.xml",
+                    "Indien voor parameter 'kritiekinstromenddebiet' de spreiding wordt opgegeven, moet dit door middel van een variatiecoëfficiënt. " +
+                    "Voor berekening 'Berekening 1' is een standaardafwijking gevonden.");
+                yield return new TestCaseData(
+                    "validConfigurationCriticalOvertoppingDischargeVariationCoefficientInvalid.xml",
+                    "Een variatiecoëfficiënt van '-0,1' is ongeldig voor stochast 'kritiekinstromenddebiet'. " +
+                    "Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0.");
 
                 yield return new TestCaseData(
                     "validConfigurationDrainCoefficientStandardDeviation.xml",
@@ -65,14 +131,14 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                     "Er is geen kunstwerk opgegeven om analysehoogte aan toe te voegen.");
 
                 yield return new TestCaseData(
-                    "validConfigurationInvalidFailureProbabilityStructureErosion.xml",
+                    "validConfigurationFailureProbabilityStructureErosionInvalid.xml",
                     "Een waarde van '1,1' als faalkans gegeven erosie bodem is ongeldig. De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.");
 
                 yield return new TestCaseData(
                     "validConfigurationFailureProbabilityRepairClosureWithoutStructure.xml",
                     "Er is geen kunstwerk opgegeven om faalkans herstel van gefaalde situatie aan toe te voegen.");
                 yield return new TestCaseData(
-                    "validConfigurationInvalidFailureProbabilityRepairClosure.xml",
+                    "validConfigurationFailureProbabilityRepairClosureInvalid.xml",
                     "Een waarde van '1,1' als faalkans herstel van gefaalde situatie is ongeldig. De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.");
 
                 yield return new TestCaseData(
@@ -93,7 +159,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                     "validConfigurationProbabilityCollisionSecondaryStructureWithoutStructure.xml",
                     "Er is geen kunstwerk opgegeven om de kans op aanvaring tweede keermiddel per nivellering aan toe te voegen.");
                 yield return new TestCaseData(
-                    "validConfigurationInvalidProbabilityCollisionSecondaryStructure.xml",
+                    "validConfigurationProbabilityCollisionSecondaryStructureInvalid.xml",
                     "Een waarde van '1,1' als de kans op aanvaring tweede keermiddel per nivellering is ongeldig. Kans moet in het bereik [0,0, 1,0] liggen.");
 
                 yield return new TestCaseData(
@@ -108,7 +174,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                     "validConfigurationStructureNormalOrientationWithoutStructure.xml",
                     "Er is geen kunstwerk opgegeven om oriëntatie aan toe te voegen.");
                 yield return new TestCaseData(
-                    "validConfigurationInvalidStructureNormalOrientation.xml",
+                    "validConfigurationStructureNormalOrientationInvalid.xml",
                     "Een waarde van '-12' als oriëntatie is ongeldig. De waarde voor de oriëntatie moet in het bereik [0,00, 360,00] liggen.");
             }
         }
