@@ -218,7 +218,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 TestDikeHeightCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
-                calculator.DikeHeight = double.NaN;
+                calculator.Value = double.NaN;
                 calculator.EndInFailure = true;
 
                 // Call
@@ -367,7 +367,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 TestDikeHeightCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
-                calculator.DikeHeight = 2;
+                calculator.Value = 2;
                 calculator.ReliabilityIndex = -1;
 
                 // Call
@@ -596,7 +596,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 TestDikeHeightCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
-                calculator.DikeHeight = double.NaN;
+                calculator.Value = double.NaN;
                 calculator.EndInFailure = true;
 
                 activity.Run();
@@ -989,10 +989,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
                 // Assert
                 TestDikeHeightCalculator dikeHeightCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
-                DikeHeightCalculationInput[] dikeHeightCalculationInputs = dikeHeightCalculator.ReceivedInputs.ToArray();
+                HydraulicLoadsCalculationInput[] dikeHeightCalculationInputs = dikeHeightCalculator.ReceivedInputs.ToArray();
                 Assert.AreEqual(1, dikeHeightCalculationInputs.Length);
 
-                DikeHeightCalculationInput actualInput = dikeHeightCalculationInputs[0];
+                HydraulicLoadsCalculationInput actualInput = dikeHeightCalculationInputs[0];
                 GeneralGrassCoverErosionInwardsInput generalInput = assessmentSection.GrassCoverErosionInwards.GeneralInput;
 
                 GrassCoverErosionInwardsInput input = calculation.InputParameters;

@@ -31,7 +31,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
     /// Calculator which calculates the dike height associated to the result of iterating towards a
     /// probability of failure given a norm.
     /// </summary>
-    internal class DikeHeightCalculator : HydraRingCalculatorBase, IDikeHeightCalculator
+    internal class DikeHeightCalculator : HydraRingCalculatorBase, IHydraulicLoadsCalculator
     {
         private readonly ReliabilityIndexCalculationParser targetProbabilityParser;
         private readonly ConvergenceParser convergenceParser;
@@ -47,17 +47,17 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
             targetProbabilityParser = new ReliabilityIndexCalculationParser();
             convergenceParser = new ConvergenceParser();
 
-            DikeHeight = double.NaN;
+            Value = double.NaN;
             ReliabilityIndex = double.NaN;
         }
 
-        public double DikeHeight { get; private set; }
+        public double Value { get; private set; }
 
         public double ReliabilityIndex { get; private set; }
 
         public bool? Converged { get; private set; }
 
-        public void Calculate(DikeHeightCalculationInput input)
+        public void Calculate(HydraulicLoadsCalculationInput input)
         {
             Calculate(HydraRingUncertaintiesType.All, input);
         }
@@ -72,7 +72,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         {
             if (targetProbabilityParser.Output != null)
             {
-                DikeHeight = targetProbabilityParser.Output.Result;
+                Value = targetProbabilityParser.Output.Result;
                 ReliabilityIndex = targetProbabilityParser.Output.CalculatedReliabilityIndex;
             }
 

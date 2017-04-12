@@ -56,7 +56,6 @@
     <Compile Include="Calculator\StructuresClosureCalculator.cs" />
     <Compile Include="Calculator\StructuresOvertoppingCalculator.cs" />
     <Compile Include="Calculator\IDesignWaterLevelCalculator.cs" />
-    <Compile Include="Calculator\IDikeHeightCalculator.cs" />
     <Compile Include="Calculator\IStructuresOvertoppingCalculator.cs" />
     <Compile Include="Calculator\IOvertoppingCalculator.cs" />
     <Compile Include="Calculator\IWaveConditionsCosineCalculator.cs" />

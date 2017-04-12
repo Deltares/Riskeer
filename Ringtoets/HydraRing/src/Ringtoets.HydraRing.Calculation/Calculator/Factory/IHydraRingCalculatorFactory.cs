@@ -49,9 +49,9 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
         /// Creates a calculator for calculating a dike height.
         /// </summary>
         /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
-        /// <returns>A new <see cref="IDikeHeightCalculator"/>.</returns>
+        /// <returns>A new <see cref="IHydraulicLoadsCalculator"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
-        IDikeHeightCalculator CreateDikeHeightCalculator(string hlcdDirectory);
+        IHydraulicLoadsCalculator CreateDikeHeightCalculator(string hlcdDirectory);
 
         /// <summary>
         /// Creates a calculator for calculating an overtopping rate.

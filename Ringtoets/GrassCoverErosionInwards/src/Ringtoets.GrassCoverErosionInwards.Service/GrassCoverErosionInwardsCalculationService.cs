@@ -57,7 +57,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
         private bool canceled;
         private IOvertoppingCalculator overtoppingCalculator;
-        private IDikeHeightCalculator dikeHeightCalculator;
+        private IHydraulicLoadsCalculator dikeHeightCalculator;
         private IHydraulicLoadsCalculator overtoppingRateCalculator;
 
         /// <summary>
@@ -598,7 +598,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                                                                 double targetReliability,
                                                                                 double targetProbability)
         {
-            double dikeHeight = dikeHeightCalculator.DikeHeight;
+            double dikeHeight = dikeHeightCalculator.Value;
             double reliability = dikeHeightCalculator.ReliabilityIndex;
             double probability = StatisticsConverter.ReliabilityToProbability(reliability);
 
