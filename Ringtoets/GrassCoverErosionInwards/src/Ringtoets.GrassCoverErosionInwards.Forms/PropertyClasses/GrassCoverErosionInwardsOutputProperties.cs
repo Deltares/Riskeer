@@ -42,13 +42,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
-            return data.DikeHeightAssessmentOutput != null;
+            return propertyName.Contains(nameof(DikeHeight)) && data.DikeHeightAssessmentOutput != null
+                   || propertyName.Contains(nameof(OvertoppingRate)) && data.OvertoppingRateAssessmentOutput != null;
         }
 
         #region GrassCoverErosionInwards result
 
         [PropertyOrder(1)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result), 1, 2)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result), 1, 3)]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ProbabilityAssessmentOutput_RequiredProbability_Displayname))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ProbabilityAssessmentOutput_RequiredProbability_Description))]
         public string RequiredProbability
@@ -60,7 +61,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(2)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result), 1, 2)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result), 1, 3)]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ProbabilityAssessmentOutput_RequiredReliability_Displayname))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ProbabilityAssessmentOutput_RequiredReliability_Description))]
         public RoundedDouble RequiredReliability
@@ -72,7 +73,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(3)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result), 1, 2)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result), 1, 3)]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ProbabilityAssessmentOutput_Probability_Displayname))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ProbabilityAssessmentOutput_Probability_Description))]
         public string Probability
@@ -84,7 +85,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(4)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result), 1, 2)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result), 1, 3)]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ProbabilityAssessmentOutput_Reliability_Displayname))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ProbabilityAssessmentOutput_Reliability_Description))]
         public RoundedDouble Reliability
@@ -96,7 +97,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(5)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result), 1, 2)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result), 1, 3)]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ProbabilityAssessmentOutput_FactorOfSafety_Displayname))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ProbabilityAssessmentOutput_FactorOfSafety_Description))]
         public RoundedDouble FactorOfSafety
@@ -108,7 +109,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(6)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result), 1, 2)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result), 1, 3)]
         [ResourcesDisplayName(typeof(GrassCoverErosionInwardsFormsResources), nameof(GrassCoverErosionInwardsFormsResources.GrassCoverErosionInwardsOutput_WaveHeight_Displayname))]
         [ResourcesDescription(typeof(GrassCoverErosionInwardsFormsResources), nameof(GrassCoverErosionInwardsFormsResources.GrassCoverErosionInwardsOutput_WaveHeight_Description))]
         public RoundedDouble WaveHeight
@@ -120,7 +121,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(7)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result), 1, 2)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result), 1, 3)]
         [ResourcesDisplayName(typeof(GrassCoverErosionInwardsFormsResources), nameof(GrassCoverErosionInwardsFormsResources.GrassCoverErosionInwardsOutput_IsOvertoppingDominant_Displayname))]
         [ResourcesDescription(typeof(GrassCoverErosionInwardsFormsResources), nameof(GrassCoverErosionInwardsFormsResources.GrassCoverErosionInwardsOutput_IsOvertoppingDominant_Description))]
         public bool IsOvertoppingDominant
@@ -137,95 +138,181 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [PropertyOrder(8)]
         [DynamicVisible]
-        [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), nameof(GrassCoverErosionInwardsFormsResources.Categories_DikeHeight_Result), 2, 2)]
+        [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), nameof(GrassCoverErosionInwardsFormsResources.Categories_DikeHeight_Result), 2, 3)]
         [ResourcesDisplayName(typeof(GrassCoverErosionInwardsFormsResources), nameof(GrassCoverErosionInwardsFormsResources.GrassCoverErosionInwardsOutput_DikeHeight_DisplayName))]
         [ResourcesDescription(typeof(GrassCoverErosionInwardsFormsResources), nameof(GrassCoverErosionInwardsFormsResources.GrassCoverErosionInwardsOutput_DikeHeight_Description))]
         public RoundedDouble DikeHeight
         {
             get
             {
-                return data.DikeHeightAssessmentOutput == null
-                           ? RoundedDouble.NaN
-                           : data.DikeHeightAssessmentOutput.Result;
+                return data.DikeHeightAssessmentOutput?.Result
+                       ?? RoundedDouble.NaN;
             }
         }
 
         [PropertyOrder(9)]
         [DynamicVisible]
-        [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), nameof(GrassCoverErosionInwardsFormsResources.Categories_DikeHeight_Result), 2, 2)]
+        [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), nameof(GrassCoverErosionInwardsFormsResources.Categories_DikeHeight_Result), 2, 3)]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_TargetProbability_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_TargetProbability_Description))]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double TargetProbability
+        public double DikeHeightTargetProbability
         {
             get
             {
-                return data.DikeHeightAssessmentOutput == null
-                           ? double.NaN
-                           : data.DikeHeightAssessmentOutput.TargetProbability;
+                return data.DikeHeightAssessmentOutput?.TargetProbability
+                       ?? double.NaN;
             }
         }
 
         [PropertyOrder(10)]
         [DynamicVisible]
-        [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), nameof(GrassCoverErosionInwardsFormsResources.Categories_DikeHeight_Result), 2, 2)]
+        [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), nameof(GrassCoverErosionInwardsFormsResources.Categories_DikeHeight_Result), 2, 3)]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_TargetReliability_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_TargetReliability_Description))]
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
-        public RoundedDouble TargetReliability
+        public RoundedDouble DikeHeightTargetReliability
         {
             get
             {
-                return data.DikeHeightAssessmentOutput == null
-                           ? RoundedDouble.NaN
-                           : data.DikeHeightAssessmentOutput.TargetReliability;
+                return data.DikeHeightAssessmentOutput?.TargetReliability
+                       ?? RoundedDouble.NaN;
             }
         }
 
         [PropertyOrder(11)]
         [DynamicVisible]
-        [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), nameof(GrassCoverErosionInwardsFormsResources.Categories_DikeHeight_Result), 2, 2)]
+        [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), nameof(GrassCoverErosionInwardsFormsResources.Categories_DikeHeight_Result), 2, 3)]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_CalculatedProbability_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_CalculatedProbability_Description))]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double CalculatedProbability
+        public double DikeHeightCalculatedProbability
         {
             get
             {
-                return data.DikeHeightAssessmentOutput == null
-                           ? double.NaN
-                           : data.DikeHeightAssessmentOutput.CalculatedProbability;
+                return data.DikeHeightAssessmentOutput?.CalculatedProbability
+                       ?? double.NaN;
             }
         }
 
         [PropertyOrder(12)]
         [DynamicVisible]
-        [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), nameof(GrassCoverErosionInwardsFormsResources.Categories_DikeHeight_Result), 2, 2)]
+        [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), nameof(GrassCoverErosionInwardsFormsResources.Categories_DikeHeight_Result), 2, 3)]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_CalculatedReliability_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_CalculatedReliability_Description))]
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
-        public RoundedDouble CalculatedReliability
+        public RoundedDouble DikeHeightCalculatedReliability
         {
             get
             {
-                return data.DikeHeightAssessmentOutput == null
-                           ? RoundedDouble.NaN
-                           : data.DikeHeightAssessmentOutput.CalculatedReliability;
+                return data.DikeHeightAssessmentOutput?.CalculatedReliability
+                       ?? RoundedDouble.NaN;
             }
         }
 
         [PropertyOrder(13)]
         [DynamicVisible]
-        [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), nameof(GrassCoverErosionInwardsFormsResources.Categories_DikeHeight_Result), 2, 2)]
+        [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), nameof(GrassCoverErosionInwardsFormsResources.Categories_DikeHeight_Result), 2, 3)]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_Convergence_DisplayName))]
         [ResourcesDescription(typeof(GrassCoverErosionInwardsFormsResources), nameof(GrassCoverErosionInwardsFormsResources.DikeHeightAssessmentOutput_Convergence_Description))]
-        public string Convergence
+        public string DikeHeightConvergence
         {
             get
             {
-                return new EnumDisplayWrapper<CalculationConvergence>(data.DikeHeightAssessmentOutput == null
-                                                                          ? CalculationConvergence.NotCalculated
-                                                                          : data.DikeHeightAssessmentOutput.CalculationConvergence).DisplayName;
+                return new EnumDisplayWrapper<CalculationConvergence>(data.DikeHeightAssessmentOutput?.CalculationConvergence
+                                                                      ?? CalculationConvergence.NotCalculated).DisplayName;
+            }
+        }
+
+        #endregion
+
+        #region Overtopping rate
+
+        [PropertyOrder(14)]
+        [DynamicVisible]
+        [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), nameof(GrassCoverErosionInwardsFormsResources.Categories_OvertoppingRate_Result), 3, 3)]
+        [ResourcesDisplayName(typeof(GrassCoverErosionInwardsFormsResources), nameof(GrassCoverErosionInwardsFormsResources.GrassCoverErosionInwardsOutput_OvertoppingRate_DisplayName))]
+        [ResourcesDescription(typeof(GrassCoverErosionInwardsFormsResources), nameof(GrassCoverErosionInwardsFormsResources.GrassCoverErosionInwardsOutput_OvertoppingRate_Description))]
+        public RoundedDouble OvertoppingRate
+        {
+            get
+            {
+                return data.OvertoppingRateAssessmentOutput?.Result
+                       ?? RoundedDouble.NaN;
+            }
+        }
+
+        [PropertyOrder(15)]
+        [DynamicVisible]
+        [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), nameof(GrassCoverErosionInwardsFormsResources.Categories_OvertoppingRate_Result), 3, 3)]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_TargetProbability_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_TargetProbability_Description))]
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
+        public double OvertoppingRateTargetProbability
+        {
+            get
+            {
+                return data.OvertoppingRateAssessmentOutput?.TargetProbability
+                       ?? double.NaN;
+            }
+        }
+
+        [PropertyOrder(16)]
+        [DynamicVisible]
+        [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), nameof(GrassCoverErosionInwardsFormsResources.Categories_OvertoppingRate_Result), 3, 3)]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_TargetReliability_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_TargetReliability_Description))]
+        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
+        public RoundedDouble OvertoppingRateTargetReliability
+        {
+            get
+            {
+                return data.OvertoppingRateAssessmentOutput?.TargetReliability
+                       ?? RoundedDouble.NaN;
+            }
+        }
+
+        [PropertyOrder(17)]
+        [DynamicVisible]
+        [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), nameof(GrassCoverErosionInwardsFormsResources.Categories_OvertoppingRate_Result), 3, 3)]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_CalculatedProbability_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_CalculatedProbability_Description))]
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
+        public double OvertoppingRateCalculatedProbability
+        {
+            get
+            {
+                return data.OvertoppingRateAssessmentOutput?.CalculatedProbability
+                       ?? double.NaN;
+            }
+        }
+
+        [PropertyOrder(18)]
+        [DynamicVisible]
+        [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), nameof(GrassCoverErosionInwardsFormsResources.Categories_OvertoppingRate_Result), 3, 3)]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_CalculatedReliability_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_CalculatedReliability_Description))]
+        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
+        public RoundedDouble OvertoppingRateCalculatedReliability
+        {
+            get
+            {
+                return data.OvertoppingRateAssessmentOutput?.CalculatedReliability
+                       ?? RoundedDouble.NaN;
+            }
+        }
+
+        [PropertyOrder(19)]
+        [DynamicVisible]
+        [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), nameof(GrassCoverErosionInwardsFormsResources.Categories_OvertoppingRate_Result), 3, 3)]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_Convergence_DisplayName))]
+        [ResourcesDescription(typeof(GrassCoverErosionInwardsFormsResources), nameof(GrassCoverErosionInwardsFormsResources.OvertoppingRateAssessmentOutput_Convergence_Description))]
+        public string OvertoppingRateConvergence
+        {
+            get
+            {
+                return new EnumDisplayWrapper<CalculationConvergence>(data.OvertoppingRateAssessmentOutput?.CalculationConvergence
+                                                                      ?? CalculationConvergence.NotCalculated).DisplayName;
             }
         }
 

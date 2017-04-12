@@ -100,6 +100,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Overslagdebiet.
+        /// </summary>
+        public static string Categories_OvertoppingRate_Result {
+            get {
+                return ResourceManager.GetString("Categories_OvertoppingRate_Result", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kritisch overslagdebiet per strekkende meter..
         /// </summary>
         public static string CriticalFlowRate_Description {
@@ -353,6 +362,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het berekende overslagdebiet..
+        /// </summary>
+        public static string GrassCoverErosionInwardsOutput_OvertoppingRate_Description {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsOutput_OvertoppingRate_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Overslagdebiet [m3/s].
+        /// </summary>
+        public static string GrassCoverErosionInwardsOutput_OvertoppingRate_DisplayName {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsOutput_OvertoppingRate_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De golfhoogte van de overslag deelberekening..
         /// </summary>
         public static string GrassCoverErosionInwardsOutput_WaveHeight_Description {
@@ -376,6 +403,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         public static string Orientation_DikeProfile_Description {
             get {
                 return ResourceManager.GetString("Orientation_DikeProfile_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is convergentie bereikt in de overslagdebiet berekening?.
+        /// </summary>
+        public static string OvertoppingRateAssessmentOutput_Convergence_Description {
+            get {
+                return ResourceManager.GetString("OvertoppingRateAssessmentOutput_Convergence_Description", resourceCulture);
             }
         }
         

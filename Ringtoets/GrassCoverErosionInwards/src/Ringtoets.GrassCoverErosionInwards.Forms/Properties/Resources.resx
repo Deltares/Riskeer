@@ -225,4 +225,16 @@
   <data name="DikeHeightAssessmentOutput_Convergence_Description" xml:space="preserve">
     <value>Is convergentie bereikt in de HBN berekening?</value>
   </data>
+  <data name="Categories_OvertoppingRate_Result" xml:space="preserve">
+    <value>Overslagdebiet</value>
+  </data>
+  <data name="GrassCoverErosionInwardsOutput_OvertoppingRate_Description" xml:space="preserve">
+    <value>Het berekende overslagdebiet.</value>
+  </data>
+  <data name="GrassCoverErosionInwardsOutput_OvertoppingRate_DisplayName" xml:space="preserve">
+    <value>Overslagdebiet [m3/s]</value>
+  </data>
+  <data name="OvertoppingRateAssessmentOutput_Convergence_Description" xml:space="preserve">
+    <value>Is convergentie bereikt in de overslagdebiet berekening?</value>
+  </data>
 </root>
