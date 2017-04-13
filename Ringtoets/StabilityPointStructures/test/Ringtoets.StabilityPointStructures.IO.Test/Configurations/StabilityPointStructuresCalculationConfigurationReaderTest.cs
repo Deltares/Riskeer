@@ -547,8 +547,8 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
         }
 
         [Test]
-        [TestCase("validConfigurationEmptyStochasts")]
-        [TestCase("validConfigurationEmptyCalculation")]
+        [TestCase("validConfigurationEmptyStochasts", TestName = "Read_Empty({0:80})")]
+        [TestCase("validConfigurationEmptyCalculation", TestName = "Read_Empty({0:80})")]
         public void Read_ValidConfigurationWithEmptyCalculationOrWithEmptyStochasts_NoValuesSet(string fileName)
         {
             // Setup

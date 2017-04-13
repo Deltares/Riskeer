@@ -967,11 +967,14 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
         }
 
         [TestCase("validConfigurationUnknownForeshoreProfile.xml",
-            "Het voorlandprofiel 'unknown' bestaat niet.")]
+            "Het voorlandprofiel 'unknown' bestaat niet.",
+            TestName = "Import_UnknownData({0:80})")]
         [TestCase("validConfigurationUnknownHydraulicBoundaryLocation.xml",
-            "De locatie met hydraulische randvoorwaarden 'unknown' bestaat niet.")]
+            "De locatie met hydraulische randvoorwaarden 'unknown' bestaat niet.",
+            TestName = "Import_UnknownData({0:80})")]
         [TestCase("validConfigurationUnknownStructure.xml",
-            "Het kunstwerk 'unknown' bestaat niet.")]
+            "Het kunstwerk 'unknown' bestaat niet.",
+            TestName = "Import_UnknownData({0:80})")]
         public void Import_ValidConfigurationUnknownData_LogMessageAndContinueImport(string file, string expectedErrorMessage)
         {
             // Setup
