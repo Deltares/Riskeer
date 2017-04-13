@@ -183,6 +183,47 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
+        public void Finish_InvalidOvertoppingCalculation_DoesNotSetOutputAndNotifyObservers()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observerMock = mocks.StrictMock<IObserver>();
+            observerMock.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            ImportHydraulicBoundaryDatabase(assessmentSection);
+            AddSectionToAssessmentSection(assessmentSection);
+
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1)
+                }
+            };
+
+            calculation.Attach(observerMock);
+
+            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                TestOvertoppingCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).OvertoppingCalculator;
+                calculator.EndInFailure = true;
+
+                activity.Run();
+            }
+
+            // Call
+            activity.Finish();
+
+            // Assert
+            Assert.IsNull(calculation.Output);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void Finish_ValidOvertoppingCalculation_SetsOutputAndNotifyObserversOfCalculation()
         {
             // Setup
@@ -341,6 +382,100 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
+        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm)]
+        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)]
+        public void Finish_InvalidDikeHeightCalculation_OutputSetAndObserversNotified(DikeHeightCalculationType dikeHeightCalculationType)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observerMock = mocks.StrictMock<IObserver>();
+            observerMock.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            ImportHydraulicBoundaryDatabase(assessmentSection);
+            AddSectionToAssessmentSection(assessmentSection);
+
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    DikeProfile = CreateDikeProfile(),
+                    DikeHeightCalculationType = dikeHeightCalculationType
+                }
+            };
+
+            calculation.Attach(observerMock);
+
+            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                TestHydraulicLoadsCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
+                calculator.Value = double.NaN;
+                calculator.EndInFailure = true;
+
+                activity.Run();
+            }
+
+            // Call
+            activity.Finish();
+
+            // Assert
+            Assert.IsNotNull(calculation.Output);
+            Assert.IsNull(calculation.Output.DikeHeightOutput);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm)]
+        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)]
+        public void Finish_ValidDikeHeightCalculation_OutputSetAndObserversNotified(DikeHeightCalculationType dikeHeightCalculationType)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observerMock = mocks.StrictMock<IObserver>();
+            observerMock.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            ImportHydraulicBoundaryDatabase(assessmentSection);
+            AddSectionToAssessmentSection(assessmentSection);
+
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    DikeProfile = CreateDikeProfile(),
+                    DikeHeightCalculationType = dikeHeightCalculationType
+                }
+            };
+
+            calculation.Attach(observerMock);
+
+            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                activity.Run();
+            }
+
+            // Call
+            activity.Finish();
+
+            // Assert
+            Assert.IsNotNull(calculation.Output);
+            ProbabilityAssessmentOutput probabilisticAssessmentOutput = calculation.Output.ProbabilityAssessmentOutput;
+            Assert.IsFalse(double.IsNaN(probabilisticAssessmentOutput.Reliability));
+            HydraulicLoadsOutput dikeHeightOutput = calculation.Output.DikeHeightOutput;
+            Assert.IsNotNull(dikeHeightOutput);
+            Assert.IsFalse(double.IsNaN(dikeHeightOutput.Result));
+            mocks.VerifyAll();
+        }
+
+        [Test]
         [TestCase(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm)]
         [TestCase(OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability)]
         public void Run_InvalidOvertoppingRateCalculation_PerformValidationAndCalculationAndLogStartAndEndWithError(
@@ -405,7 +540,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         [Test]
         [TestCase(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm)]
         [TestCase(OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability)]
-        public void Run_ValidDikeHeightCalculation_PerformValidationAndCalculationAndLogStartAndEndError(OvertoppingRateCalculationType overtoppingRateCalculationType)
+        public void Run_ValidOvertoppingRateCalculation_PerformValidationAndCalculationAndLogStartAndEndError(OvertoppingRateCalculationType overtoppingRateCalculationType)
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
@@ -454,6 +589,100 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
             }
+        }
+
+        [Test]
+        [TestCase(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm)]
+        [TestCase(OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability)]
+        public void Finish_InvalidOvertoppingRateCalculation_OutputSetAndObserversNotified(OvertoppingRateCalculationType overtoppingRateCalculationType)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observerMock = mocks.StrictMock<IObserver>();
+            observerMock.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            ImportHydraulicBoundaryDatabase(assessmentSection);
+            AddSectionToAssessmentSection(assessmentSection);
+
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    DikeProfile = CreateDikeProfile(),
+                    OvertoppingRateCalculationType = overtoppingRateCalculationType
+                }
+            };
+
+            calculation.Attach(observerMock);
+
+            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                TestHydraulicLoadsCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).OvertoppingRateCalculator;
+                calculator.Value = double.NaN;
+                calculator.EndInFailure = true;
+
+                activity.Run();
+            }
+
+            // Call
+            activity.Finish();
+
+            // Assert
+            Assert.IsNotNull(calculation.Output);
+            Assert.IsNull(calculation.Output.DikeHeightOutput);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm)]
+        [TestCase(OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability)]
+        public void Finish_ValidOvertoppingRateCalculation_OutputSetAndObserversNotified(OvertoppingRateCalculationType overtoppingRateCalculationType)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observerMock = mocks.StrictMock<IObserver>();
+            observerMock.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            ImportHydraulicBoundaryDatabase(assessmentSection);
+            AddSectionToAssessmentSection(assessmentSection);
+
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    DikeProfile = CreateDikeProfile(),
+                    OvertoppingRateCalculationType = overtoppingRateCalculationType
+                }
+            };
+
+            calculation.Attach(observerMock);
+
+            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                activity.Run();
+            }
+
+            // Call
+            activity.Finish();
+
+            // Assert
+            Assert.IsNotNull(calculation.Output);
+            ProbabilityAssessmentOutput probabilisticAssessmentOutput = calculation.Output.ProbabilityAssessmentOutput;
+            Assert.IsFalse(double.IsNaN(probabilisticAssessmentOutput.Reliability));
+            HydraulicLoadsOutput overtoppingRateOutput = calculation.Output.OvertoppingRateOutput;
+            Assert.IsNotNull(overtoppingRateOutput);
+            Assert.IsFalse(double.IsNaN(overtoppingRateOutput.Result));
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -514,145 +743,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             }
 
             Assert.AreEqual(expectedProgressTexts, progressTexts);
-        }
-
-        [Test]
-        [TestCase(DikeHeightCalculationType.NoCalculation, TestName = "Finish_InvalidCalculationAndRan_DoesNotSetOutputAndNotifyObservers(false)")]
-        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, TestName = "Finish_InvalidCalculationAndRan_DoesNotSetOutputAndNotifyObservers(assessmentSectionNorm)")]
-        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Finish_InvalidCalculationAndRan_DoesNotSetOutputAndNotifyObservers(ProfileProbability)")]
-        public void Finish_InvalidGrassCoverErosionInwardsCalculationAndRan_DoesNotSetOutputAndNotifyObservers(DikeHeightCalculationType calculateDikeHeight)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var observerMock = mocks.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            ImportHydraulicBoundaryDatabase(assessmentSection);
-            AddSectionToAssessmentSection(assessmentSection);
-
-            var calculation = new GrassCoverErosionInwardsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1),
-                    DikeHeightCalculationType = calculateDikeHeight
-                }
-            };
-
-            calculation.Attach(observerMock);
-
-            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
-
-            using (new HydraRingCalculatorFactoryConfig())
-            {
-                TestOvertoppingCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).OvertoppingCalculator;
-                calculator.EndInFailure = true;
-
-                activity.Run();
-            }
-
-            // Call
-            activity.Finish();
-
-            // Assert
-            Assert.IsNull(calculation.Output);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, TestName = "Finish_CalculateDikeHeightValidCalculationsRan_OutputSetObserversNotified(AssessmentSectionNorm)")]
-        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Finish_CalculateDikeHeightValidCalculationsRan_OutputSetObserversNotified(ProfileProbability)")]
-        public void Finish_CalculateDikeHeightAndValidCalculationsAndRan_OutputSetAndObserversNotified(DikeHeightCalculationType dikeHeightCalculationType)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var observerMock = mocks.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            ImportHydraulicBoundaryDatabase(assessmentSection);
-            AddSectionToAssessmentSection(assessmentSection);
-
-            var calculation = new GrassCoverErosionInwardsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
-                    DikeProfile = CreateDikeProfile(),
-                    DikeHeightCalculationType = dikeHeightCalculationType
-                }
-            };
-
-            calculation.Attach(observerMock);
-
-            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
-
-            using (new HydraRingCalculatorFactoryConfig())
-            {
-                activity.Run();
-            }
-
-            // Call
-            activity.Finish();
-
-            // Assert
-            Assert.IsNotNull(calculation.Output);
-            ProbabilityAssessmentOutput probabilisticAssessmentOutput = calculation.Output.ProbabilityAssessmentOutput;
-            Assert.IsFalse(double.IsNaN(probabilisticAssessmentOutput.Reliability));
-            HydraulicLoadsOutput dikeHeightOutput = calculation.Output.DikeHeightOutput;
-            Assert.IsNotNull(dikeHeightOutput);
-            Assert.IsFalse(double.IsNaN(dikeHeightOutput.Result));
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, TestName = "Finish_CalculateInvalidDikeHeightCalculationRan_OutputSetObserversNotified(AssessmentSectionNorm)")]
-        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Finish_CalculateInvalidDikeHeightCalculationRan_OutputSetObserversNotified(ProfileProbability)")]
-        public void Finish_CalculateDikeHeightAndInvalidDikeHeightCalculationAndRan_OutputSetAndObserversNotified(DikeHeightCalculationType dikeHeightCalculationType)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var observerMock = mocks.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            ImportHydraulicBoundaryDatabase(assessmentSection);
-            AddSectionToAssessmentSection(assessmentSection);
-
-            var calculation = new GrassCoverErosionInwardsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
-                    DikeProfile = CreateDikeProfile(),
-                    DikeHeightCalculationType = dikeHeightCalculationType
-                }
-            };
-
-            calculation.Attach(observerMock);
-
-            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
-
-            using (new HydraRingCalculatorFactoryConfig())
-            {
-                TestHydraulicLoadsCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
-                calculator.Value = double.NaN;
-                calculator.EndInFailure = true;
-
-                activity.Run();
-            }
-
-            // Call
-            activity.Finish();
-
-            // Assert
-            Assert.IsNotNull(calculation.Output);
-            Assert.IsNull(calculation.Output.DikeHeightOutput);
-            mocks.VerifyAll();
         }
 
         [Test]
