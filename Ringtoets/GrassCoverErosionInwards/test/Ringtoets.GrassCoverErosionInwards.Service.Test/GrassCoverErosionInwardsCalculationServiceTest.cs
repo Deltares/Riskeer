@@ -766,7 +766,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
         [Test]
         [Combinatorial]
-        public void Calculate_CancelWithValidDikeHeightCalculationInput_CancelsCalculatorAndHasNullOutput(
+        public void Calculate_CancelDikeHeightCalculation_CancelsCalculatorAndHasNullOutput(
             [Values(true, false)] bool cancelBeforeDikeHeightCalculationStarts,
             [Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
                 DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)] DikeHeightCalculationType dikeHeightCalculationType)
@@ -827,7 +827,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
         [Test]
         [Combinatorial]
-        public void Calculate_CancelWithValidOvertoppingRateCalculationInput_CancelsCalculatorAndHasNullOutput(
+        public void Calculate_CancelOvertoppingRateCalculation_CancelsCalculatorAndHasNullOutput(
             [Values(true, false)] bool cancelBeforeOvertoppingRateCalculationStarts,
             [Values(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm,
                 OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability)] OvertoppingRateCalculationType overtoppingRateCalculationType)
