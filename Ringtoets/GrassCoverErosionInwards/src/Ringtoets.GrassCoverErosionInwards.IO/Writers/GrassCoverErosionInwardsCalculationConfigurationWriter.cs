@@ -50,11 +50,11 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Writers
 
             writer.WriteElementString(
                 GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeHeightCalculationTypeElement,
-                SubCalculationTypeAsXmlString((ReadHydraulicLoadsCalculationType) input.DikeHeightCalculationType));
+                HydraulicLoadsCalculationTypeAsXmlString((ReadHydraulicLoadsCalculationType) input.DikeHeightCalculationType));
 
             writer.WriteElementString(
                 GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.OvertoppingRateCalculationTypeElement,
-                SubCalculationTypeAsXmlString((ReadHydraulicLoadsCalculationType) input.OvertoppingRateCalculationType));
+                HydraulicLoadsCalculationTypeAsXmlString((ReadHydraulicLoadsCalculationType) input.OvertoppingRateCalculationType));
 
             WriteWaveReduction(input, writer);
 
@@ -111,9 +111,9 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Writers
                 XmlConvert.ToString(input.DikeHeight));
         }
 
-        private static string SubCalculationTypeAsXmlString(ReadHydraulicLoadsCalculationType type)
+        private static string HydraulicLoadsCalculationTypeAsXmlString(ReadHydraulicLoadsCalculationType type)
         {
-            return new ReadSubCalculationTypeConverter().ConvertToInvariantString(type);
+            return new ReadHydraulicLoadsCalculationTypeConverter().ConvertToInvariantString(type);
         }
 
         private static void WriteWaveReduction(GrassCoverErosionInwardsInput input, XmlWriter writer)

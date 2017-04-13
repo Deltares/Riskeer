@@ -29,21 +29,21 @@ namespace Ringtoets.GrassCoverErosionInwards.IO
     /// <summary>
     /// Converts <see cref="ReadHydraulicLoadsCalculationType"/> to <see cref="string"/> and back.
     /// </summary>
-    public class ReadSubCalculationTypeConverter : TypeConverter
+    public class ReadHydraulicLoadsCalculationTypeConverter : TypeConverter
     {
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             if (destinationType == typeof(string))
             {
-                var readSubCalculationType = (ReadHydraulicLoadsCalculationType) value;
-                switch (readSubCalculationType)
+                var readHydraulicLoadsCalculationType = (ReadHydraulicLoadsCalculationType) value;
+                switch (readHydraulicLoadsCalculationType)
                 {
                     case ReadHydraulicLoadsCalculationType.NoCalculation:
-                        return Resources.ReadSubCalculationTypeConverter_NoCalculation;
+                        return Resources.ReadHydraulicLoadsCalculationTypeConverter_NoCalculation;
                     case ReadHydraulicLoadsCalculationType.CalculateByAssessmentSectionNorm:
-                        return Resources.ReadSubCalculationTypeConverter_CalculateByAssessmentSectionNorm;
+                        return Resources.ReadHydraulicLoadsCalculationTypeConverter_CalculateByAssessmentSectionNorm;
                     case ReadHydraulicLoadsCalculationType.CalculateByProfileSpecificRequiredProbability:
-                        return Resources.ReadSubCalculationTypeConverter_CalculateByProfileSpecificRequiredProbability;
+                        return Resources.ReadHydraulicLoadsCalculationTypeConverter_CalculateByProfileSpecificRequiredProbability;
                     default:
                         throw new NotSupportedException();
                 }
@@ -65,15 +65,15 @@ namespace Ringtoets.GrassCoverErosionInwards.IO
             var text = value as string;
             if (text != null)
             {
-                if (text == Resources.ReadSubCalculationTypeConverter_NoCalculation)
+                if (text == Resources.ReadHydraulicLoadsCalculationTypeConverter_NoCalculation)
                 {
                     return ReadHydraulicLoadsCalculationType.NoCalculation;
                 }
-                if (text == Resources.ReadSubCalculationTypeConverter_CalculateByAssessmentSectionNorm)
+                if (text == Resources.ReadHydraulicLoadsCalculationTypeConverter_CalculateByAssessmentSectionNorm)
                 {
                     return ReadHydraulicLoadsCalculationType.CalculateByAssessmentSectionNorm;
                 }
-                if (text == Resources.ReadSubCalculationTypeConverter_CalculateByProfileSpecificRequiredProbability)
+                if (text == Resources.ReadHydraulicLoadsCalculationTypeConverter_CalculateByProfileSpecificRequiredProbability)
                 {
                     return ReadHydraulicLoadsCalculationType.CalculateByProfileSpecificRequiredProbability;
                 }

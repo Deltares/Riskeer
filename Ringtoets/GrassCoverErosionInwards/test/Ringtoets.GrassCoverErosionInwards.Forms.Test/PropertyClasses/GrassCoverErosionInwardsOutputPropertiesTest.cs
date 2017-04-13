@@ -48,8 +48,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         private const int waveHeightIndex = 5;
         private const int isDominantIndex = 6;
 
-        private const int firstSubCalculationOutputIndex = 7;
-        private const int secondSubCalculationOutputIndex = 13;
+        private const int firstHydraulicLoadsOutputIndex = 7;
+        private const int secondHydraulicLoadsOutputIndex = 13;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -170,8 +170,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(19, dynamicProperties.Count);
 
             AssertResultOutputProperties(dynamicProperties);
-            AssertDikeHeightOutputProperties(dynamicProperties, firstSubCalculationOutputIndex);
-            AssertOvertoppingRateOutputProperties(dynamicProperties, secondSubCalculationOutputIndex);
+            AssertDikeHeightOutputProperties(dynamicProperties, firstHydraulicLoadsOutputIndex);
+            AssertOvertoppingRateOutputProperties(dynamicProperties, secondHydraulicLoadsOutputIndex);
         }
 
         [Test]
@@ -213,12 +213,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             if (dikeHeightCalculated)
             {
-                AssertDikeHeightOutputProperties(dynamicProperties, firstSubCalculationOutputIndex);
+                AssertDikeHeightOutputProperties(dynamicProperties, firstHydraulicLoadsOutputIndex);
             }
 
             if (overtoppingRateCalculated)
             {
-                AssertOvertoppingRateOutputProperties(dynamicProperties, firstSubCalculationOutputIndex);
+                AssertOvertoppingRateOutputProperties(dynamicProperties, firstHydraulicLoadsOutputIndex);
             }
         }
 

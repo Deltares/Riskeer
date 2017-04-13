@@ -45,7 +45,7 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="ReadSubCalculationTypeConverter.cs" />
+    <Compile Include="ReadHydraulicLoadsCalculationTypeConverter.cs" />
     <Compile Include="Exporters\GrassCoverErosionInwardsCalculationConfigurationExporter.cs" />
     <Compile Include="GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.cs" />
     <Compile Include="Importers\GrassCoverErosionInwardsCalculationConfigurationImporter.cs" />

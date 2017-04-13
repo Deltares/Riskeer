@@ -54,7 +54,7 @@
     <Compile Include="Importers\GrassCoverErosionInwardsCalculationConfigurationImporterTest.cs" />
     <Compile Include="GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiersTest.cs" />
     <Compile Include="Writers\GrassCoverErosionInwardsCalculationConfigurationWriterTest.cs" />
-    <Compile Include="ReadSubCalculationTypeConverterTest.cs" />
+    <Compile Include="ReadHydraulicLoadsCalculationTypeConverterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Readers\GrassCoverErosionInwardsCalculationConfigurationReaderTest.cs" />
     <Compile Include="Readers\ReadGrassCoverErosionInwardsCalculationTest.cs" />

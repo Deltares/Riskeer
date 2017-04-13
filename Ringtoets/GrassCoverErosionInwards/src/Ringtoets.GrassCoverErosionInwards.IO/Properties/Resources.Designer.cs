@@ -166,27 +166,28 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to norm.
         /// </summary>
-        internal static string ReadSubCalculationTypeConverter_CalculateByAssessmentSectionNorm {
+        internal static string ReadHydraulicLoadsCalculationTypeConverter_CalculateByAssessmentSectionNorm {
             get {
-                return ResourceManager.GetString("ReadSubCalculationTypeConverter_CalculateByAssessmentSectionNorm", resourceCulture);
+                return ResourceManager.GetString("ReadHydraulicLoadsCalculationTypeConverter_CalculateByAssessmentSectionNorm", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to doorsnede.
         /// </summary>
-        internal static string ReadSubCalculationTypeConverter_CalculateByProfileSpecificRequiredProbability {
+        internal static string ReadHydraulicLoadsCalculationTypeConverter_CalculateByProfileSpecificRequiredProbability {
             get {
-                return ResourceManager.GetString("ReadSubCalculationTypeConverter_CalculateByProfileSpecificRequiredProbability", resourceCulture);
+                return ResourceManager.GetString("ReadHydraulicLoadsCalculationTypeConverter_CalculateByProfileSpecificRequiredProb" +
+                        "ability", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to niet.
         /// </summary>
-        internal static string ReadSubCalculationTypeConverter_NoCalculation {
+        internal static string ReadHydraulicLoadsCalculationTypeConverter_NoCalculation {
             get {
-                return ResourceManager.GetString("ReadSubCalculationTypeConverter_NoCalculation", resourceCulture);
+                return ResourceManager.GetString("ReadHydraulicLoadsCalculationTypeConverter_NoCalculation", resourceCulture);
             }
         }
     }
