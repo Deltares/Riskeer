@@ -22,7 +22,6 @@
 using System;
 using System.IO;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
@@ -99,10 +98,10 @@ namespace Application.Ringtoets.Migration.Core.Test
 
         [TestCase("FullTestProject164.rtd", "5")]
         [TestCase("FullTestProject171.rtd", "17.1")]
-        public void GetVersion_ParameteredConstructor_ExptectedProperties(string file, string expectedVersion)
+        public void GetVersion_ParameteredConstructor_ExpectedProperties(string file, string expectedVersion)
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration, file);
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration.Core, file);
             var sourceFile = new RingtoetsVersionedFile(filePath);
 
             // Call

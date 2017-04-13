@@ -115,7 +115,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         [Test]
         [TestCaseSource(typeof(RingtoetsProjectMigrationTestHelper), nameof(RingtoetsProjectMigrationTestHelper.GetAllOutdatedSupportedProjectFilePaths))]
         [Apartment(ApartmentState.STA)]
-        public void GivenRingtoetsGui_WhenRunWithUnmigratedFileAndNoInquireContinuation_MigratedProjectSet(string sourceFilePath)
+        public void GivenRingtoetsGui_WhenRunWithUnmigratedFileAndNoInquireContinuation_MigratedProjectNotSet(string sourceFilePath)
         {
             // Given
             var projectStore = new StorageSqLite();

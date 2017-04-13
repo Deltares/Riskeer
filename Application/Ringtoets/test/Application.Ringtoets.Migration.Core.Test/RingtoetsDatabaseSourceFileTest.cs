@@ -32,7 +32,7 @@ namespace Application.Ringtoets.Migration.Core.Test
     [TestFixture]
     public class RingtoetsDatabaseSourceFileTest
     {
-        private static readonly TestDataPath testPath = TestDataPath.Application.Ringtoets.Migration;
+        private static readonly TestDataPath testPath = TestDataPath.Application.Ringtoets.Migration.Core;
 
         [Test]
         public void Constructor_NonExistingPath_ThrowsCriticalFileReadException()

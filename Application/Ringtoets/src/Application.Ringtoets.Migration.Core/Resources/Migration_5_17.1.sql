@@ -171,7 +171,23 @@ INSERT INTO PipingSectionResultEntity SELECT * FROM [SOURCEPROJECT].PipingSectio
 INSERT INTO PipingSemiProbabilisticOutputEntity SELECT * FROM [SOURCEPROJECT].PipingSemiProbabilisticOutputEntity;
 INSERT INTO PipingStructureSectionResultEntity SELECT * FROM [SOURCEPROJECT].PipingStructureSectionResultEntity;
 INSERT INTO ProjectEntity SELECT * FROM [SOURCEPROJECT].ProjectEntity;
-INSERT INTO SoilLayerEntity SELECT * FROM [SOURCEPROJECT].SoilLayerEntity;
+INSERT INTO SoilLayerEntity 
+SELECT 
+	[SoilLayerEntityId],
+	[SoilProfileEntityId],
+	[Top],
+	[IsAquifer],
+	[Color],
+	[MaterialName],
+	[BelowPhreaticLevelMean],
+	[BelowPhreaticLevelDeviation],
+	[DiameterD70Mean],
+	ROUND([DiameterD70Deviation] / [DiameterD70Mean], 6),
+	[BelowPhreaticLevelShift],
+	[PermeabilityMean],
+	ROUND([PermeabilityDeviation] / [PermeabilityMean], 6),
+	[Order]
+	FROM [SOURCEPROJECT].SoilLayerEntity;
 INSERT INTO SoilProfileEntity SELECT * FROM [SOURCEPROJECT].SoilProfileEntity;
 INSERT INTO StabilityPointStructureEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructureEntity;
 INSERT INTO StabilityPointStructuresCalculationEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresCalculationEntity;

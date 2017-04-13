@@ -35,7 +35,7 @@ namespace Application.Ringtoets.Migration.Console.Test
     public class RingtoetsMigrationToolTest
     {
         private TestEnvironmentControl environmentControl;
-        private readonly TestDataPath testPath = TestDataPath.Application.Ringtoets.Migration;
+        private readonly TestDataPath testPath = TestDataPath.Application.Ringtoets.Migration.Core;
 
         [SetUp]
         public void SetUp()
