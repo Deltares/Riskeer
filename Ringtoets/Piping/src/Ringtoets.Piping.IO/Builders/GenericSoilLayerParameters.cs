@@ -66,17 +66,17 @@ namespace Ringtoets.Piping.IO.Builders
             {
                 pipingSoilLayer.DiameterD70Mean = DiameterD70Mean.Value;
             }
-            if (DiameterD70Deviation.HasValue)
+            if (DiameterD70CoefficientOfVariation.HasValue)
             {
-                pipingSoilLayer.DiameterD70Deviation = DiameterD70Deviation.Value;
+                pipingSoilLayer.DiameterD70CoefficientOfVariation = DiameterD70CoefficientOfVariation.Value;
             }
             if (PermeabilityMean.HasValue)
             {
                 pipingSoilLayer.PermeabilityMean = PermeabilityMean.Value;
             }
-            if (PermeabilityDeviation.HasValue)
+            if (PermeabilityCoefficientOfVariation.HasValue)
             {
-                pipingSoilLayer.PermeabilityDeviation = PermeabilityDeviation.Value;
+                pipingSoilLayer.PermeabilityCoefficientOfVariation = PermeabilityCoefficientOfVariation.Value;
             }
         }
 
@@ -160,11 +160,11 @@ namespace Ringtoets.Piping.IO.Builders
         internal double? DiameterD70Mean { get; set; }
 
         /// <summary>
-        /// Gets or sets the deviation of the distribution for the mean diameter of small scale tests applied to different kinds of sand, 
+        /// Gets or sets the coefficient of variation of the distribution for the mean diameter of small scale tests applied to different kinds of sand, 
         /// on which the formula of Sellmeijer has been fit.
         /// [m]
         /// </summary>
-        internal double? DiameterD70Deviation { get; set; }
+        internal double? DiameterD70CoefficientOfVariation { get; set; }
 
         /// <summary>
         /// Gets or sets the distribution for the Darcy-speed with which water flows through the aquifer layer.
@@ -185,10 +185,10 @@ namespace Ringtoets.Piping.IO.Builders
         internal double? PermeabilityMean { get; set; }
 
         /// <summary>
-        /// Gets or sets the deviation of the distribution for the Darcy-speed with which water flows through the aquifer layer.
+        /// Gets or sets the coefficient of variation of the distribution for the Darcy-speed with which water flows through the aquifer layer.
         /// [m/s]
         /// </summary>
-        internal double? PermeabilityDeviation { get; set; }
+        internal double? PermeabilityCoefficientOfVariation { get; set; }
 
         private static void ValidateIsNonShiftedLogNormal(long? distribution, double? shift, string incorrectDistibutionParameter)
         {

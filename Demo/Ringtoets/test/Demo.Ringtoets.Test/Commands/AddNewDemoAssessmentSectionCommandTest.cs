@@ -162,11 +162,6 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual(new Point3D(154586.088, 568119.17, -4), surfaceLine4.DikeToeAtRiver);
         }
 
-        private static double GetAccuracy(IDistribution distribution)
-        {
-            return Math.Pow(10.0, -distribution.Mean.NumberOfDecimalPlaces);
-        }
-
         #region FailureMechanisms
 
         #region GrassCoverErosionInwardsFailureMechanism
@@ -419,24 +414,24 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual(5.78, inputParameters.HydraulicBoundaryLocation.DesignWaterLevel, 1e-3);
 
             Assert.AreEqual(0.875, PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(inputParameters).GetDesignValue(),
-                            GetAccuracy(inputParameters.DampingFactorExit));
+                            inputParameters.DampingFactorExit.GetAccuracy());
             Assert.AreEqual(2.836, PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(inputParameters).GetDesignValue(),
-                            GetAccuracy(inputParameters.PhreaticLevelExit));
+                            inputParameters.PhreaticLevelExit.GetAccuracy());
             Assert.AreEqual(0.011453, PipingSemiProbabilisticDesignValueFactory.GetDiameter70(inputParameters).GetDesignValue(),
-                            GetAccuracy(inputParameters.Diameter70));
-            Assert.AreEqual(1.179895, PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(inputParameters).GetDesignValue(),
-                            GetAccuracy(inputParameters.DarcyPermeability));
+                            inputParameters.Diameter70.GetAccuracy());
+            Assert.AreEqual(1.179896, PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(inputParameters).GetDesignValue(),
+                            inputParameters.DarcyPermeability.GetAccuracy());
             Assert.AreEqual(17.5, PipingSemiProbabilisticDesignValueFactory.GetSaturatedVolumicWeightOfCoverageLayer(inputParameters).GetDesignValue(),
-                            GetAccuracy(inputParameters.SaturatedVolumicWeightOfCoverageLayer));
+                            inputParameters.SaturatedVolumicWeightOfCoverageLayer.GetAccuracy());
 
             Assert.AreEqual(5.41, inputParameters.PiezometricHeadExit, 1e-2);
             Assert.AreEqual(106.13, inputParameters.ExitPointL, 1e-2);
             Assert.AreEqual(81.18, PipingSemiProbabilisticDesignValueFactory.GetSeepageLength(inputParameters).GetDesignValue(),
-                            GetAccuracy(inputParameters.DampingFactorExit));
+                            inputParameters.DampingFactorExit.GetAccuracy());
             Assert.AreEqual(5.86, PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(inputParameters).GetDesignValue(),
-                            GetAccuracy(inputParameters.DampingFactorExit));
+                            inputParameters.DampingFactorExit.GetAccuracy());
             Assert.AreEqual(20.13, PipingSemiProbabilisticDesignValueFactory.GetThicknessAquiferLayer(inputParameters).GetDesignValue(),
-                            GetAccuracy(inputParameters.DampingFactorExit));
+                            inputParameters.DampingFactorExit.GetAccuracy());
         }
 
         private static void AssertCalculationAbleToCalculate(PipingCalculationScenario calculation)

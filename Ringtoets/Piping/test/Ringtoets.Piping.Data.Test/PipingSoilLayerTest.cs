@@ -52,10 +52,10 @@ namespace Ringtoets.Piping.Data.Test
             Assert.IsNaN(layer.BelowPhreaticLevelShift);
 
             Assert.IsNaN(layer.DiameterD70Mean);
-            Assert.IsNaN(layer.DiameterD70Deviation);
+            Assert.IsNaN(layer.DiameterD70CoefficientOfVariation);
 
             Assert.IsNaN(layer.PermeabilityMean);
-            Assert.IsNaN(layer.PermeabilityDeviation);
+            Assert.IsNaN(layer.PermeabilityCoefficientOfVariation);
         }
 
         [Test]
@@ -149,9 +149,9 @@ namespace Ringtoets.Piping.Data.Test
                 BelowPhreaticLevelDeviation = random.NextDouble(),
                 BelowPhreaticLevelMean = random.NextDouble(),
                 BelowPhreaticLevelShift = random.NextDouble(),
-                DiameterD70Deviation = random.NextDouble(),
+                DiameterD70CoefficientOfVariation = random.NextDouble(),
                 DiameterD70Mean = random.NextDouble(),
-                PermeabilityDeviation = random.NextDouble(),
+                PermeabilityCoefficientOfVariation = random.NextDouble(),
                 PermeabilityMean = random.NextDouble()
             };
         }
@@ -166,9 +166,9 @@ namespace Ringtoets.Piping.Data.Test
                 BelowPhreaticLevelDeviation = double.NaN,
                 BelowPhreaticLevelMean = double.NaN,
                 BelowPhreaticLevelShift = double.NaN,
-                DiameterD70Deviation = double.NaN,
+                DiameterD70CoefficientOfVariation = double.NaN,
                 DiameterD70Mean = double.NaN,
-                PermeabilityDeviation = double.NaN,
+                PermeabilityCoefficientOfVariation = double.NaN,
                 PermeabilityMean = double.NaN
             };
         }

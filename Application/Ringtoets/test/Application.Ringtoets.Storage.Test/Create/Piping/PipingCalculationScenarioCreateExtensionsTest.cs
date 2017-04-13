@@ -95,12 +95,12 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
                     Diameter70 =
                     {
                         Mean = (RoundedDouble) random.GetFromRange(1e-6, 9999.9999),
-                        StandardDeviation = (RoundedDouble) random.GetFromRange(1e-6, 9999.9999)
+                        CoefficientOfVariation = (RoundedDouble) random.GetFromRange(1e-6, 9999.9999)
                     },
                     DarcyPermeability =
                     {
                         Mean = (RoundedDouble) random.GetFromRange(1e-6, 9999.9999),
-                        StandardDeviation = (RoundedDouble) random.GetFromRange(1e-6, 9999.9999)
+                        CoefficientOfVariation = (RoundedDouble) random.GetFromRange(1e-6, 9999.9999)
                     },
                     UseAssessmentLevelManualInput = useAssessmentLevelManualInput
                 }

@@ -421,11 +421,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_DarcyPermeability_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_DarcyPermeability_Description))]
-        public LogNormalDistributionDesignVariableProperties DarcyPermeability
+        public VariationCoefficientLogNormalDistributionDesignVariableProperties DarcyPermeability
         {
             get
             {
-                return new LogNormalDistributionDesignVariableProperties(PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(data.WrappedData));
+                return new VariationCoefficientLogNormalDistributionDesignVariableProperties(PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(data.WrappedData));
             }
         }
 
@@ -434,11 +434,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_Diameter70_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_Diameter70_Description))]
-        public LogNormalDistributionDesignVariableProperties Diameter70
+        public VariationCoefficientLogNormalDistributionDesignVariableProperties Diameter70
         {
             get
             {
-                return new LogNormalDistributionDesignVariableProperties(PipingSemiProbabilisticDesignValueFactory.GetDiameter70(data.WrappedData));
+                return new VariationCoefficientLogNormalDistributionDesignVariableProperties(
+                    PipingSemiProbabilisticDesignValueFactory.GetDiameter70(data.WrappedData));
             }
         }
 

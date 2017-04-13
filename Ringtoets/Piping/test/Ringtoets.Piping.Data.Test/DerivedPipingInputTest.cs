@@ -69,14 +69,14 @@ namespace Ringtoets.Piping.Data.Test
             using (new PipingSubCalculatorFactoryConfig())
             {
                 // Call
-                var piezometricHead = derivedInput.PiezometricHeadExit;
+                RoundedDouble piezometricHead = derivedInput.PiezometricHeadExit;
 
                 // Assert
                 Assert.AreEqual(2, piezometricHead.NumberOfDecimalPlaces);
                 Assert.IsFalse(double.IsNaN(piezometricHead));
 
                 var factory = (TestPipingSubCalculatorFactory) PipingSubCalculatorFactory.Instance;
-                var piezometricHeadAtExitCalculator = factory.LastCreatedPiezometricHeadAtExitCalculator;
+                PiezoHeadCalculatorStub piezometricHeadAtExitCalculator = factory.LastCreatedPiezometricHeadAtExitCalculator;
 
                 Assert.AreEqual(piezometricHeadAtExitCalculator.HRiver, input.AssessmentLevel, input.AssessmentLevel.GetAccuracy());
                 Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(), piezometricHeadAtExitCalculator.PhiPolder,
@@ -94,7 +94,7 @@ namespace Ringtoets.Piping.Data.Test
             var derivedInput = new DerivedPipingInput(input);
 
             // Call
-            var piezometricHead = derivedInput.PiezometricHeadExit;
+            RoundedDouble piezometricHead = derivedInput.PiezometricHeadExit;
 
             // Assert
             Assert.IsNaN(piezometricHead);
@@ -108,7 +108,7 @@ namespace Ringtoets.Piping.Data.Test
             var derivedInput = new DerivedPipingInput(input);
 
             // Call
-            var effectiveThicknessCoverageLayer = derivedInput.EffectiveThicknessCoverageLayer;
+            LogNormalDistribution effectiveThicknessCoverageLayer = derivedInput.EffectiveThicknessCoverageLayer;
 
             // Assert
             Assert.AreEqual(2.0, effectiveThicknessCoverageLayer.Mean.Value);
@@ -227,7 +227,7 @@ namespace Ringtoets.Piping.Data.Test
             var derivedInput = new DerivedPipingInput(input);
 
             // Call
-            var effectiveThicknessCoverageLayer = derivedInput.EffectiveThicknessCoverageLayer;
+            LogNormalDistribution effectiveThicknessCoverageLayer = derivedInput.EffectiveThicknessCoverageLayer;
 
             // Assert
             Assert.IsNaN(effectiveThicknessCoverageLayer.Mean);
@@ -241,7 +241,7 @@ namespace Ringtoets.Piping.Data.Test
             var derivedInput = new DerivedPipingInput(input);
 
             // Call
-            var thicknessCoverageLayer = derivedInput.ThicknessCoverageLayer;
+            LogNormalDistribution thicknessCoverageLayer = derivedInput.ThicknessCoverageLayer;
 
             // Assert
             Assert.AreEqual(2.0, thicknessCoverageLayer.Mean.Value);
@@ -360,7 +360,7 @@ namespace Ringtoets.Piping.Data.Test
             var derivedInput = new DerivedPipingInput(input);
 
             // Call
-            var thicknessCoverageLayer = derivedInput.ThicknessCoverageLayer;
+            LogNormalDistribution thicknessCoverageLayer = derivedInput.ThicknessCoverageLayer;
 
             // Assert
             Assert.IsNaN(thicknessCoverageLayer.Mean);
@@ -374,7 +374,7 @@ namespace Ringtoets.Piping.Data.Test
             var derivedInput = new DerivedPipingInput(input);
 
             // Call
-            var thicknessAquiferLayer = derivedInput.ThicknessAquiferLayer;
+            LogNormalDistribution thicknessAquiferLayer = derivedInput.ThicknessAquiferLayer;
 
             // Assert
             Assert.AreEqual(1.0, thicknessAquiferLayer.Mean.Value);
@@ -389,7 +389,7 @@ namespace Ringtoets.Piping.Data.Test
             var derivedInput = new DerivedPipingInput(input);
 
             // Call
-            var thicknessAquiferLayer = derivedInput.ThicknessAquiferLayer;
+            LogNormalDistribution thicknessAquiferLayer = derivedInput.ThicknessAquiferLayer;
 
             // Assert
             Assert.IsNaN(thicknessAquiferLayer.Mean);
@@ -492,7 +492,7 @@ namespace Ringtoets.Piping.Data.Test
             var derivedInput = new DerivedPipingInput(input);
 
             // Call
-            var thicknessAquiferLayer = derivedInput.ThicknessAquiferLayer;
+            LogNormalDistribution thicknessAquiferLayer = derivedInput.ThicknessAquiferLayer;
 
             // Assert
             Assert.AreEqual(1.0, thicknessAquiferLayer.Mean.Value);
@@ -508,7 +508,7 @@ namespace Ringtoets.Piping.Data.Test
             input.StochasticSoilProfile = null;
 
             // Call
-            var thicknessAquiferLayer = derivedInput.ThicknessAquiferLayer;
+            LogNormalDistribution thicknessAquiferLayer = derivedInput.ThicknessAquiferLayer;
 
             // Assert
             Assert.IsNaN(thicknessAquiferLayer.Mean);
@@ -564,7 +564,7 @@ namespace Ringtoets.Piping.Data.Test
             };
 
             // Call
-            var thicknessAquiferLayer = derivedInput.ThicknessAquiferLayer;
+            LogNormalDistribution thicknessAquiferLayer = derivedInput.ThicknessAquiferLayer;
 
             // Assert
             Assert.AreEqual(2.0, thicknessAquiferLayer.Mean.Value, 1e-6);
@@ -578,7 +578,7 @@ namespace Ringtoets.Piping.Data.Test
             var derivedInput = new DerivedPipingInput(input);
 
             // Call
-            var seepageLength = derivedInput.SeepageLength;
+            VariationCoefficientLogNormalDistribution seepageLength = derivedInput.SeepageLength;
 
             // Assert
             Assert.AreEqual(0.5, seepageLength.Mean.Value);
@@ -594,7 +594,7 @@ namespace Ringtoets.Piping.Data.Test
             var derivedInput = new DerivedPipingInput(input);
 
             // Call
-            var seepageLength = derivedInput.SeepageLength;
+            VariationCoefficientLogNormalDistribution seepageLength = derivedInput.SeepageLength;
 
             // Assert
             Assert.IsNaN(seepageLength.Mean);
@@ -610,7 +610,7 @@ namespace Ringtoets.Piping.Data.Test
             var derivedInput = new DerivedPipingInput(input);
 
             // Call
-            var seepageLength = derivedInput.SeepageLength;
+            VariationCoefficientLogNormalDistribution seepageLength = derivedInput.SeepageLength;
 
             // Assert
             Assert.IsNaN(seepageLength.Mean);
@@ -626,7 +626,7 @@ namespace Ringtoets.Piping.Data.Test
             input.StochasticSoilProfile.SoilProfile = null;
 
             // Call
-            var result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
+            LogNormalDistribution result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
 
             // Assert
             Assert.IsNaN(result.Mean);
@@ -643,7 +643,7 @@ namespace Ringtoets.Piping.Data.Test
             input.StochasticSoilProfile = null;
 
             // Call
-            var result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
+            LogNormalDistribution result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
 
             // Assert
             Assert.IsNaN(result.Mean);
@@ -660,7 +660,7 @@ namespace Ringtoets.Piping.Data.Test
             input.SurfaceLine = null;
 
             // Call
-            var result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
+            LogNormalDistribution result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
 
             // Assert
             Assert.IsNaN(result.Mean);
@@ -677,7 +677,7 @@ namespace Ringtoets.Piping.Data.Test
             input.ExitPointL = RoundedDouble.NaN;
 
             // Call
-            var result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
+            LogNormalDistribution result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
 
             // Assert
             Assert.IsNaN(result.Mean);
@@ -700,7 +700,7 @@ namespace Ringtoets.Piping.Data.Test
             }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
-            var result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
+            LogNormalDistribution result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
 
             // Assert
             Assert.IsNaN(result.Mean);
@@ -723,7 +723,7 @@ namespace Ringtoets.Piping.Data.Test
             }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
-            var result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
+            LogNormalDistribution result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
 
             // Assert
             Assert.IsNaN(result.Mean);
@@ -750,7 +750,7 @@ namespace Ringtoets.Piping.Data.Test
             }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
-            var result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
+            LogNormalDistribution result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
 
             // Assert
             Assert.IsNaN(result.Mean);
@@ -783,7 +783,7 @@ namespace Ringtoets.Piping.Data.Test
             }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
-            var result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
+            LogNormalDistribution result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
 
             // Assert
             Assert.AreEqual(belowPhreaticLevelMean, result.Mean, result.Mean.GetAccuracy());
@@ -798,8 +798,8 @@ namespace Ringtoets.Piping.Data.Test
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
             var random = new Random(21);
-            var belowPhreaticLevelMeanA = 0.1 + random.NextDouble();
-            var belowPhreaticLevelMeanB = 0.1 + random.NextDouble();
+            double belowPhreaticLevelMeanA = 0.1 + random.NextDouble();
+            double belowPhreaticLevelMeanB = 0.1 + random.NextDouble();
             double deviation = random.NextDouble();
             double shift = random.NextDouble();
             input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", -2.0, new[]
@@ -823,10 +823,10 @@ namespace Ringtoets.Piping.Data.Test
             }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
-            var result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
+            LogNormalDistribution result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
 
             // Assert
-            Assert.AreEqual((belowPhreaticLevelMeanA*2.5 + belowPhreaticLevelMeanB*1.0)/3.5, result.Mean, result.Mean.GetAccuracy());
+            Assert.AreEqual((belowPhreaticLevelMeanA * 2.5 + belowPhreaticLevelMeanB * 1.0) / 3.5, result.Mean, result.Mean.GetAccuracy());
             Assert.AreEqual(shift, result.Shift, result.Shift.GetAccuracy());
             Assert.AreEqual(deviation, result.StandardDeviation, result.StandardDeviation.GetAccuracy());
         }
@@ -846,8 +846,8 @@ namespace Ringtoets.Piping.Data.Test
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
             var random = new Random(21);
-            var belowPhreaticLevelMeanA = 0.1 + random.NextDouble();
-            var belowPhreaticLevelMeanB = 0.1 + random.NextDouble();
+            double belowPhreaticLevelMeanA = 0.1 + random.NextDouble();
+            double belowPhreaticLevelMeanB = 0.1 + random.NextDouble();
             double deviation = random.NextDouble();
             double shift = random.NextDouble();
             input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", -2.0, new[]
@@ -871,7 +871,7 @@ namespace Ringtoets.Piping.Data.Test
             }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
-            var result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
+            LogNormalDistribution result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
 
             // Assert
             Assert.IsNaN(result.Mean);
@@ -908,10 +908,10 @@ namespace Ringtoets.Piping.Data.Test
             }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
-            var result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
+            LogNormalDistribution result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
 
             // Assert
-            Assert.AreEqual((belowPhreaticLevelMeanA*2.5 + belowPhreaticLevelMeanB*1.0)/3.5, result.Mean, result.Mean.GetAccuracy());
+            Assert.AreEqual((belowPhreaticLevelMeanA * 2.5 + belowPhreaticLevelMeanB * 1.0) / 3.5, result.Mean, result.Mean.GetAccuracy());
             Assert.AreEqual((RoundedDouble) 1.01, result.Shift);
             Assert.AreEqual((RoundedDouble) 1.01, result.StandardDeviation);
         }
@@ -937,7 +937,7 @@ namespace Ringtoets.Piping.Data.Test
             }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
-            var result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
+            LogNormalDistribution result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
 
             // Assert
             Assert.IsNaN(result.Mean);
@@ -972,7 +972,7 @@ namespace Ringtoets.Piping.Data.Test
             }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
-            var result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
+            LogNormalDistribution result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
 
             // Assert
             Assert.IsNaN(result.Mean);
@@ -989,11 +989,11 @@ namespace Ringtoets.Piping.Data.Test
             input.StochasticSoilProfile.SoilProfile = null;
 
             // Call
-            var result = derivedInput.DarcyPermeability;
+            VariationCoefficientLogNormalDistribution result = derivedInput.DarcyPermeability;
 
             // Assert
             Assert.IsNaN(result.Mean);
-            Assert.IsNaN(result.StandardDeviation);
+            Assert.IsNaN(result.CoefficientOfVariation);
         }
 
         [Test]
@@ -1005,11 +1005,11 @@ namespace Ringtoets.Piping.Data.Test
             input.StochasticSoilProfile = null;
 
             // Call
-            var result = derivedInput.DarcyPermeability;
+            VariationCoefficientLogNormalDistribution result = derivedInput.DarcyPermeability;
 
             // Assert
             Assert.IsNaN(result.Mean);
-            Assert.IsNaN(result.StandardDeviation);
+            Assert.IsNaN(result.CoefficientOfVariation);
         }
 
         [Test]
@@ -1021,11 +1021,11 @@ namespace Ringtoets.Piping.Data.Test
             input.SurfaceLine = null;
 
             // Call
-            var result = derivedInput.DarcyPermeability;
+            VariationCoefficientLogNormalDistribution result = derivedInput.DarcyPermeability;
 
             // Assert
             Assert.IsNaN(result.Mean);
-            Assert.IsNaN(result.StandardDeviation);
+            Assert.IsNaN(result.CoefficientOfVariation);
         }
 
         [Test]
@@ -1037,11 +1037,11 @@ namespace Ringtoets.Piping.Data.Test
             input.ExitPointL = RoundedDouble.NaN;
 
             // Call
-            var result = derivedInput.DarcyPermeability;
+            VariationCoefficientLogNormalDistribution result = derivedInput.DarcyPermeability;
 
             // Assert
             Assert.IsNaN(result.Mean);
-            Assert.IsNaN(result.StandardDeviation);
+            Assert.IsNaN(result.CoefficientOfVariation);
         }
 
         [Test]
@@ -1056,11 +1056,11 @@ namespace Ringtoets.Piping.Data.Test
             }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
-            var result = derivedInput.DarcyPermeability;
+            VariationCoefficientLogNormalDistribution result = derivedInput.DarcyPermeability;
 
             // Assert
             Assert.IsNaN(result.Mean);
-            Assert.IsNaN(result.StandardDeviation);
+            Assert.IsNaN(result.CoefficientOfVariation);
         }
 
         [Test]
@@ -1074,17 +1074,17 @@ namespace Ringtoets.Piping.Data.Test
                 new PipingSoilLayer(0.5)
                 {
                     IsAquifer = true,
-                    PermeabilityDeviation = 0.3,
+                    PermeabilityCoefficientOfVariation = 0.3,
                     PermeabilityMean = 0
                 }
             }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
-            var result = derivedInput.DarcyPermeability;
+            VariationCoefficientLogNormalDistribution result = derivedInput.DarcyPermeability;
 
             // Assert
             Assert.IsNaN(result.Mean);
-            Assert.IsNaN(result.StandardDeviation);
+            Assert.IsNaN(result.CoefficientOfVariation);
         }
 
         [Test]
@@ -1098,23 +1098,23 @@ namespace Ringtoets.Piping.Data.Test
                 new PipingSoilLayer(0.5)
                 {
                     IsAquifer = true,
-                    PermeabilityDeviation = 0.3,
+                    PermeabilityCoefficientOfVariation = 0.3,
                     PermeabilityMean = 0
                 },
                 new PipingSoilLayer(1.5)
                 {
                     IsAquifer = true,
-                    PermeabilityDeviation = 0.3,
+                    PermeabilityCoefficientOfVariation = 0.3,
                     PermeabilityMean = 2.4
                 },
             }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
-            var result = derivedInput.DarcyPermeability;
+            VariationCoefficientLogNormalDistribution result = derivedInput.DarcyPermeability;
 
             // Assert
             Assert.IsNaN(result.Mean);
-            Assert.IsNaN(result.StandardDeviation);
+            Assert.IsNaN(result.CoefficientOfVariation);
         }
 
         [Test]
@@ -1123,34 +1123,35 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
+
             var random = new Random(21);
             double mean = 0.1 + random.NextDouble();
-            double deviation = mean/2;
             double mean2 = 0.1 + random.NextDouble();
-            double deviation2 = mean2/2;
+            const double coefficientOfVariation = 0.5;
+
             input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", 0.0, new[]
             {
                 new PipingSoilLayer(0.5)
                 {
                     IsAquifer = true,
-                    PermeabilityDeviation = deviation,
+                    PermeabilityCoefficientOfVariation = coefficientOfVariation,
                     PermeabilityMean = mean
                 },
                 new PipingSoilLayer(1.5)
                 {
                     IsAquifer = true,
-                    PermeabilityDeviation = deviation2,
+                    PermeabilityCoefficientOfVariation = coefficientOfVariation,
                     PermeabilityMean = mean2
                 }
             }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
-            var result = derivedInput.DarcyPermeability;
+            VariationCoefficientLogNormalDistribution result = derivedInput.DarcyPermeability;
 
             // Assert
-            var weightedMean = (mean*0.5 + mean2)/1.5;
+            double weightedMean = (mean * 0.5 + mean2) / 1.5;
             Assert.AreEqual(weightedMean, result.Mean, result.Mean.GetAccuracy());
-            Assert.AreEqual(weightedMean/2, result.StandardDeviation, result.StandardDeviation.GetAccuracy());
+            Assert.AreEqual(coefficientOfVariation, result.CoefficientOfVariation, result.CoefficientOfVariation.GetAccuracy());
         }
 
         [Test]
@@ -1160,58 +1161,56 @@ namespace Ringtoets.Piping.Data.Test
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
             var random = new Random(21);
-            var permeabilityMean = 0.1 + random.NextDouble();
-            var permeabilityDeviation = random.NextDouble();
+            double permeabilityMean = 0.1 + random.NextDouble();
+            double permeabilityCoefficientOfVariation = random.NextDouble();
             input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", -2.0, new[]
             {
                 new PipingSoilLayer(1.0)
                 {
                     IsAquifer = true,
                     PermeabilityMean = permeabilityMean,
-                    PermeabilityDeviation = permeabilityDeviation
+                    PermeabilityCoefficientOfVariation = permeabilityCoefficientOfVariation
                 }
             }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
-            var result = derivedInput.DarcyPermeability;
+            VariationCoefficientLogNormalDistribution result = derivedInput.DarcyPermeability;
 
             // Assert
             var expectedMean = new RoundedDouble(6, permeabilityMean);
-            var expectedDeviation = new RoundedDouble(6, permeabilityDeviation);
+            var expectedCoefficientOfVariaiotn = new RoundedDouble(6, permeabilityCoefficientOfVariation);
             Assert.AreEqual(expectedMean, result.Mean);
-            Assert.AreEqual(expectedDeviation, result.StandardDeviation, result.StandardDeviation.GetAccuracy());
+            Assert.AreEqual(expectedCoefficientOfVariaiotn, result.CoefficientOfVariation, result.CoefficientOfVariation.GetAccuracy());
         }
 
         [Test]
-        public void DarcyPermeability_MultipleAquiferLayersWithRandomMeanAndDeviation_ReturnsNaNForParameters()
+        public void DarcyPermeability_MultipleAquiferLayersWithDifferentMeanAndDeviation_ReturnsNaNForParameters()
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
-            var permeabilityMean = 0.5;
-            var permeabilityDeviation = 0.2;
             input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", -2.0, new[]
             {
                 new PipingSoilLayer(1.0)
                 {
                     IsAquifer = true,
-                    PermeabilityMean = permeabilityMean,
-                    PermeabilityDeviation = permeabilityDeviation
+                    PermeabilityMean = 0.5,
+                    PermeabilityCoefficientOfVariation = 0.2
                 },
                 new PipingSoilLayer(0.0)
                 {
                     IsAquifer = true,
                     PermeabilityMean = 12.5,
-                    PermeabilityDeviation = 2.3
+                    PermeabilityCoefficientOfVariation = 2.3
                 }
             }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
-            var result = derivedInput.DarcyPermeability;
+            VariationCoefficientLogNormalDistribution result = derivedInput.DarcyPermeability;
 
             // Assert
             Assert.IsNaN(result.Mean);
-            Assert.IsNaN(result.StandardDeviation);
+            Assert.IsNaN(result.CoefficientOfVariation);
         }
 
         [Test]
@@ -1223,11 +1222,11 @@ namespace Ringtoets.Piping.Data.Test
             input.StochasticSoilProfile.SoilProfile = null;
 
             // Call
-            var result = derivedInput.DiameterD70;
+            VariationCoefficientLogNormalDistribution result = derivedInput.DiameterD70;
 
             // Assert
             Assert.IsNaN(result.Mean);
-            Assert.IsNaN(result.StandardDeviation);
+            Assert.IsNaN(result.CoefficientOfVariation);
         }
 
         [Test]
@@ -1239,11 +1238,11 @@ namespace Ringtoets.Piping.Data.Test
             input.StochasticSoilProfile = null;
 
             // Call
-            var result = derivedInput.DiameterD70;
+            VariationCoefficientLogNormalDistribution result = derivedInput.DiameterD70;
 
             // Assert
             Assert.IsNaN(result.Mean);
-            Assert.IsNaN(result.StandardDeviation);
+            Assert.IsNaN(result.CoefficientOfVariation);
         }
 
         [Test]
@@ -1255,11 +1254,11 @@ namespace Ringtoets.Piping.Data.Test
             input.SurfaceLine = null;
 
             // Call
-            var result = derivedInput.DiameterD70;
+            VariationCoefficientLogNormalDistribution result = derivedInput.DiameterD70;
 
             // Assert
             Assert.IsNaN(result.Mean);
-            Assert.IsNaN(result.StandardDeviation);
+            Assert.IsNaN(result.CoefficientOfVariation);
         }
 
         [Test]
@@ -1271,11 +1270,11 @@ namespace Ringtoets.Piping.Data.Test
             input.ExitPointL = RoundedDouble.NaN;
 
             // Call
-            var result = derivedInput.DiameterD70;
+            VariationCoefficientLogNormalDistribution result = derivedInput.DiameterD70;
 
             // Assert
             Assert.IsNaN(result.Mean);
-            Assert.IsNaN(result.StandardDeviation);
+            Assert.IsNaN(result.CoefficientOfVariation);
         }
 
         [Test]
@@ -1290,11 +1289,11 @@ namespace Ringtoets.Piping.Data.Test
             }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
-            var result = derivedInput.DiameterD70;
+            VariationCoefficientLogNormalDistribution result = derivedInput.DiameterD70;
 
             // Assert
             Assert.IsNaN(result.Mean);
-            Assert.IsNaN(result.StandardDeviation);
+            Assert.IsNaN(result.CoefficientOfVariation);
         }
 
         [Test]
@@ -1304,24 +1303,24 @@ namespace Ringtoets.Piping.Data.Test
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
             var random = new Random(21);
-            var diameterD70Mean = 0.1 + random.NextDouble();
-            var diameterD70Deviation = random.NextDouble();
+            double diameterD70Mean = 0.1 + random.NextDouble();
+            double diameterD70CoefficientOfVariation = random.NextDouble();
             input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", -2.0, new[]
             {
                 new PipingSoilLayer(1.0)
                 {
                     IsAquifer = true,
                     DiameterD70Mean = diameterD70Mean,
-                    DiameterD70Deviation = diameterD70Deviation
+                    DiameterD70CoefficientOfVariation = diameterD70CoefficientOfVariation
                 }
             }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
-            var result = derivedInput.DiameterD70;
+            VariationCoefficientLogNormalDistribution result = derivedInput.DiameterD70;
 
             // Assert
-            Assert.AreEqual(diameterD70Mean, result.Mean, result.Mean.GetAccuracy());
-            Assert.AreEqual(diameterD70Deviation, result.StandardDeviation, result.StandardDeviation.GetAccuracy());
+            Assert.AreEqual(diameterD70Mean, result.Mean, result.GetAccuracy());
+            Assert.AreEqual(diameterD70CoefficientOfVariation, result.CoefficientOfVariation, result.GetAccuracy());
         }
 
         [Test]
@@ -1330,30 +1329,30 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
-            var diameterD70Mean = 0.5;
-            var diameterD70Deviation = 0.2;
+            const double diameterD70Mean = 0.5;
+            const double diameterD70CoefficientOfVariation = 0.2;
             input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", -2.0, new[]
             {
                 new PipingSoilLayer(1.0)
                 {
                     IsAquifer = true,
                     DiameterD70Mean = diameterD70Mean,
-                    DiameterD70Deviation = diameterD70Deviation
+                    DiameterD70CoefficientOfVariation = diameterD70CoefficientOfVariation
                 },
                 new PipingSoilLayer(0.0)
                 {
                     IsAquifer = true,
                     DiameterD70Mean = 12.5,
-                    DiameterD70Deviation = 2.3
+                    DiameterD70CoefficientOfVariation = 2.3
                 }
             }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
-            var result = derivedInput.DiameterD70;
+            VariationCoefficientLogNormalDistribution result = derivedInput.DiameterD70;
 
             // Assert
-            Assert.AreEqual(diameterD70Mean, result.Mean, result.Mean.GetAccuracy());
-            Assert.AreEqual(diameterD70Deviation, result.StandardDeviation, result.StandardDeviation.GetAccuracy());
+            Assert.AreEqual(diameterD70Mean, result.Mean, result.GetAccuracy());
+            Assert.AreEqual(diameterD70CoefficientOfVariation, result.CoefficientOfVariation, result.GetAccuracy());
         }
     }
 }

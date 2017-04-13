@@ -244,11 +244,11 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 $"max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Dist_Type end) {SoilProfileTableColumns.PermeabilityDistribution}, " +
                 $"max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Shift end) {SoilProfileTableColumns.PermeabilityShift}, " +
                 $"max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Mean end) {SoilProfileTableColumns.PermeabilityMean}, " +
-                $"max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Deviation end) {SoilProfileTableColumns.PermeabilityDeviation}, " +
+                $"max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Variation end) {SoilProfileTableColumns.PermeabilityCoefficientOfVariation}, " +
                 $"max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Dist_Type end) {SoilProfileTableColumns.DiameterD70Distribution}, " +
                 $"max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Shift end) {SoilProfileTableColumns.DiameterD70Shift}, " +
                 $"max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Mean end) {SoilProfileTableColumns.DiameterD70Mean}, " +
-                $"max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Deviation end) {SoilProfileTableColumns.DiameterD70Deviation} " +
+                $"max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Variation end) {SoilProfileTableColumns.DiameterD70CoefficientOfVariation} " +
                 "FROM ParameterNames AS pn " +
                 "LEFT JOIN ParameterValues AS pv USING(PN_ID) " +
                 "LEFT JOIN Stochast AS s USING(PN_ID) " +
@@ -287,11 +287,11 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 $"{SoilProfileTableColumns.DiameterD70Distribution}, " +
                 $"{SoilProfileTableColumns.DiameterD70Shift}, " +
                 $"{SoilProfileTableColumns.DiameterD70Mean}, " +
-                $"{SoilProfileTableColumns.DiameterD70Deviation}, " +
+                $"{SoilProfileTableColumns.DiameterD70CoefficientOfVariation}, " +
                 $"{SoilProfileTableColumns.PermeabilityDistribution}, " +
                 $"{SoilProfileTableColumns.PermeabilityShift}, " +
                 $"{SoilProfileTableColumns.PermeabilityMean}, " +
-                $"{SoilProfileTableColumns.PermeabilityDeviation}, " +
+                $"{SoilProfileTableColumns.PermeabilityCoefficientOfVariation}, " +
                 $"sp1d.SP1D_ID AS {SoilProfileTableColumns.SoilProfileId} " +
                 "FROM Mechanism AS m " +
                 "JOIN Segment AS segment USING(ME_ID) " +
@@ -327,11 +327,11 @@ namespace Ringtoets.Piping.IO.SoilProfile
                     $"{SoilProfileTableColumns.DiameterD70Distribution}, " +
                     $"{SoilProfileTableColumns.DiameterD70Shift}, " +
                     $"{SoilProfileTableColumns.DiameterD70Mean}, " +
-                    $"{SoilProfileTableColumns.DiameterD70Deviation}, " +
+                    $"{SoilProfileTableColumns.DiameterD70CoefficientOfVariation}, " +
                     $"{SoilProfileTableColumns.PermeabilityDistribution}, " +
                     $"{SoilProfileTableColumns.PermeabilityShift}, " +
                     $"{SoilProfileTableColumns.PermeabilityMean}, " +
-                    $"{SoilProfileTableColumns.PermeabilityDeviation}, " +
+                    $"{SoilProfileTableColumns.PermeabilityCoefficientOfVariation}, " +
                     $"sp2d.SP2D_ID as {SoilProfileTableColumns.SoilProfileId} " +
                     "FROM Mechanism AS m " +
                     "JOIN Segment AS segment USING(ME_ID) " +

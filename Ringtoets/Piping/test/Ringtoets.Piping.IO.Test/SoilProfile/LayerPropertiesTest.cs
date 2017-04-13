@@ -48,7 +48,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         {
             // Setup
             var mocks = new MockRepository();
-            IRowBasedDatabaseReader reader = mocks.StrictMock<IRowBasedDatabaseReader>();
+            var reader = mocks.StrictMock<IRowBasedDatabaseReader>();
             mocks.ReplayAll();
 
             // Call
@@ -66,22 +66,22 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             // Setup
             var random = new Random(21);
 
-            var color = random.NextDouble();
-            var belowPhreaticLevelDistribution = random.Next(0, 3);
-            var belowPhreaticLevelShift = random.NextDouble();
-            var belowPhreaticLevelMean = random.NextDouble();
-            var belowPhreaticLevelDeviation = random.NextDouble();
-            var diameterD70Distribution = random.Next(0, 3);
-            var diameterD70Shift = random.NextDouble();
-            var diameterD70Mean = random.NextDouble();
-            var diameterD70Deviation = random.NextDouble();
-            var permeabilityDistribution = random.Next(0, 3);
-            var permeabilityShift = random.NextDouble();
-            var permeabilityMean = random.NextDouble();
-            var permeabilityDeviation = random.NextDouble();
+            double color = random.NextDouble();
+            int belowPhreaticLevelDistribution = random.Next(0, 3);
+            double belowPhreaticLevelShift = random.NextDouble();
+            double belowPhreaticLevelMean = random.NextDouble();
+            double belowPhreaticLevelDeviation = random.NextDouble();
+            int diameterD70Distribution = random.Next(0, 3);
+            double diameterD70Shift = random.NextDouble();
+            double diameterD70Mean = random.NextDouble();
+            double diameterD70CoefficientOfVariation = random.NextDouble();
+            int permeabilityDistribution = random.Next(0, 3);
+            double permeabilityShift = random.NextDouble();
+            double permeabilityMean = random.NextDouble();
+            double permeabilityCoefficientOfVariation = random.NextDouble();
 
             var mocks = new MockRepository();
-            IRowBasedDatabaseReader reader = mocks.StrictMock<IRowBasedDatabaseReader>();
+            var reader = mocks.StrictMock<IRowBasedDatabaseReader>();
             reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableColumns.IsAquifer)).Return(1.0);
             reader.Expect(r => r.ReadOrDefault<string>(SoilProfileTableColumns.MaterialName)).Return("");
             reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableColumns.Color)).Return(color);
@@ -92,11 +92,11 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             reader.Expect(r => r.ReadOrDefault<long?>(SoilProfileTableColumns.DiameterD70Distribution)).Return(diameterD70Distribution);
             reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableColumns.DiameterD70Shift)).Return(diameterD70Shift);
             reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableColumns.DiameterD70Mean)).Return(diameterD70Mean);
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableColumns.DiameterD70Deviation)).Return(diameterD70Deviation);
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableColumns.DiameterD70CoefficientOfVariation)).Return(diameterD70CoefficientOfVariation);
             reader.Expect(r => r.ReadOrDefault<long?>(SoilProfileTableColumns.PermeabilityDistribution)).Return(permeabilityDistribution);
             reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableColumns.PermeabilityShift)).Return(permeabilityShift);
             reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableColumns.PermeabilityMean)).Return(permeabilityMean);
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableColumns.PermeabilityDeviation)).Return(permeabilityDeviation);
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableColumns.PermeabilityCoefficientOfVariation)).Return(permeabilityCoefficientOfVariation);
             mocks.ReplayAll();
 
             // Call
@@ -111,11 +111,11 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             Assert.AreEqual(diameterD70Distribution, properties.DiameterD70Distribution);
             Assert.AreEqual(diameterD70Shift, properties.DiameterD70Shift);
             Assert.AreEqual(diameterD70Mean, properties.DiameterD70Mean);
-            Assert.AreEqual(diameterD70Deviation, properties.DiameterD70Deviation);
+            Assert.AreEqual(diameterD70CoefficientOfVariation, properties.DiameterD70CoefficientOfVariation);
             Assert.AreEqual(permeabilityDistribution, properties.PermeabilityDistribution);
             Assert.AreEqual(permeabilityShift, properties.PermeabilityShift);
             Assert.AreEqual(permeabilityMean, properties.PermeabilityMean);
-            Assert.AreEqual(permeabilityDeviation, properties.PermeabilityDeviation);
+            Assert.AreEqual(permeabilityCoefficientOfVariation, properties.PermeabilityCoefficientOfVariation);
             mocks.VerifyAll();
         }
 
@@ -127,7 +127,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             var profileName = "SomeProfile";
 
             var mocks = new MockRepository();
-            IRowBasedDatabaseReader reader = mocks.StrictMock<IRowBasedDatabaseReader>();
+            var reader = mocks.StrictMock<IRowBasedDatabaseReader>();
             reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableColumns.IsAquifer)).Throw(new InvalidCastException());
             reader.Expect(r => r.Path).Return(path);
 
@@ -137,12 +137,12 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => new LayerProperties(reader, profileName);
 
             // Assert
-            var expectedMessage = string.Format(
+            string expectedMessage = string.Format(
                 "Fout bij het lezen van bestand '{0}' (ondergrondschematisatie '{1}'): ondergrondschematisatie bevat geen geldige waarde in kolom 'IsAquifer'.",
                 path,
                 profileName);
 
-            PipingSoilProfileReadException exception = Assert.Throws<PipingSoilProfileReadException>(test);
+            var exception = Assert.Throws<PipingSoilProfileReadException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
             Assert.AreEqual(profileName, exception.ProfileName);
             mocks.VerifyAll();

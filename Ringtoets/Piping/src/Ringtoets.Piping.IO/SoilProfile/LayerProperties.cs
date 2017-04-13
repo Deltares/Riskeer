@@ -79,8 +79,8 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 DiameterD70Shift = reader.ReadOrDefault<double?>(readColumn);
                 readColumn = SoilProfileTableColumns.DiameterD70Mean;
                 DiameterD70Mean = reader.ReadOrDefault<double?>(readColumn);
-                readColumn = SoilProfileTableColumns.DiameterD70Deviation;
-                DiameterD70Deviation = reader.ReadOrDefault<double?>(readColumn);
+                readColumn = SoilProfileTableColumns.DiameterD70CoefficientOfVariation;
+                DiameterD70CoefficientOfVariation = reader.ReadOrDefault<double?>(readColumn);
 
                 readColumn = SoilProfileTableColumns.PermeabilityDistribution;
                 PermeabilityDistribution = reader.ReadOrDefault<long?>(readColumn);
@@ -88,8 +88,8 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 PermeabilityShift = reader.ReadOrDefault<double?>(readColumn);
                 readColumn = SoilProfileTableColumns.PermeabilityMean;
                 PermeabilityMean = reader.ReadOrDefault<double?>(readColumn);
-                readColumn = SoilProfileTableColumns.PermeabilityDeviation;
-                PermeabilityDeviation = reader.ReadOrDefault<double?>(readColumn);
+                readColumn = SoilProfileTableColumns.PermeabilityCoefficientOfVariation;
+                PermeabilityCoefficientOfVariation = reader.ReadOrDefault<double?>(readColumn);
             }
             catch (InvalidCastException e)
             {
@@ -164,11 +164,11 @@ namespace Ringtoets.Piping.IO.SoilProfile
         internal double? DiameterD70Mean { get; private set; }
 
         /// <summary>
-        /// Gets the deviation of the distribution for the mean diameter of small scale tests applied to different kinds of sand, 
+        /// Gets the coefficient of variation of the distribution for the mean diameter of small scale tests applied to different kinds of sand, 
         /// on which the formula of Sellmeijer has been fit.
         /// [m]
         /// </summary>
-        internal double? DiameterD70Deviation { get; private set; }
+        internal double? DiameterD70CoefficientOfVariation { get; private set; }
 
         /// <summary>
         /// Gets the distribution for the Darcy-speed with which water flows through the aquifer layer.
@@ -189,9 +189,9 @@ namespace Ringtoets.Piping.IO.SoilProfile
         internal double? PermeabilityMean { get; private set; }
 
         /// <summary>
-        /// Gets the deviation of the distribution for the Darcy-speed with which water flows through the aquifer layer.
+        /// Gets the coefficient of variation of the distribution for the Darcy-speed with which water flows through the aquifer layer.
         /// [m/s]
         /// </summary>
-        internal double? PermeabilityDeviation { get; private set; }
+        internal double? PermeabilityCoefficientOfVariation { get; private set; }
     }
 }

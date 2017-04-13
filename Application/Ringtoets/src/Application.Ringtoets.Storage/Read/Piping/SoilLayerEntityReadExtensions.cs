@@ -48,9 +48,9 @@ namespace Application.Ringtoets.Storage.Read.Piping
                 BelowPhreaticLevelDeviation = entity.BelowPhreaticLevelDeviation.ToNullAsNaN(),
                 BelowPhreaticLevelShift = entity.BelowPhreaticLevelShift.ToNullAsNaN(),
                 DiameterD70Mean = entity.DiameterD70Mean.ToNullAsNaN(),
-                DiameterD70Deviation = entity.DiameterD70Deviation.ToNullAsNaN(),
+                DiameterD70CoefficientOfVariation = entity.DiameterD70CoefficientOfVariation.ToNullAsNaN(),
                 PermeabilityMean = entity.PermeabilityMean.ToNullAsNaN(),
-                PermeabilityDeviation = entity.PermeabilityDeviation.ToNullAsNaN()
+                PermeabilityCoefficientOfVariation = entity.PermeabilityCoefficientOfVariation.ToNullAsNaN()
             };
             return pipingSoilLayer;
         }

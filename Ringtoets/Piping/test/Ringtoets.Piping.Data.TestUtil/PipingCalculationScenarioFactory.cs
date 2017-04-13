@@ -155,9 +155,9 @@ namespace Ringtoets.Piping.Data.TestUtil
                     new PipingSoilLayer(top/2)
                     {
                         IsAquifer = true,
-                        DiameterD70Deviation = 0,
+                        DiameterD70CoefficientOfVariation = 0,
                         DiameterD70Mean = 4.0e-4,
-                        PermeabilityDeviation = 0.5,
+                        PermeabilityCoefficientOfVariation = 0.5,
                         PermeabilityMean = 1.0
                     }
                 }, SoilProfileType.SoilProfile1D, 0)

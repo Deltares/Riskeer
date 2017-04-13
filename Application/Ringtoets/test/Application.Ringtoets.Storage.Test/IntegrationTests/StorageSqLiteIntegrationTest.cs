@@ -624,9 +624,9 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 Assert.AreEqual(expectedLayer.BelowPhreaticLevelDeviation, actualLayer.BelowPhreaticLevelDeviation);
                 Assert.AreEqual(expectedLayer.BelowPhreaticLevelShift, actualLayer.BelowPhreaticLevelShift);
                 Assert.AreEqual(expectedLayer.DiameterD70Mean, actualLayer.DiameterD70Mean);
-                Assert.AreEqual(expectedLayer.DiameterD70Deviation, actualLayer.DiameterD70Deviation);
+                Assert.AreEqual(expectedLayer.DiameterD70CoefficientOfVariation, actualLayer.DiameterD70CoefficientOfVariation);
                 Assert.AreEqual(expectedLayer.PermeabilityMean, actualLayer.PermeabilityMean);
-                Assert.AreEqual(expectedLayer.PermeabilityDeviation, actualLayer.PermeabilityDeviation);
+                Assert.AreEqual(expectedLayer.PermeabilityCoefficientOfVariation, actualLayer.PermeabilityCoefficientOfVariation);
             }
         }
 
@@ -1410,9 +1410,9 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedPipingInput.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation, actualPipingInput.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation);
             Assert.AreEqual(expectedPipingInput.SaturatedVolumicWeightOfCoverageLayer.Shift, actualPipingInput.SaturatedVolumicWeightOfCoverageLayer.Shift);
             Assert.AreEqual(expectedPipingInput.Diameter70.Mean, actualPipingInput.Diameter70.Mean);
-            Assert.AreEqual(expectedPipingInput.Diameter70.StandardDeviation, actualPipingInput.Diameter70.StandardDeviation);
+            Assert.AreEqual(expectedPipingInput.Diameter70.CoefficientOfVariation, actualPipingInput.Diameter70.CoefficientOfVariation);
             Assert.AreEqual(expectedPipingInput.DarcyPermeability.Mean, actualPipingInput.DarcyPermeability.Mean);
-            Assert.AreEqual(expectedPipingInput.DarcyPermeability.StandardDeviation, actualPipingInput.DarcyPermeability.StandardDeviation);
+            Assert.AreEqual(expectedPipingInput.DarcyPermeability.CoefficientOfVariation, actualPipingInput.DarcyPermeability.CoefficientOfVariation);
             Assert.AreEqual(expectedPipingInput.UseAssessmentLevelManualInput, actualPipingInput.UseAssessmentLevelManualInput);
             Assert.AreEqual(expectedPipingInput.AssessmentLevel, actualPipingInput.AssessmentLevel);
         }

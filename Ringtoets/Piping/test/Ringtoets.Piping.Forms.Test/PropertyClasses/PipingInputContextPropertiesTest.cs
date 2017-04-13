@@ -502,9 +502,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(inputParameters.EffectiveThicknessCoverageLayer.Mean, properties.EffectiveThicknessCoverageLayer.Mean);
             Assert.AreEqual(inputParameters.EffectiveThicknessCoverageLayer.StandardDeviation, properties.EffectiveThicknessCoverageLayer.StandardDeviation);
             Assert.AreEqual(inputParameters.Diameter70.Mean, properties.Diameter70.Mean);
-            Assert.AreEqual(inputParameters.Diameter70.StandardDeviation, properties.Diameter70.StandardDeviation);
+            Assert.AreEqual(inputParameters.Diameter70.CoefficientOfVariation, properties.Diameter70.CoefficientOfVariation);
             Assert.AreEqual(inputParameters.DarcyPermeability.Mean, properties.DarcyPermeability.Mean);
-            Assert.AreEqual(inputParameters.DarcyPermeability.StandardDeviation, properties.DarcyPermeability.StandardDeviation);
+            Assert.AreEqual(inputParameters.DarcyPermeability.CoefficientOfVariation, properties.DarcyPermeability.CoefficientOfVariation);
             Assert.AreEqual(inputParameters.ThicknessAquiferLayer.Mean, properties.ThicknessAquiferLayer.Mean);
             Assert.AreEqual(inputParameters.ThicknessAquiferLayer.StandardDeviation, properties.ThicknessAquiferLayer.StandardDeviation);
             Assert.AreEqual(

@@ -49,9 +49,9 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
                 BelowPhreaticLevelDeviation = random.NextDouble(),
                 BelowPhreaticLevelShift = random.NextDouble(),
                 DiameterD70Mean = double.NaN,
-                DiameterD70Deviation = double.NaN,
+                DiameterD70CoefficientOfVariation = double.NaN,
                 PermeabilityMean = random.NextDouble(),
-                PermeabilityDeviation = random.NextDouble()
+                PermeabilityCoefficientOfVariation = random.NextDouble()
             };
 
             // Call
@@ -66,9 +66,9 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.AreEqual(soilLayer.BelowPhreaticLevelDeviation.ToNaNAsNull(), entity.BelowPhreaticLevelDeviation);
             Assert.AreEqual(soilLayer.BelowPhreaticLevelShift.ToNaNAsNull(), entity.BelowPhreaticLevelShift);
             Assert.AreEqual(soilLayer.DiameterD70Mean.ToNaNAsNull(), entity.DiameterD70Mean);
-            Assert.AreEqual(soilLayer.DiameterD70Deviation.ToNaNAsNull(), entity.DiameterD70Deviation);
+            Assert.AreEqual(soilLayer.DiameterD70CoefficientOfVariation.ToNaNAsNull(), entity.DiameterD70CoefficientOfVariation);
             Assert.AreEqual(soilLayer.PermeabilityMean.ToNaNAsNull(), entity.PermeabilityMean);
-            Assert.AreEqual(soilLayer.PermeabilityDeviation.ToNaNAsNull(), entity.PermeabilityDeviation);
+            Assert.AreEqual(soilLayer.PermeabilityCoefficientOfVariation.ToNaNAsNull(), entity.PermeabilityCoefficientOfVariation);
             Assert.AreEqual(order, entity.Order);
         }
 

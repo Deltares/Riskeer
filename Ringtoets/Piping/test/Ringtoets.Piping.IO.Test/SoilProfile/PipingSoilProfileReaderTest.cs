@@ -383,10 +383,10 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 }, profile.Layers.Select(l => l.DiameterD70Mean));
                 CollectionAssert.AreEqual(new[]
                 {
-                    0.2,
-                    0.001,
-                    0.015
-                }, profile.Layers.Select(l => l.DiameterD70Deviation));
+                    0.017699,
+                    0.1,
+                    0.029412
+                }, profile.Layers.Select(l => l.DiameterD70CoefficientOfVariation));
                 CollectionAssert.AreEqual(new[]
                 {
                     5.21,
@@ -395,10 +395,10 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 }, profile.Layers.Select(l => l.PermeabilityMean));
                 CollectionAssert.AreEqual(new[]
                 {
-                    0.3,
-                    0.1,
-                    0.025
-                }, profile.Layers.Select(l => l.PermeabilityDeviation));
+                    0.057582,
+                    0.01001,
+                    0.024752
+                }, profile.Layers.Select(l => l.PermeabilityCoefficientOfVariation));
             }
         }
 
@@ -452,10 +452,10 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 }, profile.Layers.Select(l => l.DiameterD70Mean));
                 CollectionAssert.AreEqual(new[]
                 {
-                    0.015,
-                    0.001,
-                    0.2
-                }, profile.Layers.Select(l => l.DiameterD70Deviation));
+                    0.029411,
+                    0.1,
+                    0.017699
+                }, profile.Layers.Select(l => l.DiameterD70CoefficientOfVariation));
                 CollectionAssert.AreEqual(new[]
                 {
                     1.01,
@@ -464,10 +464,10 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 }, profile.Layers.Select(l => l.PermeabilityMean));
                 CollectionAssert.AreEqual(new[]
                 {
-                    0.025,
-                    0.1,
-                    0.3
-                }, profile.Layers.Select(l => l.PermeabilityDeviation));
+                    0.024752,
+                    0.01001,
+                    0.057582
+                }, profile.Layers.Select(l => l.PermeabilityCoefficientOfVariation));
             }
         }
 

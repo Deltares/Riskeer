@@ -317,9 +317,9 @@ namespace Ringtoets.Piping.Data.Test
                     BelowPhreaticLevelDeviation = random.NextDouble(),
                     BelowPhreaticLevelMean = random.NextDouble(),
                     BelowPhreaticLevelShift = random.NextDouble(),
-                    DiameterD70Deviation = random.NextDouble(),
+                    DiameterD70CoefficientOfVariation = random.NextDouble(),
                     DiameterD70Mean = random.NextDouble(),
-                    PermeabilityDeviation = random.NextDouble(),
+                    PermeabilityCoefficientOfVariation = random.NextDouble(),
                     PermeabilityMean = random.NextDouble()
                 }
             }, random.NextEnumValue<SoilProfileType>(), random.Next());

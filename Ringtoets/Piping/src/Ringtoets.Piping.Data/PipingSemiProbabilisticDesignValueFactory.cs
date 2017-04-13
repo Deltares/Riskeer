@@ -127,7 +127,7 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Creates the design variable for <see cref="PipingInput.Diameter70"/>.
         /// </summary>
-        public static DesignVariable<LogNormalDistribution> GetDiameter70(PipingInput parameters)
+        public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetDiameter70(PipingInput parameters)
         {
             return CreateDesignVariable(parameters.Diameter70, 0.05);
         }
@@ -135,7 +135,7 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Creates the design variable for <see cref="PipingInput.DarcyPermeability"/>.
         /// </summary>
-        public static DesignVariable<LogNormalDistribution> GetDarcyPermeability(PipingInput parameters)
+        public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetDarcyPermeability(PipingInput parameters)
         {
             return CreateDesignVariable(parameters.DarcyPermeability, 0.95);
         }

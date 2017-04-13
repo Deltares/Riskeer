@@ -57,12 +57,12 @@ namespace Ringtoets.Piping.IO.Test.Builders
             Assert.IsNull(result.DiameterD70Distribution);
             Assert.IsNull(result.DiameterD70Shift);
             Assert.IsNull(result.DiameterD70Mean);
-            Assert.IsNull(result.DiameterD70Deviation);
+            Assert.IsNull(result.DiameterD70CoefficientOfVariation);
 
             Assert.IsNull(result.PermeabilityDistribution);
             Assert.IsNull(result.PermeabilityShift);
             Assert.IsNull(result.PermeabilityMean);
-            Assert.IsNull(result.PermeabilityDeviation);
+            Assert.IsNull(result.PermeabilityCoefficientOfVariation);
         }
 
         [Test]
@@ -84,7 +84,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             };
 
             // Assert
-            ArgumentException exception = Assert.Throws<ArgumentException>(test);
+            var exception = Assert.Throws<ArgumentException>(test);
             Assert.AreEqual("De segmenten van de geometrie van de laag vormen geen lus.", exception.Message);
         }
 
@@ -109,7 +109,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             };
 
             // Assert
-            ArgumentException exception = Assert.Throws<ArgumentException>(test);
+            var exception = Assert.Throws<ArgumentException>(test);
             Assert.AreEqual("De segmenten van de geometrie van de laag vormen geen lus.", exception.Message);
         }
 
@@ -177,7 +177,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             });
 
             // Assert
-            ArgumentException exception = Assert.Throws<ArgumentException>(test);
+            var exception = Assert.Throws<ArgumentException>(test);
             Assert.AreEqual("De segmenten van de geometrie van de laag vormen geen lus.", exception.Message);
         }
 
@@ -202,7 +202,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             });
 
             // Assert
-            ArgumentException exception = Assert.Throws<ArgumentException>(test);
+            var exception = Assert.Throws<ArgumentException>(test);
             Assert.AreEqual("De segmenten van de geometrie van de laag vormen geen lus.", exception.Message);
         }
 
@@ -271,26 +271,26 @@ namespace Ringtoets.Piping.IO.Test.Builders
         {
             // Setup
             var random = new Random(22);
-            var y1 = random.NextDouble();
-            var y2 = y1 + random.NextDouble();
+            double y1 = random.NextDouble();
+            double y2 = y1 + random.NextDouble();
             var x1 = 1.0;
             var x2 = 1.1;
             var x3 = 1.2;
             var materialName = "materialX";
-            var color = Color.DarkSeaGreen;
+            Color color = Color.DarkSeaGreen;
             double bottom;
 
             var logNormalDistribution = 3;
             var logNormalShift = 0;
 
-            var belowPhreaticLevelMean = random.NextDouble();
-            var belowPhreaticLevelDeviation = random.NextDouble();
+            double belowPhreaticLevelMean = random.NextDouble();
+            double belowPhreaticLevelDeviation = random.NextDouble();
 
-            var diameterD70Mean = random.NextDouble();
-            var diameterD70Deviation = random.NextDouble();
+            double diameterD70Mean = random.NextDouble();
+            double diameterD70CoefficientOfVariation = random.NextDouble();
 
-            var permeabilityMean = random.NextDouble();
-            var permeabilityDeviation = random.NextDouble();
+            double permeabilityMean = random.NextDouble();
+            double permeabilityCoefficientOfVariation = random.NextDouble();
 
             var layer = new SoilLayer2D
             {
@@ -304,11 +304,11 @@ namespace Ringtoets.Piping.IO.Test.Builders
                 DiameterD70Distribution = logNormalDistribution,
                 DiameterD70Shift = logNormalShift,
                 DiameterD70Mean = diameterD70Mean,
-                DiameterD70Deviation = diameterD70Deviation,
+                DiameterD70CoefficientOfVariation = diameterD70CoefficientOfVariation,
                 PermeabilityDistribution = logNormalDistribution,
                 PermeabilityShift = logNormalShift,
                 PermeabilityMean = permeabilityMean,
-                PermeabilityDeviation = permeabilityDeviation,
+                PermeabilityCoefficientOfVariation = permeabilityCoefficientOfVariation,
                 OuterLoop = new List<Segment2D>
                 {
                     new Segment2D(new Point2D(x1, y1),
@@ -337,9 +337,9 @@ namespace Ringtoets.Piping.IO.Test.Builders
             Assert.AreEqual(belowPhreaticLevelMean, resultLayer.BelowPhreaticLevelMean);
             Assert.AreEqual(belowPhreaticLevelDeviation, resultLayer.BelowPhreaticLevelDeviation);
             Assert.AreEqual(diameterD70Mean, resultLayer.DiameterD70Mean);
-            Assert.AreEqual(diameterD70Deviation, resultLayer.DiameterD70Deviation);
+            Assert.AreEqual(diameterD70CoefficientOfVariation, resultLayer.DiameterD70CoefficientOfVariation);
             Assert.AreEqual(permeabilityMean, resultLayer.PermeabilityMean);
-            Assert.AreEqual(permeabilityDeviation, resultLayer.PermeabilityDeviation);
+            Assert.AreEqual(permeabilityCoefficientOfVariation, resultLayer.PermeabilityCoefficientOfVariation);
         }
 
         [Test]
@@ -371,8 +371,8 @@ namespace Ringtoets.Piping.IO.Test.Builders
         {
             // Setup
             var random = new Random(22);
-            var y1 = random.NextDouble();
-            var y2 = random.NextDouble();
+            double y1 = random.NextDouble();
+            double y2 = random.NextDouble();
 
             var layer = new SoilLayer2D
             {
@@ -398,7 +398,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         public void AsPipingSoilLayers_WithOuterLoopIntersectingX_ReturnsBottomAndLayerWithTop()
         {
             // Setup
-            var expectedZ = new Random(22).NextDouble();
+            double expectedZ = new Random(22).NextDouble();
             var layer = new SoilLayer2D
             {
                 OuterLoop = new List<Segment2D>
@@ -830,7 +830,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             TestDelegate test = () => layer.AsPipingSoilLayers(atX, out bottom);
 
             // Assert
-            SoilLayerConversionException exception = Assert.Throws<SoilLayerConversionException>(test);
+            var exception = Assert.Throws<SoilLayerConversionException>(test);
             Assert.AreEqual(string.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_, atX), exception.Message);
         }
 
@@ -868,7 +868,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             TestDelegate test = () => layer.AsPipingSoilLayers(atX, out bottom);
 
             // Assert
-            SoilLayerConversionException exception = Assert.Throws<SoilLayerConversionException>(test);
+            var exception = Assert.Throws<SoilLayerConversionException>(test);
             Assert.AreEqual(string.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_, atX), exception.Message);
         }
 

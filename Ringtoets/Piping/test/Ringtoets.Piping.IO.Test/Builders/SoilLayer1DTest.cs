@@ -55,12 +55,12 @@ namespace Ringtoets.Piping.IO.Test.Builders
             Assert.IsNull(layer.DiameterD70Distribution);
             Assert.IsNull(layer.DiameterD70Shift);
             Assert.IsNull(layer.DiameterD70Mean);
-            Assert.IsNull(layer.DiameterD70Deviation);
+            Assert.IsNull(layer.DiameterD70CoefficientOfVariation);
 
             Assert.IsNull(layer.PermeabilityDistribution);
             Assert.IsNull(layer.PermeabilityShift);
             Assert.IsNull(layer.PermeabilityMean);
-            Assert.IsNull(layer.PermeabilityDeviation);
+            Assert.IsNull(layer.PermeabilityCoefficientOfVariation);
         }
 
         [Test]
@@ -83,12 +83,12 @@ namespace Ringtoets.Piping.IO.Test.Builders
             var diameterD70Distribution = 3;
             var diameterD70Shift = 0;
             var diameterD70Mean = random.NextDouble();
-            var diameterD70Deviation = random.NextDouble();
+            var diameterD70CoefficientOfVariation = random.NextDouble();
 
             var permeabilityDistribution = 3;
             var permeabilityShift = 0;
             var permeabilityMean = random.NextDouble();
-            var permeabilityDeviation = random.NextDouble();
+            var permeabilityCoefficientOfVariation = random.NextDouble();
 
             var layer = new SoilLayer1D(top)
             {
@@ -102,11 +102,11 @@ namespace Ringtoets.Piping.IO.Test.Builders
                 DiameterD70Distribution = diameterD70Distribution,
                 DiameterD70Shift = diameterD70Shift,
                 DiameterD70Mean = diameterD70Mean,
-                DiameterD70Deviation = diameterD70Deviation,
+                DiameterD70CoefficientOfVariation = diameterD70CoefficientOfVariation,
                 PermeabilityDistribution = permeabilityDistribution,
                 PermeabilityShift = permeabilityShift,
                 PermeabilityMean = permeabilityMean,
-                PermeabilityDeviation = permeabilityDeviation
+                PermeabilityCoefficientOfVariation = permeabilityCoefficientOfVariation
             };
 
             // Call
@@ -119,9 +119,9 @@ namespace Ringtoets.Piping.IO.Test.Builders
             Assert.AreEqual(belowPhreaticLevelDeviation, result.BelowPhreaticLevelDeviation);
             Assert.AreEqual(belowPhreaticLevelShift, result.BelowPhreaticLevelShift);
             Assert.AreEqual(diameterD70Mean, result.DiameterD70Mean);
-            Assert.AreEqual(diameterD70Deviation, result.DiameterD70Deviation);
+            Assert.AreEqual(diameterD70CoefficientOfVariation, result.DiameterD70CoefficientOfVariation);
             Assert.AreEqual(permeabilityMean, result.PermeabilityMean);
-            Assert.AreEqual(permeabilityDeviation, result.PermeabilityDeviation);
+            Assert.AreEqual(permeabilityCoefficientOfVariation, result.PermeabilityCoefficientOfVariation);
             Assert.AreEqual(materialName, result.MaterialName);
             Assert.AreEqual(Color.FromArgb(color.ToArgb()), result.Color);
         }

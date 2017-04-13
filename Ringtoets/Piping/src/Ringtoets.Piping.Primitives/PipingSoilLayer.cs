@@ -44,9 +44,9 @@ namespace Ringtoets.Piping.Primitives
             BelowPhreaticLevelDeviation = double.NaN;
             BelowPhreaticLevelShift = double.NaN;
             DiameterD70Mean = double.NaN;
-            DiameterD70Deviation = double.NaN;
+            DiameterD70CoefficientOfVariation = double.NaN;
             PermeabilityMean = double.NaN;
-            PermeabilityDeviation = double.NaN;
+            PermeabilityCoefficientOfVariation = double.NaN;
         }
 
         /// <summary>
@@ -85,11 +85,11 @@ namespace Ringtoets.Piping.Primitives
         public double DiameterD70Mean { get; set; }
 
         /// <summary>
-        /// Gets or sets the deviation of the distribution for the mean diameter of small scale tests applied to different kinds of sand, 
+        /// Gets or sets the coefficient of variation of the distribution for the mean diameter of small scale tests applied to different kinds of sand, 
         /// on which the formula of Sellmeijer has been fit.
         /// [m]
         /// </summary>
-        public double DiameterD70Deviation { get; set; }
+        public double DiameterD70CoefficientOfVariation { get; set; }
 
         /// <summary>
         /// Gets or sets the mean of the distribution for the the Darcy-speed with which water flows through the aquifer layer.
@@ -98,10 +98,10 @@ namespace Ringtoets.Piping.Primitives
         public double PermeabilityMean { get; set; }
 
         /// <summary>
-        /// Gets or sets the deviation of the distribution for the Darcy-speed with which water flows through the aquifer layer.
+        /// Gets or sets the coefficient of variation of the distribution for the Darcy-speed with which water flows through the aquifer layer.
         /// [m/s]
         /// </summary>
-        public double PermeabilityDeviation { get; set; }
+        public double PermeabilityCoefficientOfVariation { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the material that was assigned to the <see cref="PipingSoilLayer"/>.
@@ -156,9 +156,9 @@ namespace Ringtoets.Piping.Primitives
                 hashCode = (hashCode * 397) ^ BelowPhreaticLevelDeviation.GetHashCode();
                 hashCode = (hashCode * 397) ^ BelowPhreaticLevelShift.GetHashCode();
                 hashCode = (hashCode * 397) ^ DiameterD70Mean.GetHashCode();
-                hashCode = (hashCode * 397) ^ DiameterD70Deviation.GetHashCode();
+                hashCode = (hashCode * 397) ^ DiameterD70CoefficientOfVariation.GetHashCode();
                 hashCode = (hashCode * 397) ^ PermeabilityMean.GetHashCode();
-                hashCode = (hashCode * 397) ^ PermeabilityDeviation.GetHashCode();
+                hashCode = (hashCode * 397) ^ PermeabilityCoefficientOfVariation.GetHashCode();
                 hashCode = (hashCode * 397) ^ Color.GetHashCode();
                 return hashCode;
             }
@@ -173,9 +173,9 @@ namespace Ringtoets.Piping.Primitives
                    && BelowPhreaticLevelDeviation.Equals(other.BelowPhreaticLevelDeviation)
                    && BelowPhreaticLevelShift.Equals(other.BelowPhreaticLevelShift)
                    && DiameterD70Mean.Equals(other.DiameterD70Mean)
-                   && DiameterD70Deviation.Equals(other.DiameterD70Deviation)
+                   && DiameterD70CoefficientOfVariation.Equals(other.DiameterD70CoefficientOfVariation)
                    && PermeabilityMean.Equals(other.PermeabilityMean)
-                   && PermeabilityDeviation.Equals(other.PermeabilityDeviation)
+                   && PermeabilityCoefficientOfVariation.Equals(other.PermeabilityCoefficientOfVariation)
                    && Color.Equals(other.Color);
         }
     }

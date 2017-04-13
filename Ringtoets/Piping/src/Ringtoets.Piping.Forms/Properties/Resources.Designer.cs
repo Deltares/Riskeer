@@ -1202,11 +1202,11 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to d70 (standaardafwijking) [m].
+        ///   Looks up a localized string similar to d70 (variatiecoëfficiënt) [m].
         /// </summary>
-        public static string PipingSoilLayerTable_ColumnHeader_DiameterD70Deviation {
+        public static string PipingSoilLayerTable_ColumnHeader_DiameterD70CoefficientOfVariation {
             get {
-                return ResourceManager.GetString("PipingSoilLayerTable_ColumnHeader_DiameterD70Deviation", resourceCulture);
+                return ResourceManager.GetString("PipingSoilLayerTable_ColumnHeader_DiameterD70CoefficientOfVariation", resourceCulture);
             }
         }
         
@@ -1238,11 +1238,11 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Doorlatendheid (standaardafwijking) [m/s].
+        ///   Looks up a localized string similar to Doorlatendheid (variatiecoëfficiënt) [m/s].
         /// </summary>
-        public static string PipingSoilLayerTable_ColumnHeader_PermeabilityDeviation {
+        public static string PipingSoilLayerTable_ColumnHeader_PermeabilityCoefficientOfVariation {
             get {
-                return ResourceManager.GetString("PipingSoilLayerTable_ColumnHeader_PermeabilityDeviation", resourceCulture);
+                return ResourceManager.GetString("PipingSoilLayerTable_ColumnHeader_PermeabilityCoefficientOfVariation", resourceCulture);
             }
         }
         

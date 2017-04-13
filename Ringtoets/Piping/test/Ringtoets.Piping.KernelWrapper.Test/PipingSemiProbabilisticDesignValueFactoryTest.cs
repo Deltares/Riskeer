@@ -152,7 +152,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             var inputParameters = new PipingInput(new GeneralPipingInput());
 
             // Call
-            DesignVariable<LogNormalDistribution> d70 =
+            VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> d70 =
                 PipingSemiProbabilisticDesignValueFactory.GetDiameter70(inputParameters);
 
             // Assert
@@ -167,7 +167,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             var inputParameters = new PipingInput(new GeneralPipingInput());
 
             // Call
-            DesignVariable<LogNormalDistribution> darcyPermeability =
+            VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> darcyPermeability =
                 PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(inputParameters);
 
             // Assert

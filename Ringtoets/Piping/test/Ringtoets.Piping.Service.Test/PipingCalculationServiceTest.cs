@@ -341,9 +341,9 @@ namespace Ringtoets.Piping.Service.Test
             var bottomLayer = new PipingSoilLayer(2.0)
             {
                 IsAquifer = true,
-                DiameterD70Deviation = 0,
+                DiameterD70CoefficientOfVariation = 0,
                 DiameterD70Mean = 1e-4,
-                PermeabilityDeviation = 0.5,
+                PermeabilityCoefficientOfVariation = 0.5,
                 PermeabilityMean = 1
             };
             testCalculation.InputParameters.StochasticSoilProfile.SoilProfile = new PipingSoilProfile(
@@ -423,9 +423,9 @@ namespace Ringtoets.Piping.Service.Test
             var aquiferLayer = new PipingSoilLayer(10.56)
             {
                 IsAquifer = true,
-                DiameterD70Deviation = 0,
+                DiameterD70CoefficientOfVariation = 0,
                 DiameterD70Mean = 1e-4,
-                PermeabilityDeviation = 0.5,
+                PermeabilityCoefficientOfVariation = 0.5,
                 PermeabilityMean = 1
             };
             var profile = new PipingSoilProfile(string.Empty, 0.0,
@@ -469,9 +469,9 @@ namespace Ringtoets.Piping.Service.Test
             var bottomAquiferLayer = new PipingSoilLayer(11.0)
             {
                 IsAquifer = true,
-                DiameterD70Deviation = 0,
+                DiameterD70CoefficientOfVariation = 0,
                 DiameterD70Mean = 1e-4,
-                PermeabilityDeviation = 0.5,
+                PermeabilityCoefficientOfVariation = 0.5,
                 PermeabilityMean = 1
             };
             var profile = new PipingSoilProfile(string.Empty, 0.0,
@@ -531,9 +531,9 @@ namespace Ringtoets.Piping.Service.Test
             var bottomAquiferLayer = new PipingSoilLayer(5.0)
             {
                 IsAquifer = true,
-                PermeabilityDeviation = 0.5,
+                PermeabilityCoefficientOfVariation = 0.5,
                 PermeabilityMean = 1,
-                DiameterD70Deviation = 0,
+                DiameterD70CoefficientOfVariation = 0,
                 DiameterD70Mean = 1e-4
             };
 
@@ -579,7 +579,7 @@ namespace Ringtoets.Piping.Service.Test
             var incompletePipingSoilLayer = new PipingSoilLayer(5.0)
             {
                 IsAquifer = true,
-                PermeabilityDeviation = 0.5,
+                PermeabilityCoefficientOfVariation = 0.5,
                 PermeabilityMean = 1
             };
             if (meanSet)
@@ -588,7 +588,7 @@ namespace Ringtoets.Piping.Service.Test
             }
             if (deviationSet)
             {
-                incompletePipingSoilLayer.DiameterD70Deviation = random.NextDouble();
+                incompletePipingSoilLayer.DiameterD70CoefficientOfVariation = random.NextDouble();
             }
 
             var completeLayer = new PipingSoilLayer(testSurfaceLineTopLevel)
@@ -639,10 +639,10 @@ namespace Ringtoets.Piping.Service.Test
             var coverageLayerInvalidD70 = new PipingSoilLayer(5.0)
             {
                 IsAquifer = true,
-                PermeabilityDeviation = 0.5,
+                PermeabilityCoefficientOfVariation = 0.5,
                 PermeabilityMean = 1,
                 DiameterD70Mean = diameter70Value,
-                DiameterD70Deviation = 0
+                DiameterD70CoefficientOfVariation = 0
             };
             var validLayer = new PipingSoilLayer(testSurfaceLineTopLevel)
             {
@@ -692,7 +692,7 @@ namespace Ringtoets.Piping.Service.Test
             var incompletePipingSoilLayer = new PipingSoilLayer(5.0)
             {
                 IsAquifer = true,
-                DiameterD70Deviation = 0,
+                DiameterD70CoefficientOfVariation = 0,
                 DiameterD70Mean = 1e-4
             };
             if (meanSet)
@@ -701,7 +701,7 @@ namespace Ringtoets.Piping.Service.Test
             }
             if (deviationSet)
             {
-                incompletePipingSoilLayer.PermeabilityDeviation = random.NextDouble();
+                incompletePipingSoilLayer.PermeabilityCoefficientOfVariation = random.NextDouble();
             }
 
             var completeLayer = new PipingSoilLayer(testSurfaceLineTopLevel)
@@ -771,9 +771,9 @@ namespace Ringtoets.Piping.Service.Test
             var completeLayer = new PipingSoilLayer(5.0)
             {
                 IsAquifer = true,
-                PermeabilityDeviation = 0.5,
+                PermeabilityCoefficientOfVariation = 0.5,
                 PermeabilityMean = 1,
-                DiameterD70Deviation = 0,
+                DiameterD70CoefficientOfVariation = 0,
                 DiameterD70Mean = 1e-4
             };
 
@@ -821,10 +821,10 @@ namespace Ringtoets.Piping.Service.Test
             var validLayer = new PipingSoilLayer(5.0)
             {
                 IsAquifer = true,
-                PermeabilityDeviation = 0.5,
+                PermeabilityCoefficientOfVariation = 0.5,
                 PermeabilityMean = 1,
                 DiameterD70Mean = 0.0002,
-                DiameterD70Deviation = 0
+                DiameterD70CoefficientOfVariation = 0
             };
             var profile = new PipingSoilProfile(string.Empty, 0.0,
                                                 new[]
@@ -880,10 +880,10 @@ namespace Ringtoets.Piping.Service.Test
             var bottomAquiferLayer = new PipingSoilLayer(5.0)
             {
                 IsAquifer = true,
-                PermeabilityDeviation = 0.3,
+                PermeabilityCoefficientOfVariation = 0.3,
                 PermeabilityMean = 0.6,
                 DiameterD70Mean = 0.0002,
-                DiameterD70Deviation = 0
+                DiameterD70CoefficientOfVariation = 0
             };
             var profile = new PipingSoilProfile(string.Empty, 0.0,
                                                 new[]

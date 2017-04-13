@@ -44,11 +44,11 @@ namespace Ringtoets.Piping.IO.SoilProfile.Schema
         internal const string PermeabilityDistribution = "PermeabKxDistribution";
         internal const string PermeabilityShift = "PermeabKxShift";
         internal const string PermeabilityMean = "PermeabKxMean";
-        internal const string PermeabilityDeviation = "PermeabKxDeviation";
+        internal const string PermeabilityCoefficientOfVariation = "PermeabKxCoefficientOfVariation";
         internal const string DiameterD70Distribution = "DiameterD70Distribution";
         internal const string DiameterD70Shift = "DiameterD70Shift";
         internal const string DiameterD70Mean = "DiameterD70Mean";
-        internal const string DiameterD70Deviation = "DiameterD70Deviation";
+        internal const string DiameterD70CoefficientOfVariation = "DiameterD70CoefficientOfVariation";
         internal const string LayerCount = "LayerCount";
     }
 }

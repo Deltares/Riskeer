@@ -479,7 +479,7 @@ namespace Ringtoets.Piping.Data
         /// Gets the sieve size through which 70% of the grains of the top part of the aquifer pass.
         /// [m]
         /// </summary>
-        public LogNormalDistribution Diameter70
+        public VariationCoefficientLogNormalDistribution Diameter70
         {
             get
             {
@@ -491,7 +491,7 @@ namespace Ringtoets.Piping.Data
         /// Gets the Darcy-speed with which water flows through the aquifer layer.
         /// [m/s]
         /// </summary>
-        public LogNormalDistribution DarcyPermeability
+        public VariationCoefficientLogNormalDistribution DarcyPermeability
         {
             get
             {

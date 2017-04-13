@@ -63,10 +63,33 @@ namespace Application.Ringtoets.Storage
 
                 return computeHash;
             }
-            catch (Exception e) when(e is UnauthorizedAccessException || e is IOException || e is QuotaExceededException)
+            catch (Exception e) when (e is UnauthorizedAccessException || e is IOException || e is QuotaExceededException)
             {
                 throw new CannotDetermineFingerprintException(Resources.FingerprintHelper_Critical_error_message, e);
             }
+        }
+
+        /// <summary>
+        /// Determines if two fingerprint byte arrays are equal to each other.
+        /// </summary>
+        /// <param name="array1">The first array, cannot be <c>null</c>.</param>
+        /// <param name="array2">The second array, cannot be <c>null</c>.</param>
+        /// <returns><c>True</c> if the two fingerprints are equal, <c>false</c> otherwise.</returns>
+        public static bool AreEqual(byte[] array1, byte[] array2)
+        {
+            if (array1.Length != array2.Length)
+            {
+                return false;
+            }
+            // Note: Do not turn this into a linq query, as that is less performance optimal!
+            for (var i = 0; i < array1.Length; i++)
+            {
+                if (!array1[i].Equals(array2[i]))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         /// <summary>
@@ -97,29 +120,6 @@ namespace Application.Ringtoets.Storage
                 stream.Seek(0, SeekOrigin.Begin);
                 return hashingAlgorithm.ComputeHash(stream);
             }
-        }
-
-        /// <summary>
-        /// Determines if two fingerprint byte arrays are equal to each other.
-        /// </summary>
-        /// <param name="array1">The first array, cannot be <c>null</c>.</param>
-        /// <param name="array2">The second array, cannot be <c>null</c>.</param>
-        /// <returns><c>True</c> if the two fingerprints are equal, <c>false</c> otherwise.</returns>
-        public static bool AreEqual(byte[] array1, byte[] array2)
-        {
-            if (array1.Length != array2.Length)
-            {
-                return false;
-            }
-            // Note: Do not turn this into a linq query, as that is less performance optimal!
-            for (var i = 0; i < array1.Length; i++)
-            {
-                if (!array1[i].Equals(array2[i]))
-                {
-                    return false;
-                }
-            }
-            return true;
         }
     }
 }

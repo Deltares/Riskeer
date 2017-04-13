@@ -124,12 +124,12 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 pipingSoilLayer.DiameterD70Distribution = properties.DiameterD70Distribution;
                 pipingSoilLayer.DiameterD70Shift = properties.DiameterD70Shift;
                 pipingSoilLayer.DiameterD70Mean = properties.DiameterD70Mean;
-                pipingSoilLayer.DiameterD70Deviation = properties.DiameterD70Deviation;
+                pipingSoilLayer.DiameterD70CoefficientOfVariation = properties.DiameterD70CoefficientOfVariation;
 
                 pipingSoilLayer.PermeabilityDistribution = properties.PermeabilityDistribution;
                 pipingSoilLayer.PermeabilityShift = properties.PermeabilityShift;
                 pipingSoilLayer.PermeabilityMean = properties.PermeabilityMean;
-                pipingSoilLayer.PermeabilityDeviation = properties.PermeabilityDeviation;
+                pipingSoilLayer.PermeabilityCoefficientOfVariation = properties.PermeabilityCoefficientOfVariation;
             }
             return pipingSoilLayer;
         }

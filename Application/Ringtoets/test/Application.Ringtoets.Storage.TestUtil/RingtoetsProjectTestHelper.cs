@@ -643,9 +643,9 @@ namespace Application.Ringtoets.Storage.TestUtil
             pipingSoilLayer.BelowPhreaticLevelDeviation = 1.2;
             pipingSoilLayer.BelowPhreaticLevelShift = 3.2;
             pipingSoilLayer.DiameterD70Mean = 2.42;
-            pipingSoilLayer.DiameterD70Deviation = 21.002;
+            pipingSoilLayer.DiameterD70CoefficientOfVariation = 21.002;
             pipingSoilLayer.PermeabilityMean = 0.9982;
-            pipingSoilLayer.PermeabilityDeviation = 0.220;
+            pipingSoilLayer.PermeabilityCoefficientOfVariation = 0.220;
             pipingSoilLayer.Color = Color.HotPink;
             pipingSoilLayer.MaterialName = "HotPinkLayer";
 
@@ -720,12 +720,12 @@ namespace Application.Ringtoets.Storage.TestUtil
                             Diameter70 =
                             {
                                 Mean = (RoundedDouble) 8.8,
-                                StandardDeviation = (RoundedDouble) 9.9
+                                CoefficientOfVariation = (RoundedDouble) 9.9
                             },
                             DarcyPermeability =
                             {
                                 Mean = (RoundedDouble) 10.10,
-                                StandardDeviation = (RoundedDouble) 11.11
+                                CoefficientOfVariation = (RoundedDouble) 11.11
                             }
                         },
                         Output = new TestPipingOutput(),
@@ -778,12 +778,12 @@ namespace Application.Ringtoets.Storage.TestUtil
                     Diameter70 =
                     {
                         Mean = (RoundedDouble) 19.19,
-                        StandardDeviation = (RoundedDouble) 20.20
+                        CoefficientOfVariation = (RoundedDouble) 20.20
                     },
                     DarcyPermeability =
                     {
                         Mean = (RoundedDouble) 21.21,
-                        StandardDeviation = (RoundedDouble) 22.22
+                        CoefficientOfVariation = (RoundedDouble) 22.22
                     }
                 },
                 Output = null,

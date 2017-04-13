@@ -61,9 +61,9 @@ namespace Ringtoets.Piping.Forms.Views
             AddTextBoxColumn(nameof(FormattedPipingSoilLayerRow.Top), Resources.PipingSoilLayerTable_ColumnHeader_Top, true);
             AddCheckBoxColumn(nameof(FormattedPipingSoilLayerRow.IsAquifer), Resources.PipingSoilLayerTable_ColumnHeader_IsAquifer, true);
             AddTextBoxColumn(nameof(FormattedPipingSoilLayerRow.PermeabilityMean), Resources.PipingSoilLayerTable_ColumnHeader_PermeabilityMean, true);
-            AddTextBoxColumn(nameof(FormattedPipingSoilLayerRow.PermeabilityDeviation), Resources.PipingSoilLayerTable_ColumnHeader_PermeabilityDeviation, true);
+            AddTextBoxColumn(nameof(FormattedPipingSoilLayerRow.PermeabilityCoefficientOfVariation), Resources.PipingSoilLayerTable_ColumnHeader_PermeabilityCoefficientOfVariation, true);
             AddTextBoxColumn(nameof(FormattedPipingSoilLayerRow.DiameterD70Mean), Resources.PipingSoilLayerTable_ColumnHeader_DiameterD70Mean, true);
-            AddTextBoxColumn(nameof(FormattedPipingSoilLayerRow.DiameterD70Deviation), Resources.PipingSoilLayerTable_ColumnHeader_DiameterD70Deviation, true);
+            AddTextBoxColumn(nameof(FormattedPipingSoilLayerRow.DiameterD70CoefficientOfVariation), Resources.PipingSoilLayerTable_ColumnHeader_DiameterD70CoefficientOfVariation, true);
             AddTextBoxColumn(nameof(FormattedPipingSoilLayerRow.BelowPhreaticLevelMean), Resources.PipingSoilLayerTable_ColumnHeader_BelowPhreaticLevelMean, true);
             AddTextBoxColumn(nameof(FormattedPipingSoilLayerRow.BelowPhreaticLevelDeviation), Resources.PipingSoilLayerTable_ColumnHeader_BelowPhreaticLevelDeviation, true);
             AddTextBoxColumn(nameof(FormattedPipingSoilLayerRow.BelowPhreaticLevelShift), Resources.PipingSoilLayerTable_ColumnHeader_BelowPhreaticLevelShift, true);
@@ -78,9 +78,9 @@ namespace Ringtoets.Piping.Forms.Views
                 Top = new RoundedDouble(2, layer.Top);
                 IsAquifer = layer.IsAquifer;
                 PermeabilityMean = new RoundedDouble(6, layer.PermeabilityMean);
-                PermeabilityDeviation = new RoundedDouble(6, layer.PermeabilityDeviation);
+                PermeabilityCoefficientOfVariation = new RoundedDouble(6, layer.PermeabilityCoefficientOfVariation);
                 DiameterD70Mean = new RoundedDouble(6, layer.DiameterD70Mean);
-                DiameterD70Deviation = new RoundedDouble(6, layer.DiameterD70Deviation);
+                DiameterD70CoefficientOfVariation = new RoundedDouble(6, layer.DiameterD70CoefficientOfVariation);
                 BelowPhreaticLevelMean = new RoundedDouble(2, layer.BelowPhreaticLevelMean);
                 BelowPhreaticLevelDeviation = new RoundedDouble(2, layer.BelowPhreaticLevelDeviation);
                 BelowPhreaticLevelShift = new RoundedDouble(2, layer.BelowPhreaticLevelShift);
@@ -122,11 +122,11 @@ namespace Ringtoets.Piping.Forms.Views
             public RoundedDouble DiameterD70Mean { get; }
 
             /// <summary>
-            /// Gets the deviation of the distribution for the mean diameter of small scale tests applied to different kinds of sand, 
+            /// Gets the coefficient of variation of the distribution for the mean diameter of small scale tests applied to different kinds of sand, 
             /// on which the formula of Sellmeijer has been fit.
             /// [m]
             /// </summary>
-            public RoundedDouble DiameterD70Deviation { get; }
+            public RoundedDouble DiameterD70CoefficientOfVariation { get; }
 
             /// <summary>
             /// Gets the mean of the distribution for the the Darcy-speed with which water flows through the aquifer layer.
@@ -135,10 +135,10 @@ namespace Ringtoets.Piping.Forms.Views
             public RoundedDouble PermeabilityMean { get; }
 
             /// <summary>
-            /// Gets the deviation of the distribution for the Darcy-speed with which water flows through the aquifer layer.
+            /// Gets the coefficient of variation of the distribution for the Darcy-speed with which water flows through the aquifer layer.
             /// [m/s]
             /// </summary>
-            public RoundedDouble PermeabilityDeviation { get; }
+            public RoundedDouble PermeabilityCoefficientOfVariation { get; }
 
             /// <summary>
             /// Gets the name of the material that was assigned to the <see cref="PipingSoilLayer"/>.

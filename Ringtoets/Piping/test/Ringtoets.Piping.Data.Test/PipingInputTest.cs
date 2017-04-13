@@ -55,16 +55,16 @@ namespace Ringtoets.Piping.Data.Test
                 StandardDeviation = (RoundedDouble) 0.1
             };
 
-            var diameter70 = new LogNormalDistribution(6)
+            var diameter70 = new VariationCoefficientLogNormalDistribution(6)
             {
                 Mean = RoundedDouble.NaN,
-                StandardDeviation = RoundedDouble.NaN
+                CoefficientOfVariation = RoundedDouble.NaN
             };
 
-            var darcyPermeability = new LogNormalDistribution(6)
+            var darcyPermeability = new VariationCoefficientLogNormalDistribution(6)
             {
                 Mean = RoundedDouble.NaN,
-                StandardDeviation = RoundedDouble.NaN
+                CoefficientOfVariation = RoundedDouble.NaN
             };
 
             var thicknessCoverageLayer = new LogNormalDistribution(2)

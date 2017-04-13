@@ -47,9 +47,9 @@ namespace Application.Ringtoets.Storage.Create.Piping
                 BelowPhreaticLevelDeviation = layer.BelowPhreaticLevelDeviation.ToNaNAsNull(),
                 BelowPhreaticLevelShift = layer.BelowPhreaticLevelShift.ToNaNAsNull(),
                 DiameterD70Mean = layer.DiameterD70Mean.ToNaNAsNull(),
-                DiameterD70Deviation = layer.DiameterD70Deviation.ToNaNAsNull(),
+                DiameterD70CoefficientOfVariation = layer.DiameterD70CoefficientOfVariation.ToNaNAsNull(),
                 PermeabilityMean = layer.PermeabilityMean.ToNaNAsNull(),
-                PermeabilityDeviation = layer.PermeabilityDeviation.ToNaNAsNull(),
+                PermeabilityCoefficientOfVariation = layer.PermeabilityCoefficientOfVariation.ToNaNAsNull(),
                 Color = layer.Color.ToArgb(),
                 MaterialName = layer.MaterialName.DeepClone(),
                 Order = order

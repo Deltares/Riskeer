@@ -728,10 +728,10 @@
           <Property Name="BelowPhreaticLevelMean" Type="real" />
           <Property Name="BelowPhreaticLevelDeviation" Type="real" />
           <Property Name="DiameterD70Mean" Type="real" />
-          <Property Name="DiameterD70Deviation" Type="real" />
+          <Property Name="DiameterD70CoefficientOfVariation" Type="real" />
           <Property Name="BelowPhreaticLevelShift" Type="real" />
           <Property Name="PermeabilityMean" Type="real" />
-          <Property Name="PermeabilityDeviation" Type="real" />
+          <Property Name="PermeabilityCoefficientOfVariation" Type="real" />
           <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="SoilProfileEntity">
@@ -3922,10 +3922,10 @@
           <Property Name="BelowPhreaticLevelMean" Type="Double" />
           <Property Name="BelowPhreaticLevelDeviation" Type="Double" />
           <Property Name="DiameterD70Mean" Type="Double" />
-          <Property Name="DiameterD70Deviation" Type="Double" />
+          <Property Name="DiameterD70CoefficientOfVariation" Type="Double" />
           <Property Name="BelowPhreaticLevelShift" Type="Double" />
           <Property Name="PermeabilityMean" Type="Double" />
-          <Property Name="PermeabilityDeviation" Type="Double" />
+          <Property Name="PermeabilityCoefficientOfVariation" Type="Double" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="SoilProfileEntity" Relationship="RingtoetsEntitiesModel.FK_SoilLayerEntity_0_0" FromRole="SoilLayerEntity" ToRole="SoilProfileEntity" />
         </EntityType>
@@ -6172,10 +6172,10 @@
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.SoilLayerEntity">
               <MappingFragment StoreEntitySet="SoilLayerEntity">
                 <ScalarProperty Name="Order" ColumnName="Order" />
-                <ScalarProperty Name="PermeabilityDeviation" ColumnName="PermeabilityDeviation" />
+                <ScalarProperty Name="PermeabilityCoefficientOfVariation" ColumnName="PermeabilityCoefficientOfVariation" />
                 <ScalarProperty Name="PermeabilityMean" ColumnName="PermeabilityMean" />
                 <ScalarProperty Name="BelowPhreaticLevelShift" ColumnName="BelowPhreaticLevelShift" />
-                <ScalarProperty Name="DiameterD70Deviation" ColumnName="DiameterD70Deviation" />
+                <ScalarProperty Name="DiameterD70CoefficientOfVariation" ColumnName="DiameterD70CoefficientOfVariation" />
                 <ScalarProperty Name="DiameterD70Mean" ColumnName="DiameterD70Mean" />
                 <ScalarProperty Name="BelowPhreaticLevelDeviation" ColumnName="BelowPhreaticLevelDeviation" />
                 <ScalarProperty Name="BelowPhreaticLevelMean" ColumnName="BelowPhreaticLevelMean" />
