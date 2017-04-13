@@ -517,7 +517,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             yield return new TestCaseData(new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
-                Calculation = new GrassCoverErosionInwardsCalculation()
+                Calculation = new GrassCoverErosionInwardsCalculation
                 {
                     Output = new GrassCoverErosionInwardsOutput(1.1, true,
                                                                 new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0),
@@ -528,7 +528,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             yield return new TestCaseData(new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
-                Calculation = new GrassCoverErosionInwardsCalculation()
+                Calculation = new GrassCoverErosionInwardsCalculation
                 {
                     Output = new GrassCoverErosionInwardsOutput(1.1, true,
                                                                 new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0),

@@ -52,6 +52,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             Assert.AreEqual(entity.WaveHeight, output.WaveHeight.Value);
             Assert.IsFalse(output.IsOvertoppingDominant);
             Assert.IsNull(output.DikeHeightOutput);
+            Assert.IsNull(output.OvertoppingRateOutput);
             Assert.AreEqual(entity.FactorOfSafety, output.ProbabilityAssessmentOutput.FactorOfSafety.Value);
             Assert.AreEqual(entity.Probability, output.ProbabilityAssessmentOutput.Probability);
             Assert.AreEqual(entity.RequiredProbability, output.ProbabilityAssessmentOutput.RequiredProbability);
@@ -81,6 +82,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             Assert.IsNaN(output.WaveHeight);
             Assert.IsTrue(output.IsOvertoppingDominant);
             Assert.IsNull(output.DikeHeightOutput);
+            Assert.IsNull(output.OvertoppingRateOutput);
             Assert.IsNaN(output.ProbabilityAssessmentOutput.FactorOfSafety);
             Assert.IsNaN(output.ProbabilityAssessmentOutput.Probability);
             Assert.IsNaN(output.ProbabilityAssessmentOutput.RequiredProbability);
@@ -89,7 +91,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
         }
 
         [Test]
-        public void Read_ValidEntityWithOutputEntity_ReturnGrassCoverErosionInwardsOutputWithOutput()
+        public void Read_ValidEntityWithDikeHeightOutputEntity_ReturnGrassCoverErosionInwardsOutputWithDikeHeightOutput()
         {
             // Setup
             var entity = new GrassCoverErosionInwardsOutputEntity
@@ -105,6 +107,25 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
 
             // Assert
             Assert.IsNotNull(output.DikeHeightOutput);
+        }
+
+        [Test]
+        public void Read_ValidEntityWithOvertoppingRateOutputEntity_ReturnGrassCoverErosionInwardsOutputWithOvertoppingRateOutput()
+        {
+            // Setup
+            var entity = new GrassCoverErosionInwardsOutputEntity
+            {
+                GrassCoverErosionInwardsOvertoppingRateOutputEntities =
+                {
+                    new GrassCoverErosionInwardsOvertoppingRateOutputEntity()
+                }
+            };
+
+            // Call
+            GrassCoverErosionInwardsOutput output = entity.Read();
+
+            // Assert
+            Assert.IsNotNull(output.OvertoppingRateOutput);
         }
     }
 }

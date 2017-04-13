@@ -128,7 +128,8 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         {
             // Setup
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(1, 1, 1, 1, 1);
-            var output = new GrassCoverErosionInwardsOutput(1, true, probabilityAssessmentOutput, null, null);
+            var overtoppingRateOutput = new TestHydraulicLoadsOutput(double.NaN, CalculationConvergence.CalculatedConverged);
+            var output = new GrassCoverErosionInwardsOutput(1, true, probabilityAssessmentOutput, null, overtoppingRateOutput);
 
             // Call
             GrassCoverErosionInwardsOutputEntity entity = output.Create();
@@ -142,7 +143,8 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         {
             // Setup
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(1, 1, 1, 1, 1);
-            var output = new GrassCoverErosionInwardsOutput(1, true, probabilityAssessmentOutput, null, null);
+            var dikeHeightOutput = new TestHydraulicLoadsOutput(double.NaN, CalculationConvergence.CalculatedConverged);
+            var output = new GrassCoverErosionInwardsOutput(1, true, probabilityAssessmentOutput, dikeHeightOutput, null);
 
             // Call
             GrassCoverErosionInwardsOutputEntity entity = output.Create();
