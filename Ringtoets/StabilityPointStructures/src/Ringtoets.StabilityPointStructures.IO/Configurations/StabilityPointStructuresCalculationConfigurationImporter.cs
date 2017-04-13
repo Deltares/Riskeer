@@ -114,7 +114,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
                 && TrySetVerticalDistance(readCalculation, calculation)
                 && readCalculation.WaveReduction.ValidateWaveReduction(calculation.InputParameters.ForeshoreProfile, calculation.Name, Log))
             {
-                SetsFactorStormDurationOpenStructure(readCalculation, calculation);
+                SetFactorStormDurationOpenStructure(readCalculation, calculation);
                 SetVolumicWeightWater(readCalculation, calculation);
                 ReadWaveReductionParameters(readCalculation.WaveReduction, calculation.InputParameters);
                 return calculation;
@@ -130,7 +130,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
         /// <returns><c>false</c> when the evaluation level is invalid or when there is an
         /// evaluation level but no structure defined, <c>true</c> otherwise.</returns>
         private bool TrySetEvaluationLevel(StabilityPointStructuresCalculationConfiguration readCalculation,
-                                            StructuresCalculation<StabilityPointStructuresInput> calculation)
+                                           StructuresCalculation<StabilityPointStructuresInput> calculation)
         {
             if (readCalculation.EvaluationLevel.HasValue)
             {
@@ -150,7 +150,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
         }
 
         private bool TrySetStochasts(StabilityPointStructuresCalculationConfiguration readCalculation,
-                                      StructuresCalculation<StabilityPointStructuresInput> calculation)
+                                     StructuresCalculation<StabilityPointStructuresInput> calculation)
         {
             if (!readCalculation.ValidateStructureBaseStochasts(Log))
             {
@@ -161,135 +161,137 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
                 return false;
             }
 
+            string calculationName = calculation.Name;
+            StabilityPointStructuresInput input = calculation.InputParameters;
             return TryReadStandardDeviationStochast(
                        ConfigurationSchemaIdentifiers.AllowedLevelIncreaseStorageStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
+                       calculationName,
+                       input,
                        readCalculation.AllowedLevelIncreaseStorage,
                        i => i.AllowedLevelIncreaseStorage, (i, d) => i.AllowedLevelIncreaseStorage = d)
                    && TryReadStandardDeviationStochast(
                        StabilityPointStructuresConfigurationSchemaIdentifiers.AreaFlowAperturesStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
+                       calculationName,
+                       input,
                        readCalculation.AreaFlowApertures,
                        i => i.AreaFlowApertures, (i, d) => i.AreaFlowApertures = d)
                    && TryReadStandardDeviationStochast(
                        StabilityPointStructuresConfigurationSchemaIdentifiers.BankWidthStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
+                       calculationName,
+                       input,
                        readCalculation.BankWidth,
                        i => i.BankWidth, (i, d) => i.BankWidth = d)
                    && TryReadVariationCoefficientStochast(
                        ConfigurationSchemaIdentifiers.CriticalOvertoppingDischargeStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
+                       calculationName,
+                       input,
                        readCalculation.CriticalOvertoppingDischarge,
                        i => i.CriticalOvertoppingDischarge, (i, d) => i.CriticalOvertoppingDischarge = d)
                    && TryReadStandardDeviationStochast(
                        StabilityPointStructuresConfigurationSchemaIdentifiers.DrainCoefficientStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
+                       calculationName,
+                       input,
                        readCalculation.DrainCoefficient,
                        i => i.DrainCoefficient, (i, d) => i.DrainCoefficient = d)
                    && TryReadVariationCoefficientStochast(
                        StabilityPointStructuresConfigurationSchemaIdentifiers.FailureCollisionEnergyStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
+                       calculationName,
+                       input,
                        readCalculation.FailureCollisionEnergy,
                        i => i.FailureCollisionEnergy, (i, d) => i.FailureCollisionEnergy = d)
                    && TryReadVariationCoefficientStochast(
                        StabilityPointStructuresConfigurationSchemaIdentifiers.FlowVelocityStructureClosableStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
+                       calculationName,
+                       input,
                        readCalculation.FlowVelocityStructureClosable,
                        i => i.FlowVelocityStructureClosable, (i, d) => i.FlowVelocityStructureClosable = d)
                    && TryReadStandardDeviationStochast(
                        ConfigurationSchemaIdentifiers.FlowWidthAtBottomProtectionStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
+                       calculationName,
+                       input,
                        readCalculation.FlowWidthAtBottomProtection,
                        i => i.FlowWidthAtBottomProtection, (i, d) => i.FlowWidthAtBottomProtection = d)
                    && TryReadStandardDeviationStochast(
                        StabilityPointStructuresConfigurationSchemaIdentifiers.InsideWaterLevelStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
+                       calculationName,
+                       input,
                        readCalculation.InsideWaterLevel,
                        i => i.InsideWaterLevel, (i, d) => i.InsideWaterLevel = d)
                    && TryReadStandardDeviationStochast(
                        StabilityPointStructuresConfigurationSchemaIdentifiers.InsideWaterLevelFailureConstructionStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
+                       calculationName,
+                       input,
                        readCalculation.InsideWaterLevelFailureConstruction,
                        i => i.InsideWaterLevelFailureConstruction, (i, d) => i.InsideWaterLevelFailureConstruction = d)
                    && TryReadStandardDeviationStochast(
                        ConfigurationSchemaIdentifiers.ModelFactorSuperCriticalFlowStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
+                       calculationName,
+                       input,
                        readCalculation.ModelFactorSuperCriticalFlow,
                        i => i.ModelFactorSuperCriticalFlow, (i, d) => i.ModelFactorSuperCriticalFlow = d)
                    && TryReadStandardDeviationStochast(
                        StabilityPointStructuresConfigurationSchemaIdentifiers.LevelCrestStructureStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
+                       calculationName,
+                       input,
                        readCalculation.LevelCrestStructure,
                        i => i.LevelCrestStructure, (i, d) => i.LevelCrestStructure = d)
                    && TryReadVariationCoefficientStochast(
                        StabilityPointStructuresConfigurationSchemaIdentifiers.ConstructiveStrengthLinearLoadModelStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
+                       calculationName,
+                       input,
                        readCalculation.ConstructiveStrengthLinearLoadModel,
                        i => i.ConstructiveStrengthLinearLoadModel, (i, d) => i.ConstructiveStrengthLinearLoadModel = d)
                    && TryReadVariationCoefficientStochast(
                        StabilityPointStructuresConfigurationSchemaIdentifiers.ConstructiveStrengthQuadraticLoadModelStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
+                       calculationName,
+                       input,
                        readCalculation.ConstructiveStrengthQuadraticLoadModel,
                        i => i.ConstructiveStrengthQuadraticLoadModel, (i, d) => i.ConstructiveStrengthQuadraticLoadModel = d)
                    && TryReadVariationCoefficientStochast(
                        StabilityPointStructuresConfigurationSchemaIdentifiers.ShipMassStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
+                       calculationName,
+                       input,
                        readCalculation.ShipMass,
                        i => i.ShipMass, (i, d) => i.ShipMass = d)
                    && TryReadVariationCoefficientStochast(
                        StabilityPointStructuresConfigurationSchemaIdentifiers.ShipVelocityStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
+                       calculationName,
+                       input,
                        readCalculation.ShipVelocity,
                        i => i.ShipVelocity, (i, d) => i.ShipVelocity = d)
                    && TryReadVariationCoefficientStochast(
                        StabilityPointStructuresConfigurationSchemaIdentifiers.StabilityLinearLoadModelStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
+                       calculationName,
+                       input,
                        readCalculation.StabilityLinearLoadModel,
                        i => i.StabilityLinearLoadModel, (i, d) => i.StabilityLinearLoadModel = d)
                    && TryReadVariationCoefficientStochast(
                        StabilityPointStructuresConfigurationSchemaIdentifiers.StabilityQuadraticLoadModelStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
+                       calculationName,
+                       input,
                        readCalculation.StabilityQuadraticLoadModel,
                        i => i.StabilityQuadraticLoadModel, (i, d) => i.StabilityQuadraticLoadModel = d)
                    && TryReadVariationCoefficientStochast(
                        ConfigurationSchemaIdentifiers.StorageStructureAreaStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
+                       calculationName,
+                       input,
                        readCalculation.StorageStructureArea,
                        i => i.StorageStructureArea, (i, d) => i.StorageStructureArea = d)
                    && TryReadVariationCoefficientStochast(
                        ConfigurationSchemaIdentifiers.StormDurationStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
+                       calculationName,
+                       input,
                        readCalculation.StormDuration,
                        i => i.StormDuration, (i, d) => i.StormDuration = d)
                    && TryReadStandardDeviationStochast(
                        ConfigurationSchemaIdentifiers.WidthFlowAperturesStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
+                       calculationName,
+                       input,
                        readCalculation.WidthFlowApertures, i => i.WidthFlowApertures, (i, d) => i.WidthFlowApertures = d)
                    && TryReadStandardDeviationStochast(
                        StabilityPointStructuresConfigurationSchemaIdentifiers.ThresholdHeightOpenWeirStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
+                       calculationName,
+                       input,
                        readCalculation.ThresholdHeightOpenWeir,
                        i => i.ThresholdHeightOpenWeir, (i, d) => i.ThresholdHeightOpenWeir = d);
         }
@@ -320,8 +322,8 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
         /// <param name="calculation">The calculation to configure.</param>
         /// <returns><c>false</c> when the structure normal orientation is invalid or when there 
         /// is a structure normal orientation but no structure defined, <c>true</c> otherwise.</returns>
-        private bool TrySetStructureNormalOrientation(StructuresCalculationConfiguration readCalculation, 
-            StructuresCalculation<StabilityPointStructuresInput> calculation)
+        private bool TrySetStructureNormalOrientation(StructuresCalculationConfiguration readCalculation,
+                                                      StructuresCalculation<StabilityPointStructuresInput> calculation)
         {
             if (readCalculation.StructureNormalOrientation.HasValue)
             {
@@ -363,7 +365,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
         /// <returns><c>false</c> when the failure probability repair closure is invalid or when there 
         /// is a failure probability repair closure but no structure defined, <c>true</c> otherwise.</returns>
         private bool TrySetFailureProbabilityRepairClosure(StabilityPointStructuresCalculationConfiguration readCalculation,
-                                                            StructuresCalculation<StabilityPointStructuresInput> calculation)
+                                                           StructuresCalculation<StabilityPointStructuresInput> calculation)
         {
             if (!readCalculation.FailureProbabilityRepairClosure.HasValue)
             {
@@ -407,7 +409,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
         /// <returns><c>false</c> when the orientation is invalid or when there is a failure probability 
         /// structure with erosion but no structure defined, <c>true</c> otherwise.</returns>
         private bool TrySetFailureProbabilityStructureWithErosion(StructuresCalculationConfiguration readCalculation,
-                                                                   StructuresCalculation<StabilityPointStructuresInput> calculation)
+                                                                  StructuresCalculation<StabilityPointStructuresInput> calculation)
         {
             if (readCalculation.FailureProbabilityStructureWithErosion.HasValue)
             {
@@ -442,7 +444,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
         /// when there is a probability collision secondary structure but no structure defined, 
         /// <c>true</c> otherwise.</returns>
         private bool TrySetProbabilityCollisionSecondaryStructure(StabilityPointStructuresCalculationConfiguration readCalculation,
-                                                                   StructuresCalculation<StabilityPointStructuresInput> calculation)
+                                                                  StructuresCalculation<StabilityPointStructuresInput> calculation)
         {
             if (readCalculation.ProbabilityCollisionSecondaryStructure.HasValue)
             {
@@ -482,21 +484,22 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
         /// </summary>
         /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
-        private void SetsFactorStormDurationOpenStructure(StabilityPointStructuresCalculationConfiguration readCalculation,
-                                                          StructuresCalculation<StabilityPointStructuresInput> calculation)
+        private void SetFactorStormDurationOpenStructure(StabilityPointStructuresCalculationConfiguration readCalculation,
+                                                         StructuresCalculation<StabilityPointStructuresInput> calculation)
         {
             if (readCalculation.FactorStormDurationOpenStructure.HasValue)
             {
                 calculation.InputParameters.FactorStormDurationOpenStructure = (RoundedDouble) readCalculation.FactorStormDurationOpenStructure.Value;
             }
         }
+
         /// <summary>
         /// Sets the volumic weight water.
         /// </summary>
         /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
         private void SetVolumicWeightWater(StabilityPointStructuresCalculationConfiguration readCalculation,
-                                                          StructuresCalculation<StabilityPointStructuresInput> calculation)
+                                           StructuresCalculation<StabilityPointStructuresInput> calculation)
         {
             if (readCalculation.VolumicWeightWater.HasValue)
             {
@@ -512,7 +515,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
         /// <returns><c>false</c> when the inflow model type is invalid or when there is a 
         /// inflow model type but no structure defined, <c>true</c> otherwise.</returns>
         private bool TrySetInflowModelType(StabilityPointStructuresCalculationConfiguration readCalculation,
-                                            StructuresCalculation<StabilityPointStructuresInput> calculation)
+                                           StructuresCalculation<StabilityPointStructuresInput> calculation)
         {
             if (readCalculation.InflowModelType.HasValue)
             {
@@ -541,7 +544,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
         /// <returns><c>false</c> when the load schematization type is invalid or when there is a 
         /// load schematization type but no structure defined, <c>true</c> otherwise.</returns>
         private bool TrySetLoadSchematizationType(StabilityPointStructuresCalculationConfiguration readCalculation,
-                                                   StructuresCalculation<StabilityPointStructuresInput> calculation)
+                                                  StructuresCalculation<StabilityPointStructuresInput> calculation)
         {
             if (readCalculation.LoadSchematizationType.HasValue)
             {
@@ -563,14 +566,14 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
         }
 
         /// <summary>
-        /// Sets the leveling count.
+        /// Sets the levelling count.
         /// </summary>
         /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
-        /// <returns><c>false</c> when the leveling count is invalid or when there is a 
-        /// leveling count but no structure defined, <c>true</c> otherwise.</returns>
+        /// <returns><c>false</c> when the levelling count is invalid or when there is a 
+        /// levelling count but no structure defined, <c>true</c> otherwise.</returns>
         private bool TrySetLevellingCount(StabilityPointStructuresCalculationConfiguration readCalculation,
-                                           StructuresCalculation<StabilityPointStructuresInput> calculation)
+                                          StructuresCalculation<StabilityPointStructuresInput> calculation)
         {
             if (readCalculation.LevellingCount.HasValue)
             {
@@ -597,7 +600,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
         /// <returns><c>false</c> when the vertical distance is invalid or when there is a 
         /// vertical distance but no structure defined, <c>true</c> otherwise.</returns>
         private bool TrySetVerticalDistance(StabilityPointStructuresCalculationConfiguration readCalculation,
-                                             StructuresCalculation<StabilityPointStructuresInput> calculation)
+                                            StructuresCalculation<StabilityPointStructuresInput> calculation)
         {
             if (readCalculation.VerticalDistance.HasValue)
             {
