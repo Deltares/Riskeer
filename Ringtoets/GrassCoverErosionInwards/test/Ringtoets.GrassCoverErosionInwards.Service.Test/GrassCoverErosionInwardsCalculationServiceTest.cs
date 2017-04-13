@@ -600,7 +600,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 {
                     using (new HydraRingCalculatorFactoryConfig())
                     {
-                        TestDikeHeightCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
+                        TestHydraulicLoadsCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
                         calculator.EndInFailure = true;
                         new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                    assessmentSectionStub,
@@ -712,7 +712,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 var testFactory = (TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance;
                 TestOvertoppingCalculator overToppingCalculator = testFactory.OvertoppingCalculator;
-                TestDikeHeightCalculator dikeHeightCalculator = testFactory.DikeHeightCalculator;
+                TestHydraulicLoadsCalculator dikeHeightCalculator = testFactory.DikeHeightCalculator;
 
                 if (cancelBeforeDikeHeightCalculationStarts)
                 {
@@ -968,7 +968,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                TestDikeHeightCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
+                TestHydraulicLoadsCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
                 calculator.LastErrorFileContent = "An error occurred";
                 calculator.EndInFailure = true;
                 var exceptionThrown = false;
@@ -1033,7 +1033,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                TestDikeHeightCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
+                TestHydraulicLoadsCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
                 calculator.EndInFailure = true;
                 var exceptionThrown = false;
 
@@ -1098,7 +1098,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                TestDikeHeightCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
+                TestHydraulicLoadsCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
                 calculator.EndInFailure = false;
                 calculator.LastErrorFileContent = "An error occurred";
                 var exceptionThrown = false;

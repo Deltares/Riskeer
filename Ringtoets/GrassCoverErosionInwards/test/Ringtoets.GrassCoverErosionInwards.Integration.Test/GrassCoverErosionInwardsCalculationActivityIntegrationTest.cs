@@ -217,7 +217,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                TestDikeHeightCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
+                TestHydraulicLoadsCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
                 calculator.Value = double.NaN;
                 calculator.EndInFailure = true;
 
@@ -366,7 +366,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                TestDikeHeightCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
+                TestHydraulicLoadsCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
                 calculator.Value = 2;
                 calculator.ReliabilityIndex = -1;
 
@@ -595,7 +595,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                TestDikeHeightCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
+                TestHydraulicLoadsCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
                 calculator.Value = double.NaN;
                 calculator.EndInFailure = true;
 
@@ -774,7 +774,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                TestDikeHeightCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
+                TestHydraulicLoadsCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
                 calculator.LastErrorFileContent = "An error occurred";
                 calculator.EndInFailure = true;
 
@@ -822,7 +822,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                TestDikeHeightCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
+                TestHydraulicLoadsCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
                 calculator.EndInFailure = true;
 
                 var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
@@ -869,7 +869,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                TestDikeHeightCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
+                TestHydraulicLoadsCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
                 calculator.EndInFailure = false;
                 calculator.LastErrorFileContent = "An error occurred";
 
@@ -988,7 +988,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 activity.Run();
 
                 // Assert
-                TestDikeHeightCalculator dikeHeightCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
+                TestHydraulicLoadsCalculator dikeHeightCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
                 HydraulicLoadsCalculationInput[] dikeHeightCalculationInputs = dikeHeightCalculator.ReceivedInputs.ToArray();
                 Assert.AreEqual(1, dikeHeightCalculationInputs.Length);
 

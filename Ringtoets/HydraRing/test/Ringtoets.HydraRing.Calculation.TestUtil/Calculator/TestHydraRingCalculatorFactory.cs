@@ -35,8 +35,8 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
     {
         public readonly TestDesignWaterLevelCalculator DesignWaterLevelCalculator = new TestDesignWaterLevelCalculator();
         public readonly TestOvertoppingCalculator OvertoppingCalculator = new TestOvertoppingCalculator();
-        public readonly TestDikeHeightCalculator DikeHeightCalculator = new TestDikeHeightCalculator();
-        public readonly TestOvertoppingRateCalculator OvertoppingRateCalculator = new TestOvertoppingRateCalculator();
+        public readonly TestHydraulicLoadsCalculator DikeHeightCalculator = new TestHydraulicLoadsCalculator();
+        public readonly TestHydraulicLoadsCalculator OvertoppingRateCalculator = new TestHydraulicLoadsCalculator();
         public readonly TestWaveConditionsCosineCalculator WaveConditionsCosineCalculator = new TestWaveConditionsCosineCalculator();
         public readonly TestWaveHeightCalculator WaveHeightCalculator = new TestWaveHeightCalculator();
         public readonly TestStructuresOvertoppingCalculator StructuresOvertoppingCalculator = new TestStructuresOvertoppingCalculator();
@@ -135,16 +135,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
         public string LastErrorFileContent { get; set; }
     }
 
-    public class TestDikeHeightCalculator : TestHydraRingCalculator<HydraulicLoadsCalculationInput>, IHydraulicLoadsCalculator
-    {
-        public double Value { get; set; }
-        public double ReliabilityIndex { get; set; }
-        public string OutputDirectory { get; set; }
-        public string LastErrorFileContent { get; set; }
-        public bool? Converged { get; set; }
-    }
-
-    public class TestOvertoppingRateCalculator : TestHydraRingCalculator<HydraulicLoadsCalculationInput>, IHydraulicLoadsCalculator
+    public class TestHydraulicLoadsCalculator : TestHydraRingCalculator<HydraulicLoadsCalculationInput>, IHydraulicLoadsCalculator
     {
         public double Value { get; set; }
         public double ReliabilityIndex { get; set; }
