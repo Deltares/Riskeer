@@ -73,8 +73,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
             const string dikeProfileName = "name of the dike profile";
             const double orientation = 1.1;
             const double dikeHeight = 2.2;
-            const ReadSubCalculationType dikeHeightCalculationType = ReadSubCalculationType.CalculateByAssessmentSectionNorm;
-            const ReadSubCalculationType overtoppingRateCalculationType = ReadSubCalculationType.CalculateByProfileSpecificRequiredProbability;
+            const ReadHydraulicLoadsCalculationType dikeHeightCalculationType = ReadHydraulicLoadsCalculationType.CalculateByAssessmentSectionNorm;
+            const ReadHydraulicLoadsCalculationType overtoppingRateCalculationType = ReadHydraulicLoadsCalculationType.CalculateByProfileSpecificRequiredProbability;
             const bool useBreakWater = true;
             const ConfigurationBreakWaterType breakWaterType = ConfigurationBreakWaterType.Wall;
             const double breakWaterHeight = 3.3;

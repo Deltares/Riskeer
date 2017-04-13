@@ -65,10 +65,10 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
         }
 
         [Test]
-        [TestCase(ReadSubCalculationType.NoCalculation, "niet")]
-        [TestCase(ReadSubCalculationType.CalculateByAssessmentSectionNorm, "norm")]
-        [TestCase(ReadSubCalculationType.CalculateByProfileSpecificRequiredProbability, "doorsnede")]
-        public void ConvertTo_VariousCases_ReturnExpectedValues(ReadSubCalculationType value, string expectedResult)
+        [TestCase(ReadHydraulicLoadsCalculationType.NoCalculation, "niet")]
+        [TestCase(ReadHydraulicLoadsCalculationType.CalculateByAssessmentSectionNorm, "norm")]
+        [TestCase(ReadHydraulicLoadsCalculationType.CalculateByProfileSpecificRequiredProbability, "doorsnede")]
+        public void ConvertTo_VariousCases_ReturnExpectedValues(ReadHydraulicLoadsCalculationType value, string expectedResult)
         {
             // Setup
             var converter = new ReadSubCalculationTypeConverter();
@@ -86,7 +86,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
             // Setup
             var converter = new ReadSubCalculationTypeConverter();
 
-            var invalidValue = (ReadSubCalculationType) 9999999;
+            var invalidValue = (ReadHydraulicLoadsCalculationType) 9999999;
 
             // Call
             TestDelegate call = () => converter.ConvertTo(invalidValue, typeof(string));
@@ -102,7 +102,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
             var converter = new ReadSubCalculationTypeConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertTo(ReadSubCalculationType.NoCalculation, typeof(object));
+            TestDelegate call = () => converter.ConvertTo(ReadHydraulicLoadsCalculationType.NoCalculation, typeof(object));
 
             // Assert
             Assert.Throws<NotSupportedException>(call);
@@ -135,10 +135,10 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
         }
 
         [Test]
-        [TestCase("niet", ReadSubCalculationType.NoCalculation)]
-        [TestCase("norm", ReadSubCalculationType.CalculateByAssessmentSectionNorm)]
-        [TestCase("doorsnede", ReadSubCalculationType.CalculateByProfileSpecificRequiredProbability)]
-        public void ConvertFrom_VariousCases_ReturnExpectedValue(string value, ReadSubCalculationType expectedResult)
+        [TestCase("niet", ReadHydraulicLoadsCalculationType.NoCalculation)]
+        [TestCase("norm", ReadHydraulicLoadsCalculationType.CalculateByAssessmentSectionNorm)]
+        [TestCase("doorsnede", ReadHydraulicLoadsCalculationType.CalculateByProfileSpecificRequiredProbability)]
+        public void ConvertFrom_VariousCases_ReturnExpectedValue(string value, ReadHydraulicLoadsCalculationType expectedResult)
         {
             // Setup
             var converter = new ReadSubCalculationTypeConverter();

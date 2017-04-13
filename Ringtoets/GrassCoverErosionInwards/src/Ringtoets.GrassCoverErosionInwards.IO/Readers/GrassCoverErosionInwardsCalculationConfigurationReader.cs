@@ -88,9 +88,9 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Readers
                 DikeProfile = calculationElement.GetStringValueFromDescendantElement(GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeProfileElement),
                 Orientation = calculationElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.Orientation),
                 DikeHeight = calculationElement.GetDoubleValueFromDescendantElement(GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeHeightElement),
-                DikeHeightCalculationType = (ReadSubCalculationType?) calculationElement.GetConvertedValueFromDescendantStringElement<ReadSubCalculationTypeConverter>(
+                DikeHeightCalculationType = (ReadHydraulicLoadsCalculationType?) calculationElement.GetConvertedValueFromDescendantStringElement<ReadSubCalculationTypeConverter>(
                     GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeHeightCalculationTypeElement),
-                OvertoppingRateCalculationType = (ReadSubCalculationType?) calculationElement.GetConvertedValueFromDescendantStringElement<ReadSubCalculationTypeConverter>(
+                OvertoppingRateCalculationType = (ReadHydraulicLoadsCalculationType?) calculationElement.GetConvertedValueFromDescendantStringElement<ReadSubCalculationTypeConverter>(
                     GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.OvertoppingRateCalculationTypeElement),
                 UseBreakWater = calculationElement.GetBoolValueFromDescendantElement(ConfigurationSchemaIdentifiers.UseBreakWater),
                 BreakWaterType = (ConfigurationBreakWaterType?) calculationElement.GetConvertedValueFromDescendantStringElement<ConfigurationBreakWaterTypeConverter>(ConfigurationSchemaIdentifiers.BreakWaterType),

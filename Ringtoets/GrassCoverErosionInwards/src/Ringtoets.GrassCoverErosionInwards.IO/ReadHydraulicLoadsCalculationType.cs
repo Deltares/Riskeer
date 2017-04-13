@@ -22,9 +22,9 @@
 namespace Ringtoets.GrassCoverErosionInwards.IO
 {
     /// <summary>
-    /// Defines the various types of sub calculations in a read calculation configuration.
+    /// Defines the various types of hydraulic loads calculations in a read calculation configuration.
     /// </summary>
-    public enum ReadSubCalculationType
+    public enum ReadHydraulicLoadsCalculationType
     {
         /// <summary>
         /// No calculation.
