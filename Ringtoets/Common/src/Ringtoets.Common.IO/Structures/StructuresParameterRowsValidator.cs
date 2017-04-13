@@ -263,6 +263,8 @@ namespace Ringtoets.Common.IO.Structures
             }
 
             var errorMessages = new List<string>();
+            var criticalValidationError = false;
+            var parametersMissing = 0;
 
             foreach (string name in rules.Keys)
             {
@@ -271,18 +273,35 @@ namespace Ringtoets.Common.IO.Structures
                 if (count < 1)
                 {
                     errorMessages.Add(string.Format(Resources.StructuresParameterRowsValidator_Parameter_0_missing_or_invalid, name));
+                    parametersMissing++;
                     continue;
                 }
 
                 if (count > 1)
                 {
                     errorMessages.Add(string.Format(Resources.StructuresParameterRowsValidator_Parameter_0_repeated, name));
+                    criticalValidationError = true;
+                    continue;
                 }
 
-                errorMessages.AddRange(rules[name](structureParameterRows.First(row => string.Equals(row.ParameterId, name, StringComparison.OrdinalIgnoreCase))));
+                List<string> validationMessages = rules[name](structureParameterRows.First(
+                                                                  row => string.Equals(row.ParameterId, name, StringComparison.OrdinalIgnoreCase)));
+
+                if (validationMessages.Count > 0)
+                {
+                    errorMessages.AddRange(validationMessages);
+                    criticalValidationError = true;
+                }
             }
 
-            return new ValidationResult(errorMessages);
+            if (parametersMissing == rules.Count)
+            {
+                errorMessages.Clear();
+                errorMessages.Add("Geen geldige parameter definities gevonden.");
+                criticalValidationError = true;
+            }
+
+            return new ValidationResult(criticalValidationError, errorMessages);
         }
 
         private static List<string> DoubleRule(StructuresParameterRow row)

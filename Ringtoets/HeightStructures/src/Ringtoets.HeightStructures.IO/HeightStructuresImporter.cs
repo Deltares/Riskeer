@@ -73,7 +73,7 @@ namespace Ringtoets.HeightStructures.IO
                                                                           : new List<StructuresParameterRow>();
 
                 ValidationResult parameterRowsValidationResult = StructuresParameterRowsValidator.ValidateHeightStructuresParameters(structureParameterRows);
-                if (!parameterRowsValidationResult.IsValid)
+                if (parameterRowsValidationResult.CriticalValidationError)
                 {
                     LogValidationErrorForStructure(structureLocation.Name, structureLocation.Id, parameterRowsValidationResult.ErrorMessages);
                     continue;

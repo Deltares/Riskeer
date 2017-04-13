@@ -51,57 +51,6 @@ namespace Ringtoets.HeightStructures.IO.Test
         }
 
         [Test]
-        public void Import_ValidIncompleteFile_LogAndTrue()
-        {
-            // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                         Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
-
-            var referencePoints = new List<Point2D>
-            {
-                new Point2D(131144.094, 549979.893),
-                new Point2D(131538.705, 548316.752),
-                new Point2D(135878.442, 532149.859),
-                new Point2D(131225.017, 548395.948),
-                new Point2D(131270.38, 548367.462),
-                new Point2D(131507.119, 548322.951)
-            };
-            ReferenceLine referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(referencePoints);
-            var importTarget = new ObservableList<HeightStructure>();
-            var structuresImporter = new HeightStructuresImporter(importTarget, referenceLine, filePath);
-
-            // Call
-            bool importResult = false;
-            Action call = () => importResult = structuresImporter.Import();
-
-            // Assert
-            string csvFilePath = Path.ChangeExtension(filePath, "csv");
-            string[] expectedSubMessages =
-            {
-                "Geen geldige definitie gevonden voor parameter 'KW_HOOGTE1'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_HOOGTE2'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_HOOGTE3'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_HOOGTE4'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_HOOGTE5'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_HOOGTE6'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_HOOGTE7'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_HOOGTE8'."
-            };
-            string[] expectedMessages =
-            {
-                CreateExpectedErrorMessage(csvFilePath, "Gemaal Leemans (93k3)", "KUNST2", expectedSubMessages),
-                CreateExpectedErrorMessage(csvFilePath, "Gemaal Lely (93k4)", "KUNST3", expectedSubMessages),
-                CreateExpectedErrorMessage(csvFilePath, "Gemaal de Stontele (94k1)", "KUNST4", expectedSubMessages),
-                CreateExpectedErrorMessage(csvFilePath, "Stontelerkeersluis (93k1)", "KUNST5", expectedSubMessages),
-                CreateExpectedErrorMessage(csvFilePath, "Stontelerschutsluis (93k2)", "KUNST6", expectedSubMessages)
-            };
-            TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
-            Assert.IsTrue(importResult);
-            Assert.AreEqual(1, importTarget.Count);
-        }
-
-        [Test]
         public void Import_ValidFileWithConversionsBetweenVarianceTypes_WarnUserAboutConversion()
         {
             // Setup
@@ -147,64 +96,6 @@ namespace Ringtoets.HeightStructures.IO.Test
             Assert.AreEqual(0.97, structure.WidthFlowApertures.StandardDeviation.Value);
             Assert.AreEqual(1.84, structure.StorageStructureArea.CoefficientOfVariation.Value);
             Assert.AreEqual(2.18, structure.AllowedLevelIncreaseStorage.StandardDeviation.Value);
-        }
-
-        [Test]
-        [SetCulture("nl-NL")]
-        public void Import_InvalidCsvFile_LogAndTrue()
-        {
-            // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                         Path.Combine("Structures", "CorrectShpIncompleteCsv", "Kunstwerken.shp"));
-
-            var referencePoints = new List<Point2D>
-            {
-                new Point2D(131144.094, 549979.893),
-                new Point2D(131538.705, 548316.752),
-                new Point2D(135878.442, 532149.859),
-                new Point2D(131225.017, 548395.948),
-                new Point2D(131270.38, 548367.462),
-                new Point2D(131507.119, 548322.951)
-            };
-            ReferenceLine referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(referencePoints);
-            var importTarget = new ObservableList<HeightStructure>();
-            var structuresImporter = new HeightStructuresImporter(importTarget, referenceLine, filePath);
-
-            // Call
-            bool importResult = false;
-            Action call = () => importResult = structuresImporter.Import();
-
-            // Assert
-            string csvFilePath = Path.ChangeExtension(filePath, "csv");
-            string[] expectedSubMessages =
-            {
-                "Geen geldige definitie gevonden voor parameter 'KW_HOOGTE1'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_HOOGTE2'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_HOOGTE3'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_HOOGTE4'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_HOOGTE5'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_HOOGTE6'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_HOOGTE7'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_HOOGTE8'."
-            };
-            string[] expectedMessages =
-            {
-                CreateExpectedErrorMessage(csvFilePath, "Coupure Den Oever (90k1)", "KUNST1",
-                                           new[]
-                                           {
-                                               "De waarde voor parameter 'KW_HOOGTE1' op regel 2, kolom 'Numeriekewaarde', moet in het bereik [0,0, 360,0] liggen.",
-                                               "Parameter 'KW_HOOGTE2' komt meerdere keren voor."
-                                           }),
-                CreateExpectedErrorMessage(csvFilePath, "Gemaal Leemans (93k3)", "KUNST2", expectedSubMessages),
-                CreateExpectedErrorMessage(csvFilePath, "Gemaal Lely (93k4)", "KUNST3", expectedSubMessages),
-                CreateExpectedErrorMessage(csvFilePath, "Gemaal de Stontele (94k1)", "KUNST4", expectedSubMessages),
-                CreateExpectedErrorMessage(csvFilePath, "Stontelerkeersluis (93k1)", "KUNST5", expectedSubMessages),
-                CreateExpectedErrorMessage(csvFilePath, "Stontelerschutsluis (93k2)", "KUNST6", expectedSubMessages)
-            };
-            TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
-            Assert.IsTrue(importResult);
-            Assert.AreEqual(0, importTarget.Count);
         }
 
         [Test]

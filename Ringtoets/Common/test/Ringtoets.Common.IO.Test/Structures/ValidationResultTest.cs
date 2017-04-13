@@ -34,12 +34,13 @@ namespace Ringtoets.Common.IO.Test.Structures
         public void Constructor_ErrorMessagesNull_ThrowsArgumentException()
         {
             // Call
-            TestDelegate call = () => new ValidationResult(null);
+            TestDelegate call = () => new ValidationResult(true, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("errorMessages", paramName);
         }
+        
 
         [Test]
         [TestCase(null)]
@@ -52,38 +53,53 @@ namespace Ringtoets.Common.IO.Test.Structures
             errorMessages.Add(errormessage);
 
             // Call
-            TestDelegate call = () => new ValidationResult(errorMessages);
+            TestDelegate call = () => new ValidationResult(true, errorMessages);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Invalid error message string.");
         }
 
         [Test]
-        public void Constructor_ErrorMessagesEmpty_ExpectedValues()
+        public void Constructor_CriticalValidationErrorTrueAndErrorMessagesEmpty_ThrowArgumentException()
         {
             // Setup
-            List<string> errorMessages = new List<string>();
+            var errorMessages = new List<string>();
 
             // Call
-            var validationResult = new ValidationResult(errorMessages);
+            TestDelegate test = () => new ValidationResult(true, errorMessages);
 
             // Assert
-            Assert.IsTrue(validationResult.IsValid);
-            CollectionAssert.IsEmpty(validationResult.ErrorMessages);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "No messages supplied with critical error.");
         }
 
         [Test]
-        public void Constructor_ErrorMessages_ExpectedValues()
+        public void Constructor_CriticalErrorTrueAndErrorMessages_ValidationWarningFalse()
         {
             // Setup
             List<string> errorMessages = TestMessages();
 
             // Call
-            var validationResult = new ValidationResult(errorMessages);
+            var result = new ValidationResult(true, errorMessages);
 
             // Assert
-            Assert.IsFalse(validationResult.IsValid);
-            CollectionAssert.AreEqual(errorMessages, validationResult.ErrorMessages);
+            CollectionAssert.AreEqual(errorMessages, result.ErrorMessages);
+            Assert.IsTrue(result.CriticalValidationError);
+            Assert.IsFalse(result.ValidationWarning);
+        }
+
+        [Test]
+        public void Constructor_CriticalerrorFalseAndErrorMessages_ValidationWarningTrue()
+        {
+            // Setup
+            List<string> errorMessages = TestMessages();
+
+            // Call
+            var result = new ValidationResult(false, errorMessages);
+
+            // Assert
+            CollectionAssert.AreEqual(errorMessages, result.ErrorMessages);
+            Assert.IsFalse(result.CriticalValidationError);
+            Assert.IsTrue(result.ValidationWarning);
         }
 
         private List<string> TestMessages()

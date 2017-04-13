@@ -72,7 +72,7 @@ namespace Ringtoets.StabilityPointStructures.IO
                                                                           : new List<StructuresParameterRow>();
 
                 ValidationResult parameterRowsValidationResult = StructuresParameterRowsValidator.ValidateStabilityPointStructuresParameters(structureParameterRows);
-                if (!parameterRowsValidationResult.IsValid)
+                if (parameterRowsValidationResult.CriticalValidationError)
                 {
                     LogValidationErrorForStructure(structureLocation.Name, structureLocation.Id, parameterRowsValidationResult.ErrorMessages);
                     continue;

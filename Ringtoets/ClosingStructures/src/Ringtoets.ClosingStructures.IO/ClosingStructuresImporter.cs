@@ -72,7 +72,7 @@ namespace Ringtoets.ClosingStructures.IO
                                                                           : new List<StructuresParameterRow>();
 
                 ValidationResult parameterRowsValidationResult = StructuresParameterRowsValidator.ValidateClosingStructuresParameters(structureParameterRows);
-                if (!parameterRowsValidationResult.IsValid)
+                if (parameterRowsValidationResult.CriticalValidationError)
                 {
                     LogValidationErrorForStructure(structureLocation.Name, structureLocation.Id, parameterRowsValidationResult.ErrorMessages);
                     continue;
@@ -86,7 +86,8 @@ namespace Ringtoets.ClosingStructures.IO
 
         private ClosingStructure CreateClosingStructure(StructureLocation structureLocation, List<StructuresParameterRow> structureParameterRows)
         {
-            Dictionary<string, StructuresParameterRow> rowData = structureParameterRows.ToDictionary(row => row.ParameterId, row => row, StringComparer.OrdinalIgnoreCase);
+            Dictionary<string, StructuresParameterRow> rowData = structureParameterRows.ToDictionary(
+                row => row.ParameterId, row => row, StringComparer.OrdinalIgnoreCase);
 
             string structureName = structureLocation.Name;
             return new ClosingStructure(

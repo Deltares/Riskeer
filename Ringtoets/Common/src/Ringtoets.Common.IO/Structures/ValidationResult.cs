@@ -33,13 +33,20 @@ namespace Ringtoets.Common.IO.Structures
         private readonly List<string> errorMessages = new List<string>();
 
         /// <summary>
-        /// Create a new instance of <see cref="ValidationResult"/>.
+        /// Creates a new instance of <see cref="ValidationResult"/>.
         /// </summary>
+        /// <param name="criticalValidationError">Indicator whether a critical validation error has occurred.</param>
         /// <param name="errorMessages">The error messages for this <see cref="ValidationResult"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="errorMessages"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when any message in <paramref name="errorMessages"/> is <c>null</c>, 
-        /// empty or consists of whitespace.</exception>
-        public ValidationResult(ICollection<string> errorMessages)
+        /// <exception cref="ArgumentException">Thrown when:
+        /// <list type="bullet">
+        /// <item>Any message in <paramref name="errorMessages"/> is <c>null</c>, 
+        /// empty or consists of whitespace.</item>
+        /// <item><paramref name="errorMessages"/> is empty when <paramref name="criticalValidationError"/>
+        /// is <c>true</c>.</item>
+        /// </list>
+        /// </exception>
+        public ValidationResult(bool criticalValidationError, ICollection<string> errorMessages)
         {
             if (errorMessages == null)
             {
@@ -49,15 +56,25 @@ namespace Ringtoets.Common.IO.Structures
             {
                 throw new ArgumentException("Invalid error message string.");
             }
+            if (criticalValidationError && !errorMessages.Any())
+            {
+                throw new ArgumentException("No messages supplied with critical error.");
+            }
 
-            IsValid = errorMessages.Count < 1;
+            CriticalValidationError = criticalValidationError;
+            ValidationWarning = errorMessages.Count > 0 && !criticalValidationError;
             this.errorMessages.AddRange(errorMessages);
         }
 
         /// <summary>
-        /// Gets a value which indicates whether the validation subject is valid.
+        /// Gets a value which indicates whether a critical validation error has occurred.
         /// </summary>
-        public bool IsValid { get; private set; }
+        public bool CriticalValidationError { get; }
+
+        /// <summary>
+        /// Gets a value which indicates whether there are validation warnings.
+        /// </summary>
+        public bool ValidationWarning { get; }
 
         /// <summary>
         /// Gets the error messages resulting from the validation.

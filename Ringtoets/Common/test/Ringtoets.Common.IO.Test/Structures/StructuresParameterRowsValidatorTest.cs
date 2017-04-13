@@ -41,7 +41,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         }
 
         [Test]
-        public void ValidateHeightStructuresParameters_ParameterIdsMissingOrDuplicated_ValidIsFalseAndErrorMessages()
+        public void ValidateHeightStructuresParameters_ParameterIdsDuplicated_CriticalValidationErrorTrueAndErrorMessages()
         {
             // Setup
             var structuresParameterRow = new StructuresParameterRow
@@ -50,7 +50,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 NumericalValue = 180.0
             };
 
-            List<StructuresParameterRow> structureParameterRows = new List<StructuresParameterRow>
+            var structureParameterRows = new List<StructuresParameterRow>
             {
                 structuresParameterRow,
                 structuresParameterRow
@@ -60,8 +60,8 @@ namespace Ringtoets.Common.IO.Test.Structures
             ValidationResult validationResult = StructuresParameterRowsValidator.ValidateHeightStructuresParameters(structureParameterRows);
 
             // Assert
-            Assert.IsFalse(validationResult.IsValid);
-            List<string> expectedErrorMessages = new List<string>
+            Assert.IsTrue(validationResult.CriticalValidationError);
+            var expectedErrorMessages = new List<string>
             {
                 "Parameter 'KW_HOOGTE1' komt meerdere keren voor.",
                 "Geen geldige definitie gevonden voor parameter 'KW_HOOGTE2'.",
@@ -76,11 +76,61 @@ namespace Ringtoets.Common.IO.Test.Structures
         }
 
         [Test]
-        [SetCulture("nl-NL")]
-        public void ValidateHeightStructuresParameters_ParametersAllInvalid_ValidIsFalseAndErrorMessages()
+        public void ValidateHeightStructuresParameters_OneParameterDefined_CriticalValidationErrorFalseAndValidationWarningTrueAndErrorMessages()
         {
             // Setup
-            List<StructuresParameterRow> structureParameterRows = new List<StructuresParameterRow>
+            var structuresParameterRow = new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword1,
+                NumericalValue = 180.0
+            };
+
+            var structureParameterRows = new List<StructuresParameterRow>
+            {
+                structuresParameterRow
+            };
+
+            // Call
+            ValidationResult validationResult = StructuresParameterRowsValidator.ValidateHeightStructuresParameters(structureParameterRows);
+
+            // Assert
+            Assert.IsFalse(validationResult.CriticalValidationError);
+            Assert.IsTrue(validationResult.ValidationWarning);
+            var expectedErrorMessages = new List<string>
+            {
+                "Geen geldige definitie gevonden voor parameter 'KW_HOOGTE2'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_HOOGTE3'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_HOOGTE4'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_HOOGTE5'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_HOOGTE6'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_HOOGTE7'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_HOOGTE8'."
+            };
+            CollectionAssert.AreEqual(expectedErrorMessages, validationResult.ErrorMessages);
+        }
+
+        [Test]
+        public void ValidateHeightStructuresParameters_NoParameterDefined_CriticalValidationErrorTrueAndErrorMessages()
+        {
+            // Call
+            ValidationResult validationResult = StructuresParameterRowsValidator.ValidateHeightStructuresParameters(
+                new List<StructuresParameterRow>());
+
+            // Assert
+            Assert.IsTrue(validationResult.CriticalValidationError);
+            var expectedErrorMessages = new List<string>
+            {
+                "Geen geldige parameter definities gevonden."
+            };
+            CollectionAssert.AreEqual(expectedErrorMessages, validationResult.ErrorMessages);
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        public void ValidateHeightStructuresParameters_ParametersAllInvalid_CriticalValidationErrorTrueAndErrorMessages()
+        {
+            // Setup
+            var structureParameterRows = new List<StructuresParameterRow>
             {
                 new StructuresParameterRow
                 {
@@ -145,8 +195,8 @@ namespace Ringtoets.Common.IO.Test.Structures
             ValidationResult validationResult = StructuresParameterRowsValidator.ValidateHeightStructuresParameters(structureParameterRows);
 
             // Assert
-            Assert.IsFalse(validationResult.IsValid);
-            List<string> expectedErrorMessages = new List<string>
+            Assert.IsTrue(validationResult.CriticalValidationError);
+            var expectedErrorMessages = new List<string>
             {
                 "De waarde voor parameter 'KW_HOOGTE1' op regel 1, kolom 'Numeriekewaarde', moet in het bereik [0,0, 360,0] liggen.",
                 "De waarde voor parameter 'KW_HOOGTE2' op regel 2, kolom 'Numeriekewaarde', is geen getal.",
@@ -240,9 +290,9 @@ namespace Ringtoets.Common.IO.Test.Structures
             ValidationResult validationResult = StructuresParameterRowsValidator.ValidateHeightStructuresParameters(parameters);
 
             // Assert
-            Assert.IsTrue(validationResult.IsValid,
-                          "Expected to be valid, but found following errors: {0}",
-                          string.Join(Environment.NewLine, validationResult.ErrorMessages));
+            Assert.IsFalse(validationResult.CriticalValidationError,
+                           "Expected to be valid, but found following errors: {0}",
+                           string.Join(Environment.NewLine, validationResult.ErrorMessages));
         }
 
         [Test]
@@ -257,16 +307,16 @@ namespace Ringtoets.Common.IO.Test.Structures
         }
 
         [Test]
-        public void ValidateClosingStructuresParameters_ParameterIdsMissingOrDuplicated_ValidIsFalseAndErrorMessages()
+        public void ValidateClosingStructuresParameters_ParameterIdsDuplicated_CriticalValidationErrorTrueAndErrorMessages()
         {
             // Setup
             var structuresParameterRow = new StructuresParameterRow
             {
-                ParameterId = "KW_BETSLUIT3",
+                ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword3,
                 NumericalValue = 180.0
             };
 
-            List<StructuresParameterRow> structureParameterRows = new List<StructuresParameterRow>
+            var structureParameterRows = new List<StructuresParameterRow>
             {
                 structuresParameterRow,
                 structuresParameterRow
@@ -276,8 +326,8 @@ namespace Ringtoets.Common.IO.Test.Structures
             ValidationResult validationResult = StructuresParameterRowsValidator.ValidateClosingStructuresParameters(structureParameterRows);
 
             // Assert
-            Assert.IsFalse(validationResult.IsValid);
-            List<string> expectedErrorMessages = new List<string>
+            Assert.IsTrue(validationResult.CriticalValidationError);
+            var expectedErrorMessages = new List<string>
             {
                 "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT1'.",
                 "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT2'.",
@@ -299,15 +349,72 @@ namespace Ringtoets.Common.IO.Test.Structures
         }
 
         [Test]
-        [SetCulture("nl-NL")]
-        public void ValidateClosingStructuresParameters_ParametersAllInvalid_ValidIsFalseAndErrorMessages()
+        public void ValidateClosingStructuresParameters_OneParameterDefined_CriticalValidationErrorFalseAndValidationWarningTrueAndErrorMessages()
         {
             // Setup
-            List<StructuresParameterRow> structureParameterRows = new List<StructuresParameterRow>
+            var structuresParameterRow = new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword3,
+                NumericalValue = 180.0
+            };
+
+            var structureParameterRows = new List<StructuresParameterRow>
+            {
+                structuresParameterRow
+            };
+
+            // Call
+            ValidationResult validationResult = StructuresParameterRowsValidator.ValidateClosingStructuresParameters(structureParameterRows);
+
+            // Assert
+            Assert.IsFalse(validationResult.CriticalValidationError);
+            Assert.IsTrue(validationResult.ValidationWarning);
+            var expectedErrorMessages = new List<string>
+            {
+                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT1'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT2'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT4'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT5'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT6'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT7'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT8'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT9'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT10'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT11'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT12'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT13'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT14'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT15'."
+            };
+            CollectionAssert.AreEqual(expectedErrorMessages, validationResult.ErrorMessages);
+        }
+
+        [Test]
+        public void ValidateClosingStructuresParameters_NoParameterDefined_CriticalValidationErrorTrueAndErrorMessages()
+        {
+            // Call
+            ValidationResult validationResult = StructuresParameterRowsValidator.ValidateClosingStructuresParameters(
+                new List<StructuresParameterRow>());
+
+            // Assert
+            Assert.IsTrue(validationResult.CriticalValidationError);
+            var expectedErrorMessages = new List<string>
+            {
+                "Geen geldige parameter definities gevonden."
+            };
+            CollectionAssert.AreEqual(expectedErrorMessages, validationResult.ErrorMessages);
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        public void ValidateClosingStructuresParameters_ParametersAllInvalid_CriticalValidationErrorTrueAndErrorMessages()
+        {
+            // Setup
+            var structureParameterRows = new List<StructuresParameterRow>
             {
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_BETSLUIT1",
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword1,
                     NumericalValue = 1e-5,
                     VarianceValue = 1.0,
                     VarianceType = VarianceType.StandardDeviation,
@@ -315,7 +422,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_BETSLUIT2",
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword2,
                     NumericalValue = double.PositiveInfinity,
                     VarianceValue = 10.0,
                     VarianceType = VarianceType.StandardDeviation,
@@ -323,13 +430,13 @@ namespace Ringtoets.Common.IO.Test.Structures
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_BETSLUIT3",
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword3,
                     NumericalValue = double.NaN,
                     LineNumber = 3
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_BETSLUIT4",
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword4,
                     NumericalValue = 0,
                     VarianceValue = 10.0,
                     VarianceType = VarianceType.CoefficientOfVariation,
@@ -337,7 +444,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_BETSLUIT5",
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword5,
                     NumericalValue = double.PositiveInfinity,
                     VarianceValue = 10.0,
                     VarianceType = VarianceType.NotSpecified,
@@ -345,7 +452,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_BETSLUIT6",
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword6,
                     NumericalValue = double.PositiveInfinity,
                     VarianceValue = 10.0,
                     VarianceType = VarianceType.NotSpecified,
@@ -353,7 +460,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_BETSLUIT7",
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword7,
                     NumericalValue = double.PositiveInfinity,
                     VarianceValue = 10.0,
                     VarianceType = VarianceType.NotSpecified,
@@ -361,52 +468,52 @@ namespace Ringtoets.Common.IO.Test.Structures
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_BETSLUIT8",
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword8,
                     NumericalValue = double.PositiveInfinity,
                     VarianceValue = double.PositiveInfinity,
                     LineNumber = 8
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_BETSLUIT9",
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword9,
                     NumericalValue = double.PositiveInfinity,
                     VarianceValue = double.PositiveInfinity,
                     LineNumber = 9
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_BETSLUIT10",
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword10,
                     NumericalValue = double.NaN,
                     VarianceValue = double.NaN,
                     LineNumber = 10
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_BETSLUIT11",
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword11,
                     NumericalValue = double.NegativeInfinity,
                     LineNumber = 11
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_BETSLUIT12",
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword12,
                     NumericalValue = double.NegativeInfinity,
                     LineNumber = 12
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_BETSLUIT13",
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword13,
                     NumericalValue = -11,
                     LineNumber = 13
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_BETSLUIT14",
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword14,
                     NumericalValue = double.NegativeInfinity,
                     LineNumber = 14
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_BETSLUIT15",
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword15,
                     AlphanumericValue = "oei",
                     LineNumber = 15
                 }
@@ -416,8 +523,8 @@ namespace Ringtoets.Common.IO.Test.Structures
             ValidationResult validationResult = StructuresParameterRowsValidator.ValidateClosingStructuresParameters(structureParameterRows);
 
             // Assert
-            Assert.IsFalse(validationResult.IsValid);
-            List<string> expectedErrorMessages = new List<string>
+            Assert.IsTrue(validationResult.CriticalValidationError);
+            var expectedErrorMessages = new List<string>
             {
                 "De waarde voor parameter 'KW_BETSLUIT1' op regel 1, kolom 'Numeriekewaarde', is te dicht op 0 waardoor een betrouwbare conversie tussen standaardafwijking en variatiecoëfficiënt niet mogelijk is.",
                 "De waarde voor parameter 'KW_BETSLUIT2' op regel 2, kolom 'Numeriekewaarde', moet een getal zijn groter dan 0.",
@@ -447,14 +554,14 @@ namespace Ringtoets.Common.IO.Test.Structures
         }
 
         [Test]
-        public void ValidateClosingStructuresParameters_ParametersAllValid_ValidIsTrueAndNoErrorMessages()
+        public void ValidateClosingStructuresParameters_ParametersAllValid_CriticalValidationErrorFalseAndNoErrorMessages()
         {
             // Setup
-            List<StructuresParameterRow> structureParameterRows = new List<StructuresParameterRow>
+            var structureParameterRows = new List<StructuresParameterRow>
             {
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_BETSLUIT1",
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword1,
                     NumericalValue = 3,
                     VarianceValue = 1.0,
                     VarianceType = VarianceType.StandardDeviation,
@@ -462,7 +569,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_BETSLUIT2",
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword2,
                     NumericalValue = 1,
                     VarianceValue = 10.0,
                     VarianceType = VarianceType.StandardDeviation,
@@ -470,13 +577,13 @@ namespace Ringtoets.Common.IO.Test.Structures
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_BETSLUIT3",
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword3,
                     NumericalValue = 123,
                     LineNumber = 3
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_BETSLUIT4",
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword4,
                     NumericalValue = 0,
                     VarianceValue = 10.0,
                     VarianceType = VarianceType.CoefficientOfVariation,
@@ -484,7 +591,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_BETSLUIT5",
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword5,
                     NumericalValue = 1,
                     VarianceValue = 10.0,
                     VarianceType = VarianceType.StandardDeviation,
@@ -492,7 +599,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_BETSLUIT6",
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword6,
                     NumericalValue = 9,
                     VarianceValue = 10.0,
                     VarianceType = VarianceType.CoefficientOfVariation,
@@ -500,7 +607,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_BETSLUIT7",
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword7,
                     NumericalValue = 1,
                     VarianceValue = 10.0,
                     VarianceType = VarianceType.StandardDeviation,
@@ -508,7 +615,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_BETSLUIT8",
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword8,
                     NumericalValue = 1,
                     VarianceValue = 2,
                     VarianceType = VarianceType.CoefficientOfVariation,
@@ -516,7 +623,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_BETSLUIT9",
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword9,
                     NumericalValue = 2,
                     VarianceValue = 3,
                     VarianceType = VarianceType.StandardDeviation,
@@ -524,7 +631,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_BETSLUIT10",
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword10,
                     NumericalValue = 9,
                     VarianceValue = 3,
                     VarianceType = VarianceType.CoefficientOfVariation,
@@ -532,31 +639,31 @@ namespace Ringtoets.Common.IO.Test.Structures
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_BETSLUIT11",
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword11,
                     NumericalValue = 123,
                     LineNumber = 11
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_BETSLUIT12",
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword12,
                     NumericalValue = 0.6,
                     LineNumber = 12
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_BETSLUIT13",
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword13,
                     NumericalValue = 14,
                     LineNumber = 13
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_BETSLUIT14",
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword14,
                     NumericalValue = 0.8,
                     LineNumber = 14
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_BETSLUIT15",
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword15,
                     AlphanumericValue = "verticalewand",
                     LineNumber = 15
                 }
@@ -566,7 +673,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             ValidationResult validationResult = StructuresParameterRowsValidator.ValidateClosingStructuresParameters(structureParameterRows);
 
             // Assert
-            Assert.IsTrue(validationResult.IsValid);
+            Assert.IsFalse(validationResult.CriticalValidationError);
             CollectionAssert.IsEmpty(validationResult.ErrorMessages);
         }
 
@@ -693,9 +800,9 @@ namespace Ringtoets.Common.IO.Test.Structures
             ValidationResult validationResult = StructuresParameterRowsValidator.ValidateClosingStructuresParameters(parameters);
 
             // Assert
-            Assert.IsTrue(validationResult.IsValid,
-                          "Expected to be valid, but found following errors: {0}",
-                          string.Join(Environment.NewLine, validationResult.ErrorMessages));
+            Assert.IsFalse(validationResult.CriticalValidationError,
+                           "Expected to be valid, but found following errors: {0}",
+                           string.Join(Environment.NewLine, validationResult.ErrorMessages));
         }
 
         [Test]
@@ -710,16 +817,16 @@ namespace Ringtoets.Common.IO.Test.Structures
         }
 
         [Test]
-        public void ValidateStabilityPointStructuresParameters_ParameterIdsMissingOrDuplicated_ValidIsFalseAndErrorMessages()
+        public void ValidateStabilityPointStructuresParameters_ParameterIdsDuplicated_CriticalValidationErrorTrueAndErrorMessages()
         {
             // Setup
             var structuresParameterRow = new StructuresParameterRow
             {
-                ParameterId = "KW_STERSTAB1",
+                ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword1,
                 NumericalValue = 180.0
             };
 
-            List<StructuresParameterRow> structureParameterRows = new List<StructuresParameterRow>
+            var structureParameterRows = new List<StructuresParameterRow>
             {
                 structuresParameterRow,
                 structuresParameterRow
@@ -729,8 +836,8 @@ namespace Ringtoets.Common.IO.Test.Structures
             ValidationResult validationResult = StructuresParameterRowsValidator.ValidateStabilityPointStructuresParameters(structureParameterRows);
 
             // Assert
-            Assert.IsFalse(validationResult.IsValid);
-            List<string> expectedErrorMessages = new List<string>
+            Assert.IsTrue(validationResult.CriticalValidationError);
+            var expectedErrorMessages = new List<string>
             {
                 "Parameter 'KW_STERSTAB1' komt meerdere keren voor.",
                 "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB2'.",
@@ -763,21 +870,89 @@ namespace Ringtoets.Common.IO.Test.Structures
         }
 
         [Test]
-        [SetCulture("nl-NL")]
-        public void ValidateStabilityPointStructuresParameters_ParametersAllInvalid_ValidIsFalseAndErrorMessages()
+        public void ValidateStabilityPointStructuresParameters_OneParameterDefined_CriticalValidationErrorFalseAndValidationWarningTrueAndErrorMessages()
         {
             // Setup
-            List<StructuresParameterRow> structureParameterRows = new List<StructuresParameterRow>
+            var structuresParameterRow = new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword1,
+                NumericalValue = 180.0
+            };
+
+            var structureParameterRows = new List<StructuresParameterRow>
+            {
+                structuresParameterRow
+            };
+
+            // Call
+            ValidationResult validationResult = StructuresParameterRowsValidator.ValidateStabilityPointStructuresParameters(structureParameterRows);
+
+            // Assert
+            Assert.IsFalse(validationResult.CriticalValidationError);
+            Assert.IsTrue(validationResult.ValidationWarning);
+            var expectedErrorMessages = new List<string>
+            {
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB2'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB3'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB4'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB5'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB6'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB7'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB8'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB9'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB10'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB11'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB12'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB13'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB14'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB15'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB16'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB17'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB18'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB19'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB20'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB21'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB22'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB23'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB24'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB25'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB26'."
+            };
+            CollectionAssert.AreEqual(expectedErrorMessages, validationResult.ErrorMessages);
+        }
+
+        [Test]
+        public void ValidateStabilityPointStructuresParameters_NoParameterDefined_CriticalValidationErrorTrueAndErrorMessages()
+        {
+            // Call
+            ValidationResult validationResult = StructuresParameterRowsValidator.ValidateStabilityPointStructuresParameters(
+                new List<StructuresParameterRow>());
+
+            // Assert
+            Assert.IsTrue(validationResult.CriticalValidationError);
+            var expectedErrorMessages = new List<string>
+            {
+                "Geen geldige parameter definities gevonden."
+            };
+            CollectionAssert.AreEqual(expectedErrorMessages, validationResult.ErrorMessages);
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        public void ValidateStabilityPointStructuresParameters_ParametersAllInvalid_CriticalValidationErrorTrueAndErrorMessages()
+        {
+            // Setup
+            var structureParameterRows = new List<StructuresParameterRow>
             {
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_STERSTAB1",
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword1,
                     NumericalValue = double.NaN,
                     LineNumber = 1
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_STERSTAB2",
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword2,
                     NumericalValue = 1e-5,
                     VarianceValue = 1.0,
                     VarianceType = VarianceType.StandardDeviation,
@@ -785,14 +960,14 @@ namespace Ringtoets.Common.IO.Test.Structures
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_STERSTAB3",
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword3,
                     NumericalValue = double.NaN,
                     VarianceValue = double.NaN,
                     LineNumber = 3
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_STERSTAB4",
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword4,
                     NumericalValue = 0,
                     VarianceValue = 10.0,
                     VarianceType = VarianceType.CoefficientOfVariation,
@@ -800,7 +975,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_STERSTAB5",
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword5,
                     NumericalValue = double.PositiveInfinity,
                     VarianceValue = 10.0,
                     VarianceType = VarianceType.NotSpecified,
@@ -808,7 +983,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_STERSTAB6",
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword6,
                     NumericalValue = double.PositiveInfinity,
                     VarianceValue = 10.0,
                     VarianceType = VarianceType.NotSpecified,
@@ -816,7 +991,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_STERSTAB7",
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword7,
                     NumericalValue = 1e-5,
                     VarianceValue = 1.0,
                     VarianceType = VarianceType.StandardDeviation,
@@ -824,14 +999,14 @@ namespace Ringtoets.Common.IO.Test.Structures
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_STERSTAB8",
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword8,
                     NumericalValue = double.NaN,
                     VarianceValue = double.NaN,
                     LineNumber = 8
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_STERSTAB9",
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword9,
                     NumericalValue = 1e-5,
                     VarianceValue = 1.0,
                     VarianceType = VarianceType.StandardDeviation,
@@ -839,7 +1014,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_STERSTAB10",
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword10,
                     NumericalValue = 1e-5,
                     VarianceValue = 1.0,
                     VarianceType = VarianceType.StandardDeviation,
@@ -847,7 +1022,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_STERSTAB11",
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword11,
                     NumericalValue = double.PositiveInfinity,
                     VarianceValue = 10.0,
                     VarianceType = VarianceType.NotSpecified,
@@ -855,7 +1030,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_STERSTAB12",
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword12,
                     NumericalValue = double.PositiveInfinity,
                     VarianceValue = 10.0,
                     VarianceType = VarianceType.NotSpecified,
@@ -863,13 +1038,13 @@ namespace Ringtoets.Common.IO.Test.Structures
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_STERSTAB13",
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword13,
                     NumericalValue = double.NaN,
                     LineNumber = 13
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_STERSTAB14",
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword14,
                     NumericalValue = double.PositiveInfinity,
                     VarianceValue = 10.0,
                     VarianceType = VarianceType.NotSpecified,
@@ -877,25 +1052,25 @@ namespace Ringtoets.Common.IO.Test.Structures
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_STERSTAB15",
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword15,
                     NumericalValue = -1.0,
                     LineNumber = 15
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_STERSTAB16",
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword16,
                     NumericalValue = double.NegativeInfinity,
                     LineNumber = 16
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_STERSTAB17",
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword17,
                     NumericalValue = 0.0,
                     LineNumber = 17
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_STERSTAB18",
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword18,
                     NumericalValue = 0,
                     VarianceValue = 10.0,
                     VarianceType = VarianceType.CoefficientOfVariation,
@@ -903,7 +1078,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_STERSTAB19",
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword19,
                     NumericalValue = 0,
                     VarianceValue = 10.0,
                     VarianceType = VarianceType.CoefficientOfVariation,
@@ -911,19 +1086,19 @@ namespace Ringtoets.Common.IO.Test.Structures
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_STERSTAB20",
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword20,
                     NumericalValue = -1.0,
                     LineNumber = 20
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_STERSTAB21",
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword21,
                     NumericalValue = -1.0,
                     LineNumber = 21
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_STERSTAB22",
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword22,
                     NumericalValue = double.PositiveInfinity,
                     VarianceValue = 10.0,
                     VarianceType = VarianceType.NotSpecified,
@@ -931,7 +1106,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_STERSTAB23",
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword23,
                     NumericalValue = 1e-5,
                     VarianceValue = 1.0,
                     VarianceType = VarianceType.StandardDeviation,
@@ -939,7 +1114,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_STERSTAB24",
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword24,
                     NumericalValue = 1e-5,
                     VarianceValue = 1.0,
                     VarianceType = VarianceType.StandardDeviation,
@@ -947,14 +1122,14 @@ namespace Ringtoets.Common.IO.Test.Structures
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_STERSTAB25",
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword25,
                     NumericalValue = double.NaN,
                     VarianceValue = double.NaN,
                     LineNumber = 25
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_STERSTAB26",
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword26,
                     AlphanumericValue = "oei",
                     LineNumber = 26
                 }
@@ -964,8 +1139,8 @@ namespace Ringtoets.Common.IO.Test.Structures
             ValidationResult validationResult = StructuresParameterRowsValidator.ValidateStabilityPointStructuresParameters(structureParameterRows);
 
             // Assert
-            Assert.IsFalse(validationResult.IsValid);
-            List<string> expectedErrorMessages = new List<string>
+            Assert.IsTrue(validationResult.CriticalValidationError);
+            var expectedErrorMessages = new List<string>
             {
                 "De waarde voor parameter 'KW_STERSTAB1' op regel 1, kolom 'Numeriekewaarde', moet in het bereik [0,0, 360,0] liggen.",
                 "De waarde voor parameter 'KW_STERSTAB2' op regel 2, kolom 'Numeriekewaarde', is te dicht op 0 waardoor een betrouwbare conversie tussen standaardafwijking en variatiecoëfficiënt niet mogelijk is.",
@@ -1208,9 +1383,9 @@ namespace Ringtoets.Common.IO.Test.Structures
             ValidationResult validationResult = StructuresParameterRowsValidator.ValidateStabilityPointStructuresParameters(parameters);
 
             // Assert
-            Assert.IsTrue(validationResult.IsValid,
-                          "Expected to be valid, but found following errors: {0}",
-                          string.Join(Environment.NewLine, validationResult.ErrorMessages));
+            Assert.IsFalse(validationResult.CriticalValidationError,
+                           "Expected to be valid, but found following errors: {0}",
+                           string.Join(Environment.NewLine, validationResult.ErrorMessages));
         }
     }
 }

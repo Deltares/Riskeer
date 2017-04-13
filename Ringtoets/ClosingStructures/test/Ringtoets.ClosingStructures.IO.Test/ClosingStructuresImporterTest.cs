@@ -51,64 +51,6 @@ namespace Ringtoets.ClosingStructures.IO.Test
         }
 
         [Test]
-        public void Import_ValidIncompleteFile_LogAndTrue()
-        {
-            // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                         Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
-
-            var referencePoints = new List<Point2D>
-            {
-                new Point2D(131144.094, 549979.893),
-                new Point2D(131538.705, 548316.752),
-                new Point2D(135878.442, 532149.859),
-                new Point2D(131225.017, 548395.948),
-                new Point2D(131270.38, 548367.462),
-                new Point2D(131507.119, 548322.951)
-            };
-            ReferenceLine referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(referencePoints);
-            var importTarget = new ObservableList<ClosingStructure>();
-            var structuresImporter = new ClosingStructuresImporter(importTarget, referenceLine, filePath);
-
-            // Call
-            bool importResult = false;
-            Action call = () => importResult = structuresImporter.Import();
-
-            // Assert
-            string csvFilePath = Path.ChangeExtension(filePath, "csv");
-            string[] expectedSubMessages =
-            {
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT1'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT2'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT3'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT4'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT5'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT6'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT7'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT8'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT9'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT10'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT11'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT12'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT13'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT14'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT15'."
-            };
-            string[] expectedMessages =
-            {
-                CreateExpectedErrorMessage(csvFilePath, "Gemaal Leemans (93k3)", "KUNST2", expectedSubMessages),
-                CreateExpectedErrorMessage(csvFilePath, "Gemaal Lely (93k4)", "KUNST3", expectedSubMessages),
-                CreateExpectedErrorMessage(csvFilePath, "Gemaal de Stontele (94k1)", "KUNST4", expectedSubMessages),
-                CreateExpectedErrorMessage(csvFilePath, "Stontelerkeersluis (93k1)", "KUNST5", expectedSubMessages),
-                CreateExpectedErrorMessage(csvFilePath, "Stontelerschutsluis (93k2)", "KUNST6", expectedSubMessages)
-            };
-            TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
-            Assert.IsTrue(importResult);
-            Assert.AreEqual(1, importTarget.Count);
-        }
-
-        [Test]
         public void Import_VarianceValuesNeedConversion_WarnUserAboutConversion()
         {
             // Setup
@@ -161,71 +103,6 @@ namespace Ringtoets.ClosingStructures.IO.Test
             Assert.AreEqual(5.5, structure.AreaFlowApertures.StandardDeviation.Value);
             Assert.AreEqual(0.1, structure.CriticalOvertoppingDischarge.CoefficientOfVariation.Value);
             Assert.AreEqual(6.6, structure.FlowWidthAtBottomProtection.StandardDeviation.Value);
-        }
-
-        [Test]
-        [SetCulture("nl-NL")]
-        public void Import_InvalidCsvFile_LogAndTrue()
-        {
-            // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                         Path.Combine("Structures", "CorrectShpIncompleteCsv", "Kunstwerken.shp"));
-
-            var referencePoints = new List<Point2D>
-            {
-                new Point2D(131144.094, 549979.893),
-                new Point2D(131538.705, 548316.752),
-                new Point2D(135878.442, 532149.859),
-                new Point2D(131225.017, 548395.948),
-                new Point2D(131270.38, 548367.462),
-                new Point2D(131507.119, 548322.951)
-            };
-            ReferenceLine referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(referencePoints);
-            var importTarget = new ObservableList<ClosingStructure>();
-            var structuresImporter = new ClosingStructuresImporter(importTarget, referenceLine, filePath);
-
-            // Call
-            bool importResult = false;
-            Action call = () => importResult = structuresImporter.Import();
-
-            // Assert
-            string csvFilePath = Path.ChangeExtension(filePath, "csv");
-            string[] expectedSubMessages =
-            {
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT1'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT2'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT3'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT4'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT5'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT6'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT7'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT8'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT9'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT10'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT11'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT12'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT13'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT14'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT15'."
-            };
-            string[] expectedMessages =
-            {
-                CreateExpectedErrorMessage(csvFilePath, "Coupure Den Oever (90k1)", "KUNST1",
-                                           new[]
-                                           {
-                                               "De waarde voor parameter 'KW_BETSLUIT3' op regel 13, kolom 'Numeriekewaarde', moet in het bereik [0,0, 360,0] liggen.",
-                                               "Parameter 'KW_BETSLUIT5' komt meerdere keren voor."
-                                           }),
-                CreateExpectedErrorMessage(csvFilePath, "Gemaal Leemans (93k3)", "KUNST2", expectedSubMessages),
-                CreateExpectedErrorMessage(csvFilePath, "Gemaal Lely (93k4)", "KUNST3", expectedSubMessages),
-                CreateExpectedErrorMessage(csvFilePath, "Gemaal de Stontele (94k1)", "KUNST4", expectedSubMessages),
-                CreateExpectedErrorMessage(csvFilePath, "Stontelerkeersluis (93k1)", "KUNST5", expectedSubMessages),
-                CreateExpectedErrorMessage(csvFilePath, "Stontelerschutsluis (93k2)", "KUNST6", expectedSubMessages)
-            };
-            TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
-            Assert.IsTrue(importResult);
-            Assert.AreEqual(0, importTarget.Count);
         }
 
         [Test]
