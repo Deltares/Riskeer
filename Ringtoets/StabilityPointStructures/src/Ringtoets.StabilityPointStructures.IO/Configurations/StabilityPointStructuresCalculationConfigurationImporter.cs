@@ -116,7 +116,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
             {
                 SetFactorStormDurationOpenStructure(readCalculation, calculation);
                 SetVolumicWeightWater(readCalculation, calculation);
-                ReadWaveReductionParameters(readCalculation.WaveReduction, calculation.InputParameters);
+                SetWaveReductionParameters(readCalculation.WaveReduction, calculation.InputParameters);
                 return calculation;
             }
             return null;

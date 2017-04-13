@@ -36,8 +36,8 @@ using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 namespace Ringtoets.ClosingStructures.IO.Configurations
 {
     /// <summary>
-    /// Class for importing a configuration of <see cref="ClosingStructuresCalculationConfiguration"/> from an XML file and storing
-    /// it on a <see cref="CalculationGroup"/>.
+    /// Class for importing a configuration of <see cref="ClosingStructuresCalculationConfiguration"/> 
+    /// from an XML file and storing it on a <see cref="CalculationGroup"/>.
     /// </summary>
     public class ClosingStructuresCalculationConfigurationImporter
         : CalculationConfigurationImporter<ClosingStructuresCalculationConfigurationReader, ClosingStructuresCalculationConfiguration>
@@ -95,27 +95,29 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
                 Name = readCalculation.Name
             };
 
-            if (TryReadStructure(readCalculation.StructureName, calculation)
-                && TryReadHydraulicBoundaryLocation(readCalculation.HydraulicBoundaryLocationName, calculation)
-                && TryReadForeshoreProfile(readCalculation.ForeshoreProfileName, calculation)
-                && TryReadStochasts(readCalculation, calculation)
-                && TryReadOrientation(readCalculation, calculation)
-                && TryReadFailureProbabilityStructureWithErosion(readCalculation, calculation)
-                && TryReadFailureProbabilityOpenStructure(readCalculation, calculation)
-                && TryReadFailureProbabilityReparation(readCalculation, calculation)
-                && TryReadProbabilityOrFrequencyOpenStructureBeforeFlooding(readCalculation, calculation)
-                && TryReadInflowModelType(readCalculation, calculation)
-                && TryReadIdenticalApertures(readCalculation, calculation)
-                && readCalculation.WaveReduction.ValidateWaveReduction(calculation.InputParameters.ForeshoreProfile, calculation.Name, Log))
+            if (TrySetStructure(readCalculation.StructureName, calculation)
+                && TrySetHydraulicBoundaryLocation(readCalculation.HydraulicBoundaryLocationName, calculation)
+                && TrySetForeshoreProfile(readCalculation.ForeshoreProfileName, calculation)
+                && TrySetStochasts(readCalculation, calculation)
+                && TrySetOrientation(readCalculation, calculation)
+                && TrySetFailureProbabilityStructureWithErosion(readCalculation, calculation)
+                && TrySetFailureProbabilityOpenStructure(readCalculation, calculation)
+                && TrySetFailureProbabilityReparation(readCalculation, calculation)
+                && TrySetProbabilityOrFrequencyOpenStructureBeforeFlooding(readCalculation, calculation)
+                && TrySetInflowModelType(readCalculation, calculation)
+                && TrySetIdenticalApertures(readCalculation, calculation)
+                && readCalculation.WaveReduction.ValidateWaveReduction(calculation.InputParameters.ForeshoreProfile,
+                                                                       calculation.Name, Log))
             {
-                ReadFactorStormDurationOpenStructure(readCalculation, calculation);
-                ReadWaveReductionParameters(readCalculation.WaveReduction, calculation.InputParameters);
+                SetFactorStormDurationOpenStructure(readCalculation, calculation);
+                SetWaveReductionParameters(readCalculation.WaveReduction, calculation.InputParameters);
                 return calculation;
             }
             return null;
         }
 
-        private bool TryReadStochasts(ClosingStructuresCalculationConfiguration readCalculation, StructuresCalculation<ClosingStructuresInput> calculation)
+        private bool TrySetStochasts(ClosingStructuresCalculationConfiguration readCalculation,
+                                     StructuresCalculation<ClosingStructuresInput> calculation)
         {
             if (!readCalculation.ValidateStructureBaseStochasts(Log))
             {
@@ -126,75 +128,77 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
                 return false;
             }
 
+            string calculationName = calculation.Name;
+            ClosingStructuresInput input = calculation.InputParameters;
             return TryReadStandardDeviationStochast(
                        ClosingStructuresConfigurationSchemaIdentifiers.LevelCrestStructureNotClosingStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
+                       calculationName,
+                       input,
                        readCalculation.LevelCrestStructureNotClosing,
                        i => i.LevelCrestStructureNotClosing, (i, d) => i.LevelCrestStructureNotClosing = d)
                    && TryReadStandardDeviationStochast(
                        ClosingStructuresConfigurationSchemaIdentifiers.AreaFlowAperturesStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
+                       calculationName,
+                       input,
                        readCalculation.AreaFlowApertures,
                        i => i.AreaFlowApertures, (i, d) => i.AreaFlowApertures = d)
                    && TryReadStandardDeviationStochast(
                        ClosingStructuresConfigurationSchemaIdentifiers.DrainCoefficientStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
+                       calculationName,
+                       input,
                        readCalculation.DrainCoefficient,
                        i => i.DrainCoefficient, (i, d) => i.DrainCoefficient = d)
                    && TryReadStandardDeviationStochast(
                        ClosingStructuresConfigurationSchemaIdentifiers.InsideWaterLevelStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
+                       calculationName,
+                       input,
                        readCalculation.InsideWaterLevel,
                        i => i.InsideWaterLevel, (i, d) => i.InsideWaterLevel = d)
                    && TryReadStandardDeviationStochast(
                        ClosingStructuresConfigurationSchemaIdentifiers.ThresholdHeightOpenWeirStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
+                       calculationName,
+                       input,
                        readCalculation.ThresholdHeightOpenWeir,
                        i => i.ThresholdHeightOpenWeir, (i, d) => i.ThresholdHeightOpenWeir = d)
                    && TryReadStandardDeviationStochast(
                        ConfigurationSchemaIdentifiers.AllowedLevelIncreaseStorageStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
+                       calculationName,
+                       input,
                        readCalculation.AllowedLevelIncreaseStorage,
                        i => i.AllowedLevelIncreaseStorage, (i, d) => i.AllowedLevelIncreaseStorage = d)
                    && TryReadStandardDeviationStochast(
                        ConfigurationSchemaIdentifiers.FlowWidthAtBottomProtectionStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
+                       calculationName,
+                       input,
                        readCalculation.FlowWidthAtBottomProtection,
                        i => i.FlowWidthAtBottomProtection, (i, d) => i.FlowWidthAtBottomProtection = d)
                    && TryReadStandardDeviationStochast(
                        ConfigurationSchemaIdentifiers.ModelFactorSuperCriticalFlowStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
+                       calculationName,
+                       input,
                        readCalculation.ModelFactorSuperCriticalFlow,
                        i => i.ModelFactorSuperCriticalFlow, (i, d) => i.ModelFactorSuperCriticalFlow = d)
                    && TryReadStandardDeviationStochast(
                        ConfigurationSchemaIdentifiers.WidthFlowAperturesStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
+                       calculationName,
+                       input,
                        readCalculation.WidthFlowApertures, i => i.WidthFlowApertures, (i, d) => i.WidthFlowApertures = d)
                    && TryReadVariationCoefficientStochast(
                        ConfigurationSchemaIdentifiers.CriticalOvertoppingDischargeStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
+                       calculationName,
+                       input,
                        readCalculation.CriticalOvertoppingDischarge,
                        i => i.CriticalOvertoppingDischarge, (i, d) => i.CriticalOvertoppingDischarge = d)
                    && TryReadVariationCoefficientStochast(
                        ConfigurationSchemaIdentifiers.StorageStructureAreaStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
+                       calculationName,
+                       input,
                        readCalculation.StorageStructureArea,
                        i => i.StorageStructureArea, (i, d) => i.StorageStructureArea = d)
                    && TryReadVariationCoefficientStochast(
                        ConfigurationSchemaIdentifiers.StormDurationStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
+                       calculationName,
+                       input,
                        readCalculation.StormDuration,
                        i => i.StormDuration, (i, d) => i.StormDuration = d);
         }
@@ -204,29 +208,31 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
             if (configuration.DrainCoefficient?.StandardDeviation != null
                 || configuration.DrainCoefficient?.VariationCoefficient != null)
             {
-                Log.LogCalculationConversionError(RingtoetsCommonIOResources.CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_DrainCoefficient,
-                                                  configuration.Name);
+                Log.LogCalculationConversionError(
+                    RingtoetsCommonIOResources.CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_DrainCoefficient,
+                    configuration.Name);
                 return false;
             }
             return true;
         }
 
         /// <summary>
-        /// Reads the orientation.
+        /// Sets the orientation.
         /// </summary>
         /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
         /// <returns><c>false</c> when the orientation is invalid or when there is an orientation but
         /// no structure defined, <c>true</c> otherwise.</returns>
-        private bool TryReadOrientation(StructuresCalculationConfiguration readCalculation, StructuresCalculation<ClosingStructuresInput> calculation)
+        private bool TrySetOrientation(StructuresCalculationConfiguration readCalculation, StructuresCalculation<ClosingStructuresInput> calculation)
         {
             if (readCalculation.StructureNormalOrientation.HasValue)
             {
                 if (calculation.InputParameters.Structure == null)
                 {
-                    Log.LogCalculationConversionError(string.Format(RingtoetsCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
-                                                                    RingtoetsCommonIOResources.CalculationConfigurationImporter_Orientation_DisplayName),
-                                                      calculation.Name);
+                    Log.LogCalculationConversionError(
+                        string.Format(RingtoetsCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
+                                      RingtoetsCommonIOResources.CalculationConfigurationImporter_Orientation_DisplayName),
+                        calculation.Name);
 
                     return false;
                 }
@@ -239,11 +245,12 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
                 }
                 catch (ArgumentOutOfRangeException e)
                 {
-                    Log.LogOutOfRangeException(string.Format(RingtoetsCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
-                                                             orientation,
-                                                             RingtoetsCommonIOResources.CalculationConfigurationImporter_Orientation_DisplayName),
-                                               calculation.Name,
-                                               e);
+                    Log.LogOutOfRangeException(
+                        string.Format(RingtoetsCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
+                                      orientation,
+                                      RingtoetsCommonIOResources.CalculationConfigurationImporter_Orientation_DisplayName),
+                        calculation.Name,
+                        e);
 
                     return false;
                 }
@@ -253,13 +260,14 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
         }
 
         /// <summary>
-        /// Reads the failure probability structure with erosion.
+        /// Sets the failure probability structure with erosion.
         /// </summary>
         /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
         /// <returns><c>false</c> when the orientation is invalid or when there is a failure probability 
         /// structure with erosion but no structure defined, <c>true</c> otherwise.</returns>
-        private bool TryReadFailureProbabilityStructureWithErosion(StructuresCalculationConfiguration readCalculation, StructuresCalculation<ClosingStructuresInput> calculation)
+        private bool TrySetFailureProbabilityStructureWithErosion(StructuresCalculationConfiguration readCalculation,
+                                                                  StructuresCalculation<ClosingStructuresInput> calculation)
         {
             if (readCalculation.FailureProbabilityStructureWithErosion.HasValue)
             {
@@ -271,12 +279,13 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
                 }
                 catch (ArgumentOutOfRangeException e)
                 {
-                    Log.LogOutOfRangeException(string.Format(
-                                                   RingtoetsCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
-                                                   failureProbability,
-                                                   RingtoetsCommonIOResources.CalculationConfigurationImporter_FailureProbabilityStructureWithErosion_DisplayName),
-                                               calculation.Name,
-                                               e);
+                    Log.LogOutOfRangeException(
+                        string.Format(
+                            RingtoetsCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
+                            failureProbability,
+                            RingtoetsCommonIOResources.CalculationConfigurationImporter_FailureProbabilityStructureWithErosion_DisplayName),
+                        calculation.Name,
+                        e);
 
                     return false;
                 }
@@ -286,11 +295,12 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
         }
 
         /// <summary>
-        /// Reads the factor storm duration.
+        /// Sets the factor storm duration.
         /// </summary>
         /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
-        private void ReadFactorStormDurationOpenStructure(ClosingStructuresCalculationConfiguration readCalculation, StructuresCalculation<ClosingStructuresInput> calculation)
+        private void SetFactorStormDurationOpenStructure(ClosingStructuresCalculationConfiguration readCalculation,
+                                                         StructuresCalculation<ClosingStructuresInput> calculation)
         {
             if (readCalculation.FactorStormDurationOpenStructure.HasValue)
             {
@@ -299,21 +309,23 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
         }
 
         /// <summary>
-        /// Reads the failure probability open structure.
+        /// Sets the failure probability open structure.
         /// </summary>
         /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
-        /// <returns><c>false</c> when the failure probability open structure is invalid or when there is a failure probability
-        /// open structure but no structure defined, <c>true</c> otherwise.</returns>
-        private bool TryReadFailureProbabilityOpenStructure(ClosingStructuresCalculationConfiguration readCalculation, StructuresCalculation<ClosingStructuresInput> calculation)
+        /// <returns><c>false</c> when the failure probability open structure is invalid or when 
+        /// there is a failure probability open structure but no structure defined, <c>true</c> otherwise.</returns>
+        private bool TrySetFailureProbabilityOpenStructure(ClosingStructuresCalculationConfiguration readCalculation,
+                                                           StructuresCalculation<ClosingStructuresInput> calculation)
         {
             if (readCalculation.FailureProbabilityOpenStructure.HasValue)
             {
                 if (calculation.InputParameters.Structure == null)
                 {
-                    Log.LogCalculationConversionError(string.Format(RingtoetsCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
-                                                                    RingtoetsCommonIOResources.CalculationConfigurationImporter_FailureProbabilityOpenStructure_DisplayName),
-                                                      calculation.Name);
+                    Log.LogCalculationConversionError(
+                        string.Format(RingtoetsCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
+                                      RingtoetsCommonIOResources.CalculationConfigurationImporter_FailureProbabilityOpenStructure_DisplayName),
+                        calculation.Name);
 
                     return false;
                 }
@@ -326,12 +338,13 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
                 }
                 catch (ArgumentOutOfRangeException e)
                 {
-                    Log.LogOutOfRangeException(string.Format(
-                                                   RingtoetsCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
-                                                   failureProbability,
-                                                   RingtoetsCommonIOResources.CalculationConfigurationImporter_FailureProbabilityOpenStructure_DisplayName),
-                                               calculation.Name,
-                                               e);
+                    Log.LogOutOfRangeException(
+                        string.Format(
+                            RingtoetsCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
+                            failureProbability,
+                            RingtoetsCommonIOResources.CalculationConfigurationImporter_FailureProbabilityOpenStructure_DisplayName),
+                        calculation.Name,
+                        e);
 
                     return false;
                 }
@@ -341,21 +354,23 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
         }
 
         /// <summary>
-        /// Reads the failure probability reparation.
+        /// Sets the failure probability reparation.
         /// </summary>
         /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
-        /// <returns><c>false</c> when the failure probability reparation is invalid or when there is a failure probability 
-        /// reparation but no structure defined, <c>true</c> otherwise.</returns>
-        private bool TryReadFailureProbabilityReparation(ClosingStructuresCalculationConfiguration readCalculation, StructuresCalculation<ClosingStructuresInput> calculation)
+        /// <returns><c>false</c> when the failure probability reparation is invalid or when there 
+        /// is a failure probability reparation but no structure defined, <c>true</c> otherwise.</returns>
+        private bool TrySetFailureProbabilityReparation(ClosingStructuresCalculationConfiguration readCalculation,
+                                                        StructuresCalculation<ClosingStructuresInput> calculation)
         {
             if (readCalculation.FailureProbabilityReparation.HasValue)
             {
                 if (calculation.InputParameters.Structure == null)
                 {
-                    Log.LogCalculationConversionError(string.Format(RingtoetsCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
-                                                                    RingtoetsCommonIOResources.CalculationConfigurationImporter_FailureProbabilityReparation_DisplayName),
-                                                      calculation.Name);
+                    Log.LogCalculationConversionError(
+                        string.Format(RingtoetsCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
+                                      RingtoetsCommonIOResources.CalculationConfigurationImporter_FailureProbabilityReparation_DisplayName),
+                        calculation.Name);
 
                     return false;
                 }
@@ -368,12 +383,13 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
                 }
                 catch (ArgumentOutOfRangeException e)
                 {
-                    Log.LogOutOfRangeException(string.Format(
-                                                   RingtoetsCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
-                                                   failureProbability,
-                                                   RingtoetsCommonIOResources.CalculationConfigurationImporter_FailureProbabilityReparation_DisplayName),
-                                               calculation.Name,
-                                               e);
+                    Log.LogOutOfRangeException(
+                        string.Format(
+                            RingtoetsCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
+                            failureProbability,
+                            RingtoetsCommonIOResources.CalculationConfigurationImporter_FailureProbabilityReparation_DisplayName),
+                        calculation.Name,
+                        e);
 
                     return false;
                 }
@@ -383,21 +399,24 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
         }
 
         /// <summary>
-        /// Reads the probability or frequency open structure before flooding.
+        /// Sets the probability or frequency open structure before flooding.
         /// </summary>
         /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
-        /// <returns><c>false</c> when the probability or frequency open structure before flooding is invalid or when there is a 
-        /// probability or frequency open structure before flooding but no structure defined, <c>true</c> otherwise.</returns>
-        private bool TryReadProbabilityOrFrequencyOpenStructureBeforeFlooding(ClosingStructuresCalculationConfiguration readCalculation, StructuresCalculation<ClosingStructuresInput> calculation)
+        /// <returns><c>false</c> when the probability or frequency open structure before flooding 
+        /// is invalid or when there is a probability or frequency open structure before flooding 
+        /// but no structure defined, <c>true</c> otherwise.</returns>
+        private bool TrySetProbabilityOrFrequencyOpenStructureBeforeFlooding(ClosingStructuresCalculationConfiguration readCalculation,
+                                                                             StructuresCalculation<ClosingStructuresInput> calculation)
         {
             if (readCalculation.ProbabilityOrFrequencyOpenStructureBeforeFlooding.HasValue)
             {
                 if (calculation.InputParameters.Structure == null)
                 {
-                    Log.LogCalculationConversionError(string.Format(RingtoetsCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
-                                                                    RingtoetsCommonIOResources.CalculationConfigurationImporter_ProbabilityOrFrequencyOpenStructureBeforeFlooding_DisplayName),
-                                                      calculation.Name);
+                    Log.LogCalculationConversionError(
+                        string.Format(RingtoetsCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
+                                      RingtoetsCommonIOResources.CalculationConfigurationImporter_ProbabilityOrFrequencyOpenStructureBeforeFlooding_DisplayName),
+                        calculation.Name);
 
                     return false;
                 }
@@ -410,12 +429,13 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
                 }
                 catch (ArgumentOutOfRangeException e)
                 {
-                    Log.LogOutOfRangeException(string.Format(
-                                                   RingtoetsCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
-                                                   failureProbability,
-                                                   RingtoetsCommonIOResources.CalculationConfigurationImporter_ProbabilityOrFrequencyOpenStructureBeforeFlooding_DisplayName),
-                                               calculation.Name,
-                                               e);
+                    Log.LogOutOfRangeException(
+                        string.Format(
+                            RingtoetsCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
+                            failureProbability,
+                            RingtoetsCommonIOResources.CalculationConfigurationImporter_ProbabilityOrFrequencyOpenStructureBeforeFlooding_DisplayName),
+                        calculation.Name,
+                        e);
 
                     return false;
                 }
@@ -425,21 +445,23 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
         }
 
         /// <summary>
-        /// Reads the inflow model type.
+        /// Sets the inflow model type.
         /// </summary>
         /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
         /// <returns><c>false</c> when the inflow model type is invalid or when there is a 
         /// inflow model type but no structure defined, <c>true</c> otherwise.</returns>
-        private bool TryReadInflowModelType(ClosingStructuresCalculationConfiguration readCalculation, StructuresCalculation<ClosingStructuresInput> calculation)
+        private bool TrySetInflowModelType(ClosingStructuresCalculationConfiguration readCalculation,
+                                           StructuresCalculation<ClosingStructuresInput> calculation)
         {
             if (readCalculation.InflowModelType.HasValue)
             {
                 if (calculation.InputParameters.Structure == null)
                 {
-                    Log.LogCalculationConversionError(string.Format(RingtoetsCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
-                                                                    RingtoetsCommonIOResources.CalculationConfigurationImporter_InflowModelType_DisplayName),
-                                                      calculation.Name);
+                    Log.LogCalculationConversionError(
+                        string.Format(RingtoetsCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
+                                      RingtoetsCommonIOResources.CalculationConfigurationImporter_InflowModelType_DisplayName),
+                        calculation.Name);
 
                     return false;
                 }
@@ -453,21 +475,23 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
         }
 
         /// <summary>
-        /// Reads the number of identical apertures.
+        /// Sets the number of identical apertures.
         /// </summary>
         /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
         /// <returns><c>false</c> when the number of identical apertures is invalid or when there is a 
         /// number of identical apertures but no structure defined, <c>true</c> otherwise.</returns>
-        private bool TryReadIdenticalApertures(ClosingStructuresCalculationConfiguration readCalculation, StructuresCalculation<ClosingStructuresInput> calculation)
+        private bool TrySetIdenticalApertures(ClosingStructuresCalculationConfiguration readCalculation,
+                                              StructuresCalculation<ClosingStructuresInput> calculation)
         {
             if (readCalculation.IdenticalApertures.HasValue)
             {
                 if (calculation.InputParameters.Structure == null)
                 {
-                    Log.LogCalculationConversionError(string.Format(RingtoetsCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
-                                                                    RingtoetsCommonIOResources.CalculationConfigurationImporter_IdenticalApertures_DisplayName),
-                                                      calculation.Name);
+                    Log.LogCalculationConversionError(
+                        string.Format(RingtoetsCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
+                                      RingtoetsCommonIOResources.CalculationConfigurationImporter_IdenticalApertures_DisplayName),
+                        calculation.Name);
 
                     return false;
                 }
@@ -478,7 +502,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
             return true;
         }
 
-        private bool TryReadHydraulicBoundaryLocation(string locationName, StructuresCalculation<ClosingStructuresInput> calculation)
+        private bool TrySetHydraulicBoundaryLocation(string locationName, StructuresCalculation<ClosingStructuresInput> calculation)
         {
             HydraulicBoundaryLocation location;
 
@@ -491,7 +515,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
             return false;
         }
 
-        private bool TryReadStructure(string structureName, StructuresCalculation<ClosingStructuresInput> calculation)
+        private bool TrySetStructure(string structureName, StructuresCalculation<ClosingStructuresInput> calculation)
         {
             ClosingStructure structure;
 
@@ -504,7 +528,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
             return false;
         }
 
-        private bool TryReadForeshoreProfile(string foreshoreProfileName, StructuresCalculation<ClosingStructuresInput> calculation)
+        private bool TrySetForeshoreProfile(string foreshoreProfileName, StructuresCalculation<ClosingStructuresInput> calculation)
         {
             ForeshoreProfile foreshoreProfile;
 

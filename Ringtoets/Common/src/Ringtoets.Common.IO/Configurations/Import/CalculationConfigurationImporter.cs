@@ -276,7 +276,7 @@ namespace Ringtoets.Common.IO.Configurations.Import
         /// <typeparam name="T">Type of the input for which values are assigned from the configuration.</typeparam>
         /// <param name="waveReduction">The wave reduction configuration containing values for the parameters.</param>
         /// <param name="input">The input to assign the values to.</param>
-        protected static void ReadWaveReductionParameters<T>(WaveReductionConfiguration waveReduction, T input)
+        protected static void SetWaveReductionParameters<T>(WaveReductionConfiguration waveReduction, T input)
             where T : IUseBreakWater, IUseForeshore
         {
             if (waveReduction != null)

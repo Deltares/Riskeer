@@ -35,8 +35,8 @@ using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 namespace Ringtoets.HeightStructures.IO.Configurations
 {
     /// <summary>
-    /// Class for importing a configuration of <see cref="HeightStructuresCalculationConfiguration"/> from an XML file and storing
-    /// it on a <see cref="CalculationGroup"/>.
+    /// Class for importing a configuration of <see cref="HeightStructuresCalculationConfiguration"/> 
+    /// from an XML file and storing it on a <see cref="CalculationGroup"/>.
     /// </summary>
     public class HeightStructuresCalculationConfigurationImporter
         : CalculationConfigurationImporter<HeightStructuresCalculationConfigurationReader, HeightStructuresCalculationConfiguration>
@@ -94,92 +94,97 @@ namespace Ringtoets.HeightStructures.IO.Configurations
                 Name = readCalculation.Name
             };
 
-            if (TryReadStructure(readCalculation.StructureName, calculation)
-                && TryReadHydraulicBoundaryLocation(readCalculation.HydraulicBoundaryLocationName, calculation)
-                && TryReadForeshoreProfile(readCalculation.ForeshoreProfileName, calculation)
-                && TryReadStochasts(readCalculation, calculation)
-                && TryReadOrientation(readCalculation, calculation)
-                && TryReadFailureProbabilityStructureWithErosion(readCalculation, calculation)
-                && readCalculation.WaveReduction.ValidateWaveReduction(calculation.InputParameters.ForeshoreProfile, calculation.Name, Log))
+            if (TrySetStructure(readCalculation.StructureName, calculation)
+                && TrySetHydraulicBoundaryLocation(readCalculation.HydraulicBoundaryLocationName, calculation)
+                && TrySetForeshoreProfile(readCalculation.ForeshoreProfileName, calculation)
+                && TrySetStochasts(readCalculation, calculation)
+                && TrySetOrientation(readCalculation, calculation)
+                && TrySetFailureProbabilityStructureWithErosion(readCalculation, calculation)
+                && readCalculation.WaveReduction.ValidateWaveReduction(calculation.InputParameters.ForeshoreProfile,
+                                                                       calculation.Name, Log))
             {
-                ReadWaveReductionParameters(readCalculation.WaveReduction, calculation.InputParameters);
+                SetWaveReductionParameters(readCalculation.WaveReduction, calculation.InputParameters);
                 return calculation;
             }
             return null;
         }
 
-        private bool TryReadStochasts(HeightStructuresCalculationConfiguration readCalculation, StructuresCalculation<HeightStructuresInput> calculation)
+        private bool TrySetStochasts(HeightStructuresCalculationConfiguration readCalculation,
+                                     StructuresCalculation<HeightStructuresInput> calculation)
         {
             if (!readCalculation.ValidateStructureBaseStochasts(Log))
             {
                 return false;
             }
 
+            string calculationName = calculation.Name;
+            HeightStructuresInput input = calculation.InputParameters;
             return TryReadStandardDeviationStochast(
                        HeightStructuresConfigurationSchemaIdentifiers.LevelCrestStructureStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
+                       calculationName,
+                       input,
                        readCalculation.LevelCrestStructure,
                        i => i.LevelCrestStructure, (i, d) => i.LevelCrestStructure = d)
                    && TryReadStandardDeviationStochast(
                        ConfigurationSchemaIdentifiers.AllowedLevelIncreaseStorageStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
+                       calculationName,
+                       input,
                        readCalculation.AllowedLevelIncreaseStorage,
                        i => i.AllowedLevelIncreaseStorage, (i, d) => i.AllowedLevelIncreaseStorage = d)
                    && TryReadStandardDeviationStochast(
                        ConfigurationSchemaIdentifiers.FlowWidthAtBottomProtectionStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
+                       calculationName,
+                       input,
                        readCalculation.FlowWidthAtBottomProtection,
                        i => i.FlowWidthAtBottomProtection, (i, d) => i.FlowWidthAtBottomProtection = d)
                    && TryReadStandardDeviationStochast(
                        ConfigurationSchemaIdentifiers.ModelFactorSuperCriticalFlowStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
+                       calculationName,
+                       input,
                        readCalculation.ModelFactorSuperCriticalFlow,
                        i => i.ModelFactorSuperCriticalFlow, (i, d) => i.ModelFactorSuperCriticalFlow = d)
                    && TryReadStandardDeviationStochast(
                        ConfigurationSchemaIdentifiers.WidthFlowAperturesStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
+                       calculationName,
+                       input,
                        readCalculation.WidthFlowApertures, i => i.WidthFlowApertures, (i, d) => i.WidthFlowApertures = d)
                    && TryReadVariationCoefficientStochast(
                        ConfigurationSchemaIdentifiers.CriticalOvertoppingDischargeStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
+                       calculationName,
+                       input,
                        readCalculation.CriticalOvertoppingDischarge,
                        i => i.CriticalOvertoppingDischarge, (i, d) => i.CriticalOvertoppingDischarge = d)
                    && TryReadVariationCoefficientStochast(
                        ConfigurationSchemaIdentifiers.StorageStructureAreaStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
+                       calculationName,
+                       input,
                        readCalculation.StorageStructureArea,
                        i => i.StorageStructureArea, (i, d) => i.StorageStructureArea = d)
                    && TryReadVariationCoefficientStochast(
                        ConfigurationSchemaIdentifiers.StormDurationStochastName,
-                       calculation.Name,
-                       calculation.InputParameters,
+                       calculationName,
+                       input,
                        readCalculation.StormDuration,
                        i => i.StormDuration, (i, d) => i.StormDuration = d);
         }
 
         /// <summary>
-        /// Reads the orientation.
+        /// Sets the orientation.
         /// </summary>
         /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
         /// <returns><c>false</c> when the orientation is invalid or when there is an orientation but
         /// no structure defined, <c>true</c> otherwise.</returns>
-        private bool TryReadOrientation(StructuresCalculationConfiguration readCalculation, StructuresCalculation<HeightStructuresInput> calculation)
+        private bool TrySetOrientation(StructuresCalculationConfiguration readCalculation, StructuresCalculation<HeightStructuresInput> calculation)
         {
             if (readCalculation.StructureNormalOrientation.HasValue)
             {
                 if (calculation.InputParameters.Structure == null)
                 {
-                    Log.LogCalculationConversionError(string.Format(RingtoetsCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
-                                                                    RingtoetsCommonIOResources.CalculationConfigurationImporter_Orientation_DisplayName),
-                                                      calculation.Name);
+                    Log.LogCalculationConversionError(
+                        string.Format(RingtoetsCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
+                                      RingtoetsCommonIOResources.CalculationConfigurationImporter_Orientation_DisplayName),
+                        calculation.Name);
 
                     return false;
                 }
@@ -192,11 +197,12 @@ namespace Ringtoets.HeightStructures.IO.Configurations
                 }
                 catch (ArgumentOutOfRangeException e)
                 {
-                    Log.LogOutOfRangeException(string.Format(RingtoetsCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
-                                                             orientation,
-                                                             RingtoetsCommonIOResources.CalculationConfigurationImporter_Orientation_DisplayName),
-                                               calculation.Name,
-                                               e);
+                    Log.LogOutOfRangeException(
+                        string.Format(RingtoetsCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
+                                      orientation,
+                                      RingtoetsCommonIOResources.CalculationConfigurationImporter_Orientation_DisplayName),
+                        calculation.Name,
+                        e);
 
                     return false;
                 }
@@ -206,21 +212,23 @@ namespace Ringtoets.HeightStructures.IO.Configurations
         }
 
         /// <summary>
-        /// Reads the failure probability structure with erosion.
+        /// Sets the failure probability structure with erosion.
         /// </summary>
         /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
         /// <returns><c>false</c> when the failure probability structure with erosion is invalid or when there is
         /// a failure probability structure with erosion but no structure defined, <c>true</c> otherwise.</returns>
-        private bool TryReadFailureProbabilityStructureWithErosion(StructuresCalculationConfiguration readCalculation, StructuresCalculation<HeightStructuresInput> calculation)
+        private bool TrySetFailureProbabilityStructureWithErosion(StructuresCalculationConfiguration readCalculation,
+                                                                  StructuresCalculation<HeightStructuresInput> calculation)
         {
             if (readCalculation.FailureProbabilityStructureWithErosion.HasValue)
             {
                 if (calculation.InputParameters.Structure == null)
                 {
-                    Log.LogCalculationConversionError(string.Format(RingtoetsCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
-                                                                    RingtoetsCommonIOResources.CalculationConfigurationImporter_FailureProbabilityStructureWithErosion_DisplayName),
-                                                      calculation.Name);
+                    Log.LogCalculationConversionError(
+                        string.Format(RingtoetsCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
+                                      RingtoetsCommonIOResources.CalculationConfigurationImporter_FailureProbabilityStructureWithErosion_DisplayName),
+                        calculation.Name);
 
                     return false;
                 }
@@ -233,12 +241,13 @@ namespace Ringtoets.HeightStructures.IO.Configurations
                 }
                 catch (ArgumentOutOfRangeException e)
                 {
-                    Log.LogOutOfRangeException(string.Format(
-                                                   RingtoetsCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
-                                                   failureProbability,
-                                                   RingtoetsCommonIOResources.CalculationConfigurationImporter_FailureProbabilityStructureWithErosion_DisplayName),
-                                               calculation.Name,
-                                               e);
+                    Log.LogOutOfRangeException(
+                        string.Format(
+                            RingtoetsCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
+                            failureProbability,
+                            RingtoetsCommonIOResources.CalculationConfigurationImporter_FailureProbabilityStructureWithErosion_DisplayName),
+                        calculation.Name,
+                        e);
 
                     return false;
                 }
@@ -247,7 +256,7 @@ namespace Ringtoets.HeightStructures.IO.Configurations
             return true;
         }
 
-        private bool TryReadHydraulicBoundaryLocation(string locationName, StructuresCalculation<HeightStructuresInput> calculation)
+        private bool TrySetHydraulicBoundaryLocation(string locationName, StructuresCalculation<HeightStructuresInput> calculation)
         {
             HydraulicBoundaryLocation location;
 
@@ -260,7 +269,7 @@ namespace Ringtoets.HeightStructures.IO.Configurations
             return false;
         }
 
-        private bool TryReadStructure(string structureName, StructuresCalculation<HeightStructuresInput> calculation)
+        private bool TrySetStructure(string structureName, StructuresCalculation<HeightStructuresInput> calculation)
         {
             HeightStructure structure;
 
@@ -273,7 +282,7 @@ namespace Ringtoets.HeightStructures.IO.Configurations
             return false;
         }
 
-        private bool TryReadForeshoreProfile(string foreshoreProfileName, StructuresCalculation<HeightStructuresInput> calculation)
+        private bool TrySetForeshoreProfile(string foreshoreProfileName, StructuresCalculation<HeightStructuresInput> calculation)
         {
             ForeshoreProfile foreshoreProfile;
 

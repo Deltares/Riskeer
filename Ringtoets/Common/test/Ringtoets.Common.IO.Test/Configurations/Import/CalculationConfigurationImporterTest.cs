@@ -882,7 +882,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
             public void PublicReadWaveReductionParameters<T>(WaveReductionConfiguration waveReduction, T input)
                 where T : IUseBreakWater, IUseForeshore
             {
-                ReadWaveReductionParameters(waveReduction, input);
+                SetWaveReductionParameters(waveReduction, input);
             }
 
             public bool PublicTryReadHydraulicBoundaryLocation(string locationName, string calculationName, IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations, out HydraulicBoundaryLocation location)
