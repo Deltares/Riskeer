@@ -45,8 +45,8 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
             return new GrassCoverErosionInwardsOutput(entity.WaveHeight.ToNullAsNaN(),
                                                       Convert.ToBoolean(entity.IsOvertoppingDominant),
                                                       ReadProbabilityAssessmentOutput(entity),
-                                                      GetDikeHeightAssessmentOutput(entity),
-                                                      GetOvertoppingRateAssessmentOutput(entity));
+                                                      GetDikeHeightOutput(entity),
+                                                      GetOvertoppingRateOutput(entity));
         }
 
         private static ProbabilityAssessmentOutput ReadProbabilityAssessmentOutput(GrassCoverErosionInwardsOutputEntity entity)
@@ -58,13 +58,13 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
                                                    entity.FactorOfSafety.ToNullAsNaN());
         }
 
-        private static HydraulicLoadsOutput GetDikeHeightAssessmentOutput(GrassCoverErosionInwardsOutputEntity entity)
+        private static HydraulicLoadsOutput GetDikeHeightOutput(GrassCoverErosionInwardsOutputEntity entity)
         {
             GrassCoverErosionInwardsDikeHeightOutputEntity dikeHeightOutputEntity = entity.GrassCoverErosionInwardsDikeHeightOutputEntities.FirstOrDefault();
             return dikeHeightOutputEntity?.Read();
         }
 
-        private static HydraulicLoadsOutput GetOvertoppingRateAssessmentOutput(GrassCoverErosionInwardsOutputEntity entity)
+        private static HydraulicLoadsOutput GetOvertoppingRateOutput(GrassCoverErosionInwardsOutputEntity entity)
         {
             GrassCoverErosionInwardsOvertoppingRateOutputEntity overtoppingRateOutputEntity = entity.GrassCoverErosionInwardsOvertoppingRateOutputEntities.FirstOrDefault();
             return overtoppingRateOutputEntity?.Read();

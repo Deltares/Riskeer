@@ -51,14 +51,14 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
                 FactorOfSafety = output.ProbabilityAssessmentOutput.FactorOfSafety.ToNaNAsNull()
             };
 
-            AddEntityForDikeHeightAssessmentOutput(entity, output.DikeHeightAssessmentOutput);
-            AddEntityForOvertoppingRateAssessmentOutput(entity, output.OvertoppingRateAssessmentOutput);
+            AddEntityForDikeHeightOutput(entity, output.DikeHeightOutput);
+            AddEntityForOvertoppingRateOutput(entity, output.OvertoppingRateOutput);
 
             return entity;
         }
 
-        private static void AddEntityForDikeHeightAssessmentOutput(GrassCoverErosionInwardsOutputEntity entity,
-                                                                   HydraulicLoadsOutput output)
+        private static void AddEntityForDikeHeightOutput(GrassCoverErosionInwardsOutputEntity entity,
+                                                         HydraulicLoadsOutput output)
         {
             if (output != null)
             {
@@ -66,8 +66,8 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
             }
         }
 
-        private static void AddEntityForOvertoppingRateAssessmentOutput(GrassCoverErosionInwardsOutputEntity entity,
-                                                                        HydraulicLoadsOutput output)
+        private static void AddEntityForOvertoppingRateOutput(GrassCoverErosionInwardsOutputEntity entity,
+                                                              HydraulicLoadsOutput output)
         {
             if (output != null)
             {

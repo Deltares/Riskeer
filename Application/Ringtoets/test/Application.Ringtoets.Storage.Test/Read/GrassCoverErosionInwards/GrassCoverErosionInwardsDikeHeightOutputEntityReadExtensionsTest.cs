@@ -48,7 +48,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
         }
 
         [Test]
-        public void Read_ValidParameters_ReturnsDikeHeightAssessmentOutput()
+        public void Read_ValidParameters_ReturnsDikeHeightOutput()
         {
             // Setup
             var random = new Random(22);
@@ -81,7 +81,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
         }
 
         [Test]
-        public void Read_NullParameters_ReturnsDikeHeightAssessmentOutputWithNaN()
+        public void Read_NullParameters_ReturnsDikeHeightOutputWithNaN()
         {
             // Setup
             var random = new Random(22);

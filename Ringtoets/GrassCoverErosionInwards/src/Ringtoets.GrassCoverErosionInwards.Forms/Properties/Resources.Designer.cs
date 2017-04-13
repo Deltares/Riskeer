@@ -181,15 +181,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Is convergentie bereikt in de HBN berekening?.
-        /// </summary>
-        public static string DikeHeightAssessmentOutput_Convergence_Description {
-            get {
-                return ResourceManager.GetString("DikeHeightAssessmentOutput_Convergence_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Geeft aan of ook het Hydraulisch Belasting Niveau (HBN) moet worden berekend..
         /// </summary>
         public static string DikeHeightCalculationType_Description {
@@ -204,6 +195,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         public static string DikeHeightCalculationType_DisplayName {
             get {
                 return ResourceManager.GetString("DikeHeightCalculationType_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is convergentie bereikt in de HBN berekening?.
+        /// </summary>
+        public static string DikeHeightOutput_Convergence_Description {
+            get {
+                return ResourceManager.GetString("DikeHeightOutput_Convergence_Description", resourceCulture);
             }
         }
         
@@ -416,15 +416,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Is convergentie bereikt in de overslagdebiet berekening?.
-        /// </summary>
-        public static string OvertoppingRateAssessmentOutput_Convergence_Description {
-            get {
-                return ResourceManager.GetString("OvertoppingRateAssessmentOutput_Convergence_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Geeft aan of ook het overslagdebiet moet worden berekend..
         /// </summary>
         public static string OvertoppingRateCalculationType_Description {
@@ -439,6 +430,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         public static string OvertoppingRateCalculationType_DisplayName {
             get {
                 return ResourceManager.GetString("OvertoppingRateCalculationType_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is convergentie bereikt in de overslagdebiet berekening?.
+        /// </summary>
+        public static string OvertoppingRateOutput_Convergence_Description {
+            get {
+                return ResourceManager.GetString("OvertoppingRateOutput_Convergence_Description", resourceCulture);
             }
         }
         

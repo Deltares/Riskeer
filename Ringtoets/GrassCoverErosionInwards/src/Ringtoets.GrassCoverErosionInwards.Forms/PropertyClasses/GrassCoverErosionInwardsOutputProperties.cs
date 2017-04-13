@@ -42,8 +42,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
-            return propertyName.Contains(nameof(DikeHeight)) && data.DikeHeightAssessmentOutput != null
-                   || propertyName.Contains(nameof(OvertoppingRate)) && data.OvertoppingRateAssessmentOutput != null;
+            return propertyName.Contains(nameof(DikeHeight)) && data.DikeHeightOutput != null
+                   || propertyName.Contains(nameof(OvertoppingRate)) && data.OvertoppingRateOutput != null;
         }
 
         #region GrassCoverErosionInwards result
@@ -145,7 +145,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.DikeHeightAssessmentOutput?.Result
+                return data.DikeHeightOutput?.Result
                        ?? RoundedDouble.NaN;
             }
         }
@@ -160,7 +160,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.DikeHeightAssessmentOutput?.TargetProbability
+                return data.DikeHeightOutput?.TargetProbability
                        ?? double.NaN;
             }
         }
@@ -175,7 +175,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.DikeHeightAssessmentOutput?.TargetReliability
+                return data.DikeHeightOutput?.TargetReliability
                        ?? RoundedDouble.NaN;
             }
         }
@@ -190,7 +190,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.DikeHeightAssessmentOutput?.CalculatedProbability
+                return data.DikeHeightOutput?.CalculatedProbability
                        ?? double.NaN;
             }
         }
@@ -205,7 +205,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.DikeHeightAssessmentOutput?.CalculatedReliability
+                return data.DikeHeightOutput?.CalculatedReliability
                        ?? RoundedDouble.NaN;
             }
         }
@@ -214,12 +214,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         [DynamicVisible]
         [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), nameof(GrassCoverErosionInwardsFormsResources.Categories_DikeHeight_Result), 2, 3)]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_Convergence_DisplayName))]
-        [ResourcesDescription(typeof(GrassCoverErosionInwardsFormsResources), nameof(GrassCoverErosionInwardsFormsResources.DikeHeightAssessmentOutput_Convergence_Description))]
+        [ResourcesDescription(typeof(GrassCoverErosionInwardsFormsResources), nameof(GrassCoverErosionInwardsFormsResources.DikeHeightOutput_Convergence_Description))]
         public string DikeHeightConvergence
         {
             get
             {
-                return new EnumDisplayWrapper<CalculationConvergence>(data.DikeHeightAssessmentOutput?.CalculationConvergence
+                return new EnumDisplayWrapper<CalculationConvergence>(data.DikeHeightOutput?.CalculationConvergence
                                                                       ?? CalculationConvergence.NotCalculated).DisplayName;
             }
         }
@@ -237,7 +237,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.OvertoppingRateAssessmentOutput?.Result
+                return data.OvertoppingRateOutput?.Result
                        ?? RoundedDouble.NaN;
             }
         }
@@ -252,7 +252,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.OvertoppingRateAssessmentOutput?.TargetProbability
+                return data.OvertoppingRateOutput?.TargetProbability
                        ?? double.NaN;
             }
         }
@@ -267,7 +267,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.OvertoppingRateAssessmentOutput?.TargetReliability
+                return data.OvertoppingRateOutput?.TargetReliability
                        ?? RoundedDouble.NaN;
             }
         }
@@ -282,7 +282,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.OvertoppingRateAssessmentOutput?.CalculatedProbability
+                return data.OvertoppingRateOutput?.CalculatedProbability
                        ?? double.NaN;
             }
         }
@@ -297,7 +297,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.OvertoppingRateAssessmentOutput?.CalculatedReliability
+                return data.OvertoppingRateOutput?.CalculatedReliability
                        ?? RoundedDouble.NaN;
             }
         }
@@ -306,12 +306,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         [DynamicVisible]
         [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), nameof(GrassCoverErosionInwardsFormsResources.Categories_OvertoppingRate_Result), 3, 3)]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_Convergence_DisplayName))]
-        [ResourcesDescription(typeof(GrassCoverErosionInwardsFormsResources), nameof(GrassCoverErosionInwardsFormsResources.OvertoppingRateAssessmentOutput_Convergence_Description))]
+        [ResourcesDescription(typeof(GrassCoverErosionInwardsFormsResources), nameof(GrassCoverErosionInwardsFormsResources.OvertoppingRateOutput_Convergence_Description))]
         public string OvertoppingRateConvergence
         {
             get
             {
-                return new EnumDisplayWrapper<CalculationConvergence>(data.OvertoppingRateAssessmentOutput?.CalculationConvergence
+                return new EnumDisplayWrapper<CalculationConvergence>(data.OvertoppingRateOutput?.CalculationConvergence
                                                                       ?? CalculationConvergence.NotCalculated).DisplayName;
             }
         }

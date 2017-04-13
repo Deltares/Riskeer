@@ -38,20 +38,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <param name="isOvertoppingDominant">The value indicating whether overtopping was dominant in the calculation.</param>
         /// <param name="probabilityAssessmentOutput">The probabilistic assessment output based on the grass cover erosion 
         /// inwards calculation output.</param>
-        /// <param name="dikeHeightAssessmentOutput">The dike height assessment output based 
-        /// on the grass cover erosion inwards calculation output.</param>
-        /// <param name="overtoppingRateAssessmentOutput">The overtopping rate assessment output
-        /// based on the grass cover erosion inwards calculation output.</param>
+        /// <param name="dikeHeightOutput">The dike height output.</param>
+        /// <param name="overtoppingRateOutput">The overtopping rate output.</param>
         public GrassCoverErosionInwardsOutput(double waveHeight, bool isOvertoppingDominant,
                                               ProbabilityAssessmentOutput probabilityAssessmentOutput,
-                                              HydraulicLoadsOutput dikeHeightAssessmentOutput,
-                                              HydraulicLoadsOutput overtoppingRateAssessmentOutput)
+                                              HydraulicLoadsOutput dikeHeightOutput,
+                                              HydraulicLoadsOutput overtoppingRateOutput)
         {
             IsOvertoppingDominant = isOvertoppingDominant;
             WaveHeight = new RoundedDouble(2, waveHeight);
             ProbabilityAssessmentOutput = probabilityAssessmentOutput;
-            DikeHeightAssessmentOutput = dikeHeightAssessmentOutput;
-            OvertoppingRateAssessmentOutput = overtoppingRateAssessmentOutput;
+            DikeHeightOutput = dikeHeightOutput;
+            OvertoppingRateOutput = overtoppingRateOutput;
         }
 
         /// <summary>
@@ -72,15 +70,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         public ProbabilityAssessmentOutput ProbabilityAssessmentOutput { get; private set; }
 
         /// <summary>
-        /// Gets the dike height assessment output based on the grass cover erosion 
-        /// inwards calculation output.
+        /// Gets the dike height output based on the grass cover erosion inwards calculation output.
         /// </summary>
-        public HydraulicLoadsOutput DikeHeightAssessmentOutput { get; private set; }
+        public HydraulicLoadsOutput DikeHeightOutput { get; private set; }
 
         /// <summary>
-        /// Gets the overtopping rate assessment output based on the grass cover erosion 
-        /// inwards calculation output.
+        /// Gets the overtopping rate output based on the grass cover erosion inwards calculation output.
         /// </summary>
-        public HydraulicLoadsOutput OvertoppingRateAssessmentOutput { get; private set; }
+        public HydraulicLoadsOutput OvertoppingRateOutput { get; private set; }
     }
 }

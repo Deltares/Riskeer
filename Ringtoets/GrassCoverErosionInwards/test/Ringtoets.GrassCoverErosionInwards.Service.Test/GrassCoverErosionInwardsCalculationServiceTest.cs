@@ -548,18 +548,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             Assert.IsFalse(calculation.Output.IsOvertoppingDominant);
             if (dikeHeightCalculationType != DikeHeightCalculationType.NoCalculation)
             {
-                HydraulicLoadsOutput dikeHeightAssessmentOutput = calculation.Output.DikeHeightAssessmentOutput;
-                Assert.IsNotNull(dikeHeightAssessmentOutput);
+                HydraulicLoadsOutput dikeHeightOutput = calculation.Output.DikeHeightOutput;
+                Assert.IsNotNull(dikeHeightOutput);
 
-                Assert.IsFalse(double.IsNaN(dikeHeightAssessmentOutput.Result));
-                Assert.IsFalse(double.IsNaN(dikeHeightAssessmentOutput.TargetProbability));
-                Assert.IsFalse(double.IsNaN(dikeHeightAssessmentOutput.TargetReliability));
-                Assert.IsFalse(double.IsNaN(dikeHeightAssessmentOutput.CalculatedProbability));
-                Assert.IsFalse(double.IsNaN(dikeHeightAssessmentOutput.CalculatedReliability));
+                Assert.IsFalse(double.IsNaN(dikeHeightOutput.Result));
+                Assert.IsFalse(double.IsNaN(dikeHeightOutput.TargetProbability));
+                Assert.IsFalse(double.IsNaN(dikeHeightOutput.TargetReliability));
+                Assert.IsFalse(double.IsNaN(dikeHeightOutput.CalculatedProbability));
+                Assert.IsFalse(double.IsNaN(dikeHeightOutput.CalculatedReliability));
             }
             else
             {
-                Assert.IsNull(calculation.Output.DikeHeightAssessmentOutput);
+                Assert.IsNull(calculation.Output.DikeHeightOutput);
             }
 
             mockRepository.VerifyAll();

@@ -46,14 +46,14 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
                                                                               random.NextDouble());
             var dikeHeightConvergence = random.NextEnumValue<CalculationConvergence>();
             var overtoppingRateConvergence = random.NextEnumValue<CalculationConvergence>();
-            var dikeHeightAssessmentOutput = new HydraulicLoadsOutput(random.NextDouble(), random.NextDouble(),
-                                                                      random.NextDouble(), random.NextDouble(),
-                                                                      random.NextDouble(), dikeHeightConvergence);
-            var overtoppingRateAssessmentOutput = new HydraulicLoadsOutput(random.NextDouble(), random.NextDouble(),
-                                                                           random.NextDouble(), random.NextDouble(),
-                                                                           random.NextDouble(), overtoppingRateConvergence);
+            var dikeHeightOutput = new HydraulicLoadsOutput(random.NextDouble(), random.NextDouble(),
+                                                            random.NextDouble(), random.NextDouble(),
+                                                            random.NextDouble(), dikeHeightConvergence);
+            var overtoppingRateOutput = new HydraulicLoadsOutput(random.NextDouble(), random.NextDouble(),
+                                                                 random.NextDouble(), random.NextDouble(),
+                                                                 random.NextDouble(), overtoppingRateConvergence);
             var output = new GrassCoverErosionInwardsOutput(random.NextDouble(), false, probabilityAssessmentOutput,
-                                                            dikeHeightAssessmentOutput, overtoppingRateAssessmentOutput);
+                                                            dikeHeightOutput, overtoppingRateOutput);
 
             // Call
             GrassCoverErosionInwardsOutputEntity entity = output.Create();
@@ -69,20 +69,20 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             Assert.AreEqual(probabilityAssessmentOutput.RequiredReliability.Value, entity.RequiredReliability);
 
             GrassCoverErosionInwardsDikeHeightOutputEntity dikeHeightEntity = entity.GrassCoverErosionInwardsDikeHeightOutputEntities.First();
-            Assert.AreEqual(dikeHeightAssessmentOutput.Result, dikeHeightEntity.DikeHeight, dikeHeightAssessmentOutput.Result.GetAccuracy());
-            Assert.AreEqual(dikeHeightAssessmentOutput.TargetProbability, dikeHeightEntity.TargetProbability);
-            Assert.AreEqual(dikeHeightAssessmentOutput.TargetReliability, dikeHeightEntity.TargetReliability, dikeHeightAssessmentOutput.TargetReliability.GetAccuracy());
-            Assert.AreEqual(dikeHeightAssessmentOutput.CalculatedProbability, dikeHeightEntity.CalculatedProbability);
-            Assert.AreEqual(dikeHeightAssessmentOutput.CalculatedReliability, dikeHeightEntity.CalculatedReliability, dikeHeightAssessmentOutput.CalculatedReliability.GetAccuracy());
-            Assert.AreEqual((byte) dikeHeightAssessmentOutput.CalculationConvergence, dikeHeightEntity.CalculationConvergence);
+            Assert.AreEqual(dikeHeightOutput.Result, dikeHeightEntity.DikeHeight, dikeHeightOutput.Result.GetAccuracy());
+            Assert.AreEqual(dikeHeightOutput.TargetProbability, dikeHeightEntity.TargetProbability);
+            Assert.AreEqual(dikeHeightOutput.TargetReliability, dikeHeightEntity.TargetReliability, dikeHeightOutput.TargetReliability.GetAccuracy());
+            Assert.AreEqual(dikeHeightOutput.CalculatedProbability, dikeHeightEntity.CalculatedProbability);
+            Assert.AreEqual(dikeHeightOutput.CalculatedReliability, dikeHeightEntity.CalculatedReliability, dikeHeightOutput.CalculatedReliability.GetAccuracy());
+            Assert.AreEqual((byte) dikeHeightOutput.CalculationConvergence, dikeHeightEntity.CalculationConvergence);
 
             GrassCoverErosionInwardsOvertoppingRateOutputEntity overtoppingRateEntity = entity.GrassCoverErosionInwardsOvertoppingRateOutputEntities.First();
-            Assert.AreEqual(overtoppingRateAssessmentOutput.Result, overtoppingRateEntity.OvertoppingRate, overtoppingRateAssessmentOutput.Result.GetAccuracy());
-            Assert.AreEqual(overtoppingRateAssessmentOutput.TargetProbability, overtoppingRateEntity.TargetProbability);
-            Assert.AreEqual(overtoppingRateAssessmentOutput.TargetReliability, overtoppingRateEntity.TargetReliability, overtoppingRateAssessmentOutput.TargetReliability.GetAccuracy());
-            Assert.AreEqual(overtoppingRateAssessmentOutput.CalculatedProbability, overtoppingRateEntity.CalculatedProbability);
-            Assert.AreEqual(overtoppingRateAssessmentOutput.CalculatedReliability, overtoppingRateEntity.CalculatedReliability, overtoppingRateAssessmentOutput.CalculatedReliability.GetAccuracy());
-            Assert.AreEqual((byte) overtoppingRateAssessmentOutput.CalculationConvergence, overtoppingRateEntity.CalculationConvergence);
+            Assert.AreEqual(overtoppingRateOutput.Result, overtoppingRateEntity.OvertoppingRate, overtoppingRateOutput.Result.GetAccuracy());
+            Assert.AreEqual(overtoppingRateOutput.TargetProbability, overtoppingRateEntity.TargetProbability);
+            Assert.AreEqual(overtoppingRateOutput.TargetReliability, overtoppingRateEntity.TargetReliability, overtoppingRateOutput.TargetReliability.GetAccuracy());
+            Assert.AreEqual(overtoppingRateOutput.CalculatedProbability, overtoppingRateEntity.CalculatedProbability);
+            Assert.AreEqual(overtoppingRateOutput.CalculatedReliability, overtoppingRateEntity.CalculatedReliability, overtoppingRateOutput.CalculatedReliability.GetAccuracy());
+            Assert.AreEqual((byte) overtoppingRateOutput.CalculationConvergence, overtoppingRateEntity.CalculationConvergence);
         }
 
         [Test]
@@ -90,9 +90,9 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         {
             // Setup
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
-            var dikeHeightAssessmentOutput = new TestHydraulicLoadsOutput(double.NaN, CalculationConvergence.CalculatedConverged);
-            var overtoppingRateAssessmentOutput = new TestHydraulicLoadsOutput(double.NaN, CalculationConvergence.CalculatedConverged);
-            var output = new GrassCoverErosionInwardsOutput(double.NaN, true, probabilityAssessmentOutput, dikeHeightAssessmentOutput, overtoppingRateAssessmentOutput);
+            var dikeHeightOutput = new TestHydraulicLoadsOutput(double.NaN, CalculationConvergence.CalculatedConverged);
+            var overtoppingRateOutput = new TestHydraulicLoadsOutput(double.NaN, CalculationConvergence.CalculatedConverged);
+            var output = new GrassCoverErosionInwardsOutput(double.NaN, true, probabilityAssessmentOutput, dikeHeightOutput, overtoppingRateOutput);
 
             // Call
             GrassCoverErosionInwardsOutputEntity entity = output.Create();
@@ -112,7 +112,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             Assert.IsNull(dikeHeightEntity.TargetReliability);
             Assert.IsNull(dikeHeightEntity.CalculatedProbability);
             Assert.IsNull(dikeHeightEntity.CalculatedReliability);
-            Assert.AreEqual((byte) dikeHeightAssessmentOutput.CalculationConvergence, dikeHeightEntity.CalculationConvergence);
+            Assert.AreEqual((byte) dikeHeightOutput.CalculationConvergence, dikeHeightEntity.CalculationConvergence);
 
             GrassCoverErosionInwardsOvertoppingRateOutputEntity overtoppingRateEntity = entity.GrassCoverErosionInwardsOvertoppingRateOutputEntities.First();
             Assert.IsNull(overtoppingRateEntity.OvertoppingRate);
@@ -120,11 +120,11 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             Assert.IsNull(overtoppingRateEntity.TargetReliability);
             Assert.IsNull(overtoppingRateEntity.CalculatedProbability);
             Assert.IsNull(overtoppingRateEntity.CalculatedReliability);
-            Assert.AreEqual((byte) overtoppingRateAssessmentOutput.CalculationConvergence, overtoppingRateEntity.CalculationConvergence);
+            Assert.AreEqual((byte) overtoppingRateOutput.CalculationConvergence, overtoppingRateEntity.CalculationConvergence);
         }
 
         [Test]
-        public void Create_DikeHeightAssessmentOutputIsNull_NoDikeHeightOutputEntityCreated()
+        public void Create_DikeHeightOutputIsNull_NoDikeHeightOutputEntityCreated()
         {
             // Setup
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(1, 1, 1, 1, 1);
@@ -138,7 +138,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         }
 
         [Test]
-        public void Create_OvertoppingRateAssessmentOutputIsNull_NoOvertoppingRateOutputEntityCreated()
+        public void Create_OvertoppingRateOutputIsNull_NoOvertoppingRateOutputEntityCreated()
         {
             // Setup
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(1, 1, 1, 1, 1);

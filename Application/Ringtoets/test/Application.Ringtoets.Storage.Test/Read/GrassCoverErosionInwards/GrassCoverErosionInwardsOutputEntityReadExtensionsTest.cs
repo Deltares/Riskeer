@@ -51,7 +51,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             // Assert
             Assert.AreEqual(entity.WaveHeight, output.WaveHeight.Value);
             Assert.IsFalse(output.IsOvertoppingDominant);
-            Assert.IsNull(output.DikeHeightAssessmentOutput);
+            Assert.IsNull(output.DikeHeightOutput);
             Assert.AreEqual(entity.FactorOfSafety, output.ProbabilityAssessmentOutput.FactorOfSafety.Value);
             Assert.AreEqual(entity.Probability, output.ProbabilityAssessmentOutput.Probability);
             Assert.AreEqual(entity.RequiredProbability, output.ProbabilityAssessmentOutput.RequiredProbability);
@@ -80,7 +80,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             // Assert
             Assert.IsNaN(output.WaveHeight);
             Assert.IsTrue(output.IsOvertoppingDominant);
-            Assert.IsNull(output.DikeHeightAssessmentOutput);
+            Assert.IsNull(output.DikeHeightOutput);
             Assert.IsNaN(output.ProbabilityAssessmentOutput.FactorOfSafety);
             Assert.IsNaN(output.ProbabilityAssessmentOutput.Probability);
             Assert.IsNaN(output.ProbabilityAssessmentOutput.RequiredProbability);
@@ -104,7 +104,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             GrassCoverErosionInwardsOutput output = entity.Read();
 
             // Assert
-            Assert.IsNotNull(output.DikeHeightAssessmentOutput);
+            Assert.IsNotNull(output.DikeHeightOutput);
         }
     }
 }

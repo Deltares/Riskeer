@@ -1564,11 +1564,11 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedOutput.WaveHeight, actualOutput.WaveHeight);
             Assert.AreEqual(expectedOutput.IsOvertoppingDominant, actualOutput.IsOvertoppingDominant);
             AssertProbabilityAssessmentOutput(expectedOutput.ProbabilityAssessmentOutput, actualOutput.ProbabilityAssessmentOutput);
-            AssertDikeHeightAssessmentOutput(expectedOutput.DikeHeightAssessmentOutput, actualOutput.DikeHeightAssessmentOutput);
+            AssertDikeHeightOutput(expectedOutput.DikeHeightOutput, actualOutput.DikeHeightOutput);
         }
 
-        private static void AssertDikeHeightAssessmentOutput(HydraulicLoadsOutput expectedOutput,
-                                                             HydraulicLoadsOutput actualOutput)
+        private static void AssertDikeHeightOutput(HydraulicLoadsOutput expectedOutput,
+                                                   HydraulicLoadsOutput actualOutput)
         {
             if (expectedOutput == null)
             {

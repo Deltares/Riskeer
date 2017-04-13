@@ -87,10 +87,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             double overtoppingRateCalculatedReliability = random.NextDouble();
             var overtoppingRateConvergence = random.NextEnumValue<CalculationConvergence>();
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(requiredProbability, requiredReliability, probability, reliability, factorOfSafety);
-            var dikeHeightAssessmentOutput = new HydraulicLoadsOutput(dikeHeight, dikeHeightTargetProbability, dikeHeightTargetReliability, dikeHeightCalculatedProbability, dikeHeightCalculatedReliability, dikeHeightConvergence);
-            var overtoppingRateAssessmentOutput = new HydraulicLoadsOutput(overtoppingRate, overtoppingRateTargetProbability, overtoppingRateTargetReliability,
-                                                                                     overtoppingRateCalculatedProbability, overtoppingRateCalculatedReliability, overtoppingRateConvergence);
-            var output = new GrassCoverErosionInwardsOutput(waveHeight, isOvertoppingDominant, probabilityAssessmentOutput, dikeHeightAssessmentOutput, overtoppingRateAssessmentOutput);
+            var dikeHeightOutput = new HydraulicLoadsOutput(dikeHeight, dikeHeightTargetProbability, dikeHeightTargetReliability, dikeHeightCalculatedProbability, dikeHeightCalculatedReliability, dikeHeightConvergence);
+            var overtoppingRateOutput = new HydraulicLoadsOutput(overtoppingRate, overtoppingRateTargetProbability, overtoppingRateTargetReliability,
+                                                                 overtoppingRateCalculatedProbability, overtoppingRateCalculatedReliability, overtoppingRateConvergence);
+            var output = new GrassCoverErosionInwardsOutput(waveHeight, isOvertoppingDominant, probabilityAssessmentOutput, dikeHeightOutput, overtoppingRateOutput);
 
             // Call
             var properties = new GrassCoverErosionInwardsOutputProperties
@@ -153,11 +153,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         {
             // Setup
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
-            var dikeHeightAssessmentOutput = new TestHydraulicLoadsOutput(double.NaN);
-            var overtoppingRateAssessmentOutput = new TestHydraulicLoadsOutput(double.NaN);
+            var dikeHeightOutput = new TestHydraulicLoadsOutput(double.NaN);
+            var overtoppingRateOutput = new TestHydraulicLoadsOutput(double.NaN);
             var output = new GrassCoverErosionInwardsOutput(double.NaN, true, probabilityAssessmentOutput,
-                                                            dikeHeightAssessmentOutput,
-                                                            overtoppingRateAssessmentOutput);
+                                                            dikeHeightOutput,
+                                                            overtoppingRateOutput);
 
             // Call
             var properties = new GrassCoverErosionInwardsOutputProperties
@@ -182,22 +182,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         {
             // Setup
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
-            HydraulicLoadsOutput dikeHeightAssessmentOutput = null;
-            HydraulicLoadsOutput overtoppingRateAssessmentOutput = null;
+            HydraulicLoadsOutput dikeHeightOutput = null;
+            HydraulicLoadsOutput overtoppingRateOutput = null;
 
             if (dikeHeightCalculated)
             {
-                dikeHeightAssessmentOutput = new TestHydraulicLoadsOutput(double.NaN);
+                dikeHeightOutput = new TestHydraulicLoadsOutput(double.NaN);
             }
 
             if (overtoppingRateCalculated)
             {
-                overtoppingRateAssessmentOutput = new TestHydraulicLoadsOutput(double.NaN);
+                overtoppingRateOutput = new TestHydraulicLoadsOutput(double.NaN);
             }
 
             var output = new GrassCoverErosionInwardsOutput(double.NaN, true, probabilityAssessmentOutput,
-                                                            dikeHeightAssessmentOutput,
-                                                            overtoppingRateAssessmentOutput);
+                                                            dikeHeightOutput,
+                                                            overtoppingRateOutput);
 
             // Call
             var properties = new GrassCoverErosionInwardsOutputProperties

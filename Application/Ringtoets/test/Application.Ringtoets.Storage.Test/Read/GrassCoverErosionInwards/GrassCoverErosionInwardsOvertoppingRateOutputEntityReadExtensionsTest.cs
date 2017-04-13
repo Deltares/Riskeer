@@ -48,7 +48,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
         }
 
         [Test]
-        public void Read_ValidParameters_ReturnsOvertoppingRateAssessmentOutput()
+        public void Read_ValidParameters_ReturnsOvertoppingRateOutput()
         {
             // Setup
             var random = new Random(22);
@@ -81,7 +81,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
         }
 
         [Test]
-        public void Read_NullParameters_ReturnsOvertoppingRateAssessmentOutputWithNaN()
+        public void Read_NullParameters_ReturnsOvertoppingRateOutputWithNaN()
         {
             // Setup
             var random = new Random(22);

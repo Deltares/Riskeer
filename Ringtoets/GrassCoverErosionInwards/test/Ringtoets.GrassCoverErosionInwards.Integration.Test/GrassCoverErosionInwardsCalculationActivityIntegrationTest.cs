@@ -468,7 +468,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             // Assert
             Assert.IsNotNull(calculation.Output);
             Assert.IsFalse(double.IsNaN(calculation.Output.ProbabilityAssessmentOutput.Reliability));
-            Assert.IsNull(calculation.Output.DikeHeightAssessmentOutput);
+            Assert.IsNull(calculation.Output.DikeHeightOutput);
             mocks.VerifyAll();
         }
 
@@ -558,9 +558,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             Assert.IsNotNull(calculation.Output);
             ProbabilityAssessmentOutput probabilisticAssessmentOutput = calculation.Output.ProbabilityAssessmentOutput;
             Assert.IsFalse(double.IsNaN(probabilisticAssessmentOutput.Reliability));
-            HydraulicLoadsOutput dikeHeightAssessmentOutput = calculation.Output.DikeHeightAssessmentOutput;
-            Assert.IsNotNull(dikeHeightAssessmentOutput);
-            Assert.IsFalse(double.IsNaN(dikeHeightAssessmentOutput.Result));
+            HydraulicLoadsOutput dikeHeightOutput = calculation.Output.DikeHeightOutput;
+            Assert.IsNotNull(dikeHeightOutput);
+            Assert.IsFalse(double.IsNaN(dikeHeightOutput.Result));
             mocks.VerifyAll();
         }
 
@@ -607,7 +607,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             // Assert
             Assert.IsNotNull(calculation.Output);
-            Assert.IsNull(calculation.Output.DikeHeightAssessmentOutput);
+            Assert.IsNull(calculation.Output.DikeHeightOutput);
             mocks.VerifyAll();
         }
 
