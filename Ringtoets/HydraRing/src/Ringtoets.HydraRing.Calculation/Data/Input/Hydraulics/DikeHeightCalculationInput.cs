@@ -63,7 +63,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
         /// <param name="exponentModelFactorShallowStandardDeviation">The standard deviation of the exponent model factor shallow.</param>
         /// <param name="exponentModelFactorShallowLowerBoundary">The lower boundary of the exponent model factor shallow.</param>
         /// <param name="exponentModelFactorShallowUpperBoundary">The upper boundary of the exponent model factor shallow.</param>
-        public DikeHeightCalculationInput(long hydraulicBoundaryLocationId, double norm,
+        public DikeHeightCalculationInput(long hydraulicBoundaryLocationId,
+                                          double norm,
                                           double sectionNormal,
                                           IEnumerable<HydraRingRoughnessProfilePoint> profilePoints,
                                           IEnumerable<HydraRingForelandPoint> forelandPoints,
@@ -79,7 +80,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
                                           double modelFactorFrunupLowerBoundary, double modelFactorFrunupUpperBoundary,
                                           double exponentModelFactorShallowMean, double exponentModelFactorShallowStandardDeviation,
                                           double exponentModelFactorShallowLowerBoundary, double exponentModelFactorShallowUpperBoundary)
-            : base(hydraulicBoundaryLocationId, norm,
+            : base(hydraulicBoundaryLocationId,
+                   norm,
                    sectionNormal,
                    profilePoints,
                    forelandPoints,
@@ -105,7 +107,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
         {
             get
             {
-                var variables = base.Variables.ToList();
+                List<HydraRingVariable> variables = base.Variables.ToList();
                 variables.AddRange(GetVariables());
 
                 return variables.OrderBy(v => v.VariableId);
