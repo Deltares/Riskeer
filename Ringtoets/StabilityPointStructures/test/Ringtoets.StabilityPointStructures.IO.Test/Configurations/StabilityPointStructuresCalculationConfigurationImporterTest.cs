@@ -49,7 +49,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
         {
             get
             {
-                const string testNameFormat = "StabilityPointStructuresConfigImporter.Import_InvalidData({0:80})";
+                const string testNameFormat = "Import_InvalidData({0:80})";
                 yield return new TestCaseData(
                         "validConfigurationAllowedLevelIncreaseStorageMeanInvalid.xml",
                         "Een gemiddelde van '-0,2' is ongeldig voor stochast 'peilverhogingkomberging'. " +
