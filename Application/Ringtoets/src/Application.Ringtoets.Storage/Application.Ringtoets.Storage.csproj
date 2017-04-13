@@ -68,7 +68,7 @@
     <Compile Include="Create\DuneErosion\DuneLocationOutputCreateExtensions.cs" />
     <Compile Include="Create\DuneErosion\GeneralDuneErosionInputCreateExtensions.cs" />
     <Compile Include="Create\ForeshoreProfileCreateExtensions.cs" />
-    <Compile Include="Create\GrassCoverErosionInwards\DikeHeightAssessmentOutputCreateExtensions.cs" />
+    <Compile Include="Create\GrassCoverErosionInwards\HydraulicLoadsOutputCreateExtensions.cs" />
     <Compile Include="Create\GrassCoverErosionOutwards\GeneralGrassCoverErosionOutwardsInputCreateExtensions.cs" />
     <Compile Include="Create\GrassCoverErosionOutwards\GrassCoverErosionOutwardsWaveConditionsCalculationCreateExtensions.cs" />
     <Compile Include="Create\HeightStructures\GeneralHeightStructuresInputCreateExtensions.cs" />

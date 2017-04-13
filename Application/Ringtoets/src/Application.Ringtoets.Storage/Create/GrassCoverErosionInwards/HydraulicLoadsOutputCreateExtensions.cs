@@ -30,7 +30,7 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
     /// <see cref="GrassCoverErosionInwardsDikeHeightOutputEntity"/> or a 
     /// <see cref="GrassCoverErosionInwardsOvertoppingRateOutputEntity"/>.
     /// </summary>
-    internal static class DikeHeightAssessmentOutputCreateExtensions
+    internal static class HydraulicLoadsOutputCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="GrassCoverErosionInwardsDikeHeightOutputEntity"/>

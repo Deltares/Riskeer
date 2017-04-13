@@ -31,7 +31,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
 {
     [TestFixture]
-    public class DikeHeightAssessmentOutputCreateExtensionsTest
+    public class HydraulicLoadsOutputCreateExtensionsTest
     {
         [Test]
         public void CreateDikeHeight_OutputNull_ThrowArgumentNullException()
