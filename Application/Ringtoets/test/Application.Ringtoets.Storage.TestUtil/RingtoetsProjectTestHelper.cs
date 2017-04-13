@@ -913,6 +913,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                                 StandardDeviation = (RoundedDouble) 2.2
                             },
                             DikeHeightCalculationType = DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
+                            OvertoppingRateCalculationType = OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability,
                             UseForeshore = true,
                             UseBreakWater = true
                         },
