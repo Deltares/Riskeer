@@ -502,7 +502,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         public void Calculate_CalculationValid_ReturnOutput([Values(true, false)] bool useForeland,
                                                             [Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
                                                                 DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability,
-                                                                DikeHeightCalculationType.NoCalculation)] DikeHeightCalculationType dikeHeightCalculationType)
+                                                                DikeHeightCalculationType.NoCalculation)] DikeHeightCalculationType dikeHeightCalculationType,
+                                                            [Values(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm,
+                                                                OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability,
+                                                                OvertoppingRateCalculationType.NoCalculation)] OvertoppingRateCalculationType overtoppingRateCalculationType)
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
@@ -522,6 +525,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = dikeProfile,
                     DikeHeightCalculationType = dikeHeightCalculationType,
+                    OvertoppingRateCalculationType = overtoppingRateCalculationType,
                     UseForeshore = useForeland
                 }
             };
@@ -546,6 +550,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             Assert.IsFalse(double.IsNaN(probabilityAssessmentOutput.RequiredProbability));
             Assert.IsFalse(double.IsNaN(probabilityAssessmentOutput.RequiredReliability));
             Assert.IsFalse(calculation.Output.IsOvertoppingDominant);
+
             if (dikeHeightCalculationType != DikeHeightCalculationType.NoCalculation)
             {
                 HydraulicLoadsOutput dikeHeightOutput = calculation.Output.DikeHeightOutput;
@@ -560,6 +565,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             else
             {
                 Assert.IsNull(calculation.Output.DikeHeightOutput);
+            }
+
+            if (overtoppingRateCalculationType != OvertoppingRateCalculationType.NoCalculation)
+            {
+                HydraulicLoadsOutput overtoppingRateOutput = calculation.Output.OvertoppingRateOutput;
+                Assert.IsNotNull(overtoppingRateOutput);
+
+                Assert.IsFalse(double.IsNaN(overtoppingRateOutput.Result));
+                Assert.IsFalse(double.IsNaN(overtoppingRateOutput.TargetProbability));
+                Assert.IsFalse(double.IsNaN(overtoppingRateOutput.TargetReliability));
+                Assert.IsFalse(double.IsNaN(overtoppingRateOutput.CalculatedProbability));
+                Assert.IsFalse(double.IsNaN(overtoppingRateOutput.CalculatedReliability));
+            }
+            else
+            {
+                Assert.IsNull(calculation.Output.OvertoppingRateOutput);
             }
 
             mockRepository.VerifyAll();
@@ -633,6 +654,73 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
+        [TestCase(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm, TestName = "Calculate_OvertoppingRateCalculationFails_OutputNotNull(AssessmentSectionNorm)")]
+        [TestCase(OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Calculate_OvertoppingRateCalculationFails_OutputNotNull(ProfileProbability)")]
+        public void Calculate_OvertoppingRateCalculationFails_OutputNotNull(OvertoppingRateCalculationType overtoppingRateCalculationType)
+        {
+            // Setup
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository,
+                                                                                                           validFile);
+            mockRepository.ReplayAll();
+
+            DikeProfile dikeProfile = GetDikeProfile();
+
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    DikeProfile = dikeProfile,
+                    OvertoppingRateCalculationType = overtoppingRateCalculationType
+                }
+            };
+
+            var expectedExceptionThrown = false;
+
+            // Call
+            Action call = () =>
+            {
+                try
+                {
+                    using (new HydraRingCalculatorFactoryConfig())
+                    {
+                        TestHydraulicLoadsCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).OvertoppingRateCalculator;
+                        calculator.EndInFailure = true;
+                        new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
+                                                                                   assessmentSectionStub,
+                                                                                   failureMechanism.GeneralInput,
+                                                                                   failureMechanism.Contribution,
+                                                                                   validFile);
+                    }
+                }
+                catch (HydraRingFileParserException)
+                {
+                    expectedExceptionThrown = true;
+                }
+            };
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                string[] msgs = messages.ToArray();
+                Assert.AreEqual(5, msgs.Length);
+                StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
+                StringAssert.StartsWith("De overloop en overslag berekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
+                StringAssert.StartsWith($"De overslagdebiet berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt.", msgs[2]);
+                StringAssert.StartsWith("De overslagdebiet berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
+                StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[4]);
+            });
+            Assert.IsFalse(expectedExceptionThrown);
+            Assert.IsNotNull(calculation.Output);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
         public void Calculate_CancelWithValidOvertoppingCalculationInput_CancelsCalculatorAndHasNullOutput()
         {
             // Setup
@@ -678,7 +766,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
         [Test]
         [Combinatorial]
-        public void Calculate_CancelWithValidDikeCalculationInput_CancelsCalculatorAndHasNullOutput(
+        public void Calculate_CancelWithValidDikeHeightCalculationInput_CancelsCalculatorAndHasNullOutput(
             [Values(true, false)] bool cancelBeforeDikeHeightCalculationStarts,
             [Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
                 DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)] DikeHeightCalculationType dikeHeightCalculationType)
@@ -738,10 +826,68 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, TestName = "Calculate_OvertoppingCalculationFailedWithExceptionLastError_LogErrorAndThrowException(AssessmentSectionNorm)")]
-        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Calculate_OvertoppingCalculationFailedWithExceptionLastError_LogErrorAndThrowException(ProfileProbability)")]
-        [TestCase(DikeHeightCalculationType.NoCalculation, TestName = "Calculate_OvertoppingCalculationFailedWithExceptionLastError_LogErrorAndThrowException(NoCalculation)")]
-        public void Calculate_OvertoppingCalculationFailedWithExceptionAndLastErrorPresent_LogErrorAndThrowException(DikeHeightCalculationType dikeHeightCalculationType)
+        [Combinatorial]
+        public void Calculate_CancelWithValidOvertoppingRateCalculationInput_CancelsCalculatorAndHasNullOutput(
+            [Values(true, false)] bool cancelBeforeOvertoppingRateCalculationStarts,
+            [Values(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm,
+                OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability)] OvertoppingRateCalculationType overtoppingRateCalculationType)
+        {
+            // Setup
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository,
+                                                                                                           validFile);
+            mockRepository.ReplayAll();
+
+            const string name = "<very nice name>";
+
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                Name = name,
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    DikeProfile = new TestDikeProfile(),
+                    OvertoppingRateCalculationType = overtoppingRateCalculationType
+                }
+            };
+
+            var service = new GrassCoverErosionInwardsCalculationService();
+
+            // Call
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var testFactory = (TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance;
+                TestOvertoppingCalculator overToppingCalculator = testFactory.OvertoppingCalculator;
+                TestHydraulicLoadsCalculator overtoppingRateCalculator = testFactory.OvertoppingRateCalculator;
+
+                if (cancelBeforeOvertoppingRateCalculationStarts)
+                {
+                    overToppingCalculator.CalculationFinishedHandler += (s, e) => service.Cancel();
+                }
+                else
+                {
+                    overtoppingRateCalculator.CalculationFinishedHandler += (s, e) => service.Cancel();
+                }
+
+                // Call
+                service.Calculate(calculation,
+                                  assessmentSectionStub,
+                                  failureMechanism.GeneralInput,
+                                  failureMechanism.Contribution,
+                                  validFile);
+
+                // Assert
+                Assert.IsNull(calculation.Output);
+                Assert.IsTrue(overToppingCalculator.IsCanceled);
+                Assert.IsTrue(overtoppingRateCalculator.IsCanceled);
+            }
+        }
+
+        [Test]
+        public void Calculate_OvertoppingCalculationFailedWithExceptionAndLastErrorPresent_LogErrorAndThrowException()
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
@@ -759,8 +905,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
-                    DikeProfile = dikeProfile,
-                    DikeHeightCalculationType = dikeHeightCalculationType
+                    DikeProfile = dikeProfile
                 }
             };
 
@@ -805,10 +950,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, TestName = "Calculate_OvertoppingCalculationFailedWithExceptionNoLastError_LogErrorThrowException(AssessmentSectionNorm)")]
-        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Calculate_OvertoppingCalculationFailedWithExceptionNoLastError_LogErrorThrowException(ProfileProbability)")]
-        [TestCase(DikeHeightCalculationType.NoCalculation, TestName = "Calculate_OvertoppingCalculationFailedWithExceptionNoLastError_LogErrorThrowException(NoCalculation)")]
-        public void Calculate_OvertoppingCalculationFailedWithExceptionAndNoLastErrorPresent_LogErrorAndThrowException(DikeHeightCalculationType dikeHeightCalculationType)
+        public void Calculate_OvertoppingCalculationFailedWithExceptionAndNoLastErrorPresent_LogErrorAndThrowException()
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
@@ -826,8 +968,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
-                    DikeProfile = dikeProfile,
-                    DikeHeightCalculationType = dikeHeightCalculationType
+                    DikeProfile = dikeProfile
                 }
             };
 
@@ -871,10 +1012,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, TestName = "Calculate_OvertoppingCalculationFailedNoExceptionWithLastError_LogErrorThrowException(AssessmentSectionNorm)")]
-        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Calculate_OvertoppingCalculationFailedNoExceptionWithLastError_LogErrorThrowException(ProfileProbability)")]
-        [TestCase(DikeHeightCalculationType.NoCalculation, TestName = "Calculate_OvertoppingCalculationFailedNoExceptionWithLastError_LogErrorThrowException(NoCalculation)")]
-        public void Calculate_OvertoppingCalculationFailedWithoutExceptionAndWithLastErrorPresent_LogErrorAndThrowException(DikeHeightCalculationType dikeHeightCalculationType)
+        public void Calculate_OvertoppingCalculationFailedWithoutExceptionAndWithLastErrorPresent_LogErrorAndThrowException()
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
@@ -892,8 +1030,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
-                    DikeProfile = dikeProfile,
-                    DikeHeightCalculationType = dikeHeightCalculationType
+                    DikeProfile = dikeProfile
                 }
             };
 
