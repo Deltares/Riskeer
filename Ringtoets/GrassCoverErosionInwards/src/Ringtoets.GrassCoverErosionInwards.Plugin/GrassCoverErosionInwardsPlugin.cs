@@ -917,10 +917,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                                                   GrassCoverErosionInwardsInput actualInput)
         {
             return currentUseBreakWater != actualInput.UseBreakWater
-                   && !Equals(currentBreakWater, actualInput.BreakWater)
-                   && currentOrientation != actualInput.Orientation
-                   && currentDikeHeight != actualInput.DikeHeight
-                   && currentUseForeshore != actualInput.UseForeshore;
+                   || !Equals(currentBreakWater, actualInput.BreakWater)
+                   || currentOrientation != actualInput.Orientation
+                   || currentDikeHeight != actualInput.DikeHeight
+                   || currentUseForeshore != actualInput.UseForeshore;
         }
 
         #endregion

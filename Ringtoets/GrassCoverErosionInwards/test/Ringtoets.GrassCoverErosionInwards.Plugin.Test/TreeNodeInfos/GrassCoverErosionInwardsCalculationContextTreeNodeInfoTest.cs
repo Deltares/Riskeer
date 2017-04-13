@@ -640,6 +640,100 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
+        public void GivenCalculationWithDikeProfileWithOutput_WhenDikeProfileHasPartialChangeInDerivedInputAndUpdateDikeProfileClicked_ThenOutputRemovedAndObserversNotified()
+        {
+            using (var treeViewControl = new TreeViewControl())
+            {
+                // Given
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+                var dikeProfile = new DikeProfile(new Point2D(0, 0),
+                                                  new[]
+                                                  {
+                                                      new RoughnessPoint(new Point2D(1.1, 2.2), 3),
+                                                      new RoughnessPoint(new Point2D(3.3, 4.4), 5)
+                                                  },
+                                                  new[]
+                                                  {
+                                                      new Point2D(1.1, 2.2),
+                                                      new Point2D(3.3, 4.4)
+                                                  },
+                                                  new BreakWater(BreakWaterType.Caisson, 10),
+                                                  new DikeProfile.ConstructionProperties
+                                                  {
+                                                      Id = "ID"
+                                                  });
+                const double orientation = 10;
+                const bool useForeshore = true;
+                var calculation = new GrassCoverErosionInwardsCalculation
+                {
+                    InputParameters =
+                    {
+                        DikeProfile = dikeProfile,
+                        DikeHeight = (RoundedDouble) 30.0,
+                        Orientation = (RoundedDouble) orientation,
+                        UseForeshore = useForeshore,
+                        UseBreakWater = false
+                    },
+                    Output = new TestGrassCoverErosionInwardsOutput()
+                };
+                var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+                var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSection);
+
+                var inputObserver = mocks.StrictMock<IObserver>();
+                inputObserver.Expect(obs => obs.UpdateObserver());
+                calculation.InputParameters.Attach(inputObserver);
+
+                var calculationObserver = mocks.StrictMock<IObserver>();
+                calculationObserver.Expect(obs => obs.UpdateObserver());
+                calculation.Attach(calculationObserver);
+
+                var mainWindow = mocks.Stub<IMainWindow>();
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                string textBoxMessage = null;
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var helper = new MessageBoxTester(wnd);
+                    textBoxMessage = helper.Text;
+                    helper.ClickOk();
+                };
+
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
+                {
+                    // When
+                    UpdateDikeProfile(dikeProfile);
+                    menu.Items[contextMenuUpdateDikeProfileIndex].PerformClick();
+
+                    // Then
+                    Assert.IsFalse(calculation.HasOutput);
+
+                    GrassCoverErosionInwardsInput inputParameters = calculation.InputParameters;
+                    Assert.AreSame(dikeProfile, inputParameters.DikeProfile);
+                    Assert.AreEqual(dikeProfile.Orientation, inputParameters.Orientation);
+                    Assert.AreEqual(dikeProfile.DikeHeight, inputParameters.DikeHeight);
+
+                    Assert.AreEqual(dikeProfile.HasBreakWater, inputParameters.UseBreakWater);
+                    Assert.AreEqual(dikeProfile.BreakWater, inputParameters.BreakWater);
+                    bool expectedUseForeShore = dikeProfile.ForeshoreGeometry.Count() > 1;
+                    Assert.AreEqual(expectedUseForeShore, inputParameters.UseForeshore);
+
+                    string expectedMessage = "Wanneer het dijkprofiel wijzigt als gevolg van het bijwerken, " +
+                                             "zal het resultaat van deze berekening worden " +
+                                             $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
+                    Assert.AreEqual(expectedMessage, textBoxMessage);
+
+                    // Note: observer assertions are verified in the Teardown()
+                }
+            }
+        }
+
+        [Test]
         public void ContextMenuStrip_NoHydraulicBoundaryDatabase_ContextMenuItemPerformCalculationDisabledAndTooltipSet()
         {
             // Setup
