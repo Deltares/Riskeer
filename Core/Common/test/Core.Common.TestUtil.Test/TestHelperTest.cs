@@ -157,7 +157,7 @@ namespace Core.Common.TestUtil.Test
             string actualPath = TestHelper.GetScratchPadPath();
 
             // Assert
-            var expectedPath = Path.Combine(TestHelper.SolutionRoot, "Scratchpad");
+            string expectedPath = Path.Combine(TestHelper.SolutionRoot, "Scratchpad");
             Assert.AreEqual(expectedPath, actualPath);
             Assert.IsTrue(Directory.Exists(actualPath),
                           $"The directory '{expectedPath}' should exist, such that unit tests have a clean environment to temporarily write files and directories to.");
@@ -173,7 +173,7 @@ namespace Core.Common.TestUtil.Test
             string actualPath = TestHelper.GetScratchPadPath(subPath);
 
             // Assert
-            var expectedPath = Path.Combine(TestHelper.SolutionRoot, "Scratchpad", subPath);
+            string expectedPath = Path.Combine(TestHelper.SolutionRoot, "Scratchpad", subPath);
             Assert.AreEqual(expectedPath, actualPath);
             Assert.IsFalse(File.Exists(actualPath),
                            $"The file '{expectedPath}' should not exist, as the folder should always be empty at the start of any unit test.");
@@ -184,7 +184,9 @@ namespace Core.Common.TestUtil.Test
         [Test]
         public void GetTestDataPath_Always_VerifiedTestPaths()
         {
-            string path = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage);
+            string path = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration.Core);
+            Assert.IsTrue(Directory.Exists(path));
+            path = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage);
             Assert.IsTrue(Directory.Exists(path));
 
             path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Gui);
@@ -351,7 +353,7 @@ namespace Core.Common.TestUtil.Test
         public void AssertImagesAreEqual_TwoIdenticalImages_NoAssertionErrors(string resourceName)
         {
             // Setup
-            Bitmap image = Resources.ResourceManager.GetObject(resourceName) as Bitmap;
+            var image = Resources.ResourceManager.GetObject(resourceName) as Bitmap;
 
             // Call
             TestDelegate call = () => TestHelper.AssertImagesAreEqual(image, image);
@@ -419,7 +421,7 @@ namespace Core.Common.TestUtil.Test
         {
             // Setup
             var contextMenuStrip = new ContextMenuStrip();
-            var testItem = CreateContextMenuItem();
+            ToolStripMenuItem testItem = CreateContextMenuItem();
             contextMenuStrip.Items.Add(testItem);
 
             // Call
@@ -434,7 +436,7 @@ namespace Core.Common.TestUtil.Test
         {
             // Setup
             var contextMenuStrip = new ContextMenuStrip();
-            var testItem = CreateContextMenuItem();
+            ToolStripMenuItem testItem = CreateContextMenuItem();
             contextMenuStrip.Items.Add(testItem);
 
             // Call
@@ -449,7 +451,7 @@ namespace Core.Common.TestUtil.Test
         {
             // Setup
             var contextMenuStrip = new ContextMenuStrip();
-            var testItem = CreateContextMenuItem();
+            ToolStripMenuItem testItem = CreateContextMenuItem();
             contextMenuStrip.Items.Add(testItem);
 
             // Call
@@ -466,7 +468,7 @@ namespace Core.Common.TestUtil.Test
         {
             // Setup
             var contextMenuStrip = new ContextMenuStrip();
-            var testItem = CreateContextMenuItem();
+            ToolStripMenuItem testItem = CreateContextMenuItem();
             testItem.Enabled = enabled;
             contextMenuStrip.Items.Add(testItem);
 
@@ -482,7 +484,7 @@ namespace Core.Common.TestUtil.Test
         {
             // Setup
             var contextMenuStrip = new ContextMenuStrip();
-            var testItem = CreateContextMenuItem();
+            ToolStripMenuItem testItem = CreateContextMenuItem();
             contextMenuStrip.Items.Add(testItem);
 
             // Call & Assert
@@ -514,7 +516,7 @@ namespace Core.Common.TestUtil.Test
         {
             // Setup
             var dropDownItem = new TestToolStripDropDownItem();
-            var testItem = CreateContextMenuItem();
+            ToolStripMenuItem testItem = CreateContextMenuItem();
             dropDownItem.DropDownItems.Add(testItem);
 
             // Call
@@ -529,7 +531,7 @@ namespace Core.Common.TestUtil.Test
         {
             // Setup
             var dropDownItem = new TestToolStripDropDownItem();
-            var testItem = CreateContextMenuItem();
+            ToolStripMenuItem testItem = CreateContextMenuItem();
             dropDownItem.DropDownItems.Add(testItem);
 
             // Call
@@ -544,7 +546,7 @@ namespace Core.Common.TestUtil.Test
         {
             // Setup
             var dropDownItem = new TestToolStripDropDownItem();
-            var testItem = CreateContextMenuItem();
+            ToolStripMenuItem testItem = CreateContextMenuItem();
             dropDownItem.DropDownItems.Add(testItem);
 
             // Call
@@ -561,7 +563,7 @@ namespace Core.Common.TestUtil.Test
         {
             // Setup
             var dropDownItem = new TestToolStripDropDownItem();
-            var testItem = CreateContextMenuItem();
+            ToolStripMenuItem testItem = CreateContextMenuItem();
             testItem.Enabled = enabled;
             dropDownItem.DropDownItems.Add(testItem);
 
@@ -577,7 +579,7 @@ namespace Core.Common.TestUtil.Test
         {
             // Setup
             var dropDownItem = new TestToolStripDropDownItem();
-            var testItem = CreateContextMenuItem();
+            ToolStripMenuItem testItem = CreateContextMenuItem();
             dropDownItem.DropDownItems.Add(testItem);
 
             // Call & Assert
@@ -631,7 +633,7 @@ namespace Core.Common.TestUtil.Test
         public void AssertExceptionCustomMessage_MessageWithNewLinesMessage_NoExceptions(string argument)
         {
             // Setup
-            var someMessage = string.Join(Environment.NewLine, "Exception", "second line");
+            string someMessage = string.Join(Environment.NewLine, "Exception", "second line");
             TestDelegate t = () => { throw new ArgumentException(someMessage, argument); };
 
             // Call & Assert
