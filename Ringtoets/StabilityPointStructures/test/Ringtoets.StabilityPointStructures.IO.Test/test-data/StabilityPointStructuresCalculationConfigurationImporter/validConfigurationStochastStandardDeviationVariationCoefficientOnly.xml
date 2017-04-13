@@ -46,7 +46,7 @@
       <stochast naam="bermbreedte">
         <standaardafwijking>0.1</standaardafwijking>
       </stochast>
-      <stochast naam="aanvaarenergie">
+      <stochast naam="bezwijkwaardeaanvaarenergie">
         <variatiecoefficient>0.1</variatiecoefficient>
       </stochast>
       <stochast naam="massaschip">

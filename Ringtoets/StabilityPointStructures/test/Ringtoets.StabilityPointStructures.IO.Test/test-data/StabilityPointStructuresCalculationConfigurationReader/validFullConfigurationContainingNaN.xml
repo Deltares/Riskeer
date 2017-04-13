@@ -81,7 +81,7 @@
         <verwachtingswaarde>NaN</verwachtingswaarde>
         <standaardafwijking>NaN</standaardafwijking>
       </stochast>
-      <stochast naam="aanvaarenergie">
+      <stochast naam="bezwijkwaardeaanvaarenergie">
         <verwachtingswaarde>NaN</verwachtingswaarde>
         <variatiecoefficient>NaN</variatiecoefficient>
       </stochast>

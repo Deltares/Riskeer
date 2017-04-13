@@ -71,7 +71,7 @@
           <verwachtingswaarde>0.01</verwachtingswaarde>
           <standaardafwijking>0.02</standaardafwijking>
         </stochast>
-        <stochast naam="aanvaarenergie">
+        <stochast naam="bezwijkwaardeaanvaarenergie">
           <verwachtingswaarde>0.07</verwachtingswaarde>
           <variatiecoefficient>0.17</variatiecoefficient>
         </stochast>

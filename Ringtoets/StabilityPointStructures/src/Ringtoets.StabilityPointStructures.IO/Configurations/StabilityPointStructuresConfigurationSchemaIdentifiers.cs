@@ -59,7 +59,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
         /// <summary>
         /// The identifier for the failure collision energy stochast name.
         /// </summary>
-        public const string FailureCollisionEnergyStochastName = "aanvaarenergie";
+        public const string FailureCollisionEnergyStochastName = "bezwijkwaardeaanvaarenergie";
 
         /// <summary>
         /// The identifier for the failure probability of repairing a closure elements.

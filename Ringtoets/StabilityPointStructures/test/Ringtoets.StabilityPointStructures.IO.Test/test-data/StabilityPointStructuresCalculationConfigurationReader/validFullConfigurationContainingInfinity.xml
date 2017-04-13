@@ -81,7 +81,7 @@
         <verwachtingswaarde>INF</verwachtingswaarde>
         <standaardafwijking>-INF</standaardafwijking>
       </stochast>
-      <stochast naam="aanvaarenergie">
+      <stochast naam="bezwijkwaardeaanvaarenergie">
         <verwachtingswaarde>INF</verwachtingswaarde>
         <variatiecoefficient>-INF</variatiecoefficient>
       </stochast>

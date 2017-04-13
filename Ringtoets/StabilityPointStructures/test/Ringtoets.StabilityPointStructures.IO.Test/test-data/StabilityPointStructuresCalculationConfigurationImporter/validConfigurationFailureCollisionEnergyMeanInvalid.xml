@@ -3,7 +3,7 @@
   <berekening naam="Berekening 1">
     <kunstwerk>kunstwerk1</kunstwerk>
     <stochasten>
-      <stochast naam="aanvaarenergie">
+      <stochast naam="bezwijkwaardeaanvaarenergie">
         <verwachtingswaarde>-0.2</verwachtingswaarde>
         <variatiecoefficient>0.1</variatiecoefficient>
       </stochast>

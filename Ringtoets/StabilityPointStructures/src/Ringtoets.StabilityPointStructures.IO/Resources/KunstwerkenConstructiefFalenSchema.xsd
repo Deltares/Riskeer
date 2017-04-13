@@ -61,7 +61,7 @@ All rights reserved.
   <xs:redefine schemaLocation="StochastSchema.xsd">
     <xs:simpleType name="nameType">
       <xs:restriction base="nameType">
-        <xs:enumeration value="aanvaarenergie"/>
+        <xs:enumeration value="bezwijkwaardeaanvaarenergie"/>
         <xs:enumeration value="aanvaarsnelheid"/>
         <xs:enumeration value="afvoercoefficient"/>
         <xs:enumeration value="bermbreedte"/>

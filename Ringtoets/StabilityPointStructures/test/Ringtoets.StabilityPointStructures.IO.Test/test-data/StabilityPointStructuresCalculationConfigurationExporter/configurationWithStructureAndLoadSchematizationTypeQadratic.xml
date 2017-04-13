@@ -59,7 +59,7 @@
       <stochast naam="afvoercoefficient">
         <verwachtingswaarde>1</verwachtingswaarde>
       </stochast>
-      <stochast naam="aanvaarenergie">
+      <stochast naam="bezwijkwaardeaanvaarenergie">
         <verwachtingswaarde>567.89</verwachtingswaarde>
         <variatiecoefficient>0.57</variatiecoefficient>
       </stochast>

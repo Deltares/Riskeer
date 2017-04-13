@@ -54,7 +54,7 @@
       <stochast naam="bermbreedte">
         <verwachtingswaarde>1.2</verwachtingswaarde>
       </stochast>
-      <stochast naam="aanvaarenergie">
+      <stochast naam="bezwijkwaardeaanvaarenergie">
         <verwachtingswaarde>1.2</verwachtingswaarde>
       </stochast>
       <stochast naam="massaschip">

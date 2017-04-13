@@ -158,17 +158,17 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
 
                 yield return new TestCaseData(
                         "validConfigurationFailureCollisionEnergyMeanInvalid.xml",
-                        "Een gemiddelde van '-0,2' is ongeldig voor stochast 'aanvaarenergie'. " +
+                        "Een gemiddelde van '-0,2' is ongeldig voor stochast 'bezwijkwaardeaanvaarenergie'. " +
                         "Gemiddelde moet groter zijn dan 0.")
                     .SetName(testNameFormat);
                 yield return new TestCaseData(
                         "validConfigurationFailureCollisionEnergyVariationCoefficientInvalid.xml",
-                        "Een variatiecoëfficiënt van '-0,01' is ongeldig voor stochast 'aanvaarenergie'. " +
+                        "Een variatiecoëfficiënt van '-0,01' is ongeldig voor stochast 'bezwijkwaardeaanvaarenergie'. " +
                         "Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0.")
                     .SetName(testNameFormat);
                 yield return new TestCaseData(
                         "validConfigurationFailureCollisionEnergyStandardDeviation.xml",
-                        "Indien voor parameter 'aanvaarenergie' de spreiding wordt opgegeven, moet dit door middel van een variatiecoëfficiënt. " +
+                        "Indien voor parameter 'bezwijkwaardeaanvaarenergie' de spreiding wordt opgegeven, moet dit door middel van een variatiecoëfficiënt. " +
                         "Voor berekening 'Berekening 1' is een standaardafwijking gevonden.")
                     .SetName(testNameFormat);
 
