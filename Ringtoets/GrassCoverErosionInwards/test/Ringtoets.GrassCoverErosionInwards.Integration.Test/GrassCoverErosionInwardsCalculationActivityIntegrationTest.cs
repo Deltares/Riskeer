@@ -92,13 +92,25 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        [Combinatorial]
-        public void Run_CombinationOfCalculations_ProgressTextSetAccordingly([Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
-                                                                                 DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability,
-                                                                                 DikeHeightCalculationType.NoCalculation)] DikeHeightCalculationType dikeHeightCalculationType,
-                                                                             [Values(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm,
-                                                                                 OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability,
-                                                                                 OvertoppingRateCalculationType.NoCalculation)] OvertoppingRateCalculationType overtoppingRateCalculationType)
+        [TestCase(DikeHeightCalculationType.NoCalculation, OvertoppingRateCalculationType.NoCalculation,
+            TestName = "Run_OvertoppingOnly_ProgressTextSetAccordingly")]
+        [TestCase(DikeHeightCalculationType.NoCalculation, OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm,
+            TestName = "Run_OvertoppingRateNorm_ProgressTextSetAccordingly")]
+        [TestCase(DikeHeightCalculationType.NoCalculation, OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability,
+            TestName = "Run_OvertoppingRateRequiredProbability_ProgressTextSetAccordingly")]
+        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, OvertoppingRateCalculationType.NoCalculation,
+            TestName = "Run_DikeHeightNorm_ProgressTextSetAccordingly")]
+        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm,
+            TestName = "Run_DikeHeightNormAndOvertoppingRateNorm_ProgressTextSetAccordingly")]
+        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability,
+            TestName = "Run_DikeHeightNormAndOvertoppingRequiredProbability_ProgressTextSetAccordingly")]
+        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, OvertoppingRateCalculationType.NoCalculation,
+            TestName = "Run_DikeHeightRequiredProbability_ProgressTextSetAccordingly")]
+        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm,
+            TestName = "Run_DikeHeightRequiredProbabilityAndOvertoppingNorm_ProgressTextSetAccordingly")]
+        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability,
+            TestName = "Run_DikeHeightRequiredProbabilityAndOvertoppingRequiredProbability_ProgressTextSetAccordingly")]
+        public void Run_CombinationOfCalculations_ProgressTextSetAccordingly(DikeHeightCalculationType dikeHeightCalculationType, OvertoppingRateCalculationType overtoppingRateCalculationType)
         {
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
@@ -517,8 +529,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         #region Dike height calculations
 
         [Test]
-        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm)]
-        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)]
+        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, TestName = "Run_ValidDikeHeight_InputPropertiesCorrectlySendToService(Norm)")]
+        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Run_ValidDikeHeight_InputPropertiesCorrectlySendToService(RequiredProbability)")]
         public void Run_ValidDikeHeightCalculation_InputPropertiesCorrectlySendToService(DikeHeightCalculationType dikeHeightCalculationType)
         {
             // Setup
@@ -593,8 +605,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm)]
-        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)]
+        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, TestName = "Run_InvalidDikeHeightWithExceptionAndLastErrorPresent_LogError(Norm)")]
+        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Run_InvalidDikeHeightWithExceptionAndLastErrorPresent_LogError(RequiredProbability)")]
         public void Run_InvalidDikeHeightCalculationWithExceptionAndLastErrorPresent_LogError(DikeHeightCalculationType dikeHeightCalculationType)
         {
             // Setup
@@ -641,8 +653,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm)]
-        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)]
+        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, TestName = "Run_InvalidDikeHeightWithExceptionAndNoLastErrorPresent_LogError(Norm)")]
+        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Run_InvalidDikeHeightWithExceptionAndNoLastErrorPresent_LogError(RequiredProbability)")]
         public void Run_InvalidDikeHeightCalculationWithExceptionAndNoLastErrorPresent_LogError(DikeHeightCalculationType dikeHeightCalculationType)
         {
             // Setup
@@ -688,8 +700,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm)]
-        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)]
+        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, TestName = "Run_InvalidDikeHeightWithoutExceptionAndLastErrorPresent_LogError(Norm)")]
+        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Run_InvalidDikeHeightWithoutExceptionAndLastErrorPresent_LogError(RequiredProbability)")]
         public void Run_InvalidDikeHeightCalculationWithoutExceptionAndWithLastErrorPresent_LogError(DikeHeightCalculationType dikeHeightCalculationType)
         {
             // Setup
@@ -736,8 +748,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm)]
-        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)]
+        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, TestName = "Run_ValidDikeHeight_CalculateValidateAndLog(Norm)")]
+        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Run_ValidDikeHeight_CalculateValidateAndLog(RequiredProbability)")]
         public void Run_ValidDikeHeightCalculation_PerformValidationAndCalculationAndLogStartAndEndError(DikeHeightCalculationType dikeHeightCalculationType)
         {
             // Setup
@@ -790,8 +802,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm)]
-        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)]
+        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, TestName = "Finish_InvalidDikeHeight_OutputSetAndObserversNotified(Norm)")]
+        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Finish_InvalidDikeHeight_OutputSetAndObserversNotified(RequiredProbability)")]
         public void Finish_InvalidDikeHeightCalculation_OutputSetAndObserversNotified(DikeHeightCalculationType dikeHeightCalculationType)
         {
             // Setup
@@ -837,8 +849,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm)]
-        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)]
+        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, TestName = "Finish_ValidDikeHeight_OutputSetAndObserversNotified(Norm)")]
+        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Finish_ValidDikeHeight_OutputSetAndObserversNotified(RequiredProbability)")]
         public void Finish_ValidDikeHeightCalculation_OutputSetAndObserversNotified(DikeHeightCalculationType dikeHeightCalculationType)
         {
             // Setup
@@ -888,8 +900,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         #region Overtopping rate calculations
 
         [Test]
-        [TestCase(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm)]
-        [TestCase(OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability)]
+        [TestCase(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm, TestName = "Run_ValidOvertoppingRate_InputPropertiesCorrectlySendToService(Norm)")]
+        [TestCase(OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Run_ValidOvertoppingRate_InputPropertiesCorrectlySendToService(RequiredProbability)")]
         public void Run_ValidOvertoppingRateCalculation_InputPropertiesCorrectlySendToService(OvertoppingRateCalculationType overtoppingRateCalculationType)
         {
             // Setup
@@ -963,8 +975,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        [TestCase(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm)]
-        [TestCase(OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability)]
+        [TestCase(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm, TestName = "Run_InvalidOvertoppingRateWithExceptionAndLastErrorPresent_LogError(Norm)")]
+        [TestCase(OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Run_InvalidOvertoppingRateWithExceptionAndLastErrorPresent_LogError(RequiredProbability)")]
         public void Run_InvalidOvertoppingRateCalculationWithExceptionAndLastErrorPresent_LogError(OvertoppingRateCalculationType overtoppingRateCalculationType)
         {
             // Setup
@@ -1011,8 +1023,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        [TestCase(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm)]
-        [TestCase(OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability)]
+        [TestCase(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm, TestName = "Run_InvalidOvertoppingRateWithExceptionAndNoLastErrorPresent_LogError(Norm)")]
+        [TestCase(OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Run_InvalidOvertoppingRateWithExceptionAndNoLastErrorPresent_LogError(RequiredProbability)")]
         public void Run_InvalidOvertoppingRateCalculationWithExceptionAndNoLastErrorPresent_LogError(OvertoppingRateCalculationType overtoppingRateCalculationType)
         {
             // Setup
@@ -1058,8 +1070,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        [TestCase(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm)]
-        [TestCase(OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability)]
+        [TestCase(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm, TestName = "Run_InvalidOvertoppingRateWithoutExceptionAndLastErrorPresent_LogError(Norm)")]
+        [TestCase(OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Run_InvalidOvertoppingRateWithoutExceptionAndLastErrorPresent_LogError(RequiredProbability)")]
         public void Run_InvalidOvertoppingRateCalculationWithoutExceptionAndWithLastErrorPresent_LogError(OvertoppingRateCalculationType overtoppingRateCalculationType)
         {
             // Setup
@@ -1106,8 +1118,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        [TestCase(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm)]
-        [TestCase(OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability)]
+        [TestCase(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm, TestName = "Run_ValidOvertoppingRate_CalculateValidateAndLog(Norm)")]
+        [TestCase(OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Run_ValidOvertoppingRate_CalculateValidateAndLog(RequiredProbability)")]
         public void Run_ValidOvertoppingRateCalculation_PerformValidationAndCalculationAndLogStartAndEndError(OvertoppingRateCalculationType overtoppingRateCalculationType)
         {
             // Setup
@@ -1160,8 +1172,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        [TestCase(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm)]
-        [TestCase(OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability)]
+        [TestCase(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm, TestName = "Finish_InvalidOvertoppingRate_OutputSetAndObserversNotified(Norm)")]
+        [TestCase(OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Finish_InvalidOvertoppingRate_OutputSetAndObserversNotified(RequiredProbability)")]
         public void Finish_InvalidOvertoppingRateCalculation_OutputSetAndObserversNotified(OvertoppingRateCalculationType overtoppingRateCalculationType)
         {
             // Setup
@@ -1207,8 +1219,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        [TestCase(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm)]
-        [TestCase(OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability)]
+        [TestCase(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm, TestName = "Finish_ValidOvertoppingRate_OutputSetAndObserversNotified(Norm)")]
+        [TestCase(OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Finish_ValidOvertoppingRate_OutputSetAndObserversNotified(RequiredProbability)")]
         public void Finish_ValidOvertoppingRateCalculation_OutputSetAndObserversNotified(OvertoppingRateCalculationType overtoppingRateCalculationType)
         {
             // Setup
