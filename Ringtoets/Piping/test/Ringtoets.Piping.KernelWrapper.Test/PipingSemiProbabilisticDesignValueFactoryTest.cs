@@ -226,14 +226,14 @@ namespace Ringtoets.Piping.KernelWrapper.Test
 
         #endregion
 
-        private void AssertPercentile<T>(double percentile, DesignVariable<T> designVariable) where T : IDistribution
+        private static void AssertPercentile<T>(double percentile, DesignVariable<T> designVariable) where T : IDistribution
         {
             Assert.IsInstanceOf<PercentileBasedDesignVariable<T>>(designVariable);
             var percentileBasedDesignVariable = (PercentileBasedDesignVariable<T>) designVariable;
             Assert.AreEqual(percentile, percentileBasedDesignVariable.Percentile);
         }
 
-        private void AssertPercentile(double percentile, VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> designVariable)
+        private static void AssertPercentile(double percentile, VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> designVariable)
         {
             Assert.IsInstanceOf<VariationCoefficientLogNormalDistributionDesignVariable>(designVariable);
             var percentileBasedDesignVariable = (VariationCoefficientLogNormalDistributionDesignVariable)designVariable;

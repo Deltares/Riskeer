@@ -488,7 +488,7 @@ namespace Ringtoets.Piping.Data.Test
         public void ThicknessAquiferLayer_SoilProfileSingleAquiferUnderSurfaceLine_ReturnMeanExpectedThicknessAquiferLayer()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquifer();
             var derivedInput = new DerivedPipingInput(input);
 
             // Call

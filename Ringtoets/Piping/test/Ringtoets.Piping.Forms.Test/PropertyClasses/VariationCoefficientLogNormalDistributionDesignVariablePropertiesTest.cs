@@ -60,7 +60,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreSame(distribution, properties.Data);
             Assert.AreEqual(distribution.Mean, properties.Mean);
             Assert.AreEqual(distribution.CoefficientOfVariation, properties.CoefficientOfVariation);
-            Assert.AreEqual("Lognormaal", properties.DistributionType);            
+            Assert.AreEqual("Lognormaal", properties.DistributionType);
         }
 
         [Test]
@@ -73,8 +73,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Call
             TestDelegate test = () => new VariationCoefficientLogNormalDistributionDesignVariableProperties(VariationCoefficientDistributionPropertiesReadOnly.None,
-                                                                                        null,
-                                                                                        handler);
+                                                                                                            null,
+                                                                                                            handler);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -95,8 +95,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Call
             var properties = new VariationCoefficientLogNormalDistributionDesignVariableProperties(VariationCoefficientDistributionPropertiesReadOnly.All,
-                                                              designVariable,
-                                                              handler);
+                                                                                                   designVariable,
+                                                                                                   handler);
 
             // Assert
             Assert.IsInstanceOf<VariationCoefficientDesignVariableProperties<VariationCoefficientLogNormalDistribution>>(properties);
@@ -120,8 +120,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Call
             var properties = new VariationCoefficientLogNormalDistributionDesignVariableProperties(VariationCoefficientDistributionPropertiesReadOnly.None,
-                                                                               designVariable,
-                                                                               handler);
+                                                                                                   designVariable,
+                                                                                                   handler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -172,8 +172,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Call
             var properties = new VariationCoefficientLogNormalDistributionDesignVariableProperties(VariationCoefficientDistributionPropertiesReadOnly.None,
-                                                                               designVariable,
-                                                                               handler);
+                                                                                                   designVariable,
+                                                                                                   handler);
 
             // Assert
             Assert.AreEqual("Lognormaal", properties.DistributionType);

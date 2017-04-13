@@ -23,7 +23,6 @@ using System;
 using System.Globalization;
 using Core.Common.Base;
 using Core.Common.Base.Data;
-using MathNet.Numerics.Distributions;
 using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Common.Data.Probabilistics
@@ -71,21 +70,6 @@ namespace Ringtoets.Common.Data.Probabilistics
                 }
                 percentile = value;
             }
-        }
-
-        /// <summary>
-        /// Determines the design value based on a 'normal space' expected value and standard deviation.
-        /// </summary>
-        /// <param name="expectedValue">The expected value.</param>
-        /// <param name="standardDeviation">The standard deviation.</param>
-        /// <returns>The design value</returns>
-        protected double DetermineDesignValue(double expectedValue, double standardDeviation)
-        {
-            // Design factor is determined using the 'probit function', which is the inverse
-            // CDF function of the standard normal distribution. For more information see:
-            // "Quantile function" https://en.wikipedia.org/wiki/Normal_distribution
-            double designFactor = Normal.InvCDF(0.0, 1.0, Percentile);
-            return expectedValue + designFactor * standardDeviation;
         }
     }
 }

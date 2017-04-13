@@ -69,6 +69,38 @@ namespace Ringtoets.Piping.Data.TestUtil
         }
 
         /// <summary>
+        /// Creates piping input with an aquifer layer.
+        /// </summary>
+        /// <param name="thicknessAquiferLayer">The thickness of the aquifer layer.</param>
+        /// <returns>A new <see cref="PipingInput"/>.</returns>
+        public static PipingInput CreateInputWithAquifer(double thicknessAquiferLayer = 1.0)
+        {
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 0, 0.0),
+                new Point3D(1.0, 0, 0.0)
+            });
+            var stochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
+            {
+                SoilProfile = new PipingSoilProfile(string.Empty, -thicknessAquiferLayer, new[]
+                {
+                    new PipingSoilLayer(0.0)
+                    {
+                        IsAquifer = true
+                    }
+                }, SoilProfileType.SoilProfile1D, 0)
+            };
+
+            return new PipingInput(new GeneralPipingInput())
+            {
+                SurfaceLine = surfaceLine,
+                StochasticSoilProfile = stochasticSoilProfile,
+                ExitPointL = (RoundedDouble) 0.5
+            };
+        }
+
+        /// <summary>
         /// Creates piping input with a single aquifer layer above the surface line.
         /// </summary>
         /// <param name="deltaAboveSurfaceLine">The distance between the aquifer layer and the surface line.</param>

@@ -111,7 +111,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             public override string DistributionType { get; }
         }
 
-        public class SimpleVariationCoefficientDesignVariableProperties : VariationCoefficientDesignVariable<IVariationCoefficientDistribution>
+        private class SimpleVariationCoefficientDesignVariableProperties : VariationCoefficientDesignVariable<IVariationCoefficientDistribution>
         {
             private RoundedDouble designValue;
 

@@ -707,7 +707,7 @@ namespace Ringtoets.Piping.Data.Test
             LogNormalDistribution thicknessAquiferLayer = input.ThicknessAquiferLayer;
 
             // Assert
-            Assert.AreEqual(expectedThickness, thicknessAquiferLayer.Mean, 1e-6);
+            Assert.AreEqual(expectedThickness, thicknessAquiferLayer.Mean);
         }
 
         [Test]
@@ -751,7 +751,7 @@ namespace Ringtoets.Piping.Data.Test
         public void ThicknessAquiferLayer_SoilProfileSingleAquiferUnderSurfaceLine_ThicknessAquiferLayerMeanSet()
         {
             // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquifer();
 
             // Call
             LogNormalDistribution thicknessAquiferLayer = input.ThicknessAquiferLayer;
@@ -771,7 +771,7 @@ namespace Ringtoets.Piping.Data.Test
             LogNormalDistribution thicknessAquiferLayer = input.ThicknessAquiferLayer;
 
             // Assert
-            Assert.AreEqual(expectedThickness, thicknessAquiferLayer.Mean, 1e-6);
+            Assert.AreEqual(expectedThickness, thicknessAquiferLayer.Mean);
         }
 
         [Test]
@@ -840,7 +840,7 @@ namespace Ringtoets.Piping.Data.Test
             LogNormalDistribution thicknessAquiferLayer = input.ThicknessAquiferLayer;
 
             // Assert
-            Assert.AreEqual(2.0, thicknessAquiferLayer.Mean, 1e-6);
+            Assert.AreEqual(2.0, thicknessAquiferLayer.Mean);
         }
 
         [Test]
