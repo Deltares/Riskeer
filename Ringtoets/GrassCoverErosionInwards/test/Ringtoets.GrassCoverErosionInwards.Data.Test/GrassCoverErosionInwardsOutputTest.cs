@@ -45,8 +45,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             const double overtoppingRate = 0.9;
 
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(requiredProbability, requiredReliability, probability, reliability, factorOfSafety);
-            var dikeHeightAssessmentOutput = new TestSubCalculationAssessmentOutput(dikeHeight);
-            var overtoppingRateAssessmentOutput = new TestSubCalculationAssessmentOutput(overtoppingRate);
+            var dikeHeightAssessmentOutput = new TestHydraulicLoadsOutput(dikeHeight);
+            var overtoppingRateAssessmentOutput = new TestHydraulicLoadsOutput(overtoppingRate);
 
             // Call
             var output = new GrassCoverErosionInwardsOutput(waveHeight, true, probabilityAssessmentOutput, dikeHeightAssessmentOutput, overtoppingRateAssessmentOutput);

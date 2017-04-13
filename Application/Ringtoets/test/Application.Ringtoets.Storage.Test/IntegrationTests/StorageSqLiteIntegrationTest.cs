@@ -1567,8 +1567,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             AssertDikeHeightAssessmentOutput(expectedOutput.DikeHeightAssessmentOutput, actualOutput.DikeHeightAssessmentOutput);
         }
 
-        private static void AssertDikeHeightAssessmentOutput(SubCalculationAssessmentOutput expectedOutput,
-                                                             SubCalculationAssessmentOutput actualOutput)
+        private static void AssertDikeHeightAssessmentOutput(HydraulicLoadsOutput expectedOutput,
+                                                             HydraulicLoadsOutput actualOutput)
         {
             if (expectedOutput == null)
             {

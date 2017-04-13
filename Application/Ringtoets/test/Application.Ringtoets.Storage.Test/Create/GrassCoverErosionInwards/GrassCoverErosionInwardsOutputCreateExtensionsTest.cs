@@ -46,12 +46,12 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
                                                                               random.NextDouble());
             var dikeHeightConvergence = random.NextEnumValue<CalculationConvergence>();
             var overtoppingRateConvergence = random.NextEnumValue<CalculationConvergence>();
-            var dikeHeightAssessmentOutput = new SubCalculationAssessmentOutput(random.NextDouble(), random.NextDouble(),
-                                                                                random.NextDouble(), random.NextDouble(),
-                                                                                random.NextDouble(), dikeHeightConvergence);
-            var overtoppingRateAssessmentOutput = new SubCalculationAssessmentOutput(random.NextDouble(), random.NextDouble(),
-                                                                                     random.NextDouble(), random.NextDouble(),
-                                                                                     random.NextDouble(), overtoppingRateConvergence);
+            var dikeHeightAssessmentOutput = new HydraulicLoadsOutput(random.NextDouble(), random.NextDouble(),
+                                                                      random.NextDouble(), random.NextDouble(),
+                                                                      random.NextDouble(), dikeHeightConvergence);
+            var overtoppingRateAssessmentOutput = new HydraulicLoadsOutput(random.NextDouble(), random.NextDouble(),
+                                                                           random.NextDouble(), random.NextDouble(),
+                                                                           random.NextDouble(), overtoppingRateConvergence);
             var output = new GrassCoverErosionInwardsOutput(random.NextDouble(), false, probabilityAssessmentOutput,
                                                             dikeHeightAssessmentOutput, overtoppingRateAssessmentOutput);
 
@@ -90,8 +90,8 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         {
             // Setup
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
-            var dikeHeightAssessmentOutput = new TestSubCalculationAssessmentOutput(double.NaN, CalculationConvergence.CalculatedConverged);
-            var overtoppingRateAssessmentOutput = new TestSubCalculationAssessmentOutput(double.NaN, CalculationConvergence.CalculatedConverged);
+            var dikeHeightAssessmentOutput = new TestHydraulicLoadsOutput(double.NaN, CalculationConvergence.CalculatedConverged);
+            var overtoppingRateAssessmentOutput = new TestHydraulicLoadsOutput(double.NaN, CalculationConvergence.CalculatedConverged);
             var output = new GrassCoverErosionInwardsOutput(double.NaN, true, probabilityAssessmentOutput, dikeHeightAssessmentOutput, overtoppingRateAssessmentOutput);
 
             // Call

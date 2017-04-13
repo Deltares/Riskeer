@@ -28,32 +28,32 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
 {
     /// <summary>
     /// Extension methods for <see cref="GrassCoverErosionInwardsOvertoppingRateOutputEntity"/>
-    /// related to creating a <see cref="SubCalculationAssessmentOutput"/>.
+    /// related to creating a <see cref="HydraulicLoadsOutput"/>.
     /// </summary>
     internal static class GrassCoverErosionInwardsOvertoppingRateOutputEntityReadExtensions
     {
         /// <summary>
         /// Reads the <see cref="GrassCoverErosionInwardsOvertoppingRateOutputEntity"/> and use
-        /// the information to construct a <see cref="SubCalculationAssessmentOutput"/>.
+        /// the information to construct a <see cref="HydraulicLoadsOutput"/>.
         /// </summary>
         /// <param name="entity">The <see cref="GrassCoverErosionInwardsOvertoppingRateOutputEntity"/>
-        /// to create <see cref="SubCalculationAssessmentOutput"/> for.</param>
-        /// <returns>A new <see cref="SubCalculationAssessmentOutput"/>.</returns>
+        /// to create <see cref="HydraulicLoadsOutput"/> for.</param>
+        /// <returns>A new <see cref="HydraulicLoadsOutput"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/>
         /// is <c>null</c>.</exception>
-        internal static SubCalculationAssessmentOutput Read(this GrassCoverErosionInwardsOvertoppingRateOutputEntity entity)
+        internal static HydraulicLoadsOutput Read(this GrassCoverErosionInwardsOvertoppingRateOutputEntity entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            return new SubCalculationAssessmentOutput(entity.OvertoppingRate.ToNullAsNaN(),
-                                                      entity.TargetProbability.ToNullAsNaN(),
-                                                      entity.TargetReliability.ToNullAsNaN(),
-                                                      entity.CalculatedProbability.ToNullAsNaN(),
-                                                      entity.CalculatedReliability.ToNullAsNaN(),
-                                                      (CalculationConvergence) entity.CalculationConvergence);
+            return new HydraulicLoadsOutput(entity.OvertoppingRate.ToNullAsNaN(),
+                                            entity.TargetProbability.ToNullAsNaN(),
+                                            entity.TargetReliability.ToNullAsNaN(),
+                                            entity.CalculatedProbability.ToNullAsNaN(),
+                                            entity.CalculatedReliability.ToNullAsNaN(),
+                                            (CalculationConvergence) entity.CalculationConvergence);
         }
     }
 }

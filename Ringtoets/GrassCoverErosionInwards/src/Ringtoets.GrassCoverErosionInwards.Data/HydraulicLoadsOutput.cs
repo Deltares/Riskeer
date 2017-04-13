@@ -27,12 +27,12 @@ using Ringtoets.Common.Data.Probability;
 namespace Ringtoets.GrassCoverErosionInwards.Data
 {
     /// <summary>
-    /// This class contains the result of a grass cover erosion inwards sub calculation.
+    /// This class contains the result of a hydraulic loads calculation.
     /// </summary>
-    public class SubCalculationAssessmentOutput
+    public class HydraulicLoadsOutput
     {
         /// <summary>
-        /// Creates a new instance of <see cref="SubCalculationAssessmentOutput"/>.
+        /// Creates a new instance of <see cref="HydraulicLoadsOutput"/>.
         /// </summary>
         /// <param name="result">The calculated result.</param>
         /// <param name="targetProbability">The norm used during the calculation.</param>
@@ -42,9 +42,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <param name="calculationConvergence">The convergence status of the calculation.</param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="targetProbability"/> 
         /// or <paramref name="calculatedProbability"/> falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
-        public SubCalculationAssessmentOutput(double result, double targetProbability, double targetReliability,
-                                          double calculatedProbability, double calculatedReliability,
-                                          CalculationConvergence calculationConvergence)
+        public HydraulicLoadsOutput(double result, double targetProbability, double targetReliability,
+                                    double calculatedProbability, double calculatedReliability,
+                                    CalculationConvergence calculationConvergence)
         {
             ProbabilityHelper.ValidateProbability(targetProbability, nameof(targetProbability), true);
             ProbabilityHelper.ValidateProbability(calculatedProbability, nameof(calculatedProbability), true);

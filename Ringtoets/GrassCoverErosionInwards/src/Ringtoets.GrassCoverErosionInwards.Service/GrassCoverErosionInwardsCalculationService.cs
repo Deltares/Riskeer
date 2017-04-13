@@ -169,24 +169,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                     return;
                 }
 
-                SubCalculationAssessmentOutput dikeHeightOutput = CalculateDikeHeight(calculation,
-                                                                                      assessmentSection,
-                                                                                      generalInput,
-                                                                                      failureMechanismContribution,
-                                                                                      hydraulicBoundaryDatabaseFilePath,
-                                                                                      numberOfCalculators);
+                HydraulicLoadsOutput dikeHeightOutput = CalculateDikeHeight(calculation,
+                                                                            assessmentSection,
+                                                                            generalInput,
+                                                                            failureMechanismContribution,
+                                                                            hydraulicBoundaryDatabaseFilePath,
+                                                                            numberOfCalculators);
 
                 if (canceled)
                 {
                     return;
                 }
 
-                SubCalculationAssessmentOutput overtoppingRateOutput = CalculateOvertoppingRate(calculation,
-                                                                                                assessmentSection,
-                                                                                                generalInput,
-                                                                                                failureMechanismContribution,
-                                                                                                hydraulicBoundaryDatabaseFilePath,
-                                                                                                numberOfCalculators);
+                HydraulicLoadsOutput overtoppingRateOutput = CalculateOvertoppingRate(calculation,
+                                                                                      assessmentSection,
+                                                                                      generalInput,
+                                                                                      failureMechanismContribution,
+                                                                                      hydraulicBoundaryDatabaseFilePath,
+                                                                                      numberOfCalculators);
 
                 if (canceled)
                 {
@@ -261,12 +261,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                Resources.GrassCoverErosionInwardsCalculationService_Overtopping);
         }
 
-        private SubCalculationAssessmentOutput CalculateDikeHeight(GrassCoverErosionInwardsCalculation calculation,
-                                                                   IAssessmentSection assessmentSection,
-                                                                   GeneralGrassCoverErosionInwardsInput generalInput,
-                                                                   double failureMechanismContribution,
-                                                                   string hydraulicBoundaryDatabaseFilePath,
-                                                                   int numberOfCalculators)
+        private HydraulicLoadsOutput CalculateDikeHeight(GrassCoverErosionInwardsCalculation calculation,
+                                                         IAssessmentSection assessmentSection,
+                                                         GeneralGrassCoverErosionInwardsInput generalInput,
+                                                         double failureMechanismContribution,
+                                                         string hydraulicBoundaryDatabaseFilePath,
+                                                         int numberOfCalculators)
         {
             if (dikeHeightCalculator == null)
             {
@@ -315,12 +315,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                                         norm);
         }
 
-        private SubCalculationAssessmentOutput CalculateOvertoppingRate(GrassCoverErosionInwardsCalculation calculation,
-                                                                        IAssessmentSection assessmentSection,
-                                                                        GeneralGrassCoverErosionInwardsInput generalInput,
-                                                                        double failureMechanismContribution,
-                                                                        string hydraulicBoundaryDatabaseFilePath,
-                                                                        int numberOfCalculators)
+        private HydraulicLoadsOutput CalculateOvertoppingRate(GrassCoverErosionInwardsCalculation calculation,
+                                                              IAssessmentSection assessmentSection,
+                                                              GeneralGrassCoverErosionInwardsInput generalInput,
+                                                              double failureMechanismContribution,
+                                                              string hydraulicBoundaryDatabaseFilePath,
+                                                              int numberOfCalculators)
         {
             if (overtoppingRateCalculator == null)
             {
@@ -557,14 +557,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// <param name="stepName">The name of the step that is performed.</param>
         /// <param name="targetReliability">The target reliability for the calculation.</param>
         /// <param name="targetProbability">The target probability for the calculation.</param>
-        /// <returns>A <see cref="SubCalculationAssessmentOutput"/>.</returns>
+        /// <returns>A <see cref="HydraulicLoadsOutput"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="targetProbability"/> 
         /// or the calculated probability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
-        private static SubCalculationAssessmentOutput CreateHydraulicLoadsAssessmentOutput(IHydraulicLoadsCalculator calculator,
-                                                                                           string calculationName,
-                                                                                           string stepName,
-                                                                                           double targetReliability,
-                                                                                           double targetProbability)
+        private static HydraulicLoadsOutput CreateHydraulicLoadsAssessmentOutput(IHydraulicLoadsCalculator calculator,
+                                                                                 string calculationName,
+                                                                                 string stepName,
+                                                                                 double targetReliability,
+                                                                                 double targetProbability)
         {
             double value = calculator.Value;
             double reliability = calculator.ReliabilityIndex;
@@ -580,9 +580,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                   calculationName));
             }
 
-            return new SubCalculationAssessmentOutput(value, targetProbability,
-                                                      targetReliability, probability, reliability,
-                                                      converged);
+            return new HydraulicLoadsOutput(value, targetProbability,
+                                            targetReliability, probability, reliability,
+                                            converged);
         }
 
         private static IEnumerable<HydraRingRoughnessProfilePoint> ParseProfilePoints(RoughnessPoint[] roughnessProfilePoints)

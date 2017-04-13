@@ -58,13 +58,13 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
                                                    entity.FactorOfSafety.ToNullAsNaN());
         }
 
-        private static SubCalculationAssessmentOutput GetDikeHeightAssessmentOutput(GrassCoverErosionInwardsOutputEntity entity)
+        private static HydraulicLoadsOutput GetDikeHeightAssessmentOutput(GrassCoverErosionInwardsOutputEntity entity)
         {
             GrassCoverErosionInwardsDikeHeightOutputEntity dikeHeightOutputEntity = entity.GrassCoverErosionInwardsDikeHeightOutputEntities.FirstOrDefault();
             return dikeHeightOutputEntity?.Read();
         }
 
-        private static SubCalculationAssessmentOutput GetOvertoppingRateAssessmentOutput(GrassCoverErosionInwardsOutputEntity entity)
+        private static HydraulicLoadsOutput GetOvertoppingRateAssessmentOutput(GrassCoverErosionInwardsOutputEntity entity)
         {
             GrassCoverErosionInwardsOvertoppingRateOutputEntity overtoppingRateOutputEntity = entity.GrassCoverErosionInwardsOvertoppingRateOutputEntities.FirstOrDefault();
             return overtoppingRateOutputEntity?.Read();

@@ -69,7 +69,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             };
 
             // Call
-            SubCalculationAssessmentOutput output = entity.Read();
+            HydraulicLoadsOutput output = entity.Read();
 
             // Assert
             Assert.AreEqual(overtoppingRate, output.Result, output.Result.GetAccuracy());
@@ -92,7 +92,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             };
 
             // Call
-            SubCalculationAssessmentOutput output = entity.Read();
+            HydraulicLoadsOutput output = entity.Read();
 
             // Assert
             Assert.IsNaN(output.Result);

@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.TestUtil;
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 {
     [TestFixture]
-    public class SubCalculationAssessmentOutputTest
+    public class HydraulicLoadsOutputTest
     {
         [Test]
         [SetCulture("nl-NL")]
@@ -45,11 +45,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             var convergence = random.NextEnumValue<CalculationConvergence>();
 
             // Call
-            TestDelegate call = () => new SubCalculationAssessmentOutput(result, targetProbability,
-                                                                         targetReliability,
-                                                                         calculatedProbability,
-                                                                         calculatedReliability,
-                                                                         convergence);
+            TestDelegate call = () => new HydraulicLoadsOutput(result, targetProbability,
+                                                               targetReliability,
+                                                               calculatedProbability,
+                                                               calculatedReliability,
+                                                               convergence);
 
             // Assert
             var exception = Assert.Throws<ArgumentOutOfRangeException>(call);
@@ -72,11 +72,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             var convergence = random.NextEnumValue<CalculationConvergence>();
 
             // Call
-            TestDelegate call = () => new SubCalculationAssessmentOutput(result, targetProbability,
-                                                                         targetReliability,
-                                                                         calculatedProbability,
-                                                                         calculatedReliability,
-                                                                         convergence);
+            TestDelegate call = () => new HydraulicLoadsOutput(result, targetProbability,
+                                                               targetReliability,
+                                                               calculatedProbability,
+                                                               calculatedReliability,
+                                                               convergence);
 
             // Assert
             var exception = Assert.Throws<ArgumentOutOfRangeException>(call);
@@ -97,11 +97,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             var convergence = random.NextEnumValue<CalculationConvergence>();
 
             // Call
-            var output = new SubCalculationAssessmentOutput(result, targetProbability,
-                                                            targetReliability,
-                                                            calculatedProbability,
-                                                            calculatedReliability,
-                                                            convergence);
+            var output = new HydraulicLoadsOutput(result, targetProbability,
+                                                  targetReliability,
+                                                  calculatedProbability,
+                                                  calculatedReliability,
+                                                  convergence);
 
             // Assert
             Assert.AreEqual(result, output.Result, output.Result.GetAccuracy());

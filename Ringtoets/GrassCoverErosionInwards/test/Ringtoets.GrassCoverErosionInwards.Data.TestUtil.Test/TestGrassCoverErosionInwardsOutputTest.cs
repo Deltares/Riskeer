@@ -38,8 +38,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil.Test
             Assert.AreEqual(0.0, output.WaveHeight.Value);
             Assert.IsTrue(output.IsOvertoppingDominant);
             Assert.IsInstanceOf<ProbabilityAssessmentOutput>(output.ProbabilityAssessmentOutput);
-            Assert.IsInstanceOf<TestSubCalculationAssessmentOutput>(output.DikeHeightAssessmentOutput);
-            Assert.IsInstanceOf<TestSubCalculationAssessmentOutput>(output.OvertoppingRateAssessmentOutput);
+            Assert.IsInstanceOf<TestHydraulicLoadsOutput>(output.DikeHeightAssessmentOutput);
+            Assert.IsInstanceOf<TestHydraulicLoadsOutput>(output.OvertoppingRateAssessmentOutput);
         }
     }
 }

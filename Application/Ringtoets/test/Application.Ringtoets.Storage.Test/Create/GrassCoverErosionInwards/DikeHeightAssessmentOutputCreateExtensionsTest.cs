@@ -37,7 +37,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         public void CreateDikeHeight_OutputNull_ThrowArgumentNullException()
         {
             // Setup
-            SubCalculationAssessmentOutput output = null;
+            HydraulicLoadsOutput output = null;
 
             // Call
             TestDelegate test = () => output.CreateDikeHeight();
@@ -52,7 +52,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         {
             // Setup
             var random = new Random(21);
-            var output = new SubCalculationAssessmentOutput(
+            var output = new HydraulicLoadsOutput(
                 random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
                 random.NextDouble(), random.NextEnumValue<CalculationConvergence>());
 
@@ -74,8 +74,8 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         {
             // Setup
             var random = new Random(21);
-            var output = new SubCalculationAssessmentOutput(double.NaN, double.NaN, double.NaN,
-                                                            double.NaN, double.NaN, random.NextEnumValue<CalculationConvergence>());
+            var output = new HydraulicLoadsOutput(double.NaN, double.NaN, double.NaN,
+                                                  double.NaN, double.NaN, random.NextEnumValue<CalculationConvergence>());
 
             // Call
             GrassCoverErosionInwardsDikeHeightOutputEntity entity = output.CreateDikeHeight();
@@ -94,7 +94,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         public void CreateOvertoppingRate_OutputNull_ThrowArgumentNullException()
         {
             // Setup
-            SubCalculationAssessmentOutput output = null;
+            HydraulicLoadsOutput output = null;
 
             // Call
             TestDelegate test = () => output.CreateOvertoppingRate();
@@ -109,7 +109,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         {
             // Setup
             var random = new Random(21);
-            var output = new SubCalculationAssessmentOutput(
+            var output = new HydraulicLoadsOutput(
                 random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
                 random.NextDouble(), random.NextEnumValue<CalculationConvergence>());
 
@@ -131,8 +131,8 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         {
             // Setup
             var random = new Random(21);
-            var output = new SubCalculationAssessmentOutput(double.NaN, double.NaN, double.NaN,
-                                                            double.NaN, double.NaN, random.NextEnumValue<CalculationConvergence>());
+            var output = new HydraulicLoadsOutput(double.NaN, double.NaN, double.NaN,
+                                                  double.NaN, double.NaN, random.NextEnumValue<CalculationConvergence>());
 
             // Call
             GrassCoverErosionInwardsOvertoppingRateOutputEntity entity = output.CreateOvertoppingRate();
