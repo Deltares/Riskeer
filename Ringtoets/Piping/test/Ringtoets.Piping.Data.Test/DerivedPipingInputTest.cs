@@ -1178,9 +1178,9 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             var expectedMean = new RoundedDouble(6, permeabilityMean);
-            var expectedCoefficientOfVariaiotn = new RoundedDouble(6, permeabilityCoefficientOfVariation);
+            var expectedCoefficientOfVariation = new RoundedDouble(6, permeabilityCoefficientOfVariation);
             Assert.AreEqual(expectedMean, result.Mean);
-            Assert.AreEqual(expectedCoefficientOfVariaiotn, result.CoefficientOfVariation, result.CoefficientOfVariation.GetAccuracy());
+            Assert.AreEqual(expectedCoefficientOfVariation, result.CoefficientOfVariation, result.CoefficientOfVariation.GetAccuracy());
         }
 
         [Test]

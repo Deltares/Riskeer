@@ -41,7 +41,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         private const int permeabilityMeanColumnIndex = 4;
         private const int permeabilityCoefficientOfVariationColumnIndex = 5;
         private const int d70MeanColumnIndex = 6;
-        private const int d70DeviationColumnIndex = 7;
+        private const int d70CoefficientOfVariationColumnIndex = 7;
         private const int belowPhreaticLevelWeightMeanColumnIndex = 8;
         private const int belowPhreaticLevelWeightDeviationColumnIndex = 9;
         private const int belowPhreaticLevelWeightShiftColumnIndex = 10;
@@ -53,27 +53,27 @@ namespace Ringtoets.Piping.Forms.Test.Views
             using (var table = new PipingSoilLayerTable())
             {
                 // Assert
-                var nameColumn = table.GetColumnFromIndex(nameColumnIndex);
+                DataGridViewColumn nameColumn = table.GetColumnFromIndex(nameColumnIndex);
                 Assert.AreEqual("Naam", nameColumn.HeaderText);
-                var colorColumn = table.GetColumnFromIndex(colorColumnIndex);
+                DataGridViewColumn colorColumn = table.GetColumnFromIndex(colorColumnIndex);
                 Assert.AreEqual("Kleur", colorColumn.HeaderText);
-                var topColumn = table.GetColumnFromIndex(topColumnIndex);
+                DataGridViewColumn topColumn = table.GetColumnFromIndex(topColumnIndex);
                 Assert.AreEqual("Topniveau [m+NAP]", topColumn.HeaderText);
-                var isAquiferColumn = table.GetColumnFromIndex(isAquiferColumnIndex);
+                DataGridViewColumn isAquiferColumn = table.GetColumnFromIndex(isAquiferColumnIndex);
                 Assert.AreEqual("Is aquifer", isAquiferColumn.HeaderText);
-                var permeabilityMeanColumn = table.GetColumnFromIndex(permeabilityMeanColumnIndex);
+                DataGridViewColumn permeabilityMeanColumn = table.GetColumnFromIndex(permeabilityMeanColumnIndex);
                 Assert.AreEqual("Doorlatendheid (verwachtingswaarde) [m/s]", permeabilityMeanColumn.HeaderText);
-                var permeabilityCoefficientOfVariationColumn = table.GetColumnFromIndex(permeabilityCoefficientOfVariationColumnIndex);
+                DataGridViewColumn permeabilityCoefficientOfVariationColumn = table.GetColumnFromIndex(permeabilityCoefficientOfVariationColumnIndex);
                 Assert.AreEqual("Doorlatendheid (variatiecoëfficiënt) [m/s]", permeabilityCoefficientOfVariationColumn.HeaderText);
-                var d70MeanColumn = table.GetColumnFromIndex(d70MeanColumnIndex);
+                DataGridViewColumn d70MeanColumn = table.GetColumnFromIndex(d70MeanColumnIndex);
                 Assert.AreEqual("d70 (verwachtingswaarde) [m]", d70MeanColumn.HeaderText);
-                var d70DeviationColumn = table.GetColumnFromIndex(d70DeviationColumnIndex);
+                DataGridViewColumn d70DeviationColumn = table.GetColumnFromIndex(d70CoefficientOfVariationColumnIndex);
                 Assert.AreEqual("d70 (variatiecoëfficiënt) [m]", d70DeviationColumn.HeaderText);
-                var belowPhreaticLevelWeightMeanColumn = table.GetColumnFromIndex(belowPhreaticLevelWeightMeanColumnIndex);
+                DataGridViewColumn belowPhreaticLevelWeightMeanColumn = table.GetColumnFromIndex(belowPhreaticLevelWeightMeanColumnIndex);
                 Assert.AreEqual("Verzadigd gewicht (verwachtingswaarde) [kN/m³]", belowPhreaticLevelWeightMeanColumn.HeaderText);
-                var belowPhreaticLevelWeightDeviationColumn = table.GetColumnFromIndex(belowPhreaticLevelWeightDeviationColumnIndex);
+                DataGridViewColumn belowPhreaticLevelWeightDeviationColumn = table.GetColumnFromIndex(belowPhreaticLevelWeightDeviationColumnIndex);
                 Assert.AreEqual("Verzadigd gewicht (standaardafwijking) [kN/m³]", belowPhreaticLevelWeightDeviationColumn.HeaderText);
-                var belowPhreaticLevelWeightShiftColumn = table.GetColumnFromIndex(belowPhreaticLevelWeightShiftColumnIndex);
+                DataGridViewColumn belowPhreaticLevelWeightShiftColumn = table.GetColumnFromIndex(belowPhreaticLevelWeightShiftColumnIndex);
                 Assert.AreEqual("Verzadigd gewicht (verschuiving) [kN/m³]", belowPhreaticLevelWeightShiftColumn.HeaderText);
 
                 Assert.Throws<ArgumentOutOfRangeException>(() => table.GetColumnFromIndex(belowPhreaticLevelWeightShiftColumnIndex + 1));
@@ -138,9 +138,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     new PipingSoilLayer(1.1)
                 };
                 table.SetData(new[]
-                              {
-                                  new PipingSoilLayer(1.0)
-                              });
+                {
+                    new PipingSoilLayer(1.0)
+                });
 
                 // Call
                 table.SetData(layers);
@@ -163,19 +163,19 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     CreatePipingSoilLayer()
                 };
                 table.SetData(new[]
-                              {
-                                  new PipingSoilLayer(1.0)
-                              });
+                {
+                    new PipingSoilLayer(1.0)
+                });
 
                 // Call
                 table.SetData(layers);
 
                 // Assert
                 Assert.AreEqual(3, table.Rows.Count);
-                for (int i = 0; i < table.Rows.Count; i++)
+                for (var i = 0; i < table.Rows.Count; i++)
                 {
-                    var pipingSoilLayer = layers[i];
-                    var rowCells = table.Rows[i].Cells;
+                    PipingSoilLayer pipingSoilLayer = layers[i];
+                    DataGridViewCellCollection rowCells = table.Rows[i].Cells;
                     AssertColumnValueEqual(pipingSoilLayer.MaterialName, rowCells[nameColumnIndex].Value);
                     AssertColumnValueEqual(pipingSoilLayer.Color, rowCells[colorColumnIndex].Value);
                     AssertColumnValueEqual(pipingSoilLayer.Top, rowCells[topColumnIndex].Value);
@@ -183,7 +183,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     AssertColumnValueEqual(pipingSoilLayer.PermeabilityMean, rowCells[permeabilityMeanColumnIndex].Value);
                     AssertColumnValueEqual(pipingSoilLayer.PermeabilityCoefficientOfVariation, rowCells[permeabilityCoefficientOfVariationColumnIndex].Value);
                     AssertColumnValueEqual(pipingSoilLayer.DiameterD70Mean, rowCells[d70MeanColumnIndex].Value);
-                    AssertColumnValueEqual(pipingSoilLayer.DiameterD70CoefficientOfVariation, rowCells[d70DeviationColumnIndex].Value);
+                    AssertColumnValueEqual(pipingSoilLayer.DiameterD70CoefficientOfVariation, rowCells[d70CoefficientOfVariationColumnIndex].Value);
                     AssertColumnValueEqual(pipingSoilLayer.BelowPhreaticLevelMean, rowCells[belowPhreaticLevelWeightMeanColumnIndex].Value);
                     AssertColumnValueEqual(pipingSoilLayer.BelowPhreaticLevelDeviation, rowCells[belowPhreaticLevelWeightDeviationColumnIndex].Value);
                     AssertColumnValueEqual(pipingSoilLayer.BelowPhreaticLevelShift, rowCells[belowPhreaticLevelWeightShiftColumnIndex].Value);
@@ -200,8 +200,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
             if (expectedValue is RoundedDouble)
             {
                 Assert.IsInstanceOf<RoundedDouble>(actualValue);
-                var expectedRoundedDouble = (RoundedDouble)expectedValue;
-                Assert.AreEqual(expectedRoundedDouble, (RoundedDouble)actualValue, expectedRoundedDouble.GetAccuracy());
+                var expectedRoundedDouble = (RoundedDouble) expectedValue;
+                Assert.AreEqual(expectedRoundedDouble, (RoundedDouble) actualValue, expectedRoundedDouble.GetAccuracy());
             }
         }
 

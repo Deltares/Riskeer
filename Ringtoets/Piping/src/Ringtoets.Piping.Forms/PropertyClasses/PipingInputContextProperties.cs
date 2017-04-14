@@ -28,7 +28,6 @@ using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
-using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -386,7 +385,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return new LogNormalDistributionDesignVariableProperties(PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(data.WrappedData));
+                return new LogNormalDistributionDesignVariableProperties(
+                    PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(data.WrappedData));
             }
         }
 
@@ -399,7 +399,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return new LogNormalDistributionDesignVariableProperties(PipingSemiProbabilisticDesignValueFactory.GetEffectiveThicknessCoverageLayer(data.WrappedData));
+                return new LogNormalDistributionDesignVariableProperties(
+                    PipingSemiProbabilisticDesignValueFactory.GetEffectiveThicknessCoverageLayer(data.WrappedData));
             }
         }
 
@@ -412,7 +413,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return new LogNormalDistributionDesignVariableProperties(PipingSemiProbabilisticDesignValueFactory.GetThicknessAquiferLayer(data.WrappedData));
+                return new LogNormalDistributionDesignVariableProperties(
+                    PipingSemiProbabilisticDesignValueFactory.GetThicknessAquiferLayer(data.WrappedData));
             }
         }
 
@@ -425,7 +427,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return new VariationCoefficientLogNormalDistributionDesignVariableProperties(PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(data.WrappedData));
+                return new VariationCoefficientLogNormalDistributionDesignVariableProperties(
+                    PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(data.WrappedData));
             }
         }
 
