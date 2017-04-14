@@ -713,7 +713,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
         [TestCase(false, true)]
         [TestCase(true, true)]
         [TestCase(false, false)]
-        public void TryReadStandardDeviationStochast_ValidStochastConfiguration_ReturnsTrueParametersSet(bool setMean, bool setStandardDeviation)
+        public void TrySetStandardDeviationStochast_ValidStochastConfiguration_ReturnsTrueParametersSet(bool setMean, bool setStandardDeviation)
         {
             // Setup
             string filePath = Path.Combine(readerPath, "validConfiguration.xml");
@@ -737,7 +737,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
             var input = new TestInputWithStochasts();
 
             // Call
-            bool valid = importer.PublicTryReadStandardDeviationStochast(
+            bool valid = importer.PublicTrySetStandardDeviationStochast(
                 "some stochast name",
                 "some calculation name",
                 input,
@@ -758,7 +758,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
         }
 
         [Test]
-        public void TryReadStandardDeviationStochast_StochastConfigurationWithStandardDeviation_LogsErrorReturnsFalse()
+        public void TrySetStandardDeviationStochast_StochastConfigurationWithStandardDeviation_LogsErrorReturnsFalse()
         {
             // Setup
             string filePath = Path.Combine(readerPath, "validConfiguration.xml");
@@ -777,7 +777,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
             const string calculationName = "some calculation name";
 
             // Call
-            Action validate = () => valid = importer.PublicTryReadStandardDeviationStochast(
+            Action validate = () => valid = importer.PublicTrySetStandardDeviationStochast(
                                         stochastName,
                                         calculationName,
                                         input, configuration,
@@ -796,7 +796,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
         [TestCase(false, true)]
         [TestCase(true, true)]
         [TestCase(false, false)]
-        public void TryReadVariationCoefficientStochast_ValidStochastConfiguration_ReturnsTrueParametersSet(bool setMean, bool setVariationCoefficient)
+        public void TrySetVariationCoefficientStochast_ValidStochastConfiguration_ReturnsTrueParametersSet(bool setMean, bool setVariationCoefficient)
         {
             // Setup
             string filePath = Path.Combine(readerPath, "validConfiguration.xml");
@@ -820,7 +820,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
             var input = new TestInputWithStochasts();
 
             // Call
-            bool valid = importer.PublicTryReadVariationCoefficientStochast(
+            bool valid = importer.PublicTrySetVariationCoefficientStochast(
                 "some stochast name",
                 "some calculation name",
                 input, configuration,
@@ -841,7 +841,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
         }
 
         [Test]
-        public void TryReadVariationCoefficientStochast_StochastConfigurationWithStandardDeviation_LogsErrorReturnsFalse()
+        public void TrySetVariationCoefficientStochast_StochastConfigurationWithStandardDeviation_LogsErrorReturnsFalse()
         {
             // Setup
             string filePath = Path.Combine(readerPath, "validConfiguration.xml");
@@ -860,7 +860,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
             const string calculationName = "some calculation name";
 
             // Call
-            Action validate = () => valid = importer.PublicTryReadVariationCoefficientStochast(
+            Action validate = () => valid = importer.PublicTrySetVariationCoefficientStochast(
                                         stochastName,
                                         calculationName,
                                         input, configuration,
@@ -900,7 +900,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
                 return TryReadStructure(locationName, calculationName, structures, out location);
             }
 
-            public bool PublicTryReadStandardDeviationStochast<TDistribution>(
+            public bool PublicTrySetStandardDeviationStochast<TDistribution>(
                 string stochastName,
                 string calculationName,
                 TestInputWithStochasts input,
@@ -909,10 +909,10 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
                 Action<TestInputWithStochasts, TDistribution> setStochast)
                 where TDistribution : IDistribution
             {
-                return TryReadStandardDeviationStochast(stochastName, calculationName, input, stochastConfiguration, getStochast, setStochast);
+                return TrySetStandardDeviationStochast(stochastName, calculationName, input, stochastConfiguration, getStochast, setStochast);
             }
 
-            public bool PublicTryReadVariationCoefficientStochast<TDistribution>(
+            public bool PublicTrySetVariationCoefficientStochast<TDistribution>(
                 string stochastName,
                 string calculationName,
                 TestInputWithStochasts input,
@@ -921,7 +921,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
                 Action<TestInputWithStochasts, TDistribution> setStochast)
                 where TDistribution : IVariationCoefficientDistribution
             {
-                return TryReadVariationCoefficientStochast(stochastName, calculationName, input, stochastConfiguration, getStochast, setStochast);
+                return TrySetVariationCoefficientStochast(stochastName, calculationName, input, stochastConfiguration, getStochast, setStochast);
             }
 
             protected override CalculationConfigurationReader CreateCalculationConfigurationReader(string xmlFilePath)

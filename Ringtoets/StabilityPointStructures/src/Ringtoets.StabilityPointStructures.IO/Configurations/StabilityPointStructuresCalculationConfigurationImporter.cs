@@ -163,132 +163,132 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
 
             string calculationName = calculation.Name;
             StabilityPointStructuresInput input = calculation.InputParameters;
-            return TryReadStandardDeviationStochast(
+            return TrySetStandardDeviationStochast(
                        ConfigurationSchemaIdentifiers.AllowedLevelIncreaseStorageStochastName,
                        calculationName,
                        input,
                        readCalculation.AllowedLevelIncreaseStorage,
                        i => i.AllowedLevelIncreaseStorage, (i, d) => i.AllowedLevelIncreaseStorage = d)
-                   && TryReadStandardDeviationStochast(
+                   && TrySetStandardDeviationStochast(
                        StabilityPointStructuresConfigurationSchemaIdentifiers.AreaFlowAperturesStochastName,
                        calculationName,
                        input,
                        readCalculation.AreaFlowApertures,
                        i => i.AreaFlowApertures, (i, d) => i.AreaFlowApertures = d)
-                   && TryReadStandardDeviationStochast(
+                   && TrySetStandardDeviationStochast(
                        StabilityPointStructuresConfigurationSchemaIdentifiers.BankWidthStochastName,
                        calculationName,
                        input,
                        readCalculation.BankWidth,
                        i => i.BankWidth, (i, d) => i.BankWidth = d)
-                   && TryReadVariationCoefficientStochast(
+                   && TrySetVariationCoefficientStochast(
                        ConfigurationSchemaIdentifiers.CriticalOvertoppingDischargeStochastName,
                        calculationName,
                        input,
                        readCalculation.CriticalOvertoppingDischarge,
                        i => i.CriticalOvertoppingDischarge, (i, d) => i.CriticalOvertoppingDischarge = d)
-                   && TryReadStandardDeviationStochast(
+                   && TrySetStandardDeviationStochast(
                        StabilityPointStructuresConfigurationSchemaIdentifiers.DrainCoefficientStochastName,
                        calculationName,
                        input,
                        readCalculation.DrainCoefficient,
                        i => i.DrainCoefficient, (i, d) => i.DrainCoefficient = d)
-                   && TryReadVariationCoefficientStochast(
+                   && TrySetVariationCoefficientStochast(
                        StabilityPointStructuresConfigurationSchemaIdentifiers.FailureCollisionEnergyStochastName,
                        calculationName,
                        input,
                        readCalculation.FailureCollisionEnergy,
                        i => i.FailureCollisionEnergy, (i, d) => i.FailureCollisionEnergy = d)
-                   && TryReadVariationCoefficientStochast(
+                   && TrySetVariationCoefficientStochast(
                        StabilityPointStructuresConfigurationSchemaIdentifiers.FlowVelocityStructureClosableStochastName,
                        calculationName,
                        input,
                        readCalculation.FlowVelocityStructureClosable,
                        i => i.FlowVelocityStructureClosable, (i, d) => i.FlowVelocityStructureClosable = d)
-                   && TryReadStandardDeviationStochast(
+                   && TrySetStandardDeviationStochast(
                        ConfigurationSchemaIdentifiers.FlowWidthAtBottomProtectionStochastName,
                        calculationName,
                        input,
                        readCalculation.FlowWidthAtBottomProtection,
                        i => i.FlowWidthAtBottomProtection, (i, d) => i.FlowWidthAtBottomProtection = d)
-                   && TryReadStandardDeviationStochast(
+                   && TrySetStandardDeviationStochast(
                        StabilityPointStructuresConfigurationSchemaIdentifiers.InsideWaterLevelStochastName,
                        calculationName,
                        input,
                        readCalculation.InsideWaterLevel,
                        i => i.InsideWaterLevel, (i, d) => i.InsideWaterLevel = d)
-                   && TryReadStandardDeviationStochast(
+                   && TrySetStandardDeviationStochast(
                        StabilityPointStructuresConfigurationSchemaIdentifiers.InsideWaterLevelFailureConstructionStochastName,
                        calculationName,
                        input,
                        readCalculation.InsideWaterLevelFailureConstruction,
                        i => i.InsideWaterLevelFailureConstruction, (i, d) => i.InsideWaterLevelFailureConstruction = d)
-                   && TryReadStandardDeviationStochast(
+                   && TrySetStandardDeviationStochast(
                        ConfigurationSchemaIdentifiers.ModelFactorSuperCriticalFlowStochastName,
                        calculationName,
                        input,
                        readCalculation.ModelFactorSuperCriticalFlow,
                        i => i.ModelFactorSuperCriticalFlow, (i, d) => i.ModelFactorSuperCriticalFlow = d)
-                   && TryReadStandardDeviationStochast(
+                   && TrySetStandardDeviationStochast(
                        StabilityPointStructuresConfigurationSchemaIdentifiers.LevelCrestStructureStochastName,
                        calculationName,
                        input,
                        readCalculation.LevelCrestStructure,
                        i => i.LevelCrestStructure, (i, d) => i.LevelCrestStructure = d)
-                   && TryReadVariationCoefficientStochast(
+                   && TrySetVariationCoefficientStochast(
                        StabilityPointStructuresConfigurationSchemaIdentifiers.ConstructiveStrengthLinearLoadModelStochastName,
                        calculationName,
                        input,
                        readCalculation.ConstructiveStrengthLinearLoadModel,
                        i => i.ConstructiveStrengthLinearLoadModel, (i, d) => i.ConstructiveStrengthLinearLoadModel = d)
-                   && TryReadVariationCoefficientStochast(
+                   && TrySetVariationCoefficientStochast(
                        StabilityPointStructuresConfigurationSchemaIdentifiers.ConstructiveStrengthQuadraticLoadModelStochastName,
                        calculationName,
                        input,
                        readCalculation.ConstructiveStrengthQuadraticLoadModel,
                        i => i.ConstructiveStrengthQuadraticLoadModel, (i, d) => i.ConstructiveStrengthQuadraticLoadModel = d)
-                   && TryReadVariationCoefficientStochast(
+                   && TrySetVariationCoefficientStochast(
                        StabilityPointStructuresConfigurationSchemaIdentifiers.ShipMassStochastName,
                        calculationName,
                        input,
                        readCalculation.ShipMass,
                        i => i.ShipMass, (i, d) => i.ShipMass = d)
-                   && TryReadVariationCoefficientStochast(
+                   && TrySetVariationCoefficientStochast(
                        StabilityPointStructuresConfigurationSchemaIdentifiers.ShipVelocityStochastName,
                        calculationName,
                        input,
                        readCalculation.ShipVelocity,
                        i => i.ShipVelocity, (i, d) => i.ShipVelocity = d)
-                   && TryReadVariationCoefficientStochast(
+                   && TrySetVariationCoefficientStochast(
                        StabilityPointStructuresConfigurationSchemaIdentifiers.StabilityLinearLoadModelStochastName,
                        calculationName,
                        input,
                        readCalculation.StabilityLinearLoadModel,
                        i => i.StabilityLinearLoadModel, (i, d) => i.StabilityLinearLoadModel = d)
-                   && TryReadVariationCoefficientStochast(
+                   && TrySetVariationCoefficientStochast(
                        StabilityPointStructuresConfigurationSchemaIdentifiers.StabilityQuadraticLoadModelStochastName,
                        calculationName,
                        input,
                        readCalculation.StabilityQuadraticLoadModel,
                        i => i.StabilityQuadraticLoadModel, (i, d) => i.StabilityQuadraticLoadModel = d)
-                   && TryReadVariationCoefficientStochast(
+                   && TrySetVariationCoefficientStochast(
                        ConfigurationSchemaIdentifiers.StorageStructureAreaStochastName,
                        calculationName,
                        input,
                        readCalculation.StorageStructureArea,
                        i => i.StorageStructureArea, (i, d) => i.StorageStructureArea = d)
-                   && TryReadVariationCoefficientStochast(
+                   && TrySetVariationCoefficientStochast(
                        ConfigurationSchemaIdentifiers.StormDurationStochastName,
                        calculationName,
                        input,
                        readCalculation.StormDuration,
                        i => i.StormDuration, (i, d) => i.StormDuration = d)
-                   && TryReadStandardDeviationStochast(
+                   && TrySetStandardDeviationStochast(
                        ConfigurationSchemaIdentifiers.WidthFlowAperturesStochastName,
                        calculationName,
                        input,
                        readCalculation.WidthFlowApertures, i => i.WidthFlowApertures, (i, d) => i.WidthFlowApertures = d)
-                   && TryReadStandardDeviationStochast(
+                   && TrySetStandardDeviationStochast(
                        StabilityPointStructuresConfigurationSchemaIdentifiers.ThresholdHeightOpenWeirStochastName,
                        calculationName,
                        input,

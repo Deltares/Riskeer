@@ -304,7 +304,7 @@ namespace Ringtoets.Common.IO.Configurations.Import
         }
 
         /// <summary>
-        /// Reads the stochast parameters.
+        /// Sets the stochast parameters.
         /// </summary>
         /// <typeparam name="TDistribution">The type of the distribution to read.</typeparam>
         /// <typeparam name="TCalculationInput">The type of the calculation input.</typeparam>
@@ -316,7 +316,7 @@ namespace Ringtoets.Common.IO.Configurations.Import
         /// <param name="setStochast">The function to set the stochast with the read parameters.</param>
         /// <returns><c>true</c> if reading all required stochast parameters was successful,
         /// <c>false</c> otherwise.</returns>
-        protected bool TryReadStandardDeviationStochast<TDistribution, TCalculationInput>(
+        protected bool TrySetStandardDeviationStochast<TDistribution, TCalculationInput>(
             string stochastName,
             string calculationName,
             TCalculationInput input,
@@ -353,7 +353,7 @@ namespace Ringtoets.Common.IO.Configurations.Import
         }
 
         /// <summary>
-        /// Reads the stochast parameters.
+        /// Sets the stochast parameters.
         /// </summary>
         /// <typeparam name="TDistribution">The type of the distribution to read.</typeparam>
         /// <typeparam name="TCalculationInput">The type of the calculation input.</typeparam>
@@ -365,7 +365,7 @@ namespace Ringtoets.Common.IO.Configurations.Import
         /// <param name="setStochast">The function to set the stochast with the read parameters.</param>
         /// <returns><c>true</c> if reading all required stochast parameters was successful,
         /// <c>false</c> otherwise.</returns>
-        protected bool TryReadVariationCoefficientStochast<TDistribution, TCalculationInput>(
+        protected bool TrySetVariationCoefficientStochast<TDistribution, TCalculationInput>(
             string stochastName,
             string calculationName,
             TCalculationInput input,
