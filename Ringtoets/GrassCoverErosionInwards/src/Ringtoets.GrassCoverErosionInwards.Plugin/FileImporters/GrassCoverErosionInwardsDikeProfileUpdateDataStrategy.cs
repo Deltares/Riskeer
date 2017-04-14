@@ -31,6 +31,7 @@ using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Plugin.Properties;
 using Ringtoets.GrassCoverErosionInwards.Service;
+using Ringtoets.GrassCoverErosionInwards.Utils;
 
 namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporters
 {
@@ -82,7 +83,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporters
         protected override IEnumerable<IObservable> RemoveObjectAndDependentData(DikeProfile removedObject)
         {
             return GrassCoverErosionInwardsDataSynchronizationService.RemoveDikeProfile(FailureMechanism,
-                                                                                                    removedObject);
+                                                                                        removedObject);
         }
 
         private IEnumerable<IObservable> UpdateDikeDependentData(DikeProfile objectToUpdate)
@@ -97,6 +98,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporters
             {
                 affectedObjects.Add(calculation.InputParameters);
                 affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
+
+                GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
+                    FailureMechanism.SectionResults,
+                    FailureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>());
             }
             return affectedObjects;
         }

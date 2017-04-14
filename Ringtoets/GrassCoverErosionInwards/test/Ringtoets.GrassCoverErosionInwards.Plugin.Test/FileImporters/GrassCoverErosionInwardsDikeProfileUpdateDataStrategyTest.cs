@@ -29,12 +29,14 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Exceptions;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Plugin.FileImporters;
+using Ringtoets.GrassCoverErosionInwards.Utils;
 
 namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
 {
@@ -565,6 +567,78 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
                 affectedCalculation.InputParameters,
                 affectedProfile
             }, affectedObjects);
+        }
+
+        [Test]
+        public void UpdateDikeProfilesWithImportedData_CalculationWithDikeProfileUpdatedToOtherSegment_UpdatesSectionResults()
+        {
+            // Setup
+            const string dikeProfileId = "ID of updated profile";
+
+            var originalMatchingPoint = new Point2D(0, 0);
+            var affectedProfile = new TestDikeProfile(originalMatchingPoint, dikeProfileId);
+            var affectedCalculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    DikeProfile = affectedProfile
+                }
+            };
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(affectedCalculation);
+
+            var intersectionPoint = new Point2D(10, 10);
+            failureMechanism.AddSection(new FailureMechanismSection("OldSection", new[]
+            {
+                originalMatchingPoint,
+                intersectionPoint
+            }));
+            var updatedMatchingPoint = new Point2D(20, 20);
+            failureMechanism.AddSection(new FailureMechanismSection("NewSection", new[]
+            {
+                intersectionPoint,
+                updatedMatchingPoint
+            }));
+            GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
+                failureMechanism.SectionResults,
+                failureMechanism.Calculations
+                                .Cast<GrassCoverErosionInwardsCalculation>());
+
+            DikeProfileCollection dikeProfiles = failureMechanism.DikeProfiles;
+            dikeProfiles.AddRange(new[]
+            {
+                affectedProfile
+            }, sourceFilePath);
+
+            // Precondition
+            GrassCoverErosionInwardsFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults.ToArray();
+            Assert.AreEqual(2, sectionResults.Length);
+            Assert.AreSame(affectedCalculation, sectionResults[0].Calculation);
+            Assert.IsNull(sectionResults[1].Calculation);
+
+            DikeProfile profileToUpdateFrom = new TestDikeProfile(updatedMatchingPoint, dikeProfileId);
+
+            var strategy = new GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(failureMechanism);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateDikeProfilesWithImportedData(dikeProfiles,
+                                                                                                   new[]
+                                                                                                   {
+                                                                                                       profileToUpdateFrom
+                                                                                                   }, sourceFilePath);
+            // Assert
+            CollectionAssert.AreEquivalent(new IObservable[]
+            {
+                dikeProfiles,
+                affectedCalculation.InputParameters,
+                affectedProfile
+            }, affectedObjects);
+
+            sectionResults = failureMechanism.SectionResults.ToArray();
+            Assert.AreEqual(2, sectionResults.Length);
+            Assert.IsNull(sectionResults[0].Calculation);
+            Assert.AreSame(affectedCalculation, sectionResults[1].Calculation);
         }
 
         /// <summary>
