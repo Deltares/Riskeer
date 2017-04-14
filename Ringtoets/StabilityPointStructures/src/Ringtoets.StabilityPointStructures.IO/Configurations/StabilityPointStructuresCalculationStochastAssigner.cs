@@ -55,70 +55,70 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
         protected override IEnumerable<StandardDeviationDefinition> GetStandardDeviationStochasts(bool structureDependent = false)
         {
             yield return StandardDeviationDefinition.Create(
-                Configuration.AllowedLevelIncreaseStorage,
                 ConfigurationSchemaIdentifiers.AllowedLevelIncreaseStorageStochastName,
+                Configuration.AllowedLevelIncreaseStorage,
                 i => i.AllowedLevelIncreaseStorage,
                 (i, d) => i.AllowedLevelIncreaseStorage = (LogNormalDistribution) d);
 
             yield return StandardDeviationDefinition.Create(
-                Configuration.AreaFlowApertures,
                 StabilityPointStructuresConfigurationSchemaIdentifiers.AreaFlowAperturesStochastName,
+                Configuration.AreaFlowApertures,
                 i => i.AreaFlowApertures,
                 (i, d) => i.AreaFlowApertures = (LogNormalDistribution) d);
 
             yield return StandardDeviationDefinition.Create(
-                Configuration.BankWidth,
                 StabilityPointStructuresConfigurationSchemaIdentifiers.BankWidthStochastName,
+                Configuration.BankWidth,
                 i => i.BankWidth,
                 (i, d) => i.BankWidth = (NormalDistribution) d);
 
             yield return StandardDeviationDefinition.Create(
-                Configuration.FlowWidthAtBottomProtection,
                 ConfigurationSchemaIdentifiers.FlowWidthAtBottomProtectionStochastName,
+                Configuration.FlowWidthAtBottomProtection,
                 i => i.FlowWidthAtBottomProtection,
                 (i, d) => i.FlowWidthAtBottomProtection = (LogNormalDistribution) d);
 
             yield return StandardDeviationDefinition.Create(
-                Configuration.InsideWaterLevel,
                 StabilityPointStructuresConfigurationSchemaIdentifiers.InsideWaterLevelStochastName,
+                Configuration.InsideWaterLevel,
                 i => i.InsideWaterLevel,
                 (i, d) => i.InsideWaterLevel = (NormalDistribution) d);
 
             yield return StandardDeviationDefinition.Create(
-                Configuration.InsideWaterLevelFailureConstruction,
                 StabilityPointStructuresConfigurationSchemaIdentifiers.InsideWaterLevelFailureConstructionStochastName,
+                Configuration.InsideWaterLevelFailureConstruction,
                 i => i.InsideWaterLevelFailureConstruction,
                 (i, d) => i.InsideWaterLevelFailureConstruction = (NormalDistribution) d);
 
             yield return StandardDeviationDefinition.Create(
-                Configuration.LevelCrestStructure,
                 StabilityPointStructuresConfigurationSchemaIdentifiers.LevelCrestStructureStochastName,
+                Configuration.LevelCrestStructure,
                 i => i.LevelCrestStructure,
                 (i, d) => i.LevelCrestStructure = (NormalDistribution) d);
 
             yield return StandardDeviationDefinition.Create(
-                Configuration.WidthFlowApertures,
                 ConfigurationSchemaIdentifiers.WidthFlowAperturesStochastName,
+                Configuration.WidthFlowApertures,
                 i => i.WidthFlowApertures,
                 (i, d) => i.WidthFlowApertures = (NormalDistribution) d);
 
             yield return StandardDeviationDefinition.Create(
-                Configuration.ThresholdHeightOpenWeir,
                 StabilityPointStructuresConfigurationSchemaIdentifiers.ThresholdHeightOpenWeirStochastName,
+                Configuration.ThresholdHeightOpenWeir,
                 i => i.ThresholdHeightOpenWeir,
                 (i, d) => i.ThresholdHeightOpenWeir = (NormalDistribution) d);
 
             if (!structureDependent)
             {
                 yield return StandardDeviationDefinition.Create(
-                    Configuration.DrainCoefficient,
                     StabilityPointStructuresConfigurationSchemaIdentifiers.DrainCoefficientStochastName,
+                    Configuration.DrainCoefficient,
                     i => i.DrainCoefficient,
                     (i, d) => i.DrainCoefficient = (NormalDistribution) d);
 
                 yield return StandardDeviationDefinition.Create(
-                    Configuration.ModelFactorSuperCriticalFlow,
                     ConfigurationSchemaIdentifiers.ModelFactorSuperCriticalFlowStochastName,
+                    Configuration.ModelFactorSuperCriticalFlow,
                     i => i.ModelFactorSuperCriticalFlow,
                     (i, d) => i.ModelFactorSuperCriticalFlow = (NormalDistribution) d);
             }
@@ -127,70 +127,70 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
         protected override IEnumerable<VariationCoefficientDefinition> GetVariationCoefficientStochasts(bool structureDependent = false)
         {
             yield return VariationCoefficientDefinition.Create(
-                Configuration.FlowVelocityStructureClosable,
                 StabilityPointStructuresConfigurationSchemaIdentifiers.FlowVelocityStructureClosableStochastName,
+                Configuration.FlowVelocityStructureClosable,
                 i => i.FlowVelocityStructureClosable,
                 (i, d) => i.FlowVelocityStructureClosable = (VariationCoefficientNormalDistribution) d);
 
             yield return VariationCoefficientDefinition.Create(
-                Configuration.CriticalOvertoppingDischarge,
                 ConfigurationSchemaIdentifiers.CriticalOvertoppingDischargeStochastName,
+                Configuration.CriticalOvertoppingDischarge,
                 i => i.CriticalOvertoppingDischarge,
                 (i, d) => i.CriticalOvertoppingDischarge = (VariationCoefficientLogNormalDistribution) d);
 
             yield return VariationCoefficientDefinition.Create(
-                Configuration.ConstructiveStrengthLinearLoadModel,
                 StabilityPointStructuresConfigurationSchemaIdentifiers.ConstructiveStrengthLinearLoadModelStochastName,
+                Configuration.ConstructiveStrengthLinearLoadModel,
                 i => i.ConstructiveStrengthLinearLoadModel,
                 (i, d) => i.ConstructiveStrengthLinearLoadModel = (VariationCoefficientLogNormalDistribution) d);
 
             yield return VariationCoefficientDefinition.Create(
-                Configuration.ConstructiveStrengthQuadraticLoadModel,
                 StabilityPointStructuresConfigurationSchemaIdentifiers.ConstructiveStrengthQuadraticLoadModelStochastName,
+                Configuration.ConstructiveStrengthQuadraticLoadModel,
                 i => i.ConstructiveStrengthQuadraticLoadModel,
                 (i, d) => i.ConstructiveStrengthQuadraticLoadModel = (VariationCoefficientLogNormalDistribution) d);
 
             yield return VariationCoefficientDefinition.Create(
-                Configuration.FailureCollisionEnergy,
                 StabilityPointStructuresConfigurationSchemaIdentifiers.FailureCollisionEnergyStochastName,
+                Configuration.FailureCollisionEnergy,
                 i => i.FailureCollisionEnergy,
                 (i, d) => i.FailureCollisionEnergy = (VariationCoefficientLogNormalDistribution) d);
 
             yield return VariationCoefficientDefinition.Create(
-                Configuration.ShipMass,
                 StabilityPointStructuresConfigurationSchemaIdentifiers.ShipMassStochastName,
+                Configuration.ShipMass,
                 i => i.ShipMass,
                 (i, d) => i.ShipMass = (VariationCoefficientNormalDistribution) d);
 
             yield return VariationCoefficientDefinition.Create(
-                Configuration.ShipVelocity,
                 StabilityPointStructuresConfigurationSchemaIdentifiers.ShipVelocityStochastName,
+                Configuration.ShipVelocity,
                 i => i.ShipVelocity,
                 (i, d) => i.ShipVelocity = (VariationCoefficientNormalDistribution) d);
 
             yield return VariationCoefficientDefinition.Create(
-                Configuration.StabilityLinearLoadModel,
                 StabilityPointStructuresConfigurationSchemaIdentifiers.StabilityLinearLoadModelStochastName,
+                Configuration.StabilityLinearLoadModel,
                 i => i.StabilityLinearLoadModel,
                 (i, d) => i.StabilityLinearLoadModel = (VariationCoefficientLogNormalDistribution) d);
 
             yield return VariationCoefficientDefinition.Create(
-                Configuration.StabilityQuadraticLoadModel,
                 StabilityPointStructuresConfigurationSchemaIdentifiers.StabilityQuadraticLoadModelStochastName,
+                Configuration.StabilityQuadraticLoadModel,
                 i => i.StabilityQuadraticLoadModel,
                 (i, d) => i.StabilityQuadraticLoadModel = (VariationCoefficientLogNormalDistribution) d);
 
             yield return VariationCoefficientDefinition.Create(
-                Configuration.StorageStructureArea,
                 ConfigurationSchemaIdentifiers.StorageStructureAreaStochastName,
+                Configuration.StorageStructureArea,
                 i => i.StorageStructureArea,
                 (i, d) => i.StorageStructureArea = (VariationCoefficientLogNormalDistribution) d);
 
             if (!structureDependent)
             {
                 yield return VariationCoefficientDefinition.Create(
-                    Configuration.StormDuration,
                     ConfigurationSchemaIdentifiers.StormDurationStochastName,
+                    Configuration.StormDuration,
                     i => i.StormDuration,
                     (i, d) => i.StormDuration = (VariationCoefficientLogNormalDistribution) d);
             }

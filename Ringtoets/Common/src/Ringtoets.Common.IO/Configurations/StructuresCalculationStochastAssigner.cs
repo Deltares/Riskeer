@@ -242,15 +242,15 @@ namespace Ringtoets.Common.IO.Configurations
             /// <summary>
             /// Creates a new instance of <see cref="StandardDeviationDefinition"/>.
             /// </summary>
-            /// <param name="configuration">The configuration of the stochast, which can be <c>null</c>.</param>
             /// <param name="stochastName">The name of the stochast.</param>
+            /// <param name="configuration">The configuration of the stochast, which can be <c>null</c>.</param>
             /// <param name="getter">Operation of obtaining the stochast from an input.</param>
             /// <param name="setter">Operation of assigning the stuchast to an input.</param>
             /// <returns>The newly created definition.</returns>
             public static StandardDeviationDefinition Create(
-                StochastConfiguration configuration,
                 string stochastName,
-                Func<TInput, IDistribution> getter, 
+                StochastConfiguration configuration,
+                Func<TInput, IDistribution> getter,
                 Action<TInput, IDistribution> setter)
             {
                 if (stochastName == null)
@@ -291,15 +291,15 @@ namespace Ringtoets.Common.IO.Configurations
             /// <summary>
             /// Creates a new instance of <see cref="VariationCoefficientDefinition"/>.
             /// </summary>
-            /// <param name="configuration">The configuration of the stochast, which can be <c>null</c>.</param>
             /// <param name="stochastName">The name of the stochast.</param>
+            /// <param name="configuration">The configuration of the stochast, which can be <c>null</c>.</param>
             /// <param name="getter">Operation of obtaining the stochast from an input.</param>
             /// <param name="setter">Operation of assigning the stuchast to an input.</param>
             /// <returns>The newly created definition.</returns>
             public static VariationCoefficientDefinition Create(
-                StochastConfiguration configuration, 
                 string stochastName, 
-                Func<TInput, IVariationCoefficientDistribution> getter, 
+                StochastConfiguration configuration,
+                Func<TInput, IVariationCoefficientDistribution> getter,
                 Action<TInput, IVariationCoefficientDistribution> setter)
             {
                 if (stochastName == null)

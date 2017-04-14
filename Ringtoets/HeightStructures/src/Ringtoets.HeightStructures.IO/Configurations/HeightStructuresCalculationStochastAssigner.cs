@@ -43,51 +43,67 @@ namespace Ringtoets.HeightStructures.IO.Configurations
         public HeightStructuresCalculationStochastAssigner(
             HeightStructuresCalculationConfiguration configuration,
             StructuresCalculation<HeightStructuresInput> calculation,
-            TrySetStandardDeviationStochast setStandardDeviationStochast, 
+            TrySetStandardDeviationStochast setStandardDeviationStochast,
             TrySetVariationCoefficientStochast setVariationCoefficientStochast)
             : base(configuration, calculation, setStandardDeviationStochast, setVariationCoefficientStochast) {}
 
         protected override IEnumerable<StandardDeviationDefinition> GetStandardDeviationStochasts(bool onlyStructureDependent = false)
         {
-            yield return StandardDeviationDefinition.Create(Configuration.LevelCrestStructure,
+            yield return StandardDeviationDefinition.Create(
                 HeightStructuresConfigurationSchemaIdentifiers.LevelCrestStructureStochastName,
-                i => i.LevelCrestStructure, (i, d) => i.LevelCrestStructure = d as NormalDistribution);
+                Configuration.LevelCrestStructure,
+                i => i.LevelCrestStructure,
+                (i, d) => i.LevelCrestStructure = (NormalDistribution) d);
 
-            yield return StandardDeviationDefinition.Create(Configuration.AllowedLevelIncreaseStorage,
+            yield return StandardDeviationDefinition.Create(
                 ConfigurationSchemaIdentifiers.AllowedLevelIncreaseStorageStochastName,
-                i => i.AllowedLevelIncreaseStorage, (i, d) => i.AllowedLevelIncreaseStorage = d as LogNormalDistribution);
+                Configuration.AllowedLevelIncreaseStorage,
+                i => i.AllowedLevelIncreaseStorage,
+                (i, d) => i.AllowedLevelIncreaseStorage = (LogNormalDistribution) d);
 
-            yield return StandardDeviationDefinition.Create(Configuration.FlowWidthAtBottomProtection,
+            yield return StandardDeviationDefinition.Create(
                 ConfigurationSchemaIdentifiers.FlowWidthAtBottomProtectionStochastName,
-                i => i.FlowWidthAtBottomProtection, (i, d) => i.FlowWidthAtBottomProtection = d as LogNormalDistribution);
+                Configuration.FlowWidthAtBottomProtection,
+                i => i.FlowWidthAtBottomProtection,
+                (i, d) => i.FlowWidthAtBottomProtection = (LogNormalDistribution) d);
 
-            yield return StandardDeviationDefinition.Create(Configuration.WidthFlowApertures,
+            yield return StandardDeviationDefinition.Create(
                 ConfigurationSchemaIdentifiers.WidthFlowAperturesStochastName,
-                i => i.WidthFlowApertures, (i, d) => i.WidthFlowApertures = d as NormalDistribution);
+                Configuration.WidthFlowApertures,
+                i => i.WidthFlowApertures,
+                (i, d) => i.WidthFlowApertures = (NormalDistribution) d);
 
             if (!onlyStructureDependent)
             {
-                yield return StandardDeviationDefinition.Create(Configuration.ModelFactorSuperCriticalFlow,
+                yield return StandardDeviationDefinition.Create(
                     ConfigurationSchemaIdentifiers.ModelFactorSuperCriticalFlowStochastName,
-                    i => i.ModelFactorSuperCriticalFlow, (i, d) => i.ModelFactorSuperCriticalFlow = d as NormalDistribution);
+                    Configuration.ModelFactorSuperCriticalFlow,
+                    i => i.ModelFactorSuperCriticalFlow, 
+                    (i, d) => i.ModelFactorSuperCriticalFlow = (NormalDistribution) d);
             }
         }
 
         protected override IEnumerable<VariationCoefficientDefinition> GetVariationCoefficientStochasts(bool onlyStructureDependent = false)
         {
-            yield return VariationCoefficientDefinition.Create(Configuration.CriticalOvertoppingDischarge,
+            yield return VariationCoefficientDefinition.Create(
                 ConfigurationSchemaIdentifiers.CriticalOvertoppingDischargeStochastName,
-                i => i.CriticalOvertoppingDischarge, (i, d) => i.CriticalOvertoppingDischarge = d as VariationCoefficientLogNormalDistribution);
+                Configuration.CriticalOvertoppingDischarge,
+                i => i.CriticalOvertoppingDischarge, 
+                (i, d) => i.CriticalOvertoppingDischarge = (VariationCoefficientLogNormalDistribution) d);
 
-            yield return VariationCoefficientDefinition.Create(Configuration.StorageStructureArea,
+            yield return VariationCoefficientDefinition.Create(
                 ConfigurationSchemaIdentifiers.StorageStructureAreaStochastName,
-                i => i.StorageStructureArea, (i, d) => i.StorageStructureArea = d as VariationCoefficientLogNormalDistribution);
+                Configuration.StorageStructureArea,
+                i => i.StorageStructureArea,
+                (i, d) => i.StorageStructureArea = (VariationCoefficientLogNormalDistribution) d);
 
             if (!onlyStructureDependent)
             {
-                yield return VariationCoefficientDefinition.Create(Configuration.StormDuration,
+                yield return VariationCoefficientDefinition.Create(
                     ConfigurationSchemaIdentifiers.StormDurationStochastName,
-                    i => i.StormDuration, (i, d) => i.StormDuration = d as VariationCoefficientLogNormalDistribution);
+                    Configuration.StormDuration,
+                    i => i.StormDuration, 
+                    (i, d) => i.StormDuration = (VariationCoefficientLogNormalDistribution) d);
             }
         }
     }

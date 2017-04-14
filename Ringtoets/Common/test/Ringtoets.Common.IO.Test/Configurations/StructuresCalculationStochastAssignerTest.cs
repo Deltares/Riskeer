@@ -291,15 +291,13 @@ namespace Ringtoets.Common.IO.Test.Configurations
             {
                 StandardDeviationStochasts = new[]
                 {
-                    StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>.StandardDeviationDefinition.Create(standardDeviationStochastConfiguration,
-                        stochastName,
-                        input => null, (input, distribution) => { })
+                    StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>.StandardDeviationDefinition.Create(stochastName,
+                                                                                                                                                                       standardDeviationStochastConfiguration, input => null, (input, distribution) => { })
                 },
                 VariationCoefficientStochasts = new[]
                 {
-                    StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>.VariationCoefficientDefinition.Create(variationCoefficientStochastConfiguration,
-                        stochastName,
-                        input => null, (input, distribution) => { })
+                    StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>.VariationCoefficientDefinition.Create(stochastName,
+                                                                                                                                                                          variationCoefficientStochastConfiguration, input => null, (input, distribution) => { })
                 }
             };
 
@@ -348,15 +346,13 @@ namespace Ringtoets.Common.IO.Test.Configurations
             {
                 StandardDeviationStochasts = new[]
                 {
-                    StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>.StandardDeviationDefinition.Create(standardDeviationStochastConfiguration,
-                        stochastName,
-                        input => null, (input, distribution) => { })
+                    StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>.StandardDeviationDefinition.Create(stochastName,
+                                                                                                                                                                       standardDeviationStochastConfiguration, input => null, (input, distribution) => { })
                 },
                 VariationCoefficientStochasts = new[]
                 {
-                    StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>.VariationCoefficientDefinition.Create(variationCoefficientStochastConfiguration,
-                        stochastName,
-                        input => null, (input, distribution) => { })
+                    StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>.VariationCoefficientDefinition.Create(stochastName,
+                                                                                                                                                                          variationCoefficientStochastConfiguration, input => null, (input, distribution) => { })
                 }
             };
 
@@ -391,14 +387,12 @@ namespace Ringtoets.Common.IO.Test.Configurations
             var variationCoefficientStochastConfiguration = new StochastConfiguration();
 
             StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>.StandardDeviationDefinition definitionA =
-                StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>.StandardDeviationDefinition.Create(standardDeviationStochastConfiguration,
-                    "stochastA",
-                    input => null, (input, distribution) => { });
+                StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>.StandardDeviationDefinition.Create("stochastA",
+                                                                                                                                                                   standardDeviationStochastConfiguration, input => null, (input, distribution) => { });
 
             StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>.VariationCoefficientDefinition definitionB =
-                StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>.VariationCoefficientDefinition.Create(variationCoefficientStochastConfiguration,
-                    "stochastB",
-                    input => null, (input, distribution) => { });
+                StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>.VariationCoefficientDefinition.Create("stochastB",
+                                                                                                                                                                      variationCoefficientStochastConfiguration, input => null, (input, distribution) => { });
 
             var standardDeviationSetterCalled = false;
             var variationCoefficientSetterCalled = false;
@@ -445,38 +439,18 @@ namespace Ringtoets.Common.IO.Test.Configurations
         public void StandardDeviationDefinition_StochastNameMissing_ThrowsArgumentNullException()
         {
             // Setup
-            var configuration = new StochastConfiguration();
-            var getter = new Func<SimpleStructuresInput, IDistribution>(i => null);
-            var setter = new Action<SimpleStructuresInput, IDistribution>((i, d) => { });
-
-            // Call
-            TestDelegate test = () => StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>
-                .StandardDeviationDefinition.Create(configuration,
-                    null,
-                    getter, setter);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("stochastName", exception.ParamName);
-        }
-
-        [Test]
-        public void StandardDeviationDefinition_ConfigurationMissing_ThrowsArgumentNullException()
-        {
-            // Setup
-            const string stochastName = "";
             var getter = new Func<SimpleStructuresInput, IDistribution>(i => null);
             var setter = new Action<SimpleStructuresInput, IDistribution>((i, d) => { });
 
             // Call
             TestDelegate test = () => StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>
                 .StandardDeviationDefinition.Create(null,
-                    stochastName,
+                    null,
                     getter, setter);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("configuration", exception.ParamName);
+            Assert.AreEqual("stochastName", exception.ParamName);
         }
 
         [Test]
@@ -489,8 +463,8 @@ namespace Ringtoets.Common.IO.Test.Configurations
 
             // Call
             TestDelegate test = () => StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>
-                .StandardDeviationDefinition.Create(configuration,
-                    stochastName,
+                .StandardDeviationDefinition.Create(stochastName,
+                    configuration,
                     null, setter);
 
             // Assert
@@ -503,13 +477,12 @@ namespace Ringtoets.Common.IO.Test.Configurations
         {
             // Setup
             const string stochastName = "";
-            var configuration = new StochastConfiguration();
             var getter = new Func<SimpleStructuresInput, IDistribution>(i => null);
 
             // Call
             TestDelegate test = () => StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>
-                .StandardDeviationDefinition.Create(configuration,
-                    stochastName,
+                .StandardDeviationDefinition.Create(stochastName,
+                    null,
                     getter, null);
 
             // Assert
@@ -518,19 +491,25 @@ namespace Ringtoets.Common.IO.Test.Configurations
         }
 
         [Test]
-        public void StandardDeviationDefinition_WithParameters_ReturnsNewInstance()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void StandardDeviationDefinition_WithOrWithoutConfiguration_ReturnsNewInstance(bool withConfiguration)
         {
             // Setup
             const string stochastName = "";
-            var configuration = new StochastConfiguration();
+            StochastConfiguration configuration = null;
+            if (withConfiguration)
+            {
+                configuration = new StochastConfiguration();
+            }
             var getter = new Func<SimpleStructuresInput, IDistribution>(i => null);
             var setter = new Action<SimpleStructuresInput, IDistribution>((i, d) => { });
 
             // Call
             StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>.StandardDeviationDefinition definition =
                 StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>
-                    .StandardDeviationDefinition.Create(configuration,
-                        stochastName,
+                    .StandardDeviationDefinition.Create(stochastName,
+                        configuration,
                         getter, setter);
 
             // Assert
@@ -549,13 +528,12 @@ namespace Ringtoets.Common.IO.Test.Configurations
         public void VariationCoefficientDefinition_StochastNameMissing_ThrowsArgumentNullException()
         {
             // Setup
-            var configuration = new StochastConfiguration();
             var getter = new Func<SimpleStructuresInput, IVariationCoefficientDistribution>(i => null);
             var setter = new Action<SimpleStructuresInput, IVariationCoefficientDistribution>((i, d) => { });
 
             // Call
             TestDelegate test = () => StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>
-                .VariationCoefficientDefinition.Create(configuration,
+                .VariationCoefficientDefinition.Create(null,
                     null,
                     getter, setter);
 
@@ -565,38 +543,17 @@ namespace Ringtoets.Common.IO.Test.Configurations
         }
 
         [Test]
-        public void VariationCoefficientDefinition_ConfigurationMissing_ThrowsArgumentNullException()
-        {
-            // Setup
-            const string stochastName = "";
-            var getter = new Func<SimpleStructuresInput, IVariationCoefficientDistribution>(i => null);
-            var setter = new Action<SimpleStructuresInput, IVariationCoefficientDistribution>((i, d) => { });
-
-            // Call
-            TestDelegate test = () =>
-                StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>
-                    .VariationCoefficientDefinition.Create(null,
-                        stochastName,
-                        getter, setter);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("configuration", exception.ParamName);
-        }
-
-        [Test]
         public void VariationCoefficientDefinition_GetterMissing_ThrowsArgumentNullException()
         {
             // Setup
             const string stochastName = "";
-            var configuration = new StochastConfiguration();
             var setter = new Action<SimpleStructuresInput, IVariationCoefficientDistribution>((i, d) => { });
 
             // Call
             TestDelegate test = () =>
                 StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>
-                    .VariationCoefficientDefinition.Create(configuration,
-                        stochastName,
+                    .VariationCoefficientDefinition.Create(stochastName,
+                        null,
                         null, setter);
 
             // Assert
@@ -609,14 +566,13 @@ namespace Ringtoets.Common.IO.Test.Configurations
         {
             // Setup
             const string stochastName = "";
-            var configuration = new StochastConfiguration();
             var getter = new Func<SimpleStructuresInput, IVariationCoefficientDistribution>(i => null);
 
             // Call
             TestDelegate test = () =>
                 StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>
-                    .VariationCoefficientDefinition.Create(configuration,
-                        stochastName,
+                    .VariationCoefficientDefinition.Create(stochastName,
+                        null,
                         getter, null);
 
             // Assert
@@ -625,20 +581,26 @@ namespace Ringtoets.Common.IO.Test.Configurations
         }
 
         [Test]
-        public void VariationCoefficientDefinition_WithParameters_ReturnsNewInstance()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void VariationCoefficientDefinition_WithOrWithoutConfiguration_ReturnsNewInstance(bool withConfiguration)
         {
             // Setup
             const string stochastName = "";
-            var configuration = new StochastConfiguration();
+            StochastConfiguration configuration = null;
+            if (withConfiguration)
+            {
+                configuration = new StochastConfiguration();
+            }
             var getter = new Func<SimpleStructuresInput, IVariationCoefficientDistribution>(i => null);
             var setter = new Action<SimpleStructuresInput, IVariationCoefficientDistribution>((i, d) => { });
 
             // Call
             StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>.VariationCoefficientDefinition definition =
                 StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>
-                    .VariationCoefficientDefinition.Create(configuration,
-                        stochastName,
-                        getter, setter);
+                    .VariationCoefficientDefinition.Create(stochastName,
+                                                           configuration,
+                                                           getter, setter);
 
             // Assert
             Assert.NotNull(definition);
