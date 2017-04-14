@@ -44,9 +44,11 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
             }, input.SurfaceLine.LocalGeometry);
             PipingSoilProfile profile = input.StochasticSoilProfile.SoilProfile;
             Assert.AreEqual(-1.0, profile.Bottom);
-            Assert.AreEqual(2, profile.Layers.Count());
-            AssertLayer(false, 2.0, profile.Layers.ElementAt(0));
-            AssertLayer(true, 0.0, profile.Layers.ElementAt(1));
+
+            PipingSoilLayer[] pipingSoilLayers = profile.Layers.ToArray();
+            Assert.AreEqual(2, pipingSoilLayers.Length);
+            AssertLayer(false, 2.0, pipingSoilLayers[0]);
+            AssertLayer(true, 0.0, pipingSoilLayers[1]);
         }
 
         [Test]
@@ -66,9 +68,11 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
             }, input.SurfaceLine.LocalGeometry);
             PipingSoilProfile profile = input.StochasticSoilProfile.SoilProfile;
             Assert.AreEqual(-thicknessAquiferLayer, profile.Bottom);
-            Assert.AreEqual(2, profile.Layers.Count());
-            AssertLayer(false, thicknessCoverageLayer, profile.Layers.ElementAt(0));
-            AssertLayer(true, 0.0, profile.Layers.ElementAt(1));
+
+            PipingSoilLayer[] pipingSoilLayers = profile.Layers.ToArray();
+            Assert.AreEqual(2, pipingSoilLayers.Length);
+            AssertLayer(false, thicknessCoverageLayer, pipingSoilLayers[0]);
+            AssertLayer(true, 0.0, pipingSoilLayers[1]);
         }
 
         [Test]
@@ -86,8 +90,10 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
             }, input.SurfaceLine.LocalGeometry);
             PipingSoilProfile profile = input.StochasticSoilProfile.SoilProfile;
             Assert.AreEqual(-1.0, profile.Bottom);
-            Assert.AreEqual(1, profile.Layers.Count());
-            AssertLayer(true, 0.0, profile.Layers.ElementAt(0));
+
+            PipingSoilLayer[] pipingSoilLayers = profile.Layers.ToArray();
+            Assert.AreEqual(1, pipingSoilLayers.Length);
+            AssertLayer(true, 0.0, pipingSoilLayers[0]);
         }
 
         [Test]
@@ -107,8 +113,10 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
             }, input.SurfaceLine.LocalGeometry);
             PipingSoilProfile profile = input.StochasticSoilProfile.SoilProfile;
             Assert.AreEqual(-thicknessAquiferLayer, profile.Bottom);
-            Assert.AreEqual(1, profile.Layers.Count());
-            AssertLayer(true, 0.0, profile.Layers.ElementAt(0));
+
+            PipingSoilLayer[] pipingSoilLayers = profile.Layers.ToArray();
+            Assert.AreEqual(1, pipingSoilLayers.Length);
+            AssertLayer(true, 0.0, pipingSoilLayers[0]);
         }
 
         [Test]
@@ -128,10 +136,12 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
             }, input.SurfaceLine.LocalGeometry);
             PipingSoilProfile profile = input.StochasticSoilProfile.SoilProfile;
             Assert.AreEqual(0.0, profile.Bottom);
-            Assert.AreEqual(3, profile.Layers.Count());
-            AssertLayer(false, 4.0 + deltaAboveSurfaceLine, profile.Layers.ElementAt(0));
-            AssertLayer(true, 3.0 + deltaAboveSurfaceLine, profile.Layers.ElementAt(1));
-            AssertLayer(false, 2.0 + deltaAboveSurfaceLine, profile.Layers.ElementAt(2));
+
+            PipingSoilLayer[] pipingSoilLayers = profile.Layers.ToArray();
+            Assert.AreEqual(3, pipingSoilLayers.Length);
+            AssertLayer(false, 4.0 + deltaAboveSurfaceLine, pipingSoilLayers[0]);
+            AssertLayer(true, 3.0 + deltaAboveSurfaceLine, pipingSoilLayers[1]);
+            AssertLayer(false, 2.0 + deltaAboveSurfaceLine, pipingSoilLayers[2]);
         }
 
         [Test]
@@ -152,10 +162,13 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
             }, input.SurfaceLine.LocalGeometry);
             PipingSoilProfile profile = input.StochasticSoilProfile.SoilProfile;
             Assert.AreEqual(0.0, profile.Bottom);
-            Assert.AreEqual(3, profile.Layers.Count());
-            AssertLayer(false, 4.3, profile.Layers.ElementAt(0));
-            AssertLayer(true, 3.3, profile.Layers.ElementAt(1));
-            AssertLayer(true, 1.1, profile.Layers.ElementAt(2));
+
+            PipingSoilLayer[] pipingSoilLayers = profile.Layers.ToArray();
+            Assert.AreEqual(3, pipingSoilLayers.Length);
+            AssertLayer(false, 4.3, pipingSoilLayers[0]);
+            AssertLayer(true, 3.3, pipingSoilLayers[1]);
+            AssertLayer(true, 1.1, pipingSoilLayers[2]);
+
             Assert.AreEqual(3.3, expectedAquiferThickness);
         }
 
