@@ -255,16 +255,6 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er kan geen spreiding voor stochast &apos;afvoercoefficient&apos; opgegeven worden..
-        /// </summary>
-        public static string CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_DrainCoefficient {
-            get {
-                return ResourceManager.GetString("CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_Drain" +
-                        "Coefficient", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Er kan geen spreiding voor stochast &apos;modelfactoroverloopdebiet&apos; opgegeven worden..
         /// </summary>
         public static string CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_ModelFactorSuperCriticalFlow {
@@ -1525,6 +1515,16 @@ namespace Ringtoets.Common.IO.Properties {
         public static string StochastVariatiecoefficientSchema {
             get {
                 return ResourceManager.GetString("StochastVariatiecoefficientSchema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er kan geen spreiding voor stochast &apos;afvoercoefficient&apos; opgegeven worden..
+        /// </summary>
+        public static string StructuresCalculationStochastAssigner_ValidateStochasts_Cannot_define_spread_for_DrainCoefficient {
+            get {
+                return ResourceManager.GetString("StructuresCalculationStochastAssigner_ValidateStochasts_Cannot_define_spread_for_" +
+                        "DrainCoefficient", resourceCulture);
             }
         }
         

@@ -128,21 +128,21 @@ namespace Ringtoets.StabilityPointStructures.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er kan geen spreiding voor stochast &apos;kritiekestroomsnelheid&apos; opgegeven worden..
-        /// </summary>
-        internal static string CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_FlowVelocityStructureClosable {
-            get {
-                return ResourceManager.GetString("CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_FlowV" +
-                        "elocityStructureClosable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to de afstand onderkant wand en teen van de dijk/berm.
         /// </summary>
         internal static string CalculationConfigurationImporter_VerticalDistance_DisplayName {
             get {
                 return ResourceManager.GetString("CalculationConfigurationImporter_VerticalDistance_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er kan geen spreiding voor stochast &apos;kritiekestroomsnelheid&apos; opgegeven worden..
+        /// </summary>
+        internal static string StabilityPointStructuresCalculationStochastAssigner_ValidateStochasts_Cannot_define_spread_for_FlowVelocityStructureClosable {
+            get {
+                return ResourceManager.GetString("StabilityPointStructuresCalculationStochastAssigner_ValidateStochasts_Cannot_defi" +
+                        "ne_spread_for_FlowVelocityStructureClosable", resourceCulture);
             }
         }
         

@@ -209,7 +209,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
                 || configuration.DrainCoefficient?.VariationCoefficient != null)
             {
                 Log.LogCalculationConversionError(
-                    RingtoetsCommonIOResources.CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_DrainCoefficient,
+                    RingtoetsCommonIOResources.StructuresCalculationStochastAssigner_ValidateStochasts_Cannot_define_spread_for_DrainCoefficient,
                     configuration.Name);
                 return false;
             }

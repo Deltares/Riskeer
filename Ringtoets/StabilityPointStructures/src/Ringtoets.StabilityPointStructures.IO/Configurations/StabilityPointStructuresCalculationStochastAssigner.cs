@@ -201,14 +201,14 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
             if (Configuration.DrainCoefficient?.StandardDeviation != null
                 || Configuration.DrainCoefficient?.VariationCoefficient != null)
             {
-                Log.LogCalculationConversionError(RingtoetsCommonIOResources.CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_DrainCoefficient,
+                Log.LogCalculationConversionError(RingtoetsCommonIOResources.StructuresCalculationStochastAssigner_ValidateStochasts_Cannot_define_spread_for_DrainCoefficient,
                                                   Configuration.Name);
                 return false;
             }
             if (Configuration.FlowVelocityStructureClosable?.StandardDeviation != null
                 || Configuration.FlowVelocityStructureClosable?.VariationCoefficient != null)
             {
-                Log.LogCalculationConversionError(Resources.CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_FlowVelocityStructureClosable,
+                Log.LogCalculationConversionError(Resources.StabilityPointStructuresCalculationStochastAssigner_ValidateStochasts_Cannot_define_spread_for_FlowVelocityStructureClosable,
                                                   Configuration.Name);
                 return false;
             }

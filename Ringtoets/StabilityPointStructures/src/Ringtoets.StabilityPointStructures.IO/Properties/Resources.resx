@@ -132,7 +132,7 @@
   <data name="CalculationConfigurationImporter_ProbabilityCollisionSecondaryStructure_DisplayName" xml:space="preserve">
     <value>de kans op aanvaring tweede keermiddel per nivellering</value>
   </data>
-  <data name="CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_FlowVelocityStructureClosable" xml:space="preserve">
+  <data name="StabilityPointStructuresCalculationStochastAssigner_ValidateStochasts_Cannot_define_spread_for_FlowVelocityStructureClosable" xml:space="preserve">
     <value>Er kan geen spreiding voor stochast 'kritiekestroomsnelheid' opgegeven worden.</value>
   </data>
   <data name="CalculationConfigurationImporter_VerticalDistance_DisplayName" xml:space="preserve">
