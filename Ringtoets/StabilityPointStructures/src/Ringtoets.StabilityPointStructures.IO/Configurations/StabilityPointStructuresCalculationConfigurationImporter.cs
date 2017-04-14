@@ -152,15 +152,6 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
         private bool TrySetStochasts(StabilityPointStructuresCalculationConfiguration readCalculation,
                                      StructuresCalculation<StabilityPointStructuresInput> calculation)
         {
-            if (!readCalculation.ValidateStructureBaseStochasts(Log))
-            {
-                return false;
-            }
-            if (!ValidateStochasts(readCalculation))
-            {
-                return false;
-            }
-
             var assigner = new StabilityPointStructuresCalculationStochastAssigner(
                 readCalculation,
                 calculation,
@@ -180,25 +171,6 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
                     definition.Setter));
 
             return assigner.AreStochastsValid() && assigner.SetAllStochasts();
-        }
-
-        private bool ValidateStochasts(StabilityPointStructuresCalculationConfiguration configuration)
-        {
-            if (configuration.DrainCoefficient?.StandardDeviation != null
-                || configuration.DrainCoefficient?.VariationCoefficient != null)
-            {
-                Log.LogCalculationConversionError(RingtoetsCommonIOResources.CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_DrainCoefficient,
-                                                  configuration.Name);
-                return false;
-            }
-            if (configuration.FlowVelocityStructureClosable?.StandardDeviation != null
-                || configuration.FlowVelocityStructureClosable?.VariationCoefficient != null)
-            {
-                Log.LogCalculationConversionError(Resources.CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_FlowVelocityStructureClosable,
-                                                  configuration.Name);
-                return false;
-            }
-            return true;
         }
 
         /// <summary>

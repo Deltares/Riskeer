@@ -41,7 +41,7 @@ namespace Ringtoets.Common.IO.Configurations
         where TInput : StructuresInputBase<TStructure>, new()
         where TStructure : StructureBase
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(StructuresCalculationStochastAssigner<TConfiguration, TInput, TStructure>));
+        protected static readonly ILog Log = LogManager.GetLogger(typeof(StructuresCalculationStochastAssigner<TConfiguration, TInput, TStructure>));
 
         /// <summary>
         /// The configuration that is used for stochast parameter source.
@@ -190,7 +190,7 @@ namespace Ringtoets.Common.IO.Configurations
             bool parameterDefined = stochastConfiguration != null && (stochastConfiguration.Mean.HasValue || stochastConfiguration.StandardDeviation.HasValue || stochastConfiguration.VariationCoefficient.HasValue);
             if (parameterDefined)
             {
-                log.LogCalculationConversionError($"Er is geen kunstwerk opgegeven om de stochast '{stochastName}' aan toe te voegen.", calculationName);
+                Log.LogCalculationConversionError($"Er is geen kunstwerk opgegeven om de stochast '{stochastName}' aan toe te voegen.", calculationName);
             }
 
             return !parameterDefined;
@@ -201,14 +201,14 @@ namespace Ringtoets.Common.IO.Configurations
             if (Configuration.StormDuration?.StandardDeviation != null
                 || Configuration.StormDuration?.VariationCoefficient != null)
             {
-                log.LogCalculationConversionError(Resources.CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_StormDuration,
+                Log.LogCalculationConversionError(Resources.CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_StormDuration,
                                                   Configuration.Name);
                 return false;
             }
             if (Configuration.ModelFactorSuperCriticalFlow?.StandardDeviation != null
                 || Configuration.ModelFactorSuperCriticalFlow?.VariationCoefficient != null)
             {
-                log.LogCalculationConversionError(Resources.CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_ModelFactorSuperCriticalFlow,
+                Log.LogCalculationConversionError(Resources.CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_ModelFactorSuperCriticalFlow,
                                                   Configuration.Name);
                 return false;
             }
