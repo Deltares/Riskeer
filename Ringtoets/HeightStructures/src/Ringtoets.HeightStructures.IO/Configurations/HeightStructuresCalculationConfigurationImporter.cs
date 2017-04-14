@@ -112,60 +112,25 @@ namespace Ringtoets.HeightStructures.IO.Configurations
         private bool TrySetStochasts(HeightStructuresCalculationConfiguration readCalculation,
                                      StructuresCalculation<HeightStructuresInput> calculation)
         {
-            if (!readCalculation.ValidateStructureBaseStochasts(Log))
-            {
-                return false;
-            }
+            var assigner = new HeightStructuresCalculationStochastAssigner(
+                readCalculation,
+                calculation,
+                definition => TrySetStandardDeviationStochast(
+                    definition.StochastName,
+                    calculation.Name,
+                    calculation.InputParameters,
+                    definition.Configuration,
+                    definition.Getter,
+                    definition.Setter),
+                definition => TrySetVariationCoefficientStochast(
+                    definition.StochastName,
+                    calculation.Name,
+                    calculation.InputParameters,
+                    definition.Configuration,
+                    definition.Getter,
+                    definition.Setter));
 
-            string calculationName = calculation.Name;
-            HeightStructuresInput input = calculation.InputParameters;
-            return TrySetStandardDeviationStochast(
-                       HeightStructuresConfigurationSchemaIdentifiers.LevelCrestStructureStochastName,
-                       calculationName,
-                       input,
-                       readCalculation.LevelCrestStructure,
-                       i => i.LevelCrestStructure, (i, d) => i.LevelCrestStructure = d)
-                   && TrySetStandardDeviationStochast(
-                       ConfigurationSchemaIdentifiers.AllowedLevelIncreaseStorageStochastName,
-                       calculationName,
-                       input,
-                       readCalculation.AllowedLevelIncreaseStorage,
-                       i => i.AllowedLevelIncreaseStorage, (i, d) => i.AllowedLevelIncreaseStorage = d)
-                   && TrySetStandardDeviationStochast(
-                       ConfigurationSchemaIdentifiers.FlowWidthAtBottomProtectionStochastName,
-                       calculationName,
-                       input,
-                       readCalculation.FlowWidthAtBottomProtection,
-                       i => i.FlowWidthAtBottomProtection, (i, d) => i.FlowWidthAtBottomProtection = d)
-                   && TrySetStandardDeviationStochast(
-                       ConfigurationSchemaIdentifiers.ModelFactorSuperCriticalFlowStochastName,
-                       calculationName,
-                       input,
-                       readCalculation.ModelFactorSuperCriticalFlow,
-                       i => i.ModelFactorSuperCriticalFlow, (i, d) => i.ModelFactorSuperCriticalFlow = d)
-                   && TrySetStandardDeviationStochast(
-                       ConfigurationSchemaIdentifiers.WidthFlowAperturesStochastName,
-                       calculationName,
-                       input,
-                       readCalculation.WidthFlowApertures, i => i.WidthFlowApertures, (i, d) => i.WidthFlowApertures = d)
-                   && TrySetVariationCoefficientStochast(
-                       ConfigurationSchemaIdentifiers.CriticalOvertoppingDischargeStochastName,
-                       calculationName,
-                       input,
-                       readCalculation.CriticalOvertoppingDischarge,
-                       i => i.CriticalOvertoppingDischarge, (i, d) => i.CriticalOvertoppingDischarge = d)
-                   && TrySetVariationCoefficientStochast(
-                       ConfigurationSchemaIdentifiers.StorageStructureAreaStochastName,
-                       calculationName,
-                       input,
-                       readCalculation.StorageStructureArea,
-                       i => i.StorageStructureArea, (i, d) => i.StorageStructureArea = d)
-                   && TrySetVariationCoefficientStochast(
-                       ConfigurationSchemaIdentifiers.StormDurationStochastName,
-                       calculationName,
-                       input,
-                       readCalculation.StormDuration,
-                       i => i.StormDuration, (i, d) => i.StormDuration = d);
+            return assigner.AreStochastsValid() && assigner.SetAllStochasts();
         }
 
         /// <summary>

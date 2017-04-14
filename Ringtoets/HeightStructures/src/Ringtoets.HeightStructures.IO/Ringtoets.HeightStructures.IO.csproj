@@ -48,9 +48,11 @@
     <Compile Include="Configurations\HeightStructuresCalculationConfigurationExporter.cs" />
     <Compile Include="Configurations\HeightStructuresCalculationConfigurationImporter.cs" />
     <Compile Include="Configurations\HeightStructuresCalculationConfigurationReader.cs" />
+    <Compile Include="Configurations\HeightStructuresCalculationStochastAssigner.cs" />
     <Compile Include="Configurations\HeightStructuresConfigurationSchemaIdentifiers.cs" />
     <Compile Include="Configurations\HeightStructuresCalculationConfiguration.cs" />
     <Compile Include="Configurations\HeightStructuresCalculationConfigurationWriter.cs" />
+    <Compile Include="Configurations\StructuresCalculationStochastAssigner.cs" />
     <Compile Include="HeightStructuresImporter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
