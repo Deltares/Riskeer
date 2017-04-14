@@ -68,6 +68,7 @@
     <Compile Include="Configurations\Helpers\DistributionConversionExtensionsTest.cs" />
     <Compile Include="Configurations\Helpers\ILogExtensionsTest.cs" />
     <Compile Include="Configurations\StochastConfigurationTest.cs" />
+    <Compile Include="Configurations\StructuresCalculationStochastAssignerTest.cs" />
     <Compile Include="Configurations\WaveReductionConfigurationTest.cs" />
     <Compile Include="Configurations\Export\SchemaCalculationConfigurationExporterTest.cs" />
     <Compile Include="Configurations\Helpers\ConfigurationBreakWaterTypeConverterTest.cs" />

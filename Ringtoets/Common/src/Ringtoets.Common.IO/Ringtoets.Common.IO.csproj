@@ -60,6 +60,7 @@
     <Compile Include="Configurations\Helpers\WaveReductionConversionExtensions.cs" />
     <Compile Include="Configurations\IConfigurationItem.cs" />
     <Compile Include="Configurations\StochastConfiguration.cs" />
+    <Compile Include="Configurations\StructuresCalculationStochastAssigner.cs" />
     <Compile Include="Configurations\WaveReductionConfiguration.cs" />
     <Compile Include="Configurations\Helpers\ConfigurationBreakWaterTypeConverter.cs" />
     <Compile Include="DikeProfiles\DamType.cs" />

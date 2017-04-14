@@ -55,6 +55,7 @@
     <Compile Include="Configurations\HeightStructuresCalculationConfigurationTest.cs" />
     <Compile Include="Configurations\HeightStructuresCalculationConfigurationExporterTest.cs" />
     <Compile Include="Configurations\HeightStructuresCalculationConfigurationWriterTest.cs" />
+    <Compile Include="Configurations\HeightStructuresCalculationStochastAssignerTest.cs" />
     <Compile Include="HeightStructuresImporterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
