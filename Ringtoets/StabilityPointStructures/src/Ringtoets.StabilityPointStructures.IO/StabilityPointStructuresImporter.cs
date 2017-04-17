@@ -32,7 +32,8 @@ using Ringtoets.StabilityPointStructures.Data;
 namespace Ringtoets.StabilityPointStructures.IO
 {
     /// <summary>
-    /// Imports point shapefiles containing stability point structure locations and csv files containing stability point structure schematizations.
+    /// Imports point shapefiles containing stability point structure locations
+    /// and csv files containing stability point structure schematizations.
     /// </summary>
     public class StabilityPointStructuresImporter : StructuresImporter<ObservableList<StabilityPointStructure>>
     {
@@ -45,8 +46,9 @@ namespace Ringtoets.StabilityPointStructures.IO
         /// <param name="filePath">The path to the file to import from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="referenceLine"/>, 
         /// <paramref name="filePath"/>, or <paramref name="importTarget"/> is <c>null</c>.</exception>
-        public StabilityPointStructuresImporter(ObservableList<StabilityPointStructure> importTarget, ReferenceLine referenceLine, string filePath)
-            : base(importTarget, referenceLine, filePath) { }
+        public StabilityPointStructuresImporter(ObservableList<StabilityPointStructure> importTarget,
+                                                ReferenceLine referenceLine, string filePath)
+            : base(importTarget, referenceLine, filePath) {}
 
         protected override void CreateSpecificStructures(ICollection<StructureLocation> structureLocations,
                                                          Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
@@ -59,8 +61,8 @@ namespace Ringtoets.StabilityPointStructures.IO
             }
         }
 
-        private IEnumerable<StabilityPointStructure> CreateStabilityPointStructures(IList<StructureLocation> structureLocations,
-                                                                                    Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
+        private IEnumerable<StabilityPointStructure> CreateStabilityPointStructures(IEnumerable<StructureLocation> structureLocations,
+                                                                                    IDictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
         {
             var stabilityPointStructures = new List<StabilityPointStructure>();
             foreach (StructureLocation structureLocation in structureLocations)
@@ -72,7 +74,7 @@ namespace Ringtoets.StabilityPointStructures.IO
                                                                           : new List<StructuresParameterRow>();
 
                 ValidationResult parameterRowsValidationResult = StructuresParameterRowsValidator.ValidateStabilityPointStructuresParameters(structureParameterRows);
-                if (parameterRowsValidationResult.CriticalValidationError)
+                if (!parameterRowsValidationResult.IsValid)
                 {
                     LogValidationErrorForStructure(structureLocation.Name, structureLocation.Id, parameterRowsValidationResult.ErrorMessages);
                     continue;
@@ -84,9 +86,11 @@ namespace Ringtoets.StabilityPointStructures.IO
             return stabilityPointStructures;
         }
 
-        private StabilityPointStructure CreateStabilityPointStructure(StructureLocation structureLocation, List<StructuresParameterRow> structureParameterRows)
+        private StabilityPointStructure CreateStabilityPointStructure(StructureLocation structureLocation,
+                                                                      IEnumerable<StructuresParameterRow> structureParameterRows)
         {
-            Dictionary<string, StructuresParameterRow> rowData = structureParameterRows.ToDictionary(row => row.ParameterId, row => row, StringComparer.OrdinalIgnoreCase);
+            Dictionary<string, StructuresParameterRow> rowData = structureParameterRows.ToDictionary(
+                row => row.ParameterId, row => row, StringComparer.OrdinalIgnoreCase);
 
             string structureName = structureLocation.Name;
             return new StabilityPointStructure(
@@ -199,7 +203,8 @@ namespace Ringtoets.StabilityPointStructures.IO
                 });
         }
 
-        private static StabilityPointStructureInflowModelType GetStabilityPointStructureInflowModelType(StructuresParameterRow structureParameterRow)
+        private static StabilityPointStructureInflowModelType GetStabilityPointStructureInflowModelType(
+            StructuresParameterRow structureParameterRow)
         {
             string keywordValue = structureParameterRow.AlphanumericValue.ToLower();
             switch (keywordValue)

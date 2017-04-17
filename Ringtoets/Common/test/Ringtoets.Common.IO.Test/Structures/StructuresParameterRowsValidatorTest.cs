@@ -41,7 +41,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         }
 
         [Test]
-        public void ValidateHeightStructuresParameters_ParameterIdsDuplicated_CriticalValidationErrorTrueAndErrorMessages()
+        public void ValidateHeightStructuresParameters_ParameterIdsDuplicated_IsValidFalseAndErrorMessages()
         {
             // Setup
             var structuresParameterRow = new StructuresParameterRow
@@ -60,23 +60,16 @@ namespace Ringtoets.Common.IO.Test.Structures
             ValidationResult validationResult = StructuresParameterRowsValidator.ValidateHeightStructuresParameters(structureParameterRows);
 
             // Assert
-            Assert.IsTrue(validationResult.CriticalValidationError);
+            Assert.IsFalse(validationResult.IsValid);
             var expectedErrorMessages = new List<string>
             {
-                "Parameter 'KW_HOOGTE1' komt meerdere keren voor.",
-                "Geen geldige definitie gevonden voor parameter 'KW_HOOGTE2'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_HOOGTE3'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_HOOGTE4'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_HOOGTE5'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_HOOGTE6'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_HOOGTE7'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_HOOGTE8'."
+                "Parameter 'KW_HOOGTE1' komt meerdere keren voor."
             };
             CollectionAssert.AreEqual(expectedErrorMessages, validationResult.ErrorMessages);
         }
 
         [Test]
-        public void ValidateHeightStructuresParameters_OneParameterDefined_CriticalValidationErrorFalseAndValidationWarningTrueAndErrorMessages()
+        public void ValidateHeightStructuresParameters_OneParameterDefined_IsValidTrueAndMessagesEmpty()
         {
             // Setup
             var structuresParameterRow = new StructuresParameterRow
@@ -94,30 +87,19 @@ namespace Ringtoets.Common.IO.Test.Structures
             ValidationResult validationResult = StructuresParameterRowsValidator.ValidateHeightStructuresParameters(structureParameterRows);
 
             // Assert
-            Assert.IsFalse(validationResult.CriticalValidationError);
-            Assert.IsTrue(validationResult.ValidationWarning);
-            var expectedErrorMessages = new List<string>
-            {
-                "Geen geldige definitie gevonden voor parameter 'KW_HOOGTE2'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_HOOGTE3'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_HOOGTE4'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_HOOGTE5'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_HOOGTE6'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_HOOGTE7'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_HOOGTE8'."
-            };
-            CollectionAssert.AreEqual(expectedErrorMessages, validationResult.ErrorMessages);
+            Assert.IsTrue(validationResult.IsValid);
+            CollectionAssert.IsEmpty(validationResult.ErrorMessages);
         }
 
         [Test]
-        public void ValidateHeightStructuresParameters_NoParameterDefined_CriticalValidationErrorTrueAndErrorMessages()
+        public void ValidateHeightStructuresParameters_NoParameterDefined_IsValidFalseAndErrorMessages()
         {
             // Call
             ValidationResult validationResult = StructuresParameterRowsValidator.ValidateHeightStructuresParameters(
                 new List<StructuresParameterRow>());
 
             // Assert
-            Assert.IsTrue(validationResult.CriticalValidationError);
+            Assert.IsFalse(validationResult.IsValid);
             var expectedErrorMessages = new List<string>
             {
                 "Geen geldige parameter definities gevonden."
@@ -127,7 +109,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
         [Test]
         [SetCulture("nl-NL")]
-        public void ValidateHeightStructuresParameters_ParametersAllInvalid_CriticalValidationErrorTrueAndErrorMessages()
+        public void ValidateHeightStructuresParameters_ParametersAllInvalid_IsValidFalseAndErrorMessages()
         {
             // Setup
             var structureParameterRows = new List<StructuresParameterRow>
@@ -195,7 +177,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             ValidationResult validationResult = StructuresParameterRowsValidator.ValidateHeightStructuresParameters(structureParameterRows);
 
             // Assert
-            Assert.IsTrue(validationResult.CriticalValidationError);
+            Assert.IsFalse(validationResult.IsValid);
             var expectedErrorMessages = new List<string>
             {
                 "De waarde voor parameter 'KW_HOOGTE1' op regel 1, kolom 'Numeriekewaarde', moet in het bereik [0,0, 360,0] liggen.",
@@ -290,7 +272,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             ValidationResult validationResult = StructuresParameterRowsValidator.ValidateHeightStructuresParameters(parameters);
 
             // Assert
-            Assert.IsFalse(validationResult.CriticalValidationError,
+            Assert.IsTrue(validationResult.IsValid,
                            "Expected to be valid, but found following errors: {0}",
                            string.Join(Environment.NewLine, validationResult.ErrorMessages));
         }
@@ -307,7 +289,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         }
 
         [Test]
-        public void ValidateClosingStructuresParameters_ParameterIdsDuplicated_CriticalValidationErrorTrueAndErrorMessages()
+        public void ValidateClosingStructuresParameters_ParameterIdsDuplicated_IsValidFasleAndErrorMessages()
         {
             // Setup
             var structuresParameterRow = new StructuresParameterRow
@@ -326,30 +308,16 @@ namespace Ringtoets.Common.IO.Test.Structures
             ValidationResult validationResult = StructuresParameterRowsValidator.ValidateClosingStructuresParameters(structureParameterRows);
 
             // Assert
-            Assert.IsTrue(validationResult.CriticalValidationError);
+            Assert.IsFalse(validationResult.IsValid);
             var expectedErrorMessages = new List<string>
             {
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT1'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT2'.",
-                "Parameter 'KW_BETSLUIT3' komt meerdere keren voor.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT4'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT5'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT6'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT7'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT8'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT9'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT10'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT11'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT12'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT13'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT14'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT15'."
+                "Parameter 'KW_BETSLUIT3' komt meerdere keren voor."
             };
             CollectionAssert.AreEqual(expectedErrorMessages, validationResult.ErrorMessages);
         }
 
         [Test]
-        public void ValidateClosingStructuresParameters_OneParameterDefined_CriticalValidationErrorFalseAndValidationWarningTrueAndErrorMessages()
+        public void ValidateClosingStructuresParameters_OneParameterDefined_IsValidTrueMessagesEmpty()
         {
             // Setup
             var structuresParameterRow = new StructuresParameterRow
@@ -366,38 +334,20 @@ namespace Ringtoets.Common.IO.Test.Structures
             // Call
             ValidationResult validationResult = StructuresParameterRowsValidator.ValidateClosingStructuresParameters(structureParameterRows);
 
-            // Assert
-            Assert.IsFalse(validationResult.CriticalValidationError);
-            Assert.IsTrue(validationResult.ValidationWarning);
-            var expectedErrorMessages = new List<string>
-            {
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT1'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT2'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT4'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT5'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT6'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT7'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT8'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT9'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT10'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT11'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT12'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT13'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT14'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT15'."
-            };
-            CollectionAssert.AreEqual(expectedErrorMessages, validationResult.ErrorMessages);
+            // Assert;
+            Assert.IsTrue(validationResult.IsValid);
+            CollectionAssert.IsEmpty(validationResult.ErrorMessages);
         }
 
         [Test]
-        public void ValidateClosingStructuresParameters_NoParameterDefined_CriticalValidationErrorTrueAndErrorMessages()
+        public void ValidateClosingStructuresParameters_NoParameterDefined_IsValidFalseAndErrorMessages()
         {
             // Call
             ValidationResult validationResult = StructuresParameterRowsValidator.ValidateClosingStructuresParameters(
                 new List<StructuresParameterRow>());
 
             // Assert
-            Assert.IsTrue(validationResult.CriticalValidationError);
+            Assert.IsFalse(validationResult.IsValid);
             var expectedErrorMessages = new List<string>
             {
                 "Geen geldige parameter definities gevonden."
@@ -407,7 +357,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
         [Test]
         [SetCulture("nl-NL")]
-        public void ValidateClosingStructuresParameters_ParametersAllInvalid_CriticalValidationErrorTrueAndErrorMessages()
+        public void ValidateClosingStructuresParameters_ParametersAllInvalid_IsValidFalseAndErrorMessages()
         {
             // Setup
             var structureParameterRows = new List<StructuresParameterRow>
@@ -523,7 +473,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             ValidationResult validationResult = StructuresParameterRowsValidator.ValidateClosingStructuresParameters(structureParameterRows);
 
             // Assert
-            Assert.IsTrue(validationResult.CriticalValidationError);
+            Assert.IsFalse(validationResult.IsValid);
             var expectedErrorMessages = new List<string>
             {
                 "De waarde voor parameter 'KW_BETSLUIT1' op regel 1, kolom 'Numeriekewaarde', is te dicht op 0 waardoor een betrouwbare conversie tussen standaardafwijking en variatiecoëfficiënt niet mogelijk is.",
@@ -554,7 +504,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         }
 
         [Test]
-        public void ValidateClosingStructuresParameters_ParametersAllValid_CriticalValidationErrorFalseAndNoErrorMessages()
+        public void ValidateClosingStructuresParameters_ParametersAllValid_IsValidTrueAndNoErrorMessages()
         {
             // Setup
             var structureParameterRows = new List<StructuresParameterRow>
@@ -673,7 +623,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             ValidationResult validationResult = StructuresParameterRowsValidator.ValidateClosingStructuresParameters(structureParameterRows);
 
             // Assert
-            Assert.IsFalse(validationResult.CriticalValidationError);
+            Assert.IsTrue(validationResult.IsValid);
             CollectionAssert.IsEmpty(validationResult.ErrorMessages);
         }
 
@@ -800,7 +750,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             ValidationResult validationResult = StructuresParameterRowsValidator.ValidateClosingStructuresParameters(parameters);
 
             // Assert
-            Assert.IsFalse(validationResult.CriticalValidationError,
+            Assert.IsTrue(validationResult.IsValid,
                            "Expected to be valid, but found following errors: {0}",
                            string.Join(Environment.NewLine, validationResult.ErrorMessages));
         }
@@ -817,7 +767,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         }
 
         [Test]
-        public void ValidateStabilityPointStructuresParameters_ParameterIdsDuplicated_CriticalValidationErrorTrueAndErrorMessages()
+        public void ValidateStabilityPointStructuresParameters_ParameterIdsDuplicated_IsValidFalseAndErrorMessages()
         {
             // Setup
             var structuresParameterRow = new StructuresParameterRow
@@ -836,41 +786,16 @@ namespace Ringtoets.Common.IO.Test.Structures
             ValidationResult validationResult = StructuresParameterRowsValidator.ValidateStabilityPointStructuresParameters(structureParameterRows);
 
             // Assert
-            Assert.IsTrue(validationResult.CriticalValidationError);
+            Assert.IsFalse(validationResult.IsValid);
             var expectedErrorMessages = new List<string>
             {
-                "Parameter 'KW_STERSTAB1' komt meerdere keren voor.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB2'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB3'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB4'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB5'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB6'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB7'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB8'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB9'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB10'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB11'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB12'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB13'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB14'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB15'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB16'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB17'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB18'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB19'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB20'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB21'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB22'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB23'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB24'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB25'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB26'."
+                "Parameter 'KW_STERSTAB1' komt meerdere keren voor."
             };
             CollectionAssert.AreEqual(expectedErrorMessages, validationResult.ErrorMessages);
         }
 
         [Test]
-        public void ValidateStabilityPointStructuresParameters_OneParameterDefined_CriticalValidationErrorFalseAndValidationWarningTrueAndErrorMessages()
+        public void ValidateStabilityPointStructuresParameters_OneParameterDefined_IsValidTrueAndMessagesEmpty()
         {
             // Setup
             var structuresParameterRow = new StructuresParameterRow
@@ -888,48 +813,19 @@ namespace Ringtoets.Common.IO.Test.Structures
             ValidationResult validationResult = StructuresParameterRowsValidator.ValidateStabilityPointStructuresParameters(structureParameterRows);
 
             // Assert
-            Assert.IsFalse(validationResult.CriticalValidationError);
-            Assert.IsTrue(validationResult.ValidationWarning);
-            var expectedErrorMessages = new List<string>
-            {
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB2'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB3'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB4'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB5'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB6'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB7'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB8'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB9'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB10'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB11'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB12'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB13'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB14'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB15'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB16'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB17'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB18'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB19'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB20'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB21'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB22'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB23'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB24'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB25'.",
-                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB26'."
-            };
-            CollectionAssert.AreEqual(expectedErrorMessages, validationResult.ErrorMessages);
+            Assert.IsTrue(validationResult.IsValid);
+            CollectionAssert.IsEmpty(validationResult.ErrorMessages);
         }
 
         [Test]
-        public void ValidateStabilityPointStructuresParameters_NoParameterDefined_CriticalValidationErrorTrueAndErrorMessages()
+        public void ValidateStabilityPointStructuresParameters_NoParameterDefined_IsValidFalseAndErrorMessages()
         {
             // Call
             ValidationResult validationResult = StructuresParameterRowsValidator.ValidateStabilityPointStructuresParameters(
                 new List<StructuresParameterRow>());
 
             // Assert
-            Assert.IsTrue(validationResult.CriticalValidationError);
+            Assert.IsFalse(validationResult.IsValid);
             var expectedErrorMessages = new List<string>
             {
                 "Geen geldige parameter definities gevonden."
@@ -939,7 +835,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
         [Test]
         [SetCulture("nl-NL")]
-        public void ValidateStabilityPointStructuresParameters_ParametersAllInvalid_CriticalValidationErrorTrueAndErrorMessages()
+        public void ValidateStabilityPointStructuresParameters_ParametersAllInvalid_IsValidFalseAndErrorMessages()
         {
             // Setup
             var structureParameterRows = new List<StructuresParameterRow>
@@ -1139,7 +1035,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             ValidationResult validationResult = StructuresParameterRowsValidator.ValidateStabilityPointStructuresParameters(structureParameterRows);
 
             // Assert
-            Assert.IsTrue(validationResult.CriticalValidationError);
+            Assert.IsFalse(validationResult.IsValid);
             var expectedErrorMessages = new List<string>
             {
                 "De waarde voor parameter 'KW_STERSTAB1' op regel 1, kolom 'Numeriekewaarde', moet in het bereik [0,0, 360,0] liggen.",
@@ -1383,7 +1279,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             ValidationResult validationResult = StructuresParameterRowsValidator.ValidateStabilityPointStructuresParameters(parameters);
 
             // Assert
-            Assert.IsFalse(validationResult.CriticalValidationError,
+            Assert.IsTrue(validationResult.IsValid,
                            "Expected to be valid, but found following errors: {0}",
                            string.Join(Environment.NewLine, validationResult.ErrorMessages));
         }

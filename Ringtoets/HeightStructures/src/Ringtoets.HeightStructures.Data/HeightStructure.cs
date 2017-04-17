@@ -137,25 +137,25 @@ namespace Ringtoets.HeightStructures.Data
             /// Gets the crest level of the height structure.
             /// [m+NAP]
             /// </summary>
-            public NormalDistribution LevelCrestStructure { get; private set; }
+            public NormalDistribution LevelCrestStructure { get; }
 
             /// <summary>
             /// Gets the flow width of the height structure at the bottom protection.
             /// [m]
             /// </summary>
-            public LogNormalDistribution FlowWidthAtBottomProtection { get; private set; }
+            public LogNormalDistribution FlowWidthAtBottomProtection { get; }
 
             /// <summary>
             /// Gets the critical overtopping discharge per meter of the height structure.
             /// [m^3/s/m]
             /// </summary>
-            public VariationCoefficientLogNormalDistribution CriticalOvertoppingDischarge { get; private set; }
+            public VariationCoefficientLogNormalDistribution CriticalOvertoppingDischarge { get; }
 
             /// <summary>
             /// Gets the flow apertures width of the height structure.
             /// [m]
             /// </summary>
-            public NormalDistribution WidthFlowApertures { get; private set; }
+            public NormalDistribution WidthFlowApertures { get; }
 
             /// <summary>
             /// Gets or sets the failure probability of the height structure, given erosion.
@@ -167,13 +167,13 @@ namespace Ringtoets.HeightStructures.Data
             /// Gets the storage area of the height structure.
             /// [m^2]
             /// </summary>
-            public VariationCoefficientLogNormalDistribution StorageStructureArea { get; private set; }
+            public VariationCoefficientLogNormalDistribution StorageStructureArea { get; }
 
             /// <summary>
             /// Gets the allowed increase of level for storage of the height structure.
             /// [m]
             /// </summary>
-            public LogNormalDistribution AllowedLevelIncreaseStorage { get; private set; }
+            public LogNormalDistribution AllowedLevelIncreaseStorage { get; }
         }
     }
 }

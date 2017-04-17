@@ -32,7 +32,8 @@ using Ringtoets.Common.IO.Structures;
 namespace Ringtoets.ClosingStructures.IO
 {
     /// <summary>
-    /// Imports point shapefiles containing closing structure locations and csv files containing closing structure schematizations.
+    /// Imports point shapefiles containing closing structure locations
+    /// and csv files containing closing structure schematizations.
     /// </summary>
     public class ClosingStructuresImporter : StructuresImporter<ObservableList<ClosingStructure>>
     {
@@ -45,7 +46,8 @@ namespace Ringtoets.ClosingStructures.IO
         /// <param name="filePath">The path to the file to import from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="referenceLine"/>, 
         /// <paramref name="filePath"/>, or <paramref name="importTarget"/> is <c>null</c>.</exception>
-        public ClosingStructuresImporter(ObservableList<ClosingStructure> importTarget, ReferenceLine referenceLine, string filePath)
+        public ClosingStructuresImporter(ObservableList<ClosingStructure> importTarget,
+                                         ReferenceLine referenceLine, string filePath)
             : base(importTarget, referenceLine, filePath) {}
 
         protected override void CreateSpecificStructures(ICollection<StructureLocation> structureLocations,
@@ -59,8 +61,8 @@ namespace Ringtoets.ClosingStructures.IO
             }
         }
 
-        private IEnumerable<ClosingStructure> CreateClosingStructures(IList<StructureLocation> structureLocations,
-                                                                      Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
+        private IEnumerable<ClosingStructure> CreateClosingStructures(IEnumerable<StructureLocation> structureLocations,
+                                                                      IDictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
         {
             var closingStructures = new List<ClosingStructure>();
             foreach (StructureLocation structureLocation in structureLocations)
@@ -72,7 +74,7 @@ namespace Ringtoets.ClosingStructures.IO
                                                                           : new List<StructuresParameterRow>();
 
                 ValidationResult parameterRowsValidationResult = StructuresParameterRowsValidator.ValidateClosingStructuresParameters(structureParameterRows);
-                if (parameterRowsValidationResult.CriticalValidationError)
+                if (!parameterRowsValidationResult.IsValid)
                 {
                     LogValidationErrorForStructure(structureLocation.Name, structureLocation.Id, parameterRowsValidationResult.ErrorMessages);
                     continue;
@@ -84,7 +86,8 @@ namespace Ringtoets.ClosingStructures.IO
             return closingStructures;
         }
 
-        private ClosingStructure CreateClosingStructure(StructureLocation structureLocation, List<StructuresParameterRow> structureParameterRows)
+        private ClosingStructure CreateClosingStructure(StructureLocation structureLocation,
+                                                        IEnumerable<StructuresParameterRow> structureParameterRows)
         {
             Dictionary<string, StructuresParameterRow> rowData = structureParameterRows.ToDictionary(
                 row => row.ParameterId, row => row, StringComparer.OrdinalIgnoreCase);
@@ -149,7 +152,8 @@ namespace Ringtoets.ClosingStructures.IO
                 });
         }
 
-        private static ClosingStructureInflowModelType GetClosingStructureInflowModelType(StructuresParameterRow structureParameterRow)
+        private static ClosingStructureInflowModelType GetClosingStructureInflowModelType(
+            StructuresParameterRow structureParameterRow)
         {
             string keywordValue = structureParameterRow.AlphanumericValue.ToLower();
             switch (keywordValue)
