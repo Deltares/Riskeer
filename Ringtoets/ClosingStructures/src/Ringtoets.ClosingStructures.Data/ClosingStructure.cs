@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Probabilistics;
 using BaseConstructionProperties = Ringtoets.Common.Data.StructureBase.ConstructionProperties;
@@ -187,15 +188,59 @@ namespace Ringtoets.ClosingStructures.Data
             /// </summary>
             public ConstructionProperties()
             {
-                StorageStructureArea = new VariationCoefficientLogNormalDistribution(2);
-                AllowedLevelIncreaseStorage = new LogNormalDistribution(2);
-                WidthFlowApertures = new NormalDistribution(2);
-                LevelCrestStructureNotClosing = new NormalDistribution(2);
-                InsideWaterLevel = new NormalDistribution(2);
-                ThresholdHeightOpenWeir = new NormalDistribution(2);
-                AreaFlowApertures = new LogNormalDistribution(2);
-                CriticalOvertoppingDischarge = new VariationCoefficientLogNormalDistribution(2);
-                FlowWidthAtBottomProtection = new LogNormalDistribution(2);
+                StorageStructureArea = new VariationCoefficientLogNormalDistribution(2)
+                {
+                    Mean = RoundedDouble.NaN,
+                    CoefficientOfVariation = (RoundedDouble) 0.1
+                };
+                AllowedLevelIncreaseStorage = new LogNormalDistribution(2)
+                {
+                    Mean = RoundedDouble.NaN,
+                    StandardDeviation = (RoundedDouble) 0.1
+                };
+                WidthFlowApertures = new NormalDistribution(2)
+                {
+                    Mean = RoundedDouble.NaN,
+                    StandardDeviation = (RoundedDouble) 0.2
+                };
+                LevelCrestStructureNotClosing = new NormalDistribution(2)
+                {
+                    Mean = RoundedDouble.NaN,
+                    StandardDeviation = (RoundedDouble) 0.05
+                };
+                InsideWaterLevel = new NormalDistribution(2)
+                {
+                    Mean = RoundedDouble.NaN,
+                    StandardDeviation = (RoundedDouble) 0.1
+                };
+                ThresholdHeightOpenWeir = new NormalDistribution(2)
+                {
+                    Mean = RoundedDouble.NaN,
+                    StandardDeviation = (RoundedDouble) 0.1
+                };
+                AreaFlowApertures = new LogNormalDistribution(2)
+                {
+                    Mean = RoundedDouble.NaN,
+                    StandardDeviation = (RoundedDouble) 0.1
+                };
+                CriticalOvertoppingDischarge = new VariationCoefficientLogNormalDistribution(2)
+                {
+                    Mean = RoundedDouble.NaN,
+                    CoefficientOfVariation = (RoundedDouble) 0.15
+                };
+                FlowWidthAtBottomProtection = new LogNormalDistribution(2)
+                {
+                    Mean = RoundedDouble.NaN,
+                    StandardDeviation = (RoundedDouble) 0.05
+                };
+
+                ProbabilityOrFrequencyOpenStructureBeforeFlooding = 1;
+                FailureProbabilityOpenStructure = 1;
+                IdenticalApertures = 1;
+                FailureProbabilityReparation = 1;
+                InflowModelType = ClosingStructureInflowModelType.VerticalWall;
+
+                StructureNormalOrientation = double.NaN;
             }
 
             /// <summary>
