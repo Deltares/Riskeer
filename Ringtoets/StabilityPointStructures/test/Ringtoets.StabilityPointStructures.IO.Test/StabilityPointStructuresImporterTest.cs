@@ -28,6 +28,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.StabilityPointStructures.Data;
 
@@ -245,7 +246,18 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             });
             Assert.IsTrue(importResult);
             Assert.AreEqual(1, importTarget.Count);
-            // TODO assert default values.
+            StabilityPointStructure importedStructure = importTarget.First();
+            var defaultStructure = new StabilityPointStructure(new StabilityPointStructure.ConstructionProperties
+            {
+                Name = "test",
+                Location = new Point2D(0, 0),
+                Id = "id"
+            });
+            DistributionAssert.AreEqual(defaultStructure.StorageStructureArea, importedStructure.StorageStructureArea);
+            DistributionAssert.AreEqual(defaultStructure.ThresholdHeightOpenWeir, importedStructure.ThresholdHeightOpenWeir);
+            DistributionAssert.AreEqual(defaultStructure.InsideWaterLevelFailureConstruction, importedStructure.InsideWaterLevelFailureConstruction);            
+            Assert.AreEqual(defaultStructure.LevellingCount, importedStructure.LevellingCount);
+            DistributionAssert.AreEqual(defaultStructure.AreaFlowApertures, importedStructure.AreaFlowApertures);
         }
 
         private static ReferenceLine CreateReferenceLine()

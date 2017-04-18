@@ -92,6 +92,9 @@ namespace Ringtoets.Common.Data
         {
             private RoundedDouble structureNormalOrientation;
 
+            /// <summary>
+            /// Creates a new instance of <see cref="ConstructionProperties"/>.
+            /// </summary>
             public ConstructionProperties()
             {
                 structureNormalOrientation = new RoundedDouble(2, double.NaN);
