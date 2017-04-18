@@ -29,6 +29,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.FileImporters;
 
 namespace Ringtoets.ClosingStructures.IO.Test
@@ -227,7 +228,18 @@ namespace Ringtoets.ClosingStructures.IO.Test
             });
             Assert.IsTrue(importResult);
             Assert.AreEqual(1, importTarget.Count);
-            // TODO assert default values.
+
+            var defaultStructure = new ClosingStructure(new ClosingStructure.ConstructionProperties()
+            {
+                Name = "test",
+                Location = new Point2D(0, 0),
+                Id = "id"
+            });
+            ClosingStructure importedStructure = importTarget[0];
+            DistributionAssert.AreEqual(defaultStructure.StorageStructureArea, importedStructure.StorageStructureArea);
+            DistributionAssert.AreEqual(defaultStructure.LevelCrestStructureNotClosing, importedStructure.LevelCrestStructureNotClosing);
+            DistributionAssert.AreEqual(defaultStructure.AreaFlowApertures, importedStructure.AreaFlowApertures);
+            Assert.AreEqual(defaultStructure.FailureProbabilityReparation, importedStructure.FailureProbabilityReparation);
         }
 
         private static ReferenceLine CreateReferenceLine()

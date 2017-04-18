@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Linq.Expressions;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -170,7 +169,6 @@ namespace Ringtoets.HeightStructures.IO.Test
         [Test]
         public void Import_MissingParameters_LogWarningAndContinueImportWithDefaultValues()
         {
-
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HeightStructures.IO,
                                                          Path.Combine(nameof(HeightStructuresImporter), "Kunstwerken.shp"));
