@@ -341,7 +341,7 @@ namespace Core.Common.Gui.Test.Commands
         }
 
         [Test]
-        public void UpdateOn_InquiryHelperReturnsNoPath_UpdateCancelledWithLogMessage()
+        public void UpdateOn_InquiryHelperReturnsNoPathAndCurrentPathNotSet_UpdateCancelledWithLogMessage()
         {
             // Setup
             var generator = new FileFilterGenerator();
@@ -373,7 +373,53 @@ namespace Core.Common.Gui.Test.Commands
                 Action call = () => updateHandler.UpdateOn(targetObject);
 
                 // Assert
-                TestHelper.AssertLogMessageIsGenerated(call, "Bijwerken van gegevens in '' is door de gebruiker geannuleerd.");
+                const string expectedLogMessage = "Bijwerken van gegevens is door de gebruiker geannuleerd.";
+                Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedLogMessage,
+                                                                                          LogLevelConstant.Info);
+                TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel);
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void UpdateOn_InquiryHelperReturnsNoPathAndCurrentPathSet_UpdateCancelledWithLogMessage()
+        {
+            // Setup
+            var generator = new FileFilterGenerator();
+            var targetObject = new object();
+
+            var mockRepository = new MockRepository();
+            var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
+            inquiryHelper.Expect(ih => ih.GetSourceFileLocation(generator.Filter)).Return(null);
+            var fileImporter = mockRepository.Stub<IFileImporter>();
+            mockRepository.ReplayAll();
+
+            const string currentPath = "FilePath/to/Update";
+            using (var form = new Form())
+            {
+                var updateHandler = new GuiUpdateHandler(form, new UpdateInfo[]
+                {
+                    new UpdateInfo<object>
+                    {
+                        CreateFileImporter = (o, s) =>
+                        {
+                            Assert.Fail("CreateFileImporter is not expected to be called when no file path is chosen.");
+                            return fileImporter;
+                        },
+                        FileFilterGenerator = generator,
+                        VerifyUpdates = o => true,
+                        CurrentPath = o => currentPath
+                    }
+                }, inquiryHelper);
+
+                // Call
+                Action call = () => updateHandler.UpdateOn(targetObject);
+
+                // Assert
+                string expectedLogMessage = $"Bijwerken van gegevens in '{currentPath}' is door de gebruiker geannuleerd.";
+                Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedLogMessage,
+                                                                                          LogLevelConstant.Info);
+                TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel);
             }
             mockRepository.VerifyAll();
         }

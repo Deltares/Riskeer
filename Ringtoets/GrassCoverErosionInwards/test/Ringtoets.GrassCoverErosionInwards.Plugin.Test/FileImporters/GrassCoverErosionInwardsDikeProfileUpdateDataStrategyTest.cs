@@ -612,7 +612,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
             }, sourceFilePath);
 
             // Precondition
-            GrassCoverErosionInwardsFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults.ToArray();
+            GrassCoverErosionInwardsFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults
+                                                                                                     .ToArray();
             Assert.AreEqual(2, sectionResults.Length);
             Assert.AreSame(affectedCalculation, sectionResults[0].Calculation);
             Assert.IsNull(sectionResults[1].Calculation);

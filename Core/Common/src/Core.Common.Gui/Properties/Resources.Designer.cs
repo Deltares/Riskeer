@@ -964,6 +964,15 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bijwerken van gegevens is door de gebruiker geannuleerd..
+        /// </summary>
+        public static string GuiUpdateHandler_UpdateItemsUsingDialog_Updating_cancelled {
+            get {
+                return ResourceManager.GetString("GuiUpdateHandler_UpdateItemsUsingDialog_Updating_cancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bijwerken van gegevens in &apos;{0}&apos; is door de gebruiker geannuleerd..
         /// </summary>
         public static string GuiUpdateHandler_UpdateItemsUsingDialog_Updating_from_Path_0_cancelled {

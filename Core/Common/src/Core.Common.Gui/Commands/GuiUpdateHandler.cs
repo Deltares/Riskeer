@@ -147,7 +147,14 @@ namespace Core.Common.Gui.Commands
             }
             else
             {
-                log.InfoFormat(Resources.GuiUpdateHandler_UpdateItemsUsingDialog_Updating_from_Path_0_cancelled, oldPath);
+                if (!string.IsNullOrEmpty(oldPath))
+                {
+                    log.InfoFormat(Resources.GuiUpdateHandler_UpdateItemsUsingDialog_Updating_from_Path_0_cancelled, oldPath);
+                }
+                else
+                {
+                    log.InfoFormat(Resources.GuiUpdateHandler_UpdateItemsUsingDialog_Updating_cancelled);
+                }
             }
         }
 
