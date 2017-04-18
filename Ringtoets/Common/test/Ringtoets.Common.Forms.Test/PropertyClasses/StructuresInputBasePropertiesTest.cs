@@ -744,7 +744,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Structure_Always_InputChangedAndObsevablesNotified()
+        public void Structure_Always_InputChangedAndObservablesNotified()
         {
             var structure = new SimpleStructure();
             SetPropertyAndVerifyNotifcationsAndOutput(
@@ -752,7 +752,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void StructureNormalOrientation_Always_InputChangedAndObsevablesNotified()
+        public void StructureNormalOrientation_Always_InputChangedAndObservablesNotified()
         {
             RoundedDouble orientation = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
@@ -760,7 +760,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void FailureProbabilityStructureWithErosion_Always_InputChangedAndObsevablesNotified()
+        public void FailureProbabilityStructureWithErosion_Always_InputChangedAndObservablesNotified()
         {
             string failureProbability = new Random(21).NextDouble().ToString(CultureInfo.CurrentCulture);
             SetPropertyAndVerifyNotifcationsAndOutput(
@@ -768,7 +768,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void SelectedHydraulicBoundaryLocation_Always_InputChangedAndObsevablesNotified()
+        public void SelectedHydraulicBoundaryLocation_Always_InputChangedAndObservablesNotified()
         {
             var location = new SelectableHydraulicBoundaryLocation(CreateHydraulicBoundaryLocation(), null);
             SetPropertyAndVerifyNotifcationsAndOutput(
@@ -776,7 +776,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void ForeshoreProfile_Always_InputChangedAndObsevablesNotified()
+        public void ForeshoreProfile_Always_InputChangedAndObservablesNotified()
         {
             var profile = new TestForeshoreProfile();
             SetPropertyAndVerifyNotifcationsAndOutput(
@@ -784,7 +784,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void UseBreakWater_Always_InputChangedAndObsevablesNotified()
+        public void UseBreakWater_Always_InputChangedAndObservablesNotified()
         {
             bool useBreakWater = new Random(21).NextBoolean();
             SetPropertyAndVerifyNotifcationsAndOutput(
@@ -792,7 +792,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void UseForeshore_Always_InputChangedAndObsevablesNotified()
+        public void UseForeshore_Always_InputChangedAndObservablesNotified()
         {
             bool useForeshore = new Random(21).NextBoolean();
             SetPropertyAndVerifyNotifcationsAndOutput(
@@ -800,7 +800,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void ModelFactorSuperCriticalFlow_MeanChanged_InputChangedAndObsevablesNotified()
+        public void ModelFactorSuperCriticalFlow_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
@@ -808,7 +808,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void FlowWidthAtBottomProtection_MeanChanged_InputChangedAndObsevablesNotified()
+        public void FlowWidthAtBottomProtection_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
@@ -816,7 +816,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void WidthFlowApertures_MeanChanged_InputChangedAndObsevablesNotified()
+        public void WidthFlowApertures_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
@@ -824,7 +824,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void StorageStructureArea_MeanChanged_InputChangedAndObsevablesNotified()
+        public void StorageStructureArea_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
@@ -832,7 +832,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void AllowedLevelIncreaseStorage_MeanChanged_InputChangedAndObsevablesNotified()
+        public void AllowedLevelIncreaseStorage_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
@@ -840,7 +840,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void CriticalOvertoppingDischarge_MeanChanged_InputChangedAndObsevablesNotified()
+        public void CriticalOvertoppingDischarge_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
@@ -848,7 +848,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void StormDuration_MeanChanged_InputChangedAndObsevablesNotified()
+        public void StormDuration_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(

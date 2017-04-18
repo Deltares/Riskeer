@@ -566,7 +566,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void FactorStormDurationOpenStructure_Always_InputChangedAndObsevablesNotified()
+        public void FactorStormDurationOpenStructure_Always_InputChangedAndObservablesNotified()
         {
             RoundedDouble factor = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
@@ -574,7 +574,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void InflowModelType_Always_InputChangedAndObsevablesNotified()
+        public void InflowModelType_Always_InputChangedAndObservablesNotified()
         {
             var inflowModelType = new Random(21).NextEnumValue<ClosingStructureInflowModelType>();
             SetPropertyAndVerifyNotifcationsAndOutput(
@@ -582,7 +582,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void ProbabilityOrFrequencyOpenStructureBeforeFlooding_Always_InputChangedAndObsevablesNotified()
+        public void ProbabilityOrFrequencyOpenStructureBeforeFlooding_Always_InputChangedAndObservablesNotified()
         {
             string probability = new Random(21).NextDouble().ToString(CultureInfo.CurrentCulture);
             SetPropertyAndVerifyNotifcationsAndOutput(
@@ -590,7 +590,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void FailureProbabilityOpenStructure_Always_InputChangedAndObsevablesNotified()
+        public void FailureProbabilityOpenStructure_Always_InputChangedAndObservablesNotified()
         {
             string probability = new Random(21).NextDouble().ToString(CultureInfo.CurrentCulture);
             SetPropertyAndVerifyNotifcationsAndOutput(
@@ -598,7 +598,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void FailureProbabilityReparation_Always_InputChangedAndObsevablesNotified()
+        public void FailureProbabilityReparation_Always_InputChangedAndObservablesNotified()
         {
             string probability = new Random(21).NextDouble().ToString(CultureInfo.CurrentCulture);
             SetPropertyAndVerifyNotifcationsAndOutput(
@@ -606,7 +606,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void IdenticalApertures_Always_InputChangedAndObsevablesNotified()
+        public void IdenticalApertures_Always_InputChangedAndObservablesNotified()
         {
             int propertiesIdenticalApertures = new Random(21).Next();
             SetPropertyAndVerifyNotifcationsAndOutput(
@@ -614,7 +614,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void InsideWaterLevel_MeanChanged_InputChangedAndObsevablesNotified()
+        public void InsideWaterLevel_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
@@ -622,7 +622,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void ModelFactorSuperCriticalFlow_MeanChanged_InputChangedAndObsevablesNotified()
+        public void ModelFactorSuperCriticalFlow_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
@@ -630,7 +630,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void WidthFlowApertures_MeanChanged_InputChangedAndObsevablesNotified()
+        public void WidthFlowApertures_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
@@ -638,7 +638,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void ThresholdHeightOpenWeir_MeanChanged_InputChangedAndObsevablesNotified()
+        public void ThresholdHeightOpenWeir_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
@@ -646,7 +646,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void AreaFlowApertures_MeanChanged_InputChangedAndObsevablesNotified()
+        public void AreaFlowApertures_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
@@ -654,7 +654,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void DrainCoefficient_MeanChanged_InputChangedAndObsevablesNotified()
+        public void DrainCoefficient_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
@@ -662,7 +662,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void LevelCrestStructureNotClosing_MeanChanged_InputChangedAndObsevablesNotified()
+        public void LevelCrestStructureNotClosing_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
