@@ -29,6 +29,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.HeightStructures.Data;
 
@@ -196,7 +197,16 @@ namespace Ringtoets.HeightStructures.IO.Test
             });
             Assert.IsTrue(importResult);
             Assert.AreEqual(1, importTarget.Count);
-            // TODO assert default values.
+            HeightStructure importedStructure = importTarget.First();
+            var defaultStructure = new HeightStructure(new HeightStructure.ConstructionProperties
+            {
+                Name = "test",
+                Location = new Point2D(0, 0),
+                Id = "id"
+            });
+            Assert.AreEqual(defaultStructure.StructureNormalOrientation, importedStructure.StructureNormalOrientation);
+            DistributionAssert.AreEqual(defaultStructure.FlowWidthAtBottomProtection, importedStructure.FlowWidthAtBottomProtection);
+            Assert.AreEqual(defaultStructure.FailureProbabilityStructureWithErosion, importedStructure.FailureProbabilityStructureWithErosion);
         }
 
         [Test]
