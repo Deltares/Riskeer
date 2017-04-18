@@ -158,8 +158,6 @@ namespace Ringtoets.HeightStructures.Data
                 };
 
                 FailureProbabilityStructureWithErosion = 1.0;
-
-                StructureNormalOrientation = double.NaN;
             }
 
             /// <summary>

@@ -60,7 +60,7 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
                 Name = name,
                 Id = "Id",
                 Location = location,
-                StructureNormalOrientation = 0.12345,
+                StructureNormalOrientation = (RoundedDouble) 0.12345,
                 LevelCrestStructure =
                 {
                     Mean = (RoundedDouble) 234.567,

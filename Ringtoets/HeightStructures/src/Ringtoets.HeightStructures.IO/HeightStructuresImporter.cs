@@ -103,7 +103,7 @@ namespace Ringtoets.HeightStructures.IO
                 Location = structureLocation.Point
             };
 
-            TrySetConstructionProperty((properties, rows, key) => properties.StructureNormalOrientation = rows[key].NumericalValue,
+            TrySetConstructionProperty((properties, rows, key) => properties.StructureNormalOrientation = (RoundedDouble) rows[key].NumericalValue,
                                        constructionProperties,
                                        rowData,
                                        StructureFilesKeywords.HeightStructureParameterKeyword1);

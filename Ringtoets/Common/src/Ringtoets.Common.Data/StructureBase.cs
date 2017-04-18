@@ -56,32 +56,13 @@ namespace Ringtoets.Common.Data
             Name = constructionProperties.Name;
             Id = constructionProperties.Id;
             Location = constructionProperties.Location;
-            StructureNormalOrientation = new RoundedDouble(2, constructionProperties.StructureNormalOrientation);
+            StructureNormalOrientation = constructionProperties.StructureNormalOrientation;
         }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="StructureBase"/>.
-        /// </summary>
-        /// <param name="name">The name of the structure.</param>
-        /// <param name="id">The identifier of the structure.</param>
-        /// <param name="location">The location of the structure.</param>
-        /// <param name="structureNormalOrientation">The orientation of the structure, relative to north.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> or <paramref name="id"/> is <c>null</c>
-        /// , empty or consists of whitespace.</exception>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/> is <c>null</c>.</exception>
-        protected StructureBase(string name, string id, Point2D location, double structureNormalOrientation) :
-            this(new ConstructionProperties
-            {
-                Name = name,
-                Id = id,
-                Location = location,
-                StructureNormalOrientation = (RoundedDouble) structureNormalOrientation
-            }) {}
 
         /// <summary>
         /// Gets the name of the structure.
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; }
 
         /// <summary>
         /// Gets the identifier of the structure.
@@ -109,6 +90,13 @@ namespace Ringtoets.Common.Data
         /// </summary>
         public class ConstructionProperties
         {
+            private RoundedDouble structureNormalOrientation;
+
+            public ConstructionProperties()
+            {
+                structureNormalOrientation = new RoundedDouble(2, double.NaN);
+            }
+
             /// <summary>
             /// Gets or sets the name of the structure.
             /// </summary>
@@ -128,7 +116,17 @@ namespace Ringtoets.Common.Data
             /// Gets or sets the orientation of the closing structure, relative to north.
             /// [degrees]
             /// </summary>
-            public double StructureNormalOrientation { internal get; set; }
+            public RoundedDouble StructureNormalOrientation
+            {
+                internal get
+                {
+                    return structureNormalOrientation;
+                }
+                set
+                {
+                    structureNormalOrientation = value.ToPrecision(structureNormalOrientation.NumberOfDecimalPlaces);
+                }
+            }
         }
     }
 }

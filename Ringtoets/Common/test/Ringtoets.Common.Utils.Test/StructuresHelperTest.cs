@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -277,7 +278,13 @@ namespace Ringtoets.Common.Utils.Test
 
         private class TestStructure : StructureBase
         {
-            public TestStructure(string name, string id, Point2D location, double normal) : base(name, id, location, normal) {}
+            public TestStructure(string name, string id, Point2D location, double normal) : base(new ConstructionProperties
+            {
+                Name = name,
+                Id = id,
+                Location = location,
+                StructureNormalOrientation = (RoundedDouble) normal
+            }) {}
         }
 
         #endregion

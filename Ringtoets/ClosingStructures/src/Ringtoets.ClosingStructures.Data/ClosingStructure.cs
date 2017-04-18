@@ -239,8 +239,6 @@ namespace Ringtoets.ClosingStructures.Data
                 IdenticalApertures = 1;
                 FailureProbabilityReparation = 1;
                 InflowModelType = ClosingStructureInflowModelType.VerticalWall;
-
-                StructureNormalOrientation = double.NaN;
             }
 
             /// <summary>

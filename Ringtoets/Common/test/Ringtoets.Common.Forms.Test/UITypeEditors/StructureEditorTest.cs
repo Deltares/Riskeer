@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms.Design;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Gui.UITypeEditors;
@@ -71,7 +72,7 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
             mockRepository.ReplayAll();
 
             // Call
-            var result = editor.EditValue(descriptorContextStub, serviceProviderStub, someValue);
+            object result = editor.EditValue(descriptorContextStub, serviceProviderStub, someValue);
 
             // Assert
             Assert.AreSame(someValue, result);
@@ -98,7 +99,7 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
             mockRepository.ReplayAll();
 
             // Call
-            var result = editor.EditValue(descriptorContextStub, serviceProviderStub, someValue);
+            object result = editor.EditValue(descriptorContextStub, serviceProviderStub, someValue);
 
             // Assert
             Assert.AreSame(simpleStructure, result);
@@ -107,29 +108,28 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
 
         private class SimpleStructure : StructureBase
         {
-            public SimpleStructure() : base("Name", "Id", new Point2D(0, 0), 0.0) {}
+            public SimpleStructure() : base(new ConstructionProperties
+            {
+                Name = "Name",
+                Id = "Id",
+                Location = new Point2D(0, 0),
+                StructureNormalOrientation = (RoundedDouble) 0
+            }) {}
         }
 
         private class ObjectPropertiesWithStructure : IHasStructureProperty<SimpleStructure>
         {
-            private readonly SimpleStructure structure;
             private readonly IEnumerable<SimpleStructure> availableStructures;
 
             public ObjectPropertiesWithStructure(SimpleStructure structure, IEnumerable<SimpleStructure> availableStructures)
             {
-                this.structure = structure;
+                this.Structure = structure;
                 this.availableStructures = availableStructures;
             }
 
             public object Data { get; set; }
 
-            public SimpleStructure Structure
-            {
-                get
-                {
-                    return structure;
-                }
-            }
+            public SimpleStructure Structure { get; }
 
             public IEnumerable<SimpleStructure> GetAvailableStructures()
             {

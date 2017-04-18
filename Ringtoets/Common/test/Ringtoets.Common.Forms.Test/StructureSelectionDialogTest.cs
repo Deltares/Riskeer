@@ -22,6 +22,7 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using NUnit.Extensions.Forms;
@@ -117,7 +118,7 @@ namespace Ringtoets.Common.Forms.Test
                 Name = testname,
                 Id = "anId",
                 Location = new Point2D(0, 0),
-                StructureNormalOrientation = 0.0
+                StructureNormalOrientation = (RoundedDouble) 0.0
             };
             var structure = new TestStructure(constructionProperties);
 

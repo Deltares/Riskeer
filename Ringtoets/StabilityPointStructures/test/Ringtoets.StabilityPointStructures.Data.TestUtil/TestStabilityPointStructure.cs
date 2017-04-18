@@ -57,7 +57,7 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil
                 Name = name,
                 Id = "anId",
                 Location = location,
-                StructureNormalOrientation = 123.456,
+                StructureNormalOrientation = (RoundedDouble) 123.456,
                 StorageStructureArea =
                 {
                     Mean = (RoundedDouble) 234.567,

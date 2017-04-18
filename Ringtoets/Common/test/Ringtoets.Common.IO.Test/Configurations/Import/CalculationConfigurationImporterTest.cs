@@ -867,7 +867,13 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
 
         private class TestStructure : StructureBase
         {
-            public TestStructure(string name) : base(name, "id", new Point2D(0, 0), 2) { }
+            public TestStructure(string name) : base(new ConstructionProperties
+            {
+                Name = name,
+                Id = "Id",
+                Location = new Point2D(0, 0),
+                StructureNormalOrientation = (RoundedDouble) 2
+            }) { }
         }
 
         private class TestInputWithForeshoreProfileAndBreakWater : Observable, IUseBreakWater, IUseForeshore

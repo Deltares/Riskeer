@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -90,9 +91,40 @@ namespace Ringtoets.Common.Data.Test
                             structure.StructureNormalOrientation.GetAccuracy());
         }
 
+        [Test]
+        public void Constructor_DefaultValues_ExpectedValues()
+        {
+            // Setup
+            var location = new Point2D(1.22, 2.333);
+
+            // Call
+            var structure = new TestStructure("aName", "anId", location);
+
+            // Assert
+            Assert.AreEqual("aName", structure.Name);
+            Assert.AreEqual("anId", structure.Id);
+            Assert.AreEqual(location.X, structure.Location.X);
+            Assert.AreEqual(location.Y, structure.Location.Y);
+            Assert.AreEqual("aName", structure.ToString());
+            Assert.AreEqual(2, structure.StructureNormalOrientation.NumberOfDecimalPlaces);
+            Assert.IsNaN(structure.StructureNormalOrientation);
+        }
+
         private class TestStructure : StructureBase
         {
-            public TestStructure(string name, string id, Point2D location, double normal) : base(name, id, location, normal) {}
+            public TestStructure(string name, string id, Point2D location) : base(new ConstructionProperties
+            {
+                Name = name,
+                Id = id,
+                Location = location
+            }) { }
+
+            public TestStructure(string name, string id, Point2D location, double normal) : base(new ConstructionProperties
+            {
+                Name = name,
+                Id = id,
+                Location = location,
+                StructureNormalOrientation = (RoundedDouble) normal}) {}
         }
     }
 }

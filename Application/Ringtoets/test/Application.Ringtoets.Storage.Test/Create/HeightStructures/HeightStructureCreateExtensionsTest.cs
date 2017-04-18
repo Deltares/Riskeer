@@ -95,7 +95,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
                 Name = "A",
                 Id = "B",
                 Location = new Point2D(double.NaN, double.NaN),
-                StructureNormalOrientation = double.NaN,
+                StructureNormalOrientation = RoundedDouble.NaN,
                 AllowedLevelIncreaseStorage =
                 {
                     Mean = RoundedDouble.NaN,

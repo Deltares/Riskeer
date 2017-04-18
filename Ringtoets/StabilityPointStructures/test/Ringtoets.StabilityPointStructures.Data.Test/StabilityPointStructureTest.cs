@@ -34,15 +34,14 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         [Test]
         public void Constructor_ValidData_ExpectedValues()
         {
-            // Setup
-            var location = new Point2D(1.22, 2.333);
-
             // Call
             var structure = new StabilityPointStructure(
                 new StabilityPointStructure.ConstructionProperties
                 {
-                    Name = "aName", Id = "anId", Location = location,
-                    StructureNormalOrientation = 123.456,
+                    Name = "aName",
+                    Id = "anId",
+                    Location = new Point2D(1.22, 2.333),
+                    StructureNormalOrientation = (RoundedDouble) 123.456,
                     StorageStructureArea =
                     {
                         Mean = (RoundedDouble) 234.567,
@@ -278,6 +277,154 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             Assert.AreEqual(0.90, areaFlowApertures.StandardDeviation, areaFlowApertures.StandardDeviation.GetAccuracy());
 
             Assert.AreEqual(StabilityPointStructureInflowModelType.FloodedCulvert, structure.InflowModelType);
+        }
+
+        [Test]
+        public void Constructor_DefaultData_ExpectedValues()
+        {
+            // Call
+            var structure = new StabilityPointStructure(
+                new StabilityPointStructure.ConstructionProperties
+                {
+                    Name = "aName",
+                    Id = "anId",
+                    Location = new Point2D(1.22, 2.333)
+                });
+
+            // Assert
+            Assert.IsInstanceOf<StructureBase>(structure);
+
+            Assert.IsNaN(structure.StructureNormalOrientation);
+
+            VariationCoefficientLogNormalDistribution storageStructureArea = structure.StorageStructureArea;
+            Assert.AreEqual(2, storageStructureArea.Mean.NumberOfDecimalPlaces);
+            Assert.IsNaN(storageStructureArea.Mean);
+            Assert.AreEqual(2, storageStructureArea.CoefficientOfVariation.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.1, storageStructureArea.CoefficientOfVariation, storageStructureArea.CoefficientOfVariation.GetAccuracy());
+
+            LogNormalDistribution allowedLevelIncreaseStorage = structure.AllowedLevelIncreaseStorage;
+            Assert.AreEqual(2, allowedLevelIncreaseStorage.Mean.NumberOfDecimalPlaces);
+            Assert.IsNaN(allowedLevelIncreaseStorage.Mean);
+            Assert.AreEqual(2, allowedLevelIncreaseStorage.StandardDeviation.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.1, allowedLevelIncreaseStorage.StandardDeviation, allowedLevelIncreaseStorage.StandardDeviation.GetAccuracy());
+
+            NormalDistribution widthFlowApertures = structure.WidthFlowApertures;
+            Assert.AreEqual(2, widthFlowApertures.Mean.NumberOfDecimalPlaces);
+            Assert.IsNaN(widthFlowApertures.Mean);
+            Assert.AreEqual(2, widthFlowApertures.StandardDeviation.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.2, widthFlowApertures.StandardDeviation, widthFlowApertures.StandardDeviation.GetAccuracy());
+
+            NormalDistribution insideWaterLevel = structure.InsideWaterLevel;
+            Assert.AreEqual(2, insideWaterLevel.Mean.NumberOfDecimalPlaces);
+            Assert.IsNaN(insideWaterLevel.Mean);
+            Assert.AreEqual(2, insideWaterLevel.StandardDeviation.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.1, insideWaterLevel.StandardDeviation, insideWaterLevel.StandardDeviation.GetAccuracy());
+
+            NormalDistribution thresholdHeightOpenWeir = structure.ThresholdHeightOpenWeir;
+            Assert.AreEqual(2, thresholdHeightOpenWeir.Mean.NumberOfDecimalPlaces);
+            Assert.IsNaN(thresholdHeightOpenWeir.Mean);
+            Assert.AreEqual(2, thresholdHeightOpenWeir.StandardDeviation.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.1, thresholdHeightOpenWeir.StandardDeviation, thresholdHeightOpenWeir.StandardDeviation.GetAccuracy());
+
+            VariationCoefficientLogNormalDistribution criticalOvertoppingDischarge = structure.CriticalOvertoppingDischarge;
+            Assert.AreEqual(2, criticalOvertoppingDischarge.Mean.NumberOfDecimalPlaces);
+            Assert.IsNaN(criticalOvertoppingDischarge.Mean);
+            Assert.AreEqual(2, criticalOvertoppingDischarge.CoefficientOfVariation.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.15, criticalOvertoppingDischarge.CoefficientOfVariation, criticalOvertoppingDischarge.CoefficientOfVariation.GetAccuracy());
+
+            LogNormalDistribution flowWidthAtBottomProtection = structure.FlowWidthAtBottomProtection;
+            Assert.AreEqual(2, flowWidthAtBottomProtection.Mean.NumberOfDecimalPlaces);
+            Assert.IsNaN(flowWidthAtBottomProtection.Mean);
+            Assert.AreEqual(2, flowWidthAtBottomProtection.StandardDeviation.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.05, flowWidthAtBottomProtection.StandardDeviation, flowWidthAtBottomProtection.StandardDeviation.GetAccuracy());
+
+            VariationCoefficientLogNormalDistribution constructiveStrengthLinearLoadModel = structure.ConstructiveStrengthLinearLoadModel;
+            Assert.AreEqual(2, constructiveStrengthLinearLoadModel.Mean.NumberOfDecimalPlaces);
+            Assert.IsNaN(constructiveStrengthLinearLoadModel.Mean);
+            Assert.AreEqual(2, constructiveStrengthLinearLoadModel.CoefficientOfVariation.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.1, constructiveStrengthLinearLoadModel.CoefficientOfVariation, constructiveStrengthLinearLoadModel.CoefficientOfVariation.GetAccuracy());
+
+            VariationCoefficientLogNormalDistribution constructiveStrengthQuadraticLoadModel = structure.ConstructiveStrengthQuadraticLoadModel;
+            Assert.AreEqual(2, constructiveStrengthQuadraticLoadModel.Mean.NumberOfDecimalPlaces);
+            Assert.IsNaN(constructiveStrengthQuadraticLoadModel.Mean);
+            Assert.AreEqual(2, constructiveStrengthQuadraticLoadModel.CoefficientOfVariation.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.1, constructiveStrengthQuadraticLoadModel.CoefficientOfVariation, constructiveStrengthQuadraticLoadModel.CoefficientOfVariation.GetAccuracy());
+
+            NormalDistribution bankWidth = structure.BankWidth;
+            Assert.AreEqual(2, bankWidth.Mean.NumberOfDecimalPlaces);
+            Assert.IsNaN(bankWidth.Mean);
+            Assert.AreEqual(2, bankWidth.StandardDeviation.NumberOfDecimalPlaces);
+            Assert.IsNaN(bankWidth.StandardDeviation);
+
+            NormalDistribution insideWaterLevelFailureConstruction = structure.InsideWaterLevelFailureConstruction;
+            Assert.AreEqual(2, insideWaterLevelFailureConstruction.Mean.NumberOfDecimalPlaces);
+            Assert.IsNaN(insideWaterLevelFailureConstruction.Mean);
+            Assert.AreEqual(2, insideWaterLevelFailureConstruction.StandardDeviation.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.1, insideWaterLevelFailureConstruction.StandardDeviation, insideWaterLevelFailureConstruction.StandardDeviation.GetAccuracy());
+
+            Assert.IsInstanceOf<RoundedDouble>(structure.EvaluationLevel);
+            Assert.AreEqual(2, structure.EvaluationLevel.NumberOfDecimalPlaces);
+            Assert.AreEqual(0, structure.EvaluationLevel, structure.EvaluationLevel.GetAccuracy());
+
+            NormalDistribution levelCrestStructure = structure.LevelCrestStructure;
+            Assert.AreEqual(2, levelCrestStructure.Mean.NumberOfDecimalPlaces);
+            Assert.IsNaN(levelCrestStructure.Mean);
+            Assert.AreEqual(2, levelCrestStructure.StandardDeviation.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.05, levelCrestStructure.StandardDeviation, levelCrestStructure.StandardDeviation.GetAccuracy());
+
+            Assert.IsInstanceOf<RoundedDouble>(structure.VerticalDistance);
+            Assert.AreEqual(2, structure.VerticalDistance.NumberOfDecimalPlaces);
+            Assert.IsNaN(structure.VerticalDistance);
+
+            Assert.AreEqual(1, structure.FailureProbabilityRepairClosure);
+
+            VariationCoefficientLogNormalDistribution failureCollisionEnergy = structure.FailureCollisionEnergy;
+            Assert.AreEqual(2, failureCollisionEnergy.Mean.NumberOfDecimalPlaces);
+            Assert.IsNaN(failureCollisionEnergy.Mean);
+            Assert.AreEqual(2, failureCollisionEnergy.CoefficientOfVariation.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.3, failureCollisionEnergy.CoefficientOfVariation, failureCollisionEnergy.CoefficientOfVariation.GetAccuracy());
+
+            VariationCoefficientNormalDistribution shipMass = structure.ShipMass;
+            Assert.AreEqual(2, shipMass.Mean.NumberOfDecimalPlaces);
+            Assert.IsNaN(shipMass.Mean);
+            Assert.AreEqual(2, shipMass.CoefficientOfVariation.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.2, shipMass.CoefficientOfVariation, shipMass.CoefficientOfVariation.GetAccuracy());
+
+            VariationCoefficientNormalDistribution shipVelocity = structure.ShipVelocity;
+            Assert.AreEqual(2, shipVelocity.Mean.NumberOfDecimalPlaces);
+            Assert.IsNaN(shipVelocity.Mean);
+            Assert.AreEqual(2, shipVelocity.CoefficientOfVariation.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.2, shipVelocity.CoefficientOfVariation, shipVelocity.CoefficientOfVariation.GetAccuracy());
+
+            Assert.AreEqual(1, structure.LevellingCount);
+
+            Assert.AreEqual(1, structure.ProbabilityCollisionSecondaryStructure);
+
+            VariationCoefficientNormalDistribution flowVelocityStructureClosable = structure.FlowVelocityStructureClosable;
+            Assert.AreEqual(2, flowVelocityStructureClosable.Mean.NumberOfDecimalPlaces);
+            Assert.IsNaN(flowVelocityStructureClosable.Mean);
+            Assert.AreEqual(2, flowVelocityStructureClosable.CoefficientOfVariation.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.2, flowVelocityStructureClosable.CoefficientOfVariation, flowVelocityStructureClosable.CoefficientOfVariation.GetAccuracy());
+
+            VariationCoefficientLogNormalDistribution stabilityLinearLoadModel = structure.StabilityLinearLoadModel;
+            Assert.AreEqual(2, stabilityLinearLoadModel.Mean.NumberOfDecimalPlaces);
+            Assert.IsNaN(stabilityLinearLoadModel.Mean);
+            Assert.AreEqual(2, stabilityLinearLoadModel.CoefficientOfVariation.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.1, stabilityLinearLoadModel.CoefficientOfVariation, stabilityLinearLoadModel.CoefficientOfVariation.GetAccuracy());
+
+            VariationCoefficientLogNormalDistribution stabilityQuadraticLoadModel = structure.StabilityQuadraticLoadModel;
+            Assert.AreEqual(2, stabilityQuadraticLoadModel.Mean.NumberOfDecimalPlaces);
+            Assert.IsNaN(stabilityQuadraticLoadModel.Mean);
+            Assert.AreEqual(2, stabilityQuadraticLoadModel.CoefficientOfVariation.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.1, stabilityQuadraticLoadModel.CoefficientOfVariation, stabilityQuadraticLoadModel.CoefficientOfVariation.GetAccuracy());
+
+            LogNormalDistribution areaFlowApertures = structure.AreaFlowApertures;
+            Assert.AreEqual(2, areaFlowApertures.Mean.NumberOfDecimalPlaces);
+            Assert.IsNaN(areaFlowApertures.Mean);
+            Assert.AreEqual(2, areaFlowApertures.StandardDeviation.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.01, areaFlowApertures.StandardDeviation, areaFlowApertures.StandardDeviation.GetAccuracy());
+
+            Assert.AreEqual(StabilityPointStructureInflowModelType.LowSill, structure.InflowModelType);
         }
     }
 }

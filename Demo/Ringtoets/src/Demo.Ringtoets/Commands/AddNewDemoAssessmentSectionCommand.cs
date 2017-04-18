@@ -404,7 +404,7 @@ namespace Demo.Ringtoets.Commands
                 {
                     Id = "KUNST1", Name = "KUNST1",
                     Location = new Point2D(12345.56789, 9876.54321),
-                    StructureNormalOrientation = 10.0,
+                    StructureNormalOrientation = (RoundedDouble) 10.0,
                     LevelCrestStructure =
                     {
                         Mean = (RoundedDouble) 4.95,
@@ -473,7 +473,7 @@ namespace Demo.Ringtoets.Commands
                         Mean = (RoundedDouble) 0.2,
                         StandardDeviation = (RoundedDouble) 0.1
                     },
-                    StructureNormalOrientation = 10.0,
+                    StructureNormalOrientation = (RoundedDouble) 10.0,
                     WidthFlowApertures =
                     {
                         Mean = (RoundedDouble) 21,
@@ -588,7 +588,7 @@ namespace Demo.Ringtoets.Commands
                 new StabilityPointStructure.ConstructionProperties
                 {
                     Name = "Kunstwerk", Id = "Kunstwerk id", Location = new Point2D(131470.777221421, 548329.82912364),
-                    StructureNormalOrientation = 10,
+                    StructureNormalOrientation = (RoundedDouble) 10,
                     StorageStructureArea =
                     {
                         Mean = (RoundedDouble) 20000,

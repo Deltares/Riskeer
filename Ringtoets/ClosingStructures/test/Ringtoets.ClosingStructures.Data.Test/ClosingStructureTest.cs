@@ -54,7 +54,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
                         Mean = (RoundedDouble) 234.567,
                         StandardDeviation = (RoundedDouble) 0.234
                     },
-                    StructureNormalOrientation = 345.678,
+                    StructureNormalOrientation = (RoundedDouble) 345.678,
                     WidthFlowApertures =
                     {
                         Mean = (RoundedDouble) 456.789,
@@ -104,7 +104,6 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.AreEqual(location.X, structure.Location.X);
             Assert.AreEqual(location.Y, structure.Location.Y);
 
-            Assert.AreEqual(2, structure.StructureNormalOrientation.NumberOfDecimalPlaces);
             Assert.AreEqual(345.68, structure.StructureNormalOrientation, structure.StructureNormalOrientation.GetAccuracy());
 
             VariationCoefficientLogNormalDistribution storageStructureArea = structure.StorageStructureArea;
@@ -191,8 +190,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.AreEqual(location.X, structure.Location.X);
             Assert.AreEqual(location.Y, structure.Location.Y);
 
-            Assert.AreEqual(2, structure.StructureNormalOrientation.NumberOfDecimalPlaces);
-            Assert.AreEqual(double.NaN, structure.StructureNormalOrientation, structure.StructureNormalOrientation.GetAccuracy());
+            Assert.IsNaN(structure.StructureNormalOrientation);
 
             VariationCoefficientLogNormalDistribution storageStructureArea = structure.StorageStructureArea;
             Assert.AreEqual(2, storageStructureArea.Mean.NumberOfDecimalPlaces);

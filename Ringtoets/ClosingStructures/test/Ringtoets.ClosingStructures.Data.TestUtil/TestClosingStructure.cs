@@ -77,7 +77,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
                     Mean = (RoundedDouble) 0.2,
                     StandardDeviation = (RoundedDouble) 0.1
                 },
-                StructureNormalOrientation = 10.0,
+                StructureNormalOrientation = (RoundedDouble) 10.0,
                 WidthFlowApertures =
                 {
                     Mean = (RoundedDouble) 21,

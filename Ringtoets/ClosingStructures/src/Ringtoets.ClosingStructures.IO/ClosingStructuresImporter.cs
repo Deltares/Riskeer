@@ -118,7 +118,7 @@ namespace Ringtoets.ClosingStructures.IO
                                        rowData,
                                        StructureFilesKeywords.ClosingStructureParameterKeyword2);
 
-            TrySetConstructionProperty((properties, rows, key) => properties.StructureNormalOrientation = rows[key].NumericalValue,
+            TrySetConstructionProperty((properties, rows, key) => properties.StructureNormalOrientation = (RoundedDouble) rows[key].NumericalValue,
                                        constructionProperties,
                                        rowData,
                                        StructureFilesKeywords.ClosingStructureParameterKeyword3);

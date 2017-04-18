@@ -57,7 +57,7 @@ namespace Application.Ringtoets.Storage.Read.ClosingStructures
                 Name = entity.Name,
                 Id = entity.Id,
                 Location = new Point2D(entity.X.ToNullAsNaN(), entity.Y.ToNullAsNaN()),
-                StructureNormalOrientation = entity.StructureNormalOrientation.ToNullAsNaN(),
+                StructureNormalOrientation = (RoundedDouble) entity.StructureNormalOrientation.ToNullAsNaN(),
                 StorageStructureArea =
                 {
                     Mean = (RoundedDouble) entity.StorageStructureAreaMean.ToNullAsNaN(),

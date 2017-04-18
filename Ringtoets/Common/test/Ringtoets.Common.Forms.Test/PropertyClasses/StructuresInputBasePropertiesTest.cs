@@ -1118,9 +1118,15 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
         private class SimpleStructure : StructureBase
         {
-            public SimpleStructure() : base("Name", "Id", new Point2D(0, 0), 0.0) {}
+            public SimpleStructure() : this(new Point2D(0, 0)) {}
 
-            public SimpleStructure(Point2D location) : base("Name", "Id", location, 0.0) {}
+            public SimpleStructure(Point2D location) : base(new ConstructionProperties
+            {
+                Name = "Name",
+                Id = "Id",
+                Location = location,
+                StructureNormalOrientation = (RoundedDouble) 0
+            }) {}
         }
 
         private class SimpleStructureInput : StructuresInputBase<SimpleStructure>

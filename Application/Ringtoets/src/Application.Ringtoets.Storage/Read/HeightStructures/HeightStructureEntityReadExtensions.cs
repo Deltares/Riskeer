@@ -57,7 +57,7 @@ namespace Application.Ringtoets.Storage.Read.HeightStructures
                 Name = entity.Name,
                 Id = entity.Id,
                 Location = new Point2D(entity.X.ToNullAsNaN(), entity.Y.ToNullAsNaN()),
-                StructureNormalOrientation = entity.StructureNormalOrientation.ToNullAsNaN(),
+                StructureNormalOrientation = (RoundedDouble) entity.StructureNormalOrientation.ToNullAsNaN(),
                 LevelCrestStructure =
                 {
                     Mean = (RoundedDouble) entity.LevelCrestStructureMean.ToNullAsNaN(),

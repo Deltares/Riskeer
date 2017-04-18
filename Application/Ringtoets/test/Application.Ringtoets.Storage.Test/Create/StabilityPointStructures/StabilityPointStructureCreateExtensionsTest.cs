@@ -126,7 +126,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
                 Name = "A",
                 Id = "B",
                 Location = new Point2D(double.NaN, double.NaN),
-                StructureNormalOrientation = double.NaN,
+                StructureNormalOrientation = RoundedDouble.NaN,
                 StorageStructureArea =
                 {
                     Mean = RoundedDouble.NaN,
