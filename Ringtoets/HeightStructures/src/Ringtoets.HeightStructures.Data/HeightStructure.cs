@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Probabilistics;
 using BaseConstructionProperties = Ringtoets.Common.Data.StructureBase.ConstructionProperties;
@@ -125,12 +126,36 @@ namespace Ringtoets.HeightStructures.Data
             /// </summary>
             public ConstructionProperties()
             {
-                LevelCrestStructure = new NormalDistribution(2);
-                FlowWidthAtBottomProtection = new LogNormalDistribution(2);
-                CriticalOvertoppingDischarge = new VariationCoefficientLogNormalDistribution(2);
-                WidthFlowApertures = new NormalDistribution(2);
-                StorageStructureArea = new VariationCoefficientLogNormalDistribution(2);
-                AllowedLevelIncreaseStorage = new LogNormalDistribution(2);
+                LevelCrestStructure = new NormalDistribution(2)
+                {
+                    StandardDeviation = (RoundedDouble) 0.05
+                };
+                FlowWidthAtBottomProtection = new LogNormalDistribution(2)
+                {
+                    Mean = (RoundedDouble) 1,
+                    StandardDeviation = (RoundedDouble) 0.05
+                };
+                CriticalOvertoppingDischarge = new VariationCoefficientLogNormalDistribution(2)
+                {
+                    Mean = (RoundedDouble) 1,
+                    CoefficientOfVariation = (RoundedDouble) 0.15
+                };
+                WidthFlowApertures = new NormalDistribution(2)
+                {
+                    StandardDeviation = (RoundedDouble) 0.2
+                };
+                StorageStructureArea = new VariationCoefficientLogNormalDistribution(2)
+                {
+                    Mean = (RoundedDouble) 1,
+                    CoefficientOfVariation = (RoundedDouble) 0.1
+                };
+                AllowedLevelIncreaseStorage = new LogNormalDistribution(2)
+                {
+                    Mean = (RoundedDouble) 1,
+                    StandardDeviation = (RoundedDouble) 0.1
+                };
+
+                FailureProbabilityStructureWithErosion = 1.0;
             }
 
             /// <summary>
