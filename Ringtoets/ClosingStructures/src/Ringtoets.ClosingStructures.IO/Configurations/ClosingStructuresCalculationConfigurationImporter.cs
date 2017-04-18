@@ -130,77 +130,102 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
 
             string calculationName = calculation.Name;
             ClosingStructuresInput input = calculation.InputParameters;
-            return TrySetStandardDeviationStochast(
+            return ConfigurationImportHelper.TrySetStandardDeviationStochast(
                        ClosingStructuresConfigurationSchemaIdentifiers.LevelCrestStructureNotClosingStochastName,
                        calculationName,
                        input,
                        readCalculation.LevelCrestStructureNotClosing,
-                       i => i.LevelCrestStructureNotClosing, (i, d) => i.LevelCrestStructureNotClosing = d)
-                   && TrySetStandardDeviationStochast(
+                       i => i.LevelCrestStructureNotClosing, 
+                       (i, d) => i.LevelCrestStructureNotClosing = d,
+                       Log)
+                   && ConfigurationImportHelper.TrySetStandardDeviationStochast(
                        ClosingStructuresConfigurationSchemaIdentifiers.AreaFlowAperturesStochastName,
                        calculationName,
                        input,
                        readCalculation.AreaFlowApertures,
-                       i => i.AreaFlowApertures, (i, d) => i.AreaFlowApertures = d)
-                   && TrySetStandardDeviationStochast(
+                       i => i.AreaFlowApertures, 
+                       (i, d) => i.AreaFlowApertures = d,
+                       Log)
+                   && ConfigurationImportHelper.TrySetStandardDeviationStochast(
                        ClosingStructuresConfigurationSchemaIdentifiers.DrainCoefficientStochastName,
                        calculationName,
                        input,
                        readCalculation.DrainCoefficient,
-                       i => i.DrainCoefficient, (i, d) => i.DrainCoefficient = d)
-                   && TrySetStandardDeviationStochast(
+                       i => i.DrainCoefficient,
+                       (i, d) => i.DrainCoefficient = d,
+                       Log)
+                   && ConfigurationImportHelper.TrySetStandardDeviationStochast(
                        ClosingStructuresConfigurationSchemaIdentifiers.InsideWaterLevelStochastName,
                        calculationName,
                        input,
                        readCalculation.InsideWaterLevel,
-                       i => i.InsideWaterLevel, (i, d) => i.InsideWaterLevel = d)
-                   && TrySetStandardDeviationStochast(
+                       i => i.InsideWaterLevel, 
+                       (i, d) => i.InsideWaterLevel = d,
+                       Log)
+                   && ConfigurationImportHelper.TrySetStandardDeviationStochast(
                        ClosingStructuresConfigurationSchemaIdentifiers.ThresholdHeightOpenWeirStochastName,
                        calculationName,
                        input,
                        readCalculation.ThresholdHeightOpenWeir,
-                       i => i.ThresholdHeightOpenWeir, (i, d) => i.ThresholdHeightOpenWeir = d)
-                   && TrySetStandardDeviationStochast(
+                       i => i.ThresholdHeightOpenWeir, 
+                       (i, d) => i.ThresholdHeightOpenWeir = d,
+                       Log)
+                   && ConfigurationImportHelper.TrySetStandardDeviationStochast(
                        ConfigurationSchemaIdentifiers.AllowedLevelIncreaseStorageStochastName,
                        calculationName,
                        input,
                        readCalculation.AllowedLevelIncreaseStorage,
-                       i => i.AllowedLevelIncreaseStorage, (i, d) => i.AllowedLevelIncreaseStorage = d)
-                   && TrySetStandardDeviationStochast(
+                       i => i.AllowedLevelIncreaseStorage, 
+                       (i, d) => i.AllowedLevelIncreaseStorage = d,
+                       Log)
+                   && ConfigurationImportHelper.TrySetStandardDeviationStochast(
                        ConfigurationSchemaIdentifiers.FlowWidthAtBottomProtectionStochastName,
                        calculationName,
                        input,
                        readCalculation.FlowWidthAtBottomProtection,
-                       i => i.FlowWidthAtBottomProtection, (i, d) => i.FlowWidthAtBottomProtection = d)
-                   && TrySetStandardDeviationStochast(
+                       i => i.FlowWidthAtBottomProtection, 
+                       (i, d) => i.FlowWidthAtBottomProtection = d,
+                       Log)
+                   && ConfigurationImportHelper.TrySetStandardDeviationStochast(
                        ConfigurationSchemaIdentifiers.ModelFactorSuperCriticalFlowStochastName,
                        calculationName,
                        input,
                        readCalculation.ModelFactorSuperCriticalFlow,
-                       i => i.ModelFactorSuperCriticalFlow, (i, d) => i.ModelFactorSuperCriticalFlow = d)
-                   && TrySetStandardDeviationStochast(
+                       i => i.ModelFactorSuperCriticalFlow,
+                       (i, d) => i.ModelFactorSuperCriticalFlow = d,
+                       Log)
+                   && ConfigurationImportHelper.TrySetStandardDeviationStochast(
                        ConfigurationSchemaIdentifiers.WidthFlowAperturesStochastName,
                        calculationName,
                        input,
-                       readCalculation.WidthFlowApertures, i => i.WidthFlowApertures, (i, d) => i.WidthFlowApertures = d)
-                   && TrySetVariationCoefficientStochast(
+                       readCalculation.WidthFlowApertures, 
+                       i => i.WidthFlowApertures, 
+                       (i, d) => i.WidthFlowApertures = d,
+                       Log)
+                   && ConfigurationImportHelper.TrySetVariationCoefficientStochast(
                        ConfigurationSchemaIdentifiers.CriticalOvertoppingDischargeStochastName,
                        calculationName,
                        input,
                        readCalculation.CriticalOvertoppingDischarge,
-                       i => i.CriticalOvertoppingDischarge, (i, d) => i.CriticalOvertoppingDischarge = d)
-                   && TrySetVariationCoefficientStochast(
+                       i => i.CriticalOvertoppingDischarge, 
+                       (i, d) => i.CriticalOvertoppingDischarge = d,
+                       Log)
+                   && ConfigurationImportHelper.TrySetVariationCoefficientStochast(
                        ConfigurationSchemaIdentifiers.StorageStructureAreaStochastName,
                        calculationName,
                        input,
                        readCalculation.StorageStructureArea,
-                       i => i.StorageStructureArea, (i, d) => i.StorageStructureArea = d)
-                   && TrySetVariationCoefficientStochast(
+                       i => i.StorageStructureArea,
+                       (i, d) => i.StorageStructureArea = d,
+                       Log)
+                   && ConfigurationImportHelper.TrySetVariationCoefficientStochast(
                        ConfigurationSchemaIdentifiers.StormDurationStochastName,
                        calculationName,
                        input,
                        readCalculation.StormDuration,
-                       i => i.StormDuration, (i, d) => i.StormDuration = d);
+                       i => i.StormDuration, 
+                       (i, d) => i.StormDuration = d,
+                       Log);
         }
 
         private bool ValidateStochasts(ClosingStructuresCalculationConfiguration configuration)

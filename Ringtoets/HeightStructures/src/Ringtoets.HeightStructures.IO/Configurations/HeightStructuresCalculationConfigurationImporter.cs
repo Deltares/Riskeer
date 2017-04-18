@@ -114,23 +114,9 @@ namespace Ringtoets.HeightStructures.IO.Configurations
         {
             var assigner = new HeightStructuresCalculationStochastAssigner(
                 readCalculation,
-                calculation,
-                definition => TrySetStandardDeviationStochast(
-                    definition.StochastName,
-                    calculation.Name,
-                    calculation.InputParameters,
-                    definition.Configuration,
-                    definition.Getter,
-                    definition.Setter),
-                definition => TrySetVariationCoefficientStochast(
-                    definition.StochastName,
-                    calculation.Name,
-                    calculation.InputParameters,
-                    definition.Configuration,
-                    definition.Getter,
-                    definition.Setter));
+                calculation);
 
-            return assigner.AreStochastsValid() && assigner.SetAllStochasts();
+            return assigner.Assign();
         }
 
         /// <summary>

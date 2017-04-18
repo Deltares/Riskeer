@@ -36,8 +36,8 @@ namespace Ringtoets.Common.IO.Configurations
     /// <typeparam name="TConfiguration">The type of the configuration that is validated and used in assignments.</typeparam>
     /// <typeparam name="TInput">The type of the input to which to assign stochasts.</typeparam>
     /// <typeparam name="TStructure">The type of structure assigned to the input.</typeparam>
-    public abstract class StructuresCalculationStochastAssigner<TConfiguration, TInput, TStructure> 
-        where TConfiguration: StructuresCalculationConfiguration
+    public abstract class StructuresCalculationStochastAssigner<TConfiguration, TInput, TStructure>
+        where TConfiguration : StructuresCalculationConfiguration
         where TInput : StructuresInputBase<TStructure>, new()
         where TStructure : StructureBase
     {
@@ -47,37 +47,18 @@ namespace Ringtoets.Common.IO.Configurations
         /// The configuration that is used for stochast parameter source.
         /// </summary>
         protected readonly TConfiguration Configuration;
+
         private readonly StructuresCalculation<TInput> calculation;
-        private readonly TrySetStandardDeviationStochast setStandardDeviationStochast;
-        private readonly TrySetVariationCoefficientStochast setVariationCoefficientStochast;
-
-        /// <summary>
-        /// Delegate for setting standard deviation stochasts.
-        /// </summary>
-        /// <param name="definition">The definition of a standard deviation stochast.</param>
-        /// <returns><c>true</c> if setting the stochast succeeded, <c>false</c> otherwise.</returns>
-        public delegate bool TrySetStandardDeviationStochast(StandardDeviationDefinition definition);
-
-        /// <summary>
-        /// Delegate for setting variation coefficient stochasts.
-        /// </summary>
-        /// <param name="definition">The definition of a variation coefficient stochast.</param>
-        /// <returns><c>true</c> if setting the stochast succeeded, <c>false</c> otherwise.</returns>
-        public delegate bool TrySetVariationCoefficientStochast(VariationCoefficientDefinition definition);
 
         /// <summary>
         /// Creates a new instance of <see cref="StructuresCalculationStochastAssigner{TConfiguration,TInput,TStructure}"/>
         /// </summary>
         /// <param name="configuration">The configuration that is used for stochast parameter source.</param>
         /// <param name="calculation">The target calculation.</param>
-        /// <param name="setStandardDeviationStochast">The delegate for setting a stochast with standard deviation.</param>
-        /// <param name="setVariationCoefficientStochast">The delegate for setting a stochast with variation coefficient.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameters is <c>null</c>.</exception>
         protected StructuresCalculationStochastAssigner(
             TConfiguration configuration,
-            StructuresCalculation<TInput> calculation,
-            TrySetStandardDeviationStochast setStandardDeviationStochast,
-            TrySetVariationCoefficientStochast setVariationCoefficientStochast)
+            StructuresCalculation<TInput> calculation)
         {
             if (configuration == null)
             {
@@ -87,25 +68,71 @@ namespace Ringtoets.Common.IO.Configurations
             {
                 throw new ArgumentNullException(nameof(calculation));
             }
-            if (setStandardDeviationStochast == null)
-            {
-                throw new ArgumentNullException(nameof(setStandardDeviationStochast));
-            }
-            if (setVariationCoefficientStochast == null)
-            {
-                throw new ArgumentNullException(nameof(setVariationCoefficientStochast));
-            }
             Configuration = configuration;
             this.calculation = calculation;
-            this.setStandardDeviationStochast = setStandardDeviationStochast;
-            this.setVariationCoefficientStochast = setVariationCoefficientStochast;
         }
+
+        /// <summary>
+        /// Validates the configuration and sets all the parameters for the stochasts from the configuration
+        /// to the calculation.
+        /// </summary>
+        /// <returns><c>true</c> if setting the parameters of all configured stochasts succeeded, <c>false</c>
+        /// otherwise.</returns>
+        public bool Assign()
+        {
+            if (!Validate())
+            {
+                return false;
+            }
+
+            foreach (StandardDeviationDefinition stochastDefinition in GetStandardDeviationStochasts())
+            {
+                if (!SetStandardDeviationStochast(stochastDefinition))
+                {
+                    return false;
+                }
+            }
+
+            foreach (VariationCoefficientDefinition stochastDefinition in GetVariationCoefficientStochasts())
+            {
+                if (!SetVariationCoefficientStochast(stochastDefinition))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Performs additional validations for structure specific stochasts.
+        /// </summary>
+        /// <returns><c>true</c> if no errors were found, <c>false</c> otherwise.</returns>
+        protected virtual bool ValidateSpecificStochasts()
+        {
+            return true;
+        }
+
+        /// <summary>
+        /// Gets the definitions for all stochasts with standard deviation that are defined for the calculation input.
+        /// </summary>
+        /// <param name="structureDependent">Optional. If set to <c>true</c>, only definitions for structure dependent
+        /// stochasts are returned.</param>
+        /// <returns>The standard deviation stochasts definitions for the calculation.</returns>
+        protected abstract IEnumerable<StandardDeviationDefinition> GetStandardDeviationStochasts(bool structureDependent = false);
+
+        /// <summary>bas
+        /// Gets the definitions for all stochasts with variation coefficient that are defined for the calculation input.
+        /// </summary>
+        /// <param name="structureDependent">Optional. If set to <c>true</c>, only definitions for structure dependent
+        /// stochasts are returned.</param>
+        /// <returns>The variation coefficient stochasts definitions for the calculation.</returns>
+        protected abstract IEnumerable<VariationCoefficientDefinition> GetVariationCoefficientStochasts(bool structureDependent = false);
 
         /// <summary>
         /// Validates the stochasts and their parameters of the configuration.
         /// </summary>
         /// <returns><c>true</c> if all the stochasts are valid, <c>false</c> otherwise.</returns>
-        public bool AreStochastsValid()
+        private bool Validate()
         {
             if (!ValidateBaseStochasts())
             {
@@ -132,56 +159,29 @@ namespace Ringtoets.Common.IO.Configurations
             return true;
         }
 
-        /// <summary>
-        /// Sets all the parameters for the stochasts from the configuration to the calculation.
-        /// </summary>
-        /// <returns><c>true</c> if setting the parameters of all configured stochasts succeeded, <c>false</c>
-        /// otherwise.</returns>
-        public bool SetAllStochasts()
+        private bool SetVariationCoefficientStochast(VariationCoefficientDefinition definition)
         {
-            foreach (StandardDeviationDefinition stochastDefinition in GetStandardDeviationStochasts())
-            {
-                if (!setStandardDeviationStochast(stochastDefinition))
-                {
-                    return false;
-                }
-            }
-
-            foreach (VariationCoefficientDefinition stochastDefinition in GetVariationCoefficientStochasts())
-            {
-                if (!setVariationCoefficientStochast(stochastDefinition))
-                {
-                    return false;
-                }
-            }
-            return true;
+            return ConfigurationImportHelper.TrySetVariationCoefficientStochast(
+                definition.StochastName,
+                calculation.Name,
+                calculation.InputParameters,
+                definition.Configuration,
+                definition.Getter,
+                definition.Setter,
+                Log);
         }
 
-        /// <summary>
-        /// Performs additional validations for structure specific stochasts.
-        /// </summary>
-        /// <returns><c>true</c> if no errors were found, <c>false</c> otherwise.</returns>
-        protected virtual bool ValidateSpecificStochasts()
+        private bool SetStandardDeviationStochast(StandardDeviationDefinition definition)
         {
-            return true;
+            return ConfigurationImportHelper.TrySetStandardDeviationStochast(
+                definition.StochastName,
+                calculation.Name,
+                calculation.InputParameters,
+                definition.Configuration,
+                definition.Getter,
+                definition.Setter,
+                Log);
         }
-
-        /// <summary>
-        /// Gets the definitions for all stochasts with standard deviation that are defined for the calculation input.
-        /// </summary>
-        /// <param name="structureDependent">Optional. If set to <c>true</c>, only definitions for structure dependent
-        /// stochasts are returned.</param>
-        /// <returns>The standard deviation stochasts definitions for the calculation.</returns>
-        protected abstract IEnumerable<StandardDeviationDefinition> GetStandardDeviationStochasts(bool structureDependent = false);
-
-
-        /// <summary>bas
-        /// Gets the definitions for all stochasts with variation coefficient that are defined for the calculation input.
-        /// </summary>
-        /// <param name="structureDependent">Optional. If set to <c>true</c>, only definitions for structure dependent
-        /// stochasts are returned.</param>
-        /// <returns>The variation coefficient stochasts definitions for the calculation.</returns>
-        protected abstract IEnumerable<VariationCoefficientDefinition> GetVariationCoefficientStochasts(bool structureDependent = false);
 
         private bool ValidateNoParametersDefined(StochastConfiguration stochastConfiguration, string stochastName)
         {
@@ -286,7 +286,7 @@ namespace Ringtoets.Common.IO.Configurations
             public Func<TInput, IVariationCoefficientDistribution> Getter;
             public Action<TInput, IVariationCoefficientDistribution> Setter;
 
-            private VariationCoefficientDefinition() { }
+            private VariationCoefficientDefinition() {}
 
             /// <summary>
             /// Creates a new instance of <see cref="VariationCoefficientDefinition"/>.
@@ -297,7 +297,7 @@ namespace Ringtoets.Common.IO.Configurations
             /// <param name="setter">Operation of assigning the stuchast to an input.</param>
             /// <returns>The newly created definition.</returns>
             public static VariationCoefficientDefinition Create(
-                string stochastName, 
+                string stochastName,
                 StochastConfiguration configuration,
                 Func<TInput, IVariationCoefficientDistribution> getter,
                 Action<TInput, IVariationCoefficientDistribution> setter)

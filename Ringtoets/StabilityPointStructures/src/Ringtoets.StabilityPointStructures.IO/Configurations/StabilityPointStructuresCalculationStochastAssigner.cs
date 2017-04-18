@@ -43,14 +43,10 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
         /// </summary>
         /// <param name="configuration">The configuration that is used for stochast parameter source.</param>
         /// <param name="calculation">The target calculation.</param>
-        /// <param name="setStandardDeviationStochast">The delegate for setting a stochast with standard deviation.</param>
-        /// <param name="setVariationCoefficientStochast">The delegate for setting a stochast with variation coefficient.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameters is <c>null</c>.</exception>
         public StabilityPointStructuresCalculationStochastAssigner(StabilityPointStructuresCalculationConfiguration configuration,
-                                                                   StructuresCalculation<StabilityPointStructuresInput> calculation,
-                                                                   TrySetStandardDeviationStochast setStandardDeviationStochast,
-                                                                   TrySetVariationCoefficientStochast setVariationCoefficientStochast)
-            : base(configuration, calculation, setStandardDeviationStochast, setVariationCoefficientStochast) { }
+                                                                   StructuresCalculation<StabilityPointStructuresInput> calculation)
+            : base(configuration, calculation) { }
 
         protected override IEnumerable<StandardDeviationDefinition> GetStandardDeviationStochasts(bool structureDependent = false)
         {

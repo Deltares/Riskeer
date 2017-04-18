@@ -41,7 +41,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
 
             // Call
             var assigner = new StabilityPointStructuresCalculationStochastAssigner(
-                configuration, calculation, StandardDeviationStochastSetter, VariationCoefficientStochastSetter);
+                configuration, calculation);
 
             // Assert
             Assert.IsInstanceOf<StructuresCalculationStochastAssigner<
@@ -50,7 +50,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
         }
 
         [Test]
-        public void SetStochasts_WithAllStochastsSet_SetExpectedValuesOnInput()
+        public void Assign_WithAllStochastsSet_SetExpectedValuesOnInput()
         {
             // Setup
             var configuration = new StabilityPointStructuresCalculationConfiguration("name")
@@ -102,18 +102,15 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                 },
                 DrainCoefficient = new StochastConfiguration
                 {
-                    Mean = 10,
-                    StandardDeviation = 0.10
+                    Mean = 10
                 },
                 ModelFactorSuperCriticalFlow = new StochastConfiguration
                 {
-                    Mean = 11,
-                    StandardDeviation = 0.11
+                    Mean = 11
                 },
                 FlowVelocityStructureClosable = new StochastConfiguration
                 {
-                    Mean = 1,
-                    VariationCoefficient = 0.1
+                    Mean = 1
                 },
                 CriticalOvertoppingDischarge = new StochastConfiguration
                 {
@@ -162,8 +159,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                 },
                 StormDuration = new StochastConfiguration
                 {
-                    Mean = 11,
-                    VariationCoefficient = 0.11
+                    Mean = 11
                 },
                 StructureName = "some structure"
             };
@@ -172,12 +168,10 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
 
             var assigner = new StabilityPointStructuresCalculationStochastAssigner(
                 configuration,
-                calculation,
-                StandardDeviationStochastSetter,
-                VariationCoefficientStochastSetter);
+                calculation);
 
             // Call
-            bool valid = assigner.SetAllStochasts();
+            bool valid = assigner.Assign();
 
             // Assert
             Assert.IsTrue(valid);
@@ -189,9 +183,9 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             nameof(GetSetStochastParametersActions),
             new object[]
             {
-                "AreStochastsValid_{0}WithStructure_ReturnsTrue"
+                "Assign_{0}WithStructure_ReturnsTrue"
             })]
-        public void AreStochastsValid_WithStructureParametersDefinedForStructureDependentStochats_ReturnsTrue(
+        public void Assign_WithStructureParametersDefinedForStructureDependentStochats_ReturnsTrue(
             Action<StabilityPointStructuresCalculationConfiguration> updateConfiguration)
         {
             // Setup
@@ -203,12 +197,10 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
 
             var assigner = new StabilityPointStructuresCalculationStochastAssigner(
                 configuration,
-                new StructuresCalculation<StabilityPointStructuresInput>(),
-                StandardDeviationStochastSetter,
-                VariationCoefficientStochastSetter);
+                new StructuresCalculation<StabilityPointStructuresInput>());
 
             // Call
-            bool valid = assigner.AreStochastsValid();
+            bool valid = assigner.Assign();
 
             // Assert
             Assert.IsTrue(valid);
@@ -220,9 +212,9 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             nameof(GetSetStochastParametersActions),
             new object[]
             {
-                "AreStochastsValid_{0}SetWithoutStructure_ReturnsFalse"
+                "Assign_{0}SetWithoutStructure_ReturnsFalse"
             })]
-        public void AreStochastsValid_WithoutStructureParametersDefinedForStructureDependentStochats_ReturnsFalse(
+        public void Assign_WithoutStructureParametersDefinedForStructureDependentStochats_ReturnsFalse(
             Action<StabilityPointStructuresCalculationConfiguration> updateConfiguration)
         {
             // Setup
@@ -231,12 +223,10 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
 
             var assigner = new StabilityPointStructuresCalculationStochastAssigner(
                 configuration,
-                new StructuresCalculation<StabilityPointStructuresInput>(),
-                StandardDeviationStochastSetter,
-                VariationCoefficientStochastSetter);
+                new StructuresCalculation<StabilityPointStructuresInput>());
 
             // Call
-            bool valid = assigner.AreStochastsValid();
+            bool valid = assigner.Assign();
 
             // Assert
             Assert.IsFalse(valid);
@@ -247,126 +237,152 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.AllowedLevelIncreaseStorage = s,
                 nameof(StabilityPointStructuresCalculationConfiguration.AllowedLevelIncreaseStorage),
-                testNameFormat))
+                testNameFormat,
+                true))
             {
                 yield return caseData;
             }
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.AreaFlowApertures = s,
                 nameof(StabilityPointStructuresCalculationConfiguration.AreaFlowApertures),
-                testNameFormat))
+                testNameFormat,
+                true))
             {
                 yield return caseData;
             }
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.BankWidth = s,
                 nameof(StabilityPointStructuresCalculationConfiguration.BankWidth),
-                testNameFormat))
+                testNameFormat,
+                true))
             {
                 yield return caseData;
             }
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.FlowWidthAtBottomProtection = s,
                 nameof(StabilityPointStructuresCalculationConfiguration.FlowWidthAtBottomProtection),
-                testNameFormat))
+                testNameFormat,
+                true))
             {
                 yield return caseData;
             }
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.InsideWaterLevel = s,
                 nameof(StabilityPointStructuresCalculationConfiguration.InsideWaterLevel),
-                testNameFormat))
+                testNameFormat,
+                true))
             {
                 yield return caseData;
             }
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.InsideWaterLevelFailureConstruction = s,
                 nameof(StabilityPointStructuresCalculationConfiguration.InsideWaterLevelFailureConstruction),
-                testNameFormat))
+                testNameFormat,
+                true))
             {
                 yield return caseData;
             }
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.LevelCrestStructure = s,
                 nameof(StabilityPointStructuresCalculationConfiguration.LevelCrestStructure),
-                testNameFormat))
+                testNameFormat,
+                true))
             {
                 yield return caseData;
             }
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.WidthFlowApertures = s,
                 nameof(StabilityPointStructuresCalculationConfiguration.WidthFlowApertures),
-                testNameFormat))
+                testNameFormat,
+                true))
             {
                 yield return caseData;
             }
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.ThresholdHeightOpenWeir = s,
                 nameof(StabilityPointStructuresCalculationConfiguration.ThresholdHeightOpenWeir),
-                testNameFormat))
+                testNameFormat,
+                true))
             {
                 yield return caseData;
             }
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.CriticalOvertoppingDischarge = s,
                 nameof(StabilityPointStructuresCalculationConfiguration.CriticalOvertoppingDischarge),
-                testNameFormat))
+                testNameFormat,
+                false))
             {
                 yield return caseData;
             }
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.ConstructiveStrengthLinearLoadModel = s,
                 nameof(StabilityPointStructuresCalculationConfiguration.ConstructiveStrengthLinearLoadModel),
-                testNameFormat))
+                testNameFormat,
+                false))
             {
                 yield return caseData;
             }
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.ConstructiveStrengthQuadraticLoadModel = s,
                 nameof(StabilityPointStructuresCalculationConfiguration.ConstructiveStrengthQuadraticLoadModel),
-                testNameFormat))
+                testNameFormat,
+                false))
             {
                 yield return caseData;
             }
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.FailureCollisionEnergy = s,
                 nameof(StabilityPointStructuresCalculationConfiguration.FailureCollisionEnergy),
-                testNameFormat))
+                testNameFormat,
+                false))
+            {
+                yield return caseData;
+            }
+            foreach (TestCaseData caseData in StochastConfigurationCases(
+                (c, s) => c.FlowVelocityStructureClosable = s,
+                nameof(StabilityPointStructuresCalculationConfiguration.FlowVelocityStructureClosable),
+                testNameFormat,
+                null))
             {
                 yield return caseData;
             }
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.ShipMass = s,
                 nameof(StabilityPointStructuresCalculationConfiguration.ShipMass),
-                testNameFormat))
+                testNameFormat,
+                false))
             {
                 yield return caseData;
             }
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.ShipVelocity = s,
                 nameof(StabilityPointStructuresCalculationConfiguration.ShipVelocity),
-                testNameFormat))
+                testNameFormat,
+                false))
             {
                 yield return caseData;
             }
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.StabilityLinearLoadModel = s,
                 nameof(StabilityPointStructuresCalculationConfiguration.StabilityLinearLoadModel),
-                testNameFormat))
+                testNameFormat,
+                false))
             {
                 yield return caseData;
             }
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.StabilityQuadraticLoadModel = s,
                 nameof(StabilityPointStructuresCalculationConfiguration.StabilityQuadraticLoadModel),
-                testNameFormat))
+                testNameFormat,
+                false))
             {
                 yield return caseData;
             }
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.StorageStructureArea = s,
                 nameof(StabilityPointStructuresCalculationConfiguration.StorageStructureArea),
-                testNameFormat))
+                testNameFormat,
+                false))
             {
                 yield return caseData;
             }
@@ -375,7 +391,8 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
         private static IEnumerable<TestCaseData> StochastConfigurationCases(
             Action<StabilityPointStructuresCalculationConfiguration, StochastConfiguration> modifyStochastAction,
             string stochastName,
-            string testNameFormat)
+            string testNameFormat,
+            bool? standardDeviation)
         {
             var random = new Random(21);
 
@@ -386,31 +403,24 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                     })))
                 .SetName(string.Format(testNameFormat, $"{stochastName}Mean"));
 
-            yield return new TestCaseData(
-                    new Action<StabilityPointStructuresCalculationConfiguration>(c => modifyStochastAction(c, new StochastConfiguration
-                    {
-                        StandardDeviation = random.NextDouble()
-                    })))
-                .SetName(string.Format(testNameFormat, $"{stochastName}StandardDeviation"));
-
-            yield return new TestCaseData(
-                    new Action<StabilityPointStructuresCalculationConfiguration>(c => modifyStochastAction(c, new StochastConfiguration
-                    {
-                        VariationCoefficient = random.NextDouble()
-                    })))
-                .SetName(string.Format(testNameFormat, $"{stochastName}VariationCoefficient"));
-        }
-
-        private static bool StandardDeviationStochastSetter(
-            StructuresCalculationStochastAssigner<StabilityPointStructuresCalculationConfiguration, StabilityPointStructuresInput, StabilityPointStructure>.StandardDeviationDefinition definition)
-        {
-            return true;
-        }
-
-        private static bool VariationCoefficientStochastSetter(
-            StructuresCalculationStochastAssigner<StabilityPointStructuresCalculationConfiguration, StabilityPointStructuresInput, StabilityPointStructure>.VariationCoefficientDefinition definition)
-        {
-            return true;
+            if (standardDeviation == true)
+            {
+                yield return new TestCaseData(
+                        new Action<StabilityPointStructuresCalculationConfiguration>(c => modifyStochastAction(c, new StochastConfiguration
+                        {
+                            StandardDeviation = random.NextDouble()
+                        })))
+                    .SetName(string.Format(testNameFormat, $"{stochastName}StandardDeviation"));
+            }
+            else if (standardDeviation == false)
+            {
+                yield return new TestCaseData(
+                        new Action<StabilityPointStructuresCalculationConfiguration>(c => modifyStochastAction(c, new StochastConfiguration
+                        {
+                            VariationCoefficient = random.NextDouble()
+                        })))
+                    .SetName(string.Format(testNameFormat, $"{stochastName}VariationCoefficient"));
+            }
         }
     }
 }

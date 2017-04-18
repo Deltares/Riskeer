@@ -38,14 +38,10 @@ namespace Ringtoets.HeightStructures.IO.Configurations
         /// </summary>
         /// <param name="configuration">The configuration that is used for stochast parameter source.</param>
         /// <param name="calculation">The target calculation.</param>
-        /// <param name="setStandardDeviationStochast">The delegate for setting a stochast with standard deviation.</param>
-        /// <param name="setVariationCoefficientStochast">The delegate for setting a stochast with variation coefficient.</param>
         public HeightStructuresCalculationStochastAssigner(
             HeightStructuresCalculationConfiguration configuration,
-            StructuresCalculation<HeightStructuresInput> calculation,
-            TrySetStandardDeviationStochast setStandardDeviationStochast,
-            TrySetVariationCoefficientStochast setVariationCoefficientStochast)
-            : base(configuration, calculation, setStandardDeviationStochast, setVariationCoefficientStochast) {}
+            StructuresCalculation<HeightStructuresInput> calculation)
+            : base(configuration, calculation) {}
 
         protected override IEnumerable<StandardDeviationDefinition> GetStandardDeviationStochasts(bool onlyStructureDependent = false)
         {

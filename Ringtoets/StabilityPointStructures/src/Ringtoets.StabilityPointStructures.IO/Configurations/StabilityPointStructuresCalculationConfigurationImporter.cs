@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base.Data;
+using log4net.Util;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
@@ -154,23 +155,9 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
         {
             var assigner = new StabilityPointStructuresCalculationStochastAssigner(
                 readCalculation,
-                calculation,
-                definition => TrySetStandardDeviationStochast(
-                    definition.StochastName,
-                    calculation.Name,
-                    calculation.InputParameters,
-                    definition.Configuration,
-                    definition.Getter,
-                    definition.Setter),
-                definition => TrySetVariationCoefficientStochast(
-                    definition.StochastName,
-                    calculation.Name,
-                    calculation.InputParameters,
-                    definition.Configuration,
-                    definition.Getter,
-                    definition.Setter));
+                calculation);
 
-            return assigner.AreStochastsValid() && assigner.SetAllStochasts();
+            return assigner.Assign();
         }
 
         /// <summary>
