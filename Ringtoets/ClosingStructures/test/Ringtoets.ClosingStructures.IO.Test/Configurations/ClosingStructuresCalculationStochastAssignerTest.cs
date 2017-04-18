@@ -21,53 +21,54 @@
 
 using System;
 using System.Collections.Generic;
+using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.ClosingStructures.Data;
+using Ringtoets.ClosingStructures.IO.Configurations;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.IO.Configurations;
-using Ringtoets.HeightStructures.Data;
-using Ringtoets.HeightStructures.IO.Configurations;
 
-namespace Ringtoets.HeightStructures.IO.Test.Configurations
+namespace Ringtoets.ClosingStructures.IO.Test.Configurations
 {
     [TestFixture]
-    public class HeightStructuresCalculationStochastAssignerTest
+    public class ClosingStructuresCalculationStochastAssignerTest
     {
         [Test]
         public void Constructor_WithParameters_ReturnsNewInstance()
         {
             // Setup
-            var configuration = new HeightStructuresCalculationConfiguration("name");
-            var calculation = new StructuresCalculation<HeightStructuresInput>();
+            var configuration = new ClosingStructuresCalculationConfiguration("name");
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
 
             // Call
-            var assigner = new HeightStructuresCalculationStochastAssigner(
+            var assigner = new ClosingStructuresCalculationStochastAssigner(
                 configuration,
                 calculation);
 
             // Assert
             Assert.IsInstanceOf<StructuresCalculationStochastAssigner<
-                HeightStructuresCalculationConfiguration,
-                HeightStructuresInput, HeightStructure>>(assigner);
+                ClosingStructuresCalculationConfiguration,
+                ClosingStructuresInput, ClosingStructure>>(assigner);
         }
 
         [Test]
         [TestCaseSource(
-            typeof(HeightStructuresCalculationStochastAssignerTest),
+            typeof(ClosingStructuresCalculationStochastAssignerTest),
             nameof(GetSetStochastParametersActions),
             new object[]
             {
                 "Assign_WithoutStructureValueSetFor{0}_ReturnsFalse"
             })]
         public void Assign_WithoutStructureParametersDefinedForStructureDependentStochats_ReturnsFalse(
-            Action<HeightStructuresCalculationConfiguration> modify)
+            Action<ClosingStructuresCalculationConfiguration> modify)
         {
             // Setup
-            var configuration = new HeightStructuresCalculationConfiguration("name");
+            var configuration = new ClosingStructuresCalculationConfiguration("name");
             modify(configuration);
 
-            var calculation = new StructuresCalculation<HeightStructuresInput>();
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
 
-            var assigner = new HeightStructuresCalculationStochastAssigner(
+            var assigner = new ClosingStructuresCalculationStochastAssigner(
                 configuration,
                 calculation);
 
@@ -80,25 +81,25 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
 
         [Test]
         [TestCaseSource(
-            typeof(HeightStructuresCalculationStochastAssignerTest),
+            typeof(ClosingStructuresCalculationStochastAssignerTest),
             nameof(GetSetStochastParametersActions),
             new object[]
             {
                 "Assign_WithStructureValueSetFor{0}_ReturnsTrue"
             })]
         public void Assign_WithStructureParametersDefinedForStructureDependentStochats_ReturnsTrue(
-            Action<HeightStructuresCalculationConfiguration> modify)
+            Action<ClosingStructuresCalculationConfiguration> modify)
         {
             // Setup
-            var configuration = new HeightStructuresCalculationConfiguration("name")
+            var configuration = new ClosingStructuresCalculationConfiguration("name")
             {
                 StructureName = "some structure"
             };
             modify(configuration);
 
-            var calculation = new StructuresCalculation<HeightStructuresInput>();
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
 
-            var assigner = new HeightStructuresCalculationStochastAssigner(
+            var assigner = new ClosingStructuresCalculationStochastAssigner(
                 configuration,
                 calculation);
 
@@ -110,55 +111,112 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
         }
 
         [Test]
-        public void SetStochasts_WithAllStochastsSet_SetExpectedValuesOnInput()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Assign_WithSpreadForDrainCoefficient_LogsErrorReturnFalse(bool withStandardDeviation)
         {
             // Setup
-            var configuration = new HeightStructuresCalculationConfiguration("name")
+            var configuration = new ClosingStructuresCalculationConfiguration("name")
+            {
+                StructureName = "some structure"
+            };
+            configuration.DrainCoefficient = new StochastConfiguration();
+            configuration.DrainCoefficient.Mean = 8.1;
+            if (withStandardDeviation)
+            {
+                configuration.DrainCoefficient.StandardDeviation = 0.8;
+            }
+            else
+            {
+                configuration.DrainCoefficient.VariationCoefficient = 0.8;
+            }
+
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
+
+            var assigner = new ClosingStructuresCalculationStochastAssigner(
+                configuration,
+                calculation);
+
+            bool valid = true;
+
+            // Call
+            Action test = () => valid = assigner.Assign();
+
+            // Assert
+            var expectedMessage = "Er kan geen spreiding voor stochast 'afvoercoefficient' opgegeven worden. Berekening 'name' is overgeslagen.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(test, Tuple.Create(expectedMessage, LogLevelConstant.Error));
+            Assert.IsFalse(valid);
+        }
+
+        [Test]
+        public void Assign_WithAllStochastsSet_SetExpectedValuesOnInput()
+        {
+            // Setup
+            var configuration = new ClosingStructuresCalculationConfiguration("name")
             {
                 StructureName = "some structure",
-                LevelCrestStructure = new StochastConfiguration
+                LevelCrestStructureNotClosing = new StochastConfiguration
                 {
                     Mean = 1.1,
                     StandardDeviation = 1.5
                 },
-                AllowedLevelIncreaseStorage = new StochastConfiguration
+                AreaFlowApertures = new StochastConfiguration
                 {
                     Mean = 2.1,
                     StandardDeviation = 2.5
                 },
-                FlowWidthAtBottomProtection = new StochastConfiguration
+                InsideWaterLevel = new StochastConfiguration
                 {
                     Mean = 3.1,
                     StandardDeviation = 3.5
                 },
-                WidthFlowApertures = new StochastConfiguration
+                ThresholdHeightOpenWeir = new StochastConfiguration
                 {
                     Mean = 4.1,
                     StandardDeviation = 4.5
                 },
+                AllowedLevelIncreaseStorage = new StochastConfiguration
+                {
+                    Mean = 5.1,
+                    StandardDeviation = 5.5
+                },
+                FlowWidthAtBottomProtection = new StochastConfiguration
+                {
+                    Mean = 6.1,
+                    StandardDeviation = 6.5
+                },
+                WidthFlowApertures = new StochastConfiguration
+                {
+                    Mean = 7.1,
+                    StandardDeviation = 7.5
+                },
+                DrainCoefficient = new StochastConfiguration
+                {
+                    Mean = 8.1,
+                },
                 ModelFactorSuperCriticalFlow = new StochastConfiguration
                 {
-                    Mean = 5.1
+                    Mean = 9.1
                 },
                 CriticalOvertoppingDischarge = new StochastConfiguration
                 {
-                    Mean = 6.1,
-                    VariationCoefficient = 0.6
+                    Mean = 10.1,
+                    VariationCoefficient = 0.1
                 },
                 StorageStructureArea = new StochastConfiguration
                 {
-                    Mean = 7.1,
-                    VariationCoefficient = 0.7
+                    Mean = 11.1,
+                    VariationCoefficient = 0.11
                 },
                 StormDuration = new StochastConfiguration
                 {
-                    Mean = 8.1
+                    Mean = 12.1
                 }
             };
 
-            var calculation = new StructuresCalculation<HeightStructuresInput>();
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
 
-            var assigner = new HeightStructuresCalculationStochastAssigner(
+            var assigner = new ClosingStructuresCalculationStochastAssigner(
                 configuration,
                 calculation);
 
@@ -172,8 +230,32 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
         private static IEnumerable<TestCaseData> GetSetStochastParametersActions(string testNameFormat)
         {
             foreach (TestCaseData caseData in StochastConfigurationCases(
-                (c, s) => c.LevelCrestStructure = s,
-                nameof(HeightStructuresCalculationConfiguration.LevelCrestStructure),
+                (c, s) => c.LevelCrestStructureNotClosing = s,
+                nameof(ClosingStructuresCalculationConfiguration.LevelCrestStructureNotClosing),
+                testNameFormat,
+                true))
+            {
+                yield return caseData;
+            }
+            foreach (TestCaseData caseData in StochastConfigurationCases(
+                (c, s) => c.AreaFlowApertures = s,
+                nameof(ClosingStructuresCalculationConfiguration.AreaFlowApertures),
+                testNameFormat,
+                true))
+            {
+                yield return caseData;
+            }
+            foreach (TestCaseData caseData in StochastConfigurationCases(
+                (c, s) => c.InsideWaterLevel = s,
+                nameof(ClosingStructuresCalculationConfiguration.InsideWaterLevel),
+                testNameFormat,
+                true))
+            {
+                yield return caseData;
+            }
+            foreach (TestCaseData caseData in StochastConfigurationCases(
+                (c, s) => c.ThresholdHeightOpenWeir = s,
+                nameof(ClosingStructuresCalculationConfiguration.ThresholdHeightOpenWeir),
                 testNameFormat,
                 true))
             {
@@ -181,7 +263,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             }
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.AllowedLevelIncreaseStorage = s,
-                nameof(HeightStructuresCalculationConfiguration.AllowedLevelIncreaseStorage),
+                nameof(ClosingStructuresCalculationConfiguration.AllowedLevelIncreaseStorage),
                 testNameFormat,
                 true))
             {
@@ -189,7 +271,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             }
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.FlowWidthAtBottomProtection = s,
-                nameof(HeightStructuresCalculationConfiguration.FlowWidthAtBottomProtection),
+                nameof(ClosingStructuresCalculationConfiguration.FlowWidthAtBottomProtection),
                 testNameFormat,
                 true))
             {
@@ -197,7 +279,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             }
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.WidthFlowApertures = s,
-                nameof(HeightStructuresCalculationConfiguration.WidthFlowApertures),
+                nameof(ClosingStructuresCalculationConfiguration.WidthFlowApertures),
                 testNameFormat,
                 true))
             {
@@ -205,7 +287,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             }
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.CriticalOvertoppingDischarge = s,
-                nameof(HeightStructuresCalculationConfiguration.CriticalOvertoppingDischarge),
+                nameof(ClosingStructuresCalculationConfiguration.CriticalOvertoppingDischarge),
                 testNameFormat,
                 false))
             {
@@ -213,7 +295,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             }
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.StorageStructureArea = s,
-                nameof(HeightStructuresCalculationConfiguration.StorageStructureArea),
+                nameof(ClosingStructuresCalculationConfiguration.StorageStructureArea),
                 testNameFormat,
                 false))
             {
@@ -222,7 +304,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
         }
 
         private static IEnumerable<TestCaseData> StochastConfigurationCases(
-            Action<HeightStructuresCalculationConfiguration, StochastConfiguration> modifyStochastAction,
+            Action<ClosingStructuresCalculationConfiguration, StochastConfiguration> modifyStochastAction,
             string stochastName,
             string testNameFormat,
             bool standardDeviation)
@@ -230,7 +312,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             var random = new Random(21);
 
             yield return new TestCaseData(
-                    new Action<HeightStructuresCalculationConfiguration>(c => modifyStochastAction(c, new StochastConfiguration
+                    new Action<ClosingStructuresCalculationConfiguration>(c => modifyStochastAction(c, new StochastConfiguration
                     {
                         Mean = random.NextDouble()
                     })))
@@ -239,7 +321,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             if (standardDeviation)
             {
                 yield return new TestCaseData(
-                        new Action<HeightStructuresCalculationConfiguration>(c => modifyStochastAction(c, new StochastConfiguration
+                        new Action<ClosingStructuresCalculationConfiguration>(c => modifyStochastAction(c, new StochastConfiguration
                         {
                             StandardDeviation = random.NextDouble()
                         })))
@@ -248,7 +330,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             else
             {
                 yield return new TestCaseData(
-                        new Action<HeightStructuresCalculationConfiguration>(c => modifyStochastAction(c, new StochastConfiguration
+                        new Action<ClosingStructuresCalculationConfiguration>(c => modifyStochastAction(c, new StochastConfiguration
                         {
                             VariationCoefficient = random.NextDouble()
                         })))

@@ -190,6 +190,25 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             "Indien voor parameter 'binnenwaterstand' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.")]
         [TestCase("validConfigurationThresholdHeightOpenWeirVariationCoefficient.xml",
             "Indien voor parameter 'drempelhoogte' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.")]
+
+        [TestCase("validConfigurationStorageStructureAreaWithoutStructure.xml",
+            "Er is geen kunstwerk opgegeven om de stochast 'kombergendoppervlak' aan toe te voegen.")]
+        [TestCase("validConfigurationCriticalOvertoppingDischargeWithoutStructure.xml",
+            "Er is geen kunstwerk opgegeven om de stochast 'kritiekinstromenddebiet' aan toe te voegen.")]
+        [TestCase("validConfigurationAllowedLevelIncreaseStorageWithoutStructure.xml",
+            "Er is geen kunstwerk opgegeven om de stochast 'peilverhogingkomberging' aan toe te voegen.")]
+        [TestCase("validConfigurationAreaFlowAperturesWithoutStructure.xml",
+            "Er is geen kunstwerk opgegeven om de stochast 'doorstroomoppervlak' aan toe te voegen.")]
+        [TestCase("validConfigurationFlowWidthAtBottomProtectionWithoutStructure.xml",
+            "Er is geen kunstwerk opgegeven om de stochast 'breedtebodembescherming' aan toe te voegen.")]
+        [TestCase("validConfigurationInsideWaterLevelWithoutStructure.xml",
+            "Er is geen kunstwerk opgegeven om de stochast 'binnenwaterstand' aan toe te voegen.")]
+        [TestCase("validConfigurationLevelCrestStructureNotClosingWithoutStructure.xml",
+            "Er is geen kunstwerk opgegeven om de stochast 'kruinhoogte' aan toe te voegen.")]
+        [TestCase("validConfigurationThresholdHeightOpenWeirWithoutStructure.xml",
+            "Er is geen kunstwerk opgegeven om de stochast 'drempelhoogte' aan toe te voegen.")]
+        [TestCase("validConfigurationWidthFlowAperturesWithoutStructure.xml",
+            "Er is geen kunstwerk opgegeven om de stochast 'breedtedoorstroomopening' aan toe te voegen.")]
         public void Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(string file, string expectedErrorMessage)
         {
             // Setup

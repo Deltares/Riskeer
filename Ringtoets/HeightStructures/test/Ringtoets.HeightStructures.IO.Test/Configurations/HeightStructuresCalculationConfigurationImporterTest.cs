@@ -158,6 +158,19 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             "Indien voor parameter 'kombergendoppervlak' de spreiding wordt opgegeven, moet dit door middel van een variatiecoëfficiënt. Voor berekening 'Berekening 1' is een standaardafwijking gevonden.")]
         [TestCase("validConfigurationWidthFlowAperturesVariationCoefficient.xml",
             "Indien voor parameter 'breedtedoorstroomopening' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.")]
+
+        [TestCase("validConfigurationAllowedLevelIncreaseWithoutStructure.xml",
+            "Er is geen kunstwerk opgegeven om de stochast 'peilverhogingkomberging' aan toe te voegen.")]
+        [TestCase("validConfigurationCriticalOvertoppingDischargeWithoutStructure.xml",
+            "Er is geen kunstwerk opgegeven om de stochast 'kritiekinstromenddebiet' aan toe te voegen.")]
+        [TestCase("validConfigurationFlowWidthAtBottomProtectionWithoutStructure.xml",
+            "Er is geen kunstwerk opgegeven om de stochast 'breedtebodembescherming' aan toe te voegen.")]
+        [TestCase("validConfigurationLevelCrestStructureWithoutStructure.xml",
+            "Er is geen kunstwerk opgegeven om de stochast 'kerendehoogte' aan toe te voegen.")]
+        [TestCase("validConfigurationStorageStructureAreaWithoutStructure.xml",
+            "Er is geen kunstwerk opgegeven om de stochast 'kombergendoppervlak' aan toe te voegen.")]
+        [TestCase("validConfigurationWidthFlowAperturesWithoutStructure.xml",
+            "Er is geen kunstwerk opgegeven om de stochast 'breedtedoorstroomopening' aan toe te voegen.")]
         public void Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(string file, string expectedErrorMessage)
         {
             // Setup

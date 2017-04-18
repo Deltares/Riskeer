@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.IO.Configurations;
@@ -47,6 +48,82 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             Assert.IsInstanceOf<StructuresCalculationStochastAssigner<
                 StabilityPointStructuresCalculationConfiguration,
                 StabilityPointStructuresInput, StabilityPointStructure>>(assigner);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Assign_WithSpreadForDrainCoefficient_LogsErrorReturnFalse(bool withStandardDeviation)
+        {
+            // Setup
+            var configuration = new StabilityPointStructuresCalculationConfiguration("name")
+            {
+                StructureName = "some structure"
+            };
+            configuration.DrainCoefficient = new StochastConfiguration();
+            configuration.DrainCoefficient.Mean = 8.1;
+            if (withStandardDeviation)
+            {
+                configuration.DrainCoefficient.StandardDeviation = 0.8;
+            }
+            else
+            {
+                configuration.DrainCoefficient.VariationCoefficient = 0.8;
+            }
+
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+
+            var assigner = new StabilityPointStructuresCalculationStochastAssigner(
+                configuration,
+                calculation);
+
+            bool valid = true;
+
+            // Call
+            Action test = () => valid = assigner.Assign();
+
+            // Assert
+            var expectedMessage = "Er kan geen spreiding voor stochast 'afvoercoefficient' opgegeven worden. Berekening 'name' is overgeslagen.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(test, Tuple.Create(expectedMessage, LogLevelConstant.Error));
+            Assert.IsFalse(valid);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Assign_WithSpreadForFlowVelocityStructureClosable_LogsErrorReturnFalse(bool withStandardDeviation)
+        {
+            // Setup
+            var configuration = new StabilityPointStructuresCalculationConfiguration("name")
+            {
+                StructureName = "some structure"
+            };
+            configuration.FlowVelocityStructureClosable = new StochastConfiguration();
+            configuration.FlowVelocityStructureClosable.Mean = 8.1;
+            if (withStandardDeviation)
+            {
+                configuration.FlowVelocityStructureClosable.StandardDeviation = 0.8;
+            }
+            else
+            {
+                configuration.FlowVelocityStructureClosable.VariationCoefficient = 0.8;
+            }
+
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+
+            var assigner = new StabilityPointStructuresCalculationStochastAssigner(
+                configuration,
+                calculation);
+
+            bool valid = true;
+
+            // Call
+            Action test = () => valid = assigner.Assign();
+
+            // Assert
+            var expectedMessage = "Er kan geen spreiding voor stochast 'kritiekestroomsnelheid' opgegeven worden. Berekening 'name' is overgeslagen.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(test, Tuple.Create(expectedMessage, LogLevelConstant.Error));
+            Assert.IsFalse(valid);
         }
 
         [Test]
