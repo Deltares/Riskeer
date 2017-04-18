@@ -292,7 +292,7 @@ namespace Core.Common.Gui.Test.Commands
 
             var mockRepository = new MockRepository();
             var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
-            inquiryHelper.Expect(ih => ih.GetSourceFileLocation(generator.Filter)).Return(filePath);
+            inquiryHelper.Stub(ih => ih.GetSourceFileLocation(generator.Filter)).Return(filePath);
             var fileImporter = mockRepository.Stub<IFileImporter>();
             mockRepository.ReplayAll();
 
@@ -349,7 +349,7 @@ namespace Core.Common.Gui.Test.Commands
 
             var mockRepository = new MockRepository();
             var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
-            inquiryHelper.Expect(ih => ih.GetSourceFileLocation(generator.Filter)).Return(null);
+            inquiryHelper.Stub(ih => ih.GetSourceFileLocation(generator.Filter)).Return(null);
             var fileImporter = mockRepository.Stub<IFileImporter>();
             mockRepository.ReplayAll();
 
@@ -390,7 +390,7 @@ namespace Core.Common.Gui.Test.Commands
 
             var mockRepository = new MockRepository();
             var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
-            inquiryHelper.Expect(ih => ih.GetSourceFileLocation(generator.Filter)).Return(null);
+            inquiryHelper.Stub(ih => ih.GetSourceFileLocation(generator.Filter)).Return(null);
             var fileImporter = mockRepository.Stub<IFileImporter>();
             mockRepository.ReplayAll();
 
@@ -432,7 +432,7 @@ namespace Core.Common.Gui.Test.Commands
             var targetObject = new object();
             var mockRepository = new MockRepository();
             var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
-            inquiryHelper.Expect(ih => ih.GetSourceFileLocation(generator.Filter)).Return("/some/path");
+            inquiryHelper.Stub(ih => ih.GetSourceFileLocation(generator.Filter)).Return("/some/path");
             var fileImporter = mockRepository.Stub<IFileImporter>();
             mockRepository.ReplayAll();
 
