@@ -151,29 +151,29 @@ namespace Ringtoets.HeightStructures.Data.Test
 
             Assert.IsInstanceOf<RoundedDouble>(heightStructure.StructureNormalOrientation);
             Assert.AreEqual(2, heightStructure.StructureNormalOrientation.NumberOfDecimalPlaces);
-            Assert.AreEqual(0, heightStructure.StructureNormalOrientation.Value);
+            Assert.AreEqual(double.NaN, heightStructure.StructureNormalOrientation.Value);
 
             NormalDistribution levelCrestStructure = heightStructure.LevelCrestStructure;
             Assert.AreEqual(2, levelCrestStructure.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(0, levelCrestStructure.Mean.Value);
+            Assert.AreEqual(double.NaN, levelCrestStructure.Mean.Value);
             Assert.AreEqual(2, levelCrestStructure.StandardDeviation.NumberOfDecimalPlaces);
             Assert.AreEqual(0.05, levelCrestStructure.StandardDeviation.Value);
 
             LogNormalDistribution flowWidthAtBottomProtection = heightStructure.FlowWidthAtBottomProtection;
             Assert.AreEqual(2, flowWidthAtBottomProtection.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(1, flowWidthAtBottomProtection.Mean.Value);
+            Assert.AreEqual(double.NaN, flowWidthAtBottomProtection.Mean.Value);
             Assert.AreEqual(2, flowWidthAtBottomProtection.StandardDeviation.NumberOfDecimalPlaces);
             Assert.AreEqual(0.05, flowWidthAtBottomProtection.StandardDeviation.Value);
 
             VariationCoefficientLogNormalDistribution criticalOvertoppingDischarge = heightStructure.CriticalOvertoppingDischarge;
             Assert.AreEqual(2, criticalOvertoppingDischarge.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(1, criticalOvertoppingDischarge.Mean.Value);
+            Assert.AreEqual(double.NaN, criticalOvertoppingDischarge.Mean.Value);
             Assert.AreEqual(2, criticalOvertoppingDischarge.CoefficientOfVariation.NumberOfDecimalPlaces);
             Assert.AreEqual(0.15, criticalOvertoppingDischarge.CoefficientOfVariation.Value);
 
             NormalDistribution widthFlowApertures = heightStructure.WidthFlowApertures;
             Assert.AreEqual(2, widthFlowApertures.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(0, widthFlowApertures.Mean.Value);
+            Assert.AreEqual(double.NaN, widthFlowApertures.Mean.Value);
             Assert.AreEqual(2, widthFlowApertures.StandardDeviation.NumberOfDecimalPlaces);
             Assert.AreEqual(0.2, widthFlowApertures.StandardDeviation.Value);
 
@@ -181,13 +181,13 @@ namespace Ringtoets.HeightStructures.Data.Test
 
             VariationCoefficientLogNormalDistribution storageStructureArea = heightStructure.StorageStructureArea;
             Assert.AreEqual(2, storageStructureArea.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(1, storageStructureArea.Mean.Value);
+            Assert.AreEqual(double.NaN, storageStructureArea.Mean.Value);
             Assert.AreEqual(2, storageStructureArea.CoefficientOfVariation.NumberOfDecimalPlaces);
             Assert.AreEqual(0.1, storageStructureArea.CoefficientOfVariation.Value);
 
             LogNormalDistribution allowedLevelIncreaseStorage = heightStructure.AllowedLevelIncreaseStorage;
             Assert.AreEqual(2, allowedLevelIncreaseStorage.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(1, allowedLevelIncreaseStorage.Mean.Value);
+            Assert.AreEqual(double.NaN, allowedLevelIncreaseStorage.Mean.Value);
             Assert.AreEqual(2, allowedLevelIncreaseStorage.StandardDeviation.NumberOfDecimalPlaces);
             Assert.AreEqual(0.1, allowedLevelIncreaseStorage.StandardDeviation.Value);
         }

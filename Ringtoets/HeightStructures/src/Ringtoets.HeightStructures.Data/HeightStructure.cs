@@ -128,34 +128,38 @@ namespace Ringtoets.HeightStructures.Data
             {
                 LevelCrestStructure = new NormalDistribution(2)
                 {
+                    Mean = RoundedDouble.NaN,
                     StandardDeviation = (RoundedDouble) 0.05
                 };
                 FlowWidthAtBottomProtection = new LogNormalDistribution(2)
                 {
-                    Mean = (RoundedDouble) 1,
+                    Mean = RoundedDouble.NaN,
                     StandardDeviation = (RoundedDouble) 0.05
                 };
                 CriticalOvertoppingDischarge = new VariationCoefficientLogNormalDistribution(2)
                 {
-                    Mean = (RoundedDouble) 1,
+                    Mean = RoundedDouble.NaN,
                     CoefficientOfVariation = (RoundedDouble) 0.15
                 };
                 WidthFlowApertures = new NormalDistribution(2)
                 {
+                    Mean = RoundedDouble.NaN,
                     StandardDeviation = (RoundedDouble) 0.2
                 };
                 StorageStructureArea = new VariationCoefficientLogNormalDistribution(2)
                 {
-                    Mean = (RoundedDouble) 1,
+                    Mean = RoundedDouble.NaN,
                     CoefficientOfVariation = (RoundedDouble) 0.1
                 };
                 AllowedLevelIncreaseStorage = new LogNormalDistribution(2)
                 {
-                    Mean = (RoundedDouble) 1,
+                    Mean = RoundedDouble.NaN,
                     StandardDeviation = (RoundedDouble) 0.1
                 };
 
                 FailureProbabilityStructureWithErosion = 1.0;
+
+                StructureNormalOrientation = double.NaN;
             }
 
             /// <summary>
