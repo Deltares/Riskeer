@@ -643,4 +643,7 @@ Er is geen berekeningenconfiguratie geïmporteerd.</value>
   <data name="DikeProfilesImporter_DisplayName" xml:space="preserve">
     <value>Dijkprofiellocaties</value>
   </data>
+  <data name="StructuresParameterRowsValidator_ValidateStructuresParameters_No_parameters_found" xml:space="preserve">
+    <value>Geen geldige parameter definities gevonden.</value>
+  </data>
 </root>

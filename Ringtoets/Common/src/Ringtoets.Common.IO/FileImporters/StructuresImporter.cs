@@ -103,7 +103,7 @@ namespace Ringtoets.Common.IO.FileImporters
             {
                 log.WarnFormat(Resources.StructuresImporter_GetStandardDeviation_Converting_variation_StructureName_0_StructureId_1_ParameterId_2_on_Line_3_,
                                structureName, structuresParameterRow.LocationId, structuresParameterRow.ParameterId, structuresParameterRow.LineNumber);
-                return (RoundedDouble) structuresParameterRow.VarianceValue*Math.Abs(structuresParameterRow.NumericalValue);
+                return (RoundedDouble) structuresParameterRow.VarianceValue * Math.Abs(structuresParameterRow.NumericalValue);
             }
             return (RoundedDouble) structuresParameterRow.VarianceValue;
         }
@@ -114,7 +114,7 @@ namespace Ringtoets.Common.IO.FileImporters
             {
                 log.WarnFormat(Resources.StructuresImporter_GetCoefficientOfVariation_Converting_variation_StructureName_0_StructureId_1_ParameterId_2_on_Line_3_,
                                structureName, structuresParameterRow.LocationId, structuresParameterRow.ParameterId, structuresParameterRow.LineNumber);
-                return (RoundedDouble) (structuresParameterRow.VarianceValue/Math.Abs(structuresParameterRow.NumericalValue));
+                return (RoundedDouble) (structuresParameterRow.VarianceValue / Math.Abs(structuresParameterRow.NumericalValue));
             }
             return (RoundedDouble) structuresParameterRow.VarianceValue;
         }
@@ -127,6 +127,23 @@ namespace Ringtoets.Common.IO.FileImporters
             string messageRemainder = string.Format(Resources.StructuresImporter_LogValidationErrorForStructure_One_or_more_erors_skip_structure_ErrorMessageList_0_,
                                                     string.Join(Environment.NewLine, validationErrors.Select(msg => "* " + msg)));
             log.ErrorFormat(shortMessage, messageRemainder);
+        }
+
+        protected void TrySetConstructionProperty<TConstructionProperties>(Action<TConstructionProperties,
+                                                                               IDictionary<string, StructuresParameterRow>,
+                                                                               string> setPropertyAction,
+                                                                           TConstructionProperties constructionProperties,
+                                                                           IDictionary<string, StructuresParameterRow> rowData,
+                                                                           string key)
+        {
+            if (rowData.ContainsKey(key))
+            {
+                setPropertyAction(constructionProperties, rowData, key);
+            }
+            else
+            {
+                log.Warn(string.Format(Resources.StructuresParameterRowsValidator_Parameter_0_missing_or_invalid, key));
+            }
         }
 
         private string GetStructureDataCsvFilePath()
@@ -166,7 +183,7 @@ namespace Ringtoets.Common.IO.FileImporters
 
                 var rows = new List<StructuresParameterRow>();
 
-                for (int i = 0; i < totalNumberOfRows; i++)
+                for (var i = 0; i < totalNumberOfRows; i++)
                 {
                     if (Canceled)
                     {
@@ -224,7 +241,7 @@ namespace Ringtoets.Common.IO.FileImporters
             var structureLocations = new Collection<StructureLocation>();
 
             int totalNumberOfSteps = structureLocationReader.GetStructureCount;
-            for (int i = 0; i < totalNumberOfSteps; i++)
+            for (var i = 0; i < totalNumberOfSteps; i++)
             {
                 if (Canceled)
                 {
@@ -238,7 +255,7 @@ namespace Ringtoets.Common.IO.FileImporters
                 }
                 catch (LineParseException exception)
                 {
-                    var message = string.Format(
+                    string message = string.Format(
                         Resources.StructuresImporter_GetStructureLocationReadResult_Error_reading_Structure_LineNumber_0_Error_1_The_Structure_is_skipped,
                         i + 1,
                         exception.Message);

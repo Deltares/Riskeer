@@ -27,7 +27,6 @@ using Core.Common.Base.Data;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.FileImporters;
-using Ringtoets.Common.IO.Properties;
 using Ringtoets.Common.IO.Structures;
 using Ringtoets.HeightStructures.Data;
 
@@ -169,23 +168,6 @@ namespace Ringtoets.HeightStructures.IO
                                        StructureFilesKeywords.HeightStructureParameterKeyword8);
 
             return new HeightStructure(constructionProperties);
-        }
-
-        private void TrySetConstructionProperty(Action<HeightStructure.ConstructionProperties,
-                                                    IDictionary<string, StructuresParameterRow>,
-                                                    string> setPropertyAction,
-                                                HeightStructure.ConstructionProperties constructionProperties,
-                                                IDictionary<string, StructuresParameterRow> rowData,
-                                                string key)
-        {
-            if (rowData.ContainsKey(key))
-            {
-                setPropertyAction(constructionProperties, rowData, key);
-            }
-            else
-            {
-                log.Warn(string.Format(Resources.StructuresParameterRowsValidator_Parameter_0_missing_or_invalid, key));
-            }
         }
     }
 }

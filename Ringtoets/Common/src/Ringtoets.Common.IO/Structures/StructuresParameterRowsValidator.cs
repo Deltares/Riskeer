@@ -292,7 +292,7 @@ namespace Ringtoets.Common.IO.Structures
 
             if (parametersMissing == rules.Count)
             {
-                errorMessages.Add("Geen geldige parameter definities gevonden.");
+                errorMessages.Add(Resources.StructuresParameterRowsValidator_ValidateStructuresParameters_No_parameters_found);
             }
 
             return new ValidationResult(errorMessages);

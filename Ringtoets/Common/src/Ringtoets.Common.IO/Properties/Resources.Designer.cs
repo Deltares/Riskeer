@@ -1843,6 +1843,16 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Geen geldige parameter definities gevonden..
+        /// </summary>
+        public static string StructuresParameterRowsValidator_ValidateStructuresParameters_No_parameters_found {
+            get {
+                return ResourceManager.GetString("StructuresParameterRowsValidator_ValidateStructuresParameters_No_parameters_found" +
+                        "", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het kunstwerk heeft geen geldige waarde voor attribuut &apos;{0}&apos;..
         /// </summary>
         public static string StructuresReader_GetNextStructure_Invalid_KWKIDENT {

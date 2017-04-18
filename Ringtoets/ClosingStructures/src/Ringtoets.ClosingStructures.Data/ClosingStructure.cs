@@ -202,55 +202,55 @@ namespace Ringtoets.ClosingStructures.Data
             /// Gets the storage area of the closing structure.
             /// [m^2]
             /// </summary>
-            public VariationCoefficientLogNormalDistribution StorageStructureArea { get; private set; }
+            public VariationCoefficientLogNormalDistribution StorageStructureArea { get; }
 
             /// <summary>
             /// Gets the allowed increase of level for storage of the closing structure.
             /// [m]
             /// </summary>
-            public LogNormalDistribution AllowedLevelIncreaseStorage { get; private set; }
+            public LogNormalDistribution AllowedLevelIncreaseStorage { get; }
 
             /// <summary>
             /// Gets the width of the flow apertures of the closing structure.
             /// [m]
             /// </summary>
-            public NormalDistribution WidthFlowApertures { get; private set; }
+            public NormalDistribution WidthFlowApertures { get; }
 
             /// <summary>
             /// Gets the crest level of the opened closing structure.
             /// [m+NAP]
             /// </summary>
-            public NormalDistribution LevelCrestStructureNotClosing { get; private set; }
+            public NormalDistribution LevelCrestStructureNotClosing { get; }
 
             /// <summary>
             /// Gets the interior water level of the closing structure.
             /// [m+NAP]
             /// </summary>
-            public NormalDistribution InsideWaterLevel { get; private set; }
+            public NormalDistribution InsideWaterLevel { get; }
 
             /// <summary>
             /// Gets the threshold height of the opened closing structure.
             /// [m+NAP]
             /// </summary>
-            public NormalDistribution ThresholdHeightOpenWeir { get; private set; }
+            public NormalDistribution ThresholdHeightOpenWeir { get; }
 
             /// <summary>
             /// Gets the area of the flow aperture of the closing structure.
             /// [m^2]
             /// </summary>
-            public LogNormalDistribution AreaFlowApertures { get; private set; }
+            public LogNormalDistribution AreaFlowApertures { get; }
 
             /// <summary>
             /// Gets the critical overtopping discharge per meter of the closing structure.
             /// [m^3/s/m]
             /// </summary>
-            public VariationCoefficientLogNormalDistribution CriticalOvertoppingDischarge { get; private set; }
+            public VariationCoefficientLogNormalDistribution CriticalOvertoppingDischarge { get; }
 
             /// <summary>
             /// Gets the flow width of the closing structure at the bottom protection.
             /// [m]
             /// </summary>
-            public LogNormalDistribution FlowWidthAtBottomProtection { get; private set; }
+            public LogNormalDistribution FlowWidthAtBottomProtection { get; }
 
             /// <summary>
             /// Gets or sets the probability or frequency of the closing structure being open before flooding.

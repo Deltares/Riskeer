@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -191,9 +192,11 @@ namespace Ringtoets.HeightStructures.IO.Test
                 Assert.AreEqual("Geen geldige definitie gevonden voor parameter 'KW_HOOGTE1'.", messages[0]);
                 Assert.AreEqual("Geen geldige definitie gevonden voor parameter 'KW_HOOGTE3'.", messages[1]);
                 Assert.AreEqual("Geen geldige definitie gevonden voor parameter 'KW_HOOGTE6'.", messages[2]);
+                // Don't care about the other message.
             });
             Assert.IsTrue(importResult);
             Assert.AreEqual(1, importTarget.Count);
+            // TODO assert default values.
         }
 
         [Test]
