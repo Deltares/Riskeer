@@ -1726,20 +1726,21 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Geen geldige definitie gevonden voor parameter &apos;{0}&apos;. Er worden standaard waardes gebruikt..
+        /// </summary>
+        public static string StructuresImporter_TrySetConstructionProperty_Parameter_0_missing_or_invalid_default_values_used {
+            get {
+                return ResourceManager.GetString("StructuresImporter_TrySetConstructionProperty_Parameter_0_missing_or_invalid_defa" +
+                        "ult_values_used", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kunstwerken importeren is afgebroken. Geen gegevens ingelezen..
         /// </summary>
         public static string StructuresImporter_User_canceled {
             get {
                 return ResourceManager.GetString("StructuresImporter_User_canceled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Geen geldige definitie gevonden voor parameter &apos;{0}&apos;..
-        /// </summary>
-        public static string StructuresParameterRowsValidator_Parameter_0_missing_or_invalid {
-            get {
-                return ResourceManager.GetString("StructuresParameterRowsValidator_Parameter_0_missing_or_invalid", resourceCulture);
             }
         }
         
