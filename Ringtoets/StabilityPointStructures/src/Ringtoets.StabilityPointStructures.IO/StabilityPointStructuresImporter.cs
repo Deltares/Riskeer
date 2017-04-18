@@ -93,114 +93,216 @@ namespace Ringtoets.StabilityPointStructures.IO
                 row => row.ParameterId, row => row, StringComparer.OrdinalIgnoreCase);
 
             string structureName = structureLocation.Name;
-            return new StabilityPointStructure(
-                new StabilityPointStructure.ConstructionProperties
-                {
-                    Name = structureName,
-                    Id = structureLocation.Id,
-                    Location = structureLocation.Point,
-                    StructureNormalOrientation = rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword1].NumericalValue,
-                    StorageStructureArea =
-                    {
-                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword2].NumericalValue,
-                        CoefficientOfVariation = GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword2], structureName)
-                    },
-                    AllowedLevelIncreaseStorage =
-                    {
-                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword3].NumericalValue,
-                        StandardDeviation = GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword3], structureName)
-                    },
-                    WidthFlowApertures =
-                    {
-                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword4].NumericalValue,
-                        StandardDeviation = GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword4], structureName)
-                    },
-                    InsideWaterLevel =
-                    {
-                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword5].NumericalValue,
-                        StandardDeviation = GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword5], structureName)
-                    },
-                    ThresholdHeightOpenWeir =
-                    {
-                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword6].NumericalValue,
-                        StandardDeviation = GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword6], structureName)
-                    },
-                    CriticalOvertoppingDischarge =
-                    {
-                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword7].NumericalValue,
-                        CoefficientOfVariation = GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword7], structureName)
-                    },
-                    FlowWidthAtBottomProtection =
-                    {
-                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword8].NumericalValue,
-                        StandardDeviation = GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword8], structureName)
-                    },
-                    ConstructiveStrengthLinearLoadModel =
-                    {
-                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword9].NumericalValue,
-                        CoefficientOfVariation = GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword9], structureName)
-                    },
-                    ConstructiveStrengthQuadraticLoadModel =
-                    {
-                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword10].NumericalValue,
-                        CoefficientOfVariation = GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword10], structureName)
-                    },
-                    BankWidth =
-                    {
-                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword11].NumericalValue,
-                        StandardDeviation = GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword11], structureName)
-                    },
-                    InsideWaterLevelFailureConstruction =
-                    {
-                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword12].NumericalValue,
-                        StandardDeviation = GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword12], structureName)
-                    },
-                    EvaluationLevel = rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword13].NumericalValue,
-                    LevelCrestStructure =
-                    {
-                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword14].NumericalValue,
-                        StandardDeviation = GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword14], structureName)
-                    },
-                    VerticalDistance = rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword15].NumericalValue,
-                    FailureProbabilityRepairClosure = rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword16].NumericalValue,
-                    FailureCollisionEnergy =
-                    {
-                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword17].NumericalValue,
-                        CoefficientOfVariation = GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword17], structureName)
-                    },
-                    ShipMass =
-                    {
-                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword18].NumericalValue,
-                        CoefficientOfVariation = GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword18], structureName)
-                    },
-                    ShipVelocity =
-                    {
-                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword19].NumericalValue,
-                        CoefficientOfVariation = GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword19], structureName)
-                    },
-                    LevellingCount = (int) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword20].NumericalValue,
-                    ProbabilityCollisionSecondaryStructure = rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword21].NumericalValue,
-                    FlowVelocityStructureClosable =
-                    {
-                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword22].NumericalValue,
-                    },
-                    StabilityLinearLoadModel =
-                    {
-                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword23].NumericalValue,
-                        CoefficientOfVariation = GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword23], structureName)
-                    },
-                    StabilityQuadraticLoadModel =
-                    {
-                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword24].NumericalValue,
-                        CoefficientOfVariation = GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword24], structureName)
-                    },
-                    AreaFlowApertures =
-                    {
-                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword25].NumericalValue,
-                        StandardDeviation = GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword25], structureName)
-                    },
-                    InflowModelType = GetStabilityPointStructureInflowModelType(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword26])
-                });
+            var constructionProperties = new StabilityPointStructure.ConstructionProperties
+            {
+                Name = structureName,
+                Id = structureLocation.Id,
+                Location = structureLocation.Point,
+            };
+
+            TrySetConstructionProperty((properties, rows, key) => properties.StructureNormalOrientation = rows[key].NumericalValue,
+                                       constructionProperties,
+                                       rowData,
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword1);
+
+            TrySetConstructionProperty((properties, rows, key) =>
+                                       {
+                                           properties.StorageStructureArea.Mean = (RoundedDouble) rows[key].NumericalValue;
+                                           properties.StorageStructureArea.CoefficientOfVariation = GetCoefficientOfVariation(rows[key], structureName);
+                                       },
+                                       constructionProperties,
+                                       rowData,
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword2);
+
+            TrySetConstructionProperty((properties, rows, key) =>
+                                       {
+                                           properties.AllowedLevelIncreaseStorage.Mean = (RoundedDouble) rows[key].NumericalValue;
+                                           properties.AllowedLevelIncreaseStorage.StandardDeviation = GetStandardDeviation(rows[key], structureName);
+                                       },
+                                       constructionProperties,
+                                       rowData,
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword3);
+
+            TrySetConstructionProperty((properties, rows, key) =>
+                                       {
+                                           properties.WidthFlowApertures.Mean = (RoundedDouble) rows[key].NumericalValue;
+                                           properties.WidthFlowApertures.StandardDeviation = GetStandardDeviation(rows[key], structureName);
+                                       },
+                                       constructionProperties,
+                                       rowData,
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword4);
+
+            TrySetConstructionProperty((properties, rows, key) =>
+                                       {
+                                           properties.InsideWaterLevel.Mean = (RoundedDouble) rows[key].NumericalValue;
+                                           properties.InsideWaterLevel.StandardDeviation = GetStandardDeviation(rows[key], structureName);
+                                       },
+                                       constructionProperties,
+                                       rowData,
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword5);
+
+            TrySetConstructionProperty((properties, rows, key) =>
+                                       {
+                                           properties.ThresholdHeightOpenWeir.Mean = (RoundedDouble) rows[key].NumericalValue;
+                                           properties.ThresholdHeightOpenWeir.StandardDeviation = GetStandardDeviation(rows[key], structureName);
+                                       },
+                                       constructionProperties,
+                                       rowData,
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword6);
+
+            TrySetConstructionProperty((properties, rows, key) =>
+                                       {
+                                           properties.CriticalOvertoppingDischarge.Mean = (RoundedDouble) rows[key].NumericalValue;
+                                           properties.CriticalOvertoppingDischarge.CoefficientOfVariation = GetCoefficientOfVariation(rows[key], structureName);
+                                       },
+                                       constructionProperties,
+                                       rowData,
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword7);
+
+            TrySetConstructionProperty((properties, rows, key) =>
+                                       {
+                                           properties.FlowWidthAtBottomProtection.Mean = (RoundedDouble) rows[key].NumericalValue;
+                                           properties.FlowWidthAtBottomProtection.StandardDeviation = GetStandardDeviation(rows[key], structureName);
+                                       },
+                                       constructionProperties,
+                                       rowData,
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword8);
+
+            TrySetConstructionProperty((properties, rows, key) =>
+                                       {
+                                           properties.ConstructiveStrengthLinearLoadModel.Mean = (RoundedDouble) rows[key].NumericalValue;
+                                           properties.ConstructiveStrengthLinearLoadModel.CoefficientOfVariation = GetCoefficientOfVariation(rows[key], structureName);
+                                       },
+                                       constructionProperties,
+                                       rowData,
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword9);
+
+            TrySetConstructionProperty((properties, rows, key) =>
+                                       {
+                                           properties.ConstructiveStrengthQuadraticLoadModel.Mean = (RoundedDouble) rows[key].NumericalValue;
+                                           properties.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation = GetCoefficientOfVariation(rows[key], structureName);
+                                       },
+                                       constructionProperties,
+                                       rowData,
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword10);
+
+            TrySetConstructionProperty((properties, rows, key) =>
+                                       {
+                                           properties.BankWidth.Mean = (RoundedDouble) rows[key].NumericalValue;
+                                           properties.BankWidth.StandardDeviation = GetStandardDeviation(rows[key], structureName);
+                                       },
+                                       constructionProperties,
+                                       rowData,
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword11);
+
+            TrySetConstructionProperty((properties, rows, key) =>
+                                       {
+                                           properties.InsideWaterLevelFailureConstruction.Mean = (RoundedDouble) rows[key].NumericalValue;
+                                           properties.InsideWaterLevelFailureConstruction.StandardDeviation = GetStandardDeviation(rows[key], structureName);
+                                       },
+                                       constructionProperties,
+                                       rowData,
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword12);
+
+            TrySetConstructionProperty((properties, rows, key) => properties.EvaluationLevel = rows[key].NumericalValue,
+                                       constructionProperties,
+                                       rowData,
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword13);
+
+            TrySetConstructionProperty((properties, rows, key) =>
+                                       {
+                                           properties.LevelCrestStructure.Mean = (RoundedDouble) rows[key].NumericalValue;
+                                           properties.LevelCrestStructure.StandardDeviation = GetStandardDeviation(rows[key], structureName);
+                                       },
+                                       constructionProperties,
+                                       rowData,
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword14);
+
+            TrySetConstructionProperty((properties, rows, key) => properties.VerticalDistance = rows[key].NumericalValue,
+                                       constructionProperties,
+                                       rowData,
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword15);
+
+            TrySetConstructionProperty((properties, rows, key) => properties.FailureProbabilityRepairClosure = rows[key].NumericalValue,
+                                       constructionProperties,
+                                       rowData,
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword16);
+
+            TrySetConstructionProperty((properties, rows, key) =>
+                                       {
+                                           properties.FailureCollisionEnergy.Mean = (RoundedDouble) rows[key].NumericalValue;
+                                           properties.FailureCollisionEnergy.CoefficientOfVariation = GetCoefficientOfVariation(rows[key], structureName);
+                                       },
+                                       constructionProperties,
+                                       rowData,
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword17);
+
+            TrySetConstructionProperty((properties, rows, key) =>
+                                       {
+                                           properties.ShipMass.Mean = (RoundedDouble) rows[key].NumericalValue;
+                                           properties.ShipMass.CoefficientOfVariation = GetCoefficientOfVariation(rows[key], structureName);
+                                       },
+                                       constructionProperties,
+                                       rowData,
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword18);
+
+            TrySetConstructionProperty((properties, rows, key) =>
+                                       {
+                                           properties.ShipVelocity.Mean = (RoundedDouble) rows[key].NumericalValue;
+                                           properties.ShipVelocity.CoefficientOfVariation = GetCoefficientOfVariation(rows[key], structureName);
+                                       },
+                                       constructionProperties,
+                                       rowData,
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword19);
+
+            TrySetConstructionProperty((properties, rows, key) => properties.LevellingCount = (int) rows[key].NumericalValue,
+                                       constructionProperties,
+                                       rowData,
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword20);
+
+            TrySetConstructionProperty((properties, rows, key) => properties.ProbabilityCollisionSecondaryStructure = rows[key].NumericalValue,
+                                       constructionProperties,
+                                       rowData,
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword21);
+
+            TrySetConstructionProperty((properties, rows, key) => properties.FlowVelocityStructureClosable.Mean = (RoundedDouble) rows[key].NumericalValue,
+                                       constructionProperties,
+                                       rowData,
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword22);
+
+            TrySetConstructionProperty((properties, rows, key) =>
+                                       {
+                                           properties.StabilityLinearLoadModel.Mean = (RoundedDouble) rows[key].NumericalValue;
+                                           properties.StabilityLinearLoadModel.CoefficientOfVariation = GetCoefficientOfVariation(rows[key], structureName);
+                                       },
+                                       constructionProperties,
+                                       rowData,
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword23);
+
+            TrySetConstructionProperty((properties, rows, key) =>
+                                       {
+                                           properties.StabilityQuadraticLoadModel.Mean = (RoundedDouble) rows[key].NumericalValue;
+                                           properties.StabilityQuadraticLoadModel.CoefficientOfVariation = GetCoefficientOfVariation(rows[key], structureName);
+                                       },
+                                       constructionProperties,
+                                       rowData,
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword24);
+
+            TrySetConstructionProperty((properties, rows, key) =>
+                                       {
+                                           properties.AreaFlowApertures.Mean = (RoundedDouble) rows[key].NumericalValue;
+                                           properties.AreaFlowApertures.StandardDeviation = GetStandardDeviation(rows[key], structureName);
+                                       },
+                                       constructionProperties,
+                                       rowData,
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword25);
+
+            TrySetConstructionProperty((properties, rows, key) => properties.InflowModelType = GetStabilityPointStructureInflowModelType(rows[key]),
+                                       constructionProperties,
+                                       rowData,
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword26);
+
+            return new StabilityPointStructure(constructionProperties);
         }
 
         private static StabilityPointStructureInflowModelType GetStabilityPointStructureInflowModelType(

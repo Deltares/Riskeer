@@ -57,17 +57,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 
-            var referencePoints = new List<Point2D>
-            {
-                new Point2D(131144.094, 549979.893),
-                new Point2D(131538.705, 548316.752),
-                new Point2D(135878.442, 532149.859),
-                new Point2D(131225.017, 548395.948),
-                new Point2D(131270.38, 548367.462),
-                new Point2D(131507.119, 548322.951)
-            };
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(referencePoints);
+            ReferenceLine referenceLine = CreateReferenceLine();
             var importTarget = new ObservableList<StabilityPointStructure>();
             var structuresImporter = new StabilityPointStructuresImporter(importTarget, referenceLine, filePath);
 
@@ -101,17 +91,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.StabilityPointStructures.IO,
                                                          Path.Combine("StructuresVarianceValueConversion", "Kunstwerken.shp"));
 
-            var referencePoints = new List<Point2D>
-            {
-                new Point2D(131144.094, 549979.893),
-                new Point2D(131538.705, 548316.752),
-                new Point2D(135878.442, 532149.859),
-                new Point2D(131225.017, 548395.948),
-                new Point2D(131270.38, 548367.462),
-                new Point2D(131507.119, 548322.951)
-            };
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(referencePoints);
+            ReferenceLine referenceLine = CreateReferenceLine();
 
             var importTarget = new ObservableList<StabilityPointStructure>();
             var structuresImporter = new StabilityPointStructuresImporter(importTarget, referenceLine, filePath);
@@ -174,17 +154,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("Structures", "CorrectShpIncompleteCsv", "Kunstwerken.shp"));
 
-            var referencePoints = new List<Point2D>
-            {
-                new Point2D(131144.094, 549979.893),
-                new Point2D(131538.705, 548316.752),
-                new Point2D(135878.442, 532149.859),
-                new Point2D(131225.017, 548395.948),
-                new Point2D(131270.38, 548367.462),
-                new Point2D(131507.119, 548322.951)
-            };
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(referencePoints);
+            ReferenceLine referenceLine = CreateReferenceLine();
             var importTarget = new ObservableList<StabilityPointStructure>();
             var structuresImporter = new StabilityPointStructuresImporter(importTarget, referenceLine, filePath);
 
@@ -242,6 +212,56 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             // Assert
             Assert.IsTrue(importResult);
             Assert.AreEqual(4, importTarget.Count);
+        }
+
+        [Test]
+        public void Import_MissingParameters_LogWarningAndContinueImportWithDefaultValues()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.StabilityPointStructures.IO,
+                                                         Path.Combine(nameof(StabilityPointStructuresImporter), "Kunstwerken.shp"));
+
+            ReferenceLine referenceLine = CreateReferenceLine();
+
+            var importTarget = new ObservableList<StabilityPointStructure>();
+            var structuresImporter = new StabilityPointStructuresImporter(importTarget, referenceLine, filePath);
+
+            // Call
+            var importResult = false;
+            Action call = () => importResult = structuresImporter.Import();
+
+            // Assert
+            TestHelper.AssertLogMessages(call, msgs =>
+            {
+                string[] messages = msgs.ToArray();
+                Assert.AreEqual(11, messages.Length);
+
+                Assert.AreEqual("Geen geldige definitie gevonden voor parameter 'KW_STERSTAB2'.", messages[0]);
+                Assert.AreEqual("Geen geldige definitie gevonden voor parameter 'KW_STERSTAB6'.", messages[4]);
+                Assert.AreEqual("Geen geldige definitie gevonden voor parameter 'KW_STERSTAB12'.", messages[7]);
+                Assert.AreEqual("Geen geldige definitie gevonden voor parameter 'KW_STERSTAB20'.", messages[9]);
+                Assert.AreEqual("Geen geldige definitie gevonden voor parameter 'KW_STERSTAB25'.", messages[10]);
+                // Don't care about the other messages.
+            });
+            Assert.IsTrue(importResult);
+            Assert.AreEqual(1, importTarget.Count);
+            // TODO assert default values.
+        }
+
+        private static ReferenceLine CreateReferenceLine()
+        {
+            var referencePoints = new List<Point2D>
+            {
+                new Point2D(131144.094, 549979.893),
+                new Point2D(131538.705, 548316.752),
+                new Point2D(135878.442, 532149.859),
+                new Point2D(131225.017, 548395.948),
+                new Point2D(131270.38, 548367.462),
+                new Point2D(131507.119, 548322.951)
+            };
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(referencePoints);
+            return referenceLine;
         }
 
         private static string CreateExpectedErrorMessage(string filePath, string structureName, string structureId,
