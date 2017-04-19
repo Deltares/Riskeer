@@ -34,7 +34,6 @@ using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.Properties;
 using Ringtoets.Common.IO.Structures;
-using BaseConstructionProperties = Ringtoets.Common.Data.StructureBase.ConstructionProperties;
 
 namespace Ringtoets.Common.IO.FileImporters
 {
@@ -130,17 +129,13 @@ namespace Ringtoets.Common.IO.FileImporters
             log.ErrorFormat(shortMessage, messageRemainder);
         }
 
-        protected void TrySetConstructionProperty<TConstructionProperties>(Action<TConstructionProperties,
-                                                                               IDictionary<string, StructuresParameterRow>,
-                                                                               string> setPropertyAction,
-                                                                           TConstructionProperties constructionProperties,
-                                                                           IDictionary<string, StructuresParameterRow> rowData,
-                                                                           string key)
-            where TConstructionProperties : BaseConstructionProperties
+        protected void TrySetConstructionProperty(Action<IDictionary<string, StructuresParameterRow>, string> setPropertyAction,
+                                                  IDictionary<string, StructuresParameterRow> rowData,
+                                                  string key)
         {
             if (rowData.ContainsKey(key))
             {
-                setPropertyAction(constructionProperties, rowData, key);
+                setPropertyAction(rowData, key);
             }
             else
             {

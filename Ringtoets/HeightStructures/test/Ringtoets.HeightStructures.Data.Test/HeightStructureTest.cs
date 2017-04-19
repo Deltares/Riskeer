@@ -83,7 +83,6 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.AreEqual(location.X, heightStructure.Location.X);
             Assert.AreEqual(location.Y, heightStructure.Location.Y);
 
-            Assert.IsInstanceOf<RoundedDouble>(heightStructure.StructureNormalOrientation);
             Assert.AreEqual(2, heightStructure.StructureNormalOrientation.NumberOfDecimalPlaces);
             Assert.AreEqual(0.12, heightStructure.StructureNormalOrientation.Value);
 
@@ -149,6 +148,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.AreEqual(location.X, heightStructure.Location.X);
             Assert.AreEqual(location.Y, heightStructure.Location.Y);
 
+            Assert.AreEqual(2, heightStructure.StructureNormalOrientation.NumberOfDecimalPlaces);
             Assert.IsNaN(heightStructure.StructureNormalOrientation);
 
             NormalDistribution levelCrestStructure = heightStructure.LevelCrestStructure;

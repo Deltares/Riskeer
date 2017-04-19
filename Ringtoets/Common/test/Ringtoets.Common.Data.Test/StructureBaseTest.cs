@@ -38,7 +38,13 @@ namespace Ringtoets.Common.Data.Test
         public void Constructor_NameNullOrWhiteSpace_ThrowArgumentException(string name)
         {
             // Call
-            TestDelegate call = () => new TestStructure(name, "anId", new Point2D(0, 0), 0.0);
+            TestDelegate call = () => new TestStructure(new StructureBase.ConstructionProperties
+            {
+                Name = name,
+                Id = "anId",
+                Location = new Point2D(0, 0),
+                StructureNormalOrientation = (RoundedDouble) 0
+            });
 
             // Assert
             ArgumentException exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Name is null, empty or consists of whitespace.");
@@ -52,7 +58,13 @@ namespace Ringtoets.Common.Data.Test
         public void Constructor_IdNullOrWhiteSpace_ThrowArgumentException(string id)
         {
             // Call
-            TestDelegate call = () => new TestStructure("aName", id, new Point2D(0, 0), 0.0);
+            TestDelegate call = () => new TestStructure(new StructureBase.ConstructionProperties
+            {
+                Name = "aName",
+                Id = id,
+                Location = new Point2D(0, 0),
+                StructureNormalOrientation = (RoundedDouble) 0
+            });
 
             // Assert
             ArgumentException exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Id is null, empty or consists of whitespace.");
@@ -63,7 +75,13 @@ namespace Ringtoets.Common.Data.Test
         public void Constructor_LocationNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TestStructure("aName", "anId", null, 0.0);
+            TestDelegate call = () => new TestStructure(new StructureBase.ConstructionProperties
+            {
+                Name = "aName",
+                Id = "anId",
+                Location = null,
+                StructureNormalOrientation = (RoundedDouble) 0
+            });
 
             // Assert
             ArgumentNullException exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Location is null.");
@@ -78,7 +96,13 @@ namespace Ringtoets.Common.Data.Test
             const double structureNormalOrientation = 0.0;
 
             // Call
-            var structure = new TestStructure("aName", "anId", location, structureNormalOrientation);
+            var structure = new TestStructure(new StructureBase.ConstructionProperties
+            {
+                Name = "aName",
+                Id = "anId",
+                Location = location,
+                StructureNormalOrientation = (RoundedDouble) structureNormalOrientation
+            });
 
             // Assert
             Assert.AreEqual("aName", structure.Name);
@@ -98,7 +122,12 @@ namespace Ringtoets.Common.Data.Test
             var location = new Point2D(1.22, 2.333);
 
             // Call
-            var structure = new TestStructure("aName", "anId", location);
+            var structure = new TestStructure(new StructureBase.ConstructionProperties
+            {
+                Name = "aName",
+                Id = "anId",
+                Location = location
+            });
 
             // Assert
             Assert.AreEqual("aName", structure.Name);
@@ -112,19 +141,7 @@ namespace Ringtoets.Common.Data.Test
 
         private class TestStructure : StructureBase
         {
-            public TestStructure(string name, string id, Point2D location) : base(new ConstructionProperties
-            {
-                Name = name,
-                Id = id,
-                Location = location
-            }) { }
-
-            public TestStructure(string name, string id, Point2D location, double normal) : base(new ConstructionProperties
-            {
-                Name = name,
-                Id = id,
-                Location = location,
-                StructureNormalOrientation = (RoundedDouble) normal}) {}
+            public TestStructure(ConstructionProperties constructionProperties) : base(constructionProperties) { }
         }
     }
 }

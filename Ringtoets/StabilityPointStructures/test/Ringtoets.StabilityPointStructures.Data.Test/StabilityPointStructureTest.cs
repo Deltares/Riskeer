@@ -148,6 +148,9 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             // Assert
             Assert.IsInstanceOf<StructureBase>(structure);
 
+            Assert.AreEqual(2, structure.StructureNormalOrientation.NumberOfDecimalPlaces);
+            Assert.AreEqual(123.46, structure.StructureNormalOrientation, structure.StructureNormalOrientation.GetAccuracy());
+
             VariationCoefficientLogNormalDistribution storageStructureArea = structure.StorageStructureArea;
             Assert.AreEqual(2, storageStructureArea.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(234.57, storageStructureArea.Mean, storageStructureArea.Mean.GetAccuracy());
@@ -294,6 +297,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             // Assert
             Assert.IsInstanceOf<StructureBase>(structure);
 
+            Assert.AreEqual(2, structure.StructureNormalOrientation.NumberOfDecimalPlaces);
             Assert.IsNaN(structure.StructureNormalOrientation);
 
             VariationCoefficientLogNormalDistribution storageStructureArea = structure.StorageStructureArea;

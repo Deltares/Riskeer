@@ -221,7 +221,7 @@ namespace Ringtoets.ClosingStructures.Data
                 AreaFlowApertures = new LogNormalDistribution(2)
                 {
                     Mean = RoundedDouble.NaN,
-                    StandardDeviation = (RoundedDouble) 0.1
+                    StandardDeviation = (RoundedDouble) 0.01
                 };
                 CriticalOvertoppingDischarge = new VariationCoefficientLogNormalDistribution(2)
                 {

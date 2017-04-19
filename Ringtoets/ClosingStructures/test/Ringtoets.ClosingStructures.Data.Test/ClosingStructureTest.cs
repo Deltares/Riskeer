@@ -190,6 +190,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.AreEqual(location.X, structure.Location.X);
             Assert.AreEqual(location.Y, structure.Location.Y);
 
+            Assert.AreEqual(2, structure.StructureNormalOrientation.NumberOfDecimalPlaces);
             Assert.IsNaN(structure.StructureNormalOrientation);
 
             VariationCoefficientLogNormalDistribution storageStructureArea = structure.StorageStructureArea;
@@ -232,7 +233,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.AreEqual(2, areaFlowApertures.Mean.NumberOfDecimalPlaces);
             Assert.IsNaN(areaFlowApertures.Mean);
             Assert.AreEqual(2, areaFlowApertures.StandardDeviation.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.1, areaFlowApertures.StandardDeviation, areaFlowApertures.StandardDeviation.GetAccuracy());
+            Assert.AreEqual(0.01, areaFlowApertures.StandardDeviation, areaFlowApertures.StandardDeviation.GetAccuracy());
 
             VariationCoefficientLogNormalDistribution criticalOvertoppingDischarge = structure.CriticalOvertoppingDischarge;
             Assert.AreEqual(2, criticalOvertoppingDischarge.Mean.NumberOfDecimalPlaces);

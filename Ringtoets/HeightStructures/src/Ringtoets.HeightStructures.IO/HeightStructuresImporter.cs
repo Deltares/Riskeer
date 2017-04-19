@@ -103,67 +103,59 @@ namespace Ringtoets.HeightStructures.IO
                 Location = structureLocation.Point
             };
 
-            TrySetConstructionProperty((properties, rows, key) => properties.StructureNormalOrientation = (RoundedDouble) rows[key].NumericalValue,
-                                       constructionProperties,
+            TrySetConstructionProperty((rows, key) => constructionProperties.StructureNormalOrientation = (RoundedDouble) rows[key].NumericalValue,
                                        rowData,
                                        StructureFilesKeywords.HeightStructureParameterKeyword1);
 
-            TrySetConstructionProperty((properties, rows, key) =>
+            TrySetConstructionProperty((rows, key) =>
                                        {
-                                           properties.LevelCrestStructure.Mean = (RoundedDouble) rows[key].NumericalValue;
-                                           properties.LevelCrestStructure.StandardDeviation = GetStandardDeviation(rows[key], structureName);
+                                           constructionProperties.LevelCrestStructure.Mean = (RoundedDouble) rows[key].NumericalValue;
+                                           constructionProperties.LevelCrestStructure.StandardDeviation = GetStandardDeviation(rows[key], structureName);
                                        },
-                                       constructionProperties,
                                        rowData,
                                        StructureFilesKeywords.HeightStructureParameterKeyword2);
 
-            TrySetConstructionProperty((properties, rows, key) =>
+            TrySetConstructionProperty((rows, key) =>
                                        {
-                                           properties.FlowWidthAtBottomProtection.Mean = (RoundedDouble) rows[key].NumericalValue;
-                                           properties.FlowWidthAtBottomProtection.StandardDeviation = GetStandardDeviation(rows[key], structureName);
+                                           constructionProperties.FlowWidthAtBottomProtection.Mean = (RoundedDouble) rows[key].NumericalValue;
+                                           constructionProperties.FlowWidthAtBottomProtection.StandardDeviation = GetStandardDeviation(rows[key], structureName);
                                        },
-                                       constructionProperties,
                                        rowData,
                                        StructureFilesKeywords.HeightStructureParameterKeyword3);
 
-            TrySetConstructionProperty((properties, rows, key) =>
+            TrySetConstructionProperty((rows, key) =>
                                        {
-                                           properties.CriticalOvertoppingDischarge.Mean = (RoundedDouble) rows[key].NumericalValue;
-                                           properties.CriticalOvertoppingDischarge.CoefficientOfVariation = GetCoefficientOfVariation(rows[key], structureName);
+                                           constructionProperties.CriticalOvertoppingDischarge.Mean = (RoundedDouble) rows[key].NumericalValue;
+                                           constructionProperties.CriticalOvertoppingDischarge.CoefficientOfVariation = GetCoefficientOfVariation(rows[key], structureName);
                                        },
-                                       constructionProperties,
                                        rowData,
                                        StructureFilesKeywords.HeightStructureParameterKeyword4);
 
-            TrySetConstructionProperty((properties, rows, key) =>
+            TrySetConstructionProperty((rows, key) =>
                                        {
-                                           properties.WidthFlowApertures.Mean = (RoundedDouble) rows[key].NumericalValue;
-                                           properties.WidthFlowApertures.StandardDeviation = GetStandardDeviation(rows[key], structureName);
+                                           constructionProperties.WidthFlowApertures.Mean = (RoundedDouble) rows[key].NumericalValue;
+                                           constructionProperties.WidthFlowApertures.StandardDeviation = GetStandardDeviation(rows[key], structureName);
                                        },
-                                       constructionProperties,
                                        rowData,
                                        StructureFilesKeywords.HeightStructureParameterKeyword5);
 
-            TrySetConstructionProperty((properties, rows, key) => properties.FailureProbabilityStructureWithErosion = rows[key].NumericalValue,
-                                       constructionProperties,
+            TrySetConstructionProperty((rows, key) => constructionProperties.FailureProbabilityStructureWithErosion = rows[key].NumericalValue,
                                        rowData,
                                        StructureFilesKeywords.HeightStructureParameterKeyword6);
 
-            TrySetConstructionProperty((properties, rows, key) =>
+            TrySetConstructionProperty((rows, key) =>
                                        {
-                                           properties.StorageStructureArea.Mean = (RoundedDouble) rows[key].NumericalValue;
-                                           properties.StorageStructureArea.CoefficientOfVariation = GetCoefficientOfVariation(rows[key], structureName);
+                                           constructionProperties.StorageStructureArea.Mean = (RoundedDouble) rows[key].NumericalValue;
+                                           constructionProperties.StorageStructureArea.CoefficientOfVariation = GetCoefficientOfVariation(rows[key], structureName);
                                        },
-                                       constructionProperties,
                                        rowData,
                                        StructureFilesKeywords.HeightStructureParameterKeyword7);
 
-            TrySetConstructionProperty((properties, rows, key) =>
+            TrySetConstructionProperty((rows, key) =>
                                        {
-                                           properties.AllowedLevelIncreaseStorage.Mean = (RoundedDouble) rows[key].NumericalValue;
-                                           properties.AllowedLevelIncreaseStorage.StandardDeviation = GetStandardDeviation(rows[key], structureName);
+                                           constructionProperties.AllowedLevelIncreaseStorage.Mean = (RoundedDouble) rows[key].NumericalValue;
+                                           constructionProperties.AllowedLevelIncreaseStorage.StandardDeviation = GetStandardDeviation(rows[key], structureName);
                                        },
-                                       constructionProperties,
                                        rowData,
                                        StructureFilesKeywords.HeightStructureParameterKeyword8);
 
