@@ -422,7 +422,7 @@ Er is geen vakindeling geïmporteerd.</value>
     <value>Kunstwerken importeren is afgebroken. Geen gegevens ingelezen.</value>
   </data>
   <data name="StructuresImporter_TrySetConstructionProperty_Parameter_0_missing_or_invalid_default_values_used" xml:space="preserve">
-    <value>Geen geldige definitie gevonden voor parameter '{0}'. Er worden standaard waardes gebruikt.</value>
+    <value>Geen geldige definitie gevonden voor parameter '{0}'. Er wordt een standaard waarde gebruikt.</value>
   </data>
   <data name="StructuresParameterRowsValidator_Parameter_0_repeated" xml:space="preserve">
     <value>Parameter '{0}' komt meerdere keren voor.</value>

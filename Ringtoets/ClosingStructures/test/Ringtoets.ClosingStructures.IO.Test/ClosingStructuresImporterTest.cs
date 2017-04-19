@@ -220,10 +220,10 @@ namespace Ringtoets.ClosingStructures.IO.Test
                 string[] messages = msgs.ToArray();
                 Assert.AreEqual(9, messages.Length);
 
-                Assert.AreEqual("Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT1'. Er worden standaard waardes gebruikt.", messages[0]);
-                Assert.AreEqual("Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT5'. Er worden standaard waardes gebruikt.", messages[3]);
-                Assert.AreEqual("Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT8'. Er worden standaard waardes gebruikt.", messages[6]);
-                Assert.AreEqual("Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT14'. Er worden standaard waardes gebruikt.", messages[8]);
+                Assert.AreEqual("Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT1'. Er wordt een standaard waarde gebruikt.", messages[0]);
+                Assert.AreEqual("Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT5'. Er wordt een standaard waarde gebruikt.", messages[3]);
+                Assert.AreEqual("Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT8'. Er wordt een standaard waarde gebruikt.", messages[6]);
+                Assert.AreEqual("Geen geldige definitie gevonden voor parameter 'KW_BETSLUIT14'. Er wordt een standaard waarde gebruikt.", messages[8]);
                 // Don't care about the other messages.
             });
             Assert.IsTrue(importResult);
