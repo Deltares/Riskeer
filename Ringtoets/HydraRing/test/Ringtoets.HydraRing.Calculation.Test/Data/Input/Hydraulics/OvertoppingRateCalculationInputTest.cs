@@ -38,7 +38,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
         public void Constructor_Always_ExpectedValues()
         {
             // Setup
-            const double norm = 1.0/10000;
+            const double norm = 1.0 / 10000;
             const int hydraulicBoundaryLocationId = 1000;
 
             const double sectionNormal = 20.0;
@@ -92,7 +92,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             Assert.IsInstanceOf<HydraulicLoadsCalculationInput>(input);
             Assert.AreEqual(2, input.CalculationTypeId);
             Assert.AreEqual(hydraulicBoundaryLocationId, input.HydraulicBoundaryLocationId);
-            Assert.AreEqual(HydraRingFailureMechanismType.HydraulicLoads, input.FailureMechanismType);
+            Assert.AreEqual(HydraRingFailureMechanismType.OvertoppingRate, input.FailureMechanismType);
             Assert.AreEqual(17, input.VariableId);
             Assert.IsNotNull(input.Section);
             HydraRingDataEqualityHelper.AreEqual(GetDefaultOvertoppingRateVariables().ToArray(), input.Variables.ToArray());

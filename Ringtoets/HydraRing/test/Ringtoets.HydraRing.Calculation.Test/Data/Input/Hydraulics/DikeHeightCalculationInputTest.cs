@@ -38,7 +38,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
         public void Constructor_Always_ExpectedValues()
         {
             // Setup
-            const double norm = 1.0/10000;
+            const double norm = 1.0 / 10000;
             const int hydraulicBoundaryLocationId = 1000;
 
             const double sectionNormal = 21.1;
@@ -115,7 +115,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
         public void GetSubMechanismModelId_Always_ReturnsExpectedValues(int subMechanismModelId, int? expectedSubMechanismModelId)
         {
             // Call
-            var input = new DikeHeightCalculationInput(1, 1.0/1000, double.NaN,
+            var input = new DikeHeightCalculationInput(1, 1.0 / 1000, double.NaN,
                                                        new List<HydraRingRoughnessProfilePoint>(),
                                                        new List<HydraRingForelandPoint>(),
                                                        new HydraRingBreakWater(0, 1.1),

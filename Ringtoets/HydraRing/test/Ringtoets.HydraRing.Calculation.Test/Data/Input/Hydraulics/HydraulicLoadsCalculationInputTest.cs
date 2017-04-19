@@ -39,7 +39,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
         public void Constructor_Always_ExpectedValues()
         {
             // Setup
-            const double norm = 1.0/10000;
+            const double norm = 1.0 / 10000;
             const int hydraulicBoundaryLocationId = 1000;
 
             const double sectionNormal = 19.9;
@@ -91,7 +91,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             Assert.IsInstanceOf<ReliabilityIndexCalculationInput>(input);
             Assert.AreEqual(9, input.CalculationTypeId);
             Assert.AreEqual(hydraulicBoundaryLocationId, input.HydraulicBoundaryLocationId);
-            Assert.AreEqual(HydraRingFailureMechanismType.HydraulicLoads, input.FailureMechanismType);
             Assert.IsNotNull(input.Section);
             HydraRingDataEqualityHelper.AreEqual(GetDefaultHydraulicLoadsVariables().ToArray(), input.Variables.ToArray());
             CollectionAssert.AreEqual(expectedRingProfilePoints, input.ProfilePoints);
@@ -113,7 +112,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
         public void GetSubMechanismModelId_Always_ReturnsExpectedValues(int subMechanismModelId, int? expectedSubMechanismModelId)
         {
             // Call
-            var input = new HydraulicLoadsCalculationInputImplementation(1, 1.0/1000, double.NaN,
+            var input = new HydraulicLoadsCalculationInputImplementation(1, 1.0 / 1000, double.NaN,
                                                                          new List<HydraRingRoughnessProfilePoint>(),
                                                                          new List<HydraRingForelandPoint>(),
                                                                          new HydraRingBreakWater(0, 1.1),
@@ -166,6 +165,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
                        modelFactorFrunupLowerBoundary, modelFactorFrunupUpperBoundary,
                        exponentModelFactorShallowMean, exponentModelFactorShallowStandardDeviation,
                        exponentModelFactorShallowLowerBoundary, exponentModelFactorShallowUpperBoundary) {}
+
+            public override HydraRingFailureMechanismType FailureMechanismType { get; } = (HydraRingFailureMechanismType) 1000;
 
             public override int VariableId { get; } = -1;
         }

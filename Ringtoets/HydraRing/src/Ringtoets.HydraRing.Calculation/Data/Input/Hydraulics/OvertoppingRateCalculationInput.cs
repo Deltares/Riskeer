@@ -98,6 +98,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
             this.dikeHeight = dikeHeight;
         }
 
+        public override HydraRingFailureMechanismType FailureMechanismType { get; } = HydraRingFailureMechanismType.OvertoppingRate;
+
         public override int VariableId { get; } = 17;
 
         public override int CalculationTypeId
