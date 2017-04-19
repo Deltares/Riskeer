@@ -64,11 +64,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 DataGridViewColumn permeabilityMeanColumn = table.GetColumnFromIndex(permeabilityMeanColumnIndex);
                 Assert.AreEqual("Doorlatendheid (verwachtingswaarde) [m/s]", permeabilityMeanColumn.HeaderText);
                 DataGridViewColumn permeabilityCoefficientOfVariationColumn = table.GetColumnFromIndex(permeabilityCoefficientOfVariationColumnIndex);
-                Assert.AreEqual("Doorlatendheid (variatiecoëfficiënt) [m/s]", permeabilityCoefficientOfVariationColumn.HeaderText);
+                Assert.AreEqual("Doorlatendheid (variatiecoëfficiënt) [-]", permeabilityCoefficientOfVariationColumn.HeaderText);
                 DataGridViewColumn d70MeanColumn = table.GetColumnFromIndex(d70MeanColumnIndex);
                 Assert.AreEqual("d70 (verwachtingswaarde) [m]", d70MeanColumn.HeaderText);
                 DataGridViewColumn d70DeviationColumn = table.GetColumnFromIndex(d70CoefficientOfVariationColumnIndex);
-                Assert.AreEqual("d70 (variatiecoëfficiënt) [m]", d70DeviationColumn.HeaderText);
+                Assert.AreEqual("d70 (variatiecoëfficiënt) [-]", d70DeviationColumn.HeaderText);
                 DataGridViewColumn belowPhreaticLevelWeightMeanColumn = table.GetColumnFromIndex(belowPhreaticLevelWeightMeanColumnIndex);
                 Assert.AreEqual("Verzadigd gewicht (verwachtingswaarde) [kN/m³]", belowPhreaticLevelWeightMeanColumn.HeaderText);
                 DataGridViewColumn belowPhreaticLevelWeightDeviationColumn = table.GetColumnFromIndex(belowPhreaticLevelWeightDeviationColumnIndex);

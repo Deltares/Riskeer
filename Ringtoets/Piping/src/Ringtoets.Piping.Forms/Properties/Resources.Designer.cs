@@ -1202,7 +1202,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to d70 (variatiecoëfficiënt) [m].
+        ///   Looks up a localized string similar to d70 (variatiecoëfficiënt) [-].
         /// </summary>
         public static string PipingSoilLayerTable_ColumnHeader_DiameterD70CoefficientOfVariation {
             get {
@@ -1238,7 +1238,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Doorlatendheid (variatiecoëfficiënt) [m/s].
+        ///   Looks up a localized string similar to Doorlatendheid (variatiecoëfficiënt) [-].
         /// </summary>
         public static string PipingSoilLayerTable_ColumnHeader_PermeabilityCoefficientOfVariation {
             get {

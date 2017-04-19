@@ -623,13 +623,13 @@
     <value>Doorlatendheid (verwachtingswaarde) [m/s]</value>
   </data>
   <data name="PipingSoilLayerTable_ColumnHeader_PermeabilityCoefficientOfVariation" xml:space="preserve">
-    <value>Doorlatendheid (variatiecoëfficiënt) [m/s]</value>
+    <value>Doorlatendheid (variatiecoëfficiënt) [-]</value>
   </data>
   <data name="PipingSoilLayerTable_ColumnHeader_DiameterD70Mean" xml:space="preserve">
     <value>d70 (verwachtingswaarde) [m]</value>
   </data>
   <data name="PipingSoilLayerTable_ColumnHeader_DiameterD70CoefficientOfVariation" xml:space="preserve">
-    <value>d70 (variatiecoëfficiënt) [m]</value>
+    <value>d70 (variatiecoëfficiënt) [-]</value>
   </data>
   <data name="PipingSoilLayerTable_ColumnHeader_BelowPhreaticLevelMean" xml:space="preserve">
     <value>Verzadigd gewicht (verwachtingswaarde) [kN/m³]</value>
