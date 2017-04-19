@@ -564,7 +564,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationsWithDikeProfileWithoutOutput_WhenDikeProfileUpdatedAndUpdateDikeProfileClicked_ThenNoInquiryAndCalculationUpdatedAndInputObserverNotified()
+        public void GivenCalculationsWithDikeProfileWithoutOutput_WhenDikeProfileUpdatedAndUpdateClicked_ThenNoInquiryAndCalculationUpdatedAndInputObserverNotified()
         {
             // Given
             var calculation1InputObserver = mocks.StrictMock<IObserver>();
@@ -653,7 +653,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithDikeProfileWithOutput_WhenDikeProfileHasChangesAndUpdateDikeProfileClickedAndCancelled_ThenInquiresAndCalculationsNotUpdatedAndObserversNotNotified()
+        public void GivenCalculationWithDikeProfileWithOutput_WhenProfileHasChangesAndUpdateCancelled_ThenInquiresAndCalculationsNotUpdatedAndObserversNotNotified()
         {
             // Given
             var calculation1InputObserver = mocks.StrictMock<IObserver>();
@@ -765,7 +765,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithDikeProfileWithOutput_WhenDikeProfileHasChangesAndUpdateDikeProfileClickedAndContinued_ThenInquiresAndCalculationsUpdatedAndObserversNotified()
+        public void GivenCalculationWithDikeProfileWithOutput_WhenProfileHasChangesAndUpdateContinued_ThenInquiresAndCalculationsUpdatedAndObserversNotified()
         {
             // Given
             var calculation1InputObserver = mocks.StrictMock<IObserver>();

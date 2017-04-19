@@ -265,8 +265,10 @@ namespace Ringtoets.Piping.IO.Test.Readers
         }
 
         [Test]
-        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml")]
-        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation_differentOrder.xml")]
+        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml",
+            TestName = "Read_ValidConfigurationWithFullCalculationContainingHydraulicBoundaryLocation_ReturnPipingCalculation(HydraulicBoundaryLocation)")]
+        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation_differentOrder.xml",
+            TestName = "Read_ValidConfigurationWithFullCalculationContainingHydraulicBoundaryLocation_ReturnPipingCalculation(HydraulicBoundaryLocation_differentOrder)")]
         public void Read_ValidConfigurationWithFullCalculationContainingHydraulicBoundaryLocation_ReturnExpectedReadPipingCalculation(string fileName)
         {
             // Setup
@@ -295,8 +297,10 @@ namespace Ringtoets.Piping.IO.Test.Readers
         }
 
         [Test]
-        [TestCase("validConfigurationFullCalculationContainingAssessmentLevel.xml")]
-        [TestCase("validConfigurationFullCalculationContainingAssessmentLevel_differentOrder.xml")]
+        [TestCase("validConfigurationFullCalculationContainingAssessmentLevel.xml",
+            TestName = "Read_ValidConfigurationWithFullCalculationContainingAssessmentLevel_ReturnPipingCalculation(AssessmentLevel)")]
+        [TestCase("validConfigurationFullCalculationContainingAssessmentLevel_differentOrder.xml",
+            TestName = "Read_ValidConfigurationWithFullCalculationContainingAssessmentLevel_ReturnPipingCalculation(AssessmentLevel_differentOrder)")]
         public void Read_ValidConfigurationWithFullCalculationContainingAssessmentLevel_ReturnExpectedReadPipingCalculation(string fileName)
         {
             // Setup

@@ -256,8 +256,10 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations.Helpers
         }
 
         [Test]
-        [TestCase(StabilityPointStructureInflowModelType.FloodedCulvert, ConfigurationStabilityPointStructuresInflowModelType.FloodedCulvert)]
-        [TestCase(StabilityPointStructureInflowModelType.LowSill, ConfigurationStabilityPointStructuresInflowModelType.LowSill)]
+        [TestCase(StabilityPointStructureInflowModelType.FloodedCulvert, ConfigurationStabilityPointStructuresInflowModelType.FloodedCulvert,
+            TestName = "ConvertFrom_StabilityPointStructureInflowModelType_ReturnFloodedCulvertConfigurationInflowModelType(FloodedCulvert)")]
+        [TestCase(StabilityPointStructureInflowModelType.LowSill, ConfigurationStabilityPointStructuresInflowModelType.LowSill,
+            TestName = "ConvertFrom_StabilityPointStructureInflowModelType_ReturnLowSillConfigurationInflowModelType(LowSill)")]
         public void ConvertFrom_StabilityPointStructureInflowModelType_ReturnExpectedConfigurationInflowModelType(StabilityPointStructureInflowModelType value,
                                                                                                                   ConfigurationStabilityPointStructuresInflowModelType expectedResult)
         {

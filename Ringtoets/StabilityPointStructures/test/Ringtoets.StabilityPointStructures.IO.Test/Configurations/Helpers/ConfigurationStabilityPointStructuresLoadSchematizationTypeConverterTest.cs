@@ -82,8 +82,10 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations.Helpers
         }
 
         [Test]
-        [TestCase(ConfigurationStabilityPointStructuresLoadSchematizationType.Linear, StabilityPointStructuresConfigurationSchemaIdentifiers.LoadSchematizationLinearStructure)]
-        [TestCase(ConfigurationStabilityPointStructuresLoadSchematizationType.Quadratic, StabilityPointStructuresConfigurationSchemaIdentifiers.LoadSchematizationQuadraticStructure)]
+        [TestCase(ConfigurationStabilityPointStructuresLoadSchematizationType.Linear, StabilityPointStructuresConfigurationSchemaIdentifiers.LoadSchematizationLinearStructure,
+            TestName = "ConvertTo_ForLinearConfigurationConfigurationStabilityPointStructuresLoadSchematizationType_ReturnExpectedText(Linear)")]
+        [TestCase(ConfigurationStabilityPointStructuresLoadSchematizationType.Quadratic, StabilityPointStructuresConfigurationSchemaIdentifiers.LoadSchematizationQuadraticStructure,
+            TestName = "ConvertTo_ForQuadraticConfigurationConfigurationStabilityPointStructuresLoadSchematizationType_ReturnExpectedText(Quadratic)")]
         public void ConvertTo_ForAllEnumValues_ReturnExpectedText(ConfigurationStabilityPointStructuresLoadSchematizationType value,
                                                                   string expectedText)
         {
@@ -142,8 +144,10 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations.Helpers
         }
 
         [Test]
-        [TestCase(ConfigurationStabilityPointStructuresLoadSchematizationType.Linear, LoadSchematizationType.Linear)]
-        [TestCase(ConfigurationStabilityPointStructuresLoadSchematizationType.Quadratic, LoadSchematizationType.Quadratic)]
+        [TestCase(ConfigurationStabilityPointStructuresLoadSchematizationType.Linear, LoadSchematizationType.Linear,
+            TestName = "ConvertTo_ForLinearConfigurationStabilityPointStructuresLoadSchematizationType_ReturnLinearLoadSchematizationType")]
+        [TestCase(ConfigurationStabilityPointStructuresLoadSchematizationType.Quadratic, LoadSchematizationType.Quadratic,
+            TestName = "ConvertTo_ForQuadraticConfigurationStabilityPointStructuresLoadSchematizationType_ReturnQuadraticLoadSchematizationType")]
         public void ConvertTo_ForAllEnumValues_ReturnExpectedType(ConfigurationStabilityPointStructuresLoadSchematizationType value,
                                                                   LoadSchematizationType expectedText)
         {
@@ -197,8 +201,10 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations.Helpers
         }
 
         [Test]
-        [TestCase(StabilityPointStructuresConfigurationSchemaIdentifiers.LoadSchematizationLinearStructure, ConfigurationStabilityPointStructuresLoadSchematizationType.Linear)]
-        [TestCase(StabilityPointStructuresConfigurationSchemaIdentifiers.LoadSchematizationQuadraticStructure, ConfigurationStabilityPointStructuresLoadSchematizationType.Quadratic)]
+        [TestCase(StabilityPointStructuresConfigurationSchemaIdentifiers.LoadSchematizationLinearStructure, ConfigurationStabilityPointStructuresLoadSchematizationType.Linear,
+            TestName = "ConvertFrom_LinearText_ReturnLinearConfigurationStabilityPointStructuresLoadSchematizationType")]
+        [TestCase(StabilityPointStructuresConfigurationSchemaIdentifiers.LoadSchematizationQuadraticStructure, ConfigurationStabilityPointStructuresLoadSchematizationType.Quadratic,
+            TestName = "ConvertFrom_QuadraticText_ReturnQuadraticConfigurationStabilityPointStructuresLoadSchematizationType")]
         public void ConvertFrom_Text_ReturnExpectedConfigurationStabilityPointStructuresLoadSchematizationType(string value,
                                                                                                                ConfigurationStabilityPointStructuresLoadSchematizationType expectedResult)
         {
@@ -256,8 +262,10 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations.Helpers
         }
 
         [Test]
-        [TestCase(LoadSchematizationType.Linear, ConfigurationStabilityPointStructuresLoadSchematizationType.Linear)]
-        [TestCase(LoadSchematizationType.Quadratic, ConfigurationStabilityPointStructuresLoadSchematizationType.Quadratic)]
+        [TestCase(LoadSchematizationType.Linear, ConfigurationStabilityPointStructuresLoadSchematizationType.Linear,
+            TestName = "ConvertFrom_ForLinearLoadSchematizationType_ReturnLinearConfigurationStabilityPointStructuresLoadSchematizationType")]
+        [TestCase(LoadSchematizationType.Quadratic, ConfigurationStabilityPointStructuresLoadSchematizationType.Quadratic,
+            TestName = "ConvertFrom_ForQuadraticLoadSchematizationType_ReturnQuadraticConfigurationStabilityPointStructuresLoadSchematizationType")]
         public void ConvertFrom_StabilityPointStructureInflowModelType_ReturnExpectedConfigurationInflowModelType(
             LoadSchematizationType value,
             ConfigurationStabilityPointStructuresLoadSchematizationType expectedResult)

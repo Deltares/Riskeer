@@ -67,7 +67,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
                             VariationCoefficient = 3.2
                         }),
                         "modelfactoroverloopdebiet")
-                    .SetName("Assign_SetModelFactorSuperCriticalFlowStandardDeviation");
+                    .SetName("Assign_SetModelFactorSuperCriticalFlowVariationCoefficient");
             }
         }
 

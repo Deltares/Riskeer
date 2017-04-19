@@ -106,109 +106,160 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
         [Test]
         [SetCulture("nl-NL")]
         [TestCase("validConfigurationModelFactorSuperCriticalFlowStandardDeviation.xml",
-            "Er kan geen spreiding voor stochast 'modelfactoroverloopdebiet' opgegeven worden.")]
+            "Er kan geen spreiding voor stochast 'modelfactoroverloopdebiet' opgegeven worden.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(ModelFactorSuperCriticalFlowStandardDeviation)")]
         [TestCase("validConfigurationModelFactorSuperCriticalFlowVariationCoefficient.xml",
-            "Er kan geen spreiding voor stochast 'modelfactoroverloopdebiet' opgegeven worden.")]
+            "Er kan geen spreiding voor stochast 'modelfactoroverloopdebiet' opgegeven worden.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(ModelFactorSuperCriticalFlowVariationCoefficient)")]
         [TestCase("validConfigurationStormDurationVariationCoefficient.xml",
-            "Er kan geen spreiding voor stochast 'stormduur' opgegeven worden.")]
+            "Er kan geen spreiding voor stochast 'stormduur' opgegeven worden.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(StormDurationVariationCoefficient)")]
         [TestCase("validConfigurationStormDurationStandardDeviation.xml",
-            "Er kan geen spreiding voor stochast 'stormduur' opgegeven worden.")]
+            "Er kan geen spreiding voor stochast 'stormduur' opgegeven worden.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(StormDurationStandardDeviation)")]
         [TestCase("validConfigurationDrainCoefficientStandardDeviation.xml",
-            "Er kan geen spreiding voor stochast 'afvoercoefficient' opgegeven worden.")]
+            "Er kan geen spreiding voor stochast 'afvoercoefficient' opgegeven worden.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(DrainCoefficientStandardDeviation)")]
         [TestCase("validConfigurationDrainCoefficientVariationCoefficient.xml",
-            "Er kan geen spreiding voor stochast 'afvoercoefficient' opgegeven worden.")]
+            "Er kan geen spreiding voor stochast 'afvoercoefficient' opgegeven worden.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(DrainCoefficientVariationCoefficient)")]
         [TestCase("validConfigurationFailureProbabilityOpenStructureWithoutStructure.xml",
-            "Er is geen kunstwerk opgegeven om kans mislukken sluiting aan toe te voegen.")]
+            "Er is geen kunstwerk opgegeven om kans mislukken sluiting aan toe te voegen.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(FailureProbabilityOpenStructureWithoutStructure)")]
         [TestCase("validConfigurationFailureProbabilityReparationWithoutStructure.xml",
-            "Er is geen kunstwerk opgegeven om faalkans herstel van gefaalde situatie aan toe te voegen.")]
+            "Er is geen kunstwerk opgegeven om faalkans herstel van gefaalde situatie aan toe te voegen.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(FailureProbabilityReparationWithoutStructure)")]
         [TestCase("validConfigurationIdenticalAperturesWithoutStructure.xml",
-            "Er is geen kunstwerk opgegeven om aantal identieke doorstroomopeningen aan toe te voegen.")]
+            "Er is geen kunstwerk opgegeven om aantal identieke doorstroomopeningen aan toe te voegen.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(IdenticalAperturesWithoutStructure)")]
         [TestCase("validConfigurationInflowModelTypeWithoutStructure.xml",
-            "Er is geen kunstwerk opgegeven om instroommodel aan toe te voegen.")]
+            "Er is geen kunstwerk opgegeven om instroommodel aan toe te voegen.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(InflowModelTypeWithoutStructure)")]
         [TestCase("validConfigurationProbabilityOrFrequencyOpenStructureWithoutStructure.xml",
-            "Er is geen kunstwerk opgegeven om kans op open staan bij naderend hoogwater aan toe te voegen.")]
+            "Er is geen kunstwerk opgegeven om kans op open staan bij naderend hoogwater aan toe te voegen.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(ProbabilityOrFrequencyOpenStructureWithoutStructure)")]
         [TestCase("validConfigurationOrientationWithoutStructure.xml",
-            "Er is geen kunstwerk opgegeven om oriëntatie aan toe te voegen.")]
+            "Er is geen kunstwerk opgegeven om oriëntatie aan toe te voegen.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(OrientationWithoutStructure)")]
         [TestCase("validConfigurationInvalidFailureProbabilityStructureErosion.xml",
-            "Een waarde van '1,1' als faalkans gegeven erosie bodem is ongeldig. De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.")]
+            "Een waarde van '1,1' als faalkans gegeven erosie bodem is ongeldig. De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(InvalidFailureProbabilityStructureErosion)")]
         [TestCase("validConfigurationInvalidProbabilityOrFrequencyOpenStructureBeforeFlooding.xml",
-            "Een waarde van '-1,2' als kans op open staan bij naderend hoogwater is ongeldig. De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.")]
+            "Een waarde van '-1,2' als kans op open staan bij naderend hoogwater is ongeldig. De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(InvalidProbabilityOrFrequencyOpenStructureBeforeFlooding)")]
         [TestCase("validConfigurationInvalidFailureProbabilityOpenStructure.xml",
-            "Een waarde van '1,5' als kans mislukken sluiting is ongeldig. De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.")]
+            "Een waarde van '1,5' als kans mislukken sluiting is ongeldig. De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(InvalidFailureProbabilityOpenStructure)")]
         [TestCase("validConfigurationInvalidFailureProbabilityReparation.xml",
-            "Een waarde van '-0,9' als faalkans herstel van gefaalde situatie is ongeldig. De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.")]
+            "Een waarde van '-0,9' als faalkans herstel van gefaalde situatie is ongeldig. De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(InvalidFailureProbabilityReparation)")]
         [TestCase("validConfigurationInvalidOrientation.xml",
-            "Een waarde van '-12' als oriëntatie is ongeldig. De waarde voor de oriëntatie moet in het bereik [0,00, 360,00] liggen.")]
+            "Een waarde van '-12' als oriëntatie is ongeldig. De waarde voor de oriëntatie moet in het bereik [0,00, 360,00] liggen.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(InvalidOrientation)")]
         [TestCase("validConfigurationWaveReductionWithoutForeshoreProfile.xml",
-            "Er is geen voorlandprofiel opgegeven om golfreductie parameters aan toe te voegen.")]
+            "Er is geen voorlandprofiel opgegeven om golfreductie parameters aan toe te voegen.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(WaveReductionWithoutForeshoreProfile)")]
         [TestCase("validConfigurationInvalidAllowedLevelIncreaseStorageMean.xml",
-            "Een gemiddelde van '-0,2' is ongeldig voor stochast 'peilverhogingkomberging'. Gemiddelde moet groter zijn dan 0.")]
+            "Een gemiddelde van '-0,2' is ongeldig voor stochast 'peilverhogingkomberging'. Gemiddelde moet groter zijn dan 0.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(InvalidAllowedLevelIncreaseStorageMean)")]
         [TestCase("validConfigurationInvalidAllowedLevelIncreaseStorageStandardDeviation.xml",
-            "Een standaardafwijking van '-0,01' is ongeldig voor stochast 'peilverhogingkomberging'. Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.")]
+            "Een standaardafwijking van '-0,01' is ongeldig voor stochast 'peilverhogingkomberging'. Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(InvalidAllowedLevelIncreaseStorageStandardDeviation)")]
         [TestCase("validConfigurationInvalidCriticalOvertoppingDischargeMean.xml",
-            "Een gemiddelde van '-2' is ongeldig voor stochast 'kritiekinstromenddebiet'. Gemiddelde moet groter zijn dan 0.")]
+            "Een gemiddelde van '-2' is ongeldig voor stochast 'kritiekinstromenddebiet'. Gemiddelde moet groter zijn dan 0.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(InvalidCriticalOvertoppingDischargeMean)")]
         [TestCase("validConfigurationInvalidCriticalOvertoppingDischargeVariationCoefficient.xml",
-            "Een variatiecoëfficiënt van '-0,1' is ongeldig voor stochast 'kritiekinstromenddebiet'. Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0.")]
+            "Een variatiecoëfficiënt van '-0,1' is ongeldig voor stochast 'kritiekinstromenddebiet'. Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(InvalidCriticalOvertoppingDischargeVariationCoefficient)")]
         [TestCase("validConfigurationInvalidFlowWidthAtBottomProtectionMean.xml",
-            "Een gemiddelde van '-15,2' is ongeldig voor stochast 'breedtebodembescherming'. Gemiddelde moet groter zijn dan 0.")]
+            "Een gemiddelde van '-15,2' is ongeldig voor stochast 'breedtebodembescherming'. Gemiddelde moet groter zijn dan 0.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(InvalidFlowWidthAtBottomProtectionMean)")]
         [TestCase("validConfigurationInvalidFlowWidthAtBottomProtectionStandardDeviation.xml",
-            "Een standaardafwijking van '-0,1' is ongeldig voor stochast 'breedtebodembescherming'. Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.")]
+            "Een standaardafwijking van '-0,1' is ongeldig voor stochast 'breedtebodembescherming'. Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(InvalidFlowWidthAtBottomProtectionStandardDeviation)")]
         [TestCase("validConfigurationInvalidLevelCrestStructureNotClosingStandardDeviation.xml",
-            "Een standaardafwijking van '-0,1' is ongeldig voor stochast 'kruinhoogte'. Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.")]
+            "Een standaardafwijking van '-0,1' is ongeldig voor stochast 'kruinhoogte'. Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(InvalidLevelCrestStructureNotClosingStandardDeviation)")]
         [TestCase("validConfigurationInvalidStorageStructureAreaMean.xml",
-            "Een gemiddelde van '-15000' is ongeldig voor stochast 'kombergendoppervlak'. Gemiddelde moet groter zijn dan 0.")]
+            "Een gemiddelde van '-15000' is ongeldig voor stochast 'kombergendoppervlak'. Gemiddelde moet groter zijn dan 0.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(InvalidStorageStructureAreaMean)")]
         [TestCase("validConfigurationInvalidStorageStructureAreaVariationCoefficient.xml",
-            "Een variatiecoëfficiënt van '-0,01' is ongeldig voor stochast 'kombergendoppervlak'. Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0.")]
+            "Een variatiecoëfficiënt van '-0,01' is ongeldig voor stochast 'kombergendoppervlak'. Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(InvalidStorageStructureAreaVariationCoefficient)")]
         [TestCase("validConfigurationInvalidStormDurationMean.xml",
-            "Een gemiddelde van '-6' is ongeldig voor stochast 'stormduur'. Gemiddelde moet groter zijn dan 0.")]
+            "Een gemiddelde van '-6' is ongeldig voor stochast 'stormduur'. Gemiddelde moet groter zijn dan 0.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(InvalidStormDurationMean)")]
         [TestCase("validConfigurationInvalidWidthFlowAperturesStandardDeviation.xml",
-            "Een standaardafwijking van '-0,1' is ongeldig voor stochast 'breedtedoorstroomopening'. Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.")]
+            "Een standaardafwijking van '-0,1' is ongeldig voor stochast 'breedtedoorstroomopening'. Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(InvalidWidthFlowAperturesStandardDeviation)")]
         [TestCase("validConfigurationInvalidAreaFlowAperturesMean.xml",
-            "Een gemiddelde van '-0,2' is ongeldig voor stochast 'doorstroomoppervlak'. Gemiddelde moet groter zijn dan 0.")]
+            "Een gemiddelde van '-0,2' is ongeldig voor stochast 'doorstroomoppervlak'. Gemiddelde moet groter zijn dan 0.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(InvalidAreaFlowAperturesMean)")]
         [TestCase("validConfigurationInvalidAreaFlowAperturesStandardDeviation.xml",
-            "Een standaardafwijking van '-0,01' is ongeldig voor stochast 'doorstroomoppervlak'. Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.")]
+            "Een standaardafwijking van '-0,01' is ongeldig voor stochast 'doorstroomoppervlak'. Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(InvalidAreaFlowAperturesStandardDeviation)")]
         [TestCase("validConfigurationInvalidInsideWaterLevelStandardDeviation.xml",
-            "Een standaardafwijking van '-0,01' is ongeldig voor stochast 'binnenwaterstand'. Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.")]
+            "Een standaardafwijking van '-0,01' is ongeldig voor stochast 'binnenwaterstand'. Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(InvalidInsideWaterLevelStandardDeviation)")]
         [TestCase("validConfigurationInvalidThresholdHeightOpenWeirStandardDeviation.xml",
-            "Een standaardafwijking van '-0,01' is ongeldig voor stochast 'drempelhoogte'. Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.")]
+            "Een standaardafwijking van '-0,01' is ongeldig voor stochast 'drempelhoogte'. Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(InvalidThresholdHeightOpenWeirStandardDeviation)")]
 
         [TestCase("validConfigurationAllowedLevelIncreaseStorageVariationCoefficient.xml",
-            "Indien voor parameter 'peilverhogingkomberging' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.")]
+            "Indien voor parameter 'peilverhogingkomberging' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(AllowedLevelIncreaseStorageVariationCoefficient)")]
         [TestCase("validConfigurationFlowWidthAtBottomProtectionVariationCoefficient.xml",
-            "Indien voor parameter 'breedtebodembescherming' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.")]
+            "Indien voor parameter 'breedtebodembescherming' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(FlowWidthAtBottomProtectionVariationCoefficient)")]
         [TestCase("validConfigurationInvalidCriticalOvertoppingDischargeStandardDeviation.xml",
-            "Indien voor parameter 'kritiekinstromenddebiet' de spreiding wordt opgegeven, moet dit door middel van een variatiecoëfficiënt. Voor berekening 'Berekening 1' is een standaardafwijking gevonden.")]
+            "Indien voor parameter 'kritiekinstromenddebiet' de spreiding wordt opgegeven, moet dit door middel van een variatiecoëfficiënt. Voor berekening 'Berekening 1' is een standaardafwijking gevonden.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(InvalidCriticalOvertoppingDischargeStandardDeviation)")]
         [TestCase("validConfigurationLevelCrestStructureNotClosingVariationCoefficient.xml",
-            "Indien voor parameter 'kruinhoogte' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.")]
+            "Indien voor parameter 'kruinhoogte' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(LevelCrestStructureNotClosingVariationCoefficient)")]
         [TestCase("validConfigurationStorageStructureAreaStandardDeviation.xml",
-            "Indien voor parameter 'kombergendoppervlak' de spreiding wordt opgegeven, moet dit door middel van een variatiecoëfficiënt. Voor berekening 'Berekening 1' is een standaardafwijking gevonden.")]
+            "Indien voor parameter 'kombergendoppervlak' de spreiding wordt opgegeven, moet dit door middel van een variatiecoëfficiënt. Voor berekening 'Berekening 1' is een standaardafwijking gevonden.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(StorageStructureAreaStandardDeviation)")]
         [TestCase("validConfigurationWidthFlowAperturesVariationCoefficient.xml",
-            "Indien voor parameter 'breedtedoorstroomopening' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.")]
+            "Indien voor parameter 'breedtedoorstroomopening' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(WidthFlowAperturesVariationCoefficient)")]
         [TestCase("validConfigurationAreaFlowAperturesVariationCoefficient.xml",
-            "Indien voor parameter 'doorstroomoppervlak' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.")]
+            "Indien voor parameter 'doorstroomoppervlak' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(AreaFlowAperturesVariationCoefficient)")]
         [TestCase("validConfigurationInsideWaterLevelVariationCoefficient.xml",
-            "Indien voor parameter 'binnenwaterstand' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.")]
+            "Indien voor parameter 'binnenwaterstand' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(InsideWaterLevelVariationCoefficient)")]
         [TestCase("validConfigurationThresholdHeightOpenWeirVariationCoefficient.xml",
-            "Indien voor parameter 'drempelhoogte' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.")]
+            "Indien voor parameter 'drempelhoogte' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. Voor berekening 'Berekening 1' is een variatiecoëfficiënt gevonden.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(ThresholdHeightOpenWeirVariationCoefficient)")]
 
         [TestCase("validConfigurationStorageStructureAreaWithoutStructure.xml",
-            "Er is geen kunstwerk opgegeven om de stochast 'kombergendoppervlak' aan toe te voegen.")]
+            "Er is geen kunstwerk opgegeven om de stochast 'kombergendoppervlak' aan toe te voegen.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(StorageStructureAreaWithoutStructure)")]
         [TestCase("validConfigurationCriticalOvertoppingDischargeWithoutStructure.xml",
-            "Er is geen kunstwerk opgegeven om de stochast 'kritiekinstromenddebiet' aan toe te voegen.")]
+            "Er is geen kunstwerk opgegeven om de stochast 'kritiekinstromenddebiet' aan toe te voegen.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(CriticalOvertoppingDischargeWithoutStructure)")]
         [TestCase("validConfigurationAllowedLevelIncreaseStorageWithoutStructure.xml",
-            "Er is geen kunstwerk opgegeven om de stochast 'peilverhogingkomberging' aan toe te voegen.")]
+            "Er is geen kunstwerk opgegeven om de stochast 'peilverhogingkomberging' aan toe te voegen.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(AllowedLevelIncreaseStorageWithoutStructure)")]
         [TestCase("validConfigurationAreaFlowAperturesWithoutStructure.xml",
-            "Er is geen kunstwerk opgegeven om de stochast 'doorstroomoppervlak' aan toe te voegen.")]
+            "Er is geen kunstwerk opgegeven om de stochast 'doorstroomoppervlak' aan toe te voegen.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(AreaFlowAperturesWithoutStructure)")]
         [TestCase("validConfigurationFlowWidthAtBottomProtectionWithoutStructure.xml",
-            "Er is geen kunstwerk opgegeven om de stochast 'breedtebodembescherming' aan toe te voegen.")]
+            "Er is geen kunstwerk opgegeven om de stochast 'breedtebodembescherming' aan toe te voegen.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(FlowWidthAtBottomProtectionWithoutStructure)")]
         [TestCase("validConfigurationInsideWaterLevelWithoutStructure.xml",
-            "Er is geen kunstwerk opgegeven om de stochast 'binnenwaterstand' aan toe te voegen.")]
+            "Er is geen kunstwerk opgegeven om de stochast 'binnenwaterstand' aan toe te voegen.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(InsideWaterLevelWithoutStructure)")]
         [TestCase("validConfigurationLevelCrestStructureNotClosingWithoutStructure.xml",
-            "Er is geen kunstwerk opgegeven om de stochast 'kruinhoogte' aan toe te voegen.")]
+            "Er is geen kunstwerk opgegeven om de stochast 'kruinhoogte' aan toe te voegen.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(LevelCrestStructureNotClosingWithoutStructure)")]
         [TestCase("validConfigurationThresholdHeightOpenWeirWithoutStructure.xml",
-            "Er is geen kunstwerk opgegeven om de stochast 'drempelhoogte' aan toe te voegen.")]
+            "Er is geen kunstwerk opgegeven om de stochast 'drempelhoogte' aan toe te voegen.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(ThresholdHeightOpenWeirWithoutStructure)")]
         [TestCase("validConfigurationWidthFlowAperturesWithoutStructure.xml",
-            "Er is geen kunstwerk opgegeven om de stochast 'breedtedoorstroomopening' aan toe te voegen.")]
+            "Er is geen kunstwerk opgegeven om de stochast 'breedtedoorstroomopening' aan toe te voegen.",
+            TestName = "Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(WidthFlowAperturesWithoutStructure)")]
         public void Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(string file, string expectedErrorMessage)
         {
             // Setup

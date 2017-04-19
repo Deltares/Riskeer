@@ -1216,11 +1216,11 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
 
             WmtsMapData otherVisibility = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
             otherVisibility.IsVisible = !otherVisibility.IsVisible;
-            yield return new TestCaseData(otherVisibility);
+            yield return new TestCaseData(otherVisibility).SetName("WmtsMapDataOtherDifferentVisibility");
 
             WmtsMapData otherTransparency = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
             otherTransparency.Transparency = (RoundedDouble) ((otherTransparency.Transparency + 0.5) % 1);
-            yield return new TestCaseData(otherTransparency);
+            yield return new TestCaseData(otherTransparency).SetName("WmtsMapDataOtherDifferentTransparency");
         }
 
         private static IEnumerable<TestCaseData> NotEqualToBingAerial()
