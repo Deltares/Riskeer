@@ -100,6 +100,14 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
 
         public override int VariableId { get; } = 17;
 
+        public override int CalculationTypeId
+        {
+            get
+            {
+                return 2;
+            }
+        }
+
         public override IEnumerable<HydraRingVariable> Variables
         {
             get

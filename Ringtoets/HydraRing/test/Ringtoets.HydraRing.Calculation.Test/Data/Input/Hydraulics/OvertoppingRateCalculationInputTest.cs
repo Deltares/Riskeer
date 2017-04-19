@@ -90,7 +90,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             // Assert
             double expectedBeta = StatisticsConverter.ProbabilityToReliability(norm);
             Assert.IsInstanceOf<HydraulicLoadsCalculationInput>(input);
-            Assert.AreEqual(9, input.CalculationTypeId);
+            Assert.AreEqual(2, input.CalculationTypeId);
             Assert.AreEqual(hydraulicBoundaryLocationId, input.HydraulicBoundaryLocationId);
             Assert.AreEqual(HydraRingFailureMechanismType.HydraulicLoads, input.FailureMechanismType);
             Assert.AreEqual(17, input.VariableId);
