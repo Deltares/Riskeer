@@ -69,15 +69,10 @@ namespace Ringtoets.Common.IO.Test.Structures
         }
 
         [Test]
-        public void ValidateHeightStructuresParameters_OneParameterDefined_IsValidTrueAndMessagesEmpty()
+        [TestCaseSource(nameof(HeightStructureParameters))]
+        public void ValidateHeightStructuresParameters_OneParameterDefined_IsValidTrueAndMessagesEmpty(StructuresParameterRow structuresParameterRow)
         {
             // Setup
-            var structuresParameterRow = new StructuresParameterRow
-            {
-                ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword1,
-                NumericalValue = 180.0
-            };
-
             var structureParameterRows = new List<StructuresParameterRow>
             {
                 structuresParameterRow
@@ -273,8 +268,8 @@ namespace Ringtoets.Common.IO.Test.Structures
 
             // Assert
             Assert.IsTrue(validationResult.IsValid,
-                           "Expected to be valid, but found following errors: {0}",
-                           string.Join(Environment.NewLine, validationResult.ErrorMessages));
+                          "Expected to be valid, but found following errors: {0}",
+                          string.Join(Environment.NewLine, validationResult.ErrorMessages));
         }
 
         [Test]
@@ -317,15 +312,10 @@ namespace Ringtoets.Common.IO.Test.Structures
         }
 
         [Test]
-        public void ValidateClosingStructuresParameters_OneParameterDefined_IsValidTrueMessagesEmpty()
+        [TestCaseSource(nameof(ClosingStructureParameters))]
+        public void ValidateClosingStructuresParameters_OneParameterDefined_IsValidTrueMessagesEmpty(StructuresParameterRow structuresParameterRow)
         {
             // Setup
-            var structuresParameterRow = new StructuresParameterRow
-            {
-                ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword3,
-                NumericalValue = 180.0
-            };
-
             var structureParameterRows = new List<StructuresParameterRow>
             {
                 structuresParameterRow
@@ -751,8 +741,8 @@ namespace Ringtoets.Common.IO.Test.Structures
 
             // Assert
             Assert.IsTrue(validationResult.IsValid,
-                           "Expected to be valid, but found following errors: {0}",
-                           string.Join(Environment.NewLine, validationResult.ErrorMessages));
+                          "Expected to be valid, but found following errors: {0}",
+                          string.Join(Environment.NewLine, validationResult.ErrorMessages));
         }
 
         [Test]
@@ -795,15 +785,10 @@ namespace Ringtoets.Common.IO.Test.Structures
         }
 
         [Test]
-        public void ValidateStabilityPointStructuresParameters_OneParameterDefined_IsValidTrueAndMessagesEmpty()
+        [TestCaseSource(nameof(StabilityPointStructureParameters))]
+        public void ValidateStabilityPointStructuresParameters_OneParameterDefined_IsValidTrueAndMessagesEmpty(StructuresParameterRow structuresParameterRow)
         {
             // Setup
-            var structuresParameterRow = new StructuresParameterRow
-            {
-                ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword1,
-                NumericalValue = 180.0
-            };
-
             var structureParameterRows = new List<StructuresParameterRow>
             {
                 structuresParameterRow
@@ -1280,8 +1265,331 @@ namespace Ringtoets.Common.IO.Test.Structures
 
             // Assert
             Assert.IsTrue(validationResult.IsValid,
-                           "Expected to be valid, but found following errors: {0}",
-                           string.Join(Environment.NewLine, validationResult.ErrorMessages));
+                          "Expected to be valid, but found following errors: {0}",
+                          string.Join(Environment.NewLine, validationResult.ErrorMessages));
+        }
+
+        private static IEnumerable<TestCaseData> HeightStructureParameters()
+        {
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword1,
+                NumericalValue = 180.0
+            }).SetName(StructureFilesKeywords.HeightStructureParameterKeyword1);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword2,
+                NumericalValue = 5.9,
+                VarianceValue = 0.01,
+                VarianceType = VarianceType.StandardDeviation
+            }).SetName(StructureFilesKeywords.HeightStructureParameterKeyword2);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword3,
+                NumericalValue = 18.5,
+                VarianceValue = 0.05,
+                VarianceType = VarianceType.StandardDeviation
+            }).SetName(StructureFilesKeywords.HeightStructureParameterKeyword3);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword4,
+                NumericalValue = 0.1,
+                VarianceValue = 0.15,
+                VarianceType = VarianceType.CoefficientOfVariation
+            }).SetName(StructureFilesKeywords.HeightStructureParameterKeyword4);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword5,
+                NumericalValue = 4,
+                VarianceValue = 0.05,
+                VarianceType = VarianceType.StandardDeviation
+            }).SetName(StructureFilesKeywords.HeightStructureParameterKeyword5);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword6,
+                NumericalValue = 1
+            }).SetName(StructureFilesKeywords.HeightStructureParameterKeyword6);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword7,
+                NumericalValue = 500000,
+                VarianceValue = 0.1,
+                VarianceType = VarianceType.CoefficientOfVariation
+            }).SetName(StructureFilesKeywords.HeightStructureParameterKeyword7);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword8,
+                NumericalValue = 6.5,
+                VarianceValue = 0.1,
+                VarianceType = VarianceType.StandardDeviation
+            }).SetName(StructureFilesKeywords.HeightStructureParameterKeyword8);
+        }
+
+        private static IEnumerable<TestCaseData> ClosingStructureParameters()
+        {
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword1,
+                NumericalValue = 1,
+                VarianceValue = 0.01,
+                VarianceType = VarianceType.CoefficientOfVariation
+            }).SetName(StructureFilesKeywords.ClosingStructureParameterKeyword1);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword2,
+                NumericalValue = 1,
+                VarianceValue = 0.01,
+                VarianceType = VarianceType.StandardDeviation
+            }).SetName(StructureFilesKeywords.ClosingStructureParameterKeyword2);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword3,
+                NumericalValue = 1,
+            }).SetName(StructureFilesKeywords.ClosingStructureParameterKeyword3);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword4,
+                NumericalValue = 1,
+                VarianceValue = 0.01,
+                VarianceType = VarianceType.StandardDeviation
+            }).SetName(StructureFilesKeywords.ClosingStructureParameterKeyword4);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword5,
+                NumericalValue = 1,
+                VarianceValue = 0.01,
+                VarianceType = VarianceType.StandardDeviation
+            }).SetName(StructureFilesKeywords.ClosingStructureParameterKeyword5);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword6,
+                NumericalValue = 1,
+                VarianceValue = 0.01,
+                VarianceType = VarianceType.StandardDeviation
+            }).SetName(StructureFilesKeywords.ClosingStructureParameterKeyword6);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword7,
+                NumericalValue = 1,
+                VarianceValue = 0.01,
+                VarianceType = VarianceType.StandardDeviation
+            }).SetName(StructureFilesKeywords.ClosingStructureParameterKeyword7);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword8,
+                NumericalValue = 1,
+                VarianceValue = 0.01,
+                VarianceType = VarianceType.StandardDeviation
+            }).SetName(StructureFilesKeywords.ClosingStructureParameterKeyword8);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword9,
+                NumericalValue = 1,
+                VarianceValue = 0.01,
+                VarianceType = VarianceType.CoefficientOfVariation
+            }).SetName(StructureFilesKeywords.ClosingStructureParameterKeyword9);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword10,
+                NumericalValue = 1,
+                VarianceValue = 0,
+                VarianceType = VarianceType.StandardDeviation
+            }).SetName(StructureFilesKeywords.ClosingStructureParameterKeyword10);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword11,
+                NumericalValue = 1,
+            }).SetName(StructureFilesKeywords.ClosingStructureParameterKeyword11);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword12,
+                NumericalValue = 1,
+            }).SetName(StructureFilesKeywords.ClosingStructureParameterKeyword12);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword13,
+                NumericalValue = 1,
+            }).SetName(StructureFilesKeywords.ClosingStructureParameterKeyword13);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword14,
+                NumericalValue = 1,
+            }).SetName(StructureFilesKeywords.ClosingStructureParameterKeyword14);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword15,
+                AlphanumericValue = "LageDrempel",
+            }).SetName(StructureFilesKeywords.ClosingStructureParameterKeyword15);
+        }
+
+        private static IEnumerable<TestCaseData> StabilityPointStructureParameters()
+        {
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword1,
+                NumericalValue = 1,
+            }).SetName(StructureFilesKeywords.StabilityPointStructureParameterKeyword1);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword2,
+                NumericalValue = 1,
+                VarianceValue = 0.01,
+                VarianceType = VarianceType.CoefficientOfVariation
+            }).SetName(StructureFilesKeywords.StabilityPointStructureParameterKeyword2);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword3,
+                NumericalValue = 1,
+                VarianceValue = 0,
+                VarianceType = VarianceType.StandardDeviation
+            }).SetName(StructureFilesKeywords.StabilityPointStructureParameterKeyword3);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword4,
+                NumericalValue = 1,
+                VarianceValue = 0.01,
+                VarianceType = VarianceType.StandardDeviation
+            }).SetName(StructureFilesKeywords.StabilityPointStructureParameterKeyword4);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword5,
+                NumericalValue = 1,
+                VarianceValue = 0.01,
+                VarianceType = VarianceType.StandardDeviation
+            }).SetName(StructureFilesKeywords.StabilityPointStructureParameterKeyword5);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword6,
+                NumericalValue = 1,
+                VarianceValue = 0.01,
+                VarianceType = VarianceType.StandardDeviation
+            }).SetName(StructureFilesKeywords.StabilityPointStructureParameterKeyword6);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword7,
+                NumericalValue = 1,
+                VarianceValue = 0.01,
+                VarianceType = VarianceType.CoefficientOfVariation
+            }).SetName(StructureFilesKeywords.StabilityPointStructureParameterKeyword7);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword8,
+                NumericalValue = 1,
+                VarianceValue = 0.01,
+                VarianceType = VarianceType.StandardDeviation
+            }).SetName(StructureFilesKeywords.StabilityPointStructureParameterKeyword8);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword9,
+                NumericalValue = 1,
+                VarianceValue = 0.01,
+                VarianceType = VarianceType.CoefficientOfVariation
+            }).SetName(StructureFilesKeywords.StabilityPointStructureParameterKeyword9);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword10,
+                NumericalValue = 1,
+                VarianceValue = 0,
+                VarianceType = VarianceType.CoefficientOfVariation
+            }).SetName(StructureFilesKeywords.StabilityPointStructureParameterKeyword10);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword11,
+                NumericalValue = 1,
+                VarianceValue = 0,
+                VarianceType = VarianceType.StandardDeviation
+            }).SetName(StructureFilesKeywords.StabilityPointStructureParameterKeyword11);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword12,
+                NumericalValue = 1,
+                VarianceValue = 0,
+                VarianceType = VarianceType.StandardDeviation
+            }).SetName(StructureFilesKeywords.StabilityPointStructureParameterKeyword12);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword13,
+                NumericalValue = 1,
+            }).SetName(StructureFilesKeywords.StabilityPointStructureParameterKeyword13);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword14,
+                NumericalValue = 1,
+                VarianceValue = 0,
+                VarianceType = VarianceType.StandardDeviation
+            }).SetName(StructureFilesKeywords.StabilityPointStructureParameterKeyword14);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword15,
+                NumericalValue = 1,
+            }).SetName(StructureFilesKeywords.StabilityPointStructureParameterKeyword15);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword16,
+                NumericalValue = 1,
+            }).SetName(StructureFilesKeywords.StabilityPointStructureParameterKeyword16);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword17,
+                NumericalValue = 1,
+                VarianceValue = 0,
+                VarianceType = VarianceType.CoefficientOfVariation
+            }).SetName(StructureFilesKeywords.StabilityPointStructureParameterKeyword17);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword18,
+                NumericalValue = 1,
+                VarianceValue = 0,
+                VarianceType = VarianceType.CoefficientOfVariation
+            }).SetName(StructureFilesKeywords.StabilityPointStructureParameterKeyword18);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword19,
+                NumericalValue = 1,
+                VarianceValue = 0,
+                VarianceType = VarianceType.CoefficientOfVariation
+            }).SetName(StructureFilesKeywords.StabilityPointStructureParameterKeyword19);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword20,
+                NumericalValue = 1,
+            }).SetName(StructureFilesKeywords.StabilityPointStructureParameterKeyword20);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword21,
+                NumericalValue = 1,
+            }).SetName(StructureFilesKeywords.StabilityPointStructureParameterKeyword21);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword22,
+                NumericalValue = 1,
+            }).SetName(StructureFilesKeywords.StabilityPointStructureParameterKeyword22);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword23,
+                NumericalValue = 1,
+                VarianceValue = 0,
+                VarianceType = VarianceType.CoefficientOfVariation
+            }).SetName(StructureFilesKeywords.StabilityPointStructureParameterKeyword23);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword24,
+                NumericalValue = 1,
+                VarianceValue = 0,
+                VarianceType = VarianceType.CoefficientOfVariation
+            }).SetName(StructureFilesKeywords.StabilityPointStructureParameterKeyword24);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword25,
+                NumericalValue = 1,
+                VarianceValue = 0,
+                VarianceType = VarianceType.StandardDeviation
+            }).SetName(StructureFilesKeywords.StabilityPointStructureParameterKeyword25);
+            yield return new TestCaseData(new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword26,
+                AlphanumericValue = "LageDrempel",
+            }).SetName(StructureFilesKeywords.StabilityPointStructureParameterKeyword26);
         }
     }
 }
