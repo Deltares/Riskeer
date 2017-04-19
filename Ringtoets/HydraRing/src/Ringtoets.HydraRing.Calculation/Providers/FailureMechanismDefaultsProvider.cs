@@ -75,7 +75,7 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                     }, 6)
                 },
                 {
-                    HydraRingFailureMechanismType.HydraulicLoads, new FailureMechanismDefaults(101, new[]
+                    HydraRingFailureMechanismType.DikeHeight, new FailureMechanismDefaults(101, new[]
                     {
                         102,
                         103

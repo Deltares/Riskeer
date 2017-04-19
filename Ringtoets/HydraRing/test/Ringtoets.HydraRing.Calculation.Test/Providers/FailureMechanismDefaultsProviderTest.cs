@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
+using Ringtoets.HydraRing.Calculation.Data.Defaults;
 using Ringtoets.HydraRing.Calculation.Providers;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Providers
@@ -49,7 +50,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Providers
         {
             5
         }, 6)]
-        [TestCase(HydraRingFailureMechanismType.HydraulicLoads, 101, new[]
+        [TestCase(HydraRingFailureMechanismType.DikeHeight, 101, new[]
         {
             102,
             103
@@ -103,7 +104,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Providers
             var failureMechanismDefaultsProvider = new FailureMechanismDefaultsProvider();
 
             // Call
-            var failureMechanismDefaults = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(failureMechanismType);
+            FailureMechanismDefaults failureMechanismDefaults = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(failureMechanismType);
 
             // Assert
             Assert.AreEqual(expectedMechanismId, failureMechanismDefaults.MechanismId);

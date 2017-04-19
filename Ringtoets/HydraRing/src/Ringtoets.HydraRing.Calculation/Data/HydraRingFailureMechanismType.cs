@@ -35,7 +35,7 @@ namespace Ringtoets.HydraRing.Calculation.Data
         WaveHeight = 2,
         WavePeakPeriod = 3,
         WaveSpectralPeriod = 4,
-        HydraulicLoads = 5,
+        DikeHeight = 5,
         DikesOvertopping = 6,
         StructuresOvertopping = 7,
         StructuresClosure = 8,

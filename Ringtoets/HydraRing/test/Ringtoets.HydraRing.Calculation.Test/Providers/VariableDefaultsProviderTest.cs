@@ -21,6 +21,7 @@
 
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
+using Ringtoets.HydraRing.Calculation.Data.Defaults;
 using Ringtoets.HydraRing.Calculation.Providers;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Providers
@@ -39,14 +40,14 @@ namespace Ringtoets.HydraRing.Calculation.Test.Providers
         [TestCase(HydraRingFailureMechanismType.QVariant, 117, 300)]
         [TestCase(HydraRingFailureMechanismType.QVariant, 118, 300)]
         [TestCase(HydraRingFailureMechanismType.QVariant, 119, 300)]
-        [TestCase(HydraRingFailureMechanismType.HydraulicLoads, 1, 300)]
-        [TestCase(HydraRingFailureMechanismType.HydraulicLoads, 8, 300)]
-        [TestCase(HydraRingFailureMechanismType.HydraulicLoads, 10, 300)]
-        [TestCase(HydraRingFailureMechanismType.HydraulicLoads, 11, 300)]
-        [TestCase(HydraRingFailureMechanismType.HydraulicLoads, 12, 300)]
-        [TestCase(HydraRingFailureMechanismType.HydraulicLoads, 17, 300)]
-        [TestCase(HydraRingFailureMechanismType.HydraulicLoads, 120, 300)]
-        [TestCase(HydraRingFailureMechanismType.HydraulicLoads, 123, 300)]
+        [TestCase(HydraRingFailureMechanismType.DikeHeight, 1, 300)]
+        [TestCase(HydraRingFailureMechanismType.DikeHeight, 8, 300)]
+        [TestCase(HydraRingFailureMechanismType.DikeHeight, 10, 300)]
+        [TestCase(HydraRingFailureMechanismType.DikeHeight, 11, 300)]
+        [TestCase(HydraRingFailureMechanismType.DikeHeight, 12, 300)]
+        [TestCase(HydraRingFailureMechanismType.DikeHeight, 17, 300)]
+        [TestCase(HydraRingFailureMechanismType.DikeHeight, 120, 300)]
+        [TestCase(HydraRingFailureMechanismType.DikeHeight, 123, 300)]
         [TestCase(HydraRingFailureMechanismType.DikesOvertopping, 1, 300)]
         [TestCase(HydraRingFailureMechanismType.DikesOvertopping, 8, 300)]
         [TestCase(HydraRingFailureMechanismType.DikesOvertopping, 10, 300)]
@@ -150,7 +151,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Providers
             var variableDefaultsProvider = new VariableDefaultsProvider();
 
             // Call
-            var variableDefaults = variableDefaultsProvider.GetVariableDefaults(failureMechanismType, variableId);
+            VariableDefaults variableDefaults = variableDefaultsProvider.GetVariableDefaults(failureMechanismType, variableId);
 
             // Assert
             Assert.AreEqual(expectedCorrelationLength, variableDefaults.CorrelationLength);

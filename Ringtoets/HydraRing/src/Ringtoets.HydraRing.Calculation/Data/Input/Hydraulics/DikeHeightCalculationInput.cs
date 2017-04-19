@@ -101,7 +101,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
             this.criticalOvertoppingStandardDeviation = criticalOvertoppingStandardDeviation;
         }
 
-        public override HydraRingFailureMechanismType FailureMechanismType { get; } = HydraRingFailureMechanismType.HydraulicLoads;
+        public override HydraRingFailureMechanismType FailureMechanismType { get; } = HydraRingFailureMechanismType.DikeHeight;
 
         public override int VariableId { get; } = 1;
 

@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Settings;
 
@@ -103,7 +102,7 @@ namespace Ringtoets.Common.IO.HydraRing
                     new DesignTablesSetting(10, 50)
                 },
                 {
-                    HydraRingFailureMechanismType.HydraulicLoads,
+                    HydraRingFailureMechanismType.DikeHeight,
                     new DesignTablesSetting(2, 4)
                 },
                 {
