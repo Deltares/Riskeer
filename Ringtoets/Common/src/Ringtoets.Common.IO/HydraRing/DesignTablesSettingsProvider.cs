@@ -127,7 +127,7 @@ namespace Ringtoets.Common.IO.HydraRing
                 },
                 {
                     HydraRingFailureMechanismType.OvertoppingRate,
-                    new DesignTablesSetting(0.001, 0.004)
+                    new DesignTablesSetting(0.001, 0.01)
                 }
             };
         }
