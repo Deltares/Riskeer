@@ -89,6 +89,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Providers
         {
             6
         }, 8)]
+        [TestCase(HydraRingFailureMechanismType.OvertoppingRate, 101, new[]
+        {
+            102,
+            103
+        }, 1017)]
         public void GetFailureMechanismDefaults_ReturnsExpectedFailureMechanismDefaults(HydraRingFailureMechanismType failureMechanismType,
                                                                                         int expectedMechanismId,
                                                                                         IEnumerable<int> expectedSubMechanismIds,

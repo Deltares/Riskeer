@@ -125,6 +125,10 @@ namespace Ringtoets.Common.IO.HydraRing
                 {
                     HydraRingFailureMechanismType.DunesBoundaryConditions,
                     new DesignTablesSetting(3.5, 6)
+                },
+                {
+                    HydraRingFailureMechanismType.OvertoppingRate,
+                    new DesignTablesSetting(0.001, 0.004)
                 }
             };
         }

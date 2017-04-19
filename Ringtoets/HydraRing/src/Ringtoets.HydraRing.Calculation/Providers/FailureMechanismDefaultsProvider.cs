@@ -125,6 +125,13 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                     {
                         6
                     }, 8)
+                },
+                {
+                    HydraRingFailureMechanismType.OvertoppingRate, new FailureMechanismDefaults(101, new[]
+                    {
+                        102,
+                        103
+                    }, 1017)
                 }
             };
         }

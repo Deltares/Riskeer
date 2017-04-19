@@ -136,6 +136,14 @@ namespace Ringtoets.HydraRing.Calculation.Test.Providers
         [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 135, 999999)]
         [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 136, 999999)]
         [TestCase(HydraRingFailureMechanismType.DunesBoundaryConditions, 26, 300)]
+        [TestCase(HydraRingFailureMechanismType.OvertoppingRate, 1, 300)]
+        [TestCase(HydraRingFailureMechanismType.OvertoppingRate, 8, 300)]
+        [TestCase(HydraRingFailureMechanismType.OvertoppingRate, 10, 300)]
+        [TestCase(HydraRingFailureMechanismType.OvertoppingRate, 11, 300)]
+        [TestCase(HydraRingFailureMechanismType.OvertoppingRate, 12, 300)]
+        [TestCase(HydraRingFailureMechanismType.OvertoppingRate, 17, 300)]
+        [TestCase(HydraRingFailureMechanismType.OvertoppingRate, 120, 300)]
+        [TestCase(HydraRingFailureMechanismType.OvertoppingRate, 123, 300)]
         public void GetVariableDefaults_ReturnsExpectedVariableDefaults(HydraRingFailureMechanismType failureMechanismType, int variableId, int expectedCorrelationLength)
         {
             // Setup

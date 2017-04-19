@@ -31,7 +31,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data
         [Test]
         public void Values_ExpectedValues()
         {
-            Assert.AreEqual(11, Enum.GetValues(typeof(HydraRingFailureMechanismType)).Length);
+            Assert.AreEqual(12, Enum.GetValues(typeof(HydraRingFailureMechanismType)).Length);
 
             var message = "Value no longer corresponds to id in Hydra-Ring settings database files.";
             Assert.AreEqual(0, (int) HydraRingFailureMechanismType.AssessmentLevel, message);
@@ -45,6 +45,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data
             Assert.AreEqual(8, (int) HydraRingFailureMechanismType.StructuresClosure, message);
             Assert.AreEqual(9, (int) HydraRingFailureMechanismType.StructuresStructuralFailure, message);
             Assert.AreEqual(10, (int) HydraRingFailureMechanismType.DunesBoundaryConditions, message);
+            Assert.AreEqual(11, (int) HydraRingFailureMechanismType.OvertoppingRate, message);
         }
     }
 }

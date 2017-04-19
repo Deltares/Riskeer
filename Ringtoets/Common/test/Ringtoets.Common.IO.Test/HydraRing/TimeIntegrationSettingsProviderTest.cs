@@ -22,7 +22,6 @@
 using System;
 using System.IO;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.IO.HydraRing;
@@ -78,7 +77,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
             HydraRingFailureMechanismType failureMechanismType, long locationId, int expectedTimeIntegrationSchemeId)
         {
             // Setup
-            using (TimeIntegrationSettingsProvider timeIntegrationSettingsProvider = new TimeIntegrationSettingsProvider(completeDatabaseDataPath))
+            using (var timeIntegrationSettingsProvider = new TimeIntegrationSettingsProvider(completeDatabaseDataPath))
             {
                 // Call
                 TimeIntegrationSetting timeIntegrationSetting = timeIntegrationSettingsProvider.GetTimeIntegrationSetting(locationId, failureMechanismType);
@@ -99,11 +98,12 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         [TestCase(HydraRingFailureMechanismType.StructuresOvertopping, 1)]
         [TestCase(HydraRingFailureMechanismType.StructuresClosure, 1)]
         [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 1)]
+        [TestCase(HydraRingFailureMechanismType.OvertoppingRate, 1)]
         public void GetTimeIntegrationSetting_UnknownLocationId_ReturnsDefaultTimeIntegrationSetting(
             HydraRingFailureMechanismType failureMechanismType, int expectedTimeIntegrationSchemeId)
         {
             // Setup
-            using (TimeIntegrationSettingsProvider timeIntegrationSettingsProvider = new TimeIntegrationSettingsProvider(completeDatabaseDataPath))
+            using (var timeIntegrationSettingsProvider = new TimeIntegrationSettingsProvider(completeDatabaseDataPath))
             {
                 // Call
                 TimeIntegrationSetting timeIntegrationSetting = timeIntegrationSettingsProvider.GetTimeIntegrationSetting(-1, failureMechanismType);

@@ -419,7 +419,36 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                             26, new VariableDefaults(300)
                         }
                     }
-                }
+                },
+                {
+                    HydraRingFailureMechanismType.OvertoppingRate, new Dictionary<int, VariableDefaults>
+                    {
+                        {
+                            1, new VariableDefaults(300)
+                        },
+                        {
+                            8, new VariableDefaults(300)
+                        },
+                        {
+                            10, new VariableDefaults(300)
+                        },
+                        {
+                            11, new VariableDefaults(300)
+                        },
+                        {
+                            12, new VariableDefaults(300)
+                        },
+                        {
+                            17, new VariableDefaults(300)
+                        },
+                        {
+                            120, new VariableDefaults(300)
+                        },
+                        {
+                            123, new VariableDefaults(300)
+                        }
+                    }
+                },
             };
         }
 

@@ -23,8 +23,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Ringtoets.HydraRing.Calculation.Data;
+using Ringtoets.HydraRing.Calculation.Data.Defaults;
 using Ringtoets.HydraRing.Calculation.Data.Settings;
 using Ringtoets.HydraRing.Calculation.Providers;
 
@@ -71,13 +71,13 @@ namespace Ringtoets.Common.IO.HydraRing
         /// contain expected type.</exception>
         public Dictionary<int, NumericsSetting> GetNumericsSettings(long locationId, HydraRingFailureMechanismType failureMechanismType)
         {
-            var failureMechanismDefaults = new FailureMechanismDefaultsProvider().GetFailureMechanismDefaults(failureMechanismType);
-            var subMechanismIds = failureMechanismDefaults.SubMechanismIds;
-            var mechanismId = failureMechanismDefaults.MechanismId;
+            FailureMechanismDefaults failureMechanismDefaults = new FailureMechanismDefaultsProvider().GetFailureMechanismDefaults(failureMechanismType);
+            IEnumerable<int> subMechanismIds = failureMechanismDefaults.SubMechanismIds;
+            int mechanismId = failureMechanismDefaults.MechanismId;
 
             var numericsSettings = new Dictionary<int, NumericsSetting>();
 
-            foreach (var subMechanismId in subMechanismIds)
+            foreach (int subMechanismId in subMechanismIds)
             {
                 numericsSettings[subMechanismId] = numericsSettingsReader.ReadNumericsSetting(locationId, mechanismId, subMechanismId) ??
                                                    defaultNumericsSettings[failureMechanismType][subMechanismId];
@@ -93,9 +93,9 @@ namespace Ringtoets.Common.IO.HydraRing
 
         private void InitializeDefaultNumericsSettings()
         {
-            var numericsSettingForm = CreateDefaultNumericsSetting(1, 1); // Settings for a FORM calculation
-            var numericsSettingFDir = CreateDefaultNumericsSetting(11, 4); // Settings for a hybrid calculation; FORM in first instance, DIRS in case of no convergence
-            var numericsSettingDunes = CreateDefaultNumericsSetting(1, 4);
+            NumericsSetting numericsSettingForm = CreateDefaultNumericsSetting(1, 1); // Settings for a FORM calculation
+            NumericsSetting numericsSettingFDir = CreateDefaultNumericsSetting(11, 4); // Settings for a hybrid calculation; FORM in first instance, DIRS in case of no convergence
+            NumericsSetting numericsSettingDunes = CreateDefaultNumericsSetting(1, 4);
             var numericsSettingQVariant = new NumericsSetting(4, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3000, 10000, 0.1, -6.0, 6.0, 25);
 
             defaultNumericsSettings = new Dictionary<HydraRingFailureMechanismType, IDictionary<int, NumericsSetting>>
@@ -235,7 +235,18 @@ namespace Ringtoets.Common.IO.HydraRing
                             6, numericsSettingDunes
                         }
                     }
-                }
+                },
+                {
+                    HydraRingFailureMechanismType.OvertoppingRate, new Dictionary<int, NumericsSetting>
+                    {
+                        {
+                            102, numericsSettingFDir
+                        },
+                        {
+                            103, numericsSettingFDir
+                        }
+                    }
+                },
             };
         }
 

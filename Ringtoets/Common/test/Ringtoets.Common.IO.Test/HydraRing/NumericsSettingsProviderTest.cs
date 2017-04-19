@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.IO.HydraRing;
@@ -68,7 +67,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         public void GetNumericsSetting_KnownLocationId_ReturnsExpectedNumericsSetting()
         {
             // Setup
-            using (NumericsSettingsProvider numericsSettingsProvider = new NumericsSettingsProvider(completeDatabaseDataPath))
+            using (var numericsSettingsProvider = new NumericsSettingsProvider(completeDatabaseDataPath))
             {
                 NumericsSetting expectedValues = GetExpectedNumericsSetting();
 
@@ -119,12 +118,14 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 434, 11, 4, 10000, 40000)]
         [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 435, 11, 4, 10000, 40000)]
         [TestCase(HydraRingFailureMechanismType.DunesBoundaryConditions, 6, 1, 4, 10000, 40000)]
+        [TestCase(HydraRingFailureMechanismType.OvertoppingRate, 102, 11, 4, 10000, 40000)]
+        [TestCase(HydraRingFailureMechanismType.OvertoppingRate, 103, 11, 4, 10000, 40000)]
         public void GetNumericsSetting_UnknownLocationId_ReturnsExpectedDefaultNumericsSetting(
             HydraRingFailureMechanismType failureMechanismType, int subMechanismId, int expectedCalculationTechniqueId,
             int expectedFormStartMethod, int expectedDsMinNumberOfIterations, int expectedDsMaxNumberOfIterations)
         {
             // Setup
-            using (NumericsSettingsProvider numericsSettingsProvider = new NumericsSettingsProvider(completeDatabaseDataPath))
+            using (var numericsSettingsProvider = new NumericsSettingsProvider(completeDatabaseDataPath))
             {
                 // Call
                 Dictionary<int, NumericsSetting> numericsSettings = numericsSettingsProvider.GetNumericsSettings(-1, failureMechanismType);

@@ -40,6 +40,7 @@ namespace Ringtoets.HydraRing.Calculation.Data
         StructuresOvertopping = 7,
         StructuresClosure = 8,
         StructuresStructuralFailure = 9,
-        DunesBoundaryConditions = 10
+        DunesBoundaryConditions = 10,
+        OvertoppingRate = 11
     }
 }
