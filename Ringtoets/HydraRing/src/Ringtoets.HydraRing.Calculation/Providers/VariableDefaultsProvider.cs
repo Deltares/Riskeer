@@ -100,62 +100,10 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                     }
                 },
                 {
-                    HydraRingFailureMechanismType.DikeHeight, new Dictionary<int, VariableDefaults>
-                    {
-                        {
-                            1, new VariableDefaults(300)
-                        },
-                        {
-                            8, new VariableDefaults(300)
-                        },
-                        {
-                            10, new VariableDefaults(300)
-                        },
-                        {
-                            11, new VariableDefaults(300)
-                        },
-                        {
-                            12, new VariableDefaults(300)
-                        },
-                        {
-                            17, new VariableDefaults(300)
-                        },
-                        {
-                            120, new VariableDefaults(300)
-                        },
-                        {
-                            123, new VariableDefaults(300)
-                        }
-                    }
+                    HydraRingFailureMechanismType.DikeHeight, GetOvertoppingDefaults()
                 },
                 {
-                    HydraRingFailureMechanismType.DikesOvertopping, new Dictionary<int, VariableDefaults>
-                    {
-                        {
-                            1, new VariableDefaults(300)
-                        },
-                        {
-                            8, new VariableDefaults(300)
-                        },
-                        {
-                            10, new VariableDefaults(300)
-                        },
-                        {
-                            11, new VariableDefaults(300)
-                        },
-                        {
-                            12, new VariableDefaults(300)
-                        },
-                        {
-                            17, new VariableDefaults(300)
-                        },
-                        {
-                            120, new VariableDefaults(300)
-                        },
-                        {
-                            123, new VariableDefaults(300)
-                        }
-                    }
+                    HydraRingFailureMechanismType.DikesOvertopping, GetOvertoppingDefaults()
                 },
                 {
                     HydraRingFailureMechanismType.StructuresOvertopping, new Dictionary<int, VariableDefaults>
@@ -421,33 +369,7 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                     }
                 },
                 {
-                    HydraRingFailureMechanismType.OvertoppingRate, new Dictionary<int, VariableDefaults>
-                    {
-                        {
-                            1, new VariableDefaults(300)
-                        },
-                        {
-                            8, new VariableDefaults(300)
-                        },
-                        {
-                            10, new VariableDefaults(300)
-                        },
-                        {
-                            11, new VariableDefaults(300)
-                        },
-                        {
-                            12, new VariableDefaults(300)
-                        },
-                        {
-                            17, new VariableDefaults(300)
-                        },
-                        {
-                            120, new VariableDefaults(300)
-                        },
-                        {
-                            123, new VariableDefaults(300)
-                        }
-                    }
+                    HydraRingFailureMechanismType.OvertoppingRate, GetOvertoppingDefaults()
                 }
             };
         }
@@ -461,6 +383,37 @@ namespace Ringtoets.HydraRing.Calculation.Providers
         public VariableDefaults GetVariableDefaults(HydraRingFailureMechanismType failureMechanismType, int variableId)
         {
             return variableDefaults[failureMechanismType][variableId];
+        }
+
+        private static Dictionary<int, VariableDefaults> GetOvertoppingDefaults()
+        {
+            return new Dictionary<int, VariableDefaults>
+            {
+                {
+                    1, new VariableDefaults(300)
+                },
+                {
+                    8, new VariableDefaults(300)
+                },
+                {
+                    10, new VariableDefaults(300)
+                },
+                {
+                    11, new VariableDefaults(300)
+                },
+                {
+                    12, new VariableDefaults(300)
+                },
+                {
+                    17, new VariableDefaults(300)
+                },
+                {
+                    120, new VariableDefaults(300)
+                },
+                {
+                    123, new VariableDefaults(300)
+                }
+            };
         }
     }
 }

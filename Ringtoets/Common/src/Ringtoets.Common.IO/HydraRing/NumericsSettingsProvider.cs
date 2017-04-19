@@ -141,26 +141,10 @@ namespace Ringtoets.Common.IO.HydraRing
                     }
                 },
                 {
-                    HydraRingFailureMechanismType.DikeHeight, new Dictionary<int, NumericsSetting>
-                    {
-                        {
-                            102, numericsSettingFDir
-                        },
-                        {
-                            103, numericsSettingFDir
-                        }
-                    }
+                    HydraRingFailureMechanismType.DikeHeight, GetOvertoppingDefaults(numericsSettingFDir)
                 },
                 {
-                    HydraRingFailureMechanismType.DikesOvertopping, new Dictionary<int, NumericsSetting>
-                    {
-                        {
-                            102, numericsSettingFDir
-                        },
-                        {
-                            103, numericsSettingFDir
-                        }
-                    }
+                    HydraRingFailureMechanismType.DikesOvertopping, GetOvertoppingDefaults(numericsSettingFDir)
                 },
                 {
                     HydraRingFailureMechanismType.StructuresOvertopping, new Dictionary<int, NumericsSetting>
@@ -237,15 +221,7 @@ namespace Ringtoets.Common.IO.HydraRing
                     }
                 },
                 {
-                    HydraRingFailureMechanismType.OvertoppingRate, new Dictionary<int, NumericsSetting>
-                    {
-                        {
-                            102, numericsSettingFDir
-                        },
-                        {
-                            103, numericsSettingFDir
-                        }
-                    }
+                    HydraRingFailureMechanismType.OvertoppingRate, GetOvertoppingDefaults(numericsSettingFDir)
                 }
             };
         }
@@ -253,6 +229,19 @@ namespace Ringtoets.Common.IO.HydraRing
         private static NumericsSetting CreateDefaultNumericsSetting(int calculationTechniqueId, int formStartMethod)
         {
             return new NumericsSetting(calculationTechniqueId, formStartMethod, 150, 0.15, 0.005, 0.005, 0.005, 2, 10000, 40000, 0.1, -6.0, 6.0, 25);
+        }
+
+        private static Dictionary<int, NumericsSetting> GetOvertoppingDefaults(NumericsSetting numericsSetting)
+        {
+            return new Dictionary<int, NumericsSetting>
+            {
+                {
+                    102, numericsSetting
+                },
+                {
+                    103, numericsSetting
+                }
+            };
         }
     }
 }

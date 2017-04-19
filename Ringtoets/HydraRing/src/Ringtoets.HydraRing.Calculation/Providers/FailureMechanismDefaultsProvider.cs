@@ -75,18 +75,10 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                     }, 6)
                 },
                 {
-                    HydraRingFailureMechanismType.DikeHeight, new FailureMechanismDefaults(101, new[]
-                    {
-                        102,
-                        103
-                    }, 1017)
+                    HydraRingFailureMechanismType.DikeHeight, GetOvertoppingDefaults()
                 },
                 {
-                    HydraRingFailureMechanismType.DikesOvertopping, new FailureMechanismDefaults(101, new[]
-                    {
-                        102,
-                        103
-                    }, 1017)
+                    HydraRingFailureMechanismType.DikesOvertopping, GetOvertoppingDefaults()
                 },
                 {
                     HydraRingFailureMechanismType.StructuresOvertopping, new FailureMechanismDefaults(110, new[]
@@ -127,11 +119,7 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                     }, 8)
                 },
                 {
-                    HydraRingFailureMechanismType.OvertoppingRate, new FailureMechanismDefaults(101, new[]
-                    {
-                        102,
-                        103
-                    }, 1017)
+                    HydraRingFailureMechanismType.OvertoppingRate, GetOvertoppingDefaults()
                 }
             };
         }
@@ -144,6 +132,15 @@ namespace Ringtoets.HydraRing.Calculation.Providers
         public FailureMechanismDefaults GetFailureMechanismDefaults(HydraRingFailureMechanismType failureMechanismType)
         {
             return failureMechanismDefaults[failureMechanismType];
+        }
+
+        private static FailureMechanismDefaults GetOvertoppingDefaults()
+        {
+            return new FailureMechanismDefaults(101, new[]
+            {
+                102,
+                103
+            }, 1017);
         }
     }
 }
