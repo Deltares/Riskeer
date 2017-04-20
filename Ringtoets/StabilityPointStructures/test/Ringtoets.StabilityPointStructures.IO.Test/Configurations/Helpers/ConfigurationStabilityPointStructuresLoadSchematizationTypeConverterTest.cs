@@ -145,9 +145,9 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations.Helpers
 
         [Test]
         [TestCase(ConfigurationStabilityPointStructuresLoadSchematizationType.Linear, LoadSchematizationType.Linear,
-            TestName = "ConvertTo_ForLinearConfigurationStabilityPointStructuresLoadSchematizationType_ReturnLinearLoadSchematizationType")]
+            TestName = "ConvertTo_LinearConfigurationStabilityPointStructuresLoadSchematizationType_ReturnLinearLoadSchematizationType")]
         [TestCase(ConfigurationStabilityPointStructuresLoadSchematizationType.Quadratic, LoadSchematizationType.Quadratic,
-            TestName = "ConvertTo_ForQuadraticConfigurationStabilityPointStructuresLoadSchematizationType_ReturnQuadraticLoadSchematizationType")]
+            TestName = "ConvertTo_QuadraticConfigurationStabilityPointStructuresLoadSchematizationType_ReturnQuadraticLoadSchematizationType")]
         public void ConvertTo_ForAllEnumValues_ReturnExpectedType(ConfigurationStabilityPointStructuresLoadSchematizationType value,
                                                                   LoadSchematizationType expectedText)
         {
