@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SQLite;
 using Application.Ringtoets.Migration.Core;
@@ -44,8 +45,13 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
 
             string targetFilePath = TestHelper.GetScratchPadPath(nameof(Given164Project_WhenUpgradedTo171_ThenProjectAsExpected));
-            var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
+            string logFilePath = TestHelper.GetScratchPadPath(string.Concat(nameof(Given164Project_WhenUpgradedTo171_ThenProjectAsExpected), ".log"));
+            var migrator = new RingtoetsSqLiteDatabaseFileMigrator
+            {
+                LogPath = logFilePath
+            };
 
+            using (new FileDisposeHelper(logFilePath))
             using (new FileDisposeHelper(targetFilePath))
             {
                 // When
@@ -65,7 +71,28 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
                     AssertHydraulicBoundaryLocations(reader);
                 }
+
+                AssertLogDatabase(logFilePath);
             }
+        }
+
+        private static void AssertLogDatabase(string logFilePath)
+        {
+            using (var reader = new MigrationLogDatabaseReader(logFilePath))
+            {
+                ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
+
+                Assert.AreEqual(1, messages.Count);
+                var expectedMessage = new MigrationLogMessage("5", newVersion, "Alle berekende resultaten zijn verwijderd.");
+                AssertMigrationLogMessageEqual(expectedMessage, messages[0]);
+            }
+        }
+
+        private static void AssertMigrationLogMessageEqual(MigrationLogMessage expected, MigrationLogMessage actual)
+        {
+            Assert.AreEqual(expected.ToVersion, actual.ToVersion);
+            Assert.AreEqual(expected.FromVersion, actual.FromVersion);
+            Assert.AreEqual(expected.Message, actual.Message);
         }
 
         private static void AssertClosingStructuresFailureMechanism(MigratedDatabaseReader reader)

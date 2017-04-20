@@ -136,4 +136,7 @@
   <data name="CommandSupported_Source_Not_Valid_Path" xml:space="preserve">
     <value>Bronprojectpad moet een geldig bestandspad zijn.</value>
   </data>
+  <data name="MigrationLogDatabaseReader_GetMigrationLogMessages_failed" xml:space="preserve">
+    <value>Kritieke fout opgetreden bij het uitlezen van het Ringtoets logbestand van de migratie.</value>
+  </data>
 </root>
