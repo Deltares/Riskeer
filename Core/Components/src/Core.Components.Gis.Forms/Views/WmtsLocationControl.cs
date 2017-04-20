@@ -44,6 +44,7 @@ namespace Core.Components.Gis.Forms.Views
     {
         private const string wmtsConnectionInfoFileName = "wmtsConnectionInfo.config";
         private static readonly ILog log = LogManager.GetLogger(typeof(WmtsLocationControl));
+        private readonly WmtsMapData activeWmtsMapData;
         private readonly IWmtsCapabilityFactory wmtsCapabilityFactory;
         private readonly HashSet<WmtsConnectionInfo> wmtsConnectionInfos = new HashSet<WmtsConnectionInfo>();
 
@@ -67,6 +68,7 @@ namespace Core.Components.Gis.Forms.Views
                 throw new ArgumentNullException(nameof(wmtsCapabilityFactory));
             }
 
+            this.activeWmtsMapData = activeWmtsMapData;
             this.wmtsCapabilityFactory = wmtsCapabilityFactory;
 
             InitializeComponent();
@@ -75,14 +77,9 @@ namespace Core.Components.Gis.Forms.Views
             InitializeComboBox();
             InitializeEventHandlers();
 
-            WmtsConnectionInfo selectedWmtsConnectionInfo = PreSelectComboBox(activeWmtsMapData);
+            WmtsConnectionInfo selectedWmtsConnectionInfo = PreSelectComboBox();
             UpdateComboBoxDataSource(selectedWmtsConnectionInfo);
-
-            if (selectedWmtsConnectionInfo != null)
-            {
-                PreSelectDataGridView(activeWmtsMapData);
-            }
-
+            
             UpdateButtons();
         }
 
@@ -115,7 +112,7 @@ namespace Core.Components.Gis.Forms.Views
             base.Dispose(disposing);
         }
 
-        private WmtsConnectionInfo PreSelectComboBox(WmtsMapData activeWmtsMapData)
+        private WmtsConnectionInfo PreSelectComboBox()
         {
             WmtsConnectionInfo suggestedInfo = TryCreateWmtsConnectionInfo(activeWmtsMapData?.Name,
                                                                            activeWmtsMapData?.SourceCapabilitiesUrl);
@@ -132,7 +129,7 @@ namespace Core.Components.Gis.Forms.Views
             return suggestedInfo;
         }
 
-        private void PreSelectDataGridView(WmtsMapData activeWmtsMapData)
+        private void PreSelectDataGridView()
         {
             DataGridViewRow dataGridViewRow = dataGridViewControl.Rows.OfType<DataGridViewRow>()
                                                                  .FirstOrDefault(row => IsMatch(
@@ -313,6 +310,11 @@ namespace Core.Components.Gis.Forms.Views
         {
             var selectedWmtsConnectionInfo = urlLocationComboBox.SelectedItem as WmtsConnectionInfo;
             ConnectToUrl(selectedWmtsConnectionInfo);
+
+            if (activeWmtsMapData != null)
+            {
+                PreSelectDataGridView();
+            }
         }
 
         private void ConnectToUrl(WmtsConnectionInfo selectedWmtsConnectionInfo)

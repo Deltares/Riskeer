@@ -446,7 +446,7 @@ namespace Core.Components.Gis.Forms.Test.Views
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenWmtsLocationControlAndAddLocationClicked_WhenDialogCanceled_ThenWmtsLocationsNotUpdated()
+        public void GivenWmtsLocationControl_WhenAddLocationClickedAndDialogCanceled_ThenWmtsLocationsNotUpdated()
         {
             // Given
             mockRepository.ReplayAll();
@@ -481,7 +481,7 @@ namespace Core.Components.Gis.Forms.Test.Views
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenWmtsLocationControlAndAddLocationClicked_WhenValidDataInDialog_ThenWmtsLocationsUpdated()
+        public void GivenWmtsLocationControl_WhenAddLocationClickedAndValidDataInDialog_ThenWmtsLocationsUpdated()
         {
             // Given
             mockRepository.ReplayAll();
@@ -538,7 +538,7 @@ namespace Core.Components.Gis.Forms.Test.Views
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenWmtsLocationControlAndAddLocationClicked_WhenInValidDataInDialog_ThenWmtsLocationsNotUpdated()
+        public void GivenWmtsLocationControl_WhenAddLocationClickedAndInvalidDataInDialog_ThenWmtsLocationsNotUpdated()
         {
             // Given
             mockRepository.ReplayAll();
@@ -584,7 +584,7 @@ namespace Core.Components.Gis.Forms.Test.Views
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenWmtsLocationControlAndAddLocationClicked_WhenConfigFileInUse_ThenWmtsLocationsNotUpdatedAndLogGenerated()
+        public void GivenWmtsLocationControl_WhenAddLocationClickedAndConfigFileInUse_ThenWmtsLocationsNotUpdatedAndLogGenerated()
         {
             // Given
             mockRepository.ReplayAll();
@@ -643,7 +643,7 @@ namespace Core.Components.Gis.Forms.Test.Views
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenWmtsLocationControlAndEditLocationClicked_WhenDialogCanceled_ThenWmtsLocationsNotUpdated()
+        public void GivenWmtsLocationControl_WhenEditLocationClickedAndDialogCanceled_ThenWmtsLocationsNotUpdated()
         {
             // Given
             mockRepository.ReplayAll();
@@ -658,9 +658,9 @@ namespace Core.Components.Gis.Forms.Test.Views
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                ApplicationLocalUserSettingsDirectory = TestHelper.GetScratchPadPath(nameof(GivenWmtsLocationControlAndEditLocationClicked_WhenDialogCanceled_ThenWmtsLocationsNotUpdated))
+                ApplicationLocalUserSettingsDirectory = TestHelper.GetScratchPadPath(nameof(GivenWmtsLocationControl_WhenEditLocationClickedAndDialogCanceled_ThenWmtsLocationsNotUpdated))
             }))
-            using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(GivenWmtsLocationControlAndEditLocationClicked_WhenDialogCanceled_ThenWmtsLocationsNotUpdated)))
+            using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(GivenWmtsLocationControl_WhenEditLocationClickedAndDialogCanceled_ThenWmtsLocationsNotUpdated)))
             {
                 string filePath = Path.Combine(SettingsHelper.Instance.GetApplicationLocalUserSettingsDirectory(),
                                                wmtsconnectioninfoConfigFile);
@@ -692,7 +692,7 @@ namespace Core.Components.Gis.Forms.Test.Views
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenWmtsLocationControlAndEditLocationClicked_WhenValidDataInDialog_ThenWmtsLocationsUpdated()
+        public void GivenWmtsLocationControl_WhenEditLocationClickedAndValidDataInDialog_ThenWmtsLocationsUpdated()
         {
             // Given
             mockRepository.ReplayAll();
@@ -719,10 +719,10 @@ namespace Core.Components.Gis.Forms.Test.Views
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                ApplicationLocalUserSettingsDirectory = TestHelper.GetScratchPadPath(nameof(GivenWmtsLocationControlAndEditLocationClicked_WhenValidDataInDialog_ThenWmtsLocationsUpdated))
+                ApplicationLocalUserSettingsDirectory = TestHelper.GetScratchPadPath(nameof(GivenWmtsLocationControl_WhenEditLocationClickedAndValidDataInDialog_ThenWmtsLocationsUpdated))
             }))
             {
-                using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(GivenWmtsLocationControlAndEditLocationClicked_WhenValidDataInDialog_ThenWmtsLocationsUpdated)))
+                using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(GivenWmtsLocationControl_WhenEditLocationClickedAndValidDataInDialog_ThenWmtsLocationsUpdated)))
                 {
                     string filePath = Path.Combine(SettingsHelper.Instance.GetApplicationLocalUserSettingsDirectory(),
                                                    wmtsconnectioninfoConfigFile);
@@ -754,7 +754,7 @@ namespace Core.Components.Gis.Forms.Test.Views
         }
 
         [Test]
-        public void GivenWmtsLocationControlAndConnectClicked_WhenValidDataFromUrl_ThenDataGridUpdated()
+        public void GivenWmtsLocationControl_WhenConnectClickedAndValidDataFromUrl_ThenDataGridUpdated()
         {
             // Given
             WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
@@ -791,7 +791,7 @@ namespace Core.Components.Gis.Forms.Test.Views
         }
 
         [Test]
-        public void GivenWmtsLocationControlAndConnectClicked_WhenCannotFindTileSourceException_ThenErrorMessageShown()
+        public void GivenWmtsLocationControl_WhenConnectClickedAndCannotFindTileSourceException_ThenErrorMessageShown()
         {
             // Given
             wmtsCapabilityFactory.Expect(wcf => wcf.GetWmtsCapabilities(null)).IgnoreArguments().Throw(new CannotFindTileSourceException("error"));
@@ -823,9 +823,74 @@ namespace Core.Components.Gis.Forms.Test.Views
             }
         }
 
-        private static IEnumerable<WmtsCapability> GetWmtsCapabilitiesFromDefaultWmtsCapabilityUrl(IWmtsCapabilityFactory wcf)
+        [Test]
+        public void GivenWmtsLocationControlWithoutActiveData_WhenConnectClicked_ThenDataGridUpdatedAndNoDataSelected()
         {
-            return wcf.GetWmtsCapabilities("http://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/WMTS?");
+            // Given
+            WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
+            WmtsMapData selectedBackgroundMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
+
+            wmtsCapabilityFactory.Expect(wcf => wcf.GetWmtsCapabilities(null)).IgnoreArguments()
+                                 .Return(new[]
+                                 {
+                                     CreateWmtsCapability(new TestWmtsTileSource(backgroundMapData)),
+                                     CreateWmtsCapability(new TestWmtsTileSource(selectedBackgroundMapData))
+                                 });
+            mockRepository.ReplayAll();
+
+            using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
+            using (var form = new Form())
+            using (var control = new WmtsLocationControl(null, wmtsCapabilityFactory))
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                var connectToButton = new ButtonTester("connectToButton", form);
+
+                // When
+                connectToButton.Click();
+
+                // Then
+                DataGridViewControl dataGridViewControl = form.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
+                DataGridViewRowCollection rows = dataGridViewControl.Rows;
+                Assert.AreEqual(2, rows.Count);
+                Assert.IsNull(control.SelectedMapData);
+            }
+        }
+
+        [Test]
+        public void GivenWmtsLocationControlWithActiveData_WhenConnectClicked_ThenDataGridUpdatedAndActiveDataSelected()
+        {
+            // Given
+            WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
+            WmtsMapData selectedBackgroundMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
+
+            wmtsCapabilityFactory.Expect(wcf => wcf.GetWmtsCapabilities(selectedBackgroundMapData.SourceCapabilitiesUrl))
+                                 .Return(new[]
+                                 {
+                                     CreateWmtsCapability(new TestWmtsTileSource(backgroundMapData)),
+                                     CreateWmtsCapability(new TestWmtsTileSource(selectedBackgroundMapData))
+                                 });
+            mockRepository.ReplayAll();
+
+            using (new UseCustomTileSourceFactoryConfig(selectedBackgroundMapData))
+            using (var form = new Form())
+            using (var control = new WmtsLocationControl(selectedBackgroundMapData, wmtsCapabilityFactory))
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                var connectToButton = new ButtonTester("connectToButton", form);
+
+                // When
+                connectToButton.Click();
+
+                // Then
+                DataGridViewControl dataGridViewControl = form.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
+                DataGridViewRowCollection rows = dataGridViewControl.Rows;
+                Assert.AreEqual(2, rows.Count);
+                AssertAreEqual(selectedBackgroundMapData, control.SelectedMapData);
+            }
         }
 
         private static WmtsCapability CreateWmtsCapability(ITileSource tileSource)
