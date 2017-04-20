@@ -64,7 +64,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             if (stochastConfiguration.VariationCoefficient.HasValue)
             {
                 log.LogCalculationConversionError(string.Format(
-                                                      Resources.CalculationConfigurationImporter_TryReadStandardDeviationStochast_Stochast_0_requires_standard_deviation_but_variation_coefficient_found_for_Calculation_1_,
+                                                      Resources.ConfigurationImportHelper_TrySetStandardDeviationStochast_Stochast_0_requires_standard_deviation_but_variation_coefficient_found_for_Calculation_1_,
                                                       stochastName,
                                                       calculationName),
                                                   calculationName);
@@ -115,7 +115,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             if (stochastConfiguration.StandardDeviation.HasValue)
             {
                 log.LogCalculationConversionError(string.Format(
-                                                      Resources.CalculationConfigurationImporter_TryReadVariationCoefficientStochast_Stochast_0_requires_variation_coefficient_but_standard_deviation_found_for_Calculation_1_,
+                                                      Resources.ConfigurationImportHelper_TrySetVariationCoefficientStochast_Stochast_0_requires_variation_coefficient_but_standard_deviation_found_for_Calculation_1_,
                                                       stochastName,
                                                       calculationName),
                                                   calculationName);

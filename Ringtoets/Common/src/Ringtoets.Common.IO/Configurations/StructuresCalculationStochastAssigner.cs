@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using log4net;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Probabilistics;
@@ -80,27 +81,9 @@ namespace Ringtoets.Common.IO.Configurations
         /// otherwise.</returns>
         public bool Assign()
         {
-            if (!Validate())
-            {
-                return false;
-            }
-
-            foreach (StandardDeviationDefinition stochastDefinition in GetStandardDeviationStochasts())
-            {
-                if (!SetStandardDeviationStochast(stochastDefinition))
-                {
-                    return false;
-                }
-            }
-
-            foreach (VariationCoefficientDefinition stochastDefinition in GetVariationCoefficientStochasts())
-            {
-                if (!SetVariationCoefficientStochast(stochastDefinition))
-                {
-                    return false;
-                }
-            }
-            return true;
+            return Validate()
+                   && GetStandardDeviationStochasts().All(SetStandardDeviationStochast)
+                   && GetVariationCoefficientStochasts().All(SetVariationCoefficientStochast);
         }
 
         /// <summary>
@@ -120,7 +103,7 @@ namespace Ringtoets.Common.IO.Configurations
         /// <returns>The standard deviation stochasts definitions for the calculation.</returns>
         protected abstract IEnumerable<StandardDeviationDefinition> GetStandardDeviationStochasts(bool structureDependent = false);
 
-        /// <summary>bas
+        /// <summary>
         /// Gets the definitions for all stochasts with variation coefficient that are defined for the calculation input.
         /// </summary>
         /// <param name="structureDependent">Optional. If set to <c>true</c>, only definitions for structure dependent
@@ -134,29 +117,9 @@ namespace Ringtoets.Common.IO.Configurations
         /// <returns><c>true</c> if all the stochasts are valid, <c>false</c> otherwise.</returns>
         private bool Validate()
         {
-            if (!ValidateBaseStochasts())
-            {
-                return false;
-            }
-            if (!ValidateSpecificStochasts())
-            {
-                return false;
-            }
-
-            if (Configuration.StructureName != null)
-            {
-                return true;
-            }
-
-            foreach (Tuple<string, StochastConfiguration> stochastValidationDefinition in GetStochastsForParameterValidation())
-            {
-                if (!ValidateNoParametersDefined(stochastValidationDefinition.Item2, stochastValidationDefinition.Item1))
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            return ValidateBaseStochasts()
+                   && ValidateSpecificStochasts()
+                   && (Configuration.StructureName != null || GetStochastsForParameterValidation().All(ValidateNoParametersDefined));
         }
 
         private bool SetVariationCoefficientStochast(VariationCoefficientDefinition definition)
@@ -183,8 +146,11 @@ namespace Ringtoets.Common.IO.Configurations
                 Log);
         }
 
-        private bool ValidateNoParametersDefined(StochastConfiguration stochastConfiguration, string stochastName)
+        private bool ValidateNoParametersDefined(Tuple<string, StochastConfiguration> stochastValidationDefinition)
         {
+            string stochastName = stochastValidationDefinition.Item1;
+            StochastConfiguration stochastConfiguration = stochastValidationDefinition.Item2;
+
             string calculationName = Configuration.Name;
 
             bool parameterDefined = stochastConfiguration != null && (stochastConfiguration.Mean.HasValue || stochastConfiguration.StandardDeviation.HasValue || stochastConfiguration.VariationCoefficient.HasValue);
@@ -232,12 +198,28 @@ namespace Ringtoets.Common.IO.Configurations
         /// </summary>
         public class StandardDeviationDefinition
         {
-            public string StochastName;
-            public StochastConfiguration Configuration;
-            public Func<TInput, IDistribution> Getter;
-            public Action<TInput, IDistribution> Setter;
+            /// <summary>
+            /// Gets the name of the stochast.
+            /// </summary>
+            public string StochastName { get; }
 
-            private StandardDeviationDefinition() {}
+            /// <summary>
+            /// Gets the configuration of the stochast. Can return <c>null</c>
+            /// if no configuration was defined.
+            /// </summary>
+            public StochastConfiguration Configuration { get; }
+
+            /// <summary>
+            /// The method for obtaining the distribution matching the stochast
+            /// to be configured, from the input.
+            /// </summary>
+            public Func<TInput, IDistribution> Getter { get; }
+
+            /// <summary>
+            /// The method for assigning the distribution matching the stochast
+            /// to be configured, to the input.
+            /// </summary>
+            public Action<TInput, IDistribution> Setter { get; }
 
             /// <summary>
             /// Creates a new instance of <see cref="StandardDeviationDefinition"/>.
@@ -245,9 +227,11 @@ namespace Ringtoets.Common.IO.Configurations
             /// <param name="stochastName">The name of the stochast.</param>
             /// <param name="configuration">The configuration of the stochast, which can be <c>null</c>.</param>
             /// <param name="getter">Operation of obtaining the stochast from an input.</param>
-            /// <param name="setter">Operation of assigning the stuchast to an input.</param>
+            /// <param name="setter">Operation of assigning the stochast to an input.</param>
             /// <returns>The newly created definition.</returns>
-            public static StandardDeviationDefinition Create(
+            /// <exception cref="ArgumentNullException">Thrown when the <paramref name="stochastName"/>,
+            /// <paramref name="getter"/> or <paramref name="setter"/> is <c>null</c>.</exception>
+            public StandardDeviationDefinition(
                 string stochastName,
                 StochastConfiguration configuration,
                 Func<TInput, IDistribution> getter,
@@ -266,13 +250,10 @@ namespace Ringtoets.Common.IO.Configurations
                     throw new ArgumentNullException(nameof(setter));
                 }
 
-                return new StandardDeviationDefinition
-                {
-                    StochastName = stochastName,
-                    Configuration = configuration,
-                    Getter = getter,
-                    Setter = setter
-                };
+                StochastName = stochastName;
+                Configuration = configuration;
+                Getter = getter;
+                Setter = setter;
             }
         }
 
@@ -281,12 +262,28 @@ namespace Ringtoets.Common.IO.Configurations
         /// </summary>
         public class VariationCoefficientDefinition
         {
-            public string StochastName;
-            public StochastConfiguration Configuration;
-            public Func<TInput, IVariationCoefficientDistribution> Getter;
-            public Action<TInput, IVariationCoefficientDistribution> Setter;
+            /// <summary>
+            /// Gets the name of the stochast.
+            /// </summary>
+            public string StochastName { get; }
 
-            private VariationCoefficientDefinition() {}
+            /// <summary>
+            /// Gets the configuration of the stochast. Can return <c>null</c>
+            /// if no configuration was defined.
+            /// </summary>
+            public StochastConfiguration Configuration { get; }
+
+            /// <summary>
+            /// The method for obtaining the distribution matching the stochast
+            /// to be configured, from the input.
+            /// </summary>
+            public Func<TInput, IVariationCoefficientDistribution> Getter { get; }
+
+            /// <summary>
+            /// The method for assigning the distribution matching the stochast
+            /// to be configured, to the input.
+            /// </summary>
+            public Action<TInput, IVariationCoefficientDistribution> Setter { get; }
 
             /// <summary>
             /// Creates a new instance of <see cref="VariationCoefficientDefinition"/>.
@@ -294,34 +291,20 @@ namespace Ringtoets.Common.IO.Configurations
             /// <param name="stochastName">The name of the stochast.</param>
             /// <param name="configuration">The configuration of the stochast, which can be <c>null</c>.</param>
             /// <param name="getter">Operation of obtaining the stochast from an input.</param>
-            /// <param name="setter">Operation of assigning the stuchast to an input.</param>
+            /// <param name="setter">Operation of assigning the stochast to an input.</param>
             /// <returns>The newly created definition.</returns>
-            public static VariationCoefficientDefinition Create(
+            /// <exception cref="ArgumentNullException">Thrown when the <paramref name="stochastName"/>,
+            /// <paramref name="getter"/> or <paramref name="setter"/> is <c>null</c>.</exception>
+            public VariationCoefficientDefinition(
                 string stochastName,
                 StochastConfiguration configuration,
                 Func<TInput, IVariationCoefficientDistribution> getter,
                 Action<TInput, IVariationCoefficientDistribution> setter)
             {
-                if (stochastName == null)
-                {
-                    throw new ArgumentNullException(nameof(stochastName));
-                }
-                if (getter == null)
-                {
-                    throw new ArgumentNullException(nameof(getter));
-                }
-                if (setter == null)
-                {
-                    throw new ArgumentNullException(nameof(setter));
-                }
-
-                return new VariationCoefficientDefinition
-                {
-                    StochastName = stochastName,
-                    Configuration = configuration,
-                    Getter = getter,
-                    Setter = setter
-                };
+                StochastName = stochastName;
+                Configuration = configuration;
+                Getter = getter;
+                Setter = setter;
             }
         }
     }

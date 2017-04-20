@@ -235,26 +235,6 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Indien voor parameter &apos;{0}&apos; de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. Voor berekening &apos;{1}&apos; is een variatiecoëfficiënt gevonden..
-        /// </summary>
-        public static string CalculationConfigurationImporter_TryReadStandardDeviationStochast_Stochast_0_requires_standard_deviation_but_variation_coefficient_found_for_Calculation_1_ {
-            get {
-                return ResourceManager.GetString("CalculationConfigurationImporter_TryReadStandardDeviationStochast_Stochast_0_requ" +
-                        "ires_standard_deviation_but_variation_coefficient_found_for_Calculation_1_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Indien voor parameter &apos;{0}&apos; de spreiding wordt opgegeven, moet dit door middel van een variatiecoëfficiënt. Voor berekening &apos;{1}&apos; is een standaardafwijking gevonden..
-        /// </summary>
-        public static string CalculationConfigurationImporter_TryReadVariationCoefficientStochast_Stochast_0_requires_variation_coefficient_but_standard_deviation_found_for_Calculation_1_ {
-            get {
-                return ResourceManager.GetString("CalculationConfigurationImporter_TryReadVariationCoefficientStochast_Stochast_0_r" +
-                        "equires_variation_coefficient_but_standard_deviation_found_for_Calculation_1_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Er kan geen spreiding voor stochast &apos;modelfactoroverloopdebiet&apos; opgegeven worden..
         /// </summary>
         public static string CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_ModelFactorSuperCriticalFlow {
@@ -331,6 +311,26 @@ namespace Ringtoets.Common.IO.Properties {
         public static string ConfiguratieSchema {
             get {
                 return ResourceManager.GetString("ConfiguratieSchema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Indien voor parameter &apos;{0}&apos; de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. Voor berekening &apos;{1}&apos; is een variatiecoëfficiënt gevonden..
+        /// </summary>
+        public static string ConfigurationImportHelper_TrySetStandardDeviationStochast_Stochast_0_requires_standard_deviation_but_variation_coefficient_found_for_Calculation_1_ {
+            get {
+                return ResourceManager.GetString("ConfigurationImportHelper_TrySetStandardDeviationStochast_Stochast_0_requires_sta" +
+                        "ndard_deviation_but_variation_coefficient_found_for_Calculation_1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Indien voor parameter &apos;{0}&apos; de spreiding wordt opgegeven, moet dit door middel van een variatiecoëfficiënt. Voor berekening &apos;{1}&apos; is een standaardafwijking gevonden..
+        /// </summary>
+        public static string ConfigurationImportHelper_TrySetVariationCoefficientStochast_Stochast_0_requires_variation_coefficient_but_standard_deviation_found_for_Calculation_1_ {
+            get {
+                return ResourceManager.GetString("ConfigurationImportHelper_TrySetVariationCoefficientStochast_Stochast_0_requires_" +
+                        "variation_coefficient_but_standard_deviation_found_for_Calculation_1_", resourceCulture);
             }
         }
         

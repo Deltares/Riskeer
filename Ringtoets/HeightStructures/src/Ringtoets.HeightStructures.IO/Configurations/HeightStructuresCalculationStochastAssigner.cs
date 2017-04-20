@@ -45,25 +45,25 @@ namespace Ringtoets.HeightStructures.IO.Configurations
 
         protected override IEnumerable<StandardDeviationDefinition> GetStandardDeviationStochasts(bool onlyStructureDependent = false)
         {
-            yield return StandardDeviationDefinition.Create(
+            yield return new StandardDeviationDefinition(
                 HeightStructuresConfigurationSchemaIdentifiers.LevelCrestStructureStochastName,
                 Configuration.LevelCrestStructure,
                 i => i.LevelCrestStructure,
                 (i, d) => i.LevelCrestStructure = (NormalDistribution) d);
 
-            yield return StandardDeviationDefinition.Create(
+            yield return new StandardDeviationDefinition(
                 ConfigurationSchemaIdentifiers.AllowedLevelIncreaseStorageStochastName,
                 Configuration.AllowedLevelIncreaseStorage,
                 i => i.AllowedLevelIncreaseStorage,
                 (i, d) => i.AllowedLevelIncreaseStorage = (LogNormalDistribution) d);
 
-            yield return StandardDeviationDefinition.Create(
+            yield return new StandardDeviationDefinition(
                 ConfigurationSchemaIdentifiers.FlowWidthAtBottomProtectionStochastName,
                 Configuration.FlowWidthAtBottomProtection,
                 i => i.FlowWidthAtBottomProtection,
                 (i, d) => i.FlowWidthAtBottomProtection = (LogNormalDistribution) d);
 
-            yield return StandardDeviationDefinition.Create(
+            yield return new StandardDeviationDefinition(
                 ConfigurationSchemaIdentifiers.WidthFlowAperturesStochastName,
                 Configuration.WidthFlowApertures,
                 i => i.WidthFlowApertures,
@@ -71,7 +71,7 @@ namespace Ringtoets.HeightStructures.IO.Configurations
 
             if (!onlyStructureDependent)
             {
-                yield return StandardDeviationDefinition.Create(
+                yield return new StandardDeviationDefinition(
                     ConfigurationSchemaIdentifiers.ModelFactorSuperCriticalFlowStochastName,
                     Configuration.ModelFactorSuperCriticalFlow,
                     i => i.ModelFactorSuperCriticalFlow, 
@@ -81,13 +81,13 @@ namespace Ringtoets.HeightStructures.IO.Configurations
 
         protected override IEnumerable<VariationCoefficientDefinition> GetVariationCoefficientStochasts(bool onlyStructureDependent = false)
         {
-            yield return VariationCoefficientDefinition.Create(
+            yield return new VariationCoefficientDefinition(
                 ConfigurationSchemaIdentifiers.CriticalOvertoppingDischargeStochastName,
                 Configuration.CriticalOvertoppingDischarge,
                 i => i.CriticalOvertoppingDischarge, 
                 (i, d) => i.CriticalOvertoppingDischarge = (VariationCoefficientLogNormalDistribution) d);
 
-            yield return VariationCoefficientDefinition.Create(
+            yield return new VariationCoefficientDefinition(
                 ConfigurationSchemaIdentifiers.StorageStructureAreaStochastName,
                 Configuration.StorageStructureArea,
                 i => i.StorageStructureArea,
@@ -95,7 +95,7 @@ namespace Ringtoets.HeightStructures.IO.Configurations
 
             if (!onlyStructureDependent)
             {
-                yield return VariationCoefficientDefinition.Create(
+                yield return new VariationCoefficientDefinition(
                     ConfigurationSchemaIdentifiers.StormDurationStochastName,
                     Configuration.StormDuration,
                     i => i.StormDuration, 
