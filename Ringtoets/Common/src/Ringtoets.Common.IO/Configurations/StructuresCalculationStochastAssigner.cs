@@ -301,6 +301,19 @@ namespace Ringtoets.Common.IO.Configurations
                 Func<TInput, IVariationCoefficientDistribution> getter,
                 Action<TInput, IVariationCoefficientDistribution> setter)
             {
+                if (stochastName == null)
+                {
+                    throw new ArgumentNullException(nameof(stochastName));
+                }
+                if (getter == null)
+                {
+                    throw new ArgumentNullException(nameof(getter));
+                }
+                if (setter == null)
+                {
+                    throw new ArgumentNullException(nameof(setter));
+                }
+
                 StochastName = stochastName;
                 Configuration = configuration;
                 Getter = getter;
