@@ -76,6 +76,11 @@ namespace Core.Common.Gui.Settings
             return GetFullPath(commonDocumentsPath, subPath);
         }
 
+        public string GetLocalUserTemporaryDirectory()
+        {
+            return Path.GetTempPath();
+        }
+
         private static string GetFullPath(string rootPath, string[] subPath)
         {
             var directorypath = new List<string>

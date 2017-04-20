@@ -288,6 +288,55 @@ SELECT BackgroundDataEntityId,
 		"WellKnownTileSource",
 		"2"
 		FROM BackgroundDataEntity;
+
+/* Do logging */
+
+CREATE TEMP TABLE logs_temp ('LogMessage' TEXT);
+INSERT INTO logs_temp 
+SELECT "De resultaten van de betrouwbaarheid sluiting kunstwerken berekeningen (" || COUNT('x') || " in totaal) zijn verwijderd." 
+		FROM [SOURCEPROJECT].ClosingStructuresOutputEntity;
+INSERT INTO logs_temp 
+SELECT "De resultaten van de dijkhoogte berekeningen (" || COUNT('x') || " in totaal) zijn verwijderd." 
+		FROM [SOURCEPROJECT].GrassCoverErosionInwardsDikeHeightOutputEntity;
+INSERT INTO logs_temp 
+SELECT "De resultaten van de grasbekleding erosie kruin en binnentalud berekeningen (" || COUNT('x') || " in totaal) zijn verwijderd." 
+		FROM [SOURCEPROJECT].GrassCoverErosionInwardsOutputEntity;
+INSERT INTO logs_temp 
+SELECT "De resultaten van de hydraulische randvoorwaardenlocatie berekeningen van het toetsspoor grasbekleding erosie buitentalud (" || COUNT('x') || " in totaal) zijn verwijderd." 
+		FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationOutputEntity;
+INSERT INTO logs_temp 
+SELECT "De resultaten van de hoogte kunstwerken berekeningen (" || COUNT('x') || " in totaal) zijn verwijderd." 
+		FROM [SOURCEPROJECT].HeightStructuresOutputEntity;
+INSERT INTO logs_temp 
+SELECT "Alle (" || COUNT('x') || ") berekende resultaten voor alle hydraulische randvoorwaardenlocaties zijn verwijderd." 
+		FROM [SOURCEPROJECT].HydraulicLocationOutputEntity;
+INSERT INTO logs_temp 
+SELECT "De resultaten van de piping berekeningen (" || COUNT('x') || " in totaal) zijn verwijderd." 
+		FROM [SOURCEPROJECT].PipingCalculationOutputEntity LEFT JOIN [SOURCEPROJECT].PipingSemiProbabilisticOutputEntity;
+INSERT INTO logs_temp 
+SELECT "De resultaten van de sterkte en stabiliteit puntconstructies kunstwerken berekeningen (" || COUNT('x') || " in totaal) zijn verwijderd." 
+		FROM [SOURCEPROJECT].StabilityPointStructuresOutputEntity;
+INSERT INTO logs_temp 
+SELECT "De resultaten van de stabiliteit steenzetting berekeningen (" || COUNT('x') || " in totaal) zijn verwijderd." 
+		FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsOutputEntity;
+INSERT INTO logs_temp 
+SELECT "De resultaten van de golfklappen op asfaltbekleding berekeningen (" || COUNT('x') || " in totaal) zijn verwijderd." 
+		FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsOutputEntity;
+
+ATTACH DATABASE [{1}] AS LOGDATABASE;
+
+	CREATE TABLE  IF NOT EXISTS [LOGDATABASE].'MigrationLogEntity' 
+	(
+	'MigrationLogEntityId' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 
+	'FromVersion' VARCHAR(20), 
+	'ToVersion' VARCHAR(20), 
+	'LogMessage' TEXT 
+	);
+
+	INSERT INTO [LOGDATABASE].MigrationLogEntity([FromVersion], [ToVersion], [LogMessage])
+	SELECT "5", "17.1", logs_temp.[LogMessage] FROM logs_temp WHERE logs_temp.[LogMessage] != NULL;
+DETACH LOGDATABASE;
+
 DETACH SOURCEPROJECT;
 
 PRAGMA foreign_keys = ON;

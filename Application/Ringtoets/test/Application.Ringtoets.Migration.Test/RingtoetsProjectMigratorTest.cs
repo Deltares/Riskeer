@@ -27,6 +27,7 @@ using Application.Ringtoets.Migration.Core;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Storage;
 using Core.Common.Gui;
+using Core.Common.Gui.TestUtil.Settings;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -117,7 +118,8 @@ namespace Application.Ringtoets.Migration.Test
 
             // Assert
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
-                call, "Bronprojectpad moet een geldig projectpad zijn.").ParamName;
+                                             call, "Bronprojectpad moet een geldig projectpad zijn.")
+                                         .ParamName;
             Assert.AreEqual("filePath", paramName);
 
             mocks.VerifyAll();
@@ -168,7 +170,7 @@ namespace Application.Ringtoets.Migration.Test
             var migrator = new RingtoetsProjectMigrator(inquiryHelper);
 
             // Call
-            MigrationRequired shouldMigrate = MigrationRequired.No;
+            var shouldMigrate = MigrationRequired.No;
             Action call = () => shouldMigrate = migrator.ShouldMigrate(sourceFilePath);
 
             // Assert
@@ -180,9 +182,7 @@ namespace Application.Ringtoets.Migration.Test
             }
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessages, expectedLogMessages.Count);
 
-            var expectedResult = confirmContinuation ?
-                                     MigrationRequired.Yes :
-                                     MigrationRequired.Aborted;
+            MigrationRequired expectedResult = confirmContinuation ? MigrationRequired.Yes : MigrationRequired.Aborted;
             Assert.AreEqual(expectedResult, shouldMigrate);
 
             mocks.VerifyAll();
@@ -244,7 +244,8 @@ namespace Application.Ringtoets.Migration.Test
 
             // Assert
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
-                call, "Bronprojectpad moet een geldig projectpad zijn.").ParamName;
+                                             call, "Bronprojectpad moet een geldig projectpad zijn.")
+                                         .ParamName;
             Assert.AreEqual("originalFilePath", paramName);
 
             mocks.VerifyAll();
@@ -301,14 +302,14 @@ namespace Application.Ringtoets.Migration.Test
             mocks.ReplayAll();
 
             var migrator = new RingtoetsProjectMigrator(inquiryHelper);
-            string targetFilePath = "arbitraryPath";
+            var targetFilePath = "arbitraryPath";
 
             // Call
             Action call = () => targetFilePath = migrator.DetermineMigrationLocation(validFilePath);
 
             // Assert
             Tuple<string, LogLevelConstant> expectedLogMessage = Tuple.Create($"Het migreren van het projectbestand '{validFilePath}' is geannuleerd.",
-                                                                               LogLevelConstant.Warn);
+                                                                              LogLevelConstant.Warn);
 
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage, 1);
 
@@ -378,7 +379,8 @@ namespace Application.Ringtoets.Migration.Test
 
             // Assert
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
-                call, "Bronprojectpad moet een geldig projectpad zijn.").ParamName;
+                                             call, "Bronprojectpad moet een geldig projectpad zijn.")
+                                         .ParamName;
             Assert.AreEqual("sourceFilePath", paramName);
 
             mocks.VerifyAll();
@@ -402,7 +404,8 @@ namespace Application.Ringtoets.Migration.Test
 
             // Assert
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
-                call, "Doelprojectpad moet een geldig projectpad zijn.").ParamName;
+                                             call, "Doelprojectpad moet een geldig projectpad zijn.")
+                                         .ParamName;
             Assert.AreEqual("targetFilePath", paramName);
 
             mocks.VerifyAll();
@@ -424,20 +427,31 @@ namespace Application.Ringtoets.Migration.Test
 
             var migrator = new RingtoetsProjectMigrator(inquiryHelper);
 
-            bool migrationSuccessful = false;
+            var migrationSuccessful = false;
 
-            // When 
-            Action call = () => migrationSuccessful = migrator.Migrate(sourceFilePath, targetFilePath);
+            using (new UseCustomSettingsHelper(new TestSettingsHelper
+            {
+                TempPath = TestHelper.GetScratchPadPath(testDirectory)
+            }))
+            {
+                // When 
+                Action call = () => migrationSuccessful = migrator.Migrate(sourceFilePath, targetFilePath);
 
-            // Then
-            string expectedMessage = $"Het projectbestand '{sourceFilePath}' is succesvol gemigreerd naar '{targetFilePath}' (versie {currentDatabaseVersion}).";
-            Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedMessage, LogLevelConstant.Info);
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel, 1);
+                // Then
+                string expectedMessage = $"Het projectbestand '{sourceFilePath}' is succesvol gemigreerd naar '{targetFilePath}' (versie {currentDatabaseVersion}).";
+                Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedMessage, LogLevelConstant.Info);
+                TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel, 1);
 
-            Assert.IsTrue(migrationSuccessful);
+                Assert.IsTrue(migrationSuccessful);
 
-            var toVersionedFile = new RingtoetsVersionedFile(targetFilePath);
-            Assert.AreEqual(currentDatabaseVersion, toVersionedFile.GetVersion());
+                var toVersionedFile = new RingtoetsVersionedFile(targetFilePath);
+                Assert.AreEqual(currentDatabaseVersion, toVersionedFile.GetVersion());
+            }
+
+            string logPath = Path.Combine(TestHelper.GetScratchPadPath(), testDirectory, "RingtoetsMigrationLog.sqlite");
+
+            Assert.IsTrue(File.Exists(logPath));
+            File.Delete(logPath);
 
             mocks.VerifyAll();
         }
@@ -462,7 +476,7 @@ namespace Application.Ringtoets.Migration.Test
             {
                 fileDisposeHelper.LockFiles();
 
-                bool migrationSuccessful = true;
+                var migrationSuccessful = true;
 
                 // Call 
                 Action call = () => migrationSuccessful = migrator.Migrate(sourceFilePath, targetFilePath);
@@ -495,7 +509,7 @@ namespace Application.Ringtoets.Migration.Test
 
             var migrator = new RingtoetsProjectMigrator(inquiryHelper);
 
-            bool migrationSuccessful = true;
+            var migrationSuccessful = true;
 
             // Call 
             Action call = () => migrationSuccessful = migrator.Migrate(sourceFilePath, targetFilePath);
@@ -524,7 +538,7 @@ namespace Application.Ringtoets.Migration.Test
 
             var migrator = new RingtoetsProjectMigrator(inquiryHelper);
 
-            bool migrationSuccessful = true;
+            var migrationSuccessful = true;
 
             // Call 
             Action call = () => migrationSuccessful = migrator.Migrate(sourceFilePath, sourceFilePath);

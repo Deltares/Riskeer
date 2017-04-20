@@ -46,6 +46,11 @@ namespace Application.Ringtoets.Migration.Core
             scriptResource = typeof(Resources).Assembly;
         }
 
+        /// <summary>
+        /// Gets or sets the path to the logging database.
+        /// </summary>
+        public string LogPath { private get; set; }
+
         private static string GetStringOfStream(Stream stream)
         {
             using (var reader = new StreamReader(stream))
@@ -82,7 +87,7 @@ namespace Application.Ringtoets.Migration.Core
 
             var upgradeQuery = GetStringOfStream(upgradeStream);
 
-            return new RingtoetsUpgradeScript(fromVersion, toVersion, upgradeQuery);
+            return new RingtoetsUpgradeScript(fromVersion, toVersion, upgradeQuery, LogPath);
         }
 
         #endregion

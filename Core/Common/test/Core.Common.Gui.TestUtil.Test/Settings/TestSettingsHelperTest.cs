@@ -163,5 +163,36 @@ namespace Core.Common.Gui.TestUtil.Test.Settings
             // Assert
             Assert.AreEqual(expectedApplicationVersion, applicationVersion);
         }
+
+        [Test]
+        public void GetLocalUserTemporaryDirectory_WithoutExpectedSet_ReturnsExpectedTempPath()
+        {
+            // Setup
+            var settingsHelper = new TestSettingsHelper();
+
+            // Call
+            string pathFromSettings = settingsHelper.GetLocalUserTemporaryDirectory();
+
+            // Assert
+            string tempPath = TestHelper.GetScratchPadPath();
+            Assert.AreEqual(tempPath, pathFromSettings);
+        }
+
+        [Test]
+        public void GetLocalUserTemporaryDirectory_WithExpectedSet_ReturnsExpectedPath()
+        {
+            // Setup
+            const string folder = "folder";
+            var settingsHelper = new TestSettingsHelper
+            {
+                TempPath = folder
+            };
+
+            // Call
+            string pathFromSettings = settingsHelper.GetLocalUserTemporaryDirectory();
+
+            // Assert
+            Assert.AreEqual(folder, pathFromSettings);
+        }
     }
 }

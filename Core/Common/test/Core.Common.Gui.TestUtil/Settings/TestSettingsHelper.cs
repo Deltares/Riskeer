@@ -40,6 +40,7 @@ namespace Core.Common.Gui.TestUtil.Settings
         {
             ApplicationLocalUserSettingsDirectory = TestHelper.GetScratchPadPath();
             CommonDocumentsDirectory = TestHelper.GetScratchPadPath();
+            TempPath = TestHelper.GetScratchPadPath();
             ApplicationName = string.Empty;
             ApplicationVersion = string.Empty;
         }
@@ -82,6 +83,16 @@ namespace Core.Common.Gui.TestUtil.Settings
         public string GetCommonDocumentsDirectory(params string[] subPath)
         {
             return GetFullPath(CommonDocumentsDirectory, subPath);
+        }
+
+        /// <summary>
+        /// Gets or sets the directory to use in <see cref="GetLocalUserTemporaryDirectory"/>.
+        /// </summary>
+        public string TempPath { private get; set; }
+
+        public string GetLocalUserTemporaryDirectory()
+        {
+            return TempPath;
         }
 
         private static string GetFullPath(string rootPath, string[] subPath)

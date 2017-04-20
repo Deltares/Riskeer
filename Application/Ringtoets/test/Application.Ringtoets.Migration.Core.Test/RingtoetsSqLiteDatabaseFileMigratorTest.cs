@@ -101,16 +101,43 @@ namespace Application.Ringtoets.Migration.Core.Test
         }
 
         [Test]
-        public void Migrate_ValidFiles_SavesFileAtNewLocation()
+        public void Migrate_ValidFilesWithoutLogFile_SavesFileAtNewLocation()
         {
             // Setup
             const string newVersion = "17.1";
             string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
             var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
 
-            string targetFilePath = TestHelper.GetScratchPadPath(nameof(Migrate_ValidFiles_SavesFileAtNewLocation));
+            string targetFilePath = TestHelper.GetScratchPadPath(nameof(Migrate_ValidFilesWithoutLogFile_SavesFileAtNewLocation));
             var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
 
+            using (new FileDisposeHelper(targetFilePath))
+            {
+                // Call
+                migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
+
+                // Assert
+                var toVersionedFile = new RingtoetsVersionedFile(targetFilePath);
+                Assert.AreEqual(newVersion, toVersionedFile.GetVersion());
+            }
+        }
+
+        [Test]
+        public void Migrate_ValidFilesWithLogFile_SavesFileAtNewLocation()
+        {
+            // Setup
+            const string newVersion = "17.1";
+            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
+            var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
+
+            string targetFilePath = TestHelper.GetScratchPadPath(nameof(Migrate_ValidFilesWithLogFile_SavesFileAtNewLocation));
+            string logFilePath = TestHelper.GetScratchPadPath(string.Concat(nameof(Migrate_ValidFilesWithLogFile_SavesFileAtNewLocation), ".log"));
+            var migrator = new RingtoetsSqLiteDatabaseFileMigrator
+            {
+                LogPath = logFilePath
+            };
+
+            using (new FileDisposeHelper(logFilePath))
             using (new FileDisposeHelper(targetFilePath))
             {
                 // Call
@@ -141,7 +168,7 @@ namespace Application.Ringtoets.Migration.Core.Test
                 TestDelegate call = () => migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
 
                 // Assert
-                CriticalMigrationException exception = Assert.Throws<CriticalMigrationException>(call);
+                var exception = Assert.Throws<CriticalMigrationException>(call);
                 StringAssert.StartsWith("Het gemigreerde projectbestand is aangemaakt op '", exception.Message);
                 StringAssert.EndsWith($"', maar er is een onverwachte fout opgetreden tijdens het verplaatsen naar '{targetFilePath}'.",
                                       exception.Message);
@@ -162,7 +189,7 @@ namespace Application.Ringtoets.Migration.Core.Test
             TestDelegate call = () => migrator.Migrate(fromVersionedFile, newVersion, sourceFilePath);
 
             // Assert
-            CriticalMigrationException exception = Assert.Throws<CriticalMigrationException>(call);
+            var exception = Assert.Throws<CriticalMigrationException>(call);
             Assert.AreEqual("Het doelprojectpad moet anders zijn dan het bronprojectpad.",
                             exception.Message);
         }
@@ -189,7 +216,7 @@ namespace Application.Ringtoets.Migration.Core.Test
                     TestDelegate call = () => migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
 
                     // Assert
-                    CriticalMigrationException exception = Assert.Throws<CriticalMigrationException>(call);
+                    var exception = Assert.Throws<CriticalMigrationException>(call);
                     StringAssert.StartsWith("Het gemigreerde projectbestand is aangemaakt op '",
                                             exception.Message);
                     StringAssert.EndsWith($"', maar er is een onverwachte fout opgetreden tijdens het verplaatsen naar '{targetFilePath}'.",

@@ -118,5 +118,16 @@ namespace Core.Common.Gui.Test.Settings
             string testDataPath = Path.Combine(userSettingsDirectory, subFolder, subSubFolder);
             Assert.AreEqual(testDataPath, directory);
         }
+
+        [Test]
+        public void GetLocalUserTemporaryDirectory_ReturnsTempPath()
+        {
+            // Call
+            string pathFromSettings = SettingsHelper.Instance.GetLocalUserTemporaryDirectory();
+
+            // Assert
+            string tempPath = Path.GetTempPath();
+            Assert.AreEqual(tempPath, pathFromSettings);
+        }
     }
 }

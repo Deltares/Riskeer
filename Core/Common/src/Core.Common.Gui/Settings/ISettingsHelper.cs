@@ -49,5 +49,11 @@ namespace Core.Common.Gui.Settings
         /// <param name="subPath">The sub path to use after the common documents folder (if any).</param>
         /// <returns>Directory path where the common documents can be found.</returns>
         string GetCommonDocumentsDirectory(params string[] subPath);
+
+        /// <summary>
+        /// Gets the directory of the current user's temporary folder.
+        /// </summary>
+        /// <returns>Directory path of the current user's temporary folder.</returns>
+        string GetLocalUserTemporaryDirectory();
     }
 }

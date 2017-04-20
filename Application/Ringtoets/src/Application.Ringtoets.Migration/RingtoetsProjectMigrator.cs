@@ -25,6 +25,7 @@ using Application.Ringtoets.Migration.Core;
 using Application.Ringtoets.Migration.Properties;
 using Core.Common.Base.Storage;
 using Core.Common.Gui;
+using Core.Common.Gui.Settings;
 using Core.Common.Utils;
 using log4net;
 using Migration.Scripts.Data.Exceptions;
@@ -138,8 +139,8 @@ namespace Application.Ringtoets.Migration
             try
             {
                 var versionedFile = new RingtoetsVersionedFile(sourceFilePath);
+                fileMigrator.LogPath = CreateInitializedDatabaseLogFile();
                 fileMigrator.Migrate(versionedFile, currentDatabaseVersion, targetLocation);
-
                 string message = string.Format(Resources.RingtoetsProjectMigrator_MigrateToTargetLocation_Outdated_projectfile_0_succesfully_updated_to_target_filepath_1_version_2_,
                                                sourceFilePath, targetLocation, currentDatabaseVersion);
                 log.Info(message);
@@ -153,6 +154,13 @@ namespace Application.Ringtoets.Migration
                 log.Error(errorMessage, e);
                 return false;
             }
+        }
+
+        private static string CreateInitializedDatabaseLogFile()
+        {
+            string path = Path.Combine(SettingsHelper.Instance.GetLocalUserTemporaryDirectory(), "RingtoetsMigrationLog.sqlite");
+            IOUtils.CreateFileIfNotExists(path);
+            return path;
         }
 
         private static string GetSuggestedFileName(string sourceFilePath)
