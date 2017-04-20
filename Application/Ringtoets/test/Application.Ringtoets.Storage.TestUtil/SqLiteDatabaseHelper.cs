@@ -150,11 +150,11 @@ namespace Application.Ringtoets.Storage.TestUtil
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="databaseFilePath"/> is <c>null</c> or whitespace.</exception>
         private static void PerformCommandOnDatabase(string databaseFilePath, string commandText)
         {
-            var connectionString = SqLiteConnectionStringBuilder.BuildSqLiteConnectionString(databaseFilePath, false);
+            string connectionString = SqLiteConnectionStringBuilder.BuildSqLiteConnectionString(databaseFilePath, false);
             using (var dbContext = new SQLiteConnection(connectionString, true))
             {
                 dbContext.Open();
-                using (var command = dbContext.CreateCommand())
+                using (SQLiteCommand command = dbContext.CreateCommand())
                 {
                     try
                     {

@@ -381,7 +381,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
         private static double? GetRandomNullableDoubleInRange(Random random, double lowerLimit, double upperLimit)
         {
-            var difference = upperLimit - lowerLimit;
+            double difference = upperLimit - lowerLimit;
             return lowerLimit + random.NextDouble() * difference;
         }
     }

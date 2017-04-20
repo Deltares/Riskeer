@@ -84,7 +84,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             var registry = new PersistenceRegistry();
 
             // Call
-            var entity = failureMechanism.Create(registry);
+            FailureMechanismEntity entity = failureMechanism.Create(registry);
 
             // Assert
             Assert.IsNotNull(entity);
@@ -95,7 +95,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
             CollectionAssert.IsEmpty(entity.StochasticSoilModelEntities);
 
-            var failureMechanismMetaEntity = entity.PipingFailureMechanismMetaEntities.ToArray()[0];
+            PipingFailureMechanismMetaEntity failureMechanismMetaEntity = entity.PipingFailureMechanismMetaEntities.ToArray()[0];
             Assert.AreEqual(failureMechanism.PipingProbabilityAssessmentInput.A, failureMechanismMetaEntity.A);
             Assert.AreEqual(failureMechanism.GeneralInput.WaterVolumetricWeight.Value, failureMechanismMetaEntity.WaterVolumetricWeight);
             Assert.IsNull(failureMechanismMetaEntity.StochasticSoilModelSourcePath);
@@ -145,7 +145,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-            string somePath = "some/path/to/file";
+            var somePath = "some/path/to/file";
             failureMechanism.StochasticSoilModels.AddRange(new[]
             {
                 new StochasticSoilModel(-1, "name", "segmentName"),
@@ -155,7 +155,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             var registry = new PersistenceRegistry();
 
             // Call
-            var entity = failureMechanism.Create(registry);
+            FailureMechanismEntity entity = failureMechanism.Create(registry);
 
             // Assert
             Assert.IsNotNull(entity);
@@ -174,7 +174,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             var registry = new PersistenceRegistry();
 
             // Call
-            var entity = failureMechanism.Create(registry);
+            FailureMechanismEntity entity = failureMechanism.Create(registry);
 
             // Assert
             Assert.IsNotNull(entity);
@@ -242,7 +242,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             };
 
             var geometryPoints = new Point3D[10];
-            for (int i = 0; i < 10; i++)
+            for (var i = 0; i < 10; i++)
             {
                 geometryPoints[i] = new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble());
             }

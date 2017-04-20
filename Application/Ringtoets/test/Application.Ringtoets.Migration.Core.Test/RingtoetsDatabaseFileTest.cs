@@ -43,7 +43,7 @@ namespace Application.Ringtoets.Migration.Core.Test
             };
 
             // Assert
-            ArgumentException exception = Assert.Throws<ArgumentException>(call);
+            var exception = Assert.Throws<ArgumentException>(call);
             Assert.AreEqual($"Fout bij het lezen van bestand '{filePath}': bestandspad mag niet leeg of ongedefinieerd zijn.", exception.Message);
         }
 

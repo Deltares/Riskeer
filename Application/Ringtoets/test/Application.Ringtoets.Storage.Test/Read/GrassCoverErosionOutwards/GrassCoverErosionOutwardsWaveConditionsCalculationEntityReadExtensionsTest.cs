@@ -284,7 +284,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
 
             // Assert
             Assert.IsNotNull(calculation.Output);
-            var accuracy = calculation.Output.Items.First().WaterLevel.GetAccuracy();
+            double accuracy = calculation.Output.Items.First().WaterLevel.GetAccuracy();
             Assert.AreEqual(2, calculation.Output.Items.Count());
             Assert.AreEqual(outputALevel, calculation.Output.Items.ElementAt(0).WaterLevel, accuracy);
             Assert.AreEqual(outputBLevel, calculation.Output.Items.ElementAt(1).WaterLevel, accuracy);

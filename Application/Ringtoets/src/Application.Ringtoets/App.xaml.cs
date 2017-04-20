@@ -62,6 +62,7 @@ using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 using MessageBox = System.Windows.MessageBox;
 #if INCLUDE_DEMOPROJECT
 using Demo.Ringtoets.GUIs;
+
 #endif
 
 namespace Application.Ringtoets
@@ -110,7 +111,7 @@ namespace Application.Ringtoets
         /// </summary>
         private static void RunRingtoets()
         {
-            var loaderDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string loaderDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             if (loaderDirectory != null)
             {
                 Environment.CurrentDirectory = loaderDirectory;
@@ -260,7 +261,7 @@ namespace Application.Ringtoets
 
             try
             {
-                var process = Process.GetProcessById(waitForProcessId);
+                Process process = Process.GetProcessById(waitForProcessId);
                 process.WaitForExit();
             }
             catch
@@ -279,12 +280,12 @@ namespace Application.Ringtoets
 
                 //include the application name in the mutex to ensure we are allowed to start for example 'Sobek' 
                 //and 'Morphan' side by side.
-                var applicationName = ConfigurationManager.AppSettings.AllKeys.Contains("applicationName")
-                                          ? ConfigurationManager.AppSettings["applicationName"]
-                                          : string.Empty;
+                string applicationName = ConfigurationManager.AppSettings.AllKeys.Contains("applicationName")
+                                             ? ConfigurationManager.AppSettings["applicationName"]
+                                             : string.Empty;
 
-                var mutexName = string.Format("Ringtoets-single-instance-mutex-{0}-{1}", Environment.UserName,
-                                              applicationName);
+                string mutexName = string.Format("Ringtoets-single-instance-mutex-{0}-{1}", Environment.UserName,
+                                                 applicationName);
                 singleInstanceMutex = new Mutex(true, mutexName, out createdNew);
             }
             catch (AbandonedMutexException) {} //might throw an abandoned mutex exception if the previous DS instance forcefully exited.
@@ -360,12 +361,12 @@ namespace Application.Ringtoets
         private static void ParseArguments(IEnumerable<string> arguments)
         {
             var argumentWaitForProcessRegex = new Regex("^" + argumentWaitForProcess + @"(?<processId>\d+)$", RegexOptions.IgnoreCase);
-            foreach (var arg in arguments)
+            foreach (string arg in arguments)
             {
-                var match = argumentWaitForProcessRegex.Match(arg);
+                Match match = argumentWaitForProcessRegex.Match(arg);
                 if (match.Success)
                 {
-                    var pid = int.Parse(match.Groups["processId"].Value);
+                    int pid = int.Parse(match.Groups["processId"].Value);
                     if (pid > 0)
                     {
                         waitForProcessId = pid;
@@ -382,7 +383,7 @@ namespace Application.Ringtoets
 
         private static void SetLanguage()
         {
-            var language = ConfigurationManager.AppSettings["language"];
+            string language = ConfigurationManager.AppSettings["language"];
             if (language != null)
             {
                 var localMachineDateTimeFormat = (DateTimeFormatInfo) Thread.CurrentThread.CurrentCulture.DateTimeFormat.Clone();
@@ -420,10 +421,10 @@ namespace Application.Ringtoets
 
         private static string GetLogFileDirectory()
         {
-            var fileAppender = LogManager.GetAllRepositories()
-                                         .SelectMany(r => r.GetAppenders())
-                                         .OfType<FileAppender>()
-                                         .FirstOrDefault();
+            FileAppender fileAppender = LogManager.GetAllRepositories()
+                                                  .SelectMany(r => r.GetAppenders())
+                                                  .OfType<FileAppender>()
+                                                  .FirstOrDefault();
             if (fileAppender == null || string.IsNullOrWhiteSpace(fileAppender.File))
             {
                 return string.Empty;

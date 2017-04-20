@@ -85,8 +85,8 @@ namespace Application.Ringtoets.Storage.Test.Serializers
         {
             public int Compare(object x, object y)
             {
-                RoughnessPoint x1 = (RoughnessPoint) x;
-                RoughnessPoint y1 = (RoughnessPoint) y;
+                var x1 = (RoughnessPoint) x;
+                var y1 = (RoughnessPoint) y;
                 if (x1.Point.Equals(y1.Point) && x1.Roughness.Equals(y1.Roughness))
                 {
                     return 0;

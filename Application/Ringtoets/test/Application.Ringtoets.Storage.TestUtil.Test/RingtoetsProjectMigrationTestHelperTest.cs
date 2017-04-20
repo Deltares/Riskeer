@@ -108,7 +108,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
         {
             // Setup
             string solutionRoot = TestHelper.SolutionRoot;
-            string baseFileName = "DatabaseStructure";
+            var baseFileName = "DatabaseStructure";
             string migrationFileName = $"{baseFileName}{currentDatabaseVersion}";
 
             string applicationScriptFilePath = Path.Combine(solutionRoot, "build", $"{baseFileName}.sql");

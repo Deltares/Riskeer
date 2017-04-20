@@ -48,7 +48,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_WithEntity_ReturnKeyValuePairWithData()
         {
             // Setup
-            BackgroundDataMetaEntity entity = new BackgroundDataMetaEntity
+            var entity = new BackgroundDataMetaEntity
             {
                 Key = "Test key",
                 Value = "Test value"

@@ -225,7 +225,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             collector.Read(registeredEntity, registeredProfile);
 
             // Call
-            var returnedProfile = registeredEntity.Read(collector);
+            DikeProfile returnedProfile = registeredEntity.Read(collector);
 
             // Assert
             Assert.AreSame(registeredProfile, returnedProfile);

@@ -51,7 +51,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_WithCollectorAndGeometry_ReturnsFailureMechanismSectionWithGeometryStringSet()
         {
             // Setup
-            string testName = "testName";
+            var testName = "testName";
             var geometryPoints = new[]
             {
                 new Point2D(0, 0),
@@ -61,7 +61,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var registry = new PersistenceRegistry();
 
             // Call
-            var entity = failureMechanismSection.Create(registry);
+            FailureMechanismSectionEntity entity = failureMechanismSection.Create(registry);
 
             // Assert
             Assert.IsNotNull(entity);
@@ -74,7 +74,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_StringPropertiesDoNotShareReference()
         {
             // Setup
-            string testName = "original name";
+            var testName = "original name";
             var geometryPoints = new[]
             {
                 new Point2D(0, 0),

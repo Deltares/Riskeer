@@ -150,7 +150,7 @@ namespace Application.Ringtoets.Migration.Core.Test
                 TestDelegate call = () => upgradeScript.Upgrade(fileLocation, fileLocation);
 
                 // Assert
-                CriticalMigrationException exception = Assert.Throws<CriticalMigrationException>(call);
+                var exception = Assert.Throws<CriticalMigrationException>(call);
                 Assert.AreEqual($"Het migreren van het Ringtoets projectbestand van versie '{fromVersion}' naar '{fromVersion}' is mislukt.",
                                 exception.Message);
                 Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
@@ -162,7 +162,7 @@ namespace Application.Ringtoets.Migration.Core.Test
         {
             // Setup
             string filePath = TestHelper.GetScratchPadPath(nameof(Upgrade_ValidParameters_ExpectedProperties));
-            string logFilePath = TestHelper.GetScratchPadPath(string.Concat(nameof(Upgrade_ValidParameters_ExpectedProperties),".log"));
+            string logFilePath = TestHelper.GetScratchPadPath(string.Concat(nameof(Upgrade_ValidParameters_ExpectedProperties), ".log"));
             string fromVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
             string toVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 

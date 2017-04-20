@@ -93,7 +93,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             registry.Register(new SoilProfileEntity(), profile);
 
             // Call
-            var result = registry.Contains(profile);
+            bool result = registry.Contains(profile);
 
             // Assert
             Assert.IsTrue(result);
@@ -107,7 +107,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var profile = new TestPipingSoilProfile();
 
             // Call
-            var result = registry.Contains(profile);
+            bool result = registry.Contains(profile);
 
             // Assert
             Assert.IsFalse(result);
@@ -122,7 +122,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             registry.Register(new SoilProfileEntity(), new TestPipingSoilProfile());
 
             // Call
-            var result = registry.Contains(profile);
+            bool result = registry.Contains(profile);
 
             // Assert
             Assert.IsFalse(result);
@@ -495,8 +495,8 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Contains_OtherDikeProfileAdded_ReturnsFalse()
         {
             // Setup
-            var dikeProfile = CreateDikeProfile();
-            var otherDikeProfile = CreateDikeProfile();
+            DikeProfile dikeProfile = CreateDikeProfile();
+            DikeProfile otherDikeProfile = CreateDikeProfile();
 
             var registry = new PersistenceRegistry();
             registry.Register(new DikeProfileEntity(), otherDikeProfile);
@@ -512,7 +512,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Contains_NoDikeProfileAdded_ReturnsFalse()
         {
             // Setup
-            var dikeProfile = CreateDikeProfile();
+            DikeProfile dikeProfile = CreateDikeProfile();
 
             var registry = new PersistenceRegistry();
 
@@ -1037,7 +1037,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             registry.Register(entity, profile);
 
             // Call
-            var result = registry.Get(profile);
+            SoilProfileEntity result = registry.Get(profile);
 
             // Assert
             Assert.AreSame(entity, result);
@@ -1155,7 +1155,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             registry.Register(entity, hydraulicBoundaryLocation);
 
             // Call
-            HydraulicLocationEntity result = registry.Get<HydraulicLocationEntity>(hydraulicBoundaryLocation);
+            var result = registry.Get<HydraulicLocationEntity>(hydraulicBoundaryLocation);
 
             // Assert
             Assert.AreSame(entity, result);
@@ -1444,7 +1444,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Get_NoDikeProfileAdded_ThrowsInvalidOperationException()
         {
             // Setup
-            var dikeProfile = CreateDikeProfile();
+            DikeProfile dikeProfile = CreateDikeProfile();
             var registry = new PersistenceRegistry();
 
             // Call
@@ -1458,8 +1458,8 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Get_OtherDikeProfileAdded_ThrowsInvalidOperationException()
         {
             // Setup
-            var dikeProfile = CreateDikeProfile();
-            var registeredDikeProfile = CreateDikeProfile();
+            DikeProfile dikeProfile = CreateDikeProfile();
+            DikeProfile registeredDikeProfile = CreateDikeProfile();
             var registeredEntity = new DikeProfileEntity();
 
             var registry = new PersistenceRegistry();
@@ -1476,7 +1476,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Get_DikeProfileAdded_ReturnsEntity()
         {
             // Setup
-            var dikeProfile = CreateDikeProfile();
+            DikeProfile dikeProfile = CreateDikeProfile();
             var registeredEntity = new DikeProfileEntity();
 
             var registry = new PersistenceRegistry();

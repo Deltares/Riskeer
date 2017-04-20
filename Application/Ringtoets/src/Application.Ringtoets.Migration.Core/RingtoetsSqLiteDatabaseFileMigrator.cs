@@ -85,7 +85,7 @@ namespace Application.Ringtoets.Migration.Core
             string toVersion = GetMigrationScriptToVersion(resourceName);
             Stream upgradeStream = scriptResource.GetManifestResourceStream(resourceName);
 
-            var upgradeQuery = GetStringOfStream(upgradeStream);
+            string upgradeQuery = GetStringOfStream(upgradeStream);
 
             return new RingtoetsUpgradeScript(fromVersion, toVersion, upgradeQuery, LogPath);
         }

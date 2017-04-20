@@ -80,7 +80,7 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
             var registry = new PersistenceRegistry();
 
             // Call
-            var entity = failureMechanism.Create(registry);
+            FailureMechanismEntity entity = failureMechanism.Create(registry);
 
             // Assert
             Assert.IsNotNull(entity);
@@ -119,7 +119,7 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
             var registry = new PersistenceRegistry();
 
             // Call
-            var entity = failureMechanism.Create(registry);
+            FailureMechanismEntity entity = failureMechanism.Create(registry);
 
             // Assert
             Assert.AreNotSame(originalInput, entity.InputComments,
@@ -140,7 +140,7 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             // Call
-            var entity = failureMechanism.Create(new PersistenceRegistry());
+            FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
 
             // Assert
             Assert.IsEmpty(entity.FailureMechanismSectionEntities);
@@ -154,7 +154,7 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
             failureMechanism.AddSection(new TestFailureMechanismSection());
 
             // Call
-            var entity = failureMechanism.Create(new PersistenceRegistry());
+            FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
 
             // Assert
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.Count);

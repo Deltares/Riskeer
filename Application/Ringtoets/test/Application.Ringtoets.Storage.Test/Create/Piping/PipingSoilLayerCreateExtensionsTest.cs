@@ -55,7 +55,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             };
 
             // Call
-            var entity = soilLayer.Create(order);
+            SoilLayerEntity entity = soilLayer.Create(order);
 
             // Assert
             Assert.IsNotNull(entity);

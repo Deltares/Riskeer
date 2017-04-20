@@ -21,6 +21,7 @@
 
 using System;
 using Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards;
+using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Data;
 using NUnit.Framework;
@@ -51,7 +52,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             };
 
             // Call
-            var result = sectionResult.Create();
+            GrassCoverErosionOutwardsSectionResultEntity result = sectionResult.Create();
 
             // Assert
             Assert.AreEqual(Convert.ToByte(assessmentLayerOneResult), result.LayerOne);
@@ -69,7 +70,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             };
 
             // Call
-            var result = sectionResult.Create();
+            GrassCoverErosionOutwardsSectionResultEntity result = sectionResult.Create();
 
             // Assert
             Assert.IsNull(result.LayerThree);

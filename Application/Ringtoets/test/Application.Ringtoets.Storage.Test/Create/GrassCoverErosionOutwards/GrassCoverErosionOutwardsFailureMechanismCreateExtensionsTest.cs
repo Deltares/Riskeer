@@ -75,7 +75,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             var registry = new PersistenceRegistry();
 
             // Call
-            var entity = failureMechanism.Create(registry);
+            FailureMechanismEntity entity = failureMechanism.Create(registry);
 
             // Assert
             Assert.IsNotNull(entity);
@@ -132,7 +132,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            var entity = failureMechanism.Create(new PersistenceRegistry());
+            FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
 
             // Assert
             Assert.IsEmpty(entity.FailureMechanismSectionEntities);
@@ -146,7 +146,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             failureMechanism.AddSection(new TestFailureMechanismSection());
 
             // Call
-            var entity = failureMechanism.Create(new PersistenceRegistry());
+            FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
 
             // Assert
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.Count);
@@ -160,7 +160,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            var entity = failureMechanism.Create(new PersistenceRegistry());
+            FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
 
             // Assert
             Assert.IsEmpty(entity.ForeshoreProfileEntities);
@@ -174,7 +174,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile());
 
             // Call
-            var entity = failureMechanism.Create(new PersistenceRegistry());
+            FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
 
             // Assert
             Assert.AreEqual(1, entity.ForeshoreProfileEntities.Count);
@@ -184,7 +184,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
         public void Create_WithUpdatedN_FailureMechanismMetaUpdated()
         {
             // Setup
-            var n = new Random(21).Next(1, 20);
+            int n = new Random(21).Next(1, 20);
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
                 GeneralInput =
@@ -194,7 +194,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             };
 
             // Call
-            var entity = failureMechanism.Create(new PersistenceRegistry());
+            FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
 
             // Assert
             Assert.AreEqual(n, entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.First().N);
@@ -249,8 +249,8 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             Assert.IsNotNull(entity);
             Assert.AreEqual(2, entity.GrassCoverErosionOutwardsHydraulicLocationEntities.Count);
 
-            var firstLocation = entity.GrassCoverErosionOutwardsHydraulicLocationEntities.ElementAt(0);
-            var secondLocation = entity.GrassCoverErosionOutwardsHydraulicLocationEntities.ElementAt(1);
+            GrassCoverErosionOutwardsHydraulicLocationEntity firstLocation = entity.GrassCoverErosionOutwardsHydraulicLocationEntities.ElementAt(0);
+            GrassCoverErosionOutwardsHydraulicLocationEntity secondLocation = entity.GrassCoverErosionOutwardsHydraulicLocationEntities.ElementAt(1);
             Assert.AreEqual("A", firstLocation.Name);
             Assert.AreEqual(0, firstLocation.LocationId);
             Assert.AreEqual(0, firstLocation.Order);

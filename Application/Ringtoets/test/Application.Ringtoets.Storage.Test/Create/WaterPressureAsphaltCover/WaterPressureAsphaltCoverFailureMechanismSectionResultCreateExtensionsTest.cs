@@ -21,6 +21,7 @@
 
 using System;
 using Application.Ringtoets.Storage.Create.WaterPressureAsphaltCover;
+using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
@@ -38,7 +39,7 @@ namespace Application.Ringtoets.Storage.Test.Create.WaterPressureAsphaltCover
         {
             // Setup
             var random = new Random();
-            AssessmentLayerOneState assessmentLayerOneResult = random.NextEnumValue<AssessmentLayerOneState>();
+            var assessmentLayerOneResult = random.NextEnumValue<AssessmentLayerOneState>();
             const double assessmentLayerThreeResult = 3.2;
 
             var sectionResult = new WaterPressureAsphaltCoverFailureMechanismSectionResult(new TestFailureMechanismSection())
@@ -48,7 +49,7 @@ namespace Application.Ringtoets.Storage.Test.Create.WaterPressureAsphaltCover
             };
 
             // Call
-            var result = sectionResult.Create();
+            WaterPressureAsphaltCoverSectionResultEntity result = sectionResult.Create();
 
             // Assert
             Assert.AreEqual(Convert.ToByte(assessmentLayerOneResult), result.LayerOne);
@@ -65,7 +66,7 @@ namespace Application.Ringtoets.Storage.Test.Create.WaterPressureAsphaltCover
             };
 
             // Call
-            var result = sectionResult.Create();
+            WaterPressureAsphaltCoverSectionResultEntity result = sectionResult.Create();
 
             // Assert
             Assert.IsNull(result.LayerThree);

@@ -65,7 +65,7 @@ namespace Application.Ringtoets.Integration.Test
             string directory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "UnusedResourceSearcher");
             string executable = Path.Combine(directory, "UnusedResourceSearcher.exe");
 
-            Process process = new Process
+            var process = new Process
             {
                 StartInfo = new ProcessStartInfo(executable)
                 {
@@ -82,7 +82,7 @@ namespace Application.Ringtoets.Integration.Test
             // Assert
             outputFilePath = Path.Combine(outputPath, "UnusedResources.txt");
             var lines = new List<string>();
-            using (StreamReader reader = new StreamReader(outputFilePath))
+            using (var reader = new StreamReader(outputFilePath))
             {
                 string line;
                 while ((line = reader.ReadLine()) != null)
@@ -91,7 +91,7 @@ namespace Application.Ringtoets.Integration.Test
                 }
             }
 
-            var message = $"The following resources are marked as unused:{Environment.NewLine}{string.Join(Environment.NewLine, lines.OrderBy(s => s).ToList())}";
+            string message = $"The following resources are marked as unused:{Environment.NewLine}{string.Join(Environment.NewLine, lines.OrderBy(s => s).ToList())}";
             Assert.AreEqual(0, lines.Count, message);
         }
     }

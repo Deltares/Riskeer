@@ -81,9 +81,9 @@ namespace Application.Ringtoets.Migration.Console
         {
             ValidateIsVersionSupportedArgument(location);
 
-            RingtoetsVersionedFile versionedFile = new RingtoetsVersionedFile(location);
+            var versionedFile = new RingtoetsVersionedFile(location);
             var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
-            var version = versionedFile.GetVersion();
+            string version = versionedFile.GetVersion();
 
             bool isSupported = migrator.IsVersionSupported(version);
 
@@ -120,7 +120,7 @@ namespace Application.Ringtoets.Migration.Console
 
             migrator.Migrate(sourceFile, currentDatabaseVersion, toFilePath);
             System.Console.WriteLine(Resources.CommandMigrate_Successful_Migration_From_Location_0_To_Location_1_Version_2,
-                              filePath, toFilePath, currentDatabaseVersion);
+                                     filePath, toFilePath, currentDatabaseVersion);
         }
 
         private static void ValidateMigrationArguments(string filePath, string toFilePath)

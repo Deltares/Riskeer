@@ -62,7 +62,7 @@ namespace Application.Ringtoets.Storage.Test
             TestDelegate test = () => new StorageSqLite().LoadProject(invalidPath);
 
             // Assert
-            ArgumentException exception = Assert.Throws<ArgumentException>(test);
+            var exception = Assert.Throws<ArgumentException>(test);
             Assert.IsInstanceOf<Exception>(exception);
             Assert.AreEqual($"Fout bij het lezen van bestand '{invalidPath}': bestandspad mag niet leeg of ongedefinieerd zijn.",
                             exception.Message);
@@ -113,9 +113,9 @@ namespace Application.Ringtoets.Storage.Test
             TestDelegate test = () => new StorageSqLite().LoadProject(tempRingtoetsFile);
 
             // Assert
-            var expectedMessage = $@"Fout bij het lezen van bestand '{tempRingtoetsFile}': het bestand is geen geldig Ringtoets bestand.";
+            string expectedMessage = $@"Fout bij het lezen van bestand '{tempRingtoetsFile}': het bestand is geen geldig Ringtoets bestand.";
 
-            StorageException exception = Assert.Throws<StorageException>(test);
+            var exception = Assert.Throws<StorageException>(test);
             Assert.IsInstanceOf<Exception>(exception);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
@@ -132,7 +132,7 @@ namespace Application.Ringtoets.Storage.Test
             TestDelegate test = () => new StorageSqLite().LoadProject(tempRingtoetsFile);
 
             // Assert
-            StorageException exception = Assert.Throws<StorageException>(test);
+            var exception = Assert.Throws<StorageException>(test);
             Assert.IsInstanceOf<Exception>(exception);
             Assert.AreEqual($@"Fout bij het lezen van bestand '{tempRingtoetsFile}': het bestand is geen geldig Ringtoets bestand.",
                             exception.Message);
@@ -299,7 +299,7 @@ namespace Application.Ringtoets.Storage.Test
             TestDelegate test = () => storage.SaveProjectAs(invalidPath);
 
             // Assert
-            ArgumentException exception = Assert.Throws<ArgumentException>(test);
+            var exception = Assert.Throws<ArgumentException>(test);
             Assert.AreEqual($"Fout bij het lezen van bestand '{invalidPath}': bestandspad mag niet "
                             + "leeg of ongedefinieerd zijn.", exception.Message);
         }
@@ -313,15 +313,14 @@ namespace Application.Ringtoets.Storage.Test
             var storage = new StorageSqLite();
             storage.StageProject(project);
 
-            
-                // Precondition
-                Assert.IsFalse(File.Exists(tempRingtoetsFile));
+            // Precondition
+            Assert.IsFalse(File.Exists(tempRingtoetsFile));
 
-                // Call
-                TestDelegate test = () => storage.SaveProjectAs(tempRingtoetsFile);
+            // Call
+            TestDelegate test = () => storage.SaveProjectAs(tempRingtoetsFile);
 
-                // Assert
-                Assert.DoesNotThrow(test);
+            // Assert
+            Assert.DoesNotThrow(test);
         }
 
         [Test]
@@ -361,7 +360,7 @@ namespace Application.Ringtoets.Storage.Test
                     TestDelegate test = () => storage.SaveProjectAs(tempRingtoetsFile);
 
                     // Assert
-                    StorageException exception = Assert.Throws<StorageException>(test);
+                    var exception = Assert.Throws<StorageException>(test);
 
                     Assert.IsInstanceOf<Exception>(exception);
                     Assert.IsInstanceOf<IOException>(exception.InnerException);
@@ -523,7 +522,7 @@ namespace Application.Ringtoets.Storage.Test
             storage.StageProject(projectMock);
 
             // Call
-            var hasChanges = storage.HasStagedProjectChanges(tempRingtoetsFile);
+            bool hasChanges = storage.HasStagedProjectChanges(tempRingtoetsFile);
 
             // Assert
             Assert.IsFalse(hasChanges);

@@ -81,7 +81,7 @@ namespace Application.Ringtoets.Test
 
                 TestHelper.AssertLogMessages(call, messages =>
                 {
-                    var msgs = messages.ToArray();
+                    string[] msgs = messages.ToArray();
                     Assert.AreEqual(1, msgs.Length);
                     Assert.AreEqual($"Ringtoets versie {SettingsHelper.Instance.ApplicationVersion} wordt gestart door {userDisplayInfo}...", msgs[0]);
                 });

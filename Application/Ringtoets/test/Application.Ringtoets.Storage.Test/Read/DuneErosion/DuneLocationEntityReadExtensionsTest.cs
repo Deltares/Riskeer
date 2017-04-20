@@ -156,7 +156,7 @@ namespace Application.Ringtoets.Storage.Test.Read.DuneErosion
             double waterLevel = random.NextDouble();
             double waveHeight = random.NextDouble();
             double waterPeriod = random.NextDouble();
-            CalculationConvergence convergence = random.NextEnumValue<CalculationConvergence>();
+            var convergence = random.NextEnumValue<CalculationConvergence>();
             var duneLocationOutputEntity = new DuneLocationOutputEntity
             {
                 WaterLevel = waterLevel,
@@ -180,7 +180,7 @@ namespace Application.Ringtoets.Storage.Test.Read.DuneErosion
             var collector = new ReadConversionCollector();
 
             // Call
-            var location = entity.Read(collector);
+            DuneLocation location = entity.Read(collector);
 
             // Assert
             Assert.IsNotNull(location);

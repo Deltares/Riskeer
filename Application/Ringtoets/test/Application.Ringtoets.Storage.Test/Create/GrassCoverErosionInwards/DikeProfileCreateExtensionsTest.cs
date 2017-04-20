@@ -52,7 +52,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         public void Create_WithoutBreakWater_ReturnEntityWithNullBreakWaterProperties()
         {
             // Setup
-            var order = new Random(22).Next();
+            int order = new Random(22).Next();
             var dikeProfile = new DikeProfile(new Point2D(1.1, 2.2),
                                               new[]
                                               {
@@ -132,7 +132,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         public void Create_WithBreakWater_ReturnEntity(BreakWaterType type, double height)
         {
             // Setup
-            var order = new Random(42).Next();
+            int order = new Random(42).Next();
             var dikeProfile = new DikeProfile(new Point2D(1234.4567, 5678.432),
                                               new[]
                                               {

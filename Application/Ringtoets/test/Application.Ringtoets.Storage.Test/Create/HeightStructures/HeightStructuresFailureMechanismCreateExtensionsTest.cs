@@ -118,7 +118,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
             var registry = new PersistenceRegistry();
 
             // Call
-            var entity = failureMechanism.Create(registry);
+            FailureMechanismEntity entity = failureMechanism.Create(registry);
 
             // Assert
             Assert.AreNotSame(originalInput, entity.InputComments,
@@ -139,7 +139,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Call
-            var entity = failureMechanism.Create(new PersistenceRegistry());
+            FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
 
             // Assert
             Assert.IsEmpty(entity.FailureMechanismSectionEntities);
@@ -153,7 +153,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
             failureMechanism.AddSection(new TestFailureMechanismSection());
 
             // Call
-            var entity = failureMechanism.Create(new PersistenceRegistry());
+            FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
 
             // Assert
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.Count);

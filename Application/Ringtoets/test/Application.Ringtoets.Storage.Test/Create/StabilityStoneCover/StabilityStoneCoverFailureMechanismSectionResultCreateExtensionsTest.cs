@@ -21,6 +21,7 @@
 
 using System;
 using Application.Ringtoets.Storage.Create.StabilityStoneCover;
+using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Data;
 using NUnit.Framework;
@@ -50,7 +51,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
             };
 
             // Call
-            var result = sectionResult.Create();
+            StabilityStoneCoverSectionResultEntity result = sectionResult.Create();
 
             // Assert
             Assert.AreEqual(Convert.ToByte(assessmentLayerOneResult), result.LayerOne);
@@ -68,7 +69,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
             };
 
             // Call
-            var result = sectionResult.Create();
+            StabilityStoneCoverSectionResultEntity result = sectionResult.Create();
 
             // Assert
             Assert.IsNull(result.LayerThree);

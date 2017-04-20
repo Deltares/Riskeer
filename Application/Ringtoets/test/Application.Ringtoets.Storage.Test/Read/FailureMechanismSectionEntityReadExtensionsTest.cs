@@ -25,6 +25,7 @@ using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Application.Ringtoets.Storage.Test.Read
 {
@@ -65,7 +66,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_WithCollector_NewPointAndEntityRegistered()
         {
             // Setup
-            string name = "testName";
+            var name = "testName";
             var points = new[]
             {
                 new Point2D(0, 0)
@@ -80,7 +81,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var section = entity.Read(collector);
+            FailureMechanismSection section = entity.Read(collector);
 
             // Assert
             Assert.IsNotNull(section);

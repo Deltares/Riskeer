@@ -40,7 +40,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
         {
             // Setup
             var output = new TestWaveConditionsOutput();
-            int order = 22;
+            var order = 22;
 
             // Call
             StabilityStoneCoverWaveConditionsOutputEntity entity = output.CreateStabilityStoneCoverWaveConditionsOutputEntity(outputType, order);

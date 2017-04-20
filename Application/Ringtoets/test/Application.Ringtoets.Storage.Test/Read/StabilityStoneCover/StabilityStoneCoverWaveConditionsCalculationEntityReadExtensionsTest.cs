@@ -294,7 +294,7 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityStoneCover
 
             // Assert
             Assert.IsNotNull(calculation.Output);
-            var accuracy = calculation.Output.ColumnsOutput.ElementAt(0).WaterLevel.GetAccuracy();
+            double accuracy = calculation.Output.ColumnsOutput.ElementAt(0).WaterLevel.GetAccuracy();
 
             Assert.AreEqual(2, calculation.Output.ColumnsOutput.Count());
             Assert.AreEqual(outputALevel, calculation.Output.ColumnsOutput.ElementAt(0).WaterLevel, accuracy);

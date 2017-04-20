@@ -90,7 +90,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
         public void Create_NaNValue_ReturnEntityWithNullValue()
         {
             // Setup
-            HeightStructure structure = new HeightStructure(new HeightStructure.ConstructionProperties
+            var structure = new HeightStructure(new HeightStructure.ConstructionProperties
             {
                 Name = "A",
                 Id = "B",

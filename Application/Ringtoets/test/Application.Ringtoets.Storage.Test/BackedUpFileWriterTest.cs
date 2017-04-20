@@ -98,7 +98,7 @@ namespace Application.Ringtoets.Storage.Test
                 // Call
                 TestDelegate test = () => writer.Perform(() => { throw exception; });
 
-                var actualException = Assert.Throws(exception.GetType(), test);
+                Exception actualException = Assert.Throws(exception.GetType(), test);
                 Assert.AreSame(exception, actualException);
 
                 Assert.IsFalse(File.Exists(temporaryFilePath));
@@ -112,7 +112,7 @@ namespace Application.Ringtoets.Storage.Test
         {
             // Setup
             string filePath = Path.Combine(testWorkDir, "iDoExist.txt");
-            var temporaryFilePath = filePath + "~";
+            string temporaryFilePath = filePath + "~";
 
             using (new FileDisposeHelper(filePath))
             using (var tempFileHelper = new FileDisposeHelper(temporaryFilePath))
@@ -125,8 +125,8 @@ namespace Application.Ringtoets.Storage.Test
                 TestDelegate test = () => writer.Perform(() => { });
 
                 // Assert
-                var message = Assert.Throws<IOException>(test).Message;
-                var expectedMessage = $"Er bestaat al een tijdelijk bestand ({temporaryFilePath}) dat niet verwijderd kan worden. Dit bestand dient handmatig verwijderd te worden.";
+                string message = Assert.Throws<IOException>(test).Message;
+                string expectedMessage = $"Er bestaat al een tijdelijk bestand ({temporaryFilePath}) dat niet verwijderd kan worden. Dit bestand dient handmatig verwijderd te worden.";
                 Assert.AreEqual(message, expectedMessage);
             }
         }
@@ -148,8 +148,8 @@ namespace Application.Ringtoets.Storage.Test
 
                 directoryHelper.LockDirectory(FileSystemRights.Write);
                 // Assert
-                var expectedMessage = $"Kan geen tijdelijk bestand maken van het originele bestand ({filePath}).";
-                var message = Assert.Throws<IOException>(test).Message;
+                string expectedMessage = $"Kan geen tijdelijk bestand maken van het originele bestand ({filePath}).";
+                string message = Assert.Throws<IOException>(test).Message;
                 Assert.AreEqual(expectedMessage, message);
             }
         }
@@ -190,8 +190,8 @@ namespace Application.Ringtoets.Storage.Test
                 TestDelegate test = () => helper.Perform(() => { temporaryFileHelper.LockFiles(); });
 
                 // Assert
-                var expectedMessage = $"Kan het tijdelijke bestand ({temporaryFilePath}) niet opruimen. Het tijdelijke bestand dient handmatig verwijderd te worden.";
-                var message = Assert.Throws<CannotDeleteBackupFileException>(test).Message;
+                string expectedMessage = $"Kan het tijdelijke bestand ({temporaryFilePath}) niet opruimen. Het tijdelijke bestand dient handmatig verwijderd te worden.";
+                string message = Assert.Throws<CannotDeleteBackupFileException>(test).Message;
                 Assert.AreEqual(expectedMessage, message);
             }
         }
@@ -216,8 +216,8 @@ namespace Application.Ringtoets.Storage.Test
                 });
 
                 // Assert
-                var expectedMessage = $"Kan het originele bestand ({filePath}) niet herstellen. Het tijdelijke bestand dient handmatig hersteld te worden.";
-                var message = Assert.Throws<IOException>(test).Message;
+                string expectedMessage = $"Kan het originele bestand ({filePath}) niet herstellen. Het tijdelijke bestand dient handmatig hersteld te worden.";
+                string message = Assert.Throws<IOException>(test).Message;
                 Assert.AreEqual(expectedMessage, message);
             }
         }
@@ -242,8 +242,8 @@ namespace Application.Ringtoets.Storage.Test
                 });
 
                 // Assert
-                var expectedMessage = $"Kan het originele bestand ({filePath}) niet herstellen. Het tijdelijke bestand dient handmatig hersteld te worden.";
-                var message = Assert.Throws<IOException>(test).Message;
+                string expectedMessage = $"Kan het originele bestand ({filePath}) niet herstellen. Het tijdelijke bestand dient handmatig hersteld te worden.";
+                string message = Assert.Throws<IOException>(test).Message;
                 Assert.AreEqual(expectedMessage, message);
             }
         }

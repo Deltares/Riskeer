@@ -23,7 +23,6 @@ using System;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.Piping;
 using Application.Ringtoets.Storage.DbContext;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
@@ -64,7 +63,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             var registry = new PersistenceRegistry();
 
             // Call
-            var entity = stochasticSoilProfile.Create(registry, order);
+            StochasticSoilProfileEntity entity = stochasticSoilProfile.Create(registry, order);
 
             // Assert
             Assert.IsNotNull(entity);
@@ -89,8 +88,8 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             var registry = new PersistenceRegistry();
 
             // Call
-            var firstEntity = firstStochasticSoilProfile.Create(registry, 0);
-            var secondEntity = secondStochasticSoilProfile.Create(registry, 0);
+            StochasticSoilProfileEntity firstEntity = firstStochasticSoilProfile.Create(registry, 0);
+            StochasticSoilProfileEntity secondEntity = secondStochasticSoilProfile.Create(registry, 0);
 
             // Assert
             Assert.AreSame(firstEntity.SoilProfileEntity, secondEntity.SoilProfileEntity);

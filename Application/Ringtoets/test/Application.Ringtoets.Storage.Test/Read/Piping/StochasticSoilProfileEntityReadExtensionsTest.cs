@@ -69,12 +69,12 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var collector = new ReadConversionCollector();
 
             // Call
-            var profile = entity.Read(collector);
+            StochasticSoilProfile profile = entity.Read(collector);
 
             // Assert
             Assert.IsNotNull(profile);
             Assert.AreEqual(probability, profile.Probability, 1e-6);
-            Assert.AreEqual((SoilProfileType)soilProfileType, profile.SoilProfileType);
+            Assert.AreEqual((SoilProfileType) soilProfileType, profile.SoilProfileType);
             Assert.IsTrue(collector.Contains(entity));
         }
 
@@ -102,10 +102,10 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             };
             var collector = new ReadConversionCollector();
 
-            var firstProfile = firstEntity.Read(collector);
+            StochasticSoilProfile firstProfile = firstEntity.Read(collector);
 
             // Call
-            var secondProfile = secondEntity.Read(collector);
+            StochasticSoilProfile secondProfile = secondEntity.Read(collector);
 
             // Assert
             Assert.AreNotSame(firstProfile, secondProfile);

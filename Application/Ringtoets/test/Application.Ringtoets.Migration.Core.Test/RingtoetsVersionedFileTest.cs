@@ -105,7 +105,7 @@ namespace Application.Ringtoets.Migration.Core.Test
             var sourceFile = new RingtoetsVersionedFile(filePath);
 
             // Call
-            var version = sourceFile.GetVersion();
+            string version = sourceFile.GetVersion();
 
             // Assert
             Assert.AreEqual(expectedVersion, version);

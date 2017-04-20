@@ -34,7 +34,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
         public void Create_ValidGeneralInput_ReturnEntity()
         {
             // Setup
-            var n = new Random(21).Next(0, 20);
+            int n = new Random(21).Next(0, 20);
             var input = new GeneralGrassCoverErosionOutwardsInput
             {
                 N = n

@@ -264,7 +264,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             PipingCalculationEntity entity = calculation.Create(registry, 0);
 
             // Assert
-            var expectedStochasticSoilProfileEntity = soilModelEntity.StochasticSoilProfileEntities.First();
+            StochasticSoilProfileEntity expectedStochasticSoilProfileEntity = soilModelEntity.StochasticSoilProfileEntities.First();
             Assert.AreSame(expectedStochasticSoilProfileEntity, entity.StochasticSoilProfileEntity);
             Assert.IsTrue(registry.Contains(soilModel));
         }

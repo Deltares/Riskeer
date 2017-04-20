@@ -40,7 +40,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                                                          random.NextDouble());
 
             // Call
-            TestProbabilityAssessmentOutputEntity entity = output.Create<TestProbabilityAssessmentOutputEntity>();
+            var entity = output.Create<TestProbabilityAssessmentOutputEntity>();
 
             // Assert
             Assert.AreEqual(output.RequiredProbability, entity.RequiredProbability);
@@ -58,7 +58,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                                                          double.NaN, double.NaN);
 
             // Call
-            TestProbabilityAssessmentOutputEntity entity = output.Create<TestProbabilityAssessmentOutputEntity>();
+            var entity = output.Create<TestProbabilityAssessmentOutputEntity>();
 
             // Assert
             Assert.IsNull(entity.RequiredProbability);

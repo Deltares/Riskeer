@@ -81,7 +81,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var location = entity.Read(collector);
+            HydraulicBoundaryLocation location = entity.Read(collector);
 
             // Assert
             Assert.IsNotNull(location);
@@ -134,7 +134,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var location = entity.Read(collector);
+            HydraulicBoundaryLocation location = entity.Read(collector);
 
             // Assert
             Assert.IsNotNull(location);

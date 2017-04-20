@@ -73,8 +73,8 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         public void Read_WithCollector_ReturnsNewStochasticSoilModelWithPropertiesSetAndEntityRegistered()
         {
             // Setup
-            string testName = "testName";
-            string testSegmentName = "testSegmentName";
+            var testName = "testName";
+            var testSegmentName = "testSegmentName";
             var entity = new StochasticSoilModelEntity
             {
                 Name = testName,
@@ -84,7 +84,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var collector = new ReadConversionCollector();
 
             // Call
-            var model = entity.Read(collector);
+            StochasticSoilModel model = entity.Read(collector);
 
             // Assert
             Assert.IsNotNull(model);
@@ -160,7 +160,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var collector = new ReadConversionCollector();
 
             // Call
-            var model = entity.Read(collector);
+            StochasticSoilModel model = entity.Read(collector);
 
             // Assert
             CollectionAssert.AreEqual(segmentPoints, model.Geometry);

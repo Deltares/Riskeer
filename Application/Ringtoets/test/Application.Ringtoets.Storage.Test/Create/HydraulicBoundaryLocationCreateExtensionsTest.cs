@@ -53,15 +53,15 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var testName = "testName";
             var random = new Random(21);
-            var coordinateX = random.NextDouble();
-            var coordinateY = random.NextDouble();
-            var id = random.Next(0, 150);
+            double coordinateX = random.NextDouble();
+            double coordinateY = random.NextDouble();
+            int id = random.Next(0, 150);
             int order = random.Next();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, testName, coordinateX, coordinateY);
             var registry = new PersistenceRegistry();
 
             // Call
-            var entity = hydraulicBoundaryLocation.Create(registry, order);
+            HydraulicLocationEntity entity = hydraulicBoundaryLocation.Create(registry, order);
 
             // Assert
             Assert.IsNotNull(entity);
@@ -116,11 +116,11 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Assert
             Assert.IsNotNull(entity);
 
-            var designWaterLevelOutputEntity = GetHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.DesignWaterLevel);
+            IHydraulicLocationOutputEntity designWaterLevelOutputEntity = GetHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.DesignWaterLevel);
             Assert.IsNotNull(designWaterLevelOutputEntity);
             AssertHydraulicBoundaryLocationOutput(hydraulicBoundaryLocationDesignWaterLevelOutput, designWaterLevelOutputEntity);
 
-            var waveheightOutputEntity = GetHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.DesignWaterLevel);
+            IHydraulicLocationOutputEntity waveheightOutputEntity = GetHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.DesignWaterLevel);
             Assert.IsNotNull(waveheightOutputEntity);
             AssertHydraulicBoundaryLocationOutput(hydraulicBoundaryLocationDesignWaterLevelOutput, waveheightOutputEntity);
         }
@@ -161,9 +161,9 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var testName = "testName";
             var random = new Random(21);
-            var coordinateX = random.NextDouble();
-            var coordinateY = random.NextDouble();
-            var id = random.Next(0, 150);
+            double coordinateX = random.NextDouble();
+            double coordinateY = random.NextDouble();
+            int id = random.Next(0, 150);
             int order = random.Next();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, testName, coordinateX, coordinateY);
             var registry = new PersistenceRegistry();
@@ -226,11 +226,11 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.IsNotNull(entity);
-            var designWaterLevelOutputEntity = GetHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.DesignWaterLevel);
+            IHydraulicLocationOutputEntity designWaterLevelOutputEntity = GetHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.DesignWaterLevel);
             Assert.IsNotNull(designWaterLevelOutputEntity);
             AssertHydraulicBoundaryLocationOutput(hydraulicBoundaryLocationDesignWaterLevelOutput, designWaterLevelOutputEntity);
 
-            var waveheightOutputEntity = GetHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.DesignWaterLevel);
+            IHydraulicLocationOutputEntity waveheightOutputEntity = GetHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.DesignWaterLevel);
             Assert.IsNotNull(waveheightOutputEntity);
             AssertHydraulicBoundaryLocationOutput(hydraulicBoundaryLocationDesignWaterLevelOutput, waveheightOutputEntity);
         }

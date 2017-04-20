@@ -57,7 +57,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var registry = new PersistenceRegistry();
 
             // Call
-            var entity = project.Create(registry);
+            ProjectEntity entity = project.Create(registry);
 
             // Assert
             Assert.NotNull(entity);
@@ -97,7 +97,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var registry = new PersistenceRegistry();
 
             // Call
-            var entity = project.Create(registry);
+            ProjectEntity entity = project.Create(registry);
 
             // Assert
             Assert.AreEqual(1, entity.AssessmentSectionEntities.Count);

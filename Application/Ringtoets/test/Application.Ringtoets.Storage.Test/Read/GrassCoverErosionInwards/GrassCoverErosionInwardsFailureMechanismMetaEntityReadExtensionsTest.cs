@@ -49,7 +49,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
         {
             // Setup
             var random = new Random(21);
-            var n = random.Next(1, 20);
+            int n = random.Next(1, 20);
 
             var entity = new GrassCoverErosionInwardsFailureMechanismMetaEntity
             {

@@ -134,7 +134,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var generalPipingInput = new GeneralPipingInput();
 
             // Call
-            var rootGroup = rootGroupEntity.ReadAsPipingCalculationGroup(collector, generalPipingInput);
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsPipingCalculationGroup(collector, generalPipingInput);
 
             // Assert
             Assert.AreEqual("A", rootGroup.Name);
@@ -183,7 +183,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var generalPipingInput = new GeneralPipingInput();
 
             // Call
-            var rootGroup = rootGroupEntity.ReadAsPipingCalculationGroup(collector, generalPipingInput);
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsPipingCalculationGroup(collector, generalPipingInput);
 
             // Assert
             ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
@@ -237,7 +237,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var generalPipingInput = new GeneralPipingInput();
 
             // Call
-            var rootGroup = rootGroupEntity.ReadAsPipingCalculationGroup(collector, generalPipingInput);
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsPipingCalculationGroup(collector, generalPipingInput);
 
             // Assert
             ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
@@ -334,7 +334,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var rootGroup = rootGroupEntity.ReadAsGrassCoverErosionInwardsCalculationGroup(collector);
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsGrassCoverErosionInwardsCalculationGroup(collector);
 
             // Assert
             Assert.AreEqual("A", rootGroup.Name);
@@ -380,7 +380,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var rootGroup = rootGroupEntity.ReadAsGrassCoverErosionInwardsCalculationGroup(collector);
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsGrassCoverErosionInwardsCalculationGroup(collector);
 
             // Assert
             ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
@@ -431,7 +431,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var rootGroup = rootGroupEntity.ReadAsGrassCoverErosionInwardsCalculationGroup(collector);
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsGrassCoverErosionInwardsCalculationGroup(collector);
 
             // Assert
             ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
@@ -528,7 +528,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var rootGroup = rootGroupEntity.ReadAsGrassCoverErosionOutwardsWaveConditionsCalculationGroup(collector);
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsGrassCoverErosionOutwardsWaveConditionsCalculationGroup(collector);
 
             // Assert
             Assert.AreEqual("A", rootGroup.Name);
@@ -574,7 +574,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var rootGroup = rootGroupEntity.ReadAsGrassCoverErosionOutwardsWaveConditionsCalculationGroup(collector);
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsGrassCoverErosionOutwardsWaveConditionsCalculationGroup(collector);
 
             // Assert
             ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
@@ -625,7 +625,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var rootGroup = rootGroupEntity.ReadAsGrassCoverErosionOutwardsWaveConditionsCalculationGroup(collector);
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsGrassCoverErosionOutwardsWaveConditionsCalculationGroup(collector);
 
             // Assert
             ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
@@ -722,7 +722,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var rootGroup = rootGroupEntity.ReadAsHeightStructuresCalculationGroup(collector);
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsHeightStructuresCalculationGroup(collector);
 
             // Assert
             Assert.AreEqual("A", rootGroup.Name);
@@ -768,7 +768,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var rootGroup = rootGroupEntity.ReadAsHeightStructuresCalculationGroup(collector);
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsHeightStructuresCalculationGroup(collector);
 
             // Assert
             ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
@@ -819,7 +819,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var rootGroup = rootGroupEntity.ReadAsHeightStructuresCalculationGroup(collector);
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsHeightStructuresCalculationGroup(collector);
 
             // Assert
             ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
@@ -916,7 +916,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var rootGroup = rootGroupEntity.ReadAsClosingStructuresCalculationGroup(collector);
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsClosingStructuresCalculationGroup(collector);
 
             // Assert
             Assert.AreEqual("A", rootGroup.Name);
@@ -962,7 +962,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var rootGroup = rootGroupEntity.ReadAsClosingStructuresCalculationGroup(collector);
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsClosingStructuresCalculationGroup(collector);
 
             // Assert
             ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
@@ -1013,7 +1013,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var rootGroup = rootGroupEntity.ReadAsClosingStructuresCalculationGroup(collector);
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsClosingStructuresCalculationGroup(collector);
 
             // Assert
             ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
@@ -1109,7 +1109,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var rootGroup = rootGroupEntity.ReadAsStabilityPointStructuresCalculationGroup(collector);
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsStabilityPointStructuresCalculationGroup(collector);
 
             // Assert
             Assert.AreEqual("A", rootGroup.Name);
@@ -1155,7 +1155,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var rootGroup = rootGroupEntity.ReadAsStabilityPointStructuresCalculationGroup(collector);
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsStabilityPointStructuresCalculationGroup(collector);
 
             // Assert
             ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
@@ -1206,7 +1206,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var rootGroup = rootGroupEntity.ReadAsStabilityPointStructuresCalculationGroup(collector);
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsStabilityPointStructuresCalculationGroup(collector);
 
             // Assert
             ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
@@ -1303,7 +1303,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var rootGroup = rootGroupEntity.ReadAsStabilityStoneCoverWaveConditionsCalculationGroup(collector);
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsStabilityStoneCoverWaveConditionsCalculationGroup(collector);
 
             // Assert
             Assert.AreEqual("A", rootGroup.Name);
@@ -1349,7 +1349,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var rootGroup = rootGroupEntity.ReadAsStabilityStoneCoverWaveConditionsCalculationGroup(collector);
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsStabilityStoneCoverWaveConditionsCalculationGroup(collector);
 
             // Assert
             ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
@@ -1400,7 +1400,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var rootGroup = rootGroupEntity.ReadAsStabilityStoneCoverWaveConditionsCalculationGroup(collector);
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsStabilityStoneCoverWaveConditionsCalculationGroup(collector);
 
             // Assert
             ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
@@ -1497,7 +1497,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var rootGroup = rootGroupEntity.ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup(collector);
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup(collector);
 
             // Assert
             Assert.AreEqual("A", rootGroup.Name);
@@ -1543,7 +1543,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var rootGroup = rootGroupEntity.ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup(collector);
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup(collector);
 
             // Assert
             ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
@@ -1594,7 +1594,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var rootGroup = rootGroupEntity.ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup(collector);
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup(collector);
 
             // Assert
             ICalculationBase[] rootChildren = rootGroup.Children.ToArray();

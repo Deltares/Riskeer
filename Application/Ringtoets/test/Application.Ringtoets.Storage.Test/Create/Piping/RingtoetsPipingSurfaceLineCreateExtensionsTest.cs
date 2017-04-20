@@ -52,7 +52,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         public void Create_SurfaceLineWithoutGeometry_ReturnSurfaceLineEntityWithoutAddingPointEntities()
         {
             // Setup
-            var order = new Random(96).Next();
+            int order = new Random(96).Next();
             var registry = new PersistenceRegistry();
             var surfaceLine = new RingtoetsPipingSurfaceLine
             {
@@ -102,7 +102,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         public void Create_SurfaceLineWithGeometryWithoutCharacteristicPoints_ReturnSurfaceLineEntityWithPointEntities()
         {
             // Setup
-            var order = new Random(21).Next();
+            int order = new Random(21).Next();
             var registry = new PersistenceRegistry();
             var geometry = new[]
             {

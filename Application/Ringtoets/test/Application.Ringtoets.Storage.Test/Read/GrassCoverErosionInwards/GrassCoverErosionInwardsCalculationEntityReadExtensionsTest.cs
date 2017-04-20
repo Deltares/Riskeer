@@ -57,9 +57,9 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             // Setup
             var random = new Random(14);
             bool flagValue = random.NextBoolean();
-            BreakWaterType breakWaterType = random.NextEnumValue<BreakWaterType>();
-            DikeHeightCalculationType dikeHeightCalculationType = random.NextEnumValue<DikeHeightCalculationType>();
-            OvertoppingRateCalculationType overtoppingRateCalculationType = random.NextEnumValue<OvertoppingRateCalculationType>();
+            var breakWaterType = random.NextEnumValue<BreakWaterType>();
+            var dikeHeightCalculationType = random.NextEnumValue<DikeHeightCalculationType>();
+            var overtoppingRateCalculationType = random.NextEnumValue<OvertoppingRateCalculationType>();
             var entity = new GrassCoverErosionInwardsCalculationEntity
             {
                 Name = "sodhfksn",

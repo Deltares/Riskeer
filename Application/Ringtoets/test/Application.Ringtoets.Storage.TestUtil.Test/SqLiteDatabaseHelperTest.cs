@@ -250,7 +250,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             string validPath = TestHelper.GetScratchPadPath(nameof(CreateValidRingtoetsDatabase_ValidArguments_SavesProjectToFile));
             var project = new RingtoetsProject();
 
-            FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(validPath);
+            var fileDisposeHelper = new FileDisposeHelper(validPath);
             try
             {
                 // Call

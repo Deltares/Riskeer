@@ -46,7 +46,7 @@ namespace Application.Ringtoets.Storage.Test.Read.DuneErosion
             double targetReliability = random.NextDouble();
             double calculatedProbability = random.NextDouble();
             double calculatedReliability = random.NextDouble();
-            CalculationConvergence convergence = random.NextEnumValue<CalculationConvergence>();
+            var convergence = random.NextEnumValue<CalculationConvergence>();
             var entity = new DuneLocationOutputEntity
             {
                 WaterLevel = waterLevel,
@@ -77,7 +77,7 @@ namespace Application.Ringtoets.Storage.Test.Read.DuneErosion
         public void Read_NullParameters_ReturnsDuneLocationOutputWithNaN()
         {
             // Setup
-            CalculationConvergence convergence = new Random(36).NextEnumValue<CalculationConvergence>();
+            var convergence = new Random(36).NextEnumValue<CalculationConvergence>();
             var entity = new DuneLocationOutputEntity
             {
                 WaterLevel = null,

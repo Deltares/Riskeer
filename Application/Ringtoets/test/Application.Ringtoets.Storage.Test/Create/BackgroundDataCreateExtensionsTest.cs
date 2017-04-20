@@ -96,7 +96,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                 }
             };
 
-            var actualKeyValuePairs = entity.BackgroundDataMetaEntities.Select(
+            IEnumerable<KeyValuePair<string, string>> actualKeyValuePairs = entity.BackgroundDataMetaEntities.Select(
                 metaEntity => new KeyValuePair<string, string>(metaEntity.Key, metaEntity.Value));
             CollectionAssert.AreEquivalent(expectedKeyValuePairs, actualKeyValuePairs);
         }
@@ -134,7 +134,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                 }
             };
 
-            var actualKeyValuePairs = entity.BackgroundDataMetaEntities.Select(
+            IEnumerable<KeyValuePair<string, string>> actualKeyValuePairs = entity.BackgroundDataMetaEntities.Select(
                 metaEntity => new KeyValuePair<string, string>(metaEntity.Key, metaEntity.Value));
             CollectionAssert.AreEquivalent(expectedKeyValuePairs, actualKeyValuePairs);
         }
@@ -174,7 +174,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                     BackgroundDataIdentifiers.WellKnownTileSource, ((int) wellKnownTileSource).ToString()
                 }
             };
-            var actualKeyValuePairs = entity.BackgroundDataMetaEntities.Select(
+            IEnumerable<KeyValuePair<string, string>> actualKeyValuePairs = entity.BackgroundDataMetaEntities.Select(
                 metaEntity => new KeyValuePair<string, string>(metaEntity.Key, metaEntity.Value));
             CollectionAssert.AreEquivalent(expectedKeyValuePairs, actualKeyValuePairs);
         }

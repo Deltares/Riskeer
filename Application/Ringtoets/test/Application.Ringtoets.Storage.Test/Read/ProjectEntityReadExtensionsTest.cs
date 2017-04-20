@@ -25,6 +25,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Integration.Data;
 
 namespace Application.Ringtoets.Storage.Test.Read
 {
@@ -56,7 +57,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             };
 
             // Call
-            var project = entity.Read(new ReadConversionCollector());
+            RingtoetsProject project = entity.Read(new ReadConversionCollector());
 
             // Assert
             Assert.IsNotNull(project);
@@ -93,7 +94,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                                     {
                                         Key = BackgroundDataIdentifiers.IsConfigured,
                                         Value = "0"
-                                    }, 
+                                    },
                                 }
                             }
                         }
@@ -127,7 +128,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             };
 
             // Call
-            var project = entity.Read(new ReadConversionCollector());
+            RingtoetsProject project = entity.Read(new ReadConversionCollector());
 
             // Assert
             Assert.AreEqual(2, project.AssessmentSections.Count);

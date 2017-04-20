@@ -133,7 +133,7 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
             var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
-            var entity = failureMechanism.Create(new PersistenceRegistry());
+            FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
 
             // Assert
             Assert.IsEmpty(entity.FailureMechanismSectionEntities);
@@ -147,7 +147,7 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
             failureMechanism.AddSection(new TestFailureMechanismSection());
 
             // Call
-            var entity = failureMechanism.Create(new PersistenceRegistry());
+            FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
 
             // Assert
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.Count);

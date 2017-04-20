@@ -27,9 +27,11 @@ using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HeightStructures.Data;
@@ -70,7 +72,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(entity, new StochasticSoilProfile(1, SoilProfileType.SoilProfile1D, 1));
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsTrue(result);
@@ -84,7 +86,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = new StochasticSoilProfileEntity();
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsFalse(result);
@@ -99,7 +101,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(new StochasticSoilProfileEntity(), new StochasticSoilProfile(0.4, SoilProfileType.SoilProfile2D, 2));
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsFalse(result);
@@ -219,7 +221,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(entity, new TestPipingSoilProfile());
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsTrue(result);
@@ -233,7 +235,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = new SoilProfileEntity();
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsFalse(result);
@@ -248,7 +250,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(new SoilProfileEntity(), new TestPipingSoilProfile());
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsFalse(result);
@@ -278,7 +280,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(entity, profile);
 
             // Call
-            var result = collector.Get(entity);
+            PipingSoilProfile result = collector.Get(entity);
 
             // Assert
             Assert.AreSame(profile, result);
@@ -370,7 +372,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(entity, model);
 
             // Call
-            var hasEntity = collector.Contains(entity);
+            bool hasEntity = collector.Contains(entity);
 
             // Assert
             Assert.IsTrue(hasEntity);
@@ -385,7 +387,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var hasEntity = collector.Contains(entity);
+            bool hasEntity = collector.Contains(entity);
 
             // Assert
             Assert.IsFalse(hasEntity);
@@ -404,7 +406,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var unregisteredEntity = new SurfaceLineEntity();
 
             // Call
-            var hasEntity = collector.Contains(unregisteredEntity);
+            bool hasEntity = collector.Contains(unregisteredEntity);
 
             // Assert
             Assert.IsFalse(hasEntity);
@@ -530,7 +532,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(entity, new HydraulicBoundaryLocation(1, "A", 1, 2));
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsTrue(result);
@@ -544,7 +546,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = new HydraulicLocationEntity();
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsFalse(result);
@@ -559,7 +561,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(new HydraulicLocationEntity(), new HydraulicBoundaryLocation(1, "A", 2, 3));
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsFalse(result);
@@ -589,7 +591,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(entity, profile);
 
             // Call
-            var result = collector.Get(entity);
+            HydraulicBoundaryLocation result = collector.Get(entity);
 
             // Assert
             Assert.AreSame(profile, result);
@@ -679,7 +681,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(entity, new TestDuneLocation());
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsTrue(result);
@@ -693,7 +695,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = new DuneLocationEntity();
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsFalse(result);
@@ -708,7 +710,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(new DuneLocationEntity(), new TestDuneLocation());
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsFalse(result);
@@ -738,7 +740,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(entity, location);
 
             // Call
-            var result = collector.Get(entity);
+            DuneLocation result = collector.Get(entity);
 
             // Assert
             Assert.AreSame(location, result);
@@ -828,7 +830,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(entity, new TestFailureMechanismSection());
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsTrue(result);
@@ -842,7 +844,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = new FailureMechanismSectionEntity();
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsFalse(result);
@@ -857,7 +859,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(new FailureMechanismSectionEntity(), new TestFailureMechanismSection());
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsFalse(result);
@@ -887,7 +889,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(entity, section);
 
             // Call
-            var result = collector.Get(entity);
+            FailureMechanismSection result = collector.Get(entity);
 
             // Assert
             Assert.AreSame(section, result);
@@ -977,7 +979,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(entity, new TestDikeProfile());
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsTrue(result);
@@ -991,7 +993,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = new DikeProfileEntity();
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsFalse(result);
@@ -1006,7 +1008,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(new DikeProfileEntity(), new TestDikeProfile());
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsFalse(result);
@@ -1126,7 +1128,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(entity, new TestForeshoreProfile());
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsTrue(result);
@@ -1140,7 +1142,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = new ForeshoreProfileEntity();
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsFalse(result);
@@ -1155,7 +1157,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(new ForeshoreProfileEntity(), new TestForeshoreProfile());
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsFalse(result);
@@ -1275,7 +1277,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(entity, new GrassCoverErosionInwardsCalculation());
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsTrue(result);
@@ -1289,7 +1291,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = new GrassCoverErosionInwardsCalculationEntity();
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsFalse(result);
@@ -1304,7 +1306,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(new GrassCoverErosionInwardsCalculationEntity(), new GrassCoverErosionInwardsCalculation());
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsFalse(result);
@@ -1334,7 +1336,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(entity, calculation);
 
             // Call
-            var result = collector.Get(entity);
+            GrassCoverErosionInwardsCalculation result = collector.Get(entity);
 
             // Assert
             Assert.AreSame(calculation, result);
@@ -1424,7 +1426,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(entity, new HydraulicBoundaryLocation(1, "A", 1, 2));
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsTrue(result);
@@ -1438,7 +1440,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = new GrassCoverErosionOutwardsHydraulicLocationEntity();
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsFalse(result);
@@ -1453,7 +1455,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(new GrassCoverErosionOutwardsHydraulicLocationEntity(), new HydraulicBoundaryLocation(1, "A", 2, 3));
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsFalse(result);
@@ -1483,7 +1485,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(entity, profile);
 
             // Call
-            var result = collector.Get(entity);
+            HydraulicBoundaryLocation result = collector.Get(entity);
 
             // Assert
             Assert.AreSame(profile, result);
@@ -1573,7 +1575,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(entity, new TestHeightStructure());
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsTrue(result);
@@ -1587,7 +1589,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = new HeightStructureEntity();
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsFalse(result);
@@ -1602,7 +1604,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(new HeightStructureEntity(), new TestHeightStructure());
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsFalse(result);
@@ -1632,7 +1634,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(entity, structure);
 
             // Call
-            var result = collector.Get(entity);
+            HeightStructure result = collector.Get(entity);
 
             // Assert
             Assert.AreSame(structure, result);
@@ -1722,7 +1724,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(entity, new TestClosingStructure());
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsTrue(result);
@@ -1736,7 +1738,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = new ClosingStructureEntity();
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsFalse(result);
@@ -1751,7 +1753,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(new ClosingStructureEntity(), new TestClosingStructure());
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsFalse(result);
@@ -1781,7 +1783,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(entity, structure);
 
             // Call
-            var result = collector.Get(entity);
+            ClosingStructure result = collector.Get(entity);
 
             // Assert
             Assert.AreSame(structure, result);
@@ -1871,7 +1873,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(entity, new TestStabilityPointStructure());
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsTrue(result);
@@ -1885,7 +1887,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = new StabilityPointStructureEntity();
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsFalse(result);
@@ -1900,7 +1902,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(new StabilityPointStructureEntity(), new TestStabilityPointStructure());
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsFalse(result);
@@ -1930,7 +1932,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(entity, structure);
 
             // Call
-            var result = collector.Get(entity);
+            StabilityPointStructure result = collector.Get(entity);
 
             // Assert
             Assert.AreSame(structure, result);
@@ -2020,7 +2022,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(entity, new StructuresCalculation<HeightStructuresInput>());
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsTrue(result);
@@ -2034,7 +2036,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = new HeightStructuresCalculationEntity();
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsFalse(result);
@@ -2049,7 +2051,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(new HeightStructuresCalculationEntity(), new StructuresCalculation<HeightStructuresInput>());
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsFalse(result);
@@ -2079,7 +2081,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(entity, calculation);
 
             // Call
-            var result = collector.Get(entity);
+            StructuresCalculation<HeightStructuresInput> result = collector.Get(entity);
 
             // Assert
             Assert.AreSame(calculation, result);
@@ -2169,7 +2171,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(entity, new StructuresCalculation<ClosingStructuresInput>());
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsTrue(result);
@@ -2183,7 +2185,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = new ClosingStructuresCalculationEntity();
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsFalse(result);
@@ -2198,7 +2200,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(new ClosingStructuresCalculationEntity(), new StructuresCalculation<ClosingStructuresInput>());
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsFalse(result);
@@ -2228,7 +2230,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(entity, calculation);
 
             // Call
-            var result = collector.Get(entity);
+            StructuresCalculation<ClosingStructuresInput> result = collector.Get(entity);
 
             // Assert
             Assert.AreSame(calculation, result);
@@ -2318,7 +2320,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(entity, new StructuresCalculation<StabilityPointStructuresInput>());
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsTrue(result);
@@ -2332,7 +2334,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = new StabilityPointStructuresCalculationEntity();
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsFalse(result);
@@ -2347,7 +2349,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(new StabilityPointStructuresCalculationEntity(), new StructuresCalculation<StabilityPointStructuresInput>());
 
             // Call
-            var result = collector.Contains(entity);
+            bool result = collector.Contains(entity);
 
             // Assert
             Assert.IsFalse(result);
@@ -2377,7 +2379,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(entity, calculation);
 
             // Call
-            var result = collector.Get(entity);
+            StructuresCalculation<StabilityPointStructuresInput> result = collector.Get(entity);
 
             // Assert
             Assert.AreSame(calculation, result);

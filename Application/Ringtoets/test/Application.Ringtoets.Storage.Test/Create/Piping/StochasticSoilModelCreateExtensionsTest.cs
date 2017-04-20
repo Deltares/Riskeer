@@ -54,14 +54,14 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         public void Create_WithCollector_ReturnsStochasticSoilModelEntityWithPropertiesSet()
         {
             // Setup
-            var order = new Random(1).Next();
-            string testName = "testName";
-            string testSegmentName = "testSegmentName";
+            int order = new Random(1).Next();
+            var testName = "testName";
+            var testSegmentName = "testSegmentName";
             var stochasticSoilModel = new StochasticSoilModel(-1, testName, testSegmentName);
             var registry = new PersistenceRegistry();
 
             // Call
-            var entity = stochasticSoilModel.Create(registry, order);
+            StochasticSoilModelEntity entity = stochasticSoilModel.Create(registry, order);
 
             // Assert
             Assert.IsNotNull(entity);
@@ -75,8 +75,8 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         public void Create_StringPropertiesDoNotShareReference()
         {
             // Setup
-            string testName = "testName";
-            string testSegmentName = "testSegmentName";
+            var testName = "testName";
+            var testSegmentName = "testSegmentName";
             var stochasticSoilModel = new StochasticSoilModel(-1, testName, testSegmentName);
             var registry = new PersistenceRegistry();
 
@@ -109,7 +109,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             var registry = new PersistenceRegistry();
 
             // Call
-            var entity = stochasticSoilModel.Create(registry, 0);
+            StochasticSoilModelEntity entity = stochasticSoilModel.Create(registry, 0);
 
             // Assert
             Assert.IsNotNull(entity);
@@ -129,7 +129,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             var registry = new PersistenceRegistry();
 
             // Call
-            var entity = stochasticSoilModel.Create(registry, 0);
+            StochasticSoilModelEntity entity = stochasticSoilModel.Create(registry, 0);
 
             // Assert
             Assert.IsNotNull(entity);

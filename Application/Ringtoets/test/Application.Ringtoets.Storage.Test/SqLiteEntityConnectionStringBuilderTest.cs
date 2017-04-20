@@ -47,7 +47,7 @@ namespace Application.Ringtoets.Storage.Test
         public void BuildSqLiteEntityConnectionString_ValidPathToSqLiteFile_ValidConnectionString()
         {
             // Call
-            var connectionString = SqLiteEntityConnectionStringBuilder.BuildSqLiteEntityConnectionString(
+            string connectionString = SqLiteEntityConnectionStringBuilder.BuildSqLiteEntityConnectionString(
                 pathToSqLiteFile);
 
             // Assert
@@ -70,7 +70,7 @@ namespace Application.Ringtoets.Storage.Test
             const string uncPathToSqlFile = @"\\server\share\file.sqlite";
 
             // Call
-            var connectionString = SqLiteEntityConnectionStringBuilder.BuildSqLiteEntityConnectionString(
+            string connectionString = SqLiteEntityConnectionStringBuilder.BuildSqLiteEntityConnectionString(
                 uncPathToSqlFile);
 
             // Assert

@@ -30,6 +30,7 @@ using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.DuneErosion.Data;
@@ -287,8 +288,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.IsEmpty(failureMechanism.StochasticSoilModels);
             Assert.IsEmpty(failureMechanism.Sections);
 
-            var pipingFailureMechanismMetaEntities = entity.PipingFailureMechanismMetaEntities.ToArray();
-            var pipingFailureMechanismMetaEntity = pipingFailureMechanismMetaEntities[0];
+            PipingFailureMechanismMetaEntity[] pipingFailureMechanismMetaEntities = entity.PipingFailureMechanismMetaEntities.ToArray();
+            PipingFailureMechanismMetaEntity pipingFailureMechanismMetaEntity = pipingFailureMechanismMetaEntities[0];
             Assert.AreEqual(pipingFailureMechanismMetaEntity.A, failureMechanism.PipingProbabilityAssessmentInput.A);
             Assert.AreEqual(pipingFailureMechanismMetaEntity.WaterVolumetricWeight, failureMechanism.GeneralInput.WaterVolumetricWeight.Value);
 
@@ -546,8 +547,8 @@ namespace Application.Ringtoets.Storage.Test.Read
                 },
                 CalculationGroupEntity = new CalculationGroupEntity()
             };
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            ReadConversionCollector collector = new ReadConversionCollector();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var collector = new ReadConversionCollector();
 
             // Call
             entity.ReadAsGrassCoverErosionInwardsFailureMechanism(failureMechanism, collector);
@@ -802,7 +803,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             entity.ReadAsGrassCoverErosionOutwardsFailureMechanism(failureMechanism, collector);
 
             // Assert
-            var hydraulicBoundaryLocations = failureMechanism.HydraulicBoundaryLocations;
+            ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations = failureMechanism.HydraulicBoundaryLocations;
             Assert.AreEqual(2, hydraulicBoundaryLocations.Count);
 
             Assert.AreEqual(locationAName, hydraulicBoundaryLocations[0].Name);

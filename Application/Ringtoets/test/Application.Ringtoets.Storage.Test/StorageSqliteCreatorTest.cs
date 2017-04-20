@@ -48,7 +48,7 @@ namespace Application.Ringtoets.Storage.Test
         {
             // Setup
             const string fileName = "DoesNotExist.sqlite";
-            var fullPath = TestHelper.GetScratchPadPath(fileName);
+            string fullPath = TestHelper.GetScratchPadPath(fileName);
 
             // Precondition
             Assert.IsFalse(File.Exists(fullPath));
@@ -77,8 +77,8 @@ namespace Application.Ringtoets.Storage.Test
         {
             // Setup
             const string fileName = "DoesNotExist.sqlite";
-            var fullPath = TestHelper.GetScratchPadPath(fileName);
-            var uncPath = TestHelper.ToUncPath(fullPath);
+            string fullPath = TestHelper.GetScratchPadPath(fileName);
+            string uncPath = TestHelper.ToUncPath(fullPath);
 
             // Precondition
             Assert.IsFalse(File.Exists(fullPath));
@@ -115,7 +115,7 @@ namespace Application.Ringtoets.Storage.Test
 
                 // Assert
                 var exception = Assert.Throws<ArgumentException>(call);
-                var expectedMessage = $@"File '{tempRingtoetsFile}' already exists.";
+                string expectedMessage = $@"File '{tempRingtoetsFile}' already exists.";
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }

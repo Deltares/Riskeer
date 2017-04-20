@@ -21,6 +21,7 @@
 
 using System;
 using Application.Ringtoets.Storage.Create.MacrostabilityOutwards;
+using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
@@ -38,7 +39,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacrostabilityOutwards
         {
             // Setup
             var random = new Random();
-            AssessmentLayerOneState assessmentLayerOneResult = random.NextEnumValue<AssessmentLayerOneState>();
+            var assessmentLayerOneResult = random.NextEnumValue<AssessmentLayerOneState>();
             const double assessmentLayerTwoAResult = 0.2;
             const double assessmentLayerThreeResult = 3.2;
 
@@ -50,7 +51,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacrostabilityOutwards
             };
 
             // Call
-            var result = sectionResult.Create();
+            MacrostabilityOutwardsSectionResultEntity result = sectionResult.Create();
 
             // Assert
             Assert.AreEqual(Convert.ToByte(assessmentLayerOneResult), result.LayerOne);
@@ -68,7 +69,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacrostabilityOutwards
             };
 
             // Call
-            var result = sectionResult.Create();
+            MacrostabilityOutwardsSectionResultEntity result = sectionResult.Create();
 
             // Assert
             Assert.IsNull(result.LayerTwoA);
@@ -84,7 +85,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacrostabilityOutwards
             };
 
             // Call
-            var result = sectionResult.Create();
+            MacrostabilityOutwardsSectionResultEntity result = sectionResult.Create();
 
             // Assert
             Assert.IsNull(result.LayerThree);

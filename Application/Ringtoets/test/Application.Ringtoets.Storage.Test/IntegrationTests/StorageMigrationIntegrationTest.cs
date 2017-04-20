@@ -71,7 +71,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 Assert.AreEqual("description", gui.Project.Description);
                 Assert.IsInstanceOf<RingtoetsProject>(gui.Project);
             }
-            
+
             mocks.VerifyAll();
         }
 

@@ -41,7 +41,7 @@ namespace Application.Ringtoets.Storage.Test
         public void RingtoetsDatabaseCreator_Explicit_CreatesRingtoetsProjectDatabaseFile()
         {
             // Setup
-            var storageFile = Path.Combine(pathToStorageProject, "Ringtoets.rtd");
+            string storageFile = Path.Combine(pathToStorageProject, "Ringtoets.rtd");
             if (File.Exists(storageFile))
             {
                 TestDelegate precondition = () => File.Delete(storageFile);

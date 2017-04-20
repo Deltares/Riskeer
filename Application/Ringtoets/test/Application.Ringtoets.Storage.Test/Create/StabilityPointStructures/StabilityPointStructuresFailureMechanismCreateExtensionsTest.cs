@@ -80,7 +80,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
             var registry = new PersistenceRegistry();
 
             // Call
-            var entity = failureMechanism.Create(registry);
+            FailureMechanismEntity entity = failureMechanism.Create(registry);
 
             // Assert
             Assert.IsNotNull(entity);
@@ -90,7 +90,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
             Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
             Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
 
-            var metaEntity = entity.StabilityPointStructuresFailureMechanismMetaEntities.First();
+            StabilityPointStructuresFailureMechanismMetaEntity metaEntity = entity.StabilityPointStructuresFailureMechanismMetaEntities.First();
             Assert.AreEqual(failureMechanism.GeneralInput.N, metaEntity.N);
         }
 
@@ -140,7 +140,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call
-            var entity = failureMechanism.Create(new PersistenceRegistry());
+            FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
 
             // Assert
             Assert.IsEmpty(entity.FailureMechanismSectionEntities);
@@ -154,7 +154,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
             failureMechanism.AddSection(new TestFailureMechanismSection());
 
             // Call
-            var entity = failureMechanism.Create(new PersistenceRegistry());
+            FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
 
             // Assert
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.Count);

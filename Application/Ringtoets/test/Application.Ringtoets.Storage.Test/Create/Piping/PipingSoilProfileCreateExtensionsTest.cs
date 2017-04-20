@@ -50,7 +50,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         public void Create_WithCollectorAndLayers_ReturnsSoilProfileEntityWithPropertiesAndSoilLayerEntitiesSet()
         {
             // Setup
-            string testName = "testName";
+            var testName = "testName";
             double bottom = new Random(21).NextDouble();
             var layers = new[]
             {
@@ -61,7 +61,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             var registry = new PersistenceRegistry();
 
             // Call
-            var entity = soilProfile.Create(registry);
+            SoilProfileEntity entity = soilProfile.Create(registry);
 
             // Assert
             Assert.IsNotNull(entity);
@@ -74,7 +74,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         public void Create_StringPropertiesDoNotShareReference()
         {
             // Setup
-            string testName = "testName";
+            var testName = "testName";
             var layers = new[]
             {
                 new PipingSoilLayer(1),
@@ -99,10 +99,10 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             var soilProfile = new TestPipingSoilProfile();
             var registry = new PersistenceRegistry();
 
-            var firstEntity = soilProfile.Create(registry);
+            SoilProfileEntity firstEntity = soilProfile.Create(registry);
 
             // Call
-            var secondEntity = soilProfile.Create(registry);
+            SoilProfileEntity secondEntity = soilProfile.Create(registry);
 
             // Assert
             Assert.AreSame(firstEntity, secondEntity);

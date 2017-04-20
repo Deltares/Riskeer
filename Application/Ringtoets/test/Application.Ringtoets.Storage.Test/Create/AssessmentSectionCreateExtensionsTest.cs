@@ -93,7 +93,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var registry = new PersistenceRegistry();
 
             // Call
-            var entity = assessmentSection.Create(registry, order);
+            AssessmentSectionEntity entity = assessmentSection.Create(registry, order);
 
             // Assert
             Assert.IsNotNull(entity);
@@ -178,8 +178,8 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_WithHydraulicBoundaryDatabase_SetsPropertiesAndLocationsToEntity()
         {
             // Setup
-            string testFilePath = "path";
-            string testVersion = "1";
+            var testFilePath = "path";
+            var testVersion = "1";
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
@@ -196,7 +196,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var registry = new PersistenceRegistry();
 
             // Call
-            var entity = assessmentSection.Create(registry, 0);
+            AssessmentSectionEntity entity = assessmentSection.Create(registry, 0);
 
             // Assert
             Assert.AreEqual(testFilePath, entity.HydraulicDatabaseLocation);
@@ -224,7 +224,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var registry = new PersistenceRegistry();
 
             // Call
-            var entity = assessmentSection.Create(registry, 0);
+            AssessmentSectionEntity entity = assessmentSection.Create(registry, 0);
 
             // Assert
             string expectedXml = new Point2DXmlSerializer().ToXml(points);

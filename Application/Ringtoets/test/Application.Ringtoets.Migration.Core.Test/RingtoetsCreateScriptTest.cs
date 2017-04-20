@@ -133,7 +133,7 @@ namespace Application.Ringtoets.Migration.Core.Test
                 TestDelegate call = () => createScript.CreateEmptyVersionedFile(filePath);
 
                 // Assert
-                ArgumentException exception = Assert.Throws<ArgumentException>(call);
+                var exception = Assert.Throws<ArgumentException>(call);
                 Assert.AreEqual("path", exception.ParamName);
                 File.SetAttributes(filePath, attributes);
             }
@@ -155,7 +155,7 @@ namespace Application.Ringtoets.Migration.Core.Test
             // Assert
             using (new FileDisposeHelper(filePath))
             {
-                CriticalMigrationException exception = Assert.Throws<CriticalMigrationException>(call);
+                var exception = Assert.Throws<CriticalMigrationException>(call);
                 Assert.AreEqual($"Het aanmaken van het Ringtoets projectbestand met versie '{version}' is mislukt.",
                                 exception.Message);
                 Assert.IsInstanceOf<SQLiteException>(exception.InnerException);

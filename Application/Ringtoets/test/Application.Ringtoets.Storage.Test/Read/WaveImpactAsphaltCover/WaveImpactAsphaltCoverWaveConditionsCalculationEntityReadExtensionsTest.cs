@@ -256,8 +256,8 @@ namespace Application.Ringtoets.Storage.Test.Read.WaveImpactAsphaltCover
         public void Read_EntityWithCalculationOutputEntity_CalculationWithOutput()
         {
             // Setup
-            double outputALevel = 5.4;
-            double outputBLevel = 2.3;
+            var outputALevel = 5.4;
+            var outputBLevel = 2.3;
             var entity = new WaveImpactAsphaltCoverWaveConditionsCalculationEntity
             {
                 WaveImpactAsphaltCoverWaveConditionsOutputEntities =
@@ -285,7 +285,7 @@ namespace Application.Ringtoets.Storage.Test.Read.WaveImpactAsphaltCover
             // Assert
             Assert.IsNotNull(calculation.Output);
             Assert.AreEqual(2, calculation.Output.Items.Count());
-            var accuracy = calculation.Output.Items.ElementAt(0).WaterLevel.GetAccuracy();
+            double accuracy = calculation.Output.Items.ElementAt(0).WaterLevel.GetAccuracy();
             Assert.AreEqual(outputALevel, calculation.Output.Items.ElementAt(0).WaterLevel, accuracy);
             Assert.AreEqual(outputBLevel, calculation.Output.Items.ElementAt(1).WaterLevel, accuracy);
         }

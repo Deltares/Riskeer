@@ -78,7 +78,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var section = entity.Read(collector);
+            AssessmentSection section = entity.Read(collector);
 
             // Assert
             Assert.IsNotNull(section);
@@ -94,7 +94,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         [Test]
         [Combinatorial]
         public void Read_WithBackgroundData_ReturnsNewAssessmentSectionWithBackgroundData(
-            [Values(true, false)]bool isConfigured)
+            [Values(true, false)] bool isConfigured)
         {
             // Setup
             const string mapDataName = "Background";
@@ -104,7 +104,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             var random = new Random(21);
             var wellKnownTileSource = random.NextEnumValue<RingtoetsWellKnownTileSource>();
-            string wellKnownTileSourceValue = ((int)wellKnownTileSource).ToString();
+            string wellKnownTileSourceValue = ((int) wellKnownTileSource).ToString();
 
             var backgroundDataMetaEntities = new[]
             {
@@ -116,7 +116,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             };
 
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
-            BackgroundDataEntity backgroundDataEntity = new BackgroundDataEntity
+            var backgroundDataEntity = new BackgroundDataEntity
             {
                 Name = mapDataName,
                 Transparency = transparency,
@@ -147,7 +147,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_WithReferenceLineEntities_ReturnsNewAssessmentSectionWithReferenceLineSet()
         {
             // Setup
-            var entity = CreateAssessmentSectionEntity();
+            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
 
             var random = new Random(21);
             double firstX = random.NextDouble();
@@ -166,7 +166,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var section = entity.Read(collector);
+            AssessmentSection section = entity.Read(collector);
 
             // Assert
             CollectionAssert.AreEqual(points, section.ReferenceLine.Points);
@@ -177,7 +177,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_WithHydraulicDatabaseLocation_ReturnsNewAssessmentSectionWithHydraulicDatabaseSet()
         {
             // Setup
-            var entity = CreateAssessmentSectionEntity();
+            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
 
             var testLocation = "testLocation";
             var testVersion = "testVersion";
@@ -198,7 +198,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var section = entity.Read(collector);
+            AssessmentSection section = entity.Read(collector);
 
             // Assert
             Assert.AreEqual(2, section.HydraulicBoundaryDatabase.Locations.Count);
@@ -217,9 +217,9 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_WithPipingFailureMechanismProperties_ReturnsNewAssessmentSectionWithPropertiesInPipingFailureMechanism(bool isRelevant)
         {
             // Setup
-            var entity = CreateAssessmentSectionEntity();
+            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
             var random = new Random(21);
-            var parameterA = random.NextDouble() / 10;
+            double parameterA = random.NextDouble() / 10;
             const string inputComments = "Some input text";
             const string outputComments = "Some output text";
             const string notRelevantComments = "Really not relevant";
@@ -246,7 +246,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var section = entity.Read(collector);
+            AssessmentSection section = entity.Read(collector);
 
             // Assert
             Assert.AreEqual(isRelevant, section.PipingFailureMechanism.IsRelevant);
@@ -260,7 +260,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_WithPipingWithStochasticSoilModels_ReturnsPipingWithStochasticSoilModels()
         {
             // Setup
-            var entity = CreateAssessmentSectionEntity();
+            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
 
             string emptySegmentPointsXml = new Point2DXmlSerializer().ToXml(new Point2D[0]);
             const string stochasticSoilModelSourcePath = "path";
@@ -295,7 +295,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var section = entity.Read(collector);
+            AssessmentSection section = entity.Read(collector);
 
             // Assert
             Assert.AreEqual(2, section.PipingFailureMechanism.StochasticSoilModels.Count);
@@ -306,7 +306,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_WithPipingWithSurfaceLines_ReturnsPipingWithSurfaceLines()
         {
             // Setup
-            var entity = CreateAssessmentSectionEntity();
+            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
 
             string emptyPointsXml = new Point3DXmlSerializer().ToXml(new Point3D[0]);
             const string surfaceLineSourcePath = "some/path";
@@ -341,7 +341,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var section = entity.Read(collector);
+            AssessmentSection section = entity.Read(collector);
 
             // Assert
             Assert.AreEqual(2, section.PipingFailureMechanism.SurfaceLines.Count);
@@ -352,7 +352,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_WithPipingWithCalculationGroups_ReturnsPipingWithCalculationGroups()
         {
             // Setup
-            var entity = CreateAssessmentSectionEntity();
+            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -382,7 +382,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var section = entity.Read(collector);
+            AssessmentSection section = entity.Read(collector);
 
             // Assert
             IList<ICalculationBase> childCalculationGroups = section.PipingFailureMechanism.CalculationsGroup.Children;
@@ -393,7 +393,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_WithPipingWithFailureMechanismSections_ReturnsPipingWithFailureMechanismSections()
         {
             // Setup
-            var entity = CreateAssessmentSectionEntity();
+            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -405,8 +405,8 @@ namespace Application.Ringtoets.Storage.Test.Read
                     new PipingFailureMechanismMetaEntity()
                 }
             };
-            var sectionA = failureMechanismEntity.FailureMechanismSectionEntities.ElementAt(0);
-            var sectionB = failureMechanismEntity.FailureMechanismSectionEntities.ElementAt(1);
+            FailureMechanismSectionEntity sectionA = failureMechanismEntity.FailureMechanismSectionEntities.ElementAt(0);
+            FailureMechanismSectionEntity sectionB = failureMechanismEntity.FailureMechanismSectionEntities.ElementAt(1);
             sectionA.PipingSectionResultEntities.Add(new PipingSectionResultEntity
             {
                 FailureMechanismSectionEntity = sectionA
@@ -422,7 +422,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var section = entity.Read(collector);
+            AssessmentSection section = entity.Read(collector);
 
             // Assert
             Assert.AreEqual(2, section.PipingFailureMechanism.Sections.Count());
@@ -434,12 +434,12 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_WithGrassCoverErosionInwardsWithProperties_ReturnsGrassCoverErosionInwardsWithProperties(bool isRelevant)
         {
             // Setup
-            var entity = CreateAssessmentSectionEntity();
+            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
             const string originalInput = "Some input text";
             const string originalOutput = "Some output text";
             const string originalNotRelevantText = "Really not relevant";
 
-            var n = new Random(21).Next(1, 20);
+            int n = new Random(21).Next(1, 20);
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismType = (int) FailureMechanismType.GrassRevetmentTopErosionAndInwards,
@@ -462,7 +462,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var section = entity.Read(collector);
+            AssessmentSection section = entity.Read(collector);
 
             // Assert
             Assert.AreEqual(isRelevant, section.GrassCoverErosionInwards.IsRelevant);
@@ -476,7 +476,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_WithGrassCoverErosionInwardsWithCalculationGroups_ReturnsGrassCoverErosionInwardsWithCalculationGroups()
         {
             // Setup
-            var entity = CreateAssessmentSectionEntity();
+            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -509,7 +509,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var section = entity.Read(collector);
+            AssessmentSection section = entity.Read(collector);
 
             // Assert
             IList<ICalculationBase> childCalculationGroups = section.GrassCoverErosionInwards.CalculationsGroup.Children;
@@ -520,7 +520,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_WithGrassCoverErosionInwardsWithFailureMechanismSection_ReturnsGrassCoverErosionInwardsWithFailureMechanismSections()
         {
             // Setup
-            var entity = CreateAssessmentSectionEntity();
+            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
 
             var rootGroupEntity = new CalculationGroupEntity();
             var failureMechanismEntity = new FailureMechanismEntity
@@ -542,7 +542,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var section = entity.Read(collector);
+            AssessmentSection section = entity.Read(collector);
 
             // Assert
             Assert.AreEqual(2, section.GrassCoverErosionInwards.Sections.Count());
@@ -554,7 +554,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_WithGrassCoverErosionOutwardsWithProperties_ReturnsGrassCoverErosionOutwardsWithProperties(bool isRelevant)
         {
             // Setup
-            var entity = CreateAssessmentSectionEntity();
+            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
             const string inputComments = "Some input text";
             const string outputComments = "Some output text";
             const string notRelevantComments = "Really not relevant";
@@ -582,7 +582,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var section = entity.Read(collector);
+            AssessmentSection section = entity.Read(collector);
 
             // Assert
             Assert.AreEqual(isRelevant, section.GrassCoverErosionOutwards.IsRelevant);
@@ -596,7 +596,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_WithGrassCoverErosionOutwardsWithWaveConditionsCalculationGroups_ReturnsGrassCoverErosionOutwardsWithWaveConditionsCalculationGroups()
         {
             // Setup
-            var entity = CreateAssessmentSectionEntity();
+            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -629,7 +629,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var section = entity.Read(collector);
+            AssessmentSection section = entity.Read(collector);
 
             // Assert
             IList<ICalculationBase> childCalculationGroups = section.GrassCoverErosionOutwards.WaveConditionsCalculationGroup.Children;
@@ -640,7 +640,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_WithGrassCoverErosionOutwardsWithForeshoreProfile_ReturnsGrassCoverErosionOutwardsWithForeshoreProfiles()
         {
             // Setup
-            var entity = CreateAssessmentSectionEntity();
+            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
 
             var profileAId = "profileA";
             var profileBId = "profileB";
@@ -677,7 +677,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var section = entity.Read(collector);
+            AssessmentSection section = entity.Read(collector);
 
             // Assert
             ObservableList<ForeshoreProfile> foreshoreProfiles = section.GrassCoverErosionOutwards.ForeshoreProfiles;
@@ -694,7 +694,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_WithStabilityStoneCoverWithProperties_ReturnsStabilityStoneCoverWithProperties(bool isRelevant)
         {
             // Setup
-            var entity = CreateAssessmentSectionEntity();
+            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
             const string inputComments = "Some input text";
             const string outputComments = "Some output text";
             const string notRelevantComments = "Really not relevant";
@@ -714,7 +714,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var section = entity.Read(collector);
+            AssessmentSection section = entity.Read(collector);
 
             // Assert
             Assert.AreEqual(isRelevant, section.StabilityStoneCover.IsRelevant);
@@ -727,7 +727,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_WithStabilityStoneCoverWithWaveConditionsCalculationGroups_ReturnsStabilityStoneCoverWithWaveConditionsCalculationGroups()
         {
             // Setup
-            var entity = CreateAssessmentSectionEntity();
+            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -753,7 +753,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var section = entity.Read(collector);
+            AssessmentSection section = entity.Read(collector);
 
             // Assert
             IList<ICalculationBase> childCalculationGroups = section.StabilityStoneCover.WaveConditionsCalculationGroup.Children;
@@ -766,7 +766,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_WithStabilityStoneCoverWithForeshoreProfiles_ReturnsStabilityStoneCoverWithForeshoreProfiles(bool isRelevant)
         {
             // Setup
-            var entity = CreateAssessmentSectionEntity();
+            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
 
             var profileAId = "profileA";
             var profileBId = "profileB";
@@ -797,7 +797,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var section = entity.Read(collector);
+            AssessmentSection section = entity.Read(collector);
 
             // Assert
             ObservableList<ForeshoreProfile> foreshoreProfiles = section.StabilityStoneCover.ForeshoreProfiles;
@@ -814,7 +814,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_WithWaveImpactAsphaltCoverWithProperties_ReturnsWaveImpactAsphaltCoverWithProperties(bool isRelevant)
         {
             // Setup
-            var entity = CreateAssessmentSectionEntity();
+            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
             const string inputComments = "Some input text";
             const string outputComments = "Some output text";
             const string notRelevantComments = "Really not relevant";
@@ -834,7 +834,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var section = entity.Read(collector);
+            AssessmentSection section = entity.Read(collector);
 
             // Assert
             Assert.AreEqual(isRelevant, section.WaveImpactAsphaltCover.IsRelevant);
@@ -847,7 +847,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_WithWaveImpactAsphaltCoverWithForeshoreProfiles_ReturnsWaveImpactAsphaltCoverWithForeshoreProfiles()
         {
             // Setup
-            var entity = CreateAssessmentSectionEntity();
+            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
 
             var profileAId = "profileA";
             var profileBId = "profileB";
@@ -877,7 +877,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var section = entity.Read(collector);
+            AssessmentSection section = entity.Read(collector);
 
             // Assert
             ObservableList<ForeshoreProfile> foreshoreProfiles = section.WaveImpactAsphaltCover.ForeshoreProfiles;
@@ -892,7 +892,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_WithWaveImpactAsphaltCoverWithWaveConditionsCalculationGroups_ReturnsWaveImpactAsphaltCoverWithWaveConditionsCalculationGroups()
         {
             // Setup
-            var entity = CreateAssessmentSectionEntity();
+            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -918,7 +918,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var section = entity.Read(collector);
+            AssessmentSection section = entity.Read(collector);
 
             // Assert
             IList<ICalculationBase> childCalculationGroups = section.WaveImpactAsphaltCover.WaveConditionsCalculationGroup.Children;
@@ -958,7 +958,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var section = entity.Read(collector);
+            AssessmentSection section = entity.Read(collector);
 
             // Assert
             Assert.AreEqual(isRelevant, section.HeightStructures.IsRelevant);
@@ -1000,7 +1000,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var section = entity.Read(collector);
+            AssessmentSection section = entity.Read(collector);
 
             // Assert
             Assert.AreEqual(isRelevant, section.ClosingStructures.IsRelevant);
@@ -1042,7 +1042,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var section = entity.Read(collector);
+            AssessmentSection section = entity.Read(collector);
 
             // Assert
             Assert.AreEqual(isRelevant, section.StabilityPointStructures.IsRelevant);
@@ -1096,7 +1096,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_WithDuneErosionWithFailureMechanismSection_ReturnsDuneErosionWithFailureMechanismSections()
         {
             // Setup
-            var entity = CreateAssessmentSectionEntity();
+            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -1128,7 +1128,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_WithStandAloneFailureMechanisms_ReturnsNewAssessmentSectionWithFailureMechanismsSet(bool isRelevant)
         {
             // Setup
-            var entity = CreateAssessmentSectionEntity();
+            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
 
             FailureMechanismEntity macrostabilityInwards = CreateFailureMechanismEntity(
                 isRelevant, FailureMechanismType.MacrostabilityInwards);
@@ -1160,7 +1160,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            var section = entity.Read(collector);
+            AssessmentSection section = entity.Read(collector);
 
             // Assert
             AssertFailureMechanismEqual(isRelevant, 2, macrostabilityInwards.InputComments,
@@ -1204,7 +1204,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 Transparency = 0.0,
                 IsVisible = 0,
                 BackgroundDataType = 1,
-                BackgroundDataMetaEntities = new []
+                BackgroundDataMetaEntities = new[]
                 {
                     new BackgroundDataMetaEntity
                     {
@@ -1212,7 +1212,6 @@ namespace Application.Ringtoets.Storage.Test.Read
                         Value = "0"
                     }
                 }
-                
             };
         }
 

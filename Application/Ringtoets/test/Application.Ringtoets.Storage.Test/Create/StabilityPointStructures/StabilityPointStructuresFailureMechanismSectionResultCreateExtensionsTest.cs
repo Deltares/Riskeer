@@ -63,7 +63,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
             };
 
             // Call
-            var result = sectionResult.Create(new PersistenceRegistry());
+            StabilityPointStructuresSectionResultEntity result = sectionResult.Create(new PersistenceRegistry());
 
             // Assert
             Assert.AreEqual(Convert.ToByte(assessmentLayerOneResult), result.LayerOne);
@@ -81,7 +81,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
             };
 
             // Call
-            var result = sectionResult.Create(new PersistenceRegistry());
+            StabilityPointStructuresSectionResultEntity result = sectionResult.Create(new PersistenceRegistry());
 
             // Assert
             Assert.IsNull(result.LayerThree);
