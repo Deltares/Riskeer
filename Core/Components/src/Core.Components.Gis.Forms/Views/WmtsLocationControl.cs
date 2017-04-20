@@ -45,11 +45,12 @@ namespace Core.Components.Gis.Forms.Views
         private const string wmtsConnectionInfoFileName = "wmtsConnectionInfo.config";
         private static readonly ILog log = LogManager.GetLogger(typeof(WmtsLocationControl));
         private readonly IWmtsCapabilityFactory wmtsCapabilityFactory;
-        private readonly HashSet<WmtsConnectionInfo> wmtsConnectionInfos;
+        private readonly HashSet<WmtsConnectionInfo> wmtsConnectionInfos = new HashSet<WmtsConnectionInfo>();
 
-        private readonly List<WmtsCapability> capabilities;
+        private readonly List<WmtsCapability> capabilities = new List<WmtsCapability>();
         private string wmtsConnectionInfoFilePath;
 
+        private object lastSelectedCapability;
         private bool urlLocationComboBoxUpdating;
 
         /// <summary>
@@ -68,9 +69,6 @@ namespace Core.Components.Gis.Forms.Views
 
             this.wmtsCapabilityFactory = wmtsCapabilityFactory;
 
-            wmtsConnectionInfos = new HashSet<WmtsConnectionInfo>();
-            capabilities = new List<WmtsCapability>();
-
             InitializeComponent();
             InitializeWmtsConnectionInfos();
             InitializeDataGridView();
@@ -78,7 +76,7 @@ namespace Core.Components.Gis.Forms.Views
             InitializeEventHandlers();
 
             WmtsConnectionInfo selectedWmtsConnectionInfo = PreSelectComboBox(activeWmtsMapData);
-            UpdateComboBoxDataSource(selectedWmtsConnectionInfo ?? wmtsConnectionInfos.FirstOrDefault());
+            UpdateComboBoxDataSource(selectedWmtsConnectionInfo);
 
             if (selectedWmtsConnectionInfo != null)
             {
@@ -121,12 +119,12 @@ namespace Core.Components.Gis.Forms.Views
         {
             WmtsConnectionInfo suggestedInfo = TryCreateWmtsConnectionInfo(activeWmtsMapData?.Name,
                                                                            activeWmtsMapData?.SourceCapabilitiesUrl);
-            if (activeWmtsMapData == null || suggestedInfo == null)
+            if (suggestedInfo == null)
             {
                 return null;
             }
 
-            if (!wmtsConnectionInfos.Any(wi => wi.Equals(suggestedInfo)))
+            if (!wmtsConnectionInfos.Contains(suggestedInfo))
             {
                 wmtsConnectionInfos.Add(suggestedInfo);
             }
@@ -251,7 +249,7 @@ namespace Core.Components.Gis.Forms.Views
             return dataGridViewControl.CurrentRow?.DataBoundItem as WmtsCapability;
         }
 
-        private void ClearDataGridViewDataSource()
+        private void RefreshWmtsCapabilities()
         {
             capabilities.Clear();
             UpdateDataGridViewDataSource();
@@ -268,17 +266,19 @@ namespace Core.Components.Gis.Forms.Views
 
         private void UpdateComboBoxDataSource(object selectedItem)
         {
+            List<WmtsConnectionInfo> dataSource = wmtsConnectionInfos.OrderBy(i => i.Name).ToList();
+
             urlLocationComboBox.BeginUpdate();
 
             urlLocationComboBoxUpdating = true;
-            urlLocationComboBox.DataSource = wmtsConnectionInfos.OrderBy(i => i.Name).ToList();
+            urlLocationComboBox.DataSource = dataSource;
             urlLocationComboBox.DisplayMember = nameof(WmtsConnectionInfo.Name);
             urlLocationComboBox.SelectedItem = null;
             urlLocationComboBoxUpdating = false;
 
             urlLocationComboBox.EndUpdate();
 
-            urlLocationComboBox.SelectedItem = selectedItem;
+            urlLocationComboBox.SelectedItem = selectedItem ?? dataSource.FirstOrDefault();
 
             UpdateButtons();
         }
@@ -299,14 +299,14 @@ namespace Core.Components.Gis.Forms.Views
 
         private void OnUrlLocationSelectedValueChanged(object sender, EventArgs e)
         {
-            if (urlLocationComboBoxUpdating || urlLocationComboBox.SelectedIndex == -1)
+            if (urlLocationComboBoxUpdating
+                || urlLocationComboBox.SelectedIndex == -1
+                || ReferenceEquals(lastSelectedCapability, urlLocationComboBox.SelectedValue))
             {
                 return;
             }
-            ClearDataGridViewDataSource();
-
-            var selectedWmtsConnectionInfo = urlLocationComboBox.SelectedItem as WmtsConnectionInfo;
-            ConnectToUrl(selectedWmtsConnectionInfo);
+            RefreshWmtsCapabilities();
+            lastSelectedCapability = urlLocationComboBox.SelectedValue;
         }
 
         private void OnConnectToButtonClick(object sender, EventArgs e)
@@ -369,9 +369,9 @@ namespace Core.Components.Gis.Forms.Views
 
         private void UpdateWmtsConnectionInfos(WmtsConnectionDialog dialog, WmtsConnectionInfo selectedWmtsConnectionInfo = null)
         {
-            WmtsConnectionInfo createdWmtsConnectionInfos = TryCreateWmtsConnectionInfo(dialog.WmtsConnectionName,
+            WmtsConnectionInfo createdWmtsConnectionInfo = TryCreateWmtsConnectionInfo(dialog.WmtsConnectionName,
                                                                                         dialog.WmtsConnectionUrl);
-            if (createdWmtsConnectionInfos == null)
+            if (createdWmtsConnectionInfo == null)
             {
                 return;
             }
@@ -380,9 +380,9 @@ namespace Core.Components.Gis.Forms.Views
             {
                 wmtsConnectionInfos.Remove(selectedWmtsConnectionInfo);
             }
-            wmtsConnectionInfos.Add(createdWmtsConnectionInfos);
+            wmtsConnectionInfos.Add(createdWmtsConnectionInfo);
             SaveWmtsConnectionInfos();
-            UpdateComboBoxDataSource(createdWmtsConnectionInfos);
+            UpdateComboBoxDataSource(createdWmtsConnectionInfo);
         }
 
         public override event EventHandler<EventArgs> SelectedMapDataChanged;

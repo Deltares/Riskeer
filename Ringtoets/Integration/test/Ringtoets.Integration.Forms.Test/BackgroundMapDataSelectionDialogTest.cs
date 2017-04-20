@@ -113,9 +113,9 @@ namespace Ringtoets.Integration.Forms.Test
         {
             // Setup
             var dialogParent = mockRepository.Stub<IWin32Window>();
-            WmtsMapData mapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
-            tileFactory.Expect(tf => tf.GetWmtsTileSources(mapData.SourceCapabilitiesUrl)).Return(Enumerable.Empty<ITileSource>());
             mockRepository.ReplayAll();
+
+            WmtsMapData mapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
             {
@@ -338,8 +338,13 @@ namespace Ringtoets.Integration.Forms.Test
                 WmtsLocationControl wmtsLocationControl = GetComboBoxItem<WmtsLocationControl>(comboBox);
 
                 comboBox.SelectedItem = wmtsLocationControl;
+
+                var connectButton = dialog.Controls.Find("connectToButton", true).OfType<Button>().First();
+                connectButton.PerformClick();
+
                 var wmtsDataGridViewControl = dialog.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
                 wmtsLocationControl.SelectedMapDataChanged += (sender, args) => { wmtsLocationControlSelectedMapDataChanged++; };
+                
 
                 comboBox.SelectedItem = wellKnownMapDataControl;
                 var wellKnownDataGridViewControl = dialog.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
@@ -362,14 +367,6 @@ namespace Ringtoets.Integration.Forms.Test
         {
             // Given
             WmtsMapData activeWmtsMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
-
-            var capabilities = new[]
-            {
-                new TestWmtsTileSource(WmtsMapDataTestHelper.CreateAlternativePdokMapData()),
-                new TestWmtsTileSource(activeWmtsMapData)
-            };
-
-            tileFactory.Expect(tf => tf.GetWmtsTileSources(activeWmtsMapData.SourceCapabilitiesUrl)).Return(capabilities);
             mockRepository.ReplayAll();
 
             var wellKnownSelectedMapDataChanged = 0;

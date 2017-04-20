@@ -269,7 +269,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenNoMapDataSet_WhenSelectingValidWMTSMapDataFromContextMenu_ThenBackgroundDataSetAndNotifiesObserver()
+        public void GivenNoMapDataSet_WhenSelectingValidWmtsMapDataFromContextMenu_ThenBackgroundDataSetAndNotifiesObserver()
         {
             // Given
             var mockRepository = new MockRepository();
@@ -312,7 +312,13 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                 DialogBoxHandler = (name, wnd) =>
                 {
-                    var dialog = (BackgroundMapDataSelectionDialog) new FormTester(name).TheObject;
+                    var dialog = (BackgroundMapDataSelectionDialog)new FormTester(name).TheObject;
+                    var connectButton = new ButtonTester("connectToButton", dialog);
+                    connectButton.Click();
+
+                    var layersControl = (DataGridViewControl)new ControlTester("dataGridViewControl", dialog).TheObject;
+                    layersControl.SetCurrentCell(layersControl.GetCell(0, 0));
+
                     var button = new ButtonTester("selectButton", dialog);
                     button.Click();
                     dialog.Close();
@@ -430,6 +436,12 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 DialogBoxHandler = (name, wnd) =>
                 {
                     var dialog = (BackgroundMapDataSelectionDialog) new FormTester(name).TheObject;
+                    var connectButton = new ButtonTester("connectToButton", dialog);
+                    connectButton.Click();
+
+                    var layersControl = (DataGridViewControl )new ControlTester("dataGridViewControl", dialog).TheObject;
+                    layersControl.SetCurrentCell(layersControl.GetCell(0, 0));
+
                     var button = new ButtonTester("selectButton", dialog);
                     button.Click();
                     dialog.Close();
