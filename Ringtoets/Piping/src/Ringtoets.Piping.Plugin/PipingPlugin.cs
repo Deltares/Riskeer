@@ -103,7 +103,7 @@ namespace Ringtoets.Piping.Plugin
         {
             yield return new ImportInfo<RingtoetsPipingSurfaceLinesContext>
             {
-                Name = PipingDataResources.RingtoetsPipingSurfaceLineCollection_TypeDescriptor,
+                Name = PipingDataResources.PipingSurfaceLineCollection_TypeDescriptor,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = PipingFormsResources.PipingSurfaceLineIcon,
                 FileFilterGenerator = RingtoetsPipingSurfaceLineFileFilter,
@@ -149,7 +149,7 @@ namespace Ringtoets.Piping.Plugin
         {
             yield return new UpdateInfo<RingtoetsPipingSurfaceLinesContext>
             {
-                Name = PipingDataResources.RingtoetsPipingSurfaceLineCollection_TypeDescriptor,
+                Name = PipingDataResources.PipingSurfaceLineCollection_TypeDescriptor,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = PipingFormsResources.PipingSurfaceLineIcon,
                 FileFilterGenerator = RingtoetsPipingSurfaceLineFileFilter,
@@ -268,7 +268,7 @@ namespace Ringtoets.Piping.Plugin
 
             yield return new TreeNodeInfo<RingtoetsPipingSurfaceLinesContext>
             {
-                Text = ringtoetsPipingSurfaceLine => PipingDataResources.RingtoetsPipingSurfaceLineCollection_TypeDescriptor,
+                Text = ringtoetsPipingSurfaceLine => PipingDataResources.PipingSurfaceLineCollection_TypeDescriptor,
                 Image = ringtoetsPipingSurfaceLine => RingtoetsCommonFormsResources.GeneralFolderIcon,
                 ForeColor = ringtoetsPipingSurfaceLine => ringtoetsPipingSurfaceLine.WrappedData.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = ringtoetsPipingSurfaceLine => ringtoetsPipingSurfaceLine.WrappedData.Cast<object>().ToArray(),
@@ -1110,7 +1110,7 @@ namespace Ringtoets.Piping.Plugin
             {
                 return new FileFilterGenerator(
                     RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
-                    $"{PipingDataResources.RingtoetsPipingSurfaceLineCollection_TypeDescriptor} {RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description}");
+                    $"{PipingDataResources.PipingSurfaceLineCollection_TypeDescriptor} {RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description}");
             }
         }
 

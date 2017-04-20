@@ -156,9 +156,6 @@
   <data name="GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaveHeight_DisplayName" xml:space="preserve">
     <value>Golfhoogte bij doorsnede-eis [m]</value>
   </data>
-  <data name="GrassCoverErosionOutwards_NormValueChanged_Waveheight_and_design_water_level_results_cleared" xml:space="preserve">
-    <value>De berekende waterstanden en golfhoogtes bij doorsnede-eis voor alle hydraulische randvoorwaarden locaties zijn verwijderd.</value>
-  </data>
   <data name="GrassCoverErosionOutwardsWaveConditionsOutputProperties_HydraulicBoundaryLocationResult_Description" xml:space="preserve">
     <value>Berekende resultaten voor de hydraulische randvoorwaarden voor gras.</value>
   </data>

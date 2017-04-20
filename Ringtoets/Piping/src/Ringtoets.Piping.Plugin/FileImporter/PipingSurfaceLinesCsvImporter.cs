@@ -128,7 +128,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         protected override void LogImportCanceledMessage()
         {
-            string message = messageProvider.GetCancelledLogMessageText(RingtoetsPipingDataResources.RingtoetsPipingSurfaceLineCollection_TypeDescriptor);
+            string message = messageProvider.GetCancelledLogMessageText(RingtoetsPipingDataResources.PipingSurfaceLineCollection_TypeDescriptor);
             log.Info(message);
         }
 

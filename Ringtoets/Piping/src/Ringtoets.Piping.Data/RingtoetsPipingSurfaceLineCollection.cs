@@ -32,7 +32,7 @@ namespace Ringtoets.Piping.Data
     public class RingtoetsPipingSurfaceLineCollection : ObservableUniqueItemCollectionWithSourcePath<RingtoetsPipingSurfaceLine>
     {
         public RingtoetsPipingSurfaceLineCollection() : base(line => line.Name,
-                                                             Resources.RingtoetsPipingSurfaceLineCollection_TypeDescriptor,
+                                                             Resources.PipingSurfaceLineCollection_TypeDescriptor,
                                                              Resources.UniqueFeature_Name_FeatureDescription) {}
     }
 }

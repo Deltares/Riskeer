@@ -595,12 +595,6 @@ Er is geen berekeningenconfiguratie geïmporteerd.</value>
   <data name="CalculationConfigurationImporter_ValidateWaveReduction_No_foreshore_profile_provided" xml:space="preserve">
     <value>Er is geen voorlandprofiel opgegeven om golfreductie parameters aan toe te voegen.</value>
   </data>
-  <data name="HeightStructuresCalculationConfigurationImporter_TryReadOrientation_No_Structure_to_assign_Orientation" xml:space="preserve">
-    <value>Er is geen kunstwerk opgegeven om de oriëntatie aan toe te voegen.</value>
-  </data>
-  <data name="HeightStructuresCalculationConfigurationImporter_TryReadFailureProbabilityStructureWithErosion_No_Structure_to_assign_FailureProbabilityStructureWithErosion" xml:space="preserve">
-    <value>Er is geen kunstwerk opgegeven om de faalkans gegeven erosie bodem aan toe te voegen.</value>
-  </data>
   <data name="CalculationConfigurationImporter_FailureProbabilityStructureWithErosion_DisplayName" xml:space="preserve">
     <value>faalkans gegeven erosie bodem</value>
   </data>

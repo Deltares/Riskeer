@@ -800,26 +800,6 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is geen kunstwerk opgegeven om de faalkans gegeven erosie bodem aan toe te voegen..
-        /// </summary>
-        public static string HeightStructuresCalculationConfigurationImporter_TryReadFailureProbabilityStructureWithErosion_No_Structure_to_assign_FailureProbabilityStructureWithErosion {
-            get {
-                return ResourceManager.GetString("HeightStructuresCalculationConfigurationImporter_TryReadFailureProbabilityStructu" +
-                        "reWithErosion_No_Structure_to_assign_FailureProbabilityStructureWithErosion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Er is geen kunstwerk opgegeven om de oriëntatie aan toe te voegen..
-        /// </summary>
-        public static string HeightStructuresCalculationConfigurationImporter_TryReadOrientation_No_Structure_to_assign_Orientation {
-            get {
-                return ResourceManager.GetString("HeightStructuresCalculationConfigurationImporter_TryReadOrientation_No_Structure_" +
-                        "to_assign_Orientation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
         ///
         ///&lt;!--

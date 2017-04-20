@@ -120,9 +120,6 @@
   <data name="Error_Cannot_Construct_PipingSoilProfile_Without_Layers" xml:space="preserve">
     <value>Geen lagen gevonden voor de ondergrondschematisatie.</value>
   </data>
-  <data name="DesignVariable_GetDesignValue_Distribution_must_be_set" xml:space="preserve">
-    <value>Een kansverdeling moet opgegeven zijn om op basis van die data een rekenwaarde te bepalen.</value>
-  </data>
   <data name="RingtoetsPipingSurfaceLine_Cannot_determine_reliable_z_when_surface_line_is_vertical_in_l" xml:space="preserve">
     <value>Kan geen hoogte bepalen op het punt met de lokale coördinaat {0}, omdat de profielschematisatie verticaal loopt op dat punt.</value>
   </data>

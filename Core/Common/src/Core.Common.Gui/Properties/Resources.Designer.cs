@@ -1538,16 +1538,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De map &apos;{0}&apos; kan niet aangemaakt worden..
-        /// </summary>
-        public static string SettingsHelper_GetApplicationLocalUserSettingsDirectory_Folder_0_Cannot_be_created {
-            get {
-                return ResourceManager.GetString("SettingsHelper_GetApplicationLocalUserSettingsDirectory_Folder_0_Cannot_be_create" +
-                        "d", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Website.
         /// </summary>
         public static string SplashScreen_SupportEmail {

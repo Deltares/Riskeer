@@ -82,16 +82,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De berekende waterstanden en golfhoogtes bij doorsnede-eis voor alle hydraulische randvoorwaarden locaties zijn verwijderd..
-        /// </summary>
-        public static string GrassCoverErosionOutwards_NormValueChanged_Waveheight_and_design_water_level_results_cleared {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwards_NormValueChanged_Waveheight_and_design_water_level_resu" +
-                        "lts_cleared", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Alle golfhoogtes bij doorsnede-eis berekenen..
         /// </summary>
         public static string GrassCoverErosionOutwards_WaveHeight_Calculate_All_ToolTip {

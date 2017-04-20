@@ -41,7 +41,7 @@ namespace Ringtoets.Piping.Forms.Views
         /// <returns>The created <see cref="MapLineData"/>.</returns>
         public static MapLineData CreateSurfaceLinesMapData()
         {
-            return new MapLineData(PipingDataResources.RingtoetsPipingSurfaceLineCollection_TypeDescriptor)
+            return new MapLineData(PipingDataResources.PipingSurfaceLineCollection_TypeDescriptor)
             {
                 Style = new LineStyle(Color.DarkSeaGreen, 2, DashStyle.Solid),
                 SelectedMetaDataAttribute = RingtoetsCommonFormsResources.MetaData_Name

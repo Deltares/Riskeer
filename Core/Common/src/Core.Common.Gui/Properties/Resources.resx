@@ -553,9 +553,6 @@
   <data name="Ribbon_TabItem_Start" xml:space="preserve">
     <value>Start</value>
   </data>
-  <data name="SettingsHelper_GetApplicationLocalUserSettingsDirectory_Folder_0_Cannot_be_created" xml:space="preserve">
-    <value>De map '{0}' kan niet aangemaakt worden.</value>
-  </data>
   <data name="GuiExportHandler_GetSupportedExportInfoUsingDialog_Select_exporter" xml:space="preserve">
     <value>Selecteer wat u wilt exporteren</value>
   </data>

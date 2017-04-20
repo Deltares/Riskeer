@@ -1136,15 +1136,6 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toetslaag 2b.
-        /// </summary>
-        public static string FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_b {
-            get {
-                return ResourceManager.GetString("FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_b", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Vak.
         /// </summary>
         public static string FailureMechanismResultView_InitializeDataGridView_Section_name {
@@ -1655,16 +1646,6 @@ namespace Ringtoets.Common.Forms.Properties {
         public static System.Drawing.Bitmap OutputFolderIcon {
             get {
                 object obj = ResourceManager.GetObject("OutputFolderIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap PointShapefileIcon {
-            get {
-                object obj = ResourceManager.GetObject("PointShapefileIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

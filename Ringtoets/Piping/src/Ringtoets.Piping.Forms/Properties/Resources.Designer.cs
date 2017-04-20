@@ -352,42 +352,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lognormale verdeling.
-        /// </summary>
-        public static string LogNormalDistribution_DisplayName {
-            get {
-                return ResourceManager.GetString("LogNormalDistribution_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lognormaal.
-        /// </summary>
-        public static string LogNormalDistribution_ShortName {
-            get {
-                return ResourceManager.GetString("LogNormalDistribution_ShortName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Normale verdeling.
-        /// </summary>
-        public static string NormalDistribution_DisplayName {
-            get {
-                return ResourceManager.GetString("NormalDistribution_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Normaal.
-        /// </summary>
-        public static string NormalDistribution_ShortName {
-            get {
-                return ResourceManager.GetString("NormalDistribution_ShortName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Naam.
         /// </summary>
         public static string PipingCalculation_Name_DisplayName {
@@ -1294,15 +1258,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De gemiddelde waarde van de {0}..
-        /// </summary>
-        public static string Probabilistics_Mean_description_for_Distribution_0_ {
-            get {
-                return ResourceManager.GetString("Probabilistics_Mean_description_for_Distribution_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Verwachtingswaarde.
         /// </summary>
         public static string Probabilistics_Mean_Symbol {
@@ -1326,24 +1281,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         public static string Probabilistics_Shift_Symbol {
             get {
                 return ResourceManager.GetString("Probabilistics_Shift_Symbol", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De standaardafwijking van de {0}..
-        /// </summary>
-        public static string Probabilistics_StandardDeviation_description_for_Distribution_0_ {
-            get {
-                return ResourceManager.GetString("Probabilistics_StandardDeviation_description_for_Distribution_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Standaardafwijking.
-        /// </summary>
-        public static string Probabilistics_StandardDeviation_Symbol {
-            get {
-                return ResourceManager.GetString("Probabilistics_StandardDeviation_Symbol", resourceCulture);
             }
         }
         

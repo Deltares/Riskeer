@@ -40,7 +40,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert
             Assert.IsEmpty(data.Features);
-            Assert.AreEqual(PipingDataResources.RingtoetsPipingSurfaceLineCollection_TypeDescriptor, data.Name);
+            Assert.AreEqual(PipingDataResources.PipingSurfaceLineCollection_TypeDescriptor, data.Name);
             AssertEqualStyle(data.Style, Color.DarkSeaGreen, 2, DashStyle.Solid);
             Assert.AreEqual("Naam", data.SelectedMetaDataAttribute);
         }

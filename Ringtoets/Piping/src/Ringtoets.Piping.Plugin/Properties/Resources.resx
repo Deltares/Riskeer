@@ -180,9 +180,6 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="PipingSurfaceLinesCsvImporter_Reading_surface_line_file" xml:space="preserve">
     <value>Inlezen van het profielschematisatiesbestand.</value>
   </data>
-  <data name="StochasticSoilModelImporter_AddImportedDataToModel_Stochastisch_soil_model_0_already_exists" xml:space="preserve">
-    <value>Het stochastische ondergrondmodel '{0}' bestaat al in het toetsspoor.</value>
-  </data>
   <data name="PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Start_reading_surface_lines_from_File_0_" xml:space="preserve">
     <value>Begonnen met het inlezen van profielschematisaties uit bestand '{0}'.</value>
   </data>
@@ -194,24 +191,6 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_CheckCharacteristicPoints_EntryPointL_greater_or_equal_to_ExitPointL_for_0_" xml:space="preserve">
     <value>Het uittredepunt moet landwaarts van het intredepunt liggen voor locatie {0}.</value>
-  </data>
-  <data name="PipingPlugin_RunUpdateStochasticSoilModel_Update_StochasticSoilModels" xml:space="preserve">
-    <value>Bijwerken van stochastische ondergrondmodellen.</value>
-  </data>
-  <data name="PipingPlugin_UpdateStochasticSoilModels_Update_of_StochasticSoilModels_from_File_0_canceled_by_user" xml:space="preserve">
-    <value>Bijwerken van ondergrondschematisaties in '{0}' is door de gebruiker geannuleerd.</value>
-  </data>
-  <data name="PipingPlugin_UpdateStochasticSoilModelsMenuItem_Text" xml:space="preserve">
-    <value>&amp;Bijwerken...</value>
-  </data>
-  <data name="PipingPlugin_UpdateStochasticSoilModelsMenuItem_ToolTip" xml:space="preserve">
-    <value>Werk de reeds bekende lijst van stochastische ondergrondmodellen bij.</value>
-  </data>
-  <data name="PipingPlugin_UpdateStochasticSoilModelsFileDialog_Title" xml:space="preserve">
-    <value>Selecteer de nieuwe locatie van het geïmporteerde bestand</value>
-  </data>
-  <data name="PipingPlugin_UpdateStochasticSoilModelsMenuItem_ToolTip_No_SourcePath_set" xml:space="preserve">
-    <value>Geen bronbestand bekend om vanaf bij te werken.</value>
   </data>
   <data name="StochasticSoilModelUpdateDataStrategy_UpdateModelWithImportedData_Update_of_StochasticSoilModel_failed_Reason_0" xml:space="preserve">
     <value>Het bijwerken van de stochastische ondergrondmodellen is mislukt: {0}</value>

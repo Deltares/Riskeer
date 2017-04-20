@@ -136,15 +136,6 @@ namespace Ringtoets.Piping.Primitives.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Een kansverdeling moet opgegeven zijn om op basis van die data een rekenwaarde te bepalen..
-        /// </summary>
-        public static string DesignVariable_GetDesignValue_Distribution_must_be_set {
-            get {
-                return ResourceManager.GetString("DesignVariable_GetDesignValue_Distribution_must_be_set", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Geen lagen gevonden voor de ondergrondschematisatie..
         /// </summary>
         public static string Error_Cannot_Construct_PipingSoilProfile_Without_Layers {

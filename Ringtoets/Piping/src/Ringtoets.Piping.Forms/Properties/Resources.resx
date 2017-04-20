@@ -301,35 +301,14 @@
   <data name="PipingInput_StochasticSoilProfile_DisplayName" xml:space="preserve">
     <value>Ondergrondschematisatie</value>
   </data>
-  <data name="LogNormalDistribution_DisplayName" xml:space="preserve">
-    <value>Lognormale verdeling</value>
-  </data>
   <data name="Probabilistics_Mean_Symbol" xml:space="preserve">
     <value>Verwachtingswaarde</value>
-  </data>
-  <data name="Probabilistics_StandardDeviation_Symbol" xml:space="preserve">
-    <value>Standaardafwijking</value>
-  </data>
-  <data name="Probabilistics_Mean_description_for_Distribution_0_" xml:space="preserve">
-    <value>De gemiddelde waarde van de {0}.</value>
-  </data>
-  <data name="Probabilistics_StandardDeviation_description_for_Distribution_0_" xml:space="preserve">
-    <value>De standaardafwijking van de {0}.</value>
-  </data>
-  <data name="NormalDistribution_DisplayName" xml:space="preserve">
-    <value>Normale verdeling</value>
   </data>
   <data name="Probabilistics_Shift_Symbol" xml:space="preserve">
     <value>Verschuiving</value>
   </data>
   <data name="Probabilistics_Shift_Description" xml:space="preserve">
     <value>De hoeveelheid waarmee de kansverdeling naar rechts (richting van positieve X-as) verschoven is.</value>
-  </data>
-  <data name="LogNormalDistribution_ShortName" xml:space="preserve">
-    <value>Lognormaal</value>
-  </data>
-  <data name="NormalDistribution_ShortName" xml:space="preserve">
-    <value>Normaal</value>
   </data>
   <data name="PipingInputIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\blue-document-list.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

@@ -171,16 +171,6 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vakindeling komt niet overeen met de huidige referentielijn..
-        /// </summary>
-        public static string FailureMechanismSectionsImporter_Import_Imported_sections_do_not_correspond_to_current_referenceline {
-            get {
-                return ResourceManager.GetString("FailureMechanismSectionsImporter_Import_Imported_sections_do_not_correspond_to_cu" +
-                        "rrent_referenceline", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap Foreshore {
