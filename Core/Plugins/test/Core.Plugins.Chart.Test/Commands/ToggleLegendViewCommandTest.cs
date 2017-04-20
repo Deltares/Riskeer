@@ -76,7 +76,7 @@ namespace Core.Plugins.Chart.Test.Commands
             }
 
             // Call
-            var result = command.Checked;
+            bool result = command.Checked;
 
             // Assert
             Assert.AreEqual(open, result);

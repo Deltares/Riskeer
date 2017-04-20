@@ -143,7 +143,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.AreEqual(mapPointData.Features.Length, mapPointLayer.DataSet.Features.Count);
             Assert.IsInstanceOf<Point>(feature.BasicGeometry);
 
-            var expectedCoordinates = mapFeature.MapGeometries.ElementAt(0).PointCollections.ElementAt(0).Select(p => new Coordinate(p.X, p.Y));
+            IEnumerable<Coordinate> expectedCoordinates = mapFeature.MapGeometries.ElementAt(0).PointCollections.ElementAt(0).Select(p => new Coordinate(p.X, p.Y));
             CollectionAssert.AreEqual(expectedCoordinates, feature.Coordinates);
         }
 
@@ -157,7 +157,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Setup
             var converter = new MapPointDataConverter();
             var mapPointLayer = new MapPointLayer();
-            var expectedColor = Color.FromKnownColor(color);
+            Color expectedColor = Color.FromKnownColor(color);
             var mapPointData = new MapPointData("test")
             {
                 Style = new PointStyle(expectedColor, width, pointStyle)
@@ -181,8 +181,8 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.AreEqual(firstSymbols.Count, secondSymbols.Count, "Unequal amount of symbols defined.");
             for (var i = 0; i < firstSymbols.Count; i++)
             {
-                SimpleSymbol firstSymbol = (SimpleSymbol) firstSymbols[i];
-                SimpleSymbol secondSymbol = (SimpleSymbol) secondSymbols[i];
+                var firstSymbol = (SimpleSymbol) firstSymbols[i];
+                var secondSymbol = (SimpleSymbol) secondSymbols[i];
 
                 Assert.AreEqual(firstSymbol.Color, secondSymbol.Color);
                 Assert.AreEqual(firstSymbol.PointShape, secondSymbol.PointShape);

@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.IO;
@@ -95,7 +94,7 @@ namespace Core.Common.Gui.Commands
                 return Enumerable.Empty<ImportInfo>();
             }
 
-            var targetType = target.GetType();
+            Type targetType = target.GetType();
 
             return importInfos.Where(info => (info.DataType == targetType || targetType.Implements(info.DataType)) && info.IsEnabled(target));
         }

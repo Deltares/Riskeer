@@ -230,7 +230,7 @@ namespace Core.Components.DotSpatial.Test.Projections
             var ring = new LinearRing(triangleCoordinates);
 
             ProjectionInfo sourceProjection = KnownCoordinateSystems.Projected.NationalGrids.Rijksdriehoekstelsel;
-            ProjectionInfo targetProjection = new ProjectionInfo();
+            var targetProjection = new ProjectionInfo();
             targetProjection.CopyProperties(sourceProjection);
             targetProjection.Transform = null;
 
@@ -270,7 +270,7 @@ namespace Core.Components.DotSpatial.Test.Projections
             // Setup
             Extent extent = null;
 
-            var projection = KnownCoordinateSystems.Projected.NationalGrids.Rijksdriehoekstelsel;
+            ProjectionInfo projection = KnownCoordinateSystems.Projected.NationalGrids.Rijksdriehoekstelsel;
 
             // Call
             TestDelegate call = () => extent.Reproject(projection, projection);
@@ -284,9 +284,9 @@ namespace Core.Components.DotSpatial.Test.Projections
         public void Reproject_ForExtentWithSourceProjectionNull_ThrowArgumentNullException()
         {
             // Setup
-            Extent extent = new Extent();
+            var extent = new Extent();
 
-            var projection = KnownCoordinateSystems.Projected.NationalGrids.Rijksdriehoekstelsel;
+            ProjectionInfo projection = KnownCoordinateSystems.Projected.NationalGrids.Rijksdriehoekstelsel;
 
             // Call
             TestDelegate call = () => extent.Reproject(null, projection);
@@ -300,9 +300,9 @@ namespace Core.Components.DotSpatial.Test.Projections
         public void Reproject_ForExtentWithTargetProjectionNull_ThrowArgumentNullException()
         {
             // Setup
-            Extent extent = new Extent();
+            var extent = new Extent();
 
-            var projection = KnownCoordinateSystems.Projected.NationalGrids.Rijksdriehoekstelsel;
+            ProjectionInfo projection = KnownCoordinateSystems.Projected.NationalGrids.Rijksdriehoekstelsel;
 
             // Call
             TestDelegate call = () => extent.Reproject(projection, null);
@@ -352,7 +352,7 @@ namespace Core.Components.DotSpatial.Test.Projections
 
             ProjectionInfo source = KnownCoordinateSystems.Projected.NationalGrids.Rijksdriehoekstelsel;
 
-            ProjectionInfo targetProjection = new ProjectionInfo();
+            var targetProjection = new ProjectionInfo();
             targetProjection.CopyProperties(KnownCoordinateSystems.Projected.World.WebMercator);
             targetProjection.Transform = null;
 
@@ -385,7 +385,7 @@ namespace Core.Components.DotSpatial.Test.Projections
         private void AssertCoordinatesAreEqual(IList<Coordinate> expectedCoordinates, IList<Coordinate> actualCoordinates, double delta)
         {
             Assert.AreEqual(expectedCoordinates.Count, actualCoordinates.Count);
-            for (int i = 0; i < expectedCoordinates.Count; i++)
+            for (var i = 0; i < expectedCoordinates.Count; i++)
             {
                 AssertCoordinatesAreEqual(expectedCoordinates[i], actualCoordinates[i], delta);
             }
@@ -396,7 +396,7 @@ namespace Core.Components.DotSpatial.Test.Projections
             double dx = (end.X - start.X) / (expectedNumberOfAdditionalPoints + 1);
             double dy = (end.Y - start.Y) / (expectedNumberOfAdditionalPoints + 1);
 
-            for (int i = 1; i <= expectedNumberOfAdditionalPoints; i++)
+            for (var i = 1; i <= expectedNumberOfAdditionalPoints; i++)
             {
                 yield return new Coordinate(start.X + i * dx, start.Y + i * dy);
             }

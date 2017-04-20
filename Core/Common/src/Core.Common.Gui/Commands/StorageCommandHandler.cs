@@ -74,7 +74,7 @@ namespace Core.Common.Gui.Commands
             {
                 return true;
             }
-            var project = projectOwner.Project;
+            IProject project = projectOwner.Project;
             projectPersistor.StageProject(project);
             try
             {
@@ -90,7 +90,7 @@ namespace Core.Common.Gui.Commands
                 projectPersistor.UnstageProject();
             }
 
-            var unsavedChangesHandled = ShowSaveUnsavedChangesDialog();
+            bool unsavedChangesHandled = ShowSaveUnsavedChangesDialog();
 
             if (projectPersistor.HasStagedProject)
             {
@@ -149,8 +149,8 @@ namespace Core.Common.Gui.Commands
 
         public bool SaveProjectAs()
         {
-            var project = projectOwner.Project;
-            var filePath = OpenProjectSaveFileDialog(project.Name);
+            IProject project = projectOwner.Project;
+            string filePath = OpenProjectSaveFileDialog(project.Name);
 
             if (string.IsNullOrWhiteSpace(filePath))
             {
@@ -164,8 +164,8 @@ namespace Core.Common.Gui.Commands
 
         public bool SaveProject()
         {
-            var project = projectOwner.Project;
-            var filePath = projectOwner.ProjectFilePath;
+            IProject project = projectOwner.Project;
+            string filePath = projectOwner.ProjectFilePath;
 
             // If file path is not set, go to SaveAs
             if (string.IsNullOrWhiteSpace(filePath) || !File.Exists(filePath))

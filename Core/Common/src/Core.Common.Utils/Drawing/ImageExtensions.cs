@@ -44,7 +44,7 @@ namespace Core.Common.Utils.Drawing
         {
             var image = (T) originalImage.Clone();
 
-            using (var gfx = Graphics.FromImage(image))
+            using (Graphics gfx = Graphics.FromImage(image))
             {
                 gfx.DrawImage(overlayImage, new Rectangle(new Point(xOffset, yOffset), new Size(width, height)));
             }

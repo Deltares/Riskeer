@@ -34,7 +34,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         public void Convert_Circle_ReturnDefault()
         {
             // Call
-            var symbol = MapDataHelper.Convert(PointSymbol.Circle);
+            PointShape symbol = MapDataHelper.Convert(PointSymbol.Circle);
 
             // Assert
             Assert.AreEqual(PointShape.Ellipse, symbol);
@@ -44,7 +44,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         public void Convert_Square_ReturnRectangle()
         {
             // Call
-            var symbol = MapDataHelper.Convert(PointSymbol.Square);
+            PointShape symbol = MapDataHelper.Convert(PointSymbol.Square);
 
             // Assert
             Assert.AreEqual(PointShape.Rectangle, symbol);
@@ -54,7 +54,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         public void Convert_Triangle_ReturnTriangle()
         {
             // Call
-            var symbol = MapDataHelper.Convert(PointSymbol.Triangle);
+            PointShape symbol = MapDataHelper.Convert(PointSymbol.Triangle);
 
             // Assert
             Assert.AreEqual(PointShape.Triangle, symbol);

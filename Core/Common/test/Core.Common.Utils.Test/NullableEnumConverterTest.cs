@@ -35,7 +35,7 @@ namespace Core.Common.Utils.Test
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var nullableType = typeof(SimpleEnum?);
+            Type nullableType = typeof(SimpleEnum?);
             var converter = new NullableEnumConverter(nullableType);
 
             // Assert
@@ -91,7 +91,7 @@ namespace Core.Common.Utils.Test
             var converter = new NullableEnumConverter(typeof(SimpleEnum?));
 
             // Call
-            object result = new object();
+            var result = new object();
             TestDelegate test = () => result = converter.ConvertTo(null, typeof(string));
 
             // Assert

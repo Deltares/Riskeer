@@ -136,7 +136,7 @@ namespace Core.Components.BruTile.Configurations
             string host = knownTileSource.ToString();
             string format = tileSchema.Format;
 
-            foreach (var c in Path.GetInvalidFileNameChars())
+            foreach (char c in Path.GetInvalidFileNameChars())
             {
                 host = host.Replace(c, '$');
             }

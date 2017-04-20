@@ -80,10 +80,10 @@ namespace Core.Common.Base.Geometry
         /// </returns>
         public bool ContainsX(double x)
         {
-            var distanceFirstPoint = FirstPoint.X - x;
-            var distanceSecondPoint = SecondPoint.X - x;
+            double distanceFirstPoint = FirstPoint.X - x;
+            double distanceSecondPoint = SecondPoint.X - x;
 
-            var onPoint = Math.Abs(FirstPoint.X - x) < 1e-6 || Math.Abs(SecondPoint.X - x) < 1e-6;
+            bool onPoint = Math.Abs(FirstPoint.X - x) < 1e-6 || Math.Abs(SecondPoint.X - x) < 1e-6;
 
             return onPoint || Math.Sign(distanceFirstPoint) != Math.Sign(distanceSecondPoint);
         }

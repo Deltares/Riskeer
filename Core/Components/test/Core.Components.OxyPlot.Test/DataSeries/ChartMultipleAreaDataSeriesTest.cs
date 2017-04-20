@@ -97,7 +97,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries
             };
 
             var chartMultipleAreaDataSeries = new ChartMultipleAreaDataSeries(chartMultipleAreaData);
-            var drawnAreas = chartMultipleAreaDataSeries.Areas.ToArray();
+            DataPoint[][] drawnAreas = chartMultipleAreaDataSeries.Areas.ToArray();
 
             // When
             chartMultipleAreaData.Areas = new[]
@@ -129,7 +129,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries
             };
 
             var chartMultipleAreaDataSeries = new ChartMultipleAreaDataSeries(chartMultipleAreaData);
-            var drawnAreas = chartMultipleAreaDataSeries.Areas.ToArray();
+            DataPoint[][] drawnAreas = chartMultipleAreaDataSeries.Areas.ToArray();
 
             // When
             chartMultipleAreaDataSeries.Update();

@@ -75,15 +75,15 @@ namespace Core.Components.Gis.IO.Test.Readers
         {
             // Setup
             char[] invalidPathChars = Path.GetInvalidPathChars();
-            var filePath = "c:/_.config".Replace('_', invalidPathChars[0]);
+            string filePath = "c:/_.config".Replace('_', invalidPathChars[0]);
             var reader = new WmtsConnectionInfoReader();
 
             // Call
             TestDelegate call = () => reader.ReadWmtsConnectionInfos(filePath);
 
             // Assert
-            var expectedMessage = $"Fout bij het lezen van bestand '{filePath}': "
-                                  + "er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.";
+            string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': "
+                                     + "er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 

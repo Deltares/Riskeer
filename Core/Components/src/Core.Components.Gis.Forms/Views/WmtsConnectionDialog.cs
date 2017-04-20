@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
-using System.Drawing;
 using Core.Components.Gis.Forms.Properties;
 
 namespace Core.Components.Gis.Forms.Views

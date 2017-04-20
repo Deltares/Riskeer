@@ -119,7 +119,7 @@ namespace Core.Common.TestUtil
                     ShowInTaskbar = false, WindowState = FormWindowState.Minimized, FormBorderStyle = FormBorderStyle.None
                 };
                 synchronizationForm.Load += (sender, args) => synchronizationForm.Size = new Size(0, 0);
-                var handle = synchronizationForm.Handle; //force get handle
+                IntPtr handle = synchronizationForm.Handle; //force get handle
                 synchronizationForm.Show();
             }
         }
@@ -145,21 +145,13 @@ namespace Core.Common.TestUtil
         [Serializable]
         public class UnhandledException : Exception
         {
-            private readonly string stackTrace;
-
             public UnhandledException(string message, Exception innerException, string stackTrace)
                 : base(message, innerException)
             {
-                this.stackTrace = stackTrace;
+                StackTrace = stackTrace;
             }
 
-            public override string StackTrace
-            {
-                get
-                {
-                    return stackTrace;
-                }
-            }
+            public override string StackTrace { get; }
         }
     }
 }

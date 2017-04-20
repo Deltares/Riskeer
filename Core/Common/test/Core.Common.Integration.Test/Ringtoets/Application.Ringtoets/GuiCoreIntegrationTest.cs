@@ -92,7 +92,7 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
-                int callCount = 0;
+                var callCount = 0;
                 WpfTestHelper.ShowModal((Control) gui.MainWindow, () => callCount++);
                 Assert.AreEqual(1, callCount);
             }

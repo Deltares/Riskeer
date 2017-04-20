@@ -51,7 +51,7 @@ namespace Core.Common.Gui.Test.Converters
             var converter = new PngToIconConverter();
 
             // Call
-            var bitmap = converter.Convert(Resources.abacus, typeof(BitmapImage), null, CultureInfo.InvariantCulture);
+            object bitmap = converter.Convert(Resources.abacus, typeof(BitmapImage), null, CultureInfo.InvariantCulture);
 
             // Assert
             var bitmapInstance = bitmap as BitmapImage;

@@ -47,7 +47,7 @@ namespace Core.Common.Utils.Test
             var converter = new EnumTypeConverter(typeof(object));
 
             // Call
-            var canConvert = converter.CanConvertTo(typeof(NotSupportedType));
+            bool canConvert = converter.CanConvertTo(typeof(NotSupportedType));
 
             // Assert
             Assert.IsFalse(canConvert);
@@ -60,7 +60,7 @@ namespace Core.Common.Utils.Test
             var converter = new EnumTypeConverter(typeof(object));
 
             // Call
-            var canConvert = converter.CanConvertTo(typeof(string));
+            bool canConvert = converter.CanConvertTo(typeof(string));
 
             // Assert
             Assert.IsTrue(canConvert);
@@ -87,7 +87,7 @@ namespace Core.Common.Utils.Test
             var converter = new EnumTypeConverter(typeof(SimpleEnum));
 
             // Call
-            object result = new object();
+            var result = new object();
             TestDelegate test = () => result = converter.ConvertTo(null, typeof(string));
 
             // Assert
@@ -158,7 +158,7 @@ namespace Core.Common.Utils.Test
             var converter = new EnumTypeConverter(typeof(SimpleEnum));
 
             // Call
-            var result = converter.ConvertTo(enumValue, typeof(string));
+            object result = converter.ConvertTo(enumValue, typeof(string));
 
             // Assert
             const string expectedText = "<first>";
@@ -172,7 +172,7 @@ namespace Core.Common.Utils.Test
             var converter = new EnumTypeConverter(typeof(object));
 
             // Call
-            var canConvert = converter.CanConvertFrom(typeof(NotSupportedType));
+            bool canConvert = converter.CanConvertFrom(typeof(NotSupportedType));
 
             // Assert
             Assert.IsFalse(canConvert);
@@ -185,7 +185,7 @@ namespace Core.Common.Utils.Test
             var converter = new EnumTypeConverter(typeof(object));
 
             // Call
-            var canConvert = converter.CanConvertFrom(typeof(string));
+            bool canConvert = converter.CanConvertFrom(typeof(string));
 
             // Assert
             Assert.IsTrue(canConvert);
@@ -225,7 +225,7 @@ namespace Core.Common.Utils.Test
             var converter = new EnumTypeConverter(typeof(SimpleEnum));
 
             // Call
-            var result = converter.ConvertFrom(second);
+            object result = converter.ConvertFrom(second);
 
             // Assert
             var expectedEnumValue = SimpleEnum.SecondValue;
@@ -240,7 +240,7 @@ namespace Core.Common.Utils.Test
             var converter = new EnumTypeConverter(typeof(SimpleEnum));
 
             // Call
-            var result = converter.ConvertFrom(third);
+            object result = converter.ConvertFrom(third);
 
             // Assert
             var expectedEnumValue = SimpleEnum.ThirdValue;

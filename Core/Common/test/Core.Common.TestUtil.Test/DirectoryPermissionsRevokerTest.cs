@@ -174,7 +174,7 @@ namespace Core.Common.TestUtil.Test
         public void Dispose_DirectoryAlreadyRemoved_DoesNotThrowException()
         {
             // Setup
-            string subfolder = "Deleted";
+            var subfolder = "Deleted";
             string folderPath = Path.Combine(rootFolder, subfolder);
 
             using (new DirectoryDisposeHelper(rootFolder, subfolder))
@@ -234,8 +234,8 @@ namespace Core.Common.TestUtil.Test
         {
             SecurityIdentifier sid = GetSecurityIdentifier();
 
-            DirectoryInfo directoryInfo = new DirectoryInfo(filePath);
-            var directorySecurity = directoryInfo.GetAccessControl();
+            var directoryInfo = new DirectoryInfo(filePath);
+            DirectorySecurity directorySecurity = directoryInfo.GetAccessControl();
 
             var fileSystemAccessRule = new FileSystemAccessRule(sid, rights, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit,
                                                                 PropagationFlags.None, AccessControlType.Deny);
@@ -248,8 +248,8 @@ namespace Core.Common.TestUtil.Test
         {
             SecurityIdentifier sid = GetSecurityIdentifier();
 
-            DirectoryInfo directoryInfo = new DirectoryInfo(filePath);
-            var directorySecurity = directoryInfo.GetAccessControl();
+            var directoryInfo = new DirectoryInfo(filePath);
+            DirectorySecurity directorySecurity = directoryInfo.GetAccessControl();
 
             var fileSystemAccessRule = new FileSystemAccessRule(sid, rights, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit,
                                                                 PropagationFlags.None, AccessControlType.Deny);

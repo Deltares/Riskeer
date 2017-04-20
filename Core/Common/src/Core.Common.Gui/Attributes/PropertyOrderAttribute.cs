@@ -30,26 +30,18 @@ namespace Core.Common.Gui.Attributes
     [AttributeUsage(AttributeTargets.Property)]
     public sealed class PropertyOrderAttribute : Attribute
     {
-        private readonly int order;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="PropertyOrderAttribute"/> class.
         /// </summary>
         /// <param name="order">The ordering value.</param>
         public PropertyOrderAttribute(int order)
         {
-            this.order = order;
+            Order = order;
         }
 
         /// <summary>
         /// Gets the ordering value.
         /// </summary>
-        public int Order
-        {
-            get
-            {
-                return order;
-            }
-        }
+        public int Order { get; }
     }
 }

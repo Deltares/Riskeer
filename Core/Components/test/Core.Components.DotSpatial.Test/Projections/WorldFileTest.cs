@@ -24,6 +24,7 @@ using Core.Common.TestUtil;
 using Core.Components.DotSpatial.Projections;
 using DotSpatial.Topology;
 using NUnit.Framework;
+using Point = System.Drawing.Point;
 
 namespace Core.Components.DotSpatial.Test.Projections
 {
@@ -46,7 +47,6 @@ namespace Core.Components.DotSpatial.Test.Projections
             Assert.AreEqual(6.6, worldFile.B2);
         }
 
-
         [Test]
         public void Constructor_NonInvertableTransformationSpecified_ThrowArgumentException()
         {
@@ -54,7 +54,7 @@ namespace Core.Components.DotSpatial.Test.Projections
             TestDelegate call = () => new WorldFile(0.0, 0.0, 0.0, 0.0, 1.1, 2.2);
 
             // Assert
-            string message = "Ongeldige transformatie parameters: transformatie moet omkeerbaar zijn.";
+            var message = "Ongeldige transformatie parameters: transformatie moet omkeerbaar zijn.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
         }
 
@@ -73,8 +73,8 @@ namespace Core.Components.DotSpatial.Test.Projections
             Coordinate worldPoint = worldFile.ToWorldCoordinates(x, y);
 
             // Assert
-            var expectedX = scaleFactorX * x + translationX;
-            var expectedY = scaleFactorY * y + translationY;
+            double expectedX = scaleFactorX * x + translationX;
+            double expectedY = scaleFactorY * y + translationY;
             Assert.AreEqual(expectedX, worldPoint.X);
             Assert.AreEqual(expectedY, worldPoint.Y);
         }
@@ -100,8 +100,8 @@ namespace Core.Components.DotSpatial.Test.Projections
             Coordinate worldPoint = worldFile.ToWorldCoordinates(x, y);
 
             // Assert
-            var expectedX = a11 * x + a21 * y;
-            var expectedY = a12 * x + a22 * y;
+            double expectedX = a11 * x + a21 * y;
+            double expectedY = a12 * x + a22 * y;
             Assert.AreEqual(expectedX, worldPoint.X);
             Assert.AreEqual(expectedY, worldPoint.Y);
         }
@@ -124,12 +124,12 @@ namespace Core.Components.DotSpatial.Test.Projections
         public void GivenScreenSpaceCoordinate_WhenDoingRoundtripTransformation_ThenScreenSpaceCoordinateRemainsUnchanged()
         {
             // Given
-            double a11 = 1.1;
-            double a21 = 2.2;
-            double a12 = 3.3;
-            double a22 = 4.4;
-            double transformationX = 5.5;
-            double transformationY = 6.6;
+            var a11 = 1.1;
+            var a21 = 2.2;
+            var a12 = 3.3;
+            var a22 = 4.4;
+            var transformationX = 5.5;
+            var transformationY = 6.6;
 
             var worldFile = new WorldFile(a11, a21, a12, a22, transformationX, transformationY);
 
@@ -138,13 +138,12 @@ namespace Core.Components.DotSpatial.Test.Projections
 
             // When
             Coordinate worldCoordinate = worldFile.ToWorldCoordinates(x, y);
-            System.Drawing.Point screenCoordinate = worldFile.ToScreenCoordinates(worldCoordinate);
+            Point screenCoordinate = worldFile.ToScreenCoordinates(worldCoordinate);
 
             // Assert
             Assert.AreEqual(x, screenCoordinate.X);
             Assert.AreEqual(y, screenCoordinate.Y);
         }
-
 
         [Test]
         [TestCase(10, 20)]
@@ -165,7 +164,11 @@ namespace Core.Components.DotSpatial.Test.Projections
             CollectionAssert.IsEmpty(polygon.Holes);
             CollectionAssert.AreEqual(new[]
             {
-                p1, p2, p3, p4, p1
+                p1,
+                p2,
+                p3,
+                p4,
+                p1
             }, polygon.Shell.Coordinates);
         }
     }

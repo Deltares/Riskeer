@@ -25,7 +25,6 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
 using Core.Components.Gis.Data;
@@ -125,7 +124,7 @@ namespace Core.Components.Gis.IO.Readers
             DataRow dataRow = ShapeFile.GetAttributes(sourceFeatureIndex, 1).Rows[0];
             List<Field> columns = ShapeFile.DataTable.Columns.OfType<Field>().ToList();
 
-            for (int i = 0; i < columns.Count; i++)
+            for (var i = 0; i < columns.Count; i++)
             {
                 object dataRowValue = dataRow[i];
 

@@ -48,7 +48,7 @@ namespace Core.Common.IO.Test
         {
             // Call
             bool readOnly = new Random(643).NextBoolean();
-            var connectionString = SqLiteConnectionStringBuilder.BuildSqLiteConnectionString(pathToSqLiteFile, readOnly);
+            string connectionString = SqLiteConnectionStringBuilder.BuildSqLiteConnectionString(pathToSqLiteFile, readOnly);
 
             // Assert
             Assert.That(!string.IsNullOrEmpty(connectionString));
@@ -71,7 +71,7 @@ namespace Core.Common.IO.Test
             const string uncPathToSqlFile = @"\\server\share\file.sqlite";
 
             // Call
-            var connectionString = SqLiteConnectionStringBuilder.BuildSqLiteConnectionString(uncPathToSqlFile, readOnly);
+            string connectionString = SqLiteConnectionStringBuilder.BuildSqLiteConnectionString(uncPathToSqlFile, readOnly);
 
             // Assert
             Assert.That(!string.IsNullOrEmpty(connectionString));

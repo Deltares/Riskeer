@@ -72,7 +72,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent);
 
             // Call
-            var result = documentViewController.OpenViewForData(null, forceShowDialog);
+            bool result = documentViewController.OpenViewForData(null, forceShowDialog);
 
             // Assert
             Assert.IsFalse(result);
@@ -97,7 +97,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var data = new object();
             const string viewData = "<I'm a piece of view data>";
             const string viewName = "<name of the view>";
-            bool afterCreateCalled = false;
+            var afterCreateCalled = false;
 
             var viewInfos = new ViewInfo[]
             {
@@ -128,7 +128,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent);
 
             // Call
-            var result = documentViewController.OpenViewForData(data);
+            bool result = documentViewController.OpenViewForData(data);
 
             // Assert
             Assert.IsTrue(result);
@@ -154,7 +154,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent);
 
             // Call
-            var result = documentViewController.OpenViewForData(new object(), forceShowDialog);
+            bool result = documentViewController.OpenViewForData(new object(), forceShowDialog);
 
             // Assert
             Assert.IsFalse(result);
@@ -178,7 +178,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
 
             var data = new InheritedFromA();
             const string viewName = "<cool view name>";
-            bool afterCreateCalled = false;
+            var afterCreateCalled = false;
 
             var viewInfos = new ViewInfo[]
             {
@@ -204,7 +204,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent);
 
             // Call
-            var result = documentViewController.OpenViewForData(data);
+            bool result = documentViewController.OpenViewForData(data);
 
             // Assert
             Assert.IsTrue(result);
@@ -240,7 +240,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent);
 
             // Call
-            var result = documentViewController.OpenViewForData(data);
+            bool result = documentViewController.OpenViewForData(data);
 
             // Assert
             Assert.IsTrue(result);
@@ -274,7 +274,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent);
 
             // Call
-            var result = documentViewController.OpenViewForData(data);
+            bool result = documentViewController.OpenViewForData(data);
 
             // Assert
             Assert.IsTrue(result);
@@ -315,7 +315,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent);
 
             // Call
-            var result = documentViewController.OpenViewForData(data);
+            bool result = documentViewController.OpenViewForData(data);
 
             // Assert
             Assert.IsTrue(result);
@@ -353,7 +353,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             };
 
             // Call
-            var result = documentViewController.OpenViewForData(data);
+            bool result = documentViewController.OpenViewForData(data);
 
             // Assert
             Assert.IsFalse(result);
@@ -393,7 +393,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             };
 
             // Call
-            var result = documentViewController.OpenViewForData(data);
+            bool result = documentViewController.OpenViewForData(data);
 
             // Assert
             Assert.IsTrue(result);
@@ -440,7 +440,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             Assert.IsFalse(documentViewController.DefaultViewTypes.ContainsKey(typeof(object)));
 
             // Call
-            var result = documentViewController.OpenViewForData(data);
+            bool result = documentViewController.OpenViewForData(data);
 
             // Assert
             Assert.IsTrue(result);
@@ -489,7 +489,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             };
 
             // Call
-            var result = documentViewController.OpenViewForData(data, true);
+            bool result = documentViewController.OpenViewForData(data, true);
 
             // Assert
             Assert.IsTrue(result);
@@ -527,7 +527,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             documentViewController.DefaultViewTypes[typeof(object)] = typeof(TestViewDerivative);
 
             // Call
-            var result = documentViewController.OpenViewForData(data);
+            bool result = documentViewController.OpenViewForData(data);
 
             // Assert
             Assert.IsTrue(result);
@@ -616,7 +616,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var data = new object();
 
             // Call
-            var matchedViewInfos = documentViewController.GetViewInfosFor(data);
+            IEnumerable<ViewInfo> matchedViewInfos = documentViewController.GetViewInfosFor(data);
 
             // Assert
             CollectionAssert.IsEmpty(matchedViewInfos);
@@ -642,10 +642,10 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
 
             var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent);
 
-            var data = default(int);
+            int data = default(int);
 
             // Call
-            var matchedViewInfos = documentViewController.GetViewInfosFor(data).ToArray();
+            ViewInfo[] matchedViewInfos = documentViewController.GetViewInfosFor(data).ToArray();
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -677,7 +677,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var data = new A();
 
             // Call
-            var matchedViewInfos = documentViewController.GetViewInfosFor(data).ToArray();
+            ViewInfo[] matchedViewInfos = documentViewController.GetViewInfosFor(data).ToArray();
 
             // Assert
             var expected = new[]
@@ -717,7 +717,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var data = new InheritedFromA();
 
             // Call
-            var matchedViewInfos = documentViewController.GetViewInfosFor(data).ToArray();
+            ViewInfo[] matchedViewInfos = documentViewController.GetViewInfosFor(data).ToArray();
 
             // Assert
             var expected = new[]

@@ -54,7 +54,7 @@ namespace Core.Components.BruTile.Forms.Test
             TestDelegate call = () => factory.GetWmtsCapabilities(url).ToArray();
 
             // Assert
-            CannotFindTileSourceException exception = Assert.Throws<CannotFindTileSourceException>(call);
+            var exception = Assert.Throws<CannotFindTileSourceException>(call);
             Assert.AreEqual($"Niet in staat om de databronnen op te halen bij de WMTS URL '{url}'.", exception.Message);
         }
 
@@ -62,7 +62,7 @@ namespace Core.Components.BruTile.Forms.Test
         public void GetWmtsCapabilities_ValidUrl_ReturnsWmtsCapabilities()
         {
             // Setup
-            string url = "validUrl";
+            var url = "validUrl";
             var factory = new BruTileWmtsCapabilityFactory();
             WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 

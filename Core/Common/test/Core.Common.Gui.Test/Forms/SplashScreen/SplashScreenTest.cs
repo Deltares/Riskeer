@@ -86,8 +86,8 @@ namespace Core.Common.Gui.Test.Forms.SplashScreen
             bool supportUiElementsShouldBeVisible)
         {
             // Setup
-            var supportEmail = emailVisible ? "<email>" : string.Empty;
-            var supportPhone = phoneVisible ? "<phone>" : string.Empty;
+            string supportEmail = emailVisible ? "<email>" : string.Empty;
+            string supportPhone = phoneVisible ? "<phone>" : string.Empty;
 
             // Call
             var screen = new Gui.Forms.SplashScreen.SplashScreen
@@ -110,7 +110,7 @@ namespace Core.Common.Gui.Test.Forms.SplashScreen
 
         private static FrameworkElement FindControlRecursively(FrameworkElement parent, string name)
         {
-            var childrenCount = VisualTreeHelper.GetChildrenCount(parent);
+            int childrenCount = VisualTreeHelper.GetChildrenCount(parent);
             FrameworkElement foundChild = null;
             for (var childIndex = 0; childIndex < childrenCount; childIndex++)
             {

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base.Geometry;
@@ -95,7 +96,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries
             };
 
             var chartPointDataSeries = new ChartPointDataSeries(chartPointData);
-            var drawnPoints = chartPointDataSeries.ItemsSource.Cast<DataPoint>();
+            IEnumerable<DataPoint> drawnPoints = chartPointDataSeries.ItemsSource.Cast<DataPoint>();
 
             // When
             chartPointData.Points = new[]
@@ -121,7 +122,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries
             };
 
             var chartPointDataSeries = new ChartPointDataSeries(chartPointData);
-            var drawnPoints = chartPointDataSeries.ItemsSource.Cast<DataPoint>();
+            IEnumerable<DataPoint> drawnPoints = chartPointDataSeries.ItemsSource.Cast<DataPoint>();
 
             // When
             chartPointDataSeries.Update();

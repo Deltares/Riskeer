@@ -204,7 +204,7 @@ namespace Core.Common.TestUtil.Test
                 {
                     directoryDisposeHelper1.LockDirectory(FileSystemRights.Write);
 
-                    using (new DirectoryDisposeHelper(rootFolder, subfolder)) { } // Dispose will face the locked directory
+                    using (new DirectoryDisposeHelper(rootFolder, subfolder)) {} // Dispose will face the locked directory
                 }
             };
 

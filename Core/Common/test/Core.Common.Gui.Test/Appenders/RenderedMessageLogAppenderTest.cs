@@ -64,7 +64,7 @@ namespace Core.Common.Gui.Test.Appenders
             };
             var logEvent = new LoggingEvent(logEventData);
 
-            int actionCallCount = 0;
+            var actionCallCount = 0;
             var appender = new RenderedMessageLogAppender
             {
                 AppendMessageLineAction = s =>
@@ -121,7 +121,7 @@ namespace Core.Common.Gui.Test.Appenders
             };
 
             // Assert
-            var message = Assert.Throws<InvalidOperationException>(call).Message;
+            string message = Assert.Throws<InvalidOperationException>(call).Message;
             Assert.AreEqual("An action is already set", message);
         }
 

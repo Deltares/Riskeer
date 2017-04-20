@@ -46,7 +46,7 @@ namespace Core.Common.TestUtil.Test
         public void Compare_FirstObjectOfIncorrectType_ThrowArgumentException()
         {
             // Setup
-            object firstObject = new object();
+            var firstObject = new object();
             object secondObject = 1.1;
 
             var comparer = new DoubleWithToleranceComparer(2.2);
@@ -55,7 +55,7 @@ namespace Core.Common.TestUtil.Test
             TestDelegate call = () => comparer.Compare(firstObject, secondObject);
 
             // Assert
-            var message = Assert.Throws<ArgumentException>(call).Message;
+            string message = Assert.Throws<ArgumentException>(call).Message;
             Assert.AreEqual("Cannot compare objects other than System.Double with this comparer.", message);
         }
 
@@ -64,7 +64,7 @@ namespace Core.Common.TestUtil.Test
         {
             // Setup
             object firstObject = 2.2;
-            object secondObject = new object();
+            var secondObject = new object();
 
             var comparer = new DoubleWithToleranceComparer(2.2);
 
@@ -72,7 +72,7 @@ namespace Core.Common.TestUtil.Test
             TestDelegate call = () => comparer.Compare(firstObject, secondObject);
 
             // Assert
-            var message = Assert.Throws<ArgumentException>(call).Message;
+            string message = Assert.Throws<ArgumentException>(call).Message;
             Assert.AreEqual("Cannot compare objects other than System.Double with this comparer.", message);
         }
 
@@ -104,7 +104,7 @@ namespace Core.Common.TestUtil.Test
             var comparer = new DoubleWithToleranceComparer(1.1);
 
             // Call
-            var result = castToObject ?
+            int result = castToObject ?
                              comparer.Compare((object) first, second) :
                              comparer.Compare(first, second);
 
@@ -123,7 +123,7 @@ namespace Core.Common.TestUtil.Test
             var comparer = new DoubleWithToleranceComparer(0.5);
 
             // Call
-            var result = castToObject ?
+            int result = castToObject ?
                              comparer.Compare((object) first, second) :
                              comparer.Compare(first, second);
 

@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
@@ -90,7 +91,7 @@ namespace Core.Plugins.Chart.Test.Legend
             var chartDataCollection = new ChartDataCollection("test data");
 
             // Call
-            var text = info.Text(chartDataCollection);
+            string text = info.Text(chartDataCollection);
 
             // Assert
             Assert.AreEqual(chartDataCollection.Name, text);
@@ -103,7 +104,7 @@ namespace Core.Plugins.Chart.Test.Legend
             var chartDataCollection = new ChartDataCollection("test data");
 
             // Call
-            var image = info.Image(chartDataCollection);
+            Image image = info.Image(chartDataCollection);
 
             // Assert
             TestHelper.AssertImagesAreEqual(GuiResources.folder, image);
@@ -113,17 +114,17 @@ namespace Core.Plugins.Chart.Test.Legend
         public void ChildNodeObjects_Always_ReturnsChildrenWithContextAndDataReversed()
         {
             // Setup
-            TestChartData chartData1 = new TestChartData();
-            TestChartData chartData2 = new TestChartData();
-            TestChartData chartData3 = new TestChartData();
-            ChartDataCollection chartDataCollection = new ChartDataCollection("test data");
+            var chartData1 = new TestChartData();
+            var chartData2 = new TestChartData();
+            var chartData3 = new TestChartData();
+            var chartDataCollection = new ChartDataCollection("test data");
 
             chartDataCollection.Add(chartData1);
             chartDataCollection.Add(chartData2);
             chartDataCollection.Add(chartData3);
 
             // Call
-            var objects = info.ChildNodeObjects(chartDataCollection);
+            object[] objects = info.ChildNodeObjects(chartDataCollection);
 
             // Assert
             var expectedChildren = new[]
@@ -140,7 +141,7 @@ namespace Core.Plugins.Chart.Test.Legend
         {
             // Setup
             ChartData chartData = new TestChartData();
-            ChartDataCollection chartDataCollection = new ChartDataCollection("test");
+            var chartDataCollection = new ChartDataCollection("test");
 
             ChartDataContext context = GetContext(chartData, chartDataCollection);
 
@@ -156,7 +157,7 @@ namespace Core.Plugins.Chart.Test.Legend
         {
             // Setup
             ChartData chartData = new TestChartData();
-            ChartDataCollection chartDataCollection = new ChartDataCollection("test");
+            var chartDataCollection = new ChartDataCollection("test");
 
             ChartDataContext context = GetContext(chartData, chartDataCollection);
 
@@ -172,7 +173,7 @@ namespace Core.Plugins.Chart.Test.Legend
         {
             // Setup
             ChartData chartData = new TestChartData();
-            ChartDataCollection chartDataCollection = new ChartDataCollection("test");
+            var chartDataCollection = new ChartDataCollection("test");
 
             ChartDataContext context = GetContext(chartData, chartDataCollection);
 
@@ -188,7 +189,7 @@ namespace Core.Plugins.Chart.Test.Legend
         {
             // Setup
             ChartData chartData = new TestChartData();
-            ChartDataCollection chartDataCollection = new ChartDataCollection("test");
+            var chartDataCollection = new ChartDataCollection("test");
 
             ChartDataContext context = GetContext(chartData, chartDataCollection);
 
@@ -203,7 +204,7 @@ namespace Core.Plugins.Chart.Test.Legend
         public void CanDrag_Always_ReturnsTrue()
         {
             // Call
-            var canInsert = info.CanDrag(null, null);
+            bool canInsert = info.CanDrag(null, null);
 
             // Assert
             Assert.IsTrue(canInsert);
@@ -230,7 +231,7 @@ namespace Core.Plugins.Chart.Test.Legend
             chartDataCollection.Add(chartData2);
             chartDataCollection.Add(chartData3);
 
-            var context1 = GetContext(chartData1);
+            ChartDataContext context1 = GetContext(chartData1);
 
             chartDataCollection.Attach(observer);
 
@@ -240,7 +241,7 @@ namespace Core.Plugins.Chart.Test.Legend
                 info.OnDrop(context1, chartDataCollection, chartDataCollection, position, treeViewControl);
 
                 // Assert
-                var reversedIndex = 2 - position;
+                int reversedIndex = 2 - position;
                 Assert.AreSame(context1.WrappedData, chartDataCollection.Collection.ElementAt(reversedIndex));
 
                 mocks.VerifyAll();
@@ -273,7 +274,7 @@ namespace Core.Plugins.Chart.Test.Legend
             chartDataCollection.Attach(observer);
             chartLegendView.Data = chartDataCollection;
 
-            var context1 = GetContext(chartData1);
+            ChartDataContext context1 = GetContext(chartData1);
 
             chartDataCollection.Attach(observer);
 

@@ -109,7 +109,7 @@ namespace Core.Components.Gis.Forms.Test.Views
                     };
 
                     string selectedWellKnownTileSourceMapDataDisplayName = TypeUtils.GetDisplayName(selectedWellKnownTileSourceMapData.TileSource);
-                    var expectedIndex = -1;
+                    int expectedIndex = -1;
                     for (var index = 0; index < blaat.Length; index++)
                     {
                         DataGridViewCellCollection cells = rows[index].Cells;

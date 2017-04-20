@@ -34,7 +34,7 @@ namespace Core.Common.Utils.Test
             var obj = new object();
 
             // Call
-            var code = comparer.GetHashCode(obj);
+            int code = comparer.GetHashCode(obj);
 
             // Assert
             Assert.AreEqual(code, obj.GetHashCode());
@@ -48,7 +48,7 @@ namespace Core.Common.Utils.Test
             var obj = new TestObject();
 
             // Call
-            var code = comparer.GetHashCode(obj);
+            int code = comparer.GetHashCode(obj);
 
             // Assert
             Assert.AreNotEqual(code, obj.GetHashCode());
@@ -76,7 +76,7 @@ namespace Core.Common.Utils.Test
             var objectSecond = new TestObject();
 
             // Call 
-            var equals = comparer.Equals(objectFirst, objectSecond);
+            bool equals = comparer.Equals(objectFirst, objectSecond);
 
             // Assert
             Assert.IsFalse(equals);

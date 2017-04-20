@@ -110,8 +110,8 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.AreEqual(mapLineData.Features.Length, mapLineLayer.DataSet.Features.Count);
             Assert.IsInstanceOf<LineString>(feature.BasicGeometry);
 
-            var expectedCoordinates = mapFeature.MapGeometries.ElementAt(0).PointCollections.ElementAt(0)
-                                                .Select(p => new Coordinate(p.X, p.Y));
+            IEnumerable<Coordinate> expectedCoordinates = mapFeature.MapGeometries.ElementAt(0).PointCollections.ElementAt(0)
+                                                                    .Select(p => new Coordinate(p.X, p.Y));
             CollectionAssert.AreEqual(expectedCoordinates, feature.Coordinates);
         }
 
@@ -160,7 +160,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.AreEqual(mapLineData.Features.Length, mapLineLayer.DataSet.Features.Count);
             Assert.IsInstanceOf<MultiLineString>(feature.BasicGeometry);
 
-            var expectedCoordinates = mapFeature.MapGeometries.SelectMany(mg => mg.PointCollections.ElementAt(0).Select(p => new Coordinate(p.X, p.Y)));
+            IEnumerable<Coordinate> expectedCoordinates = mapFeature.MapGeometries.SelectMany(mg => mg.PointCollections.ElementAt(0).Select(p => new Coordinate(p.X, p.Y)));
             CollectionAssert.AreEqual(expectedCoordinates, feature.Coordinates);
         }
 
@@ -172,7 +172,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             [Values(DashStyle.Solid, DashStyle.Dash)] DashStyle lineStyle)
         {
             // Setup
-            var expectedColor = Color.FromKnownColor(color);
+            Color expectedColor = Color.FromKnownColor(color);
             var converter = new MapLineDataConverter();
             var mapLineLayer = new MapLineLayer();
             var mapLineData = new MapLineData("test")
@@ -194,8 +194,8 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.AreEqual(firstStrokes.Count, secondStrokes.Count, "Unequal amount of strokes defined.");
             for (var i = 0; i < firstStrokes.Count; i++)
             {
-                CartographicStroke firstStroke = (CartographicStroke) firstStrokes[i];
-                CartographicStroke secondStroke = (CartographicStroke) secondStrokes[i];
+                var firstStroke = (CartographicStroke) firstStrokes[i];
+                var secondStroke = (CartographicStroke) secondStrokes[i];
 
                 Assert.AreEqual(firstStroke.Color, secondStroke.Color);
                 Assert.AreEqual(firstStroke.EndCap, secondStroke.EndCap);

@@ -77,7 +77,7 @@ namespace Core.Common.Base.Geometry
         {
             unchecked
             {
-                var hashCode = X.GetHashCode();
+                int hashCode = X.GetHashCode();
                 hashCode = (hashCode * 397) ^ Y.GetHashCode();
                 hashCode = (hashCode * 397) ^ Z.GetHashCode();
                 return hashCode;

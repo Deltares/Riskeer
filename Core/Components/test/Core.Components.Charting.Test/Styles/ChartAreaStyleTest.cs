@@ -32,8 +32,8 @@ namespace Core.Components.Charting.Test.Styles
         public void Constructor_WithAllParameters_SetsProperties()
         {
             // Setup
-            var fillColor = Color.AliceBlue;
-            var strokeColor = Color.Blue;
+            Color fillColor = Color.AliceBlue;
+            Color strokeColor = Color.Blue;
             var width = 3;
 
             // Call

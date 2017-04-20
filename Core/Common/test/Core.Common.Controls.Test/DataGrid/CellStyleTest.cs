@@ -32,7 +32,7 @@ namespace Core.Common.Controls.Test.DataGrid
         public void CellStyleEnabled_Always_ReturnsEnabledStyle()
         {
             // Call
-            var cellStyle = CellStyle.Enabled;
+            CellStyle cellStyle = CellStyle.Enabled;
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.White), cellStyle.BackgroundColor);
@@ -43,7 +43,7 @@ namespace Core.Common.Controls.Test.DataGrid
         public void CellStyleDisabled_Always_ReturnsDisabledStyle()
         {
             // Call
-            var cellStyle = CellStyle.Disabled;
+            CellStyle cellStyle = CellStyle.Disabled;
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.DarkGray), cellStyle.BackgroundColor);

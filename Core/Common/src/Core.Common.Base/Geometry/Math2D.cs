@@ -134,22 +134,22 @@ namespace Core.Common.Base.Geometry
                 throw new ArgumentException(Resources.Math2D_LineIntersectionWithLine_Line_points_are_equal);
             }
 
-            var aLine = line1Point2.Y - line1Point1.Y;
-            var bLine = line1Point1.X - line1Point2.X;
-            var cLine = aLine * line1Point1.X + bLine * line1Point1.Y;
+            double aLine = line1Point2.Y - line1Point1.Y;
+            double bLine = line1Point1.X - line1Point2.X;
+            double cLine = aLine * line1Point1.X + bLine * line1Point1.Y;
 
-            var aOtherLine = line2Point2.Y - line2Point1.Y;
-            var bOtherLine = line2Point1.X - line2Point2.X;
-            var cOtherLine = aOtherLine * line2Point1.X + bOtherLine * line2Point1.Y;
+            double aOtherLine = line2Point2.Y - line2Point1.Y;
+            double bOtherLine = line2Point1.X - line2Point2.X;
+            double cOtherLine = aOtherLine * line2Point1.X + bOtherLine * line2Point1.Y;
 
-            var determinant = aLine * bOtherLine - aOtherLine * bLine;
+            double determinant = aLine * bOtherLine - aOtherLine * bLine;
             if (Math.Abs(determinant) < epsilonForComparisons)
             {
                 return null;
             }
 
-            var x = (bOtherLine * cLine - bLine * cOtherLine) / determinant;
-            var y = (aLine * cOtherLine - aOtherLine * cLine) / determinant;
+            double x = (bOtherLine * cLine - bLine * cOtherLine) / determinant;
+            double y = (aLine * cOtherLine - aOtherLine * cLine) / determinant;
             return new Point2D(x, y);
         }
 
@@ -463,11 +463,11 @@ namespace Core.Common.Base.Geometry
         {
             var splitResults = new Point2D[lengths.Length][];
 
-            int index = 0;
+            var index = 0;
             double lineSegmentRemainder = lineSegments[index].Length;
             double distanceOnSegment = 0;
             Point2D startPoint = lineSegments[index].FirstPoint;
-            for (int i = 0; i < lengths.Length; i++)
+            for (var i = 0; i < lengths.Length; i++)
             {
                 double splitDistanceRemainder = lengths[i];
                 var subLine = new List<Point2D>
@@ -508,7 +508,7 @@ namespace Core.Common.Base.Geometry
 
         private static void EnsureLastSplitResultHasEndPointOfLine(ICollection<Point2D> subLine, IList<Segment2D> lineSegments)
         {
-            var lastSegmentIndex = lineSegments.Count - 1;
+            int lastSegmentIndex = lineSegments.Count - 1;
             if (!subLine.Contains(lineSegments[lastSegmentIndex].SecondPoint))
             {
                 subLine.Add(lineSegments[lastSegmentIndex].SecondPoint);
@@ -517,7 +517,7 @@ namespace Core.Common.Base.Geometry
 
         private static Point2D GetInterpolatedPoint(Segment2D lineSegment, double splitDistance)
         {
-            var interpolationFactor = splitDistance / lineSegment.Length;
+            double interpolationFactor = splitDistance / lineSegment.Length;
             return GetInterpolatedPointAtFraction(lineSegment, interpolationFactor);
         }
 

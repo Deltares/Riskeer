@@ -63,7 +63,7 @@ namespace Core.Common.Controls.Test.PresentationObjects
             var context = new SimpleWrappedObjectContext<object>(new object());
 
             // Call
-            var isEqual = context.Equals(null);
+            bool isEqual = context.Equals(null);
 
             // Assert
             Assert.IsFalse(isEqual);
@@ -76,7 +76,7 @@ namespace Core.Common.Controls.Test.PresentationObjects
             var context = new SimpleWrappedObjectContext<object>(new object());
 
             // Call
-            var isEqual = context.Equals(context);
+            bool isEqual = context.Equals(context);
 
             // Assert
             Assert.IsTrue(isEqual);
@@ -90,8 +90,8 @@ namespace Core.Common.Controls.Test.PresentationObjects
             var context2 = new SimpleWrappedObjectContext<IEnumerable<object>>(Enumerable.Empty<object>());
 
             // Call
-            var isEqual1 = context1.Equals(context2);
-            var isEqual2 = context2.Equals(context1);
+            bool isEqual1 = context1.Equals(context2);
+            bool isEqual2 = context2.Equals(context1);
 
             // Assert
             Assert.IsFalse(isEqual1);
@@ -112,8 +112,8 @@ namespace Core.Common.Controls.Test.PresentationObjects
             object context2 = new SimpleWrappedObjectContext<SimpleEquatable>(sourceObject2);
 
             // Call
-            var isEqual1 = context1.Equals(context2);
-            var isEqual2 = context2.Equals(context1);
+            bool isEqual1 = context1.Equals(context2);
+            bool isEqual2 = context2.Equals(context1);
 
             // Assert
             Assert.IsFalse(isEqual1);
@@ -129,8 +129,8 @@ namespace Core.Common.Controls.Test.PresentationObjects
             object context2 = new AnotherSimpleWrappedObjectContext<object>(sourceObject);
 
             // Call
-            var isEqual1 = context1.Equals(context2);
-            var isEqual2 = context2.Equals(context1);
+            bool isEqual1 = context1.Equals(context2);
+            bool isEqual2 = context2.Equals(context1);
 
             // Assert
             Assert.IsFalse(isEqual1);
@@ -146,8 +146,8 @@ namespace Core.Common.Controls.Test.PresentationObjects
             object context2 = new SimpleWrappedObjectContext<object>(sourceObject);
 
             // Call
-            var isEqual1 = context1.Equals(context2);
-            var isEqual2 = context2.Equals(context1);
+            bool isEqual1 = context1.Equals(context2);
+            bool isEqual2 = context2.Equals(context1);
 
             // Assert
             Assert.IsTrue(isEqual1);
@@ -168,8 +168,8 @@ namespace Core.Common.Controls.Test.PresentationObjects
             Assert.AreEqual(context1, context2);
 
             // Call
-            var hashCode1 = context1.GetHashCode();
-            var hashCode2 = context2.GetHashCode();
+            int hashCode1 = context1.GetHashCode();
+            int hashCode2 = context2.GetHashCode();
 
             // Assert
             Assert.AreEqual(hashCode1, hashCode2);

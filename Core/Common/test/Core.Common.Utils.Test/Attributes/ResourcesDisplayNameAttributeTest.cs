@@ -21,6 +21,7 @@
 
 using System;
 using System.Linq;
+using System.Reflection;
 using Core.Common.Utils.Attributes;
 using Core.Common.Utils.Test.Properties;
 using NUnit.Framework;
@@ -37,7 +38,7 @@ namespace Core.Common.Utils.Test.Attributes
             TestDelegate call = () => new ResourcesDisplayNameAttribute(typeof(Resources), "DoesNotExist");
 
             // Assert
-            var message = Assert.Throws<InvalidOperationException>(call).Message;
+            string message = Assert.Throws<InvalidOperationException>(call).Message;
             StringAssert.Contains("does not have property", message);
         }
 
@@ -48,7 +49,7 @@ namespace Core.Common.Utils.Test.Attributes
             TestDelegate call = () => new ResourcesDisplayNameAttribute(typeof(Resources), "abacus");
 
             // Assert
-            var message = Assert.Throws<InvalidOperationException>(call).Message;
+            string message = Assert.Throws<InvalidOperationException>(call).Message;
             StringAssert.EndsWith("is not string.", message);
         }
 
@@ -66,7 +67,7 @@ namespace Core.Common.Utils.Test.Attributes
         public void Enum_StringResource_ExpectedValues()
         {
             // Call
-            var fieldInfo = typeof(SimpleEnum).GetFields().FirstOrDefault(fi => fi.FieldType == typeof(SimpleEnum));
+            FieldInfo fieldInfo = typeof(SimpleEnum).GetFields().FirstOrDefault(fi => fi.FieldType == typeof(SimpleEnum));
             Assert.IsNotNull(fieldInfo);
             var resourcesDisplayNameAttribute = (ResourcesDisplayNameAttribute) Attribute.GetCustomAttribute(fieldInfo, typeof(ResourcesDisplayNameAttribute));
 
@@ -79,7 +80,7 @@ namespace Core.Common.Utils.Test.Attributes
         public void Property_StringResource_ExpectedValues()
         {
             // Call
-            var fieldInfo = typeof(SimpleClass).GetProperty("Name");
+            PropertyInfo fieldInfo = typeof(SimpleClass).GetProperty("Name");
             Assert.IsNotNull(fieldInfo);
             var resourcesDisplayNameAttribute = (ResourcesDisplayNameAttribute) Attribute.GetCustomAttribute(fieldInfo, typeof(ResourcesDisplayNameAttribute));
 

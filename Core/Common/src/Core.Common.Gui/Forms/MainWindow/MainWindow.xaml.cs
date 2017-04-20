@@ -244,7 +244,7 @@ namespace Core.Common.Gui.Forms.MainWindow
                 return;
             }
 
-            foreach (var ribbonCommandHandler in ribbonCommandHandlers)
+            foreach (IRibbonCommandHandler ribbonCommandHandler in ribbonCommandHandlers)
             {
                 ribbonCommandHandler.ValidateItems();
             }
@@ -263,9 +263,9 @@ namespace Core.Common.Gui.Forms.MainWindow
 
             if (Ribbon != null)
             {
-                foreach (var tab in Ribbon.Tabs)
+                foreach (RibbonTabItem tab in Ribbon.Tabs)
                 {
-                    foreach (var group in tab.Groups)
+                    foreach (RibbonGroupBox group in tab.Groups)
                     {
                         group.Items.Clear();
                     }
@@ -318,7 +318,7 @@ namespace Core.Common.Gui.Forms.MainWindow
             }
 
             // remember active contextual tab per view type, when view is activated back - activate contextual item
-            var activeDocumentView = viewController.ViewHost.ActiveDocumentView;
+            IView activeDocumentView = viewController.ViewHost.ActiveDocumentView;
             if (Ribbon.SelectedTabItem != null && activeDocumentView != null)
             {
                 if (Ribbon.SelectedTabItem.IsContextual)
@@ -357,14 +357,14 @@ namespace Core.Common.Gui.Forms.MainWindow
         private void OnActiveDocumentViewChanged(object sender, EventArgs e)
         {
             // activate contextual tab which was active for this view type
-            var activeDocumentView = viewController.ViewHost.ActiveDocumentView;
+            IView activeDocumentView = viewController.ViewHost.ActiveDocumentView;
             if (activateContextualTab && Ribbon.SelectedTabItem != null && activeDocumentView != null &&
                 Ribbon.Tabs.Any(t => t.IsContextual && t.Visibility == Visibility.Visible))
             {
                 string lastActiveTabForActiveDocumentView;
                 if (lastActiveContextTabNamePerViewType.TryGetValue(activeDocumentView.GetType(), out lastActiveTabForActiveDocumentView))
                 {
-                    var tab = Ribbon.Tabs.First(t => t.Header.ToString() == lastActiveTabForActiveDocumentView);
+                    RibbonTabItem tab = Ribbon.Tabs.First(t => t.Header.ToString() == lastActiveTabForActiveDocumentView);
                     if (tab.IsVisible)
                     {
                         Ribbon.SelectedTabItem = tab;
@@ -372,13 +372,13 @@ namespace Core.Common.Gui.Forms.MainWindow
                 }
                 else // activate first contextual group tab
                 {
-                    var tab = Ribbon.Tabs.FirstOrDefault(t => t.IsContextual && t.Visibility == Visibility.Visible);
+                    RibbonTabItem tab = Ribbon.Tabs.FirstOrDefault(t => t.IsContextual && t.Visibility == Visibility.Visible);
                     Ribbon.SelectedTabItem = tab;
                 }
             }
             else if (!string.IsNullOrEmpty(lastNonContextualTab)) // reactivate last non-contextual tab
             {
-                var tab = Ribbon.Tabs.First(t => t.Header.ToString() == lastNonContextualTab);
+                RibbonTabItem tab = Ribbon.Tabs.First(t => t.Header.ToString() == lastNonContextualTab);
                 Ribbon.SelectedTabItem = tab;
             }
         }
@@ -484,9 +484,9 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void FillRibbonTabsFromRibbonComponent(Ribbon ribbonControl)
         {
-            foreach (var sourceTab in ribbonControl.Tabs)
+            foreach (RibbonTabItem sourceTab in ribbonControl.Tabs)
             {
-                var existingTab = Ribbon.Tabs.FirstOrDefault(t => t.Header.Equals(sourceTab.Header));
+                RibbonTabItem existingTab = Ribbon.Tabs.FirstOrDefault(t => t.Header.Equals(sourceTab.Header));
                 if (existingTab == null) // add new tab
                 {
                     Ribbon.Tabs.Add(sourceTab);
@@ -515,7 +515,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         {
             foreach (RibbonGroupBox sourceGroup in sourceTab.Groups)
             {
-                var existingGroup = targetTab.Groups.FirstOrDefault(g => g.Header.Equals(sourceGroup.Header));
+                RibbonGroupBox existingGroup = targetTab.Groups.FirstOrDefault(g => g.Header.Equals(sourceGroup.Header));
                 if (existingGroup == null) // add new group
                 {
                     RibbonGroupBox newGroup = CreateRibbonGroupBox(sourceGroup);
@@ -556,14 +556,14 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private static void CopyGroupBoxItems(RibbonGroupBox targetGroupBox, RibbonGroupBox sourceGroupBox)
         {
-            foreach (var item in sourceGroupBox.Items.Cast<object>().ToArray())
+            foreach (object item in sourceGroupBox.Items.Cast<object>().ToArray())
             {
                 // HACK: remember and restore button size (looks like a bug in Fluent)
                 var iconSize = RibbonControlSize.Small;
                 var buttonItem = item as Button;
                 if (buttonItem != null)
                 {
-                    var button = buttonItem;
+                    Button button = buttonItem;
                     iconSize = button.Size;
                 }
 
@@ -572,7 +572,7 @@ namespace Core.Common.Gui.Forms.MainWindow
 
                 if (buttonItem != null)
                 {
-                    var button = targetGroupBox.Items.OfType<Button>().Last();
+                    Button button = targetGroupBox.Items.OfType<Button>().Last();
                     button.Size = iconSize;
                 }
             }
@@ -582,14 +582,14 @@ namespace Core.Common.Gui.Forms.MainWindow
         {
             if (existingTab.Group != null)
             {
-                var newGroup = Ribbon.ContextualGroups.First(g => g.Name == existingTab.Group.Name);
+                RibbonContextualTabGroup newGroup = Ribbon.ContextualGroups.First(g => g.Name == existingTab.Group.Name);
                 existingTab.Group = newGroup;
             }
         }
 
         private void ButtonShowProperties_Click(object sender, RoutedEventArgs e)
         {
-            var active = viewController.ViewHost.ToolViews.Contains(PropertyGrid);
+            bool active = viewController.ViewHost.ToolViews.Contains(PropertyGrid);
 
             if (active)
             {
@@ -605,7 +605,7 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void ButtonShowMessages_Click(object sender, RoutedEventArgs e)
         {
-            var active = viewController.ViewHost.ToolViews.Contains(MessageWindow);
+            bool active = viewController.ViewHost.ToolViews.Contains(MessageWindow);
 
             if (active)
             {
@@ -626,7 +626,7 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void OnFileManual_Clicked(object sender, RoutedEventArgs e)
         {
-            var manualFileName = settings.FixedSettings.ManualFilePath;
+            string manualFileName = settings.FixedSettings.ManualFilePath;
 
             if (File.Exists(manualFileName))
             {

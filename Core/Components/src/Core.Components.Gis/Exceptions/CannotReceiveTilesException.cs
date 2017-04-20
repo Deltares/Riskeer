@@ -33,14 +33,14 @@ namespace Core.Components.Gis.Exceptions
         /// <summary>
         /// Initializes a new instance of the <see cref="CannotReceiveTilesException"/> class.
         /// </summary>
-        public CannotReceiveTilesException() { }
+        public CannotReceiveTilesException() {}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CannotReceiveTilesException"/> class
         /// with a specified error message.
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
-        public CannotReceiveTilesException(string message) : base(message) { }
+        public CannotReceiveTilesException(string message) : base(message) {}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CannotReceiveTilesException"/> class
@@ -50,7 +50,7 @@ namespace Core.Components.Gis.Exceptions
         /// <param name="message">The error message that explains the reason for the exception.</param>
         /// <param name="inner">The exception that is the cause of the current exception,
         /// or <c>null</c> if no inner exception is specified.</param>
-        public CannotReceiveTilesException(string message, Exception inner) : base(message, inner) { }
+        public CannotReceiveTilesException(string message, Exception inner) : base(message, inner) {}
 
         /// <summary>
         /// Initializes a new instance of <see cref="CannotReceiveTilesException"/> with
@@ -63,6 +63,6 @@ namespace Core.Components.Gis.Exceptions
         /// <c>null</c>.</exception>
         /// <exception cref="SerializationException">The class name is <c>null</c> or
         /// <see cref="Exception.HResult" /> is zero (0). </exception>
-        protected CannotReceiveTilesException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        protected CannotReceiveTilesException(SerializationInfo info, StreamingContext context) : base(info, context) {}
     }
 }

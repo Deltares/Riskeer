@@ -64,7 +64,7 @@ namespace Core.Plugins.ProjectExplorer.Test
         {
             // Setup
             var mocks = new MockRepository();
-            IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
             IEnumerable<TreeNodeInfo> treeNodeInfos = Enumerable.Empty<TreeNodeInfo>();
 
             mocks.ReplayAll();
@@ -85,7 +85,7 @@ namespace Core.Plugins.ProjectExplorer.Test
         {
             // Setup
             var mocks = new MockRepository();
-            IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
             var projectStub = mocks.Stub<IProject>();
 
             mocks.ReplayAll();
@@ -116,7 +116,7 @@ namespace Core.Plugins.ProjectExplorer.Test
         {
             // Setup
             var mocks = new MockRepository();
-            IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
             var projectStub = mocks.Stub<IProject>();
 
             viewCommands.Expect(vc => vc.RemoveAllViewsForItem(projectStub));
@@ -158,7 +158,7 @@ namespace Core.Plugins.ProjectExplorer.Test
         {
             // Setup
             var mocks = new MockRepository();
-            IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
 
             var projectStub = mocks.Stub<IProject>();
             var stringA = "testA";
@@ -264,7 +264,7 @@ namespace Core.Plugins.ProjectExplorer.Test
         {
             // Setup
             var mocks = new MockRepository();
-            IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
             var projectStub = mocks.Stub<IProject>();
 
             mocks.ReplayAll();
@@ -300,7 +300,7 @@ namespace Core.Plugins.ProjectExplorer.Test
                 treeViewControl.TrySelectNodeForData(stringA);
 
                 // Call
-                var selection = explorer.Selection;
+                object selection = explorer.Selection;
 
                 // Assert
                 Assert.AreSame(stringA, selection);

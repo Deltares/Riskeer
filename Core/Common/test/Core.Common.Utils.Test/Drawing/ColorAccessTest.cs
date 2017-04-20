@@ -50,13 +50,13 @@ namespace Core.Common.Utils.Test.Drawing
         public void Create_RectangleNotFullyWithinImage_ThrowArgumentException(int leftX, int topY, int rightX, int bottomY)
         {
             // Setup
-            var rect = Rectangle.FromLTRB(leftX, topY, rightX, bottomY);
+            Rectangle rect = Rectangle.FromLTRB(leftX, topY, rightX, bottomY);
 
             // Call
             TestDelegate call = () => ColorAccess.Create(Resources.Black2x2, rect);
 
             // Assert
-            string message = "Toegankelijk gebied moet geheel binnen de afbeelding vallen.";
+            var message = "Toegankelijk gebied moet geheel binnen de afbeelding vallen.";
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message).ParamName;
             Assert.AreEqual("accessibleArea", paramName);
         }
@@ -97,7 +97,7 @@ namespace Core.Common.Utils.Test.Drawing
             TestDelegate call = () => c = colorAccess[x, y];
 
             // Assert
-            string message = "Index must be in range x:[0,1], y:[0,1].";
+            var message = "Index must be in range x:[0,1], y:[0,1].";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, message);
         }
 
@@ -107,7 +107,7 @@ namespace Core.Common.Utils.Test.Drawing
             // Setup
             using (var image = (Bitmap) Resources.acorn.Clone())
             {
-                var colorAccess = ColorAccess.Create(image);
+                ColorAccess colorAccess = ColorAccess.Create(image);
 
                 // Call
                 colorAccess[8, 8] = Color.AliceBlue;
@@ -118,7 +118,7 @@ namespace Core.Common.Utils.Test.Drawing
                 Assert.AreEqual(Color.AliceBlue.G, colorAccess.Buffer[expectedBufferStartIndex + 1]);
                 Assert.AreEqual(Color.AliceBlue.R, colorAccess.Buffer[expectedBufferStartIndex + 2]);
                 Assert.AreEqual(Color.AliceBlue.A, colorAccess.Buffer[expectedBufferStartIndex + 3]);
-                
+
                 // ColorAccess should not be capable of changing the source image:
                 TestHelper.AssertImagesAreEqual(Resources.acorn, image);
             }
@@ -138,7 +138,7 @@ namespace Core.Common.Utils.Test.Drawing
             TestDelegate call = () => colorAccess[x, y] = Color.AliceBlue;
 
             // Assert
-            string message = "Index must be in range x:[0,15], y:[0,15].";
+            var message = "Index must be in range x:[0,15], y:[0,15].";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, message);
         }
 
@@ -148,10 +148,10 @@ namespace Core.Common.Utils.Test.Drawing
             // Setup
             ColorAccess colorAccess = ColorAccess.Create(Resources.acorn);
 
-            for (int i = 0; i < 16; i++)
+            for (var i = 0; i < 16; i++)
             {
                 colorAccess[i, i] = Color.Red;
-                colorAccess[i, 15-i] = Color.Red;
+                colorAccess[i, 15 - i] = Color.Red;
             }
 
             using (var targetImage = (Bitmap) Resources.acorn.Clone())

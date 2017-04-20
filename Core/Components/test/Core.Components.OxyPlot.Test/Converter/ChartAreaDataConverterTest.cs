@@ -53,7 +53,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             var converter = new ChartAreaDataConverter();
             var areaSeries = new AreaSeries();
             var random = new Random(21);
-            var randomCount = random.Next(5, 10);
+            int randomCount = random.Next(5, 10);
             var points = new Collection<Point2D>();
             for (var i = 0; i < randomCount; i++)
             {
@@ -69,7 +69,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             converter.ConvertSeriesItems(areaData, areaSeries);
 
             // Assert
-            var expectedPoints = points.Select(t => new DataPoint(t.X, t.Y)).ToArray();
+            DataPoint[] expectedPoints = points.Select(t => new DataPoint(t.X, t.Y)).ToArray();
             CollectionAssert.AreEqual(expectedPoints, areaSeries.Points);
             CollectionAssert.AreEqual(new Collection<DataPoint>
             {
@@ -86,7 +86,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             // Setup
             var converter = new ChartAreaDataConverter();
             var areaSeries = new AreaSeries();
-            var expectedColor = Color.FromKnownColor(color);
+            Color expectedColor = Color.FromKnownColor(color);
             var data = new ChartAreaData("test")
             {
                 Style = new ChartAreaStyle(expectedColor, Color.Red, 3)
@@ -108,7 +108,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             // Setup
             var converter = new ChartAreaDataConverter();
             var areaSeries = new AreaSeries();
-            var expectedColor = Color.FromKnownColor(color);
+            Color expectedColor = Color.FromKnownColor(color);
             var data = new ChartAreaData("test")
             {
                 Style = new ChartAreaStyle(Color.Red, expectedColor, 3)

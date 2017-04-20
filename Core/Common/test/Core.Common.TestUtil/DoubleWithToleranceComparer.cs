@@ -49,11 +49,11 @@ namespace Core.Common.TestUtil
 
         public int Compare(double firstDouble, double secondDouble)
         {
-            var diff = firstDouble - secondDouble;
+            double diff = firstDouble - secondDouble;
 
-            var tolerable = Math.Abs(diff) <= tolerance;
+            bool tolerable = Math.Abs(diff) <= tolerance;
 
-            var nonTolerableDiff = !tolerable && diff < 0 ? -1 : 1;
+            int nonTolerableDiff = !tolerable && diff < 0 ? -1 : 1;
 
             return tolerable ? 0 : nonTolerableDiff;
         }

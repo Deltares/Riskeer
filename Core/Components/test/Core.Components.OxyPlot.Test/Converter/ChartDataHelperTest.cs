@@ -59,7 +59,7 @@ namespace Core.Components.OxyPlot.Test.Converter
         public void Convert_Solid_ReturnsSolid()
         {
             // Call
-            var lineStyle = ChartDataHelper.Convert(DashStyle.Solid);
+            LineStyle lineStyle = ChartDataHelper.Convert(DashStyle.Solid);
 
             // Assert
             Assert.AreEqual(LineStyle.Solid, lineStyle);
@@ -69,7 +69,7 @@ namespace Core.Components.OxyPlot.Test.Converter
         public void Convert_Dash_ReturnsDash()
         {
             // Call
-            var lineStyle = ChartDataHelper.Convert(DashStyle.Dash);
+            LineStyle lineStyle = ChartDataHelper.Convert(DashStyle.Dash);
 
             // Assert
             Assert.AreEqual(LineStyle.Dash, lineStyle);
@@ -79,7 +79,7 @@ namespace Core.Components.OxyPlot.Test.Converter
         public void Convert_Dot_ReturnsDot()
         {
             // Call
-            var lineStyle = ChartDataHelper.Convert(DashStyle.Dot);
+            LineStyle lineStyle = ChartDataHelper.Convert(DashStyle.Dot);
 
             // Assert
             Assert.AreEqual(LineStyle.Dot, lineStyle);
@@ -89,7 +89,7 @@ namespace Core.Components.OxyPlot.Test.Converter
         public void Convert_DashDot_ReturnsDashDot()
         {
             // Call
-            var lineStyle = ChartDataHelper.Convert(DashStyle.DashDot);
+            LineStyle lineStyle = ChartDataHelper.Convert(DashStyle.DashDot);
 
             // Assert
             Assert.AreEqual(LineStyle.DashDot, lineStyle);
@@ -99,7 +99,7 @@ namespace Core.Components.OxyPlot.Test.Converter
         public void Convert_DashDotDot_ReturnsDashDotDot()
         {
             // Call
-            var lineStyle = ChartDataHelper.Convert(DashStyle.DashDotDot);
+            LineStyle lineStyle = ChartDataHelper.Convert(DashStyle.DashDotDot);
 
             // Assert
             Assert.AreEqual(LineStyle.DashDotDot, lineStyle);

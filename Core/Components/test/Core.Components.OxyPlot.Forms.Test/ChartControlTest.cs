@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -27,6 +28,8 @@ using Core.Common.Utils.Reflection;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Forms;
 using NUnit.Framework;
+using OxyPlot;
+using OxyPlot.Series;
 using OxyPlot.WindowsForms;
 
 namespace Core.Components.OxyPlot.Forms.Test
@@ -61,7 +64,7 @@ namespace Core.Components.OxyPlot.Forms.Test
             // Given
             using (var chart = new ChartControl())
             {
-                var plotView = chart.Controls.OfType<LinearPlotView>().First();
+                LinearPlotView plotView = chart.Controls.OfType<LinearPlotView>().First();
                 var chartPointData = new ChartPointData("Points");
                 var chartLineData = new ChartLineData("Lines");
                 var chartAreaData = new ChartAreaData("Areas");
@@ -79,7 +82,7 @@ namespace Core.Components.OxyPlot.Forms.Test
                 chart.Data = chartDataCollection;
 
                 // Then
-                var series = plotView.Model.Series;
+                ElementCollection<Series> series = plotView.Model.Series;
                 Assert.AreEqual(3, series.Count);
                 Assert.AreEqual("Points", series[0].Title);
                 Assert.AreEqual("Lines", series[1].Title);
@@ -93,7 +96,7 @@ namespace Core.Components.OxyPlot.Forms.Test
             // Given
             using (var chart = new ChartControl())
             {
-                var plotView = chart.Controls.OfType<LinearPlotView>().First();
+                LinearPlotView plotView = chart.Controls.OfType<LinearPlotView>().First();
                 var chartPointData = new ChartPointData("Points");
                 var chartLineData = new ChartLineData("Lines");
                 var chartAreaData = new ChartAreaData("Areas");
@@ -126,7 +129,7 @@ namespace Core.Components.OxyPlot.Forms.Test
             // Given
             using (var chart = new ChartControl())
             {
-                var plotView = chart.Controls.OfType<LinearPlotView>().First();
+                LinearPlotView plotView = chart.Controls.OfType<LinearPlotView>().First();
                 var chartPointData = new ChartPointData("Points");
                 var chartLineData = new ChartLineData("Lines");
                 var chartAreaData = new ChartAreaData("Areas");
@@ -142,7 +145,7 @@ namespace Core.Components.OxyPlot.Forms.Test
 
                 chart.Data = chartDataCollection;
 
-                var seriesBeforeUpdate = plotView.Model.Series.ToList();
+                List<Series> seriesBeforeUpdate = plotView.Model.Series.ToList();
 
                 // When
                 chartLineData.Points = new Point2D[0];
@@ -159,7 +162,7 @@ namespace Core.Components.OxyPlot.Forms.Test
             // Given
             using (var chart = new ChartControl())
             {
-                var plotView = chart.Controls.OfType<LinearPlotView>().First();
+                LinearPlotView plotView = chart.Controls.OfType<LinearPlotView>().First();
                 var chartPointData = new ChartPointData("Points");
                 var chartLineData = new ChartLineData("Lines");
                 var chartAreaData = new ChartAreaData("Areas");
@@ -175,7 +178,7 @@ namespace Core.Components.OxyPlot.Forms.Test
 
                 chart.Data = chartDataCollection;
 
-                var seriesBeforeUpdate = plotView.Model.Series.ToList();
+                List<Series> seriesBeforeUpdate = plotView.Model.Series.ToList();
 
                 // Precondition
                 Assert.AreEqual(3, seriesBeforeUpdate.Count);
@@ -185,7 +188,7 @@ namespace Core.Components.OxyPlot.Forms.Test
                 nestedChartDataCollection1.NotifyObservers();
 
                 // Then
-                var series = plotView.Model.Series;
+                ElementCollection<Series> series = plotView.Model.Series;
                 Assert.AreEqual(2, series.Count);
                 Assert.AreEqual("Points", series[0].Title);
                 Assert.AreEqual("Areas", series[1].Title);
@@ -199,7 +202,7 @@ namespace Core.Components.OxyPlot.Forms.Test
             // Given
             using (var chart = new ChartControl())
             {
-                var plotView = chart.Controls.OfType<LinearPlotView>().First();
+                LinearPlotView plotView = chart.Controls.OfType<LinearPlotView>().First();
                 var chartPointData = new ChartPointData("Points");
                 var chartLineData = new ChartLineData("Lines");
                 var chartAreaData = new ChartAreaData("Areas");
@@ -215,7 +218,7 @@ namespace Core.Components.OxyPlot.Forms.Test
 
                 chart.Data = chartDataCollection;
 
-                var seriesBeforeUpdate = plotView.Model.Series.ToList();
+                List<Series> seriesBeforeUpdate = plotView.Model.Series.ToList();
 
                 // Precondition
                 Assert.AreEqual(3, seriesBeforeUpdate.Count);
@@ -225,7 +228,7 @@ namespace Core.Components.OxyPlot.Forms.Test
                 nestedChartDataCollection1.NotifyObservers();
 
                 // Then
-                var series = plotView.Model.Series;
+                ElementCollection<Series> series = plotView.Model.Series;
                 Assert.AreEqual(4, series.Count);
                 Assert.AreEqual("Points", series[0].Title);
                 Assert.AreEqual("Additional areas", series[1].Title);
@@ -241,7 +244,7 @@ namespace Core.Components.OxyPlot.Forms.Test
             // Given
             using (var chart = new ChartControl())
             {
-                var plotView = chart.Controls.OfType<LinearPlotView>().First();
+                LinearPlotView plotView = chart.Controls.OfType<LinearPlotView>().First();
                 var chartPointData = new ChartPointData("Points");
                 var chartLineData = new ChartLineData("Lines");
                 var chartAreaData = new ChartAreaData("Areas");
@@ -253,7 +256,7 @@ namespace Core.Components.OxyPlot.Forms.Test
 
                 chart.Data = chartDataCollection;
 
-                var seriesBeforeUpdate = plotView.Model.Series.ToList();
+                List<Series> seriesBeforeUpdate = plotView.Model.Series.ToList();
 
                 // Precondition
                 Assert.AreEqual(3, seriesBeforeUpdate.Count);
@@ -267,7 +270,7 @@ namespace Core.Components.OxyPlot.Forms.Test
                 chartDataCollection.NotifyObservers();
 
                 // Then
-                var series = plotView.Model.Series;
+                ElementCollection<Series> series = plotView.Model.Series;
                 Assert.AreEqual(3, series.Count);
                 Assert.AreEqual("Lines", series[0].Title);
                 Assert.AreEqual("Areas", series[1].Title);
@@ -335,7 +338,7 @@ namespace Core.Components.OxyPlot.Forms.Test
 
                 chart.Data = collection;
 
-                var series = view.Model.Series.ToList();
+                List<Series> series = view.Model.Series.ToList();
 
                 form.Controls.Add(chart);
                 view.Invalidated += (sender, args) => invalidated++;

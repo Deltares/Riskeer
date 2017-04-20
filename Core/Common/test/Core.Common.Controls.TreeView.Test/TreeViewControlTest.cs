@@ -201,7 +201,7 @@ namespace Core.Common.Controls.TreeView.Test
                 treeViewControl.Data = new object();
 
                 // Call
-                var result = treeViewControl.CanRenameNodeForData(null);
+                bool result = treeViewControl.CanRenameNodeForData(null);
 
                 // Assert
                 Assert.IsFalse(result);
@@ -222,7 +222,7 @@ namespace Core.Common.Controls.TreeView.Test
                 treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
 
                 // Call
-                var result = treeViewControl.CanRenameNodeForData(new object());
+                bool result = treeViewControl.CanRenameNodeForData(new object());
 
                 // Assert
                 Assert.IsFalse(result);
@@ -247,7 +247,7 @@ namespace Core.Common.Controls.TreeView.Test
                 treeViewControl.Data = dataObject;
 
                 // Call
-                var result = treeViewControl.CanRenameNodeForData(dataObject);
+                bool result = treeViewControl.CanRenameNodeForData(dataObject);
 
                 // Assert
                 Assert.AreEqual(expected, result);
@@ -337,7 +337,7 @@ namespace Core.Common.Controls.TreeView.Test
                 treeViewControl.Data = new object();
 
                 // Call
-                var result = treeViewControl.CanRemoveNodeForData(null);
+                bool result = treeViewControl.CanRemoveNodeForData(null);
 
                 // Assert
                 Assert.IsFalse(result);
@@ -358,7 +358,7 @@ namespace Core.Common.Controls.TreeView.Test
                 treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
 
                 // Call
-                var result = treeViewControl.CanRemoveNodeForData(new object());
+                bool result = treeViewControl.CanRemoveNodeForData(new object());
 
                 // Assert
                 Assert.IsFalse(result);
@@ -387,7 +387,7 @@ namespace Core.Common.Controls.TreeView.Test
                 treeViewControl.Data = dataObject;
 
                 // Call
-                var result = treeViewControl.CanRemoveNodeForData(dataObject);
+                bool result = treeViewControl.CanRemoveNodeForData(dataObject);
 
                 // Assert
                 Assert.AreEqual(expected, result);
@@ -623,7 +623,7 @@ namespace Core.Common.Controls.TreeView.Test
                     WindowsFormsTestHelper.Show(treeViewControl);
 
                     // Call
-                    var result = treeViewControl.CanRemoveChildNodesOfData(dataObject);
+                    bool result = treeViewControl.CanRemoveChildNodesOfData(dataObject);
 
                     // Assert
                     Assert.IsFalse(result);
@@ -665,7 +665,7 @@ namespace Core.Common.Controls.TreeView.Test
                     WindowsFormsTestHelper.Show(treeViewControl);
 
                     // Call
-                    var result = treeViewControl.CanRemoveChildNodesOfData(dataObject);
+                    bool result = treeViewControl.CanRemoveChildNodesOfData(dataObject);
 
                     // Assert
                     Assert.IsFalse(result);
@@ -715,7 +715,7 @@ namespace Core.Common.Controls.TreeView.Test
                     WindowsFormsTestHelper.Show(treeViewControl);
 
                     // Call
-                    var result = treeViewControl.CanRemoveChildNodesOfData(dataObject);
+                    bool result = treeViewControl.CanRemoveChildNodesOfData(dataObject);
 
                     // Assert
                     Assert.IsTrue(result);
@@ -787,7 +787,7 @@ namespace Core.Common.Controls.TreeView.Test
                 treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
 
                 // Call
-                var result = treeViewControl.CanExpandOrCollapseForData(null);
+                bool result = treeViewControl.CanExpandOrCollapseForData(null);
 
                 // Assert
                 Assert.IsFalse(result);
@@ -809,7 +809,7 @@ namespace Core.Common.Controls.TreeView.Test
                 treeViewControl.Data = data;
 
                 // Call
-                var result = treeViewControl.CanExpandOrCollapseForData(data);
+                bool result = treeViewControl.CanExpandOrCollapseForData(data);
 
                 // Assert
                 Assert.IsFalse(result);
@@ -840,7 +840,7 @@ namespace Core.Common.Controls.TreeView.Test
                 treeViewControl.Data = data;
 
                 // Call
-                var result = treeViewControl.CanExpandOrCollapseForData(data);
+                bool result = treeViewControl.CanExpandOrCollapseForData(data);
 
                 // Assert
                 Assert.IsTrue(result);
@@ -862,7 +862,7 @@ namespace Core.Common.Controls.TreeView.Test
                 treeViewControl.Data = data;
 
                 var treeView = (System.Windows.Forms.TreeView) treeViewControl.Controls[0];
-                var treeNode = treeView.Nodes[0];
+                TreeNode treeNode = treeView.Nodes[0];
                 treeNode.Expand();
 
                 // Call
@@ -888,7 +888,7 @@ namespace Core.Common.Controls.TreeView.Test
                 treeViewControl.Data = data;
 
                 var treeView = (System.Windows.Forms.TreeView) treeViewControl.Controls[0];
-                var treeNode = treeView.Nodes[0];
+                TreeNode treeNode = treeView.Nodes[0];
                 treeNode.Expand();
 
                 // Call
@@ -923,9 +923,9 @@ namespace Core.Common.Controls.TreeView.Test
                 treeViewControl.Data = data;
 
                 var treeView = (System.Windows.Forms.TreeView) treeViewControl.Controls[0];
-                var treeNode = treeView.Nodes[0];
+                TreeNode treeNode = treeView.Nodes[0];
                 treeNode.Expand();
-                var childNode = treeNode.Nodes[0];
+                TreeNode childNode = treeNode.Nodes[0];
                 childNode.Expand();
 
                 // Call
@@ -952,7 +952,7 @@ namespace Core.Common.Controls.TreeView.Test
                 treeViewControl.Data = data;
 
                 var treeView = (System.Windows.Forms.TreeView) treeViewControl.Controls[0];
-                var treeNode = treeView.Nodes[0];
+                TreeNode treeNode = treeView.Nodes[0];
                 treeNode.Collapse();
 
                 // Call
@@ -978,7 +978,7 @@ namespace Core.Common.Controls.TreeView.Test
                 treeViewControl.Data = data;
 
                 var treeView = (System.Windows.Forms.TreeView) treeViewControl.Controls[0];
-                var treeNode = treeView.Nodes[0];
+                TreeNode treeNode = treeView.Nodes[0];
                 treeNode.Collapse();
 
                 // Call
@@ -1013,9 +1013,9 @@ namespace Core.Common.Controls.TreeView.Test
                 treeViewControl.Data = data;
 
                 var treeView = (System.Windows.Forms.TreeView) treeViewControl.Controls[0];
-                var treeNode = treeView.Nodes[0];
+                TreeNode treeNode = treeView.Nodes[0];
                 treeNode.Collapse();
-                var childNode = treeNode.Nodes[0];
+                TreeNode childNode = treeNode.Nodes[0];
                 childNode.Collapse();
 
                 // Call
@@ -1171,7 +1171,7 @@ namespace Core.Common.Controls.TreeView.Test
                 treeViewControl.Data = data;
 
                 // Call
-                var result = treeViewControl.TryGetPathForData(data);
+                string result = treeViewControl.TryGetPathForData(data);
 
                 // Assert
                 Assert.AreEqual(rootText, result);
@@ -1208,7 +1208,7 @@ namespace Core.Common.Controls.TreeView.Test
                 var treeView = (System.Windows.Forms.TreeView) treeViewControl.Controls[0];
 
                 // Call
-                var result = treeViewControl.TryGetPathForData(string.Empty);
+                string result = treeViewControl.TryGetPathForData(string.Empty);
 
                 // Assert
                 Assert.AreEqual(rootText + treeView.PathSeparator + childText, result);
@@ -1241,7 +1241,7 @@ namespace Core.Common.Controls.TreeView.Test
                 treeViewControl.Data = data;
 
                 // Call
-                var result = treeViewControl.TryGetPathForData(null);
+                string result = treeViewControl.TryGetPathForData(null);
 
                 // Assert
                 Assert.IsNull(result);
@@ -1625,7 +1625,7 @@ namespace Core.Common.Controls.TreeView.Test
                 treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
                 treeViewControl.Data = observable;
 
-                var node = ((System.Windows.Forms.TreeView) treeViewControl.Controls[0]).Nodes[0];
+                TreeNode node = ((System.Windows.Forms.TreeView) treeViewControl.Controls[0]).Nodes[0];
 
                 testString = expectedText;
 
@@ -1733,7 +1733,7 @@ namespace Core.Common.Controls.TreeView.Test
                 var identifier = "identifier";
                 var treeView = (System.Windows.Forms.TreeView) treeViewControl.Controls[0];
                 treeView.Name = identifier;
-                var childNode = treeView.Nodes[0].Nodes[0];
+                TreeNode childNode = treeView.Nodes[0].Nodes[0];
 
                 try
                 {
@@ -1770,8 +1770,8 @@ namespace Core.Common.Controls.TreeView.Test
                 treeViewControl.Data = new object();
 
                 // Assert
-                var treeView = (System.Windows.Forms.TreeView)treeViewControl.Controls[0];
-                var treeNode = treeView.Nodes[0];
+                var treeView = (System.Windows.Forms.TreeView) treeViewControl.Controls[0];
+                TreeNode treeNode = treeView.Nodes[0];
                 Assert.IsFalse(treeNode.IsExpanded);
             }
         }
@@ -1794,7 +1794,7 @@ namespace Core.Common.Controls.TreeView.Test
 
                 // Assert
                 var treeView = (System.Windows.Forms.TreeView) treeViewControl.Controls[0];
-                var treeNode = treeView.Nodes[0];
+                TreeNode treeNode = treeView.Nodes[0];
                 Assert.AreEqual(expandOnCreate, treeNode.IsExpanded);
             }
         }

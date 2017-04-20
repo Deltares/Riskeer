@@ -641,12 +641,12 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
         {
             // Setup
             var testView = new TestView();
-            var otherToolViewLocations = Enum.GetValues(typeof(ToolViewLocation))
-                                             .Cast<ToolViewLocation>()
-                                             .Except(new[]
-                                             {
-                                                 toolViewLocation
-                                             });
+            IEnumerable<ToolViewLocation> otherToolViewLocations = Enum.GetValues(typeof(ToolViewLocation))
+                                                                       .Cast<ToolViewLocation>()
+                                                                       .Except(new[]
+                                                                       {
+                                                                           toolViewLocation
+                                                                       });
 
             using (var avalonDockViewHost = new AvalonDockViewHost())
             {

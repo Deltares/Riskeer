@@ -92,7 +92,7 @@ namespace Core.Common.TestUtil
                 throw new ArgumentNullException(nameof(random));
             }
 
-            return (RoundedDouble)random.NextDouble();
+            return (RoundedDouble) random.NextDouble();
         }
 
         /// <summary>

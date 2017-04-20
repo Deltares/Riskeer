@@ -48,7 +48,7 @@ namespace Core.Common.Utils.Test.Extensions
         public void ForEachElementDo_ActionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var enumerable = Enumerable.Empty<object>();
+            IEnumerable<object> enumerable = Enumerable.Empty<object>();
 
             // Call
             TestDelegate call = () => enumerable.ForEachElementDo(null);

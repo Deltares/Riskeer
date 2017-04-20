@@ -66,7 +66,7 @@ namespace Core.Common.Gui.TestUtil.Test
         public void AssertPropertyInfoDefined_MultipleInfosSingleMatching_ReturnsMatchingInfoFromList()
         {
             // Call
-            var foundInfo = PluginTestHelper.AssertPropertyInfoDefined(new[]
+            PropertyInfo foundInfo = PluginTestHelper.AssertPropertyInfoDefined(new[]
             {
                 new PropertyInfo(),
                 new PropertyInfo<int, IObjectProperties>()
@@ -114,7 +114,7 @@ namespace Core.Common.Gui.TestUtil.Test
         public void AssertViewInfoDefined_WithoutViewDataTypeMultipleInfosSingleMatching_ReturnsMatchingInfoFromList()
         {
             // Call
-            var foundInfo = PluginTestHelper.AssertViewInfoDefined(new[]
+            ViewInfo foundInfo = PluginTestHelper.AssertViewInfoDefined(new[]
             {
                 new ViewInfo(),
                 new ViewInfo<int, IView>()
@@ -176,7 +176,7 @@ namespace Core.Common.Gui.TestUtil.Test
         public void AssertViewInfoDefined_WithViewDataTypeMultipleInfosSingleMatching_ReturnsMatchingInfoFromList()
         {
             // Call
-            var foundInfo = PluginTestHelper.AssertViewInfoDefined(new[]
+            ViewInfo foundInfo = PluginTestHelper.AssertViewInfoDefined(new[]
             {
                 new ViewInfo(),
                 new ViewInfo<int, string, IView>()

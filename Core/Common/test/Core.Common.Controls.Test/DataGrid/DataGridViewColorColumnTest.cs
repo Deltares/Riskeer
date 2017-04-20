@@ -68,7 +68,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 TestDelegate test = () => column.CellTemplate = dataGridViewCell;
 
                 // Assert
-                ArgumentException exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
+                var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
                     test,
                     $"Given template must be of type {typeof(DataGridViewColorCell)}");
                 Assert.AreEqual("value", exception.ParamName);

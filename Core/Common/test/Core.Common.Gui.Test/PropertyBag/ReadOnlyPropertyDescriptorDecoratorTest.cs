@@ -33,7 +33,7 @@ namespace Core.Common.Gui.Test.PropertyBag
         {
             // Setup
             var target = new SomeTestClass();
-            var properties = TypeDescriptor.GetProperties(target);
+            PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(target);
 
             PropertyDescriptor getSetProperty = properties[0];
 
@@ -67,13 +67,13 @@ namespace Core.Common.Gui.Test.PropertyBag
         {
             // Setup
             var component = new SomeTestClass();
-            var properties = TypeDescriptor.GetProperties(component);
+            PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(component);
 
             PropertyDescriptor getSetProperty = properties[0];
             var wrappedProperty = new ReadOnlyPropertyDescriptorDecorator(getSetProperty);
 
             // Call
-            var result = wrappedProperty.CanResetValue(component);
+            bool result = wrappedProperty.CanResetValue(component);
 
             // Assert
             Assert.AreEqual(getSetProperty.CanResetValue(component), result);
@@ -88,13 +88,13 @@ namespace Core.Common.Gui.Test.PropertyBag
                 SomeEditableProperty = 1.1
             };
 
-            var properties = TypeDescriptor.GetProperties(component);
+            PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(component);
             PropertyDescriptor getSetProperty = properties[0];
 
             var wrappedProperty = new ReadOnlyPropertyDescriptorDecorator(getSetProperty);
 
             // Call
-            var result = wrappedProperty.GetValue(component);
+            object result = wrappedProperty.GetValue(component);
 
             // Assert
             Assert.AreEqual(getSetProperty.GetValue(component), result);
@@ -111,11 +111,11 @@ namespace Core.Common.Gui.Test.PropertyBag
                 SomeEditableProperty = originalPropertyValue
             };
 
-            var properties = TypeDescriptor.GetProperties(component);
+            PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(component);
             PropertyDescriptor getSetProperty = properties[0];
 
             getSetProperty.ResetValue(component);
-            var expectedPropertyValueAfterReset = component.SomeEditableProperty;
+            double expectedPropertyValueAfterReset = component.SomeEditableProperty;
 
             var wrappedProperty = new ReadOnlyPropertyDescriptorDecorator(getSetProperty);
             component.SomeEditableProperty = originalPropertyValue;
@@ -138,11 +138,11 @@ namespace Core.Common.Gui.Test.PropertyBag
                 SomeEditableProperty = originalPropertyValue
             };
 
-            var properties = TypeDescriptor.GetProperties(component);
+            PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(component);
             PropertyDescriptor getSetProperty = properties[0];
 
             getSetProperty.SetValue(component, newValue);
-            var expectedPropertyValueAfterSet = component.SomeEditableProperty;
+            double expectedPropertyValueAfterSet = component.SomeEditableProperty;
 
             var wrappedProperty = new ReadOnlyPropertyDescriptorDecorator(getSetProperty);
             component.SomeEditableProperty = originalPropertyValue;
@@ -159,13 +159,13 @@ namespace Core.Common.Gui.Test.PropertyBag
         {
             // Setup
             var component = new SomeTestClass();
-            var properties = TypeDescriptor.GetProperties(component);
+            PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(component);
 
             PropertyDescriptor getSetProperty = properties[0];
             var wrappedProperty = new ReadOnlyPropertyDescriptorDecorator(getSetProperty);
 
             // Call
-            var result = wrappedProperty.ShouldSerializeValue(component);
+            bool result = wrappedProperty.ShouldSerializeValue(component);
 
             // Assert
             Assert.AreEqual(getSetProperty.ShouldSerializeValue(component), result);

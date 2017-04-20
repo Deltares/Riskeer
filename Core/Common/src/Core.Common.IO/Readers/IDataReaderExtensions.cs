@@ -52,7 +52,7 @@ namespace Core.Common.IO.Readers
                 throw new ArgumentNullException(nameof(columnName));
             }
 
-            var conversionType = typeof(T);
+            Type conversionType = typeof(T);
             object value;
 
             try

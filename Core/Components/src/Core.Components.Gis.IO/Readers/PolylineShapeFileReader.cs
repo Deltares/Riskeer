@@ -25,7 +25,6 @@ using System.IO;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.Utils.Builders;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
@@ -70,7 +69,7 @@ namespace Core.Components.Gis.IO.Readers
             }
             catch (IOException exception)
             {
-                var message = new FileReaderErrorMessageBuilder(shapeFilePath).Build(CoreCommonUtilsResources.Error_General_IO_Import_ErrorMessage);
+                string message = new FileReaderErrorMessageBuilder(shapeFilePath).Build(CoreCommonUtilsResources.Error_General_IO_Import_ErrorMessage);
                 throw new CriticalFileReadException(message, exception);
             }
         }
@@ -102,7 +101,7 @@ namespace Core.Components.Gis.IO.Readers
 
         public override FeatureBasedMapData ReadShapeFile(string name = null)
         {
-            List<IFeature> featureList = new List<IFeature>();
+            var featureList = new List<IFeature>();
             while (readIndex != GetNumberOfFeatures())
             {
                 featureList.Add(ReadFeatureLine());
@@ -175,11 +174,11 @@ namespace Core.Components.Gis.IO.Readers
         {
             var geometries = new List<MapGeometry>();
 
-            for (int i = 0; i < lineFeature.BasicGeometry.NumGeometries; i++)
+            for (var i = 0; i < lineFeature.BasicGeometry.NumGeometries; i++)
             {
-                var polylineGeometry = lineFeature.BasicGeometry.GetBasicGeometryN(i);
+                IBasicGeometry polylineGeometry = lineFeature.BasicGeometry.GetBasicGeometryN(i);
 
-                MapGeometry mapGeometry = new MapGeometry(GetMapGeometryPointCollections(polylineGeometry.Coordinates));
+                var mapGeometry = new MapGeometry(GetMapGeometryPointCollections(polylineGeometry.Coordinates));
                 geometries.Add(mapGeometry);
             }
 

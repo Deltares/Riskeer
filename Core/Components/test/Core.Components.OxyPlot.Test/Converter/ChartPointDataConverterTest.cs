@@ -53,7 +53,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             var converter = new ChartPointDataConverter();
             var lineSeries = new LineSeries();
             var random = new Random(21);
-            var randomCount = random.Next(5, 10);
+            int randomCount = random.Next(5, 10);
 
             var points = new Collection<Point2D>();
 
@@ -83,7 +83,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             // Setup
             var converter = new ChartPointDataConverter();
             var lineSeries = new LineSeries();
-            var expectedColor = Color.FromKnownColor(color);
+            Color expectedColor = Color.FromKnownColor(color);
             var data = new ChartPointData("test")
             {
                 Style = new ChartPointStyle(expectedColor, 3, Color.Red, 2, ChartPointSymbol.Circle)
@@ -105,7 +105,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             // Setup
             var converter = new ChartPointDataConverter();
             var lineSeries = new LineSeries();
-            var expectedColor = Color.FromKnownColor(color);
+            Color expectedColor = Color.FromKnownColor(color);
             var data = new ChartPointData("test")
             {
                 Style = new ChartPointStyle(Color.Red, 3, expectedColor, 2, ChartPointSymbol.Circle)

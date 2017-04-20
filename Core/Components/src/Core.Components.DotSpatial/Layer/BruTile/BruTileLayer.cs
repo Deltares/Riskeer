@@ -335,7 +335,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile
             }
 
             // Draw the tiles that were not present at the moment requested
-            foreach (var tileInfo in tilesNotImmediatelyDrawn)
+            foreach (TileInfo tileInfo in tilesNotImmediatelyDrawn)
             {
                 DrawTile(args, tileInfo, resolution, tileFetcher.GetTile(tileInfo), reprojector);
             }
@@ -489,7 +489,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile
         private static IList<TileInfo> Sort(IEnumerable<TileInfo> tileInfos, Coordinate focusPoint)
         {
             var sortResult = new SortedList<double, TileInfo>();
-            foreach (var tileInfo in tileInfos)
+            foreach (TileInfo tileInfo in tileInfos)
             {
                 BruTileExtent tileInfoExtent = tileInfo.Extent;
                 var tileCenterCoordinate = new Coordinate(tileInfoExtent.CenterX, tileInfoExtent.CenterY);

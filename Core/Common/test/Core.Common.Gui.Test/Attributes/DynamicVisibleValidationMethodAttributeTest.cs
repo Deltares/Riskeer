@@ -39,9 +39,9 @@ namespace Core.Common.Gui.Test.Attributes
             TestDelegate call = () => DynamicVisibleValidationMethodAttribute.CreateIsVisibleMethod(o);
 
             // Assert
-            var exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
-            var expectedMessage = string.Format("DynamicVisibleValidationMethod niet gevonden (of geen 'public' toegankelijkheid). Klasse: {0}.",
-                                                o.GetType());
+            string exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
+            string expectedMessage = string.Format("DynamicVisibleValidationMethod niet gevonden (of geen 'public' toegankelijkheid). Klasse: {0}.",
+                                                   o.GetType());
             Assert.AreEqual(expectedMessage, exceptionMessage);
         }
 
@@ -55,9 +55,9 @@ namespace Core.Common.Gui.Test.Attributes
             TestDelegate call = () => DynamicVisibleValidationMethodAttribute.CreateIsVisibleMethod(o);
 
             // Assert
-            var exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
-            var expectedMessage = string.Format("Slechts één DynamicVisibleValidationMethod toegestaan per klasse: {0}.",
-                                                o.GetType());
+            string exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
+            string expectedMessage = string.Format("Slechts één DynamicVisibleValidationMethod toegestaan per klasse: {0}.",
+                                                   o.GetType());
             Assert.AreEqual(expectedMessage, exceptionMessage);
         }
 
@@ -71,9 +71,9 @@ namespace Core.Common.Gui.Test.Attributes
             TestDelegate call = () => DynamicVisibleValidationMethodAttribute.CreateIsVisibleMethod(o);
 
             // Assert
-            var exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
-            var expectedMessage = string.Format("DynamicVisibleValidationMethod moet 'bool' als 'return type' hebben. Klasse: {0}.",
-                                                o.GetType());
+            string exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
+            string expectedMessage = string.Format("DynamicVisibleValidationMethod moet 'bool' als 'return type' hebben. Klasse: {0}.",
+                                                   o.GetType());
             Assert.AreEqual(expectedMessage, exceptionMessage);
         }
 
@@ -87,9 +87,9 @@ namespace Core.Common.Gui.Test.Attributes
             TestDelegate call = () => DynamicVisibleValidationMethodAttribute.CreateIsVisibleMethod(o);
 
             // Assert
-            var exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
-            var expectedMessage = string.Format("DynamicVisibleValidationMethod heeft een incorrect aantal argumenten. Zou er één moeten zijn. Klasse: {0}.",
-                                                o.GetType());
+            string exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
+            string expectedMessage = string.Format("DynamicVisibleValidationMethod heeft een incorrect aantal argumenten. Zou er één moeten zijn. Klasse: {0}.",
+                                                   o.GetType());
             Assert.AreEqual(expectedMessage, exceptionMessage);
         }
 
@@ -103,9 +103,9 @@ namespace Core.Common.Gui.Test.Attributes
             TestDelegate call = () => DynamicVisibleValidationMethodAttribute.CreateIsVisibleMethod(o);
 
             // Assert
-            var exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
-            var expectedMessage = string.Format("Argument van DynamicVisibleValidationMethod moet van het type 'string' zijn. Klasse: {0}.",
-                                                o.GetType());
+            string exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
+            string expectedMessage = string.Format("Argument van DynamicVisibleValidationMethod moet van het type 'string' zijn. Klasse: {0}.",
+                                                   o.GetType());
             Assert.AreEqual(expectedMessage, exceptionMessage);
         }
 
@@ -118,7 +118,7 @@ namespace Core.Common.Gui.Test.Attributes
             var o = new ClassWithDynamicVisibleProperty(isVisible);
 
             // Call
-            var result = DynamicVisibleValidationMethodAttribute.CreateIsVisibleMethod(o);
+            DynamicVisibleValidationMethodAttribute.IsPropertyVisible result = DynamicVisibleValidationMethodAttribute.CreateIsVisibleMethod(o);
 
             // Assert
             Assert.AreEqual(isVisible, result("Property"));

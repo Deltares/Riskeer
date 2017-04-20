@@ -50,7 +50,7 @@ namespace Core.Components.BruTile.TestUtil.Test
             Assert.IsNotNull(source.Attribution);
             Assert.IsNotNull(source.PersistentCache);
 
-            WmtsTileSchema wmtsSchema = (WmtsTileSchema) source.Schema;
+            var wmtsSchema = (WmtsTileSchema) source.Schema;
             Assert.AreEqual(mapData.Name, wmtsSchema.Title);
             Assert.AreEqual(mapData.PreferredFormat, wmtsSchema.Format);
         }

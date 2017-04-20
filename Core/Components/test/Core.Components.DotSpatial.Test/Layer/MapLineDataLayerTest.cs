@@ -29,6 +29,7 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using DotSpatial.Controls;
+using DotSpatial.Data;
 using DotSpatial.Projections;
 using DotSpatial.Symbology;
 using NUnit.Framework;
@@ -100,7 +101,7 @@ namespace Core.Components.DotSpatial.Test.Layer
             };
 
             var mapLineDataLayer = new MapLineDataLayer(mapLineData);
-            var drawnFeatures = mapLineDataLayer.DataSet.Features.ToArray();
+            IFeature[] drawnFeatures = mapLineDataLayer.DataSet.Features.ToArray();
 
             // When
             mapLineData.Features = new[]
@@ -126,7 +127,7 @@ namespace Core.Components.DotSpatial.Test.Layer
             };
 
             var mapLineDataLayer = new MapLineDataLayer(mapLineData);
-            var drawnFeatures = mapLineDataLayer.DataSet.Features.ToArray();
+            IFeature[] drawnFeatures = mapLineDataLayer.DataSet.Features.ToArray();
 
             // When
             mapLineDataLayer.Update();

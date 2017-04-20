@@ -139,7 +139,7 @@ namespace Core.Plugins.Map.Test.Legend
             mocks.ReplayAll();
 
             // Call
-            var objects = info.ChildNodeObjects(mapDataCollection);
+            object[] objects = info.ChildNodeObjects(mapDataCollection);
 
             // Assert
             CollectionAssert.AreEqual(new[]

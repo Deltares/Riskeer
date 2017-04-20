@@ -41,8 +41,8 @@ namespace Core.Common.IO.Test.Readers
         {
             // Setup
             const string fileName = "temp.sqlite";
-            var localPath = TestHelper.GetScratchPadPath(fileName);
-            var uncPath = TestHelper.ToUncPath(localPath);
+            string localPath = TestHelper.GetScratchPadPath(fileName);
+            string uncPath = TestHelper.ToUncPath(localPath);
 
             using (new FileDisposeHelper(localPath))
             {
@@ -60,7 +60,7 @@ namespace Core.Common.IO.Test.Readers
         public void Constructor_WithParameter_OpensConnection()
         {
             // Setup
-            var testFile = Path.Combine(testDataPath, "empty.sqlite");
+            string testFile = Path.Combine(testDataPath, "empty.sqlite");
 
             // Call
             using (var reader = new TestReader(testFile))
@@ -75,17 +75,17 @@ namespace Core.Common.IO.Test.Readers
         public void Constructor_WithInvalidPath_ThrowsCriticalFileReadException()
         {
             // Setup
-            var testFile = Path.Combine(testDataPath, "empty.sqlite");
+            string testFile = Path.Combine(testDataPath, "empty.sqlite");
 
-            var invalidCharacters = Path.GetInvalidPathChars();
+            char[] invalidCharacters = Path.GetInvalidPathChars();
 
-            var corruptPath = testFile.Replace('e', invalidCharacters[0]);
+            string corruptPath = testFile.Replace('e', invalidCharacters[0]);
 
             // Call
             TestDelegate test = () => new TestReader(corruptPath).Dispose();
 
             // Assert
-            var expectedMessage = new FileReaderErrorMessageBuilder(corruptPath)
+            string expectedMessage = new FileReaderErrorMessageBuilder(corruptPath)
                 .Build("Er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.");
             var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
@@ -95,13 +95,13 @@ namespace Core.Common.IO.Test.Readers
         public void Constructor_NonExistingPath_ThrowsCriticalFileReadException()
         {
             // Setup
-            var testFile = Path.Combine(testDataPath, "none.sqlite");
+            string testFile = Path.Combine(testDataPath, "none.sqlite");
 
             // Call
             TestDelegate test = () => new TestReader(testFile).Dispose();
 
             // Assert
-            var expectedMessage = new FileReaderErrorMessageBuilder(testFile).Build(UtilsResources.Error_File_does_not_exist);
+            string expectedMessage = new FileReaderErrorMessageBuilder(testFile).Build(UtilsResources.Error_File_does_not_exist);
             var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
@@ -112,7 +112,7 @@ namespace Core.Common.IO.Test.Readers
         public void Constructor_FileNullOrEmpty_ThrowsCriticalFileReadException(string fileName)
         {
             // Setup
-            var expectedMessage = $"Fout bij het lezen van bestand '{fileName}': {"bestandspad mag niet leeg of ongedefinieerd zijn."}";
+            string expectedMessage = $"Fout bij het lezen van bestand '{fileName}': {"bestandspad mag niet leeg of ongedefinieerd zijn."}";
 
             // Call
             TestDelegate test = () => new TestReader(fileName).Dispose();
@@ -126,7 +126,7 @@ namespace Core.Common.IO.Test.Readers
         public void Path_Always_ReturnsPath()
         {
             // Setup
-            var testFile = Path.Combine(testDataPath, "empty.sqlite");
+            string testFile = Path.Combine(testDataPath, "empty.sqlite");
 
             // Call
             var reader = new TestReader(testFile);

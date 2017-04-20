@@ -35,11 +35,11 @@ namespace Core.Common.Utils.Test.Builders
             const string errorMessage = "test test 1,2,3";
 
             // Call
-            var message = new FileReaderErrorMessageBuilder(filePath).Build(errorMessage);
+            string message = new FileReaderErrorMessageBuilder(filePath).Build(errorMessage);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': {1}",
-                                                filePath, errorMessage);
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': {1}",
+                                                   filePath, errorMessage);
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -50,11 +50,11 @@ namespace Core.Common.Utils.Test.Builders
             const string filePath = "<file path>";
 
             // Call
-            var message = new FileReaderErrorMessageBuilder(filePath).Build("Test TEst 1,2,3");
+            string message = new FileReaderErrorMessageBuilder(filePath).Build("Test TEst 1,2,3");
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': {1}",
-                                                filePath, "test TEst 1,2,3");
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': {1}",
+                                                   filePath, "test TEst 1,2,3");
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -67,11 +67,11 @@ namespace Core.Common.Utils.Test.Builders
             const string location = "<location description>";
 
             // Call
-            var message = new FileReaderErrorMessageBuilder(filePath).WithLocation(location).Build(errorMessage);
+            string message = new FileReaderErrorMessageBuilder(filePath).WithLocation(location).Build(errorMessage);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' {1}: {2}",
-                                                filePath, location, errorMessage);
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' {1}: {2}",
+                                                   filePath, location, errorMessage);
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -84,11 +84,11 @@ namespace Core.Common.Utils.Test.Builders
             const string subject = "<subject description>";
 
             // Call
-            var message = new FileReaderErrorMessageBuilder(filePath).WithSubject(subject).Build(errorMessage);
+            string message = new FileReaderErrorMessageBuilder(filePath).WithSubject(subject).Build(errorMessage);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' ({1}): {2}",
-                                                filePath, subject, errorMessage);
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' ({1}): {2}",
+                                                   filePath, subject, errorMessage);
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -102,11 +102,11 @@ namespace Core.Common.Utils.Test.Builders
             const string location = "<location description>";
 
             // Call
-            var message = new FileReaderErrorMessageBuilder(filePath).WithSubject(subject).WithLocation(location).Build(errorMessage);
+            string message = new FileReaderErrorMessageBuilder(filePath).WithSubject(subject).WithLocation(location).Build(errorMessage);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' {1} ({2}): {3}",
-                                                filePath, location, subject, errorMessage);
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' {1} ({2}): {3}",
+                                                   filePath, location, subject, errorMessage);
             Assert.AreEqual(expectedMessage, message);
         }
     }

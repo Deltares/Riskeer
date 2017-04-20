@@ -37,7 +37,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
             var parent = mocks.StrictMock<IWin32Window>();
             mocks.ReplayAll();
 
-            string testText = "Some text for the dialog";
+            var testText = "Some text for the dialog";
 
             // Call
             var dialog = new MessageWindowDialog(parent, testText);

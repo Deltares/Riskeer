@@ -34,23 +34,6 @@ namespace Core.Components.DotSpatial.Forms
         private string selectedCapabilityId;
         private string preferredFormat;
 
-        protected override void OnLayerInitializationSuccessful(BruTileLayer backgroundLayer, ImageBasedMapData dataSource)
-        {
-            var wmtsDataSource = dataSource as WmtsMapData;
-            if (wmtsDataSource == null)
-            {
-                PreviousBackgroundLayerCreationFailed = true;
-                return;
-            }
-
-            sourceCapabilitiesUrl = wmtsDataSource.SourceCapabilitiesUrl;
-            selectedCapabilityId = wmtsDataSource.SelectedCapabilityIdentifier;
-            preferredFormat = wmtsDataSource.PreferredFormat;
-
-            BackgroundLayer = backgroundLayer;
-            PreviousBackgroundLayerCreationFailed = false;
-        }
-
         public override void ClearConfiguration(bool expectRecreationOfSameBackgroundLayer = false)
         {
             sourceCapabilitiesUrl = null;
@@ -67,6 +50,23 @@ namespace Core.Components.DotSpatial.Forms
             {
                 PreviousBackgroundLayerCreationFailed = false;
             }
+        }
+
+        protected override void OnLayerInitializationSuccessful(BruTileLayer backgroundLayer, ImageBasedMapData dataSource)
+        {
+            var wmtsDataSource = dataSource as WmtsMapData;
+            if (wmtsDataSource == null)
+            {
+                PreviousBackgroundLayerCreationFailed = true;
+                return;
+            }
+
+            sourceCapabilitiesUrl = wmtsDataSource.SourceCapabilitiesUrl;
+            selectedCapabilityId = wmtsDataSource.SelectedCapabilityIdentifier;
+            preferredFormat = wmtsDataSource.PreferredFormat;
+
+            BackgroundLayer = backgroundLayer;
+            PreviousBackgroundLayerCreationFailed = false;
         }
 
         protected override bool OnHasSameConfiguration(ImageBasedMapData mapData)

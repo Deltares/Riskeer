@@ -119,7 +119,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
                 form.Show();
 
                 var dataGridView = (DataGridView) new ControlTester("messagesDataGridView").TheObject;
-                var topLeftCellValue = Level.Info;
+                Level topLeftCellValue = Level.Info;
 
                 // Precondition
                 Assert.IsNull(dataGridView.CurrentCell);
@@ -241,7 +241,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
                 DialogBoxHandler = (name, wnd) =>
                 {
                     var dialogTester = new FormTester(name);
-                    dialogTitle = ((Form)dialogTester.TheObject).Text;
+                    dialogTitle = ((Form) dialogTester.TheObject).Text;
                     var testBoxTester = new TextBoxTester("textBox");
                     dialogText = testBoxTester.Text;
                     dialogTester.Close();
@@ -493,7 +493,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
                 // Assert
                 Assert.IsFalse(((ToolStripButton) button.TheObject).Checked);
                 Assert.AreEqual(2, dataGridView.Rows.Count);
-                var filteredLevel = Level.Info.ToString();
+                string filteredLevel = Level.Info.ToString();
                 foreach (DataGridViewRow row in dataGridView.Rows)
                 {
                     Assert.AreNotEqual(filteredLevel, row.Cells[0].Value.ToString());
@@ -521,7 +521,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
                 // Assert
                 Assert.IsFalse(((ToolStripButton) button.TheObject).Checked);
                 Assert.AreEqual(2, dataGridView.Rows.Count);
-                var filteredLevel = Level.Warn.ToString();
+                string filteredLevel = Level.Warn.ToString();
                 foreach (DataGridViewRow row in dataGridView.Rows)
                 {
                     Assert.AreNotEqual(filteredLevel, row.Cells[0].Value.ToString());
@@ -549,7 +549,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
                 // Assert
                 Assert.IsFalse(((ToolStripButton) button.TheObject).Checked);
                 Assert.AreEqual(2, dataGridView.Rows.Count);
-                var filteredLevel = Level.Error.ToString();
+                string filteredLevel = Level.Error.ToString();
                 foreach (DataGridViewRow row in dataGridView.Rows)
                 {
                     Assert.AreNotEqual(filteredLevel, row.Cells[0].Value.ToString());

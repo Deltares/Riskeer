@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using Amib.Threading;
@@ -125,7 +126,7 @@ namespace Core.Components.BruTile.IO
             // Notes: http://dotspatial.codeplex.com/discussions/473428
             threadPool.Cancel(false);
             int dummy;
-            foreach (var request in activeTileRequests.ToArray())
+            foreach (KeyValuePair<TileIndex, int> request in activeTileRequests.ToArray())
             {
                 if (!openTileRequests.ContainsKey(request.Key))
                 {

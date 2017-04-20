@@ -21,6 +21,7 @@
 
 using log4net;
 using log4net.Core;
+using log4net.Repository;
 using log4net.Repository.Hierarchy;
 
 namespace Core.Common.TestUtil
@@ -34,15 +35,15 @@ namespace Core.Common.TestUtil
         /// <param name="level"></param>
         public static void SetLoggingLevel(Level level)
         {
-            var repositories = LogManager.GetAllRepositories();
+            ILoggerRepository[] repositories = LogManager.GetAllRepositories();
 
             //Configure all loggers to be at the debug level.
-            foreach (var repository in repositories)
+            foreach (ILoggerRepository repository in repositories)
             {
                 repository.Threshold = repository.LevelMap[level.ToString()];
                 var hierarchy = (Hierarchy) repository;
-                var loggers = hierarchy.GetCurrentLoggers();
-                foreach (var logger in loggers)
+                ILogger[] loggers = hierarchy.GetCurrentLoggers();
+                foreach (ILogger logger in loggers)
                 {
                     ((Logger) logger).Level = hierarchy.LevelMap[level.ToString()];
                 }
@@ -50,7 +51,7 @@ namespace Core.Common.TestUtil
 
             //Configure the root logger.
             var h = (Hierarchy) LogManager.GetRepository();
-            var rootLogger = h.Root;
+            Logger rootLogger = h.Root;
             rootLogger.Level = h.LevelMap[level.ToString()];
         }
 

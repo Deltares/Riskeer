@@ -65,10 +65,10 @@ namespace Core.Common.Gui.Commands
 
         public void OpenLogFileExternal()
         {
-            var fileAppender = LogManager.GetAllRepositories()
-                                         .SelectMany(r => r.GetAppenders())
-                                         .OfType<FileAppender>()
-                                         .FirstOrDefault();
+            FileAppender fileAppender = LogManager.GetAllRepositories()
+                                                  .SelectMany(r => r.GetAppenders())
+                                                  .OfType<FileAppender>()
+                                                  .FirstOrDefault();
             if (fileAppender == null || string.IsNullOrWhiteSpace(fileAppender.File))
             {
                 return;
@@ -79,7 +79,7 @@ namespace Core.Common.Gui.Commands
 
         private static void TryOpenLogFileExternal(string logFile)
         {
-            var logFolderPath = Path.GetDirectoryName(logFile);
+            string logFolderPath = Path.GetDirectoryName(logFile);
 
             try
             {

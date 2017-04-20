@@ -71,7 +71,7 @@ namespace Core.Components.Gis.Test
             var info = new WmtsConnectionInfo("name", "url");
 
             // Call
-            var isEqual = info.Equals(null);
+            bool isEqual = info.Equals(null);
 
             // Assert
             Assert.IsFalse(isEqual);
@@ -84,7 +84,7 @@ namespace Core.Components.Gis.Test
             var info = new WmtsConnectionInfo("name", "url");
 
             // Call
-            var isEqual = info.Equals(new object());
+            bool isEqual = info.Equals(new object());
 
             // Assert
             Assert.IsFalse(isEqual);
@@ -97,7 +97,7 @@ namespace Core.Components.Gis.Test
             var info = new WmtsConnectionInfo("name", "url");
 
             // Call
-            var isEqual = info.Equals(info);
+            bool isEqual = info.Equals(info);
 
             // Assert
             Assert.IsTrue(isEqual);
@@ -111,8 +111,8 @@ namespace Core.Components.Gis.Test
             var other = new WmtsConnectionInfo("name", "otherUrl");
 
             // Call
-            var isEqual = info.Equals(other);
-            var otherIsEqual = info.Equals(other);
+            bool isEqual = info.Equals(other);
+            bool otherIsEqual = info.Equals(other);
 
             // Assert
             Assert.IsFalse(isEqual);
@@ -127,8 +127,8 @@ namespace Core.Components.Gis.Test
             var other = new WmtsConnectionInfo("otherName", "url");
 
             // Call
-            var isEqual = info.Equals(other);
-            var otherIsEqual = info.Equals(other);
+            bool isEqual = info.Equals(other);
+            bool otherIsEqual = info.Equals(other);
 
             // Assert
             Assert.IsFalse(isEqual);
@@ -143,8 +143,8 @@ namespace Core.Components.Gis.Test
             var other = new WmtsConnectionInfo("name", "url");
 
             // Call
-            var isEqual = info.Equals(other);
-            var otherIsEqual = info.Equals(other);
+            bool isEqual = info.Equals(other);
+            bool otherIsEqual = info.Equals(other);
 
             // Assert
             Assert.IsTrue(isEqual);

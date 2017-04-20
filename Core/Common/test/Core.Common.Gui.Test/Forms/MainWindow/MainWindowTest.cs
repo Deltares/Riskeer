@@ -345,7 +345,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
                 mainWindow.SetGui(gui);
                 mainWindow.InitPropertiesWindowAndActivate();
 
-                var originalPropertyGrid = mainWindow.PropertyGrid;
+                IView originalPropertyGrid = mainWindow.PropertyGrid;
 
                 // Call
                 mainWindow.InitPropertiesWindowAndActivate();

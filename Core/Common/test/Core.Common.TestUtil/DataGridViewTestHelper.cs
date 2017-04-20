@@ -44,7 +44,7 @@ namespace Core.Common.TestUtil
         public static void AssertExpectedHeaders(IList<string> expectedHeaderNames, DataGridView actualDataGridView)
         {
             Assert.AreEqual(expectedHeaderNames.Count, actualDataGridView.ColumnCount);
-            for (int i = 0; i < expectedHeaderNames.Count; i++)
+            for (var i = 0; i < expectedHeaderNames.Count; i++)
             {
                 DataGridViewColumn column = actualDataGridView.Columns[i];
                 Assert.AreEqual(expectedHeaderNames[i], column.HeaderText);
@@ -61,7 +61,7 @@ namespace Core.Common.TestUtil
         public static void AssertColumnTypes(IList<Type> expectedColumnTypes, DataGridView actualDataGridView)
         {
             Assert.AreEqual(expectedColumnTypes.Count, actualDataGridView.ColumnCount);
-            for (int i = 0; i < expectedColumnTypes.Count; i++)
+            for (var i = 0; i < expectedColumnTypes.Count; i++)
             {
                 DataGridViewColumn column = actualDataGridView.Columns[i];
                 Assert.True(column.GetType().Implements(expectedColumnTypes[i]),
@@ -82,7 +82,7 @@ namespace Core.Common.TestUtil
         {
             DataGridViewCellCollection rowCells = actualRow.Cells;
             Assert.AreEqual(expectedFormattedValues.Count, rowCells.Count);
-            for (int i = 0; i < expectedFormattedValues.Count; i++)
+            for (var i = 0; i < expectedFormattedValues.Count; i++)
             {
                 DataGridViewCell cell = rowCells[i];
                 Assert.AreEqual(expectedFormattedValues[i], cell.FormattedValue);

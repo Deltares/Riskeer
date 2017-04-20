@@ -82,21 +82,21 @@ namespace Core.Components.OxyPlot.Test
 
         private static void AssertMousePanAtCommandBinding(DynamicPlotController controller, int index, OxyMouseButton expectedMouseButton)
         {
-            var panAtCommand = controller.InputCommandBindings[index];
+            InputCommandBinding panAtCommand = controller.InputCommandBindings[index];
             Assert.AreEqual(expectedMouseButton, ((OxyMouseDownGesture) panAtCommand.Gesture).MouseButton);
             Assert.AreEqual(PlotCommands.PanAt, panAtCommand.Command);
         }
 
         private static void AssertWheelZoomCommandBinding(DynamicPlotController controller, int index)
         {
-            var wheelZoomCommand = controller.InputCommandBindings[index];
+            InputCommandBinding wheelZoomCommand = controller.InputCommandBindings[index];
             Assert.IsTrue(wheelZoomCommand.Gesture is OxyMouseWheelGesture);
             Assert.AreEqual(PlotCommands.ZoomWheel, wheelZoomCommand.Command);
         }
 
         private static void AssertCustomRectangleZoomCommand(DynamicPlotController controller, int index)
         {
-            var rectangleZoomCommand = controller.InputCommandBindings[index];
+            InputCommandBinding rectangleZoomCommand = controller.InputCommandBindings[index];
             Assert.AreEqual(OxyMouseButton.Left, ((OxyMouseDownGesture) rectangleZoomCommand.Gesture).MouseButton);
             Assert.AreEqual(PlotCommands.ZoomRectangle, rectangleZoomCommand.Command);
         }

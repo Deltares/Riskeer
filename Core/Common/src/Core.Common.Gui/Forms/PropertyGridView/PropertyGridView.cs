@@ -162,8 +162,8 @@ namespace Core.Common.Gui.Forms.PropertyGridView
         {
             if ((keyData == Keys.Tab) || (keyData == (Keys.Tab | Keys.Shift)))
             {
-                var selectedItem = SelectedGridItem;
-                var root = selectedItem;
+                GridItem selectedItem = SelectedGridItem;
+                GridItem root = selectedItem;
                 if (selectedItem == null)
                 {
                     return false;
@@ -252,16 +252,16 @@ namespace Core.Common.Gui.Forms.PropertyGridView
 
         private void DisableDescriptionAreaAutoSizing()
         {
-            foreach (var control in Controls)
+            foreach (object control in Controls)
             {
-                var type = control.GetType();
+                Type type = control.GetType();
 
                 if (type.Name == "DocComment")
                 {
-                    var baseType = type.BaseType;
+                    Type baseType = type.BaseType;
                     if (baseType != null)
                     {
-                        var field = baseType.GetField("userSized", BindingFlags.Instance | BindingFlags.NonPublic);
+                        FieldInfo field = baseType.GetField("userSized", BindingFlags.Instance | BindingFlags.NonPublic);
                         if (field != null)
                         {
                             field.SetValue(control, true);

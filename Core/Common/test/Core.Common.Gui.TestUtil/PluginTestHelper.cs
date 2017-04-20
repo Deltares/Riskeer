@@ -46,7 +46,7 @@ namespace Core.Common.Gui.TestUtil
         public static PropertyInfo AssertPropertyInfoDefined(IEnumerable<PropertyInfo> propertyInfos, Type dataObjectType, Type propertyObjectType)
         {
             Assert.NotNull(propertyInfos, "The given collection of propertyInfos was undefined.");
-            var propertyInfo = propertyInfos.FirstOrDefault(
+            PropertyInfo propertyInfo = propertyInfos.FirstOrDefault(
                 tni =>
                     tni.DataType == dataObjectType &&
                     tni.PropertyObjectType == propertyObjectType);
@@ -73,7 +73,7 @@ namespace Core.Common.Gui.TestUtil
         public static ViewInfo AssertViewInfoDefined(IEnumerable<ViewInfo> viewInfos, Type dataType, Type viewDataType, Type viewType)
         {
             Assert.NotNull(viewInfos);
-            var viewInfo = viewInfos.SingleOrDefault(vi => vi.DataType == dataType);
+            ViewInfo viewInfo = viewInfos.SingleOrDefault(vi => vi.DataType == dataType);
             Assert.NotNull(viewInfo, "Could not find viewInfo for the dataType {0}", dataType);
             Assert.AreEqual(viewDataType, viewInfo.ViewDataType);
             Assert.AreEqual(viewType, viewInfo.ViewType);

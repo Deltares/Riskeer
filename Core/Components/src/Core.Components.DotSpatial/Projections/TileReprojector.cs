@@ -103,7 +103,7 @@ namespace Core.Components.DotSpatial.Projections
             // Prepare the result tile
             targetTile = new Bitmap(targetTileExtentInPixelCoordinates.Size.Width, targetTileExtentInPixelCoordinates.Size.Height,
                                     PixelFormat.Format32bppArgb);
-            using (var g = Graphics.FromImage(targetTile))
+            using (Graphics g = Graphics.FromImage(targetTile))
             {
                 g.Clear(Color.Transparent);
             }
@@ -145,8 +145,8 @@ namespace Core.Components.DotSpatial.Projections
                                                                 WorldFile sourceReference, Size sourceTileSize)
         {
             int len = x2 - x1;
-            double[] xy = new double[len * 2];
-            int i = 0;
+            var xy = new double[len * 2];
+            var i = 0;
             for (int x = x1; x < x2; x++)
             {
                 Coordinate c = mapArgs.PixelToProj(new Point(x, y));
@@ -160,7 +160,7 @@ namespace Core.Components.DotSpatial.Projections
             y -= offsetY;
             for (var x = 0; x < len; x++)
             {
-                Coordinate coord = new Coordinate(xy[i++], xy[i++]);
+                var coord = new Coordinate(xy[i++], xy[i++]);
                 Point sourcePixelLocation = sourceReference.ToScreenCoordinates(coord);
 
                 if (IsSourcePointInsideArea(sourceTileSize, sourcePixelLocation))

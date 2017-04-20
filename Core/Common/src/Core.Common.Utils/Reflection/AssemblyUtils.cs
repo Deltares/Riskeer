@@ -46,7 +46,7 @@ namespace Core.Common.Utils.Reflection
                 throw new ArgumentNullException(nameof(assembly));
             }
 
-            AssemblyInfo info = new AssemblyInfo();
+            var info = new AssemblyInfo();
 
             if (string.IsNullOrEmpty(assembly.Location))
             {
@@ -155,9 +155,9 @@ namespace Core.Common.Utils.Reflection
             }
             catch (InvalidOperationException e)
             {
-                var message = string.Format(CultureInfo.CurrentCulture,
-                                            "Cannot find embedded resource file '{0}' in '{1}.",
-                                            fileName, assembly.FullName);
+                string message = string.Format(CultureInfo.CurrentCulture,
+                                               "Cannot find embedded resource file '{0}' in '{1}.",
+                                               fileName, assembly.FullName);
                 throw new ArgumentException(message, nameof(fileName), e);
             }
         }

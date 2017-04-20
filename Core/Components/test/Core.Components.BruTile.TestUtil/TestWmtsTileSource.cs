@@ -48,7 +48,7 @@ namespace Core.Components.BruTile.TestUtil
         public TestWmtsTileSource(WmtsMapData mapData)
             : base(CreateWmtsTileSchema(mapData), new RequestStub(), "Stub schema", null, GetStubTile)
         {
-            var imageFormatExtension = mapData.PreferredFormat.Split('/')[1];
+            string imageFormatExtension = mapData.PreferredFormat.Split('/')[1];
             if (imageFormatExtension != "png")
             {
                 throw new NotImplementedException($"Please extend this class to support the '*.{imageFormatExtension}' extension.");

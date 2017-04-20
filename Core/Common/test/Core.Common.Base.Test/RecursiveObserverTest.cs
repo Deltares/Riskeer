@@ -55,7 +55,7 @@ namespace Core.Common.Base.Test
             // Given
             var counter = 0;
             var rootContainer = new TestContainer();
-            var currentNestedContainer = rootContainer;
+            TestContainer currentNestedContainer = rootContainer;
             var currentTestObservable = new TestObservable();
 
             InitializeHierarchy(nestingLevel, ref currentNestedContainer, ref currentTestObservable);
@@ -84,7 +84,7 @@ namespace Core.Common.Base.Test
             // Given
             var counter = 0;
             var rootContainer = new TestContainer();
-            var currentNestedContainer = rootContainer;
+            TestContainer currentNestedContainer = rootContainer;
             var currentTestObservable = new TestObservable();
 
             InitializeHierarchy(nestingLevel, ref currentNestedContainer, ref currentTestObservable);
@@ -114,7 +114,7 @@ namespace Core.Common.Base.Test
             // Given
             var counter = 0;
             var rootContainer = new TestContainer();
-            var currentNestedContainer = rootContainer;
+            TestContainer currentNestedContainer = rootContainer;
             var currentTestObservable = new TestObservable();
 
             InitializeHierarchy(nestingLevel, ref currentNestedContainer, ref currentTestObservable);
@@ -141,7 +141,7 @@ namespace Core.Common.Base.Test
             // Given
             var counter = 0;
             var rootContainer = new TestContainer();
-            var currentNestedContainer = rootContainer;
+            TestContainer currentNestedContainer = rootContainer;
             var currentTestObservable = new TestObservable();
 
             InitializeHierarchy(nestingLevel, ref currentNestedContainer, ref currentTestObservable);
@@ -169,7 +169,7 @@ namespace Core.Common.Base.Test
             // Given
             var counter = 0;
             var rootContainer = new TestContainer();
-            var currentNestedContainer = rootContainer;
+            TestContainer currentNestedContainer = rootContainer;
             var currentTestObservable = new TestObservable();
 
             InitializeHierarchy(nestingLevel, ref currentNestedContainer, ref currentTestObservable);
@@ -196,7 +196,7 @@ namespace Core.Common.Base.Test
             // Given
             var counter = 0;
             var rootContainer = new TestContainer();
-            var currentNestedContainer = rootContainer;
+            TestContainer currentNestedContainer = rootContainer;
             var currentTestObservable = new TestObservable();
 
             InitializeHierarchy(nestingLevel, ref currentNestedContainer, ref currentTestObservable);
@@ -223,7 +223,7 @@ namespace Core.Common.Base.Test
             // Given
             var counter = 0;
             var rootContainer = new TestContainer();
-            var currentNestedContainer = rootContainer;
+            TestContainer currentNestedContainer = rootContainer;
             var currentTestObservable = new TestObservable();
 
             InitializeHierarchy(nestingLevel, ref currentNestedContainer, ref currentTestObservable);
@@ -255,7 +255,7 @@ namespace Core.Common.Base.Test
             // Given
             var counter = 0;
             var rootContainer = new TestContainer();
-            var currentNestedContainer = rootContainer;
+            TestContainer currentNestedContainer = rootContainer;
             var currentTestObservable = new TestObservable();
 
             InitializeHierarchy(nestingLevel, ref currentNestedContainer, ref currentTestObservable);
@@ -294,15 +294,7 @@ namespace Core.Common.Base.Test
 
         private class TestContainer : Observable
         {
-            private readonly IList<object> children = new List<object>();
-
-            public IList<object> Children
-            {
-                get
-                {
-                    return children;
-                }
-            }
+            public IList<object> Children { get; } = new List<object>();
         }
 
         private class TestObservable : Observable {}

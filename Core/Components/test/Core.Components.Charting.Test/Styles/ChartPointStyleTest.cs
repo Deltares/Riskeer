@@ -32,9 +32,9 @@ namespace Core.Components.Charting.Test.Styles
         public void Constructor_WithAllParameters_SetsProperties()
         {
             // Setup
-            var color = Color.AliceBlue;
+            Color color = Color.AliceBlue;
             var size = 3;
-            var strokeColor = Color.AntiqueWhite;
+            Color strokeColor = Color.AntiqueWhite;
             var strokeThickness = 2;
             var symbol = ChartPointSymbol.Circle;
 

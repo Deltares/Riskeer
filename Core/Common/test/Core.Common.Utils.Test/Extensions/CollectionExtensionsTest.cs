@@ -112,7 +112,7 @@ namespace Core.Common.Utils.Test.Extensions
             });
 
             // Call
-            bool alternatingFilterValue = false;
+            var alternatingFilterValue = false;
             collection.RemoveAllWhere(o =>
             {
                 alternatingFilterValue = !alternatingFilterValue;

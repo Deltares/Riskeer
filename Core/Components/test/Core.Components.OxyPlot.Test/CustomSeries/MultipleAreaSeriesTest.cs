@@ -63,7 +63,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
         {
             // Setup
             var mocks = new MockRepository();
-            IRenderContext renderContext = mocks.StrictMock<IRenderContext>();
+            var renderContext = mocks.StrictMock<IRenderContext>();
             mocks.ReplayAll();
 
             var series = new MultipleAreaSeries();
@@ -80,7 +80,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
         {
             // Setup
             var mocks = new MockRepository();
-            IRenderContext renderContext = mocks.StrictMock<IRenderContext>();
+            var renderContext = mocks.StrictMock<IRenderContext>();
             mocks.ReplayAll();
 
             var series = new MultipleAreaSeries
@@ -105,7 +105,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
         {
             // Setup
             var random = new Random(21);
-            var pointCount = random.Next(5, 455);
+            int pointCount = random.Next(5, 455);
             var series = new MultipleAreaSeries();
             var model = new PlotModel();
             model.Series.Add(series);
@@ -146,7 +146,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
         {
             // Setup
             var random = new Random(21);
-            var areaCount = random.Next(5, 455);
+            int areaCount = random.Next(5, 455);
             var series = new MultipleAreaSeries();
             var model = new PlotModel();
             model.Series.Add(series);

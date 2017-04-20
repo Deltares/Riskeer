@@ -65,7 +65,7 @@ namespace Core.Common.Base.Test.Geometry
         public void LineIntersectionWithLine_DifferentLineSegmentsWithIntersections_ReturnsPoint(Point2D[] points, string testname = "")
         {
             // Call
-            var result = Math2D.LineIntersectionWithLine(points[0], points[1], points[2], points[3]);
+            Point2D result = Math2D.LineIntersectionWithLine(points[0], points[1], points[2], points[3]);
 
             // Assert
             Assert.AreEqual(points[4], result);
@@ -77,7 +77,7 @@ namespace Core.Common.Base.Test.Geometry
         public void LineIntersectionWithLine_DifferentParallelLineSegments_ReturnsNoPoint(Point2D[] points, string testname = "")
         {
             // Call
-            var result = Math2D.LineIntersectionWithLine(points[0], points[1], points[2], points[3]);
+            Point2D result = Math2D.LineIntersectionWithLine(points[0], points[1], points[2], points[3]);
 
             // Assert
             Assert.IsNull(result);
@@ -88,7 +88,7 @@ namespace Core.Common.Base.Test.Geometry
         public void LineIntersectionWithLine_DifferentLineSegmentsWithNoIntersection_ReturnsPoint(Point2D[] points)
         {
             // Call
-            var result = Math2D.LineIntersectionWithLine(points[0], points[1], points[2], points[3]);
+            Point2D result = Math2D.LineIntersectionWithLine(points[0], points[1], points[2], points[3]);
 
             // Assert
             Assert.AreEqual(points[4], result);
@@ -117,7 +117,7 @@ namespace Core.Common.Base.Test.Geometry
             var start = 133;
 
             // Call
-            var result = Math2D.LineIntersectionWithLine(new Point2D(start, y1), new Point2D(start + 1, y2), new Point2D(start + 0.5, 0), new Point2D(start + 0.5, 1));
+            Point2D result = Math2D.LineIntersectionWithLine(new Point2D(start, y1), new Point2D(start + 1, y2), new Point2D(start + 0.5, 0), new Point2D(start + 0.5, 1));
 
             // Assert
             Assert.AreEqual((y1 + y2) / 2, result.Y, 1e-6);
@@ -159,7 +159,7 @@ namespace Core.Common.Base.Test.Geometry
             };
 
             // Call
-            var result = Math2D.SegmentsIntersectionWithVerticalLine(segments, x);
+            IEnumerable<Point2D> result = Math2D.SegmentsIntersectionWithVerticalLine(segments, x);
 
             // Assert
             Assert.AreEqual(intersectionHeights.Select(y => new Point2D(x, y)), result);
@@ -171,7 +171,7 @@ namespace Core.Common.Base.Test.Geometry
         public void ConvertLinePointsToLineSegments_TooFewPoints_ReturnEmpty(int pointCount)
         {
             // Setup
-            var linePoints = Enumerable.Repeat(new Point2D(0, 0), pointCount);
+            IEnumerable<Point2D> linePoints = Enumerable.Repeat(new Point2D(0, 0), pointCount);
 
             // Call
             IEnumerable<Segment2D> segments = Math2D.ConvertLinePointsToLineSegments(linePoints);
@@ -205,7 +205,7 @@ namespace Core.Common.Base.Test.Geometry
         public void SplitLineAtLengths_TooFewPoints_ThrowArgumentException(int pointCount)
         {
             // Setup
-            var originalLine = Enumerable.Repeat(new Point2D(0.0, 0.0), pointCount);
+            IEnumerable<Point2D> originalLine = Enumerable.Repeat(new Point2D(0.0, 0.0), pointCount);
 
             var lengths = new[]
             {
@@ -310,7 +310,7 @@ namespace Core.Common.Base.Test.Geometry
                 new Point2D(20.0, 60.0),
             };
 
-            var lengths = GetLengthsBasedOnRelative(new[]
+            double[] lengths = GetLengthsBasedOnRelative(new[]
             {
                 0.25,
                 0.25,
@@ -714,17 +714,17 @@ namespace Core.Common.Base.Test.Geometry
 
             // Assert
             Assert.AreEqual(Intersection2DType.Overlaps, result.IntersectionType);
-            var expectedOverlappingPoints = dy >= 0 ?
-                                                new[]
-                                                {
-                                                    verticalSegment1.FirstPoint,
-                                                    verticalSegment2.SecondPoint
-                                                } :
-                                                new[]
-                                                {
-                                                    verticalSegment1.SecondPoint,
-                                                    verticalSegment2.FirstPoint
-                                                };
+            Point2D[] expectedOverlappingPoints = dy >= 0 ?
+                                                      new[]
+                                                      {
+                                                          verticalSegment1.FirstPoint,
+                                                          verticalSegment2.SecondPoint
+                                                      } :
+                                                      new[]
+                                                      {
+                                                          verticalSegment1.SecondPoint,
+                                                          verticalSegment2.FirstPoint
+                                                      };
             CollectionAssertAreEquivalent(expectedOverlappingPoints, result.IntersectionPoints);
         }
 
@@ -752,17 +752,17 @@ namespace Core.Common.Base.Test.Geometry
 
             // Assert
             Assert.AreEqual(Intersection2DType.Overlaps, result.IntersectionType);
-            var expectedOverlappingPoints = dx >= 0 ?
-                                                new[]
-                                                {
-                                                    horizontalSegment1.FirstPoint,
-                                                    horizontalSegment2.SecondPoint
-                                                } :
-                                                new[]
-                                                {
-                                                    horizontalSegment1.SecondPoint,
-                                                    horizontalSegment2.FirstPoint
-                                                };
+            Point2D[] expectedOverlappingPoints = dx >= 0 ?
+                                                      new[]
+                                                      {
+                                                          horizontalSegment1.FirstPoint,
+                                                          horizontalSegment2.SecondPoint
+                                                      } :
+                                                      new[]
+                                                      {
+                                                          horizontalSegment1.SecondPoint,
+                                                          horizontalSegment2.FirstPoint
+                                                      };
             CollectionAssertAreEquivalent(expectedOverlappingPoints, result.IntersectionPoints);
         }
 
@@ -1013,7 +1013,7 @@ namespace Core.Common.Base.Test.Geometry
         public void AreEqualPoints_PointsEqual_ReturnsTrue()
         {
             // Call
-            var result = Math2D.AreEqualPoints(new Point2D(0, 0), new Point2D(0, 0));
+            bool result = Math2D.AreEqualPoints(new Point2D(0, 0), new Point2D(0, 0));
 
             // Assert
             Assert.IsTrue(result);
@@ -1023,7 +1023,7 @@ namespace Core.Common.Base.Test.Geometry
         public void AreEqualPoints_PointsNotEqual_ReturnsFalse()
         {
             // Call
-            var result = Math2D.AreEqualPoints(new Point2D(1, 0), new Point2D(4, 9));
+            bool result = Math2D.AreEqualPoints(new Point2D(1, 0), new Point2D(4, 9));
 
             // Assert
             Assert.IsFalse(result);
@@ -1047,7 +1047,7 @@ namespace Core.Common.Base.Test.Geometry
             var points = new Point2D[0];
 
             // Call
-            var length = Math2D.Length(points);
+            double length = Math2D.Length(points);
 
             // Assert
             Assert.AreEqual(0, length);
@@ -1064,7 +1064,7 @@ namespace Core.Common.Base.Test.Geometry
             };
 
             // Call
-            var length = Math2D.Length(points);
+            double length = Math2D.Length(points);
 
             // Assert
             Assert.AreEqual(0, length);
@@ -1086,7 +1086,7 @@ namespace Core.Common.Base.Test.Geometry
             };
 
             // Call
-            var length = Math2D.Length(points);
+            double length = Math2D.Length(points);
 
             // Assert
             Assert.AreEqual(point2.GetEuclideanDistanceTo(point1), length);
@@ -1104,7 +1104,7 @@ namespace Core.Common.Base.Test.Geometry
             double expectedLength = 0;
             Point2D previousPoint = null;
 
-            for (int i = 0; i < count; i++)
+            for (var i = 0; i < count; i++)
             {
                 var point = new Point2D(random.NextDouble(), random.NextDouble());
                 if (previousPoint != null)
@@ -1116,7 +1116,7 @@ namespace Core.Common.Base.Test.Geometry
             }
 
             // Call
-            var length = Math2D.Length(points);
+            double length = Math2D.Length(points);
 
             // Assert
             Assert.AreEqual(expectedLength, length);
@@ -1206,7 +1206,7 @@ namespace Core.Common.Base.Test.Geometry
         private static void CollectionAssertAreEquivalent(Point2D[] expected, ReadOnlyCollection<Point2D> actual)
         {
             var comparer = new Point2DComparerWithTolerance(1e-6);
-            foreach (var intersectionPoint in actual)
+            foreach (Point2D intersectionPoint in actual)
             {
                 Assert.AreEqual(1, expected.Count(p => comparer.Compare(p, intersectionPoint) == 0));
             }
@@ -1214,7 +1214,7 @@ namespace Core.Common.Base.Test.Geometry
 
         private static double[] GetLengthsBasedOnRelative(double[] relativeLengths, IEnumerable<Point2D> lineGeometryPoints)
         {
-            var lineLength = Math2D.ConvertLinePointsToLineSegments(lineGeometryPoints).Sum(s => s.Length);
+            double lineLength = Math2D.ConvertLinePointsToLineSegments(lineGeometryPoints).Sum(s => s.Length);
             return relativeLengths.Select(l => lineLength * l).ToArray();
         }
 

@@ -58,10 +58,10 @@ namespace Core.Common.Controls.DataGrid
 
             if (paintParts.HasFlag(DataGridViewPaintParts.ContentBackground) && value is Color)
             {
-                using (var cellBackground = new SolidBrush((Color)value))
-                using(var cellBackgroundBorder = new Pen(Color.DarkSlateGray, 1))
+                using (var cellBackground = new SolidBrush((Color) value))
+                using (var cellBackgroundBorder = new Pen(Color.DarkSlateGray, 1))
                 {
-                    var rectangleWithMargin = CreateRectangleWithMargin(cellBounds, 3);
+                    Rectangle rectangleWithMargin = CreateRectangleWithMargin(cellBounds, 3);
                     graphics.FillRectangle(cellBackground, rectangleWithMargin);
                     graphics.DrawRectangle(cellBackgroundBorder, rectangleWithMargin);
                 }

@@ -30,8 +30,6 @@ namespace Core.Plugins.Chart.PresentationObjects
     /// </summary>
     public class ChartDataContext : ObservableWrappedObjectContextBase<ChartData>
     {
-        private readonly ChartDataCollection parentChartData;
-
         /// <summary>
         /// Creates a new instance of <see cref="ChartDataContext"/>.
         /// </summary>
@@ -45,19 +43,13 @@ namespace Core.Plugins.Chart.PresentationObjects
             {
                 throw new ArgumentNullException(nameof(parentChartData));
             }
-            this.parentChartData = parentChartData;
+            ParentChartData = parentChartData;
         }
 
         /// <summary>
         /// Gets the parent <see cref="ChartDataCollection"/>
         /// the <see cref="WrappedObjectContextBase{T}.WrappedData"/> belongs to.
         /// </summary>
-        public ChartDataCollection ParentChartData
-        {
-            get
-            {
-                return parentChartData;
-            }
-        }
+        public ChartDataCollection ParentChartData { get; }
     }
 }

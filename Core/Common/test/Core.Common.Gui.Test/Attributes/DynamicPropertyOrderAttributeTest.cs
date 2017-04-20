@@ -45,7 +45,7 @@ namespace Core.Common.Gui.Test.Attributes
         public void PropertyOrder_NoPropertyName_ReturnZero(string propertyName)
         {
             // Call
-            var propertyOrder = DynamicPropertyOrderAttribute.PropertyOrder(new object(), propertyName);
+            int propertyOrder = DynamicPropertyOrderAttribute.PropertyOrder(new object(), propertyName);
 
             // Assert
             Assert.AreEqual(0.0, propertyOrder);
@@ -61,7 +61,7 @@ namespace Core.Common.Gui.Test.Attributes
             TestDelegate call = () => DynamicPropertyOrderAttribute.PropertyOrder(o, "NotExistingProperty");
 
             // Assert
-            var exceptionMessage = Assert.Throws<MissingMemberException>(call).Message;
+            string exceptionMessage = Assert.Throws<MissingMemberException>(call).Message;
             Assert.AreEqual(string.Format("Kon eigenschap NotExistingProperty van type {0} niet vinden.", o.GetType()), exceptionMessage);
         }
 
@@ -72,7 +72,7 @@ namespace Core.Common.Gui.Test.Attributes
             var o = new ClassWithPropertyWithoutDynamicPropertyOrderAttribute();
 
             // Call
-            var propertyOrder = DynamicPropertyOrderAttribute.PropertyOrder(o, "Property");
+            int propertyOrder = DynamicPropertyOrderAttribute.PropertyOrder(o, "Property");
 
             // Assert
             Assert.AreEqual(0, propertyOrder);
@@ -88,9 +88,9 @@ namespace Core.Common.Gui.Test.Attributes
             TestDelegate call = () => DynamicPropertyOrderAttribute.PropertyOrder(o, "Property");
 
             // Assert
-            var exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
-            var expectedMessage = string.Format("DynamicPropertyOrderEvaluationMethod niet gevonden (of geen 'public' toegankelijkheid). Klasse: {0}.",
-                                                o.GetType());
+            string exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
+            string expectedMessage = string.Format("DynamicPropertyOrderEvaluationMethod niet gevonden (of geen 'public' toegankelijkheid). Klasse: {0}.",
+                                                   o.GetType());
             Assert.AreEqual(expectedMessage, exceptionMessage);
         }
 
@@ -104,9 +104,9 @@ namespace Core.Common.Gui.Test.Attributes
             TestDelegate call = () => DynamicPropertyOrderAttribute.PropertyOrder(o, "Property");
 
             // Assert
-            var exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
-            var expectedMessage = string.Format("Slechts één DynamicPropertyOrderEvaluationMethod toegestaan per klasse: {0}.",
-                                                o.GetType());
+            string exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
+            string expectedMessage = string.Format("Slechts één DynamicPropertyOrderEvaluationMethod toegestaan per klasse: {0}.",
+                                                   o.GetType());
             Assert.AreEqual(expectedMessage, exceptionMessage);
         }
 
@@ -120,9 +120,9 @@ namespace Core.Common.Gui.Test.Attributes
             TestDelegate call = () => DynamicPropertyOrderAttribute.PropertyOrder(o, "Property");
 
             // Assert
-            var exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
-            var expectedMessage = string.Format("DynamicPropertyOrderEvaluationMethod moet 'int' als 'return type' hebben. Klasse: {0}.",
-                                                o.GetType());
+            string exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
+            string expectedMessage = string.Format("DynamicPropertyOrderEvaluationMethod moet 'int' als 'return type' hebben. Klasse: {0}.",
+                                                   o.GetType());
             Assert.AreEqual(expectedMessage, exceptionMessage);
         }
 
@@ -136,9 +136,9 @@ namespace Core.Common.Gui.Test.Attributes
             TestDelegate call = () => DynamicPropertyOrderAttribute.PropertyOrder(o, "Property");
 
             // Assert
-            var exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
-            var expectedMessage = string.Format("DynamicPropertyOrderEvaluationMethod heeft een incorrect aantal argumenten. Zou er één moeten zijn. Klasse: {0}.",
-                                                o.GetType());
+            string exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
+            string expectedMessage = string.Format("DynamicPropertyOrderEvaluationMethod heeft een incorrect aantal argumenten. Zou er één moeten zijn. Klasse: {0}.",
+                                                   o.GetType());
             Assert.AreEqual(expectedMessage, exceptionMessage);
         }
 
@@ -152,9 +152,9 @@ namespace Core.Common.Gui.Test.Attributes
             TestDelegate call = () => DynamicPropertyOrderAttribute.PropertyOrder(o, "Property");
 
             // Assert
-            var exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
-            var expectedMessage = string.Format("Argument van DynamicPropertyOrderEvaluationMethod moet van het type 'string' zijn. Klasse: {0}.",
-                                                o.GetType());
+            string exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
+            string expectedMessage = string.Format("Argument van DynamicPropertyOrderEvaluationMethod moet van het type 'string' zijn. Klasse: {0}.",
+                                                   o.GetType());
             Assert.AreEqual(expectedMessage, exceptionMessage);
         }
 
@@ -168,7 +168,7 @@ namespace Core.Common.Gui.Test.Attributes
             var o = new ClassWithDynamicPropertyOrderProperty(propertyOrder);
 
             // Call
-            var result = DynamicPropertyOrderAttribute.PropertyOrder(o, "Property");
+            int result = DynamicPropertyOrderAttribute.PropertyOrder(o, "Property");
 
             // Assert
             Assert.AreEqual(propertyOrder, result);

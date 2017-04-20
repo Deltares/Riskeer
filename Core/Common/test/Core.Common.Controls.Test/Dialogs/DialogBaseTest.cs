@@ -43,7 +43,7 @@ namespace Core.Common.Controls.Test.Dialogs
             TestDelegate test = () => new TestDialog(null, icon, 1, 2);
 
             // Call
-            var message = Assert.Throws<ArgumentNullException>(test).Message;
+            string message = Assert.Throws<ArgumentNullException>(test).Message;
 
             // Assert
             StringAssert.EndsWith("dialogParent", message);
@@ -59,7 +59,7 @@ namespace Core.Common.Controls.Test.Dialogs
             TestDelegate test = () => new TestDialog(window, (Icon) null, 1, 2);
 
             // Call
-            var message = Assert.Throws<ArgumentNullException>(test).Message;
+            string message = Assert.Throws<ArgumentNullException>(test).Message;
 
             // Assert
             StringAssert.EndsWith("icon", message);
@@ -75,7 +75,7 @@ namespace Core.Common.Controls.Test.Dialogs
             TestDelegate test = () => new TestDialog(window, (Bitmap) null, 1, 2);
 
             // Call
-            var message = Assert.Throws<ArgumentNullException>(test).Message;
+            string message = Assert.Throws<ArgumentNullException>(test).Message;
 
             // Assert
             StringAssert.EndsWith("icon", message);

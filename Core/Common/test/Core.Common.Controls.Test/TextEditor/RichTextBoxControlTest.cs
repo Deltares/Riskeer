@@ -118,7 +118,7 @@ namespace Core.Common.Controls.Test.TextEditor
                 form.Show();
 
                 var data = "<Some data>";
-                var validRtfString = GetValidRtfString(data);
+                string validRtfString = GetValidRtfString(data);
 
                 // Call
                 control.Rtf = validRtfString;
@@ -138,7 +138,7 @@ namespace Core.Common.Controls.Test.TextEditor
                 var control = new RichTextBoxControl();
 
                 var data = "<Some data>";
-                var validRtfString = GetValidRtfString(data);
+                string validRtfString = GetValidRtfString(data);
 
                 control.Rtf = validRtfString;
                 form.Controls.Add(control);
@@ -164,7 +164,7 @@ namespace Core.Common.Controls.Test.TextEditor
 
                 var richTextBox = (RichTextBox) new ControlTester("richTextBox").TheObject;
 
-                int eventCounter = 0;
+                var eventCounter = 0;
                 object eventSender = null;
                 control.TextBoxValueChanged += (sender, args) =>
                 {
@@ -296,7 +296,7 @@ namespace Core.Common.Controls.Test.TextEditor
                 Assert.AreEqual(GetValidRtfString(text), richTextBox.Rtf);
 
                 // Call
-                foreach (var key in keys)
+                foreach (Keys key in keys)
                 {
                     EventHelper.RaiseEvent(richTextBox, "KeyDown", new KeyEventArgs(key | Keys.Control));
                 }

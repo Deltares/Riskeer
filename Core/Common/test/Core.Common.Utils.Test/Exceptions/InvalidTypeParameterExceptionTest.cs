@@ -34,7 +34,7 @@ namespace Core.Common.Utils.Test.Exceptions
         public void TypeParameterAndMessageConstructor_ExpectedValues()
         {
             // Setup
-            string typeParamName = "T";
+            var typeParamName = "T";
             const string messageText = "<insert exception message>";
 
             // Call
@@ -52,7 +52,7 @@ namespace Core.Common.Utils.Test.Exceptions
         {
             // Setup
             var innerException = new Exception();
-            string typeParamName = "T";
+            var typeParamName = "T";
             const string messageText = "<insert exception message>";
 
             // Call

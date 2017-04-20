@@ -92,7 +92,7 @@ namespace Core.Common.Gui.Forms
                 listViewItemTypes.Groups.Add(new ListViewGroup(category, category));
             }
 
-            var group = listViewItemTypes.Groups[category];
+            ListViewGroup group = listViewItemTypes.Groups[category];
 
             imageList.Images.Add(category + "-" + name, image);
             listViewItemTypes.Items.Add(name, name, imageList.Images.Count - 1);

@@ -43,7 +43,7 @@ namespace Core.Common.Utils.Exceptions
         /// with a specified error message.
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
-        public InvalidTypeParameterException(string message) : base(message) { }
+        public InvalidTypeParameterException(string message) : base(message) {}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InvalidTypeParameterException"/> class

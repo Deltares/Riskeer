@@ -60,7 +60,7 @@ namespace Core.Common.Utils.Test
             TestDelegate call = () => IOUtils.GetFullPath(tooLongFolderPath);
 
             // Assert
-            string message = "Het bestandspad is te lang.";
+            var message = "Het bestandspad is te lang.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
         }
 
@@ -141,7 +141,7 @@ namespace Core.Common.Utils.Test
             // Setup
             var stringBuilder = new StringBuilder();
             stringBuilder.Append(@"C:\");
-            for (int i = 0; i < 300; i++)
+            for (var i = 0; i < 300; i++)
             {
                 stringBuilder.Append("A");
             }
@@ -159,7 +159,7 @@ namespace Core.Common.Utils.Test
         public void IsValidFolderPath_InvalidColonCharacterInPath_ReturnFalse()
         {
             // Setup
-            string pathWithInvalidColonCharacter = @"C:\Left:Right";
+            var pathWithInvalidColonCharacter = @"C:\Left:Right";
 
             // Call
             bool isFolderPathValid = IOUtils.IsValidFolderPath(pathWithInvalidColonCharacter);
@@ -201,7 +201,7 @@ namespace Core.Common.Utils.Test
             // Setup
             var stringBuilder = new StringBuilder();
             stringBuilder.Append(@"C:\");
-            for (int i = 0; i < 300; i++)
+            for (var i = 0; i < 300; i++)
             {
                 stringBuilder.Append("A");
             }
@@ -220,7 +220,7 @@ namespace Core.Common.Utils.Test
         public void ValidateFolderPath_InvalidColonCharacterInPath_ThrowsArgumentException()
         {
             // Setup
-            string folderWithInvalidColonCharacter = @"C:\Left:Right";
+            var folderWithInvalidColonCharacter = @"C:\Left:Right";
 
             // Call
             TestDelegate call = () => IOUtils.ValidateFolderPath(folderWithInvalidColonCharacter);
@@ -267,7 +267,7 @@ namespace Core.Common.Utils.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
-            var expectedMessage = $"Fout bij het lezen van bestand '{invalidPath}': bestandspad mag niet leeg of ongedefinieerd zijn.";
+            string expectedMessage = $"Fout bij het lezen van bestand '{invalidPath}': bestandspad mag niet leeg of ongedefinieerd zijn.";
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -284,8 +284,8 @@ namespace Core.Common.Utils.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
-            var expectedMessage = $"Fout bij het lezen van bestand '{invalidPath}': er zitten ongeldige tekens in het bestandspad. "
-                                  + "Alle tekens in het bestandspad moeten geldig zijn.";
+            string expectedMessage = $"Fout bij het lezen van bestand '{invalidPath}': er zitten ongeldige tekens in het bestandspad. "
+                                     + "Alle tekens in het bestandspad moeten geldig zijn.";
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -300,7 +300,7 @@ namespace Core.Common.Utils.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
-            var expectedMessage = $"Fout bij het lezen van bestand '{folderPath}': bestandspad mag niet verwijzen naar een lege bestandsnaam.";
+            string expectedMessage = $"Fout bij het lezen van bestand '{folderPath}': bestandspad mag niet verwijzen naar een lege bestandsnaam.";
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -311,7 +311,7 @@ namespace Core.Common.Utils.Test
             string path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils, "validFile.txt");
 
             // Call
-            var valid = IOUtils.IsValidFilePath(path);
+            bool valid = IOUtils.IsValidFilePath(path);
 
             // Assert
             Assert.IsTrue(valid);
@@ -402,8 +402,8 @@ namespace Core.Common.Utils.Test
             TestDelegate call = () => IOUtils.DeleteOldFiles(path, "*.log", 0);
 
             // Assert
-            IOException exception = Assert.Throws<IOException>(call);
-            var message = $"Er is een fout opgetreden bij het verwijderen van bestanden in de map '{path}'.";
+            var exception = Assert.Throws<IOException>(call);
+            string message = $"Er is een fout opgetreden bij het verwijderen van bestanden in de map '{path}'.";
             Assert.AreEqual(message, exception.Message);
             Assert.IsInstanceOf<IOException>(exception.InnerException);
         }
@@ -438,7 +438,7 @@ namespace Core.Common.Utils.Test
             TestDelegate call = () => IOUtils.CreateFileIfNotExists(filePath);
 
             // Assert
-            ArgumentException exception = Assert.Throws<ArgumentException>(call);
+            var exception = Assert.Throws<ArgumentException>(call);
             Assert.AreEqual($"Fout bij het lezen van bestand '{filePath}': bestandspad mag niet leeg of ongedefinieerd zijn.", exception.Message);
         }
 

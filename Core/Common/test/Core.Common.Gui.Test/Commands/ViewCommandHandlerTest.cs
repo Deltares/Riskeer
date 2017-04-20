@@ -78,7 +78,7 @@ namespace Core.Common.Gui.Test.Commands
             var commandHandler = new ViewCommandHandler(viewController, applicationSelection, pluginsHost);
 
             // Call
-            var hasViewDefinitionsForData = commandHandler.CanOpenViewFor(viewObject);
+            bool hasViewDefinitionsForData = commandHandler.CanOpenViewFor(viewObject);
 
             // Assert
             Assert.IsFalse(hasViewDefinitionsForData);
@@ -94,7 +94,7 @@ namespace Core.Common.Gui.Test.Commands
             var viewObject = new object();
 
             var viewInfos = new ViewInfo[numberOfViewDefinitions];
-            for (int i = 0; i < viewInfos.Length; i++)
+            for (var i = 0; i < viewInfos.Length; i++)
             {
                 viewInfos[i] = new ViewInfo();
             }
@@ -111,7 +111,7 @@ namespace Core.Common.Gui.Test.Commands
             var commandHandler = new ViewCommandHandler(viewController, applicationSelection, pluginsHost);
 
             // Call
-            var hasViewDefinitionsForData = commandHandler.CanOpenViewFor(viewObject);
+            bool hasViewDefinitionsForData = commandHandler.CanOpenViewFor(viewObject);
 
             // Assert
             Assert.IsTrue(hasViewDefinitionsForData);

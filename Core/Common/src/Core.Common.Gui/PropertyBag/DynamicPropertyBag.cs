@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Forms.PropertyGridView;
 
@@ -62,8 +63,8 @@ namespace Core.Common.Gui.PropertyBag
             Properties = new HashSet<PropertySpec>();
             WrappedObject = propertyObject;
 
-            foreach (var propertyInfo in propertyObject.GetType().GetProperties()
-                                                       .OrderBy(x => x.MetadataToken))
+            foreach (PropertyInfo propertyInfo in propertyObject.GetType().GetProperties()
+                                                                .OrderBy(x => x.MetadataToken))
             {
                 Properties.Add(new PropertySpec(propertyInfo));
             }
@@ -142,10 +143,10 @@ namespace Core.Common.Gui.PropertyBag
 
         public PropertyDescriptorCollection GetProperties(Attribute[] attributes)
         {
-            var propertyDescriptorsToReturn = Properties.Select(p => new PropertySpecDescriptor(p, WrappedObject))
-                                                        .Where(t => ShouldDescriptorBeReturned(t, attributes));
+            IEnumerable<PropertySpecDescriptor> propertyDescriptorsToReturn = Properties.Select(p => new PropertySpecDescriptor(p, WrappedObject))
+                                                                                        .Where(t => ShouldDescriptorBeReturned(t, attributes));
 
-            var propertySpecDescriptors = OrderPropertyDescriptors(propertyDescriptorsToReturn);
+            PropertyDescriptor[] propertySpecDescriptors = OrderPropertyDescriptors(propertyDescriptorsToReturn);
             return new PropertyDescriptorCollection(propertySpecDescriptors);
         }
 
@@ -156,14 +157,14 @@ namespace Core.Common.Gui.PropertyBag
 
             foreach (PropertyDescriptor pd in propertyDescriptorsToReturn)
             {
-                var propertyOrderAttribute = pd.Attributes.OfType<PropertyOrderAttribute>().FirstOrDefault();
+                PropertyOrderAttribute propertyOrderAttribute = pd.Attributes.OfType<PropertyOrderAttribute>().FirstOrDefault();
                 if (propertyOrderAttribute != null)
                 {
                     propertiesWithOrdering.Add(Tuple.Create(propertyOrderAttribute.Order, pd));
                     continue;
                 }
 
-                var dynamicPropertyOrderAttribute = pd.Attributes.OfType<DynamicPropertyOrderAttribute>().FirstOrDefault();
+                DynamicPropertyOrderAttribute dynamicPropertyOrderAttribute = pd.Attributes.OfType<DynamicPropertyOrderAttribute>().FirstOrDefault();
                 if (dynamicPropertyOrderAttribute != null)
                 {
                     propertiesWithOrdering.Add(Tuple.Create(DynamicPropertyOrderAttribute.PropertyOrder(WrappedObject, pd.Name), pd));
@@ -172,14 +173,14 @@ namespace Core.Common.Gui.PropertyBag
 
                 unorderedProperties.Add(pd);
             }
-            var orderedProperties = propertiesWithOrdering.OrderBy(p => p.Item1).Select(p => p.Item2);
+            IEnumerable<PropertyDescriptor> orderedProperties = propertiesWithOrdering.OrderBy(p => p.Item1).Select(p => p.Item2);
 
             return orderedProperties.Concat(unorderedProperties).ToArray();
         }
 
         private static bool ShouldDescriptorBeReturned(PropertyDescriptor propertySpecDescriptor, IEnumerable<Attribute> attributesFilter)
         {
-            var browsableAttribute = attributesFilter.OfType<BrowsableAttribute>().FirstOrDefault();
+            BrowsableAttribute browsableAttribute = attributesFilter.OfType<BrowsableAttribute>().FirstOrDefault();
             return browsableAttribute == null || propertySpecDescriptor.IsBrowsable == browsableAttribute.Browsable;
         }
 

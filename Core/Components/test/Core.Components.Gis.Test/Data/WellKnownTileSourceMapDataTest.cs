@@ -50,7 +50,6 @@ namespace Core.Components.Gis.Test.Data
             Assert.AreEqual(value, mapData.TileSource);
         }
 
-
         [Test]
         public void Constructor_ForAllWellKnownTileSources_ProperlySetName()
         {

@@ -48,7 +48,7 @@ namespace Core.Common.Gui.Test.PropertyBag
         {
             // Setup
             var propertyName = "IntegerProperty";
-            var propertyInfo = typeof(ClassWithProperties).GetProperty(propertyName);
+            PropertyInfo propertyInfo = typeof(ClassWithProperties).GetProperty(propertyName);
 
             // Call
             var propertySpec = new PropertySpec(propertyInfo);
@@ -64,7 +64,7 @@ namespace Core.Common.Gui.Test.PropertyBag
         {
             // Setup
             var propertyName = "DoublePropertyWithOnlyPublicGet";
-            var propertyInfo = typeof(ClassWithProperties).GetProperty(propertyName);
+            PropertyInfo propertyInfo = typeof(ClassWithProperties).GetProperty(propertyName);
 
             // Call
             var propertySpec = new PropertySpec(propertyInfo);
@@ -82,7 +82,7 @@ namespace Core.Common.Gui.Test.PropertyBag
         {
             // Setup
             var propertyName = "StringPropertyWithAttributes";
-            var propertyInfo = typeof(ClassWithProperties).GetProperty(propertyName);
+            PropertyInfo propertyInfo = typeof(ClassWithProperties).GetProperty(propertyName);
 
             // Call
             var propertySpec = new PropertySpec(propertyInfo);
@@ -91,9 +91,9 @@ namespace Core.Common.Gui.Test.PropertyBag
             Assert.AreEqual(propertyName, propertySpec.Name);
             Assert.AreEqual(propertyInfo.PropertyType.AssemblyQualifiedName, propertySpec.TypeName);
             Assert.AreEqual(2, propertySpec.Attributes.Count);
-            var browsableAttribute = propertySpec.Attributes.OfType<BrowsableAttribute>().Single();
+            BrowsableAttribute browsableAttribute = propertySpec.Attributes.OfType<BrowsableAttribute>().Single();
             Assert.IsTrue(browsableAttribute.Browsable);
-            var readOnlyAttribute = propertySpec.Attributes.OfType<ReadOnlyAttribute>().Single();
+            ReadOnlyAttribute readOnlyAttribute = propertySpec.Attributes.OfType<ReadOnlyAttribute>().Single();
             Assert.IsFalse(readOnlyAttribute.IsReadOnly);
         }
 
@@ -102,7 +102,7 @@ namespace Core.Common.Gui.Test.PropertyBag
         {
             // Setup
             var propertyName = "StringPropertyWithAttributes";
-            var propertyInfo = typeof(InheritorSettingPropertyToNotBrowsable).GetProperty(propertyName);
+            PropertyInfo propertyInfo = typeof(InheritorSettingPropertyToNotBrowsable).GetProperty(propertyName);
 
             // Call
             var propertySpec = new PropertySpec(propertyInfo);
@@ -111,9 +111,9 @@ namespace Core.Common.Gui.Test.PropertyBag
             Assert.AreEqual(propertyName, propertySpec.Name);
             Assert.AreEqual(propertyInfo.PropertyType.AssemblyQualifiedName, propertySpec.TypeName);
             Assert.AreEqual(2, propertySpec.Attributes.Count);
-            var browsableAttribute = propertySpec.Attributes.OfType<BrowsableAttribute>().Single();
+            BrowsableAttribute browsableAttribute = propertySpec.Attributes.OfType<BrowsableAttribute>().Single();
             Assert.IsFalse(browsableAttribute.Browsable, "Should have the override value.");
-            var readOnlyAttribute = propertySpec.Attributes.OfType<ReadOnlyAttribute>().Single();
+            ReadOnlyAttribute readOnlyAttribute = propertySpec.Attributes.OfType<ReadOnlyAttribute>().Single();
             Assert.IsFalse(readOnlyAttribute.IsReadOnly, "Should have the base value.");
         }
 
@@ -122,7 +122,7 @@ namespace Core.Common.Gui.Test.PropertyBag
         {
             // Setup
             var propertyName = "BoolPropertyWithAttributes";
-            var propertyInfo = typeof(InheritorSettingPropertyToNotBrowsable).GetProperty(propertyName);
+            PropertyInfo propertyInfo = typeof(InheritorSettingPropertyToNotBrowsable).GetProperty(propertyName);
 
             // Call
             var propertySpec = new PropertySpec(propertyInfo);
@@ -131,7 +131,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             Assert.AreEqual(propertyName, propertySpec.Name);
             Assert.AreEqual(propertyInfo.PropertyType.AssemblyQualifiedName, propertySpec.TypeName);
             Assert.AreEqual(1, propertySpec.Attributes.Count);
-            var browsableAttribute = propertySpec.Attributes.OfType<BrowsableAttribute>().Single();
+            BrowsableAttribute browsableAttribute = propertySpec.Attributes.OfType<BrowsableAttribute>().Single();
             Assert.IsTrue(browsableAttribute.Browsable,
                           "No override in 'InheritorSettingPropertyToNotBrowsable' for property 'BoolPropertyWithAttributes', so use base class.");
         }
@@ -140,7 +140,7 @@ namespace Core.Common.Gui.Test.PropertyBag
         public void ParameteredConstructor_ForIndexProperty_ThrowArgumentException()
         {
             // Setup
-            var propertyInfo = new ClassWithProperties().GetType().GetProperty("Item");
+            PropertyInfo propertyInfo = new ClassWithProperties().GetType().GetProperty("Item");
 
             // Call
             TestDelegate call = () => new PropertySpec(propertyInfo);
@@ -207,7 +207,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             TestDelegate call = () => propertySpec.SetValue(target, "");
 
             // Assert
-            var innerException = Assert.Throws<TargetInvocationException>(call).InnerException;
+            Exception innerException = Assert.Throws<TargetInvocationException>(call).InnerException;
             Assert.IsInstanceOf<ArgumentException>(innerException);
         }
 
@@ -255,7 +255,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             var propertySpec = new PropertySpec(target.GetType().GetProperty("IntegerProperty"));
 
             // Call
-            var value = propertySpec.GetValue(target);
+            object value = propertySpec.GetValue(target);
 
             // Assert
             Assert.AreEqual(target.IntegerProperty, value);
@@ -273,7 +273,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             TestDelegate call = () => propertySpec.GetValue(target);
 
             // Assert
-            var message = Assert.Throws<InvalidOperationException>(call).Message;
+            string message = Assert.Throws<InvalidOperationException>(call).Message;
             Assert.AreEqual("Property lacks public getter!", message);
         }
 
@@ -318,7 +318,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             var propertySpec = new PropertySpec(target.GetType().GetProperty("IntegerProperty"));
 
             // Call
-            var hasExpandableObjectTypeConverter = propertySpec.IsNonCustomExpandableObjectProperty();
+            bool hasExpandableObjectTypeConverter = propertySpec.IsNonCustomExpandableObjectProperty();
 
             // Assert
             Assert.False(hasExpandableObjectTypeConverter);
@@ -333,7 +333,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             var propertySpec = new PropertySpec(target.GetType().GetProperty("StringPropertyWithExpandableObjectConverter"));
 
             // Call
-            var hasExpandableObjectTypeConverter = propertySpec.IsNonCustomExpandableObjectProperty();
+            bool hasExpandableObjectTypeConverter = propertySpec.IsNonCustomExpandableObjectProperty();
 
             // Assert
             Assert.True(hasExpandableObjectTypeConverter);
@@ -348,7 +348,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             var propertySpec = new PropertySpec(target.GetType().GetProperty("StringPropertyWithCustomExpandableObjectConverter"));
 
             // Call
-            var hasExpandableObjectTypeConverter = propertySpec.IsNonCustomExpandableObjectProperty();
+            bool hasExpandableObjectTypeConverter = propertySpec.IsNonCustomExpandableObjectProperty();
 
             // Assert
             Assert.False(hasExpandableObjectTypeConverter,
@@ -364,7 +364,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             var propertySpec = new PropertySpec(target.GetType().GetProperty("StringPropertyWithSomeTypeConverter"));
 
             // Call
-            var hasExpandableObjectTypeConverter = propertySpec.IsNonCustomExpandableObjectProperty();
+            bool hasExpandableObjectTypeConverter = propertySpec.IsNonCustomExpandableObjectProperty();
 
             // Assert
             Assert.False(hasExpandableObjectTypeConverter);
@@ -379,7 +379,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             var propertySpec = new PropertySpec(target.GetType().GetProperty("StringPropertyWithExpandableObjectConverter"));
 
             // Call
-            var hasExpandableObjectTypeConverter = propertySpec.IsNonCustomExpandableObjectProperty();
+            bool hasExpandableObjectTypeConverter = propertySpec.IsNonCustomExpandableObjectProperty();
 
             // Assert
             Assert.True(hasExpandableObjectTypeConverter);

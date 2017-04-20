@@ -73,7 +73,7 @@ namespace Core.Components.Gis.Test.Features
             mapFeature.MetaData.Add(testMetaData);
 
             // Call
-            var featureMetaData = mapFeature.MetaData;
+            IDictionary<string, object> featureMetaData = mapFeature.MetaData;
 
             // Assert
             Assert.AreEqual(1, featureMetaData.Count);

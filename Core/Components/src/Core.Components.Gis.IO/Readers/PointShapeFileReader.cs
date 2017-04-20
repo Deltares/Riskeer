@@ -25,7 +25,6 @@ using System.IO;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.Utils.Builders;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
@@ -76,14 +75,14 @@ namespace Core.Components.Gis.IO.Readers
             }
             catch (IOException exception)
             {
-                var message = new FileReaderErrorMessageBuilder(filePath).Build(CoreCommonUtilsResources.Error_General_IO_Import_ErrorMessage);
+                string message = new FileReaderErrorMessageBuilder(filePath).Build(CoreCommonUtilsResources.Error_General_IO_Import_ErrorMessage);
                 throw new CriticalFileReadException(message, exception);
             }
         }
 
         public override FeatureBasedMapData ReadShapeFile(string name = null)
         {
-            List<IFeature> featureList = new List<IFeature>();
+            var featureList = new List<IFeature>();
             while (readIndex != GetNumberOfFeatures())
             {
                 featureList.Add(ReadFeatureLine());
@@ -148,7 +147,7 @@ namespace Core.Components.Gis.IO.Readers
         {
             var mapFeatures = new MapFeature[featureList.Count];
 
-            for (int i = 0; i < featureList.Count; i++)
+            for (var i = 0; i < featureList.Count; i++)
             {
                 IFeature feature = featureList[i];
                 MapFeature mapFeature = CreateMapFeatureForPointFeature(feature);

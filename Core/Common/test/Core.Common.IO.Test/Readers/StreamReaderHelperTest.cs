@@ -37,10 +37,10 @@ namespace Core.Common.IO.Test.Readers
         public void InitializeStreamReader_ValidFile_ReturnsStreamReader()
         {
             // Setup
-            var filePath = Path.Combine(testDataPath, "empty.csv");
+            string filePath = Path.Combine(testDataPath, "empty.csv");
 
             // Call
-            using (var streamReader = StreamReaderHelper.InitializeStreamReader(filePath))
+            using (StreamReader streamReader = StreamReaderHelper.InitializeStreamReader(filePath))
             {
                 // Assert
                 Assert.IsInstanceOf<StreamReader>(streamReader);
@@ -52,7 +52,7 @@ namespace Core.Common.IO.Test.Readers
         {
             // Setup
             var filePath = "nothing";
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestand bestaat niet.", filePath);
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestand bestaat niet.", filePath);
 
             // Call
             TestDelegate call = () => StreamReaderHelper.InitializeStreamReader(filePath);
@@ -67,8 +67,8 @@ namespace Core.Common.IO.Test.Readers
         public void InitializeStreamReader_NotExistingFolder_ThrowsCriticalFileReadExceptionWithInnerDirectoryNotFoundException()
         {
             // Setup
-            var filePath = Path.Combine(notExistingTestDataPath, "empty.csv");
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestandspad verwijst naar een map die niet bestaat.", filePath);
+            string filePath = Path.Combine(notExistingTestDataPath, "empty.csv");
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestandspad verwijst naar een map die niet bestaat.", filePath);
 
             // Call
             TestDelegate call = () => StreamReaderHelper.InitializeStreamReader(filePath);

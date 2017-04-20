@@ -35,11 +35,11 @@ namespace Core.Common.Utils.Test.Builders
             const string errorMessage = "test test 1,2,3";
 
             // Call
-            var message = new FileWriterErrorMessageBuilder(filePath).Build(errorMessage);
+            string message = new FileWriterErrorMessageBuilder(filePath).Build(errorMessage);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het schrijven naar bestand '{0}': {1}",
-                                                filePath, errorMessage);
+            string expectedMessage = string.Format("Fout bij het schrijven naar bestand '{0}': {1}",
+                                                   filePath, errorMessage);
             Assert.AreEqual(expectedMessage, message);
         }
     }

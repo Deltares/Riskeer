@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
@@ -141,7 +143,7 @@ namespace Core.Common.Gui.Test
             var mocks = new MockRepository();
             IStoreProject projectStore = nullArgumentIndex == 1 ? null : mocks.Stub<IStoreProject>();
             IMigrateProject projectMigrator = nullArgumentIndex == 2 ? null : mocks.Stub<IMigrateProject>();
-            var projectFactory = CreateProjectFactory(mocks);
+            IProjectFactory projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             GuiCoreSettings guiCoreSettings = nullArgumentIndex == 3 ? null : new GuiCoreSettings();
@@ -169,7 +171,7 @@ namespace Core.Common.Gui.Test
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = CreateProjectFactory(mocks);
+            IProjectFactory projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             var guiCoreSettings = new GuiCoreSettings();
@@ -200,7 +202,7 @@ namespace Core.Common.Gui.Test
             var pluginMock = mocks.Stub<PluginBase>();
             pluginMock.Expect(p => p.Deactivate());
             pluginMock.Expect(p => p.Dispose());
-            var projectFactory = CreateProjectFactory(mocks);
+            IProjectFactory projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
@@ -227,7 +229,7 @@ namespace Core.Common.Gui.Test
             var pluginMock = mocks.Stub<PluginBase>();
             pluginMock.Expect(p => p.Deactivate());
             pluginMock.Expect(p => p.Dispose());
-            var projectFactory = CreateProjectFactory(mocks);
+            IProjectFactory projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings());
@@ -252,7 +254,7 @@ namespace Core.Common.Gui.Test
             var pluginMock = mocks.Stub<PluginBase>();
             pluginMock.Expect(p => p.Deactivate()).Throw(new Exception("Bad stuff happening!"));
             pluginMock.Expect(p => p.Dispose());
-            var projectFactory = CreateProjectFactory(mocks);
+            IProjectFactory projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings());
@@ -275,7 +277,7 @@ namespace Core.Common.Gui.Test
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = CreateProjectFactory(mocks);
+            IProjectFactory projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings())
@@ -299,7 +301,7 @@ namespace Core.Common.Gui.Test
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = CreateProjectFactory(mocks);
+            IProjectFactory projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             using (var mainWindow = new MainWindow())
@@ -324,12 +326,12 @@ namespace Core.Common.Gui.Test
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = CreateProjectFactory(mocks);
+            IProjectFactory projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             var messageWindowLogAppender = new MessageWindowLogAppender();
 
-            var rootLogger = ((Hierarchy) LogManager.GetRepository()).Root;
+            Logger rootLogger = ((Hierarchy) LogManager.GetRepository()).Root;
             rootLogger.AddAppender(messageWindowLogAppender);
 
             try
@@ -366,7 +368,7 @@ namespace Core.Common.Gui.Test
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = CreateProjectFactory(mocks);
+            IProjectFactory projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             using (var toolView = new TestView())
@@ -394,7 +396,7 @@ namespace Core.Common.Gui.Test
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = CreateProjectFactory(mocks);
+            IProjectFactory projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             using (var documentView = new TestView())
@@ -423,7 +425,7 @@ namespace Core.Common.Gui.Test
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = CreateProjectFactory(mocks);
+            IProjectFactory projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             Logger rootLogger = ((Hierarchy) LogManager.GetRepository()).Root;
@@ -450,7 +452,7 @@ namespace Core.Common.Gui.Test
             finally
             {
                 rootLogger.RemoveAllAppenders();
-                foreach (var appender in originalAppenders)
+                foreach (IAppender appender in originalAppenders)
                 {
                     rootLogger.AddAppender(appender);
                 }
@@ -466,7 +468,7 @@ namespace Core.Common.Gui.Test
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = CreateProjectFactory(mocks);
+            IProjectFactory projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             var appender = new MessageWindowLogAppender();
@@ -475,7 +477,7 @@ namespace Core.Common.Gui.Test
             IAppender[] originalAppenders = rootLogger.Appenders.ToArray();
             rootLogger.RemoveAllAppenders();
             rootLogger.AddAppender(appender);
-            var rootloggerConfigured = rootLogger.Repository.Configured;
+            bool rootloggerConfigured = rootLogger.Repository.Configured;
 
             try
             {
@@ -496,7 +498,7 @@ namespace Core.Common.Gui.Test
             finally
             {
                 rootLogger.RemoveAllAppenders();
-                foreach (var originalAppender in originalAppenders)
+                foreach (IAppender originalAppender in originalAppenders)
                 {
                     rootLogger.AddAppender(originalAppender);
                 }
@@ -518,7 +520,7 @@ namespace Core.Common.Gui.Test
             projectMigrator.Stub(m => m.ShouldMigrate(testFile)).Return(MigrationRequired.No);
             var deserializedProject = mocks.Stub<IProject>();
             projectStore.Expect(ps => ps.LoadProject(testFile)).Return(deserializedProject);
-            var projectFactory = CreateProjectFactory(mocks);
+            IProjectFactory projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             var fixedSettings = new GuiCoreSettings
@@ -544,7 +546,7 @@ namespace Core.Common.Gui.Test
                 Assert.AreEqual(fileName, gui.Project.Name,
                                 "Project name should be updated to the name of the file.");
 
-                var expectedTitle = $"{fileName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
+                string expectedTitle = $"{fileName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
                 Assert.AreEqual(expectedTitle, mainWindow.Title);
             }
             mocks.VerifyAll();
@@ -593,7 +595,7 @@ namespace Core.Common.Gui.Test
                 TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages);
 
                 Assert.IsNull(gui.ProjectFilePath);
-                var expectedTitle = $"{expectedProjectName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
+                string expectedTitle = $"{expectedProjectName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
                 Assert.AreEqual(expectedTitle, mainWindow.Title);
             }
             mocks.VerifyAll();
@@ -645,7 +647,7 @@ namespace Core.Common.Gui.Test
                 TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages);
 
                 Assert.IsNull(gui.ProjectFilePath);
-                var expectedTitle = $"{expectedProjectName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
+                string expectedTitle = $"{expectedProjectName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
                 Assert.AreEqual(expectedTitle, mainWindow.Title);
             }
             mocks.VerifyAll();
@@ -700,7 +702,7 @@ namespace Core.Common.Gui.Test
                 TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages);
 
                 Assert.IsNull(gui.ProjectFilePath);
-                var expectedTitle = $"{expectedProjectName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
+                string expectedTitle = $"{expectedProjectName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
                 Assert.AreEqual(expectedTitle, mainWindow.Title);
             }
             mocks.VerifyAll();
@@ -750,7 +752,7 @@ namespace Core.Common.Gui.Test
                 TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages);
 
                 Assert.IsNull(gui.ProjectFilePath);
-                var expectedTitle = $"{expectedProjectName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
+                string expectedTitle = $"{expectedProjectName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
                 Assert.AreEqual(expectedTitle, mainWindow.Title);
             }
             mocks.VerifyAll();
@@ -789,7 +791,7 @@ namespace Core.Common.Gui.Test
                 // Assert
                 Assert.IsNull(gui.ProjectFilePath);
                 Assert.AreSame(project, gui.Project);
-                var expectedTitle = $"{expectedProjectName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
+                string expectedTitle = $"{expectedProjectName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
                 Assert.AreEqual(expectedTitle, mainWindow.Title);
             }
             mocks.VerifyAll();
@@ -808,7 +810,7 @@ namespace Core.Common.Gui.Test
             plugin.Expect(p => p.Activate());
             plugin.Expect(p => p.GetViewInfos()).Return(Enumerable.Empty<ViewInfo>());
             plugin.Expect(p => p.GetPropertyInfos()).Return(Enumerable.Empty<PropertyInfo>());
-            var projectFactory = CreateProjectFactory(mocks);
+            IProjectFactory projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             // Setup
@@ -838,7 +840,7 @@ namespace Core.Common.Gui.Test
             plugin.Stub(p => p.Activate()).Throw(new Exception("ERROR!"));
             plugin.Expect(p => p.Deactivate());
             plugin.Expect(p => p.Dispose());
-            var projectFactory = CreateProjectFactory(mocks);
+            IProjectFactory projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             // Setup
@@ -866,7 +868,7 @@ namespace Core.Common.Gui.Test
             plugin.Stub(p => p.Activate()).Throw(new Exception("ERROR!"));
             plugin.Stub(p => p.Deactivate()).Throw(new Exception("MORE ERROR!"));
             plugin.Expect(p => p.Dispose());
-            var projectFactory = CreateProjectFactory(mocks);
+            IProjectFactory projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             // Setup
@@ -893,7 +895,7 @@ namespace Core.Common.Gui.Test
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = CreateProjectFactory(mocks);
+            IProjectFactory projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
@@ -923,7 +925,7 @@ namespace Core.Common.Gui.Test
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = CreateProjectFactory(mocks);
+            IProjectFactory projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
@@ -931,7 +933,7 @@ namespace Core.Common.Gui.Test
                 var rootData = new object();
 
                 // Call
-                var dataInstancesWithViewDefinitions = gui.GetAllDataWithViewDefinitionsRecursively(rootData);
+                IEnumerable dataInstancesWithViewDefinitions = gui.GetAllDataWithViewDefinitionsRecursively(rootData);
 
                 // Assert
                 CollectionAssert.IsEmpty(dataInstancesWithViewDefinitions);
@@ -964,7 +966,7 @@ namespace Core.Common.Gui.Test
             });
             plugin2.Stub(p => p.Dispose());
             plugin2.Stub(p => p.Deactivate());
-            var projectFactory = CreateProjectFactory(mocks);
+            IProjectFactory projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
@@ -973,7 +975,7 @@ namespace Core.Common.Gui.Test
                 gui.Plugins.Add(plugin2);
 
                 // Call
-                var dataInstancesWithViewDefinitions = gui.GetAllDataWithViewDefinitionsRecursively(rootData).OfType<object>().ToArray();
+                object[] dataInstancesWithViewDefinitions = gui.GetAllDataWithViewDefinitionsRecursively(rootData).OfType<object>().ToArray();
 
                 // Assert
                 var expectedDataDefinitions = new[]
@@ -1020,7 +1022,7 @@ namespace Core.Common.Gui.Test
             });
             plugin2.Stub(p => p.Dispose());
             plugin2.Stub(p => p.Deactivate());
-            var projectFactory = CreateProjectFactory(mocks);
+            IProjectFactory projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
@@ -1029,7 +1031,7 @@ namespace Core.Common.Gui.Test
                 gui.Plugins.Add(plugin2);
 
                 // Call
-                var dataInstancesWithViewDefinitions = gui.GetAllDataWithViewDefinitionsRecursively(rootData).OfType<object>().ToArray();
+                object[] dataInstancesWithViewDefinitions = gui.GetAllDataWithViewDefinitionsRecursively(rootData).OfType<object>().ToArray();
 
                 // Assert
                 var expectedDataDefinitions = new[]
@@ -1050,13 +1052,13 @@ namespace Core.Common.Gui.Test
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = CreateProjectFactory(mocks);
+            IProjectFactory projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 // Call
-                var result = gui.GetTreeNodeInfos();
+                IEnumerable<TreeNodeInfo> result = gui.GetTreeNodeInfos();
 
                 // Assert
                 CollectionAssert.IsEmpty(result);
@@ -1102,7 +1104,7 @@ namespace Core.Common.Gui.Test
             pluginC.Stub(p => p.GetTreeNodeInfos()).Return(nodesPluginC);
             pluginC.Stub(p => p.Dispose());
             pluginC.Stub(p => p.Deactivate());
-            var projectFactory = CreateProjectFactory(mocks);
+            IProjectFactory projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
@@ -1112,10 +1114,10 @@ namespace Core.Common.Gui.Test
                 gui.Plugins.Add(pluginC);
 
                 // Call
-                var result = gui.GetTreeNodeInfos();
+                IEnumerable<TreeNodeInfo> result = gui.GetTreeNodeInfos();
 
                 // Assert
-                var expected = nodesPluginA.Concat(nodesPluginB).Concat(nodesPluginC);
+                IEnumerable<TreeNodeInfo> expected = nodesPluginA.Concat(nodesPluginB).Concat(nodesPluginC);
                 CollectionAssert.AreEquivalent(expected, result);
             }
 
@@ -1130,7 +1132,7 @@ namespace Core.Common.Gui.Test
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = CreateProjectFactory(mocks);
+            IProjectFactory projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             using (var treeView = new TreeViewControl())
@@ -1140,7 +1142,7 @@ namespace Core.Common.Gui.Test
                 TestDelegate call = () => gui.Get(new object(), treeView);
 
                 // Assert
-                var message = Assert.Throws<InvalidOperationException>(call).Message;
+                string message = Assert.Throws<InvalidOperationException>(call).Message;
                 Assert.AreEqual("Call IGui.Run in order to initialize dependencies before getting the ContextMenuBuilder.", message);
             }
             mocks.VerifyAll();
@@ -1154,7 +1156,7 @@ namespace Core.Common.Gui.Test
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = CreateProjectFactory(mocks);
+            IProjectFactory projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             using (var treeView = new TreeViewControl())
@@ -1197,8 +1199,8 @@ namespace Core.Common.Gui.Test
 
             using (var gui = new GuiCore(new MainWindow(), storeProject, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                int openedCallCount = 0;
-                int beforeOpenCallCount = 0;
+                var openedCallCount = 0;
+                var beforeOpenCallCount = 0;
                 gui.BeforeProjectOpened += project =>
                 {
                     Assert.AreSame(oldProject, project);
@@ -1228,7 +1230,7 @@ namespace Core.Common.Gui.Test
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = CreateProjectFactory(mocks);
+            IProjectFactory projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             var selectionProvider = new TestSelectionProvider();
@@ -1257,7 +1259,7 @@ namespace Core.Common.Gui.Test
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = CreateProjectFactory(mocks);
+            IProjectFactory projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             var selectionProvider = new TestSelectionProvider();
@@ -1285,7 +1287,7 @@ namespace Core.Common.Gui.Test
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = CreateProjectFactory(mocks);
+            IProjectFactory projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             var selection = new object();
@@ -1313,7 +1315,7 @@ namespace Core.Common.Gui.Test
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = CreateProjectFactory(mocks);
+            IProjectFactory projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             var selectionProvider = new TestSelectionProvider();
@@ -1342,7 +1344,7 @@ namespace Core.Common.Gui.Test
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = CreateProjectFactory(mocks);
+            IProjectFactory projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             var selection = new object();
@@ -1373,7 +1375,7 @@ namespace Core.Common.Gui.Test
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = CreateProjectFactory(mocks);
+            IProjectFactory projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             var selectionProvider = new TestSelectionProvider();
@@ -1403,7 +1405,7 @@ namespace Core.Common.Gui.Test
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = CreateProjectFactory(mocks);
+            IProjectFactory projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             var testView = new TestView();
@@ -1433,7 +1435,7 @@ namespace Core.Common.Gui.Test
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = CreateProjectFactory(mocks);
+            IProjectFactory projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             var testView = new TestView();
@@ -1463,7 +1465,7 @@ namespace Core.Common.Gui.Test
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = CreateProjectFactory(mocks);
+            IProjectFactory projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             var selectionProvider = new TestSelectionProvider();
@@ -1493,7 +1495,7 @@ namespace Core.Common.Gui.Test
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = CreateProjectFactory(mocks);
+            IProjectFactory projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             var selectionProvider = new TestSelectionProvider();

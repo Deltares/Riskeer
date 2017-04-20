@@ -51,9 +51,9 @@ namespace Core.Components.Gis.IO.Test.Writers
         public void CopyToFeature_FeatureContainsNoGeometries_ThrowsArgumentException()
         {
             // Setup
-            MapFeature feature = new MapFeature(new MapGeometry[0]);
+            var feature = new MapFeature(new MapGeometry[0]);
 
-            MapLineData mapData = new MapLineData("test")
+            var mapData = new MapLineData("test")
             {
                 Features = new[]
                 {
@@ -67,7 +67,7 @@ namespace Core.Components.Gis.IO.Test.Writers
                 TestDelegate call = () => writer.CopyToFeature(mapData);
 
                 // Assert
-                var expectedMessage = Resources.PointShapeFileWriter_CreatePointFromMapFeature_A_feature_can_only_contain_one_geometry;
+                string expectedMessage = Resources.PointShapeFileWriter_CreatePointFromMapFeature_A_feature_can_only_contain_one_geometry;
                 TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
             }
         }
@@ -76,7 +76,7 @@ namespace Core.Components.Gis.IO.Test.Writers
         public void CopyToFeature_FeatureContainsMultipleGeometries_ThrowsArgumentException()
         {
             // Setup
-            MapFeature feature = new MapFeature(new[]
+            var feature = new MapFeature(new[]
             {
                 new MapGeometry(new[]
                 {
@@ -88,7 +88,7 @@ namespace Core.Components.Gis.IO.Test.Writers
                 })
             });
 
-            MapLineData mapData = new MapLineData("test")
+            var mapData = new MapLineData("test")
             {
                 Features = new[]
                 {
@@ -102,7 +102,7 @@ namespace Core.Components.Gis.IO.Test.Writers
                 TestDelegate call = () => writer.CopyToFeature(mapData);
 
                 // Assert
-                var expectedMessage = Resources.PointShapeFileWriter_CreatePointFromMapFeature_A_feature_can_only_contain_one_geometry;
+                string expectedMessage = Resources.PointShapeFileWriter_CreatePointFromMapFeature_A_feature_can_only_contain_one_geometry;
                 TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
             }
         }
@@ -156,12 +156,12 @@ namespace Core.Components.Gis.IO.Test.Writers
             };
 
             mapLineData.Features.First().MetaData["<some key>"] = 123;
-            
-            using(new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(SaveAs_ValidMapLineData_WritesShapeFile)))
+
+            using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(SaveAs_ValidMapLineData_WritesShapeFile)))
             using (var writer = new PolylineShapeFileWriter())
             {
                 writer.CopyToFeature(mapLineData);
-                
+
                 // Call
                 writer.SaveAs(filePath);
 

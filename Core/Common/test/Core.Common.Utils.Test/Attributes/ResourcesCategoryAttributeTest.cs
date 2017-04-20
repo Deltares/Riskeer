@@ -36,7 +36,7 @@ namespace Core.Common.Utils.Test.Attributes
             TestDelegate call = () => new ResourcesCategoryAttribute(typeof(Resources), "DoesNotExist");
 
             // Assert
-            var message = Assert.Throws<InvalidOperationException>(call).Message;
+            string message = Assert.Throws<InvalidOperationException>(call).Message;
             StringAssert.Contains("does not have property", message);
         }
 
@@ -47,7 +47,7 @@ namespace Core.Common.Utils.Test.Attributes
             TestDelegate call = () => new ResourcesCategoryAttribute(typeof(Resources), "abacus");
 
             // Assert
-            var message = Assert.Throws<InvalidOperationException>(call).Message;
+            string message = Assert.Throws<InvalidOperationException>(call).Message;
             StringAssert.EndsWith("is not string.", message);
         }
 

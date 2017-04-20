@@ -46,8 +46,8 @@ namespace Core.Common.Gui.Test.Plugin
             // Setup
             var info = new PropertyInfo();
 
-            var newDataType = typeof(object);
-            var newPropertyObjectType = typeof(TestObjectProperties);
+            Type newDataType = typeof(object);
+            Type newPropertyObjectType = typeof(TestObjectProperties);
 
             // Call
             info.DataType = newDataType;
@@ -78,14 +78,14 @@ namespace Core.Common.Gui.Test.Plugin
                 DataType = typeof(int),
                 PropertyObjectType = typeof(TestObjectProperties),
             };
-            var data = new Random(21).Next();
+            int data = new Random(21).Next();
 
             // Call
             object properties = info.CreateInstance(data);
 
             // Assert
             Assert.IsInstanceOf<TestObjectProperties>(properties);
-            var testObjectProperties = (TestObjectProperties)properties;
+            var testObjectProperties = (TestObjectProperties) properties;
             Assert.AreEqual(data, testObjectProperties.Data);
         }
 
@@ -94,7 +94,7 @@ namespace Core.Common.Gui.Test.Plugin
         {
             // Setup
             var info = new PropertyInfo<int, TestObjectProperties>();
-            var data = new Random(21).Next();
+            int data = new Random(21).Next();
 
             // Call
             TestObjectProperties properties = info.CreateInstance(data);
@@ -103,7 +103,7 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.IsNotNull(properties);
             Assert.AreEqual(data, properties.Data);
         }
-        
+
         [Test]
         public void ImplicitOperator_Always_PropertyInfoFullyConverted()
         {

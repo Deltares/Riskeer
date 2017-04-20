@@ -33,7 +33,7 @@ namespace Core.Common.Utils.Test.Builders
         {
             // Setup
             string folderPath = Directory.GetCurrentDirectory();
-            string customMessage = "<Some custom message>";
+            var customMessage = "<Some custom message>";
 
             // Call
             string message = new DirectoryWriterErrorMessageBuilder(folderPath).Build(customMessage);

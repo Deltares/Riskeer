@@ -67,7 +67,7 @@ namespace Core.Components.DotSpatial.MapFunctions
         {
             if (isDragging)
             {
-                var rectangle = Opp.RectangleFromPoints(startPoint, currentPoint);
+                Rectangle rectangle = Opp.RectangleFromPoints(startPoint, currentPoint);
                 rectangle.Width -= 1;
                 rectangle.Height -= 1;
                 e.Graphics.DrawRectangle(Pens.White, rectangle);

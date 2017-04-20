@@ -38,8 +38,6 @@ namespace Core.Common.Gui.Forms.ViewHost
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(DocumentViewController));
 
-        private readonly IDictionary<Type, Type> defaultViewTypes = new Dictionary<Type, Type>();
-
         private readonly IViewHost viewHost;
         private readonly ViewInfo[] viewInfos;
         private readonly IWin32Window dialogParent;
@@ -57,13 +55,7 @@ namespace Core.Common.Gui.Forms.ViewHost
             this.dialogParent = dialogParent;
         }
 
-        public IDictionary<Type, Type> DefaultViewTypes
-        {
-            get
-            {
-                return defaultViewTypes;
-            }
-        }
+        public IDictionary<Type, Type> DefaultViewTypes { get; } = new Dictionary<Type, Type>();
 
         public bool OpenViewForData(object data, bool alwaysShowDialog = false)
         {
@@ -72,7 +64,7 @@ namespace Core.Common.Gui.Forms.ViewHost
                 return false;
             }
 
-            var viewInfoList = FilterOnInheritance(GetViewInfosFor(data)).ToArray();
+            ViewInfo[] viewInfoList = FilterOnInheritance(GetViewInfosFor(data)).ToArray();
             if (viewInfoList.Length == 0)
             {
                 log.DebugFormat(Resources.DocumentViewController_OpenViewForData_No_view_registered_for_0_, data);
@@ -88,8 +80,8 @@ namespace Core.Common.Gui.Forms.ViewHost
                 }
 
                 // Create default view
-                var defaultType = GetDefaultViewType(data);
-                var defaultViewInfo = viewInfoList.FirstOrDefault(vi => vi.ViewType == defaultType);
+                Type defaultType = GetDefaultViewType(data);
+                ViewInfo defaultViewInfo = viewInfoList.FirstOrDefault(vi => vi.ViewType == defaultType);
 
                 if (defaultViewInfo != null)
                 {
@@ -99,7 +91,7 @@ namespace Core.Common.Gui.Forms.ViewHost
             }
 
             // Create chosen view
-            var chosenViewInfo = GetViewInfoUsingDialog(data, viewInfoList);
+            ViewInfo chosenViewInfo = GetViewInfoUsingDialog(data, viewInfoList);
             if (chosenViewInfo == null)
             {
                 return false;
@@ -117,7 +109,7 @@ namespace Core.Common.Gui.Forms.ViewHost
                 return;
             }
 
-            foreach (var view in viewHost.DocumentViews.Where(view => ShouldRemoveViewForData(view, data)).ToArray())
+            foreach (IView view in viewHost.DocumentViews.Where(view => ShouldRemoveViewForData(view, data)).ToArray())
             {
                 viewHost.Remove(view);
             }
@@ -135,34 +127,34 @@ namespace Core.Common.Gui.Forms.ViewHost
                 return true;
             }
 
-            var viewInfo = GetViewInfoForView(view);
+            ViewInfo viewInfo = GetViewInfoForView(view);
             return viewInfo != null && viewInfo.CloseForData(view, data);
         }
 
         private Type GetDefaultViewType(object dataObject)
         {
-            var selectionType = dataObject.GetType();
+            Type selectionType = dataObject.GetType();
 
-            return defaultViewTypes.ContainsKey(selectionType)
-                       ? defaultViewTypes[selectionType]
+            return DefaultViewTypes.ContainsKey(selectionType)
+                       ? DefaultViewTypes[selectionType]
                        : null;
         }
 
         private static IEnumerable<ViewInfo> FilterOnInheritance(IEnumerable<ViewInfo> compatibleStandaloneViewInfos)
         {
-            var viewInfos = compatibleStandaloneViewInfos.ToArray();
+            ViewInfo[] viewInfos = compatibleStandaloneViewInfos.ToArray();
 
             // filter on inheritance
-            var dataTypes = viewInfos.Select(i => i.DataType).ToArray();
+            Type[] dataTypes = viewInfos.Select(i => i.DataType).ToArray();
             return viewInfos.Where(i => !dataTypes.Any(t => t != i.DataType && t.Implements(i.DataType)));
         }
 
         private void CreateViewFromViewInfo(object data, ViewInfo viewInfo)
         {
-            var viewData = viewInfo.GetViewData(data);
-            var view = (viewInfo.DataType == viewInfo.ViewDataType
-                            ? GetOpenViewsFor(viewHost.DocumentViews, data)
-                            : GetOpenViewsFor(viewHost.DocumentViews, data).Concat(GetOpenViewsFor(viewHost.DocumentViews, viewData)))
+            object viewData = viewInfo.GetViewData(data);
+            IView view = (viewInfo.DataType == viewInfo.ViewDataType
+                              ? GetOpenViewsFor(viewHost.DocumentViews, data)
+                              : GetOpenViewsFor(viewHost.DocumentViews, data).Concat(GetOpenViewsFor(viewHost.DocumentViews, viewData)))
                 .FirstOrDefault(v => v.GetType() == viewInfo.ViewType);
 
             if (view != null)
@@ -171,7 +163,7 @@ namespace Core.Common.Gui.Forms.ViewHost
                 return;
             }
 
-            var newView = CreateViewForData(data, viewInfo);
+            IView newView = CreateViewForData(data, viewInfo);
 
             viewHost.AddDocumentView(newView);
             viewHost.SetImage(newView, viewInfo.Image);
@@ -192,12 +184,12 @@ namespace Core.Common.Gui.Forms.ViewHost
 
         private ViewInfo GetViewInfoUsingDialog(object data, IList<ViewInfo> viewInfoList)
         {
-            var defaultViewTypeForData = GetDefaultViewTypeForData(data);
-            var defaultViewName = (defaultViewTypeForData != null)
-                                      ? viewInfoList.First(vi => vi.ViewType == defaultViewTypeForData).Description
-                                      : null;
+            Type defaultViewTypeForData = GetDefaultViewTypeForData(data);
+            string defaultViewName = (defaultViewTypeForData != null)
+                                         ? viewInfoList.First(vi => vi.ViewType == defaultViewTypeForData).Description
+                                         : null;
 
-            var viewTypeDictionary = viewInfoList.ToDictionary(vi => vi.Description ?? vi.ViewType.Name);
+            Dictionary<string, ViewInfo> viewTypeDictionary = viewInfoList.ToDictionary(vi => vi.Description ?? vi.ViewType.Name);
             using (var viewSelector = new SelectViewDialog(dialogParent)
             {
                 DefaultViewName = defaultViewName,
@@ -208,7 +200,7 @@ namespace Core.Common.Gui.Forms.ViewHost
                 {
                     return null;
                 }
-                var selectedViewInfo = viewTypeDictionary[viewSelector.SelectedItem];
+                ViewInfo selectedViewInfo = viewTypeDictionary[viewSelector.SelectedItem];
 
                 if (viewSelector.DefaultViewName == null)
                 {
@@ -216,7 +208,7 @@ namespace Core.Common.Gui.Forms.ViewHost
                 }
                 else
                 {
-                    var defaultViewInfo = viewTypeDictionary[viewSelector.DefaultViewName];
+                    ViewInfo defaultViewInfo = viewTypeDictionary[viewSelector.DefaultViewName];
                     SetDefaultView(defaultViewInfo.ViewType, data);
                 }
 
@@ -231,7 +223,7 @@ namespace Core.Common.Gui.Forms.ViewHost
 
         private bool IsViewData(IView view, object data)
         {
-            var viewInfo = GetViewInfoForView(view);
+            ViewInfo viewInfo = GetViewInfoForView(view);
             return data.Equals(view.Data) || (IsDataForView(data, viewInfo) && Equals(viewInfo.GetViewData(data), view.Data));
         }
 
@@ -247,33 +239,33 @@ namespace Core.Common.Gui.Forms.ViewHost
 
         private void ClearDefaultView(object data)
         {
-            var selectedItemType = data.GetType();
+            Type selectedItemType = data.GetType();
 
-            if (defaultViewTypes.ContainsKey(selectedItemType))
+            if (DefaultViewTypes.ContainsKey(selectedItemType))
             {
-                defaultViewTypes.Remove(selectedItemType);
+                DefaultViewTypes.Remove(selectedItemType);
             }
         }
 
         private void SetDefaultView(Type selectedViewType, object data)
         {
-            var selectedItemType = data.GetType();
+            Type selectedItemType = data.GetType();
 
-            if (defaultViewTypes.ContainsKey(selectedItemType))
+            if (DefaultViewTypes.ContainsKey(selectedItemType))
             {
-                defaultViewTypes[selectedItemType] = selectedViewType;
+                DefaultViewTypes[selectedItemType] = selectedViewType;
             }
             else
             {
-                defaultViewTypes.Add(selectedItemType, selectedViewType);
+                DefaultViewTypes.Add(selectedItemType, selectedViewType);
             }
         }
 
         private Type GetDefaultViewTypeForData(object dataObject)
         {
-            var selectionType = dataObject.GetType();
+            Type selectionType = dataObject.GetType();
 
-            return defaultViewTypes.ContainsKey(selectionType) ? defaultViewTypes[selectionType] : null;
+            return DefaultViewTypes.ContainsKey(selectionType) ? DefaultViewTypes[selectionType] : null;
         }
     }
 }

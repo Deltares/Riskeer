@@ -31,12 +31,14 @@ namespace Core.Common.TestUtil.Test
         public void InvalidPaths_Always_ReturnsExpectedPaths()
         {
             // Call
-            var paths = InvalidPathHelper.InvalidPaths;
+            string[] paths = InvalidPathHelper.InvalidPaths;
 
             // Assert
             CollectionAssert.AreEquivalent(new[]
             {
-                "", "   ", @"C:\>"
+                "",
+                "   ",
+                @"C:\>"
             }, paths);
             foreach (string path in paths)
             {

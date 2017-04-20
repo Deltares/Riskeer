@@ -59,8 +59,8 @@ namespace Core.Common.Base.Data
         {
             ValidateNumberOfDecimalPlaces(numberOfDecimalPlaces);
 
-            this.NumberOfDecimalPlaces = numberOfDecimalPlaces;
-            this.Value = RoundDouble(value, numberOfDecimalPlaces);
+            NumberOfDecimalPlaces = numberOfDecimalPlaces;
+            Value = RoundDouble(value, numberOfDecimalPlaces);
         }
 
         /// <summary>

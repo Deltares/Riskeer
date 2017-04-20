@@ -32,7 +32,6 @@ namespace Core.Common.Utils.IO
     public class EmbeddedResourceFileWriter : IDisposable
     {
         private readonly bool removeFilesOnDispose;
-        private readonly string targetFolderPath;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EmbeddedResourceFileWriter"/> class.
@@ -59,26 +58,20 @@ namespace Core.Common.Utils.IO
 
             this.removeFilesOnDispose = removeFilesOnDispose;
 
-            targetFolderPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            TargetFolderPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
 
-            Directory.CreateDirectory(targetFolderPath);
+            Directory.CreateDirectory(TargetFolderPath);
 
             foreach (string embeddedResourceFileName in embeddedResourceFileNames)
             {
-                WriteEmbeddedResourceToTemporaryFile(assembly, embeddedResourceFileName, Path.Combine(targetFolderPath, embeddedResourceFileName));
+                WriteEmbeddedResourceToTemporaryFile(assembly, embeddedResourceFileName, Path.Combine(TargetFolderPath, embeddedResourceFileName));
             }
         }
 
         /// <summary>
         /// Gets the (automatically generated) target folder path.
         /// </summary>
-        public string TargetFolderPath
-        {
-            get
-            {
-                return targetFolderPath;
-            }
-        }
+        public string TargetFolderPath { get; }
 
         /// <summary>
         /// Disposes the <see cref="EmbeddedResourceFileWriter"/> instance.
@@ -87,14 +80,14 @@ namespace Core.Common.Utils.IO
         {
             if (removeFilesOnDispose)
             {
-                Directory.Delete(targetFolderPath, true);
+                Directory.Delete(TargetFolderPath, true);
             }
         }
 
         private static void WriteEmbeddedResourceToTemporaryFile(Assembly assembly, string embeddedResourceFileName, string filePath)
         {
-            var stream = GetStreamToFileInResource(assembly, embeddedResourceFileName);
-            var bytes = GetBinaryDataOfStream(stream);
+            Stream stream = GetStreamToFileInResource(assembly, embeddedResourceFileName);
+            byte[] bytes = GetBinaryDataOfStream(stream);
 
             File.WriteAllBytes(filePath, bytes);
         }

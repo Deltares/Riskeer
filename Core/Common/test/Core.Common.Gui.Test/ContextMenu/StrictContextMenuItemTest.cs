@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Properties;
 using Core.Common.TestUtil;
@@ -39,7 +40,7 @@ namespace Core.Common.Gui.Test.ContextMenu
 
             var text = "text";
             var toolTip = "tooltip";
-            var image = Resources.ImportIcon;
+            Bitmap image = Resources.ImportIcon;
             var counter = 0;
 
             mockRepository.ReplayAll();

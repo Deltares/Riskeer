@@ -113,7 +113,7 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
             {
                 propertyGridView.Data = dataObject;
 
-                var selectedObject = propertyGridView.SelectedObject;
+                object selectedObject = propertyGridView.SelectedObject;
 
                 // Call
                 propertyGridView.Data = null;
@@ -140,7 +140,7 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
             {
                 propertyGridView.Data = dataObject;
 
-                var selectedObject = propertyGridView.SelectedObject;
+                object selectedObject = propertyGridView.SelectedObject;
 
                 // Call
                 propertyGridView.Data = dataObject;

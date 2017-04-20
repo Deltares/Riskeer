@@ -33,7 +33,7 @@ namespace Core.Common.TestUtil.Test
         public void ShowActionIsRunForAFormUsingShow()
         {
             var form = new Form();
-            int callCount = 0;
+            var callCount = 0;
 
             WindowsFormsTestHelper.Show(form, delegate { callCount++; });
 
@@ -46,7 +46,7 @@ namespace Core.Common.TestUtil.Test
         public void ShowActionIsRunForUserControl()
         {
             var uc = new UserControl();
-            int callCount = 0;
+            var callCount = 0;
 
             WindowsFormsTestHelper.Show(uc, delegate { callCount++; });
 
@@ -59,7 +59,7 @@ namespace Core.Common.TestUtil.Test
         public void ShowActionIsRunForForm()
         {
             var form = new Form();
-            int callCount = 0;
+            var callCount = 0;
 
             WindowsFormsTestHelper.Show(form, delegate { callCount++; });
 

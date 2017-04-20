@@ -190,7 +190,7 @@ namespace Core.Common.Controls.TreeView
         /// <returns>Whether or not the tree node can be renamed or <c>false</c> when no corresponding tree node is found.</returns>
         public bool CanRenameNodeForData(object dataObject)
         {
-            var treeNode = GetNodeByTag(dataObject);
+            TreeNode treeNode = GetNodeByTag(dataObject);
 
             return treeNode != null && CanRename(treeNode);
         }
@@ -206,7 +206,7 @@ namespace Core.Common.Controls.TreeView
         /// </remarks>
         public void TryRenameNodeForData(object dataObject)
         {
-            var treeNode = GetNodeByTag(dataObject);
+            TreeNode treeNode = GetNodeByTag(dataObject);
 
             if (treeNode != null)
             {
@@ -222,7 +222,7 @@ namespace Core.Common.Controls.TreeView
         /// <returns>Whether or not the tree node can be removed or <c>false</c> when no corresponding tree node is found.</returns>
         public bool CanRemoveNodeForData(object dataObject)
         {
-            var treeNode = GetNodeByTag(dataObject);
+            TreeNode treeNode = GetNodeByTag(dataObject);
 
             return treeNode != null && CanRemove(treeNode);
         }
@@ -235,7 +235,7 @@ namespace Core.Common.Controls.TreeView
         /// <returns><c>true</c> if the tree node has a child node which can be removed or <c>false</c> otherwise.</returns>
         public bool CanRemoveChildNodesOfData(object dataObject)
         {
-            var treeNode = GetNodeByTag(dataObject);
+            TreeNode treeNode = GetNodeByTag(dataObject);
 
             return treeNode != null && CanRemoveChildNodes(treeNode);
         }
@@ -251,7 +251,7 @@ namespace Core.Common.Controls.TreeView
         /// </remarks>
         public void TryRemoveNodeForData(object dataObject)
         {
-            var treeNode = GetNodeByTag(dataObject);
+            TreeNode treeNode = GetNodeByTag(dataObject);
 
             if (treeNode != null)
             {
@@ -261,7 +261,7 @@ namespace Core.Common.Controls.TreeView
 
         public void TryRemoveChildNodesOfData(object dataObject)
         {
-            var treeNode = GetNodeByTag(dataObject);
+            TreeNode treeNode = GetNodeByTag(dataObject);
 
             if (treeNode != null)
             {
@@ -277,7 +277,7 @@ namespace Core.Common.Controls.TreeView
         /// <returns>Whether or not the tree node can be collapsed/expanded or <c>false</c> when no corresponding tree node is found.</returns>
         public bool CanExpandOrCollapseForData(object dataObject)
         {
-            var treeNode = GetNodeByTag(dataObject);
+            TreeNode treeNode = GetNodeByTag(dataObject);
 
             return treeNode != null && treeNode.Nodes.Count > 0;
         }
@@ -291,7 +291,7 @@ namespace Core.Common.Controls.TreeView
         /// </remarks>
         public void TryCollapseAllNodesForData(object dataObject)
         {
-            var treeNode = GetNodeByTag(dataObject);
+            TreeNode treeNode = GetNodeByTag(dataObject);
 
             if (treeNode != null)
             {
@@ -308,7 +308,7 @@ namespace Core.Common.Controls.TreeView
         /// </remarks>
         public void TryExpandAllNodesForData(object dataObject)
         {
-            var treeNode = GetNodeByTag(dataObject);
+            TreeNode treeNode = GetNodeByTag(dataObject);
 
             if (treeNode != null)
             {
@@ -335,15 +335,15 @@ namespace Core.Common.Controls.TreeView
         /// <returns>The path of the tree node or <c>null</c> when no corresponding tree node is found.</returns>
         public string TryGetPathForData(object dataObject)
         {
-            var treeNode = GetNodeByTag(dataObject);
+            TreeNode treeNode = GetNodeByTag(dataObject);
 
             return treeNode != null ? treeNode.FullPath : null;
         }
 
         private bool CanRename(TreeNode treeNode)
         {
-            var treeNodeInfo = TryGetTreeNodeInfoForData(treeNode.Tag);
-            var parentTag = GetParentTag(treeNode);
+            TreeNodeInfo treeNodeInfo = TryGetTreeNodeInfoForData(treeNode.Tag);
+            object parentTag = GetParentTag(treeNode);
 
             return treeNodeInfo.CanRename != null && treeNodeInfo.CanRename(treeNode.Tag, parentTag);
         }
@@ -361,15 +361,15 @@ namespace Core.Common.Controls.TreeView
 
         private bool CanRemove(TreeNode treeNode)
         {
-            var treeNodeInfo = TryGetTreeNodeInfoForData(treeNode.Tag);
-            var parentTag = GetParentTag(treeNode);
+            TreeNodeInfo treeNodeInfo = TryGetTreeNodeInfoForData(treeNode.Tag);
+            object parentTag = GetParentTag(treeNode);
 
             return treeNodeInfo.CanRemove != null && treeNodeInfo.CanRemove(treeNode.Tag, parentTag);
         }
 
         private bool CanRemoveChildNodes(TreeNode treeNode)
         {
-            var treeNodeInfo = TryGetTreeNodeInfoForData(treeNode.Tag);
+            TreeNodeInfo treeNodeInfo = TryGetTreeNodeInfoForData(treeNode.Tag);
             if (treeNodeInfo.ChildNodeObjects != null)
             {
                 return treeNodeInfo.ChildNodeObjects(treeNode.Tag).Any(childData => CanRemove(GetNodeByTag(childData)));
@@ -385,7 +385,7 @@ namespace Core.Common.Controls.TreeView
                 return;
             }
 
-            var message = Resources.TreeViewControl_Are_you_sure_you_want_to_remove_the_selected_item;
+            string message = Resources.TreeViewControl_Are_you_sure_you_want_to_remove_the_selected_item;
             if (MessageBox.Show(message, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
             {
                 return;
@@ -396,7 +396,7 @@ namespace Core.Common.Controls.TreeView
 
         private void TryRemoveChildNodes(TreeNode treeNode)
         {
-            var message = Resources.TreeViewControl_Are_you_sure_you_want_to_remove_children_of_the_selected_item;
+            string message = Resources.TreeViewControl_Are_you_sure_you_want_to_remove_children_of_the_selected_item;
             if (MessageBox.Show(message, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
             {
                 return;
@@ -407,13 +407,13 @@ namespace Core.Common.Controls.TreeView
 
         private void RemoveChildNodes(TreeNode treeNode)
         {
-            var treeNodeInfo = TryGetTreeNodeInfoForData(treeNode.Tag);
+            TreeNodeInfo treeNodeInfo = TryGetTreeNodeInfoForData(treeNode.Tag);
 
             if (treeNodeInfo.ChildNodeObjects != null)
             {
-                foreach (var childNodeObject in treeNodeInfo.ChildNodeObjects(treeNode.Tag))
+                foreach (object childNodeObject in treeNodeInfo.ChildNodeObjects(treeNode.Tag))
                 {
-                    var childNode = GetNodeByTag(childNodeObject);
+                    TreeNode childNode = GetNodeByTag(childNodeObject);
 
                     if (CanRemove(childNode))
                     {
@@ -425,11 +425,11 @@ namespace Core.Common.Controls.TreeView
 
         private void RemoveNode(TreeNode treeNode)
         {
-            var treeNodeInfo = TryGetTreeNodeInfoForData(treeNode.Tag);
+            TreeNodeInfo treeNodeInfo = TryGetTreeNodeInfoForData(treeNode.Tag);
 
             if (treeNodeInfo.OnNodeRemoved != null)
             {
-                var parentTag = GetParentTag(treeNode);
+                object parentTag = GetParentTag(treeNode);
 
                 treeNodeInfo.OnNodeRemoved(treeNode.Tag, parentTag);
             }
@@ -525,7 +525,7 @@ namespace Core.Common.Controls.TreeView
         /// <exception cref="InvalidOperationException">Thrown when no corresponding <see cref="TreeNodeInfo"/> can be found for the provided <see cref="TreeNode"/>.</exception>
         private void UpdateNode(TreeNode treeNode)
         {
-            var treeNodeInfo = TryGetTreeNodeInfoForData(treeNode.Tag);
+            TreeNodeInfo treeNodeInfo = TryGetTreeNodeInfoForData(treeNode.Tag);
             if (treeNodeInfo == null)
             {
                 throw new InvalidOperationException("No tree node info registered");
@@ -536,7 +536,7 @@ namespace Core.Common.Controls.TreeView
 
             if (treeNodeInfo.Text != null)
             {
-                var text = treeNodeInfo.Text(treeNode.Tag);
+                string text = treeNodeInfo.Text(treeNode.Tag);
 
                 // Having very big strings causes rendering problems in the tree view
                 treeNode.Text = text.Length > maximumTextLength
@@ -596,7 +596,7 @@ namespace Core.Common.Controls.TreeView
             }
 
             // Remove any outdated nodes
-            foreach (var removedNode in outdatedTreeNodes)
+            foreach (TreeNode removedNode in outdatedTreeNodes)
             {
                 treeNode.Nodes.Remove(removedNode);
 
@@ -604,7 +604,7 @@ namespace Core.Common.Controls.TreeView
             }
 
             // Insert any new nodes
-            foreach (var node in newTreeNodes)
+            foreach (KeyValuePair<int, TreeNode> node in newTreeNodes)
             {
                 treeNode.Nodes.Insert(node.Key, node.Value);
             }
@@ -615,10 +615,10 @@ namespace Core.Common.Controls.TreeView
 
         private void SelectLastNewNode(Dictionary<int, TreeNode> newTreeNodes)
         {
-            var lastAddedNodeToSetSelectionTo = newTreeNodes.Values.LastOrDefault(node =>
+            TreeNode lastAddedNodeToSetSelectionTo = newTreeNodes.Values.LastOrDefault(node =>
             {
-                var dataObject = node.Tag;
-                var info = TryGetTreeNodeInfoForData(dataObject);
+                object dataObject = node.Tag;
+                TreeNodeInfo info = TryGetTreeNodeInfoForData(dataObject);
 
                 return info.EnsureVisibleOnCreate != null && info.EnsureVisibleOnCreate(dataObject, node.Parent.Tag);
             });
@@ -632,7 +632,7 @@ namespace Core.Common.Controls.TreeView
 
         private void RemoveAllNodes()
         {
-            foreach (var treeNode in treeNodeObserverLookup.Keys)
+            foreach (TreeNode treeNode in treeNodeObserverLookup.Keys)
             {
                 treeNodeObserverLookup[treeNode].Dispose();
             }
@@ -682,7 +682,7 @@ namespace Core.Common.Controls.TreeView
         {
             var result = new Bitmap(16, 16);
 
-            using (var g = Graphics.FromImage(result))
+            using (Graphics g = Graphics.FromImage(result))
             {
                 Size glyphSize = CheckBoxRenderer.GetGlyphSize(g, state);
 
@@ -696,9 +696,9 @@ namespace Core.Common.Controls.TreeView
         {
             if (treeNodeInfo.Image != null)
             {
-                var image = treeNodeInfo.Image(treeNode.Tag);
-                var imageCollection = treeView.ImageList.Images;
-                var imageKey = GetImageHash(image);
+                Image image = treeNodeInfo.Image(treeNode.Tag);
+                ImageList.ImageCollection imageCollection = treeView.ImageList.Images;
+                string imageKey = GetImageHash(image);
                 if (imageCollection.ContainsKey(imageKey))
                 {
                     treeNode.ImageKey = imageKey;
@@ -717,7 +717,7 @@ namespace Core.Common.Controls.TreeView
         {
             var stream = new MemoryStream();
             image.Save(stream, image.RawFormat);
-            MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+            var md5 = new MD5CryptoServiceProvider();
             byte[] hash = md5.ComputeHash(stream.ToArray());
             return Encoding.UTF8.GetString(hash);
         }
@@ -784,7 +784,7 @@ namespace Core.Common.Controls.TreeView
                 return;
             }
 
-            var treeNodeInfo = TryGetTreeNodeInfoForData(e.Node.Tag);
+            TreeNodeInfo treeNodeInfo = TryGetTreeNodeInfoForData(e.Node.Tag);
             if (treeNodeInfo.OnNodeRenamed != null)
             {
                 treeNodeInfo.OnNodeRenamed(e.Node.Tag, e.Label);
@@ -793,10 +793,10 @@ namespace Core.Common.Controls.TreeView
 
         private void TreeViewAfterCheck(object sender, TreeViewEventArgs e)
         {
-            var treeNodeInfo = TryGetTreeNodeInfoForData(e.Node.Tag);
+            TreeNodeInfo treeNodeInfo = TryGetTreeNodeInfoForData(e.Node.Tag);
             if (treeNodeInfo.OnNodeChecked != null)
             {
-                var parentTag = GetParentTag(e.Node);
+                object parentTag = GetParentTag(e.Node);
 
                 treeNodeInfo.OnNodeChecked(e.Node.Tag, parentTag);
             }
@@ -804,7 +804,7 @@ namespace Core.Common.Controls.TreeView
 
         private void TreeViewKeyDown(object sender, KeyEventArgs keyEventArgs)
         {
-            var selectedNode = treeView.SelectedNode;
+            TreeNode selectedNode = treeView.SelectedNode;
             if (selectedNode == null)
             {
                 return;
@@ -827,15 +827,15 @@ namespace Core.Common.Controls.TreeView
                 }
                 case Keys.Apps: // If implemented, show the context menu of the selected tree node
                 {
-                    var treeNodeInfo = TryGetTreeNodeInfoForData(selectedNode.Tag);
-                    var parentTag = GetParentTag(selectedNode);
+                    TreeNodeInfo treeNodeInfo = TryGetTreeNodeInfoForData(selectedNode.Tag);
+                    object parentTag = GetParentTag(selectedNode);
 
                     // Update the context menu (relevant in case of keyboard navigation in the tree view)
                     UpdateContextMenuStrip(selectedNode, treeNodeInfo, parentTag);
 
                     if (treeView.ContextMenu != null && selectedNode.ContextMenuStrip != null)
                     {
-                        var location = selectedNode.Bounds.Location;
+                        Point location = selectedNode.Bounds.Location;
                         location.Offset(0, selectedNode.Bounds.Height);
 
                         selectedNode.ContextMenuStrip.Show(location);
@@ -856,7 +856,7 @@ namespace Core.Common.Controls.TreeView
                 }
                 case Keys.Space: // If applicable, change the checked state of the selected tree node
                 {
-                    var treeNodeInfo = TryGetTreeNodeInfoForData(selectedNode.Tag);
+                    TreeNodeInfo treeNodeInfo = TryGetTreeNodeInfoForData(selectedNode.Tag);
                     if (treeNodeInfo.CanCheck != null && treeNodeInfo.CanCheck(selectedNode.Tag))
                     {
                         selectedNode.Checked = !selectedNode.Checked;
@@ -882,19 +882,19 @@ namespace Core.Common.Controls.TreeView
         private void TreeViewMouseClick(object sender, MouseEventArgs e)
         {
             var point = new Point(e.X, e.Y);
-            var clickedNode = treeView.GetNodeAt(point);
+            TreeNode clickedNode = treeView.GetNodeAt(point);
             if (clickedNode == null)
             {
                 return;
             }
 
-            var treeNodeInfo = TryGetTreeNodeInfoForData(clickedNode.Tag);
+            TreeNodeInfo treeNodeInfo = TryGetTreeNodeInfoForData(clickedNode.Tag);
 
             if (e.Button.HasFlag(MouseButtons.Right))
             {
                 treeView.SelectedNode = clickedNode;
 
-                var parentTag = GetParentTag(clickedNode);
+                object parentTag = GetParentTag(clickedNode);
 
                 // Update the context menu
                 UpdateContextMenuStrip(clickedNode, treeNodeInfo, parentTag);
@@ -902,7 +902,7 @@ namespace Core.Common.Controls.TreeView
                 return;
             }
 
-            var isOnCheckBox = IsOnCheckBox(point);
+            bool isOnCheckBox = IsOnCheckBox(point);
             if (treeNodeInfo.CanCheck != null && treeNodeInfo.CanCheck(clickedNode.Tag) && isOnCheckBox)
             {
                 clickedNode.Checked = !clickedNode.Checked;

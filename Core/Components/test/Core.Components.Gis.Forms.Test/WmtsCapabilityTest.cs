@@ -107,7 +107,7 @@ namespace Core.Components.Gis.Forms.Test
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Specified image format is not a MIME type.");
         }
-        
+
         [Test]
         public void Constructor_ValidProperties_ExpectedProperties()
         {
@@ -126,7 +126,6 @@ namespace Core.Components.Gis.Forms.Test
             Assert.AreEqual(title, wmtsCapability.Title);
             Assert.AreEqual(coordinateSystem, wmtsCapability.CoordinateSystem);
         }
-
 
         [Test]
         public void ToWmtsMapData_DisplayNameNull_ThrowsArgumentNullException()
@@ -178,7 +177,5 @@ namespace Core.Components.Gis.Forms.Test
             Assert.AreEqual(displayName, mapData.Name);
             Assert.AreEqual(sourceCapabilitiesUrl, mapData.SourceCapabilitiesUrl);
         }
-
-
     }
 }

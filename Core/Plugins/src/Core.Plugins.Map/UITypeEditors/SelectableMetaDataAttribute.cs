@@ -30,8 +30,6 @@ namespace Core.Plugins.Map.UITypeEditors
     /// </summary>
     public class SelectableMetaDataAttribute
     {
-        private readonly string metaDataAttribute;
-
         /// <summary>
         /// Creates a new instance of <see cref="SelectableMetaDataAttribute"/>.
         /// </summary>
@@ -44,19 +42,13 @@ namespace Core.Plugins.Map.UITypeEditors
                 throw new ArgumentNullException(nameof(metaDataAttribute));
             }
 
-            this.metaDataAttribute = metaDataAttribute;
+            MetaDataAttribute = metaDataAttribute;
         }
 
         /// <summary>
         /// Gets the meta data attribute.
         /// </summary>
-        public string MetaDataAttribute
-        {
-            get
-            {
-                return metaDataAttribute;
-            }
-        }
+        public string MetaDataAttribute { get; }
 
         public override bool Equals(object obj)
         {
@@ -77,17 +69,17 @@ namespace Core.Plugins.Map.UITypeEditors
 
         public override int GetHashCode()
         {
-            return metaDataAttribute.GetHashCode();
+            return MetaDataAttribute.GetHashCode();
         }
 
         public override string ToString()
         {
-            return metaDataAttribute;
+            return MetaDataAttribute;
         }
 
         private bool Equals(SelectableMetaDataAttribute other)
         {
-            return Equals(metaDataAttribute, other.MetaDataAttribute);
+            return Equals(MetaDataAttribute, other.MetaDataAttribute);
         }
     }
 }

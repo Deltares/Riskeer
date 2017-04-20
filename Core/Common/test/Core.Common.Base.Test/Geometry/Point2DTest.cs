@@ -36,8 +36,8 @@ namespace Core.Common.Base.Test.Geometry
         {
             // Setup
             var random = new Random(22);
-            var x = random.NextDouble();
-            var y = random.NextDouble();
+            double x = random.NextDouble();
+            double y = random.NextDouble();
 
             // Call
             var point = new Point2D(x, y);
@@ -54,7 +54,7 @@ namespace Core.Common.Base.Test.Geometry
             var point = new Point2D(0, 0);
 
             // Call
-            var result = point.Equals(null);
+            bool result = point.Equals(null);
 
             // Assert
             Assert.IsFalse(result);
@@ -67,7 +67,7 @@ namespace Core.Common.Base.Test.Geometry
             var point = new Point2D(0, 0);
 
             // Call
-            var result = point.Equals(new Point3D(0, 0, 0));
+            bool result = point.Equals(new Point3D(0, 0, 0));
 
             // Assert
             Assert.IsFalse(result);
@@ -80,7 +80,7 @@ namespace Core.Common.Base.Test.Geometry
             var point = new Point2D(0, 0);
 
             // Call
-            var result = point.Equals(point);
+            bool result = point.Equals(point);
 
             // Assert
             Assert.IsTrue(result);
@@ -96,7 +96,7 @@ namespace Core.Common.Base.Test.Geometry
             var otherPoint = new Point2D(x, y);
 
             // Call
-            var result = point.Equals(otherPoint);
+            bool result = point.Equals(otherPoint);
 
             // Assert
             Assert.IsTrue(result);
@@ -109,14 +109,14 @@ namespace Core.Common.Base.Test.Geometry
         {
             // Setup
             var random = new Random(22);
-            var x = random.NextDouble();
-            var y = random.NextDouble();
+            double x = random.NextDouble();
+            double y = random.NextDouble();
 
             var point = new Point2D(x, y);
             var otherPoint = new Point2D(x + deltaX, y + deltaY);
 
             // Call
-            var result = point.Equals(otherPoint);
+            bool result = point.Equals(otherPoint);
 
             // Assert
             Assert.IsFalse(result);
@@ -127,15 +127,15 @@ namespace Core.Common.Base.Test.Geometry
         {
             // Setup
             var random = new Random(22);
-            var x = random.NextDouble();
-            var y = random.NextDouble();
+            double x = random.NextDouble();
+            double y = random.NextDouble();
 
             var point = new Point2D(x, y);
             var otherPoint = new Point2D(x, y);
 
             // Call
-            var result = point.GetHashCode();
-            var otherResult = otherPoint.GetHashCode();
+            int result = point.GetHashCode();
+            int otherResult = otherPoint.GetHashCode();
 
             // Assert
             Assert.AreEqual(result, otherResult);
@@ -160,7 +160,7 @@ namespace Core.Common.Base.Test.Geometry
         {
             // Setup
             Point2D first = null;
-            Point2D second = new Point2D(0, 0);
+            var second = new Point2D(0, 0);
 
             // Call
             TestDelegate call = () =>
@@ -177,7 +177,7 @@ namespace Core.Common.Base.Test.Geometry
         public void SubstractOperator_SecondArgumentNull_ThrowArgumentNullException()
         {
             // Setup
-            Point2D first = new Point2D(0, 0);
+            var first = new Point2D(0, 0);
             Point2D second = null;
 
             // Call
@@ -229,7 +229,7 @@ namespace Core.Common.Base.Test.Geometry
         public void AddOperator_VectorNull_ThrowArgumentNullException()
         {
             // Setup
-            Point2D point = new Point2D(0, 0);
+            var point = new Point2D(0, 0);
             Vector<double> vector = null;
 
             // Call
@@ -355,8 +355,8 @@ namespace Core.Common.Base.Test.Geometry
             double euclideanDistance2 = point2.GetEuclideanDistanceTo(point);
 
             // Assert
-            var expectedResult = Math.Sqrt(Math.Pow(point.X - point2.X, 2) +
-                                           Math.Pow(point.Y - point2.Y, 2));
+            double expectedResult = Math.Sqrt(Math.Pow(point.X - point2.X, 2) +
+                                              Math.Pow(point.Y - point2.Y, 2));
             Assert.AreEqual(expectedResult, euclideanDistance1);
             Assert.AreEqual(euclideanDistance2, euclideanDistance1);
         }
@@ -367,10 +367,10 @@ namespace Core.Common.Base.Test.Geometry
             var point = new Point2D(1.1, 2.2);
 
             // Call
-            var stringRepresentation = point.ToString();
+            string stringRepresentation = point.ToString();
 
             // Assert
-            var expectedText = string.Format("({0}, {1})", point.X, point.Y);
+            string expectedText = string.Format("({0}, {1})", point.X, point.Y);
             Assert.AreEqual(expectedText, stringRepresentation);
         }
     }

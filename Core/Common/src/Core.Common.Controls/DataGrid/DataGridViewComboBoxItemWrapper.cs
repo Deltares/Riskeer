@@ -31,15 +31,13 @@ namespace Core.Common.Controls.DataGrid
     /// <typeparam name="T">The type of the object to present in the <see cref="DataGridViewComboBoxColumn"/>.</typeparam>
     public class DataGridViewComboBoxItemWrapper<T>
     {
-        private readonly T wrappedObject;
-
         /// <summary>
         /// Creates a new instance of the <see cref="DataGridViewComboBoxItemWrapper{T}"/>.
         /// </summary>
         /// <param name="wrappedObject">The wrapped object.</param>
         public DataGridViewComboBoxItemWrapper(T wrappedObject)
         {
-            this.wrappedObject = wrappedObject;
+            WrappedObject = wrappedObject;
         }
 
         /// <summary>
@@ -49,7 +47,7 @@ namespace Core.Common.Controls.DataGrid
         {
             get
             {
-                return wrappedObject == null ? Resources.DisplayName_None : wrappedObject.ToString();
+                return WrappedObject == null ? Resources.DisplayName_None : WrappedObject.ToString();
             }
         }
 
@@ -67,13 +65,7 @@ namespace Core.Common.Controls.DataGrid
         /// <summary>
         /// Gets the wrapped object.
         /// </summary>
-        public T WrappedObject
-        {
-            get
-            {
-                return wrappedObject;
-            }
-        }
+        public T WrappedObject { get; }
 
         public override bool Equals(object obj)
         {
@@ -94,7 +86,7 @@ namespace Core.Common.Controls.DataGrid
 
         public override int GetHashCode()
         {
-            return EqualityComparer<T>.Default.GetHashCode(wrappedObject);
+            return EqualityComparer<T>.Default.GetHashCode(WrappedObject);
         }
 
         public override string ToString()
@@ -104,7 +96,7 @@ namespace Core.Common.Controls.DataGrid
 
         private bool Equals(DataGridViewComboBoxItemWrapper<T> other)
         {
-            return EqualityComparer<T>.Default.Equals(wrappedObject, other.wrappedObject);
+            return EqualityComparer<T>.Default.Equals(WrappedObject, other.WrappedObject);
         }
     }
 }

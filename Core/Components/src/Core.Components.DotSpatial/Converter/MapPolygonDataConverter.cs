@@ -24,6 +24,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
+using Core.Components.Gis.Geometries;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
@@ -40,15 +41,15 @@ namespace Core.Components.DotSpatial.Converter
         {
             var geometryList = new List<IPolygon>();
 
-            foreach (var mapGeometry in mapFeature.MapGeometries)
+            foreach (MapGeometry mapGeometry in mapFeature.MapGeometries)
             {
                 IEnumerable<Point2D>[] pointCollections = mapGeometry.PointCollections.ToArray();
 
                 IEnumerable<Coordinate> outerRingCoordinates = ConvertPoint2DElementsToCoordinates(pointCollections[0]);
                 ILinearRing outerRing = new LinearRing(outerRingCoordinates);
 
-                ILinearRing[] innerRings = new ILinearRing[pointCollections.Length - 1];
-                for (int i = 1; i < pointCollections.Length; i++)
+                var innerRings = new ILinearRing[pointCollections.Length - 1];
+                for (var i = 1; i < pointCollections.Length; i++)
                 {
                     IEnumerable<Coordinate> innerRingCoordinates = ConvertPoint2DElementsToCoordinates(pointCollections[i]);
                     innerRings[i - 1] = new LinearRing(innerRingCoordinates);

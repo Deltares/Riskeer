@@ -100,10 +100,10 @@ namespace Core.Common.Utils.Test.Reflection
         public void GetTypeByName_ForThisTestSuite_ReturnTypeOfThisTestSuite()
         {
             // Setup
-            var typeName = GetType().FullName;
+            string typeName = GetType().FullName;
 
             // Call
-            var returnedType = AssemblyUtils.GetTypeByName(typeName);
+            Type returnedType = AssemblyUtils.GetTypeByName(typeName);
 
             // Assert
             Assert.AreEqual(GetType(), returnedType);
@@ -124,7 +124,7 @@ namespace Core.Common.Utils.Test.Reflection
         public void GetTypeByName_ForNonexistingClass_ReturnNull()
         {
             // Call
-            var returnedType = AssemblyUtils.GetTypeByName("I.Dont.Exist");
+            Type returnedType = AssemblyUtils.GetTypeByName("I.Dont.Exist");
 
             // Assert
             Assert.IsNull(returnedType);
@@ -145,7 +145,7 @@ namespace Core.Common.Utils.Test.Reflection
         public void GetAssemblyResourceStream_ForEmbeddedResource_ReturnStream()
         {
             // Call
-            var stream = AssemblyUtils.GetAssemblyResourceStream(GetType().Assembly, "testFile.txt");
+            Stream stream = AssemblyUtils.GetAssemblyResourceStream(GetType().Assembly, "testFile.txt");
 
             // Assert
             using (var reader = new StreamReader(stream))

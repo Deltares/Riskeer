@@ -90,7 +90,7 @@ namespace Core.Common.Utils.Test.Reflection
         public void Implements_TypeIsSameClassAsGenericType_ReturnTrue()
         {
             // Call
-            var isTypeUtilsTest = GetType().Implements<TypeUtilsTest>();
+            bool isTypeUtilsTest = GetType().Implements<TypeUtilsTest>();
 
             // Assert
             Assert.IsTrue(isTypeUtilsTest);
@@ -100,7 +100,7 @@ namespace Core.Common.Utils.Test.Reflection
         public void Implements_SuperTypeComparedWithGenericTypeAsImplementedSubType_ReturnFalse()
         {
             // Call
-            var isTypeUtilsTest = typeof(object).Implements<TypeUtilsTest>();
+            bool isTypeUtilsTest = typeof(object).Implements<TypeUtilsTest>();
 
             // Assert
             Assert.IsFalse(isTypeUtilsTest);
@@ -110,7 +110,7 @@ namespace Core.Common.Utils.Test.Reflection
         public void Implements_SubTypeComparedWithGenericTypeAsImplementedSuperType_ReturnTrue()
         {
             // Call
-            var isTypeUtilsTest = typeof(TypeUtilsTest).Implements<object>();
+            bool isTypeUtilsTest = typeof(TypeUtilsTest).Implements<object>();
 
             // Assert
             Assert.IsTrue(isTypeUtilsTest);
@@ -120,10 +120,10 @@ namespace Core.Common.Utils.Test.Reflection
         public void Implements_TypeIsSameClassAsType_ReturnTrue()
         {
             // Setup
-            var type = GetType();
+            Type type = GetType();
 
             // Call
-            var isTypeUtilsTest = type.Implements(typeof(TypeUtilsTest));
+            bool isTypeUtilsTest = type.Implements(typeof(TypeUtilsTest));
 
             // Assert
             Assert.IsTrue(isTypeUtilsTest);
@@ -133,7 +133,7 @@ namespace Core.Common.Utils.Test.Reflection
         public void Implements_SuperTypeComparedWitTypeAsImplementedSubType_ReturnFalse()
         {
             // Call
-            var isTypeUtilsTest = typeof(object).Implements(typeof(TypeUtilsTest));
+            bool isTypeUtilsTest = typeof(object).Implements(typeof(TypeUtilsTest));
 
             // Assert
             Assert.IsFalse(isTypeUtilsTest);
@@ -143,7 +143,7 @@ namespace Core.Common.Utils.Test.Reflection
         public void Implements_SubTypeComparedWithTypeAsImplementedSuperType_ReturnTrue()
         {
             // Call
-            var isTypeUtilsTest = typeof(TypeUtilsTest).Implements(typeof(object));
+            bool isTypeUtilsTest = typeof(TypeUtilsTest).Implements(typeof(object));
 
             // Assert
             Assert.IsTrue(isTypeUtilsTest);
@@ -177,7 +177,7 @@ namespace Core.Common.Utils.Test.Reflection
         public void GetMemberName_PropertyExpression_ReturnPropertyName()
         {
             // Call
-            var memberName = TypeUtils.GetMemberName<TestClass>(t => t.PublicPropertyPrivateSetter);
+            string memberName = TypeUtils.GetMemberName<TestClass>(t => t.PublicPropertyPrivateSetter);
 
             // Assert
             Assert.AreEqual("PublicPropertyPrivateSetter", memberName);
@@ -188,7 +188,7 @@ namespace Core.Common.Utils.Test.Reflection
         {
             // Call
             var testClass = new TestClass();
-            var memberName = TypeUtils.GetMemberName<TestClass>(t => testClass.PublicField);
+            string memberName = TypeUtils.GetMemberName<TestClass>(t => testClass.PublicField);
 
             // Assert
             Assert.AreEqual("PublicField", memberName);
@@ -199,7 +199,7 @@ namespace Core.Common.Utils.Test.Reflection
         {
             // Call
             var testClass = new TestClass();
-            var memberName = TypeUtils.GetMemberName<TestClass>(t => testClass.PublicMethod());
+            string memberName = TypeUtils.GetMemberName<TestClass>(t => testClass.PublicMethod());
 
             // Assert
             Assert.AreEqual("PublicMethod", memberName);
@@ -231,7 +231,7 @@ namespace Core.Common.Utils.Test.Reflection
         public void GetField_FieldNameIsNull_ThrowArgumentNullException()
         {
             // Setup
-            TestClass testClass = new TestClass(22);
+            var testClass = new TestClass(22);
 
             // Call
             TestDelegate call = () => TypeUtils.GetField<int>(testClass, null);
@@ -244,7 +244,7 @@ namespace Core.Common.Utils.Test.Reflection
         public void GetField_PrivateField_ReturnFieldValue()
         {
             // Setup
-            TestClass testClass = new TestClass(22);
+            var testClass = new TestClass(22);
 
             // Call
             var privateIntValue = TypeUtils.GetField<int>(testClass, "privateInt");
@@ -326,7 +326,7 @@ namespace Core.Common.Utils.Test.Reflection
         public void SetField_FieldNameIsNull_ThrowArgumentNullException()
         {
             // Setup
-            TestClass testClass = new TestClass(22);
+            var testClass = new TestClass(22);
 
             // Call
             TestDelegate call = () => TypeUtils.SetField(testClass, null, "B");

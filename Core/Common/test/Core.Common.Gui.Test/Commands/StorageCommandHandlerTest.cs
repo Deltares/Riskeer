@@ -133,7 +133,7 @@ namespace Core.Common.Gui.Test.Commands
                 };
 
                 // Call
-                bool result = true;
+                var result = true;
                 Action call = () => result = storageCommandHandler.SaveProject();
 
                 // Assert
@@ -187,7 +187,7 @@ namespace Core.Common.Gui.Test.Commands
                 };
 
                 // Call
-                bool result = false;
+                var result = false;
                 Action call = () => result = storageCommandHandler.SaveProject();
 
                 // Assert
@@ -243,7 +243,7 @@ namespace Core.Common.Gui.Test.Commands
             };
 
             // Call
-            bool result = false;
+            var result = false;
             Action call = () => result = storageCommandHandler.OpenExistingProject(pathToSomeValidFile);
 
             // Assert
@@ -293,7 +293,7 @@ namespace Core.Common.Gui.Test.Commands
                 mainWindowController);
 
             // Call
-            bool result = true;
+            var result = true;
             Action call = () => result = storageCommandHandler.OpenExistingProject(pathToSomeValidFile);
 
             // Assert
@@ -347,7 +347,7 @@ namespace Core.Common.Gui.Test.Commands
                 mainWindowController);
 
             // Call
-            bool result = true;
+            var result = true;
             Action call = () => result = storageCommandHandler.OpenExistingProject(pathToSomeValidFile);
 
             // Assert
@@ -399,7 +399,7 @@ namespace Core.Common.Gui.Test.Commands
                 mainWindowController);
 
             // Call
-            bool result = true;
+            var result = true;
             Action call = () => result = storageCommandHandler.OpenExistingProject(pathToSomeValidFile);
 
             // Assert
@@ -453,7 +453,7 @@ namespace Core.Common.Gui.Test.Commands
                 mainWindowController);
 
             // Call
-            bool result = true;
+            var result = true;
             Action call = () => result = storageCommandHandler.OpenExistingProject(pathToSomeValidFile);
 
             // Assert
@@ -515,7 +515,7 @@ namespace Core.Common.Gui.Test.Commands
             };
 
             // Call
-            bool result = true;
+            var result = true;
             Action call = () => result = storageCommandHandler.OpenExistingProject(pathToSomeValidFile);
 
             // Assert
@@ -567,7 +567,7 @@ namespace Core.Common.Gui.Test.Commands
             };
 
             // Call
-            bool result = true;
+            var result = true;
             Action call = () => result = storageCommandHandler.OpenExistingProject(pathToSomeInvalidFile);
 
             // Assert
@@ -589,7 +589,7 @@ namespace Core.Common.Gui.Test.Commands
             // Setup
             const string pathToSomeInvalidFile = "<path to some invalid file>";
 
-            IProject project = mocks.Stub<IProject>();
+            var project = mocks.Stub<IProject>();
             var mainWindowController = mocks.Stub<IWin32Window>();
             var projectStorage = mocks.Stub<IStoreProject>();
             projectStorage.Stub(ps => ps.LoadProject(pathToSomeInvalidFile))
@@ -621,7 +621,7 @@ namespace Core.Common.Gui.Test.Commands
             };
 
             // Call
-            bool result = true;
+            var result = true;
             Action call = () => result = storageCommandHandler.OpenExistingProject(pathToSomeInvalidFile);
 
             // Assert
@@ -673,7 +673,7 @@ namespace Core.Common.Gui.Test.Commands
             };
 
             // Call
-            bool result = false;
+            var result = false;
             Action call = () => result = storageCommandHandler.OpenExistingProject(pathToSomeValidFile);
 
             // Assert
@@ -732,7 +732,7 @@ namespace Core.Common.Gui.Test.Commands
             };
 
             // Call
-            bool result = false;
+            var result = false;
             Action call = () => result = storageCommandHandler.OpenExistingProject(pathToSomeValidFile);
 
             // Assert

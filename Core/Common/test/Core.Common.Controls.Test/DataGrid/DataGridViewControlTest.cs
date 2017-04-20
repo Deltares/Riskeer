@@ -253,7 +253,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 // Assert
                 Assert.AreEqual(1, dataGridView.ColumnCount);
 
-                DataGridViewTextBoxColumn columnData = (DataGridViewTextBoxColumn) dataGridView.Columns[0];
+                var columnData = (DataGridViewTextBoxColumn) dataGridView.Columns[0];
                 Assert.AreEqual(propertyName, columnData.DataPropertyName);
                 Assert.AreEqual($"column_{propertyName}", columnData.Name);
                 Assert.AreEqual(headerText, columnData.HeaderText);
@@ -290,7 +290,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 // Assert
                 Assert.AreEqual(1, dataGridView.ColumnCount);
 
-                DataGridViewTextBoxColumn columnData = (DataGridViewTextBoxColumn) dataGridView.Columns[0];
+                var columnData = (DataGridViewTextBoxColumn) dataGridView.Columns[0];
                 Assert.AreEqual(propertyName, columnData.DataPropertyName);
                 Assert.AreEqual($"column_{propertyName}", columnData.Name);
                 Assert.AreEqual(headerText, columnData.HeaderText);
@@ -322,7 +322,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 // Assert
                 Assert.AreEqual(1, dataGridView.ColumnCount);
 
-                DataGridViewCheckBoxColumn columnData = (DataGridViewCheckBoxColumn) dataGridView.Columns[0];
+                var columnData = (DataGridViewCheckBoxColumn) dataGridView.Columns[0];
                 Assert.AreEqual(propertyName, columnData.DataPropertyName);
                 Assert.AreEqual($"column_{propertyName}", columnData.Name);
                 Assert.AreEqual(headerText, columnData.HeaderText);
@@ -355,7 +355,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 // Assert
                 Assert.AreEqual(1, dataGridView.ColumnCount);
 
-                DataGridViewCheckBoxColumn columnData = (DataGridViewCheckBoxColumn) dataGridView.Columns[0];
+                var columnData = (DataGridViewCheckBoxColumn) dataGridView.Columns[0];
                 Assert.AreEqual(propertyName, columnData.DataPropertyName);
                 Assert.AreEqual($"column_{propertyName}", columnData.Name);
                 Assert.AreEqual(headerText, columnData.HeaderText);
@@ -388,7 +388,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 // Assert
                 Assert.AreEqual(1, dataGridView.ColumnCount);
 
-                DataGridViewCheckBoxColumn columnData = (DataGridViewCheckBoxColumn) dataGridView.Columns[0];
+                var columnData = (DataGridViewCheckBoxColumn) dataGridView.Columns[0];
                 Assert.AreEqual(propertyName, columnData.DataPropertyName);
                 Assert.AreEqual($"column_{propertyName}", columnData.Name);
                 Assert.AreEqual(headerText, columnData.HeaderText);
@@ -420,7 +420,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 // Assert
                 Assert.AreEqual(1, dataGridView.ColumnCount);
 
-                DataGridViewComboBoxColumn columnData = (DataGridViewComboBoxColumn) dataGridView.Columns[0];
+                var columnData = (DataGridViewComboBoxColumn) dataGridView.Columns[0];
 
                 Assert.AreEqual(propertyName, columnData.DataPropertyName);
                 Assert.AreEqual($"column_{propertyName}", columnData.Name);
@@ -453,7 +453,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 // Assert
                 Assert.AreEqual(1, dataGridView.ColumnCount);
 
-                DataGridViewComboBoxColumn columnData = (DataGridViewComboBoxColumn) dataGridView.Columns[0];
+                var columnData = (DataGridViewComboBoxColumn) dataGridView.Columns[0];
 
                 Assert.AreEqual(propertyName, columnData.DataPropertyName);
                 Assert.AreEqual($"column_{propertyName}", columnData.Name);
@@ -497,7 +497,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 // Assert
                 Assert.AreEqual(1, dataGridView.ColumnCount);
 
-                DataGridViewComboBoxColumn columnData = (DataGridViewComboBoxColumn) dataGridView.Columns[0];
+                var columnData = (DataGridViewComboBoxColumn) dataGridView.Columns[0];
 
                 Assert.AreEqual(propertyName, columnData.DataPropertyName);
                 Assert.AreEqual($"column_{propertyName}", columnData.Name);
@@ -531,7 +531,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 // Assert
                 Assert.AreEqual(1, dataGridView.ColumnCount);
 
-                DataGridViewColorColumn columnData = (DataGridViewColorColumn) dataGridView.Columns[0];
+                var columnData = (DataGridViewColorColumn) dataGridView.Columns[0];
                 Assert.AreEqual(propertyName, columnData.DataPropertyName);
                 Assert.AreEqual($"column_{propertyName}", columnData.Name);
                 Assert.AreEqual(headerText, columnData.HeaderText);
@@ -564,7 +564,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 // Assert
                 Assert.AreEqual(1, dataGridView.ColumnCount);
 
-                DataGridViewColorColumn columnData = (DataGridViewColorColumn) dataGridView.Columns[0];
+                var columnData = (DataGridViewColorColumn) dataGridView.Columns[0];
                 Assert.AreEqual(propertyName, columnData.DataPropertyName);
                 Assert.AreEqual($"column_{propertyName}", columnData.Name);
                 Assert.AreEqual(headerText, columnData.HeaderText);
@@ -1138,7 +1138,7 @@ namespace Core.Common.Controls.Test.DataGrid
 
                 // Assert
                 const string message = "Unable to set the cell active.";
-                ArgumentException exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
+                var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
                 Assert.AreEqual("cell", exception.ParamName);
                 Assert.IsInstanceOf<ArgumentOutOfRangeException>(exception.InnerException);
             }
@@ -1169,7 +1169,7 @@ namespace Core.Common.Controls.Test.DataGrid
 
                 // Assert
                 const string message = "Unable to set the cell active.";
-                ArgumentException exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
+                var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
                 Assert.AreEqual("cell", exception.ParamName);
                 Assert.IsInstanceOf<InvalidOperationException>(exception.InnerException);
             }
@@ -1284,14 +1284,14 @@ namespace Core.Common.Controls.Test.DataGrid
                 DataGridViewCell dataGridViewCell = control.GetCell(0, 0);
                 control.SetCurrentCell(dataGridViewCell);
 
-                int counter = 0;
+                var counter = 0;
                 control.AddCellFormattingHandler((sender, args) => counter++);
 
                 // Precondition
                 Assert.AreEqual(0, counter);
 
                 // Call
-                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
 
                 // Assert
                 Assert.AreEqual(1, counter);
@@ -1316,21 +1316,21 @@ namespace Core.Common.Controls.Test.DataGrid
                 DataGridViewCell dataGridViewCell = control.GetCell(0, 0);
                 control.SetCurrentCell(dataGridViewCell);
 
-                int counter = 0;
+                var counter = 0;
                 DataGridViewCellFormattingEventHandler dataGridViewCellFormattingEventHandler = (sender, args) => counter++;
 
                 control.AddCellFormattingHandler(dataGridViewCellFormattingEventHandler);
 
                 // Precondition
                 Assert.AreEqual(0, counter);
-                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
                 Assert.AreEqual(1, counter);
 
                 // Call
                 control.RemoveCellFormattingHandler(dataGridViewCellFormattingEventHandler);
 
                 // Assert
-                var formattedValue2 = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+                object formattedValue2 = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
                 Assert.AreEqual(1, counter);
             }
         }
@@ -1347,7 +1347,7 @@ namespace Core.Common.Controls.Test.DataGrid
 
                 var gridTester = new ControlTester("dataGridView");
 
-                int counter = 0;
+                var counter = 0;
                 control.AddCurrentCellChangedHandler((sender, args) => counter++);
 
                 // Call
@@ -1370,7 +1370,7 @@ namespace Core.Common.Controls.Test.DataGrid
 
                 var gridTester = new ControlTester("dataGridView");
 
-                int counter = 0;
+                var counter = 0;
 
                 EventHandler eventHandler = (sender, args) => counter++;
                 control.AddCurrentCellChangedHandler(eventHandler);
@@ -1409,7 +1409,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 DataGridViewCell dataGridViewCell = control.GetCell(0, 0);
                 control.SetCurrentCell(dataGridViewCell);
 
-                int counter = 0;
+                var counter = 0;
                 control.AddCellValueChangedHandler((sender, args) => counter++);
 
                 // Precondition
@@ -1443,7 +1443,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 DataGridViewCell dataGridViewCell = control.GetCell(0, 0);
                 control.SetCurrentCell(dataGridViewCell);
 
-                int counter = 0;
+                var counter = 0;
                 DataGridViewCellEventHandler dataGridViewCellEventHandler = (sender, args) => counter++;
                 control.AddCellValueChangedHandler(dataGridViewCellEventHandler);
 
@@ -1645,7 +1645,7 @@ namespace Core.Common.Controls.Test.DataGrid
 
                 DataGridViewCell dataGridViewCell = control.GetCell(0, 0);
                 control.SetCurrentCell(dataGridViewCell);
-                string newValue = "3";
+                var newValue = "3";
 
                 dataGridViewCell.Value = newValue;
 
@@ -1683,7 +1683,7 @@ namespace Core.Common.Controls.Test.DataGrid
 
                 DataGridViewCell dataGridViewCell = control.GetCell(0, 0);
                 control.SetCurrentCell(dataGridViewCell);
-                string newValue = "test";
+                var newValue = "test";
 
                 dataGridViewCell.Value = newValue;
 

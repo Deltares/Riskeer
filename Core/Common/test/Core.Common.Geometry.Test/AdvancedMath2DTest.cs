@@ -35,7 +35,7 @@ namespace Core.Common.Geometry.Test
         public void PolygonIntersectionWithPolygon_NoIntersection_ReturnsEmptyCollection()
         {
             // Setup
-            var polyA = CreateBasePolygon();
+            Point2D[] polyA = CreateBasePolygon();
 
             var polyB = new[]
             {
@@ -56,7 +56,7 @@ namespace Core.Common.Geometry.Test
         public void PolygonIntersectionWithPolygon_WithSelfIntersectingPolygon_ThrowsInvalidPolygonException()
         {
             // Setup
-            var polyA = CreateBasePolygon();
+            Point2D[] polyA = CreateBasePolygon();
 
             var polyB = new[]
             {
@@ -78,7 +78,7 @@ namespace Core.Common.Geometry.Test
         public void PolygonIntersectionWithPolygon_IntersectsComplete_ReturnsIntersectionEqualToPolygon()
         {
             // Setup
-            var polyA = CreateBasePolygon();
+            Point2D[] polyA = CreateBasePolygon();
 
             var polyB = new[]
             {
@@ -100,7 +100,7 @@ namespace Core.Common.Geometry.Test
         public void PolygonIntersectionWithPolygon_PartlyIntersects_ReturnsPartialIntersection()
         {
             // Setup
-            var polyA = CreateBasePolygon();
+            Point2D[] polyA = CreateBasePolygon();
 
             var polyB = new[]
             {
@@ -122,7 +122,7 @@ namespace Core.Common.Geometry.Test
         public void PolygonIntersectionWithPolygon_TouchesOnSide_ReturnsEmptyCollection()
         {
             // Setup
-            var polyA = CreateBasePolygon();
+            Point2D[] polyA = CreateBasePolygon();
 
             var polyB = new[]
             {
@@ -150,7 +150,7 @@ namespace Core.Common.Geometry.Test
         public void PolygonIntersectionWithPolygon_TouchesWithPointOnSide_ReturnsEmptyCollection()
         {
             // Setup
-            var polyA = CreateBasePolygon();
+            Point2D[] polyA = CreateBasePolygon();
 
             var polyB = new[]
             {
@@ -178,7 +178,7 @@ namespace Core.Common.Geometry.Test
         public void PolygonIntersectionWithPolygon_PartiallyIntersectsTwice_ReturnsTwoIntersections()
         {
             // Setup
-            var polyA = CreateBasePolygon();
+            Point2D[] polyA = CreateBasePolygon();
 
             var polyB = new[]
             {
@@ -217,7 +217,7 @@ namespace Core.Common.Geometry.Test
         public void PolygonIntersectionWithPolygon_IntersectsPolygonLineAndPoint_ReturnsTwoIntersections()
         {
             // Setup
-            var polyA = CreateBasePolygon();
+            Point2D[] polyA = CreateBasePolygon();
 
             var polyB = new[]
             {
@@ -285,7 +285,7 @@ namespace Core.Common.Geometry.Test
         public void FromXToXY_NoPoints_ReturnsEmptyList()
         {
             // Call
-            var points = AdvancedMath2D.FromXToXY(new double[0], new Point2D(0, 0), 3, 2);
+            Point2D[] points = AdvancedMath2D.FromXToXY(new double[0], new Point2D(0, 0), 3, 2);
 
             // Assert
             CollectionAssert.IsEmpty(points);
@@ -295,11 +295,11 @@ namespace Core.Common.Geometry.Test
         public void FromXToXY_WithoutTransformations_ReturnsCoordinatesOnYAxis()
         {
             // Setup
-            var xCoordinates = ThreeRandomXCoordinates();
+            double[] xCoordinates = ThreeRandomXCoordinates();
             var referencePoint = new Point2D(0, 0);
 
             // Call
-            var points = AdvancedMath2D.FromXToXY(xCoordinates, referencePoint, 0, 0);
+            Point2D[] points = AdvancedMath2D.FromXToXY(xCoordinates, referencePoint, 0, 0);
 
             // Assert
             CollectionElementsAlmostEquals(xCoordinates.Select(x => new Point2D(0, x)), points);
@@ -309,12 +309,12 @@ namespace Core.Common.Geometry.Test
         public void FromXToXY_WithOffset_ReturnsCoordinatesNearerToOrigin()
         {
             // Setup
-            var xCoordinates = ThreeRandomXCoordinates();
+            double[] xCoordinates = ThreeRandomXCoordinates();
             var referencePoint = new Point2D(0, 0);
-            var offset = new Random(21).Next();
+            int offset = new Random(21).Next();
 
             // Call
-            var points = AdvancedMath2D.FromXToXY(xCoordinates, referencePoint, offset, 0);
+            Point2D[] points = AdvancedMath2D.FromXToXY(xCoordinates, referencePoint, offset, 0);
 
             // Assert
             CollectionElementsAlmostEquals(xCoordinates.Select(x => new Point2D(0, x - offset)), points);
@@ -324,11 +324,11 @@ namespace Core.Common.Geometry.Test
         public void FromXToXY_WithRotation180_ReturnsCoordinatesOnNegativeYAxis()
         {
             // Setup
-            var xCoordinates = ThreeRandomXCoordinates();
+            double[] xCoordinates = ThreeRandomXCoordinates();
             var referencePoint = new Point2D(0, 0);
 
             // Call
-            var points = AdvancedMath2D.FromXToXY(xCoordinates, referencePoint, 0, 180);
+            Point2D[] points = AdvancedMath2D.FromXToXY(xCoordinates, referencePoint, 0, 180);
 
             // Assert
             CollectionElementsAlmostEquals(xCoordinates.Select(x => new Point2D(0, -x)), points);
@@ -339,11 +339,11 @@ namespace Core.Common.Geometry.Test
         {
             // Setup
             var random = new Random(21);
-            var xCoordinates = ThreeRandomXCoordinates();
+            double[] xCoordinates = ThreeRandomXCoordinates();
             var referencePoint = new Point2D(random.NextDouble(), random.NextDouble());
 
             // Call
-            var points = AdvancedMath2D.FromXToXY(xCoordinates, referencePoint, 0, 0);
+            Point2D[] points = AdvancedMath2D.FromXToXY(xCoordinates, referencePoint, 0, 0);
 
             // Assert
             CollectionElementsAlmostEquals(xCoordinates.Select(x => new Point2D(referencePoint.X, referencePoint.Y + x)), points);
@@ -365,7 +365,7 @@ namespace Core.Common.Geometry.Test
             double rotation = 45;
 
             // Call
-            var points = AdvancedMath2D.FromXToXY(xCoordinates, referencePoint, offset, rotation);
+            Point2D[] points = AdvancedMath2D.FromXToXY(xCoordinates, referencePoint, offset, rotation);
 
             // Assert
             CollectionElementsAlmostEquals(new[]
@@ -391,10 +391,10 @@ namespace Core.Common.Geometry.Test
         {
             Assert.AreEqual(expected.Count(), actual.Length);
 
-            for (int index = 0; index < actual.Length; index++)
+            for (var index = 0; index < actual.Length; index++)
             {
-                var actualPoint = actual[index];
-                var expectedPoint = expected.ElementAt(index);
+                Point2D actualPoint = actual[index];
+                Point2D expectedPoint = expected.ElementAt(index);
 
                 var delta = 1e-8;
                 Assert.AreEqual(expectedPoint.X, actualPoint.X, delta);

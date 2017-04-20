@@ -57,7 +57,8 @@ namespace Core.Components.Gis.Test.Data
             }
         }
 
-        protected override IDictionary<WellKnownTileSource, byte> ExpectedValueForEnumValues {
+        protected override IDictionary<WellKnownTileSource, byte> ExpectedValueForEnumValues
+        {
             get
             {
                 return new Dictionary<WellKnownTileSource, byte>

@@ -36,7 +36,7 @@ namespace Core.Common.Gui.Plugin
         {
             CreateInstance = o =>
             {
-                var properties = (IObjectProperties)Activator.CreateInstance(PropertyObjectType);
+                var properties = (IObjectProperties) Activator.CreateInstance(PropertyObjectType);
                 properties.Data = o;
                 return properties;
             };

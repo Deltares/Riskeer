@@ -92,14 +92,14 @@ namespace Core.Common.Geometry
 
         private static Polygon PointsToPolygon(IEnumerable<Point2D> points)
         {
-            var pointList = points.ToList();
-            var firstPoint = pointList.First();
+            List<Point2D> pointList = points.ToList();
+            Point2D firstPoint = pointList.First();
 
             if (!firstPoint.Equals(pointList.Last()))
             {
                 pointList.Add(firstPoint);
             }
-            var coordinates = pointList.Select(p => new Coordinate(p.X, p.Y)).ToArray();
+            Coordinate[] coordinates = pointList.Select(p => new Coordinate(p.X, p.Y)).ToArray();
 
             return new Polygon(new LinearRing(coordinates));
         }
@@ -122,7 +122,7 @@ namespace Core.Common.Geometry
             var areas = new List<Point2D[]>();
             if (!geometryCollection.IsEmpty)
             {
-                for (int i = 0; i < geometry.NumGeometries; i++)
+                for (var i = 0; i < geometry.NumGeometries; i++)
                 {
                     areas = areas.Union(BuildSeparateAreasFromCoordinateList(geometryCollection[i])).ToList();
                 }

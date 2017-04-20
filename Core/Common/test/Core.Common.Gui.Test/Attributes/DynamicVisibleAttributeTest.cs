@@ -45,7 +45,7 @@ namespace Core.Common.Gui.Test.Attributes
         public void IsVisible_NoPropertyName_ReturnTrue(string propertyName)
         {
             // Call
-            var isVisible = DynamicVisibleAttribute.IsVisible(new object(), propertyName);
+            bool isVisible = DynamicVisibleAttribute.IsVisible(new object(), propertyName);
 
             // Assert
             Assert.IsTrue(isVisible);
@@ -61,7 +61,7 @@ namespace Core.Common.Gui.Test.Attributes
             TestDelegate call = () => DynamicVisibleAttribute.IsVisible(o, "NotExistingProperty");
 
             // Assert
-            var exceptionMessage = Assert.Throws<MissingMemberException>(call).Message;
+            string exceptionMessage = Assert.Throws<MissingMemberException>(call).Message;
             Assert.AreEqual(string.Format("Kon eigenschap NotExistingProperty van type {0} niet vinden.", o.GetType()), exceptionMessage);
         }
 
@@ -72,7 +72,7 @@ namespace Core.Common.Gui.Test.Attributes
             var o = new ClassWithPropertyWithoutDynamicVisibleAttribute();
 
             // Call
-            var isVisible = DynamicVisibleAttribute.IsVisible(o, "Property");
+            bool isVisible = DynamicVisibleAttribute.IsVisible(o, "Property");
 
             // Assert
             Assert.IsTrue(isVisible);
@@ -88,9 +88,9 @@ namespace Core.Common.Gui.Test.Attributes
             TestDelegate call = () => DynamicVisibleAttribute.IsVisible(o, "Property");
 
             // Assert
-            var exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
-            var expectedMessage = string.Format("DynamicVisibleValidationMethod niet gevonden (of geen 'public' toegankelijkheid). Klasse: {0}.",
-                                                o.GetType());
+            string exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
+            string expectedMessage = string.Format("DynamicVisibleValidationMethod niet gevonden (of geen 'public' toegankelijkheid). Klasse: {0}.",
+                                                   o.GetType());
             Assert.AreEqual(expectedMessage, exceptionMessage);
         }
 
@@ -104,9 +104,9 @@ namespace Core.Common.Gui.Test.Attributes
             TestDelegate call = () => DynamicVisibleAttribute.IsVisible(o, "Property");
 
             // Assert
-            var exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
-            var expectedMessage = string.Format("Slechts één DynamicVisibleValidationMethod toegestaan per klasse: {0}.",
-                                                o.GetType());
+            string exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
+            string expectedMessage = string.Format("Slechts één DynamicVisibleValidationMethod toegestaan per klasse: {0}.",
+                                                   o.GetType());
             Assert.AreEqual(expectedMessage, exceptionMessage);
         }
 
@@ -120,9 +120,9 @@ namespace Core.Common.Gui.Test.Attributes
             TestDelegate call = () => DynamicVisibleAttribute.IsVisible(o, "Property");
 
             // Assert
-            var exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
-            var expectedMessage = string.Format("DynamicVisibleValidationMethod moet 'bool' als 'return type' hebben. Klasse: {0}.",
-                                                o.GetType());
+            string exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
+            string expectedMessage = string.Format("DynamicVisibleValidationMethod moet 'bool' als 'return type' hebben. Klasse: {0}.",
+                                                   o.GetType());
             Assert.AreEqual(expectedMessage, exceptionMessage);
         }
 
@@ -136,9 +136,9 @@ namespace Core.Common.Gui.Test.Attributes
             TestDelegate call = () => DynamicVisibleAttribute.IsVisible(o, "Property");
 
             // Assert
-            var exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
-            var expectedMessage = string.Format("DynamicVisibleValidationMethod heeft een incorrect aantal argumenten. Zou er één moeten zijn. Klasse: {0}.",
-                                                o.GetType());
+            string exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
+            string expectedMessage = string.Format("DynamicVisibleValidationMethod heeft een incorrect aantal argumenten. Zou er één moeten zijn. Klasse: {0}.",
+                                                   o.GetType());
             Assert.AreEqual(expectedMessage, exceptionMessage);
         }
 
@@ -152,9 +152,9 @@ namespace Core.Common.Gui.Test.Attributes
             TestDelegate call = () => DynamicVisibleAttribute.IsVisible(o, "Property");
 
             // Assert
-            var exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
-            var expectedMessage = string.Format("Argument van DynamicVisibleValidationMethod moet van het type 'string' zijn. Klasse: {0}.",
-                                                o.GetType());
+            string exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
+            string expectedMessage = string.Format("Argument van DynamicVisibleValidationMethod moet van het type 'string' zijn. Klasse: {0}.",
+                                                   o.GetType());
             Assert.AreEqual(expectedMessage, exceptionMessage);
         }
 
@@ -167,7 +167,7 @@ namespace Core.Common.Gui.Test.Attributes
             var o = new ClassWithDynamicVisibleProperty(isVisible);
 
             // Call
-            var result = DynamicVisibleAttribute.IsVisible(o, "Property");
+            bool result = DynamicVisibleAttribute.IsVisible(o, "Property");
 
             // Assert
             Assert.AreEqual(isVisible, result);

@@ -55,6 +55,11 @@ namespace Core.Common.Gui.TestUtil.Settings
         /// </summary>
         public string CommonDocumentsDirectory { private get; set; }
 
+        /// <summary>
+        /// Gets or sets the directory to use in <see cref="GetLocalUserTemporaryDirectory"/>.
+        /// </summary>
+        public string TempPath { private get; set; }
+
         public string ApplicationName { get; private set; }
 
         public string ApplicationVersion { get; private set; }
@@ -84,11 +89,6 @@ namespace Core.Common.Gui.TestUtil.Settings
         {
             return GetFullPath(CommonDocumentsDirectory, subPath);
         }
-
-        /// <summary>
-        /// Gets or sets the directory to use in <see cref="GetLocalUserTemporaryDirectory"/>.
-        /// </summary>
-        public string TempPath { private get; set; }
 
         public string GetLocalUserTemporaryDirectory()
         {

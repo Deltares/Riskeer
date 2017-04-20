@@ -53,7 +53,7 @@ namespace Core.Components.Gis.Data
                     continue;
                 }
 
-                featureBasedMapDataList.Add((FeatureBasedMapData)mapData);
+                featureBasedMapDataList.Add((FeatureBasedMapData) mapData);
             }
 
             return featureBasedMapDataList;

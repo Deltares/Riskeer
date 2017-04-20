@@ -40,11 +40,11 @@ namespace Core.Common.Utils.Test.Drawing
             var rect2By2 = new RectangleF(0f, 0f, 2f, 2f);
             var imageFormat = PixelFormat.Format32bppArgb;
 
-            using (var image = Resources.TestImage2x2.Clone(rect2By2, imageFormat))
-            using (var target = Resources.Black2x2.Clone(rect2By2, imageFormat))
+            using (Bitmap image = Resources.TestImage2x2.Clone(rect2By2, imageFormat))
+            using (Bitmap target = Resources.Black2x2.Clone(rect2By2, imageFormat))
             {
                 // Call
-                using (var result = target.AddOverlayImage(image, 0, 0, 2, 2))
+                using (Bitmap result = target.AddOverlayImage(image, 0, 0, 2, 2))
                 {
                     // Assert
                     TestHelper.AssertImagesAreEqual(image, result);
@@ -59,12 +59,12 @@ namespace Core.Common.Utils.Test.Drawing
             var rect2By2 = new RectangleF(0f, 0f, 2f, 2f);
             var imageFormat = PixelFormat.Format32bppArgb;
 
-            using (var target = Resources.TestImage2x2.Clone(rect2By2, imageFormat))
-            using (var image = Resources.Black2x2.Clone(rect2By2, imageFormat))
-            using (var expectedImage = Resources.TestImageWithBlack2x2.Clone(rect2By2, imageFormat))
+            using (Bitmap target = Resources.TestImage2x2.Clone(rect2By2, imageFormat))
+            using (Bitmap image = Resources.Black2x2.Clone(rect2By2, imageFormat))
+            using (Bitmap expectedImage = Resources.TestImageWithBlack2x2.Clone(rect2By2, imageFormat))
             {
                 // Call
-                using (var result = target.AddOverlayImage(image, 1, 1, 2, 2))
+                using (Bitmap result = target.AddOverlayImage(image, 1, 1, 2, 2))
                 {
                     // Assert
                     TestHelper.AssertImagesAreEqual(expectedImage, result);
@@ -78,7 +78,7 @@ namespace Core.Common.Utils.Test.Drawing
         [Test]
         public void AsBitmapImage_ImageFromResources_BitmapImageCreated()
         {
-            var bitmapImage = Resources.TestImage2x2.AsBitmapImage();
+            BitmapImage bitmapImage = Resources.TestImage2x2.AsBitmapImage();
 
             TestHelper.AssertImagesAreEqual(Resources.TestImage2x2, ConvertBitmapSourceToBitmap(bitmapImage));
         }

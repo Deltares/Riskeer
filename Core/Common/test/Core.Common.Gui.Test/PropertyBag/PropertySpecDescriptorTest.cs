@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Reflection;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
@@ -46,7 +47,7 @@ namespace Core.Common.Gui.Test.PropertyBag
         {
             // Setup
             var instance = new ClassWithProperties();
-            var propertyInfo = instance.GetType().GetProperty("IsPropertyReadOnly");
+            PropertyInfo propertyInfo = instance.GetType().GetProperty("IsPropertyReadOnly");
             var spec = new PropertySpec(propertyInfo);
 
             // Call
@@ -73,7 +74,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             var descriptor = new PropertySpecDescriptor(propertySpec, instance);
 
             // Call
-            var isReadOnly = descriptor.IsReadOnly;
+            bool isReadOnly = descriptor.IsReadOnly;
 
             // Assert
             Assert.AreEqual(isPropertyReadOnly, isReadOnly);
@@ -88,7 +89,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             var descriptor = new PropertySpecDescriptor(spec, instance);
 
             // Call
-            var isReadOnly = descriptor.IsReadOnly;
+            bool isReadOnly = descriptor.IsReadOnly;
 
             // Assert
             Assert.IsTrue(isReadOnly);
@@ -103,7 +104,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             var descriptor = new PropertySpecDescriptor(spec, instance);
 
             // Call
-            var isReadOnly = descriptor.IsReadOnly;
+            bool isReadOnly = descriptor.IsReadOnly;
 
             // Assert
             Assert.IsFalse(isReadOnly);
@@ -118,7 +119,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             var descriptor = new PropertySpecDescriptor(spec, instance);
 
             // Call
-            var isReadOnly = descriptor.IsReadOnly;
+            bool isReadOnly = descriptor.IsReadOnly;
 
             // Assert
             Assert.IsTrue(isReadOnly);
@@ -138,7 +139,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             var descriptor = new PropertySpecDescriptor(propertySpec, instance);
 
             // Call
-            var isBrowsable = descriptor.IsBrowsable;
+            bool isBrowsable = descriptor.IsBrowsable;
 
             // Assert
             Assert.AreEqual(isPropertyVisible, isBrowsable);
@@ -153,7 +154,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             var descriptor = new PropertySpecDescriptor(spec, instance);
 
             // Call
-            var isBrowsable = descriptor.IsBrowsable;
+            bool isBrowsable = descriptor.IsBrowsable;
 
             // Assert
             Assert.IsTrue(isBrowsable);
@@ -168,7 +169,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             var descriptor = new PropertySpecDescriptor(spec, instance);
 
             // Call
-            var isBrowsable = descriptor.IsBrowsable;
+            bool isBrowsable = descriptor.IsBrowsable;
 
             // Assert
             Assert.IsFalse(isBrowsable);
@@ -183,7 +184,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             var propertyDescriptor = new PropertySpecDescriptor(spec, instance);
 
             // Call
-            var canReset = propertyDescriptor.CanResetValue(instance);
+            bool canReset = propertyDescriptor.CanResetValue(instance);
 
             // Assert
             Assert.IsFalse(canReset);
@@ -216,7 +217,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             var propertyDescriptor = new PropertySpecDescriptor(spec, instance);
 
             // Call
-            var shouldSerializeValue = propertyDescriptor.ShouldSerializeValue(instance);
+            bool shouldSerializeValue = propertyDescriptor.ShouldSerializeValue(instance);
 
             // Assert
             Assert.IsFalse(shouldSerializeValue);
@@ -231,7 +232,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             var propertyDescriptor = new PropertySpecDescriptor(spec, instance);
 
             // Call
-            var value = propertyDescriptor.GetValue(instance);
+            object value = propertyDescriptor.GetValue(instance);
 
             // Assert
             Assert.AreEqual(instance.PropertyWithOnlyGetter, value);
@@ -246,7 +247,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             var propertyDescriptor = new PropertySpecDescriptor(spec, instance);
 
             // Call
-            var value = propertyDescriptor.GetValue(instance);
+            object value = propertyDescriptor.GetValue(instance);
 
             // Assert
             Assert.AreSame(instance.ComplexSubProperty, value);
@@ -261,7 +262,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             var propertyDescriptor = new PropertySpecDescriptor(spec, instance);
 
             // Call
-            var value = propertyDescriptor.GetValue(instance);
+            object value = propertyDescriptor.GetValue(instance);
 
             // Assert
             var dynamicPropertyBag = (DynamicPropertyBag) value;

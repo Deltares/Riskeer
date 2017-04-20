@@ -28,7 +28,7 @@ namespace Core.Components.Gis.Forms
     /// source.
     /// </summary>
     public interface IWmtsCapabilityFactory
-    {    
+    {
         /// <summary>
         /// Returns all <see cref="WmtsCapability"/> based on the capabilities of a Web Map Tile Service.
         /// </summary>

@@ -49,7 +49,7 @@ namespace Core.Common.Utils.Extensions
                 throw new ArgumentNullException(nameof(action));
             }
 
-            foreach (var item in source)
+            foreach (T item in source)
             {
                 action(item);
             }

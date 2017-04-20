@@ -123,7 +123,7 @@ namespace Core.Components.Gis.Forms.Test.Views
 
                     // Assert
                     DataGridViewControl dataGridViewControl = form.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
-                    var dataGridView = dataGridViewControl.Controls.OfType<DataGridView>().First();
+                    DataGridView dataGridView = dataGridViewControl.Controls.OfType<DataGridView>().First();
 
                     Assert.AreEqual(DataGridViewSelectionMode.FullRowSelect, dataGridViewControl.SelectionMode);
                     Assert.IsFalse(dataGridViewControl.MultiSelect);
@@ -297,7 +297,7 @@ namespace Core.Components.Gis.Forms.Test.Views
                 dataGridViewControl.SetCurrentCell(dataGridViewControl.GetCell(1, 0));
 
                 // Call
-                WmtsMapData selectedMapData = control.SelectedMapData as WmtsMapData;
+                var selectedMapData = control.SelectedMapData as WmtsMapData;
 
                 // Assert
                 Assert.IsNotNull(selectedMapData);
@@ -438,8 +438,8 @@ namespace Core.Components.Gis.Forms.Test.Views
                                                                    testPath,
                                                                    "WmtsConnectionInfosWithoutWmtsConnectionsElement"),
                                                                "wmtsConnectionInfo.config");
-                var expectedMessage = $"Fout bij het lezen van bestand '{wmtsConnectionInfoConfig}': "
-                                      + "het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.";
+                string expectedMessage = $"Fout bij het lezen van bestand '{wmtsConnectionInfoConfig}': "
+                                         + "het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.";
                 TestHelper.AssertLogMessageWithLevelIsGenerated(action, Tuple.Create(expectedMessage, LogLevelConstant.Error));
             }
         }

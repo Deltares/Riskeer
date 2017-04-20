@@ -65,7 +65,7 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
             var resolver = new PropertyResolver(propertyInfos);
 
             // Call
-            var result = resolver.GetObjectProperties(null);
+            object result = resolver.GetObjectProperties(null);
 
             // Assert
             Assert.IsNull(result);
@@ -85,7 +85,7 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
             var source = new A();
 
             // Call
-            var result = resolver.GetObjectProperties(source);
+            object result = resolver.GetObjectProperties(source);
 
             // Assert
             Assert.IsInstanceOf<DynamicPropertyBag>(result);
@@ -108,7 +108,7 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
                     CreateInstance = a => new PropertiesForA
                     {
                         Data = otherObject
-                    } 
+                    }
                 }
             };
 
@@ -117,7 +117,7 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
             var source = new A();
 
             // Call
-            var result = resolver.GetObjectProperties(source);
+            object result = resolver.GetObjectProperties(source);
 
             // Assert
             var bag = (DynamicPropertyBag) result;
@@ -140,7 +140,7 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
             var source = new InheritsFromA();
 
             // Call
-            var result = resolver.GetObjectProperties(source);
+            object result = resolver.GetObjectProperties(source);
 
             // Assert
             Assert.IsInstanceOf<DynamicPropertyBag>(result);
@@ -163,7 +163,7 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
             var source = new A();
 
             // Call
-            var result = resolver.GetObjectProperties(source);
+            object result = resolver.GetObjectProperties(source);
 
             // Assert
             Assert.IsInstanceOf<DynamicPropertyBag>(result);
@@ -188,7 +188,7 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
             var source = new InheritsFromA();
 
             // Call
-            var result = resolver.GetObjectProperties(source);
+            object result = resolver.GetObjectProperties(source);
 
             // Assert
             Assert.IsInstanceOf<DynamicPropertyBag>(result);
@@ -210,7 +210,7 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
             var source = new InheritsFromA();
 
             // Call
-            var result = resolver.GetObjectProperties(source);
+            object result = resolver.GetObjectProperties(source);
 
             // Assert
             Assert.IsInstanceOf<DynamicPropertyBag>(result);
@@ -233,7 +233,7 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
             var source = new InheritsFromA();
 
             // Call
-            var result = resolver.GetObjectProperties(source);
+            object result = resolver.GetObjectProperties(source);
 
             // Assert
             Assert.IsNull(result);

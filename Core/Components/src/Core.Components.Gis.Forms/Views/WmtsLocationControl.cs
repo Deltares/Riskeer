@@ -79,7 +79,7 @@ namespace Core.Components.Gis.Forms.Views
 
             WmtsConnectionInfo selectedWmtsConnectionInfo = PreSelectComboBox();
             UpdateComboBoxDataSource(selectedWmtsConnectionInfo);
-            
+
             UpdateButtons();
         }
 
@@ -372,7 +372,7 @@ namespace Core.Components.Gis.Forms.Views
         private void UpdateWmtsConnectionInfos(WmtsConnectionDialog dialog, WmtsConnectionInfo selectedWmtsConnectionInfo = null)
         {
             WmtsConnectionInfo createdWmtsConnectionInfo = TryCreateWmtsConnectionInfo(dialog.WmtsConnectionName,
-                                                                                        dialog.WmtsConnectionUrl);
+                                                                                       dialog.WmtsConnectionUrl);
             if (createdWmtsConnectionInfo == null)
             {
                 return;

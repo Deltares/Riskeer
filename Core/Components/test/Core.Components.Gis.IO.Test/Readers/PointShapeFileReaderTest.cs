@@ -24,7 +24,6 @@ using System.IO;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
@@ -279,7 +278,7 @@ namespace Core.Components.Gis.IO.Test.Readers
 
                 #region Assertion for 'point1'
 
-                var features1 = points1.Features.ToArray();
+                MapFeature[] features1 = points1.Features.ToArray();
                 Assert.AreEqual(1, features1.Length);
 
                 MapFeature point1 = features1[0];
@@ -359,7 +358,7 @@ namespace Core.Components.Gis.IO.Test.Readers
                 Assert.AreEqual(1, features5.Length);
 
                 MapFeature point5 = features5[0];
-                var point5Geometry = point5.MapGeometries.ToArray();
+                MapGeometry[] point5Geometry = point5.MapGeometries.ToArray();
                 Assert.AreEqual(1, point5Geometry.Length);
 
                 IEnumerable<Point2D>[] point5PointCollections = point5Geometry[0].PointCollections.ToArray();
@@ -445,7 +444,7 @@ namespace Core.Components.Gis.IO.Test.Readers
                 var points = (MapPointData) reader.ReadShapeFile();
 
                 // Assert
-                var features = points.Features.ToArray();
+                MapFeature[] features = points.Features.ToArray();
                 Assert.AreEqual(6, features.Length);
                 Assert.AreEqual("id", points.SelectedMetaDataAttribute);
 

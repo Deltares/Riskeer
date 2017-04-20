@@ -75,7 +75,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
         {
             // Setup
             Level level = logLevel.ToLog4NetLevel();
-            var dataTime = DateTime.Now;
+            DateTime dataTime = DateTime.Now;
             const string message = "<some nice log-message>";
 
             var mocks = new MockRepository();
@@ -115,7 +115,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
             const string expectedText = "Gestart in 1,20 seconden.";
 
             Level level = LogLevelConstant.Warn.ToLog4NetLevel();
-            var dataTime = DateTime.Now;
+            DateTime dataTime = DateTime.Now;
             var logEvent = new LoggingEvent(null, null, "<doesn't matter>", Level.Warn,
                                             new SystemStringFormat(CultureInfo.InvariantCulture, messageText, formatArgument),
                                             null);
@@ -149,7 +149,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
             const double formatArgument = 1.2;
 
             Level level = LogLevelConstant.Warn.ToLog4NetLevel();
-            var dataTime = DateTime.Now;
+            DateTime dataTime = DateTime.Now;
             var logEvent = new LoggingEvent(null, null, "<doesn't matter>", Level.Warn,
                                             new SystemStringFormat(CultureInfo.InvariantCulture, messageText, formatArgument),
                                             null);
@@ -182,7 +182,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
             const string messageText = "Gestart in {5:f2} seconden.";
 
             Level level = LogLevelConstant.Warn.ToLog4NetLevel();
-            var dataTime = DateTime.Now;
+            DateTime dataTime = DateTime.Now;
             var logEvent = new LoggingEvent(null, null, "<doesn't matter>", Level.Warn,
                                             new SystemStringFormat(CultureInfo.InvariantCulture, messageText, null),
                                             null);
@@ -217,7 +217,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
             var exception = new Exception();
 
             Level level = LogLevelConstant.Error.ToLog4NetLevel();
-            var dataTime = DateTime.Now;
+            DateTime dataTime = DateTime.Now;
             var logEvent = new LoggingEvent(null, null, "<doesn't matter>", Level.Error,
                                             messageText, exception);
 
@@ -252,7 +252,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
         {
             // Setup
             Level level = logLevel.ToLog4NetLevel();
-            var dataTime = DateTime.Now;
+            DateTime dataTime = DateTime.Now;
             const string message = "<some nice log-message>";
 
             var mocks = new MockRepository();
@@ -291,7 +291,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
         {
             // Setup
             Level level = logLevel.ToLog4NetLevel();
-            var dataTime = DateTime.Today;
+            DateTime dataTime = DateTime.Today;
             const string message = "<yet another nice log-message>";
 
             var mocks = new MockRepository();
@@ -332,7 +332,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
         {
             // Setup
             Level level = logLevel.ToLog4NetLevel();
-            var dataTime = DateTime.Today;
+            DateTime dataTime = DateTime.Today;
             const string message = "<another nice log-message>";
 
             var mocks = new MockRepository();

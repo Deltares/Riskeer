@@ -65,7 +65,7 @@ namespace Core.Common.TestUtil
 
         private static string GetDisplayName(TEnumType value)
         {
-            var type = typeof(TEnumType);
+            Type type = typeof(TEnumType);
             MemberInfo[] memInfo = type.GetMember(value.ToString());
             object[] attributes = memInfo[0].GetCustomAttributes(typeof(ResourcesDisplayNameAttribute), false);
             if (attributes.Length > 0)

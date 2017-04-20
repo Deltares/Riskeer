@@ -242,7 +242,7 @@ namespace Core.Common.Gui.Forms.ViewHost
 
         public void Dispose()
         {
-            foreach (var view in documentViews.Concat(toolViews).ToArray())
+            foreach (IView view in documentViews.Concat(toolViews).ToArray())
             {
                 Remove(view);
             }
@@ -321,7 +321,7 @@ namespace Core.Common.Gui.Forms.ViewHost
             if (focussedView != null && !removingProgrammatically)
             {
                 DockingManager.ActiveContentChanged -= OnActiveContentChanged;
-                var activeContent = DockingManager.ActiveContent;
+                object activeContent = DockingManager.ActiveContent;
                 NativeMethods.UnfocusActiveControl(focussedView as IContainerControl);
                 DockingManager.ActiveContent = activeContent;
                 DockingManager.ActiveContentChanged += OnActiveContentChanged;
@@ -347,7 +347,7 @@ namespace Core.Common.Gui.Forms.ViewHost
         private void OnLayoutDocumentClosing(object sender, CancelEventArgs e)
         {
             var layoutDocument = (LayoutDocument) sender;
-            var view = GetView(layoutDocument.Content);
+            IView view = GetView(layoutDocument.Content);
 
             if (ActiveDocumentView == view)
             {
@@ -416,7 +416,7 @@ namespace Core.Common.Gui.Forms.ViewHost
 
         private void CleanupHostControl(IView view)
         {
-            var hostControl = hostControls.First(hc => hc.Child == view);
+            WindowsFormsHost hostControl = hostControls.First(hc => hc.Child == view);
 
             hostControl.Child = null; // Prevent views from getting disposed here by clearing the child
             hostControl.Dispose();

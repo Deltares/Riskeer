@@ -46,7 +46,7 @@ namespace Core.Plugins.Map.Test.Legend
             TestDelegate test = () => new MapLegendController(null, contextMenuBuilderProvider);
 
             // Assert
-            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("viewController", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -63,7 +63,7 @@ namespace Core.Plugins.Map.Test.Legend
             TestDelegate test = () => new MapLegendController(viewController, null);
 
             // Assert
-            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("contextMenuBuilderProvider", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -117,7 +117,7 @@ namespace Core.Plugins.Map.Test.Legend
             }
 
             // Call
-            var result = controller.IsMapLegendViewOpen;
+            bool result = controller.IsMapLegendViewOpen;
 
             // Assert
             Assert.AreEqual(open, result);

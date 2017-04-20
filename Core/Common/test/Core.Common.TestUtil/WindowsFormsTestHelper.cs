@@ -76,7 +76,7 @@ namespace Core.Common.TestUtil
 
         public static void CloseAll()
         {
-            foreach (var control in nonModalControls)
+            foreach (Control control in nonModalControls)
             {
                 control.Hide();
                 control.Dispose();
@@ -109,7 +109,7 @@ namespace Core.Common.TestUtil
             // clear all controls shown as non-modal after modal control closes 
             if (!modal)
             {
-                var testName = TestContext.CurrentContext.Test.FullName;
+                string testName = TestContext.CurrentContext.Test.FullName;
 
                 if (string.IsNullOrEmpty(nonModalControlsTestName))
                 {
@@ -119,7 +119,7 @@ namespace Core.Common.TestUtil
                 {
                     if (nonModalControlsTestName != testName)
                     {
-                        var errorMessage = string.Format("Did you forget to call WindowsFormsTestHelper.CloseAll() at the end of the following test: {0}?", nonModalControlsTestName);
+                        string errorMessage = string.Format("Did you forget to call WindowsFormsTestHelper.CloseAll() at the end of the following test: {0}?", nonModalControlsTestName);
                         nonModalControlsTestName = testName; // reset for the next test
                         throw new InvalidOperationException(errorMessage);
                     }

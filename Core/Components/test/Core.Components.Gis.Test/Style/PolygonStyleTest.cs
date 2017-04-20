@@ -32,8 +32,8 @@ namespace Core.Components.Gis.Test.Style
         public void Constructor_WithAllParameters_SetsProperties()
         {
             // Setup
-            var fillColor = Color.AliceBlue;
-            var strokeColor = Color.Gainsboro;
+            Color fillColor = Color.AliceBlue;
+            Color strokeColor = Color.Gainsboro;
             var width = 3;
 
             // Call

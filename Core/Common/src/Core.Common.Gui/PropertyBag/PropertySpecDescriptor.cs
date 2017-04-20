@@ -107,7 +107,7 @@ namespace Core.Common.Gui.PropertyBag
 
         public override object GetValue(object component)
         {
-            var propertyValue = item.GetValue(component);
+            object propertyValue = item.GetValue(component);
             if (item.IsNonCustomExpandableObjectProperty())
             {
                 return new DynamicPropertyBag(propertyValue);

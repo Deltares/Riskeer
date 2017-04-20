@@ -53,11 +53,11 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
             mockingRepository.ReplayAll();
 
             // Call
-            MapFunctionSelectionZoom mapFunction = new MapFunctionSelectionZoom(mapMock);
+            var mapFunction = new MapFunctionSelectionZoom(mapMock);
 
             // Assert
             Assert.IsInstanceOf<MapFunctionZoom>(mapFunction);
-            var expectedYieldStyle = YieldStyles.LeftButton | YieldStyles.RightButton | YieldStyles.Scroll;
+            YieldStyles expectedYieldStyle = YieldStyles.LeftButton | YieldStyles.RightButton | YieldStyles.Scroll;
             Assert.AreEqual(expectedYieldStyle, mapFunction.YieldStyle);
             mockingRepository.VerifyAll();
         }
@@ -116,8 +116,8 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
             var mapMock = mockingRepository.Stub<IMap>();
             mockingRepository.ReplayAll();
 
-            int startPointX = 0;
-            int startPointY = 0;
+            var startPointX = 0;
+            var startPointY = 0;
             var mapFunction = new MapFunctionSelectionZoom(mapMock);
             mapFunction.DoMouseDown(new GeoMouseArgs(new MouseEventArgs(MouseButtons.Left, 1, startPointX, startPointY, 0), mapMock));
 
@@ -218,7 +218,7 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
             var random = new Random(21);
             int startX = random.Next(1, 100);
             int startY = random.Next(1, 100);
-            var rectangleFromPoints = Opp.RectangleFromPoints(new Point(startX, startY), new Point(startX, startY));
+            Rectangle rectangleFromPoints = Opp.RectangleFromPoints(new Point(startX, startY), new Point(startX, startY));
             rectangleFromPoints.Width -= 1;
             rectangleFromPoints.Height -= 1;
 
@@ -256,7 +256,7 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
             mapFunction.DoMouseDown(new GeoMouseArgs(new MouseEventArgs(MouseButtons.Middle, 1, 10, 10, 0), mapMock));
 
             // Call
-            var view = mapMock.MapFrame.View;
+            Rectangle view = mapMock.MapFrame.View;
             mapFunction.DoMouseMove(new GeoMouseArgs(new MouseEventArgs(MouseButtons.Middle, 1, 20, 20, 0), mapMock));
 
             // Assert

@@ -131,7 +131,7 @@ namespace Core.Common.Base.Test.IO
 
             var importTarget = new object();
             var simpleImporter = new SimpleFileImporter<object>(importTarget);
-            int progressChangedCallCount = 0;
+            var progressChangedCallCount = 0;
             simpleImporter.SetProgressChanged((description, step, steps) =>
             {
                 Assert.AreEqual(expectedDescription, description);
@@ -203,6 +203,11 @@ namespace Core.Common.Base.Test.IO
                 NotifyProgress(currentStepName, currentStep, totalNumberOfSteps);
             }
 
+            public string GetFilePath()
+            {
+                return FilePath;
+            }
+
             protected override bool OnImport()
             {
                 TestNotifyProgress(string.Empty, 1, 1);
@@ -212,11 +217,6 @@ namespace Core.Common.Base.Test.IO
             protected override void LogImportCanceledMessage()
             {
                 LogCanceledMessageCalled = true;
-            }
-
-            public string GetFilePath()
-            {
-                return FilePath;
             }
         }
     }

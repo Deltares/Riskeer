@@ -72,7 +72,7 @@ namespace Core.Components.Gis.IO.Test.Writers
                 TestDelegate test = () => writer.CopyToFeature(new MapLineData("test"));
 
                 // Assert
-                var expectedMessage = Resources.ShapeFileWriterBase_CopyToFeature_Mapdata_can_only_contain_one_feature;
+                string expectedMessage = Resources.ShapeFileWriterBase_CopyToFeature_Mapdata_can_only_contain_one_feature;
                 TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
             }
         }
@@ -91,7 +91,7 @@ namespace Core.Components.Gis.IO.Test.Writers
 
                 // Assert
                 var expectedMessage = "bestandspad mag niet leeg of ongedefinieerd zijn.";
-                var message = Assert.Throws<ArgumentException>(call).Message;
+                string message = Assert.Throws<ArgumentException>(call).Message;
                 StringAssert.Contains(expectedMessage, message);
             }
         }
@@ -107,7 +107,7 @@ namespace Core.Components.Gis.IO.Test.Writers
 
                 // Assert
                 var expectedMessage = "bestandspad mag niet verwijzen naar een lege bestandsnaam.";
-                var message = Assert.Throws<ArgumentException>(call).Message;
+                string message = Assert.Throws<ArgumentException>(call).Message;
                 StringAssert.Contains(expectedMessage, message);
             }
         }
@@ -117,7 +117,7 @@ namespace Core.Components.Gis.IO.Test.Writers
         {
             // Setup
             char[] invalidPathChars = Path.GetInvalidPathChars();
-            var filePath = "c:/_.shp".Replace('_', invalidPathChars[0]);
+            string filePath = "c:/_.shp".Replace('_', invalidPathChars[0]);
 
             using (var writer = new TestShapeFileWriterBase())
             {
@@ -125,8 +125,8 @@ namespace Core.Components.Gis.IO.Test.Writers
                 TestDelegate call = () => writer.SaveAs(filePath);
 
                 // Assert
-                var expectedMessage = "Fout bij het lezen van bestand 'c:/\".shp': "
-                                      + "er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.";
+                string expectedMessage = "Fout bij het lezen van bestand 'c:/\".shp': "
+                                         + "er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.";
                 TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
             }
         }
@@ -136,7 +136,7 @@ namespace Core.Components.Gis.IO.Test.Writers
         {
             string directoryPath = TestHelper.GetScratchPadPath(nameof(SaveAs_InvalidDirectoryRights_ThrowCriticalFileWriteException));
             string filePath = Path.Combine(directoryPath, "test.shp");
-            
+
             using (var disposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(SaveAs_InvalidDirectoryRights_ThrowCriticalFileWriteException)))
             using (var writer = new TestShapeFileWriterBase())
             {
@@ -146,8 +146,8 @@ namespace Core.Components.Gis.IO.Test.Writers
                 TestDelegate call = () => writer.SaveAs(filePath);
 
                 // Assert
-                var expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.";
-                var message = Assert.Throws<CriticalFileWriteException>(call).Message;
+                string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.";
+                string message = Assert.Throws<CriticalFileWriteException>(call).Message;
                 Assert.AreEqual(expectedMessage, message);
             }
         }

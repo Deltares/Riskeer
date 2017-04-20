@@ -407,7 +407,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             var mapFrameExtents = new DotSpatialExtent();
 
             var mapFrame = mocks.StrictMock<IFrame>();
-            mapFrame.Stub(f=>f.ViewExtents).Return(mapFrameExtents);
+            mapFrame.Stub(f => f.ViewExtents).Return(mapFrameExtents);
             mapFrame.Expect(f => f.Invalidate(mapFrameExtents));
             mocks.ReplayAll();
 
@@ -418,7 +418,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             {
                 object itemChangedSender = null;
                 EventArgs itemChangedEventArgs = null;
-                int itemChangedCount = 0;
+                var itemChangedCount = 0;
                 layer.ItemChanged += (sender, args) =>
                 {
                     itemChangedSender = sender;
@@ -457,7 +457,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             clonedConfiguration.Stub(c => c.TileFetcher).Return(tileFetcher);
             clonedConfiguration.Stub(c => c.Dispose());
 
-            IConfiguration configuration = mocks.Stub<IConfiguration>();
+            var configuration = mocks.Stub<IConfiguration>();
             configuration.Expect(c => c.Clone()).Return(clonedConfiguration);
             configuration.Stub(c => c.Initialized).Return(true);
             configuration.Stub(c => c.TileSchema).Return(schema);
@@ -584,8 +584,8 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             schema.Stub(s => s.Srs).Return("EPSG:28992");
             schema.Stub(s => s.Extent).Return(new Extent());
 
-            bool disposedLocked = false;
-            IConfiguration configuration = mocks.Stub<IConfiguration>();
+            var disposedLocked = false;
+            var configuration = mocks.Stub<IConfiguration>();
             configuration.Stub(c => c.Initialized).Return(true);
             configuration.Stub(c => c.TileSchema).Return(schema);
             configuration.Stub(c => c.TileFetcher).Return(tileFetcher);
@@ -991,14 +991,15 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
         {
             var epsgCode = "EPSG:28992";
             int level = config.Level;
-            var levelId = $"{epsgCode}:{level}";
+            string levelId = $"{epsgCode}:{level}";
 
-            var tileInfoImageLookup = config.TileInfoConfigurations.ToDictionary(c => new TileInfo
-                                                                                 {
-                                                                                     Extent = c.Extent,
-                                                                                     Index = new TileIndex(c.ColumnIndex, c.RowIndex, levelId)
-                                                                                 },
-                                                                                 c => c.Image);
+            Dictionary<TileInfo, Bitmap> tileInfoImageLookup = config.TileInfoConfigurations.ToDictionary(
+                c => new TileInfo
+                {
+                    Extent = c.Extent,
+                    Index = new TileIndex(c.ColumnIndex, c.RowIndex, levelId)
+                },
+                c => c.Image);
 
             var tileFetcher = mocks.Stub<ITileFetcher>();
             tileFetcher.Stub(tf => tf.TileReceived += null).IgnoreArguments();
@@ -1016,7 +1017,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                                                 Arg<string>.Is.Equal(levelId)))
                       .Return(tileInfoImageLookup.Keys);
 
-            IConfiguration configuration = mocks.Stub<IConfiguration>();
+            var configuration = mocks.Stub<IConfiguration>();
             configuration.Stub(c => c.Initialized).Return(true);
             configuration.Stub(c => c.TileFetcher).Return(tileFetcher);
             configuration.Stub(c => c.TileSchema).Return(tileSchema);
@@ -1049,7 +1050,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                 tileFetcher.Stub(c => c.GetTile(tileInfoImagePair.Key))
                            .WhenCalled(invocation =>
                            {
-                               invocation.ReturnValue = getTileCalledForTileInfoLookup[(TileInfo)invocation.Arguments[0]] ?
+                               invocation.ReturnValue = getTileCalledForTileInfoLookup[(TileInfo) invocation.Arguments[0]] ?
                                                             null :
                                                             ToByteArray(tileInfoImagePair.Value);
                                getTileCalledForTileInfoLookup[(TileInfo) invocation.Arguments[0]] = true;
@@ -1089,7 +1090,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
 
             var tileFetcher = mocks.Stub<ITileFetcher>();
 
-            IConfiguration configuration = mocks.Stub<IConfiguration>();
+            var configuration = mocks.Stub<IConfiguration>();
             configuration.Stub(c => c.Initialized).Return(true);
             configuration.Stub(c => c.TileSchema).Return(schema);
             configuration.Stub(c => c.TileFetcher).Return(tileFetcher);
@@ -1105,7 +1106,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
 
             var tileFetcher = mocks.Stub<ITileFetcher>();
 
-            IConfiguration configuration = mocks.Stub<IConfiguration>();
+            var configuration = mocks.Stub<IConfiguration>();
             using (mocks.Ordered())
             {
                 configuration.Stub(c => c.Initialized).Return(false);

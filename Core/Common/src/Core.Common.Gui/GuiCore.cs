@@ -155,7 +155,7 @@ namespace Core.Common.Gui
         /// <param name="projectPath">Path to the project to be opened. (optional)</param>
         public void Run(string projectPath = null)
         {
-            var startTime = DateTime.Now;
+            DateTime startTime = DateTime.Now;
 
             ConfigureLogging();
 
@@ -237,7 +237,7 @@ namespace Core.Common.Gui
 
                 if (Plugins != null)
                 {
-                    foreach (var plugin in Plugins.ToArray())
+                    foreach (PluginBase plugin in Plugins.ToArray())
                     {
                         DeactivatePlugin(plugin);
                     }
@@ -262,7 +262,7 @@ namespace Core.Common.Gui
                     ViewHost.ActiveViewChanged -= OnActiveViewChanged;
                 }
 
-                foreach (var selectionProvider in selectionProviders)
+                foreach (ISelectionProvider selectionProvider in selectionProviders)
                 {
                     selectionProvider.SelectionChanged -= OnSelectionChanged;
                 }
@@ -286,19 +286,19 @@ namespace Core.Common.Gui
 
             #region prevent nasty Windows.Forms memory leak (keeps references to databinding objects / controls
 
-            var systemAssembly = typeof(Component).Assembly;
-            var reflectTypeDescriptionProviderType =
+            Assembly systemAssembly = typeof(Component).Assembly;
+            Type reflectTypeDescriptionProviderType =
                 systemAssembly.GetType("System.ComponentModel.ReflectTypeDescriptionProvider");
-            var propertyCacheInfo = reflectTypeDescriptionProviderType.GetField("_propertyCache",
-                                                                                BindingFlags.Static |
-                                                                                BindingFlags.NonPublic);
+            FieldInfo propertyCacheInfo = reflectTypeDescriptionProviderType.GetField("_propertyCache",
+                                                                                      BindingFlags.Static |
+                                                                                      BindingFlags.NonPublic);
             var propertyCache = (Hashtable) propertyCacheInfo.GetValue(null);
             if (propertyCache != null)
             {
                 propertyCache.Clear();
             }
 
-            var extendedPropertyCacheInfo = reflectTypeDescriptionProviderType.GetField(
+            FieldInfo extendedPropertyCacheInfo = reflectTypeDescriptionProviderType.GetField(
                 "_extendedPropertyCache", BindingFlags.Static | BindingFlags.NonPublic);
             var extendedPropertyCache = extendedPropertyCacheInfo.GetValue(null) as Hashtable;
             if (extendedPropertyCache != null)
@@ -306,43 +306,43 @@ namespace Core.Common.Gui
                 extendedPropertyCache.Clear();
             }
 
-            var eventCacheInfo = reflectTypeDescriptionProviderType.GetField("_eventCache",
-                                                                             BindingFlags.Static |
-                                                                             BindingFlags.NonPublic);
+            FieldInfo eventCacheInfo = reflectTypeDescriptionProviderType.GetField("_eventCache",
+                                                                                   BindingFlags.Static |
+                                                                                   BindingFlags.NonPublic);
             var eventCache = eventCacheInfo.GetValue(null) as Hashtable;
             if (eventCache != null)
             {
                 eventCache.Clear();
             }
 
-            var attributeCacheInfo = reflectTypeDescriptionProviderType.GetField("_attributeCache",
-                                                                                 BindingFlags.Static |
-                                                                                 BindingFlags.NonPublic);
+            FieldInfo attributeCacheInfo = reflectTypeDescriptionProviderType.GetField("_attributeCache",
+                                                                                       BindingFlags.Static |
+                                                                                       BindingFlags.NonPublic);
             var attributeCache = attributeCacheInfo.GetValue(null) as Hashtable;
             if (attributeCache != null)
             {
                 attributeCache.Clear();
             }
 
-            var typeDescriptorType = systemAssembly.GetType("System.ComponentModel.TypeDescriptor");
-            var providerTableInfo = typeDescriptorType.GetField("_providerTable",
-                                                                BindingFlags.Static | BindingFlags.NonPublic);
+            Type typeDescriptorType = systemAssembly.GetType("System.ComponentModel.TypeDescriptor");
+            FieldInfo providerTableInfo = typeDescriptorType.GetField("_providerTable",
+                                                                      BindingFlags.Static | BindingFlags.NonPublic);
             var providerTable = providerTableInfo.GetValue(null) as Hashtable;
             if (providerTable != null)
             {
                 providerTable.Clear();
             }
 
-            var providerTypeTableInfo = typeDescriptorType.GetField("_providerTypeTable",
-                                                                    BindingFlags.Static | BindingFlags.NonPublic);
+            FieldInfo providerTypeTableInfo = typeDescriptorType.GetField("_providerTypeTable",
+                                                                          BindingFlags.Static | BindingFlags.NonPublic);
             var providerTypeTable = providerTypeTableInfo.GetValue(null) as Hashtable;
             if (providerTypeTable != null)
             {
                 providerTypeTable.Clear();
             }
 
-            var defaultProvidersInfo = typeDescriptorType.GetField("_defaultProviders",
-                                                                   BindingFlags.Static | BindingFlags.NonPublic);
+            FieldInfo defaultProvidersInfo = typeDescriptorType.GetField("_defaultProviders",
+                                                                         BindingFlags.Static | BindingFlags.NonPublic);
             var defaultProviders = defaultProvidersInfo.GetValue(null) as Hashtable;
             if (defaultProviders != null)
             {
@@ -359,7 +359,7 @@ namespace Core.Common.Gui
 
         private void InitializeProjectFromPath(string projectPath)
         {
-            var isPathGiven = !string.IsNullOrWhiteSpace(projectPath);
+            bool isPathGiven = !string.IsNullOrWhiteSpace(projectPath);
             if (isPathGiven)
             {
                 StorageCommands.OpenExistingProject(projectPath);
@@ -401,7 +401,7 @@ namespace Core.Common.Gui
         private static void ConfigureLogging()
         {
             // configure logging
-            var rootLogger = ((Hierarchy) LogManager.GetRepository()).Root;
+            Logger rootLogger = ((Hierarchy) LogManager.GetRepository()).Root;
 
             if (!rootLogger.Appenders.Cast<IAppender>().Any(a => a is MessageWindowLogAppender))
             {
@@ -412,8 +412,8 @@ namespace Core.Common.Gui
 
         private static void RemoveLogging()
         {
-            var rootLogger = ((Hierarchy) LogManager.GetRepository()).Root;
-            var messageWindowLogAppender = rootLogger.Appenders.Cast<IAppender>().OfType<MessageWindowLogAppender>().FirstOrDefault();
+            Logger rootLogger = ((Hierarchy) LogManager.GetRepository()).Root;
+            MessageWindowLogAppender messageWindowLogAppender = rootLogger.Appenders.Cast<IAppender>().OfType<MessageWindowLogAppender>().FirstOrDefault();
             if (messageWindowLogAppender != null)
             {
                 rootLogger.RemoveAppender(messageWindowLogAppender);
@@ -579,7 +579,7 @@ namespace Core.Common.Gui
             var problematicPlugins = new List<PluginBase>();
 
             // Try to activate all plugins
-            foreach (var plugin in Plugins)
+            foreach (PluginBase plugin in Plugins)
             {
                 try
                 {
@@ -592,7 +592,7 @@ namespace Core.Common.Gui
             }
 
             // Deactivate and remove all problematic plugins
-            foreach (var problematicPlugin in problematicPlugins)
+            foreach (PluginBase problematicPlugin in problematicPlugins)
             {
                 DeactivatePlugin(problematicPlugin);
             }
@@ -743,13 +743,13 @@ namespace Core.Common.Gui
         public IEnumerable GetAllDataWithViewDefinitionsRecursively(object rootValue)
         {
             var resultSet = new HashSet<object>();
-            foreach (var childDataInstance in Plugins.SelectMany(p => p.GetChildDataWithViewDefinitions(rootValue)).Distinct())
+            foreach (object childDataInstance in Plugins.SelectMany(p => p.GetChildDataWithViewDefinitions(rootValue)).Distinct())
             {
                 resultSet.Add(childDataInstance);
 
                 if (!ReferenceEquals(rootValue, childDataInstance))
                 {
-                    foreach (var dataWithViewDefined in GetAllDataWithViewDefinitionsRecursively(childDataInstance))
+                    foreach (object dataWithViewDefined in GetAllDataWithViewDefinitionsRecursively(childDataInstance))
                     {
                         resultSet.Add(dataWithViewDefined);
                     }

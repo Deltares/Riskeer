@@ -60,7 +60,7 @@ namespace Core.Components.Gis.Data
             }
             set
             {
-                var newValue = value.ToPrecision(transparency.NumberOfDecimalPlaces);
+                RoundedDouble newValue = value.ToPrecision(transparency.NumberOfDecimalPlaces);
                 if (!transparencyValidityRange.InRange(newValue))
                 {
                     throw new ArgumentOutOfRangeException(nameof(value),

@@ -263,7 +263,7 @@ namespace Core.Common.Gui.Test
         [TestCase(DialogResult.Yes, OptionalStepResult.PerformOptionalStep)]
         [TestCase(DialogResult.No, OptionalStepResult.SkipOptionalStep)]
         public void InquirePerformOptionalStep_VariousScenarios_ReturnExpectedValue(DialogResult clickedResult,
-            OptionalStepResult expectedResult)
+                                                                                    OptionalStepResult expectedResult)
         {
             // Setup
             dialogParent.Expect(d => d.Handle).Repeat.AtLeastOnce().Return(default(IntPtr));

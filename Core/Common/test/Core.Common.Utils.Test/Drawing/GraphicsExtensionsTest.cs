@@ -53,7 +53,7 @@ namespace Core.Common.Utils.Test.Drawing
             var rect2By2 = new RectangleF(0f, 0f, 2f, 2f);
             var imageFormat = PixelFormat.Format32bppArgb;
 
-            using (var target = Resources.Black2x2.Clone(rect2By2, imageFormat))
+            using (Bitmap target = Resources.Black2x2.Clone(rect2By2, imageFormat))
             {
                 // Call
                 TestDelegate call = () => Graphics.FromImage(target).DrawImageTransparent(null, 0, 0, 0.4f);
@@ -73,8 +73,8 @@ namespace Core.Common.Utils.Test.Drawing
             var rect2By2 = new RectangleF(0f, 0f, 2f, 2f);
             var imageFormat = PixelFormat.Format32bppArgb;
 
-            using (var image = Resources.TestImage2x2.Clone(rect2By2, imageFormat))
-            using (var target = Resources.Black2x2.Clone(rect2By2, imageFormat))
+            using (Bitmap image = Resources.TestImage2x2.Clone(rect2By2, imageFormat))
+            using (Bitmap target = Resources.Black2x2.Clone(rect2By2, imageFormat))
             {
                 // Call
                 Graphics.FromImage(target).DrawImageTransparent(image, 0, 0, opacity);
@@ -93,9 +93,9 @@ namespace Core.Common.Utils.Test.Drawing
             var rect2By2 = new RectangleF(0f, 0f, 2f, 2f);
             var imageFormat = PixelFormat.Format32bppArgb;
 
-            using (var image = Resources.TestImage2x2.Clone(rect2By2, imageFormat))
-            using (var target = Resources.Black2x2.Clone(rect2By2, imageFormat))
-            using (var expectedtarget = Resources.Black2x2.Clone(rect2By2, imageFormat))
+            using (Bitmap image = Resources.TestImage2x2.Clone(rect2By2, imageFormat))
+            using (Bitmap target = Resources.Black2x2.Clone(rect2By2, imageFormat))
+            using (Bitmap expectedtarget = Resources.Black2x2.Clone(rect2By2, imageFormat))
             {
                 // Call
                 Graphics.FromImage(target).DrawImageTransparent(image, 0, 0, opacity);
@@ -112,9 +112,9 @@ namespace Core.Common.Utils.Test.Drawing
             var rect2By2 = new RectangleF(0f, 0f, 2f, 2f);
             var imageFormat = PixelFormat.Format32bppArgb;
 
-            using (var image = Resources.TestImage2x2.Clone(rect2By2, imageFormat))
-            using (var target = Resources.Black2x2.Clone(rect2By2, imageFormat))
-            using (var expectedtarget = Resources.TestImageHalfOpacityOnBlack2x2.Clone(rect2By2, imageFormat))
+            using (Bitmap image = Resources.TestImage2x2.Clone(rect2By2, imageFormat))
+            using (Bitmap target = Resources.Black2x2.Clone(rect2By2, imageFormat))
+            using (Bitmap expectedtarget = Resources.TestImageHalfOpacityOnBlack2x2.Clone(rect2By2, imageFormat))
             {
                 // Call
                 Graphics.FromImage(target).DrawImageTransparent(image, 0, 0, 0.5f);

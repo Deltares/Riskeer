@@ -124,7 +124,7 @@ namespace Core.Components.DotSpatial.Test.Projections
             // Setup
             ProjectionInfo sourceProjection = KnownCoordinateSystems.Projected.NationalGrids.Rijksdriehoekstelsel;
             ProjectionInfo targetProjection = KnownCoordinateSystems.Projected.World.WebMercator;
-            var mapArgs = new MapArgs(new Rectangle(0,0, 10, 10), new Extent(5, 50, 10, 100));
+            var mapArgs = new MapArgs(new Rectangle(0, 0, 10, 10), new Extent(5, 50, 10, 100));
 
             var projector = new TileReprojector(mapArgs, sourceProjection, targetProjection);
 
@@ -148,11 +148,11 @@ namespace Core.Components.DotSpatial.Test.Projections
             // Setup
             var mapArgs = new MapArgs(new Rectangle(0, 0, 722, 349),
                                       new Extent(520981.864447542, 6853700.54100246, 709995.365081098, 6945065.79269375));
-            var sourceProjection = ProjectionInfo.FromEpsgCode(25831);
-            var targetProjection = KnownCoordinateSystems.Projected.World.WebMercator;
+            ProjectionInfo sourceProjection = ProjectionInfo.FromEpsgCode(25831);
+            ProjectionInfo targetProjection = KnownCoordinateSystems.Projected.World.WebMercator;
             var projector = new TileReprojector(mapArgs, sourceProjection, targetProjection);
 
-            WorldFile sourceReference = new WorldFile(140, 0.0, 0.0, -140, 641716.59261121, 5825498);
+            var sourceReference = new WorldFile(140, 0.0, 0.0, -140, 641716.59261121, 5825498);
             Bitmap sourceTile = Resources.source;
 
             WorldFile targetReference;

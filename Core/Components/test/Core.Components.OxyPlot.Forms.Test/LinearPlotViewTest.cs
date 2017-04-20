@@ -44,7 +44,7 @@ namespace Core.Components.OxyPlot.Forms.Test
             Assert.IsInstanceOf<PlotView>(view);
             Assert.AreEqual(DockStyle.Fill, view.Dock);
 
-            var axes = view.Model.Axes;
+            ElementCollection<Axis> axes = view.Model.Axes;
             Assert.AreEqual(2, axes.Count);
             CollectionAssert.AllItemsAreInstancesOfType(axes, typeof(LinearAxis));
             CollectionAssert.AreEqual(new[]
@@ -185,9 +185,9 @@ namespace Core.Components.OxyPlot.Forms.Test
         {
             // Given
             var maxY = 100;
-            var minY = -25;
+            int minY = -25;
             var maxX = 50;
-            var minX = -10;
+            int minX = -10;
             var series = new MultipleAreaSeries
             {
                 Areas =

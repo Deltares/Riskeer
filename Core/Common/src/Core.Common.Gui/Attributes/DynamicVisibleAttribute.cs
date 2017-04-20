@@ -62,7 +62,7 @@ namespace Core.Common.Gui.Attributes
                 return BrowsableAttribute.Default.Browsable;
             }
 
-            var isPropertyVisibleDelegate = DynamicVisibleValidationMethodAttribute.CreateIsVisibleMethod(value);
+            DynamicVisibleValidationMethodAttribute.IsPropertyVisible isPropertyVisibleDelegate = DynamicVisibleValidationMethodAttribute.CreateIsVisibleMethod(value);
 
             return isPropertyVisibleDelegate(propertyName);
         }

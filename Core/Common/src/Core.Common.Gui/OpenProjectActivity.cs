@@ -84,7 +84,7 @@ namespace Core.Common.Gui
         protected override void OnRun()
         {
             cancel = false;
-            int currentStepNumber = 1;
+            var currentStepNumber = 1;
             ClearOpenedProject();
 
             if (migrator != null && !MigrateProject(currentStepNumber++))

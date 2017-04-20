@@ -77,7 +77,7 @@ namespace Core.Common.Gui.Commands
 
             objectsToRemoveViewsFor.AddRange(pluginsHost.GetAllDataWithViewDefinitionsRecursively(viewData).Cast<object>());
 
-            foreach (var data in objectsToRemoveViewsFor)
+            foreach (object data in objectsToRemoveViewsFor)
             {
                 viewController.DocumentViewController.CloseAllViewsFor(data);
             }

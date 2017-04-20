@@ -37,6 +37,7 @@ using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
 using Core.Plugins.Map.Legend;
 using Core.Plugins.Map.PropertyClasses;
+using DotSpatial.Data;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -68,7 +69,7 @@ namespace Core.Plugins.Map.Test
                 TestDelegate test = () => plugin.Activate();
 
                 // Assert
-                ArgumentNullException exception = Assert.Throws<ArgumentNullException>(test);
+                var exception = Assert.Throws<ArgumentNullException>(test);
                 Assert.AreEqual("viewController", exception.ParamName);
             }
         }
@@ -215,10 +216,10 @@ namespace Core.Plugins.Map.Test
                 plugin.Gui = gui;
                 gui.Run();
 
-                DotSpatialMap map = (DotSpatialMap) ((MapControl) testMapView.Map).Controls[0];
+                var map = (DotSpatialMap) ((MapControl) testMapView.Map).Controls[0];
 
                 // Precondition
-                var initialExtents = map.ViewExtents;
+                Extent initialExtents = map.ViewExtents;
 
                 // When
                 gui.ViewHost.AddDocumentView(testMapView);

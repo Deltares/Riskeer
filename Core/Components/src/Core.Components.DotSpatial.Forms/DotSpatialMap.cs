@@ -45,8 +45,8 @@ namespace Core.Components.DotSpatial.Forms
         {
             if (ViewExtents.Width < minExt || ViewExtents.Height < minExt) // the current height or width is smaller than minExt
             {
-                var x = ViewExtents.Center.X;
-                var y = ViewExtents.Center.Y;
+                double x = ViewExtents.Center.X;
+                double y = ViewExtents.Center.Y;
                 ViewExtents.SetCenter(x, y, minExt, minExt);
                 return;
             }

@@ -56,7 +56,7 @@ namespace Core.Common.Gui.Converters
 
                 Type type = array.GetType();
                 Type elementType = type.GetElementType();
-                for (int index = 0; index < length; ++index)
+                for (var index = 0; index < length; ++index)
                 {
                     properties[index] = CreateElementPropertyDescriptor(type, elementType, index);
                 }

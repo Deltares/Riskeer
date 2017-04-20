@@ -87,7 +87,7 @@ namespace Core.Common.TestUtil.Test
             var random = new Random();
 
             // Call
-            var randomValue = random.GetFromRange(lowerLimit, upperLimit);
+            double randomValue = random.GetFromRange(lowerLimit, upperLimit);
 
             // Assert
             Assert.LessOrEqual(randomValue, upperLimit);
@@ -98,7 +98,7 @@ namespace Core.Common.TestUtil.Test
         public void NextBoolean_RandomIsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var random = (Random)null;
+            var random = (Random) null;
 
             // Call
             TestDelegate test = () => random.NextBoolean();
@@ -127,7 +127,7 @@ namespace Core.Common.TestUtil.Test
         public void NextEnumValue_RandomIsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var random = (Random)null;
+            var random = (Random) null;
 
             // Call
             TestDelegate test = () => random.NextEnumValue<TestEnum>();
@@ -159,7 +159,7 @@ namespace Core.Common.TestUtil.Test
             var random = new Random(seed);
 
             // Call
-            TestEnum result = random.NextEnumValue<TestEnum>();
+            var result = random.NextEnumValue<TestEnum>();
 
             // Assert
             Assert.AreEqual(expectedFirstCallResult, result);
@@ -169,7 +169,7 @@ namespace Core.Common.TestUtil.Test
         public void NextRoundedDouble_RandomIsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var random = (Random)null;
+            var random = (Random) null;
 
             // Call
             TestDelegate test = () => random.NextRoundedDouble();

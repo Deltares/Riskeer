@@ -74,7 +74,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
         /// <param name="uncertaintiesType">The <see cref="HydraRingUncertaintiesType"/> to use while performing Hydra-Ring calculations.</param>
         public HydraRingConfigurationService(HydraRingUncertaintiesType uncertaintiesType)
         {
-            this.UncertaintiesType = uncertaintiesType;
+            UncertaintiesType = uncertaintiesType;
         }
 
         /// <summary>
@@ -313,7 +313,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
 
                 foreach (int subMechanismId in failureMechanismDefaults.SubMechanismIds)
                 {
-                    var numericsSetting = hydraRingCalculationInput.NumericsSettings[subMechanismId];
+                    NumericsSetting numericsSetting = hydraRingCalculationInput.NumericsSettings[subMechanismId];
 
                     orderDictionaries.Add(new OrderedDictionary
                     {
@@ -394,7 +394,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
 
                 foreach (HydraRingVariable hydraRingVariable in hydraRingCalculationInput.Variables)
                 {
-                    var variableDefaults = variableDefaultsProvider.GetVariableDefaults(hydraRingCalculationInput.FailureMechanismType, hydraRingVariable.VariableId);
+                    VariableDefaults variableDefaults = variableDefaultsProvider.GetVariableDefaults(hydraRingCalculationInput.FailureMechanismType, hydraRingVariable.VariableId);
 
                     orderDictionaries.Add(new OrderedDictionary
                     {
@@ -541,7 +541,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             {
                 for (var i = 0; i < hydraRingCalculationInput.ForelandsPoints.Count(); i++)
                 {
-                    var forelandPoint = hydraRingCalculationInput.ForelandsPoints.ElementAt(i);
+                    HydraRingForelandPoint forelandPoint = hydraRingCalculationInput.ForelandsPoints.ElementAt(i);
 
                     orderDictionaries.Add(new OrderedDictionary
                     {
@@ -626,9 +626,9 @@ namespace Ringtoets.HydraRing.Calculation.Services
             {
                 FailureMechanismDefaults failureMechanismDefaults = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(hydraRingCalculationInput.FailureMechanismType);
 
-                foreach (var subMechanismId in failureMechanismDefaults.SubMechanismIds)
+                foreach (int subMechanismId in failureMechanismDefaults.SubMechanismIds)
                 {
-                    var subMechanismModelId = hydraRingCalculationInput.GetSubMechanismModelId(subMechanismId);
+                    int? subMechanismModelId = hydraRingCalculationInput.GetSubMechanismModelId(subMechanismId);
 
                     if (subMechanismModelId != null)
                     {
@@ -699,7 +699,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
         {
             var lines = new List<string>();
 
-            foreach (var tableName in configurationDictionary.Keys)
+            foreach (string tableName in configurationDictionary.Keys)
             {
                 lines.Add("DELETE FROM [" + tableName + "];");
 
@@ -710,11 +710,11 @@ namespace Ringtoets.HydraRing.Calculation.Services
                     continue;
                 }
 
-                foreach (var orderedDictionary in configurationDictionary[tableName])
+                foreach (OrderedDictionary orderedDictionary in configurationDictionary[tableName])
                 {
                     var valueStrings = new List<string>();
 
-                    foreach (var val in orderedDictionary.Values)
+                    foreach (object val in orderedDictionary.Values)
                     {
                         if (val == null)
                         {
@@ -737,7 +737,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
                         valueStrings.Add(val.ToString());
                     }
 
-                    var valuesString = string.Join(", ", valueStrings);
+                    string valuesString = string.Join(", ", valueStrings);
 
                     lines.Add("INSERT INTO [" + tableName + "] VALUES (" + valuesString + ");");
                 }

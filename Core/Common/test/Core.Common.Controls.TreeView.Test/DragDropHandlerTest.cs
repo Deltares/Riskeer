@@ -42,9 +42,9 @@ namespace Core.Common.Controls.TreeView.Test
                 treeView.Nodes.Add(treeNode);
                 treeView.SelectedNode = null;
 
-                DragDropHandler ddh = new DragDropHandler();
+                var ddh = new DragDropHandler();
 
-                ItemDragEventArgs dragEvent = new ItemDragEventArgs(MouseButtons.Left, treeNode);
+                var dragEvent = new ItemDragEventArgs(MouseButtons.Left, treeNode);
                 Func<object, TreeNodeInfo> action = o => new TreeNodeInfo();
 
                 // Call
@@ -66,10 +66,10 @@ namespace Core.Common.Controls.TreeView.Test
                 treeView.Nodes.Add(treeNode);
                 treeView.SelectedNode = treeNode;
 
-                DragDropHandler ddh = new DragDropHandler();
+                var ddh = new DragDropHandler();
 
                 var draggingNode = new TreeNode();
-                ItemDragEventArgs dragEvent = new ItemDragEventArgs(MouseButtons.Left, draggingNode);
+                var dragEvent = new ItemDragEventArgs(MouseButtons.Left, draggingNode);
                 Func<object, TreeNodeInfo> action = o => new TreeNodeInfo();
 
                 // Call
@@ -86,7 +86,7 @@ namespace Core.Common.Controls.TreeView.Test
         public void HandleDragOver_TreeNodeDraggedToDroppableNode_DragDropEffectSetForEvent(bool canDrop, DragDropEffects dropEffect)
         {
             // Setup
-            int targetHeight = 30;
+            var targetHeight = 30;
 
             var draggingNode = new TreeNode("DraggingNode");
 
@@ -108,9 +108,9 @@ namespace Core.Common.Controls.TreeView.Test
             treeView.Stub(tv => tv.CreateGraphics()).Return(graphicsMock);
             mocks.ReplayAll();
 
-            DragDropHandler ddh = new DragDropHandler();
+            var ddh = new DragDropHandler();
 
-            DragEventArgs dragEvent = new DragEventArgs(data, 0, 10, 15, DragDropEffects.All, DragDropEffects.None);
+            var dragEvent = new DragEventArgs(data, 0, 10, 15, DragDropEffects.All, DragDropEffects.None);
             Func<object, TreeNodeInfo> action = o => new TreeNodeInfo
             {
                 CanDrop = (oo, op) => canDrop
@@ -128,7 +128,7 @@ namespace Core.Common.Controls.TreeView.Test
         public void HandleDragOver_NoTreeNodeDraggedToDroppableNode_DragDropEffectNoneSetForEvent()
         {
             // Setup
-            int targetHeight = 30;
+            var targetHeight = 30;
 
             var mocks = new MockRepository();
 
@@ -149,9 +149,9 @@ namespace Core.Common.Controls.TreeView.Test
             treeView.Stub(tv => tv.CreateGraphics()).Return(graphicsMock);
             mocks.ReplayAll();
 
-            DragDropHandler ddh = new DragDropHandler();
+            var ddh = new DragDropHandler();
 
-            DragEventArgs dragEvent = new DragEventArgs(data, 0, 10, 15, DragDropEffects.All, DragDropEffects.None);
+            var dragEvent = new DragEventArgs(data, 0, 10, 15, DragDropEffects.All, DragDropEffects.None);
             Func<object, TreeNodeInfo> action = o => new TreeNodeInfo();
 
             // Call
@@ -166,7 +166,7 @@ namespace Core.Common.Controls.TreeView.Test
         public void HandleDragOver_DataDraggedThrowsInvalidCastException_DragDropEffectNoneSetForEvent()
         {
             // Setup
-            int targetHeight = 30;
+            var targetHeight = 30;
 
             var mocks = new MockRepository();
             var data = mocks.Stub<IDataObject>();
@@ -186,9 +186,9 @@ namespace Core.Common.Controls.TreeView.Test
             treeView.Stub(tv => tv.CreateGraphics()).Return(graphicsMock);
             mocks.ReplayAll();
 
-            DragDropHandler ddh = new DragDropHandler();
+            var ddh = new DragDropHandler();
 
-            DragEventArgs dragEvent = new DragEventArgs(data, 0, 10, 15, DragDropEffects.All, DragDropEffects.None);
+            var dragEvent = new DragEventArgs(data, 0, 10, 15, DragDropEffects.All, DragDropEffects.None);
             Func<object, TreeNodeInfo> action = o => new TreeNodeInfo();
 
             // Call

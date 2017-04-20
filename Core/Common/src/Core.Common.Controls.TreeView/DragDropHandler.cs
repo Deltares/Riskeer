@@ -369,7 +369,7 @@ namespace Core.Common.Controls.TreeView
             const int placeHolderHeight = 8;
 
             int xPos, yPos;
-            var bounds = node.Bounds;
+            Rectangle bounds = node.Bounds;
 
             switch (anchor)
             {

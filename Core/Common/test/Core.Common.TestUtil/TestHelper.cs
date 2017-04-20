@@ -130,7 +130,7 @@ namespace Core.Common.TestUtil
             string filePath = Path.Combine(pathToDirectory, nameof(CanWriteInDirectory));
             try
             {
-                using (File.OpenWrite(filePath)){}
+                using (File.OpenWrite(filePath)) {}
             }
             catch (SystemException)
             {
@@ -154,14 +154,14 @@ namespace Core.Common.TestUtil
         /// contains invalid characters, is null or empty or wasn't a rooted path.</exception>
         public static string ToUncPath(string rootedPath)
         {
-            var root = Path.GetPathRoot(rootedPath);
+            string root = Path.GetPathRoot(rootedPath);
             if (string.IsNullOrEmpty(root))
             {
                 throw new ArgumentException("Must be a rooted path.", nameof(rootedPath));
             }
 
-            var relativePath = rootedPath.Replace(root, "");
-            var drive = root.Remove(1);
+            string relativePath = rootedPath.Replace(root, "");
+            string drive = root.Remove(1);
 
             var uncPath = new Uri(Path.Combine(@"\\localhost", drive + "$", relativePath));
             return uncPath.LocalPath;
@@ -220,7 +220,7 @@ namespace Core.Common.TestUtil
         /// <param name="assertLogMessages">The assertion logic performed on the generated log-messages.</param>
         public static void AssertLogMessages(Action action, Action<IEnumerable<string>> assertLogMessages)
         {
-            var renderedMessages = GetAllRenderedMessages(action);
+            IEnumerable<Tuple<string, Level>> renderedMessages = GetAllRenderedMessages(action);
             assertLogMessages(renderedMessages.Select(rm => rm.Item1));
         }
 
@@ -231,7 +231,7 @@ namespace Core.Common.TestUtil
         /// <param name="count">The expected number of messages</param>
         public static void AssertLogMessagesCount(Action action, int count)
         {
-            var renderedMessages = GetAllRenderedMessages(action);
+            IEnumerable<Tuple<string, Level>> renderedMessages = GetAllRenderedMessages(action);
 
             Assert.AreEqual(count, renderedMessages.Count());
         }
@@ -307,10 +307,10 @@ namespace Core.Common.TestUtil
         public static T AssertThrowsArgumentExceptionAndTestMessage<T>(TestDelegate test, string expectedCustomMessage) where T : ArgumentException
         {
             var exception = Assert.Throws<T>(test);
-            var message = exception.Message;
+            string message = exception.Message;
             if (exception.ParamName != null)
             {
-                var customMessageParts = message.Split(new[]
+                List<string> customMessageParts = message.Split(new[]
                 {
                     Environment.NewLine
                 }, StringSplitOptions.None).ToList();
@@ -362,7 +362,7 @@ namespace Core.Common.TestUtil
         private static void AssertIsFasterThan(float maxMilliseconds, string message, Action action, bool rankHddAccess)
         {
             var stopwatch = new Stopwatch();
-            var actualMillisecond = default(double);
+            double actualMillisecond = default(double);
 
             stopwatch.Start();
             action();
@@ -374,15 +374,15 @@ namespace Core.Common.TestUtil
 
             stopwatch.Reset();
 
-            var machineHddPerformanceRank = GetMachineHddPerformanceRank();
-            var rank = machineHddPerformanceRank;
+            float machineHddPerformanceRank = GetMachineHddPerformanceRank();
+            float rank = machineHddPerformanceRank;
 
             if (rankHddAccess) // when test relies a lot on HDD - multiply rank by hdd speed factor
             {
                 rank *= machineHddPerformanceRank;
             }
 
-            var userMessage = string.IsNullOrEmpty(message) ? "" : message + ". ";
+            string userMessage = string.IsNullOrEmpty(message) ? "" : message + ". ";
             if (!rank.Equals(1.0f))
             {
                 Assert.IsTrue(rank * actualMillisecond < maxMilliseconds, userMessage + "Maximum of {0} milliseconds exceeded. Actual was {1}, machine performance weighted actual was {2}",
@@ -413,7 +413,7 @@ namespace Core.Common.TestUtil
         /// <param name="renderedMessages">The collection of messages in the log</param>
         private static void AssertExpectedMessagesInRenderedMessages(IEnumerable<Tuple<string, LogLevelConstant>> messages, Tuple<string, Level>[] renderedMessages)
         {
-            var messagesWithLog4NetLevel = messages.Select(m => Tuple.Create(m.Item1, m.Item2.ToLog4NetLevel()));
+            IEnumerable<Tuple<string, Level>> messagesWithLog4NetLevel = messages.Select(m => Tuple.Create(m.Item1, m.Item2.ToLog4NetLevel()));
             foreach (Tuple<string, Level> message in messagesWithLog4NetLevel)
             {
                 CollectionAssert.Contains(renderedMessages, message);
@@ -424,7 +424,7 @@ namespace Core.Common.TestUtil
         {
             Assert.Less(position, items.Count);
 
-            var item = items[position];
+            ToolStripItem item = items[position];
 
             Assert.AreEqual(text, item.Text);
             Assert.AreEqual(toolTip, item.ToolTipText);
@@ -447,7 +447,7 @@ namespace Core.Common.TestUtil
             if (!File.Exists(Path.Combine(curDir, solutionName)))
             {
                 throw new InvalidOperationException(string.Format("Solution file '{0}' not found in any folder of '{1}'.",
-                                                                  solutionName, 
+                                                                  solutionName,
                                                                   Directory.GetCurrentDirectory()));
             }
 
@@ -473,7 +473,7 @@ namespace Core.Common.TestUtil
 
             action();
 
-            var renderedMessages = memoryAppender.GetEvents().Select(le => Tuple.Create(le.RenderedMessage, le.Level)).ToList();
+            List<Tuple<string, Level>> renderedMessages = memoryAppender.GetEvents().Select(le => Tuple.Create(le.RenderedMessage, le.Level)).ToList();
 
             memoryAppender.Close();
             LogHelper.ResetLogging();
@@ -484,13 +484,13 @@ namespace Core.Common.TestUtil
         private static Color[] GetImageAsColorArray(Image image)
         {
             // Convert image to ARGB bitmap using 8bits/channel:
-            var bitmap = new Bitmap(image).Clone(new Rectangle(0, 0, image.Size.Width, image.Size.Height), PixelFormat.Format32bppArgb);
+            Bitmap bitmap = new Bitmap(image).Clone(new Rectangle(0, 0, image.Size.Width, image.Size.Height), PixelFormat.Format32bppArgb);
 
             var index = 0;
             var imageColors = new Color[image.Size.Width * image.Size.Height];
-            for (int i = 0; i < bitmap.Height; i++)
+            for (var i = 0; i < bitmap.Height; i++)
             {
-                for (int j = 0; j < bitmap.Width; j++)
+                for (var j = 0; j < bitmap.Width; j++)
                 {
                     imageColors[index++] = bitmap.GetPixel(j, i);
                 }

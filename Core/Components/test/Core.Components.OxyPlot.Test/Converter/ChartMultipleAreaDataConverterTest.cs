@@ -54,7 +54,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             var converter = new ChartMultipleAreaDataConverter();
             var multipleAreaSeries = new MultipleAreaSeries();
             var random = new Random(21);
-            var randomCount = random.Next(5, 10);
+            int randomCount = random.Next(5, 10);
 
             var points1 = new Collection<Point2D>();
             var points2 = new Collection<Point2D>();
@@ -94,7 +94,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             // Setup
             var converter = new ChartMultipleAreaDataConverter();
             var multipleAreaSeries = new MultipleAreaSeries();
-            var expectedColor = Color.FromKnownColor(color);
+            Color expectedColor = Color.FromKnownColor(color);
             var data = new ChartMultipleAreaData("test")
             {
                 Style = new ChartAreaStyle(expectedColor, Color.Red, 3)
@@ -116,7 +116,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             // Setup
             var converter = new ChartMultipleAreaDataConverter();
             var multipleAreaSeries = new MultipleAreaSeries();
-            var expectedColor = Color.FromKnownColor(color);
+            Color expectedColor = Color.FromKnownColor(color);
             var data = new ChartMultipleAreaData("test")
             {
                 Style = new ChartAreaStyle(Color.Red, expectedColor, 3)

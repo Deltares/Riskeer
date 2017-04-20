@@ -46,7 +46,7 @@ namespace Core.Common.Utils
             var valueString = value as string;
             if (valueString != null)
             {
-                foreach (var fieldInfo in EnumType.GetFields().Where(fieldInfo => valueString == GetDisplayName(fieldInfo, fieldInfo.Name)))
+                foreach (FieldInfo fieldInfo in EnumType.GetFields().Where(fieldInfo => valueString == GetDisplayName(fieldInfo, fieldInfo.Name)))
                 {
                     return Enum.Parse(EnumType, fieldInfo.Name);
                 }
@@ -64,8 +64,8 @@ namespace Core.Common.Utils
             {
                 return base.ConvertTo(context, culture, value, destinationType);
             }
-            var valueString = value.ToString();
-            var fieldInfo = EnumType.GetField(valueString);
+            string valueString = value.ToString();
+            FieldInfo fieldInfo = EnumType.GetField(valueString);
             return fieldInfo != null ? GetDisplayName(fieldInfo, valueString) : string.Empty;
         }
 

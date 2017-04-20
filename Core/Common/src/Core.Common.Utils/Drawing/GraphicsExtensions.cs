@@ -53,8 +53,8 @@ namespace Core.Common.Utils.Drawing
                 throw new ArgumentNullException(nameof(image));
             }
 
-            var width = image.Width;
-            var height = image.Height;
+            int width = image.Width;
+            int height = image.Height;
             g.DrawImage(image, new Rectangle(0, 0, width, height), x, y,
                         width, height, GraphicsUnit.Pixel,
                         CalculateOpacityImageAttributes(opacity));

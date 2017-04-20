@@ -59,7 +59,7 @@ namespace Core.Common.Base.Geometry
                 throw new ArgumentNullException(nameof(endWorldCoordinate));
             }
 
-            Point2D worldCoordinate2D = new Point2D(worldCoordinate.X, worldCoordinate.Y);
+            var worldCoordinate2D = new Point2D(worldCoordinate.X, worldCoordinate.Y);
             Vector<double> vectorToPoint = worldCoordinate2D - startWorldCoordinate;
 
             // Determine the 'spanning line' vector:

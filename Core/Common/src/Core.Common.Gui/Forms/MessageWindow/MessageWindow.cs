@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Data;
 using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
@@ -136,7 +137,7 @@ namespace Core.Common.Gui.Forms.MessageWindow
                 MessageData msg;
                 while (newMessages.TryDequeue(out msg))
                 {
-                    var row = Messages.NewRow();
+                    DataRow row = Messages.NewRow();
 
                     row[0] = msg.ImageName;
                     row[1] = msg.Time;
@@ -159,7 +160,7 @@ namespace Core.Common.Gui.Forms.MessageWindow
 
         private void AutoSizeRow(DataGridViewRow row)
         {
-            var prefHeight = row.GetPreferredHeight(row.Index, DataGridViewAutoSizeRowMode.AllCells, false);
+            int prefHeight = row.GetPreferredHeight(row.Index, DataGridViewAutoSizeRowMode.AllCells, false);
 
             if (prefHeight > 100)
             {
@@ -195,9 +196,9 @@ namespace Core.Common.Gui.Forms.MessageWindow
         private string CreateLoggingLevelDataGridViewFilter()
         {
             var filterlines = new List<string>();
-            var filterFormat = string.Format(CultureInfo.CurrentCulture,
-                                             "{0} = '{{0}}'",
-                                             levelColumn.ColumnName);
+            string filterFormat = string.Format(CultureInfo.CurrentCulture,
+                                                "{0} = '{{0}}'",
+                                                levelColumn.ColumnName);
             if (buttonShowInfo.Checked)
             {
                 filterlines.Add(string.Format(CultureInfo.CurrentCulture,
@@ -311,7 +312,7 @@ namespace Core.Common.Gui.Forms.MessageWindow
             {
                 return;
             }
-            var row = messagesDataGridView.Rows[e.RowIndex];
+            DataGridViewRow row = messagesDataGridView.Rows[e.RowIndex];
             AutoSizeRow(row);
         }
 

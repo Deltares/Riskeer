@@ -44,13 +44,13 @@ namespace Core.Common.Gui.Test.Converters
         public void ConvertTo_FromArrayToString_ReturnCountText()
         {
             // Setup
-            var arrayCount = new Random(21).Next(0, 10);
+            int arrayCount = new Random(21).Next(0, 10);
 
             var sourceArray = new int[arrayCount];
             var converter = new ExpandableArrayConverter();
 
             // Call
-            var text = converter.ConvertTo(sourceArray, typeof(string));
+            object text = converter.ConvertTo(sourceArray, typeof(string));
 
             // Assert
             Assert.AreEqual(string.Format("Aantal ({0})", arrayCount), text);
@@ -63,7 +63,7 @@ namespace Core.Common.Gui.Test.Converters
             var converter = new ExpandableArrayConverter();
 
             // Call
-            var text = converter.ConvertTo(null, typeof(string));
+            object text = converter.ConvertTo(null, typeof(string));
 
             // Assert
             Assert.AreEqual(string.Empty, text);
@@ -104,17 +104,17 @@ namespace Core.Common.Gui.Test.Converters
         public void GetProperties_FromArray_ReturnPropertyDescriptorsForEachElementWithNameToOneBasedIndex(int elementCount)
         {
             // Setup
-            var array = Enumerable.Range(10, elementCount).ToArray();
+            int[] array = Enumerable.Range(10, elementCount).ToArray();
 
             var converter = new ExpandableArrayConverter();
 
             // Call
-            var propertyDescriptors = converter.GetProperties(array);
+            PropertyDescriptorCollection propertyDescriptors = converter.GetProperties(array);
 
             // Assert
             Assert.IsNotNull(propertyDescriptors);
             Assert.AreEqual(elementCount, propertyDescriptors.Count);
-            for (int i = 0; i < elementCount; i++)
+            for (var i = 0; i < elementCount; i++)
             {
                 Assert.AreEqual(array.GetType(), propertyDescriptors[i].ComponentType);
                 Assert.AreEqual(string.Format("[{0}]", i + 1), propertyDescriptors[i].Name);
@@ -131,13 +131,13 @@ namespace Core.Common.Gui.Test.Converters
         {
             // Setup
             const int elementCount = 12;
-            var array = Enumerable.Repeat(10, elementCount).ToArray();
+            int[] array = Enumerable.Repeat(10, elementCount).ToArray();
 
             var converter = new ExpandableArrayConverter();
 
             // Call
-            var propertyDescriptors = converter.GetProperties(array);
-            for (int i = 0; i < elementCount; i++)
+            PropertyDescriptorCollection propertyDescriptors = converter.GetProperties(array);
+            for (var i = 0; i < elementCount; i++)
             {
                 propertyDescriptors[i].SetValue(array, i);
             }

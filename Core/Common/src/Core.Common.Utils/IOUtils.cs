@@ -78,7 +78,7 @@ namespace Core.Common.Utils
             }
             catch (ArgumentException exception)
             {
-                var message = new DirectoryWriterErrorMessageBuilder(path)
+                string message = new DirectoryWriterErrorMessageBuilder(path)
                     .Build(exception.Message);
                 throw new ArgumentException(message, exception.InnerException);
             }
@@ -101,7 +101,7 @@ namespace Core.Common.Utils
         {
             if (string.IsNullOrWhiteSpace(path))
             {
-                var message = new FileReaderErrorMessageBuilder(path).Build(Resources.Error_Path_must_be_specified);
+                string message = new FileReaderErrorMessageBuilder(path).Build(Resources.Error_Path_must_be_specified);
                 throw new ArgumentException(message);
             }
 
@@ -112,13 +112,13 @@ namespace Core.Common.Utils
             }
             catch (ArgumentException exception)
             {
-                var message = new FileReaderErrorMessageBuilder(path)
+                string message = new FileReaderErrorMessageBuilder(path)
                     .Build(Resources.Error_Path_cannot_contain_invalid_characters);
                 throw new ArgumentException(message, exception);
             }
             if (string.IsNullOrEmpty(name))
             {
-                var message = new FileReaderErrorMessageBuilder(path).Build(Resources.Error_Path_must_not_point_to_empty_file_name);
+                string message = new FileReaderErrorMessageBuilder(path).Build(Resources.Error_Path_must_not_point_to_empty_file_name);
                 throw new ArgumentException(message);
             }
         }
@@ -180,9 +180,9 @@ namespace Core.Common.Utils
             {
                 if (e is ArgumentException || e is IOException || e is NotSupportedException || e is UnauthorizedAccessException)
                 {
-                    var message = string.Format(CultureInfo.CurrentCulture,
-                                                Resources.IOUtils_DeleteOldFiles_Error_occurred_deleting_files_in_folder_0,
-                                                path);
+                    string message = string.Format(CultureInfo.CurrentCulture,
+                                                   Resources.IOUtils_DeleteOldFiles_Error_occurred_deleting_files_in_folder_0,
+                                                   path);
                     throw new IOException(message, e);
                 }
                 throw;

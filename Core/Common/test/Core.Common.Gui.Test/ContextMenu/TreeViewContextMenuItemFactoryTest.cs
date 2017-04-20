@@ -52,7 +52,7 @@ namespace Core.Common.Gui.Test.ContextMenu
                 TestDelegate test = () => new TreeViewContextMenuItemFactory(null, treeViewControl);
 
                 // Assert
-                var message = Assert.Throws<ArgumentNullException>(test).Message;
+                string message = Assert.Throws<ArgumentNullException>(test).Message;
                 StringAssert.StartsWith(Resources.ContextMenuItemFactory_Can_not_create_context_menu_items_without_data, message);
                 StringAssert.EndsWith("dataObject", message);
             }
@@ -65,7 +65,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             TestDelegate test = () => new TreeViewContextMenuItemFactory(new object(), null);
 
             // Assert
-            var message = Assert.Throws<ArgumentNullException>(test).Message;
+            string message = Assert.Throws<ArgumentNullException>(test).Message;
             StringAssert.StartsWith(Resources.ContextMenuItemFactory_Can_not_create_context_menu_items_without_tree_view_control, message);
             StringAssert.EndsWith("treeViewControl", message);
         }
@@ -106,7 +106,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             var factory = new TreeViewContextMenuItemFactory(nodeData, treeViewControlMock);
 
             // Call
-            var item = factory.CreateDeleteItem();
+            ToolStripItem item = factory.CreateDeleteItem();
             item.PerformClick();
 
             // Assert
@@ -173,7 +173,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             var factory = new TreeViewContextMenuItemFactory(dataObject, treeViewControlMock);
 
             // Call
-            var item = factory.CreateRenameItem();
+            ToolStripItem item = factory.CreateRenameItem();
             item.PerformClick();
 
             // Assert
@@ -211,7 +211,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             treeViewControl.Data = dataObject;
 
             // Call
-            var item = factory.CreateExpandAllItem();
+            ToolStripItem item = factory.CreateExpandAllItem();
             item.PerformClick();
 
             // Assert
@@ -247,7 +247,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             treeViewControl.Data = dataObject;
 
             // Call
-            var item = factory.CreateCollapseAllItem();
+            ToolStripItem item = factory.CreateCollapseAllItem();
             item.PerformClick();
 
             // Assert

@@ -45,15 +45,15 @@ namespace Core.Common.Gui.Test.Converters
         {
             // Setup
             const int elementCount = 12;
-            var array = Enumerable.Repeat(10, elementCount).ToArray();
-            ExpandableReadOnlyArrayConverter converter = new ExpandableReadOnlyArrayConverter();
+            int[] array = Enumerable.Repeat(10, elementCount).ToArray();
+            var converter = new ExpandableReadOnlyArrayConverter();
 
             // Call
             PropertyDescriptorCollection propertyDescriptors = converter.GetProperties(array);
 
             // Assert
             Assert.IsNotNull(propertyDescriptors);
-            for (int i = 0; i < elementCount; i++)
+            for (var i = 0; i < elementCount; i++)
             {
                 Assert.IsTrue(propertyDescriptors[i].IsReadOnly);
             }

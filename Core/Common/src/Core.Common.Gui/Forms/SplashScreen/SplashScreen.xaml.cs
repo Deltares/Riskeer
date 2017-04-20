@@ -114,7 +114,7 @@ namespace Core.Common.Gui.Forms.SplashScreen
 
         private void SetSupportValues()
         {
-            var supportVisibility = (string.IsNullOrWhiteSpace(SupportPhoneNumber) || string.IsNullOrWhiteSpace(SupportEmail)) ? Visibility.Collapsed : Visibility.Visible;
+            Visibility supportVisibility = (string.IsNullOrWhiteSpace(SupportPhoneNumber) || string.IsNullOrWhiteSpace(SupportEmail)) ? Visibility.Collapsed : Visibility.Visible;
 
             LabelSupportTitle.Visibility = supportVisibility;
             LabelSupportPhoneNumberTitle.Visibility = supportVisibility;

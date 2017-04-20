@@ -181,7 +181,7 @@ namespace Core.Components.DotSpatial.Projections
         public IPolygon BoundingOrdinatesToWorldCoordinates(int width, int height)
         {
             var ringCoordinates = new List<Coordinate>(5);
-            var leftTop = ToWorldCoordinates(0, 0);
+            Coordinate leftTop = ToWorldCoordinates(0, 0);
             ringCoordinates.AddRange(new[]
             {
                 leftTop,
@@ -212,9 +212,9 @@ namespace Core.Components.DotSpatial.Projections
             double px = point.X - B1;
             double py = point.Y - B2;
 
-            int x = (int) Math.Round(inverse.A11 * px + inverse.A21 * py,
+            var x = (int) Math.Round(inverse.A11 * px + inverse.A21 * py,
                                      MidpointRounding.AwayFromZero);
-            int y = (int) Math.Round(inverse.A12 * px + inverse.A22 * py,
+            var y = (int) Math.Round(inverse.A12 * px + inverse.A22 * py,
                                      MidpointRounding.AwayFromZero);
 
             return new Point(x, y);

@@ -43,7 +43,7 @@ namespace Core.Common.Base.Test.Geometry
         public void ProjectIntoLocalCoordinates_StartWorldCoordinateNull_ThrowsArgumentNullException()
         {
             // Setup
-            Point3D point = new Point3D(1.0, 2.0, 3.0);
+            var point = new Point3D(1.0, 2.0, 3.0);
 
             // Call
             TestDelegate call = () => point.ProjectIntoLocalCoordinates(null, new Point2D(3.0, 4.0));
@@ -57,7 +57,7 @@ namespace Core.Common.Base.Test.Geometry
         public void ProjectIntoLocalCoordinates_EndWorldCoordinateNull_ThrowsArgumentNullException()
         {
             // Setup
-            Point3D point = new Point3D(1.0, 2.0, 3.0);
+            var point = new Point3D(1.0, 2.0, 3.0);
 
             // Call
             TestDelegate call = () => point.ProjectIntoLocalCoordinates(new Point2D(1.0, 2.0), null);
@@ -72,9 +72,9 @@ namespace Core.Common.Base.Test.Geometry
         {
             // Setup
             const double originalZ = 3.3;
-            Point3D point = new Point3D(1.1, 2.2, originalZ);
+            var point = new Point3D(1.1, 2.2, originalZ);
 
-            Point2D startAndEndPoint = new Point2D(point.X, point.Y);
+            var startAndEndPoint = new Point2D(point.X, point.Y);
 
             // Call
             Point2D convertedPoint = point.ProjectIntoLocalCoordinates(startAndEndPoint, startAndEndPoint);
@@ -89,10 +89,10 @@ namespace Core.Common.Base.Test.Geometry
         {
             // Setup
             const double originalZ = 3.3;
-            Point3D point = new Point3D(1.1, 2.2, originalZ);
+            var point = new Point3D(1.1, 2.2, originalZ);
 
-            Point2D startPoint = new Point2D(point.X, point.Y);
-            Point2D endPoint = new Point2D(point.X, point.Y + 1e-7);
+            var startPoint = new Point2D(point.X, point.Y);
+            var endPoint = new Point2D(point.X, point.Y + 1e-7);
 
             // Call
             Point2D convertedPoint = point.ProjectIntoLocalCoordinates(startPoint, endPoint);
@@ -107,10 +107,10 @@ namespace Core.Common.Base.Test.Geometry
         {
             // Setup
             const double originalZ = 3.3;
-            Point3D point = new Point3D(1.1, 2.2, originalZ);
+            var point = new Point3D(1.1, 2.2, originalZ);
 
-            Point2D startPoint = new Point2D(point.X, point.Y);
-            Point2D endPoint = new Point2D(point.X, point.Y + 1e-6);
+            var startPoint = new Point2D(point.X, point.Y);
+            var endPoint = new Point2D(point.X, point.Y + 1e-6);
 
             // Call
             TestDelegate call = () => point.ProjectIntoLocalCoordinates(startPoint, endPoint);
@@ -123,15 +123,15 @@ namespace Core.Common.Base.Test.Geometry
         public void ProjectIntoLocalCoordinates_GeometryWithMultiplePoints_ProjectPointsOntoLzPlaneKeepingOriginalZ()
         {
             // Setup
-            Point2D startPoint = new Point2D(1.0, 1.0);
-            Point3D pointToConvert = new Point3D(2.0, 3.0, 4.4); // Outlier from line specified by extrema
-            Point2D endPoint = new Point2D(3.0, 4.0);
+            var startPoint = new Point2D(1.0, 1.0);
+            var pointToConvert = new Point3D(2.0, 3.0, 4.4); // Outlier from line specified by extrema
+            var endPoint = new Point2D(3.0, 4.0);
 
             // Call
             Point2D convertedPoint = pointToConvert.ProjectIntoLocalCoordinates(startPoint, endPoint);
 
             // Assert
-            var length = Math.Sqrt(2 * 2 + 3 * 3);
+            double length = Math.Sqrt(2 * 2 + 3 * 3);
             const double pointToConvertCoordinateFactor = (2.0 * 1.0 + 3.0 * 2.0) / (2.0 * 2.0 + 3.0 * 3.0);
             double expectedX = pointToConvertCoordinateFactor * length;
 

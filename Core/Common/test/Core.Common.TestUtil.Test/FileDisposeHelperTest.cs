@@ -105,7 +105,7 @@ namespace Core.Common.TestUtil.Test
         public void Constructor_InvalidPath_DoesNotThrowException()
         {
             // Setup
-            var filePath = string.Empty;
+            string filePath = string.Empty;
 
             // Call
             TestDelegate test = () => new FileDisposeHelper(filePath);

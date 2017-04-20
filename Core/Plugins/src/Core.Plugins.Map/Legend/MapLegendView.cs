@@ -204,8 +204,8 @@ namespace Core.Plugins.Map.Legend
 
         private StrictContextMenuItem CreateZoomToExtentsItem(FeatureBasedMapData nodeData)
         {
-            var hasFeatures = nodeData.Features.Any();
-            var enabled = nodeData.IsVisible && hasFeatures;
+            bool hasFeatures = nodeData.Features.Any();
+            bool enabled = nodeData.IsVisible && hasFeatures;
             string toolTip;
 
             if (nodeData.IsVisible)
@@ -251,7 +251,7 @@ namespace Core.Plugins.Map.Legend
             FeatureBasedMapData[] featureBasedMapDatas = nodeData.GetFeatureBasedMapDataRecursively().ToArray();
             var isVisible = false;
             var hasFeatures = false;
-            foreach (var mapData in featureBasedMapDatas)
+            foreach (FeatureBasedMapData mapData in featureBasedMapDatas)
             {
                 if (mapData.IsVisible)
                 {
@@ -265,7 +265,7 @@ namespace Core.Plugins.Map.Legend
                 }
             }
 
-            var enabled = isVisible && hasFeatures;
+            bool enabled = isVisible && hasFeatures;
 
             string toolTip;
 

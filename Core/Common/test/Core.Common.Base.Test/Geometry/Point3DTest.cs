@@ -52,7 +52,7 @@ namespace Core.Common.Base.Test.Geometry
             var point = new Point3D(0, 0, 0);
 
             // Call
-            var result = point.Equals(null);
+            bool result = point.Equals(null);
 
             // Assert
             Assert.IsFalse(result);
@@ -65,7 +65,7 @@ namespace Core.Common.Base.Test.Geometry
             var point = new Point3D(0, 0, 0);
 
             // Call
-            var result = point.Equals(new Point2D(0, 0));
+            bool result = point.Equals(new Point2D(0, 0));
 
             // Assert
             Assert.IsFalse(result);
@@ -78,7 +78,7 @@ namespace Core.Common.Base.Test.Geometry
             var point = new Point3D(0, 0, 0);
 
             // Call
-            var result = point.Equals(point);
+            bool result = point.Equals(point);
 
             // Assert
             Assert.IsTrue(result);
@@ -95,7 +95,7 @@ namespace Core.Common.Base.Test.Geometry
             var otherPoint = new Point3D(x, y, z);
 
             // Call
-            var result = point.Equals(otherPoint);
+            bool result = point.Equals(otherPoint);
 
             // Assert
             Assert.IsTrue(result);
@@ -109,9 +109,9 @@ namespace Core.Common.Base.Test.Geometry
         {
             // Setup
             var random = new Random(22);
-            var x = random.NextDouble();
-            var y = random.NextDouble();
-            var z = random.NextDouble();
+            double x = random.NextDouble();
+            double y = random.NextDouble();
+            double z = random.NextDouble();
 
             var point = new Point3D(x, y, z);
             var otherPoint = new Point3D(
@@ -121,7 +121,7 @@ namespace Core.Common.Base.Test.Geometry
             );
 
             // Call
-            var result = point.Equals(otherPoint);
+            bool result = point.Equals(otherPoint);
 
             // Assert
             Assert.IsFalse(result);
@@ -132,16 +132,16 @@ namespace Core.Common.Base.Test.Geometry
         {
             // Setup
             var random = new Random(22);
-            var x = random.NextDouble();
-            var y = random.NextDouble();
-            var z = random.NextDouble();
+            double x = random.NextDouble();
+            double y = random.NextDouble();
+            double z = random.NextDouble();
 
             var point = new Point3D(x, y, z);
             var otherPoint = new Point3D(x, y, z);
 
             // Call
-            var result = point.GetHashCode();
-            var otherResult = otherPoint.GetHashCode();
+            int result = point.GetHashCode();
+            int otherResult = otherPoint.GetHashCode();
 
             // Assert
             Assert.AreEqual(result, otherResult);
@@ -167,10 +167,10 @@ namespace Core.Common.Base.Test.Geometry
             var point = new Point3D(1.1, 2.2, 3.3);
 
             // Call
-            var stringRepresentation = point.ToString();
+            string stringRepresentation = point.ToString();
 
             // Assert
-            var expectedText = string.Format("({0}, {1}, {2})", point.X, point.Y, point.Z);
+            string expectedText = string.Format("({0}, {1}, {2})", point.X, point.Y, point.Z);
             Assert.AreEqual(expectedText, stringRepresentation);
         }
     }

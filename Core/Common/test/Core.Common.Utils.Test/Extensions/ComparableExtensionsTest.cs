@@ -39,7 +39,7 @@ namespace Core.Common.Utils.Test.Extensions
             IComparable first, IComparable second, bool expectedResult)
         {
             // Call
-            var isFirstBiggerThenSecond = first.IsBigger(second);
+            bool isFirstBiggerThenSecond = first.IsBigger(second);
 
             // Assert
             Assert.AreEqual(expectedResult, isFirstBiggerThenSecond);
@@ -49,8 +49,8 @@ namespace Core.Common.Utils.Test.Extensions
         public void IsBigger_FirstObjectNotSameTypeAsSecond_ThrowArgumentException()
         {
             // Setup
-            int first = 1;
-            string second = "one";
+            var first = 1;
+            var second = "one";
 
             // Call
             TestDelegate call = () => first.IsBigger(second);
@@ -70,7 +70,7 @@ namespace Core.Common.Utils.Test.Extensions
             IComparable first, IComparable second, bool expectedResult)
         {
             // Call
-            var isFirstBiggerThenSecond = first.IsSmaller(second);
+            bool isFirstBiggerThenSecond = first.IsSmaller(second);
 
             // Assert
             Assert.AreEqual(expectedResult, isFirstBiggerThenSecond);
@@ -80,8 +80,8 @@ namespace Core.Common.Utils.Test.Extensions
         public void IsSmaller_FirstObjectNotSameTypeAsSecond_ThrowArgumentException()
         {
             // Setup
-            int first = 1;
-            string second = "one";
+            var first = 1;
+            var second = "one";
 
             // Call
             TestDelegate call = () => first.IsSmaller(second);
@@ -109,7 +109,7 @@ namespace Core.Common.Utils.Test.Extensions
             IComparable sample, IComparable firstLimit, IComparable secondLimit, bool expectedResult)
         {
             // Call
-            var isSampleInRange = sample.IsInRange(firstLimit, secondLimit);
+            bool isSampleInRange = sample.IsInRange(firstLimit, secondLimit);
 
             // Assert
             Assert.AreEqual(expectedResult, isSampleInRange);
@@ -119,9 +119,9 @@ namespace Core.Common.Utils.Test.Extensions
         public void IsInRange_SampleObjectTypeNotSameAsFirstLimit_ThrowArgumentException()
         {
             // Setup
-            int sample = 1;
-            string firstLimit = "one";
-            int secondLimit = 2;
+            var sample = 1;
+            var firstLimit = "one";
+            var secondLimit = 2;
 
             // Call
             TestDelegate call = () => sample.IsInRange(firstLimit, secondLimit);
@@ -134,9 +134,9 @@ namespace Core.Common.Utils.Test.Extensions
         public void IsInRange_SampleObjectTypeNotSameAsSecondLimit_ThrowArgumentException()
         {
             // Setup
-            int sample = 1;
-            int firstLimit = 2;
-            string secondLimit = "one";
+            var sample = 1;
+            var firstLimit = 2;
+            var secondLimit = "one";
 
             // Call
             TestDelegate call = () => sample.IsInRange(firstLimit, secondLimit);
@@ -159,7 +159,7 @@ namespace Core.Common.Utils.Test.Extensions
         public void ClipValue_VariousTestCases_ReturnExpectedValue(double input, double limit1, double limit2, double expectedValue)
         {
             // Call
-            var result = input.ClipValue(limit1, limit2);
+            double result = input.ClipValue(limit1, limit2);
 
             // Assert
             Assert.AreEqual(expectedValue, result);

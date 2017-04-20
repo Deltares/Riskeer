@@ -92,7 +92,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Setup
             using (var layerStatus = new WmtsBackgroundLayerStatus())
             {
-                var mapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
+                WmtsMapData mapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
                 // Call
                 bool isSame = layerStatus.HasSameConfiguration(mapData);
@@ -115,8 +115,8 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 using (var layer = new BruTileLayer(configuration))
                 {
-                    var mapData1 = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
-                    var mapData2 = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
+                    WmtsMapData mapData1 = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
+                    WmtsMapData mapData2 = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
                     layerStatus.LayerInitializationSuccessful(layer, mapData1);
 
@@ -145,7 +145,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 using (var layer = new BruTileLayer(configuration))
                 {
-                    var mapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
+                    WmtsMapData mapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
                     layerStatus.LayerInitializationSuccessful(layer, mapData);
 
@@ -198,7 +198,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 // Precondition
                 Assert.IsTrue(layerStatus.PreviousBackgroundLayerCreationFailed);
 
-                var mapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
+                WmtsMapData mapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
                 // Call
                 layerStatus.LayerInitializationSuccessful(layer, mapData);
@@ -234,7 +234,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (var layer = new BruTileLayer(configuration))
             using (var layerStatus = new WmtsBackgroundLayerStatus())
             {
-                var mapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
+                WmtsMapData mapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
                 layerStatus.LayerInitializationSuccessful(layer, mapData);
 
                 // Call
@@ -258,7 +258,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (var layer = new BruTileLayer(configuration))
             using (var layerStatus = new WmtsBackgroundLayerStatus())
             {
-                var mapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
+                WmtsMapData mapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
                 layerStatus.LayerInitializationSuccessful(layer, mapData);
 
                 // Call
@@ -276,7 +276,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Setup
             using (var layerStatus = new WmtsBackgroundLayerStatus())
             {
-                var mapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
+                WmtsMapData mapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
                 layerStatus.LayerInitializationFailed();
 
                 // Call

@@ -52,17 +52,17 @@ namespace Core.Components.Gis.IO.Test.Importers
         public void Import_ShapefileDoesNotExist_CancelImportWithErrorMessage()
         {
             // Setup
-            var path = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "I_dont_exist.shp");
+            string path = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "I_dont_exist.shp");
             var mapDataCollection = new MapDataCollection("test");
             var importer = new FeatureBasedMapDataImporter(mapDataCollection, path);
 
             // Call
-            bool importSuccessful = true;
+            var importSuccessful = true;
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            var expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': het bestand of andere benodigde bestanden zijn niet gevonden.", path) + Environment.NewLine +
-                                  "Er is geen kaartlaag geïmporteerd.";
+            string expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': het bestand of andere benodigde bestanden zijn niet gevonden.", path) + Environment.NewLine +
+                                     "Er is geen kaartlaag geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
         }
@@ -71,17 +71,17 @@ namespace Core.Components.Gis.IO.Test.Importers
         public void Import_ShapeFileEmptyFile_CancelImportWithErrorMessage()
         {
             // Setup
-            var path = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "EmptyFile.shp");
+            string path = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "EmptyFile.shp");
             var mapDataCollection = new MapDataCollection("test");
             var importer = new FeatureBasedMapDataImporter(mapDataCollection, path);
 
             // Call
-            bool importSuccessful = true;
+            var importSuccessful = true;
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            var expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': kon geen geometrieën vinden in dit bestand.", path) + Environment.NewLine +
-                                  "Er is geen kaartlaag geïmporteerd.";
+            string expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': kon geen geometrieën vinden in dit bestand.", path) + Environment.NewLine +
+                                     "Er is geen kaartlaag geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
         }
@@ -90,18 +90,18 @@ namespace Core.Components.Gis.IO.Test.Importers
         public void Import_ShapeFileCorrupt_CancelImportWithErrorMessage()
         {
             // Setup
-            var path = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "CorruptFile.shp");
+            string path = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "CorruptFile.shp");
             var mapDataCollection = new MapDataCollection("test");
             var importer = new FeatureBasedMapDataImporter(mapDataCollection, path);
 
             // Call
-            bool importSuccessful = true;
+            var importSuccessful = true;
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
             const string message = @"Fout bij het lezen van bestand '{0}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.";
-            var expectedMessage = string.Format(message, path) + Environment.NewLine +
-                                  "Er is geen kaartlaag geïmporteerd.";
+            string expectedMessage = string.Format(message, path) + Environment.NewLine +
+                                     "Er is geen kaartlaag geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
         }
@@ -110,20 +110,20 @@ namespace Core.Components.Gis.IO.Test.Importers
         public void Import_ShapeFileInUse_CancelImportWithErrorMessage()
         {
             // Setup
-            var path = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "Single_Point_with_ID.shp");
+            string path = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "Single_Point_with_ID.shp");
             var mapDataCollection = new MapDataCollection("test");
             var importer = new FeatureBasedMapDataImporter(mapDataCollection, path);
 
             using (new StreamReader(new FileStream(path, FileMode.Open)))
             {
                 // Call
-                bool importSuccessful = true;
+                var importSuccessful = true;
                 Action call = () => importSuccessful = importer.Import();
 
                 // Assert
                 const string message = @"Fout bij het lezen van bestand '{0}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.";
-                var expectedMessage = string.Format(message, path) + Environment.NewLine +
-                                      "Er is geen kaartlaag geïmporteerd.";
+                string expectedMessage = string.Format(message, path) + Environment.NewLine +
+                                         "Er is geen kaartlaag geïmporteerd.";
                 TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
                 Assert.IsFalse(importSuccessful);
             }
@@ -136,7 +136,7 @@ namespace Core.Components.Gis.IO.Test.Importers
         public void Import_ValidShapeFile_ImportDataOnMapDataCollection(string fileName)
         {
             // Setup
-            var path = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, fileName);
+            string path = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, fileName);
             var mapDataCollection = new MapDataCollection("test");
             var importer = new FeatureBasedMapDataImporter(mapDataCollection, path);
 
@@ -160,11 +160,11 @@ namespace Core.Components.Gis.IO.Test.Importers
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var path = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "Single_Point_with_ID.shp");
+            string path = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "Single_Point_with_ID.shp");
             var mapDataCollection = new MapDataCollection("test");
             mapDataCollection.Attach(observer);
             var importer = new FeatureBasedMapDataImporter(mapDataCollection, path);
-            
+
             // Precondition
             Assert.IsTrue(importer.Import());
 

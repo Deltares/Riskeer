@@ -212,7 +212,7 @@ namespace Core.Common.TestUtil.Test
         public void AssertCellIsDisabled_DisabledCell_DoesNotThrowAssertionException()
         {
             // Setup
-            DataGridViewRow row = new DataGridViewRow()
+            var row = new DataGridViewRow()
             {
                 ReadOnly = true,
                 Cells =
@@ -238,7 +238,7 @@ namespace Core.Common.TestUtil.Test
         public void AssertCellIsEnabled_EnabledCell_DoesNotThrowAssertionException(bool readOnlyProperty)
         {
             // Setup
-            DataGridViewRow row = new DataGridViewRow()
+            var row = new DataGridViewRow()
             {
                 ReadOnly = readOnlyProperty,
                 Cells =

@@ -102,7 +102,7 @@ namespace Core.Plugins.Chart.Test.Legend
         public void GivenChartDataContainingCollection_WhenDragDroppingFromRootToRoot_ThenDataPositionChanged(int index)
         {
             // Given
-            var chartLineData = CreateChartLineData();
+            ChartData chartLineData = CreateChartLineData();
             var rootCollection = new ChartDataCollection("test data");
 
             rootCollection.Add(chartLineData);
@@ -116,7 +116,7 @@ namespace Core.Plugins.Chart.Test.Legend
             {
                 var treeViewControl = TypeUtils.GetField<TreeViewControl>(chartLegendView, "treeViewControl");
                 var treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");
-                var info = treeNodeInfoLookup[typeof(ChartDataCollection)];
+                TreeNodeInfo info = treeNodeInfoLookup[typeof(ChartDataCollection)];
 
                 var context = new ChartDataContext(chartLineData, rootCollection);
 

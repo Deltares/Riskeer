@@ -94,7 +94,7 @@ namespace Core.Common.Base.Test.TypeConverters
             var context = mocks.Stub<ITypeDescriptorContext>();
             mocks.ReplayAll();
 
-            string text = "I'm not a number!";
+            var text = "I'm not a number!";
 
             var converter = new RoundedDoubleConverter();
 
@@ -161,7 +161,7 @@ namespace Core.Common.Base.Test.TypeConverters
             var converter = new RoundedDoubleConverter();
 
             // Call
-            RoundedDouble conversionResult = (RoundedDouble) converter.ConvertFrom(context, CultureInfo.CurrentCulture, text);
+            var conversionResult = (RoundedDouble) converter.ConvertFrom(context, CultureInfo.CurrentCulture, text);
 
             // Assert
             Assert.AreEqual(RoundedDouble.MaximumNumberOfDecimalPlaces, conversionResult.NumberOfDecimalPlaces);

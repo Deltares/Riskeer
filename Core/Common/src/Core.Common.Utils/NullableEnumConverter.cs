@@ -50,7 +50,7 @@ namespace Core.Common.Utils
             var valueString = value as string;
             if (valueString != null)
             {
-                foreach (var fieldInfo in UnderlyingType.GetFields().Where(fieldInfo => valueString == GetDisplayName(fieldInfo)))
+                foreach (FieldInfo fieldInfo in UnderlyingType.GetFields().Where(fieldInfo => valueString == GetDisplayName(fieldInfo)))
                 {
                     return Enum.Parse(UnderlyingType, fieldInfo.Name);
                 }
@@ -65,7 +65,7 @@ namespace Core.Common.Utils
                 return base.ConvertTo(context, culture, value, destinationType);
             }
 
-            var fieldInfo = UnderlyingType.GetField(value.ToString());
+            FieldInfo fieldInfo = UnderlyingType.GetField(value.ToString());
             return GetDisplayName(fieldInfo);
         }
 

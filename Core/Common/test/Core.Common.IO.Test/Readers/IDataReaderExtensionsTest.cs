@@ -76,7 +76,7 @@ namespace Core.Common.IO.Test.Readers
             TestDelegate test = () => dataReader.Read<Int32>(columnName);
 
             // Assert
-            ArgumentException exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
                 test, "Column \'SomeColumn\' not defined for data row.");
             string paramName = exception.ParamName;
             Assert.AreEqual("columnName", paramName);
@@ -90,7 +90,7 @@ namespace Core.Common.IO.Test.Readers
             // Setup
             var mockRepository = new MockRepository();
             var dataReader = mockRepository.Stub<IDataReader>();
-            string columnName = "SomeColumn";
+            var columnName = "SomeColumn";
             dataReader.Stub(dr => dr[columnName]).Return("3..2");
             mockRepository.ReplayAll();
 
@@ -98,7 +98,7 @@ namespace Core.Common.IO.Test.Readers
             TestDelegate test = () => dataReader.Read<int>(columnName);
 
             // Assert
-            var message = Assert.Throws<ConversionException>(test).Message;
+            string message = Assert.Throws<ConversionException>(test).Message;
             Assert.AreEqual("Value read from data reader ('3..2') is an incorrect format to transform to type System.Int32.", message);
 
             mockRepository.VerifyAll();
@@ -110,7 +110,7 @@ namespace Core.Common.IO.Test.Readers
             // Setup
             var mockRepository = new MockRepository();
             var dataReader = mockRepository.Stub<IDataReader>();
-            string columnName = "SomeColumn";
+            var columnName = "SomeColumn";
             var value = 3.9;
             dataReader.Stub(dr => dr[columnName]).Return(value);
             mockRepository.ReplayAll();
@@ -119,10 +119,10 @@ namespace Core.Common.IO.Test.Readers
             TestDelegate test = () => dataReader.Read<IDataReader>(columnName);
 
             // Assert
-            var message = Assert.Throws<ConversionException>(test).Message;
-            var expectedMessage = string.Format(CultureInfo.CurrentCulture,
-                                                "Value read from data reader ('{0}') could not be cast to desired type System.Data.IDataReader.",
-                                                value);
+            string message = Assert.Throws<ConversionException>(test).Message;
+            string expectedMessage = string.Format(CultureInfo.CurrentCulture,
+                                                   "Value read from data reader ('{0}') could not be cast to desired type System.Data.IDataReader.",
+                                                   value);
             Assert.AreEqual(expectedMessage, message);
 
             mockRepository.VerifyAll();
@@ -134,7 +134,7 @@ namespace Core.Common.IO.Test.Readers
             // Setup
             var mockRepository = new MockRepository();
             var dataReader = mockRepository.Stub<IDataReader>();
-            string columnName = "SomeColumn";
+            var columnName = "SomeColumn";
             dataReader.Stub(dr => dr[columnName]).Return(3e139);
             mockRepository.ReplayAll();
 
@@ -142,7 +142,7 @@ namespace Core.Common.IO.Test.Readers
             TestDelegate test = () => dataReader.Read<int>(columnName);
 
             // Assert
-            var message = Assert.Throws<ConversionException>(test).Message;
+            string message = Assert.Throws<ConversionException>(test).Message;
             Assert.AreEqual("Value read from data reader ('3E+139') was too large to convert to type System.Int32.", message);
 
             mockRepository.VerifyAll();
@@ -152,7 +152,7 @@ namespace Core.Common.IO.Test.Readers
         public void Read_UsingSameTypeAsColumnType_ReturnsTypedValue()
         {
             // Setup
-            string columnName = "SomeColumn";
+            var columnName = "SomeColumn";
             var testValue = "testValue";
 
             var mockRepository = new MockRepository();
@@ -161,7 +161,7 @@ namespace Core.Common.IO.Test.Readers
             mockRepository.ReplayAll();
 
             // Call
-            string result = dataReader.Read<string>(columnName);
+            var result = dataReader.Read<string>(columnName);
 
             // Assert
             Assert.AreEqual(testValue, result);

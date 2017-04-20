@@ -62,8 +62,8 @@ namespace Core.Plugins.ProjectExplorer.Test
                 TestDelegate test = () => plugin.Activate();
 
                 // Assert
-                var message = Assert.Throws<PluginActivationException>(test).Message;
-                var expected = string.Format(Resources.ProjectExplorerPlugin_Activation_of_0_failed, Resources.General_ProjectExplorer);
+                string message = Assert.Throws<PluginActivationException>(test).Message;
+                string expected = string.Format(Resources.ProjectExplorerPlugin_Activation_of_0_failed, Resources.General_ProjectExplorer);
                 Assert.AreEqual(expected, message);
             }
         }
@@ -132,8 +132,8 @@ namespace Core.Plugins.ProjectExplorer.Test
                 TestDelegate test = () => plugin.Activate();
 
                 // Assert
-                var message = Assert.Throws<PluginActivationException>(test).Message;
-                var expected = string.Format(Resources.ProjectExplorerPlugin_Cannot_activate_0_twice, Resources.General_ProjectExplorer);
+                string message = Assert.Throws<PluginActivationException>(test).Message;
+                string expected = string.Format(Resources.ProjectExplorerPlugin_Cannot_activate_0_twice, Resources.General_ProjectExplorer);
                 Assert.AreEqual(expected, message);
             }
             mocks.VerifyAll();
@@ -211,7 +211,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             using (var plugin = new ProjectExplorerPlugin())
             {
                 // Call
-                var childrenWithViewDefinitions = plugin.GetChildDataWithViewDefinitions(2);
+                IEnumerable<object> childrenWithViewDefinitions = plugin.GetChildDataWithViewDefinitions(2);
 
                 // Assert
                 CollectionAssert.IsEmpty(childrenWithViewDefinitions);

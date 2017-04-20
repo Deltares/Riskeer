@@ -64,7 +64,7 @@ namespace Core.Common.Gui.Test
             commandsMock.Expect(c => c.OpenView(data));
             mocks.ReplayAll();
 
-            var originalValue = ViewPropertyEditor.ViewCommands;
+            IViewCommands originalValue = ViewPropertyEditor.ViewCommands;
             try
             {
                 ViewPropertyEditor.ViewCommands = commandsMock;

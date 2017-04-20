@@ -44,12 +44,6 @@ namespace Core.Common.Controls.DataGrid
             SubscribeEvents();
         }
 
-        protected override void OnLoad(EventArgs e)
-        {
-            dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            base.OnLoad(e);
-        }
-
         /// <summary>
         /// Returns <c>true</c> when the <see cref="DataGridView.CurrentCell"/> is in edit mode.
         /// <c>False</c> otherwise.
@@ -358,6 +352,12 @@ namespace Core.Common.Controls.DataGrid
             return dataGridView.Columns[columnIndex];
         }
 
+        protected override void OnLoad(EventArgs e)
+        {
+            dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            base.OnLoad(e);
+        }
+
         #region Styling
 
         /// <summary>
@@ -379,7 +379,7 @@ namespace Core.Common.Controls.DataGrid
         /// <param name="readOnly">Indicates whether the cell should be read-only.</param>
         public void RestoreCell(int rowIndex, int columnIndex, bool readOnly)
         {
-            var cell = GetCell(rowIndex, columnIndex);
+            DataGridViewCell cell = GetCell(rowIndex, columnIndex);
             cell.ReadOnly = readOnly;
             SetCellStyle(cell, CellStyle.Enabled);
         }
@@ -392,7 +392,7 @@ namespace Core.Common.Controls.DataGrid
         /// <param name="columnIndex">The column index of the cell.</param>
         public void DisableCell(int rowIndex, int columnIndex)
         {
-            var cell = GetCell(rowIndex, columnIndex);
+            DataGridViewCell cell = GetCell(rowIndex, columnIndex);
             cell.ReadOnly = true;
             SetCellStyle(cell, CellStyle.Disabled);
         }
@@ -480,7 +480,7 @@ namespace Core.Common.Controls.DataGrid
             }
 
             dataGridView.BeginEdit(true);
-            ComboBox combobox = dataGridView.EditingControl as ComboBox;
+            var combobox = dataGridView.EditingControl as ComboBox;
             if (combobox != null)
             {
                 combobox.DroppedDown = true;
@@ -544,7 +544,7 @@ namespace Core.Common.Controls.DataGrid
 
         private void EndCellEdit()
         {
-            var currentCell = dataGridView.CurrentCell;
+            DataGridViewCell currentCell = dataGridView.CurrentCell;
 
             // End edits of current cell:
             dataGridView.CurrentCell = null; // Setting to null has side-effect of removing selection highlight

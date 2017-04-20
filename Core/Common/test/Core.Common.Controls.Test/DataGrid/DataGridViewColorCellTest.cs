@@ -21,7 +21,6 @@
 
 using System;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
@@ -47,7 +46,7 @@ namespace Core.Common.Controls.Test.DataGrid
         public void GivenGridWithColorCell_WhenGridCellIsMadeVisibleAndUnselected_ThenOutlinedSquareOfColorDrawnAsExpected()
         {
             // Given
-            var expectedColor = Color.FromKnownColor(new Random(21).NextEnumValue<KnownColor>());
+            Color expectedColor = Color.FromKnownColor(new Random(21).NextEnumValue<KnownColor>());
             var view = new DataGridView
             {
                 DataSource = new[]
@@ -58,10 +57,10 @@ namespace Core.Common.Controls.Test.DataGrid
             using (var cell = new DataGridViewColorCell())
             {
                 view.Columns.Add(new DataGridViewColorColumn
-                                 {
-                                     CellTemplate = cell,
-                                     DataPropertyName = nameof(ColorRow.Color)
-                                 });
+                {
+                    CellTemplate = cell,
+                    DataPropertyName = nameof(ColorRow.Color)
+                });
 
                 // When
                 WindowsFormsTestHelper.ShowModal(
@@ -73,7 +72,7 @@ namespace Core.Common.Controls.Test.DataGrid
                         // Then
                         Rectangle cellDisplayRectangle = view.GetCellDisplayRectangle(0, 0, false);
 
-                        using (Bitmap viewDrawCanvas = new Bitmap(view.Width, view.Height))
+                        using (var viewDrawCanvas = new Bitmap(view.Width, view.Height))
                         using (Bitmap expectedImage = CreateExpectedImage(cellDisplayRectangle, expectedColor, view.GridColor))
                         {
                             view.DrawToBitmap(viewDrawCanvas, new Rectangle(0, 0, view.Width, view.Height));
@@ -104,7 +103,7 @@ namespace Core.Common.Controls.Test.DataGrid
         }
     }
 
-    public class ColorRow 
+    public class ColorRow
     {
         public ColorRow(Color color)
         {

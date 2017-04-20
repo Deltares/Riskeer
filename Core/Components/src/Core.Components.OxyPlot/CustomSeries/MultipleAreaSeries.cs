@@ -95,7 +95,7 @@ namespace Core.Components.OxyPlot.CustomSeries
                 throw new ArgumentNullException(nameof(renderContext));
             }
 
-            var areas = Areas;
+            List<DataPoint[]> areas = Areas;
             int numberOfAreas = areas.Count;
             if (numberOfAreas == 0)
             {
@@ -108,13 +108,13 @@ namespace Core.Components.OxyPlot.CustomSeries
 
             VerifyAxes();
 
-            var clippingRect = GetClippingRect();
+            OxyRect clippingRect = GetClippingRect();
             renderContext.SetClip(clippingRect);
 
             // Transform all points to screen coordinates
-            foreach (var area in areas)
+            foreach (DataPoint[] area in areas)
             {
-                var n0 = area.Length;
+                int n0 = area.Length;
                 IList<ScreenPoint> pts0 = new ScreenPoint[n0];
                 TransformToScreenCoordinates(n0, pts0, area);
 
@@ -127,7 +127,7 @@ namespace Core.Components.OxyPlot.CustomSeries
         protected override void UpdateMaxMin()
         {
             base.UpdateMaxMin();
-            var allPoints = Areas.SelectMany(a => a).ToArray();
+            DataPoint[] allPoints = Areas.SelectMany(a => a).ToArray();
 
             if (!allPoints.Any())
             {
@@ -149,7 +149,7 @@ namespace Core.Components.OxyPlot.CustomSeries
 
         private void TransformToScreenCoordinates(int n0, IList<ScreenPoint> pts0, DataPoint[] actualPoints)
         {
-            for (int i = 0; i < n0; i++)
+            for (var i = 0; i < n0; i++)
             {
                 pts0[i] = XAxis.Transform(actualPoints[i].X, actualPoints[i].Y, YAxis);
             }

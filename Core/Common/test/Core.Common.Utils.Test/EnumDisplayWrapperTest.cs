@@ -60,7 +60,7 @@ namespace Core.Common.Utils.Test
             var wrapper = new EnumDisplayWrapper<TestEnum>(value);
 
             // Call
-            var displayName = wrapper.DisplayName;
+            string displayName = wrapper.DisplayName;
 
             // Assert
             Assert.AreEqual(value.ToString(), displayName);
@@ -73,7 +73,7 @@ namespace Core.Common.Utils.Test
             var wrapper = new EnumDisplayWrapper<TestEnum>(TestEnum.DisplayName);
 
             // Call
-            var displayName = wrapper.DisplayName;
+            string displayName = wrapper.DisplayName;
 
             // Assert
             Assert.AreEqual(Resources.EnumDisplayWrapperTest_DisplayNameValueDisplayName, displayName);

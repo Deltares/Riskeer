@@ -63,6 +63,6 @@ namespace Core.Common.Geometry
         /// <c>null</c>.</exception>
         /// <exception cref="SerializationException">The class name is <c>null</c> or
         /// <see cref="Exception.HResult" /> is zero (0).</exception>
-        protected InvalidPolygonException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        protected InvalidPolygonException(SerializationInfo info, StreamingContext context) : base(info, context) {}
     }
 }

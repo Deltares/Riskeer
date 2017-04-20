@@ -24,7 +24,6 @@ using System.IO;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
@@ -223,7 +222,7 @@ namespace Core.Components.Gis.IO.Test.Readers
                 IEnumerable<Point2D>[] polygonPointCollections = polygonGeometries[0].PointCollections.ToArray();
                 Assert.AreEqual(1, polygonPointCollections.Length);
 
-                var firstPointCollection = polygonPointCollections[0].ToArray();
+                Point2D[] firstPointCollection = polygonPointCollections[0].ToArray();
                 Assert.AreEqual(30, firstPointCollection.Length);
                 Assert.AreEqual(-0.264, firstPointCollection[25].X, 1e-1);
                 Assert.AreEqual(0.169, firstPointCollection[25].Y, 1e-1);
@@ -254,7 +253,7 @@ namespace Core.Components.Gis.IO.Test.Readers
 
                 var pointComparer = new Point2DComparerWithTolerance(1e-6);
 
-                var outerRingPoints = polygonPointCollections[0].ToArray();
+                Point2D[] outerRingPoints = polygonPointCollections[0].ToArray();
                 var expectedOuterRingPoints = new[]
                 {
                     new Point2D(-866522.534211655, -5517886.97470326),
@@ -266,7 +265,7 @@ namespace Core.Components.Gis.IO.Test.Readers
                 CollectionAssert.AreEqual(expectedOuterRingPoints, outerRingPoints,
                                           pointComparer);
 
-                var innerRing1Points = polygonPointCollections[1].ToArray();
+                Point2D[] innerRing1Points = polygonPointCollections[1].ToArray();
                 var expectedInnerRing1Points = new[]
                 {
                     new Point2D(-829317.266114892, -5539445.16743223),
@@ -278,7 +277,7 @@ namespace Core.Components.Gis.IO.Test.Readers
                 CollectionAssert.AreEqual(expectedInnerRing1Points, innerRing1Points,
                                           pointComparer);
 
-                var innerRing2Points = polygonPointCollections[2].ToArray();
+                Point2D[] innerRing2Points = polygonPointCollections[2].ToArray();
                 var expectedInnerRing2Points = new[]
                 {
                     new Point2D(-715615.185108898, -5673314.59002339),
@@ -353,7 +352,7 @@ namespace Core.Components.Gis.IO.Test.Readers
                 IEnumerable<Point2D>[] polygon1PointCollections = polygon1Geometry[0].PointCollections.ToArray();
                 Assert.AreEqual(1, polygon1PointCollections.Length);
 
-                var polygon1PointCollection = polygon1PointCollections[0].ToArray();
+                Point2D[] polygon1PointCollection = polygon1PointCollections[0].ToArray();
                 Assert.AreEqual(6, polygon1PointCollection.Length);
                 Assert.AreEqual(-1.070, polygon1PointCollection[2].X, 1e-1);
                 Assert.AreEqual(0.066, polygon1PointCollection[2].Y, 1e-1);
@@ -410,7 +409,7 @@ namespace Core.Components.Gis.IO.Test.Readers
                 IEnumerable<Point2D>[] polygon4PointCollections = polygon4Geometry[0].PointCollections.ToArray();
                 Assert.AreEqual(1, polygon4PointCollections.Length);
 
-                var polygon4PointCollection = polygon4PointCollections[0].ToArray();
+                Point2D[] polygon4PointCollection = polygon4PointCollections[0].ToArray();
                 Assert.AreEqual(9, polygon4PointCollection.Length);
                 Assert.AreEqual(-1.917, polygon4PointCollection[8].X, 1e-1);
                 Assert.AreEqual(0.759, polygon4PointCollection[8].Y, 1e-1);
@@ -441,7 +440,7 @@ namespace Core.Components.Gis.IO.Test.Readers
                 IEnumerable<Point2D>[] polygonPointCollections = polygonGeometries[0].PointCollections.ToArray();
                 Assert.AreEqual(1, polygonPointCollections.Length);
 
-                var polygonFirstPointCollection = polygonPointCollections[0].ToArray();
+                Point2D[] polygonFirstPointCollection = polygonPointCollections[0].ToArray();
                 Assert.AreEqual(30, polygonFirstPointCollection.Length);
                 Assert.AreEqual(-0.264, polygonFirstPointCollection[25].X, 1e-1);
                 Assert.AreEqual(0.169, polygonFirstPointCollection[25].Y, 1e-1);
@@ -475,7 +474,7 @@ namespace Core.Components.Gis.IO.Test.Readers
                 IEnumerable<Point2D>[] polygonPointCollections = polygonGeometries[0].PointCollections.ToArray();
                 Assert.AreEqual(1, polygonPointCollections.Length);
 
-                var firstPointCollection = polygonPointCollections[0].ToArray();
+                Point2D[] firstPointCollection = polygonPointCollections[0].ToArray();
                 Assert.AreEqual(7, firstPointCollection.Length);
                 Assert.AreEqual(-2.257, firstPointCollection[4].X, 1e-1);
                 Assert.AreEqual(0.419, firstPointCollection[4].Y, 1e-1);

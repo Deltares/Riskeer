@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
@@ -70,7 +71,7 @@ namespace Core.Components.Gis.Test.Data
             mapDataCollection.Add(item);
 
             // Assert
-            var mapData = mapDataCollection.Collection.ToList();
+            List<MapData> mapData = mapDataCollection.Collection.ToList();
             Assert.AreEqual(1, mapData.Count);
             Assert.AreSame(item, mapData.First());
         }
@@ -158,7 +159,7 @@ namespace Core.Components.Gis.Test.Data
             // Precondition
             Assert.AreEqual(1, mapDataCollection.Collection.Count());
             Assert.IsInstanceOf<MapLineData>(mapDataCollection.Collection.First());
-            var listBeforeRemove = mapDataCollection.Collection.ToList();
+            List<MapData> listBeforeRemove = mapDataCollection.Collection.ToList();
 
             // Call
             mapDataCollection.Remove(null);
@@ -180,7 +181,7 @@ namespace Core.Components.Gis.Test.Data
             // Precondition
             Assert.AreEqual(1, mapDataCollection.Collection.Count());
             Assert.IsInstanceOf<MapLineData>(mapDataCollection.Collection.First());
-            var listBeforeRemove = mapDataCollection.Collection.ToList();
+            List<MapData> listBeforeRemove = mapDataCollection.Collection.ToList();
 
             // Call
             mapDataCollection.Remove(otherItem);

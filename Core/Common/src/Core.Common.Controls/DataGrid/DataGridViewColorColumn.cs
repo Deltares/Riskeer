@@ -33,7 +33,7 @@ namespace Core.Common.Controls.DataGrid
         /// <summary>
         /// Creates a new instance of <see cref="DataGridViewColorColumn"/>.
         /// </summary>
-        public DataGridViewColorColumn() : base(new DataGridViewColorCell()) { }
+        public DataGridViewColorColumn() : base(new DataGridViewColorCell()) {}
 
         public override DataGridViewCell CellTemplate
         {

@@ -70,7 +70,7 @@ namespace Core.Components.Gis.Forms
         /// <summary>
         /// Gets the id of the WMTS capability.
         /// </summary>
-        public string Id { get;}
+        public string Id { get; }
 
         /// <summary>
         /// Gets the image format of the WMTS capability.

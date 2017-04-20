@@ -35,11 +35,11 @@ namespace Core.Common.Base.Test.Data
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
-            int numberOfDecimals = 2;
+            var numberOfDecimals = 2;
             IEnumerable<Point2D> points = CreatePointData();
 
             // Call
-            RoundedPoint2DCollection collection = new RoundedPoint2DCollection(numberOfDecimals, points);
+            var collection = new RoundedPoint2DCollection(numberOfDecimals, points);
 
             // Assert
             Assert.IsInstanceOf<IEnumerable<Point2D>>(collection);
@@ -83,11 +83,11 @@ namespace Core.Common.Base.Test.Data
         public void GetEnumerator_Always_ReturnsRoundedPoints()
         {
             // Setup
-            int numberOfDecimals = 2;
+            var numberOfDecimals = 2;
             IEnumerable<Point2D> points = CreatePointData();
 
             // Call
-            RoundedPoint2DCollection collection = new RoundedPoint2DCollection(numberOfDecimals, points);
+            var collection = new RoundedPoint2DCollection(numberOfDecimals, points);
 
             // Assert
             Point2D[] expectedPoints =
@@ -96,7 +96,7 @@ namespace Core.Common.Base.Test.Data
                 new Point2D(4.63, 2.10),
                 new Point2D(6.74, 1.59),
             };
-            int index = 0;
+            var index = 0;
             foreach (Point2D roundedPoint in collection)
             {
                 Assert.AreEqual(expectedPoints[index], roundedPoint);

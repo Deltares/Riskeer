@@ -39,9 +39,9 @@ namespace Core.Common.Gui.Test.Attributes
             TestDelegate call = () => DynamicPropertyOrderEvaluationMethodAttribute.CreatePropertyOrderMethod(o);
 
             // Assert
-            var exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
-            var expectedMessage = string.Format("DynamicPropertyOrderEvaluationMethod niet gevonden (of geen 'public' toegankelijkheid). Klasse: {0}.",
-                                                o.GetType());
+            string exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
+            string expectedMessage = string.Format("DynamicPropertyOrderEvaluationMethod niet gevonden (of geen 'public' toegankelijkheid). Klasse: {0}.",
+                                                   o.GetType());
             Assert.AreEqual(expectedMessage, exceptionMessage);
         }
 
@@ -55,9 +55,9 @@ namespace Core.Common.Gui.Test.Attributes
             TestDelegate call = () => DynamicPropertyOrderEvaluationMethodAttribute.CreatePropertyOrderMethod(o);
 
             // Assert
-            var exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
-            var expectedMessage = string.Format("Slechts één DynamicPropertyOrderEvaluationMethod toegestaan per klasse: {0}.",
-                                                o.GetType());
+            string exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
+            string expectedMessage = string.Format("Slechts één DynamicPropertyOrderEvaluationMethod toegestaan per klasse: {0}.",
+                                                   o.GetType());
             Assert.AreEqual(expectedMessage, exceptionMessage);
         }
 
@@ -71,9 +71,9 @@ namespace Core.Common.Gui.Test.Attributes
             TestDelegate call = () => DynamicPropertyOrderEvaluationMethodAttribute.CreatePropertyOrderMethod(o);
 
             // Assert
-            var exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
-            var expectedMessage = string.Format("DynamicPropertyOrderEvaluationMethod moet 'int' als 'return type' hebben. Klasse: {0}.",
-                                                o.GetType());
+            string exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
+            string expectedMessage = string.Format("DynamicPropertyOrderEvaluationMethod moet 'int' als 'return type' hebben. Klasse: {0}.",
+                                                   o.GetType());
             Assert.AreEqual(expectedMessage, exceptionMessage);
         }
 
@@ -87,9 +87,9 @@ namespace Core.Common.Gui.Test.Attributes
             TestDelegate call = () => DynamicPropertyOrderEvaluationMethodAttribute.CreatePropertyOrderMethod(o);
 
             // Assert
-            var exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
-            var expectedMessage = string.Format("DynamicPropertyOrderEvaluationMethod heeft een incorrect aantal argumenten. Zou er één moeten zijn. Klasse: {0}.",
-                                                o.GetType());
+            string exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
+            string expectedMessage = string.Format("DynamicPropertyOrderEvaluationMethod heeft een incorrect aantal argumenten. Zou er één moeten zijn. Klasse: {0}.",
+                                                   o.GetType());
             Assert.AreEqual(expectedMessage, exceptionMessage);
         }
 
@@ -103,9 +103,9 @@ namespace Core.Common.Gui.Test.Attributes
             TestDelegate call = () => DynamicPropertyOrderEvaluationMethodAttribute.CreatePropertyOrderMethod(o);
 
             // Assert
-            var exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
-            var expectedMessage = string.Format("Argument van DynamicPropertyOrderEvaluationMethod moet van het type 'string' zijn. Klasse: {0}.",
-                                                o.GetType());
+            string exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
+            string expectedMessage = string.Format("Argument van DynamicPropertyOrderEvaluationMethod moet van het type 'string' zijn. Klasse: {0}.",
+                                                   o.GetType());
             Assert.AreEqual(expectedMessage, exceptionMessage);
         }
 
@@ -119,7 +119,7 @@ namespace Core.Common.Gui.Test.Attributes
             var o = new ClassWithDynamicPropertyOrderProperty(propertyOrder);
 
             // Call
-            var result = DynamicPropertyOrderEvaluationMethodAttribute.CreatePropertyOrderMethod(o);
+            DynamicPropertyOrderEvaluationMethodAttribute.PropertyOrder result = DynamicPropertyOrderEvaluationMethodAttribute.CreatePropertyOrderMethod(o);
 
             // Assert
             Assert.AreEqual(propertyOrder, result("Property"));

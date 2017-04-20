@@ -63,7 +63,7 @@ namespace Core.Plugins.Map.Test.UITypeEditors
             mockRepository.ReplayAll();
 
             // Call
-            var result = editor.EditValue(descriptorContextStub, serviceProviderStub, someValue);
+            object result = editor.EditValue(descriptorContextStub, serviceProviderStub, someValue);
 
             // Assert
             Assert.AreSame(someValue, result);
@@ -91,7 +91,7 @@ namespace Core.Plugins.Map.Test.UITypeEditors
             mockRepository.ReplayAll();
 
             // Call
-            var result = editor.EditValue(descriptorContextStub, serviceProviderStub, someValue);
+            object result = editor.EditValue(descriptorContextStub, serviceProviderStub, someValue);
 
             // Assert
             Assert.AreSame(selectableMetaDataAttribute, result);
@@ -105,25 +105,18 @@ namespace Core.Plugins.Map.Test.UITypeEditors
 
         private class ObjectPropertiesWithSelectableMetaDataAttribute : IHasMetaData
         {
-            private readonly SelectableMetaDataAttribute selectableMetaDataAttribute;
             private readonly IEnumerable<SelectableMetaDataAttribute> selectableMetaDataAttributes;
 
             public ObjectPropertiesWithSelectableMetaDataAttribute(SelectableMetaDataAttribute selectableMetaDataAttribute,
                                                                    IEnumerable<SelectableMetaDataAttribute> selectableMetaDataAttributes)
             {
-                this.selectableMetaDataAttribute = selectableMetaDataAttribute;
+                SelectedMetaDataAttribute = selectableMetaDataAttribute;
                 this.selectableMetaDataAttributes = selectableMetaDataAttributes;
             }
 
             public object Data { get; set; }
 
-            public SelectableMetaDataAttribute SelectedMetaDataAttribute
-            {
-                get
-                {
-                    return selectableMetaDataAttribute;
-                }
-            }
+            public SelectableMetaDataAttribute SelectedMetaDataAttribute { get; }
 
             public IEnumerable<SelectableMetaDataAttribute> GetAvailableMetaDataAttributes()
             {

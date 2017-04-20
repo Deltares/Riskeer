@@ -66,7 +66,7 @@ namespace Core.Common.Gui.Test.Commands
             var commandHandler = new ApplicationFeatureCommandHandler(propertyResolver, mainWindow);
 
             // Call
-            var result = commandHandler.CanShowPropertiesFor(target);
+            bool result = commandHandler.CanShowPropertiesFor(target);
 
             // Assert
             Assert.IsTrue(result);
@@ -89,7 +89,7 @@ namespace Core.Common.Gui.Test.Commands
             var commandHandler = new ApplicationFeatureCommandHandler(propertyResolver, mainWindow);
 
             // Call
-            var result = commandHandler.CanShowPropertiesFor(target);
+            bool result = commandHandler.CanShowPropertiesFor(target);
 
             // Assert
             Assert.IsFalse(result);

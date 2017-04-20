@@ -56,7 +56,7 @@ namespace Core.Common.IO.Readers
 
                 if (!File.Exists(databaseFilePath))
                 {
-                    var message = new FileReaderErrorMessageBuilder(databaseFilePath).Build(UtilsResources.Error_File_does_not_exist);
+                    string message = new FileReaderErrorMessageBuilder(databaseFilePath).Build(UtilsResources.Error_File_does_not_exist);
                     throw new CriticalFileReadException(message);
                 }
 
@@ -138,7 +138,7 @@ namespace Core.Common.IO.Readers
         /// <param name="databaseFile">The database file to establish a connection with.</param>
         private void OpenConnection(string databaseFile)
         {
-            var connectionStringBuilder = new SQLiteConnectionStringBuilder
+            string connectionStringBuilder = new SQLiteConnectionStringBuilder
             {
                 FailIfMissing = true,
                 DataSource = databaseFile,

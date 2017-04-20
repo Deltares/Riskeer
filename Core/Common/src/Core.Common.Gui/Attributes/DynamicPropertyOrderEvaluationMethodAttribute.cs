@@ -52,7 +52,7 @@ namespace Core.Common.Gui.Attributes
         /// that is matching the signature defined by <see cref="PropertyOrder"/>.</exception>
         public static PropertyOrder CreatePropertyOrderMethod(object target)
         {
-            var methodInfo = GetPropertyOrderMethod(target);
+            MethodInfo methodInfo = GetPropertyOrderMethod(target);
             ValidateMethodInfo(methodInfo);
             return CreatePropertyOrderDelegate(target, methodInfo);
         }
@@ -66,49 +66,49 @@ namespace Core.Common.Gui.Attributes
         {
             if (methodInfo.ReturnType != typeof(int))
             {
-                var message = string.Format(CultureInfo.CurrentCulture,
-                                            CoreCommonGuiResources.DynamicPropertyOrderEvaluationMethod_must_return_int_on_Class_0_,
-                                            methodInfo.DeclaringType);
+                string message = string.Format(CultureInfo.CurrentCulture,
+                                               CoreCommonGuiResources.DynamicPropertyOrderEvaluationMethod_must_return_int_on_Class_0_,
+                                               methodInfo.DeclaringType);
                 throw new MissingMethodException(message);
             }
 
             ParameterInfo[] parameterInfos = methodInfo.GetParameters();
             if (parameterInfos.Length != 1)
             {
-                var message = string.Format(CultureInfo.CurrentCulture,
-                                            CoreCommonGuiResources.DynamicPropertyOrderEvaluationMethod_incorrect_argument_count_must_be_one_string_argument_on_Class_0_,
-                                            methodInfo.DeclaringType);
+                string message = string.Format(CultureInfo.CurrentCulture,
+                                               CoreCommonGuiResources.DynamicPropertyOrderEvaluationMethod_incorrect_argument_count_must_be_one_string_argument_on_Class_0_,
+                                               methodInfo.DeclaringType);
                 throw new MissingMethodException(message);
             }
 
             if (parameterInfos[0].ParameterType != typeof(string))
             {
-                var message = string.Format(CultureInfo.CurrentCulture,
-                                            CoreCommonGuiResources.DynamicPropertyOrderEvaluationMethod_must_have_string_argument_on_Class_0_,
-                                            methodInfo.DeclaringType);
+                string message = string.Format(CultureInfo.CurrentCulture,
+                                               CoreCommonGuiResources.DynamicPropertyOrderEvaluationMethod_must_have_string_argument_on_Class_0_,
+                                               methodInfo.DeclaringType);
                 throw new MissingMethodException(message);
             }
         }
 
         private static MethodInfo GetPropertyOrderMethod(object obj)
         {
-            var propertyOrderMethods = obj.GetType().GetMethods()
-                                          .Where(methodInfo => IsDefined(methodInfo, typeof(DynamicPropertyOrderEvaluationMethodAttribute)))
-                                          .ToArray();
+            MethodInfo[] propertyOrderMethods = obj.GetType().GetMethods()
+                                                   .Where(methodInfo => IsDefined(methodInfo, typeof(DynamicPropertyOrderEvaluationMethodAttribute)))
+                                                   .ToArray();
 
             if (propertyOrderMethods.Length == 0)
             {
-                var message = string.Format(CultureInfo.CurrentCulture,
-                                            CoreCommonGuiResources.DynamicPropertyOrderEvaluationMethod_not_found_or_not_public_on_Class_0_,
-                                            obj.GetType());
+                string message = string.Format(CultureInfo.CurrentCulture,
+                                               CoreCommonGuiResources.DynamicPropertyOrderEvaluationMethod_not_found_or_not_public_on_Class_0_,
+                                               obj.GetType());
                 throw new MissingMethodException(message);
             }
 
             if (propertyOrderMethods.Length > 1)
             {
-                var message = string.Format(CultureInfo.CurrentCulture,
-                                            CoreCommonGuiResources.DynamicPropertyOrderEvaluationMethod_only_one_allowed_per_Class_0_,
-                                            obj.GetType());
+                string message = string.Format(CultureInfo.CurrentCulture,
+                                               CoreCommonGuiResources.DynamicPropertyOrderEvaluationMethod_only_one_allowed_per_Class_0_,
+                                               obj.GetType());
                 throw new MissingMethodException(message);
             }
 

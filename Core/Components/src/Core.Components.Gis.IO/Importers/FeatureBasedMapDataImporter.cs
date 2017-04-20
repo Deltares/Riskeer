@@ -23,7 +23,6 @@ using System;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
 using Core.Components.Gis.Data;
@@ -82,8 +81,8 @@ namespace Core.Components.Gis.IO.Importers
             try
             {
                 string shapeFileName = Path.GetFileNameWithoutExtension(FilePath);
-                var featureSet = Shapefile.OpenFile(FilePath);
-                
+                Shapefile featureSet = Shapefile.OpenFile(FilePath);
+
                 FeatureBasedMapData importedData;
 
                 switch (featureSet.FeatureType)
@@ -108,7 +107,7 @@ namespace Core.Components.Gis.IO.Importers
                         }
                         break;
                     default:
-                        throw new CriticalFileReadException(Resources.FeatureBasedMapDataImporter_Import_ShapeFile_Contains_Unsupported_Data);                        
+                        throw new CriticalFileReadException(Resources.FeatureBasedMapDataImporter_Import_ShapeFile_Contains_Unsupported_Data);
                 }
 
                 return new ReadResult<FeatureBasedMapData>(false)
@@ -145,8 +144,8 @@ namespace Core.Components.Gis.IO.Importers
 
         private ReadResult<FeatureBasedMapData> HandleCriticalFileReadError(string message)
         {
-            var errorMessage = string.Format(Resources.FeatureBasedMapDataImporter_HandleCriticalFileReadError_Error_0_no_maplayer_imported,
-                                             new FileReaderErrorMessageBuilder(FilePath).Build(message));
+            string errorMessage = string.Format(Resources.FeatureBasedMapDataImporter_HandleCriticalFileReadError_Error_0_no_maplayer_imported,
+                                                new FileReaderErrorMessageBuilder(FilePath).Build(message));
             log.Error(errorMessage);
             return new ReadResult<FeatureBasedMapData>(true);
         }

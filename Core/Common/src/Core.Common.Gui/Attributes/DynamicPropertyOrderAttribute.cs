@@ -61,7 +61,7 @@ namespace Core.Common.Gui.Attributes
                 return 0;
             }
 
-            var propertyOrder = DynamicPropertyOrderEvaluationMethodAttribute.CreatePropertyOrderMethod(obj);
+            DynamicPropertyOrderEvaluationMethodAttribute.PropertyOrder propertyOrder = DynamicPropertyOrderEvaluationMethodAttribute.CreatePropertyOrderMethod(obj);
 
             return propertyOrder(propertyName);
         }

@@ -34,14 +34,14 @@ namespace Core.Components.Gis.Exceptions
         /// <summary>
         /// Initializes a new instance of the <see cref="CannotFindTileSourceException"/> class.
         /// </summary>
-        public CannotFindTileSourceException() { }
+        public CannotFindTileSourceException() {}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CannotFindTileSourceException"/> class
         /// with a specified error message.
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
-        public CannotFindTileSourceException(string message) : base(message) { }
+        public CannotFindTileSourceException(string message) : base(message) {}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CannotFindTileSourceException"/> class
@@ -51,7 +51,7 @@ namespace Core.Components.Gis.Exceptions
         /// <param name="message">The error message that explains the reason for the exception.</param>
         /// <param name="inner">The exception that is the cause of the current exception,
         /// or <c>null</c> if no inner exception is specified.</param>
-        public CannotFindTileSourceException(string message, Exception inner) : base(message, inner) { }
+        public CannotFindTileSourceException(string message, Exception inner) : base(message, inner) {}
 
         /// <summary>
         /// Initializes a new instance of <see cref="CannotFindTileSourceException"/> with
@@ -64,6 +64,6 @@ namespace Core.Components.Gis.Exceptions
         /// <c>null</c>.</exception>
         /// <exception cref="SerializationException">The class name is <c>null</c> or
         /// <see cref="Exception.HResult" /> is zero (0).</exception>
-        protected CannotFindTileSourceException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        protected CannotFindTileSourceException(SerializationInfo info, StreamingContext context) : base(info, context) {}
     }
 }

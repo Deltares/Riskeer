@@ -138,7 +138,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.AreEqual(mapPolygonData.Features.Length, mapPolygonLayer.DataSet.Features.Count);
             Assert.IsInstanceOf<MultiPolygon>(feature.BasicGeometry);
 
-            var expectedCoordinates = mapFeature.MapGeometries.SelectMany(mg => mg.PointCollections.ElementAt(0).Select(p => new Coordinate(p.X, p.Y)));
+            IEnumerable<Coordinate> expectedCoordinates = mapFeature.MapGeometries.SelectMany(mg => mg.PointCollections.ElementAt(0).Select(p => new Coordinate(p.X, p.Y)));
             CollectionAssert.AreEqual(expectedCoordinates, feature.Coordinates);
         }
 
@@ -172,7 +172,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.AreEqual(mapPolygonData.Features.Length, mapPolygonLayer.DataSet.Features.Count);
             Assert.IsInstanceOf<Polygon>(feature.BasicGeometry);
 
-            Polygon polygonGeometry = (Polygon) mapPolygonLayer.FeatureSet.Features[0].BasicGeometry;
+            var polygonGeometry = (Polygon) mapPolygonLayer.FeatureSet.Features[0].BasicGeometry;
             Assert.AreEqual(1, polygonGeometry.NumGeometries);
             CollectionAssert.AreEqual(outerRingPoints, polygonGeometry.Shell.Coordinates.Select(c => new Point2D(c.X, c.Y)));
             CollectionAssert.IsEmpty(polygonGeometry.Holes);
@@ -212,7 +212,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.AreEqual(mapPolygonData.Features.Length, mapPolygonLayer.DataSet.Features.Count);
             Assert.IsInstanceOf<Polygon>(feature.BasicGeometry);
 
-            Polygon polygonGeometry = (Polygon) mapPolygonLayer.FeatureSet.Features[0].BasicGeometry;
+            var polygonGeometry = (Polygon) mapPolygonLayer.FeatureSet.Features[0].BasicGeometry;
             Assert.AreEqual(1, polygonGeometry.NumGeometries);
             CollectionAssert.AreEqual(outerRingPoints, polygonGeometry.Shell.Coordinates.Select(c => new Point2D(c.X, c.Y)));
             Assert.AreEqual(2, polygonGeometry.Holes.Length);
@@ -230,8 +230,8 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Setup
             var converter = new MapPolygonDataConverter();
             var mapPolygonLayer = new MapPolygonLayer();
-            var expectedFillColor = Color.FromKnownColor(fillColor);
-            var expectedOutlineFillColor = Color.FromKnownColor(outlineFillColor);
+            Color expectedFillColor = Color.FromKnownColor(fillColor);
+            Color expectedOutlineFillColor = Color.FromKnownColor(outlineFillColor);
             var mapPolygonData = new MapPolygonData("test")
             {
                 Style = new PolygonStyle(expectedFillColor, expectedOutlineFillColor, width)
@@ -263,8 +263,8 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.AreEqual(firstPatterns.Count, secondPatterns.Count, "Unequal amount of patterns defined.");
             for (var i = 0; i < firstPatterns.Count; i++)
             {
-                SimplePattern firstPattern = (SimplePattern) firstPatterns[i];
-                SimplePattern secondPattern = (SimplePattern) secondPatterns[i];
+                var firstPattern = (SimplePattern) firstPatterns[i];
+                var secondPattern = (SimplePattern) secondPatterns[i];
 
                 Assert.AreEqual(firstPattern.FillColor, secondPattern.FillColor);
                 Assert.AreEqual(firstPattern.Outline.GetFillColor(), secondPattern.Outline.GetFillColor());

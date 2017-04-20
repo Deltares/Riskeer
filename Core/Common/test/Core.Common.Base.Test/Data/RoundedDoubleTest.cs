@@ -327,7 +327,7 @@ namespace Core.Common.Base.Test.Data
         {
             // Setup
             var roundedDouble = new RoundedDouble(1);
-            object someOtherObject = new object();
+            var someOtherObject = new object();
 
             // Call
             bool isEqual1 = roundedDouble.Equals(someOtherObject);
@@ -488,7 +488,7 @@ namespace Core.Common.Base.Test.Data
         {
             // Setup
             var roundedDouble = new RoundedDouble(2, 1.23);
-            double otherValue = 4.56;
+            var otherValue = 4.56;
 
             // Call
             bool isEqual1 = roundedDouble.Equals(otherValue);
@@ -503,7 +503,7 @@ namespace Core.Common.Base.Test.Data
         public void GetHashCode_RoundedDoubleEqualToDouble_ReturnSameHashCode()
         {
             // Setup
-            double otherValue = 4.56;
+            var otherValue = 4.56;
             var roundedDouble = new RoundedDouble(2, otherValue);
 
             // Precondition:
@@ -521,7 +521,7 @@ namespace Core.Common.Base.Test.Data
         public void DoubleEqualityOperator_DoubleIsEqualToRoundedDouble_ReturnTrue()
         {
             // Setup
-            double value = 1.234;
+            var value = 1.234;
             var roundedDouble = new RoundedDouble(4, value);
 
             // Precondition
@@ -540,7 +540,7 @@ namespace Core.Common.Base.Test.Data
         public void DoubleEqualityOperator_DoubleIsNotEqualToRoundedDouble_ReturnFalse()
         {
             // Setup
-            double value = 1.234;
+            var value = 1.234;
             var roundedDouble = new RoundedDouble(4, 3.21543);
 
             // Precondition
@@ -559,7 +559,7 @@ namespace Core.Common.Base.Test.Data
         public void DoubleInequalityOperator_DoubleIsEqualToRoundedDouble_ReturnFalse()
         {
             // Setup
-            double value = 1.234;
+            var value = 1.234;
             var roundedDouble = new RoundedDouble(4, value);
 
             // Precondition
@@ -578,7 +578,7 @@ namespace Core.Common.Base.Test.Data
         public void DoubleInequalityOperator_DoubleIsNotEqualToRoundedDouble_ReturnTrue()
         {
             // Setup
-            double value = 1.234;
+            var value = 1.234;
             var roundedDouble = new RoundedDouble(4, 3.21543);
 
             // Precondition
@@ -610,10 +610,10 @@ namespace Core.Common.Base.Test.Data
         public void ExplicitConversion_FromDoubleToRoundedDouble_ConvertedValueIsEqual()
         {
             // Setup
-            double doubleValue = 1.23456789;
+            var doubleValue = 1.23456789;
 
             // Call
-            RoundedDouble roundedDoubleValue = (RoundedDouble) doubleValue;
+            var roundedDoubleValue = (RoundedDouble) doubleValue;
 
             // Assert
             Assert.AreEqual(doubleValue, roundedDoubleValue.Value);
@@ -711,7 +711,7 @@ namespace Core.Common.Base.Test.Data
         {
             // Setup
             var roundedDouble = new RoundedDouble(3, 1.234);
-            double doubleValue = 5.67891234;
+            var doubleValue = 5.67891234;
 
             // Call
             RoundedDouble result1 = roundedDouble * doubleValue;

@@ -21,6 +21,7 @@
 
 using System.Linq;
 using Core.Common.Gui.Forms;
+using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Properties;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -37,13 +38,13 @@ namespace Core.Plugins.CommonTools.Test
             using (var plugin = new CommonToolsPlugin())
             {
                 // Call
-                var viewInfos = plugin.GetViewInfos().ToArray();
+                ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
                 Assert.NotNull(viewInfos);
                 Assert.AreEqual(1, viewInfos.Length);
 
-                var richTextFileInfo = viewInfos.First(vi => vi.DataType == typeof(RichTextFile));
+                ViewInfo richTextFileInfo = viewInfos.First(vi => vi.DataType == typeof(RichTextFile));
 
                 Assert.AreEqual(richTextFileInfo.ViewType, typeof(RichTextView));
                 Assert.IsNull(richTextFileInfo.Description);
@@ -57,10 +58,10 @@ namespace Core.Plugins.CommonTools.Test
             // Setup
             using (var plugin = new CommonToolsPlugin())
             {
-                var info = plugin.GetViewInfos().First(vi => vi.DataType == typeof(RichTextFile));
+                ViewInfo info = plugin.GetViewInfos().First(vi => vi.DataType == typeof(RichTextFile));
 
                 // Call
-                var name = info.GetViewName(null, null);
+                string name = info.GetViewName(null, null);
 
                 // Assert
                 Assert.IsEmpty(name);
@@ -74,14 +75,14 @@ namespace Core.Plugins.CommonTools.Test
             var expected = "SomeName";
             using (var plugin = new CommonToolsPlugin())
             {
-                var info = plugin.GetViewInfos().First(vi => vi.DataType == typeof(RichTextFile));
+                ViewInfo info = plugin.GetViewInfos().First(vi => vi.DataType == typeof(RichTextFile));
                 var richTextFile = new RichTextFile
                 {
                     Name = expected
                 };
 
                 // Call
-                var name = info.GetViewName(null, richTextFile);
+                string name = info.GetViewName(null, richTextFile);
 
                 // Assert
                 Assert.AreEqual(expected, name);

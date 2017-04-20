@@ -36,12 +36,12 @@ namespace Core.Plugins.Chart.Test.PresentationObjects
         {
             // Setup
             ChartData data = new TestChartData();
-            ChartDataCollection collection = new ChartDataCollection("test");
+            var collection = new ChartDataCollection("test");
 
             collection.Add(data);
 
             // Call
-            ChartDataContext context = new ChartDataContext(data, collection);
+            var context = new ChartDataContext(data, collection);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ChartData>>(context);

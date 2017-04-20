@@ -87,13 +87,13 @@ namespace Core.Common.Base
         private void UpdateObservedObjects()
         {
             // Detach from the currently observed containers
-            foreach (var observedObject in observedContainers)
+            foreach (TContainer observedObject in observedContainers)
             {
                 observedObject.Detach(containerObserver);
             }
 
             // Detach from the currently observed children
-            foreach (var observedObject in observedChildren)
+            foreach (TObservable observedObject in observedChildren)
             {
                 observedObject.Detach(this);
             }
@@ -121,7 +121,7 @@ namespace Core.Common.Base
                 observedChildren.Add(observable);
             }
 
-            foreach (var child in getChildren(container))
+            foreach (object child in getChildren(container))
             {
                 var childContainer = child as TContainer;
                 if (childContainer != null)

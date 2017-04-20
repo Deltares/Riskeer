@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
@@ -61,7 +62,7 @@ namespace Core.Common.Gui.PropertyBag
             Name = propertyInfo.Name;
             TypeName = propertyInfo.PropertyType.AssemblyQualifiedName;
 
-            var attributeList = Attribute.GetCustomAttributes(propertyInfo, true).ToList();
+            List<Attribute> attributeList = Attribute.GetCustomAttributes(propertyInfo, true).ToList();
             if (propertyInfo.GetSetMethod() == null)
             {
                 attributeList.Add(new ReadOnlyAttribute(true));
@@ -108,7 +109,7 @@ namespace Core.Common.Gui.PropertyBag
         /// or the method is not defined on <paramref name="instance"/>.</exception>
         public void SetValue(object instance, object newValue)
         {
-            var setMethodInfo = propertyInfo.GetSetMethod();
+            MethodInfo setMethodInfo = propertyInfo.GetSetMethod();
             if (setMethodInfo == null)
             {
                 throw new InvalidOperationException("Property lacks public setter!");
@@ -137,7 +138,7 @@ namespace Core.Common.Gui.PropertyBag
         /// property has no getter.</exception>
         public object GetValue(object instance)
         {
-            var getMethodInfo = propertyInfo.GetGetMethod();
+            MethodInfo getMethodInfo = propertyInfo.GetGetMethod();
             if (getMethodInfo == null)
             {
                 throw new InvalidOperationException("Property lacks public getter!");
@@ -150,9 +151,9 @@ namespace Core.Common.Gui.PropertyBag
             catch (TargetException e)
             {
                 object type = instance?.GetType();
-                var message = string.Format(CultureInfo.CurrentCulture,
-                                            "Are you calling GetValue on the correct instance? Expected '{0}', but was '{1}'",
-                                            propertyInfo.DeclaringType, type);
+                string message = string.Format(CultureInfo.CurrentCulture,
+                                               "Are you calling GetValue on the correct instance? Expected '{0}', but was '{1}'",
+                                               propertyInfo.DeclaringType, type);
                 throw new ArgumentException(message, nameof(instance), e);
             }
             catch (TargetInvocationException e)
@@ -179,7 +180,7 @@ namespace Core.Common.Gui.PropertyBag
             {
                 try
                 {
-                    var type = Type.GetType(typeConverterAttribute.ConverterTypeName);
+                    Type type = Type.GetType(typeConverterAttribute.ConverterTypeName);
                     if (type != null && typeof(ExpandableObjectConverter) == type)
                     {
                         return true;

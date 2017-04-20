@@ -205,7 +205,7 @@ namespace Core.Common.Utils.Reflection
                 throw new ArgumentNullException(nameof(instance));
             }
 
-            var methodInfo = instance.GetType().GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
+            MethodInfo methodInfo = instance.GetType().GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
             if (methodInfo == null)
             {
                 throw new ArgumentOutOfRangeException(nameof(methodName));
@@ -239,7 +239,7 @@ namespace Core.Common.Utils.Reflection
                 throw new ArgumentNullException(nameof(instance));
             }
 
-            var methodInfo = instance.GetType().GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
+            MethodInfo methodInfo = instance.GetType().GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
             if (methodInfo == null)
             {
                 throw new ArgumentOutOfRangeException(nameof(methodName));
@@ -271,7 +271,7 @@ namespace Core.Common.Utils.Reflection
                 throw new ArgumentNullException(nameof(instance));
             }
 
-            var propertyInfo = instance.GetType().GetProperty(propertyName);
+            PropertyInfo propertyInfo = instance.GetType().GetProperty(propertyName);
             if (propertyInfo == null)
             {
                 throw new ArgumentOutOfRangeException(nameof(propertyName));
@@ -319,9 +319,9 @@ namespace Core.Common.Utils.Reflection
             }
             catch (ArgumentException)
             {
-                var message = string.Format(CultureInfo.CurrentCulture,
-                                            Resources.TypeUtils_GetMemberName_0_is_not_a_valid_expression_for_this_method,
-                                            originalExpression);
+                string message = string.Format(CultureInfo.CurrentCulture,
+                                               Resources.TypeUtils_GetMemberName_0_is_not_a_valid_expression_for_this_method,
+                                               originalExpression);
                 throw new ArgumentException(message);
             }
         }

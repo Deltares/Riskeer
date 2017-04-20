@@ -84,8 +84,8 @@ namespace Core.Common.Gui.Forms.ProgressDialog
         {
             base.OnShown(e);
 
-            var activityCount = activities.Count();
-            var cancellationToken = cancellationTokenSource.Token;
+            int activityCount = activities.Count();
+            CancellationToken cancellationToken = cancellationTokenSource.Token;
 
             // Run all activities as part of a task
             task = Task.Factory.StartNew(() => { RunAllActivities(activityCount, cancellationToken); }, cancellationToken);
@@ -190,7 +190,7 @@ namespace Core.Common.Gui.Forms.ProgressDialog
             }
 
             // Update the progress bar
-            int progressBarValue = (int) Math.Round(100.0 / activityCount * stepNumberForProgressNotification);
+            var progressBarValue = (int) Math.Round(100.0 / activityCount * stepNumberForProgressNotification);
             if (InvokeRequired)
             {
                 UpdateProgressBarDelegate updateDelegate = UpdateProgressBar;
@@ -282,7 +282,7 @@ namespace Core.Common.Gui.Forms.ProgressDialog
 
         private void UpdateProgressControls(Activity activity)
         {
-            var progressTextNullOrEmpty = string.IsNullOrEmpty(activity.ProgressText);
+            bool progressTextNullOrEmpty = string.IsNullOrEmpty(activity.ProgressText);
 
             // Update the visibility of the activity progress text related controls
             pictureBoxActivityProgressText.Visible = !progressTextNullOrEmpty;

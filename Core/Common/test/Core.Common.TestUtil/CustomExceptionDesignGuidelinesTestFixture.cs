@@ -90,7 +90,7 @@ namespace Core.Common.TestUtil
         protected virtual void AssertDefaultConstructedInstance(TCustomExceptionType exception)
         {
             Assert.IsInstanceOf<TBaseExceptionType>(exception);
-            var expectedMessage = $"Exception of type '{typeof(TCustomExceptionType)}' was thrown.";
+            string expectedMessage = $"Exception of type '{typeof(TCustomExceptionType)}' was thrown.";
             Assert.AreEqual(expectedMessage, exception.Message);
             CollectionAssert.IsEmpty(exception.Data);
             Assert.IsNull(exception.HelpLink);

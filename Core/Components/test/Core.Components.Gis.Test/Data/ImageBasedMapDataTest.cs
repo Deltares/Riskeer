@@ -71,10 +71,10 @@ namespace Core.Components.Gis.Test.Data
         {
             // Setup
             var mapData = new SimpleImageBasedMapData("A");
-            var originalNumberOfDecimals = mapData.Transparency.NumberOfDecimalPlaces;
+            int originalNumberOfDecimals = mapData.Transparency.NumberOfDecimalPlaces;
 
             // Call
-            mapData.Transparency = (RoundedDouble)newValue;
+            mapData.Transparency = (RoundedDouble) newValue;
 
             // Assert
             Assert.AreEqual(newValue, mapData.Transparency.Value);
@@ -94,7 +94,7 @@ namespace Core.Components.Gis.Test.Data
             var mapData = new SimpleImageBasedMapData("A");
 
             // Call
-            TestDelegate call = () => mapData.Transparency = (RoundedDouble)invalidTransparency;
+            TestDelegate call = () => mapData.Transparency = (RoundedDouble) invalidTransparency;
 
             // Assert
             var message = "De transparantie moet in het bereik [0,00, 1,00] liggen.";

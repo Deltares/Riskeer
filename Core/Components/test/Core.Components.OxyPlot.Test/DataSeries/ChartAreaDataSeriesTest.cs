@@ -94,7 +94,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries
             };
 
             var chartAreaDataSeries = new ChartAreaDataSeries(chartAreaData);
-            var drawnPoints = chartAreaDataSeries.Points.ToArray();
+            DataPoint[] drawnPoints = chartAreaDataSeries.Points.ToArray();
 
             // When
             chartAreaData.Points = new[]
@@ -120,7 +120,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries
             };
 
             var chartAreaDataSeries = new ChartAreaDataSeries(chartAreaData);
-            var drawnPoints = chartAreaDataSeries.Points.ToArray();
+            DataPoint[] drawnPoints = chartAreaDataSeries.Points.ToArray();
 
             // When
             chartAreaDataSeries.Update();

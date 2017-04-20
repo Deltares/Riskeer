@@ -45,11 +45,11 @@ namespace Core.Common.Gui.Forms
             InitializeComponent();
 
             Font lbFont = listBox.Font;
-            var g = listBox.CreateGraphics();
+            Graphics g = listBox.CreateGraphics();
 
             using (var defaultItemFont = new Font(lbFont.FontFamily, lbFont.Size, FontStyle.Bold))
             {
-                var itemSize = g.MeasureString("TEST", defaultItemFont);
+                SizeF itemSize = g.MeasureString("TEST", defaultItemFont);
                 listBox.ItemHeight = (int) itemSize.Height;
             }
         }
@@ -111,8 +111,8 @@ namespace Core.Common.Gui.Forms
                 string defaultIndicatorText = Resources.SelectViewDialog_listBox_DrawItem_Default;
                 var defaultItemFont = new Font(lbFont.FontFamily, lbFont.Size, FontStyle.Bold);
 
-                var itemSize = e.Graphics.MeasureString(itemAsString, defaultItemFont);
-                var indicatorSize = e.Graphics.MeasureString(defaultIndicatorText, defaultItemFont);
+                SizeF itemSize = e.Graphics.MeasureString(itemAsString, defaultItemFont);
+                SizeF indicatorSize = e.Graphics.MeasureString(defaultIndicatorText, defaultItemFont);
 
                 var boundsIndicator = new RectangleF(e.Bounds.Left + itemSize.Width,
                                                      e.Bounds.Top, indicatorSize.Width, e.Bounds.Height);

@@ -68,7 +68,7 @@ namespace Core.Components.DotSpatial.Converter
             {
                 IEnumerable<IFeature> features = CreateFeatures(mapFeature);
 
-                foreach (var feature in features)
+                foreach (IFeature feature in features)
                 {
                     AddFeatureToLayer(layer, feature, mapFeature, attributeMapping);
                 }
@@ -98,7 +98,7 @@ namespace Core.Components.DotSpatial.Converter
             layer.IsVisible = data.IsVisible;
             layer.Name = data.Name;
             layer.ShowLabels = data.ShowLabels;
-            layer.LabelLayer = GetLabelLayer(GetAttributeMapping(data), layer.DataSet, data.SelectedMetaDataAttribute);
+            ((IMapFeatureLayer) layer).LabelLayer = GetLabelLayer(GetAttributeMapping(data), layer.DataSet, data.SelectedMetaDataAttribute);
             layer.Symbolizer = CreateSymbolizer(data);
         }
 
@@ -151,7 +151,7 @@ namespace Core.Components.DotSpatial.Converter
 
         private static void SetDataTableColumns(IEnumerable<string> metaData, IFeatureLayer layer)
         {
-            var count = metaData.Count();
+            int count = metaData.Count();
 
             for (var i = 1; i <= count; i++)
             {
@@ -168,7 +168,7 @@ namespace Core.Components.DotSpatial.Converter
 
         private static void AddMetaDataToFeature(IFeature feature, MapFeature mapFeature, Dictionary<string, int> attributeMapping)
         {
-            foreach (var attribute in mapFeature.MetaData)
+            foreach (KeyValuePair<string, object> attribute in mapFeature.MetaData)
             {
                 feature.DataRow[attributeMapping[attribute.Key].ToString()] = attribute.Value;
             }

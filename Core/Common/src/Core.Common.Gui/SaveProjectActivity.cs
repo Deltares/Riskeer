@@ -90,7 +90,7 @@ namespace Core.Common.Gui
         {
             cancel = false;
             totalNumberOfSteps = savingExistingProject ? 1 : 2;
-            int currentStep = 1;
+            var currentStep = 1;
 
             if (!storeProject.HasStagedProject)
             {

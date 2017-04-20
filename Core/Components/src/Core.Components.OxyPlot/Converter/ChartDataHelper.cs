@@ -43,7 +43,7 @@ namespace Core.Components.OxyPlot.Converter
         /// cannot be converted.</exception>
         public static LineStyle Convert(DashStyle dashStyle)
         {
-            LineStyle lineStyle = LineStyle.Solid;
+            var lineStyle = LineStyle.Solid;
             switch (dashStyle)
             {
                 case DashStyle.Solid:

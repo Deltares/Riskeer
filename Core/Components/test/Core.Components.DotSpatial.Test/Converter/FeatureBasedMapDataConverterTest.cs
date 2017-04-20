@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
@@ -148,14 +149,14 @@ namespace Core.Components.DotSpatial.Test.Converter
             testConverter.ConvertLayerFeatures(mapData, mapLayer);
 
             // Assert
-            var dataColumnCollection = mapLayer.DataSet.DataTable.Columns;
+            DataColumnCollection dataColumnCollection = mapLayer.DataSet.DataTable.Columns;
             Assert.AreEqual(4, dataColumnCollection.Count);
             Assert.AreEqual("1", dataColumnCollection[0].ToString());
             Assert.AreEqual("2", dataColumnCollection[1].ToString());
             Assert.AreEqual("3", dataColumnCollection[2].ToString());
             Assert.AreEqual("4", dataColumnCollection[3].ToString());
 
-            var dataRowCollection = mapLayer.DataSet.DataTable.Rows;
+            DataRowCollection dataRowCollection = mapLayer.DataSet.DataTable.Rows;
             Assert.AreEqual(2, dataRowCollection.Count);
             Assert.AreEqual(1.1.ToString(CultureInfo.CurrentCulture), dataRowCollection[0][0]);
             Assert.AreEqual("Feature 1", dataRowCollection[0][1]);
@@ -226,7 +227,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         {
             // Setup
             var testConverter = new TestFeatureBasedMapDataConverter();
-            var coordinateSystem = KnownCoordinateSystems.Geographic.World.WGS1984;
+            ProjectionInfo coordinateSystem = KnownCoordinateSystems.Geographic.World.WGS1984;
             var mapLayer = new TestFeatureLayer
             {
                 Projection = coordinateSystem

@@ -156,7 +156,7 @@ namespace Core.Components.DotSpatial.Projections
             int numberOfEdges = original.Count - 1;
             var resultList = new List<Coordinate>(numberOfEdges * (numberOfAdditionalPoints + 1) + 1);
             resultList.Add(original[0]);
-            for (int i = 1; i <= numberOfEdges; i++)
+            for (var i = 1; i <= numberOfEdges; i++)
             {
                 resultList.AddRange(GetEdgePointsExcludingStart(original[i - 1], original[i], numberOfAdditionalPoints));
             }
@@ -174,7 +174,7 @@ namespace Core.Components.DotSpatial.Projections
             double dx = (end.X - start.X) / (numberOfAdditionalPoints + 1);
             double dy = (end.Y - start.Y) / (numberOfAdditionalPoints + 1);
 
-            for (int i = 1; i <= numberOfAdditionalPoints; i++)
+            for (var i = 1; i <= numberOfAdditionalPoints; i++)
             {
                 yield return new Coordinate(start.X + i * dx, start.Y + i * dy);
             }

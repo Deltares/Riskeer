@@ -62,7 +62,7 @@ namespace Core.Common.Gui.Attributes
                 return ReadOnlyAttribute.Default.IsReadOnly;
             }
 
-            var isPropertyReadOnlyDelegate = DynamicReadOnlyValidationMethodAttribute.CreateIsReadOnlyMethod(obj);
+            DynamicReadOnlyValidationMethodAttribute.IsPropertyReadOnly isPropertyReadOnlyDelegate = DynamicReadOnlyValidationMethodAttribute.CreateIsReadOnlyMethod(obj);
             return isPropertyReadOnlyDelegate(propertyName);
         }
 

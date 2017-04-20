@@ -62,7 +62,7 @@ namespace Core.Common.Controls.TreeView.Test
         {
             // Setup
             var treeNodeInfo = new TreeNodeInfo();
-            var tagType = typeof(int);
+            Type tagType = typeof(int);
             Func<object, string> text = o => "";
             Func<object, Color> foreColor = o => Color.Azure;
             Func<object, Image> image = o => new Bitmap(16, 16);
@@ -300,7 +300,7 @@ namespace Core.Common.Controls.TreeView.Test
 
             // Assert
             using (var treeViewControl = new TreeViewControl())
-            using (var contextMenuStrip = treeNodeInfo.ContextMenuStrip(0, 1, treeViewControl))
+            using (ContextMenuStrip contextMenuStrip = treeNodeInfo.ContextMenuStrip(0, 1, treeViewControl))
             {
                 Assert.AreEqual(1, contextMenuStrip.Items.Count);
                 treeNodeInfo.OnDrop(0, 1, 2, 3, treeViewControl);

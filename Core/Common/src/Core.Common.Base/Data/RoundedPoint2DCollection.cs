@@ -33,7 +33,6 @@ namespace Core.Common.Base.Data
     public class RoundedPoint2DCollection : IEnumerable<Point2D>
     {
         private readonly IEnumerable<Point2D> points;
-        private readonly int numberOfDecimalPlaces;
 
         /// <summary>
         /// Creates a new instance of <see cref="RoundedPoint2DCollection"/>.
@@ -61,19 +60,13 @@ namespace Core.Common.Base.Data
                                                    new RoundedDouble(numberOfDecimalPlaces, p.X),
                                                    new RoundedDouble(numberOfDecimalPlaces, p.Y)));
 
-            this.numberOfDecimalPlaces = numberOfDecimalPlaces;
+            NumberOfDecimalPlaces = numberOfDecimalPlaces;
         }
 
         /// <summary>
         /// Gets the number of decimal places of the <see cref="Point2D"/> coordinates.
         /// </summary>
-        public int NumberOfDecimalPlaces
-        {
-            get
-            {
-                return numberOfDecimalPlaces;
-            }
-        }
+        public int NumberOfDecimalPlaces { get; }
 
         public IEnumerator<Point2D> GetEnumerator()
         {

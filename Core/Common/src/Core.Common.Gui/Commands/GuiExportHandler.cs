@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -76,7 +77,7 @@ namespace Core.Common.Gui.Commands
                 return Enumerable.Empty<ExportInfo>();
             }
 
-            var sourceType = source.GetType();
+            Type sourceType = source.GetType();
 
             return exportInfos.Where(info => (info.DataType == sourceType || sourceType.Implements(info.DataType)) && info.IsEnabled(source));
         }
@@ -132,13 +133,13 @@ namespace Core.Common.Gui.Commands
                 {
                     log.Info(Resources.GuiExportHandler_ExportItemUsingDialog_Start_exporting);
 
-                    var exportFilePath = saveFileDialog.FileName;
+                    string exportFilePath = saveFileDialog.FileName;
                     IFileExporter exporter = exportInfo.CreateFileExporter(source, exportFilePath);
 
                     if (exporter.Export())
                     {
-                        var message = string.Format(Resources.GuiExportHandler_ExportItemUsingDialog_Finished_exporting_to_filepath_0_,
-                                                    exportFilePath);
+                        string message = string.Format(Resources.GuiExportHandler_ExportItemUsingDialog_Finished_exporting_to_filepath_0_,
+                                                       exportFilePath);
                         log.Info(message);
                     }
                     else

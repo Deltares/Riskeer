@@ -152,8 +152,8 @@ namespace Core.Plugins.Chart.Legend
             var chartContext = (ChartDataContext) droppedData;
             var sourceContext = oldParentData as ChartDataContext;
 
-            var chartData = chartContext.WrappedData;
-            ChartDataCollection parent = (ChartDataCollection) (sourceContext != null ? sourceContext.WrappedData : oldParentData);
+            ChartData chartData = chartContext.WrappedData;
+            var parent = (ChartDataCollection) (sourceContext != null ? sourceContext.WrappedData : oldParentData);
 
             parent.Remove(chartData);
             parent.Insert(parent.Collection.Count() - position, chartData);
@@ -173,7 +173,7 @@ namespace Core.Plugins.Chart.Legend
         {
             var draggedDataContext = (ChartDataContext) draggedData;
             var targetDataContext = targetData as ChartDataContext;
-            var targetDataObject = targetDataContext != null ? targetDataContext.ParentChartData : targetData;
+            object targetDataObject = targetDataContext != null ? targetDataContext.ParentChartData : targetData;
 
             return draggedDataContext.ParentChartData.Equals(targetDataObject);
         }
@@ -182,8 +182,8 @@ namespace Core.Plugins.Chart.Legend
         {
             var chartContext = (ChartDataContext) droppedData;
 
-            var chartData = chartContext.WrappedData;
-            ChartDataCollection parent = (ChartDataCollection) oldParentData;
+            ChartData chartData = chartContext.WrappedData;
+            var parent = (ChartDataCollection) oldParentData;
 
             parent.Remove(chartData);
             parent.Insert(parent.Collection.Count() - position, chartData);

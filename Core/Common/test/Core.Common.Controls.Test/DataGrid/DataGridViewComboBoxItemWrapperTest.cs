@@ -89,7 +89,7 @@ namespace Core.Common.Controls.Test.DataGrid
             var dataGridViewComboBoxItemWrapper = new DataGridViewComboBoxItemWrapper<TestClass>(new TestClass());
 
             // Call
-            var isEqual = dataGridViewComboBoxItemWrapper.Equals(dataGridViewComboBoxItemWrapper);
+            bool isEqual = dataGridViewComboBoxItemWrapper.Equals(dataGridViewComboBoxItemWrapper);
 
             // Assert
             Assert.IsTrue(isEqual);
@@ -102,7 +102,7 @@ namespace Core.Common.Controls.Test.DataGrid
             var dataGridViewComboBoxItemWrapper = new DataGridViewComboBoxItemWrapper<TestClass>(new TestClass());
 
             // Call
-            var isEqual = dataGridViewComboBoxItemWrapper.Equals(null);
+            bool isEqual = dataGridViewComboBoxItemWrapper.Equals(null);
 
             // Assert
             Assert.IsFalse(isEqual);
@@ -116,7 +116,7 @@ namespace Core.Common.Controls.Test.DataGrid
             var dataGridViewComboBoxItemWrapper = new DataGridViewComboBoxItemWrapper<TestClass>(new TestClass());
 
             // Call
-            var isEqual = dataGridViewComboBoxItemWrapper.Equals(objectOfDifferentType);
+            bool isEqual = dataGridViewComboBoxItemWrapper.Equals(objectOfDifferentType);
 
             // Assert
             Assert.IsFalse(isEqual);
@@ -131,8 +131,8 @@ namespace Core.Common.Controls.Test.DataGrid
             var dataGridViewComboBoxItemWrapper2 = new DataGridViewComboBoxItemWrapper<TestClass>(testClass);
 
             // Call
-            var isEqual1 = dataGridViewComboBoxItemWrapper1.Equals(dataGridViewComboBoxItemWrapper2);
-            var isEqual2 = dataGridViewComboBoxItemWrapper2.Equals(dataGridViewComboBoxItemWrapper1);
+            bool isEqual1 = dataGridViewComboBoxItemWrapper1.Equals(dataGridViewComboBoxItemWrapper2);
+            bool isEqual2 = dataGridViewComboBoxItemWrapper2.Equals(dataGridViewComboBoxItemWrapper1);
 
             // Assert
             Assert.IsTrue(isEqual1);
@@ -147,8 +147,8 @@ namespace Core.Common.Controls.Test.DataGrid
             var dataGridViewComboBoxItemWrapper2 = new DataGridViewComboBoxItemWrapper<TestClass>(new TestClass());
 
             // Call
-            var isEqual1 = dataGridViewComboBoxItemWrapper1.Equals(dataGridViewComboBoxItemWrapper2);
-            var isEqual2 = dataGridViewComboBoxItemWrapper2.Equals(dataGridViewComboBoxItemWrapper1);
+            bool isEqual1 = dataGridViewComboBoxItemWrapper1.Equals(dataGridViewComboBoxItemWrapper2);
+            bool isEqual2 = dataGridViewComboBoxItemWrapper2.Equals(dataGridViewComboBoxItemWrapper1);
 
             // Assert
             Assert.IsFalse(isEqual1);

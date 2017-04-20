@@ -123,7 +123,7 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
 
             public ObjectPropertiesWithStructure(SimpleStructure structure, IEnumerable<SimpleStructure> availableStructures)
             {
-                this.Structure = structure;
+                Structure = structure;
                 this.availableStructures = availableStructures;
             }
 

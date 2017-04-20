@@ -33,7 +33,7 @@ namespace Core.Components.Charting.Test.Styles
         public void Constructor_WithAllParameters_SetsProperties()
         {
             // Setup
-            var color = Color.AliceBlue;
+            Color color = Color.AliceBlue;
             var width = 3;
             var style = DashStyle.Solid;
 

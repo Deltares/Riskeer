@@ -45,7 +45,7 @@ namespace Core.Components.BruTile.Forms
         {
             IEnumerable<ITileSource> tileSources = TileSourceFactory.Instance.GetWmtsTileSources(capabilitiesUrl);
 
-            foreach (var tileSource in tileSources)
+            foreach (ITileSource tileSource in tileSources)
             {
                 var wmtsTileSchema = (WmtsTileSchema) tileSource.Schema;
                 yield return new WmtsCapability(wmtsTileSchema.Identifier, wmtsTileSchema.Format,

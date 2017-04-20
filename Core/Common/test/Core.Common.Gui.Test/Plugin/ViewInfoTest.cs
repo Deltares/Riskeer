@@ -62,9 +62,9 @@ namespace Core.Common.Gui.Test.Plugin
 
             var viewInfo = new ViewInfo();
 
-            var newDataType = typeof(int);
-            var newViewDataType = typeof(string);
-            var viewType = typeof(StringView);
+            Type newDataType = typeof(int);
+            Type newViewDataType = typeof(string);
+            Type viewType = typeof(StringView);
             var newDescription = "<text>";
             Func<IView, object, string> getViewNameDelegate = (view, o) => "";
             Image icon = Resources.abacus;
@@ -134,11 +134,11 @@ namespace Core.Common.Gui.Test.Plugin
             };
 
             // Call
-            var text = viewInfo.ToString();
+            string text = viewInfo.ToString();
 
             // Assert
-            var expectedText = string.Format("{0} : {1} : {2}",
-                                             viewInfo.DataType, viewInfo.ViewDataType, viewInfo.ViewType);
+            string expectedText = string.Format("{0} : {1} : {2}",
+                                                viewInfo.DataType, viewInfo.ViewDataType, viewInfo.ViewType);
             Assert.AreEqual(expectedText, text);
         }
 
@@ -207,11 +207,11 @@ namespace Core.Common.Gui.Test.Plugin
             var viewInfo = new ViewInfo<int, string, StringView>();
 
             // Call
-            var text = viewInfo.ToString();
+            string text = viewInfo.ToString();
 
             // Assert
-            var expectedText = string.Format("{0} : {1} : {2}",
-                                             viewInfo.DataType, viewInfo.ViewDataType, viewInfo.ViewType);
+            string expectedText = string.Format("{0} : {1} : {2}",
+                                                viewInfo.DataType, viewInfo.ViewDataType, viewInfo.ViewType);
             Assert.AreEqual(expectedText, text);
         }
 
@@ -256,7 +256,7 @@ namespace Core.Common.Gui.Test.Plugin
                 Assert.AreEqual(dataObject, o);
                 return o.ToString();
             };
-            bool afterCreateDelegateCalled = false;
+            var afterCreateDelegateCalled = false;
             Action<IView, int> afterCreateDelegate = (view, o) =>
             {
                 Assert.AreSame(stringView, view);

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
 using Core.Components.Charting.Data;
@@ -70,7 +71,7 @@ namespace Core.Components.Charting.Test.Data
             chartDataCollection.Add(item);
 
             // Assert
-            var chartData = chartDataCollection.Collection.ToList();
+            List<ChartData> chartData = chartDataCollection.Collection.ToList();
             Assert.AreEqual(1, chartData.Count);
             Assert.AreSame(item, chartData.First());
         }
@@ -158,7 +159,7 @@ namespace Core.Components.Charting.Test.Data
             // Precondition
             Assert.AreEqual(1, chartDataCollection.Collection.Count());
             Assert.IsInstanceOf<ChartLineData>(chartDataCollection.Collection.First());
-            var listBeforeRemove = chartDataCollection.Collection.ToList();
+            List<ChartData> listBeforeRemove = chartDataCollection.Collection.ToList();
 
             // Call
             chartDataCollection.Remove(null);
@@ -180,7 +181,7 @@ namespace Core.Components.Charting.Test.Data
             // Precondition
             Assert.AreEqual(1, chartDataCollection.Collection.Count());
             Assert.IsInstanceOf<ChartLineData>(chartDataCollection.Collection.First());
-            var listBeforeRemove = chartDataCollection.Collection.ToList();
+            List<ChartData> listBeforeRemove = chartDataCollection.Collection.ToList();
 
             // Call
             chartDataCollection.Remove(otherItem);

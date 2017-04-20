@@ -487,7 +487,7 @@ namespace Core.Common.Gui.Test
             storeProject.Expect(sp => sp.SaveProjectAs(filePath));
             mocks.ReplayAll();
 
-            bool calledCancel = false;
+            var calledCancel = false;
             var activity = new SaveProjectActivity(project, filePath, saveExistingProject, storeProject, projectOwner);
             activity.ProgressChanged += (sender, args) =>
             {

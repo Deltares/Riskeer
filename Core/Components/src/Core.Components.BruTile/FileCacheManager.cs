@@ -150,7 +150,7 @@ namespace Core.Components.BruTile
             /// Gets the directory path used by the <see cref="FileCache"/>.
             /// </summary>
             public string CacheDirectoryPath { get; }
-            
+
             public void Dispose()
             {
                 FileChache = null;

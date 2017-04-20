@@ -215,11 +215,11 @@ namespace Core.Components.BruTile.Configurations
                 layerStyle += "_" + tileSchema.Style;
             }
 
-            foreach (var c in Path.GetInvalidFileNameChars())
+            foreach (char c in Path.GetInvalidFileNameChars())
             {
                 host = host.Replace(c, '$');
             }
-            foreach (var c in Path.GetInvalidFileNameChars())
+            foreach (char c in Path.GetInvalidFileNameChars())
             {
                 layerStyle = layerStyle.Replace(c, '$');
             }

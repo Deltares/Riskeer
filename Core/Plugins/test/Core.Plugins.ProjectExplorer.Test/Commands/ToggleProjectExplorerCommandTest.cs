@@ -61,7 +61,7 @@ namespace Core.Plugins.ProjectExplorer.Test.Commands
 
             mocks.ReplayAll();
 
-            var treeNodeInfos = Enumerable.Empty<TreeNodeInfo>();
+            IEnumerable<TreeNodeInfo> treeNodeInfos = Enumerable.Empty<TreeNodeInfo>();
 
             using (var explorerViewController = new ProjectExplorerViewController(viewCommands, viewController, treeNodeInfos))
             {
@@ -101,7 +101,7 @@ namespace Core.Plugins.ProjectExplorer.Test.Commands
 
             mocks.ReplayAll();
 
-            var treeNodeInfos = Enumerable.Empty<TreeNodeInfo>();
+            IEnumerable<TreeNodeInfo> treeNodeInfos = Enumerable.Empty<TreeNodeInfo>();
 
             using (var explorerViewController = new ProjectExplorerViewController(viewCommands, viewController, treeNodeInfos))
             {
@@ -113,7 +113,7 @@ namespace Core.Plugins.ProjectExplorer.Test.Commands
                 }
 
                 // Call
-                var result = command.Checked;
+                bool result = command.Checked;
 
                 // Assert
                 Assert.AreEqual(isViewOpen, result);
@@ -145,7 +145,7 @@ namespace Core.Plugins.ProjectExplorer.Test.Commands
 
             mocks.ReplayAll();
 
-            var treeNodeInfos = Enumerable.Empty<TreeNodeInfo>();
+            IEnumerable<TreeNodeInfo> treeNodeInfos = Enumerable.Empty<TreeNodeInfo>();
 
             using (var explorerViewController = new ProjectExplorerViewController(viewCommands, viewController, treeNodeInfos))
             {

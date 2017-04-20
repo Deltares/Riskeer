@@ -191,8 +191,8 @@ namespace Core.Components.OxyPlot.Forms
 
         private void HandleChartDataCollectionChange()
         {
-            var chartDataThatShouldBeDrawn = GetItemBasedChartDataRecursively(Data).ToList();
-            var drawnChartDataLookup = drawnChartDataList.ToDictionary(dcd => dcd.ItemBasedChartData, dcd => dcd);
+            List<ItemBasedChartData> chartDataThatShouldBeDrawn = GetItemBasedChartDataRecursively(Data).ToList();
+            Dictionary<ItemBasedChartData, DrawnChartData> drawnChartDataLookup = drawnChartDataList.ToDictionary(dcd => dcd.ItemBasedChartData, dcd => dcd);
 
             DrawMissingChartDataOnCollectionChange(chartDataThatShouldBeDrawn, drawnChartDataLookup);
             RemoveRedundantChartDataOnCollectionChange(chartDataThatShouldBeDrawn, drawnChartDataLookup);
@@ -207,7 +207,7 @@ namespace Core.Components.OxyPlot.Forms
         private void DrawMissingChartDataOnCollectionChange(IEnumerable<ItemBasedChartData> chartDataThatShouldBeDrawn,
                                                             IDictionary<ItemBasedChartData, DrawnChartData> drawnChartDataLookup)
         {
-            foreach (var chartDataToDraw in chartDataThatShouldBeDrawn.Where(chartDataToDraw => !drawnChartDataLookup.ContainsKey(chartDataToDraw)))
+            foreach (ItemBasedChartData chartDataToDraw in chartDataThatShouldBeDrawn.Where(chartDataToDraw => !drawnChartDataLookup.ContainsKey(chartDataToDraw)))
             {
                 DrawChartData(chartDataToDraw);
             }
@@ -216,7 +216,7 @@ namespace Core.Components.OxyPlot.Forms
         private void RemoveRedundantChartDataOnCollectionChange(IEnumerable<ItemBasedChartData> chartDataThatShouldBeDrawn,
                                                                 IDictionary<ItemBasedChartData, DrawnChartData> drawnChartDataLookup)
         {
-            foreach (var itemBasedChartData in drawnChartDataLookup.Keys.Except(chartDataThatShouldBeDrawn))
+            foreach (ItemBasedChartData itemBasedChartData in drawnChartDataLookup.Keys.Except(chartDataThatShouldBeDrawn))
             {
                 RemoveChartData(drawnChartDataLookup[itemBasedChartData]);
             }
@@ -243,7 +243,7 @@ namespace Core.Components.OxyPlot.Forms
 
         private void DrawInitialChartData()
         {
-            foreach (var itemBasedChartData in GetItemBasedChartDataRecursively(Data))
+            foreach (ItemBasedChartData itemBasedChartData in GetItemBasedChartDataRecursively(Data))
             {
                 DrawChartData(itemBasedChartData);
             }
@@ -253,7 +253,7 @@ namespace Core.Components.OxyPlot.Forms
 
         private void DrawChartData(ItemBasedChartData itemBasedChartData)
         {
-            var itemBasedChartDataSeries = ItemBasedChartDataSeriesFactory.Create(itemBasedChartData);
+            IItemBasedChartDataSeries itemBasedChartDataSeries = ItemBasedChartDataSeriesFactory.Create(itemBasedChartData);
 
             var drawnChartData = new DrawnChartData
             {

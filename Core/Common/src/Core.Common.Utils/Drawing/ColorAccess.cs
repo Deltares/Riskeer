@@ -89,7 +89,7 @@ namespace Core.Common.Utils.Drawing
 
                 int mod;
                 int pIndex;
-                var index = GetIndex(x, y, out mod);
+                int index = GetIndex(x, y, out mod);
                 switch (format)
                 {
                     case PixelFormat.Format1bppIndexed:
@@ -196,7 +196,7 @@ namespace Core.Common.Utils.Drawing
             }
 
             BitmapData imageData = bitmap.LockBits(accessibleArea.Value, ImageLockMode.ReadOnly, bitmap.PixelFormat);
-            ColorAccess res = new ColorAccess(imageData, bitmap.Palette, accessibleArea.Value);
+            var res = new ColorAccess(imageData, bitmap.Palette, accessibleArea.Value);
             bitmap.UnlockBits(imageData);
 
             return res;

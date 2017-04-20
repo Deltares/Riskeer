@@ -40,19 +40,19 @@ namespace Core.Common.Utils.Attributes
         /// does not have the given resource name, or isn't of type string.</exception>
         internal static string GetResourceLookup(Type resourceType, string resourceName)
         {
-            var property = resourceType.GetProperty(resourceName, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static);
+            PropertyInfo property = resourceType.GetProperty(resourceName, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static);
             if (property == null)
             {
-                var message = string.Format(CultureInfo.CurrentCulture,
-                                            "Resource {0} does not have property {1}.",
-                                            resourceType, resourceName);
+                string message = string.Format(CultureInfo.CurrentCulture,
+                                               "Resource {0} does not have property {1}.",
+                                               resourceType, resourceName);
                 throw new InvalidOperationException(message);
             }
             if (property.PropertyType != typeof(string))
             {
-                var message = string.Format(CultureInfo.CurrentCulture,
-                                            "Resource {0} is not string.",
-                                            resourceName);
+                string message = string.Format(CultureInfo.CurrentCulture,
+                                               "Resource {0} is not string.",
+                                               resourceName);
                 throw new InvalidOperationException(message);
             }
             return (string) property.GetValue(null, null);

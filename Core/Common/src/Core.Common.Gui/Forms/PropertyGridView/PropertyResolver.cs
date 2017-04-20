@@ -59,7 +59,7 @@ namespace Core.Common.Gui.Forms.PropertyGridView
             }
 
             // 1. Match property information based on ObjectType and on AdditionalDataCheck:
-            var filteredPropertyInfos = propertyInfos.Where(pi => pi.DataType.IsInstanceOfType(sourceData)).ToArray();
+            PropertyInfo[] filteredPropertyInfos = propertyInfos.Where(pi => pi.DataType.IsInstanceOfType(sourceData)).ToArray();
 
             // 2. Match property information based on object type inheritance, prioritizing most specialized object types:
             filteredPropertyInfos = FilterPropertyInfoByTypeInheritance(filteredPropertyInfos, pi => pi.DataType);
@@ -83,13 +83,13 @@ namespace Core.Common.Gui.Forms.PropertyGridView
 
         private static PropertyInfo[] FilterPropertyInfoByTypeInheritance(PropertyInfo[] propertyInfo, Func<PropertyInfo, Type> getTypeAction)
         {
-            var propertyInfoCount = propertyInfo.Length;
-            var propertyInfoWithUnInheritedType = propertyInfo.ToList();
+            int propertyInfoCount = propertyInfo.Length;
+            List<PropertyInfo> propertyInfoWithUnInheritedType = propertyInfo.ToList();
 
             for (var i = 0; i < propertyInfoCount; i++)
             {
-                var propertyToBeConsidered = propertyInfo[i];
-                var firstType = getTypeAction(propertyToBeConsidered);
+                PropertyInfo propertyToBeConsidered = propertyInfo[i];
+                Type firstType = getTypeAction(propertyToBeConsidered);
 
                 for (var j = 0; j < propertyInfoCount; j++)
                 {
@@ -98,7 +98,7 @@ namespace Core.Common.Gui.Forms.PropertyGridView
                         continue;
                     }
 
-                    var secondType = getTypeAction(propertyInfo[j]);
+                    Type secondType = getTypeAction(propertyInfo[j]);
 
                     if (firstType != secondType && secondType.Implements(firstType))
                     {

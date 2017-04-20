@@ -150,7 +150,7 @@ namespace Core.Plugins.Map.Test.UITypeEditors
         public void ToString_Always_ReturnMetaDataAttribute()
         {
             // Setup
-            string metaDataAttribute = "Test";
+            var metaDataAttribute = "Test";
             var selectableAttribute = new SelectableMetaDataAttribute(metaDataAttribute);
 
             // Call

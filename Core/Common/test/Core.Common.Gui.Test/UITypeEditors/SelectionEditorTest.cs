@@ -40,7 +40,7 @@ namespace Core.Common.Gui.Test.UITypeEditors
             var editor = new SelectionEditor<IObjectProperties, object>();
 
             // Call
-            var editStyle = editor.GetEditStyle();
+            UITypeEditorEditStyle editStyle = editor.GetEditStyle();
 
             // Assert
             Assert.AreEqual(UITypeEditorEditStyle.DropDown, editStyle);
@@ -54,7 +54,7 @@ namespace Core.Common.Gui.Test.UITypeEditors
             var someValue = new object();
 
             // Call
-            var result = editor.EditValue(null, null, someValue);
+            object result = editor.EditValue(null, null, someValue);
 
             // Assert
             Assert.AreSame(someValue, result);
@@ -74,7 +74,7 @@ namespace Core.Common.Gui.Test.UITypeEditors
             var someValue = new object();
 
             // Call
-            var result = editor.EditValue(null, provider, someValue);
+            object result = editor.EditValue(null, provider, someValue);
 
             // Assert
             Assert.AreSame(someValue, result);
@@ -98,7 +98,7 @@ namespace Core.Common.Gui.Test.UITypeEditors
             var someValue = new object();
 
             // Call
-            var result = editor.EditValue(context, provider, someValue);
+            object result = editor.EditValue(context, provider, someValue);
 
             // Assert
             Assert.AreSame(someValue, result);
@@ -122,7 +122,7 @@ namespace Core.Common.Gui.Test.UITypeEditors
             mockRepository.ReplayAll();
 
             // Call
-            var result = editor.EditValue(context, provider, nullItem);
+            object result = editor.EditValue(context, provider, nullItem);
 
             // Assert
             Assert.IsNull(result);

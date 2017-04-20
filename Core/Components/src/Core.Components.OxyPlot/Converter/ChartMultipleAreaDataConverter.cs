@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Linq;
+using Core.Common.Base.Geometry;
 using Core.Components.Charting.Data;
 using Core.Components.OxyPlot.CustomSeries;
 using OxyPlot;
@@ -35,7 +36,7 @@ namespace Core.Components.OxyPlot.Converter
         {
             series.Areas.Clear();
 
-            foreach (var area in data.Areas)
+            foreach (Point2D[] area in data.Areas)
             {
                 series.Areas.Add(area.Select(p => new DataPoint(p.X, p.Y)).ToArray());
             }

@@ -24,7 +24,6 @@ using System.IO;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
@@ -202,7 +201,7 @@ namespace Core.Components.Gis.IO.Test.Readers
                 IEnumerable<Point2D>[] pointCollections = geometries[0].PointCollections.ToArray();
                 Assert.AreEqual(1, pointCollections.Length);
 
-                var firstPointCollection = pointCollections[0].ToArray();
+                Point2D[] firstPointCollection = pointCollections[0].ToArray();
                 Assert.AreEqual(1669, firstPointCollection.Length);
                 Assert.AreEqual(202714.219, firstPointCollection[457].X, 1e-6);
                 Assert.AreEqual(507775.781, firstPointCollection[457].Y, 1e-6);
@@ -382,7 +381,7 @@ namespace Core.Components.Gis.IO.Test.Readers
                 IEnumerable<Point2D>[] pointCollections = geometries[0].PointCollections.ToArray();
                 Assert.AreEqual(1, pointCollections.Length);
 
-                var firstPointCollection = pointCollections[0].ToArray();
+                Point2D[] firstPointCollection = pointCollections[0].ToArray();
                 Assert.AreEqual(1669, firstPointCollection.Length);
                 Assert.AreEqual(202714.219, firstPointCollection[457].X, 1e-6);
                 Assert.AreEqual(507775.781, firstPointCollection[457].Y, 1e-6);

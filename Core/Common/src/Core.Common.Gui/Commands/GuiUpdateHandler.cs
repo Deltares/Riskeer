@@ -93,7 +93,7 @@ namespace Core.Common.Gui.Commands
                 return Enumerable.Empty<UpdateInfo>();
             }
 
-            var targetType = target.GetType();
+            Type targetType = target.GetType();
 
             return updateInfos.Where(info => (info.DataType == targetType || targetType.Implements(info.DataType)) && info.IsEnabled(target));
         }

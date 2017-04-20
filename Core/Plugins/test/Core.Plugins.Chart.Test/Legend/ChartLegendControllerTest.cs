@@ -90,7 +90,7 @@ namespace Core.Plugins.Chart.Test.Legend
             }
 
             // Call
-            var result = controller.IsLegendViewOpen;
+            bool result = controller.IsLegendViewOpen;
 
             // Assert
             Assert.AreEqual(open, result);

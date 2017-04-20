@@ -91,7 +91,7 @@ namespace Core.Common.Base.Test.Geometry
             var segment = new Segment2D(firstPoint, secondPoint);
 
             // Call
-            var result = segment.ContainsX(containedX);
+            bool result = segment.ContainsX(containedX);
 
             // Assert
             Assert.AreEqual(isContained, result);
@@ -113,7 +113,7 @@ namespace Core.Common.Base.Test.Geometry
             var segment = new Segment2D(firstPoint, secondPoint);
 
             // Call
-            var result = segment.IsVertical();
+            bool result = segment.IsVertical();
 
             // Assert
             Assert.AreEqual(isVertical, result);
@@ -129,14 +129,14 @@ namespace Core.Common.Base.Test.Geometry
         {
             // Setup
             var random = new Random(22);
-            var x = random.NextDouble();
-            var y = random.NextDouble();
+            double x = random.NextDouble();
+            double y = random.NextDouble();
             var firstPoint = new Point2D(x, y);
             var secondPoint = new Point2D(x, y + difference);
             var segment = new Segment2D(firstPoint, secondPoint);
 
             // Call
-            var result = segment.IsVertical();
+            bool result = segment.IsVertical();
 
             // Assert
             Assert.AreEqual(isVertical, result);
@@ -165,16 +165,16 @@ namespace Core.Common.Base.Test.Geometry
         {
             // Setup
             var random = new Random(22);
-            var x1 = random.NextDouble();
-            var x2 = random.NextDouble();
-            var y1 = random.NextDouble();
-            var y2 = random.NextDouble();
+            double x1 = random.NextDouble();
+            double x2 = random.NextDouble();
+            double y1 = random.NextDouble();
+            double y2 = random.NextDouble();
             var point1 = new Point2D(x1, y1);
             var point2 = new Point2D(x2, y2);
             var segment = new Segment2D(point1, point2);
 
             // Assert
-            var isEqual = segment.Equals(segment);
+            bool isEqual = segment.Equals(segment);
 
             // Assert
             Assert.IsTrue(isEqual);
@@ -185,10 +185,10 @@ namespace Core.Common.Base.Test.Geometry
         {
             // Setup
             var random = new Random(22);
-            var x1 = random.NextDouble();
-            var x2 = random.NextDouble();
-            var y1 = random.NextDouble();
-            var y2 = random.NextDouble();
+            double x1 = random.NextDouble();
+            double x2 = random.NextDouble();
+            double y1 = random.NextDouble();
+            double y2 = random.NextDouble();
             var point1 = new Point2D(x1, y1);
             var point2 = new Point2D(x2, y2);
             var segment = new Segment2D(point1, point2);
@@ -205,7 +205,7 @@ namespace Core.Common.Base.Test.Geometry
             var segment = new Segment2D(new Point2D(random.NextDouble(), random.NextDouble()), new Point2D(random.NextDouble(), random.NextDouble()));
 
             // Call
-            var isEqual = segment.Equals(new Point2D(0.0, 0.0));
+            bool isEqual = segment.Equals(new Point2D(0.0, 0.0));
 
             // Assert
             Assert.IsFalse(isEqual);
@@ -216,10 +216,10 @@ namespace Core.Common.Base.Test.Geometry
         {
             // Setup
             var random = new Random(22);
-            var x1 = random.NextDouble();
-            var x2 = random.NextDouble();
-            var y1 = random.NextDouble();
-            var y2 = random.NextDouble();
+            double x1 = random.NextDouble();
+            double x2 = random.NextDouble();
+            double y1 = random.NextDouble();
+            double y2 = random.NextDouble();
             var point1 = new Point2D(x1, y1);
             var point2 = new Point2D(x2, y2);
             var segment1 = new Segment2D(point1, point2);
@@ -236,14 +236,14 @@ namespace Core.Common.Base.Test.Geometry
         {
             // Setup
             var random = new Random(22);
-            var x1 = random.NextDouble();
-            var x2 = random.NextDouble();
-            var x3 = random.NextDouble();
-            var x4 = random.NextDouble();
-            var y1 = random.NextDouble();
-            var y2 = random.NextDouble();
-            var y3 = random.NextDouble();
-            var y4 = random.NextDouble();
+            double x1 = random.NextDouble();
+            double x2 = random.NextDouble();
+            double x3 = random.NextDouble();
+            double x4 = random.NextDouble();
+            double y1 = random.NextDouble();
+            double y2 = random.NextDouble();
+            double y3 = random.NextDouble();
+            double y4 = random.NextDouble();
             var point1 = new Point2D(x1, y1);
             var point2 = new Point2D(x2, y2);
             var point3 = new Point2D(x3, y3);
@@ -261,10 +261,10 @@ namespace Core.Common.Base.Test.Geometry
         {
             // Setup
             var random = new Random(22);
-            var x1 = random.NextDouble();
-            var x2 = random.NextDouble();
-            var y1 = random.NextDouble();
-            var y2 = random.NextDouble();
+            double x1 = random.NextDouble();
+            double x2 = random.NextDouble();
+            double y1 = random.NextDouble();
+            double y2 = random.NextDouble();
             var point1 = new Point2D(x1, y1);
             var point2 = new Point2D(x2, y2);
             var segment1 = new Segment2D(point1, point2);
@@ -301,10 +301,10 @@ namespace Core.Common.Base.Test.Geometry
         {
             // Setup
             var random = new Random(22);
-            var x1 = random.NextDouble();
-            var x2 = random.NextDouble();
-            var y1 = random.NextDouble();
-            var y2 = random.NextDouble();
+            double x1 = random.NextDouble();
+            double x2 = random.NextDouble();
+            double y1 = random.NextDouble();
+            double y2 = random.NextDouble();
             var point1 = new Point2D(x1, y1);
             var point2 = new Point2D(x2, y2);
             var segment1 = new Segment2D(point1, point2);
@@ -318,10 +318,10 @@ namespace Core.Common.Base.Test.Geometry
         {
             // Setup
             var random = new Random(22);
-            var x1 = random.NextDouble();
-            var x2 = random.NextDouble();
-            var y1 = random.NextDouble();
-            var y2 = random.NextDouble();
+            double x1 = random.NextDouble();
+            double x2 = random.NextDouble();
+            double y1 = random.NextDouble();
+            double y2 = random.NextDouble();
             var point1 = new Point2D(x1, y1);
             var point2 = new Point2D(x2, y2);
             var segment1 = new Segment2D(point1, point2);
@@ -337,12 +337,12 @@ namespace Core.Common.Base.Test.Geometry
         {
             // Setup
             var random = new Random(22);
-            var x1 = random.NextDouble();
-            var x2 = random.NextDouble();
-            var x3 = random.NextDouble();
-            var y1 = random.NextDouble();
-            var y2 = random.NextDouble();
-            var y3 = random.NextDouble();
+            double x1 = random.NextDouble();
+            double x2 = random.NextDouble();
+            double x3 = random.NextDouble();
+            double y1 = random.NextDouble();
+            double y2 = random.NextDouble();
+            double y3 = random.NextDouble();
 
             var point1 = new Point2D(x1, y1);
             var point2 = new Point2D(x2, y2);
@@ -367,14 +367,14 @@ namespace Core.Common.Base.Test.Geometry
         {
             // Setup
             var random = new Random(22);
-            var x1 = random.NextDouble();
-            var x2 = random.NextDouble();
-            var x3 = random.NextDouble();
-            var x4 = random.NextDouble();
-            var y1 = random.NextDouble();
-            var y2 = random.NextDouble();
-            var y3 = random.NextDouble();
-            var y4 = random.NextDouble();
+            double x1 = random.NextDouble();
+            double x2 = random.NextDouble();
+            double x3 = random.NextDouble();
+            double x4 = random.NextDouble();
+            double y1 = random.NextDouble();
+            double y2 = random.NextDouble();
+            double y3 = random.NextDouble();
+            double y4 = random.NextDouble();
 
             var point1 = new Point2D(x1, y1);
             var point2 = new Point2D(x2, y2);
@@ -395,7 +395,7 @@ namespace Core.Common.Base.Test.Geometry
             var segment = new Segment2D(new Point2D(1.2, 3.5), new Point2D(8.13, 21.34));
 
             // Call
-            var euclideanDistance = segment.GetEuclideanDistanceToPoint(segment.FirstPoint);
+            double euclideanDistance = segment.GetEuclideanDistanceToPoint(segment.FirstPoint);
 
             // Assert
             Assert.AreEqual(0, euclideanDistance);
@@ -408,7 +408,7 @@ namespace Core.Common.Base.Test.Geometry
             var segment = new Segment2D(new Point2D(1.2, 3.5), new Point2D(8.13, 21.34));
 
             // Call
-            var euclideanDistance = segment.GetEuclideanDistanceToPoint(segment.SecondPoint);
+            double euclideanDistance = segment.GetEuclideanDistanceToPoint(segment.SecondPoint);
 
             // Assert
             Assert.AreEqual(0, euclideanDistance);
@@ -439,10 +439,10 @@ namespace Core.Common.Base.Test.Geometry
             var segment = new Segment2D(new Point2D(1.1, 2.2), new Point2D(3.3, 4.4));
 
             // Call
-            var actualDistance = segment.GetEuclideanDistanceToPoint(point);
+            double actualDistance = segment.GetEuclideanDistanceToPoint(point);
 
             // Assert
-            var expectedDistance = point.GetEuclideanDistanceTo(segment.FirstPoint);
+            double expectedDistance = point.GetEuclideanDistanceTo(segment.FirstPoint);
             Assert.AreEqual(expectedDistance, actualDistance);
         }
 
@@ -462,7 +462,7 @@ namespace Core.Common.Base.Test.Geometry
             var segment = new Segment2D(new Point2D(1.1, 2.2), new Point2D(3.3, 4.4));
 
             // Call
-            var actualDistance = segment.GetEuclideanDistanceToPoint(point);
+            double actualDistance = segment.GetEuclideanDistanceToPoint(point);
 
             // Assert
             Assert.AreEqual(expectedDistance, actualDistance, 1e-6);
@@ -480,10 +480,10 @@ namespace Core.Common.Base.Test.Geometry
             var segment = new Segment2D(new Point2D(1.1, 2.2), new Point2D(3.3, 4.4));
 
             // Call
-            var actualDistance = segment.GetEuclideanDistanceToPoint(point);
+            double actualDistance = segment.GetEuclideanDistanceToPoint(point);
 
             // Assert
-            var expectedDistance = point.GetEuclideanDistanceTo(segment.SecondPoint);
+            double expectedDistance = point.GetEuclideanDistanceTo(segment.SecondPoint);
             Assert.AreEqual(expectedDistance, actualDistance);
         }
     }

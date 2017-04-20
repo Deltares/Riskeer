@@ -208,7 +208,7 @@ namespace Core.Common.Gui.TestUtil.Test.ContextMenu
             var customItem = new StrictContextMenuItem(text, toolTip, image, (sender, args) => { });
 
             var builder = new CustomItemsOnlyContextMenuBuilder();
-            
+
             // Call
             ContextMenuStrip menu = builder.AddCustomItem(customItem).Build();
 

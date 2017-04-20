@@ -189,7 +189,7 @@ namespace Core.Common.Gui.Test.Commands
             Action call = () => exportHandler.ExportFrom(expectedData);
 
             // Assert
-            var finalMessage = $"Exporteren naar '{targetExportFileName}' is afgerond.";
+            string finalMessage = $"Exporteren naar '{targetExportFileName}' is afgerond.";
             TestHelper.AssertLogMessagesAreGenerated(call, new[]
             {
                 "Exporteren gestart.",
@@ -211,7 +211,7 @@ namespace Core.Common.Gui.Test.Commands
 
             mockRepository.ReplayAll();
 
-            var targetExportFileName = Path.GetFullPath("exportFile.txt");
+            string targetExportFileName = Path.GetFullPath("exportFile.txt");
             ModalFormHandler = (name, wnd, form) =>
             {
                 var messageBox = new SaveFileDialogTester(wnd);
@@ -363,7 +363,7 @@ namespace Core.Common.Gui.Test.Commands
             });
 
             // Call
-            var isExportPossible = commandHandler.CanExportFrom(new object());
+            bool isExportPossible = commandHandler.CanExportFrom(new object());
 
             // Assert
             Assert.IsFalse(isExportPossible);
@@ -384,7 +384,7 @@ namespace Core.Common.Gui.Test.Commands
             });
 
             // Call
-            var isExportPossible = commandHandler.CanExportFrom(new object());
+            bool isExportPossible = commandHandler.CanExportFrom(new object());
 
             // Assert
             Assert.IsTrue(isExportPossible);
@@ -406,7 +406,7 @@ namespace Core.Common.Gui.Test.Commands
             });
 
             // Call
-            var isExportPossible = commandHandler.CanExportFrom(new object());
+            bool isExportPossible = commandHandler.CanExportFrom(new object());
 
             // Assert
             Assert.IsTrue(isExportPossible);
