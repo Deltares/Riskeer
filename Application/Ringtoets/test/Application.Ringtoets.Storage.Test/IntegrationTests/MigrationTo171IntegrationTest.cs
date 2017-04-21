@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SQLite;
@@ -35,13 +34,13 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
     public class MigrationTo171IntegrationTest
     {
         private const string newVersion = "17.1";
-        private readonly TestDataPath testPath = TestDataPath.Application.Ringtoets.Migration.Core;
 
         [Test]
         public void Given164Project_WhenUpgradedTo171_ThenProjectAsExpected()
         {
             // Given
-            string sourceFilePath = TestHelper.GetTestDataPath(testPath, "FullTestProject164.rtd");
+            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration.Core,
+                                                               "FullTestProject164.rtd");
             var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
 
             string targetFilePath = TestHelper.GetScratchPadPath(nameof(Given164Project_WhenUpgradedTo171_ThenProjectAsExpected));
@@ -99,7 +98,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             const string getClosingStructuresCalculationOutput = "SELECT 'x' " +
                                                                  "FROM ClosingStructuresOutputEntity";
-            reader.AssertData(getClosingStructuresCalculationOutput, r => Assert.IsFalse(r.Read()));
+            reader.AssertNoDataToBeRead(getClosingStructuresCalculationOutput);
         }
 
         private static void AssertGrassCoverErosionInwardsFailureMechanism(MigratedDatabaseReader reader)
@@ -107,7 +106,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             const string getGrassCoverErosionInwardsCalculationOutput = "SELECT 'x' " +
                                                                         "FROM GrassCoverErosionInwardsDikeHeightOutputEntity " +
                                                                         "JOIN GrassCoverErosionInwardsOutputEntity";
-            reader.AssertData(getGrassCoverErosionInwardsCalculationOutput, r => Assert.IsFalse(r.Read()));
+            reader.AssertNoDataToBeRead(getGrassCoverErosionInwardsCalculationOutput);
         }
 
         private static void AssertGrassCoverErosionOutwardsFailureMechanism(MigratedDatabaseReader reader)
@@ -115,21 +114,21 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             const string getGrassCoverErosionOutwardsCalculationOutput = "SELECT 'x' " +
                                                                          "FROM GrassCoverErosionOutwardsHydraulicLocationOutputEntity " +
                                                                          "JOIN GrassCoverErosionOutwardsWaveConditionsOutputEntity";
-            reader.AssertData(getGrassCoverErosionOutwardsCalculationOutput, r => Assert.IsFalse(r.Read()));
+            reader.AssertNoDataToBeRead(getGrassCoverErosionOutwardsCalculationOutput);
         }
 
         private static void AssertHeightStructuresFailureMechanism(MigratedDatabaseReader reader)
         {
             const string getHeightStructuresCalculationOutput = "SELECT 'x' " +
                                                                 "FROM HeightStructuresOutputEntity";
-            reader.AssertData(getHeightStructuresCalculationOutput, r => Assert.IsFalse(r.Read()));
+            reader.AssertNoDataToBeRead(getHeightStructuresCalculationOutput);
         }
 
         private static void AssertHydraulicBoundaryLocations(MigratedDatabaseReader reader)
         {
             const string getHydraulicBoundaryLocationsOutput = "SELECT 'x' " +
                                                                "FROM HydraulicLocationOutputEntity";
-            reader.AssertData(getHydraulicBoundaryLocationsOutput, r => Assert.IsFalse(r.Read()));
+            reader.AssertNoDataToBeRead(getHydraulicBoundaryLocationsOutput);
         }
 
         private static void AssertPipingFailureMechanism(MigratedDatabaseReader reader)
@@ -137,21 +136,21 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             const string getPipingCalculationOutput = "SELECT 'x' " +
                                                       "FROM PipingCalculationOutputEntity " +
                                                       "JOIN PipingSemiProbabilisticOutputEntity";
-            reader.AssertData(getPipingCalculationOutput, r => Assert.IsFalse(r.Read()));
+            reader.AssertNoDataToBeRead(getPipingCalculationOutput);
         }
 
         private static void AssertStabilityPointStructuresFailureMechanism(MigratedDatabaseReader reader)
         {
             const string getStabilityPointStructuresCalculationOutput = "SELECT 'x' " +
                                                                         "FROM StabilityPointStructuresOutputEntity";
-            reader.AssertData(getStabilityPointStructuresCalculationOutput, r => Assert.IsFalse(r.Read()));
+            reader.AssertNoDataToBeRead(getStabilityPointStructuresCalculationOutput);
         }
 
         private static void AssertStabilityStoneCoverFailureMechanism(MigratedDatabaseReader reader)
         {
             const string getStabilityStoneCoverWaveConditionsCalculationOutput = "SELECT 'x' " +
                                                                                  "FROM StabilityStoneCoverWaveConditionsOutputEntity";
-            reader.AssertData(getStabilityStoneCoverWaveConditionsCalculationOutput, r => Assert.IsFalse(r.Read()));
+            reader.AssertNoDataToBeRead(getStabilityStoneCoverWaveConditionsCalculationOutput);
         }
 
         private static void AssertWaveImpactAsphaltCoverFailureMechanism(MigratedDatabaseReader reader)
@@ -159,7 +158,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             const string getWaveImpactAsphaltCoverCalculationOutput = "SELECT 'x' " +
                                                                       "FROM WaveImpactAsphaltCoverWaveConditionsOutputEntity";
 
-            reader.AssertData(getWaveImpactAsphaltCoverCalculationOutput, r => Assert.IsFalse(r.Read()));
+            reader.AssertNoDataToBeRead(getWaveImpactAsphaltCoverCalculationOutput);
         }
 
         /// <summary>
@@ -178,19 +177,19 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             /// <item>Unable to open database file.</item>
             /// </list>
             /// </exception>
-            public MigratedDatabaseReader(string databaseFilePath) : base(databaseFilePath) {}
+            public MigratedDatabaseReader(string databaseFilePath) : base(databaseFilePath) { }
 
             /// <summary>
-            /// Asserts the data from the <paramref name="queryString"/> result.
+            /// Asserts that the <paramref name="queryString"/> result is empty.
             /// </summary>
             /// <param name="queryString">The query to execute.</param>
-            /// <param name="assert">The assert to perform.</param>
-            /// <exception cref="SQLiteException">The execution of queryString failed.</exception>
-            public void AssertData(string queryString, Action<IDataReader> assert)
+            /// <exception cref="SQLiteException">The execution of <paramref name="queryString"/> 
+            /// failed.</exception>
+            public void AssertNoDataToBeRead(string queryString)
             {
                 using (IDataReader dataReader = CreateDataReader(queryString))
                 {
-                    assert(dataReader);
+                    Assert.IsFalse(dataReader.Read());
                 }
             }
         }
