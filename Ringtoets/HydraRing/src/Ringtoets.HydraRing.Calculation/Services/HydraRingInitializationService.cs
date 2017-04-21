@@ -165,19 +165,19 @@ namespace Ringtoets.HydraRing.Calculation.Services
         /// <exception cref="UnauthorizedAccessException">Thrown when the path can't be accessed due to missing permissions.</exception>
         public void WriteInitializationScript()
         {
-            var initializationFileContent = string.Join(Environment.NewLine,
-                                                        "section             = " + sectionId,
-                                                        "mechanism           = " + mechanismId,
-                                                        "alternative         = 1", // Fixed: no support for piping
-                                                        "layer               = 1", // Fixed: no support for revetments
-                                                        "logfile             = " + sectionId + logFileExtension,
-                                                        "outputverbosity     = basic",
-                                                        "outputtofile        = file",
-                                                        "projectdbfilename   = " + sectionId + databaseFileExtension,
-                                                        "outputfilename      = " + HydraRingFileConstants.DesignTablesFileName,
-                                                        "configdbfilename    = " + ConfigurationDatabaseFilePath,
-                                                        "hydraulicdbfilename = " + HlcdFilePath,
-                                                        "designpointOutput   = sqlite");
+            string initializationFileContent = string.Join(Environment.NewLine,
+                                                           "section             = " + sectionId,
+                                                           "mechanism           = " + mechanismId,
+                                                           "alternative         = 1", // Fixed: no support for piping
+                                                           "layer               = 1", // Fixed: no support for revetments
+                                                           "logfile             = " + sectionId + logFileExtension,
+                                                           "outputverbosity     = basic",
+                                                           "outputtofile        = file",
+                                                           "projectdbfilename   = " + sectionId + databaseFileExtension,
+                                                           "outputfilename      = " + HydraRingFileConstants.DesignTablesFileName,
+                                                           "configdbfilename    = " + ConfigurationDatabaseFilePath,
+                                                           "hydraulicdbfilename = " + HlcdFilePath,
+                                                           "designpointOutput   = sqlite");
 
             File.WriteAllText(IniFilePath, initializationFileContent);
         }
