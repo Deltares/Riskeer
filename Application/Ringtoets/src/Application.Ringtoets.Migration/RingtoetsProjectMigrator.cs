@@ -218,7 +218,8 @@ namespace Application.Ringtoets.Migration
             {
                 File.Delete(migrationLogPath);
             }
-            catch (SystemException exception) when (exception is IOException || exception is UnauthorizedAccessException)
+            catch (SystemException exception) when (exception is IOException
+                                                    || exception is UnauthorizedAccessException)
             {
                 string errorMessage = string.Format(Resources.RingtoetsProjectMigrator_Deleting_migration_log_file_0_failed, migrationLogPath);
                 log.Error(errorMessage, exception);
