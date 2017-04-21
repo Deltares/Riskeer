@@ -27,11 +27,6 @@ namespace Ringtoets.HydraRing.IO
     internal static class HydraRingFileConstants
     {
         /// <summary>
-        /// The tail and extension of the file containing output generated during a calculation.
-        /// </summary>
-        internal const string OutputFileSuffix = "-output.txt";
-
-        /// <summary>
         /// The file name of the file containing the output of a calculation.
         /// </summary>
         internal const string DesignTablesFileName = "designTable.txt";
@@ -42,9 +37,9 @@ namespace Ringtoets.HydraRing.IO
         internal const string WorkingDatabaseFileName = "temp.sqlite";
 
         /// <summary>
-        /// The file name of the output database which contains output for a calculation.
+        /// The tail and extension of the output database which contains output for a calculation.
         /// </summary>
-        internal const string OutputDatabaseFileName = "output.sqlite";
+        internal const string OutputDatabaseFileNameSuffix = "-output.sqlite";
 
         /// <summary>
         /// The file name of the HLCD database.

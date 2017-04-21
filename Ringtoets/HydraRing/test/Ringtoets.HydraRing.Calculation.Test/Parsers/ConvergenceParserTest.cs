@@ -33,8 +33,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
     [TestFixture]
     public class ConvergenceParserTest
     {
-        private const string convergenceOnBetaForSection1 = "ConvergenceOnBetaSection1";
-
         private static readonly string testDirectory = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation, "Parsers"),
                                                                     nameof(ConvergenceParser));
 
@@ -114,11 +112,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_WithWorkingDirectoryWithFileWithTrueResultForOtherSection_ThrowsHydraRingFileParserException()
         {
             // Setup
-            string path = Path.Combine(testDirectory, convergenceOnBetaForSection1);
+            string path = Path.Combine(testDirectory, "ConvergenceOnBetaSection2");
             var parser = new ConvergenceParser();
 
             // Call
-            TestDelegate test = () => parser.Parse(path, 0);
+            TestDelegate test = () => parser.Parse(path, 1);
 
             // Assert
             var exception = Assert.Throws<HydraRingFileParserException>(test);
@@ -159,7 +157,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         }
 
         [Test]
-        [TestCase(convergenceOnBetaForSection1)]
+        [TestCase("ConvergenceOnBetaSection1")]
         [TestCase("ConvergenceOnValueSection1")]
         [TestCase("ConvergenceOnBothSection1")]
         public void Parse_WithWorkingDirectoryWithFileWithTrueResult_SetOutputTrue(string testSubDirectory)

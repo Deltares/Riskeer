@@ -362,9 +362,6 @@
     <Content Include="HydraRing\nunit.framework.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="HydraRing\piping2017.Native.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="HydraRing\PostSharp.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

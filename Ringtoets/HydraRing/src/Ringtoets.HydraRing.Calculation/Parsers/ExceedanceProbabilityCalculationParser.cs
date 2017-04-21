@@ -36,7 +36,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
 
         private readonly string query = $"SELECT {betaColumnName} " +
                                         "FROM DesignBeta " +
-                                        $"WHERE SectionId = {sectionIdParameterName} AND LevelType=4 " +
+                                        $"WHERE SectionId = {sectionIdParameterName} AND LevelTypeId = 4 " +
                                         "ORDER BY OuterIterationId DESC " +
                                         "LIMIT 1;";
 

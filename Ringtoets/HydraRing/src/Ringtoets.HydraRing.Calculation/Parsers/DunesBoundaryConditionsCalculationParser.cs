@@ -38,9 +38,9 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
         private const string waterLevelColumnName = "WaterLevel";
 
         private readonly string query = "SELECT " +
-                                        $"max(case when OutputVarId is 3 then d.Value end) {waveHeightColumnName}, " +
-                                        $"max(case when OutputVarId is 5 then d.Value end) {wavePeriodColumnName}, " +
-                                        $"max(case when OutputVarId is 23 then d.Value end) {waterLevelColumnName} " +
+                                        $"max(case when OutputVariableId is 3 then d.Value end) {waveHeightColumnName}, " +
+                                        $"max(case when OutputVariableId is 5 then d.Value end) {wavePeriodColumnName}, " +
+                                        $"max(case when OutputVariableId is 23 then d.Value end) {waterLevelColumnName} " +
                                         "FROM DesignPointResults as d " +
                                         $"WHERE SectionId = {sectionIdParameterName} " +
                                         "GROUP BY OuterIterationId " +

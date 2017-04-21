@@ -114,11 +114,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_WithBetaAndValueResultOnOtherSection_ThrowsHydraRingFileParserException()
         {
             // Setup
-            string path = Path.Combine(testDirectory, validFile);
+            string path = Path.Combine(testDirectory, "OtherSection");
             var parser = new ReliabilityIndexCalculationParser();
 
             // Call
-            TestDelegate test = () => parser.Parse(path, 0);
+            TestDelegate test = () => parser.Parse(path, 1);
 
             // Assert
             var exception = Assert.Throws<HydraRingFileParserException>(test);

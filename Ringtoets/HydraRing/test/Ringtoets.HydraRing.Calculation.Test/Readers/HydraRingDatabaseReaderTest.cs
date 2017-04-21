@@ -49,7 +49,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Readers
             string directory = Path.Combine(testDirectory, validDatabase);
 
             // Call
-            using (var reader = new HydraRingDatabaseReader(directory, "", 0))
+            using (var reader = new HydraRingDatabaseReader(directory, "", 1))
             {
                 // Assert
                 Assert.IsInstanceOf<IDisposable>(reader);
@@ -116,7 +116,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Readers
             // Setup
             string directory = Path.Combine(testDirectory, emptyDatabase);
 
-            using (var reader = new HydraRingDatabaseReader(directory, query, 0))
+            using (var reader = new HydraRingDatabaseReader(directory, query, 1))
             {
                 // Call
                 TestDelegate test = () => reader.ReadLine();

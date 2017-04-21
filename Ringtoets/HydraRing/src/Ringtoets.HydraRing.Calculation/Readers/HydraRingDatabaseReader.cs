@@ -77,7 +77,7 @@ namespace Ringtoets.HydraRing.Calculation.Readers
 
             this.workingDirectory = workingDirectory;
 
-            CreateConnection();
+            CreateConnection(sectionId);
             CreateCommand(query, sectionId);
             OpenConnection();
             GetReader();
@@ -123,9 +123,9 @@ namespace Ringtoets.HydraRing.Calculation.Readers
             }
         }
 
-        private void CreateConnection()
+        private void CreateConnection(int sectionId)
         {
-            string databaseFile = Path.Combine(workingDirectory, HydraRingFileConstants.OutputDatabaseFileName);
+            string databaseFile = Path.Combine(workingDirectory, $"{sectionId}{HydraRingFileConstants.OutputDatabaseFileNameSuffix}");
 
             string connectionStringBuilder = new SQLiteConnectionStringBuilder
             {
