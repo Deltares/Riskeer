@@ -72,7 +72,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
                                                "outputfilename      = designTable.txt" + Environment.NewLine +
                                                "configdbfilename    = " + configurationDatabaseFilePath + Environment.NewLine +
                                                "hydraulicdbfilename = " + filePath + Environment.NewLine + 
-                                               "designpointOutput   = both";
+                                               "designpointOutput   = sqlite";
 
             try
             {

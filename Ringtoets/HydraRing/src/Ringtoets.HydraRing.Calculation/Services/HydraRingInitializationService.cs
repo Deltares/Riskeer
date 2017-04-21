@@ -177,7 +177,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
                                                         "outputfilename      = " + HydraRingFileConstants.DesignTablesFileName,
                                                         "configdbfilename    = " + ConfigurationDatabaseFilePath,
                                                         "hydraulicdbfilename = " + HlcdFilePath,
-                                                        "designpointOutput   = both");
+                                                        "designpointOutput   = sqlite");
 
             File.WriteAllText(IniFilePath, initializationFileContent);
         }
