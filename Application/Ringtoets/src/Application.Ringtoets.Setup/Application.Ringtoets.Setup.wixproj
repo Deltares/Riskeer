@@ -36,6 +36,7 @@
     <Pedantic>False</Pedantic>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Examples.wxs" />
     <Compile Include="Installer UI\BrowseDlgDeltares.wxs" />
     <Compile Include="Installer UI\CancelDlgDeltares.wxs" />
     <Compile Include="Installer UI\DiskCostDlgDeltares.wxs" />
@@ -63,6 +64,116 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Banner_493x77.bmp" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Grasbekleding erosie kruin en binnentalud\12_2_Golfoploop_profielen.dbf" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Grasbekleding erosie kruin en binnentalud\12_2_Golfoploop_profielen.prj" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Grasbekleding erosie kruin en binnentalud\12_2_Golfoploop_profielen.qpj" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Grasbekleding erosie kruin en binnentalud\12_2_Golfoploop_profielen.shp" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Grasbekleding erosie kruin en binnentalud\12_2_Golfoploop_profielen.shx" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Grasbekleding erosie kruin en binnentalud\Configuraties voor profielen 1 2 en 3.xml" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Grasbekleding erosie kruin en binnentalud\hlcd.sqlite" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Grasbekleding erosie kruin en binnentalud\Profiel1.prfl" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Grasbekleding erosie kruin en binnentalud\Profiel2.prfl" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Grasbekleding erosie kruin en binnentalud\Profiel3.prfl" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Grasbekleding erosie kruin en binnentalud\Profiel4.prfl" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Grasbekleding erosie kruin en binnentalud\Profiel5.prfl" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Grasbekleding erosie kruin en binnentalud\Profiel6.prfl" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Grasbekleding erosie kruin en binnentalud\Profiel7.prfl" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Grasbekleding erosie kruin en binnentalud\Profiel8.prfl" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Grasbekleding erosie kruin en binnentalud\Profiel9.prfl" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Grasbekleding erosie kruin en binnentalud\Readme.rtf" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Grasbekleding erosie kruin en binnentalud\Ringtoets voorbeeld - grasbekleding erosie kruin en binnentalud wieringermeerdijk.pdf" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Grasbekleding erosie kruin en binnentalud\vakindeling GEKB traject 12-2.dbf" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Grasbekleding erosie kruin en binnentalud\vakindeling GEKB traject 12-2.prj" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Grasbekleding erosie kruin en binnentalud\vakindeling GEKB traject 12-2.shp" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Grasbekleding erosie kruin en binnentalud\vakindeling GEKB traject 12-2.shx" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Grasbekleding erosie kruin en binnentalud\WBI2017_IJsselmeer_12-2_v01.config.sqlite" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Grasbekleding erosie kruin en binnentalud\WBI2017_IJsselmeer_12-2_v01.sqlite" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Piping\Configuraties voor profielschematisatie 12_2_00100.xml" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Piping\hlcd.sqlite" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Piping\Ondergrond traject 12_2.soil" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Piping\Readme.rtf" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Piping\surfacelines traject 12-2.csv" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Piping\surfacelines traject 12-2.krp.csv" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Piping\vakindeling STPH traject 12-2.dbf" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Piping\vakindeling STPH traject 12-2.prj" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Piping\vakindeling STPH traject 12-2.shp" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Piping\vakindeling STPH traject 12-2.shx" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Piping\WBI2017_IJsselmeer_12-2_v01.config.sqlite" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Piping\WBI2017_IJsselmeer_12-2_v01.sqlite" />
+    <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Betrouwbaarheid sluiting kunstwerk\Berekeningenconfiguraties betrouwbaarheid sluiting kunstwerk sas sluis.xml" />
+    <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Betrouwbaarheid sluiting kunstwerk\kunstwerken 13  6.csv" />
+    <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Betrouwbaarheid sluiting kunstwerk\kunstwerken 13  6.dbf" />
+    <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Betrouwbaarheid sluiting kunstwerk\kunstwerken 13  6.prj" />
+    <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Betrouwbaarheid sluiting kunstwerk\kunstwerken 13  6.qpj" />
+    <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Betrouwbaarheid sluiting kunstwerk\kunstwerken 13  6.shp" />
+    <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Betrouwbaarheid sluiting kunstwerk\kunstwerken 13  6.shx" />
+    <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\hlcd.sqlite" />
+    <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Hoogte\Berekeningenconfiguraties kunstwerken hoogte sas sluis.xml" />
+    <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Hoogte\kunstwerken 13  6.csv" />
+    <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Hoogte\kunstwerken 13  6.dbf" />
+    <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Hoogte\kunstwerken 13  6.prj" />
+    <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Hoogte\kunstwerken 13  6.qpj" />
+    <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Hoogte\kunstwerken 13  6.shp" />
+    <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Hoogte\kunstwerken 13  6.shx" />
+    <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Readme.rtf" />
+    <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Sterkte en stabiliteit puntconstructies\Berekeningenconfiguraties sterkte en stabiliteit puntconstructies sas sluis.xml" />
+    <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Sterkte en stabiliteit puntconstructies\kunstwerken 13  6.csv" />
+    <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Sterkte en stabiliteit puntconstructies\kunstwerken 13  6.dbf" />
+    <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Sterkte en stabiliteit puntconstructies\kunstwerken 13  6.prj" />
+    <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Sterkte en stabiliteit puntconstructies\kunstwerken 13  6.qpj" />
+    <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Sterkte en stabiliteit puntconstructies\kunstwerken 13  6.shp" />
+    <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Sterkte en stabiliteit puntconstructies\kunstwerken 13  6.shx" />
+    <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\vakindeling traject 13 6.dbf" />
+    <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\vakindeling traject 13 6.prj" />
+    <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\vakindeling traject 13 6.qpj" />
+    <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\vakindeling traject 13 6.shp" />
+    <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\vakindeling traject 13 6.shx" />
+    <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\WBI2017_IJsselmeer_13-6_v01.config.sqlite" />
+    <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\WBI2017_IJsselmeer_13-6_v01.sqlite" />
+    <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Betrouwbaarheid sluiting kunstwerk\Berekeningenconfiguraties betrouwbaarheid sluiten coupure worp.xml" />
+    <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Betrouwbaarheid sluiting kunstwerk\Worp.csv" />
+    <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Betrouwbaarheid sluiting kunstwerk\Worp.dbf" />
+    <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Betrouwbaarheid sluiting kunstwerk\Worp.prj" />
+    <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Betrouwbaarheid sluiting kunstwerk\Worp.qpj" />
+    <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Betrouwbaarheid sluiting kunstwerk\Worp.shp" />
+    <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Betrouwbaarheid sluiting kunstwerk\Worp.shx" />
+    <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\hlcd.sqlite" />
+    <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Hoogte\Berekeningenconfiguraties kunstwerken hoogte coupure worp.xml" />
+    <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Hoogte\Worp.csv" />
+    <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Hoogte\Worp.dbf" />
+    <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Hoogte\Worp.prj" />
+    <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Hoogte\Worp.qpj" />
+    <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Hoogte\Worp.shp" />
+    <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Hoogte\Worp.shx" />
+    <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Readme.rtf" />
+    <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Sterkte en stabiliteit puntconstructies\Berekeningenconfiguraties sterkte en stabiliteit puntconstructies coupure worp.xml" />
+    <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Sterkte en stabiliteit puntconstructies\Worp.csv" />
+    <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Sterkte en stabiliteit puntconstructies\Worp.dbf" />
+    <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Sterkte en stabiliteit puntconstructies\Worp.prj" />
+    <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Sterkte en stabiliteit puntconstructies\Worp.qpj" />
+    <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Sterkte en stabiliteit puntconstructies\Worp.shp" />
+    <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Sterkte en stabiliteit puntconstructies\Worp.shx" />
+    <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Vakindeling kunstwerken 52-2.dbf" />
+    <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Vakindeling kunstwerken 52-2.prj" />
+    <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Vakindeling kunstwerken 52-2.qpj" />
+    <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Vakindeling kunstwerken 52-2.shp" />
+    <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Vakindeling kunstwerken 52-2.shx" />
+    <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\WBI2017_Bovenrijn_52-2_v01.config.sqlite" />
+    <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\WBI2017_Bovenrijn_52-2_v01.sqlite" />
+    <Content Include="Examples\Voorbeeld Traject 6-3 - Hydraulische belastingen voor bekledingen\Configuraties locatie WZ_1_6-3_dk_00046.xml" />
+    <Content Include="Examples\Voorbeeld Traject 6-3 - Hydraulische belastingen voor bekledingen\dam0Voorland0.prfl" />
+    <Content Include="Examples\Voorbeeld Traject 6-3 - Hydraulische belastingen voor bekledingen\dam0Voorland1.prfl" />
+    <Content Include="Examples\Voorbeeld Traject 6-3 - Hydraulische belastingen voor bekledingen\dam1Voorland0.prfl" />
+    <Content Include="Examples\Voorbeeld Traject 6-3 - Hydraulische belastingen voor bekledingen\dam1Voorland1.prfl" />
+    <Content Include="Examples\Voorbeeld Traject 6-3 - Hydraulische belastingen voor bekledingen\hlcd.sqlite" />
+    <Content Include="Examples\Voorbeeld Traject 6-3 - Hydraulische belastingen voor bekledingen\profiel63dam01voorland01.dbf" />
+    <Content Include="Examples\Voorbeeld Traject 6-3 - Hydraulische belastingen voor bekledingen\profiel63dam01voorland01.prj" />
+    <Content Include="Examples\Voorbeeld Traject 6-3 - Hydraulische belastingen voor bekledingen\profiel63dam01voorland01.qpj" />
+    <Content Include="Examples\Voorbeeld Traject 6-3 - Hydraulische belastingen voor bekledingen\profiel63dam01voorland01.shp" />
+    <Content Include="Examples\Voorbeeld Traject 6-3 - Hydraulische belastingen voor bekledingen\profiel63dam01voorland01.shx" />
+    <Content Include="Examples\Voorbeeld Traject 6-3 - Hydraulische belastingen voor bekledingen\Readme.rtf" />
+    <Content Include="Examples\Voorbeeld Traject 6-3 - Hydraulische belastingen voor bekledingen\WBI2017_Waddenzee_West_6-3_v01.config.sqlite" />
+    <Content Include="Examples\Voorbeeld Traject 6-3 - Hydraulische belastingen voor bekledingen\WBI2017_Waddenzee_West_6-3_v01.sqlite" />
     <Content Include="GenerateVariables.wxi" />
     <Content Include="GenerateVariables.wxi.svn" />
     <Content Include="IHW\voorbeeldbestand_nationaalBestandPrimaireWaterkeringen.dbf" />
@@ -95,6 +206,18 @@
     <EmbeddedResource Include="Localization_nl-NL.wxl" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Examples\" />
+    <Folder Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Grasbekleding erosie kruin en binnentalud\" />
+    <Folder Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Piping\" />
+    <Folder Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\" />
+    <Folder Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Betrouwbaarheid sluiting kunstwerk\" />
+    <Folder Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Hoogte\" />
+    <Folder Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Sterkte en stabiliteit puntconstructies\" />
+    <Folder Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\" />
+    <Folder Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Betrouwbaarheid sluiting kunstwerk\" />
+    <Folder Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Hoogte\" />
+    <Folder Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Sterkte en stabiliteit puntconstructies\" />
+    <Folder Include="Examples\Voorbeeld Traject 6-3 - Hydraulische belastingen voor bekledingen\" />
     <Folder Include="Installer UI" />
     <Folder Include="licenses\" />
     <Folder Include="IHW" />
@@ -111,11 +234,12 @@
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <PropertyGroup>
-    <DefineConstants>$(DefineConstants);ReleaseVersion=$(ReleaseVersion);ApplicationBinFolder=..\..\..\..\bin\$(Configuration);InstallerLicensesFolder=licenses\</DefineConstants>
+    <DefineConstants>$(DefineConstants);ReleaseVersion=$(ReleaseVersion);ApplicationBinFolder=..\..\..\..\bin\$(Configuration);InstallerLicensesFolder=licenses\;ExamplesFolder=Examples\;</DefineConstants>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>"$(WIX)bin\heat.exe" dir $(ProjectDir)..\..\..\..\bin\$(Configuration) -cg RingtoetsApplicationComponents -gg -dr BINDIR -var var.ApplicationBinFolder -sfrag -sreg -srd -o "$(ProjectDir)RingtoetsPayload.wxs"
 "$(WIX)bin\heat.exe" dir $(ProjectDir)licenses -cg ThirdPartyLicenseComponents -gg -dr BINDIR -var var.InstallerLicensesFolder -sfrag -sreg -srd -o "$(ProjectDir)ThirdPartyLicensesPayload.wxs"
+"$(WIX)bin\heat.exe" dir $(ProjectDir)Examples -cg Examples -gg -dr CommonDocumentExamples -var var.ExamplesFolder -sfrag -sreg -srd -o "$(ProjectDir)Examples.wxs"
 $(ProjectDir)..\..\..\..\build\svn_insert_version.cmd $(ProjectDir) GenerateVariables.wxi.svn GenerateVariables.wxi%3b</PreBuildEvent>
   </PropertyGroup>
   <!--
