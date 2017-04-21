@@ -640,4 +640,7 @@ Er is geen berekeningenconfiguratie geïmporteerd.</value>
   <data name="StructuresParameterRowsValidator_ValidateStructuresParameters_No_parameters_found" xml:space="preserve">
     <value>Geen geldige parameter definities gevonden.</value>
   </data>
+  <data name="StructuresCalculationStochastAssigner_ValidateNoParametersDefined_No_structure_defined_to_add_Stochast_0" xml:space="preserve">
+    <value>Er is geen kunstwerk opgegeven om de stochast '{0}' aan toe te voegen.</value>
+  </data>
 </root>

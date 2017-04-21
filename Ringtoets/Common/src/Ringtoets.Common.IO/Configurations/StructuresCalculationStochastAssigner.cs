@@ -156,7 +156,8 @@ namespace Ringtoets.Common.IO.Configurations
             bool parameterDefined = stochastConfiguration != null && (stochastConfiguration.Mean.HasValue || stochastConfiguration.StandardDeviation.HasValue || stochastConfiguration.VariationCoefficient.HasValue);
             if (parameterDefined)
             {
-                Log.LogCalculationConversionError($"Er is geen kunstwerk opgegeven om de stochast '{stochastName}' aan toe te voegen.", calculationName);
+                Log.LogCalculationConversionError(string.Format(Resources.StructuresCalculationStochastAssigner_ValidateNoParametersDefined_No_structure_defined_to_add_Stochast_0,
+                                                                stochastName), calculationName);
             }
 
             return !parameterDefined;

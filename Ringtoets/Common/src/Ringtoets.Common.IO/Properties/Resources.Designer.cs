@@ -1499,6 +1499,16 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er is geen kunstwerk opgegeven om de stochast &apos;{0}&apos; aan toe te voegen..
+        /// </summary>
+        public static string StructuresCalculationStochastAssigner_ValidateNoParametersDefined_No_structure_defined_to_add_Stochast_0 {
+            get {
+                return ResourceManager.GetString("StructuresCalculationStochastAssigner_ValidateNoParametersDefined_No_structure_de" +
+                        "fined_to_add_Stochast_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Er kan geen spreiding voor stochast &apos;afvoercoefficient&apos; opgegeven worden..
         /// </summary>
         public static string StructuresCalculationStochastAssigner_ValidateStochasts_Cannot_define_spread_for_DrainCoefficient {
