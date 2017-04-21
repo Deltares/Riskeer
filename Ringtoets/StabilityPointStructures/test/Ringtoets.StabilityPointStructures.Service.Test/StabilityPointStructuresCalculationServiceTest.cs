@@ -92,7 +92,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             var calculation = new TestStabilityPointStructuresCalculation();
 
-            bool isValid = false;
+            var isValid = false;
 
             // Call
             Action call = () => isValid = StabilityPointStructuresCalculationService.Validate(calculation, assessmentSectionStub);
@@ -100,9 +100,9 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                var name = calculation.Name;
+                string name = calculation.Name;
                 StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
                 StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
@@ -124,7 +124,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             var calculation = new TestStabilityPointStructuresCalculation();
 
-            bool isValid = false;
+            var isValid = false;
 
             // Call
             Action call = () => isValid = StabilityPointStructuresCalculationService.Validate(calculation, assessmentSectionStub);
@@ -132,9 +132,9 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                var name = calculation.Name;
+                string name = calculation.Name;
                 StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
                 StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
@@ -167,7 +167,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 }
             };
 
-            bool isValid = false;
+            var isValid = false;
 
             // Call
             Action call = () => isValid = StabilityPointStructuresCalculationService.Validate(calculation, assessmentSectionStub);
@@ -175,7 +175,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 Assert.AreEqual("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", msgs[1]);
@@ -214,7 +214,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 }
             };
 
-            bool isValid = false;
+            var isValid = false;
 
             // Call
             Action call = () => isValid = StabilityPointStructuresCalculationService.Validate(calculation, assessmentSectionStub);
@@ -222,7 +222,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 Assert.AreEqual("Validatie mislukt: Er is geen kunstwerk geselecteerd.", msgs[1]);
@@ -267,7 +267,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 }
             };
 
-            bool isValid = false;
+            var isValid = false;
 
             // Call
             Action call = () => isValid = StabilityPointStructuresCalculationService.Validate(calculation, assessmentSectionStub);
@@ -275,7 +275,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 Assert.AreEqual("Validatie mislukt: De waarde voor 'hoogte' van de dam moet een concreet getal zijn.", msgs[1]);
@@ -314,7 +314,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             SetInvalidInputParameters(calculation.InputParameters, (RoundedDouble) value);
 
-            bool isValid = false;
+            var isValid = false;
 
             // Call 
             Action call = () => isValid = StabilityPointStructuresCalculationService.Validate(calculation, assessmentSectionStub);
@@ -323,7 +323,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             Assert.IsFalse(isValid);
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(43, msgs.Length);
                 StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 Assert.AreEqual($"Validatie mislukt: De waarde voor '{volumicWeightWaterParameterName}' moet een concreet getal zijn.", msgs[1]);
@@ -399,7 +399,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             SetInvalidInputParameters(calculation.InputParameters, (RoundedDouble) value);
 
-            bool isValid = false;
+            var isValid = false;
 
             // Call 
             Action call = () => isValid = StabilityPointStructuresCalculationService.Validate(calculation, assessmentSectionStub);
@@ -408,7 +408,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             Assert.IsFalse(isValid);
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(43, msgs.Length);
                 StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 Assert.AreEqual($"Validatie mislukt: De waarde voor '{volumicWeightWaterParameterName}' moet een concreet getal zijn.", msgs[1]);
@@ -484,7 +484,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             SetInvalidInputParameters(calculation.InputParameters, (RoundedDouble) value);
 
-            bool isValid = false;
+            var isValid = false;
 
             // Call 
             Action call = () => isValid = StabilityPointStructuresCalculationService.Validate(calculation, assessmentSectionStub);
@@ -493,7 +493,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             Assert.IsFalse(isValid);
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(43, msgs.Length);
                 StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 Assert.AreEqual($"Validatie mislukt: De waarde voor '{volumicWeightWaterParameterName}' moet een concreet getal zijn.", msgs[1]);
@@ -569,7 +569,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             SetInvalidInputParameters(calculation.InputParameters, (RoundedDouble) value);
 
-            bool isValid = false;
+            var isValid = false;
 
             // Call 
             Action call = () => isValid = StabilityPointStructuresCalculationService.Validate(calculation, assessmentSectionStub);
@@ -578,7 +578,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             Assert.IsFalse(isValid);
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(43, msgs.Length);
                 StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 Assert.AreEqual($"Validatie mislukt: De waarde voor '{volumicWeightWaterParameterName}' moet een concreet getal zijn.", msgs[1]);
@@ -692,7 +692,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 }
             };
 
-            bool isValid = false;
+            var isValid = false;
 
             // Call 
             Action call = () => isValid = StabilityPointStructuresCalculationService.Validate(calculation, assessmentSectionStub);
@@ -701,7 +701,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             Assert.IsFalse(isValid);
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 Assert.AreEqual("Validatie mislukt: Er is geen belastingschematisering geselecteerd.", msgs[1]);
@@ -799,7 +799,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             // Call
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresStabilityPointCalculator;
+                TestStructuresStabilityPointCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresStabilityPointCalculator;
 
                 // Call
                 TestDelegate call = () => service.Calculate(calculation,
@@ -849,7 +849,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresStabilityPointCalculator;
+                TestStructuresStabilityPointCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresStabilityPointCalculator;
 
                 // Call
                 TestDelegate call = () => service.Calculate(calculation,
@@ -899,7 +899,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresStabilityPointCalculator;
+                TestStructuresStabilityPointCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresStabilityPointCalculator;
 
                 // Call
                 new StabilityPointStructuresCalculationService().Calculate(calculation,
@@ -979,7 +979,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.WidthFlowApertures.Mean,
                     input.WidthFlowApertures.StandardDeviation);
 
-                StructuresStabilityPointLowSillLinearCalculationInput actualInput = (StructuresStabilityPointLowSillLinearCalculationInput) calculationInputs[0];
+                var actualInput = (StructuresStabilityPointLowSillLinearCalculationInput) calculationInputs[0];
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                 Assert.IsFalse(calculator.IsCanceled);
             }
@@ -1016,7 +1016,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresStabilityPointCalculator;
+                TestStructuresStabilityPointCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresStabilityPointCalculator;
 
                 // Call
                 new StabilityPointStructuresCalculationService().Calculate(calculation,
@@ -1096,7 +1096,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.WidthFlowApertures.Mean,
                     input.WidthFlowApertures.StandardDeviation);
 
-                StructuresStabilityPointLowSillQuadraticCalculationInput actualInput = (StructuresStabilityPointLowSillQuadraticCalculationInput) calculationInputs[0];
+                var actualInput = (StructuresStabilityPointLowSillQuadraticCalculationInput) calculationInputs[0];
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                 Assert.IsFalse(calculator.IsCanceled);
             }
@@ -1133,7 +1133,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresStabilityPointCalculator;
+                TestStructuresStabilityPointCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresStabilityPointCalculator;
 
                 // Call
                 new StabilityPointStructuresCalculationService().Calculate(calculation,
@@ -1213,7 +1213,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.StabilityLinearLoadModel.Mean,
                     input.StabilityLinearLoadModel.CoefficientOfVariation);
 
-                StructuresStabilityPointFloodedCulvertLinearCalculationInput actualInput = (StructuresStabilityPointFloodedCulvertLinearCalculationInput) calculationInputs[0];
+                var actualInput = (StructuresStabilityPointFloodedCulvertLinearCalculationInput) calculationInputs[0];
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                 Assert.IsFalse(calculator.IsCanceled);
             }
@@ -1250,7 +1250,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresStabilityPointCalculator;
+                TestStructuresStabilityPointCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresStabilityPointCalculator;
 
                 // Call
                 new StabilityPointStructuresCalculationService().Calculate(calculation,
@@ -1330,7 +1330,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.StabilityQuadraticLoadModel.Mean,
                     input.StabilityQuadraticLoadModel.CoefficientOfVariation);
 
-                StructuresStabilityPointFloodedCulvertQuadraticCalculationInput actualInput = (StructuresStabilityPointFloodedCulvertQuadraticCalculationInput) calculationInputs[0];
+                var actualInput = (StructuresStabilityPointFloodedCulvertQuadraticCalculationInput) calculationInputs[0];
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                 Assert.IsFalse(calculator.IsCanceled);
             }
@@ -1395,7 +1395,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {
-                    var msgs = messages.ToArray();
+                    string[] msgs = messages.ToArray();
                     Assert.AreEqual(3, msgs.Length);
                     StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
                     StringAssert.StartsWith("Puntconstructies berekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
@@ -1434,7 +1434,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresStabilityPointCalculator;
+                TestStructuresStabilityPointCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresStabilityPointCalculator;
                 var service = new StabilityPointStructuresCalculationService();
                 calculator.CalculationFinishedHandler += (s, e) => service.Cancel();
 
@@ -1478,7 +1478,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresStabilityPointCalculator;
+                TestStructuresStabilityPointCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresStabilityPointCalculator;
                 calculator.LastErrorFileContent = "An error occurred";
                 calculator.EndInFailure = true;
 
@@ -1502,7 +1502,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {
-                    var msgs = messages.ToArray();
+                    string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
                     StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
                     StringAssert.StartsWith($"De berekening voor kunstwerk puntconstructies '{calculation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[1]);
@@ -1542,7 +1542,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresStabilityPointCalculator;
+                TestStructuresStabilityPointCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresStabilityPointCalculator;
                 calculator.EndInFailure = true;
 
                 var exceptionThrown = false;
@@ -1565,7 +1565,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {
-                    var msgs = messages.ToArray();
+                    string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
                     StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
                     StringAssert.StartsWith($"De berekening voor kunstwerk puntconstructies '{calculation.Name}' is niet gelukt. Er is geen foutrapport beschikbaar.", msgs[1]);
@@ -1605,12 +1605,12 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresStabilityPointCalculator;
+                TestStructuresStabilityPointCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresStabilityPointCalculator;
                 calculator.EndInFailure = false;
                 calculator.LastErrorFileContent = "An error occurred";
 
                 var exceptionThrown = false;
-                var exceptionMessage = string.Empty;
+                string exceptionMessage = string.Empty;
 
                 // Call
                 Action call = () =>
@@ -1631,7 +1631,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {
-                    var msgs = messages.ToArray();
+                    string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
                     StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
                     StringAssert.StartsWith($"De berekening voor kunstwerk puntconstructies '{calculation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[1]);

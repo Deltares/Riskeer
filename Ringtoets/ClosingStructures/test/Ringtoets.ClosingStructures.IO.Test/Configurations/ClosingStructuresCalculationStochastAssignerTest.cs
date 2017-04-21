@@ -137,7 +137,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
                 configuration,
                 calculation);
 
-            bool valid = true;
+            var valid = true;
 
             // Call
             Action test = () => valid = assigner.Assign();

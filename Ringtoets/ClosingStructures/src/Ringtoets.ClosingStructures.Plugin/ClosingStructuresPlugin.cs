@@ -255,7 +255,7 @@ namespace Ringtoets.ClosingStructures.Plugin
             var failureMechanism = data as ClosingStructuresFailureMechanism;
 
             var viewFailureMechanismContext = (ClosingStructuresFailureMechanismContext) view.Data;
-            var viewFailureMechanism = viewFailureMechanismContext.WrappedData;
+            ClosingStructuresFailureMechanism viewFailureMechanism = viewFailureMechanismContext.WrappedData;
 
             return assessmentSection != null
                        ? ReferenceEquals(viewFailureMechanismContext.Parent, assessmentSection)
@@ -409,7 +409,7 @@ namespace Ringtoets.ClosingStructures.Plugin
 
         private static void ValidateAll(IEnumerable<StructuresCalculation<ClosingStructuresInput>> closingStructuresCalculations, IAssessmentSection assessmentSection)
         {
-            foreach (var calculation in closingStructuresCalculations)
+            foreach (StructuresCalculation<ClosingStructuresInput> calculation in closingStructuresCalculations)
             {
                 ClosingStructuresCalculationService.Validate(calculation, assessmentSection);
             }
@@ -467,9 +467,9 @@ namespace Ringtoets.ClosingStructures.Plugin
 
         private ContextMenuStrip CalculationGroupContextContextMenuStrip(ClosingStructuresCalculationGroupContext context, object parentData, TreeViewControl treeViewControl)
         {
-            var group = context.WrappedData;
+            CalculationGroup group = context.WrappedData;
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
-            var isNestedGroup = parentData is ClosingStructuresCalculationGroupContext;
+            bool isNestedGroup = parentData is ClosingStructuresCalculationGroupContext;
 
             builder.AddImportItem()
                    .AddExportItem()
@@ -554,7 +554,7 @@ namespace Ringtoets.ClosingStructures.Plugin
 
         private static void GenerateClosingStructuresCalculations(ClosingStructuresFailureMechanism failureMechanism, IEnumerable<ClosingStructure> structures, IList<ICalculationBase> calculations)
         {
-            foreach (var structure in structures)
+            foreach (ClosingStructure structure in structures)
             {
                 var calculation = new StructuresCalculation<ClosingStructuresInput>
                 {

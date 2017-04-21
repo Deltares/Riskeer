@@ -78,7 +78,7 @@ namespace Ringtoets.StabilityPointStructures.Service
             }
 
             var affectedItems = new List<IObservable>();
-            foreach (var calculation in failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>())
+            foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>())
             {
                 affectedItems.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation)
                                                                                 .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters)));
@@ -102,12 +102,12 @@ namespace Ringtoets.StabilityPointStructures.Service
             }
 
             var changedObjects = new List<IObservable>();
-            var removedObjects = failureMechanism.Sections.OfType<object>()
-                                                 .Concat(failureMechanism.SectionResults)
-                                                 .Concat(failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
-                                                 .Concat(failureMechanism.ForeshoreProfiles)
-                                                 .Concat(failureMechanism.StabilityPointStructures)
-                                                 .ToArray();
+            object[] removedObjects = failureMechanism.Sections.OfType<object>()
+                                                      .Concat(failureMechanism.SectionResults)
+                                                      .Concat(failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
+                                                      .Concat(failureMechanism.ForeshoreProfiles)
+                                                      .Concat(failureMechanism.StabilityPointStructures)
+                                                      .ToArray();
 
             failureMechanism.ClearAllSections();
             changedObjects.Add(failureMechanism);
@@ -143,7 +143,7 @@ namespace Ringtoets.StabilityPointStructures.Service
                 .ToArray();
             foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in calculationWithRemovedStabilityPointStructure)
             {
-                foreach (var calculationWithRemovedOutput in RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation))
+                foreach (IObservable calculationWithRemovedOutput in RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation))
                 {
                     changedObservables.Add(calculationWithRemovedOutput);
                 }

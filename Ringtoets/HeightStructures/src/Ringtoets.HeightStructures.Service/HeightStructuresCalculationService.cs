@@ -127,7 +127,7 @@ namespace Ringtoets.HeightStructures.Service
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            var calculationName = calculation.Name;
+            string calculationName = calculation.Name;
 
             StructuresOvertoppingCalculationInput input = CreateInput(calculation, failureMechanism.GeneralInput, hydraulicBoundaryDatabaseFilePath);
 
@@ -154,7 +154,7 @@ namespace Ringtoets.HeightStructures.Service
             {
                 if (!canceled)
                 {
-                    var lastErrorContent = calculator.LastErrorFileContent;
+                    string lastErrorContent = calculator.LastErrorFileContent;
                     if (string.IsNullOrEmpty(lastErrorContent))
                     {
                         log.ErrorFormat(Resources.HeightStructuresCalculationService_Calculate_Error_in_height_structures_0_calculation_no_error_report,
@@ -172,7 +172,7 @@ namespace Ringtoets.HeightStructures.Service
             }
             finally
             {
-                var lastErrorFileContent = calculator.LastErrorFileContent;
+                string lastErrorFileContent = calculator.LastErrorFileContent;
                 bool errorOccurred = CalculationServiceHelper.HasErrorOccurred(canceled, exceptionThrown, lastErrorFileContent);
                 if (errorOccurred)
                 {
@@ -242,7 +242,7 @@ namespace Ringtoets.HeightStructures.Service
         {
             var validationResults = new List<string>();
 
-            var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
+            string validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
             if (!string.IsNullOrEmpty(validationProblem))
             {
                 validationResults.Add(validationProblem);
@@ -261,7 +261,7 @@ namespace Ringtoets.HeightStructures.Service
             else
             {
                 IEnumerable<ValidationRule> inputValidationRules = GetInputValidationRules(inputParameters);
-                foreach (var validationRule in inputValidationRules)
+                foreach (ValidationRule validationRule in inputValidationRules)
                 {
                     validationResults.AddRange(validationRule.Validate());
                 }

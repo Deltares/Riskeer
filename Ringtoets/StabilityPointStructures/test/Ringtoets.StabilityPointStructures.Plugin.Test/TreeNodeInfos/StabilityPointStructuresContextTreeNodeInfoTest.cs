@@ -44,7 +44,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             // Setup
             using (var plugin = new StabilityPointStructuresPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Assert
                 Assert.IsNotNull(info.Text);
@@ -83,7 +83,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new StabilityPointStructuresPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
                 string text = info.Text(context);
@@ -110,7 +110,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new StabilityPointStructuresPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
                 Image image = info.Image(context);
@@ -145,7 +145,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                                                               assessmentSection);
             using (var plugin = new StabilityPointStructuresPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
                 Color color = info.ForeColor(context);
@@ -180,10 +180,10 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                                                               assessmentSection);
             using (var plugin = new StabilityPointStructuresPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                var children = info.ChildNodeObjects(context);
+                object[] children = info.ChildNodeObjects(context);
 
                 // Assert
                 Assert.AreEqual(2, children.Length);
@@ -211,7 +211,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                                                               assessmentSection);
             using (var plugin = new StabilityPointStructuresPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
                 Color color = info.ForeColor(context);
@@ -230,7 +230,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
-            { 
+            {
                 menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddDeleteChildrenItem()).Return(menuBuilderMock);
@@ -248,7 +248,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
                 info.ContextMenuStrip(null, null, treeViewControl);

@@ -74,7 +74,7 @@ namespace Ringtoets.StabilityPointStructures.Service
             }
 
             CalculationServiceHelper.LogValidationBeginTime(calculation.Name);
-            var messages = ValidateInput(calculation.InputParameters, assessmentSection);
+            string[] messages = ValidateInput(calculation.InputParameters, assessmentSection);
             CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Error_in_validation_0, messages);
             CalculationServiceHelper.LogValidationEndTime(calculation.Name);
 
@@ -126,7 +126,7 @@ namespace Ringtoets.StabilityPointStructures.Service
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            var calculationName = calculation.Name;
+            string calculationName = calculation.Name;
 
             StructuresStabilityPointCalculationInput input = CreateStructuresStabilityPointCalculationInput(calculation,
                                                                                                             failureMechanism,
@@ -154,7 +154,7 @@ namespace Ringtoets.StabilityPointStructures.Service
             {
                 if (!canceled)
                 {
-                    var lastErrorContent = calculator.LastErrorFileContent;
+                    string lastErrorContent = calculator.LastErrorFileContent;
                     if (string.IsNullOrEmpty(lastErrorContent))
                     {
                         log.ErrorFormat(Resources.StabilityPointStructuresCalculationService_Calculate_Error_in_stabilityPoint_structures_0_calculation_no_error_report,
@@ -172,7 +172,7 @@ namespace Ringtoets.StabilityPointStructures.Service
             }
             finally
             {
-                var lastErrorFileContent = calculator.LastErrorFileContent;
+                string lastErrorFileContent = calculator.LastErrorFileContent;
                 bool errorOccurred = CalculationServiceHelper.HasErrorOccurred(canceled, exceptionThrown, lastErrorFileContent);
                 if (errorOccurred)
                 {
@@ -561,7 +561,7 @@ namespace Ringtoets.StabilityPointStructures.Service
         {
             var validationResults = new List<string>();
 
-            var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
+            string validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
             if (!string.IsNullOrEmpty(validationProblem))
             {
                 validationResults.Add(validationProblem);
@@ -618,7 +618,7 @@ namespace Ringtoets.StabilityPointStructures.Service
                                                                typeof(StabilityPointStructureInflowModelType));
                 }
 
-                foreach (var validationRule in validationRules)
+                foreach (ValidationRule validationRule in validationRules)
                 {
                     validationResults.AddRange(validationRule.Validate());
                 }
@@ -640,7 +640,7 @@ namespace Ringtoets.StabilityPointStructures.Service
                 new NormalDistributionRule(input.InsideWaterLevelFailureConstruction,
                                            ParameterNameExtractor.GetFromDisplayName(RingtoetsStabilityPointStructuresFormsResources.Structure_InsideWaterLevelFailureConstruction_DisplayName)),
                 new VariationCoefficientNormalDistributionRule(input.FlowVelocityStructureClosable,
-                                           ParameterNameExtractor.GetFromDisplayName(RingtoetsStabilityPointStructuresFormsResources.Structure_FlowVelocityStructureClosable_DisplayName)),
+                                                               ParameterNameExtractor.GetFromDisplayName(RingtoetsStabilityPointStructuresFormsResources.Structure_FlowVelocityStructureClosable_DisplayName)),
                 new NormalDistributionRule(input.ModelFactorSuperCriticalFlow,
                                            ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_ModelFactorSuperCriticalFlow_DisplayName)),
                 new NumericInputRule(input.FactorStormDurationOpenStructure,
@@ -694,7 +694,7 @@ namespace Ringtoets.StabilityPointStructures.Service
                 new NormalDistributionRule(input.InsideWaterLevelFailureConstruction,
                                            ParameterNameExtractor.GetFromDisplayName(RingtoetsStabilityPointStructuresFormsResources.Structure_InsideWaterLevelFailureConstruction_DisplayName)),
                 new VariationCoefficientNormalDistributionRule(input.FlowVelocityStructureClosable,
-                                           ParameterNameExtractor.GetFromDisplayName(RingtoetsStabilityPointStructuresFormsResources.Structure_FlowVelocityStructureClosable_DisplayName)),
+                                                               ParameterNameExtractor.GetFromDisplayName(RingtoetsStabilityPointStructuresFormsResources.Structure_FlowVelocityStructureClosable_DisplayName)),
                 new NormalDistributionRule(input.ModelFactorSuperCriticalFlow,
                                            ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_ModelFactorSuperCriticalFlow_DisplayName)),
                 new NumericInputRule(input.FactorStormDurationOpenStructure,
@@ -748,7 +748,7 @@ namespace Ringtoets.StabilityPointStructures.Service
                 new NormalDistributionRule(input.InsideWaterLevelFailureConstruction,
                                            ParameterNameExtractor.GetFromDisplayName(RingtoetsStabilityPointStructuresFormsResources.Structure_InsideWaterLevelFailureConstruction_DisplayName)),
                 new VariationCoefficientNormalDistributionRule(input.FlowVelocityStructureClosable,
-                                           ParameterNameExtractor.GetFromDisplayName(RingtoetsStabilityPointStructuresFormsResources.Structure_FlowVelocityStructureClosable_DisplayName)),
+                                                               ParameterNameExtractor.GetFromDisplayName(RingtoetsStabilityPointStructuresFormsResources.Structure_FlowVelocityStructureClosable_DisplayName)),
                 new NormalDistributionRule(input.DrainCoefficient,
                                            ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_DrainCoefficient_DisplayName)),
                 new NumericInputRule(input.FactorStormDurationOpenStructure,
@@ -802,7 +802,7 @@ namespace Ringtoets.StabilityPointStructures.Service
                 new NormalDistributionRule(input.InsideWaterLevelFailureConstruction,
                                            ParameterNameExtractor.GetFromDisplayName(RingtoetsStabilityPointStructuresFormsResources.Structure_InsideWaterLevelFailureConstruction_DisplayName)),
                 new VariationCoefficientNormalDistributionRule(input.FlowVelocityStructureClosable,
-                                           ParameterNameExtractor.GetFromDisplayName(RingtoetsStabilityPointStructuresFormsResources.Structure_FlowVelocityStructureClosable_DisplayName)),
+                                                               ParameterNameExtractor.GetFromDisplayName(RingtoetsStabilityPointStructuresFormsResources.Structure_FlowVelocityStructureClosable_DisplayName)),
                 new NormalDistributionRule(input.DrainCoefficient,
                                            ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_DrainCoefficient_DisplayName)),
                 new NumericInputRule(input.FactorStormDurationOpenStructure,

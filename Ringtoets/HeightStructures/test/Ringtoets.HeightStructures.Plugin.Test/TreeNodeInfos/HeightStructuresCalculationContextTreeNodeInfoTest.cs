@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -105,7 +106,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             // Call
-            var image = info.Image(null);
+            Image image = info.Image(null);
 
             // Assert
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculationIcon, image);
@@ -122,7 +123,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             var calculationContext = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
 
             // Call
-            var children = info.ChildNodeObjects(calculationContext).ToArray();
+            object[] children = info.ChildNodeObjects(calculationContext).ToArray();
 
             // Assert
             Assert.AreEqual(3, children.Length);
@@ -153,7 +154,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             var calculationContext = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
 
             // Call
-            var children = info.ChildNodeObjects(calculationContext).ToArray();
+            object[] children = info.ChildNodeObjects(calculationContext).ToArray();
 
             // Assert
             Assert.AreEqual(3, children.Length);
@@ -569,7 +570,10 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             {
                 FilePath = validFilePath,
                 Version = "random",
-                Locations = { hydraulicBoundaryLocation }
+                Locations =
+                {
+                    hydraulicBoundaryLocation
+                }
             };
 
             var initialOutput = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
@@ -608,7 +612,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                     // Then
                     TestHelper.AssertLogMessages(action, messages =>
                     {
-                        var msgs = messages.ToArray();
+                        string[] msgs = messages.ToArray();
                         Assert.AreEqual(6, msgs.Length);
                         StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
                         StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
@@ -637,7 +641,10 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             {
                 FilePath = validFilePath,
                 Version = "random",
-                Locations = { hydraulicBoundaryLocation }
+                Locations =
+                {
+                    hydraulicBoundaryLocation
+                }
             };
 
             var calculation = new TestHeightStructuresCalculation
@@ -669,7 +676,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                     // Then
                     TestHelper.AssertLogMessages(action, messages =>
                     {
-                        var msgs = messages.ToArray();
+                        string[] msgs = messages.ToArray();
                         Assert.AreEqual(2, msgs.Length);
                         StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
                         StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);

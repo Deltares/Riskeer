@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -119,7 +120,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
-            var children = info.ChildNodeObjects(failureMechanismContext).ToArray();
+            object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
 
             // Assert
             Assert.AreEqual(3, children.Length);
@@ -182,7 +183,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
-            var children = info.ChildNodeObjects(failureMechanismContext).ToArray();
+            object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
 
             // Assert
             Assert.AreEqual(1, children.Length);
@@ -645,13 +646,13 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                     // Expect an activity dialog which is automatically closed
                 };
 
-                using (var contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
                 using (new HydraRingCalculatorFactoryConfig())
                 {
                     // Call
                     TestHelper.AssertLogMessages(() => contextMenu.Items[contextMenuCalculateAllIndex].PerformClick(), messages =>
                     {
-                        var messageList = messages.ToList();
+                        List<string> messageList = messages.ToList();
 
                         // Assert
                         Assert.AreEqual(12, messageList.Count);
@@ -722,7 +723,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                     // Assert
                     TestHelper.AssertLogMessages(call, messages =>
                     {
-                        var messageList = messages.ToArray();
+                        string[] messageList = messages.ToArray();
 
                         Assert.AreEqual(4, messageList.Length);
                         StringAssert.StartsWith("Validatie van 'A' gestart om: ", messageList[0]);

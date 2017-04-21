@@ -165,13 +165,13 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 dataGridView.Rows[0].Cells[assessmentLayerOneIndex].Value = assessmentLayerOneState;
 
                 // Assert
-                var rows = dataGridView.Rows;
+                DataGridViewRowCollection rows = dataGridView.Rows;
 
-                var cells = rows[0].Cells;
+                DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                var cellAssessmentLayerTwoA = cells[assessmentLayerTwoAIndex];
-                var cellAssessmentLayerThree = cells[assessmentLayerThreeIndex];
+                DataGridViewCell cellAssessmentLayerTwoA = cells[assessmentLayerTwoAIndex];
+                DataGridViewCell cellAssessmentLayerThree = cells[assessmentLayerThreeIndex];
                 DataGridViewCell dataGridViewCell = cells[assessmentLayerOneIndex];
 
                 Assert.AreEqual(assessmentLayerOneState, dataGridViewCell.Value);
@@ -237,7 +237,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 new Point2D(0, 0)
             });
 
-            Random random = new Random(21);
+            var random = new Random(21);
             var result1 = new ClosingStructuresFailureMechanismSectionResult(section1)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
@@ -254,7 +254,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
 
-            using (var view = ShowFailureMechanismResultsView())
+            using (ClosingStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
             {
                 // When
                 view.Data = new[]
@@ -313,13 +313,13 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             {
                 new Point2D(0, 0)
             });
-            Random random = new Random(21);
+            var random = new Random(21);
             var result = new ClosingStructuresFailureMechanismSectionResult(section)
             {
                 AssessmentLayerOne = assessmentLayerOneState,
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
-            using (var view = ShowFailureMechanismResultsView())
+            using (ClosingStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
             {
                 view.Data = new[]
                 {
@@ -347,12 +347,12 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void GivenFormWithFailureMechanismResultView_WhenDataSourceWithOtherFailureMechanismSectionResultAssigned_ThenSectionsNotAdded()
         {
             // Given
-            var section1 = CreateSimpleFailureMechanismSection();
-            var section2 = CreateSimpleFailureMechanismSection();
+            FailureMechanismSection section1 = CreateSimpleFailureMechanismSection();
+            FailureMechanismSection section2 = CreateSimpleFailureMechanismSection();
             var result1 = new TestFailureMechanismSectionResult(section1);
             var result2 = new TestFailureMechanismSectionResult(section2);
 
-            using (var view = ShowFailureMechanismResultsView())
+            using (ClosingStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
             {
                 // When
                 view.Data = new[]
@@ -392,7 +392,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
 
                 // When
-                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
 
                 // Then
                 Assert.AreEqual("-", formattedValue);
@@ -428,7 +428,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
 
                 // When
-                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
 
                 // Then
                 Assert.AreEqual("-", formattedValue);
@@ -466,7 +466,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
 
                 // When
-                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
 
                 // Then
                 Assert.AreEqual("-", formattedValue);
@@ -505,7 +505,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
 
                 // When
-                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
 
                 // Then
                 Assert.AreEqual(ProbabilityFormattingHelper.Format(probability), formattedValue);
@@ -531,7 +531,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
 
                 // When
-                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
 
                 // Then
                 Assert.AreEqual(expectedValue, formattedValue);
@@ -576,7 +576,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
 
                 // Precondition
-                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
                 Assert.AreEqual(ProbabilityFormattingHelper.Format(probability), formattedValue);
                 Assert.IsEmpty(dataGridViewCell.ErrorText);
 
@@ -649,7 +649,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 new Point2D(10.0, 0.0)
             }));
 
-            var failureMechanismResultView = ShowFailureMechanismResultsView();
+            ClosingStructuresFailureMechanismResultView failureMechanismResultView = ShowFailureMechanismResultsView();
             failureMechanismResultView.Data = failureMechanism.SectionResults;
             failureMechanismResultView.FailureMechanism = failureMechanism;
 

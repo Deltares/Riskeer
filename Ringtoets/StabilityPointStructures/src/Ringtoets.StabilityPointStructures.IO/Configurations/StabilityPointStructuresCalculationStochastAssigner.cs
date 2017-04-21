@@ -46,7 +46,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
         /// <exception cref="ArgumentNullException">Thrown when any input parameters is <c>null</c>.</exception>
         public StabilityPointStructuresCalculationStochastAssigner(StabilityPointStructuresCalculationConfiguration configuration,
                                                                    StructuresCalculation<StabilityPointStructuresInput> calculation)
-            : base(configuration, calculation) { }
+            : base(configuration, calculation) {}
 
         protected override IEnumerable<StandardDeviationDefinition> GetStandardDeviationStochasts(bool structureDependent = false)
         {

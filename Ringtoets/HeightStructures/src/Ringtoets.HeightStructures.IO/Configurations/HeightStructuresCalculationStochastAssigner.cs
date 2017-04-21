@@ -74,7 +74,7 @@ namespace Ringtoets.HeightStructures.IO.Configurations
                 yield return new StandardDeviationDefinition(
                     ConfigurationSchemaIdentifiers.ModelFactorSuperCriticalFlowStochastName,
                     Configuration.ModelFactorSuperCriticalFlow,
-                    i => i.ModelFactorSuperCriticalFlow, 
+                    i => i.ModelFactorSuperCriticalFlow,
                     (i, d) => i.ModelFactorSuperCriticalFlow = (NormalDistribution) d);
             }
         }
@@ -84,7 +84,7 @@ namespace Ringtoets.HeightStructures.IO.Configurations
             yield return new VariationCoefficientDefinition(
                 ConfigurationSchemaIdentifiers.CriticalOvertoppingDischargeStochastName,
                 Configuration.CriticalOvertoppingDischarge,
-                i => i.CriticalOvertoppingDischarge, 
+                i => i.CriticalOvertoppingDischarge,
                 (i, d) => i.CriticalOvertoppingDischarge = (VariationCoefficientLogNormalDistribution) d);
 
             yield return new VariationCoefficientDefinition(
@@ -98,7 +98,7 @@ namespace Ringtoets.HeightStructures.IO.Configurations
                 yield return new VariationCoefficientDefinition(
                     ConfigurationSchemaIdentifiers.StormDurationStochastName,
                     Configuration.StormDuration,
-                    i => i.StormDuration, 
+                    i => i.StormDuration,
                     (i, d) => i.StormDuration = (VariationCoefficientLogNormalDistribution) d);
             }
         }

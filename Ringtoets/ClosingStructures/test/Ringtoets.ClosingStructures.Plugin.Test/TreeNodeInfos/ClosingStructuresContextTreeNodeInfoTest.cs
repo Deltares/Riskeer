@@ -170,7 +170,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             var closingStructuresContext = new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSection);
 
             // Call
-            var children = info.ChildNodeObjects(closingStructuresContext);
+            object[] children = info.ChildNodeObjects(closingStructuresContext);
 
             // Assert
             Assert.AreEqual(2, children.Length);

@@ -89,7 +89,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
                        {
                            structureBaseSchemaName, RingtoetsCommonIOResources.KunstwerkenBasisSchema
                        }
-                   }) { }
+                   }) {}
 
         protected override ClosingStructuresCalculationConfiguration ParseCalculationElement(XElement calculationElement)
         {

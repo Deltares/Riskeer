@@ -328,8 +328,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             TestDelegate test = () => new WaveImpactAsphaltCoverWaveConditionsCalculationService().Calculate(
                 calculation,
                 assessmentSectionStub,
-                                                                                                             null,
-                                                                                                             validFilePath);
+                null,
+                validFilePath);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -358,10 +358,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 // Call
-                Action call = () => new WaveImpactAsphaltCoverWaveConditionsCalculationService().Calculate(calculation,
-                                                                                                           assessmentSectionStub,
-                                                                                                           waveImpactAsphaltCoverFailureMechanism.GeneralInput,
-                                                                                                           validFilePath);
+                Action call = () => new WaveImpactAsphaltCoverWaveConditionsCalculationService().Calculate(
+                    calculation,
+                    assessmentSectionStub,
+                    waveImpactAsphaltCoverFailureMechanism.GeneralInput,
+                    validFilePath);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -420,10 +421,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 // Call
-                Action call = () => new WaveImpactAsphaltCoverWaveConditionsCalculationService().Calculate(calculation,
-                                                                                                           assessmentSectionStub,
-                                                                                                           waveImpactAsphaltCoverFailureMechanism.GeneralInput,
-                                                                                                           validFilePath);
+                Action call = () => new WaveImpactAsphaltCoverWaveConditionsCalculationService().Calculate(
+                    calculation,
+                    assessmentSectionStub,
+                    waveImpactAsphaltCoverFailureMechanism.GeneralInput,
+                    validFilePath);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -463,13 +465,15 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                TestWaveConditionsCosineCalculator testWaveConditionsCosineCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
+                TestWaveConditionsCosineCalculator testWaveConditionsCosineCalculator =
+                    ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
 
                 // Call
-                new WaveImpactAsphaltCoverWaveConditionsCalculationService().Calculate(calculation,
-                                                                                       assessmentSectionStub,
-                                                                                       waveImpactAsphaltCoverFailureMechanism.GeneralInput,
-                                                                                       validFilePath);
+                new WaveImpactAsphaltCoverWaveConditionsCalculationService().Calculate(
+                    calculation,
+                    assessmentSectionStub,
+                    waveImpactAsphaltCoverFailureMechanism.GeneralInput,
+                    validFilePath);
 
                 // Assert
                 WaveConditionsCosineCalculationInput[] testWaveConditionsInputs = testWaveConditionsCosineCalculator.ReceivedInputs.ToArray();
@@ -518,10 +522,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 waveImpactAsphaltCoverWaveConditionsCalculationService.Cancel();
 
                 // Call
-                waveImpactAsphaltCoverWaveConditionsCalculationService.Calculate(calculation,
-                                                                                 assessmentSectionStub,
-                                                                                 waveImpactAsphaltCoverFailureMechanism.GeneralInput,
-                                                                                 validFilePath);
+                waveImpactAsphaltCoverWaveConditionsCalculationService.Calculate(
+                    calculation,
+                    assessmentSectionStub,
+                    waveImpactAsphaltCoverFailureMechanism.GeneralInput,
+                    validFilePath);
 
                 // Assert
                 Assert.IsFalse(calculation.HasOutput);
@@ -548,10 +553,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 testWaveConditionsCosineCalculator.CalculationFinishedHandler += (s, e) => waveImpactAsphaltCoverWaveConditionsCalculationService.Cancel();
 
                 // Call
-                waveImpactAsphaltCoverWaveConditionsCalculationService.Calculate(calculation,
-                                                                                 assessmentSectionStub,
-                                                                                 waveImpactAsphaltCoverFailureMechanism.GeneralInput,
-                                                                                 validFilePath);
+                waveImpactAsphaltCoverWaveConditionsCalculationService.Calculate(
+                    calculation,
+                    assessmentSectionStub,
+                    waveImpactAsphaltCoverFailureMechanism.GeneralInput,
+                    validFilePath);
 
                 // Assert
                 Assert.IsNull(calculation.Output);
@@ -575,10 +581,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 // Call
-                new WaveImpactAsphaltCoverWaveConditionsCalculationService().Calculate(calculation,
-                                                                                       assessmentSectionStub,
-                                                                                       waveImpactAsphaltCoverFailureMechanism.GeneralInput,
-                                                                                       validFilePath);
+                new WaveImpactAsphaltCoverWaveConditionsCalculationService().Calculate(
+                    calculation,
+                    assessmentSectionStub,
+                    waveImpactAsphaltCoverFailureMechanism.GeneralInput,
+                    validFilePath);
 
                 // Assert
                 Assert.IsNotNull(calculation.Output);
@@ -615,10 +622,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 {
                     try
                     {
-                        new WaveImpactAsphaltCoverWaveConditionsCalculationService().Calculate(calculation,
-                                                                                               assessmentSectionStub,
-                                                                                               failureMechanism.GeneralInput,
-                                                                                               validFilePath);
+                        new WaveImpactAsphaltCoverWaveConditionsCalculationService().Calculate(
+                            calculation,
+                            assessmentSectionStub,
+                            failureMechanism.GeneralInput,
+                            validFilePath);
                     }
                     catch (HydraRingCalculationException)
                     {
@@ -667,7 +675,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                TestWaveConditionsCosineCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
+                TestWaveConditionsCosineCalculator calculator =
+                    ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
                 calculator.EndInFailure = true;
 
                 var exception = false;
@@ -677,10 +686,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 {
                     try
                     {
-                        new WaveImpactAsphaltCoverWaveConditionsCalculationService().Calculate(calculation,
-                                                                                               assessmentSectionStub,
-                                                                                               failureMechanism.GeneralInput,
-                                                                                               validFilePath);
+                        new WaveImpactAsphaltCoverWaveConditionsCalculationService().Calculate(
+                            calculation,
+                            assessmentSectionStub,
+                            failureMechanism.GeneralInput,
+                            validFilePath);
                     }
                     catch (HydraRingCalculationException)
                     {
@@ -741,10 +751,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 {
                     try
                     {
-                        new WaveImpactAsphaltCoverWaveConditionsCalculationService().Calculate(calculation,
-                                                                                               assessmentSectionStub,
-                                                                                               failureMechanism.GeneralInput,
-                                                                                               validFilePath);
+                        new WaveImpactAsphaltCoverWaveConditionsCalculationService().Calculate(
+                            calculation,
+                            assessmentSectionStub,
+                            failureMechanism.GeneralInput,
+                            validFilePath);
                     }
                     catch (HydraRingCalculationException e)
                     {
@@ -795,10 +806,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 calculator.EndInFailure = true;
 
                 // Call
-                TestDelegate test = () => new WaveImpactAsphaltCoverWaveConditionsCalculationService().Calculate(calculation,
-                                                                                                                 assessmentSectionStub,
-                                                                                                                 waveImpactAsphaltCoverFailureMechanism.GeneralInput,
-                                                                                                                 validFilePath);
+                TestDelegate test = () => new WaveImpactAsphaltCoverWaveConditionsCalculationService().Calculate(
+                    calculation,
+                    assessmentSectionStub,
+                    waveImpactAsphaltCoverFailureMechanism.GeneralInput,
+                    validFilePath);
 
                 // Assert
                 Assert.Throws<HydraRingCalculationException>(test);

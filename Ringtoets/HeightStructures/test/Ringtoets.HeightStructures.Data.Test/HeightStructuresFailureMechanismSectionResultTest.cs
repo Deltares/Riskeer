@@ -34,7 +34,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            FailureMechanismSection section = new FailureMechanismSection("test", new[]
+            var section = new FailureMechanismSection("test", new[]
             {
                 new Point2D(0, 0)
             });
@@ -92,7 +92,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             // Setup
             FailureMechanismSection section = CreateSection();
 
-            double probability = 0.65;
+            var probability = 0.65;
             var result = new HeightStructuresFailureMechanismSectionResult(section)
             {
                 Calculation = new StructuresCalculation<HeightStructuresInput>

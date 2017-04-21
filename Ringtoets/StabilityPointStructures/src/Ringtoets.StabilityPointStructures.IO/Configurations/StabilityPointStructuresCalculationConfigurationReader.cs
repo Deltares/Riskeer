@@ -90,7 +90,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
                            structureBaseSchemaName, RingtoetsCommonIOResources.KunstwerkenBasisSchema
                        }
                    }
-            ) { }
+            ) {}
 
         protected override StabilityPointStructuresCalculationConfiguration ParseCalculationElement(XElement calculationElement)
         {

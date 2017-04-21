@@ -182,6 +182,18 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
                 data.FailureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>());
         }
 
+        protected override bool ShouldPropertyBeReadOnlyInAbsenseOfStructure(string property)
+        {
+            return nameof(InflowModelType).Equals(property)
+                   || nameof(LoadSchematizationType).Equals(property)
+                   || nameof(LevellingCount).Equals(property)
+                   || nameof(EvaluationLevel).Equals(property)
+                   || nameof(VerticalDistance).Equals(property)
+                   || nameof(FailureProbabilityRepairClosure).Equals(property)
+                   || nameof(ProbabilityCollisionSecondaryStructure).Equals(property)
+                   || base.ShouldPropertyBeReadOnlyInAbsenseOfStructure(property);
+        }
+
         #region Hydraulic data
 
         [PropertyOrder(volumicWeightWaterPropertyIndex)]
@@ -644,17 +656,5 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         }
 
         #endregion
-
-        protected override bool ShouldPropertyBeReadOnlyInAbsenseOfStructure(string property)
-        {
-            return nameof(InflowModelType).Equals(property)
-                   || nameof(LoadSchematizationType).Equals(property)
-                   || nameof(LevellingCount).Equals(property)
-                   || nameof(EvaluationLevel).Equals(property)
-                   || nameof(VerticalDistance).Equals(property)
-                   || nameof(FailureProbabilityRepairClosure).Equals(property)
-                   || nameof(ProbabilityCollisionSecondaryStructure).Equals(property)
-                   || base.ShouldPropertyBeReadOnlyInAbsenseOfStructure(property);
-        }
     }
 }

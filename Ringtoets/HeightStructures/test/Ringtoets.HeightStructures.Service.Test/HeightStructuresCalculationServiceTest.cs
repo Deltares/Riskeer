@@ -67,7 +67,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             Assert.AreEqual("calculation", exception.ParamName);
             mocks.VerifyAll();
         }
- 
+
         [Test]
         public void Validate_AssessmentSectionNull_ThrowArgumentNullException()
         {
@@ -95,15 +95,15 @@ namespace Ringtoets.HeightStructures.Service.Test
             var calculation = new TestHeightStructuresCalculation();
 
             // Call
-            bool isValid = false;
+            var isValid = false;
             Action call = () => isValid = HeightStructuresCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                var calculationName = calculation.Name;
+                string calculationName = calculation.Name;
                 StringAssert.StartsWith($"Validatie van '{calculationName}' gestart om: ", msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
                 StringAssert.StartsWith($"Validatie van '{calculationName}' beëindigd om: ", msgs[2]);
@@ -126,15 +126,15 @@ namespace Ringtoets.HeightStructures.Service.Test
             var calculation = new TestHeightStructuresCalculation();
 
             // Call
-            bool isValid = false;
+            var isValid = false;
             Action call = () => isValid = HeightStructuresCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                var calculationName = calculation.Name;
+                string calculationName = calculation.Name;
                 StringAssert.StartsWith($"Validatie van '{calculationName}' gestart om: ", msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
                 StringAssert.StartsWith($"Validatie van '{calculationName}' beëindigd om: ", msgs[2]);
@@ -166,13 +166,13 @@ namespace Ringtoets.HeightStructures.Service.Test
             };
 
             // Call
-            bool isValid = false;
+            var isValid = false;
             Action call = () => isValid = HeightStructuresCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Er is geen kunstwerk geselecteerd.", msgs[1]);
@@ -201,13 +201,13 @@ namespace Ringtoets.HeightStructures.Service.Test
             };
 
             // Call
-            bool isValid = false;
+            var isValid = false;
             Action call = () => isValid = HeightStructuresCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 Assert.AreEqual("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", msgs[1]);
@@ -229,7 +229,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             const string name = "<very nice name>";
-            string expectedValidationMessage = "Validatie mislukt: De waarde voor 'oriëntatie' moet een concreet getal zijn.";
+            var expectedValidationMessage = "Validatie mislukt: De waarde voor 'oriëntatie' moet een concreet getal zijn.";
 
             var calculation = new TestHeightStructuresCalculation
             {
@@ -244,13 +244,13 @@ namespace Ringtoets.HeightStructures.Service.Test
             calculation.InputParameters.StructureNormalOrientation = RoundedDouble.NaN;
 
             // Call
-            bool isValid = false;
+            var isValid = false;
             Action call = () => isValid = HeightStructuresCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 Assert.AreEqual(expectedValidationMessage, msgs[1]);
@@ -290,13 +290,13 @@ namespace Ringtoets.HeightStructures.Service.Test
             calculation.InputParameters.WidthFlowApertures.Mean = (RoundedDouble) meanThree;
 
             // Call
-            bool isValid = false;
+            var isValid = false;
             Action call = () => isValid = HeightStructuresCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 Assert.AreEqual(expectedValidationMessage, msgs[1]);
@@ -338,13 +338,13 @@ namespace Ringtoets.HeightStructures.Service.Test
             calculation.InputParameters.CriticalOvertoppingDischarge.Mean = (RoundedDouble) meanFive;
 
             // Call
-            bool isValid = false;
+            var isValid = false;
             Action call = () => isValid = HeightStructuresCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 Assert.AreEqual(expectedValidationMessage, msgs[1]);
@@ -387,13 +387,13 @@ namespace Ringtoets.HeightStructures.Service.Test
             calculation.InputParameters.WidthFlowApertures.StandardDeviation = (RoundedDouble) deviationFive;
 
             // Call
-            bool isValid = false;
+            var isValid = false;
             Action call = () => isValid = HeightStructuresCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 Assert.AreEqual(expectedValidationMessage, msgs[1]);
@@ -433,13 +433,13 @@ namespace Ringtoets.HeightStructures.Service.Test
             calculation.InputParameters.CriticalOvertoppingDischarge.CoefficientOfVariation = (RoundedDouble) coefficientThree;
 
             // Call
-            bool isValid = false;
+            var isValid = false;
             Action call = () => isValid = HeightStructuresCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 Assert.AreEqual(expectedValidationMessage, msgs[1]);
@@ -477,13 +477,13 @@ namespace Ringtoets.HeightStructures.Service.Test
             };
 
             // Call
-            bool isValid = false;
+            var isValid = false;
             Action call = () => isValid = HeightStructuresCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 Assert.AreEqual("Validatie mislukt: De waarde voor 'hoogte' van de dam moet een concreet getal zijn.", msgs[1]);
@@ -516,13 +516,13 @@ namespace Ringtoets.HeightStructures.Service.Test
             };
 
             // Call
-            bool isValid = false;
+            var isValid = false;
             Action call = () => isValid = HeightStructuresCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(2, msgs.Length);
                 StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[1]);
@@ -649,7 +649,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {
-                    var msgs = messages.ToArray();
+                    string[] msgs = messages.ToArray();
                     Assert.AreEqual(3, msgs.Length);
                     StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
                     StringAssert.StartsWith("Hoogte kunstwerk berekening is uitgevoerd op de tijdelijke locatie" +
@@ -702,7 +702,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {
-                    var msgs = messages.ToArray();
+                    string[] msgs = messages.ToArray();
                     Assert.AreEqual(3, msgs.Length);
                     StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
                     StringAssert.StartsWith("Hoogte kunstwerk berekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
@@ -741,7 +741,7 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var testStructuresOvertoppingCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresOvertoppingCalculator;
+                TestStructuresOvertoppingCalculator testStructuresOvertoppingCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresOvertoppingCalculator;
 
                 // Call
                 new HeightStructuresCalculationService().Calculate(calculation,
@@ -809,7 +809,7 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var testStructuresOvertoppingCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresOvertoppingCalculator;
+                TestStructuresOvertoppingCalculator testStructuresOvertoppingCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresOvertoppingCalculator;
                 var service = new HeightStructuresCalculationService();
                 testStructuresOvertoppingCalculator.CalculationFinishedHandler += (s, e) => service.Cancel();
 
@@ -852,7 +852,7 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresOvertoppingCalculator;
+                TestStructuresOvertoppingCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresOvertoppingCalculator;
                 calculator.LastErrorFileContent = "An error occurred";
                 calculator.EndInFailure = true;
 
@@ -877,7 +877,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {
-                    var msgs = messages.ToArray();
+                    string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
                     StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
                     StringAssert.StartsWith($"De berekening voor hoogte kunstwerk '{calculation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[1]);
@@ -916,7 +916,7 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresOvertoppingCalculator;
+                TestStructuresOvertoppingCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresOvertoppingCalculator;
                 calculator.EndInFailure = true;
 
                 var exceptionThrown = false;
@@ -940,7 +940,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {
-                    var msgs = messages.ToArray();
+                    string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
                     StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
                     StringAssert.StartsWith($"De berekening voor hoogte kunstwerk '{calculation.Name}' is niet gelukt. Er is geen foutrapport beschikbaar.", msgs[1]);
@@ -979,12 +979,12 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresOvertoppingCalculator;
+                TestStructuresOvertoppingCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresOvertoppingCalculator;
                 calculator.EndInFailure = false;
                 calculator.LastErrorFileContent = "An error occurred";
 
                 var exceptionThrown = false;
-                var exceptionMessage = string.Empty;
+                string exceptionMessage = string.Empty;
 
                 // Call
                 Action call = () =>
@@ -1006,7 +1006,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {
-                    var msgs = messages.ToArray();
+                    string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
                     StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
                     StringAssert.StartsWith($"De berekening voor hoogte kunstwerk '{calculation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[1]);

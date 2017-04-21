@@ -124,7 +124,7 @@ namespace Ringtoets.ClosingStructures.Service
             {
                 if (!canceled)
                 {
-                    var lastErrorFileContent = calculator.LastErrorFileContent;
+                    string lastErrorFileContent = calculator.LastErrorFileContent;
                     if (string.IsNullOrEmpty(lastErrorFileContent))
                     {
                         log.ErrorFormat(Resources.ClosingStructuresCalculationService_Calculate_Error_in_closing_structures_0_calculation_no_error_report,
@@ -142,7 +142,7 @@ namespace Ringtoets.ClosingStructures.Service
             }
             finally
             {
-                var lastErrorFileContent = calculator.LastErrorFileContent;
+                string lastErrorFileContent = calculator.LastErrorFileContent;
                 bool errorOccurred = CalculationServiceHelper.HasErrorOccurred(canceled, exceptionThrown, lastErrorFileContent);
                 if (errorOccurred)
                 {
@@ -192,7 +192,7 @@ namespace Ringtoets.ClosingStructures.Service
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
             CalculationServiceHelper.LogValidationBeginTime(calculation.Name);
-            var messages = ValidateInput(calculation.InputParameters, assessmentSection);
+            string[] messages = ValidateInput(calculation.InputParameters, assessmentSection);
             CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Error_in_validation_0, messages);
             CalculationServiceHelper.LogValidationEndTime(calculation.Name);
 
@@ -342,7 +342,7 @@ namespace Ringtoets.ClosingStructures.Service
         {
             var validationResults = new List<string>();
 
-            var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
+            string validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
             if (!string.IsNullOrEmpty(validationProblem))
             {
                 validationResults.Add(validationProblem);
@@ -362,7 +362,7 @@ namespace Ringtoets.ClosingStructures.Service
             {
                 IEnumerable<ValidationRule> validationRules = GetValidationRules(inputParameters);
 
-                foreach (var validationRule in validationRules)
+                foreach (ValidationRule validationRule in validationRules)
                 {
                     validationResults.AddRange(validationRule.Validate());
                 }

@@ -44,7 +44,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
         /// <item>does not end with a directory or path separator (empty file name).</item>
         /// </list></remarks>
         public ClosingStructuresCalculationConfigurationWriter(string filePath)
-            : base(filePath) { }
+            : base(filePath) {}
 
         protected override void WriteSpecificStructureParameters(ClosingStructuresCalculationConfiguration configuration, XmlWriter writer)
         {

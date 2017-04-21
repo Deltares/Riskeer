@@ -45,7 +45,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
         /// <param name="filePath">The path of the XML file to export to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        public ClosingStructuresCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath) : base(calculations, filePath) { }
+        public ClosingStructuresCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath) : base(calculations, filePath) {}
 
         protected override ClosingStructuresCalculationConfiguration ToConfiguration(StructuresCalculation<ClosingStructuresInput> calculation)
         {

@@ -80,7 +80,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         public void Constructor_ValidValues_ExpectedValues(bool isRelevant)
         {
             // Setup
-            MockRepository mocks = new MockRepository();
+            var mocks = new MockRepository();
             var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<HeightStructuresFailureMechanism>>();
             mocks.ReplayAll();
 
@@ -116,7 +116,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         public void Constructor_IsRelevantTrue_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            MockRepository mocks = new MockRepository();
+            var mocks = new MockRepository();
             var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<HeightStructuresFailureMechanism>>();
             mocks.ReplayAll();
 
@@ -193,7 +193,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         public void Constructor_IsRelevantFalse_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            MockRepository mocks = new MockRepository();
+            var mocks = new MockRepository();
             var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<HeightStructuresFailureMechanism>>();
             mocks.ReplayAll();
 

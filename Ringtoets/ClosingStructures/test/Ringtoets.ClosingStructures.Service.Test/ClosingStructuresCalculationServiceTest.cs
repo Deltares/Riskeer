@@ -91,7 +91,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
 
             var calculation = new TestClosingStructuresCalculation();
 
-            bool isValid = false;
+            var isValid = false;
 
             // Call
             Action call = () => isValid = ClosingStructuresCalculationService.Validate(calculation, assessmentSectionStub);
@@ -99,9 +99,9 @@ namespace Ringtoets.ClosingStructures.Service.Test
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                var name = calculation.Name;
+                string name = calculation.Name;
                 StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
                 StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
@@ -124,7 +124,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
 
             var calculation = new TestClosingStructuresCalculation();
 
-            bool isValid = false;
+            var isValid = false;
 
             // Call
             Action call = () => isValid = ClosingStructuresCalculationService.Validate(calculation, assessmentSectionStub);
@@ -132,9 +132,9 @@ namespace Ringtoets.ClosingStructures.Service.Test
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                var name = calculation.Name;
+                string name = calculation.Name;
                 StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
                 StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
@@ -166,7 +166,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 }
             };
 
-            bool isValid = false;
+            var isValid = false;
 
             // Call
             Action call = () => isValid = ClosingStructuresCalculationService.Validate(calculation, assessmentSectionStub);
@@ -174,7 +174,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 Assert.AreEqual("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", msgs[1]);
@@ -207,7 +207,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 }
             };
 
-            bool isValid = false;
+            var isValid = false;
 
             // Call
             Action call = () => isValid = ClosingStructuresCalculationService.Validate(calculation, assessmentSectionStub);
@@ -215,7 +215,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 Assert.AreEqual("Validatie mislukt: Er is geen kunstwerk geselecteerd.", msgs[1]);
@@ -249,7 +249,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
 
             SetInvalidInputParameters(calculation.InputParameters, (RoundedDouble) value);
 
-            bool isValid = false;
+            var isValid = false;
 
             // Call 
             Action call = () => isValid = ClosingStructuresCalculationService.Validate(calculation, assessmentSectionStub);
@@ -257,7 +257,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(20, msgs.Length);
                 StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{stormDuration}' moet een positief getal zijn.", msgs[1]);
@@ -311,7 +311,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             };
             SetInvalidInputParameters(calculation.InputParameters, (RoundedDouble) value);
 
-            bool isValid = false;
+            var isValid = false;
 
             // Call 
             Action call = () => isValid = ClosingStructuresCalculationService.Validate(calculation, assessmentSectionStub);
@@ -319,7 +319,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(21, msgs.Length);
                 StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{stormDuration}' moet een positief getal zijn.", msgs[1]);
@@ -374,7 +374,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             };
             SetInvalidInputParameters(calculation.InputParameters, (RoundedDouble) value);
 
-            bool isValid = false;
+            var isValid = false;
 
             // Call 
             Action call = () => isValid = ClosingStructuresCalculationService.Validate(calculation, assessmentSectionStub);
@@ -382,7 +382,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(19, msgs.Length);
                 StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{stormDuration}' moet een positief getal zijn.", msgs[1]);
@@ -432,7 +432,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             };
 
             // Call
-            bool isValid = false;
+            var isValid = false;
             TestDelegate call = () => isValid = ClosingStructuresCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
@@ -471,7 +471,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 }
             };
 
-            bool isValid = false;
+            var isValid = false;
 
             // Call
             Action call = () => isValid = ClosingStructuresCalculationService.Validate(calculation, assessmentSectionStub);
@@ -479,7 +479,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 Assert.AreEqual("Validatie mislukt: De waarde voor 'hoogte' van de dam moet een concreet getal zijn.", msgs[1]);
@@ -568,7 +568,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresClosureCalculator;
+                TestStructuresClosureCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresClosureCalculator;
 
                 // Call
                 TestDelegate call = () => service.Calculate(calculation,
@@ -617,7 +617,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresClosureCalculator;
+                TestStructuresClosureCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresClosureCalculator;
 
                 // Call
                 new ClosingStructuresCalculationService().Calculate(calculation,
@@ -658,7 +658,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                     input.WidthFlowApertures.Mean, input.WidthFlowApertures.StandardDeviation,
                     input.DeviationWaveDirection);
 
-                StructuresClosureVerticalWallCalculationInput actualInput = (StructuresClosureVerticalWallCalculationInput) calculationInputs[0];
+                var actualInput = (StructuresClosureVerticalWallCalculationInput) calculationInputs[0];
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                 Assert.IsFalse(calculator.IsCanceled);
             }
@@ -695,7 +695,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresClosureCalculator;
+                TestStructuresClosureCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresClosureCalculator;
 
                 // Call
                 new ClosingStructuresCalculationService().Calculate(calculation,
@@ -735,7 +735,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                     input.InsideWaterLevel.Mean, input.InsideWaterLevel.StandardDeviation,
                     input.WidthFlowApertures.Mean, input.WidthFlowApertures.StandardDeviation);
 
-                StructuresClosureLowSillCalculationInput actualInput = (StructuresClosureLowSillCalculationInput) calculationInputs[0];
+                var actualInput = (StructuresClosureLowSillCalculationInput) calculationInputs[0];
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                 Assert.IsFalse(calculator.IsCanceled);
             }
@@ -772,7 +772,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresClosureCalculator;
+                TestStructuresClosureCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresClosureCalculator;
 
                 // Call
                 new ClosingStructuresCalculationService().Calculate(calculation,
@@ -810,7 +810,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                     input.AreaFlowApertures.Mean, input.AreaFlowApertures.StandardDeviation,
                     input.InsideWaterLevel.Mean, input.InsideWaterLevel.StandardDeviation);
 
-                StructuresClosureFloodedCulvertCalculationInput actualInput = (StructuresClosureFloodedCulvertCalculationInput) calculationInputs[0];
+                var actualInput = (StructuresClosureFloodedCulvertCalculationInput) calculationInputs[0];
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                 Assert.IsFalse(calculator.IsCanceled);
             }
@@ -874,7 +874,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {
-                    var msgs = messages.ToArray();
+                    string[] msgs = messages.ToArray();
                     Assert.AreEqual(3, msgs.Length);
                     StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
                     StringAssert.StartsWith("Betrouwbaarheid sluiting kunstwerk berekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
@@ -912,7 +912,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresClosureCalculator;
+                TestStructuresClosureCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresClosureCalculator;
                 var service = new ClosingStructuresCalculationService();
                 calculator.CalculationFinishedHandler += (s, e) => service.Cancel();
 
@@ -955,7 +955,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresClosureCalculator;
+                TestStructuresClosureCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresClosureCalculator;
                 calculator.LastErrorFileContent = "An error occurred";
                 calculator.EndInFailure = true;
 
@@ -980,7 +980,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {
-                    var msgs = messages.ToArray();
+                    string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
                     StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
                     StringAssert.StartsWith($"De berekening voor kunstwerk sluiten '{calculation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[1]);
@@ -1019,7 +1019,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresClosureCalculator;
+                TestStructuresClosureCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresClosureCalculator;
                 calculator.EndInFailure = true;
 
                 var exceptionThrown = false;
@@ -1043,7 +1043,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {
-                    var msgs = messages.ToArray();
+                    string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
                     StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
                     StringAssert.StartsWith($"De berekening voor kunstwerk sluiten '{calculation.Name}' is niet gelukt. Er is geen foutrapport beschikbaar.", msgs[1]);
@@ -1082,12 +1082,12 @@ namespace Ringtoets.ClosingStructures.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresClosureCalculator;
+                TestStructuresClosureCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresClosureCalculator;
                 calculator.EndInFailure = false;
                 calculator.LastErrorFileContent = "An error occurred";
 
                 var exceptionThrown = false;
-                var exceptionMessage = string.Empty;
+                string exceptionMessage = string.Empty;
 
                 // Call
                 Action call = () =>
@@ -1109,7 +1109,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {
-                    var msgs = messages.ToArray();
+                    string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
                     StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
                     StringAssert.StartsWith($"De berekening voor kunstwerk sluiten '{calculation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[1]);

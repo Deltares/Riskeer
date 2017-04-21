@@ -88,7 +88,7 @@ namespace Ringtoets.HeightStructures.IO.Configurations
                        {
                            structureBaseSchemaName, RingtoetsCommonIOResources.KunstwerkenBasisSchema
                        }
-                   }) { }
+                   }) {}
 
         protected override HeightStructuresCalculationConfiguration ParseCalculationElement(XElement calculationElement)
         {

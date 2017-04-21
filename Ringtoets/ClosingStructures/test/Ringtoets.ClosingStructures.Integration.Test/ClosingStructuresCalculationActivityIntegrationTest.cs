@@ -77,7 +77,7 @@ namespace Ringtoets.ClosingStructures.Integration.Test
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
@@ -121,7 +121,7 @@ namespace Ringtoets.ClosingStructures.Integration.Test
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {
-                    var msgs = messages.ToArray();
+                    string[] msgs = messages.ToArray();
                     Assert.AreEqual(5, msgs.Length);
                     StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
                     StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
@@ -166,7 +166,7 @@ namespace Ringtoets.ClosingStructures.Integration.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresClosureCalculator;
+                TestStructuresClosureCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresClosureCalculator;
                 calculator.EndInFailure = endInFailure;
                 calculator.LastErrorFileContent = lastErrorFileContent;
 
@@ -263,7 +263,7 @@ namespace Ringtoets.ClosingStructures.Integration.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresClosureCalculator;
+                TestStructuresClosureCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresClosureCalculator;
                 calculator.EndInFailure = true;
 
                 activity.Run();

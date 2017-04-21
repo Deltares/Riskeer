@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Drawing;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
@@ -43,7 +44,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             // Setup
             using (var plugin = new ClosingStructuresPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Assert
                 Assert.IsNotNull(info.Text);
@@ -73,13 +74,13 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             // Setup
             using (var plugin = new ClosingStructuresPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 var mechanism = new ClosingStructuresFailureMechanism();
                 var context = new FailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>(mechanism.SectionResults, mechanism);
 
                 // Call
-                var text = info.Text(context);
+                string text = info.Text(context);
 
                 // Assert
                 Assert.AreEqual("Resultaat", text);
@@ -92,10 +93,10 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             // Setup
             using (var plugin = new ClosingStructuresPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                var image = info.Image(null);
+                Image image = info.Image(null);
 
                 // Assert
                 TestHelper.AssertImagesAreEqual(Resources.FailureMechanismSectionResultIcon, image);
@@ -125,7 +126,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new ClosingStructuresPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
                 using (var treeViewControl = new TreeViewControl())
                 {
                     var gui = mockRepository.Stub<IGui>();

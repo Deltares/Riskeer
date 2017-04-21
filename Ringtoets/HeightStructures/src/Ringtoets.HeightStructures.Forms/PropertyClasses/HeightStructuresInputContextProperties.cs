@@ -109,12 +109,6 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         #endregion
 
-        protected override bool ShouldPropertyBeReadOnlyInAbsenseOfStructure(string property)
-        {
-            return nameof(FailureProbabilityStructureWithErosion).Equals(property)
-                || base.ShouldPropertyBeReadOnlyInAbsenseOfStructure(property);
-        }
-
         public override IEnumerable<ForeshoreProfile> GetAvailableForeshoreProfiles()
         {
             return data.FailureMechanism.ForeshoreProfiles;
@@ -123,6 +117,12 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         public override IEnumerable<HeightStructure> GetAvailableStructures()
         {
             return data.FailureMechanism.HeightStructures;
+        }
+
+        protected override bool ShouldPropertyBeReadOnlyInAbsenseOfStructure(string property)
+        {
+            return nameof(FailureProbabilityStructureWithErosion).Equals(property)
+                   || base.ShouldPropertyBeReadOnlyInAbsenseOfStructure(property);
         }
 
         protected override void AfterSettingStructure()

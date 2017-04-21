@@ -49,9 +49,9 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<ClosingStructuresFailureMechanismSectionResult>>(row);
             Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
-            Assert.IsTrue(TypeUtils.HasTypeConverter<ClosingStructuresFailureMechanismSectionResultRow,
-                              NoProbabilityValueDoubleConverter>(
-                                  r => r.AssessmentLayerTwoA));
+            Assert.IsTrue(
+                TypeUtils.HasTypeConverter<ClosingStructuresFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
+                    r => r.AssessmentLayerTwoA));
         }
 
         [Test]

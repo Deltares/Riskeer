@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Plugin;
@@ -67,7 +68,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
         public void GetViewName_Always_ReturnsViewName()
         {
             // Call
-            var viewName = info.GetViewName(null, null);
+            string viewName = info.GetViewName(null, null);
 
             // Assert
             Assert.AreEqual("Resultaat", viewName);
@@ -85,7 +86,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
             var context = new FailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>(sectionResults, new HeightStructuresFailureMechanism());
 
             // Call
-            var viewData = info.GetViewData(context);
+            object viewData = info.GetViewData(context);
 
             // Assert
             Assert.AreSame(sectionResults, viewData);
@@ -95,7 +96,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
         public void Image_Always_ReturnsFailureMechanismSectionResultIcon()
         {
             // Call
-            var image = info.Image;
+            Image image = info.Image;
 
             // Assert
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon, image);
@@ -118,7 +119,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             // Call
-            var closeForData = info.CloseForData(view, assessmentSection);
+            bool closeForData = info.CloseForData(view, assessmentSection);
 
             // Assert
             Assert.IsFalse(closeForData);
@@ -147,7 +148,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             // Call
-            var closeForData = info.CloseForData(view, assessmentSection);
+            bool closeForData = info.CloseForData(view, assessmentSection);
 
             // Assert
             Assert.IsFalse(closeForData);
@@ -175,7 +176,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             // Call
-            var closeForData = info.CloseForData(view, assessmentSection);
+            bool closeForData = info.CloseForData(view, assessmentSection);
 
             // Assert
             Assert.IsTrue(closeForData);
@@ -194,7 +195,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
             };
 
             // Call
-            var closeForData = info.CloseForData(view, failureMechanism);
+            bool closeForData = info.CloseForData(view, failureMechanism);
 
             // Assert
             Assert.IsTrue(closeForData);
@@ -212,7 +213,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
             };
 
             // Call
-            var closeForData = info.CloseForData(view, new HeightStructuresFailureMechanism());
+            bool closeForData = info.CloseForData(view, new HeightStructuresFailureMechanism());
 
             // Assert
             Assert.IsFalse(closeForData);
@@ -235,7 +236,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
             };
 
             // Call
-            var closeForData = info.CloseForData(view, failureMechanismContext);
+            bool closeForData = info.CloseForData(view, failureMechanismContext);
 
             // Assert
             Assert.IsTrue(closeForData);
@@ -259,7 +260,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
             var failureMechanismContext = new HeightStructuresFailureMechanismContext(new HeightStructuresFailureMechanism(), assessmentSection);
 
             // Call
-            var closeForData = info.CloseForData(view, failureMechanismContext);
+            bool closeForData = info.CloseForData(view, failureMechanismContext);
 
             // Assert
             Assert.IsFalse(closeForData);

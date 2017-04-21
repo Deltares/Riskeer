@@ -75,7 +75,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 // Assert
                 Assert.AreEqual(283, dataGridView.RowCount);
 
-                var expectedValues = assessmentSection.HeightStructures.SectionResults.Select(sr => sr.Section.Name);
+                IEnumerable<string> expectedValues = assessmentSection.HeightStructures.SectionResults.Select(sr => sr.Section.Name);
                 var foundValues = new List<string>();
                 foreach (DataGridViewRow row in dataGridView.Rows)
                 {
@@ -112,7 +112,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Call
-                foreach (var structure in assessmentSection.HeightStructures.HeightStructures)
+                foreach (HeightStructure structure in assessmentSection.HeightStructures.HeightStructures)
                 {
                     calculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>
                     {
@@ -159,7 +159,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
 
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                foreach (var structure in assessmentSection.HeightStructures.HeightStructures)
+                foreach (HeightStructure structure in assessmentSection.HeightStructures.HeightStructures)
                 {
                     calculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>
                     {
@@ -173,7 +173,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 calculationsGroup.NotifyObservers();
 
                 // Call
-                foreach (var calculationBase in calculationsGroup.Children)
+                foreach (ICalculationBase calculationBase in calculationsGroup.Children)
                 {
                     var calculation = (StructuresCalculation<HeightStructuresInput>) calculationBase;
                     calculation.Name += "_changed";
@@ -212,7 +212,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
 
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                foreach (var structure in assessmentSection.HeightStructures.HeightStructures)
+                foreach (HeightStructure structure in assessmentSection.HeightStructures.HeightStructures)
                 {
                     assessmentSection.HeightStructures.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>
                     {
@@ -225,7 +225,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 }
 
                 // Call
-                var calculationsGroup = assessmentSection.HeightStructures.CalculationsGroup;
+                CalculationGroup calculationsGroup = assessmentSection.HeightStructures.CalculationsGroup;
                 ((StructuresCalculation<HeightStructuresInput>) calculationsGroup.Children[1]).InputParameters.Structure =
                     ((StructuresCalculation<HeightStructuresInput>) calculationsGroup.Children[0]).InputParameters.Structure;
                 calculationsGroup.NotifyObservers();

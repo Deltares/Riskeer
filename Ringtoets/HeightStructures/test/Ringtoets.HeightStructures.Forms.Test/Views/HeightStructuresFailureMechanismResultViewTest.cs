@@ -63,7 +63,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void DefaultConstructor_DefaultValues()
         {
             // Call
-            using (HeightStructuresFailureMechanismResultView view = new HeightStructuresFailureMechanismResultView())
+            using (var view = new HeightStructuresFailureMechanismResultView())
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<HeightStructuresFailureMechanismSectionResult>>(view);
@@ -100,7 +100,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void Data_DataAlreadySetNewDataSet_DataSetAndDataGridViewUpdated()
         {
             // Setup
-            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            using (HeightStructuresFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView())
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -158,10 +158,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Assert
-                var rows = dataGridView.Rows;
+                DataGridViewRowCollection rows = dataGridView.Rows;
                 Assert.AreEqual(2, rows.Count);
 
-                var cells = rows[0].Cells;
+                DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual(AssessmentLayerOneState.NotAssessed, cells[assessmentLayerOneIndex].Value);
@@ -193,13 +193,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 dataGridView.Rows[0].Cells[assessmentLayerOneIndex].Value = assessmentLayerOneState;
 
                 // Assert
-                var rows = dataGridView.Rows;
+                DataGridViewRowCollection rows = dataGridView.Rows;
 
-                var cells = rows[0].Cells;
+                DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                var cellAssessmentLayerTwoA = cells[assessmentLayerTwoAIndex];
-                var cellAssessmentLayerThree = cells[assessmentLayerThreeIndex];
+                DataGridViewCell cellAssessmentLayerTwoA = cells[assessmentLayerTwoAIndex];
+                DataGridViewCell cellAssessmentLayerThree = cells[assessmentLayerThreeIndex];
                 DataGridViewCell dataGridViewCell = cells[assessmentLayerOneIndex];
 
                 Assert.AreEqual(assessmentLayerOneState, cells[assessmentLayerOneIndex].Value);
@@ -250,7 +250,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void FailureMechanismResultView_EditValueValid_DoNotShowErrorToolTipAndEditValue(string newValue)
         {
             // Setup
-            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            using (HeightStructuresFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView())
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -262,10 +262,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
 
                 var dataObject = view.Data as List<HeightStructuresFailureMechanismSectionResult>;
                 Assert.IsNotNull(dataObject);
-                var row = dataObject.First();
+                HeightStructuresFailureMechanismSectionResult row = dataObject.First();
 
                 const string propertyName = "AssessmentLayerThree";
-                var propertyValue = row.GetType().GetProperty(propertyName).GetValue(row, null);
+                object propertyValue = row.GetType().GetProperty(propertyName).GetValue(row, null);
 
                 Assert.AreEqual((RoundedDouble) double.Parse(newValue), propertyValue);
             }
@@ -295,7 +295,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
 
                 // When
-                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
 
                 // Then
                 Assert.AreEqual("-", formattedValue);
@@ -330,7 +330,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
 
                 // When
-                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
 
                 // Then
                 Assert.AreEqual("-", formattedValue);
@@ -368,7 +368,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
 
                 // When
-                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
 
                 // Then
                 Assert.AreEqual("-", formattedValue);
@@ -407,7 +407,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
 
                 // When
-                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
 
                 // Then
                 Assert.AreEqual(ProbabilityFormattingHelper.Format(probability), formattedValue);
@@ -433,7 +433,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
 
                 // When
-                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
 
                 // Then
                 Assert.AreEqual(expectedValue, formattedValue);
@@ -478,7 +478,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
 
                 // Precondition
-                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
                 Assert.AreEqual(ProbabilityFormattingHelper.Format(probability), formattedValue);
                 Assert.IsEmpty(dataGridViewCell.ErrorText);
 
@@ -551,7 +551,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 new Point2D(10.0, 0.0)
             }));
 
-            var failureMechanismResultView = ShowFailureMechanismResultsView();
+            HeightStructuresFailureMechanismResultView failureMechanismResultView = ShowFailureMechanismResultsView();
             failureMechanismResultView.Data = failureMechanism.SectionResults;
             failureMechanismResultView.FailureMechanism = failureMechanism;
 
@@ -560,7 +560,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
 
         private HeightStructuresFailureMechanismResultView ShowFailureMechanismResultsView()
         {
-            HeightStructuresFailureMechanismResultView failureMechanismResultView = new HeightStructuresFailureMechanismResultView();
+            var failureMechanismResultView = new HeightStructuresFailureMechanismResultView();
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 

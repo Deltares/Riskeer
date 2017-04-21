@@ -21,13 +21,14 @@
 
 using System.Linq;
 using Core.Common.Gui.Plugin;
+using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 using Ringtoets.StabilityPointStructures.Forms.PropertyClasses;
-using Ringtoets.Common.Data.AssessmentSection;
 
 namespace Ringtoets.StabilityPointStructures.Plugin.Test.PropertyInfos
 {
@@ -71,7 +72,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.PropertyInfos
             var context = new StabilityPointStructuresInputContext(calculation.InputParameters, calculation, failureMechanism, assessmentSection);
 
             // Call
-            var objectProperties = info.CreateInstance(context);
+            IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
             Assert.IsInstanceOf<StabilityPointStructuresInputContextProperties>(objectProperties);

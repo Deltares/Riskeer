@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -118,7 +119,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             // Call
-            var image = info.Image(null);
+            Image image = info.Image(null);
 
             // Assert
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculationIcon, image);
@@ -135,7 +136,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             var calculationContext = new ClosingStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
 
             // Call
-            var children = info.ChildNodeObjects(calculationContext).ToArray();
+            object[] children = info.ChildNodeObjects(calculationContext).ToArray();
 
             // Assert
             Assert.AreEqual(3, children.Length);
@@ -165,7 +166,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             var calculationContext = new ClosingStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
 
             // Call
-            var children = info.ChildNodeObjects(calculationContext).ToArray();
+            object[] children = info.ChildNodeObjects(calculationContext).ToArray();
 
             // Assert
             Assert.AreEqual(3, children.Length);
@@ -455,7 +456,10 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             {
                 FilePath = validFilePath,
                 Version = "random",
-                Locations = { hydraulicBoundaryLocation }
+                Locations =
+                {
+                    hydraulicBoundaryLocation
+                }
             };
             assessmentSection.Stub(a => a.Id).Return(string.Empty);
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 1));
@@ -497,7 +501,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                     // Then
                     TestHelper.AssertLogMessages(action, messages =>
                     {
-                        var msgs = messages.ToArray();
+                        string[] msgs = messages.ToArray();
                         Assert.AreEqual(6, msgs.Length);
                         StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
                         StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
@@ -561,7 +565,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                     // Then
                     TestHelper.AssertLogMessages(action, messages =>
                     {
-                        var msgs = messages.ToArray();
+                        string[] msgs = messages.ToArray();
                         Assert.AreEqual(2, msgs.Length);
                         StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
                         StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);

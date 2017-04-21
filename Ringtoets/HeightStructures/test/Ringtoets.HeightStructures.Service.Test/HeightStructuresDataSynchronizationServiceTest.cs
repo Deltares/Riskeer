@@ -278,12 +278,12 @@ namespace Ringtoets.HeightStructures.Service.Test
             // Setup
             HeightStructuresFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
 
-            var expectedRemovedObjects = failureMechanism.Sections.OfType<object>()
-                                                         .Concat(failureMechanism.SectionResults)
-                                                         .Concat(failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
-                                                         .Concat(failureMechanism.ForeshoreProfiles)
-                                                         .Concat(failureMechanism.HeightStructures)
-                                                         .ToArray();
+            object[] expectedRemovedObjects = failureMechanism.Sections.OfType<object>()
+                                                              .Concat(failureMechanism.SectionResults)
+                                                              .Concat(failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
+                                                              .Concat(failureMechanism.ForeshoreProfiles)
+                                                              .Concat(failureMechanism.HeightStructures)
+                                                              .ToArray();
 
             // Call
             ClearResults results = HeightStructuresDataSynchronizationService.ClearReferenceLineDependentData(failureMechanism);

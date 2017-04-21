@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -75,7 +76,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             // Setup
             using (var plugin = new StabilityPointStructuresPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Assert
                 Assert.IsNotNull(info.Text);
@@ -111,10 +112,10 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new StabilityPointStructuresPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                var children = info.ChildNodeObjects(failureMechanismContext).ToArray();
+                object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
 
                 // Assert
                 Assert.AreEqual(3, children.Length);
@@ -180,10 +181,10 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new StabilityPointStructuresPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                var children = info.ChildNodeObjects(failureMechanismContext).ToArray();
+                object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
 
                 // Assert
                 Assert.AreEqual(1, children.Length);
@@ -228,7 +229,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
                 info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
@@ -268,7 +269,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
                 info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
@@ -298,7 +299,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(failureMechanismContext, assessmentSection, treeView))
@@ -357,7 +358,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(failureMechanismContext, assessmentSection, treeView))
@@ -396,7 +397,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
                 {
@@ -436,7 +437,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
                 {
@@ -470,7 +471,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 mocksRepository.ReplayAll();
 
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
                 plugin.Gui = gui;
 
                 // Call
@@ -512,7 +513,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 mocksRepository.ReplayAll();
 
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
                 plugin.Gui = gui;
 
                 // Call
@@ -562,7 +563,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 mocksRepository.ReplayAll();
 
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
                 plugin.Gui = gui;
 
                 // Call
@@ -610,7 +611,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 mocksRepository.ReplayAll();
 
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
                 plugin.Gui = gui;
 
                 // Call
@@ -681,7 +682,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
                 mocksRepository.ReplayAll();
 
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
                 plugin.Gui = gui;
 
                 DialogBoxHandler = (name, wnd) =>
@@ -689,13 +690,13 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                     // Expect an activity dialog which is automatically closed
                 };
 
-                using (var contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
                 using (new HydraRingCalculatorFactoryConfig())
                 {
                     // Call
                     TestHelper.AssertLogMessages(() => contextMenu.Items[contextMenuCalculateAllIndex].PerformClick(), messages =>
                     {
-                        var messageList = messages.ToList();
+                        List<string> messageList = messages.ToList();
 
                         // Assert
                         Assert.AreEqual(12, messageList.Count);
@@ -772,7 +773,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                     // Assert
                     TestHelper.AssertLogMessages(call, messages =>
                     {
-                        var messageList = messages.ToArray();
+                        string[] messageList = messages.ToArray();
 
                         Assert.AreEqual(4, messageList.Length);
                         StringAssert.StartsWith("Validatie van 'A' gestart om: ", messageList[0]);

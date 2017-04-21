@@ -26,12 +26,11 @@ using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.PresentationObjects;
-using Ringtoets.ClosingStructures.IO;
 using Ringtoets.ClosingStructures.IO.Configurations;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.ClosingStructures.Plugin.Test.ImportInfos
@@ -67,8 +66,8 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ImportInfos
             mocks.ReplayAll();
 
             var context = new ClosingStructuresCalculationGroupContext(new CalculationGroup(),
-                                                                      new ClosingStructuresFailureMechanism(),
-                                                                      assessmentSection);
+                                                                       new ClosingStructuresFailureMechanism(),
+                                                                       assessmentSection);
 
             using (var plugin = new ClosingStructuresPlugin())
             {

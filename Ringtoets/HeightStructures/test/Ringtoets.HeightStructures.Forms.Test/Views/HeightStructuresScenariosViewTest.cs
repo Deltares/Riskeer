@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -58,7 +59,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void DefaultConstructor_DataGridViewCorrectlyInitialized()
         {
             // Call
-            using (var view = ShowScenariosView())
+            using (HeightStructuresScenariosView view = ShowScenariosView())
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
@@ -78,7 +79,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void Data_ValidDataSet_ValidData()
         {
             // Setup
-            using (var view = ShowScenariosView())
+            using (HeightStructuresScenariosView view = ShowScenariosView())
             {
                 var calculationGroup = new CalculationGroup();
 
@@ -94,7 +95,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void FailureMechanism_ValidFailureMechanismSet_ValidFailureMechanism()
         {
             // Setup
-            using (var view = ShowScenariosView())
+            using (HeightStructuresScenariosView view = ShowScenariosView())
             {
                 var failureMechanism = new HeightStructuresFailureMechanism();
 
@@ -110,9 +111,9 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void Data_WithFailureMechanism_UpdateScenarioControl()
         {
             // Setup
-            using (var view = ShowScenariosView())
+            using (HeightStructuresScenariosView view = ShowScenariosView())
             {
-                var failureMechanism = CreateCompleteFailureMechanism();
+                HeightStructuresFailureMechanism failureMechanism = CreateCompleteFailureMechanism();
                 view.FailureMechanism = failureMechanism;
 
                 // Call
@@ -139,9 +140,9 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void Data_SetToNullAfterGridViewShowsData_ClearsScenarioControl()
         {
             // Setup
-            using (var view = ShowScenariosView())
+            using (HeightStructuresScenariosView view = ShowScenariosView())
             {
-                var failureMechanism = CreateCompleteFailureMechanism();
+                HeightStructuresFailureMechanism failureMechanism = CreateCompleteFailureMechanism();
                 view.FailureMechanism = failureMechanism;
                 view.Data = failureMechanism.CalculationsGroup;
 
@@ -157,9 +158,9 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void FailureMechanism_FailureMechanismSetToNull_UpdateScenarioControl()
         {
             // Setup
-            using (var view = ShowScenariosView())
+            using (HeightStructuresScenariosView view = ShowScenariosView())
             {
-                var failureMechanism = CreateCompleteFailureMechanism();
+                HeightStructuresFailureMechanism failureMechanism = CreateCompleteFailureMechanism();
                 view.Data = failureMechanism.CalculationsGroup;
 
                 // Call
@@ -186,9 +187,9 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void FailureMechanism_WithoutData_ClearsScenarioControl()
         {
             // Setup
-            using (var view = ShowScenariosView())
+            using (HeightStructuresScenariosView view = ShowScenariosView())
             {
-                var failureMechanism = CreateCompleteFailureMechanism();
+                HeightStructuresFailureMechanism failureMechanism = CreateCompleteFailureMechanism();
                 view.Data = failureMechanism.CalculationsGroup;
                 view.FailureMechanism = failureMechanism;
 
@@ -204,9 +205,9 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void NotifyFailureMechanism_SectionsAddedAfterFullInitialization_NewRowAddedToView()
         {
             // Setup
-            using (var view = ShowScenariosView())
+            using (HeightStructuresScenariosView view = ShowScenariosView())
             {
-                var failureMechanism = CreateCompleteFailureMechanism();
+                HeightStructuresFailureMechanism failureMechanism = CreateCompleteFailureMechanism();
                 view.Data = failureMechanism.CalculationsGroup;
                 view.FailureMechanism = failureMechanism;
 
@@ -244,9 +245,9 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void NotifyCalculation_CalculationChangedStructure_CalculationMovedToOtherSectionResultOptions()
         {
             // Setup
-            using (var view = ShowScenariosView())
+            using (HeightStructuresScenariosView view = ShowScenariosView())
             {
-                var failureMechanism = CreateCompleteFailureMechanism();
+                HeightStructuresFailureMechanism failureMechanism = CreateCompleteFailureMechanism();
                 view.Data = failureMechanism.CalculationsGroup;
                 view.FailureMechanism = failureMechanism;
 
@@ -279,9 +280,9 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void NotifyCalculationGroup_CalculationAdded_CalculationAddedToSectionResultOptions()
         {
             // Setup
-            using (var view = ShowScenariosView())
+            using (HeightStructuresScenariosView view = ShowScenariosView())
             {
-                var failureMechanism = CreateCompleteFailureMechanism();
+                HeightStructuresFailureMechanism failureMechanism = CreateCompleteFailureMechanism();
                 view.Data = failureMechanism.CalculationsGroup;
                 view.FailureMechanism = failureMechanism;
 
@@ -335,10 +336,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 Assert.AreEqual(failureMechanism.SectionResults.Count(), rowCount);
                 Assert.AreEqual(failureMechanism.Calculations.Count(), dataGridViewColumn.Items.Count);
 
-                for (int i = 0; i < rowCount; i++)
+                for (var i = 0; i < rowCount; i++)
                 {
                     var cell = (DataGridViewComboBoxCell) dataGridView[1, i];
-                    var items = cell.Items.OfType<DataGridViewComboBoxItemWrapper<ICalculation>>();
+                    IEnumerable<DataGridViewComboBoxItemWrapper<ICalculation>> items = cell.Items.OfType<DataGridViewComboBoxItemWrapper<ICalculation>>();
                     Assert.AreEqual(expectedComboBoxItemTexts[i], items.Select(r => r.DisplayName));
                 }
             }

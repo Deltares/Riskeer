@@ -46,7 +46,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         public StabilityPointStructuresCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
-            : base(calculations, filePath) { }
+            : base(calculations, filePath) {}
 
         protected override StabilityPointStructuresCalculationConfigurationWriter CreateWriter(string filePath)
         {

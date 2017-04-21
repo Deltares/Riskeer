@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Drawing;
 using System.Linq;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
@@ -85,7 +86,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnsTextFromResource()
         {
             // Call
-            var text = info.Text(null);
+            string text = info.Text(null);
 
             // Assert
             Assert.AreEqual("Invoer", text);
@@ -95,7 +96,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Call
-            var image = info.Image(null);
+            Image image = info.Image(null);
 
             // Assert
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, image);

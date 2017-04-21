@@ -255,7 +255,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             });
             DistributionAssert.AreEqual(defaultStructure.StorageStructureArea, importedStructure.StorageStructureArea);
             DistributionAssert.AreEqual(defaultStructure.ThresholdHeightOpenWeir, importedStructure.ThresholdHeightOpenWeir);
-            DistributionAssert.AreEqual(defaultStructure.InsideWaterLevelFailureConstruction, importedStructure.InsideWaterLevelFailureConstruction);            
+            DistributionAssert.AreEqual(defaultStructure.InsideWaterLevelFailureConstruction, importedStructure.InsideWaterLevelFailureConstruction);
             Assert.AreEqual(defaultStructure.LevellingCount, importedStructure.LevellingCount);
             DistributionAssert.AreEqual(defaultStructure.AreaFlowApertures, importedStructure.AreaFlowApertures);
         }

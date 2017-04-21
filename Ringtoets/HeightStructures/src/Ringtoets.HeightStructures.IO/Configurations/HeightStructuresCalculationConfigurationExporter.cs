@@ -44,7 +44,7 @@ namespace Ringtoets.HeightStructures.IO.Configurations
         /// <param name="filePath">The path of the XML file to export to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        public HeightStructuresCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath) : base(calculations, filePath) { }
+        public HeightStructuresCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath) : base(calculations, filePath) {}
 
         protected override HeightStructuresCalculationConfiguration ToConfiguration(StructuresCalculation<HeightStructuresInput> calculation)
         {

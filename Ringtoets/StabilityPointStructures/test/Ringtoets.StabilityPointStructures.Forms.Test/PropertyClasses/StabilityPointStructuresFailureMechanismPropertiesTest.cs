@@ -51,7 +51,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            IFailureMechanismPropertyChangeHandler<StabilityPointStructuresFailureMechanism> changeHandler =
+            var changeHandler =
                 mocks.Stub<IFailureMechanismPropertyChangeHandler<StabilityPointStructuresFailureMechanism>>();
             mocks.ReplayAll();
 

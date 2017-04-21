@@ -24,6 +24,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
@@ -277,7 +278,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 MapDataCollection mapData = map.Data;
                 Assert.IsInstanceOf<MapDataCollection>(mapData);
 
-                var mapDataList = mapData.Collection.ToList();
+                List<MapData> mapDataList = mapData.Collection.ToList();
                 Assert.AreEqual(8, mapDataList.Count);
                 MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, mapDataList[referenceLineIndex]);
                 MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, mapDataList[sectionsIndex]);
@@ -722,7 +723,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 mapData.Remove(dataToMove);
                 mapData.Add(dataToMove);
 
-                var mapDataList = mapData.Collection.ToList();
+                List<MapData> mapDataList = mapData.Collection.ToList();
 
                 // Precondition
                 var referenceLineData = (MapLineData) mapDataList[updatedRefenceLineLayerIndex];
@@ -827,7 +828,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             Assert.NotNull(structures, "structures should never be null.");
 
             var structuresData = (MapPointData) mapData;
-            var structuresArray = structures.ToArray();
+            StructureBase[] structuresArray = structures.ToArray();
 
             Assert.AreEqual(structuresArray.Length, structuresData.Features.Length);
 
@@ -844,13 +845,13 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         {
             Assert.IsInstanceOf<MapLineData>(mapData);
             var calculationsMapData = (MapLineData) mapData;
-            var calculationsArray = calculations.ToArray();
-            var calculationsFeatures = calculationsMapData.Features.ToArray();
+            StructuresCalculation<ClosingStructuresInput>[] calculationsArray = calculations.ToArray();
+            MapFeature[] calculationsFeatures = calculationsMapData.Features.ToArray();
             Assert.AreEqual(calculationsArray.Length, calculationsFeatures.Length);
 
             for (var index = 0; index < calculationsArray.Length; index++)
             {
-                var geometries = calculationsFeatures[index].MapGeometries.ToArray();
+                MapGeometry[] geometries = calculationsFeatures[index].MapGeometries.ToArray();
                 Assert.AreEqual(1, geometries.Length);
 
                 StructuresCalculation<ClosingStructuresInput> calculation = calculationsArray[index];
@@ -867,7 +868,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         {
             Assert.AreEqual("Kunstwerken - Betrouwbaarheid sluiting kunstwerk", mapDataCollection.Name);
 
-            var mapDataList = mapDataCollection.Collection.ToList();
+            List<MapData> mapDataList = mapDataCollection.Collection.ToList();
 
             Assert.AreEqual(8, mapDataList.Count);
 

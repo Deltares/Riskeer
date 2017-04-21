@@ -62,7 +62,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
         public void Constructor_WithLocation_ExpectedValues()
         {
             // Setup
-            Point2D location = new Point2D(1234.5, 5678.9);
+            var location = new Point2D(1234.5, 5678.9);
 
             // Call
             var structure = new TestClosingStructure(location);

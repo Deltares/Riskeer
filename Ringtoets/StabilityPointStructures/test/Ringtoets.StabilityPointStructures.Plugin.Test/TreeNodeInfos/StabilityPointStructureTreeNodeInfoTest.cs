@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Drawing;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
@@ -47,7 +48,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             // Setup
             using (var plugin = new StabilityPointStructuresPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Assert
                 Assert.IsNotNull(info.Text);
@@ -80,7 +81,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new StabilityPointStructuresPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
                 string text = info.Text(structure);
@@ -96,10 +97,10 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             // Setup
             using (var plugin = new StabilityPointStructuresPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                var image = info.Image(null);
+                Image image = info.Image(null);
 
                 // Assert
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.StructuresIcon, image);
@@ -269,7 +270,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
                 info.ContextMenuStrip(null, null, treeViewControl);

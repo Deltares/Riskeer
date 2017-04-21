@@ -242,7 +242,7 @@ namespace Ringtoets.HeightStructures.Plugin
         private static void ValidateAll(IEnumerable<StructuresCalculation<HeightStructuresInput>> heightStructuresCalculations,
                                         IAssessmentSection assessmentSection)
         {
-            foreach (var calculation in heightStructuresCalculations)
+            foreach (StructuresCalculation<HeightStructuresInput> calculation in heightStructuresCalculations)
             {
                 HeightStructuresCalculationService.Validate(calculation, assessmentSection);
             }
@@ -268,7 +268,7 @@ namespace Ringtoets.HeightStructures.Plugin
             var failureMechanism = data as HeightStructuresFailureMechanism;
 
             var viewFailureMechanismContext = (HeightStructuresFailureMechanismContext) view.Data;
-            var viewFailureMechanism = viewFailureMechanismContext.WrappedData;
+            HeightStructuresFailureMechanism viewFailureMechanism = viewFailureMechanismContext.WrappedData;
 
             return assessmentSection != null
                        ? ReferenceEquals(viewFailureMechanismContext.Parent, assessmentSection)
@@ -339,8 +339,8 @@ namespace Ringtoets.HeightStructures.Plugin
         private static void OnHeightStructureRemoved(HeightStructure nodeData, object parentData)
         {
             var parentContext = (HeightStructuresContext) parentData;
-            var changedObservables = HeightStructuresDataSynchronizationService.RemoveStructure(parentContext.FailureMechanism,
-                                                                                                nodeData);
+            IEnumerable<IObservable> changedObservables = HeightStructuresDataSynchronizationService.RemoveStructure(parentContext.FailureMechanism,
+                                                                                                                     nodeData);
             foreach (IObservable observable in changedObservables)
             {
                 observable.NotifyObservers();
@@ -490,9 +490,9 @@ namespace Ringtoets.HeightStructures.Plugin
 
         private ContextMenuStrip CalculationGroupContextContextMenuStrip(HeightStructuresCalculationGroupContext context, object parentData, TreeViewControl treeViewControl)
         {
-            var group = context.WrappedData;
+            CalculationGroup group = context.WrappedData;
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
-            var isNestedGroup = parentData is HeightStructuresCalculationGroupContext;
+            bool isNestedGroup = parentData is HeightStructuresCalculationGroupContext;
 
             builder.AddImportItem()
                    .AddExportItem()
@@ -579,7 +579,7 @@ namespace Ringtoets.HeightStructures.Plugin
 
         private static void GenerateHeightStructuresCalculations(HeightStructuresFailureMechanism failureMechanism, IEnumerable<HeightStructure> structures, IList<ICalculationBase> calculations)
         {
-            foreach (var structure in structures)
+            foreach (HeightStructure structure in structures)
             {
                 var calculation = new StructuresCalculation<HeightStructuresInput>
                 {

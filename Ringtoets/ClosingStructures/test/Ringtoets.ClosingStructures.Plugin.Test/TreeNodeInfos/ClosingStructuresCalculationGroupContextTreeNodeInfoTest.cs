@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -136,7 +137,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                                                                             assessmentSection);
 
             // Call
-            var children = info.ChildNodeObjects(groupContext);
+            object[] children = info.ChildNodeObjects(groupContext);
 
             // Assert
             CollectionAssert.IsEmpty(children);
@@ -164,7 +165,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                                                                             assessmentSection);
 
             // Call
-            var children = info.ChildNodeObjects(groupContext).ToArray();
+            object[] children = info.ChildNodeObjects(groupContext).ToArray();
 
             // Assert
             Assert.AreEqual(group.Children.Count, children.Length);
@@ -698,7 +699,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                     // Call
                     TestHelper.AssertLogMessages(() => contextMenu.Items[contextMenuCalculateAllIndexRootGroup].PerformClick(), messages =>
                     {
-                        var messageList = messages.ToList();
+                        List<string> messageList = messages.ToList();
 
                         // Assert
                         Assert.AreEqual(12, messageList.Count);
@@ -769,7 +770,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                     // Call
                     TestHelper.AssertLogMessages(() => contextMenu.Items[contextMenuValidateAllIndexRootGroup].PerformClick(), messages =>
                     {
-                        var messageList = messages.ToList();
+                        List<string> messageList = messages.ToList();
 
                         // Assert
                         Assert.AreEqual(4, messageList.Count);
@@ -821,7 +822,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
 
                     // Assert
                     Assert.AreEqual(2, group.Children.Count);
-                    var newlyAddedItem = group.Children.Last();
+                    ICalculationBase newlyAddedItem = group.Children.Last();
                     Assert.IsInstanceOf<CalculationGroup>(newlyAddedItem);
                     Assert.AreEqual("Nieuwe map (1)", newlyAddedItem.Name,
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
@@ -867,7 +868,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
 
                     // Assert
                     Assert.AreEqual(2, group.Children.Count);
-                    var newlyAddedItem = group.Children.Last();
+                    ICalculationBase newlyAddedItem = group.Children.Last();
                     Assert.IsInstanceOf<StructuresCalculation<ClosingStructuresInput>>(newlyAddedItem);
                     Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
@@ -1064,7 +1065,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                     contextMenu.Items[contextMenuGenerateCalculationsIndexRootGroup].PerformClick();
 
                     // Then
-                    var closingStructuresCalculations = failureMechanism.Calculations.OfType<StructuresCalculation<ClosingStructuresInput>>().ToArray();
+                    StructuresCalculation<ClosingStructuresInput>[] closingStructuresCalculations = failureMechanism.Calculations.OfType<StructuresCalculation<ClosingStructuresInput>>().ToArray();
                     Assert.AreEqual(2, closingStructuresCalculations.Length);
                     Assert.AreEqual(expectedNewName, closingStructuresCalculations[1].Name);
                 }

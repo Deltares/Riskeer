@@ -40,7 +40,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
 
         private const int insideWaterLevelPropertyIndex = 2;
         private const int insideWaterLevelFailureConstructionPropertyIndex = 3;
-        
+
         private const int structureNormalOrientationPropertyIndex = 4;
         private const int stabilityPointStructureInflowModelTypePropertyIndex = 5;
         private const int widthFlowAperturesPropertyIndex = 6;

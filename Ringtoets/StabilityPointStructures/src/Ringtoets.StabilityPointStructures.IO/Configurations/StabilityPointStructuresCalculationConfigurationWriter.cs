@@ -43,7 +43,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
         /// <item>does not contain an invalid character,</item>
         /// <item>does not end with a directory or path separator (empty file name).</item>
         /// </list></remarks>
-        public StabilityPointStructuresCalculationConfigurationWriter(string filePath) : base(filePath) { }
+        public StabilityPointStructuresCalculationConfigurationWriter(string filePath) : base(filePath) {}
 
         protected override void WriteSpecificStructureParameters(StabilityPointStructuresCalculationConfiguration configuration, XmlWriter writer)
         {

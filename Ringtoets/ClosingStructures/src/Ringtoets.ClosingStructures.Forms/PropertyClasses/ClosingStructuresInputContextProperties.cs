@@ -103,6 +103,29 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
                 StormDurationPropertyIndex = stormDurationPropertyIndex
             }, propertyChangeHandler) {}
 
+        #region Hydraulic data
+
+        [DynamicVisible]
+        [PropertyOrder(insideWaterLevelPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_HydraulicData))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_InsideWaterLevel_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_InsideWaterLevel_Description))]
+        public NormalDistributionProperties InsideWaterLevel
+        {
+            get
+            {
+                return new NormalDistributionProperties(
+                    HasStructure()
+                        ? DistributionPropertiesReadOnly.None
+                        : DistributionPropertiesReadOnly.All,
+                    data.WrappedData.InsideWaterLevel,
+                    PropertyChangeHandler);
+            }
+        }
+
+        #endregion
+
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
@@ -165,28 +188,15 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
                 data.FailureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>());
         }
 
-        #region Hydraulic data
-
-        [DynamicVisible]
-        [PropertyOrder(insideWaterLevelPropertyIndex)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_HydraulicData))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_InsideWaterLevel_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_InsideWaterLevel_Description))]
-        public NormalDistributionProperties InsideWaterLevel
+        protected override bool ShouldPropertyBeReadOnlyInAbsenseOfStructure(string property)
         {
-            get
-            {
-                return new NormalDistributionProperties(
-                    HasStructure()
-                        ? DistributionPropertiesReadOnly.None
-                        : DistributionPropertiesReadOnly.All,
-                    data.WrappedData.InsideWaterLevel,
-                    PropertyChangeHandler);
-            }
+            return nameof(InflowModelType).Equals(property)
+                   || nameof(IdenticalApertures).Equals(property)
+                   || nameof(ProbabilityOrFrequencyOpenStructureBeforeFlooding).Equals(property)
+                   || nameof(FailureProbabilityOpenStructure).Equals(property)
+                   || nameof(FailureProbabilityReparation).Equals(property)
+                   || base.ShouldPropertyBeReadOnlyInAbsenseOfStructure(property);
         }
-
-        #endregion
 
         #region Model factors
 
@@ -411,15 +421,5 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         }
 
         #endregion
-
-        protected override bool ShouldPropertyBeReadOnlyInAbsenseOfStructure(string property)
-        {
-            return nameof(InflowModelType).Equals(property)
-                   || nameof(IdenticalApertures).Equals(property)
-                   || nameof(ProbabilityOrFrequencyOpenStructureBeforeFlooding).Equals(property)
-                   || nameof(FailureProbabilityOpenStructure).Equals(property)
-                   || nameof(FailureProbabilityReparation).Equals(property)
-                   || base.ShouldPropertyBeReadOnlyInAbsenseOfStructure(property);
-        }
     }
 }

@@ -30,7 +30,6 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
-using Ringtoets.HeightStructures.IO;
 using Ringtoets.HeightStructures.IO.Configurations;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
@@ -66,9 +65,9 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new HeightStructuresCalculationContext(new TestHeightStructuresCalculation(), 
-                                                               new HeightStructuresFailureMechanism(),
-                                                               assessmentSection);
+            var context = new HeightStructuresCalculationContext(new TestHeightStructuresCalculation(),
+                                                                 new HeightStructuresFailureMechanism(),
+                                                                 assessmentSection);
 
             using (var plugin = new HeightStructuresPlugin())
             {
@@ -107,9 +106,9 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new HeightStructuresCalculationContext(new TestHeightStructuresCalculation(), 
-                                                               new HeightStructuresFailureMechanism(),
-                                                               assessmentSection);
+            var context = new HeightStructuresCalculationContext(new TestHeightStructuresCalculation(),
+                                                                 new HeightStructuresFailureMechanism(),
+                                                                 assessmentSection);
 
             using (var plugin = new HeightStructuresPlugin())
             {

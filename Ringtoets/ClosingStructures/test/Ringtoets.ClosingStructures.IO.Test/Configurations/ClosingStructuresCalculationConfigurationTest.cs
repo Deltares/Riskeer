@@ -74,11 +74,11 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             var thresholdHeightOpenWeir = new StochastConfiguration();
             var areaFlowApertures = new StochastConfiguration();
             var levelCrestStructureNotClosing = new StochastConfiguration();
-            var identicalApertures = random.Next(1, 5);
-            var factorStormDurationOpenStructure = random.NextDouble();
-            var failureProbabilityOpenStructure = random.NextDouble();
-            var failureProbabilityReparation = random.NextDouble();
-            var probabilityOrFrequencyOpenStructureBeforeFlooding = random.NextDouble();
+            int identicalApertures = random.Next(1, 5);
+            double factorStormDurationOpenStructure = random.NextDouble();
+            double failureProbabilityOpenStructure = random.NextDouble();
+            double failureProbabilityReparation = random.NextDouble();
+            double probabilityOrFrequencyOpenStructureBeforeFlooding = random.NextDouble();
 
             var configuration = new ClosingStructuresCalculationConfiguration("some name");
 

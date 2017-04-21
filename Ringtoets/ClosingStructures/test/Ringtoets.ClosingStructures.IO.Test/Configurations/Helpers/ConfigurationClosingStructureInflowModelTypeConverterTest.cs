@@ -102,7 +102,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations.Helpers
         {
             // Setup
             var converter = new ConfigurationClosingStructureInflowModelTypeConverter();
-            var invalidValue = (ConfigurationClosingStructureInflowModelType)99999999;
+            var invalidValue = (ConfigurationClosingStructureInflowModelType) 99999999;
 
             // Call
             TestDelegate call = () => converter.ConvertTo(invalidValue, typeof(string));
@@ -168,11 +168,11 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations.Helpers
         }
 
         [Test]
-        [TestCase(ClosingStructuresConfigurationSchemaIdentifiers.FloodedCulvert,ConfigurationClosingStructureInflowModelType.FloodedCulvert)]
+        [TestCase(ClosingStructuresConfigurationSchemaIdentifiers.FloodedCulvert, ConfigurationClosingStructureInflowModelType.FloodedCulvert)]
         [TestCase(ClosingStructuresConfigurationSchemaIdentifiers.LowSill, ConfigurationClosingStructureInflowModelType.LowSill)]
         [TestCase(ClosingStructuresConfigurationSchemaIdentifiers.VerticalWall, ConfigurationClosingStructureInflowModelType.VerticalWall)]
         public void ConvertFrom_Text_ReturnExpectedClosingStructureInflowModelType(string value,
-                                                                  ConfigurationClosingStructureInflowModelType expectedResult)
+                                                                                   ConfigurationClosingStructureInflowModelType expectedResult)
         {
             // Setup
             var converter = new ConfigurationClosingStructureInflowModelTypeConverter();
@@ -202,7 +202,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations.Helpers
         [TestCase(ClosingStructureInflowModelType.LowSill, ConfigurationClosingStructureInflowModelType.LowSill)]
         [TestCase(ClosingStructureInflowModelType.VerticalWall, ConfigurationClosingStructureInflowModelType.VerticalWall)]
         public void ConvertFrom_ClosingStructureInflowModelType_ReturnExpectedClosingStructureInflowModelType(ClosingStructureInflowModelType value,
-                                                                            ConfigurationClosingStructureInflowModelType expectedResult)
+                                                                                                              ConfigurationClosingStructureInflowModelType expectedResult)
         {
             // Setup
             var converter = new ConfigurationClosingStructureInflowModelTypeConverter();
@@ -221,7 +221,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations.Helpers
             var converter = new ConfigurationClosingStructureInflowModelTypeConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertFrom((ClosingStructureInflowModelType)(-1));
+            TestDelegate call = () => converter.ConvertFrom((ClosingStructureInflowModelType) (-1));
 
             // Assert
             Assert.Throws<NotSupportedException>(call);

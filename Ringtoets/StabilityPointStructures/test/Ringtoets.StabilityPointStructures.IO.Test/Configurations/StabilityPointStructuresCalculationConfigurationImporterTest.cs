@@ -393,79 +393,79 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
 
                 yield return new TestCaseData(
                         "validConfigurationStabilityQuadraticLoadModelWithoutStructure.xml",
-                       "Er is geen kunstwerk opgegeven om de stochast 'kwadratischebelastingschematiseringstabiliteit' aan toe te voegen.")
+                        "Er is geen kunstwerk opgegeven om de stochast 'kwadratischebelastingschematiseringstabiliteit' aan toe te voegen.")
                     .SetName(testNameFormat);
                 yield return new TestCaseData(
                         "validConfigurationStabilityLinearLoadModelWithoutStructure.xml",
-                       "Er is geen kunstwerk opgegeven om de stochast 'lineairebelastingschematiseringstabiliteit' aan toe te voegen.")
+                        "Er is geen kunstwerk opgegeven om de stochast 'lineairebelastingschematiseringstabiliteit' aan toe te voegen.")
                     .SetName(testNameFormat);
                 yield return new TestCaseData(
                         "validConfigurationShipVelocityWithoutStructure.xml",
-                       "Er is geen kunstwerk opgegeven om de stochast 'aanvaarsnelheid' aan toe te voegen.")
+                        "Er is geen kunstwerk opgegeven om de stochast 'aanvaarsnelheid' aan toe te voegen.")
                     .SetName(testNameFormat);
                 yield return new TestCaseData(
                         "validConfigurationShipMassWithoutStructure.xml",
-                       "Er is geen kunstwerk opgegeven om de stochast 'massaschip' aan toe te voegen.")
+                        "Er is geen kunstwerk opgegeven om de stochast 'massaschip' aan toe te voegen.")
                     .SetName(testNameFormat);
                 yield return new TestCaseData(
                         "validConfigurationFailureCollisionEnergyWithoutStructure.xml",
-                       "Er is geen kunstwerk opgegeven om de stochast 'bezwijkwaardeaanvaarenergie' aan toe te voegen.")
+                        "Er is geen kunstwerk opgegeven om de stochast 'bezwijkwaardeaanvaarenergie' aan toe te voegen.")
                     .SetName(testNameFormat);
                 yield return new TestCaseData(
                         "validConfigurationBankWidthWithoutStructure.xml",
-                       "Er is geen kunstwerk opgegeven om de stochast 'bermbreedte' aan toe te voegen.")
+                        "Er is geen kunstwerk opgegeven om de stochast 'bermbreedte' aan toe te voegen.")
                     .SetName(testNameFormat);
                 yield return new TestCaseData(
                         "validConfigurationConstructiveStrengthLinearLoadModelWithoutStructure.xml",
-                       "Er is geen kunstwerk opgegeven om de stochast 'lineairebelastingschematiseringsterkte' aan toe te voegen.")
+                        "Er is geen kunstwerk opgegeven om de stochast 'lineairebelastingschematiseringsterkte' aan toe te voegen.")
                     .SetName(testNameFormat);
                 yield return new TestCaseData(
                         "validConfigurationConstructiveStrengthQuadraticLoadModelWithoutStructure.xml",
-                       "Er is geen kunstwerk opgegeven om de stochast 'kwadratischebelastingschematiseringsterkte' aan toe te voegen.")
+                        "Er is geen kunstwerk opgegeven om de stochast 'kwadratischebelastingschematiseringsterkte' aan toe te voegen.")
                     .SetName(testNameFormat);
                 yield return new TestCaseData(
                         "validConfigurationFlowVelocityStructureClosableWithoutStructure.xml",
-                       "Er is geen kunstwerk opgegeven om de stochast 'kritiekestroomsnelheid' aan toe te voegen.")
+                        "Er is geen kunstwerk opgegeven om de stochast 'kritiekestroomsnelheid' aan toe te voegen.")
                     .SetName(testNameFormat);
                 yield return new TestCaseData(
                         "validConfigurationCriticalOvertoppingDischargeWithoutStructure.xml",
-                       "Er is geen kunstwerk opgegeven om de stochast 'kritiekinstromenddebiet' aan toe te voegen.")
+                        "Er is geen kunstwerk opgegeven om de stochast 'kritiekinstromenddebiet' aan toe te voegen.")
                     .SetName(testNameFormat);
                 yield return new TestCaseData(
                         "validConfigurationThresholdHeightOpenWeirWithoutStructure.xml",
-                       "Er is geen kunstwerk opgegeven om de stochast 'drempelhoogte' aan toe te voegen.")
+                        "Er is geen kunstwerk opgegeven om de stochast 'drempelhoogte' aan toe te voegen.")
                     .SetName(testNameFormat);
                 yield return new TestCaseData(
                         "validConfigurationLevelCrestStructureWithoutStructure.xml",
-                       "Er is geen kunstwerk opgegeven om de stochast 'kerendehoogte' aan toe te voegen.")
+                        "Er is geen kunstwerk opgegeven om de stochast 'kerendehoogte' aan toe te voegen.")
                     .SetName(testNameFormat);
                 yield return new TestCaseData(
                         "validConfigurationAllowedLevelIncreaseStorageWithoutStructure.xml",
-                       "Er is geen kunstwerk opgegeven om de stochast 'peilverhogingkomberging' aan toe te voegen.")
+                        "Er is geen kunstwerk opgegeven om de stochast 'peilverhogingkomberging' aan toe te voegen.")
                     .SetName(testNameFormat);
                 yield return new TestCaseData(
                         "validConfigurationStorageStructureAreaWithoutStructure.xml",
-                       "Er is geen kunstwerk opgegeven om de stochast 'kombergendoppervlak' aan toe te voegen.")
+                        "Er is geen kunstwerk opgegeven om de stochast 'kombergendoppervlak' aan toe te voegen.")
                     .SetName(testNameFormat);
                 yield return new TestCaseData(
                         "validConfigurationFlowWidthAtBottomProtectionWithoutStructure.xml",
-                       "Er is geen kunstwerk opgegeven om de stochast 'breedtebodembescherming' aan toe te voegen.")
+                        "Er is geen kunstwerk opgegeven om de stochast 'breedtebodembescherming' aan toe te voegen.")
                     .SetName(testNameFormat);
                 yield return new TestCaseData(
                         "validConfigurationAreaFlowAperturesWithoutStructure.xml",
-                       "Er is geen kunstwerk opgegeven om de stochast 'doorstroomoppervlak' aan toe te voegen.")
+                        "Er is geen kunstwerk opgegeven om de stochast 'doorstroomoppervlak' aan toe te voegen.")
                     .SetName(testNameFormat);
                 yield return new TestCaseData(
                         "validConfigurationWidthFlowAperturesWithoutStructure.xml",
-                       "Er is geen kunstwerk opgegeven om de stochast 'breedtedoorstroomopening' aan toe te voegen.")
+                        "Er is geen kunstwerk opgegeven om de stochast 'breedtedoorstroomopening' aan toe te voegen.")
                     .SetName(testNameFormat);
                 yield return new TestCaseData(
                         "validConfigurationInsideWaterLevelFailureConstructionWithoutStructure.xml",
-                       "Er is geen kunstwerk opgegeven om de stochast 'binnenwaterstandbijfalen' aan toe te voegen.")
+                        "Er is geen kunstwerk opgegeven om de stochast 'binnenwaterstandbijfalen' aan toe te voegen.")
                     .SetName(testNameFormat);
                 yield return new TestCaseData(
                         "validConfigurationInsideWaterLevelWithoutStructure.xml",
-                       "Er is geen kunstwerk opgegeven om de stochast 'binnenwaterstand' aan toe te voegen.")
+                        "Er is geen kunstwerk opgegeven om de stochast 'binnenwaterstand' aan toe te voegen.")
                     .SetName(testNameFormat);
             }
         }

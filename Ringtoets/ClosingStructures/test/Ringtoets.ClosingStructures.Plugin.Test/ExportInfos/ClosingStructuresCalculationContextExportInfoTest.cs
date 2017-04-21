@@ -26,12 +26,11 @@ using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.ClosingStructures.Forms.PresentationObjects;
-using Ringtoets.ClosingStructures.IO;
 using Ringtoets.ClosingStructures.IO.Configurations;
+using Ringtoets.Common.Data.AssessmentSection;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Ringtoets.ClosingStructures.Plugin.Test.ExportInfos
@@ -66,9 +65,9 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new ClosingStructuresCalculationContext(new TestClosingStructuresCalculation(), 
-                                                               new ClosingStructuresFailureMechanism(),
-                                                               assessmentSection);
+            var context = new ClosingStructuresCalculationContext(new TestClosingStructuresCalculation(),
+                                                                  new ClosingStructuresFailureMechanism(),
+                                                                  assessmentSection);
 
             using (var plugin = new ClosingStructuresPlugin())
             {
@@ -107,9 +106,9 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new ClosingStructuresCalculationContext(new TestClosingStructuresCalculation(), 
-                                                               new ClosingStructuresFailureMechanism(),
-                                                               assessmentSection);
+            var context = new ClosingStructuresCalculationContext(new TestClosingStructuresCalculation(),
+                                                                  new ClosingStructuresFailureMechanism(),
+                                                                  assessmentSection);
 
             using (var plugin = new ClosingStructuresPlugin())
             {

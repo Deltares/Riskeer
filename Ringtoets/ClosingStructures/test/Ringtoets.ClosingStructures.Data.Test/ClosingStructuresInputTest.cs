@@ -179,7 +179,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         {
             // Setup
             var input = new ClosingStructuresInput();
-            TestClosingStructure structure = new TestClosingStructure();
+            var structure = new TestClosingStructure();
 
             // Call
             input.Structure = structure;

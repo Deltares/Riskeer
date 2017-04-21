@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.IO.Configurations;
-using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.IO.Configurations.Helpers;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 

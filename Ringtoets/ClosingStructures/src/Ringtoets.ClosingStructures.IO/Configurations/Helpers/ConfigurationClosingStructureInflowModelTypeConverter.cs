@@ -45,7 +45,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations.Helpers
         {
             if (destinationType == typeof(string))
             {
-                var type = (ConfigurationClosingStructureInflowModelType)value;
+                var type = (ConfigurationClosingStructureInflowModelType) value;
                 switch (type)
                 {
                     case ConfigurationClosingStructureInflowModelType.FloodedCulvert:
@@ -60,7 +60,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations.Helpers
             }
             if (destinationType == typeof(ClosingStructureInflowModelType))
             {
-                var type = (ConfigurationClosingStructureInflowModelType)value;
+                var type = (ConfigurationClosingStructureInflowModelType) value;
                 switch (type)
                 {
                     case ConfigurationClosingStructureInflowModelType.FloodedCulvert:

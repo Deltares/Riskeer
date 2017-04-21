@@ -96,6 +96,32 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         #endregion
 
+        [DynamicVisibleValidationMethod]
+        public bool DynamicVisibleValidationMethod(string propertyName)
+        {
+            if (!data.IsRelevant && ShouldHidePropertyWhenFailureMechanismIrrelevant(propertyName))
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
+        {
+            foreach (IObservable affectedObject in affectedObjects)
+            {
+                affectedObject.NotifyObservers();
+            }
+        }
+
+        private bool ShouldHidePropertyWhenFailureMechanismIrrelevant(string propertyName)
+        {
+            return nameof(LengthEffect).Equals(propertyName)
+                   || nameof(GravitationalAcceleration).Equals(propertyName)
+                   || nameof(ModelFactorOvertoppingFlow).Equals(propertyName)
+                   || nameof(ModelFactorStorageVolume).Equals(propertyName);
+        }
+
         #region General
 
         [PropertyOrder(namePropertyIndex)]
@@ -180,31 +206,5 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         }
 
         #endregion
-
-        private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
-        {
-            foreach (IObservable affectedObject in affectedObjects)
-            {
-                affectedObject.NotifyObservers();
-            }
-        }
-
-        [DynamicVisibleValidationMethod]
-        public bool DynamicVisibleValidationMethod(string propertyName)
-        {
-            if (!data.IsRelevant && ShouldHidePropertyWhenFailureMechanismIrrelevant(propertyName))
-            {
-                return false;
-            }
-            return true;
-        }
-
-        private bool ShouldHidePropertyWhenFailureMechanismIrrelevant(string propertyName)
-        {
-            return nameof(LengthEffect).Equals(propertyName)
-                   || nameof(GravitationalAcceleration).Equals(propertyName)
-                   || nameof(ModelFactorOvertoppingFlow).Equals(propertyName)
-                   || nameof(ModelFactorStorageVolume).Equals(propertyName);
-        }
     }
 }

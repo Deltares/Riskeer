@@ -76,7 +76,7 @@ namespace Ringtoets.HeightStructures.Service
             }
 
             var affectedItems = new List<IObservable>();
-            foreach (var calculation in failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>())
+            foreach (StructuresCalculation<HeightStructuresInput> calculation in failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>())
             {
                 affectedItems.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation)
                                                                                 .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters)));
@@ -99,12 +99,12 @@ namespace Ringtoets.HeightStructures.Service
             }
 
             var changedObjects = new List<IObservable>();
-            var removedObjects = failureMechanism.Sections.OfType<object>()
-                                                 .Concat(failureMechanism.SectionResults)
-                                                 .Concat(failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
-                                                 .Concat(failureMechanism.ForeshoreProfiles)
-                                                 .Concat(failureMechanism.HeightStructures)
-                                                 .ToArray();
+            object[] removedObjects = failureMechanism.Sections.OfType<object>()
+                                                      .Concat(failureMechanism.SectionResults)
+                                                      .Concat(failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
+                                                      .Concat(failureMechanism.ForeshoreProfiles)
+                                                      .Concat(failureMechanism.HeightStructures)
+                                                      .ToArray();
 
             failureMechanism.ClearAllSections();
             changedObjects.Add(failureMechanism);
@@ -139,7 +139,7 @@ namespace Ringtoets.HeightStructures.Service
                 .ToArray();
             foreach (StructuresCalculation<HeightStructuresInput> calculation in calculationWithRemovedHeightStructure)
             {
-                foreach (var calculationWithRemovedOutput in RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation))
+                foreach (IObservable calculationWithRemovedOutput in RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation))
                 {
                     changedObservables.Add(calculationWithRemovedOutput);
                 }

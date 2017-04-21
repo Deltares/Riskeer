@@ -278,12 +278,12 @@ namespace Ringtoets.ClosingStructures.Service.Test
             // Setup
             ClosingStructuresFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
 
-            var expectedRemovedObjects = failureMechanism.Sections.OfType<object>()
-                                                         .Concat(failureMechanism.SectionResults)
-                                                         .Concat(failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
-                                                         .Concat(failureMechanism.ForeshoreProfiles)
-                                                         .Concat(failureMechanism.ClosingStructures)
-                                                         .ToArray();
+            object[] expectedRemovedObjects = failureMechanism.Sections.OfType<object>()
+                                                              .Concat(failureMechanism.SectionResults)
+                                                              .Concat(failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
+                                                              .Concat(failureMechanism.ForeshoreProfiles)
+                                                              .Concat(failureMechanism.ClosingStructures)
+                                                              .ToArray();
 
             // Call
             ClearResults results = ClosingStructuresDataSynchronizationService.ClearReferenceLineDependentData(failureMechanism);
@@ -319,7 +319,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                                                                                                            .Where(sr => calculationsWithStructure.Contains(sr.Calculation))
                                                                                                            .ToArray();
             StructuresCalculation<ClosingStructuresInput>[] calculationsWithOutput = calculationsWithStructure.Where(c => c.HasOutput)
-                                                                                                             .ToArray();
+                                                                                                              .ToArray();
 
             int originalNumberOfSectionResultAssignments = failureMechanism.SectionResults.Count(sr => sr.Calculation != null);
             ClosingStructuresFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults

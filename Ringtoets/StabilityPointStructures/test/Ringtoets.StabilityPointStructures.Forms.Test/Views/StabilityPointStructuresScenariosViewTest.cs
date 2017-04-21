@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -324,7 +325,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             string[][] expectedComboBoxItemTexts = null)
         {
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            var rowCount = dataGridView.RowCount;
+            int rowCount = dataGridView.RowCount;
 
             if (shouldBeCleared)
             {
@@ -338,10 +339,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 Assert.AreEqual(failureMechanism.SectionResults.Count(), rowCount);
                 Assert.AreEqual(failureMechanism.Calculations.Count(), dataGridViewColumn.Items.Count);
 
-                for (int i = 0; i < rowCount; i++)
+                for (var i = 0; i < rowCount; i++)
                 {
                     var cell = (DataGridViewComboBoxCell) dataGridView[1, i];
-                    var items = cell.Items.OfType<DataGridViewComboBoxItemWrapper<ICalculation>>();
+                    IEnumerable<DataGridViewComboBoxItemWrapper<ICalculation>> items = cell.Items.OfType<DataGridViewComboBoxItemWrapper<ICalculation>>();
                     Assert.AreEqual(expectedComboBoxItemTexts[i], items.Select(r => r.DisplayName));
                 }
             }
@@ -349,7 +350,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
         private StabilityPointStructuresFailureMechanism CreateCompleteFailureMechanism()
         {
-            StabilityPointStructuresFailureMechanism failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var matchingPointA = new Point2D(0, 0);
             var matchingPointB = new Point2D(20, 20);
             var calculationA = new StructuresCalculation<StabilityPointStructuresInput>
@@ -368,7 +369,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                     Structure = CreateStructure(matchingPointB)
                 }
             };
-            Point2D connectionPoint = new Point2D(10, 10);
+            var connectionPoint = new Point2D(10, 10);
             var failureMechanismSectionA = new FailureMechanismSection("sectionA", new[]
             {
                 matchingPointA,

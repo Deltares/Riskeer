@@ -126,12 +126,12 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             // Setup
             StabilityPointStructuresFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
 
-            var expectedRemovedObjects = failureMechanism.Sections.OfType<object>()
-                                                         .Concat(failureMechanism.SectionResults)
-                                                         .Concat(failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
-                                                         .Concat(failureMechanism.ForeshoreProfiles)
-                                                         .Concat(failureMechanism.StabilityPointStructures)
-                                                         .ToArray();
+            object[] expectedRemovedObjects = failureMechanism.Sections.OfType<object>()
+                                                              .Concat(failureMechanism.SectionResults)
+                                                              .Concat(failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
+                                                              .Concat(failureMechanism.ForeshoreProfiles)
+                                                              .Concat(failureMechanism.StabilityPointStructures)
+                                                              .ToArray();
 
             // Call
             ClearResults results = StabilityPointStructuresDataSynchronizationService.ClearReferenceLineDependentData(failureMechanism);

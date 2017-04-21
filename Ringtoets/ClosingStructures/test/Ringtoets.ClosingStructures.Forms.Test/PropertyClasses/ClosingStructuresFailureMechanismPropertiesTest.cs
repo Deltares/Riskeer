@@ -72,7 +72,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         public void Constructor_ValidValues_ExpectedValues(bool isRelevant)
         {
             // Setup
-            MockRepository mocks = new MockRepository();
+            var mocks = new MockRepository();
             var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism>>();
             mocks.ReplayAll();
 

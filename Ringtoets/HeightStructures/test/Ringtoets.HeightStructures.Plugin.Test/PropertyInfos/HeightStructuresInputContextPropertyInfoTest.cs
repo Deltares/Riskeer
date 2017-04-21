@@ -21,13 +21,14 @@
 
 using System.Linq;
 using Core.Common.Gui.Plugin;
+using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Forms.PropertyClasses;
-using Ringtoets.Common.Data.AssessmentSection;
 
 namespace Ringtoets.HeightStructures.Plugin.Test.PropertyInfos
 {
@@ -71,7 +72,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.PropertyInfos
             var context = new HeightStructuresInputContext(calculation.InputParameters, calculation, failureMechanism, assessmentSection);
 
             // Call
-            var objectProperties = info.CreateInstance(context);
+            IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
             Assert.IsInstanceOf<HeightStructuresInputContextProperties>(objectProperties);

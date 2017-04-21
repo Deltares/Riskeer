@@ -46,7 +46,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PresentationObjects
         public StabilityPointStructuresCalculationGroupContext(CalculationGroup calculationsGroup,
                                                                StabilityPointStructuresFailureMechanism failureMechanism,
                                                                IAssessmentSection assessmentSection)
-            : base(calculationsGroup, failureMechanism, assessmentSection) { }
+            : base(calculationsGroup, failureMechanism, assessmentSection) {}
 
         /// <summary>
         /// Gets the available foreshore profiles.

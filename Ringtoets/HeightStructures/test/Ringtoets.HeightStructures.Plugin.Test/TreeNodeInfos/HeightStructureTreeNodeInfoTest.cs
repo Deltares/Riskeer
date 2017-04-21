@@ -93,7 +93,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             mocks.ReplayAll();
-            string name = "very nice name!";
+            var name = "very nice name!";
             HeightStructure structure = new TestHeightStructure(name);
 
             // Call

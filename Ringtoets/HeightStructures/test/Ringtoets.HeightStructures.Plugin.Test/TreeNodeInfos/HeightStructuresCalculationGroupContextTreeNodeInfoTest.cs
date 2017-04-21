@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -128,7 +129,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                                                                            assessmentSection);
 
             // Call
-            var children = info.ChildNodeObjects(groupContext);
+            object[] children = info.ChildNodeObjects(groupContext);
 
             // Assert
             CollectionAssert.IsEmpty(children);
@@ -156,7 +157,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                                                                            assessmentSection);
 
             // Call
-            var children = info.ChildNodeObjects(groupContext).ToArray();
+            object[] children = info.ChildNodeObjects(groupContext).ToArray();
 
             // Assert
             Assert.AreEqual(group.Children.Count, children.Length);
@@ -852,7 +853,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                     // Call
                     TestHelper.AssertLogMessages(() => contextMenu.Items[contextMenuCalculateAllIndexRootGroup].PerformClick(), messages =>
                     {
-                        var messageList = messages.ToList();
+                        List<string> messageList = messages.ToList();
 
                         // Assert
                         Assert.AreEqual(12, messageList.Count);
@@ -923,7 +924,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                     // Call
                     TestHelper.AssertLogMessages(() => contextMenu.Items[contextMenuValidateAllIndexRootGroup].PerformClick(), messages =>
                     {
-                        var messageList = messages.ToList();
+                        List<string> messageList = messages.ToList();
 
                         // Assert
                         Assert.AreEqual(4, messageList.Count);
@@ -975,7 +976,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
                     // Assert
                     Assert.AreEqual(2, group.Children.Count);
-                    var newlyAddedItem = group.Children.Last();
+                    ICalculationBase newlyAddedItem = group.Children.Last();
                     Assert.IsInstanceOf<CalculationGroup>(newlyAddedItem);
                     Assert.AreEqual("Nieuwe map (1)", newlyAddedItem.Name,
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
@@ -1021,7 +1022,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
                     // Assert
                     Assert.AreEqual(2, group.Children.Count);
-                    var newlyAddedItem = group.Children.Last();
+                    ICalculationBase newlyAddedItem = group.Children.Last();
                     Assert.IsInstanceOf<StructuresCalculation<HeightStructuresInput>>(newlyAddedItem);
                     Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
@@ -1218,7 +1219,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                     contextMenu.Items[contextMenuGenerateCalculationsIndexRootGroup].PerformClick();
 
                     // Then
-                    var heightStructuresCalculations = failureMechanism.Calculations.OfType<StructuresCalculation<HeightStructuresInput>>().ToArray();
+                    StructuresCalculation<HeightStructuresInput>[] heightStructuresCalculations = failureMechanism.Calculations.OfType<StructuresCalculation<HeightStructuresInput>>().ToArray();
                     Assert.AreEqual(2, heightStructuresCalculations.Length);
                     Assert.AreEqual(expectedNewName, heightStructuresCalculations[1].Name);
                 }
