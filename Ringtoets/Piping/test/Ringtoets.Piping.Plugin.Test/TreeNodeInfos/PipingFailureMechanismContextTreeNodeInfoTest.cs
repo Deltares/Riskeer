@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -107,7 +108,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             var mechanismContext = new PipingFailureMechanismContext(mechanism, assessmentSection);
 
             // Call
-            var text = info.Text(mechanismContext);
+            string text = info.Text(mechanismContext);
 
             // Assert
             Assert.AreEqual("Dijken en dammen - Piping", text);
@@ -120,7 +121,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             // Call
-            var image = info.Image(null);
+            Image image = info.Image(null);
 
             // Assert
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculationIcon, image);
@@ -141,7 +142,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             var pipingFailureMechanismContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSection);
 
             // Call
-            var children = info.ChildNodeObjects(pipingFailureMechanismContext).ToArray();
+            object[] children = info.ChildNodeObjects(pipingFailureMechanismContext).ToArray();
 
             // Assert
             Assert.AreEqual(3, children.Length);
@@ -209,7 +210,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             var pipingFailureMechanismContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSection);
 
             // Call
-            var children = info.ChildNodeObjects(pipingFailureMechanismContext).ToArray();
+            object[] children = info.ChildNodeObjects(pipingFailureMechanismContext).ToArray();
 
             // Assert
             Assert.AreEqual(1, children.Length);
@@ -287,7 +288,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     contextMenuStrip.Items[contextMenuClearIndex].PerformClick();
 
                     // Then
-                    foreach (var calc in failureMechanism.CalculationsGroup.Children.OfType<ICalculation>())
+                    foreach (ICalculation calc in failureMechanism.CalculationsGroup.Children.OfType<ICalculation>())
                     {
                         Assert.AreNotEqual(confirm, calc.HasOutput);
                     }
@@ -677,7 +678,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     // Assert
                     TestHelper.AssertLogMessages(call, messages =>
                     {
-                        var msgs = messages.ToArray();
+                        string[] msgs = messages.ToArray();
                         Assert.AreEqual(9, msgs.Length);
                         StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", validCalculation.Name), msgs[0]);
                         StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", validCalculation.Name), msgs[1]);

@@ -37,8 +37,8 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         {
             // Setup
             var random = new Random(22);
-            var expectedTop = random.NextDouble();
-            var expectedBottom = expectedTop - random.NextDouble();
+            double expectedTop = random.NextDouble();
+            double expectedBottom = expectedTop - random.NextDouble();
             const long pipingSoilProfileId = 1234L;
 
             var layers = new[]
@@ -72,10 +72,10 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         {
             // Setup
             var random = new Random(22);
-            var expectedTopA = random.NextDouble();
-            var expectedTopB = expectedTopA - random.NextDouble();
-            var expectedTopC = expectedTopB - random.NextDouble();
-            var expectedBottom = expectedTopC - random.NextDouble();
+            double expectedTopA = random.NextDouble();
+            double expectedTopB = expectedTopA - random.NextDouble();
+            double expectedTopC = expectedTopB - random.NextDouble();
+            double expectedBottom = expectedTopC - random.NextDouble();
             const long pipingSoilProfileId = 1234L;
             var layers = new[]
             {
@@ -116,10 +116,10 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         {
             // Setup
             var random = new Random(22);
-            var expectedTopA = random.NextDouble();
-            var expectedTopB = random.NextDouble() + expectedTopA;
-            var expectedTopC = random.NextDouble() + expectedTopB;
-            var expectedBottom = expectedTopA - random.NextDouble();
+            double expectedTopA = random.NextDouble();
+            double expectedTopB = random.NextDouble() + expectedTopA;
+            double expectedTopC = random.NextDouble() + expectedTopB;
+            double expectedBottom = expectedTopA - random.NextDouble();
             const long pipingSoilProfileId = 1234L;
             var layers = new[]
             {

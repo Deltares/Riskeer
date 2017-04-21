@@ -110,7 +110,7 @@ namespace Ringtoets.Piping.Service
                 pipingProbabilityAssessmentInput.A,
                 pipingProbabilityAssessmentInput.B,
                 pipingProbabilityAssessmentInput.SectionLength,
-                contribution/100);
+                contribution / 100);
 
             calculator.Calculate();
 
@@ -129,7 +129,7 @@ namespace Ringtoets.Piping.Service
                 calculator.pipingProbability,
                 calculator.pipingReliability,
                 calculator.pipingFactorOfSafety
-                );
+            );
         }
 
         /// <summary>
@@ -141,7 +141,7 @@ namespace Ringtoets.Piping.Service
 
             CalculateRequiredReliability();
 
-            pipingFactorOfSafety = pipingReliability/requiredReliability;
+            pipingFactorOfSafety = pipingReliability / requiredReliability;
         }
 
         /// <summary>
@@ -189,14 +189,14 @@ namespace Ringtoets.Piping.Service
         /// <returns>A value representing the required probability.</returns>
         private double RequiredProbability()
         {
-            return (norm*contribution)/(1 + (constantA*assessmentSectionLength)/constantB);
+            return (norm * contribution) / (1 + (constantA * assessmentSectionLength) / constantB);
         }
 
         private double SubMechanismReliability(double factorOfSafety, SubCalculationFactors factors)
         {
-            var bNorm = StatisticsConverter.ProbabilityToReliability(norm);
+            double bNorm = StatisticsConverter.ProbabilityToReliability(norm);
 
-            return (1/factors.A)*(Math.Log(factorOfSafety/factors.B) + (factors.C*bNorm));
+            return (1 / factors.A) * (Math.Log(factorOfSafety / factors.B) + (factors.C * bNorm));
         }
 
         private static void ValidateOutputOnCalculation(PipingCalculation calculation)

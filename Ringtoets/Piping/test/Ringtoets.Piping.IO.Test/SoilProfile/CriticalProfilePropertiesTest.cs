@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;
@@ -48,7 +47,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         {
             // Setup
             var reader = mocks.StrictMock<IRowBasedDatabaseReader>();
-            string profileName = "profile";
+            var profileName = "profile";
             var layerCount = 1;
             long soilProfileId = 1234;
 
@@ -75,7 +74,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             // Setup
             var reader = mocks.StrictMock<IRowBasedDatabaseReader>();
             var layerCount = 1;
-            string path = "A";
+            var path = "A";
             var invalidCastException = new InvalidCastException();
 
             reader.Expect(r => r.Read<string>(SoilProfileTableColumns.ProfileName)).IgnoreArguments().Throw(invalidCastException);
@@ -88,7 +87,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => new CriticalProfileProperties(reader);
 
             // Assert
-            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+            var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreSame(invalidCastException, exception.InnerException);
             string expectedMessage = new FileReaderErrorMessageBuilder(path)
                 .Build(Resources.PipingSoilProfileReader_Critical_Unexpected_value_on_column);
@@ -102,8 +101,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         {
             // Setup
             var reader = mocks.StrictMock<IRowBasedDatabaseReader>();
-            string profileName = "profile";
-            string path = "A";
+            var profileName = "profile";
+            var path = "A";
             var invalidCastException = new InvalidCastException();
 
             reader.Expect(r => r.Read<string>(SoilProfileTableColumns.ProfileName)).IgnoreArguments().Return(profileName).Repeat.Any();
@@ -116,7 +115,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => new CriticalProfileProperties(reader);
 
             // Assert
-            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+            var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreSame(invalidCastException, exception.InnerException);
             string expectedMessage = new FileReaderErrorMessageBuilder(path)
                 .WithSubject(string.Format("ondergrondschematisatie '{0}'", profileName))

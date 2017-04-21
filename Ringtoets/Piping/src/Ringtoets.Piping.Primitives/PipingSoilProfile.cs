@@ -165,7 +165,7 @@ namespace Ringtoets.Piping.Primitives
                 return false;
             }
 
-            for (int i = 0; i < layerCount; i++)
+            for (var i = 0; i < layerCount; i++)
             {
                 if (!layers[i].Equals(otherLayers[i]))
                 {

@@ -51,8 +51,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="designVariable"/> is <c>null</c>
         /// or when any number of properties in this class is editable and any other parameter is <c>null</c>.</exception>
         public VariationCoefficientLogNormalDistributionDesignVariableProperties(VariationCoefficientDistributionPropertiesReadOnly propertiesReadOnly,
-                                                             VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> designVariable,
-                                                             IObservablePropertyChangeHandler handler)
+                                                                                 VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> designVariable,
+                                                                                 IObservablePropertyChangeHandler handler)
             : base(propertiesReadOnly,
                    designVariable,
                    handler) {}

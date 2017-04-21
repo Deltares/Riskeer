@@ -177,6 +177,7 @@ namespace Ringtoets.Piping.Forms.Views
             soilProfileChartData.NotifyObservers();
             soilProfileChartData.Collection.ForEachElementDo(md => md.NotifyObservers());
         }
+
         private void UpdateTableData()
         {
             pipingSoilLayerTable.SetData(data?.InputParameters.StochasticSoilProfile?.SoilProfile?.Layers);
@@ -184,8 +185,8 @@ namespace Ringtoets.Piping.Forms.Views
 
         private void SetChartData()
         {
-            var pipingInput = data.InputParameters;
-            var surfaceLine = data.InputParameters.SurfaceLine;
+            PipingInput pipingInput = data.InputParameters;
+            RingtoetsPipingSurfaceLine surfaceLine = data.InputParameters.SurfaceLine;
 
             PipingChartDataFactory.UpdateSurfaceLineChartDataName(surfaceLineChartData, surfaceLine);
 
@@ -204,7 +205,7 @@ namespace Ringtoets.Piping.Forms.Views
 
         private void SetSoilProfileChartData()
         {
-            var soilProfile = data.InputParameters.StochasticSoilProfile?.SoilProfile;
+            PipingSoilProfile soilProfile = data.InputParameters.StochasticSoilProfile?.SoilProfile;
 
             // If necessary, regenerate all soil layer chart data
             if (!ReferenceEquals(currentSoilProfile, soilProfile))
@@ -224,11 +225,11 @@ namespace Ringtoets.Piping.Forms.Views
             }
 
             // Update the areas of all soil layer chart data
-            var soilLayers = GetSoilLayers();
+            IList<PipingSoilLayer> soilLayers = GetSoilLayers();
 
             for (var i = 0; i < soilLayers.Count; i++)
             {
-                var soilLayerData = soilLayerChartDataLookup[i];
+                ChartMultipleAreaData soilLayerData = soilLayerChartDataLookup[i];
 
                 soilLayerData.Areas = PipingChartDataPointsFactory.CreateSoilLayerAreas(soilLayers[i], currentSoilProfile, data.InputParameters.SurfaceLine);
             }

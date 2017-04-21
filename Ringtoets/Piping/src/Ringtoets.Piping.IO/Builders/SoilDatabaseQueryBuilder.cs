@@ -56,7 +56,7 @@ namespace Ringtoets.Piping.IO.Builders
                                  SegmentTableColumns.SegmentName,
                                  StochasticSoilModelTableColumns.StochasticSoilModelName,
                                  StochasticSoilModelTableColumns.StochasticSoilModelId
-                );
+            );
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace Ringtoets.Piping.IO.Builders
                                  SegmentPointsTableColumns.SegmentId,
                                  MechanismTableColumns.MechanismName,
                                  StochasticSoilModelTableColumns.Count
-                );
+            );
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace Ringtoets.Piping.IO.Builders
                                  StochasticSoilProfileTableColumns.Probability,
                                  StochasticSoilProfileTableColumns.SoilProfile1DId,
                                  StochasticSoilProfileTableColumns.SoilProfile2DId
-                );
+            );
         }
 
         /// <summary>
@@ -156,7 +156,7 @@ namespace Ringtoets.Piping.IO.Builders
                 MetaDataTableColumns.TableName,
                 MetaDataTableColumns.Key,
                 MetaDataTableColumns.Value
-                );
+            );
         }
 
         /// <summary>

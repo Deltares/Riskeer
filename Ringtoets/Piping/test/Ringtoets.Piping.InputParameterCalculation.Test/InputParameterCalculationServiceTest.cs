@@ -44,8 +44,8 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
 
             // Make invalid by having surfaceline partially above soil profile:
             double highestLevelSurfaceLine = invalidPipingCalculation.InputParameters.SurfaceLine.Points.Max(p => p.Z);
-            var soilProfileTop = highestLevelSurfaceLine - 0.5;
-            var soilProfileBottom = soilProfileTop - 0.5;
+            double soilProfileTop = highestLevelSurfaceLine - 0.5;
+            double soilProfileBottom = soilProfileTop - 0.5;
             invalidPipingCalculation.InputParameters.StochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
                 SoilProfile = new PipingSoilProfile("A", soilProfileBottom, new[]
@@ -255,7 +255,7 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
             AssertPointsAreEqual(pipingSurfaceLine.DikeToeAtPolder, otherSurfaceLine.DikeToeAtPolder);
 
             Assert.AreEqual(pipingSurfaceLine.Points.Length, otherSurfaceLine.Points.Count);
-            for (int i = 0; i < pipingSurfaceLine.Points.Length; i++)
+            for (var i = 0; i < pipingSurfaceLine.Points.Length; i++)
             {
                 AssertPointsAreEqual(pipingSurfaceLine.Points[i], otherSurfaceLine.Points[i]);
             }
@@ -285,7 +285,7 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
             Assert.AreEqual(pipingProfile.Layers.First(l => l.IsAquifer).Top, otherPipingProfile.TopAquiferLayer.TopLevel);
 
             Assert.AreEqual(pipingProfile.Layers.Count(), otherPipingProfile.Layers.Count);
-            for (int i = 0; i < pipingProfile.Layers.Count(); i++)
+            for (var i = 0; i < pipingProfile.Layers.Count(); i++)
             {
                 Assert.AreEqual(pipingProfile.Layers.ElementAt(i).Top, otherPipingProfile.Layers[i].TopLevel);
             }

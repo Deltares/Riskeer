@@ -21,7 +21,6 @@
 
 using System.IO;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;
@@ -40,13 +39,16 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void Constructor_NonExistingPath_ThrowsCriticalFileReadException()
         {
             // Setup
-            var testFile = Path.Combine(testDataPath, "none.soil");
+            string testFile = Path.Combine(testDataPath, "none.soil");
 
             // Call
-            TestDelegate test = () => { using (new SoilDatabaseVersionReader(testFile)) {} };
+            TestDelegate test = () =>
+            {
+                using (new SoilDatabaseVersionReader(testFile)) {}
+            };
 
             // Assert
-            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+            var exception = Assert.Throws<CriticalFileReadException>(test);
             string expectedMessage = new FileReaderErrorMessageBuilder(testFile).Build(UtilsResources.Error_File_does_not_exist);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
@@ -57,13 +59,16 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void Constructor_FileNullOrEmpty_ThrowsCriticalFileReadException(string fileName)
         {
             // Setup
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': {1}",
-                                                fileName, "bestandspad mag niet leeg of ongedefinieerd zijn.");
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': {1}",
+                                                   fileName, "bestandspad mag niet leeg of ongedefinieerd zijn.");
             // Call
-            TestDelegate test = () => { using (new SoilDatabaseVersionReader(fileName)) {} };
+            TestDelegate test = () =>
+            {
+                using (new SoilDatabaseVersionReader(fileName)) {}
+            };
 
             // Assert
-            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+            var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 

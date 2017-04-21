@@ -43,8 +43,8 @@ namespace Ringtoets.Piping.Service.Test
             {
                 UpliftFactorOfSafety = factorOfSafety
             });
-            var calculation = AsPipingCalculation(calculatorResult);
-            double norm = 1.0/returnPeriod;
+            PipingCalculation calculation = AsPipingCalculation(calculatorResult);
+            double norm = 1.0 / returnPeriod;
 
             PipingSemiProbabilisticCalculationService.Calculate(calculation, new PipingProbabilityAssessmentInput(), norm, double.NaN);
 
@@ -67,8 +67,8 @@ namespace Ringtoets.Piping.Service.Test
             {
                 HeaveFactorOfSafety = factorOfSafety
             });
-            var calculation = AsPipingCalculation(calculatorResult);
-            double norm = 1.0/returnPeriod;
+            PipingCalculation calculation = AsPipingCalculation(calculatorResult);
+            double norm = 1.0 / returnPeriod;
 
             PipingSemiProbabilisticCalculationService.Calculate(calculation, new PipingProbabilityAssessmentInput(), norm, double.NaN);
 
@@ -91,8 +91,8 @@ namespace Ringtoets.Piping.Service.Test
             {
                 SellmeijerFactorOfSafety = factorOfSafety
             });
-            var calculation = AsPipingCalculation(calculatorResult);
-            double norm = 1.0/returnPeriod;
+            PipingCalculation calculation = AsPipingCalculation(calculatorResult);
+            double norm = 1.0 / returnPeriod;
 
             PipingSemiProbabilisticCalculationService.Calculate(calculation, new PipingProbabilityAssessmentInput(), norm, double.NaN);
 
@@ -119,8 +119,8 @@ namespace Ringtoets.Piping.Service.Test
                 HeaveFactorOfSafety = fosHeave,
                 SellmeijerFactorOfSafety = fosSellmeijer
             });
-            var calculation = AsPipingCalculation(calculatorResult);
-            double norm = 1.0/returnPeriod;
+            PipingCalculation calculation = AsPipingCalculation(calculatorResult);
+            double norm = 1.0 / returnPeriod;
 
             PipingSemiProbabilisticCalculationService.Calculate(calculation, new PipingProbabilityAssessmentInput(), norm, double.NaN);
 
@@ -143,8 +143,8 @@ namespace Ringtoets.Piping.Service.Test
             {
                 SectionLength = assessmentSectionLength
             };
-            var calculation = AsPipingCalculation(calculatorResult);
-            double norm = 1.0/returnPeriod;
+            PipingCalculation calculation = AsPipingCalculation(calculatorResult);
+            double norm = 1.0 / returnPeriod;
 
             PipingSemiProbabilisticCalculationService.Calculate(calculation, pipingProbabilityAssessmentInput, norm, contribution);
 
@@ -177,8 +177,8 @@ namespace Ringtoets.Piping.Service.Test
             {
                 SectionLength = assessmentSectionLength
             };
-            var calculation = AsPipingCalculation(calculatorResult);
-            double norm = 1.0/returnPeriod;
+            PipingCalculation calculation = AsPipingCalculation(calculatorResult);
+            double norm = 1.0 / returnPeriod;
 
             PipingSemiProbabilisticCalculationService.Calculate(calculation, pipingProbabilityAssessmentInput, norm, contribution);
 
@@ -210,8 +210,8 @@ namespace Ringtoets.Piping.Service.Test
             {
                 SectionLength = assessmentSectionLength
             };
-            var calculation = AsPipingCalculation(calculatorResult);
-            double norm = 1.0/returnPeriod;
+            PipingCalculation calculation = AsPipingCalculation(calculatorResult);
+            double norm = 1.0 / returnPeriod;
 
             PipingSemiProbabilisticCalculationService.Calculate(calculation, pipingProbabilityAssessmentInput, norm, contribution);
 
@@ -219,8 +219,8 @@ namespace Ringtoets.Piping.Service.Test
             RoundedDouble result = calculation.SemiProbabilisticOutput.PipingFactorOfSafety;
 
             // Assert
-            var accuracy = Math.Pow(10.0, -result.NumberOfDecimalPlaces); // Less strict accuracy because of calculation using rounded doubles
-            Assert.AreEqual(calculation.SemiProbabilisticOutput.PipingReliability/calculation.SemiProbabilisticOutput.RequiredReliability, result, accuracy);
+            double accuracy = Math.Pow(10.0, -result.NumberOfDecimalPlaces); // Less strict accuracy because of calculation using rounded doubles
+            Assert.AreEqual(calculation.SemiProbabilisticOutput.PipingReliability / calculation.SemiProbabilisticOutput.RequiredReliability, result, accuracy);
         }
 
         [Test]

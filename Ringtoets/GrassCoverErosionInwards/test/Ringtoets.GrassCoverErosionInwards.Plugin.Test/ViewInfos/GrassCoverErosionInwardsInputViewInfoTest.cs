@@ -67,9 +67,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void GetViewName_Always_ReturnsInputResourceName()
         {
             // Setup
-            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView())
+            using (var view = new GrassCoverErosionInwardsInputView())
             {
-                GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
+                var calculation = new GrassCoverErosionInwardsCalculation();
 
                 // Call
                 string viewName = info.GetViewName(view, calculation);
@@ -83,15 +83,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void GetViewData_Always_ReturnsWrappedCalculation()
         {
             // Setup
-            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            GrassCoverErosionInwardsInput input = new GrassCoverErosionInwardsInput();
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
-            GrassCoverErosionInwardsInputContext context = new GrassCoverErosionInwardsInputContext(input,
-                                                                                                    calculation,
-                                                                                                    new GrassCoverErosionInwardsFailureMechanism(),
-                                                                                                    assessmentSection);
+            var input = new GrassCoverErosionInwardsInput();
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var context = new GrassCoverErosionInwardsInputContext(input,
+                                                                   calculation,
+                                                                   new GrassCoverErosionInwardsFailureMechanism(),
+                                                                   assessmentSection);
             // Call
             object viewData = info.GetViewData(context);
 
@@ -104,15 +104,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedCalculationContext_ReturnsTrue()
         {
             // Setup
-            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
-            GrassCoverErosionInwardsCalculationContext calculationContext = new GrassCoverErosionInwardsCalculationContext(calculation,
-                                                                                                                           new GrassCoverErosionInwardsFailureMechanism(),
-                                                                                                                           assessmentSection);
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculationContext = new GrassCoverErosionInwardsCalculationContext(calculation,
+                                                                                    new GrassCoverErosionInwardsFailureMechanism(),
+                                                                                    assessmentSection);
 
-            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
+            using (var view = new GrassCoverErosionInwardsInputView
             {
                 Data = calculation
             })
@@ -130,17 +130,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedCalculationContext_ReturnsFalse()
         {
             // Setup
-            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
-            GrassCoverErosionInwardsCalculation calculationToRemove = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculationToRemove = new GrassCoverErosionInwardsCalculation();
 
-            GrassCoverErosionInwardsCalculationContext calculationContext = new GrassCoverErosionInwardsCalculationContext(calculationToRemove,
-                                                                                                                           new GrassCoverErosionInwardsFailureMechanism(),
-                                                                                                                           assessmentSection);
+            var calculationContext = new GrassCoverErosionInwardsCalculationContext(calculationToRemove,
+                                                                                    new GrassCoverErosionInwardsFailureMechanism(),
+                                                                                    assessmentSection);
 
-            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
+            using (var view = new GrassCoverErosionInwardsInputView
             {
                 Data = calculation
             })
@@ -158,9 +158,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedCalculation_ReturnsTrue()
         {
             // Setup
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculation();
 
-            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
+            using (var view = new GrassCoverErosionInwardsInputView
             {
                 Data = calculation
             })
@@ -178,10 +178,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedCalculation_ReturnsFalse()
         {
             // Setup
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
-            GrassCoverErosionInwardsCalculation calculationToRemove = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculationToRemove = new GrassCoverErosionInwardsCalculation();
 
-            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
+            using (var view = new GrassCoverErosionInwardsInputView
             {
                 Data = calculation
             })
@@ -199,17 +199,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingWithRemovedCalculationGroupContext_ReturnsTrue()
         {
             // Setup
-            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
-            CalculationGroup calculationGroup = new CalculationGroup();
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
 
-            GrassCoverErosionInwardsCalculationGroupContext calculationGroupContext = new GrassCoverErosionInwardsCalculationGroupContext(calculationGroup,
-                                                                                                                                          new GrassCoverErosionInwardsFailureMechanism(),
-                                                                                                                                          assessmentSection);
-            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
+            var calculationGroupContext = new GrassCoverErosionInwardsCalculationGroupContext(calculationGroup,
+                                                                                              new GrassCoverErosionInwardsFailureMechanism(),
+                                                                                              assessmentSection);
+            using (var view = new GrassCoverErosionInwardsInputView
             {
                 Data = calculation
             })
@@ -227,17 +227,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingWithRemovedCalculationGroupContext_ReturnsFalse()
         {
             // Setup
-            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
-            CalculationGroup calculationGroup = new CalculationGroup();
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
 
-            GrassCoverErosionInwardsCalculationGroupContext calculationGroupContext = new GrassCoverErosionInwardsCalculationGroupContext(new CalculationGroup(),
-                                                                                                                                          new GrassCoverErosionInwardsFailureMechanism(),
-                                                                                                                                          assessmentSection);
-            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
+            var calculationGroupContext = new GrassCoverErosionInwardsCalculationGroupContext(new CalculationGroup(),
+                                                                                              new GrassCoverErosionInwardsFailureMechanism(),
+                                                                                              assessmentSection);
+            using (var view = new GrassCoverErosionInwardsInputView
             {
                 Data = calculation
             })
@@ -255,19 +255,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_NestedViewCorrespondingWithRemovedParentCalculationGroupContext_ReturnsTrue()
         {
             // Setup
-            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
-            CalculationGroup calculationGroup = new CalculationGroup();
-            CalculationGroup nestedGroup = new CalculationGroup();
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculationGroup = new CalculationGroup();
+            var nestedGroup = new CalculationGroup();
             nestedGroup.Children.Add(calculation);
             calculationGroup.Children.Add(nestedGroup);
 
-            GrassCoverErosionInwardsCalculationGroupContext calculationGroupContext = new GrassCoverErosionInwardsCalculationGroupContext(calculationGroup,
-                                                                                                                                          new GrassCoverErosionInwardsFailureMechanism(),
-                                                                                                                                          assessmentSection);
-            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
+            var calculationGroupContext = new GrassCoverErosionInwardsCalculationGroupContext(calculationGroup,
+                                                                                              new GrassCoverErosionInwardsFailureMechanism(),
+                                                                                              assessmentSection);
+            using (var view = new GrassCoverErosionInwardsInputView
             {
                 Data = calculation
             })
@@ -285,19 +285,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_NestedViewNotCorrespondingWithRemovedParentCalculationGroupContext_ReturnsFalse()
         {
             // Setup
-            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
-            CalculationGroup calculationGroup = new CalculationGroup();
-            CalculationGroup nestedGroup = new CalculationGroup();
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculationGroup = new CalculationGroup();
+            var nestedGroup = new CalculationGroup();
             nestedGroup.Children.Add(calculation);
             calculationGroup.Children.Add(nestedGroup);
 
-            GrassCoverErosionInwardsCalculationGroupContext calculationGroupContext = new GrassCoverErosionInwardsCalculationGroupContext(new CalculationGroup(),
-                                                                                                                                          new GrassCoverErosionInwardsFailureMechanism(),
-                                                                                                                                          assessmentSection);
-            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
+            var calculationGroupContext = new GrassCoverErosionInwardsCalculationGroupContext(new CalculationGroup(),
+                                                                                              new GrassCoverErosionInwardsFailureMechanism(),
+                                                                                              assessmentSection);
+            using (var view = new GrassCoverErosionInwardsInputView
             {
                 Data = calculation
             })
@@ -315,16 +315,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
         {
             // Setup
-            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-            GrassCoverErosionInwardsFailureMechanismContext failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
+            using (var view = new GrassCoverErosionInwardsInputView
             {
                 Data = calculation
             })
@@ -342,16 +342,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
         {
             // Setup
-            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-            GrassCoverErosionInwardsFailureMechanismContext failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
+            var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
 
-            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
+            using (var view = new GrassCoverErosionInwardsInputView
             {
                 Data = calculation
             })
@@ -369,19 +369,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_NestedViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
         {
             // Setup
-            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
-            CalculationGroup calculationGroup = new CalculationGroup();
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
 
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
-            GrassCoverErosionInwardsFailureMechanismContext failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
+            using (var view = new GrassCoverErosionInwardsInputView
             {
                 Data = calculation
             })
@@ -399,19 +399,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_NestedViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
         {
             // Setup
-            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
-            CalculationGroup calculationGroup = new CalculationGroup();
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
 
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
-            GrassCoverErosionInwardsFailureMechanismContext failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
+            var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
 
-            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
+            using (var view = new GrassCoverErosionInwardsInputView
             {
                 Data = calculation
             })
@@ -429,11 +429,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
+            using (var view = new GrassCoverErosionInwardsInputView
             {
                 Data = calculation
             })
@@ -450,11 +450,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
+            using (var view = new GrassCoverErosionInwardsInputView
             {
                 Data = calculation
             })
@@ -471,14 +471,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_NestedViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
-            CalculationGroup calculationGroup = new CalculationGroup();
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
 
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
-            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
+            using (var view = new GrassCoverErosionInwardsInputView
             {
                 Data = calculation
             })
@@ -495,14 +495,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_NestedViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
-            CalculationGroup calculationGroup = new CalculationGroup();
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
 
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
-            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
+            using (var view = new GrassCoverErosionInwardsInputView
             {
                 Data = calculation
             })
@@ -519,11 +519,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism
@@ -531,7 +531,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
+            using (var view = new GrassCoverErosionInwardsInputView
             {
                 Data = calculation
             })
@@ -549,11 +549,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism
@@ -561,7 +561,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
+            using (var view = new GrassCoverErosionInwardsInputView
             {
                 Data = new GrassCoverErosionInwardsCalculation()
             })
@@ -579,14 +579,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_NestedViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
-            CalculationGroup calculationGroup = new CalculationGroup();
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
 
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
-            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism
@@ -594,7 +594,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
+            using (var view = new GrassCoverErosionInwardsInputView
             {
                 Data = calculation
             })
@@ -612,14 +612,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_NestedViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
-            CalculationGroup calculationGroup = new CalculationGroup();
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
 
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
-            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism
@@ -627,7 +627,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
+            using (var view = new GrassCoverErosionInwardsInputView
             {
                 Data = new GrassCoverErosionInwardsCalculation()
             })

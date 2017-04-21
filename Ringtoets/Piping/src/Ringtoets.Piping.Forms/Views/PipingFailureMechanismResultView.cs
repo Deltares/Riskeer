@@ -151,7 +151,7 @@ namespace Ringtoets.Piping.Forms.Views
                 return;
             }
 
-            var relevantScenarios = rowObject.GetCalculationScenarios(FailureMechanism.Calculations.OfType<PipingCalculationScenario>()).ToArray();
+            PipingCalculationScenario[] relevantScenarios = rowObject.GetCalculationScenarios(FailureMechanism.Calculations.OfType<PipingCalculationScenario>()).ToArray();
             bool relevantScenarioAvailable = relevantScenarios.Length != 0;
 
             if (!relevantScenarioAvailable)
@@ -166,7 +166,7 @@ namespace Ringtoets.Piping.Forms.Views
                 return;
             }
 
-            var calculationScenarioStatus = rowObject.GetCalculationScenarioStatus(relevantScenarios);
+            CalculationScenarioStatus calculationScenarioStatus = rowObject.GetCalculationScenarioStatus(relevantScenarios);
             if (calculationScenarioStatus == CalculationScenarioStatus.NotCalculated)
             {
                 currentDataGridViewCell.ErrorText = RingtoetsCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_have_been_executed;

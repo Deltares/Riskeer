@@ -22,7 +22,6 @@
 using System;
 using System.Data.SQLite;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
 using Ringtoets.Piping.IO.Builders;
@@ -50,8 +49,8 @@ namespace Ringtoets.Piping.IO.SoilProfile
         {
             var criticalProperties = new CriticalProfileProperties(reader);
 
-            var profileId = criticalProperties.ProfileId;
-            var profileName = criticalProperties.ProfileName;
+            long profileId = criticalProperties.ProfileId;
+            string profileName = criticalProperties.ProfileName;
             var requiredProperties = new RequiredProfileProperties(reader, profileName);
 
             var soilProfileBuilder = new SoilProfileBuilder1D(profileName, requiredProperties.Bottom, profileId);
@@ -85,7 +84,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             }
             catch (SoilProfileBuilderException e)
             {
-                var message = new FileReaderErrorMessageBuilder(path)
+                string message = new FileReaderErrorMessageBuilder(path)
                     .WithSubject(string.Format(Resources.PipingSoilProfileReader_SoilProfileName_0_, profileName))
                     .Build(e.Message);
                 throw new PipingSoilProfileReadException(message, profileName, e);
@@ -123,7 +122,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
 
         private static PipingSoilProfileReadException CreatePipingSoilProfileReadException(string filePath, string profileName, string errorMessage, Exception innerException)
         {
-            var message = new FileReaderErrorMessageBuilder(filePath)
+            string message = new FileReaderErrorMessageBuilder(filePath)
                 .WithSubject(string.Format(Resources.PipingSoilProfileReader_SoilProfileName_0_, profileName))
                 .Build(errorMessage);
             return new PipingSoilProfileReadException(message, profileName, innerException);
@@ -131,7 +130,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
 
         private static PipingSoilProfileReadException CreatePipingSoilProfileReadException(string filePath, string profileName, Exception innerException)
         {
-            var message = new FileReaderErrorMessageBuilder(filePath)
+            string message = new FileReaderErrorMessageBuilder(filePath)
                 .WithSubject(string.Format(Resources.PipingSoilProfileReader_SoilProfileName_0_, profileName))
                 .Build(innerException.Message);
             return new PipingSoilProfileReadException(message, profileName, innerException);
@@ -158,7 +157,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 }
                 catch (InvalidCastException e)
                 {
-                    var message = string.Format(Resources.PipingSoilProfileReader_Profile_has_invalid_value_on_Column_0_, readColumn);
+                    string message = string.Format(Resources.PipingSoilProfileReader_Profile_has_invalid_value_on_Column_0_, readColumn);
                     throw CreatePipingSoilProfileReadException(reader.Path, profileName, message, e);
                 }
             }
@@ -191,7 +190,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 }
                 catch (InvalidCastException e)
                 {
-                    var message = new FileReaderErrorMessageBuilder(reader.Path)
+                    string message = new FileReaderErrorMessageBuilder(reader.Path)
                         .WithSubject(string.Format(Resources.PipingSoilProfileReader_SoilProfileName_0_, profileName))
                         .Build(string.Format(Resources.PipingSoilProfileReader_Profile_has_invalid_value_on_Column_0_, readColumn));
                     throw new PipingSoilProfileReadException(message, profileName, e);

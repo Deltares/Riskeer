@@ -73,8 +73,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Call
             TestDelegate test = () => new ShiftedLogNormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.None,
-                                                                                        null,
-                                                                                        handler);
+                                                                                               null,
+                                                                                               handler);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -95,8 +95,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Call
             var properties = new ShiftedLogNormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.All,
-                                                              designVariable,
-                                                              handler);
+                                                                                      designVariable,
+                                                                                      handler);
 
             // Assert
             Assert.IsInstanceOf<LogNormalDistributionDesignVariableProperties>(properties);
@@ -120,8 +120,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Call
             var properties = new ShiftedLogNormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.None,
-                                                                               designVariable,
-                                                                               handler);
+                                                                                      designVariable,
+                                                                                      handler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -158,7 +158,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                                             "Misc",
                                                                             "Rekenwaarde",
                                                                             "De representatieve waarde die gebruikt wordt door de berekening.",
-                                                                            true);            
+                                                                            true);
             mockRepository.VerifyAll();
         }
 
@@ -179,8 +179,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Call
             var properties = new ShiftedLogNormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.None,
-                                                                               designVariable,
-                                                                               handler);
+                                                                                      designVariable,
+                                                                                      handler);
 
             // Assert
             Assert.AreEqual("Lognormaal", properties.DistributionType);
@@ -208,11 +208,11 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Call
             var properties = new ShiftedLogNormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.None,
-                                                                               designVariable,
-                                                                               handler);
+                                                                                      designVariable,
+                                                                                      handler);
 
             // Call
-            var propertyName = properties.ToString();
+            string propertyName = properties.ToString();
 
             // Assert
             Assert.AreEqual("0,53 (Verwachtingswaarde = 1,00, Standaardafwijking = 2,00, Verschuiving = 0,30)", propertyName);

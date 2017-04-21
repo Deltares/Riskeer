@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Gui.Plugin;
+using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -72,7 +72,7 @@ namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
             var context = new StochasticSoilModelCollectionContext(collection, failureMechanism, assessmentSection);
 
             // Call
-            var objectProperties = info.CreateInstance(context);
+            IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
             Assert.IsInstanceOf<StochasticSoilModelCollectionProperties>(objectProperties);

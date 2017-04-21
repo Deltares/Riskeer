@@ -90,7 +90,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Assert
             Assert.AreEqual(surfaceLines.Length, features.Length);
 
-            for (int i = 0; i < features.Length; i++)
+            for (var i = 0; i < features.Length; i++)
             {
                 Assert.AreEqual(1, features[i].MapGeometries.Count());
                 AssertEqualPointCollections(surfaceLines[i].Points, features[i].MapGeometries.First());
@@ -147,7 +147,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Assert
             Assert.AreEqual(stochasticSoilModels.Length, features.Length);
 
-            for (int i = 0; i < features.Length; i++)
+            for (var i = 0; i < features.Length; i++)
             {
                 Assert.AreEqual(1, features[i].MapGeometries.Count());
                 AssertEqualPointCollections(stochasticSoilModels[i].Geometry, features[i].MapGeometries.First());
@@ -180,8 +180,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void CreateCalculationFeatures_GivenCalculations_ReturnsCalculationFeaturesArray()
         {
             // Setup
-            var calculationA = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
-            var calculationB = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+            PipingCalculationScenario calculationA = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+            PipingCalculationScenario calculationB = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
 
             calculationA.InputParameters.SurfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(1.0, 3.0);
             calculationB.InputParameters.SurfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(1.0, 4.0);

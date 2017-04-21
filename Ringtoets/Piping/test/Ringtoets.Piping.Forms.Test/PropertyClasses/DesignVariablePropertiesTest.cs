@@ -103,7 +103,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                                 handler);
 
             // Call
-            var propertyName = properties.ToString();
+            string propertyName = properties.ToString();
 
             // Assert
             Assert.AreEqual("0,45 (Verwachtingswaarde = 1,00, Standaardafwijking = 2,00)", propertyName);

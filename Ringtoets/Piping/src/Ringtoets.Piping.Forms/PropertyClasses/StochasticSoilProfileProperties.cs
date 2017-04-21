@@ -61,7 +61,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return new RoundedDouble(3, data.Probability*100).Value.ToString(CultureInfo.CurrentCulture);
+                return new RoundedDouble(3, data.Probability * 100).Value.ToString(CultureInfo.CurrentCulture);
             }
         }
 

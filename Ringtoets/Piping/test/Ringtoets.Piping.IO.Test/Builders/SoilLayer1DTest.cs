@@ -36,7 +36,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         {
             // Setup
             var random = new Random(22);
-            var top = random.NextDouble();
+            double top = random.NextDouble();
 
             // Call
             var layer = new SoilLayer1D(top);
@@ -71,24 +71,24 @@ namespace Ringtoets.Piping.IO.Test.Builders
         {
             // Setup
             var random = new Random(22);
-            var top = random.NextDouble();
+            double top = random.NextDouble();
             var materialName = "materialX";
-            var color = Color.BlanchedAlmond;
+            Color color = Color.BlanchedAlmond;
 
             var belowPhreaticLevelDistribution = 3;
             var belowPhreaticLevelShift = 0;
-            var belowPhreaticLevelMean = random.NextDouble();
-            var belowPhreaticLevelDeviation = random.NextDouble();
+            double belowPhreaticLevelMean = random.NextDouble();
+            double belowPhreaticLevelDeviation = random.NextDouble();
 
             var diameterD70Distribution = 3;
             var diameterD70Shift = 0;
-            var diameterD70Mean = random.NextDouble();
-            var diameterD70CoefficientOfVariation = random.NextDouble();
+            double diameterD70Mean = random.NextDouble();
+            double diameterD70CoefficientOfVariation = random.NextDouble();
 
             var permeabilityDistribution = 3;
             var permeabilityShift = 0;
-            var permeabilityMean = random.NextDouble();
-            var permeabilityCoefficientOfVariation = random.NextDouble();
+            double permeabilityMean = random.NextDouble();
+            double permeabilityCoefficientOfVariation = random.NextDouble();
 
             var layer = new SoilLayer1D(top)
             {
@@ -110,7 +110,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             };
 
             // Call
-            var result = layer.AsPipingSoilLayer();
+            PipingSoilLayer result = layer.AsPipingSoilLayer();
 
             // Assert
             Assert.AreEqual(top, result.Top);
@@ -201,7 +201,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         {
             // Setup
             var random = new Random(22);
-            var top = random.NextDouble();
+            double top = random.NextDouble();
             var layer = new SoilLayer1D(top);
 
             // Call

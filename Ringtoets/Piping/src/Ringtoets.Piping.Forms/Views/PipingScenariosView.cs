@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -128,31 +129,31 @@ namespace Ringtoets.Piping.Forms.Views
             dataGridViewControl.AddCheckBoxColumn(
                 TypeUtils.GetMemberName<PipingScenarioRow>(row => row.IsRelevant),
                 Resources.PipingCalculationsView_InitializeDataGridView_In_final_rating
-                );
+            );
             dataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<PipingScenarioRow>(row => row.Contribution),
                 Resources.PipingCalculationsView_InitializeDataGridView_Contribution
-                );
+            );
             dataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<PipingScenarioRow>(row => row.Name),
                 Resources.PipingCalculation_Name_DisplayName
-                );
+            );
             dataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<PipingScenarioRow>(row => row.FailureProbabilityPiping),
                 Resources.PipingScenarioView_PipingScenarioRow_FailureProbabilityPiping
-                );
+            );
             dataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<PipingScenarioRow>(row => row.FailureProbabilityUplift),
                 Resources.PipingScenarioView_PipingScenarioRow_FailureProbabilityUplift
-                );
+            );
             dataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<PipingScenarioRow>(row => row.FailureProbabilityHeave),
                 Resources.PipingScenarioView_PipingScenarioRow_FailureProbabilityHeave
-                );
+            );
             dataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<PipingScenarioRow>(row => row.FailureProbabilitySellmeijer),
                 Resources.PipingScenarioView_PipingScenarioRow_FailureProbabilitySellmeijer
-                );
+            );
         }
 
         private void InitializeListBox()
@@ -170,13 +171,13 @@ namespace Ringtoets.Piping.Forms.Views
                 return;
             }
 
-            var lineSegments = Math2D.ConvertLinePointsToLineSegments(failureMechanismSection.Points);
-            var pipingCalculations = calculationGroup
+            IEnumerable<Segment2D> lineSegments = Math2D.ConvertLinePointsToLineSegments(failureMechanismSection.Points);
+            IEnumerable<PipingCalculationScenario> pipingCalculations = calculationGroup
                 .GetCalculations()
                 .OfType<PipingCalculationScenario>()
                 .Where(pc => pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
 
-            var dataSource = pipingCalculations.Select(pc => new PipingScenarioRow(pc)).ToList();
+            List<PipingScenarioRow> dataSource = pipingCalculations.Select(pc => new PipingScenarioRow(pc)).ToList();
             dataGridViewControl.SetDataSource(dataSource);
         }
 

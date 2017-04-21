@@ -65,7 +65,7 @@ namespace Ringtoets.Piping.IO.Readers
                        {
                            stochastStandaardafwijkingSchemaName, RingtoetsCommonIOResources.StochastStandaardafwijkingSchema
                        }
-                   }) { }
+                   }) {}
 
         protected override ReadPipingCalculation ParseCalculationElement(XElement calculationElement)
         {

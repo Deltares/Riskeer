@@ -38,7 +38,11 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
             Assert.IsEmpty(model.Name);
             Assert.IsEmpty(model.SegmentName);
             Assert.AreEqual(2, model.StochasticSoilProfiles.Count);
-            CollectionAssert.AreEquivalent(new [] { 0.5, 0.5 }, model.StochasticSoilProfiles.Select(p => p.Probability));
+            CollectionAssert.AreEquivalent(new[]
+            {
+                0.5,
+                0.5
+            }, model.StochasticSoilProfiles.Select(p => p.Probability));
             CollectionAssert.AllItemsAreNotNull(model.StochasticSoilProfiles.Select(p => p.SoilProfile));
         }
 
@@ -56,7 +60,11 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
             Assert.AreEqual(name, model.Name);
             Assert.IsEmpty(model.SegmentName);
             Assert.AreEqual(2, model.StochasticSoilProfiles.Count);
-            CollectionAssert.AreEquivalent(new[] { 0.5, 0.5 }, model.StochasticSoilProfiles.Select(p => p.Probability));
+            CollectionAssert.AreEquivalent(new[]
+            {
+                0.5,
+                0.5
+            }, model.StochasticSoilProfiles.Select(p => p.Probability));
             CollectionAssert.AllItemsAreNotNull(model.StochasticSoilProfiles.Select(p => p.SoilProfile));
         }
     }

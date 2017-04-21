@@ -27,7 +27,6 @@ using Core.Common.Base.Geometry;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Styles;
 using NUnit.Framework;
-using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.Primitives;
@@ -184,7 +183,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var layers = new List<PipingSoilLayer>();
             for (var i = 0; i < soilLayerIndex; i++)
             {
-                layers.Add(new PipingSoilLayer((double) i/10));
+                layers.Add(new PipingSoilLayer((double) i / 10));
             }
             layers.Add(new PipingSoilLayer(-1.0)
             {
@@ -251,7 +250,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             var chartData = new ChartDataCollection("test name");
-            var soilProfile = new PipingSoilProfile("soil profile name", 2.0, new[]
+            var soilProfile = new PipingSoilProfile("soil profile name", 2.0,
+                                                    new[]
                                                     {
                                                         new PipingSoilLayer(3.2)
                                                     }, SoilProfileType.SoilProfile1D, 0);

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Linq;
+using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -27,7 +28,6 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Views;
@@ -234,7 +234,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             view.Data = new CalculationGroup();
 
             // Call
-            var closeForData = info.CloseForData(view, failureMechanism);
+            bool closeForData = info.CloseForData(view, failureMechanism);
 
             // Assert
             Assert.IsFalse(closeForData);
@@ -253,7 +253,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             view.Data = failureMechanism.CalculationsGroup;
 
             // Call
-            var closeForData = info.CloseForData(view, failureMechanism);
+            bool closeForData = info.CloseForData(view, failureMechanism);
 
             // Assert
             Assert.IsTrue(closeForData);
@@ -274,7 +274,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             view.Data = failureMechanism.CalculationsGroup;
 
             // Call
-            var closeForData = info.CloseForData(view, failureMechanismContext);
+            bool closeForData = info.CloseForData(view, failureMechanismContext);
 
             // Assert
             Assert.IsFalse(closeForData);
@@ -295,7 +295,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             view.Data = failureMechanism.CalculationsGroup;
 
             // Call
-            var closeForData = info.CloseForData(view, failureMechanismContext);
+            bool closeForData = info.CloseForData(view, failureMechanismContext);
 
             // Assert
             Assert.IsTrue(closeForData);
@@ -328,7 +328,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void CreateInstance_Always_NewViewWithHandler()
         {
             // Call
-            var view = info.CreateInstance();
+            IView view = info.CreateInstance();
 
             // Assert
             Assert.IsInstanceOf<PipingCalculationsView>(view);

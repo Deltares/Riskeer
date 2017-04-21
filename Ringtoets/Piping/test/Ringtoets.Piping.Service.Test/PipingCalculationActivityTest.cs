@@ -95,7 +95,7 @@ namespace Ringtoets.Piping.Service.Test
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(7, msgs.Length);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", invalidPipingCalculation.Name), msgs.First());
                 StringAssert.StartsWith("Validatie mislukt: ", msgs[1]);
@@ -128,7 +128,7 @@ namespace Ringtoets.Piping.Service.Test
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", validPipingCalculation.Name), msgs[0]);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", validPipingCalculation.Name), msgs[1]);

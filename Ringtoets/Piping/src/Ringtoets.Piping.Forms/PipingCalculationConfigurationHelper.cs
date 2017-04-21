@@ -70,10 +70,10 @@ namespace Ringtoets.Piping.Forms
                 throw new ArgumentNullException(nameof(generalInput));
             }
 
-            List<CalculationGroup> groups = new List<CalculationGroup>();
-            foreach (var surfaceLine in surfaceLines)
+            var groups = new List<CalculationGroup>();
+            foreach (RingtoetsPipingSurfaceLine surfaceLine in surfaceLines)
             {
-                var group = CreateCalculationGroup(surfaceLine, soilModels, generalInput);
+                CalculationGroup group = CreateCalculationGroup(surfaceLine, soilModels, generalInput);
                 if (group.GetCalculations().Any())
                 {
                     groups.Add(group);
@@ -111,10 +111,10 @@ namespace Ringtoets.Piping.Forms
         private static CalculationGroup CreateCalculationGroup(RingtoetsPipingSurfaceLine surfaceLine, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput)
         {
             var calculationGroup = new CalculationGroup(surfaceLine.Name, true);
-            var stochasticSoilModels = GetStochasticSoilModelsForSurfaceLine(surfaceLine, soilModels);
-            foreach (var stochasticSoilModel in stochasticSoilModels)
+            IEnumerable<StochasticSoilModel> stochasticSoilModels = GetStochasticSoilModelsForSurfaceLine(surfaceLine, soilModels);
+            foreach (StochasticSoilModel stochasticSoilModel in stochasticSoilModels)
             {
-                foreach (var soilProfile in stochasticSoilModel.StochasticSoilProfiles)
+                foreach (StochasticSoilProfile soilProfile in stochasticSoilModel.StochasticSoilProfiles)
                 {
                     calculationGroup.Children.Add(CreatePipingCalculation(surfaceLine, stochasticSoilModel, soilProfile, calculationGroup.Children, generalInput));
                 }
@@ -125,8 +125,8 @@ namespace Ringtoets.Piping.Forms
 
         private static ICalculationBase CreatePipingCalculation(RingtoetsPipingSurfaceLine surfaceLine, StochasticSoilModel stochasticSoilModel, StochasticSoilProfile stochasticSoilProfile, IEnumerable<ICalculationBase> calculations, GeneralPipingInput generalInput)
         {
-            var nameBase = $"{surfaceLine.Name} {stochasticSoilProfile}";
-            var name = NamingHelper.GetUniqueName(calculations, nameBase, c => c.Name);
+            string nameBase = $"{surfaceLine.Name} {stochasticSoilProfile}";
+            string name = NamingHelper.GetUniqueName(calculations, nameBase, c => c.Name);
 
             return new PipingCalculationScenario(generalInput)
             {

@@ -45,8 +45,8 @@ namespace Ringtoets.Piping.Forms.Views
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public PipingCalculationRow(PipingCalculationScenario pipingCalculation,
-            IObservablePropertyChangeHandler handler)
-        {            
+                                    IObservablePropertyChangeHandler handler)
+        {
             if (pipingCalculation == null)
             {
                 throw new ArgumentNullException(nameof(pipingCalculation));
@@ -128,7 +128,7 @@ namespace Ringtoets.Piping.Forms.Views
             get
             {
                 return PipingCalculation.InputParameters.StochasticSoilProfile != null
-                           ? new RoundedDouble(3, PipingCalculation.InputParameters.StochasticSoilProfile.Probability*100).Value.ToString(CultureInfo.CurrentCulture)
+                           ? new RoundedDouble(3, PipingCalculation.InputParameters.StochasticSoilProfile.Probability * 100).Value.ToString(CultureInfo.CurrentCulture)
                            : new RoundedDouble(3).Value.ToString(CultureInfo.CurrentCulture);
             }
         }
@@ -190,7 +190,7 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 if (!PipingCalculation.InputParameters.PhreaticLevelExit.Mean.Equals(value))
                 {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => PipingCalculation.InputParameters.PhreaticLevelExit.Mean = value, propertyChangeHandler);                    
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => PipingCalculation.InputParameters.PhreaticLevelExit.Mean = value, propertyChangeHandler);
                 }
             }
         }

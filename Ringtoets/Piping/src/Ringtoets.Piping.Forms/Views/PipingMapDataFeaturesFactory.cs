@@ -49,7 +49,7 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 var features = new MapFeature[surfaceLines.Length];
 
-                for (int i = 0; i < surfaceLines.Length; i++)
+                for (var i = 0; i < surfaceLines.Length; i++)
                 {
                     RingtoetsPipingSurfaceLine surfaceLine = surfaceLines[i];
 
@@ -76,7 +76,7 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 var features = new MapFeature[stochasticSoilModels.Length];
 
-                for (int i = 0; i < stochasticSoilModels.Length; i++)
+                for (var i = 0; i < stochasticSoilModels.Length; i++)
                 {
                     StochasticSoilModel stochasticSoilModel = stochasticSoilModels[i];
 
@@ -99,23 +99,23 @@ namespace Ringtoets.Piping.Forms.Views
         /// <returns>An array of features or an empty array when <paramref name="calculations"/> is <c>null</c> or empty.</returns>
         public static MapFeature[] CreateCalculationFeatures(IEnumerable<PipingCalculationScenario> calculations)
         {
-            var hasCalculations = calculations != null && calculations.Any();
+            bool hasCalculations = calculations != null && calculations.Any();
 
             if (!hasCalculations)
             {
                 return new MapFeature[0];
             }
 
-            var calculationsWithLocationAndHydraulicBoundaryLocation = calculations.Where(c =>
-                                                                                          c.InputParameters.SurfaceLine != null &&
-                                                                                          c.InputParameters.HydraulicBoundaryLocation != null);
+            IEnumerable<PipingCalculationScenario> calculationsWithLocationAndHydraulicBoundaryLocation = calculations.Where(c =>
+                                                                                                                                 c.InputParameters.SurfaceLine != null &&
+                                                                                                                                 c.InputParameters.HydraulicBoundaryLocation != null);
 
             MapCalculationData[] calculationData =
                 calculationsWithLocationAndHydraulicBoundaryLocation.Select(
                     calculation => new MapCalculationData(
-                                       calculation.Name,
-                                       calculation.InputParameters.SurfaceLine.ReferenceLineIntersectionWorldPoint,
-                                       calculation.InputParameters.HydraulicBoundaryLocation)).ToArray();
+                        calculation.Name,
+                        calculation.InputParameters.SurfaceLine.ReferenceLineIntersectionWorldPoint,
+                        calculation.InputParameters.HydraulicBoundaryLocation)).ToArray();
 
             return RingtoetsMapDataFeaturesFactory.CreateCalculationFeatures(calculationData);
         }

@@ -27,7 +27,9 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Components.BruTile.TestUtil;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
+using Core.Components.Gis.Geometries;
 using Core.Components.Gis.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -321,7 +323,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 MapDataCollection mapData = map.Data;
                 Assert.IsInstanceOf<MapDataCollection>(mapData);
 
-                var mapDataList = mapData.Collection.ToList();
+                List<MapData> mapDataList = mapData.Collection.ToList();
                 Assert.AreEqual(8, mapDataList.Count);
                 MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, mapDataList[referenceLineIndex]);
                 AssertSurfacelinesMapData(failureMechanism.SurfaceLines, mapDataList[surfaceLinesIndex]);
@@ -902,7 +904,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 mapData.Remove(dataToMove);
                 mapData.Add(dataToMove);
 
-                var mapDataList = mapData.Collection.ToList();
+                List<MapData> mapDataList = mapData.Collection.ToList();
 
                 // Precondition
                 var referenceLineData = (MapLineData) mapDataList[updatedRefenceLineLayerIndex];
@@ -1006,8 +1008,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             Assert.IsInstanceOf<MapLineData>(mapData);
             var surfacelinesMapData = (MapLineData) mapData;
-            var surfacelineFeatures = surfacelinesMapData.Features.ToArray();
-            var surfaceLinesArray = surfaceLines.ToArray();
+            MapFeature[] surfacelineFeatures = surfacelinesMapData.Features.ToArray();
+            RingtoetsPipingSurfaceLine[] surfaceLinesArray = surfaceLines.ToArray();
             Assert.AreEqual(surfaceLinesArray.Length, surfacelineFeatures.Length);
 
             for (var index = 0; index < surfaceLinesArray.Length; index++)
@@ -1023,8 +1025,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             Assert.IsInstanceOf<MapLineData>(mapData);
             var soilModelsMapData = (MapLineData) mapData;
-            var soilModelsFeatures = soilModelsMapData.Features.ToArray();
-            var stochasticSoilModelsArray = soilModels.ToArray();
+            MapFeature[] soilModelsFeatures = soilModelsMapData.Features.ToArray();
+            StochasticSoilModel[] stochasticSoilModelsArray = soilModels.ToArray();
             Assert.AreEqual(stochasticSoilModelsArray.Length, soilModelsFeatures.Length);
 
             for (var index = 0; index < stochasticSoilModelsArray.Length; index++)
@@ -1040,13 +1042,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             Assert.IsInstanceOf<MapLineData>(mapData);
             var calculationsMapData = (MapLineData) mapData;
-            var calculationsArray = calculations.ToArray();
-            var calculationsFeatures = calculationsMapData.Features.ToArray();
+            PipingCalculationScenario[] calculationsArray = calculations.ToArray();
+            MapFeature[] calculationsFeatures = calculationsMapData.Features.ToArray();
             Assert.AreEqual(calculationsArray.Length, calculationsFeatures.Length);
 
             for (var index = 0; index < calculationsArray.Length; index++)
             {
-                var geometries = calculationsFeatures[index].MapGeometries.ToArray();
+                MapGeometry[] geometries = calculationsFeatures[index].MapGeometries.ToArray();
                 Assert.AreEqual(1, geometries.Length);
 
                 PipingCalculationScenario calculation = calculationsArray[index];
@@ -1064,7 +1066,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             Assert.AreEqual("Dijken en dammen - Piping", mapDataCollection.Name);
 
-            var mapDataList = mapDataCollection.Collection.ToList();
+            List<MapData> mapDataList = mapDataCollection.Collection.ToList();
 
             Assert.AreEqual(8, mapDataList.Count);
 

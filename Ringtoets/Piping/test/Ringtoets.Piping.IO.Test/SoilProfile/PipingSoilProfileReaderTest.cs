@@ -72,7 +72,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             };
 
             // Assert
-            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+            var exception = Assert.Throws<CriticalFileReadException>(test);
             string expectedMessage = $"Fout bij het lezen van bestand '{fileName}': bestandspad mag niet leeg of ongedefinieerd zijn.";
             Assert.AreEqual(expectedMessage, exception.Message);
         }
@@ -97,7 +97,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             };
 
             // Assert
-            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+            var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
@@ -152,7 +152,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             };
 
             // Assert
-            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+            var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(string.Format(Resources.PipingSoilProfileReader_Database_incorrect_version_requires_Version_0_, version), exception.Message);
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
@@ -240,7 +240,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 TestDelegate profile = () => pipingSoilProfilesReader.ReadProfile();
 
                 // Assert
-                PipingSoilProfileReadException exception = Assert.Throws<PipingSoilProfileReadException>(profile);
+                var exception = Assert.Throws<PipingSoilProfileReadException>(profile);
                 string expectedMessage = new FileReaderErrorMessageBuilder(databaseFilePath)
                     .WithSubject("ondergrondschematisatie 'Profile'")
                     .Build(Resources.SoilLayer2DReader_Geometry_contains_no_valid_xml);
@@ -269,7 +269,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 TestDelegate profile = () => pipingSoilProfilesReader.ReadProfile();
 
                 // Assert
-                PipingSoilProfileReadException exception = Assert.Throws<PipingSoilProfileReadException>(profile);
+                var exception = Assert.Throws<PipingSoilProfileReadException>(profile);
                 string message = new FileReaderErrorMessageBuilder(databaseFilePath)
                     .WithSubject("ondergrondschematisatie 'Profile'")
                     .Build(string.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_, 85.2));
@@ -662,7 +662,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             {
                 // When
                 ICollection<PipingSoilProfile> result = new List<PipingSoilProfile>();
-                int skipped = 0;
+                var skipped = 0;
 
                 while (pipingSoilProfilesReader.HasNext)
                 {

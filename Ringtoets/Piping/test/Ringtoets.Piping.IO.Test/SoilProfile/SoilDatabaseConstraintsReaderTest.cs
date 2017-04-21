@@ -21,7 +21,6 @@
 
 using System.IO;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;
@@ -38,13 +37,16 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void Constructor_NonExistingPath_ThrowsCriticalFileReadException()
         {
             // Setup
-            var testFile = Path.Combine(testDataPath, "none.soil");
+            string testFile = Path.Combine(testDataPath, "none.soil");
 
             // Call
-            TestDelegate test = () => { using (new SoilDatabaseConstraintsReader(testFile)) { } };
+            TestDelegate test = () =>
+            {
+                using (new SoilDatabaseConstraintsReader(testFile)) {}
+            };
 
             // Assert
-            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+            var exception = Assert.Throws<CriticalFileReadException>(test);
             string expectedMessage = new FileReaderErrorMessageBuilder(testFile).Build("Het bestand bestaat niet.");
             Assert.AreEqual(expectedMessage, exception.Message);
         }
@@ -55,12 +57,15 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void Constructor_FileNullOrEmpty_ThrowsCriticalFileReadException(string fileName)
         {
             // Setup
-            var expectedMessage = $"Fout bij het lezen van bestand '{fileName}': bestandspad mag niet leeg of ongedefinieerd zijn.";
+            string expectedMessage = $"Fout bij het lezen van bestand '{fileName}': bestandspad mag niet leeg of ongedefinieerd zijn.";
             // Call
-            TestDelegate test = () => { using (new SoilDatabaseConstraintsReader(fileName)) { } };
+            TestDelegate test = () =>
+            {
+                using (new SoilDatabaseConstraintsReader(fileName)) {}
+            };
 
             // Assert
-            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+            var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -82,7 +87,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 TestDelegate test = () => versionReader.VerifyConstraints();
 
                 // Assert
-                CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+                var exception = Assert.Throws<CriticalFileReadException>(test);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
@@ -106,7 +111,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 TestDelegate test = () => versionReader.VerifyConstraints();
 
                 // Assert
-                CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+                var exception = Assert.Throws<CriticalFileReadException>(test);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
@@ -130,7 +135,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 TestDelegate test = () => versionReader.VerifyConstraints();
 
                 // Assert
-                CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+                var exception = Assert.Throws<CriticalFileReadException>(test);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
@@ -154,7 +159,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 TestDelegate test = () => versionReader.VerifyConstraints();
 
                 // Assert
-                CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+                var exception = Assert.Throws<CriticalFileReadException>(test);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));

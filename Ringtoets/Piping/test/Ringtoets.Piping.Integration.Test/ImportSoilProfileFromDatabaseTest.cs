@@ -137,7 +137,7 @@ namespace Ringtoets.Piping.Integration.Test
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             mocks.ReplayAll();
 
-            var databasePath = Path.Combine(testDataPath, "1dprofileNoValues.soil");
+            string databasePath = Path.Combine(testDataPath, "1dprofileNoValues.soil");
             var pipingFailureMechanism = new PipingFailureMechanism();
 
             // When

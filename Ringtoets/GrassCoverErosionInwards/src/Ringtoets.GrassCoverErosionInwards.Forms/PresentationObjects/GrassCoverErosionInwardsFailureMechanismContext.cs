@@ -40,6 +40,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public GrassCoverErosionInwardsFailureMechanismContext(GrassCoverErosionInwardsFailureMechanism failureMechanism,
                                                                IAssessmentSection assessmentSection) :
-                                                                   base(failureMechanism, assessmentSection) {}
+            base(failureMechanism, assessmentSection) {}
     }
 }

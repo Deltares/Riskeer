@@ -35,7 +35,7 @@ namespace Ringtoets.Piping.Data.Test
         public void Constructor_WithTop_ReturnsNewInstanceWithTopSet()
         {
             // Setup
-            var top = new Random(22).NextDouble();
+            double top = new Random(22).NextDouble();
 
             // Call
             var layer = new PipingSoilLayer(top);
@@ -62,7 +62,7 @@ namespace Ringtoets.Piping.Data.Test
         public void MaterialName_Null_ThrowsArgumentNullException()
         {
             // Setup
-            var top = new Random(22).NextDouble();
+            double top = new Random(22).NextDouble();
             var layer = new PipingSoilLayer(top);
 
             // Call
@@ -79,7 +79,7 @@ namespace Ringtoets.Piping.Data.Test
         public void MaterialName_NotNullValue_ValueSet(string materialName)
         {
             // Setup
-            var top = new Random(22).NextDouble();
+            double top = new Random(22).NextDouble();
             var layer = new PipingSoilLayer(top);
 
             // Call
@@ -93,10 +93,10 @@ namespace Ringtoets.Piping.Data.Test
         public void Equals_Null_ReturnsFalse()
         {
             // Setup
-            var layer = CreateRandomLayer(21);
+            PipingSoilLayer layer = CreateRandomLayer(21);
 
             // Call
-            var areEqual = layer.Equals(null);
+            bool areEqual = layer.Equals(null);
 
             // Assert
             Assert.IsFalse(areEqual);
@@ -107,8 +107,8 @@ namespace Ringtoets.Piping.Data.Test
         public void Equals_DifferentScenarios_ReturnsExpectedResult(PipingSoilLayer layer, PipingSoilLayer otherLayer, bool expectedEqual)
         {
             // Call
-            var areEqualOne = layer.Equals(otherLayer);
-            var areEqualTwo = otherLayer.Equals(layer);
+            bool areEqualOne = layer.Equals(otherLayer);
+            bool areEqualTwo = otherLayer.Equals(layer);
 
             // Assert
             Assert.AreEqual(expectedEqual, areEqualOne);
@@ -117,24 +117,45 @@ namespace Ringtoets.Piping.Data.Test
 
         private static TestCaseData[] LayerCombinations()
         {
-            var layerA = CreateRandomLayer(21);
-            var layerB = CreateRandomLayer(21);
-            var layerC = CreateRandomLayer(73);
+            PipingSoilLayer layerA = CreateRandomLayer(21);
+            PipingSoilLayer layerB = CreateRandomLayer(21);
+            PipingSoilLayer layerC = CreateRandomLayer(73);
 
-            var layerD = CreateNaNLayer("C", Color.Aqua, true);
-            var layerE = CreateNaNLayer("C", Color.Aqua, false);
-            var layerF = CreateNaNLayer("C", Color.AliceBlue, false);
-            var layerG = CreateNaNLayer("A", Color.Aqua, false);
+            PipingSoilLayer layerD = CreateNaNLayer("C", Color.Aqua, true);
+            PipingSoilLayer layerE = CreateNaNLayer("C", Color.Aqua, false);
+            PipingSoilLayer layerF = CreateNaNLayer("C", Color.AliceBlue, false);
+            PipingSoilLayer layerG = CreateNaNLayer("A", Color.Aqua, false);
 
             return new[]
             {
-                new TestCaseData(layerA, layerA, true) { TestName = "Equals_LayerALayerA_True"},
-                new TestCaseData(layerA, layerB, true) { TestName = "Equals_LayerALayerB_True"},
-                new TestCaseData(layerB, layerC, false) { TestName = "Equals_LayerBLayerC_False"},
-                new TestCaseData(layerC, layerC, true) { TestName = "Equals_LayerCLayerC_True"},
-                new TestCaseData(layerD, layerE, false) { TestName = "Equals_LayerDLayerE_False"},
-                new TestCaseData(layerD, layerF, false) { TestName = "Equals_LayerDLayerF_False"},
-                new TestCaseData(layerD, layerG, false) { TestName = "Equals_LayerDLayerG_False"},
+                new TestCaseData(layerA, layerA, true)
+                {
+                    TestName = "Equals_LayerALayerA_True"
+                },
+                new TestCaseData(layerA, layerB, true)
+                {
+                    TestName = "Equals_LayerALayerB_True"
+                },
+                new TestCaseData(layerB, layerC, false)
+                {
+                    TestName = "Equals_LayerBLayerC_False"
+                },
+                new TestCaseData(layerC, layerC, true)
+                {
+                    TestName = "Equals_LayerCLayerC_True"
+                },
+                new TestCaseData(layerD, layerE, false)
+                {
+                    TestName = "Equals_LayerDLayerE_False"
+                },
+                new TestCaseData(layerD, layerF, false)
+                {
+                    TestName = "Equals_LayerDLayerF_False"
+                },
+                new TestCaseData(layerD, layerG, false)
+                {
+                    TestName = "Equals_LayerDLayerG_False"
+                },
             };
         }
 

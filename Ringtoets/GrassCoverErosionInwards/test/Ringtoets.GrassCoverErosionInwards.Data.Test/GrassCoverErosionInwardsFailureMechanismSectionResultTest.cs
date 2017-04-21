@@ -110,7 +110,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             // Setup
             FailureMechanismSection section = CreateSection();
 
-            double probability = 0.65;
+            var probability = 0.65;
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0);
             var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
             {

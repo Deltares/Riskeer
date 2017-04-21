@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using Core.Common.Base;
-using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Data.Properties;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Data
 {

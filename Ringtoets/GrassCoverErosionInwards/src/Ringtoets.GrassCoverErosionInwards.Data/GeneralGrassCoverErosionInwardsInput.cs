@@ -31,8 +31,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     /// </summary>
     public class GeneralGrassCoverErosionInwardsInput
     {
-        private int n;
         private static readonly Range<int> validityRangeN = new Range<int>(1, 20);
+        private int n;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GeneralGrassCoverErosionInwardsInput"/> class.

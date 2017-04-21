@@ -97,7 +97,7 @@ namespace Ringtoets.Piping.Data
             Name = fromModel.Name;
             SegmentName = fromModel.SegmentName;
             Geometry.Clear();
-            foreach (var point in fromModel.Geometry)
+            foreach (Point2D point in fromModel.Geometry)
             {
                 Geometry.Add(point);
             }

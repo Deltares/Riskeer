@@ -63,17 +63,17 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         {
             // Setup
             var random = new Random(22);
-            var zuValue = random.NextDouble();
-            var foSuValue = random.NextDouble();
-            var zhValue = random.NextDouble();
-            var foShValue = random.NextDouble();
-            var zsValue = random.NextDouble();
-            var foSsValue = random.NextDouble();
-            var heaveGradient = random.NextDouble();
-            var upliftEffectiveStress = random.NextDouble();
-            var sellmeijerCreepCoefficient = random.NextDouble();
-            var sellmeijerCriticalFall = random.NextDouble();
-            var sellmeijerReducedFall = random.NextDouble();
+            double zuValue = random.NextDouble();
+            double foSuValue = random.NextDouble();
+            double zhValue = random.NextDouble();
+            double foShValue = random.NextDouble();
+            double zsValue = random.NextDouble();
+            double foSsValue = random.NextDouble();
+            double heaveGradient = random.NextDouble();
+            double upliftEffectiveStress = random.NextDouble();
+            double sellmeijerCreepCoefficient = random.NextDouble();
+            double sellmeijerCriticalFall = random.NextDouble();
+            double sellmeijerReducedFall = random.NextDouble();
 
             var constructionProperties = new PipingCalculatorResult.ConstructionProperties
             {

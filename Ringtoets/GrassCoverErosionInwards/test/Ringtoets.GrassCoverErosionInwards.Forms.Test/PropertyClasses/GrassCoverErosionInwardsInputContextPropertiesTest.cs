@@ -562,9 +562,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var calculation = new GrassCoverErosionInwardsCalculation();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.DikeProfiles.AddRange(new []
-           {
-                new TestDikeProfile() 
+            failureMechanism.DikeProfiles.AddRange(new[]
+            {
+                new TestDikeProfile()
             }, "path");
 
             var inputContext = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSection);

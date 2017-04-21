@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Globalization;
 using Core.Common.Base.Data;
 using Ringtoets.Piping.Data.Properties;
 
@@ -52,6 +51,15 @@ namespace Ringtoets.Piping.Data
             SellmeijerReductionFactor = 0.3;
         }
 
+        #region Heave specific parameters
+
+        /// <summary>
+        /// Gets the critical exit gradient for heave.
+        /// </summary>
+        public double CriticalHeaveGradient { get; private set; }
+
+        #endregion
+
         #region General parameters (used by multiple calculations)
 
         private static readonly Range<RoundedDouble> waterVolumetricWeightValidityRange = new Range<RoundedDouble>(new RoundedDouble(waterVolumicWeightNumberOfDecimalPlaces),
@@ -71,7 +79,7 @@ namespace Ringtoets.Piping.Data
             }
             set
             {
-                var newValue = value.ToPrecision(waterVolumicWeightNumberOfDecimalPlaces);
+                RoundedDouble newValue = value.ToPrecision(waterVolumicWeightNumberOfDecimalPlaces);
 
                 if (!waterVolumetricWeightValidityRange.InRange(newValue))
                 {
@@ -82,15 +90,6 @@ namespace Ringtoets.Piping.Data
                 waterVolumetricWeight = newValue;
             }
         }
-
-        #endregion
-
-        #region Heave specific parameters
-
-        /// <summary>
-        /// Gets the critical exit gradient for heave.
-        /// </summary>
-        public double CriticalHeaveGradient { get; private set; }
 
         #endregion
 

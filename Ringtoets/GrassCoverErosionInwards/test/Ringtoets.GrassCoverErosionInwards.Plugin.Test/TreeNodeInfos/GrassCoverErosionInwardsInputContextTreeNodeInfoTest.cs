@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Drawing;
 using System.Linq;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
@@ -95,7 +96,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             mocksRepository.ReplayAll();
 
             // Call
-            var text = info.Text(grassCoverErosionInwardsInputContext);
+            string text = info.Text(grassCoverErosionInwardsInputContext);
 
             // Assert
             Assert.AreEqual("Invoer", text);
@@ -114,7 +115,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             mocksRepository.ReplayAll();
 
             // Call
-            var image = info.Image(grassCoverErosionInwardsInputContext);
+            Image image = info.Image(grassCoverErosionInwardsInputContext);
 
             // Assert
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, image);

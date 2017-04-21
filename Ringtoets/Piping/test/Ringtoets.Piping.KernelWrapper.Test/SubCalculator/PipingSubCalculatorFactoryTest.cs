@@ -32,7 +32,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test.SubCalculator
         public void Instance_Always_ReturnsAnInstance()
         {
             // Call
-            var factory = PipingSubCalculatorFactory.Instance;
+            IPipingSubCalculatorFactory factory = PipingSubCalculatorFactory.Instance;
 
             // Assert
             Assert.IsInstanceOf<IPipingSubCalculatorFactory>(factory);

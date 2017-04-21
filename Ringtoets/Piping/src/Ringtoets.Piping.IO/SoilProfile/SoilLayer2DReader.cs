@@ -149,8 +149,8 @@ namespace Ringtoets.Piping.IO.SoilProfile
         {
             var pipingSoilLayer = new SoilLayer2D();
 
-            var xmlOuterLoop = geometry.XPathSelectElement(string.Format("//{0}", outerLoopElementName));
-            var xmlInnerLoops = geometry.XPathSelectElements(string.Format("//{0}", innerLoopElementName));
+            XElement xmlOuterLoop = geometry.XPathSelectElement(string.Format("//{0}", outerLoopElementName));
+            IEnumerable<XElement> xmlInnerLoops = geometry.XPathSelectElements(string.Format("//{0}", innerLoopElementName));
 
             if (xmlOuterLoop != null)
             {
@@ -172,7 +172,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         private IEnumerable<Segment2D> ParseGeometryLoop(XElement loop)
         {
             var loops = new Collection<Segment2D>();
-            var curves = loop.XPathSelectElements(string.Format("//{0}", geometryCurveElementName));
+            IEnumerable<XElement> curves = loop.XPathSelectElements(string.Format("//{0}", geometryCurveElementName));
 
             foreach (XElement curve in curves)
             {
@@ -188,8 +188,8 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// <exception cref="SoilLayerConversionException">XML for geometry curve is invalid.</exception>
         private Segment2D ParseGeometryCurve(XElement curve)
         {
-            var headDefinition = curve.Element(headPointElementName);
-            var endDefinition = curve.Element(endPointElementName);
+            XElement headDefinition = curve.Element(headPointElementName);
+            XElement endDefinition = curve.Element(endPointElementName);
             if (headDefinition != null && endDefinition != null)
             {
                 return new Segment2D(
@@ -211,14 +211,14 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// </list></exception>
         private Point2D ParsePoint(XElement point)
         {
-            var xElement = point.Element(xElementName);
-            var yElement = point.Element(zElementName);
+            XElement xElement = point.Element(xElementName);
+            XElement yElement = point.Element(zElementName);
             if (xElement != null && yElement != null)
             {
                 try
                 {
-                    var x = double.Parse(xElement.Value, CultureInfo.InvariantCulture);
-                    var y = double.Parse(yElement.Value, CultureInfo.InvariantCulture);
+                    double x = double.Parse(xElement.Value, CultureInfo.InvariantCulture);
+                    double y = double.Parse(yElement.Value, CultureInfo.InvariantCulture);
                     return new Point2D(x, y);
                 }
                 catch (ArgumentNullException e)

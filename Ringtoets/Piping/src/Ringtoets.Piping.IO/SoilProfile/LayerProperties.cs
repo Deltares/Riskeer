@@ -93,7 +93,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             }
             catch (InvalidCastException e)
             {
-                var message = new FileReaderErrorMessageBuilder(reader.Path)
+                string message = new FileReaderErrorMessageBuilder(reader.Path)
                     .WithSubject(string.Format(Resources.PipingSoilProfileReader_SoilProfileName_0_, profileName))
                     .Build(string.Format(Resources.PipingSoilProfileReader_Profile_has_invalid_value_on_Column_0_, readColumn));
                 throw new PipingSoilProfileReadException(message, profileName, e);

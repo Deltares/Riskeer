@@ -24,7 +24,6 @@ using System.Data;
 using System.Data.SQLite;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
 using Ringtoets.Piping.Data;
@@ -91,7 +90,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             {
                 if (exception is FormatException || exception is OverflowException || exception is InvalidCastException)
                 {
-                    var message = new FileReaderErrorMessageBuilder(Path).Build(Resources.StochasticSoilProfileDatabaseReader_StochasticSoilProfile_has_invalid_value);
+                    string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.StochasticSoilProfileDatabaseReader_StochasticSoilProfile_has_invalid_value);
                     throw new CriticalFileReadException(message, exception);
                 }
                 throw;
@@ -118,12 +117,12 @@ namespace Ringtoets.Piping.IO.SoilProfile
             {
                 return null;
             }
-            var stochasticSoilModelSegment = ReadStochasticSoilModelSegment();
-            var currentSegmentSoilModelId = stochasticSoilModelSegment.Id;
+            StochasticSoilModel stochasticSoilModelSegment = ReadStochasticSoilModelSegment();
+            long currentSegmentSoilModelId = stochasticSoilModelSegment.Id;
             do
             {
                 // Read Points
-                var point2D = ReadSegmentPoint();
+                Point2D point2D = ReadSegmentPoint();
                 if (point2D != null)
                 {
                     stochasticSoilModelSegment.Geometry.Add(point2D);
@@ -149,7 +148,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
 
         private static void AddStochasticSoilProfile(StochasticSoilModel stochasticSoilModelSegment, StochasticSoilProfileReader stochasticSoilProfileReader)
         {
-            var stochasticSoilProfile = stochasticSoilProfileReader.ReadStochasticSoilProfile(stochasticSoilModelSegment.Id);
+            StochasticSoilProfile stochasticSoilProfile = stochasticSoilProfileReader.ReadStochasticSoilProfile(stochasticSoilModelSegment.Id);
             if (stochasticSoilProfile != null)
             {
                 stochasticSoilModelSegment.StochasticSoilProfiles.Add(stochasticSoilProfile);
@@ -178,7 +177,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         private void CreateDataReader()
         {
             string locationCountQuery = SoilDatabaseQueryBuilder.GetStochasticSoilModelOfMechanismCountQuery();
-            var stochasticSoilModelSegmentsQuery = SoilDatabaseQueryBuilder.GetStochasticSoilModelOfMechanismQuery();
+            string stochasticSoilModelSegmentsQuery = SoilDatabaseQueryBuilder.GetStochasticSoilModelOfMechanismQuery();
             var sqliteParameter = new SQLiteParameter
             {
                 DbType = DbType.String,
@@ -192,7 +191,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             catch (SQLiteException exception)
             {
                 CloseConnection();
-                var message = new FileReaderErrorMessageBuilder(Path).Build(Resources.StochasticSoilModelDatabaseReader_Failed_to_read_database);
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.StochasticSoilModelDatabaseReader_Failed_to_read_database);
                 throw new CriticalFileReadException(message, exception);
             }
             PipingStochasticSoilModelCount = ReadStochasticSoilModelCount();
@@ -233,9 +232,9 @@ namespace Ringtoets.Piping.IO.SoilProfile
 
         private StochasticSoilModel ReadStochasticSoilModelSegment()
         {
-            var stochasticSoilModelId = Convert.ToInt64(dataReader[StochasticSoilModelTableColumns.StochasticSoilModelId]);
-            var stochasticSoilModelName = Convert.ToString(dataReader[StochasticSoilModelTableColumns.StochasticSoilModelName]);
-            var segmentName = Convert.ToString(dataReader[SegmentTableColumns.SegmentName]);
+            long stochasticSoilModelId = Convert.ToInt64(dataReader[StochasticSoilModelTableColumns.StochasticSoilModelId]);
+            string stochasticSoilModelName = Convert.ToString(dataReader[StochasticSoilModelTableColumns.StochasticSoilModelName]);
+            string segmentName = Convert.ToString(dataReader[SegmentTableColumns.SegmentName]);
             return new StochasticSoilModel(stochasticSoilModelId, stochasticSoilModelName, segmentName);
         }
 

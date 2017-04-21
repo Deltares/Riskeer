@@ -60,7 +60,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreSame(distribution, properties.Data);
             Assert.AreEqual(distribution.Mean, properties.Mean);
             Assert.AreEqual(distribution.StandardDeviation, properties.StandardDeviation);
-            Assert.AreEqual("Lognormaal", properties.DistributionType);            
+            Assert.AreEqual("Lognormaal", properties.DistributionType);
         }
 
         [Test]
@@ -95,8 +95,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Call
             var properties = new LogNormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.All,
-                                                              designVariable,
-                                                              handler);
+                                                                               designVariable,
+                                                                               handler);
 
             // Assert
             Assert.IsInstanceOf<DesignVariableProperties<LogNormalDistribution>>(properties);

@@ -86,7 +86,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             mockRepository.ReplayAll();
 
             // Call
-            var result = editor.EditValue(context, provider, someValue);
+            object result = editor.EditValue(context, provider, someValue);
 
             // Assert
             Assert.AreSame(someValue, result);
@@ -160,7 +160,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             mockRepository.ReplayAll();
 
             // Call
-            var result = editor.EditValue(context, provider, someValue);
+            object result = editor.EditValue(context, provider, someValue);
 
             // Assert
             Assert.AreSame(stochasticSoilProfile, result);

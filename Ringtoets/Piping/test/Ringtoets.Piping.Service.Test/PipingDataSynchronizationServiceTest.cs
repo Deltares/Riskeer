@@ -180,12 +180,12 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();
 
-            var expectedRemovedObjects = failureMechanism.Sections.OfType<object>()
-                                                         .Concat(failureMechanism.SectionResults)
-                                                         .Concat(failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
-                                                         .Concat(failureMechanism.StochasticSoilModels)
-                                                         .Concat(failureMechanism.SurfaceLines)
-                                                         .ToArray();
+            object[] expectedRemovedObjects = failureMechanism.Sections.OfType<object>()
+                                                              .Concat(failureMechanism.SectionResults)
+                                                              .Concat(failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
+                                                              .Concat(failureMechanism.StochasticSoilModels)
+                                                              .Concat(failureMechanism.SurfaceLines)
+                                                              .ToArray();
 
             // Call
             ClearResults results = PipingDataSynchronizationService.ClearReferenceLineDependentData(failureMechanism);
@@ -214,7 +214,7 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             PipingFailureMechanism failureMechanism = null;
-            RingtoetsPipingSurfaceLine surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
 
             // Call
             TestDelegate call = () => PipingDataSynchronizationService.RemoveSurfaceLine(failureMechanism, surfaceLine);
@@ -228,7 +228,7 @@ namespace Ringtoets.Piping.Service.Test
         public void RemoveSurfaceLine_SurfaceLineNull_ThrowsArgumentNullException()
         {
             // Setup
-            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new PipingFailureMechanism();
             RingtoetsPipingSurfaceLine surfaceLine = null;
 
             // Call
@@ -268,7 +268,7 @@ namespace Ringtoets.Piping.Service.Test
             }
 
             IObservable[] affectedObjectsArray = observables.ToArray();
-            var expectedAffectedObjectCount = 1 + calculationsWithOutput.Length + calculationsWithSurfaceLine.Length;
+            int expectedAffectedObjectCount = 1 + calculationsWithOutput.Length + calculationsWithSurfaceLine.Length;
             Assert.AreEqual(expectedAffectedObjectCount, affectedObjectsArray.Length);
 
             foreach (PipingCalculation calculation in calculationsWithOutput)
@@ -329,7 +329,7 @@ namespace Ringtoets.Piping.Service.Test
             }
 
             IObservable[] affectedObjectsArray = observables.ToArray();
-            var expectedAffectedObjectCount = 1 + calculationsWithOutput.Length + calculationsWithSurfaceLine.Length;
+            int expectedAffectedObjectCount = 1 + calculationsWithOutput.Length + calculationsWithSurfaceLine.Length;
             Assert.AreEqual(expectedAffectedObjectCount, affectedObjectsArray.Length);
 
             foreach (PipingCalculation calculation in calculationsWithOutput)
@@ -353,7 +353,7 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             PipingFailureMechanism failureMechanism = null;
-            StochasticSoilModel soilModel = new StochasticSoilModel(1, "A", "B");
+            var soilModel = new StochasticSoilModel(1, "A", "B");
 
             // Call
             TestDelegate call = () => PipingDataSynchronizationService.RemoveStochasticSoilModel(failureMechanism, soilModel);
@@ -367,7 +367,7 @@ namespace Ringtoets.Piping.Service.Test
         public void RemoveStochasticSoilModel_StochasticSoilModelNull_ThrowsArgumentNullException()
         {
             // Setup
-            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new PipingFailureMechanism();
             StochasticSoilModel soilModel = null;
 
             // Call
@@ -407,7 +407,7 @@ namespace Ringtoets.Piping.Service.Test
             }
 
             IObservable[] affectedObjectsArray = observables.ToArray();
-            var expectedAffectedObjectCount = 1 + calculationsWithOutput.Length + calculationsWithSoilModel.Length;
+            int expectedAffectedObjectCount = 1 + calculationsWithOutput.Length + calculationsWithSoilModel.Length;
             Assert.AreEqual(expectedAffectedObjectCount, affectedObjectsArray.Length);
 
             foreach (PipingCalculation calculation in calculationsWithOutput)
@@ -468,7 +468,7 @@ namespace Ringtoets.Piping.Service.Test
             }
 
             IObservable[] affectedObjectsArray = observables.ToArray();
-            var expectedAffectedObjectCount = 1 + calculationsWithOutput.Length + calculationsWithStochasticSoilModel.Length;
+            int expectedAffectedObjectCount = 1 + calculationsWithOutput.Length + calculationsWithStochasticSoilModel.Length;
             Assert.AreEqual(expectedAffectedObjectCount, affectedObjectsArray.Length);
 
             foreach (PipingCalculation calculation in calculationsWithOutput)
@@ -492,7 +492,7 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Call
             TestDelegate test = () => PipingDataSynchronizationService.RemoveStochasticSoilProfileFromInput(
-                null, 
+                null,
                 new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, -1));
 
             // Assert
@@ -505,7 +505,7 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Call
             TestDelegate test = () => PipingDataSynchronizationService.RemoveStochasticSoilProfileFromInput(
-                new PipingFailureMechanism(), 
+                new PipingFailureMechanism(),
                 null);
 
             // Assert

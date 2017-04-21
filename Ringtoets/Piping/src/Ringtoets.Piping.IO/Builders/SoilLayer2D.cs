@@ -62,7 +62,7 @@ namespace Ringtoets.Piping.IO.Builders
             }
             internal set
             {
-                var loop = value.ToArray();
+                Segment2D[] loop = value.ToArray();
                 CheckValidLoop(loop);
                 outerLoop = loop;
             }
@@ -88,7 +88,7 @@ namespace Ringtoets.Piping.IO.Builders
         /// do not form a loop.</exception>
         internal void AddInnerLoop(IEnumerable<Segment2D> innerLoop)
         {
-            var loop = innerLoop.ToArray();
+            Segment2D[] loop = innerLoop.ToArray();
             CheckValidLoop(loop);
             innerLoops.Add(loop);
         }
@@ -123,12 +123,12 @@ namespace Ringtoets.Piping.IO.Builders
                     IEnumerable<Tuple<double, double>> innerLoopIntersectionHeightPairs = GetOrderedStartAndEndPairsIn1D(innerLoopsIntersectionHeights).ToList();
                     IEnumerable<Tuple<double, double>> outerLoopIntersectionHeightPairs = GetOrderedStartAndEndPairsIn1D(outerLoopIntersectionHeights).ToList();
 
-                    var currentBottom = outerLoopIntersectionHeightPairs.First().Item1;
+                    double currentBottom = outerLoopIntersectionHeightPairs.First().Item1;
                     var heights = new List<double>();
                     heights.AddRange(innerLoopIntersectionHeightPairs.Where(p => p.Item1 >= currentBottom).Select(p => p.Item1));
                     heights.AddRange(outerLoopIntersectionHeightPairs.Select(p => p.Item2));
 
-                    foreach (var height in heights.Where(height => !innerLoopIntersectionHeightPairs.Any(tuple => HeightInInnerLoop(tuple, height))))
+                    foreach (double height in heights.Where(height => !innerLoopIntersectionHeightPairs.Any(tuple => HeightInInnerLoop(tuple, height))))
                     {
                         var pipingSoilLayer = new PipingSoilLayer(height)
                         {
@@ -162,10 +162,10 @@ namespace Ringtoets.Piping.IO.Builders
             {
                 return segments[0].Equals(segments[1]);
             }
-            for (int i = 0; i < segmentCount; i++)
+            for (var i = 0; i < segmentCount; i++)
             {
-                var segmentA = segments[i];
-                var segmentB = segments[(i + 1)%segmentCount];
+                Segment2D segmentA = segments[i];
+                Segment2D segmentB = segments[(i + 1) % segmentCount];
                 if (!segmentA.IsConnected(segmentB))
                 {
                     return false;
@@ -176,9 +176,9 @@ namespace Ringtoets.Piping.IO.Builders
 
         private double EnsureBottomOutsideInnerLoop(IEnumerable<Tuple<double, double>> innerLoopIntersectionHeightPairs, double bottom)
         {
-            var newBottom = bottom;
-            var heightPairArray = innerLoopIntersectionHeightPairs.ToList();
-            var overlappingInnerLoop = heightPairArray.FirstOrDefault(t => BottomInInnerLoop(t, newBottom));
+            double newBottom = bottom;
+            List<Tuple<double, double>> heightPairArray = innerLoopIntersectionHeightPairs.ToList();
+            Tuple<double, double> overlappingInnerLoop = heightPairArray.FirstOrDefault(t => BottomInInnerLoop(t, newBottom));
 
             while (overlappingInnerLoop != null)
             {
@@ -200,10 +200,10 @@ namespace Ringtoets.Piping.IO.Builders
 
         private IEnumerable<Tuple<double, double>> GetOrderedStartAndEndPairsIn1D(IEnumerable<IEnumerable<double>> innerLoopsIntersectionPoints)
         {
-            Collection<Tuple<double, double>> result = new Collection<Tuple<double, double>>();
-            foreach (var innerLoopIntersectionPoints in innerLoopsIntersectionPoints)
+            var result = new Collection<Tuple<double, double>>();
+            foreach (IEnumerable<double> innerLoopIntersectionPoints in innerLoopsIntersectionPoints)
             {
-                foreach (var tuple in GetOrderedStartAndEndPairsIn1D(innerLoopIntersectionPoints))
+                foreach (Tuple<double, double> tuple in GetOrderedStartAndEndPairsIn1D(innerLoopIntersectionPoints))
                 {
                     result.Add(tuple);
                 }
@@ -214,11 +214,11 @@ namespace Ringtoets.Piping.IO.Builders
         private static Collection<Tuple<double, double>> GetOrderedStartAndEndPairsIn1D(IEnumerable<double> innerLoopIntersectionPoints)
         {
             var result = new Collection<Tuple<double, double>>();
-            var orderedHeights = innerLoopIntersectionPoints.OrderBy(v => v).ToList();
-            for (int i = 0; i < orderedHeights.Count; i = i + 2)
+            List<double> orderedHeights = innerLoopIntersectionPoints.OrderBy(v => v).ToList();
+            for (var i = 0; i < orderedHeights.Count; i = i + 2)
             {
-                var first = orderedHeights[i];
-                var second = orderedHeights[i + 1];
+                double first = orderedHeights[i];
+                double second = orderedHeights[i + 1];
                 result.Add(Tuple.Create(first, second));
             }
             return result;
@@ -236,10 +236,10 @@ namespace Ringtoets.Piping.IO.Builders
         /// no deterministic intersection points can be determined.</exception>
         private IEnumerable<double> GetLoopIntersectionHeights(IEnumerable<Segment2D> loop, double atX)
         {
-            var segment2Ds = loop.ToArray();
+            Segment2D[] segment2Ds = loop.ToArray();
             if (segment2Ds.Any(segment => IsVerticalAtX(segment, atX)))
             {
-                var message = string.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_, atX);
+                string message = string.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_, atX);
                 throw new SoilLayerConversionException(message);
             }
             return Math2D.SegmentsIntersectionWithVerticalLine(segment2Ds, atX).Select(p => p.Y);

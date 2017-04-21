@@ -50,7 +50,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         public void Constructor_FactoryNull_ArgumentNullException()
         {
             // Call
-            PipingCalculatorInput input = new PipingCalculatorInput(CreateSimpleConstructionProperties());
+            var input = new PipingCalculatorInput(CreateSimpleConstructionProperties());
             TestDelegate call = () => new PipingCalculator(input, null);
 
             // Assert
@@ -62,7 +62,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         public void Calculate_CompleteValidInput_ReturnsResultWithNoNaN()
         {
             // Setup
-            PipingCalculatorInput input = new PipingCalculatorInput(CreateSimpleConstructionProperties());
+            var input = new PipingCalculatorInput(CreateSimpleConstructionProperties());
             var testPipingSubCalculatorFactory = new TestPipingSubCalculatorFactory();
 
             // Call
@@ -90,9 +90,9 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         public void Calculate_CompleteValidInput_BottomLevelAquitardLayerAboveExitPointZUsedFromCalculator()
         {
             // Setup
-            PipingCalculatorInput input = new PipingCalculatorInput(CreateSimpleConstructionProperties());
+            var input = new PipingCalculatorInput(CreateSimpleConstructionProperties());
             var testPipingSubCalculatorFactory = new TestPipingSubCalculatorFactory();
-            var bottomAquitardLayerAboveExitPointZ = new Random(21).NextDouble()*10;
+            double bottomAquitardLayerAboveExitPointZ = new Random(21).NextDouble() * 10;
             testPipingSubCalculatorFactory.LastCreatedPipingProfilePropertyCalculator.BottomAquitardLayerAboveExitPointZ = bottomAquitardLayerAboveExitPointZ;
 
             // Call
@@ -106,7 +106,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         public void Validate_CompleteValidInput_ReturnsNoValidationMessages()
         {
             // Setup
-            PipingCalculatorInput input = new PipingCalculatorInput(CreateSimpleConstructionProperties());
+            var input = new PipingCalculatorInput(CreateSimpleConstructionProperties());
             var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
 
             // Call
@@ -120,7 +120,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         public void Validate_CompleteValidInput_CalculatorsValidated()
         {
             // Setup
-            PipingCalculatorInput input = new PipingCalculatorInput(CreateSimpleConstructionProperties());
+            var input = new PipingCalculatorInput(CreateSimpleConstructionProperties());
             var testPipingSubCalculatorFactory = new TestPipingSubCalculatorFactory();
             var calculation = new PipingCalculator(input, testPipingSubCalculatorFactory);
 
@@ -144,7 +144,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             PipingCalculatorInput.ConstructionProperties properties = CreateSimpleConstructionProperties();
             properties.SeepageLength = seepageLength;
 
-            PipingCalculatorInput input = new PipingCalculatorInput(properties);
+            var input = new PipingCalculatorInput(properties);
 
             var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
 
@@ -166,7 +166,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             PipingCalculatorInput.ConstructionProperties properties = CreateSimpleConstructionProperties();
             properties.ThicknessAquiferLayer = aquiferThickness;
 
-            PipingCalculatorInput input = new PipingCalculatorInput(properties);
+            var input = new PipingCalculatorInput(properties);
 
             var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
 
@@ -187,7 +187,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             PipingCalculatorInput.ConstructionProperties properties = CreateSimpleConstructionProperties();
             properties.BeddingAngle = beddingAngle;
 
-            PipingCalculatorInput input = new PipingCalculatorInput(properties);
+            var input = new PipingCalculatorInput(properties);
 
             var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
 
@@ -207,7 +207,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             properties.AssessmentLevel = (RoundedDouble) 0.1;
             properties.DampingFactorExit = 0;
 
-            PipingCalculatorInput input = new PipingCalculatorInput(properties);
+            var input = new PipingCalculatorInput(properties);
 
             var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
 
@@ -226,7 +226,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             PipingCalculatorInput.ConstructionProperties properties = CreateSimpleConstructionProperties();
             properties.ThicknessAquiferLayer = 0;
 
-            PipingCalculatorInput input = new PipingCalculatorInput(properties);
+            var input = new PipingCalculatorInput(properties);
 
             var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
 
@@ -245,7 +245,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             PipingCalculatorInput.ConstructionProperties properties = CreateSimpleConstructionProperties();
             properties.WaterVolumetricWeight = 0;
 
-            PipingCalculatorInput input = new PipingCalculatorInput(properties);
+            var input = new PipingCalculatorInput(properties);
 
             var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
 
@@ -271,7 +271,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             properties.SellmeijerReductionFactor = sellmeijerReductionFactor;
             properties.ThicknessCoverageLayer = thicknessCoverageLayer;
 
-            PipingCalculatorInput input = new PipingCalculatorInput(properties);
+            var input = new PipingCalculatorInput(properties);
 
             var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
 
@@ -290,7 +290,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             PipingCalculatorInput.ConstructionProperties properties = CreateSimpleConstructionProperties();
             properties.SurfaceLine = null;
 
-            PipingCalculatorInput input = new PipingCalculatorInput(properties);
+            var input = new PipingCalculatorInput(properties);
 
             var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
 
@@ -313,14 +313,14 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             PipingCalculatorInput.ConstructionProperties properties = CreateSimpleConstructionProperties();
             properties.SurfaceLine = new RingtoetsPipingSurfaceLine();
 
-            PipingCalculatorInput input = new PipingCalculatorInput(properties);
+            var input = new PipingCalculatorInput(properties);
             input.SurfaceLine.SetGeometry(new[]
-                                          {
-                                              new Point3D(0, 0, 2),
-                                              new Point3D(1, 0, -3),
-                                              new Point3D(2, 0, -4),
-                                              new Point3D(3, 0, 3)
-                                          });
+            {
+                new Point3D(0, 0, 2),
+                new Point3D(1, 0, -3),
+                new Point3D(2, 0, -4),
+                new Point3D(3, 0, 3)
+            });
             if (missingType != 0)
             {
                 input.SurfaceLine.SetDitchDikeSideAt(input.SurfaceLine.Points[0]);
@@ -362,14 +362,14 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             PipingCalculatorInput.ConstructionProperties properties = CreateSimpleConstructionProperties();
             properties.SurfaceLine = new RingtoetsPipingSurfaceLine();
 
-            PipingCalculatorInput input = new PipingCalculatorInput(properties);
+            var input = new PipingCalculatorInput(properties);
             input.SurfaceLine.SetGeometry(new[]
-                                          {
-                                              new Point3D(0, 0, 2),
-                                              new Point3D(1, 0, -3),
-                                              new Point3D(2, 0, -4),
-                                              new Point3D(3, 0, 3)
-                                          });
+            {
+                new Point3D(0, 0, 2),
+                new Point3D(1, 0, -3),
+                new Point3D(2, 0, -4),
+                new Point3D(3, 0, 3)
+            });
             input.SurfaceLine.SetDitchDikeSideAt(input.SurfaceLine.Points[ditchDikeSidePosition]);
             input.SurfaceLine.SetBottomDitchDikeSideAt(input.SurfaceLine.Points[bottomDitchDikeSidePosition]);
             input.SurfaceLine.SetBottomDitchPolderSideAt(input.SurfaceLine.Points[bottomDitchPolderSidePosition]);
@@ -392,7 +392,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             PipingCalculatorInput.ConstructionProperties properties = CreateSimpleConstructionProperties();
             properties.SoilProfile = null;
 
-            PipingCalculatorInput input = new PipingCalculatorInput(properties);
+            var input = new PipingCalculatorInput(properties);
 
             var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
 
@@ -413,14 +413,14 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             var top = 0;
             PipingCalculatorInput.ConstructionProperties properties = CreateSimpleConstructionProperties();
             properties.SoilProfile = new PipingSoilProfile(string.Empty, bottom, new[]
-                                                           {
-                                                               new PipingSoilLayer(top)
-                                                               {
-                                                                   IsAquifer = true
-                                                               }
-                                                           }, SoilProfileType.SoilProfile1D, 0);
+            {
+                new PipingSoilLayer(top)
+                {
+                    IsAquifer = true
+                }
+            }, SoilProfileType.SoilProfile1D, 0);
 
-            PipingCalculatorInput input = new PipingCalculatorInput(properties);
+            var input = new PipingCalculatorInput(properties);
 
             var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
 
@@ -428,7 +428,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             List<string> validationMessages = calculation.Validate();
 
             // Assert
-            var message = string.Format("De onderkant({0}) van het ondergrondprofiel is niet laag genoeg. Het moet tenminste {1} m onder de bovenkant van de diepste laag ({2}) liggen.", bottom, 0.001, top);
+            string message = string.Format("De onderkant({0}) van het ondergrondprofiel is niet laag genoeg. Het moet tenminste {1} m onder de bovenkant van de diepste laag ({2}) liggen.", bottom, 0.001, top);
             Assert.AreEqual(1, validationMessages.Count);
             Assert.AreEqual(message, validationMessages[0]);
         }
@@ -439,11 +439,11 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             // Setup
             PipingCalculatorInput.ConstructionProperties properties = CreateSimpleConstructionProperties();
             properties.SoilProfile = new PipingSoilProfile(string.Empty, -1.0, new[]
-                                                           {
-                                                               new PipingSoilLayer(0)
-                                                           }, SoilProfileType.SoilProfile1D, 0);
+            {
+                new PipingSoilLayer(0)
+            }, SoilProfileType.SoilProfile1D, 0);
 
-            PipingCalculatorInput input = new PipingCalculatorInput(properties);
+            var input = new PipingCalculatorInput(properties);
 
             var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
 
@@ -459,12 +459,12 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         public void CalculateThicknessCoverageLayer_WithValidInput_ReturnsSomeThickness()
         {
             // Setup
-            PipingCalculatorInput input = new PipingCalculatorInput(CreateSimpleConstructionProperties());
+            var input = new PipingCalculatorInput(CreateSimpleConstructionProperties());
 
             var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
 
             // Call
-            var result = calculation.CalculateEffectiveThicknessCoverageLayer();
+            double result = calculation.CalculateEffectiveThicknessCoverageLayer();
 
             // Assert
             Assert.AreEqual(1.0, result);
@@ -474,7 +474,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         public void CalculateThicknessCoverageLayer_WithValidInput_UsedEffectiveThicknessCalculator()
         {
             // Setup
-            PipingCalculatorInput input = new PipingCalculatorInput(CreateSimpleConstructionProperties());
+            var input = new PipingCalculatorInput(CreateSimpleConstructionProperties());
 
             var testPipingSubCalculatorFactory = new TestPipingSubCalculatorFactory();
             var calculation = new PipingCalculator(input, testPipingSubCalculatorFactory);
@@ -495,18 +495,18 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         public void CalculateThicknessCoverageLayer_WithValidInputWithAquiferAboveSurfaceLine_ReturnsNegativeThickness()
         {
             // Setup
-            PipingCalculatorInput input = new PipingCalculatorInput(CreateSimpleConstructionProperties());
+            var input = new PipingCalculatorInput(CreateSimpleConstructionProperties());
             input.SurfaceLine.SetGeometry(new[]
-                                          {
-                                              new Point3D(0, 0, 0.5),
-                                              new Point3D(1, 0, 1.5),
-                                              new Point3D(2, 0, -1)
-                                          });
+            {
+                new Point3D(0, 0, 0.5),
+                new Point3D(1, 0, 1.5),
+                new Point3D(2, 0, -1)
+            });
 
             var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
 
             // Call
-            var result = calculation.CalculateEffectiveThicknessCoverageLayer();
+            double result = calculation.CalculateEffectiveThicknessCoverageLayer();
 
             // Assert
             Assert.AreEqual(result, -3.0);
@@ -519,12 +519,12 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             PipingCalculatorInput.ConstructionProperties properties = CreateSimpleConstructionProperties();
             properties.ExitPointXCoordinate = (RoundedDouble) 2.1;
 
-            PipingCalculatorInput input = new PipingCalculatorInput(properties);
+            var input = new PipingCalculatorInput(properties);
 
             var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
 
             // Call
-            var result = calculation.CalculateEffectiveThicknessCoverageLayer();
+            double result = calculation.CalculateEffectiveThicknessCoverageLayer();
 
             // Assert
             Assert.IsNaN(result);
@@ -534,12 +534,12 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         public void CalculatePiezometricHeadAtExit_WithValidInput_ReturnsSomeValue()
         {
             // Setup
-            PipingCalculatorInput input = new PipingCalculatorInput(CreateSimpleConstructionProperties());
+            var input = new PipingCalculatorInput(CreateSimpleConstructionProperties());
 
             var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
 
             // Call
-            var result = calculation.CalculatePiezometricHeadAtExit();
+            double result = calculation.CalculatePiezometricHeadAtExit();
 
             // Assert
             Assert.IsFalse(double.IsNaN(result));
@@ -549,7 +549,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         public void CalculateThicknessCoverageLayer_WithValidInput_UsedPiezometricHeadAtExitCalculator()
         {
             // Setup
-            PipingCalculatorInput input = new PipingCalculatorInput(CreateSimpleConstructionProperties());
+            var input = new PipingCalculatorInput(CreateSimpleConstructionProperties());
 
             var testPipingSubCalculatorFactory = new TestPipingSubCalculatorFactory();
             var calculation = new PipingCalculator(input, testPipingSubCalculatorFactory);

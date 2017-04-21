@@ -68,9 +68,9 @@ namespace Ringtoets.Piping.KernelWrapper
         /// <exception cref="PipingCalculatorException">Thrown when any of the invocations of the sub calculations from the kernel throws an Exception.</exception>
         public PipingCalculatorResult Calculate()
         {
-            var upliftResult = CalculateUplift();
-            var heaveResult = CalculateHeave();
-            var sellmeijerResult = CalculateSellmeijer();
+            IUpliftCalculator upliftResult = CalculateUplift();
+            IHeaveCalculator heaveResult = CalculateHeave();
+            ISellmeijerCalculator sellmeijerResult = CalculateSellmeijer();
 
             return new PipingCalculatorResult(new PipingCalculatorResult.ConstructionProperties
             {
@@ -98,7 +98,7 @@ namespace Ringtoets.Piping.KernelWrapper
             List<string> pipingProfilePropertyCalculatorValidationResults = CreatePipingProfilePropertyCalculator().Validate();
             List<string> upliftCalculatorValidationResults = ValidateUpliftCalculator();
             List<string> heaveCalculatorValidationResults = CreateHeaveCalculator().Validate();
-            List<string> sellmeijerCalculatorValidationResults = new List<string>();
+            var sellmeijerCalculatorValidationResults = new List<string>();
 
             if (!pipingProfilePropertyCalculatorValidationResults.Any())
             {
@@ -129,7 +129,7 @@ namespace Ringtoets.Piping.KernelWrapper
         {
             try
             {
-                var calculator = CreateEffectiveThicknessCalculator();
+                IEffectiveThicknessCalculator calculator = CreateEffectiveThicknessCalculator();
                 calculator.Calculate();
 
                 return calculator.EffectiveHeight;
@@ -150,7 +150,7 @@ namespace Ringtoets.Piping.KernelWrapper
         /// <returns>The piezometric head at the exit point.</returns>
         public double CalculatePiezometricHeadAtExit()
         {
-            var calculator = factory.CreatePiezometricHeadAtExitCalculator();
+            IPiezoHeadCalculator calculator = factory.CreatePiezometricHeadAtExitCalculator();
             calculator.PhiPolder = input.PhreaticLevelExit;
             calculator.HRiver = input.AssessmentLevel;
             calculator.RExit = input.DampingFactorExit;
@@ -196,7 +196,7 @@ namespace Ringtoets.Piping.KernelWrapper
 
         private IHeaveCalculator CalculateHeave()
         {
-            var heaveCalculator = CreateHeaveCalculator();
+            IHeaveCalculator heaveCalculator = CreateHeaveCalculator();
 
             try
             {
@@ -232,7 +232,7 @@ namespace Ringtoets.Piping.KernelWrapper
 
         private IEffectiveThicknessCalculator CreateEffectiveThicknessCalculator()
         {
-            var calculator = factory.CreateEffectiveThicknessCalculator();
+            IEffectiveThicknessCalculator calculator = factory.CreateEffectiveThicknessCalculator();
             calculator.ExitPointXCoordinate = input.ExitPointXCoordinate;
             calculator.PhreaticLevel = input.PhreaticLevelExit;
             calculator.SoilProfile = CreateSoilProfile();
@@ -243,7 +243,7 @@ namespace Ringtoets.Piping.KernelWrapper
 
         private IHeaveCalculator CreateHeaveCalculator()
         {
-            var calculator = factory.CreateHeaveCalculator();
+            IHeaveCalculator calculator = factory.CreateHeaveCalculator();
             calculator.Ich = input.CriticalHeaveGradient;
             calculator.PhiExit = input.PiezometricHeadExit;
             calculator.DTotal = input.ThicknessCoverageLayer;
@@ -255,9 +255,9 @@ namespace Ringtoets.Piping.KernelWrapper
 
         private IUpliftCalculator CreateUpliftCalculator()
         {
-            var effectiveStress = DetermineEffectiveStressForOneLayerProfile(input.EffectiveThicknessCoverageLayer, input.SaturatedVolumicWeightOfCoverageLayer, input.WaterVolumetricWeight);
+            double effectiveStress = DetermineEffectiveStressForOneLayerProfile(input.EffectiveThicknessCoverageLayer, input.SaturatedVolumicWeightOfCoverageLayer, input.WaterVolumetricWeight);
 
-            var calculator = factory.CreateUpliftCalculator();
+            IUpliftCalculator calculator = factory.CreateUpliftCalculator();
             calculator.VolumetricWeightOfWater = input.WaterVolumetricWeight;
             calculator.ModelFactorUplift = input.UpliftModelFactor;
             calculator.EffectiveStress = effectiveStress;
@@ -271,7 +271,7 @@ namespace Ringtoets.Piping.KernelWrapper
 
         private ISellmeijerCalculator CreateSellmeijerCalculator()
         {
-            var calculator = factory.CreateSellmeijerCalculator();
+            ISellmeijerCalculator calculator = factory.CreateSellmeijerCalculator();
             calculator.ModelFactorPiping = input.SellmeijerModelFactor;
             calculator.HRiver = input.AssessmentLevel;
             calculator.HExit = input.PhreaticLevelExit;
@@ -327,7 +327,7 @@ namespace Ringtoets.Piping.KernelWrapper
         /// <returns>The effective stress.</returns>
         private static double DetermineEffectiveStressForOneLayerProfile(double thicknessOfCoverageLayer, double volumicWeightOfCoverageLayer, double waterVolumetricWeight)
         {
-            return thicknessOfCoverageLayer*(volumicWeightOfCoverageLayer - waterVolumetricWeight);
+            return thicknessOfCoverageLayer * (volumicWeightOfCoverageLayer - waterVolumetricWeight);
         }
     }
 }

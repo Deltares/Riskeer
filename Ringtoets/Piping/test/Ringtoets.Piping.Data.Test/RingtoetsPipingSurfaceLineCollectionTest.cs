@@ -58,7 +58,7 @@ namespace Ringtoets.Piping.Data.Test
 
             var collection = new RingtoetsPipingSurfaceLineCollection();
             const string expectedFilePath = "other/path";
-            
+
             // Call
             collection.AddRange(surfaceLinesToAdd, expectedFilePath);
 

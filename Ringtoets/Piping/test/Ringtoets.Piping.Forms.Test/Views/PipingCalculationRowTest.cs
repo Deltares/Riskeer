@@ -77,7 +77,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var mocks = new MockRepository();
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
-            
+
             PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
 
             // Call
@@ -154,8 +154,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(row => row.StochasticSoilModel = newValue,
-                                                                    newModel, calculation);
+            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(row => row.StochasticSoilModel = newValue, calculation);
         }
 
         [Test]
@@ -189,8 +188,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(row => row.StochasticSoilProfile = newValue,
-                                                                    newProfile, calculation);
+            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(row => row.StochasticSoilProfile = newValue, calculation);
         }
 
         [Test]
@@ -225,9 +223,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(row => row.SelectableHydraulicBoundaryLocation = newValue,
-                                                                    newLocation, calculation);
-
+            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(row => row.SelectableHydraulicBoundaryLocation = newValue, calculation);
         }
 
         [Test]
@@ -256,18 +252,17 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
-            RoundedDouble dampingFactorExitMean = (RoundedDouble) 2.3;
+            var dampingFactorExitMean = (RoundedDouble) 2.3;
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(row => row.DampingFactorExitMean = dampingFactorExitMean,
-                                                                    dampingFactorExitMean, calculation);
+            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(row => row.DampingFactorExitMean = dampingFactorExitMean, calculation);
         }
 
         [Test]
         public void DampingFactorExitMean_ChangeToEqualValue_NoNotificationsOutputNotCleared()
         {
             // Setup
-            var oldValue = RoundedDouble.NaN;
+            RoundedDouble oldValue = RoundedDouble.NaN;
 
             // Call
             AssertPropertyNotChanged(
@@ -289,18 +284,17 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
-            RoundedDouble phreaticLevelExitMean = (RoundedDouble) 5.1;
+            var phreaticLevelExitMean = (RoundedDouble) 5.1;
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(row => row.PhreaticLevelExitMean = phreaticLevelExitMean,
-                                                                    phreaticLevelExitMean, calculation);
+            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(row => row.PhreaticLevelExitMean = phreaticLevelExitMean, calculation);
         }
 
         [Test]
         public void PhreaticLevelExitMean_ChangeToEqualValue_NoNotificationsOutputNotCleared()
         {
             // Setup
-            var oldValue = RoundedDouble.NaN;
+            RoundedDouble oldValue = RoundedDouble.NaN;
 
             // Call
             AssertPropertyNotChanged(
@@ -322,18 +316,17 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
-            RoundedDouble entryPointL = (RoundedDouble) 0.1;
+            var entryPointL = (RoundedDouble) 0.1;
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(row => row.EntryPointL = entryPointL,
-                                                                    entryPointL, calculation);
+            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(row => row.EntryPointL = entryPointL, calculation);
         }
 
         [Test]
         public void EntryPointL_ChangeToEqualValue_NoNotificationsOutputNotCleared()
         {
             // Setup
-            var oldValue = RoundedDouble.NaN;
+            RoundedDouble oldValue = RoundedDouble.NaN;
 
             // Call
             AssertPropertyNotChanged(
@@ -357,7 +350,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
-            RoundedDouble entryPointL = (RoundedDouble) newValue;
+            var entryPointL = (RoundedDouble) newValue;
 
             // Call & Assert
             const string expectedMessage = "Het uittredepunt moet landwaarts van het intredepunt liggen.";
@@ -371,7 +364,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
-            RoundedDouble entryPointL = (RoundedDouble) (-3.0);
+            var entryPointL = (RoundedDouble) (-3.0);
 
             // Call & Assert
             const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 1,0]).";
@@ -384,18 +377,17 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
-            RoundedDouble exitPointL = (RoundedDouble) 0.3;
+            var exitPointL = (RoundedDouble) 0.3;
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(row => row.ExitPointL = exitPointL,
-                                                                    exitPointL, calculation);
+            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(row => row.ExitPointL = exitPointL, calculation);
         }
 
         [Test]
         public void ExitPointL_ChangeToEqualValue_NoNotificationsOutputNotCleared()
         {
             // Setup
-            var oldValue = RoundedDouble.NaN;
+            RoundedDouble oldValue = RoundedDouble.NaN;
 
             // Call
             AssertPropertyNotChanged(
@@ -419,7 +411,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
-            RoundedDouble exitPointL = (RoundedDouble) newValue;
+            var exitPointL = (RoundedDouble) newValue;
 
             // Call & Assert
             const string expectedMessage = "Het uittredepunt moet landwaarts van het intredepunt liggen.";
@@ -433,7 +425,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
-            RoundedDouble exitPointL = (RoundedDouble) 3.0;
+            var exitPointL = (RoundedDouble) 3.0;
 
             // Call & Assert
             const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 1,0]).";
@@ -451,7 +443,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         /// <param name="assertions">The additional assertions to be performed on the <see cref="PipingCalculationScenario"/>
         /// whose input has been changed.</param>
         private static void AssertPropertyNotChanged(
-            Action<PipingCalculationRow> setProperty, 
+            Action<PipingCalculationRow> setProperty,
             Action<PipingCalculationScenario> assertions)
         {
             AssertPropertyChangeWithOrWithoutCalculationOutput(setProperty, assertions, true, false);
@@ -460,7 +452,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
         private static void AssertPropertyChangeWithOrWithoutCalculationOutput(
             Action<PipingCalculationRow> setProperty,
-            Action<PipingCalculationScenario> assertions, 
+            Action<PipingCalculationScenario> assertions,
             bool hasOutput,
             bool expectUpdates)
         {
@@ -509,16 +501,17 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         private static void SetPropertyToInvalidValueAndVerifyException(
-           Action<PipingCalculationRow> setProperty,
-           PipingCalculationScenario calculation,
-           string expectedMessage)
+            Action<PipingCalculationRow> setProperty,
+            PipingCalculationScenario calculation,
+            string expectedMessage)
         {
             // Setup
             var mocks = new MockRepository();
             var observable = mocks.StrictMock<IObservable>();
             mocks.ReplayAll();
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(
+                new[]
                 {
                     observable
                 });
@@ -534,10 +527,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
             mocks.VerifyAll();
         }
 
-        private static void SetPropertyAndVerifyNotifcationsAndOutputForCalculation<TPropertyValue>(
-           Action<PipingCalculationRow> setProperty,
-           TPropertyValue value,
-           PipingCalculationScenario calculation)
+        private static void SetPropertyAndVerifyNotifcationsAndOutputForCalculation(
+            Action<PipingCalculationRow> setProperty,
+            PipingCalculationScenario calculation)
         {
             // Setup
             var mocks = new MockRepository();
@@ -545,7 +537,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
             observable.Expect(o => o.NotifyObservers());
             mocks.ReplayAll();
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
+            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(
+                new[]
                 {
                     observable
                 });

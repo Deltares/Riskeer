@@ -41,13 +41,13 @@ namespace Ringtoets.Piping.Data
         public static double GetAssessmentLayerTwoA(this PipingFailureMechanismSectionResult pipingFailureMechanismSectionResult,
                                                     IEnumerable<PipingCalculationScenario> calculations)
         {
-            var calculationScenarios = pipingFailureMechanismSectionResult
+            List<PipingCalculationScenario> calculationScenarios = pipingFailureMechanismSectionResult
                 .GetCalculationScenarios(calculations)
                 .Where(cs => cs.Status == CalculationScenarioStatus.Done)
                 .ToList();
 
             return calculationScenarios.Any()
-                       ? calculationScenarios.Sum(scenario => scenario.Probability*scenario.Contribution.Value)
+                       ? calculationScenarios.Sum(scenario => scenario.Probability * scenario.Contribution.Value)
                        : double.NaN;
         }
 
@@ -60,8 +60,8 @@ namespace Ringtoets.Piping.Data
                                                          IEnumerable<PipingCalculationScenario> calculations)
         {
             return (RoundedDouble) pipingFailureMechanismSectionResult
-                                       .GetCalculationScenarios(calculations)
-                                       .Aggregate<ICalculationScenario, double>(0, (current, calculationScenario) => current + calculationScenario.Contribution);
+                .GetCalculationScenarios(calculations)
+                .Aggregate<ICalculationScenario, double>(0, (current, calculationScenario) => current + calculationScenario.Contribution);
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace Ringtoets.Piping.Data
         public static IEnumerable<PipingCalculationScenario> GetCalculationScenarios(this PipingFailureMechanismSectionResult pipingFailureMechanismSectionResult,
                                                                                      IEnumerable<PipingCalculationScenario> calculations)
         {
-            var lineSegments = Math2D.ConvertLinePointsToLineSegments(pipingFailureMechanismSectionResult.Section.Points);
+            IEnumerable<Segment2D> lineSegments = Math2D.ConvertLinePointsToLineSegments(pipingFailureMechanismSectionResult.Section.Points);
 
             return calculations
                 .Where(pc => pc.IsRelevant && pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
@@ -88,9 +88,9 @@ namespace Ringtoets.Piping.Data
         public static CalculationScenarioStatus GetCalculationScenarioStatus(this PipingFailureMechanismSectionResult pipingFailureMechanismSectionResult,
                                                                              IEnumerable<PipingCalculationScenario> calculations)
         {
-            bool failed = false;
-            bool notCalculated = false;
-            foreach (var calculationScenario in pipingFailureMechanismSectionResult.GetCalculationScenarios(calculations).Where(cs => cs.IsRelevant))
+            var failed = false;
+            var notCalculated = false;
+            foreach (PipingCalculationScenario calculationScenario in pipingFailureMechanismSectionResult.GetCalculationScenarios(calculations).Where(cs => cs.IsRelevant))
             {
                 switch (calculationScenario.Status)
                 {

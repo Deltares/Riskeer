@@ -23,7 +23,6 @@ using System;
 using System.Data;
 using System.Data.SQLite;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
 using Ringtoets.Piping.Data;
@@ -196,32 +195,32 @@ namespace Ringtoets.Piping.IO.SoilProfile
 
         private StochasticSoilProfile ReadStochasticSoilProfileProbability()
         {
-            var valueProbability = dataReader[StochasticSoilProfileTableColumns.Probability];
-            var probability = valueProbability.Equals(DBNull.Value) ? 0 : Convert.ToDouble(valueProbability);
+            object valueProbability = dataReader[StochasticSoilProfileTableColumns.Probability];
+            double probability = valueProbability.Equals(DBNull.Value) ? 0 : Convert.ToDouble(valueProbability);
 
-            var soilProfile1DId = ReadSoilProfile1DId(probability);
+            StochasticSoilProfile soilProfile1DId = ReadSoilProfile1DId(probability);
             if (soilProfile1DId != null)
             {
                 return soilProfile1DId;
             }
 
-            var soilProfile2DId = ReadSoilProfile2DId(probability);
+            StochasticSoilProfile soilProfile2DId = ReadSoilProfile2DId(probability);
             if (soilProfile2DId != null)
             {
                 return soilProfile2DId;
             }
 
-            var message = new FileReaderErrorMessageBuilder(Path)
+            string message = new FileReaderErrorMessageBuilder(Path)
                 .Build(Resources.StochasticSoilProfileDatabaseReader_StochasticSoilProfile_has_invalid_value);
             throw new StochasticSoilProfileReadException(message);
         }
 
         private StochasticSoilProfile ReadSoilProfile2DId(double probability)
         {
-            var valueSoilProfile2DId = dataReader[StochasticSoilProfileTableColumns.SoilProfile2DId];
+            object valueSoilProfile2DId = dataReader[StochasticSoilProfileTableColumns.SoilProfile2DId];
             if (!valueSoilProfile2DId.Equals(DBNull.Value))
             {
-                var soilProfileId = Convert.ToInt64(valueSoilProfile2DId);
+                long soilProfileId = Convert.ToInt64(valueSoilProfile2DId);
                 return new StochasticSoilProfile(probability, SoilProfileType.SoilProfile2D, soilProfileId);
             }
             return null;
@@ -229,10 +228,10 @@ namespace Ringtoets.Piping.IO.SoilProfile
 
         private StochasticSoilProfile ReadSoilProfile1DId(double probability)
         {
-            var valueSoilProfile1DId = dataReader[StochasticSoilProfileTableColumns.SoilProfile1DId];
+            object valueSoilProfile1DId = dataReader[StochasticSoilProfileTableColumns.SoilProfile1DId];
             if (!valueSoilProfile1DId.Equals(DBNull.Value))
             {
-                var soilProfileId = Convert.ToInt64(valueSoilProfile1DId);
+                long soilProfileId = Convert.ToInt64(valueSoilProfile1DId);
                 return new StochasticSoilProfile(probability, SoilProfileType.SoilProfile1D, soilProfileId);
             }
             return null;

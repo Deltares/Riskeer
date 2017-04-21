@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
@@ -38,7 +39,7 @@ namespace Ringtoets.Piping.Data.Test
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
 
             // Call
-            var intersects = calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(Enumerable.Empty<Segment2D>());
+            bool intersects = calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(Enumerable.Empty<Segment2D>());
 
             // Assert
             Assert.IsFalse(intersects);
@@ -109,10 +110,10 @@ namespace Ringtoets.Piping.Data.Test
                 }
             };
 
-            var lineSegments = Math2D.ConvertLinePointsToLineSegments(referenceLine.Points);
+            IEnumerable<Segment2D> lineSegments = Math2D.ConvertLinePointsToLineSegments(referenceLine.Points);
 
             // Call
-            var intersects = calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments);
+            bool intersects = calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments);
 
             // Assert
             Assert.IsTrue(intersects);
@@ -147,10 +148,10 @@ namespace Ringtoets.Piping.Data.Test
                 }
             };
 
-            var lineSegments = Math2D.ConvertLinePointsToLineSegments(referenceLine.Points);
+            IEnumerable<Segment2D> lineSegments = Math2D.ConvertLinePointsToLineSegments(referenceLine.Points);
 
             // Call
-            var intersects = calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments);
+            bool intersects = calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments);
 
             // Assert
             Assert.IsFalse(intersects);

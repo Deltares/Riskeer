@@ -52,9 +52,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<PipingFailureMechanismSectionResult>>(row);
             Assert.AreEqual(result.GetAssessmentLayerTwoA(Enumerable.Empty<PipingCalculationScenario>()), row.AssessmentLayerTwoA);
-            Assert.IsTrue(TypeUtils.HasTypeConverter<PipingFailureMechanismSectionResultRow,
-                              NoProbabilityValueDoubleConverter>(
-                                  r => r.AssessmentLayerTwoA));
+            Assert.IsTrue(
+                TypeUtils.HasTypeConverter<PipingFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
+                    r => r.AssessmentLayerTwoA));
         }
 
         [Test]
@@ -110,7 +110,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             });
 
             // Call
-            var assessmentLayerTwoA = row.AssessmentLayerTwoA;
+            double assessmentLayerTwoA = row.AssessmentLayerTwoA;
 
             // Assert
             Assert.IsNaN(assessmentLayerTwoA);
@@ -135,7 +135,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             });
 
             // Call
-            var assessmentLayerTwoA = row.AssessmentLayerTwoA;
+            double assessmentLayerTwoA = row.AssessmentLayerTwoA;
 
             // Assert
             Assert.IsNaN(assessmentLayerTwoA);
@@ -156,10 +156,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
             });
 
             // Call
-            var assessmentLayerTwoA = row.AssessmentLayerTwoA;
+            double assessmentLayerTwoA = row.AssessmentLayerTwoA;
 
             // Assert
-            var expected = result.GetAssessmentLayerTwoA(new[]
+            double expected = result.GetAssessmentLayerTwoA(new[]
             {
                 scenario
             });

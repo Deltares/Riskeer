@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
 using Ringtoets.Piping.IO.Properties;
@@ -58,7 +57,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 {
                     messageBuilder.WithSubject(string.Format(Resources.PipingSoilProfileReader_SoilProfileName_0_, ProfileName));
                 }
-                var message = messageBuilder.Build(Resources.PipingSoilProfileReader_Critical_Unexpected_value_on_column);
+                string message = messageBuilder.Build(Resources.PipingSoilProfileReader_Critical_Unexpected_value_on_column);
                 throw new CriticalFileReadException(message, e);
             }
         }

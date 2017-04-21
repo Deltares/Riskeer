@@ -64,7 +64,7 @@ namespace Ringtoets.Piping.Forms.Views
         {
             get
             {
-                var relevantScenarios = SectionResult.GetCalculationScenarios(calculations).ToArray();
+                PipingCalculationScenario[] relevantScenarios = SectionResult.GetCalculationScenarios(calculations).ToArray();
                 bool relevantScenarioAvailable = relevantScenarios.Length != 0;
 
                 if (relevantScenarioAvailable && Math.Abs(SectionResult.GetTotalContribution(relevantScenarios) - 1.0) > tolerance)

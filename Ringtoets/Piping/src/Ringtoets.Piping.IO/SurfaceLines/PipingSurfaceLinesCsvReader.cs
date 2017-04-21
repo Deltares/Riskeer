@@ -99,7 +99,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         /// </exception>
         public int GetSurfaceLinesCount()
         {
-            using (var reader = StreamReaderHelper.InitializeStreamReader(filePath))
+            using (StreamReader reader = StreamReaderHelper.InitializeStreamReader(filePath))
             {
                 ValidateHeader(reader, 1);
 
@@ -141,7 +141,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
                 lineNumber = 2;
             }
 
-            var readText = ReadNextNonEmptyLine();
+            string readText = ReadNextNonEmptyLine();
 
             if (readText != null)
             {
@@ -191,10 +191,10 @@ namespace Ringtoets.Piping.IO.SurfaceLines
 
         private RingtoetsPipingSurfaceLine CreateRingtoetsPipingSurfaceLine(string readText)
         {
-            var tokenizedString = TokenizeString(readText);
+            string[] tokenizedString = TokenizeString(readText);
 
-            var surfaceLineName = GetSurfaceLineName(tokenizedString);
-            var points = GetSurfaceLinePoints(tokenizedString, surfaceLineName);
+            string surfaceLineName = GetSurfaceLineName(tokenizedString);
+            IEnumerable<Point3D> points = GetSurfaceLinePoints(tokenizedString, surfaceLineName);
 
             var surfaceLine = new RingtoetsPipingSurfaceLine
             {
@@ -221,7 +221,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         private void CheckZeroLength(RingtoetsPipingSurfaceLine surfaceLine)
         {
             Point3D lastPoint = null;
-            foreach (var point in surfaceLine.Points)
+            foreach (Point3D point in surfaceLine.Points)
             {
                 if (lastPoint != null)
                 {
@@ -238,7 +238,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         private void CheckReclinging(RingtoetsPipingSurfaceLine surfaceLine)
         {
             double[] lCoordinates = surfaceLine.ProjectGeometryToLZ().Select(p => p.X).ToArray();
-            for (int i = 1; i < lCoordinates.Length; i++)
+            for (var i = 1; i < lCoordinates.Length; i++)
             {
                 if (lCoordinates[i - 1] > lCoordinates[i])
                 {
@@ -282,19 +282,19 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         {
             const int expectedValuesForPoint = 3;
 
-            var worldCoordinateValues = ParseWorldCoordinateValuesAndHandleParseErrors(tokenizedString, surfaceLineName);
-            if (worldCoordinateValues.Length%expectedValuesForPoint != 0)
+            double[] worldCoordinateValues = ParseWorldCoordinateValuesAndHandleParseErrors(tokenizedString, surfaceLineName);
+            if (worldCoordinateValues.Length % expectedValuesForPoint != 0)
             {
                 throw CreateLineParseException(lineNumber, surfaceLineName, Resources.PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_lacks_values_for_coordinate_triplet);
             }
 
-            int coordinateCount = worldCoordinateValues.Length/expectedValuesForPoint;
+            int coordinateCount = worldCoordinateValues.Length / expectedValuesForPoint;
             var points = new Point3D[coordinateCount];
-            for (int i = 0; i < coordinateCount; i++)
+            for (var i = 0; i < coordinateCount; i++)
             {
-                var x = worldCoordinateValues[i*expectedValuesForPoint];
-                var y = worldCoordinateValues[i*expectedValuesForPoint + 1];
-                var z = worldCoordinateValues[i*expectedValuesForPoint + 2];
+                double x = worldCoordinateValues[i * expectedValuesForPoint];
+                double y = worldCoordinateValues[i * expectedValuesForPoint + 1];
+                double z = worldCoordinateValues[i * expectedValuesForPoint + 2];
                 points[i] = new Point3D(x, y, z);
             }
             return points;
@@ -308,7 +308,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         /// <exception cref="LineParseException">Id value is null or empty.</exception>
         private string GetSurfaceLineName(IList<string> tokenizedString)
         {
-            var name = tokenizedString.Any() ? tokenizedString[idNameColumnIndex].Trim() : string.Empty;
+            string name = tokenizedString.Any() ? tokenizedString[idNameColumnIndex].Trim() : string.Empty;
             if (string.IsNullOrEmpty(name))
             {
                 throw CreateLineParseException(lineNumber, Resources.PipingSurfaceLinesCsvReader_ReadLine_Line_lacks_ID);
@@ -354,7 +354,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         /// <exception cref="CriticalFileReadException">The header is not in the required format.</exception>
         private void ValidateHeader(TextReader reader, int currentLine)
         {
-            var header = ReadLineAndHandleIOExceptions(reader, currentLine);
+            string header = ReadLineAndHandleIOExceptions(reader, currentLine);
             if (header != null)
             {
                 if (!IsHeaderValid(header))
@@ -378,8 +378,8 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         private CriticalFileReadException CreateCriticalFileReadException(int currentLine, string criticalErrorMessage, Exception innerException = null)
         {
             string locationDescription = string.Format(UtilsResources.TextFile_On_LineNumber_0_, currentLine);
-            var message = new FileReaderErrorMessageBuilder(filePath).WithLocation(locationDescription)
-                                                                     .Build(criticalErrorMessage);
+            string message = new FileReaderErrorMessageBuilder(filePath).WithLocation(locationDescription)
+                                                                        .Build(criticalErrorMessage);
             return new CriticalFileReadException(message, innerException);
         }
 
@@ -392,8 +392,8 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         private LineParseException CreateLineParseException(int currentLine, string lineParseErrorMessage)
         {
             string locationDescription = string.Format(UtilsResources.TextFile_On_LineNumber_0_, currentLine);
-            var message = new FileReaderErrorMessageBuilder(filePath).WithLocation(locationDescription)
-                                                                     .Build(lineParseErrorMessage);
+            string message = new FileReaderErrorMessageBuilder(filePath).WithLocation(locationDescription)
+                                                                        .Build(lineParseErrorMessage);
             return new LineParseException(message);
         }
 
@@ -409,9 +409,9 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         {
             string locationDescription = string.Format(UtilsResources.TextFile_On_LineNumber_0_, currentLine);
             string subjectDescription = string.Format(Resources.PipingSurfaceLinesCsvReader_SurfaceLineName_0_, surfaceLineName);
-            var message = new FileReaderErrorMessageBuilder(filePath).WithLocation(locationDescription)
-                                                                     .WithSubject(subjectDescription)
-                                                                     .Build(lineParseErrorMessage);
+            string message = new FileReaderErrorMessageBuilder(filePath).WithLocation(locationDescription)
+                                                                        .WithSubject(subjectDescription)
+                                                                        .Build(lineParseErrorMessage);
             return new LineParseException(message, innerException);
         }
 
@@ -424,7 +424,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         /// <exception cref="CriticalFileReadException">An I/O exception occurred.</exception>
         private int CountNonEmptyLines(TextReader reader, int currentLine)
         {
-            int count = 0;
+            var count = 0;
             int lineNumberForMessage = currentLine;
             string line;
             while ((line = ReadLineAndHandleIOExceptions(reader, lineNumberForMessage)) != null)
@@ -457,14 +457,14 @@ namespace Ringtoets.Piping.IO.SurfaceLines
             }
             catch (IOException e)
             {
-                var message = new FileReaderErrorMessageBuilder(filePath).Build(string.Format(UtilsResources.Error_General_IO_ErrorMessage_0_, e.Message));
+                string message = new FileReaderErrorMessageBuilder(filePath).Build(string.Format(UtilsResources.Error_General_IO_ErrorMessage_0_, e.Message));
                 throw new CriticalFileReadException(message, e);
             }
         }
 
         private bool IsHeaderValid(string header)
         {
-            var tokenizedHeader = header.Split(separator).Select(s => s.Trim().ToLowerInvariant()).ToArray();
+            string[] tokenizedHeader = header.Split(separator).Select(s => s.Trim().ToLowerInvariant()).ToArray();
 
             // Check for valid id:
             DetermineIdNameColumnIndex(tokenizedHeader);
@@ -482,8 +482,8 @@ namespace Ringtoets.Piping.IO.SurfaceLines
                 return false;
             }
 
-            bool valid = true;
-            for (int i = 0; i < expectedFirstCoordinateHeader.Length && valid; i++)
+            var valid = true;
+            for (var i = 0; i < expectedFirstCoordinateHeader.Length && valid; i++)
             {
                 valid = tokenizedHeader[startGeometryColumnIndex + i].Equals(expectedFirstCoordinateHeader[i]);
             }

@@ -58,7 +58,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => reader.Read(xmlDoc);
 
             // Assert
-            SoilLayerConversionException exception = Assert.Throws<SoilLayerConversionException>(test);
+            var exception = Assert.Throws<SoilLayerConversionException>(test);
             Assert.AreEqual(Resources.SoilLayer2DReader_Geometry_contains_no_valid_xml, exception.Message);
         }
 
@@ -73,7 +73,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => reader.Read(xmlDoc);
 
             // Assert
-            SoilLayerConversionException exception = Assert.Throws<SoilLayerConversionException>(test);
+            var exception = Assert.Throws<SoilLayerConversionException>(test);
             Assert.AreEqual(Resources.SoilLayer2DReader_Geometry_contains_no_valid_xml, exception.Message);
         }
 
@@ -88,7 +88,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => reader.Read(xmlDoc);
 
             // Assert
-            SoilLayerConversionException exception = Assert.Throws<SoilLayerConversionException>(test);
+            var exception = Assert.Throws<SoilLayerConversionException>(test);
             Assert.AreEqual(Resources.SoilLayer2DReader_Geometry_contains_no_valid_xml, exception.Message);
         }
 
@@ -103,7 +103,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => reader.Read(xmlDoc);
 
             // Assert
-            SoilLayerConversionException exception = Assert.Throws<SoilLayerConversionException>(test);
+            var exception = Assert.Throws<SoilLayerConversionException>(test);
             Assert.AreEqual(Resources.SoilLayer2DReader_Geometry_contains_no_valid_xml, exception.Message);
         }
 
@@ -130,18 +130,18 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void Read_XmlDocumentWithInvalidPointCoordinate_ThrowsSoilLayer2DConversionException(string incorrectNumber)
         {
             // Setup
-            XDocument xmlDoc = StringGeometryHelper.GetXmlDocument(string.Format(
+            XDocument xmlDoc = StringGeometryHelper.GetXmlDocument(
                 "<GeometrySurface><OuterLoop><CurveList><GeometryCurve>" +
-                "<HeadPoint><X>{0}</X><Z>1.2</Z></HeadPoint>" +
+                $"<HeadPoint><X>{incorrectNumber}</X><Z>1.2</Z></HeadPoint>" +
                 "<EndPoint><X>1.2</X><Z>1.2</Z></EndPoint>" +
-                "</GeometryCurve></CurveList></OuterLoop><InnerLoops/></GeometrySurface>", incorrectNumber));
+                "</GeometryCurve></CurveList></OuterLoop><InnerLoops/></GeometrySurface>");
             var reader = new SoilLayer2DReader();
 
             // Call
             TestDelegate test = () => reader.Read(xmlDoc);
 
             // Assert
-            SoilLayerConversionException exception = Assert.Throws<SoilLayerConversionException>(test);
+            var exception = Assert.Throws<SoilLayerConversionException>(test);
             Assert.AreEqual(Resources.SoilLayer2DReader_Could_not_parse_point_location, exception.Message);
         }
 
@@ -149,18 +149,18 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void Read_XmlDocumentWitOverflowingPointCoordinate_ThrowsSoilLayer2DConversionException()
         {
             // Setup
-            XDocument xmlDoc = StringGeometryHelper.GetXmlDocument(string.Format(
+            XDocument xmlDoc = StringGeometryHelper.GetXmlDocument(
                 "<GeometrySurface><OuterLoop><CurveList><GeometryCurve>" +
-                "<HeadPoint><X>{0}</X><Z>1.2</Z></HeadPoint>" +
+                $"<HeadPoint><X>{double.MaxValue}</X><Z>1.2</Z></HeadPoint>" +
                 "<EndPoint><X>1.2</X><Z>1.2</Z></EndPoint>" +
-                "</GeometryCurve></CurveList></OuterLoop><InnerLoops/></GeometrySurface>", double.MaxValue));
+                "</GeometryCurve></CurveList></OuterLoop><InnerLoops/></GeometrySurface>");
             var reader = new SoilLayer2DReader();
 
             // Call
             TestDelegate test = () => reader.Read(xmlDoc);
 
             // Assert
-            SoilLayerConversionException exception = Assert.Throws<SoilLayerConversionException>(test);
+            var exception = Assert.Throws<SoilLayerConversionException>(test);
             Assert.AreEqual(Resources.SoilLayer2DReader_Could_not_parse_point_location, exception.Message);
         }
 
@@ -183,28 +183,31 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         {
             // Setup
             var random = new Random(22);
-            var invariantCulture = CultureInfo.InvariantCulture;
+            CultureInfo invariantCulture = CultureInfo.InvariantCulture;
 
-            var x1 = random.NextDouble();
-            var x2 = random.NextDouble();
-            var y1 = random.NextDouble();
-            var y2 = random.NextDouble();
+            double x1 = random.NextDouble();
+            double x2 = random.NextDouble();
+            double y1 = random.NextDouble();
+            double y2 = random.NextDouble();
 
-            var x1String = x1.ToString(invariantCulture);
-            var x2String = x2.ToString(invariantCulture);
-            var y1String = y1.ToString(invariantCulture);
-            var y2String = y2.ToString(invariantCulture);
-            var parsedX1 = double.Parse(x1String, invariantCulture);
-            var parsedX2 = double.Parse(x2String, invariantCulture);
-            var parsedY1 = double.Parse(y1String, invariantCulture);
-            var parsedY2 = double.Parse(y2String, invariantCulture);
-            var xmlDoc = StringGeometryHelper.GetXmlDocument(string.Format(invariantCulture, "<GeometrySurface><OuterLoop/><InnerLoops><InnerLoop><CurveList><GeometryCurve>" +
-                                                                                             "<HeadPoint><X>{0}</X><Y>0.1</Y><Z>{1}</Z></HeadPoint>" +
-                                                                                             "<EndPoint><X>{2}</X><Y>0.1</Y><Z>{3}</Z></EndPoint>" +
-                                                                                             "</GeometryCurve><GeometryCurve>" +
-                                                                                             "<HeadPoint><X>{0}</X><Y>0.1</Y><Z>{1}</Z></HeadPoint>" +
-                                                                                             "<EndPoint><X>{2}</X><Y>0.1</Y><Z>{3}</Z></EndPoint>" +
-                                                                                             "</GeometryCurve></CurveList></InnerLoop></InnerLoops></GeometrySurface>", x1String, y1String, x2String, y2String));
+            string x1String = x1.ToString(invariantCulture);
+            string x2String = x2.ToString(invariantCulture);
+            string y1String = y1.ToString(invariantCulture);
+            string y2String = y2.ToString(invariantCulture);
+            double parsedX1 = double.Parse(x1String, invariantCulture);
+            double parsedX2 = double.Parse(x2String, invariantCulture);
+            double parsedY1 = double.Parse(y1String, invariantCulture);
+            double parsedY2 = double.Parse(y2String, invariantCulture);
+            XDocument xmlDoc = StringGeometryHelper.GetXmlDocument(
+                string.Format(invariantCulture,
+                              "<GeometrySurface><OuterLoop/><InnerLoops><InnerLoop><CurveList><GeometryCurve>" +
+                              "<HeadPoint><X>{0}</X><Y>0.1</Y><Z>{1}</Z></HeadPoint>" +
+                              "<EndPoint><X>{2}</X><Y>0.1</Y><Z>{3}</Z></EndPoint>" +
+                              "</GeometryCurve><GeometryCurve>" +
+                              "<HeadPoint><X>{0}</X><Y>0.1</Y><Z>{1}</Z></HeadPoint>" +
+                              "<EndPoint><X>{2}</X><Y>0.1</Y><Z>{3}</Z></EndPoint>" +
+                              "</GeometryCurve></CurveList></InnerLoop></InnerLoops></GeometrySurface>",
+                              x1String, y1String, x2String, y2String));
             var reader = new SoilLayer2DReader();
 
             // Call
@@ -212,7 +215,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
             // Assert
             Assert.NotNull(result);
-            Segment2D expectedSegment = new Segment2D(new Point2D(parsedX1, parsedY1), new Point2D(parsedX2, parsedY2));
+            var expectedSegment = new Segment2D(new Point2D(parsedX1, parsedY1), new Point2D(parsedX2, parsedY2));
             var expectedCollection = new[]
             {
                 new List<Segment2D>
@@ -227,7 +230,10 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void Read_XmlDocumentSinglePointOuterLoopGeometryCurve_ThrowsSoilLayer2DConversionException()
         {
             // Setup
-            XDocument xmlDoc = StringGeometryHelper.GetXmlDocument("<GeometrySurface><OuterLoop><CurveList><GeometryCurve><EndPoint><X>1</X><Y>0.1</Y><Z>1.1</Z></EndPoint></GeometryCurve></CurveList></OuterLoop><InnerLoops/></GeometrySurface>");
+            XDocument xmlDoc = StringGeometryHelper.GetXmlDocument(
+                "<GeometrySurface><OuterLoop><CurveList><GeometryCurve>" +
+                "<EndPoint><X>1</X><Y>0.1</Y><Z>1.1</Z></EndPoint>" +
+                "</GeometryCurve></CurveList></OuterLoop><InnerLoops/></GeometrySurface>");
             var reader = new SoilLayer2DReader();
 
             // Call
@@ -241,7 +247,10 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void Read_XmlDocumentSinglePointInnerLoopGeometryCurve_ThrowsSoilLayer2DConversionException()
         {
             // Setup
-            XDocument xmlDoc = StringGeometryHelper.GetXmlDocument("<GeometrySurface><InnerLoops><InnerLoop><GeometryCurve><HeadPoint><X>0</X><Y>0.1</Y><Z>1.1</Z></HeadPoint></GeometryCurve></InnerLoop></InnerLoops></GeometrySurface>");
+            XDocument xmlDoc = StringGeometryHelper.GetXmlDocument(
+                "<GeometrySurface><InnerLoops><InnerLoop><GeometryCurve>" +
+                "<HeadPoint><X>0</X><Y>0.1</Y><Z>1.1</Z></HeadPoint>" +
+                "</GeometryCurve></InnerLoop></InnerLoops></GeometrySurface>");
             var reader = new SoilLayer2DReader();
 
             // Call
@@ -255,14 +264,15 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void Read_XmlDocumentEqualSegments_ReturnsTwoEqualSegments()
         {
             // Setup
-            XDocument xmlDoc = StringGeometryHelper.GetXmlDocument("<GeometrySurface><OuterLoop><CurveList>" +
-                                                                   "<GeometryCurve>" +
-                                                                   "<HeadPoint><X>0</X><Y>0</Y><Z>1.1</Z></HeadPoint><EndPoint><X>1</X><Y>0</Y><Z>1.1</Z></EndPoint>" +
-                                                                   "</GeometryCurve>" +
-                                                                   "<GeometryCurve>" +
-                                                                   "<HeadPoint><X>0</X><Y>0</Y><Z>1.1</Z></HeadPoint><EndPoint><X>1</X><Y>0</Y><Z>1.1</Z></EndPoint>" +
-                                                                   "</GeometryCurve>" +
-                                                                   "</CurveList></OuterLoop><InnerLoops/></GeometrySurface>");
+            XDocument xmlDoc = StringGeometryHelper.GetXmlDocument(
+                "<GeometrySurface><OuterLoop><CurveList>" +
+                "<GeometryCurve>" +
+                "<HeadPoint><X>0</X><Y>0</Y><Z>1.1</Z></HeadPoint><EndPoint><X>1</X><Y>0</Y><Z>1.1</Z></EndPoint>" +
+                "</GeometryCurve>" +
+                "<GeometryCurve>" +
+                "<HeadPoint><X>0</X><Y>0</Y><Z>1.1</Z></HeadPoint><EndPoint><X>1</X><Y>0</Y><Z>1.1</Z></EndPoint>" +
+                "</GeometryCurve>" +
+                "</CurveList></OuterLoop><InnerLoops/></GeometrySurface>");
 
             var reader = new SoilLayer2DReader();
 
@@ -278,29 +288,32 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         {
             // Setup
             var random = new Random(22);
-            var invariantCulture = CultureInfo.InvariantCulture;
+            CultureInfo invariantCulture = CultureInfo.InvariantCulture;
 
-            var x1 = random.NextDouble();
-            var x2 = random.NextDouble();
-            var y1 = random.NextDouble();
-            var y2 = random.NextDouble();
+            double x1 = random.NextDouble();
+            double x2 = random.NextDouble();
+            double y1 = random.NextDouble();
+            double y2 = random.NextDouble();
 
-            var x1String = x1.ToString(invariantCulture);
-            var x2String = x2.ToString(invariantCulture);
-            var y1String = y1.ToString(invariantCulture);
-            var y2String = y2.ToString(invariantCulture);
-            var parsedX1 = double.Parse(x1String, invariantCulture);
-            var parsedX2 = double.Parse(x2String, invariantCulture);
-            var parsedY1 = double.Parse(y1String, invariantCulture);
-            var parsedY2 = double.Parse(y2String, invariantCulture);
-            XDocument bytes = StringGeometryHelper.GetXmlDocument(string.Format(invariantCulture, "<GeometrySurface><OuterLoop><CurveList><GeometryCurve>" +
-                                                                                                  "<HeadPoint><X>{0}</X><Y>0.1</Y><Z>{1}</Z></HeadPoint>" +
-                                                                                                  "<EndPoint><X>{2}</X><Y>0.1</Y><Z>{3}</Z></EndPoint>" +
-                                                                                                  "</GeometryCurve><GeometryCurve>" +
-                                                                                                  "<HeadPoint><X>{0}</X><Y>0.1</Y><Z>{1}</Z></HeadPoint>" +
-                                                                                                  "<EndPoint><X>{2}</X><Y>0.1</Y><Z>{3}</Z></EndPoint>" +
-                                                                                                  "</GeometryCurve></CurveList></OuterLoop><InnerLoops/></GeometrySurface>",
-                                                                                x1String, y1String, x2String, y2String));
+            string x1String = x1.ToString(invariantCulture);
+            string x2String = x2.ToString(invariantCulture);
+            string y1String = y1.ToString(invariantCulture);
+            string y2String = y2.ToString(invariantCulture);
+            double parsedX1 = double.Parse(x1String, invariantCulture);
+            double parsedX2 = double.Parse(x2String, invariantCulture);
+            double parsedY1 = double.Parse(y1String, invariantCulture);
+            double parsedY2 = double.Parse(y2String, invariantCulture);
+            XDocument bytes = StringGeometryHelper.GetXmlDocument(
+                string.Format(invariantCulture,
+                              "<GeometrySurface><OuterLoop><CurveList><GeometryCurve>" +
+                              "<HeadPoint><X>{0}</X><Y>0.1</Y><Z>{1}</Z></HeadPoint>" +
+                              "<EndPoint><X>{2}</X><Y>0.1</Y><Z>{3}</Z></EndPoint>" +
+                              "</GeometryCurve><GeometryCurve>" +
+                              "<HeadPoint><X>{0}</X><Y>0.1</Y><Z>{1}</Z></HeadPoint>" +
+                              "<EndPoint><X>{2}</X><Y>0.1</Y><Z>{3}</Z></EndPoint>" +
+                              "</GeometryCurve></CurveList></OuterLoop><InnerLoops/></GeometrySurface>",
+                              x1String, y1String, x2String, y2String));
+
             var reader = new SoilLayer2DReader();
 
             // Call
@@ -308,7 +321,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
             // Assert
             Assert.NotNull(result);
-            Segment2D expectedSegment = new Segment2D(new Point2D(parsedX1, parsedY1), new Point2D(parsedX2, parsedY2));
+            var expectedSegment = new Segment2D(new Point2D(parsedX1, parsedY1), new Point2D(parsedX2, parsedY2));
             CollectionAssert.AreEqual(new List<Segment2D>
             {
                 expectedSegment, expectedSegment

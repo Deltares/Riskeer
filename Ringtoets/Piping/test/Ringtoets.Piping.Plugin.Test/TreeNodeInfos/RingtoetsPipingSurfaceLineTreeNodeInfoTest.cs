@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Drawing;
 using System.Linq;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
@@ -91,7 +92,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             // Call
-            var text = info.Text(ringtoetsPipingSurfaceLine);
+            string text = info.Text(ringtoetsPipingSurfaceLine);
 
             // Assert
             Assert.AreEqual(testName, text);
@@ -106,7 +107,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             // Call
-            var image = info.Image(ringtoetsPipingSurfaceLine);
+            Image image = info.Image(ringtoetsPipingSurfaceLine);
 
             // Assert
             TestHelper.AssertImagesAreEqual(Resources.PipingSurfaceLineIcon, image);

@@ -77,7 +77,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Readers
                        {
                            stochastStandaardafwijkingSchemaName, RingtoetsCommonIOResources.StochastStandaardafwijkingSchema
                        }
-                   }) { }
+                   }) {}
 
         protected override ReadGrassCoverErosionInwardsCalculation ParseCalculationElement(XElement calculationElement)
         {

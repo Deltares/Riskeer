@@ -21,9 +21,9 @@
 
 using System;
 using System.Linq;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Piping.Primitives;
-using Core.Common.TestUtil;
 
 namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test
 {
@@ -40,8 +40,14 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test
             Assert.IsEmpty(profile.Name);
             Assert.AreEqual(0.0, profile.Bottom);
             Assert.AreEqual(SoilProfileType.SoilProfile1D, profile.SoilProfileType);
-            CollectionAssert.AreEquivalent(new[] { true }, profile.Layers.Select(l => l.IsAquifer));
-            CollectionAssert.AreEquivalent(new[] { 0.0 }, profile.Layers.Select(l => l.Top));
+            CollectionAssert.AreEquivalent(new[]
+            {
+                true
+            }, profile.Layers.Select(l => l.IsAquifer));
+            CollectionAssert.AreEquivalent(new[]
+            {
+                0.0
+            }, profile.Layers.Select(l => l.Top));
         }
 
         [Test]
@@ -57,8 +63,14 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test
             Assert.AreEqual(name, profile.Name);
             Assert.AreEqual(0.0, profile.Bottom);
             Assert.AreEqual(SoilProfileType.SoilProfile1D, profile.SoilProfileType);
-            CollectionAssert.AreEquivalent(new[] { true }, profile.Layers.Select(l => l.IsAquifer));
-            CollectionAssert.AreEquivalent(new[] { 0.0 }, profile.Layers.Select(l => l.Top));
+            CollectionAssert.AreEquivalent(new[]
+            {
+                true
+            }, profile.Layers.Select(l => l.IsAquifer));
+            CollectionAssert.AreEquivalent(new[]
+            {
+                0.0
+            }, profile.Layers.Select(l => l.Top));
         }
 
         [Test]
@@ -66,7 +78,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test
         {
             // Setup
             const string name = "some name";
-            SoilProfileType soilProfileType = new Random(6543).NextEnumValue<SoilProfileType>();
+            var soilProfileType = new Random(6543).NextEnumValue<SoilProfileType>();
 
             // Call
             var profile = new TestPipingSoilProfile(name, soilProfileType);
@@ -75,8 +87,14 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test
             Assert.AreEqual(name, profile.Name);
             Assert.AreEqual(0.0, profile.Bottom);
             Assert.AreEqual(soilProfileType, profile.SoilProfileType);
-            CollectionAssert.AreEquivalent(new[] { true }, profile.Layers.Select(l => l.IsAquifer));
-            CollectionAssert.AreEquivalent(new[] { 0.0 }, profile.Layers.Select(l => l.Top));
+            CollectionAssert.AreEquivalent(new[]
+            {
+                true
+            }, profile.Layers.Select(l => l.IsAquifer));
+            CollectionAssert.AreEquivalent(new[]
+            {
+                0.0
+            }, profile.Layers.Select(l => l.Top));
         }
     }
 }

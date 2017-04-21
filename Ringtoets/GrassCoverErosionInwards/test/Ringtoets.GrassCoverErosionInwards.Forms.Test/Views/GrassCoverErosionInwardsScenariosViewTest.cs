@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -57,7 +58,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void DefaultConstructor_DataGridViewCorrectlyInitialized()
         {
             // Call
-            using (var view = ShowScenariosView())
+            using (GrassCoverErosionInwardsScenariosView view = ShowScenariosView())
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
@@ -77,7 +78,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void Data_ValidDataSet_ValidData()
         {
             // Setup
-            using (var view = ShowScenariosView())
+            using (GrassCoverErosionInwardsScenariosView view = ShowScenariosView())
             {
                 var calculationGroup = new CalculationGroup();
 
@@ -93,7 +94,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void FailureMechanism_ValidFailureMechanismSet_ValidFailureMechanism()
         {
             // Setup
-            using (var view = ShowScenariosView())
+            using (GrassCoverErosionInwardsScenariosView view = ShowScenariosView())
             {
                 var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
@@ -109,9 +110,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void Data_WithFailureMechanism_UpdateScenarioControl()
         {
             // Setup
-            using (var view = ShowScenariosView())
+            using (GrassCoverErosionInwardsScenariosView view = ShowScenariosView())
             {
-                var failureMechanism = CreateCompleteFailureMechanism();
+                GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateCompleteFailureMechanism();
                 view.FailureMechanism = failureMechanism;
 
                 // Call
@@ -138,9 +139,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void Data_SetToNullAfterGridViewShowsData_ClearsScenarioControl()
         {
             // Setup
-            using (var view = ShowScenariosView())
+            using (GrassCoverErosionInwardsScenariosView view = ShowScenariosView())
             {
-                var failureMechanism = CreateCompleteFailureMechanism();
+                GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateCompleteFailureMechanism();
                 view.FailureMechanism = failureMechanism;
                 view.Data = failureMechanism.CalculationsGroup;
 
@@ -156,9 +157,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void FailureMechanism_WithData_UpdateScenarioControl()
         {
             // Setup
-            using (var view = ShowScenariosView())
+            using (GrassCoverErosionInwardsScenariosView view = ShowScenariosView())
             {
-                var failureMechanism = CreateCompleteFailureMechanism();
+                GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateCompleteFailureMechanism();
                 view.Data = failureMechanism.CalculationsGroup;
 
                 // Call
@@ -185,9 +186,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void FailureMechanism_WithoutData_ClearsScenarioControl()
         {
             // Setup
-            using (var view = ShowScenariosView())
+            using (GrassCoverErosionInwardsScenariosView view = ShowScenariosView())
             {
-                var failureMechanism = CreateCompleteFailureMechanism();
+                GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateCompleteFailureMechanism();
                 view.Data = failureMechanism.CalculationsGroup;
                 view.FailureMechanism = failureMechanism;
 
@@ -203,9 +204,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void NotifyFailureMechanism_SectionsAddedAfterFullInitialization_NewRowAddedToView()
         {
             // Setup
-            using (var view = ShowScenariosView())
+            using (GrassCoverErosionInwardsScenariosView view = ShowScenariosView())
             {
-                var failureMechanism = CreateCompleteFailureMechanism();
+                GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateCompleteFailureMechanism();
                 view.Data = failureMechanism.CalculationsGroup;
                 view.FailureMechanism = failureMechanism;
 
@@ -243,9 +244,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void NotifyCalculation_CalculationChangedDikeProfile_CalculationMovedToOtherSectionResultOptions()
         {
             // Setup
-            using (var view = ShowScenariosView())
+            using (GrassCoverErosionInwardsScenariosView view = ShowScenariosView())
             {
-                var failureMechanism = CreateCompleteFailureMechanism();
+                GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateCompleteFailureMechanism();
                 view.Data = failureMechanism.CalculationsGroup;
                 view.FailureMechanism = failureMechanism;
 
@@ -278,9 +279,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void NotifyCalculationGroup_CalculationAdded_CalculationAddedToSectionResultOptions()
         {
             // Setup
-            using (var view = ShowScenariosView())
+            using (GrassCoverErosionInwardsScenariosView view = ShowScenariosView())
             {
-                var failureMechanism = CreateCompleteFailureMechanism();
+                GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateCompleteFailureMechanism();
                 view.Data = failureMechanism.CalculationsGroup;
                 view.FailureMechanism = failureMechanism;
 
@@ -324,7 +325,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             string[][] expectedComboBoxItemTexts = null)
         {
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            var rowCount = dataGridView.RowCount;
+            int rowCount = dataGridView.RowCount;
 
             if (shouldBeCleared)
             {
@@ -338,10 +339,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 Assert.AreEqual(failureMechanism.SectionResults.Count(), rowCount);
                 Assert.AreEqual(failureMechanism.Calculations.Count(), dataGridViewColumn.Items.Count);
 
-                for (int i = 0; i < rowCount; i++)
+                for (var i = 0; i < rowCount; i++)
                 {
                     var cell = (DataGridViewComboBoxCell) dataGridView[1, i];
-                    var items = cell.Items.OfType<DataGridViewComboBoxItemWrapper<ICalculation>>();
+                    IEnumerable<DataGridViewComboBoxItemWrapper<ICalculation>> items = cell.Items.OfType<DataGridViewComboBoxItemWrapper<ICalculation>>();
                     Assert.AreEqual(expectedComboBoxItemTexts[i], items.Select(r => r.DisplayName));
                 }
             }
@@ -349,7 +350,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
         private GrassCoverErosionInwardsFailureMechanism CreateCompleteFailureMechanism()
         {
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var matchingPointA = new Point2D(0, 0);
             var matchingPointB = new Point2D(20, 20);
             var calculationA = new GrassCoverErosionInwardsCalculation
@@ -368,7 +369,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                     DikeProfile = new TestDikeProfile(matchingPointB)
                 }
             };
-            Point2D connectionPoint = new Point2D(10, 10);
+            var connectionPoint = new Point2D(10, 10);
             var failureMechanismSectionA = new FailureMechanismSection("sectionA", new[]
             {
                 matchingPointA,

@@ -152,7 +152,7 @@ namespace Ringtoets.Piping.Primitives
         /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
         public void SetDitchPolderSideAt(Point3D point)
         {
-            var geometryPoint = GetPointFromGeometry(point);
+            Point3D geometryPoint = GetPointFromGeometry(point);
             if (geometryPoint == null)
             {
                 throw CreatePointNotInGeometryException(point, Resources.CharacteristicPoint_DitchPolderSide);
@@ -169,7 +169,7 @@ namespace Ringtoets.Piping.Primitives
         /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
         public void SetBottomDitchPolderSideAt(Point3D point)
         {
-            var geometryPoint = GetPointFromGeometry(point);
+            Point3D geometryPoint = GetPointFromGeometry(point);
             if (geometryPoint == null)
             {
                 throw CreatePointNotInGeometryException(point, Resources.CharacteristicPoint_BottomDitchPolderSide);
@@ -186,7 +186,7 @@ namespace Ringtoets.Piping.Primitives
         /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
         public void SetBottomDitchDikeSideAt(Point3D point)
         {
-            var geometryPoint = GetPointFromGeometry(point);
+            Point3D geometryPoint = GetPointFromGeometry(point);
             if (geometryPoint == null)
             {
                 throw CreatePointNotInGeometryException(point, Resources.CharacteristicPoint_BottomDitchDikeSide);
@@ -203,7 +203,7 @@ namespace Ringtoets.Piping.Primitives
         /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
         public void SetDitchDikeSideAt(Point3D point)
         {
-            var geometryPoint = GetPointFromGeometry(point);
+            Point3D geometryPoint = GetPointFromGeometry(point);
             if (geometryPoint == null)
             {
                 throw CreatePointNotInGeometryException(point, Resources.CharacteristicPoint_DitchDikeSide);
@@ -220,7 +220,7 @@ namespace Ringtoets.Piping.Primitives
         /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
         public void SetDikeToeAtRiverAt(Point3D point)
         {
-            var geometryPoint = GetPointFromGeometry(point);
+            Point3D geometryPoint = GetPointFromGeometry(point);
             if (geometryPoint == null)
             {
                 throw CreatePointNotInGeometryException(point, Resources.CharacteristicPoint_DikeToeAtRiver);
@@ -237,7 +237,7 @@ namespace Ringtoets.Piping.Primitives
         /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
         public void SetDikeToeAtPolderAt(Point3D point)
         {
-            var geometryPoint = GetPointFromGeometry(point);
+            Point3D geometryPoint = GetPointFromGeometry(point);
             if (geometryPoint == null)
             {
                 throw CreatePointNotInGeometryException(point, Resources.CharacteristicPoint_DikeToeAtPolder);
@@ -261,14 +261,14 @@ namespace Ringtoets.Piping.Primitives
             if (!ValidateInRange(l))
             {
                 var localRangeL = new Range<double>(LocalGeometry.First().X, LocalGeometry.Last().X);
-                var outOfRangeMessage = string.Format(Resources.RingtoetsPipingSurfaceLine_0_L_needs_to_be_in_Range_1_,
-                                                      Resources.RingtoetsPipingSurfaceLine_GetZAtL_Cannot_determine_height,
-                                                      localRangeL.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
+                string outOfRangeMessage = string.Format(Resources.RingtoetsPipingSurfaceLine_0_L_needs_to_be_in_Range_1_,
+                                                         Resources.RingtoetsPipingSurfaceLine_GetZAtL_Cannot_determine_height,
+                                                         localRangeL.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
                 throw new ArgumentOutOfRangeException(null, outOfRangeMessage);
             }
 
             var segments = new Collection<Segment2D>();
-            for (int i = 1; i < localGeometry.Length; i++)
+            for (var i = 1; i < localGeometry.Length; i++)
             {
                 segments.Add(new Segment2D(localGeometry[i - 1], localGeometry[i]));
             }
@@ -283,7 +283,7 @@ namespace Ringtoets.Piping.Primitives
                 return intersectionPoints.First().Y;
             }
 
-            var message = string.Format(Resources.RingtoetsPipingSurfaceLine_Cannot_determine_reliable_z_when_surface_line_is_vertical_in_l, l);
+            string message = string.Format(Resources.RingtoetsPipingSurfaceLine_Cannot_determine_reliable_z_when_surface_line_is_vertical_in_l, l);
             throw new RingtoetsPipingSurfaceLineException(message);
         }
 
@@ -294,7 +294,7 @@ namespace Ringtoets.Piping.Primitives
         /// <returns>Collection of 2D points in the LZ-plane.</returns>
         public RoundedPoint2DCollection ProjectGeometryToLZ()
         {
-            var count = Points.Length;
+            int count = Points.Length;
             if (count == 0)
             {
                 return new RoundedPoint2DCollection(numberOfDecimalPlaces, Enumerable.Empty<Point2D>());
@@ -310,8 +310,8 @@ namespace Ringtoets.Piping.Primitives
             }
 
             Point3D last = Points.Last();
-            Point2D firstPoint = new Point2D(first.X, first.Y);
-            Point2D lastPoint = new Point2D(last.X, last.Y);
+            var firstPoint = new Point2D(first.X, first.Y);
+            var lastPoint = new Point2D(last.X, last.Y);
             return new RoundedPoint2DCollection(numberOfDecimalPlaces, Points.Select(p => p.ProjectIntoLocalCoordinates(firstPoint, lastPoint)));
         }
 
@@ -325,7 +325,7 @@ namespace Ringtoets.Piping.Primitives
         {
             Point2D firstLocalPoint = LocalGeometry.First();
             Point2D lastLocalPoint = LocalGeometry.Last();
-            RoundedDouble roundedLocalCoordinateL = new RoundedDouble(numberOfDecimalPlaces, localCoordinateL);
+            var roundedLocalCoordinateL = new RoundedDouble(numberOfDecimalPlaces, localCoordinateL);
             return !(firstLocalPoint.X > roundedLocalCoordinateL) && !(lastLocalPoint.X < roundedLocalCoordinateL);
         }
 
@@ -336,7 +336,7 @@ namespace Ringtoets.Piping.Primitives
         /// <returns>The local coordinate.</returns>
         public Point2D GetLocalPointFromGeometry(Point3D worldCoordinate)
         {
-            var count = Points.Length;
+            int count = Points.Length;
             if (count <= 1)
             {
                 return new Point2D(double.NaN, double.NaN);
@@ -344,8 +344,8 @@ namespace Ringtoets.Piping.Primitives
 
             Point3D first = Points.First();
             Point3D last = Points.Last();
-            Point2D firstPoint = new Point2D(first.X, first.Y);
-            Point2D lastPoint = new Point2D(last.X, last.Y);
+            var firstPoint = new Point2D(first.X, first.Y);
+            var lastPoint = new Point2D(last.X, last.Y);
 
             Point2D localCoordinate = worldCoordinate.ProjectIntoLocalCoordinates(firstPoint, lastPoint);
             return new Point2D(new RoundedDouble(numberOfDecimalPlaces, localCoordinate.X),
@@ -508,9 +508,9 @@ namespace Ringtoets.Piping.Primitives
 
         private static ArgumentException CreatePointNotInGeometryException(Point3D point, string characteristicPointDescription)
         {
-            var message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
-                                        point,
-                                        characteristicPointDescription);
+            string message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
+                                           point,
+                                           characteristicPointDescription);
             return new ArgumentException(message);
         }
 

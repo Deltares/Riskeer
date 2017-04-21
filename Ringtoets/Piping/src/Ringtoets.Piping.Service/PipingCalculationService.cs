@@ -67,7 +67,7 @@ namespace Ringtoets.Piping.Service
                 return false;
             }
 
-            var validationResults = new PipingCalculator(CreateInputFromData(calculation.InputParameters), PipingSubCalculatorFactory.Instance).Validate();
+            List<string> validationResults = new PipingCalculator(CreateInputFromData(calculation.InputParameters), PipingSubCalculatorFactory.Instance).Validate();
             CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Error_in_validation_0, validationResults.ToArray());
 
             CalculationServiceHelper.LogValidationEndTime(calculation.Name);
@@ -94,7 +94,7 @@ namespace Ringtoets.Piping.Service
 
             try
             {
-                var pipingResult = new PipingCalculator(CreateInputFromData(calculation.InputParameters), PipingSubCalculatorFactory.Instance).Calculate();
+                PipingCalculatorResult pipingResult = new PipingCalculator(CreateInputFromData(calculation.InputParameters), PipingSubCalculatorFactory.Instance).Calculate();
 
                 calculation.Output = new PipingOutput(new PipingOutput.ConstructionProperties
                 {

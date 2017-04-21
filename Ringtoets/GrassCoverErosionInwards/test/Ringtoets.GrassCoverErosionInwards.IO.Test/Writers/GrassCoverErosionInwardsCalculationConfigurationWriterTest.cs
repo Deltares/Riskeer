@@ -118,7 +118,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Writers
             string filePath = TestHelper.GetScratchPadPath("test.xml");
 
             GrassCoverErosionInwardsCalculation calculation = CreateCompleteCalculation();
-            GrassCoverErosionInwardsCalculation calculation2 = new GrassCoverErosionInwardsCalculation
+            var calculation2 = new GrassCoverErosionInwardsCalculation
             {
                 Name = "Berekening 2"
             };

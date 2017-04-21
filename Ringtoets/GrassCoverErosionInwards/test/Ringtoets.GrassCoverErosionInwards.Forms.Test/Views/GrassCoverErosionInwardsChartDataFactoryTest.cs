@@ -93,9 +93,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             GrassCoverErosionInwardsChartDataFactory.UpdateDikeGeometryChartDataName(chartData, dikeProfile);
 
             // Assert
-            var expectedName = string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_,
-                                             dikeProfile.Name,
-                                             Resources.DikeProfile_DisplayName);
+            string expectedName = string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_,
+                                                dikeProfile.Name,
+                                                Resources.DikeProfile_DisplayName);
             Assert.AreEqual(expectedName, chartData.Name);
         }
 
@@ -162,9 +162,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             GrassCoverErosionInwardsChartDataFactory.UpdateForeshoreGeometryChartDataName(chartData, input);
 
             // Assert
-            var expectedName = string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_,
-                                             input.DikeProfile.Name,
-                                             RingtoetsCommonFormsResources.Foreshore_DisplayName);
+            string expectedName = string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_,
+                                                input.DikeProfile.Name,
+                                                RingtoetsCommonFormsResources.Foreshore_DisplayName);
             Assert.AreEqual(expectedName, chartData.Name);
         }
 

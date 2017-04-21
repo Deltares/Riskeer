@@ -41,8 +41,8 @@ namespace Ringtoets.Piping.Data.Test
 
             var contribution1 = 0.2;
             var contribution2 = 0.8;
-            var probability1 = 1.0/1000000.0;
-            var probability2 = 1.0/2000000.0;
+            double probability1 = 1.0 / 1000000.0;
+            double probability2 = 1.0 / 2000000.0;
 
             PipingCalculationScenario pipingCalculationScenario1 = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(probability1, section);
             PipingCalculationScenario pipingCalculationScenario2 = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(probability2, section);
@@ -71,7 +71,7 @@ namespace Ringtoets.Piping.Data.Test
             double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(calculations);
 
             // Assert
-            double expectedProbability = probability1*contribution1 + probability2*contribution2;
+            double expectedProbability = probability1 * contribution1 + probability2 * contribution2;
             Assert.AreEqual(expectedProbability, assessmentLayerTwoA, 1e-8);
         }
 

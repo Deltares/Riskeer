@@ -38,7 +38,7 @@ namespace Ringtoets.Piping.Service
         /// <param name="availableStochasticSoilModels">The available stochastic soil models.</param>
         public static void SetMatchingStochasticSoilModel(PipingInput pipingInput, IEnumerable<StochasticSoilModel> availableStochasticSoilModels)
         {
-            var available = availableStochasticSoilModels.ToList();
+            List<StochasticSoilModel> available = availableStochasticSoilModels.ToList();
             if (available.Count == 1)
             {
                 pipingInput.StochasticSoilModel = available.First();

@@ -75,7 +75,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreSame(calculation, row.PipingCalculation);
             Assert.AreEqual(calculation.Name, row.Name);
             Assert.AreEqual(calculation.IsRelevant, row.IsRelevant);
-            Assert.AreEqual(calculation.Contribution*100, row.Contribution);
+            Assert.AreEqual(calculation.Contribution * 100, row.Contribution);
             Assert.AreEqual(ProbabilityFormattingHelper.Format(calculation.SemiProbabilisticOutput.PipingProbability), row.FailureProbabilityPiping);
             Assert.AreEqual(ProbabilityFormattingHelper.Format(calculation.SemiProbabilisticOutput.UpliftProbability), row.FailureProbabilityUplift);
             Assert.AreEqual(ProbabilityFormattingHelper.Format(calculation.SemiProbabilisticOutput.HeaveProbability), row.FailureProbabilityHeave);
@@ -95,7 +95,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreSame(calculation, row.PipingCalculation);
             Assert.AreEqual(calculation.Name, row.Name);
             Assert.AreEqual(calculation.IsRelevant, row.IsRelevant);
-            Assert.AreEqual(calculation.Contribution*100, row.Contribution);
+            Assert.AreEqual(calculation.Contribution * 100, row.Contribution);
             Assert.AreEqual("-", row.FailureProbabilityPiping);
             Assert.AreEqual("-", row.FailureProbabilityUplift);
             Assert.AreEqual("-", row.FailureProbabilityHeave);
@@ -131,12 +131,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void Contribution_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
-            var newValue = new Random().Next(0, 100);
+            int newValue = new Random().Next(0, 100);
 
             PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             var row = new PipingScenarioRow(calculation);
 
-            int counter = 0;
+            var counter = 0;
             using (new Observer(() => counter++)
             {
                 Observable = calculation
@@ -147,7 +147,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 // Assert
                 Assert.AreEqual(1, counter);
-                Assert.AreEqual(new RoundedDouble(2, newValue), calculation.Contribution*100);
+                Assert.AreEqual(new RoundedDouble(2, newValue), calculation.Contribution * 100);
             }
         }
     }

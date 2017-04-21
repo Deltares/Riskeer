@@ -53,15 +53,15 @@ namespace Ringtoets.Piping.Data.TestUtil
         public static List<Segment2D> CreateFromString(string s)
         {
             var points = new SortedDictionary<int, Point2D>();
-            var lines = s.Split(new[]
+            string[] lines = s.Split(new[]
             {
                 Environment.NewLine
             }, StringSplitOptions.None);
-            var height = int.Parse(lines[0]);
+            int height = int.Parse(lines[0]);
             var lineIndex = 1;
             for (int y = height - 1; y >= 0; y--, lineIndex++)
             {
-                foreach (var tuple in AllIndexesOfDigit(lines[lineIndex]))
+                foreach (Tuple<int, int> tuple in AllIndexesOfDigit(lines[lineIndex]))
                 {
                     points.Add(tuple.Item1, new Point2D(tuple.Item2, y));
                 }
@@ -71,12 +71,12 @@ namespace Ringtoets.Piping.Data.TestUtil
 
         private static List<Segment2D> CreateLoop(SortedDictionary<int, Point2D> points)
         {
-            List<Segment2D> loop = new List<Segment2D>(points.Count);
-            var count = points.Values.Count;
-            for (int i = 0; i < count; i++)
+            var loop = new List<Segment2D>(points.Count);
+            int count = points.Values.Count;
+            for (var i = 0; i < count; i++)
             {
-                var firstPoint = points.Values.ElementAt(i);
-                var secondPoint = points.Values.ElementAt((i + 1)%count);
+                Point2D firstPoint = points.Values.ElementAt(i);
+                Point2D secondPoint = points.Values.ElementAt((i + 1) % count);
                 loop.Add(new Segment2D(firstPoint, secondPoint));
             }
             return loop;
@@ -94,7 +94,7 @@ namespace Ringtoets.Piping.Data.TestUtil
         private static IEnumerable<Tuple<int, int>> AllIndexesOfDigit(string line)
         {
             var guess = @"\d";
-            var matches = Regex.Matches(line, guess);
+            MatchCollection matches = Regex.Matches(line, guess);
             foreach (Match match in matches)
             {
                 int digit;

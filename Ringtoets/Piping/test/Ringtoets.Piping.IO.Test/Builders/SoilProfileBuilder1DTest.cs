@@ -51,8 +51,8 @@ namespace Ringtoets.Piping.IO.Test.Builders
             // Setup
             var profileName = "SomeProfile";
             var random = new Random(22);
-            var bottom = random.NextDouble();
-            var top = random.NextDouble();
+            double bottom = random.NextDouble();
+            double top = random.NextDouble();
             const long pipingSoilProfileId = 1234L;
             var builder = new SoilProfileBuilder1D(profileName, bottom, pipingSoilProfileId);
             builder.Add(new PipingSoilLayer(top)
@@ -78,9 +78,9 @@ namespace Ringtoets.Piping.IO.Test.Builders
             // Setup
             var profileName = "SomeProfile";
             var random = new Random(22);
-            var bottom = random.NextDouble();
-            var top = bottom + random.NextDouble();
-            var top2 = bottom + random.NextDouble();
+            double bottom = random.NextDouble();
+            double top = bottom + random.NextDouble();
+            double top2 = bottom + random.NextDouble();
             const long pipingSoilProfileId = 1234L;
 
             var builder = new SoilProfileBuilder1D(profileName, bottom, pipingSoilProfileId);

@@ -94,7 +94,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.IsFalse(dataGridView.AutoGenerateColumns);
             Assert.AreEqual(7, dataGridView.ColumnCount);
 
-            foreach (var column in dataGridView.Columns.OfType<DataGridViewComboBoxColumn>())
+            foreach (DataGridViewComboBoxColumn column in dataGridView.Columns.OfType<DataGridViewComboBoxColumn>())
             {
                 Assert.AreEqual("This", column.ValueMember);
                 Assert.AreEqual("DisplayName", column.DisplayMember);
@@ -117,7 +117,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void Data_SetToNull_DoesNotThrow()
         {
             // Setup
-            var pipingScenarioView = ShowPipingScenarioView();
+            PipingScenariosView pipingScenarioView = ShowPipingScenarioView();
 
             // Call
             var testDelegate = new TestDelegate(() => pipingScenarioView.Data = null);
@@ -151,7 +151,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             pipingFailureMechanism.AddSection(failureMechanismSection2);
             pipingFailureMechanism.AddSection(failureMechanismSection3);
 
-            var pipingScenarioView = ShowPipingScenarioView();
+            PipingScenariosView pipingScenarioView = ShowPipingScenarioView();
 
             // Call
             pipingScenarioView.PipingFailureMechanism = pipingFailureMechanism;
@@ -185,7 +185,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 new Point2D(15.0, 0.0)
             });
 
-            var pipingScenarioView = ShowPipingScenarioView();
+            PipingScenariosView pipingScenarioView = ShowPipingScenarioView();
             pipingScenarioView.PipingFailureMechanism = pipingFailureMechanismWithSections;
 
             var listBox = (ListBox) new ControlTester("listBox").TheObject;
@@ -216,10 +216,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             // Assert
-            var rows = dataGridView.Rows;
+            DataGridViewRowCollection rows = dataGridView.Rows;
             Assert.AreEqual(2, rows.Count);
 
-            var cells = rows[0].Cells;
+            DataGridViewCellCollection cells = rows[0].Cells;
             Assert.AreEqual(7, cells.Count);
             Assert.IsTrue(Convert.ToBoolean(cells[isRelevantColumnIndex].FormattedValue));
             Assert.AreEqual(100.ToString(CultureInfo.CurrentCulture), cells[contributionColumnIndex].FormattedValue);
@@ -286,7 +286,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             mocks.ReplayAll();
 
-            var pipingCalculationView = ShowFullyConfiguredPipingScenarioView();
+            PipingScenariosView pipingCalculationView = ShowFullyConfiguredPipingScenarioView();
 
             var data = (CalculationGroup) pipingCalculationView.Data;
             var pipingCalculation = (PipingCalculationScenario) data.Children.First();
@@ -345,7 +345,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 new Point2D(10.0, 0.0)
             }));
 
-            var pipingScenarioView = ShowPipingScenarioView();
+            PipingScenariosView pipingScenarioView = ShowPipingScenarioView();
 
             pipingScenarioView.Data = new CalculationGroup("Group", true)
             {

@@ -85,7 +85,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void GetViewData_Always_ReturnsWrappedCalculation()
         {
             // Setup
-            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var pipingInput = new PipingInput(new GeneralPipingInput());
@@ -108,7 +108,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedPipingCalculationScenarioContext_ReturnsTrue()
         {
             // Setup
-            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var pipingCalculation = new PipingCalculationScenario(new GeneralPipingInput());
@@ -136,7 +136,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedPipingCalculationScenarioContext_ReturnsFalse()
         {
             // Setup
-            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var pipingCalculation = new PipingCalculationScenario(new GeneralPipingInput());
@@ -211,7 +211,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingWithRemovedPipingCalculationGroupContext_ReturnsTrue()
         {
             // Setup
-            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
@@ -241,7 +241,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingWithRemovedPipingCalculationGroupContext_ReturnsFalse()
         {
             // Setup
-            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
@@ -271,7 +271,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void CloseForData_NestedViewCorrespondingWithRemovedParentPipingCalculationGroupContext_ReturnsTrue()
         {
             // Setup
-            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
@@ -303,7 +303,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void CloseForData_NestedViewNotCorrespondingWithRemovedParentPipingCalculationGroupContext_ReturnsFalse()
         {
             // Setup
-            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
@@ -335,7 +335,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
         {
             // Setup
-            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
@@ -362,7 +362,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
         {
             // Setup
-            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
@@ -389,7 +389,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void CloseForData_NestedViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
         {
             // Setup
-            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
@@ -419,7 +419,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void CloseForData_NestedViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
         {
             // Setup
-            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
@@ -543,7 +543,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism
@@ -573,7 +573,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism
@@ -606,7 +606,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
-            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism
@@ -639,7 +639,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
-            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism

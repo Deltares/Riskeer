@@ -22,7 +22,6 @@
 using System;
 using System.IO;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
@@ -45,13 +44,16 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void Constructor_NonExistingPath_ThrowsCriticalFileReadException()
         {
             // Setup
-            var testFile = Path.Combine(testDataPath, "none.soil");
+            string testFile = Path.Combine(testDataPath, "none.soil");
 
             // Call
-            TestDelegate test = () => { using (new StochasticSoilProfileReader(testFile)) {} };
+            TestDelegate test = () =>
+            {
+                using (new StochasticSoilProfileReader(testFile)) {}
+            };
 
             // Assert
-            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+            var exception = Assert.Throws<CriticalFileReadException>(test);
             string expectedMessage = new FileReaderErrorMessageBuilder(testFile).Build(UtilsResources.Error_File_does_not_exist);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
@@ -62,13 +64,16 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void Constructor_FileNullOrEmpty_ThrowsCriticalFileReadException(string fileName)
         {
             // Setup
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': {1}",
-                                                fileName, "bestandspad mag niet leeg of ongedefinieerd zijn.");
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': {1}",
+                                                   fileName, "bestandspad mag niet leeg of ongedefinieerd zijn.");
             // Call
-            TestDelegate test = () => { using (new StochasticSoilProfileReader(fileName)) {} };
+            TestDelegate test = () =>
+            {
+                using (new StochasticSoilProfileReader(fileName)) {}
+            };
 
             // Assert
-            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+            var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -78,18 +83,21 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void Constructor_IncorrectFormatFileOrInvalidSchema_ThrowsPipingCriticalFileReadException(string dbName)
         {
             // Setup
-            var dbFile = Path.Combine(testDataPath, dbName);
-            var expectedMessage = new FileReaderErrorMessageBuilder(dbFile).
+            string dbFile = Path.Combine(testDataPath, dbName);
+            string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).
                 Build(string.Format(Resources.PipingSoilProfileReader_Critical_Unexpected_value_on_column, dbName));
 
             // Precondition
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
 
             // Call
-            TestDelegate test = () => { using (new StochasticSoilProfileReader(dbFile)) {} };
+            TestDelegate test = () =>
+            {
+                using (new StochasticSoilProfileReader(dbFile)) {}
+            };
 
             // Assert
-            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+            var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
@@ -118,16 +126,19 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             const string version = "15.0.6.0";
             string expectedVersionMessage = string.Format(Resources.PipingSoilProfileReader_Database_incorrect_version_requires_Version_0_, version);
             const string dbName = "incorrectversion.soil";
-            var dbFile = Path.Combine(testDataPath, dbName);
+            string dbFile = Path.Combine(testDataPath, dbName);
 
             // Precondition
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
 
             // Call
-            TestDelegate test = () => { using (new StochasticSoilProfileReader(dbFile)) {} };
+            TestDelegate test = () =>
+            {
+                using (new StochasticSoilProfileReader(dbFile)) {}
+            };
 
             // Assert
-            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+            var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(expectedVersionMessage, exception.Message);
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
@@ -140,7 +151,10 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             string dbFile = Path.Combine(testDataPath, dbName);
 
             // Call
-            TestDelegate test = () => { using (new StochasticSoilProfileReader(dbFile)) {} };
+            TestDelegate test = () =>
+            {
+                using (new StochasticSoilProfileReader(dbFile)) {}
+            };
 
             // Assert
             Assert.Throws<CriticalFileReadException>(test);
@@ -202,7 +216,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 TestDelegate test = () => stochasticSoilProfileReader.ReadStochasticSoilProfile(stochasticProfileId);
 
                 // Assert
-                StochasticSoilProfileReadException exception = Assert.Throws<StochasticSoilProfileReadException>(test);
+                var exception = Assert.Throws<StochasticSoilProfileReadException>(test);
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<FormatException>(exception.InnerException);
             }
@@ -214,7 +228,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void ReadStochasticSoilProfile_NoProfileIdsSet_ThrowsStochasticSoilProfileReadException()
         {
             // Setup
-            string dbName = "invalidStochasticSoilProfiles.soil";
+            var dbName = "invalidStochasticSoilProfiles.soil";
             string dbFile = Path.Combine(testDataPath, dbName);
             const long stochasticProfileId = 1;
             string expectedMessage = new FileReaderErrorMessageBuilder(dbFile)
@@ -226,7 +240,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 TestDelegate test = () => stochasticSoilProfileReader.ReadStochasticSoilProfile(stochasticProfileId);
 
                 // Assert
-                StochasticSoilProfileReadException exception = Assert.Throws<StochasticSoilProfileReadException>(test);
+                var exception = Assert.Throws<StochasticSoilProfileReadException>(test);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
 

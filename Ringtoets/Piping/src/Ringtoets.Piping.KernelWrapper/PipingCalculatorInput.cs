@@ -213,8 +213,41 @@ namespace Ringtoets.Piping.KernelWrapper
         public double SaturatedVolumicWeightOfCoverageLayer { get; private set; }
 
         #endregion
+
         public class ConstructionProperties
         {
+            /// <summary>
+            /// Creates new instance of <see cref="ConstructionProperties"/>.
+            /// </summary>
+            public ConstructionProperties()
+            {
+                WaterVolumetricWeight = double.NaN;
+                SaturatedVolumicWeightOfCoverageLayer = double.NaN;
+                UpliftModelFactor = double.NaN;
+                AssessmentLevel = double.NaN;
+                PiezometricHeadExit = double.NaN;
+                DampingFactorExit = double.NaN;
+                PhreaticLevelExit = double.NaN;
+                CriticalHeaveGradient = double.NaN;
+                ThicknessCoverageLayer = double.NaN;
+                EffectiveThicknessCoverageLayer = double.NaN;
+                SellmeijerModelFactor = double.NaN;
+                SellmeijerReductionFactor = double.NaN;
+                SeepageLength = double.NaN;
+                SandParticlesVolumicWeight = double.NaN;
+                WhitesDragCoefficient = double.NaN;
+                Diameter70 = double.NaN;
+                DarcyPermeability = double.NaN;
+                WaterKinematicViscosity = double.NaN;
+                Gravity = double.NaN;
+                ThicknessAquiferLayer = double.NaN;
+                MeanDiameter70 = double.NaN;
+                BeddingAngle = double.NaN;
+                ExitPointXCoordinate = double.NaN;
+                SurfaceLine = null;
+                SoilProfile = null;
+            }
+
             #region properties
 
             /// <summary>
@@ -359,38 +392,6 @@ namespace Ringtoets.Piping.KernelWrapper
             public double SaturatedVolumicWeightOfCoverageLayer { internal get; set; }
 
             #endregion
-
-            /// <summary>
-            /// Creates new instance of <see cref="ConstructionProperties"/>.
-            /// </summary>
-            public ConstructionProperties()
-            {
-                WaterVolumetricWeight = double.NaN;
-                SaturatedVolumicWeightOfCoverageLayer = double.NaN;
-                UpliftModelFactor = double.NaN;
-                AssessmentLevel = double.NaN;
-                PiezometricHeadExit = double.NaN;
-                DampingFactorExit = double.NaN;
-                PhreaticLevelExit = double.NaN;
-                CriticalHeaveGradient = double.NaN;
-                ThicknessCoverageLayer = double.NaN;
-                EffectiveThicknessCoverageLayer = double.NaN;
-                SellmeijerModelFactor = double.NaN;
-                SellmeijerReductionFactor = double.NaN;
-                SeepageLength = double.NaN;
-                SandParticlesVolumicWeight = double.NaN;
-                WhitesDragCoefficient = double.NaN;
-                Diameter70 = double.NaN;
-                DarcyPermeability = double.NaN;
-                WaterKinematicViscosity = double.NaN;
-                Gravity = double.NaN;
-                ThicknessAquiferLayer = double.NaN;
-                MeanDiameter70 = double.NaN;
-                BeddingAngle = double.NaN;
-                ExitPointXCoordinate = double.NaN;
-                SurfaceLine = null;
-                SoilProfile = null;
-            }
         }
     }
 }

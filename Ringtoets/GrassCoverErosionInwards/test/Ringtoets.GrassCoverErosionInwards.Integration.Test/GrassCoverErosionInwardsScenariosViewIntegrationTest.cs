@@ -117,7 +117,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 var dikeProfilesImporter = new DikeProfilesImporter(assessmentSection.GrassCoverErosionInwards.DikeProfiles,
                                                                     assessmentSection.ReferenceLine,
                                                                     filePath, new GrassCoverErosionInwardsDikeProfileReplaceDataStrategy(
-                                                                        (GrassCoverErosionInwardsFailureMechanism) failureMechanism), 
+                                                                        (GrassCoverErosionInwardsFailureMechanism) failureMechanism),
                                                                     messageProvider);
                 dikeProfilesImporter.Import();
 
@@ -175,7 +175,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                                                                     assessmentSection.ReferenceLine,
                                                                     filePath,
                                                                     new GrassCoverErosionInwardsDikeProfileReplaceDataStrategy(
-                                                                        (GrassCoverErosionInwardsFailureMechanism) failureMechanism), 
+                                                                        (GrassCoverErosionInwardsFailureMechanism) failureMechanism),
                                                                     messageProvider);
                 dikeProfilesImporter.Import();
 
@@ -237,7 +237,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 var dikeProfilesImporter = new DikeProfilesImporter(assessmentSection.GrassCoverErosionInwards.DikeProfiles,
                                                                     assessmentSection.ReferenceLine,
                                                                     filePath, new GrassCoverErosionInwardsDikeProfileReplaceDataStrategy(
-                                                                        (GrassCoverErosionInwardsFailureMechanism) failureMechanism), 
+                                                                        (GrassCoverErosionInwardsFailureMechanism) failureMechanism),
                                                                     messageProvider);
                 dikeProfilesImporter.Import();
 

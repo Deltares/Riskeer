@@ -23,6 +23,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Forms;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -127,8 +128,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
         private void SetChartData()
         {
-            var input = data.InputParameters;
-            var dikeProfile = input.DikeProfile;
+            GrassCoverErosionInwardsInput input = data.InputParameters;
+            DikeProfile dikeProfile = input.DikeProfile;
 
             GrassCoverErosionInwardsChartDataFactory.UpdateForeshoreGeometryChartDataName(foreshoreChartData, input);
             GrassCoverErosionInwardsChartDataFactory.UpdateDikeGeometryChartDataName(dikeGeometryChartData, dikeProfile);

@@ -31,7 +31,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Piping.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel base of <see cref="DesignVariable{TDistribution}"/> for properties panel.
+    /// ViewModel base of <see cref="DesignVariable{TDistributionType}"/> for properties panel.
     /// </summary>
     /// <typeparam name="TDistribution">The type of the distribution.</typeparam>
     public abstract class DesignVariableProperties<TDistribution>

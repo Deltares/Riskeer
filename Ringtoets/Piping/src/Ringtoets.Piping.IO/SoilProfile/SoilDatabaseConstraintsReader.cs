@@ -23,7 +23,6 @@ using System;
 using System.Data;
 using System.Data.SQLite;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
 using Ringtoets.Piping.IO.Builders;
@@ -65,7 +64,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             catch (SQLiteException exception)
             {
                 string innerMessage = string.Format(
-                    Resources.SoilDatabaseConstraintsReader_VerifyConstraints_Can_not_read_StochasticSoilModel_Perhaps_table_missing, 
+                    Resources.SoilDatabaseConstraintsReader_VerifyConstraints_Can_not_read_StochasticSoilModel_Perhaps_table_missing,
                     StochasticSoilModelTableColumns.TableName);
                 throw new CriticalFileReadException(
                     BuildMessageWithPath(innerMessage), exception);
@@ -78,7 +77,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             catch (SQLiteException exception)
             {
                 string innerMessage = string.Format(
-                    Resources.SoilDatabaseConstraintsReader_VerifyConstraints_Can_not_read_StochasticSoilProfile_Perhaps_table_missing, 
+                    Resources.SoilDatabaseConstraintsReader_VerifyConstraints_Can_not_read_StochasticSoilProfile_Perhaps_table_missing,
                     StochasticSoilProfileTableColumns.TableName);
                 throw new CriticalFileReadException(
                     BuildMessageWithPath(innerMessage), exception);

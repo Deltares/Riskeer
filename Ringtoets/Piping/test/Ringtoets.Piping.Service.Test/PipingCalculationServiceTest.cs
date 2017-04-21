@@ -108,7 +108,7 @@ namespace Ringtoets.Piping.Service.Test
             };
 
             // Call
-            bool isValid = false;
+            var isValid = false;
             Action call = () => isValid = PipingCalculationService.Validate(calculation);
 
             // Assert
@@ -138,7 +138,7 @@ namespace Ringtoets.Piping.Service.Test
             testCalculation.InputParameters.UseAssessmentLevelManualInput = false;
 
             // Call
-            bool isValid = false;
+            var isValid = false;
             Action call = () => isValid = PipingCalculationService.Validate(testCalculation);
 
             // Assert
@@ -168,7 +168,7 @@ namespace Ringtoets.Piping.Service.Test
             testCalculation.Name = name;
 
             // Call
-            bool isValid = false;
+            var isValid = false;
             Action call = () => isValid = PipingCalculationService.Validate(testCalculation);
 
             // Assert
@@ -194,7 +194,7 @@ namespace Ringtoets.Piping.Service.Test
             testCalculation.Name = name;
 
             // Call
-            bool isValid = false;
+            var isValid = false;
             Action call = () => isValid = PipingCalculationService.Validate(testCalculation);
 
             // Assert
@@ -219,7 +219,7 @@ namespace Ringtoets.Piping.Service.Test
             testCalculation.Name = name;
 
             // Call
-            bool isValid = false;
+            var isValid = false;
             Action call = () => isValid = PipingCalculationService.Validate(testCalculation);
 
             // Assert
@@ -246,7 +246,7 @@ namespace Ringtoets.Piping.Service.Test
             testCalculation.Name = name;
 
             // Call
-            bool isValid = false;
+            var isValid = false;
             Action call = () => isValid = PipingCalculationService.Validate(testCalculation);
 
             // Assert
@@ -282,7 +282,7 @@ namespace Ringtoets.Piping.Service.Test
             testCalculation.Name = name;
 
             // Call
-            bool isValid = false;
+            var isValid = false;
             Action call = () => isValid = PipingCalculationService.Validate(testCalculation);
 
             // Assert
@@ -292,7 +292,7 @@ namespace Ringtoets.Piping.Service.Test
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs.First());
 
-                var expected = $"Validatie mislukt: De sloot in de hoogtegeometrie {surfaceLineName} is niet correct. Niet alle 4 punten zijn gedefinieerd of de volgorde is incorrect.";
+                string expected = $"Validatie mislukt: De sloot in de hoogtegeometrie {surfaceLineName} is niet correct. Niet alle 4 punten zijn gedefinieerd of de volgorde is incorrect.";
                 Assert.AreEqual(expected, msgs[1]);
                 StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs.Last());
             });
@@ -308,7 +308,7 @@ namespace Ringtoets.Piping.Service.Test
             testCalculation.InputParameters.StochasticSoilProfile = null;
             testCalculation.Name = name;
 
-            bool isValid = false;
+            var isValid = false;
 
             // Call
             Action call = () => isValid = PipingCalculationService.Validate(testCalculation);
@@ -357,7 +357,7 @@ namespace Ringtoets.Piping.Service.Test
 
             testCalculation.Name = name;
 
-            bool isValid = false;
+            var isValid = false;
 
             // Call
             Action call = () => isValid = PipingCalculationService.Validate(testCalculation);
@@ -394,7 +394,7 @@ namespace Ringtoets.Piping.Service.Test
             testCalculation.InputParameters.StochasticSoilProfile.SoilProfile = profile;
             testCalculation.Name = name;
 
-            bool isValid = false;
+            var isValid = false;
 
             // Call
             Action call = () => isValid = PipingCalculationService.Validate(testCalculation);
@@ -438,7 +438,7 @@ namespace Ringtoets.Piping.Service.Test
             testCalculation.InputParameters.StochasticSoilProfile.SoilProfile = profile;
             testCalculation.Name = name;
 
-            bool isValid = false;
+            var isValid = false;
 
             // Call
             Action call = () => isValid = PipingCalculationService.Validate(testCalculation);
@@ -485,7 +485,7 @@ namespace Ringtoets.Piping.Service.Test
             testCalculation.InputParameters.StochasticSoilProfile.SoilProfile = profile;
             testCalculation.Name = name;
 
-            bool isValid = false;
+            var isValid = false;
 
             // Call
             Action call = () => isValid = PipingCalculationService.Validate(testCalculation);
@@ -549,7 +549,7 @@ namespace Ringtoets.Piping.Service.Test
             testCalculation.InputParameters.StochasticSoilProfile.SoilProfile = profile;
             testCalculation.Name = name;
 
-            bool isValid = false;
+            var isValid = false;
 
             // Call
             Action call = () => isValid = PipingCalculationService.Validate(testCalculation);
@@ -610,7 +610,7 @@ namespace Ringtoets.Piping.Service.Test
             testCalculation.InputParameters.StochasticSoilProfile.SoilProfile = profile;
             testCalculation.Name = name;
 
-            bool isValid = false;
+            var isValid = false;
 
             // Call
             Action call = () => isValid = PipingCalculationService.Validate(testCalculation);
@@ -662,7 +662,7 @@ namespace Ringtoets.Piping.Service.Test
             testCalculation.Name = name;
             testCalculation.InputParameters.StochasticSoilProfile.SoilProfile = profile;
 
-            bool isValid = false;
+            var isValid = false;
 
             // Call
             Action call = () => isValid = PipingCalculationService.Validate(testCalculation);
@@ -723,7 +723,7 @@ namespace Ringtoets.Piping.Service.Test
             testCalculation.InputParameters.StochasticSoilProfile.SoilProfile = profile;
             testCalculation.Name = name;
 
-            bool isValid = false;
+            var isValid = false;
 
             // Call
             Action call = () => isValid = PipingCalculationService.Validate(testCalculation);
@@ -788,7 +788,7 @@ namespace Ringtoets.Piping.Service.Test
             testCalculation.InputParameters.StochasticSoilProfile.SoilProfile = profile;
             testCalculation.Name = name;
 
-            bool isValid = false;
+            var isValid = false;
 
             // Call
             Action call = () => isValid = PipingCalculationService.Validate(testCalculation);
@@ -837,7 +837,7 @@ namespace Ringtoets.Piping.Service.Test
             testCalculation.Name = name;
             testCalculation.InputParameters.StochasticSoilProfile.SoilProfile = profile;
 
-            bool isValid = false;
+            var isValid = false;
 
             // Call
             Action call = () => isValid = PipingCalculationService.Validate(testCalculation);
@@ -981,7 +981,7 @@ namespace Ringtoets.Piping.Service.Test
             PipingCalculationService.Calculate(testCalculation);
 
             // Assert
-            var pipingOutput = testCalculation.Output;
+            PipingOutput pipingOutput = testCalculation.Output;
             Assert.IsNotNull(pipingOutput);
             Assert.IsFalse(double.IsNaN(pipingOutput.UpliftEffectiveStress));
             Assert.IsFalse(double.IsNaN(pipingOutput.UpliftZValue));
@@ -1029,9 +1029,9 @@ namespace Ringtoets.Piping.Service.Test
         private static void AssertSubCalculatorInputs(PipingInput input)
         {
             var testFactory = (TestPipingSubCalculatorFactory) PipingSubCalculatorFactory.Instance;
-            var heaveCalculator = testFactory.LastCreatedHeaveCalculator;
-            var upliftCalculator = testFactory.LastCreatedUpliftCalculator;
-            var sellmeijerCalculator = testFactory.LastCreatedSellmeijerCalculator;
+            HeaveCalculatorStub heaveCalculator = testFactory.LastCreatedHeaveCalculator;
+            UpliftCalculatorStub upliftCalculator = testFactory.LastCreatedUpliftCalculator;
+            SellmeijerCalculatorStub sellmeijerCalculator = testFactory.LastCreatedSellmeijerCalculator;
 
             Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(input).GetDesignValue(),
                             heaveCalculator.DTotal,
@@ -1061,8 +1061,10 @@ namespace Ringtoets.Piping.Service.Test
                             upliftCalculator.RExit,
                             input.DampingFactorExit.GetAccuracy());
             Assert.AreEqual(input.WaterVolumetricWeight, upliftCalculator.VolumetricWeightOfWater);
-            RoundedDouble effectiveStress = PipingSemiProbabilisticDesignValueFactory.GetEffectiveThicknessCoverageLayer(input).GetDesignValue()*
-                                            (PipingSemiProbabilisticDesignValueFactory.GetSaturatedVolumicWeightOfCoverageLayer(input).GetDesignValue() - input.WaterVolumetricWeight);
+
+            RoundedDouble effectiveThickness = PipingSemiProbabilisticDesignValueFactory.GetEffectiveThicknessCoverageLayer(input).GetDesignValue();
+            RoundedDouble saturatedVolumicWeight = PipingSemiProbabilisticDesignValueFactory.GetSaturatedVolumicWeightOfCoverageLayer(input).GetDesignValue();
+            RoundedDouble effectiveStress = effectiveThickness * (saturatedVolumicWeight - input.WaterVolumetricWeight);
             Assert.AreEqual(effectiveStress, upliftCalculator.EffectiveStress,
                             effectiveStress.GetAccuracy());
 

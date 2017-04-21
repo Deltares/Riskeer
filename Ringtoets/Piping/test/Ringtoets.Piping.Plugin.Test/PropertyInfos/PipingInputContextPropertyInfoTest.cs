@@ -21,6 +21,7 @@
 
 using System.Linq;
 using Core.Common.Gui.Plugin;
+using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -73,11 +74,11 @@ namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
                 scenario.InputParameters,
                 scenario,
                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                Enumerable.Empty<StochasticSoilModel>(),  
+                Enumerable.Empty<StochasticSoilModel>(),
                 failureMechanism, assessmentSection);
 
             // Call
-            var objectProperties = info.CreateInstance(context);
+            IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
             Assert.IsInstanceOf<PipingInputContextProperties>(objectProperties);

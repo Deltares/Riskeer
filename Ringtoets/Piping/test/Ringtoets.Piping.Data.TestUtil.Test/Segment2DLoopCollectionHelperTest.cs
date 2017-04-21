@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 
 namespace Ringtoets.Piping.Data.TestUtil.Test
@@ -31,12 +32,12 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
         public void CreateFromString_OnePoint_ReturnsExpectedPoints()
         {
             // Call
-            var result = Segment2DLoopCollectionHelper.CreateFromString(string.Join(Environment.NewLine,
-                                                                                    "3",
-                                                                                    "..1..",
-                                                                                    ".....",
-                                                                                    "....."
-                                                                        )).ToArray();
+            Segment2D[] result = Segment2DLoopCollectionHelper.CreateFromString(string.Join(Environment.NewLine,
+                                                                                            "3",
+                                                                                            "..1..",
+                                                                                            ".....",
+                                                                                            "....."
+                                                                                )).ToArray();
 
             // Assert
             Assert.AreEqual(1, result.Length);
@@ -48,12 +49,12 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
         public void CreateFromString_TwoPoint_ReturnsExpectedPoints()
         {
             // Call
-            var result = Segment2DLoopCollectionHelper.CreateFromString(string.Join(Environment.NewLine,
-                                                                                    "3",
-                                                                                    "..1..",
-                                                                                    ".....",
-                                                                                    "....2"
-                                                                        )).ToArray();
+            Segment2D[] result = Segment2DLoopCollectionHelper.CreateFromString(string.Join(Environment.NewLine,
+                                                                                            "3",
+                                                                                            "..1..",
+                                                                                            ".....",
+                                                                                            "....2"
+                                                                                )).ToArray();
 
             // Assert
             Assert.AreEqual(2, result.Length);
@@ -67,12 +68,12 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
         public void CreateFromString_TwoPointReversed_ReturnsExpectedPoints()
         {
             // Call
-            var result = Segment2DLoopCollectionHelper.CreateFromString(string.Join(Environment.NewLine,
-                                                                                    "3",
-                                                                                    "..2..",
-                                                                                    ".....",
-                                                                                    "....1"
-                                                                        )).ToArray();
+            Segment2D[] result = Segment2DLoopCollectionHelper.CreateFromString(string.Join(Environment.NewLine,
+                                                                                            "3",
+                                                                                            "..2..",
+                                                                                            ".....",
+                                                                                            "....1"
+                                                                                )).ToArray();
 
             // Assert
             Assert.AreEqual(2, result.Length);

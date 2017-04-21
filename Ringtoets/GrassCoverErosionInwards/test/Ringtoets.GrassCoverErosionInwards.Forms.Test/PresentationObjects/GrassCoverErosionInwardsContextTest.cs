@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
@@ -110,7 +111,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             var context = new SimpleGrassCoverErosionInwardsContext<ObservableObject>(target, failureMechanism, assessmentSectionStub);
 
             // Call
-            var availableHydraulicBoundaryLocations = context.AvailableHydraulicBoundaryLocations;
+            IEnumerable<HydraulicBoundaryLocation> availableHydraulicBoundaryLocations = context.AvailableHydraulicBoundaryLocations;
 
             // Assert
             Assert.AreEqual(1, availableHydraulicBoundaryLocations.Count());

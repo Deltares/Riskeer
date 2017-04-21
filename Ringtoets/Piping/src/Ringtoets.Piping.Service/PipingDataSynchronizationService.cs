@@ -94,7 +94,7 @@ namespace Ringtoets.Piping.Service
             }
 
             var affectedItems = new List<IObservable>();
-            foreach (var calculation in failureMechanism.Calculations.Cast<PipingCalculation>())
+            foreach (PipingCalculation calculation in failureMechanism.Calculations.Cast<PipingCalculation>())
             {
                 affectedItems.AddRange(ClearCalculationOutput(calculation)
                                            .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters)));
@@ -118,12 +118,12 @@ namespace Ringtoets.Piping.Service
             }
 
             var changedObjects = new Collection<IObservable>();
-            var removedObjects = failureMechanism.Sections.OfType<object>()
-                                                 .Concat(failureMechanism.SectionResults)
-                                                 .Concat(failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
-                                                 .Concat(failureMechanism.StochasticSoilModels)
-                                                 .Concat(failureMechanism.SurfaceLines)
-                                                 .ToArray();
+            object[] removedObjects = failureMechanism.Sections.OfType<object>()
+                                                      .Concat(failureMechanism.SectionResults)
+                                                      .Concat(failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
+                                                      .Concat(failureMechanism.StochasticSoilModels)
+                                                      .Concat(failureMechanism.SurfaceLines)
+                                                      .ToArray();
 
             failureMechanism.ClearAllSections();
             changedObjects.Add(failureMechanism);
@@ -196,9 +196,9 @@ namespace Ringtoets.Piping.Service
             }
 
             IEnumerable<PipingCalculation> affectedCalculationScenarios =
-               failureMechanism.Calculations
-                               .Cast<PipingCalculation>()
-                               .Where(calc => calc.InputParameters.SurfaceLine != null).ToArray();
+                failureMechanism.Calculations
+                                .Cast<PipingCalculation>()
+                                .Where(calc => calc.InputParameters.SurfaceLine != null).ToArray();
 
             var affectedObjects = new List<IObservable>();
             foreach (PipingCalculation calculation in affectedCalculationScenarios)
@@ -268,9 +268,9 @@ namespace Ringtoets.Piping.Service
             }
 
             IEnumerable<PipingCalculation> affectedCalculationScenarios =
-              failureMechanism.Calculations
-                              .Cast<PipingCalculation>()
-                              .Where(calc => calc.InputParameters.StochasticSoilModel != null).ToArray();
+                failureMechanism.Calculations
+                                .Cast<PipingCalculation>()
+                                .Where(calc => calc.InputParameters.StochasticSoilModel != null).ToArray();
 
             var affectedObjects = new List<IObservable>();
             foreach (PipingCalculation calculation in affectedCalculationScenarios)

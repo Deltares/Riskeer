@@ -96,7 +96,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             var ringtoetsPipingSurfaceLines = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             // Call
-            var text = info.Text(ringtoetsPipingSurfaceLines);
+            string text = info.Text(ringtoetsPipingSurfaceLines);
 
             // Assert
             Assert.AreEqual("Profielschematisaties", text);
@@ -114,7 +114,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             var ringtoetsPipingSurfaceLines = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             // Call
-            var image = info.Image(ringtoetsPipingSurfaceLines);
+            Image image = info.Image(ringtoetsPipingSurfaceLines);
 
             // Assert
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralFolderIcon, image);
@@ -132,7 +132,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             var ringtoetsPipingSurfaceLines = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             // Call
-            var foreColor = info.ForeColor(ringtoetsPipingSurfaceLines);
+            Color foreColor = info.ForeColor(ringtoetsPipingSurfaceLines);
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), foreColor);
@@ -155,7 +155,8 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             var surfaceLines = new RingtoetsPipingSurfaceLineCollection();
             surfaceLines.AddRange(new[]
             {
-                ringtoetsPipingSurfaceLine1, ringtoetsPipingSurfaceLine2
+                ringtoetsPipingSurfaceLine1,
+                ringtoetsPipingSurfaceLine2
             }, "path");
 
             var failureMechanism = new PipingFailureMechanism();
@@ -165,7 +166,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             // Call
-            var foreColor = info.ForeColor(ringtoetsPipingSurfaceLineContext);
+            Color foreColor = info.ForeColor(ringtoetsPipingSurfaceLineContext);
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), foreColor);
@@ -188,7 +189,8 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             var surfaceLines = new RingtoetsPipingSurfaceLineCollection();
             surfaceLines.AddRange(new[]
             {
-                ringtoetsPipingSurfaceLine1, ringtoetsPipingSurfaceLine2
+                ringtoetsPipingSurfaceLine1,
+                ringtoetsPipingSurfaceLine2
             }, "path");
 
             var failureMechanism = new PipingFailureMechanism();
@@ -198,7 +200,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             // Call
-            var objects = info.ChildNodeObjects(ringtoetsPipingSurfaceLineContext);
+            object[] objects = info.ChildNodeObjects(ringtoetsPipingSurfaceLineContext);
 
             // Assert
             CollectionAssert.AreEqual(new[]

@@ -32,13 +32,27 @@ namespace Ringtoets.Piping.KernelWrapper.Test
     [TestFixture]
     public class PipingSemiProbabilisticDesignValueFactoryTest
     {
+        private static void AssertPercentile<T>(double percentile, DesignVariable<T> designVariable) where T : IDistribution
+        {
+            Assert.IsInstanceOf<PercentileBasedDesignVariable<T>>(designVariable);
+            var percentileBasedDesignVariable = (PercentileBasedDesignVariable<T>) designVariable;
+            Assert.AreEqual(percentile, percentileBasedDesignVariable.Percentile);
+        }
+
+        private static void AssertPercentile(double percentile, VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> designVariable)
+        {
+            Assert.IsInstanceOf<VariationCoefficientLogNormalDistributionDesignVariable>(designVariable);
+            var percentileBasedDesignVariable = (VariationCoefficientLogNormalDistributionDesignVariable) designVariable;
+            Assert.AreEqual(percentile, percentileBasedDesignVariable.Percentile);
+        }
+
         #region General parameters
 
         [Test]
         public void GetThicknessCoverageLayer_PipingInputWithCoverLayer_CreatePercentileBasedDesignVariableForThicknessCoverageLayer()
         {
             // Setup
-            var inputParameters = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput inputParameters = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
 
             // Call
             DesignVariable<LogNormalDistribution> thicknessCoverageLayer = PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(inputParameters);
@@ -68,7 +82,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         public void GetEffectiveThicknessCoverageLayer_PipingInputWithCoverLayer_CreatePercentileBasedDesignVariableForEffectiveThicknessCoverageLayer()
         {
             // Setup
-            var inputParameters = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput inputParameters = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
 
             // Call
             DesignVariable<LogNormalDistribution> effectiveThicknessCoverageLayer =
@@ -179,7 +193,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         public void GetSaturatedVolumicWeightOfCoverageLayer_PipingInputWithCoverLayerWithSaturatedDefinition_CreateDesignVariableForSaturatedVolumicWeightOfCoverageLayer()
         {
             // Setup
-            var inputParameters = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput inputParameters = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             inputParameters.StochasticSoilProfile.SoilProfile.Layers.ElementAt(0).BelowPhreaticLevelMean = 3.2;
 
             // Call
@@ -225,19 +239,5 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         }
 
         #endregion
-
-        private static void AssertPercentile<T>(double percentile, DesignVariable<T> designVariable) where T : IDistribution
-        {
-            Assert.IsInstanceOf<PercentileBasedDesignVariable<T>>(designVariable);
-            var percentileBasedDesignVariable = (PercentileBasedDesignVariable<T>) designVariable;
-            Assert.AreEqual(percentile, percentileBasedDesignVariable.Percentile);
-        }
-
-        private static void AssertPercentile(double percentile, VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> designVariable)
-        {
-            Assert.IsInstanceOf<VariationCoefficientLogNormalDistributionDesignVariable>(designVariable);
-            var percentileBasedDesignVariable = (VariationCoefficientLogNormalDistributionDesignVariable)designVariable;
-            Assert.AreEqual(percentile, percentileBasedDesignVariable.Percentile);
-        }
     }
 }

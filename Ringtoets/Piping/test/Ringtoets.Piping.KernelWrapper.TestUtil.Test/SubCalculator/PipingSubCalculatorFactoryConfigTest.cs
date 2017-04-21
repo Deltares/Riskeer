@@ -55,7 +55,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test.SubCalculator
         public void Dispose_Always_ResetsFactoryToPreviousValue()
         {
             // Setup
-            var expectedFactory = PipingSubCalculatorFactory.Instance;
+            IPipingSubCalculatorFactory expectedFactory = PipingSubCalculatorFactory.Instance;
 
             // Call
             using (new PipingSubCalculatorFactoryConfig()) {}

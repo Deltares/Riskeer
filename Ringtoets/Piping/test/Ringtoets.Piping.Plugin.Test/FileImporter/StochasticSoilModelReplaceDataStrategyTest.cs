@@ -212,11 +212,11 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.IsNull(calculation.InputParameters.StochasticSoilModel);
             Assert.IsNull(calculation.InputParameters.StochasticSoilProfile);
             CollectionAssert.AreEquivalent(new IObservable[]
-           {
+            {
                 calculation,
                 calculation.InputParameters,
                 failureMechanism.StochasticSoilModels
-           }, affectedObjects); 
+            }, affectedObjects);
         }
 
         [Test]

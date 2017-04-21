@@ -89,7 +89,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             // Call
-            var text = info.Text(null);
+            string text = info.Text(null);
 
             // Assert
             Assert.AreEqual(RingtoetsCommonFormsResources.CalculationOutput_DisplayName, text);
@@ -102,7 +102,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             // Call
-            var image = info.Image(null);
+            Image image = info.Image(null);
 
             // Assert
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralOutputIcon, image);
@@ -115,7 +115,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             // Call
-            var textColor = info.ForeColor(null);
+            Color textColor = info.ForeColor(null);
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), textColor);

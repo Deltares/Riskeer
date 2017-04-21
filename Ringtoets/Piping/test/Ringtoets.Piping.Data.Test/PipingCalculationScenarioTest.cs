@@ -38,7 +38,7 @@ namespace Ringtoets.Piping.Data.Test
             var generalInputParameters = new GeneralPipingInput();
 
             // Call
-            PipingCalculationScenario scenario = new PipingCalculationScenario(generalInputParameters);
+            var scenario = new PipingCalculationScenario(generalInputParameters);
 
             // Assert
             Assert.IsInstanceOf<PipingCalculation>(scenario);
@@ -83,7 +83,7 @@ namespace Ringtoets.Piping.Data.Test
         public void Probability_PipingOutputSet_ReturnsPipingOutputProbability()
         {
             // Setup
-            var expectedProbability = 1.0/49862180;
+            double expectedProbability = 1.0 / 49862180;
 
             var scenario = new PipingCalculationScenario(new GeneralPipingInput())
             {
@@ -163,7 +163,7 @@ namespace Ringtoets.Piping.Data.Test
         public void CalculationScenarioStatus_PipingOutputSet_ReturnsStatusDone()
         {
             // Setup
-            var expectedProbability = 1.0/49862180;
+            double expectedProbability = 1.0 / 49862180;
 
             var scenario = new PipingCalculationScenario(new GeneralPipingInput())
             {

@@ -52,7 +52,7 @@ namespace Ringtoets.Piping.Service.Test
             var pipingInput = new PipingInput(new GeneralPipingInput());
             var soilModel1 = new StochasticSoilModel(1, "A", "B");
             var soilModel2 = new StochasticSoilModel(2, "C", "D");
-            
+
             // Call
             PipingInputService.SetMatchingStochasticSoilModel(pipingInput, new[]
             {

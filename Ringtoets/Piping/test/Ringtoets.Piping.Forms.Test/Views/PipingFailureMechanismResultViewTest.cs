@@ -97,7 +97,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void Data_DataAlreadySetNewDataSet_DataSetAndDataGridViewUpdated()
         {
             // Setup
-            using (var view = ShowFullyConfiguredFailureMechanismResultsView(new PipingFailureMechanism()))
+            using (PipingFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView(new PipingFailureMechanism()))
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -133,7 +133,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             var testData = new object();
-            using (var view = ShowFullyConfiguredFailureMechanismResultsView(new PipingFailureMechanism()))
+            using (PipingFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView(new PipingFailureMechanism()))
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -156,10 +156,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Assert
-                var rows = dataGridView.Rows;
+                DataGridViewRowCollection rows = dataGridView.Rows;
                 Assert.AreEqual(2, rows.Count);
 
-                var cells = rows[0].Cells;
+                DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual(AssessmentLayerOneState.NotAssessed, cells[assessmentLayerOneIndex].Value);
@@ -190,13 +190,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 dataGridView.Rows[0].Cells[assessmentLayerOneIndex].Value = assessmentLayerOneState;
 
                 // Assert
-                var rows = dataGridView.Rows;
+                DataGridViewRowCollection rows = dataGridView.Rows;
 
-                var cells = rows[0].Cells;
+                DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                var cellAssessmentLayerTwoA = cells[assessmentLayerTwoAIndex];
-                var cellAssessmentLayerThree = cells[assessmentLayerThreeIndex];
+                DataGridViewCell cellAssessmentLayerTwoA = cells[assessmentLayerTwoAIndex];
+                DataGridViewCell cellAssessmentLayerThree = cells[assessmentLayerThreeIndex];
 
                 Assert.AreEqual(assessmentLayerOneState, cells[assessmentLayerOneIndex].Value);
                 Assert.AreEqual("-", cellAssessmentLayerTwoA.FormattedValue);
@@ -245,7 +245,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void FailureMechanismResultView_EditValueValid_DoNotShowErrorToolTipAndEditValue(string newValue)
         {
             // Setup
-            using (var view = ShowFullyConfiguredFailureMechanismResultsView(new PipingFailureMechanism()))
+            using (PipingFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView(new PipingFailureMechanism()))
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -257,10 +257,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 var dataObject = view.Data as List<PipingFailureMechanismSectionResult>;
                 Assert.IsNotNull(dataObject);
-                var row = dataObject.First();
+                PipingFailureMechanismSectionResult row = dataObject.First();
 
                 const string propertyName = "AssessmentLayerThree";
-                var propertyValue = row.GetType().GetProperty(propertyName).GetValue(row, null);
+                object propertyValue = row.GetType().GetProperty(propertyName).GetValue(row, null);
 
                 Assert.AreEqual((RoundedDouble) double.Parse(newValue), propertyValue);
             }
@@ -279,7 +279,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             using (PipingFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
             {
                 PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(
-                    1.0/1000.0,
+                    1.0 / 1000.0,
                     pipingFailureMechanism.Sections.First());
                 calculationScenario.Contribution = (RoundedDouble) 0.3;
                 pipingFailureMechanism.CalculationsGroup.Children.Add(calculationScenario);
@@ -330,7 +330,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 // Assert
                 Assert.IsEmpty(dataGridViewCell.ErrorText);
-                Assert.AreEqual(string.Format("1/{0:N0}", 1/calculationScenario.Probability),
+                Assert.AreEqual(string.Format("1/{0:N0}", 1 / calculationScenario.Probability),
                                 formattedValue);
             }
         }
@@ -498,7 +498,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 new Point2D(10.0, 0.0)
             }));
 
-            var failureMechanismResultView = ShowFailureMechanismResultsView();
+            PipingFailureMechanismResultView failureMechanismResultView = ShowFailureMechanismResultsView();
             failureMechanismResultView.Data = failureMechanism.SectionResults;
             failureMechanismResultView.FailureMechanism = failureMechanism;
 
@@ -507,7 +507,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
         private PipingFailureMechanismResultView ShowFailureMechanismResultsView()
         {
-            PipingFailureMechanismResultView failureMechanismResultView = new PipingFailureMechanismResultView();
+            var failureMechanismResultView = new PipingFailureMechanismResultView();
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 

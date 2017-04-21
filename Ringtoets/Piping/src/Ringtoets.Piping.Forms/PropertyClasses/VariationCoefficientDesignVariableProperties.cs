@@ -31,7 +31,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Piping.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel base of <see cref="DesignVariable{TDistribution}"/> for properties panel.
+    /// ViewModel base of <see cref="DesignVariable{TDistributionType}"/> for properties panel.
     /// </summary>
     /// <typeparam name="TDistribution">The type of the distribution.</typeparam>
     public abstract class VariationCoefficientDesignVariableProperties<TDistribution>
@@ -47,8 +47,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="designVariable"/> is <c>null</c>
         /// or when any number of properties in this class is editable and any other parameter is <c>null</c>.</exception>
         protected VariationCoefficientDesignVariableProperties(VariationCoefficientDistributionPropertiesReadOnly propertiesReadOnly,
-                                           VariationCoefficientDesignVariable<TDistribution> designVariable,
-                                           IObservablePropertyChangeHandler handler)
+                                                               VariationCoefficientDesignVariable<TDistribution> designVariable,
+                                                               IObservablePropertyChangeHandler handler)
             : base(propertiesReadOnly, GetDistribution(designVariable), handler)
         {
             DesignVariable = designVariable;

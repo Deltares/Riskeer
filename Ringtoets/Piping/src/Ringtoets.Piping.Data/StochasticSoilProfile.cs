@@ -33,9 +33,8 @@ namespace Ringtoets.Piping.Data
     /// </summary>
     public class StochasticSoilProfile : Observable
     {
-        private double probability;
-
         private static readonly Range<double> probabilityValidityRange = new Range<double>(0, 1);
+        private double probability;
 
         /// <summary>
         /// Creates a new instance of <see cref="StochasticSoilProfile"/>.
@@ -131,13 +130,6 @@ namespace Ringtoets.Piping.Data
             return SoilProfile?.ToString() ?? string.Empty;
         }
 
-        protected bool Equals(StochasticSoilProfile other)
-        {
-            return Probability.Equals(other.Probability)
-                   && SoilProfileType == other.SoilProfileType
-                   && Equals(SoilProfile, other.SoilProfile);
-        }
-
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -155,6 +147,13 @@ namespace Ringtoets.Piping.Data
                 hashCode = (hashCode * 397) ^ (SoilProfile?.GetHashCode() ?? 0);
                 return hashCode;
             }
+        }
+
+        protected bool Equals(StochasticSoilProfile other)
+        {
+            return Probability.Equals(other.Probability)
+                   && SoilProfileType == other.SoilProfileType
+                   && Equals(SoilProfile, other.SoilProfile);
         }
     }
 }

@@ -73,8 +73,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
             ValidateSectionResults(sectionResults);
 
             return AssignUnassignCalculations.Update(
-                sectionResults.Select(AsCalculationAssignment),
-                CalculationsToCalculationsWithLocations(calculations))
+                                                 sectionResults.Select(AsCalculationAssignment),
+                                                 CalculationsToCalculationsWithLocations(calculations))
                                              .Cast<GrassCoverErosionInwardsFailureMechanismSectionResult>()
                                              .ToArray();
         }

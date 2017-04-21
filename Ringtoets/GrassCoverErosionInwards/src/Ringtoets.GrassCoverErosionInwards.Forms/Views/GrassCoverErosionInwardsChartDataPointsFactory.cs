@@ -82,8 +82,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                 return new Point2D[0];
             }
 
-            var dikeProfile = input.DikeProfile;
-            var roughnessPoints = dikeProfile.DikeGeometry;
+            DikeProfile dikeProfile = input.DikeProfile;
+            RoughnessPoint[] roughnessPoints = dikeProfile.DikeGeometry;
 
             return new[]
             {

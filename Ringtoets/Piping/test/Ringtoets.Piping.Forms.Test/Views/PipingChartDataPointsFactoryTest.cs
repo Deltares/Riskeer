@@ -47,7 +47,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void CreateSurfaceLinePoints_GivenSurfaceLine_ReturnsSurfaceLinePointsArray()
         {
             // Setup
-            var surfaceLine = GetSurfaceLineWithGeometry();
+            RingtoetsPipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
             Point2D[] points = PipingChartDataPointsFactory.CreateSurfaceLinePoints(surfaceLine);
@@ -198,7 +198,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void CreateDitchPolderSidePoint_DitchPolderSideNull_ReturnsEmptyPointsArray()
         {
             // Setup
-            var surfaceLine = GetSurfaceLineWithGeometry();
+            RingtoetsPipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
             Point2D[] points = PipingChartDataPointsFactory.CreateDitchPolderSidePoint(surfaceLine);
@@ -212,7 +212,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             var ditchPolderSide = new Point3D(1.2, 2.3, 4.0);
-            var surfaceLine = GetSurfaceLineWithGeometry();
+            RingtoetsPipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             surfaceLine.SetDitchPolderSideAt(ditchPolderSide);
 
@@ -237,7 +237,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void CreateBottomDitchPolderSidePoint_BottomDitchPolderSideNull_ReturnsEmptyPointsArray()
         {
             // Setup
-            var surfaceLine = GetSurfaceLineWithGeometry();
+            RingtoetsPipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
             Point2D[] points = PipingChartDataPointsFactory.CreateBottomDitchPolderSidePoint(surfaceLine);
@@ -251,7 +251,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             var bottomDitchPolderSide = new Point3D(1.2, 2.3, 4.0);
-            var surfaceLine = GetSurfaceLineWithGeometry();
+            RingtoetsPipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             surfaceLine.SetBottomDitchPolderSideAt(bottomDitchPolderSide);
 
@@ -276,7 +276,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void CreateBottomDitchDikeSidePoint_BottomDitchDikeSideNull_ReturnsEmptyPointsArray()
         {
             // Setup
-            var surfaceLine = GetSurfaceLineWithGeometry();
+            RingtoetsPipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
             Point2D[] points = PipingChartDataPointsFactory.CreateBottomDitchDikeSidePoint(surfaceLine);
@@ -290,7 +290,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             var bottomDitchDikeSide = new Point3D(1.2, 2.3, 4.0);
-            var surfaceLine = GetSurfaceLineWithGeometry();
+            RingtoetsPipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             surfaceLine.SetBottomDitchDikeSideAt(bottomDitchDikeSide);
 
@@ -315,7 +315,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void CreateDitchDikeSidePoint_DitchDikeSideNull_ReturnsEmptyPointsArray()
         {
             // Setup
-            var surfaceLine = GetSurfaceLineWithGeometry();
+            RingtoetsPipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
             Point2D[] points = PipingChartDataPointsFactory.CreateDitchDikeSidePoint(surfaceLine);
@@ -329,7 +329,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             var ditchDikeSide = new Point3D(1.2, 2.3, 4.0);
-            var surfaceLine = GetSurfaceLineWithGeometry();
+            RingtoetsPipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             surfaceLine.SetDitchDikeSideAt(ditchDikeSide);
 
@@ -354,7 +354,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void CreateDikeToeAtRiverPoint_DikeToeAtRiverNull_ReturnsEmptyPointsArray()
         {
             // Setup
-            var surfaceLine = GetSurfaceLineWithGeometry();
+            RingtoetsPipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
             Point2D[] points = PipingChartDataPointsFactory.CreateDikeToeAtRiverPoint(surfaceLine);
@@ -368,7 +368,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             var dikeToeAtRiver = new Point3D(1.2, 2.3, 4.0);
-            var surfaceLine = GetSurfaceLineWithGeometry();
+            RingtoetsPipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             surfaceLine.SetDikeToeAtRiverAt(dikeToeAtRiver);
 
@@ -393,7 +393,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void CreateDikeToeAtPolderPoint_DikeToeAtPolderNull_ReturnsEmptyPointsArray()
         {
             // Setup
-            var surfaceLine = GetSurfaceLineWithGeometry();
+            RingtoetsPipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
             Point2D[] points = PipingChartDataPointsFactory.CreateDikeToeAtPolderPoint(surfaceLine);
@@ -407,7 +407,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             var dikeToeAtPolder = new Point3D(1.2, 2.3, 4.0);
-            var surfaceLine = GetSurfaceLineWithGeometry();
+            RingtoetsPipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             surfaceLine.SetDikeToeAtPolderAt(dikeToeAtPolder);
 
@@ -426,7 +426,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             {
                 new PipingSoilLayer(3.2)
             }, SoilProfileType.SoilProfile1D, 0);
-            var surfaceLine = GetSurfaceLineWithGeometry();
+            RingtoetsPipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
             IEnumerable<Point2D[]> areas = PipingChartDataPointsFactory.CreateSoilLayerAreas(null, soilProfile, surfaceLine);
@@ -440,7 +440,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             var soilLayer = new PipingSoilLayer(3.2);
-            var surfaceLine = GetSurfaceLineWithGeometry();
+            RingtoetsPipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
             IEnumerable<Point2D[]> areas = PipingChartDataPointsFactory.CreateSoilLayerAreas(soilLayer, null, surfaceLine);
@@ -713,10 +713,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             Point3D first = surfaceLine.Points.First();
             Point3D last = surfaceLine.Points.Last();
-            Point2D firstPoint = new Point2D(first.X, first.Y);
-            Point2D lastPoint = new Point2D(last.X, last.Y);
+            var firstPoint = new Point2D(first.X, first.Y);
+            var lastPoint = new Point2D(last.X, last.Y);
 
-            var localCoordinate = point.ProjectIntoLocalCoordinates(firstPoint, lastPoint);
+            Point2D localCoordinate = point.ProjectIntoLocalCoordinates(firstPoint, lastPoint);
             AssertEqualPointCollections(new[]
             {
                 new Point2D(new RoundedDouble(2, localCoordinate.X), new RoundedDouble(2, localCoordinate.Y))

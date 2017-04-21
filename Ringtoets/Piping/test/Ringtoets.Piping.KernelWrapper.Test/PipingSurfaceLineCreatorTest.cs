@@ -108,12 +108,12 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             PipingSurfaceLine actual = PipingSurfaceLineCreator.Create(surfaceLine);
 
             // Assert
-            var length = Math.Sqrt(2*2 + 3*3);
-            const double secondCoordinateFactor = (2.0*1.0 + 3.0*2.0)/(2.0*2.0 + 3.0*3.0);
+            double length = Math.Sqrt(2 * 2 + 3 * 3);
+            const double secondCoordinateFactor = (2.0 * 1.0 + 3.0 * 2.0) / (2.0 * 2.0 + 3.0 * 3.0);
             double[] expectedCoordinatesX =
             {
                 0.0,
-                secondCoordinateFactor*length,
+                secondCoordinateFactor * length,
                 length
             };
             Assert.AreEqual(name, actual.Name);

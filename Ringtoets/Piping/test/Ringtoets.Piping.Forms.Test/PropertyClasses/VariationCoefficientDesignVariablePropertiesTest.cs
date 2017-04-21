@@ -61,7 +61,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             var designVariable = new SimpleVariationCoefficientDesignVariableProperties(distribution, RoundedDouble.NaN);
-            
+
             // Call
             var properties = new SimpleDesignVariableProperties(VariationCoefficientDistributionPropertiesReadOnly.All,
                                                                 designVariable,
@@ -95,7 +95,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                                 handler);
 
             // Call
-            var propertyName = properties.ToString();
+            string propertyName = properties.ToString();
 
             // Assert
             Assert.AreEqual("0,45 (Verwachtingswaarde = 1,00, Variatiecoëfficiënt = 2,00)", propertyName);
@@ -113,11 +113,11 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
         private class SimpleVariationCoefficientDesignVariableProperties : VariationCoefficientDesignVariable<IVariationCoefficientDistribution>
         {
-            private RoundedDouble designValue;
+            private readonly RoundedDouble designValue;
 
             public SimpleVariationCoefficientDesignVariableProperties(
                 IVariationCoefficientDistribution variationCoefficientLogNormalDistribution,
-                RoundedDouble designValue) 
+                RoundedDouble designValue)
                 : base(variationCoefficientLogNormalDistribution)
             {
                 this.designValue = designValue;

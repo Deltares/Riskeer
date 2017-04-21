@@ -25,7 +25,6 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Styles;
-using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
@@ -174,7 +173,7 @@ namespace Ringtoets.Piping.Forms.Views
                 throw new ArgumentOutOfRangeException(nameof(soilLayerIndex));
             }
 
-            var soilLayer = soilProfile.Layers.ElementAt(soilLayerIndex);
+            PipingSoilLayer soilLayer = soilProfile.Layers.ElementAt(soilLayerIndex);
 
             return new ChartMultipleAreaData(string.Format("{0} {1}", soilLayerIndex + 1, soilLayer.MaterialName))
             {

@@ -45,7 +45,7 @@ namespace Ringtoets.Piping.Data.TestUtil
         /// <returns>A new <see cref="PipingCalculationScenario"/>.</returns>
         public static PipingCalculationScenario CreatePipingCalculationScenario(double probability, FailureMechanismSection section)
         {
-            var scenario = CreateNotCalculatedPipingCalculationScenario(section);
+            PipingCalculationScenario scenario = CreateNotCalculatedPipingCalculationScenario(section);
             var random = new Random(21);
             scenario.SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(
                 random.NextDouble(),
@@ -87,7 +87,7 @@ namespace Ringtoets.Piping.Data.TestUtil
         /// <returns>A new <see cref="PipingCalculationScenario"/>.</returns>
         public static PipingCalculationScenario CreateIrrelevantPipingCalculationScenario(FailureMechanismSection section)
         {
-            var scenario = CreateNotCalculatedPipingCalculationScenario(section);
+            PipingCalculationScenario scenario = CreateNotCalculatedPipingCalculationScenario(section);
             scenario.IsRelevant = false;
             return scenario;
         }
@@ -105,7 +105,7 @@ namespace Ringtoets.Piping.Data.TestUtil
                 throw new ArgumentNullException(nameof(section));
             }
             var ringtoetsPipingSurfaceLine = new RingtoetsPipingSurfaceLine();
-            var p = section.Points.First();
+            Point2D p = section.Points.First();
             ringtoetsPipingSurfaceLine.SetGeometry(new[]
             {
                 new Point3D(p.X, p.Y, 0),
@@ -152,7 +152,7 @@ namespace Ringtoets.Piping.Data.TestUtil
                         BelowPhreaticLevelShift = 10,
                         BelowPhreaticLevelMean = 17.5
                     },
-                    new PipingSoilLayer(top/2)
+                    new PipingSoilLayer(top / 2)
                     {
                         IsAquifer = true,
                         DiameterD70CoefficientOfVariation = 0,
@@ -163,11 +163,11 @@ namespace Ringtoets.Piping.Data.TestUtil
                 }, SoilProfileType.SoilProfile1D, 0)
             };
             var surfaceLine = new RingtoetsPipingSurfaceLine();
-            var firstCharacteristicPointLocation = new Point3D(0.2, 0.0, bottom + 3*top/4);
-            var secondCharacteristicPointLocation = new Point3D(0.3, 0.0, bottom + 2*top/4);
-            var thirdCharacteristicPointLocation = new Point3D(0.4, 0.0, bottom + top/4);
-            var fourthCharacteristicPointLocation = new Point3D(0.5, 0.0, bottom + 2*top/4);
-            var fifthCharacteristicPointLocation = new Point3D(0.6, 0.0, bottom + 3*top/4);
+            var firstCharacteristicPointLocation = new Point3D(0.2, 0.0, bottom + 3 * top / 4);
+            var secondCharacteristicPointLocation = new Point3D(0.3, 0.0, bottom + 2 * top / 4);
+            var thirdCharacteristicPointLocation = new Point3D(0.4, 0.0, bottom + top / 4);
+            var fourthCharacteristicPointLocation = new Point3D(0.5, 0.0, bottom + 2 * top / 4);
+            var fifthCharacteristicPointLocation = new Point3D(0.6, 0.0, bottom + 3 * top / 4);
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0.0, 0.0, 0.0),

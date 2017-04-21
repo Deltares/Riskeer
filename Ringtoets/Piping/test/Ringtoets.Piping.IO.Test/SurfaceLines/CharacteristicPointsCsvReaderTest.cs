@@ -48,7 +48,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             TestDelegate call = () => new CharacteristicPointsCsvReader(path);
 
             // Assert
-            var expectedMessage = new FileReaderErrorMessageBuilder(path).Build(UtilsResources.Error_Path_must_be_specified);
+            string expectedMessage = new FileReaderErrorMessageBuilder(path).Build(UtilsResources.Error_Path_must_be_specified);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -66,7 +66,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             TestDelegate call = () => new CharacteristicPointsCsvReader(corruptPath);
 
             // Assert
-            string innerErrorMessage = "Er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.";
+            var innerErrorMessage = "Er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.";
             string expectedMessage = new FileReaderErrorMessageBuilder(corruptPath).Build(innerErrorMessage);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
@@ -78,7 +78,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             TestDelegate call = () => new CharacteristicPointsCsvReader(testDataPath);
 
             // Assert
-            ArgumentException exception = Assert.Throws<ArgumentException>(call);
+            var exception = Assert.Throws<ArgumentException>(call);
             string expectedMessage = new FileReaderErrorMessageBuilder(testDataPath).Build(UtilsResources.Error_Path_must_not_point_to_empty_file_name);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
@@ -131,7 +131,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 TestDelegate call = () => reader.GetLocationsCount();
 
                 // Assert
-                CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(call);
+                var exception = Assert.Throws<CriticalFileReadException>(call);
                 string expectedError = new FileReaderErrorMessageBuilder(path).Build(UtilsResources.Error_File_does_not_exist);
                 Assert.AreEqual(expectedError, exception.Message);
                 Assert.IsInstanceOf<FileNotFoundException>(exception.InnerException);
@@ -153,7 +153,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 TestDelegate call = () => reader.GetLocationsCount();
 
                 // Assert
-                CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(call);
+                var exception = Assert.Throws<CriticalFileReadException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path).Build(UtilsResources.Error_Directory_missing);
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<DirectoryNotFoundException>(exception.InnerException);
@@ -175,7 +175,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 TestDelegate call = () => reader.GetLocationsCount();
 
                 // Assert
-                CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(call);
+                var exception = Assert.Throws<CriticalFileReadException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 1")
                     .Build(UtilsResources.Error_File_empty);
@@ -204,7 +204,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 TestDelegate call = () => reader.ReadCharacteristicPointsLocation();
 
                 // Assert
-                CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(call);
+                var exception = Assert.Throws<CriticalFileReadException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 1")
                     .Build(Resources.CharacteristicPointsCsvReader_File_invalid_header);
@@ -227,7 +227,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 TestDelegate call = () => reader.GetLocationsCount();
 
                 // Assert
-                CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(call);
+                var exception = Assert.Throws<CriticalFileReadException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 1")
                     .Build(Resources.CharacteristicPointsCsvReader_File_invalid_header);
@@ -250,7 +250,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 TestDelegate call = () => reader.GetLocationsCount();
 
                 // Assert
-                CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(call);
+                var exception = Assert.Throws<CriticalFileReadException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 1")
                     .Build(Resources.CharacteristicPointsCsvReader_File_invalid_header);
@@ -287,7 +287,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             using (var reader = new CharacteristicPointsCsvReader(path))
             {
                 int locationsCount = reader.GetLocationsCount();
-                for (int i = 0; i < locationsCount; i++)
+                for (var i = 0; i < locationsCount; i++)
                 {
                     CharacteristicPoints characteristicPointsLocation = reader.ReadCharacteristicPointsLocation();
                     Assert.IsNotInstanceOf<IDisposable>(characteristicPointsLocation,
@@ -318,7 +318,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 TestDelegate call = () => reader.ReadCharacteristicPointsLocation();
 
                 // Assert
-                CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(call);
+                var exception = Assert.Throws<CriticalFileReadException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path).Build(UtilsResources.Error_File_does_not_exist);
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<FileNotFoundException>(exception.InnerException);
@@ -340,7 +340,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 TestDelegate call = () => reader.ReadCharacteristicPointsLocation();
 
                 // Assert
-                CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(call);
+                var exception = Assert.Throws<CriticalFileReadException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path).Build(UtilsResources.Error_Directory_missing);
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<DirectoryNotFoundException>(exception.InnerException);
@@ -362,7 +362,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 TestDelegate call = () => reader.ReadCharacteristicPointsLocation();
 
                 // Assert
-                CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(call);
+                var exception = Assert.Throws<CriticalFileReadException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 1")
                     .Build(UtilsResources.Error_File_empty);
@@ -385,7 +385,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 TestDelegate call = () => reader.ReadCharacteristicPointsLocation();
 
                 // Assert
-                CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(call);
+                var exception = Assert.Throws<CriticalFileReadException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 1")
                     .Build(Resources.CharacteristicPointsCsvReader_File_invalid_header);
@@ -408,7 +408,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 TestDelegate call = () => reader.ReadCharacteristicPointsLocation();
 
                 // Assert
-                CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(call);
+                var exception = Assert.Throws<CriticalFileReadException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 1")
                     .Build(Resources.CharacteristicPointsCsvReader_File_invalid_header);
@@ -431,7 +431,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 TestDelegate call = () => reader.ReadCharacteristicPointsLocation();
 
                 // Assert
-                LineParseException exception = Assert.Throws<LineParseException>(call);
+                var exception = Assert.Throws<LineParseException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 2")
                     .WithSubject("locatie 'Invalid'")
@@ -462,7 +462,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 TestDelegate call = () => reader.ReadCharacteristicPointsLocation();
 
                 // Assert
-                LineParseException exception = Assert.Throws<LineParseException>(call);
+                var exception = Assert.Throws<LineParseException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 2")
                     .WithSubject("locatie 'InvalidNumber'")
@@ -488,7 +488,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
 
                 // Assert
                 // 1st line has no text at all:
-                LineParseException exception = Assert.Throws<LineParseException>(call);
+                var exception = Assert.Throws<LineParseException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 2")
                     .Build(Resources.CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_ID);
@@ -519,7 +519,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
 
                 // Assert
                 // 1st line has no text at all:
-                LineParseException exception = Assert.Throws<LineParseException>(call);
+                var exception = Assert.Throws<LineParseException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 2")
                     .Build(Resources.CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_ID);
@@ -549,7 +549,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 TestDelegate call = () => reader.ReadCharacteristicPointsLocation();
 
                 // Assert
-                LineParseException exception = Assert.Throws<LineParseException>(call);
+                var exception = Assert.Throws<LineParseException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 1")
                     .Build(string.Format(Resources.CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_separator_0_, ';'));
@@ -573,7 +573,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
 
                 // Assert
                 // 1st row lacks 1 coordinate value:
-                LineParseException exception = Assert.Throws<LineParseException>(call);
+                var exception = Assert.Throws<LineParseException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 2")
                     .WithSubject("locatie 'LacksOneCoordinate'")
@@ -606,7 +606,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
 
                 // Assert
                 // 1st row lacks 1 coordinate value:
-                LineParseException exception = Assert.Throws<LineParseException>(call);
+                var exception = Assert.Throws<LineParseException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 2")
                     .WithSubject("locatie 'OneValueTooMuch'")

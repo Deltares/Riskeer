@@ -233,7 +233,7 @@ namespace Ringtoets.Piping.Forms.Views
                 return Enumerable.Empty<Point2D[]>();
             }
 
-            var surfaceLineLocalGeometry = surfaceLine.ProjectGeometryToLZ().ToArray();
+            Point2D[] surfaceLineLocalGeometry = surfaceLine.ProjectGeometryToLZ().ToArray();
 
             if (IsSurfaceLineAboveSoilLayer(surfaceLineLocalGeometry, soilLayer))
             {
@@ -253,33 +253,33 @@ namespace Ringtoets.Piping.Forms.Views
 
         private static IEnumerable<Point2D[]> GetSoilLayerWithSurfaceLineIntersection(Point2D[] surfaceLineLocalGeometry, PipingSoilLayer soilLayer, PipingSoilProfile soilProfile)
         {
-            var surfaceLineAsPolygon = CreateSurfaceLinePolygonAroundSoilLayer(surfaceLineLocalGeometry, soilLayer, soilProfile);
-            var soilLayerAsPolygon = CreateSurfaceLineWideSoilLayer(surfaceLineLocalGeometry, soilLayer, soilProfile);
+            Point2D[] surfaceLineAsPolygon = CreateSurfaceLinePolygonAroundSoilLayer(surfaceLineLocalGeometry, soilLayer, soilProfile);
+            Point2D[] soilLayerAsPolygon = CreateSurfaceLineWideSoilLayer(surfaceLineLocalGeometry, soilLayer, soilProfile);
 
             return AdvancedMath2D.PolygonIntersectionWithPolygon(surfaceLineAsPolygon, soilLayerAsPolygon);
         }
 
         private static bool IsSurfaceLineAboveSoilLayer(IEnumerable<Point2D> surfaceLineLocalGeometry, PipingSoilLayer soilLayer)
         {
-            var surfaceLineLowestPointY = surfaceLineLocalGeometry.Select(p => p.Y).Min();
-            var topLevel = soilLayer.Top;
+            double surfaceLineLowestPointY = surfaceLineLocalGeometry.Select(p => p.Y).Min();
+            double topLevel = soilLayer.Top;
 
             return surfaceLineLowestPointY >= topLevel;
         }
 
         private static bool IsSurfaceLineBelowSoilLayer(Point2D[] surfaceLineLocalGeometry, PipingSoilLayer soilLayer, PipingSoilProfile soilProfile)
         {
-            var topLevel = soilLayer.Top;
+            double topLevel = soilLayer.Top;
             return surfaceLineLocalGeometry.Select(p => p.Y).Max() <= topLevel - soilProfile.GetLayerThickness(soilLayer);
         }
 
         private static Point2D[] CreateSurfaceLinePolygonAroundSoilLayer(Point2D[] surfaceLineLocalGeometry, PipingSoilLayer soilLayer, PipingSoilProfile soilProfile)
         {
-            var surfaceLineAsPolygon = surfaceLineLocalGeometry.ToList();
+            List<Point2D> surfaceLineAsPolygon = surfaceLineLocalGeometry.ToList();
 
-            var topLevel = soilLayer.Top;
-            var bottomLevel = topLevel - soilProfile.GetLayerThickness(soilLayer);
-            var surfaceLineLowestPointY = surfaceLineAsPolygon.Select(p => p.Y).Min();
+            double topLevel = soilLayer.Top;
+            double bottomLevel = topLevel - soilProfile.GetLayerThickness(soilLayer);
+            double surfaceLineLowestPointY = surfaceLineAsPolygon.Select(p => p.Y).Min();
 
             double closingSurfaceLineToPolygonBottomLevel = Math.Min(surfaceLineLowestPointY, bottomLevel) - 1;
 
@@ -291,14 +291,14 @@ namespace Ringtoets.Piping.Forms.Views
 
         private static Point2D[] CreateSurfaceLineWideSoilLayer(Point2D[] surfaceLineLocalGeometry, PipingSoilLayer soilLayer, PipingSoilProfile soilProfile)
         {
-            var firstSurfaceLinePoint = surfaceLineLocalGeometry.First();
-            var lastSurfaceLinePoint = surfaceLineLocalGeometry.Last();
+            Point2D firstSurfaceLinePoint = surfaceLineLocalGeometry.First();
+            Point2D lastSurfaceLinePoint = surfaceLineLocalGeometry.Last();
 
-            var startX = firstSurfaceLinePoint.X;
-            var endX = lastSurfaceLinePoint.X;
+            double startX = firstSurfaceLinePoint.X;
+            double endX = lastSurfaceLinePoint.X;
 
-            var topLevel = soilLayer.Top;
-            var bottomLevel = topLevel - soilProfile.GetLayerThickness(soilLayer);
+            double topLevel = soilLayer.Top;
+            double bottomLevel = topLevel - soilProfile.GetLayerThickness(soilLayer);
 
             return new[]
             {

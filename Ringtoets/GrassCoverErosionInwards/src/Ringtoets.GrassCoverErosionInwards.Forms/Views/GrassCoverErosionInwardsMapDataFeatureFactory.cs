@@ -41,23 +41,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// <returns>An array of features or an empty array when <paramref name="calculations"/> is <c>null</c> or empty.</returns>
         public static MapFeature[] CreateCalculationFeatures(IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
         {
-            var hasCalculations = calculations != null && calculations.Any();
+            bool hasCalculations = calculations != null && calculations.Any();
 
             if (!hasCalculations)
             {
                 return new MapFeature[0];
             }
 
-            var calculationsWithLocationAndHydraulicBoundaryLocation = calculations.Where(c =>
-                                                                                          c.InputParameters.DikeProfile != null &&
-                                                                                          c.InputParameters.HydraulicBoundaryLocation != null);
+            IEnumerable<GrassCoverErosionInwardsCalculation> calculationsWithLocationAndHydraulicBoundaryLocation =
+                calculations.Where(c => c.InputParameters.DikeProfile != null &&
+                                        c.InputParameters.HydraulicBoundaryLocation != null);
 
             MapCalculationData[] calculationData =
                 calculationsWithLocationAndHydraulicBoundaryLocation.Select(
                     calculation => new MapCalculationData(
-                                       calculation.Name,
-                                       calculation.InputParameters.DikeProfile.WorldReferencePoint,
-                                       calculation.InputParameters.HydraulicBoundaryLocation)).ToArray();
+                        calculation.Name,
+                        calculation.InputParameters.DikeProfile.WorldReferencePoint,
+                        calculation.InputParameters.HydraulicBoundaryLocation)).ToArray();
 
             return RingtoetsMapDataFeaturesFactory.CreateCalculationFeatures(calculationData);
         }

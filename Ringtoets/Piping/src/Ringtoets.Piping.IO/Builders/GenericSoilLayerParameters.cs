@@ -195,8 +195,8 @@ namespace Ringtoets.Piping.IO.Builders
             if (distribution.HasValue && (distribution != SoilLayerConstants.LogNormalDistributionValue || shift != 0.0))
             {
                 throw new SoilLayerConversionException(string.Format(
-                    Resources.SoilLayer_Stochastic_parameter_0_has_no_lognormal_distribution,
-                    incorrectDistibutionParameter));
+                                                           Resources.SoilLayer_Stochastic_parameter_0_has_no_lognormal_distribution,
+                                                           incorrectDistibutionParameter));
             }
         }
 
@@ -205,8 +205,8 @@ namespace Ringtoets.Piping.IO.Builders
             if (distribution.HasValue && distribution != SoilLayerConstants.LogNormalDistributionValue)
             {
                 throw new SoilLayerConversionException(string.Format(
-                    Resources.SoilLayer_Stochastic_parameter_0_has_no_shifted_lognormal_distribution,
-                    incorrectDistibutionParameter));
+                                                           Resources.SoilLayer_Stochastic_parameter_0_has_no_shifted_lognormal_distribution,
+                                                           incorrectDistibutionParameter));
             }
         }
     }

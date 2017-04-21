@@ -21,6 +21,7 @@
 
 using System.Linq;
 using Core.Common.Gui.Plugin;
+using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -70,11 +71,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.PropertyInfos
             var context = new GrassCoverErosionInwardsInputContext(
                 calculation.InputParameters,
                 calculation,
-                failureMechanism, 
+                failureMechanism,
                 assessmentSection);
 
             // Call
-            var objectProperties = info.CreateInstance(context);
+            IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
             Assert.IsInstanceOf<GrassCoverErosionInwardsInputContextProperties>(objectProperties);

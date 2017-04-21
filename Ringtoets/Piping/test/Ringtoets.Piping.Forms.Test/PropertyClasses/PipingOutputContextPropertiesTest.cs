@@ -107,16 +107,16 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var probabilityFormat = "1/{0:n0}";
             Assert.AreEqual(upliftFactorOfSafety, properties.UpliftFactorOfSafety, properties.UpliftFactorOfSafety.GetAccuracy());
             Assert.AreEqual(upliftReliability, properties.UpliftReliability, properties.UpliftReliability.GetAccuracy());
-            Assert.AreEqual(string.Format(probabilityFormat, 1.0/upliftProbability), properties.UpliftProbability);
+            Assert.AreEqual(string.Format(probabilityFormat, 1.0 / upliftProbability), properties.UpliftProbability);
             Assert.AreEqual(heaveFactorOfSafety, properties.HeaveFactorOfSafety, properties.HeaveFactorOfSafety.GetAccuracy());
             Assert.AreEqual(heaveReliability, properties.HeaveReliability, properties.HeaveReliability.GetAccuracy());
-            Assert.AreEqual(string.Format(probabilityFormat, 1.0/heaveProbability), properties.HeaveProbability);
+            Assert.AreEqual(string.Format(probabilityFormat, 1.0 / heaveProbability), properties.HeaveProbability);
             Assert.AreEqual(sellmeijerFactorOfSafety, properties.SellmeijerFactorOfSafety, properties.SellmeijerFactorOfSafety.GetAccuracy());
             Assert.AreEqual(sellmeijerReliability, properties.SellmeijerReliability, properties.SellmeijerReliability.GetAccuracy());
-            Assert.AreEqual(string.Format(probabilityFormat, 1.0/sellmeijerProbability), properties.SellmeijerProbability);
-            Assert.AreEqual(string.Format(probabilityFormat, 1.0/requiredProbability), properties.RequiredProbability);
+            Assert.AreEqual(string.Format(probabilityFormat, 1.0 / sellmeijerProbability), properties.SellmeijerProbability);
+            Assert.AreEqual(string.Format(probabilityFormat, 1.0 / requiredProbability), properties.RequiredProbability);
             Assert.AreEqual(requiredReliability, properties.RequiredReliability, properties.RequiredReliability.GetAccuracy());
-            Assert.AreEqual(string.Format(probabilityFormat, 1.0/pipingProbability), properties.PipingProbability);
+            Assert.AreEqual(string.Format(probabilityFormat, 1.0 / pipingProbability), properties.PipingProbability);
             Assert.AreEqual(pipingReliability, properties.PipingReliability, properties.PipingReliability.GetAccuracy());
             Assert.AreEqual(pipingFactorOfSafety, properties.PipingFactorOfSafety, properties.PipingFactorOfSafety.GetAccuracy());
 

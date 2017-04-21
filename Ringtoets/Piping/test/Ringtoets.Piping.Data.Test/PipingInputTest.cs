@@ -98,10 +98,10 @@ namespace Ringtoets.Piping.Data.Test
                 CoefficientOfVariation = (RoundedDouble) 0.1
             };
 
-            GeneralPipingInput generalInputParameters = new GeneralPipingInput();
+            var generalInputParameters = new GeneralPipingInput();
 
             // Call
-            PipingInput inputParameters = new PipingInput(generalInputParameters);
+            var inputParameters = new PipingInput(generalInputParameters);
 
             // Assert
             Assert.IsInstanceOf<Observable>(inputParameters);
@@ -169,7 +169,7 @@ namespace Ringtoets.Piping.Data.Test
         public void ExitPointL_ExitPointEqualSmallerThanEntryPoint_ThrowsArgumentOutOfRangeException(double value)
         {
             // Setup
-            PipingInput pipingInput = new PipingInput(new GeneralPipingInput())
+            var pipingInput = new PipingInput(new GeneralPipingInput())
             {
                 EntryPointL = (RoundedDouble) 3.5
             };
@@ -186,7 +186,7 @@ namespace Ringtoets.Piping.Data.Test
         public void ExitPointL_Always_SameNumberOfDecimalsAsSurfaceLineLocalGeometry()
         {
             // Setup
-            PipingInput pipingInput = new PipingInput(new GeneralPipingInput())
+            var pipingInput = new PipingInput(new GeneralPipingInput())
             {
                 SurfaceLine = CreateSurfaceLine()
             };
@@ -245,7 +245,7 @@ namespace Ringtoets.Piping.Data.Test
         public void EntryPointL_EntryPointEqualOrGreaterThanExitPoint_ThrowsArgumentOutOfRangeException(double value)
         {
             // Setup
-            PipingInput pipingInput = new PipingInput(new GeneralPipingInput())
+            var pipingInput = new PipingInput(new GeneralPipingInput())
             {
                 ExitPointL = (RoundedDouble) 3.5
             };
@@ -304,7 +304,7 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             RingtoetsPipingSurfaceLine surfaceLine = CreateSurfaceLine();
-            PipingInput pipingInput = new PipingInput(new GeneralPipingInput());
+            var pipingInput = new PipingInput(new GeneralPipingInput());
 
             // Call
             RoundedPoint2DCollection localGeometry = surfaceLine.ProjectGeometryToLZ();
@@ -317,9 +317,9 @@ namespace Ringtoets.Piping.Data.Test
         public void SurfaceLine_WithDikeToes_ExitPointLAndEntryPointLUpdated()
         {
             // Given
-            PipingInput input = new PipingInput(new GeneralPipingInput());
+            var input = new PipingInput(new GeneralPipingInput());
 
-            RingtoetsPipingSurfaceLine surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 0),
@@ -341,9 +341,9 @@ namespace Ringtoets.Piping.Data.Test
         public void SurfaceLine_DikeToesBeyondSetExitPointL_ExitPointLAndEntryPointLUpdated()
         {
             // Given
-            PipingInput input = new PipingInput(new GeneralPipingInput());
+            var input = new PipingInput(new GeneralPipingInput());
 
-            RingtoetsPipingSurfaceLine surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 0),
@@ -372,9 +372,9 @@ namespace Ringtoets.Piping.Data.Test
         public void SurfaceLine_DikeToesBeforeSetEntryPointL_ExitPointLAndEntryPointLUpdated()
         {
             // Given
-            PipingInput input = new PipingInput(new GeneralPipingInput());
+            var input = new PipingInput(new GeneralPipingInput());
 
-            RingtoetsPipingSurfaceLine surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 0),
@@ -403,9 +403,9 @@ namespace Ringtoets.Piping.Data.Test
         public void GivenSurfaceLineSet_WhenSurfaceLineNull_ThenEntryAndExitPointsNaN()
         {
             // Given
-            PipingInput input = new PipingInput(new GeneralPipingInput());
+            var input = new PipingInput(new GeneralPipingInput());
 
-            RingtoetsPipingSurfaceLine surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 0),
@@ -490,7 +490,7 @@ namespace Ringtoets.Piping.Data.Test
             };
 
             // Call
-            var calculatedAssessmentLevel = input.AssessmentLevel;
+            RoundedDouble calculatedAssessmentLevel = input.AssessmentLevel;
 
             // Assert
             Assert.IsNaN(calculatedAssessmentLevel);
@@ -500,7 +500,7 @@ namespace Ringtoets.Piping.Data.Test
         public void AssessmentLevel_UseAssessmentLevelManualInputIsFalseWithHydraulicLocationSetAndDesignWaterLevelOutputSet_ReturnCalculatedAssessmentLevel()
         {
             // Setup
-            PipingInput input = new PipingInput(new GeneralPipingInput());
+            var input = new PipingInput(new GeneralPipingInput());
 
             HydraulicBoundaryLocation testHydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             input.HydraulicBoundaryLocation = testHydraulicBoundaryLocation;
@@ -519,18 +519,18 @@ namespace Ringtoets.Piping.Data.Test
         public void AssessmentLevel_UseAssessmentLevelManualInputFalseAndSettingValue_ThrowsInvalidOperationException()
         {
             // Setup
-            PipingInput input = new PipingInput(new GeneralPipingInput())
+            var input = new PipingInput(new GeneralPipingInput())
             {
                 UseAssessmentLevelManualInput = false
             };
 
-            RoundedDouble testLevel = (RoundedDouble) new Random(21).NextDouble();
+            var testLevel = (RoundedDouble) new Random(21).NextDouble();
 
             // Call 
             TestDelegate call = () => input.AssessmentLevel = testLevel;
 
             // Assert
-            var message = Assert.Throws<InvalidOperationException>(call).Message;
+            string message = Assert.Throws<InvalidOperationException>(call).Message;
             Assert.AreEqual("UseAssessmentLevelManualInput is false", message);
         }
 
@@ -538,12 +538,12 @@ namespace Ringtoets.Piping.Data.Test
         public void AssessmentLevel_UseAssessmentLevelManualInputTrueAndSettingValue_ReturnSetValue()
         {
             // Setup
-            PipingInput input = new PipingInput(new GeneralPipingInput())
+            var input = new PipingInput(new GeneralPipingInput())
             {
                 UseAssessmentLevelManualInput = true
             };
 
-            RoundedDouble testLevel = (RoundedDouble) new Random(21).NextDouble();
+            var testLevel = (RoundedDouble) new Random(21).NextDouble();
 
             // Call
             input.AssessmentLevel = testLevel;
@@ -558,8 +558,8 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Given
             var random = new Random(21);
-            RoundedDouble testLevel = (RoundedDouble) random.NextDouble();
-            PipingInput input = new PipingInput(new GeneralPipingInput())
+            var testLevel = (RoundedDouble) random.NextDouble();
+            var input = new PipingInput(new GeneralPipingInput())
             {
                 HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(testLevel),
             };
@@ -582,14 +582,14 @@ namespace Ringtoets.Piping.Data.Test
             // Given
             var random = new Random(21);
             var testLevel = (RoundedDouble) random.NextDouble();
-            PipingInput input = new PipingInput(new GeneralPipingInput())
+            var input = new PipingInput(new GeneralPipingInput())
             {
                 UseAssessmentLevelManualInput = true,
                 AssessmentLevel = testLevel,
             };
 
             var newLevel = (RoundedDouble) random.NextDouble();
-            var hydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(newLevel);
+            TestHydraulicBoundaryLocation hydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(newLevel);
 
             // When
             input.UseAssessmentLevelManualInput = false;
@@ -605,7 +605,7 @@ namespace Ringtoets.Piping.Data.Test
         public void PiezometricHeadExit_ValidInput_SetsParametersForCalculatorAndReturnsPiezometricHead()
         {
             // Setup
-            PipingInput input = new PipingInput(new GeneralPipingInput());
+            var input = new PipingInput(new GeneralPipingInput());
 
             using (new PipingSubCalculatorFactoryConfig())
             {
@@ -616,7 +616,7 @@ namespace Ringtoets.Piping.Data.Test
                 Assert.AreEqual(2, piezometricHead.NumberOfDecimalPlaces);
                 Assert.IsFalse(double.IsNaN(piezometricHead));
 
-                TestPipingSubCalculatorFactory factory = (TestPipingSubCalculatorFactory) PipingSubCalculatorFactory.Instance;
+                var factory = (TestPipingSubCalculatorFactory) PipingSubCalculatorFactory.Instance;
                 PiezoHeadCalculatorStub piezometricHeadAtExitCalculator = factory.LastCreatedPiezometricHeadAtExitCalculator;
 
                 Assert.AreEqual(piezometricHeadAtExitCalculator.HRiver, input.AssessmentLevel, input.AssessmentLevel.GetAccuracy());
@@ -1107,7 +1107,7 @@ namespace Ringtoets.Piping.Data.Test
 
         private static RingtoetsPipingSurfaceLine CreateSurfaceLine()
         {
-            RingtoetsPipingSurfaceLine surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 0),

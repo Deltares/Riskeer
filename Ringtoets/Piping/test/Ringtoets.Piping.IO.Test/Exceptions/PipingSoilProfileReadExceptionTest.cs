@@ -34,7 +34,7 @@ namespace Ringtoets.Piping.IO.Test.Exceptions
         public void TypeParameterAndMessageConstructor_ExpectedValues()
         {
             // Setup
-            string profileName = "<Name of profile>";
+            var profileName = "<Name of profile>";
             const string messageText = "<insert exception message>";
 
             // Call
@@ -52,7 +52,7 @@ namespace Ringtoets.Piping.IO.Test.Exceptions
         {
             // Setup
             var innerException = new Exception();
-            string profileName = "<Name of profile>";
+            var profileName = "<Name of profile>";
             const string messageText = "<insert exception message>";
 
             // Call

@@ -80,10 +80,10 @@ namespace Ringtoets.Piping.Data
         /// <returns>The collection of consecutive aquitard layer(s) (partly) under the <paramref name="level"/>.</returns>
         public static IEnumerable<PipingSoilLayer> GetConsecutiveCoverageLayersBelowLevel(this PipingSoilProfile soilProfile, double level)
         {
-            var topAquiferLayer = soilProfile.GetConsecutiveAquiferLayersBelowLevel(level).FirstOrDefault();
+            PipingSoilLayer topAquiferLayer = soilProfile.GetConsecutiveAquiferLayersBelowLevel(level).FirstOrDefault();
             if (topAquiferLayer != null)
             {
-                var aquitardLayers = GetConsecutiveLayers(soilProfile, level, false).ToArray();
+                PipingSoilLayer[] aquitardLayers = GetConsecutiveLayers(soilProfile, level, false).ToArray();
                 if (aquitardLayers.Any() && topAquiferLayer.Top < aquitardLayers.First().Top)
                 {
                     return aquitardLayers;
@@ -119,8 +119,8 @@ namespace Ringtoets.Piping.Data
                 return double.NaN;
             }
 
-            var bottomLayer = layers.Last();
-            var topLayer = layers.First();
+            PipingSoilLayer bottomLayer = layers.Last();
+            PipingSoilLayer topLayer = layers.First();
 
             return Math.Min(topLayer.Top, level) - (bottomLayer.Top - soilProfile.GetLayerThickness(bottomLayer));
         }
@@ -141,7 +141,7 @@ namespace Ringtoets.Piping.Data
             }
 
             var yielding = false;
-            foreach (var pipingSoilLayer in soilProfile.Layers)
+            foreach (PipingSoilLayer pipingSoilLayer in soilProfile.Layers)
             {
                 if (pipingSoilLayer.IsAquifer == isAquifer && IsSoilLayerPartlyBelowLevel(soilProfile, pipingSoilLayer, level))
                 {

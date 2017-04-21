@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using NUnit.Framework;
 using Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator;
 
@@ -53,7 +54,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test.SubCalculator
             var stub = new HeaveCalculatorStub();
 
             // Call
-            var result = stub.Validate();
+            List<string> result = stub.Validate();
 
             // Assert
             CollectionAssert.IsEmpty(result);

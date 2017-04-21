@@ -22,7 +22,6 @@
 using System.Data;
 using System.Data.SQLite;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
 using Ringtoets.Piping.IO.Builders;
@@ -60,7 +59,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// </list></exception>
         public void VerifyVersion()
         {
-            var checkVersionQuery = SoilDatabaseQueryBuilder.GetCheckVersionQuery();
+            string checkVersionQuery = SoilDatabaseQueryBuilder.GetCheckVersionQuery();
             var sqliteParameter = new SQLiteParameter
             {
                 DbType = DbType.String,
@@ -74,7 +73,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             }
             catch (SQLiteException exception)
             {
-                var message = new FileReaderErrorMessageBuilder(Path).Build(Resources.PipingSoilProfileReader_Critical_Unexpected_value_on_column);
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.PipingSoilProfileReader_Critical_Unexpected_value_on_column);
                 throw new CriticalFileReadException(message, exception);
             }
         }
@@ -86,8 +85,8 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 if (!dataReader.Read())
                 {
                     throw new CriticalFileReadException(string.Format(
-                        Resources.PipingSoilProfileReader_Database_incorrect_version_requires_Version_0_,
-                        databaseRequiredVersion));
+                                                            Resources.PipingSoilProfileReader_Database_incorrect_version_requires_Version_0_,
+                                                            databaseRequiredVersion));
                 }
             }
         }

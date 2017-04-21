@@ -44,7 +44,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             TestDelegate test = () => new SoilProfileBuilder2D(name, double.NaN, 0);
 
             // Assert
-            ArgumentException exception = Assert.Throws<ArgumentException>(test);
+            var exception = Assert.Throws<ArgumentException>(test);
             string message = string.Format(Resources.Error_SoilProfileBuilder_cant_determine_intersect_SoilProfileName_0_at_double_NaN, name);
             Assert.AreEqual(message, exception.Message);
         }
@@ -86,9 +86,9 @@ namespace Ringtoets.Piping.IO.Test.Builders
             TestDelegate test = () => builder.Add(soilLayer);
 
             // Assert
-            SoilProfileBuilderException exception = Assert.Throws<SoilProfileBuilderException>(test);
+            var exception = Assert.Throws<SoilProfileBuilderException>(test);
             Assert.IsInstanceOf<SoilLayerConversionException>(exception.InnerException);
-            var message = string.Format("Er kan geen 1D-profiel bepaald worden wanneer segmenten in een 2D laag verticaal lopen op de gekozen positie: x = {0}.", atX);
+            string message = string.Format("Er kan geen 1D-profiel bepaald worden wanneer segmenten in een 2D laag verticaal lopen op de gekozen positie: x = {0}.", atX);
             Assert.AreEqual(message, exception.Message);
         }
 

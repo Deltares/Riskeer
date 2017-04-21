@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
@@ -84,7 +85,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             var model = new StochasticSoilModel(1, name, "a");
 
             // Call
-            var text = info.Text(model);
+            string text = info.Text(model);
 
             // Assert
             Assert.AreEqual(name, text);
@@ -97,7 +98,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             var model = new StochasticSoilModel(1, "A", "B");
 
             // Call
-            var image = info.Image(model);
+            Image image = info.Image(model);
 
             // Assert
             TestHelper.AssertImagesAreEqual(PipingFormsResources.StochasticSoilModelIcon, image);
@@ -127,7 +128,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile2);
 
             // Call
-            var objects = info.ChildNodeObjects(stochasticSoilModel);
+            object[] objects = info.ChildNodeObjects(stochasticSoilModel);
 
             // Assert
             var expectedChildren = new[]

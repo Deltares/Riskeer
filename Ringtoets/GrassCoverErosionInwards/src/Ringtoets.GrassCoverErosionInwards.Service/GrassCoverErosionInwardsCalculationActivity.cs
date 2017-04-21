@@ -87,7 +87,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         protected override void PerformCalculation()
         {
             GrassCoverErosionInwardsDataSynchronizationService.ClearCalculationOutput(calculation);
-            
+
             calculationService.Calculate(
                 calculation,
                 assessmentSection,

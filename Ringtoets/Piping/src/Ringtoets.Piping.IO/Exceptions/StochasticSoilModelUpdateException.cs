@@ -63,6 +63,6 @@ namespace Ringtoets.Piping.IO.Exceptions
         /// <c>null</c>.</exception>
         /// <exception cref="SerializationException">The class name is <c>null</c> or
         /// <see cref="Exception.HResult" /> is zero (0).</exception>
-        protected StochasticSoilModelUpdateException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        protected StochasticSoilModelUpdateException(SerializationInfo info, StreamingContext context) : base(info, context) {}
     }
 }

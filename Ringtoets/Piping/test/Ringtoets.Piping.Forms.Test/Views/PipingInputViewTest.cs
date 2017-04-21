@@ -71,7 +71,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var chartControl = (IChartControl) view.Controls.Find("chartControl", true).First();
                 Assert.IsInstanceOf<Control>(chartControl);
                 Assert.AreSame(chartControl, chartControl);
-                Assert.AreEqual(DockStyle.Fill, ((Control)chartControl).Dock);
+                Assert.AreEqual(DockStyle.Fill, ((Control) chartControl).Dock);
                 Assert.AreEqual("Afstand [m]", chartControl.BottomAxisTitle);
                 Assert.AreEqual("Hoogte [m+NAP]", chartControl.LeftAxisTitle);
                 Assert.IsNull(chartControl.Data);
@@ -216,7 +216,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 // Assert
                 Assert.AreSame(calculation, view.Data);
-                var chartData = view.Chart.Data;
+                ChartDataCollection chartData = view.Chart.Data;
                 Assert.IsInstanceOf<ChartDataCollection>(chartData);
                 Assert.AreEqual(10, chartData.Collection.Count());
                 AssertSoilProfileChartData(stochasticSoilProfile, chartData.Collection.ElementAt(soilProfileIndex), true);
@@ -263,7 +263,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 // Assert
                 Assert.AreSame(calculation, view.Data);
-                var chartData = view.Chart.Data;
+                ChartDataCollection chartData = view.Chart.Data;
                 Assert.IsInstanceOf<ChartDataCollection>(chartData);
                 Assert.AreEqual(10, chartData.Collection.Count());
                 var soilProfileData = (ChartDataCollection) chartData.Collection.ElementAt(soilProfileIndex);
@@ -293,7 +293,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 // Assert
                 Assert.AreSame(calculation, view.Data);
-                var chartData = view.Chart.Data;
+                ChartDataCollection chartData = view.Chart.Data;
                 Assert.IsInstanceOf<ChartDataCollection>(chartData);
                 Assert.AreEqual(10, chartData.Collection.Count());
                 var soilProfileData = (ChartDataCollection) chartData.Collection.ElementAt(soilProfileIndex);
@@ -431,7 +431,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 view.Data = calculation;
 
-                var chartDataList = view.Chart.Data.Collection.ToList();
+                List<ChartData> chartDataList = view.Chart.Data.Collection.ToList();
                 var surfaceLineChartData = (ChartLineData) chartDataList[surfaceLineIndex];
                 var entryPointChartData = (ChartPointData) chartDataList[entryPointIndex];
                 var exitPointChartData = (ChartPointData) chartDataList[exitPointIndex];
@@ -541,13 +541,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Data = calculation
             })
             {
-                var chartData = view.Chart.Data;
+                ChartDataCollection chartData = view.Chart.Data;
 
-                var dataToMove = chartData.Collection.ElementAt(surfaceLineIndex);
+                ChartData dataToMove = chartData.Collection.ElementAt(surfaceLineIndex);
                 chartData.Remove(dataToMove);
                 chartData.Add(dataToMove);
 
-                var chartDataList = chartData.Collection.ToList();
+                List<ChartData> chartDataList = chartData.Collection.ToList();
 
                 var soilProfileData = (ChartDataCollection) chartDataList[updatedSoilProfileIndex];
                 var surfaceLineData = (ChartLineData) chartDataList[updatedSurfaceLineIndex];
@@ -657,7 +657,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 view.Data = calculation;
 
-                var chartData = view.Chart.Data;
+                ChartDataCollection chartData = view.Chart.Data;
 
                 // Precondition
                 Assert.IsNotNull(chartData);
@@ -731,7 +731,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             Assert.AreEqual("Invoer", chartDataCollection.Name);
 
-            var chartDatasList = chartDataCollection.Collection.ToList();
+            List<ChartData> chartDatasList = chartDataCollection.Collection.ToList();
 
             Assert.AreEqual(10, chartDatasList.Count);
 
@@ -774,13 +774,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.IsInstanceOf<ChartDataCollection>(chartData);
             var soilProfileChartData = (ChartDataCollection) chartData;
 
-            var expectedLayerCount = soilProfile.SoilProfile.Layers.Count();
+            int expectedLayerCount = soilProfile.SoilProfile.Layers.Count();
             Assert.AreEqual(expectedLayerCount, soilProfileChartData.Collection.Count());
             Assert.AreEqual(soilProfile.SoilProfile.Name, soilProfileChartData.Name);
 
-            var pipingSoilLayers = soilProfile.SoilProfile.Layers.Select((l, i) => string.Format("{0} {1}", i + 1, l.MaterialName)).Reverse().ToArray();
+            string[] pipingSoilLayers = soilProfile.SoilProfile.Layers.Select((l, i) => string.Format("{0} {1}", i + 1, l.MaterialName)).Reverse().ToArray();
 
-            for (int i = 0; i < expectedLayerCount; i++)
+            for (var i = 0; i < expectedLayerCount; i++)
             {
                 var chartMultipleAreaData = soilProfileChartData.Collection.ElementAt(i) as ChartMultipleAreaData;
 
@@ -830,8 +830,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
         private static void AssertCharacteristicPoints(RingtoetsPipingSurfaceLine surfaceLine, IList<ChartData> characteristicPoints)
         {
-            var first = surfaceLine.Points.First();
-            var last = surfaceLine.Points.Last();
+            Point3D first = surfaceLine.Points.First();
+            Point3D last = surfaceLine.Points.Last();
             var firstPoint = new Point2D(first.X, first.Y);
             var lastPoint = new Point2D(last.X, last.Y);
 

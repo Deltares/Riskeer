@@ -95,7 +95,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         /// </exception>
         public int GetLocationsCount()
         {
-            using (var reader = StreamReaderHelper.InitializeStreamReader(filePath))
+            using (StreamReader reader = StreamReaderHelper.InitializeStreamReader(filePath))
             {
                 ValidateHeader(reader);
 
@@ -137,7 +137,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
                 lineNumber = 2;
             }
 
-            var readText = ReadNextNonEmptyLine();
+            string readText = ReadNextNonEmptyLine();
 
             if (readText != null)
             {
@@ -197,7 +197,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         private void ValidateHeader(TextReader reader)
         {
             var currentLine = 1;
-            var header = ReadLineAndHandleIOExceptions(reader, currentLine);
+            string header = ReadLineAndHandleIOExceptions(reader, currentLine);
             if (header != null)
             {
                 if (!IsHeaderValid(header))
@@ -230,7 +230,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
             }
             catch (IOException e)
             {
-                var message = new FileReaderErrorMessageBuilder(filePath).Build(string.Format(UtilsResources.Error_General_IO_ErrorMessage_0_, e.Message));
+                string message = new FileReaderErrorMessageBuilder(filePath).Build(string.Format(UtilsResources.Error_General_IO_ErrorMessage_0_, e.Message));
                 throw new CriticalFileReadException(message, e);
             }
         }
@@ -267,7 +267,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
 
         private void DetermineOrderColumn(string[] tokenizedHeader)
         {
-            var orderColumnIndex = Array.IndexOf(tokenizedHeader, orderNumberKey);
+            int orderColumnIndex = Array.IndexOf(tokenizedHeader, orderNumberKey);
             if (orderColumnIndex > -1)
             {
                 columnsInFile[orderNumberKey] = orderColumnIndex;
@@ -276,15 +276,15 @@ namespace Ringtoets.Piping.IO.SurfaceLines
 
         private bool DetermineRequiredYZColumns(string column, string[] tokenizedHeader)
         {
-            var key = column.Substring(2);
+            string key = column.Substring(2);
 
-            var xColumnIdentifier = xPrefix + key;
-            var yColumnIdentifier = yPrefix + key;
-            var zColumnIdentifier = zPrefix + key;
+            string xColumnIdentifier = xPrefix + key;
+            string yColumnIdentifier = yPrefix + key;
+            string zColumnIdentifier = zPrefix + key;
 
-            var xColumnIndex = Array.IndexOf(tokenizedHeader, xColumnIdentifier);
-            var yColumnIndex = Array.IndexOf(tokenizedHeader, yColumnIdentifier);
-            var zColumnIndex = Array.IndexOf(tokenizedHeader, zColumnIdentifier);
+            int xColumnIndex = Array.IndexOf(tokenizedHeader, xColumnIdentifier);
+            int yColumnIndex = Array.IndexOf(tokenizedHeader, yColumnIdentifier);
+            int zColumnIndex = Array.IndexOf(tokenizedHeader, zColumnIdentifier);
 
             if (yColumnIndex == -1 || zColumnIndex == -1)
             {
@@ -300,7 +300,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
 
         private bool DetermineIdColumn(string[] tokenizedHeader)
         {
-            var locationIdColumnIndex = Array.IndexOf(tokenizedHeader, locationIdKey);
+            int locationIdColumnIndex = Array.IndexOf(tokenizedHeader, locationIdKey);
             if (locationIdColumnIndex == -1)
             {
                 locationIdColumnIndex = Array.IndexOf(tokenizedHeader, surfaceLineKey);
@@ -325,7 +325,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         /// <exception cref="CriticalFileReadException">Thrown when an I/O exception occurred.</exception>
         private int CountNonEmptyLines(TextReader reader, int currentLine)
         {
-            int count = 0;
+            var count = 0;
             int lineNumberForMessage = currentLine;
             string line;
             while ((line = ReadLineAndHandleIOExceptions(reader, lineNumberForMessage)) != null)
@@ -410,18 +410,18 @@ namespace Ringtoets.Piping.IO.SurfaceLines
             try
             {
                 Point3D point = null;
-                var xColumnKey = xPrefix + typeKey;
+                string xColumnKey = xPrefix + typeKey;
                 if (columnsInFile.ContainsKey(xColumnKey))
                 {
-                    var xColumnIndex = columnsInFile[xColumnKey];
-                    var yColumnIndex = columnsInFile[yPrefix + typeKey];
-                    var zColumnIndex = columnsInFile[zPrefix + typeKey];
+                    int xColumnIndex = columnsInFile[xColumnKey];
+                    int yColumnIndex = columnsInFile[yPrefix + typeKey];
+                    int zColumnIndex = columnsInFile[zPrefix + typeKey];
 
                     point = new Point3D(
                         double.Parse(valuesRead[xColumnIndex], CultureInfo.InvariantCulture),
                         double.Parse(valuesRead[yColumnIndex], CultureInfo.InvariantCulture),
                         double.Parse(valuesRead[zColumnIndex], CultureInfo.InvariantCulture)
-                        );
+                    );
 
                     if (point.Equals(undefinedPoint))
                     {
@@ -485,8 +485,8 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         private CriticalFileReadException CreateCriticalFileReadException(int currentLine, string criticalErrorMessage, Exception innerException = null)
         {
             string locationDescription = string.Format(UtilsResources.TextFile_On_LineNumber_0_, currentLine);
-            var message = new FileReaderErrorMessageBuilder(filePath).WithLocation(locationDescription)
-                                                                     .Build(criticalErrorMessage);
+            string message = new FileReaderErrorMessageBuilder(filePath).WithLocation(locationDescription)
+                                                                        .Build(criticalErrorMessage);
             return new CriticalFileReadException(message, innerException);
         }
 
@@ -499,8 +499,8 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         private LineParseException CreateLineParseException(int currentLine, string lineParseErrorMessage)
         {
             string locationDescription = string.Format(UtilsResources.TextFile_On_LineNumber_0_, currentLine);
-            var message = new FileReaderErrorMessageBuilder(filePath).WithLocation(locationDescription)
-                                                                     .Build(lineParseErrorMessage);
+            string message = new FileReaderErrorMessageBuilder(filePath).WithLocation(locationDescription)
+                                                                        .Build(lineParseErrorMessage);
             return new LineParseException(message);
         }
 
@@ -516,9 +516,9 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         {
             string locationDescription = string.Format(UtilsResources.TextFile_On_LineNumber_0_, currentLine);
             string subjectDescription = string.Format(Resources.CharacteristicPointsCsvReader_LocationName_0_, locationName);
-            var message = new FileReaderErrorMessageBuilder(filePath).WithLocation(locationDescription)
-                                                                     .WithSubject(subjectDescription)
-                                                                     .Build(lineParseErrorMessage);
+            string message = new FileReaderErrorMessageBuilder(filePath).WithLocation(locationDescription)
+                                                                        .WithSubject(subjectDescription)
+                                                                        .Build(lineParseErrorMessage);
             return new LineParseException(message, innerException);
         }
 

@@ -187,11 +187,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             var input = new GrassCoverErosionInwardsInput
             {
-                DikeProfile = new TestDikeProfile(new[]
-                                              {
-                                                  new RoughnessPoint(new Point2D(1.1, 2.2), 0.5),
-                                                  new RoughnessPoint(new Point2D(3.3, 4.4), 0.6)
-                                              }),
+                DikeProfile = new TestDikeProfile(
+                    new[]
+                    {
+                        new RoughnessPoint(new Point2D(1.1, 2.2), 0.5),
+                        new RoughnessPoint(new Point2D(3.3, 4.4), 0.6)
+                    }),
                 DikeHeight = (RoundedDouble) 5.5
             };
 

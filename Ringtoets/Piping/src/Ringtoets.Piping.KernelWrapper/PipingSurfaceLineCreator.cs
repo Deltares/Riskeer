@@ -57,7 +57,7 @@ namespace Ringtoets.Piping.KernelWrapper
             Point2D[] projectedPoints = line.ProjectGeometryToLZ().ToArray();
             var pipingPoints = new List<PipingPoint>();
 
-            for (int i = 0; i < line.Points.Length; i++)
+            for (var i = 0; i < line.Points.Length; i++)
             {
                 IEnumerable<PipingPoint> newPoints = CreatePoint(line, projectedPoints, i);
                 pipingPoints.AddRange(newPoints);

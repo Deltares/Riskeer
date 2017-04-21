@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Data
 {
@@ -45,12 +46,12 @@ namespace Ringtoets.Piping.Data
                 return false;
             }
 
-            var surfaceLine = pipingCalculationScenario.InputParameters.SurfaceLine;
+            RingtoetsPipingSurfaceLine surfaceLine = pipingCalculationScenario.InputParameters.SurfaceLine;
             if (surfaceLine == null)
             {
                 return false;
             }
-            var minimalDistance = lineSegments.Min(segment => segment.GetEuclideanDistanceToPoint(surfaceLine.ReferenceLineIntersectionWorldPoint));
+            double minimalDistance = lineSegments.Min(segment => segment.GetEuclideanDistanceToPoint(surfaceLine.ReferenceLineIntersectionWorldPoint));
             return minimalDistance < 1e-6;
         }
     }

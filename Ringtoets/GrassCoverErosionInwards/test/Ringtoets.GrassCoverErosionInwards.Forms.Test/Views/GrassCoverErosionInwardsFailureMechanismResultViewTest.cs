@@ -100,7 +100,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void Data_DataAlreadySetNewDataSet_DataSetAndDataGridViewUpdated()
         {
             // Setup
-            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            using (GrassCoverErosionInwardsFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView())
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -130,7 +130,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         {
             // Setup
             var testData = new object();
-            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            using (GrassCoverErosionInwardsFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView())
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -153,10 +153,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Assert
-                var rows = dataGridView.Rows;
+                DataGridViewRowCollection rows = dataGridView.Rows;
                 Assert.AreEqual(2, rows.Count);
 
-                var cells = rows[0].Cells;
+                DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual(AssessmentLayerOneState.NotAssessed, cells[assessmentLayerOneIndex].Value);
@@ -189,13 +189,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 dataGridView.Rows[0].Cells[assessmentLayerOneIndex].Value = assessmentLayerOneState;
 
                 // Assert
-                var rows = dataGridView.Rows;
+                DataGridViewRowCollection rows = dataGridView.Rows;
 
-                var cells = rows[0].Cells;
+                DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                var cellAssessmentLayerTwoA = cells[assessmentLayerTwoAIndex];
-                var cellAssessmentLayerThree = cells[assessmentLayerThreeIndex];
+                DataGridViewCell cellAssessmentLayerTwoA = cells[assessmentLayerTwoAIndex];
+                DataGridViewCell cellAssessmentLayerThree = cells[assessmentLayerThreeIndex];
                 DataGridViewCell dataGridViewCell = cells[assessmentLayerOneIndex];
 
                 Assert.AreEqual(assessmentLayerOneState, dataGridViewCell.Value);
@@ -246,7 +246,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void FailureMechanismResultView_EditValueValid_DoNotShowErrorToolTipAndEditValue(string newValue)
         {
             // Setup
-            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            using (GrassCoverErosionInwardsFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView())
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -258,10 +258,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
                 var dataObject = view.Data as List<GrassCoverErosionInwardsFailureMechanismSectionResult>;
                 Assert.IsNotNull(dataObject);
-                var row = dataObject.First();
+                GrassCoverErosionInwardsFailureMechanismSectionResult row = dataObject.First();
 
                 const string propertyName = "AssessmentLayerThree";
-                var propertyValue = row.GetType().GetProperty(propertyName).GetValue(row, null);
+                object propertyValue = row.GetType().GetProperty(propertyName).GetValue(row, null);
 
                 Assert.AreEqual((RoundedDouble) double.Parse(newValue), propertyValue);
             }
@@ -273,7 +273,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void GivenSectionResultWithoutCalculation_ThenLayerTwoAErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            using (var view = ShowFailureMechanismResultsView())
+            using (GrassCoverErosionInwardsFailureMechanismResultView view = ShowFailureMechanismResultsView())
             {
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
                 var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
@@ -291,7 +291,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
 
                 // When
-                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
 
                 // Then
                 Assert.AreEqual("-", formattedValue);
@@ -306,7 +306,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            using (var view = ShowFailureMechanismResultsView())
+            using (GrassCoverErosionInwardsFailureMechanismResultView view = ShowFailureMechanismResultsView())
             {
                 var calculation = new GrassCoverErosionInwardsCalculation();
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
@@ -327,7 +327,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
 
                 // When
-                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
 
                 // Then
                 Assert.AreEqual("-", formattedValue);
@@ -341,7 +341,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void GivenSectionResultAndFailedCalculation_ThenLayerTwoAErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            using (var view = ShowFailureMechanismResultsView())
+            using (GrassCoverErosionInwardsFailureMechanismResultView view = ShowFailureMechanismResultsView())
             {
                 var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0);
                 var calculation = new GrassCoverErosionInwardsCalculation
@@ -368,7 +368,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
 
                 // When
-                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
 
                 // Then
                 Assert.AreEqual("-", formattedValue);
@@ -382,7 +382,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void GivenSectionResultAndSuccessfulCalculation_ThenLayerTwoANoError(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            using (GrassCoverErosionInwardsFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView())
             {
                 const double probability = 0.56789;
                 var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0);
@@ -409,7 +409,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
 
                 // When
-                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
 
                 // Then
                 Assert.AreEqual(ProbabilityFormattingHelper.Format(probability), formattedValue);
@@ -435,7 +435,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
 
                 // When
-                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
 
                 // Then
                 Assert.AreEqual(expectedValue, formattedValue);
@@ -450,7 +450,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            using (var view = ShowFailureMechanismResultsView())
+            using (GrassCoverErosionInwardsFailureMechanismResultView view = ShowFailureMechanismResultsView())
             {
                 const double probability = 0.56789;
                 var successfulCalculationOutput = new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0);
@@ -486,7 +486,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
 
                 // Precondition
-                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
                 Assert.AreEqual(ProbabilityFormattingHelper.Format(probability), formattedValue);
                 Assert.IsEmpty(dataGridViewCell.ErrorText);
 
@@ -565,7 +565,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 new Point2D(10.0, 0.0)
             }));
 
-            var failureMechanismResultView = ShowFailureMechanismResultsView();
+            GrassCoverErosionInwardsFailureMechanismResultView failureMechanismResultView = ShowFailureMechanismResultsView();
             failureMechanismResultView.Data = failureMechanism.SectionResults;
             failureMechanismResultView.FailureMechanism = failureMechanism;
 
