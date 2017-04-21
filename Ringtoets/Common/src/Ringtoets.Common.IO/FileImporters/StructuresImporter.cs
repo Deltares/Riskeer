@@ -131,7 +131,9 @@ namespace Ringtoets.Common.IO.FileImporters
 
         protected void TrySetConstructionProperty(Action<IDictionary<string, StructuresParameterRow>, string> setPropertyAction,
                                                   IDictionary<string, StructuresParameterRow> rowData,
-                                                  string key)
+                                                  string key,
+                                                  string structureName,
+                                                  string structureId)
         {
             if (rowData.ContainsKey(key))
             {
@@ -139,8 +141,9 @@ namespace Ringtoets.Common.IO.FileImporters
             }
             else
             {
-                log.Warn(string.Format(Resources.StructuresImporter_TrySetConstructionProperty_Parameter_0_missing_or_invalid_default_values_used,
-                                       key));
+                string structure = string.Format(Resources.StructuresImporter_StructureName_0_StructureId_1_, structureName, structureId);
+                log.Info(string.Format(Resources.StructuresImporter_TrySetConstructionProperty_Parameter_0_of_Structure_1_missing_or_invalid_default_values_used,
+                                       key, structure));
             }
         }
 

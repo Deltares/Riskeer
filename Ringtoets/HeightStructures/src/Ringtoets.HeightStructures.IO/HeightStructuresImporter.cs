@@ -96,16 +96,19 @@ namespace Ringtoets.HeightStructures.IO
                 row => row.ParameterId, row => row, StringComparer.OrdinalIgnoreCase);
 
             string structureName = structureLocation.Name;
+            string structureId = structureLocation.Id;
             var constructionProperties = new HeightStructure.ConstructionProperties
             {
                 Name = structureName,
-                Id = structureLocation.Id,
+                Id = structureId,
                 Location = structureLocation.Point
             };
 
             TrySetConstructionProperty((rows, key) => constructionProperties.StructureNormalOrientation = (RoundedDouble) rows[key].NumericalValue,
                                        rowData,
-                                       StructureFilesKeywords.HeightStructureParameterKeyword1);
+                                       StructureFilesKeywords.HeightStructureParameterKeyword1,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) =>
                                        {
@@ -113,7 +116,9 @@ namespace Ringtoets.HeightStructures.IO
                                            constructionProperties.LevelCrestStructure.StandardDeviation = GetStandardDeviation(rows[key], structureName);
                                        },
                                        rowData,
-                                       StructureFilesKeywords.HeightStructureParameterKeyword2);
+                                       StructureFilesKeywords.HeightStructureParameterKeyword2,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) =>
                                        {
@@ -121,7 +126,9 @@ namespace Ringtoets.HeightStructures.IO
                                            constructionProperties.FlowWidthAtBottomProtection.StandardDeviation = GetStandardDeviation(rows[key], structureName);
                                        },
                                        rowData,
-                                       StructureFilesKeywords.HeightStructureParameterKeyword3);
+                                       StructureFilesKeywords.HeightStructureParameterKeyword3,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) =>
                                        {
@@ -129,7 +136,9 @@ namespace Ringtoets.HeightStructures.IO
                                            constructionProperties.CriticalOvertoppingDischarge.CoefficientOfVariation = GetCoefficientOfVariation(rows[key], structureName);
                                        },
                                        rowData,
-                                       StructureFilesKeywords.HeightStructureParameterKeyword4);
+                                       StructureFilesKeywords.HeightStructureParameterKeyword4,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) =>
                                        {
@@ -137,11 +146,15 @@ namespace Ringtoets.HeightStructures.IO
                                            constructionProperties.WidthFlowApertures.StandardDeviation = GetStandardDeviation(rows[key], structureName);
                                        },
                                        rowData,
-                                       StructureFilesKeywords.HeightStructureParameterKeyword5);
+                                       StructureFilesKeywords.HeightStructureParameterKeyword5,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) => constructionProperties.FailureProbabilityStructureWithErosion = rows[key].NumericalValue,
                                        rowData,
-                                       StructureFilesKeywords.HeightStructureParameterKeyword6);
+                                       StructureFilesKeywords.HeightStructureParameterKeyword6,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) =>
                                        {
@@ -149,7 +162,9 @@ namespace Ringtoets.HeightStructures.IO
                                            constructionProperties.StorageStructureArea.CoefficientOfVariation = GetCoefficientOfVariation(rows[key], structureName);
                                        },
                                        rowData,
-                                       StructureFilesKeywords.HeightStructureParameterKeyword7);
+                                       StructureFilesKeywords.HeightStructureParameterKeyword7,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) =>
                                        {
@@ -157,7 +172,9 @@ namespace Ringtoets.HeightStructures.IO
                                            constructionProperties.AllowedLevelIncreaseStorage.StandardDeviation = GetStandardDeviation(rows[key], structureName);
                                        },
                                        rowData,
-                                       StructureFilesKeywords.HeightStructureParameterKeyword8);
+                                       StructureFilesKeywords.HeightStructureParameterKeyword8,
+                                       structureName,
+                                       structureId);
 
             return new HeightStructure(constructionProperties);
         }

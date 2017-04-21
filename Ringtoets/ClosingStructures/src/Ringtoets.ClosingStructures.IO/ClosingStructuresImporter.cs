@@ -93,10 +93,11 @@ namespace Ringtoets.ClosingStructures.IO
                 row => row.ParameterId, row => row, StringComparer.OrdinalIgnoreCase);
 
             string structureName = structureLocation.Name;
+            string structureId = structureLocation.Id;
             var constructionProperties = new ClosingStructure.ConstructionProperties
             {
                 Name = structureName,
-                Id = structureLocation.Id,
+                Id = structureId,
                 Location = structureLocation.Point
             };
 
@@ -106,7 +107,9 @@ namespace Ringtoets.ClosingStructures.IO
                                            constructionProperties.StorageStructureArea.CoefficientOfVariation = GetCoefficientOfVariation(rows[key], structureName);
                                        },
                                        rowData,
-                                       StructureFilesKeywords.ClosingStructureParameterKeyword1);
+                                       StructureFilesKeywords.ClosingStructureParameterKeyword1,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) =>
                                        {
@@ -114,11 +117,15 @@ namespace Ringtoets.ClosingStructures.IO
                                            constructionProperties.AllowedLevelIncreaseStorage.StandardDeviation = GetStandardDeviation(rows[key], structureName);
                                        },
                                        rowData,
-                                       StructureFilesKeywords.ClosingStructureParameterKeyword2);
+                                       StructureFilesKeywords.ClosingStructureParameterKeyword2,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) => constructionProperties.StructureNormalOrientation = (RoundedDouble) rows[key].NumericalValue,
                                        rowData,
-                                       StructureFilesKeywords.ClosingStructureParameterKeyword3);
+                                       StructureFilesKeywords.ClosingStructureParameterKeyword3,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) =>
                                        {
@@ -126,7 +133,9 @@ namespace Ringtoets.ClosingStructures.IO
                                            constructionProperties.WidthFlowApertures.StandardDeviation = GetStandardDeviation(rows[key], structureName);
                                        },
                                        rowData,
-                                       StructureFilesKeywords.ClosingStructureParameterKeyword4);
+                                       StructureFilesKeywords.ClosingStructureParameterKeyword4,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) =>
                                        {
@@ -134,7 +143,9 @@ namespace Ringtoets.ClosingStructures.IO
                                            constructionProperties.LevelCrestStructureNotClosing.StandardDeviation = GetStandardDeviation(rows[key], structureName);
                                        },
                                        rowData,
-                                       StructureFilesKeywords.ClosingStructureParameterKeyword5);
+                                       StructureFilesKeywords.ClosingStructureParameterKeyword5,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) =>
                                        {
@@ -142,7 +153,9 @@ namespace Ringtoets.ClosingStructures.IO
                                            constructionProperties.InsideWaterLevel.StandardDeviation = GetStandardDeviation(rows[key], structureName);
                                        },
                                        rowData,
-                                       StructureFilesKeywords.ClosingStructureParameterKeyword6);
+                                       StructureFilesKeywords.ClosingStructureParameterKeyword6,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) =>
                                        {
@@ -150,7 +163,9 @@ namespace Ringtoets.ClosingStructures.IO
                                            constructionProperties.ThresholdHeightOpenWeir.StandardDeviation = GetStandardDeviation(rows[key], structureName);
                                        },
                                        rowData,
-                                       StructureFilesKeywords.ClosingStructureParameterKeyword7);
+                                       StructureFilesKeywords.ClosingStructureParameterKeyword7,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) =>
                                        {
@@ -158,7 +173,9 @@ namespace Ringtoets.ClosingStructures.IO
                                            constructionProperties.AreaFlowApertures.StandardDeviation = GetStandardDeviation(rows[key], structureName);
                                        },
                                        rowData,
-                                       StructureFilesKeywords.ClosingStructureParameterKeyword8);
+                                       StructureFilesKeywords.ClosingStructureParameterKeyword8,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) =>
                                        {
@@ -166,7 +183,9 @@ namespace Ringtoets.ClosingStructures.IO
                                            constructionProperties.CriticalOvertoppingDischarge.CoefficientOfVariation = GetCoefficientOfVariation(rows[key], structureName);
                                        },
                                        rowData,
-                                       StructureFilesKeywords.ClosingStructureParameterKeyword9);
+                                       StructureFilesKeywords.ClosingStructureParameterKeyword9,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) =>
                                        {
@@ -174,27 +193,39 @@ namespace Ringtoets.ClosingStructures.IO
                                            constructionProperties.FlowWidthAtBottomProtection.StandardDeviation = GetStandardDeviation(rows[key], structureName);
                                        },
                                        rowData,
-                                       StructureFilesKeywords.ClosingStructureParameterKeyword10);
+                                       StructureFilesKeywords.ClosingStructureParameterKeyword10,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) => constructionProperties.ProbabilityOrFrequencyOpenStructureBeforeFlooding = rows[key].NumericalValue,
                                        rowData,
-                                       StructureFilesKeywords.ClosingStructureParameterKeyword11);
+                                       StructureFilesKeywords.ClosingStructureParameterKeyword11,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) => constructionProperties.FailureProbabilityOpenStructure = rows[key].NumericalValue,
                                        rowData,
-                                       StructureFilesKeywords.ClosingStructureParameterKeyword12);
+                                       StructureFilesKeywords.ClosingStructureParameterKeyword12,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) => constructionProperties.IdenticalApertures = (int) rows[key].NumericalValue,
                                        rowData,
-                                       StructureFilesKeywords.ClosingStructureParameterKeyword13);
+                                       StructureFilesKeywords.ClosingStructureParameterKeyword13,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) => constructionProperties.FailureProbabilityReparation = rows[key].NumericalValue,
                                        rowData,
-                                       StructureFilesKeywords.ClosingStructureParameterKeyword14);
+                                       StructureFilesKeywords.ClosingStructureParameterKeyword14,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) => constructionProperties.InflowModelType = GetClosingStructureInflowModelType(rows[key]),
                                        rowData,
-                                       StructureFilesKeywords.ClosingStructureParameterKeyword15);
+                                       StructureFilesKeywords.ClosingStructureParameterKeyword15,
+                                       structureName,
+                                       structureId);
 
             return new ClosingStructure(constructionProperties);
         }

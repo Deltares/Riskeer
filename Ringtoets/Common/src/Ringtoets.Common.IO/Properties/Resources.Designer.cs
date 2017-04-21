@@ -1716,12 +1716,12 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geen geldige definitie gevonden voor parameter &apos;{0}&apos;. Er wordt een standaard waarde gebruikt..
+        ///   Looks up a localized string similar to Geen definitie gevonden voor parameter &apos;{0}&apos; van kunstwerk &apos;{1}&apos;. Er wordt een standaard waarde gebruikt..
         /// </summary>
-        public static string StructuresImporter_TrySetConstructionProperty_Parameter_0_missing_or_invalid_default_values_used {
+        public static string StructuresImporter_TrySetConstructionProperty_Parameter_0_of_Structure_1_missing_or_invalid_default_values_used {
             get {
-                return ResourceManager.GetString("StructuresImporter_TrySetConstructionProperty_Parameter_0_missing_or_invalid_defa" +
-                        "ult_values_used", resourceCulture);
+                return ResourceManager.GetString("StructuresImporter_TrySetConstructionProperty_Parameter_0_of_Structure_1_missing_" +
+                        "or_invalid_default_values_used", resourceCulture);
             }
         }
         

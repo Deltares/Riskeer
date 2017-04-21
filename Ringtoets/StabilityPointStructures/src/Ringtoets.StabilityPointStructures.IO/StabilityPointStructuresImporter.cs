@@ -93,16 +93,19 @@ namespace Ringtoets.StabilityPointStructures.IO
                 row => row.ParameterId, row => row, StringComparer.OrdinalIgnoreCase);
 
             string structureName = structureLocation.Name;
+            string structureId = structureLocation.Id;
             var constructionProperties = new StabilityPointStructure.ConstructionProperties
             {
                 Name = structureName,
-                Id = structureLocation.Id,
+                Id = structureId,
                 Location = structureLocation.Point,
             };
 
             TrySetConstructionProperty((rows, key) => constructionProperties.StructureNormalOrientation = (RoundedDouble) rows[key].NumericalValue,
                                        rowData,
-                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword1);
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword1,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) =>
                                        {
@@ -110,7 +113,9 @@ namespace Ringtoets.StabilityPointStructures.IO
                                            constructionProperties.StorageStructureArea.CoefficientOfVariation = GetCoefficientOfVariation(rows[key], structureName);
                                        },
                                        rowData,
-                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword2);
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword2,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) =>
                                        {
@@ -118,7 +123,9 @@ namespace Ringtoets.StabilityPointStructures.IO
                                            constructionProperties.AllowedLevelIncreaseStorage.StandardDeviation = GetStandardDeviation(rows[key], structureName);
                                        },
                                        rowData,
-                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword3);
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword3,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) =>
                                        {
@@ -126,7 +133,9 @@ namespace Ringtoets.StabilityPointStructures.IO
                                            constructionProperties.WidthFlowApertures.StandardDeviation = GetStandardDeviation(rows[key], structureName);
                                        },
                                        rowData,
-                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword4);
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword4,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) =>
                                        {
@@ -134,7 +143,9 @@ namespace Ringtoets.StabilityPointStructures.IO
                                            constructionProperties.InsideWaterLevel.StandardDeviation = GetStandardDeviation(rows[key], structureName);
                                        },
                                        rowData,
-                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword5);
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword5,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) =>
                                        {
@@ -142,7 +153,9 @@ namespace Ringtoets.StabilityPointStructures.IO
                                            constructionProperties.ThresholdHeightOpenWeir.StandardDeviation = GetStandardDeviation(rows[key], structureName);
                                        },
                                        rowData,
-                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword6);
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword6,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) =>
                                        {
@@ -150,7 +163,9 @@ namespace Ringtoets.StabilityPointStructures.IO
                                            constructionProperties.CriticalOvertoppingDischarge.CoefficientOfVariation = GetCoefficientOfVariation(rows[key], structureName);
                                        },
                                        rowData,
-                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword7);
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword7,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) =>
                                        {
@@ -158,7 +173,9 @@ namespace Ringtoets.StabilityPointStructures.IO
                                            constructionProperties.FlowWidthAtBottomProtection.StandardDeviation = GetStandardDeviation(rows[key], structureName);
                                        },
                                        rowData,
-                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword8);
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword8,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) =>
                                        {
@@ -166,7 +183,9 @@ namespace Ringtoets.StabilityPointStructures.IO
                                            constructionProperties.ConstructiveStrengthLinearLoadModel.CoefficientOfVariation = GetCoefficientOfVariation(rows[key], structureName);
                                        },
                                        rowData,
-                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword9);
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword9,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) =>
                                        {
@@ -174,7 +193,9 @@ namespace Ringtoets.StabilityPointStructures.IO
                                            constructionProperties.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation = GetCoefficientOfVariation(rows[key], structureName);
                                        },
                                        rowData,
-                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword10);
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword10,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) =>
                                        {
@@ -182,7 +203,9 @@ namespace Ringtoets.StabilityPointStructures.IO
                                            constructionProperties.BankWidth.StandardDeviation = GetStandardDeviation(rows[key], structureName);
                                        },
                                        rowData,
-                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword11);
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword11,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) =>
                                        {
@@ -190,11 +213,15 @@ namespace Ringtoets.StabilityPointStructures.IO
                                            constructionProperties.InsideWaterLevelFailureConstruction.StandardDeviation = GetStandardDeviation(rows[key], structureName);
                                        },
                                        rowData,
-                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword12);
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword12,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) => constructionProperties.EvaluationLevel = rows[key].NumericalValue,
                                        rowData,
-                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword13);
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword13,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) =>
                                        {
@@ -202,15 +229,21 @@ namespace Ringtoets.StabilityPointStructures.IO
                                            constructionProperties.LevelCrestStructure.StandardDeviation = GetStandardDeviation(rows[key], structureName);
                                        },
                                        rowData,
-                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword14);
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword14,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) => constructionProperties.VerticalDistance = rows[key].NumericalValue,
                                        rowData,
-                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword15);
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword15,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) => constructionProperties.FailureProbabilityRepairClosure = rows[key].NumericalValue,
                                        rowData,
-                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword16);
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword16,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) =>
                                        {
@@ -218,7 +251,9 @@ namespace Ringtoets.StabilityPointStructures.IO
                                            constructionProperties.FailureCollisionEnergy.CoefficientOfVariation = GetCoefficientOfVariation(rows[key], structureName);
                                        },
                                        rowData,
-                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword17);
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword17,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) =>
                                        {
@@ -226,7 +261,9 @@ namespace Ringtoets.StabilityPointStructures.IO
                                            constructionProperties.ShipMass.CoefficientOfVariation = GetCoefficientOfVariation(rows[key], structureName);
                                        },
                                        rowData,
-                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword18);
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword18,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) =>
                                        {
@@ -234,19 +271,27 @@ namespace Ringtoets.StabilityPointStructures.IO
                                            constructionProperties.ShipVelocity.CoefficientOfVariation = GetCoefficientOfVariation(rows[key], structureName);
                                        },
                                        rowData,
-                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword19);
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword19,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) => constructionProperties.LevellingCount = (int) rows[key].NumericalValue,
                                        rowData,
-                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword20);
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword20,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) => constructionProperties.ProbabilityCollisionSecondaryStructure = rows[key].NumericalValue,
                                        rowData,
-                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword21);
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword21,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) => constructionProperties.FlowVelocityStructureClosable.Mean = (RoundedDouble) rows[key].NumericalValue,
                                        rowData,
-                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword22);
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword22,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) =>
                                        {
@@ -254,7 +299,9 @@ namespace Ringtoets.StabilityPointStructures.IO
                                            constructionProperties.StabilityLinearLoadModel.CoefficientOfVariation = GetCoefficientOfVariation(rows[key], structureName);
                                        },
                                        rowData,
-                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword23);
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword23,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) =>
                                        {
@@ -262,7 +309,9 @@ namespace Ringtoets.StabilityPointStructures.IO
                                            constructionProperties.StabilityQuadraticLoadModel.CoefficientOfVariation = GetCoefficientOfVariation(rows[key], structureName);
                                        },
                                        rowData,
-                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword24);
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword24,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) =>
                                        {
@@ -270,11 +319,15 @@ namespace Ringtoets.StabilityPointStructures.IO
                                            constructionProperties.AreaFlowApertures.StandardDeviation = GetStandardDeviation(rows[key], structureName);
                                        },
                                        rowData,
-                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword25);
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword25,
+                                       structureName,
+                                       structureId);
 
             TrySetConstructionProperty((rows, key) => constructionProperties.InflowModelType = GetStabilityPointStructureInflowModelType(rows[key]),
                                        rowData,
-                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword26);
+                                       StructureFilesKeywords.StabilityPointStructureParameterKeyword26,
+                                       structureName,
+                                       structureId);
 
             return new StabilityPointStructure(constructionProperties);
         }
