@@ -32,13 +32,16 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
     /// </summary>
     public class WaveConditionsCalculationParser : IHydraRingFileParser
     {
+        private const string sectionIdParameterName = "@sectionId";
+
         private const string waveHeightColumnName = "WaveHeight";
         private const string wavePeriodColumnName = "WavePeriod";
         private const string waveDirectionColumnName = "WaveDirection";
         private const string waveAngleColumnName = "WaveAngle";
 
         private readonly string query = $"SELECT {waveHeightColumnName}, {wavePeriodColumnName}, {waveAngleColumnName}, {waveDirectionColumnName} " +
-                                        "FROM QVariantResults";
+                                        "FROM QVariantResults " +
+                                        $"WHERE SectionId = {sectionIdParameterName}";
 
         /// <summary>
         /// Gets the output that was parsed from the output file.

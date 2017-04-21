@@ -151,6 +151,22 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         }
 
         [Test]
+        public void Parse_ResultsOnOtherSection_ThrowsHydraRingFileParserException()
+        {
+            // Setup
+            string path = Path.Combine(testDirectory, "OtherSection");
+            var parser = new WaveConditionsCalculationParser();
+
+            // Call
+            TestDelegate test = () => parser.Parse(path, 1);
+
+            // Assert
+            var exception = Assert.Throws<HydraRingFileParserException>(test);
+            Assert.AreEqual("Er zijn geen berekende golfcondities gevonden in de Hydra-Ring uitvoerdatabase.", exception.Message);
+            Assert.IsInstanceOf<HydraRingDatabaseReaderException>(exception.InnerException);
+        }
+
+        [Test]
         public void Parse_ValidData_OutputSet()
         {
             // Setup
