@@ -35,7 +35,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
         private const string convergedColumnName = "Converged";
 
         private readonly string getLastResultQuery =
-            $"SELECT ConvOnBeta OR ConvOnValue AS {convergedColumnName} " +
+            $"SELECT ConvOnBeta OR ConvOnValue OR ConvOnValueZeroQVariant AS {convergedColumnName} " +
             "FROM IterateToGivenBetaConvergence " +
             $"WHERE SectionId = {sectionIdParameterName} " +
             "ORDER BY OuterIterationId DESC " +

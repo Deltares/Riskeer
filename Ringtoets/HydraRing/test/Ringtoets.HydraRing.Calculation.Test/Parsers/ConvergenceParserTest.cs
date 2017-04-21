@@ -159,7 +159,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         [Test]
         [TestCase("ConvergenceOnBetaSection1")]
         [TestCase("ConvergenceOnValueSection1")]
-        [TestCase("ConvergenceOnBothSection1")]
+        [TestCase("ConvergenceOnValueZeroQVariantSection1")]
+        [TestCase("ConvergenceOnAllSection1")]
+        [TestCase("ConvergenceOnBetaAndValueSection1")]
+        [TestCase("ConvergenceOnBetaAndValueZeroQVariantSection1")]
+        [TestCase("ConvergenceOnValueAndValueZeroQVariantSection1")]
         public void Parse_WithWorkingDirectoryWithFileWithTrueResult_SetOutputTrue(string testSubDirectory)
         {
             // Setup
