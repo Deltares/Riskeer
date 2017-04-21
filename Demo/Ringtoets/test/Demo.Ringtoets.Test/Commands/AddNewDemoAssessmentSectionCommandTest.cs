@@ -34,8 +34,8 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -97,7 +97,7 @@ namespace Demo.Ringtoets.Test.Commands
 
             // Assert
             Assert.AreEqual(1, project.AssessmentSections.Count);
-            var demoAssessmentSection = project.AssessmentSections[0];
+            AssessmentSection demoAssessmentSection = project.AssessmentSections[0];
             Assert.AreEqual("Demo traject", demoAssessmentSection.Name);
             Assert.AreEqual("6-3", demoAssessmentSection.Id);
 
@@ -105,7 +105,7 @@ namespace Demo.Ringtoets.Test.Commands
 
             Assert.AreEqual(2380, demoAssessmentSection.ReferenceLine.Points.Count());
 
-            foreach (var failureMechanism in demoAssessmentSection.GetFailureMechanisms())
+            foreach (IFailureMechanism failureMechanism in demoAssessmentSection.GetFailureMechanisms())
             {
                 Assert.AreEqual(283, failureMechanism.Sections.Count());
             }
@@ -123,10 +123,10 @@ namespace Demo.Ringtoets.Test.Commands
 
         private static void AssertCharacteristicPointsOnSurfaceLines(RingtoetsPipingSurfaceLine[] surfaceLines)
         {
-            var surfaceLine1 = surfaceLines.FirstOrDefault(s => s.Name == "PK001_0001");
-            var surfaceLine2 = surfaceLines.FirstOrDefault(s => s.Name == "PK001_0002");
-            var surfaceLine3 = surfaceLines.FirstOrDefault(s => s.Name == "PK001_0003");
-            var surfaceLine4 = surfaceLines.FirstOrDefault(s => s.Name == "PK001_0004");
+            RingtoetsPipingSurfaceLine surfaceLine1 = surfaceLines.FirstOrDefault(s => s.Name == "PK001_0001");
+            RingtoetsPipingSurfaceLine surfaceLine2 = surfaceLines.FirstOrDefault(s => s.Name == "PK001_0002");
+            RingtoetsPipingSurfaceLine surfaceLine3 = surfaceLines.FirstOrDefault(s => s.Name == "PK001_0003");
+            RingtoetsPipingSurfaceLine surfaceLine4 = surfaceLines.FirstOrDefault(s => s.Name == "PK001_0004");
 
             Assert.IsNotNull(surfaceLine1);
             Assert.IsNotNull(surfaceLine2);
@@ -374,9 +374,9 @@ namespace Demo.Ringtoets.Test.Commands
 
         private static void AssertPipingFailureMechanism(AssessmentSection demoAssessmentSection)
         {
-            var soilModels = demoAssessmentSection.PipingFailureMechanism.StochasticSoilModels.ToArray();
+            StochasticSoilModel[] soilModels = demoAssessmentSection.PipingFailureMechanism.StochasticSoilModels.ToArray();
             Assert.AreEqual(4, soilModels.Length);
-            var surfaceLines = demoAssessmentSection.PipingFailureMechanism.SurfaceLines.ToArray();
+            RingtoetsPipingSurfaceLine[] surfaceLines = demoAssessmentSection.PipingFailureMechanism.SurfaceLines.ToArray();
             Assert.AreEqual(4, surfaceLines.Length);
             AssertCharacteristicPointsOnSurfaceLines(surfaceLines);
 
@@ -454,7 +454,7 @@ namespace Demo.Ringtoets.Test.Commands
         private static void AssertCalculationInFailureMechanismSectionResult(PipingCalculationScenario calculation, PipingFailureMechanismSectionResult[] sectionResults, IEnumerable<PipingCalculationScenario> calculations)
         {
             Assert.AreEqual(283, sectionResults.Length);
-            var sectionResultWithCalculation = sectionResults[22];
+            PipingFailureMechanismSectionResult sectionResultWithCalculation = sectionResults[22];
 
             CollectionAssert.AreEqual(new[]
             {
@@ -592,10 +592,10 @@ namespace Demo.Ringtoets.Test.Commands
         {
             Assert.IsNotEmpty(demoAssessmentSection.HydraulicBoundaryDatabase.FilePath);
             Assert.IsTrue(File.Exists(demoAssessmentSection.HydraulicBoundaryDatabase.FilePath));
-            var directoryName = Path.GetDirectoryName(demoAssessmentSection.HydraulicBoundaryDatabase.FilePath);
+            string directoryName = Path.GetDirectoryName(demoAssessmentSection.HydraulicBoundaryDatabase.FilePath);
             Assert.IsNotNull(directoryName);
             Assert.IsTrue(File.Exists(Path.Combine(directoryName, "HLCD.sqlite")));
-            var hydraulicBoundaryLocations = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.ToArray();
+            HydraulicBoundaryLocation[] hydraulicBoundaryLocations = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.ToArray();
             Assert.AreEqual(18, hydraulicBoundaryLocations.Length);
             AssertDesignWaterLevelValuesOnHydraulicBoundaryLocations(hydraulicBoundaryLocations);
             AssertDesignWaterLevelCalculationConvergenceOnHydraulicBoundaryLocations(hydraulicBoundaryLocations);

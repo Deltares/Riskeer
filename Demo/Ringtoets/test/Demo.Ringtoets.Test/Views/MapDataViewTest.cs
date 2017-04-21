@@ -68,7 +68,7 @@ namespace Demo.Ringtoets.Test.Views
             using (var mapView = new MapDataView())
             {
                 var map = (MapControl) mapView.Controls[0];
-                var mapData = map.Data;
+                MapDataCollection mapData = map.Data;
 
                 // Call
                 TestDelegate testDelegate = () => mapView.Data = null;

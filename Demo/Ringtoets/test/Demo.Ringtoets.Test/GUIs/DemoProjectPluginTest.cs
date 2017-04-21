@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System.Linq;
-using Core.Common.Gui;
 using System.Threading;
+using Core.Common.Gui;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
 using Core.Components.Charting.Data;
@@ -65,7 +65,7 @@ namespace Demo.Ringtoets.Test.GUIs
             using (var plugin = new DemoProjectPlugin())
             {
                 // Call
-                var views = plugin.GetViewInfos().ToArray();
+                ViewInfo[] views = plugin.GetViewInfos().ToArray();
 
                 // Assert
                 Assert.AreEqual(2, views.Length);

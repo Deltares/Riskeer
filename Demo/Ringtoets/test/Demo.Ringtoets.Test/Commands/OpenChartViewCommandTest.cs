@@ -58,7 +58,7 @@ namespace Demo.Ringtoets.Test.Commands
             var command = new OpenChartViewCommand(viewCommands);
 
             // Call
-            var isChecked = command.Checked;
+            bool isChecked = command.Checked;
 
             // Assert
             Assert.IsFalse(isChecked);

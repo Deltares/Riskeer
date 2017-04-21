@@ -131,7 +131,7 @@ namespace Demo.Ringtoets.Commands
                                                                                    "traject_6-3_vakken.shx"))
             {
                 IFailureMechanism[] failureMechanisms = demoAssessmentSection.GetFailureMechanisms().ToArray();
-                for (int i = 0; i < failureMechanisms.Length; i++)
+                for (var i = 0; i < failureMechanisms.Length; i++)
                 {
                     if (i == 0)
                     {
@@ -523,7 +523,7 @@ namespace Demo.Ringtoets.Commands
 
         private void InitializeDemoPipingData(AssessmentSection demoAssessmentSection)
         {
-            var pipingFailureMechanism = demoAssessmentSection.PipingFailureMechanism;
+            PipingFailureMechanism pipingFailureMechanism = demoAssessmentSection.PipingFailureMechanism;
 
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly,
                                                                                    true,
@@ -551,7 +551,7 @@ namespace Demo.Ringtoets.Commands
 
             var calculation = new PipingCalculationScenario(pipingFailureMechanism.GeneralInput);
             pipingFailureMechanism.CalculationsGroup.Children.Add(calculation);
-            var originalPhreaticLevelExit = calculation.InputParameters.PhreaticLevelExit;
+            NormalDistribution originalPhreaticLevelExit = calculation.InputParameters.PhreaticLevelExit;
             calculation.InputParameters.PhreaticLevelExit = new NormalDistribution(originalPhreaticLevelExit.Mean.NumberOfDecimalPlaces)
             {
                 Mean = (RoundedDouble) 3.0,
@@ -559,7 +559,7 @@ namespace Demo.Ringtoets.Commands
             };
             calculation.InputParameters.SurfaceLine = pipingFailureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0001");
 
-            var stochasticSoilModel = pipingFailureMechanism.StochasticSoilModels.First(sm => sm.Name == "PK001_0001_Piping");
+            StochasticSoilModel stochasticSoilModel = pipingFailureMechanism.StochasticSoilModels.First(sm => sm.Name == "PK001_0001_Piping");
             calculation.InputParameters.StochasticSoilModel = stochasticSoilModel;
             calculation.InputParameters.StochasticSoilProfile = stochasticSoilModel.StochasticSoilProfiles.First(sp => sp.SoilProfile.Name == "W1-6_0_1D1");
             calculation.InputParameters.HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
@@ -737,7 +737,7 @@ namespace Demo.Ringtoets.Commands
             {
                 using (var hydraulicBoundaryDatabaseImporter = new HydraulicBoundaryDatabaseImporter())
                 {
-                    var filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "HRD dutch coast south.sqlite");
+                    string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "HRD dutch coast south.sqlite");
                     hydraulicBoundaryDatabaseImporter.Import(demoAssessmentSection, filePath);
                 }
             }

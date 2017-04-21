@@ -53,7 +53,7 @@ namespace Demo.Ringtoets.Test.Views
             // Setup
             using (var chartView = new ChartDataView())
             {
-                ChartControl chart = (ChartControl) chartView.Controls[0];
+                var chart = (ChartControl) chartView.Controls[0];
                 ChartDataCollection chartData = chart.Data;
 
                 // Call
