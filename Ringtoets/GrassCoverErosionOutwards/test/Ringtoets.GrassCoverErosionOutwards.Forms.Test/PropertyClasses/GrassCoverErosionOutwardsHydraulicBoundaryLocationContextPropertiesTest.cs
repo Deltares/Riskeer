@@ -82,7 +82,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationContext(locations, hydraulicBoundaryLocation);
 
             // Call
-            TestGrassCoverErosionOutwardsLocationProperties locationProperties = new TestGrassCoverErosionOutwardsLocationProperties
+            var locationProperties = new TestGrassCoverErosionOutwardsLocationProperties
             {
                 Data = context
             };
@@ -90,7 +90,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(id, locationProperties.Id);
             Assert.AreEqual(name, locationProperties.Name);
-            Point2D coordinates = new Point2D(x, y);
+            var coordinates = new Point2D(x, y);
             Assert.AreEqual(coordinates, locationProperties.Location);
         }
 
@@ -110,13 +110,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationContext(locations, hydraulicBoundaryLocation);
 
             // Call
-            TestGrassCoverErosionOutwardsLocationProperties locationProperties = new TestGrassCoverErosionOutwardsLocationProperties
+            var locationProperties = new TestGrassCoverErosionOutwardsLocationProperties
             {
                 Data = context
             };
 
             // Assert
-            var expectedString = $"{name} {new Point2D(x, y)}";
+            string expectedString = $"{name} {new Point2D(x, y)}";
             Assert.AreEqual(expectedString, locationProperties.ToString());
         }
 

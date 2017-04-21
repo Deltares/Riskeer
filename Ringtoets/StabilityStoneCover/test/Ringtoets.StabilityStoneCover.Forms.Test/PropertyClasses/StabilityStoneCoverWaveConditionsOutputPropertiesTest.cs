@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.ComponentModel;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
@@ -79,8 +78,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             CollectionAssert.AllItemsAreInstancesOfType(properties.Blocks, typeof(WaveConditionsOutputProperties));
             Assert.AreEqual(blocksOutput.Length, properties.Blocks.Length);
 
-            var firstBlocksOutput = blocksOutput[0];
-            var firstBlocksProperties = properties.Blocks[0];
+            TestWaveConditionsOutput firstBlocksOutput = blocksOutput[0];
+            WaveConditionsOutputProperties firstBlocksProperties = properties.Blocks[0];
             Assert.AreEqual(firstBlocksOutput.WaterLevel, firstBlocksProperties.WaterLevel);
             Assert.AreEqual(firstBlocksOutput.WaveHeight, firstBlocksProperties.WaveHeight);
             Assert.AreEqual(firstBlocksOutput.WavePeakPeriod, firstBlocksProperties.WavePeakPeriod);
@@ -101,8 +100,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             CollectionAssert.AllItemsAreInstancesOfType(properties.Columns, typeof(WaveConditionsOutputProperties));
             Assert.AreEqual(columnsOutput.Length, properties.Columns.Length);
 
-            var firstColumnsOutput = columnsOutput[0];
-            var firstColumnsProperties = properties.Columns[0];
+            TestWaveConditionsOutput firstColumnsOutput = columnsOutput[0];
+            WaveConditionsOutputProperties firstColumnsProperties = properties.Columns[0];
             Assert.AreEqual(firstColumnsOutput.WaterLevel, firstColumnsProperties.WaterLevel);
             Assert.AreEqual(firstColumnsOutput.WaveHeight, firstColumnsProperties.WaveHeight);
             Assert.AreEqual(firstColumnsOutput.WavePeakPeriod, firstColumnsProperties.WavePeakPeriod);

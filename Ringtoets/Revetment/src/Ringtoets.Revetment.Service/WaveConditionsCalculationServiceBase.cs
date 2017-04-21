@@ -150,8 +150,8 @@ namespace Ringtoets.Revetment.Service
 
             var outputs = new List<WaveConditionsOutput>();
 
-            var waterLevels = waveConditionsInput.WaterLevels.ToArray();
-            foreach (var waterLevel in waterLevels.TakeWhile(waterLevel => !Canceled))
+            RoundedDouble[] waterLevels = waveConditionsInput.WaterLevels.ToArray();
+            foreach (RoundedDouble waterLevel in waterLevels.TakeWhile(waterLevel => !Canceled))
             {
                 try
                 {
@@ -161,14 +161,14 @@ namespace Ringtoets.Revetment.Service
 
                     NotifyProgress(waterLevel, currentStep++, TotalWaterLevelCalculations);
 
-                    var output = CalculateWaterLevel(waterLevel,
-                                                     a,
-                                                     b,
-                                                     c,
-                                                     norm,
-                                                     waveConditionsInput,
-                                                     hrdFilePath,
-                                                     calculationName);
+                    WaveConditionsOutput output = CalculateWaterLevel(waterLevel,
+                                                                      a,
+                                                                      b,
+                                                                      c,
+                                                                      norm,
+                                                                      waveConditionsInput,
+                                                                      hrdFilePath,
+                                                                      calculationName);
 
                     if (output != null)
                     {
@@ -206,7 +206,7 @@ namespace Ringtoets.Revetment.Service
 
         private void NotifyProgress(RoundedDouble waterLevel, int currentStepNumber, int totalStepsNumber)
         {
-            var message = string.Format(Resources.WaveConditionsCalculationService_OnRun_Calculate_waterlevel_0_, waterLevel);
+            string message = string.Format(Resources.WaveConditionsCalculationService_OnRun_Calculate_waterlevel_0_, waterLevel);
             OnProgress?.Invoke(message, currentStepNumber, totalStepsNumber);
         }
 
@@ -264,7 +264,7 @@ namespace Ringtoets.Revetment.Service
             {
                 if (!Canceled)
                 {
-                    var lastErrorContent = calculator.LastErrorFileContent;
+                    string lastErrorContent = calculator.LastErrorFileContent;
                     if (string.IsNullOrEmpty(lastErrorContent))
                     {
                         log.ErrorFormat(CultureInfo.CurrentCulture,
@@ -288,7 +288,7 @@ namespace Ringtoets.Revetment.Service
             }
             finally
             {
-                var lastErrorFileContent = calculator.LastErrorFileContent;
+                string lastErrorFileContent = calculator.LastErrorFileContent;
                 bool errorOccurred = CalculationServiceHelper.HasErrorOccurred(Canceled, exceptionThrown, lastErrorFileContent);
                 if (errorOccurred)
                 {

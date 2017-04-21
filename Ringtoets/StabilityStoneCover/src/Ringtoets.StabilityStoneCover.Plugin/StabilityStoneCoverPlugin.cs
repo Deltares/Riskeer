@@ -211,7 +211,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             var failureMechanism = o as StabilityStoneCoverFailureMechanism;
 
             var viewFailureMechanismContext = (StabilityStoneCoverFailureMechanismContext) view.Data;
-            var viewFailureMechanism = viewFailureMechanismContext.WrappedData;
+            StabilityStoneCoverFailureMechanism viewFailureMechanism = viewFailureMechanismContext.WrappedData;
 
             return assessmentSection != null
                        ? ReferenceEquals(viewFailureMechanismContext.Parent, assessmentSection)
@@ -224,7 +224,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
 
         private static bool CloseFailureMechanismResultViewForData(StabilityStoneCoverResultView view, object dataToCloseFor)
         {
-            var viewData = view.Data;
+            object viewData = view.Data;
             var assessmentSection = dataToCloseFor as IAssessmentSection;
             var failureMechanism = dataToCloseFor as StabilityStoneCoverFailureMechanism;
             var failureMechanismContext = dataToCloseFor as IFailureMechanismContext<StabilityStoneCoverFailureMechanism>;
@@ -363,9 +363,9 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                                                                                        object parentData,
                                                                                        TreeViewControl treeViewControl)
         {
-            var group = nodeData.WrappedData;
+            CalculationGroup group = nodeData.WrappedData;
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-            var isNestedGroup = parentData is StabilityStoneCoverWaveConditionsCalculationGroupContext;
+            bool isNestedGroup = parentData is StabilityStoneCoverWaveConditionsCalculationGroupContext;
 
             builder.AddImportItem()
                    .AddExportItem()
@@ -493,7 +493,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
 
         private void CalculateAll(CalculationGroup group, StabilityStoneCoverWaveConditionsCalculationGroupContext context)
         {
-            var calculations = group.GetCalculations().OfType<StabilityStoneCoverWaveConditionsCalculation>().ToArray();
+            StabilityStoneCoverWaveConditionsCalculation[] calculations = group.GetCalculations().OfType<StabilityStoneCoverWaveConditionsCalculation>().ToArray();
 
             CalculateAll(calculations, context.FailureMechanism, context.AssessmentSection);
         }
@@ -511,7 +511,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                                                                                                     assessmentSection))
                     .ToList());
 
-            foreach (var calculation in calculations)
+            foreach (StabilityStoneCoverWaveConditionsCalculation calculation in calculations)
             {
                 calculation.NotifyObservers();
             }

@@ -22,6 +22,7 @@
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Gui.Plugin;
+using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -54,7 +55,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
         public void CreateInstance_Always_SetsHydraulicBoundaryLocationsAsData()
         {
             // Setup
-            MockRepository mockRepository = new MockRepository();
+            var mockRepository = new MockRepository();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
@@ -63,12 +64,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
             var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(
                 hydraulicBoundaryLocations, assessmentSection, new GrassCoverErosionOutwardsFailureMechanism());
 
-            using (GrassCoverErosionOutwardsPlugin plugin = new GrassCoverErosionOutwardsPlugin())
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 PropertyInfo info = GetInfo(plugin);
 
                 // Call
-                var objectProperties = info.CreateInstance(context);
+                IObjectProperties objectProperties = info.CreateInstance(context);
 
                 // Assert
                 Assert.IsInstanceOf<GrassCoverErosionOutwardsWaveHeightLocationsContextProperties>(objectProperties);

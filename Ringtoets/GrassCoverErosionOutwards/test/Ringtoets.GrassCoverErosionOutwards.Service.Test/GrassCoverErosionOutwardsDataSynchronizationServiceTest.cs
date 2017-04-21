@@ -177,11 +177,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             // Setup
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
 
-            var expectedRemovedObjects = failureMechanism.Sections.OfType<object>()
-                                                         .Concat(failureMechanism.SectionResults)
-                                                         .Concat(failureMechanism.WaveConditionsCalculationGroup.GetAllChildrenRecursive())
-                                                         .Concat(failureMechanism.ForeshoreProfiles)
-                                                         .ToArray();
+            object[] expectedRemovedObjects = failureMechanism.Sections.OfType<object>()
+                                                              .Concat(failureMechanism.SectionResults)
+                                                              .Concat(failureMechanism.WaveConditionsCalculationGroup.GetAllChildrenRecursive())
+                                                              .Concat(failureMechanism.ForeshoreProfiles)
+                                                              .ToArray();
 
             // Call
             ClearResults results = GrassCoverErosionOutwardsDataSynchronizationService.ClearReferenceLineDependentData(failureMechanism);

@@ -21,6 +21,7 @@
 
 using System.Linq;
 using Core.Common.Gui.Plugin;
+using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
@@ -62,7 +63,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
                 PropertyInfo info = GetInfo(plugin);
 
                 // Call
-                var objectProperties = info.CreateInstance(context);
+                IObjectProperties objectProperties = info.CreateInstance(context);
 
                 // Assert
                 Assert.IsInstanceOf<GrassCoverErosionOutwardsWaveConditionsInputContextProperties>(objectProperties);

@@ -42,7 +42,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             // Setup
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Assert
                 Assert.IsNotNull(info.Text);
@@ -74,7 +74,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
                 string nodeText = info.Text(output);
@@ -92,7 +92,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
                 Image icon = info.Image(output);
@@ -106,7 +106,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_FailureMechanismIsRelevant_CallsContextMenuBuilderMethods()
         {
             // Setup
-            MockRepository mocks = new MockRepository();
+            var mocks = new MockRepository();
             using (var treeViewControl = new TreeViewControl())
             {
                 var output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>());
@@ -124,7 +124,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
                 using (var plugin = new GrassCoverErosionOutwardsPlugin())
                 {
-                    var info = GetInfo(plugin);
+                    TreeNodeInfo info = GetInfo(plugin);
                     plugin.Gui = gui;
 
                     // Call

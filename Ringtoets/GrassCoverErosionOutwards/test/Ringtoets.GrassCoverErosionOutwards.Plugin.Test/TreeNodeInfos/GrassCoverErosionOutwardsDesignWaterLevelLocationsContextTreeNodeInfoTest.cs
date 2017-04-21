@@ -43,6 +43,7 @@ using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -272,7 +273,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
                     var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
                                                              importCommandHandler,
-                                                             exportCommandHandler, 
+                                                             exportCommandHandler,
                                                              updateCommandHandler,
                                                              viewCommandsHandler,
                                                              context,
@@ -335,7 +336,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
                     var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
                                                              importCommandHandler,
-                                                             exportCommandHandler, 
+                                                             exportCommandHandler,
                                                              updateCommandHandler,
                                                              viewCommandsHandler,
                                                              context,
@@ -407,8 +408,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         contextMenuAdapter.Items[contextMenuRunDesignWaterLevelCalculationsIndex].PerformClick();
 
                         // Assert
-                        var testDesignWaterLevelCalculator = testFactory.DesignWaterLevelCalculator;
-                        var designWaterLevelCalculationInput = testDesignWaterLevelCalculator.ReceivedInputs.First();
+                        TestDesignWaterLevelCalculator testDesignWaterLevelCalculator = testFactory.DesignWaterLevelCalculator;
+                        AssessmentLevelCalculationInput designWaterLevelCalculationInput = testDesignWaterLevelCalculator.ReceivedInputs.First();
 
                         Assert.AreEqual(testDataPath, testDesignWaterLevelCalculator.HydraulicBoundaryDatabaseDirectory);
 
@@ -436,7 +437,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
                 failureMechanism, mockRepository, Path.Combine(testDataPath, "HRD ijsselmeer.sqlite"));
 
-            var hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
             var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocation>
             {
                 hydraulicBoundaryLocation
@@ -458,7 +459,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
                     using (new HydraRingCalculatorFactoryConfig())
                     {
-                        var testDesignWaterLevelCalculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).DesignWaterLevelCalculator;
+                        TestDesignWaterLevelCalculator testDesignWaterLevelCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DesignWaterLevelCalculator;
                         testDesignWaterLevelCalculator.Converged = false;
 
                         // When
@@ -467,7 +468,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         // Then
                         TestHelper.AssertLogMessages(call, messages =>
                         {
-                            var msgs = messages.ToArray();
+                            string[] msgs = messages.ToArray();
                             Assert.AreEqual(7, msgs.Length);
                             StringAssert.StartsWith($"Validatie van 'Waterstand bij doorsnede-eis voor locatie '{hydraulicBoundaryLocation.Name}'' gestart om: ", msgs[0]);
                             StringAssert.StartsWith($"Validatie van 'Waterstand bij doorsnede-eis voor locatie '{hydraulicBoundaryLocation.Name}'' beëindigd om: ", msgs[1]);

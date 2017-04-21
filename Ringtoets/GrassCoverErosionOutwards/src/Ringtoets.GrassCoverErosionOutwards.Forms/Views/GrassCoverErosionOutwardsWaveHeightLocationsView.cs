@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -105,7 +106,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
 
         protected override object CreateSelectedItemFromCurrentRow()
         {
-            var currentRow = dataGridViewControl.CurrentRow;
+            DataGridViewRow currentRow = dataGridViewControl.CurrentRow;
 
             return currentRow != null
                        ? new GrassCoverErosionOutwardsWaveHeightLocationContext((ObservableList<HydraulicBoundaryLocation>) Data,
@@ -175,14 +176,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
         private bool IsDataGridDataSourceChanged()
         {
             var locations = (ObservableList<HydraulicBoundaryLocation>) Data;
-            var count = dataGridViewControl.Rows.Count;
+            int count = dataGridViewControl.Rows.Count;
             if (count != locations.Count)
             {
                 return true;
             }
-            for (int i = 0; i < count; i++)
+            for (var i = 0; i < count; i++)
             {
-                var locationFromGrid = ((WaveHeightLocationRow) dataGridViewControl.Rows[i].DataBoundItem).CalculatableObject;
+                HydraulicBoundaryLocation locationFromGrid = ((WaveHeightLocationRow) dataGridViewControl.Rows[i].DataBoundItem).CalculatableObject;
                 if (!ReferenceEquals(locationFromGrid, locations[i]))
                 {
                     return true;

@@ -22,9 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data;
@@ -36,6 +34,7 @@ namespace Ringtoets.Revetment.IO.Test
     public class ExportableWaveConditionsFactoryTest
     {
         private static readonly TestWaveConditionsOutput waveConditionsOutput = new TestWaveConditionsOutput();
+
         private readonly WaveConditionsOutput[] waveConditionsOutputCollection =
         {
             waveConditionsOutput

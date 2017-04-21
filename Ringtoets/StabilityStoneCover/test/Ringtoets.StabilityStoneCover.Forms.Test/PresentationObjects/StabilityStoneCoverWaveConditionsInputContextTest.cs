@@ -21,15 +21,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Data;
@@ -120,7 +116,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
             // Call
             TestDelegate test = () => new StabilityStoneCoverWaveConditionsInputContext(
                 input,
-                new TestCalculation(), 
+                new TestCalculation(),
                 null,
                 assessmentSection);
 
@@ -145,7 +141,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
 
             TestDelegate test = () => new StabilityStoneCoverWaveConditionsInputContext(
                 input,
-                null, 
+                null,
                 failureMechanism.ForeshoreProfiles,
                 assessmentSection);
 
@@ -166,7 +162,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
 
             TestDelegate test = () => new StabilityStoneCoverWaveConditionsInputContext(
                 input,
-                new TestCalculation(), 
+                new TestCalculation(),
                 failureMechanism.ForeshoreProfiles,
                 null);
 
@@ -187,9 +183,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var context = new StabilityStoneCoverWaveConditionsInputContext(
-                input, 
-                new TestCalculation(), 
-                failureMechanism.ForeshoreProfiles, 
+                input,
+                new TestCalculation(),
+                failureMechanism.ForeshoreProfiles,
                 assessmentSection);
 
             // Call

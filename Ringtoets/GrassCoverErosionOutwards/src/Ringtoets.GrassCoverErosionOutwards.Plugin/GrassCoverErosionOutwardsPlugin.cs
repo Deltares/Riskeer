@@ -272,7 +272,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 Name = RingtoetsCommonFormsResources.WaveConditionsExporter_DisplayName,
                 CreateFileExporter = (context, filePath) =>
                 {
-                    var calculations = context.FailureMechanism.WaveConditionsCalculationGroup.GetCalculations().Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>();
+                    IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> calculations = context.FailureMechanism.WaveConditionsCalculationGroup.GetCalculations().Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>();
                     return new GrassCoverErosionOutwardsWaveConditionsExporter(calculations, filePath);
                 },
                 IsEnabled = context => context.FailureMechanism.WaveConditionsCalculationGroup.GetCalculations().Any(c => c.HasOutput),
@@ -285,7 +285,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 Name = RingtoetsCommonFormsResources.WaveConditionsExporter_DisplayName,
                 CreateFileExporter = (context, filePath) =>
                 {
-                    var calculations = context.WrappedData.GetCalculations().Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>();
+                    IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> calculations = context.WrappedData.GetCalculations().Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>();
                     return new GrassCoverErosionOutwardsWaveConditionsExporter(calculations, filePath);
                 },
                 IsEnabled = context => context.WrappedData.GetCalculations().Any(c => c.HasOutput),
@@ -337,7 +337,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             var failureMechanism = data as GrassCoverErosionOutwardsFailureMechanism;
 
             var viewFailureMechanismContext = (GrassCoverErosionOutwardsFailureMechanismContext) view.Data;
-            var viewFailureMechanism = viewFailureMechanismContext.WrappedData;
+            GrassCoverErosionOutwardsFailureMechanism viewFailureMechanism = viewFailureMechanismContext.WrappedData;
 
             return assessmentSection != null
                        ? ReferenceEquals(viewFailureMechanismContext.Parent, assessmentSection)
@@ -501,7 +501,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             }
 
             ObservableList<HydraulicBoundaryLocation> locations = hydraulicBoundariesGroupContext.WrappedData;
-            var failureMechanism = hydraulicBoundariesGroupContext.FailureMechanism;
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism = hydraulicBoundariesGroupContext.FailureMechanism;
             return new object[]
             {
                 new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(locations, assessmentSection, failureMechanism),
@@ -658,9 +658,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                                                                                 object parentData,
                                                                                 TreeViewControl treeViewControl)
         {
-            var group = nodeData.WrappedData;
+            CalculationGroup group = nodeData.WrappedData;
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-            var isNestedGroup = parentData is GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext;
+            bool isNestedGroup = parentData is GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext;
 
             StrictContextMenuItem generateCalculationsItem = CreateGenerateWaveConditionsCalculationsItem(nodeData);
 
@@ -795,7 +795,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
         private void CalculateAll(CalculationGroup group, GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext context)
         {
-            var calculations = group.GetCalculations().OfType<GrassCoverErosionOutwardsWaveConditionsCalculation>().ToArray();
+            GrassCoverErosionOutwardsWaveConditionsCalculation[] calculations = group.GetCalculations().OfType<GrassCoverErosionOutwardsWaveConditionsCalculation>().ToArray();
 
             CalculateAll(calculations, context.FailureMechanism, context.AssessmentSection);
         }
@@ -813,7 +813,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                                                                                                           assessmentSection))
                     .ToList());
 
-            foreach (var calculation in calculations)
+            foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in calculations)
             {
                 calculation.NotifyObservers();
             }

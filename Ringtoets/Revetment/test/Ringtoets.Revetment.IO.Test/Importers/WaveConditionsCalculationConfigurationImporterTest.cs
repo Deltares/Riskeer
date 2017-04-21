@@ -254,7 +254,7 @@ namespace Ringtoets.Revetment.IO.Test.Importers
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertWaveConditionsCalculation(expectedCalculation, (IWaveConditionsCalculation)calculationGroup.Children[0]);
+            AssertWaveConditionsCalculation(expectedCalculation, (IWaveConditionsCalculation) calculationGroup.Children[0]);
         }
 
         [Test]
@@ -265,12 +265,12 @@ namespace Ringtoets.Revetment.IO.Test.Importers
 
             var calculationGroup = new CalculationGroup();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HRlocatie", 10, 20);
-            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new []
+            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1),
                 new Point2D(2, 2)
-            },new BreakWater(BreakWaterType.Caisson, 0), new ForeshoreProfile.ConstructionProperties
+            }, new BreakWater(BreakWaterType.Caisson, 0), new ForeshoreProfile.ConstructionProperties
             {
                 Id = "id",
                 Name = "Voorlandprofiel"

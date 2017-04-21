@@ -29,7 +29,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
-using Ringtoets.Revetment.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
@@ -43,7 +42,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             // Setup
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Assert
                 Assert.IsNotNull(info.Text);
@@ -74,13 +73,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
             var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(
-                calculation.InputParameters, 
+                calculation.InputParameters,
                 calculation,
                 failureMechanism);
 
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
                 string nodeText = info.Text(context);
@@ -103,7 +102,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
                 // Call
                 Image icon = info.Image(context);
 
@@ -141,7 +140,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
                 using (var plugin = new GrassCoverErosionOutwardsPlugin())
                 {
-                    var info = GetInfo(plugin);
+                    TreeNodeInfo info = GetInfo(plugin);
                     plugin.Gui = gui;
 
                     // Call

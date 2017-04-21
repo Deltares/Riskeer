@@ -59,7 +59,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             // Setup
             using (var plugin = new WaveImpactAsphaltCoverPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Assert
                 Assert.IsNotNull(info.Text);
@@ -96,7 +96,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new WaveImpactAsphaltCoverPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
                 string nodeText = info.Text(failureMechanismContext);
@@ -122,7 +122,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new WaveImpactAsphaltCoverPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
                 Color foreColor = info.ForeColor(failureMechanismContext);
@@ -148,7 +148,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new WaveImpactAsphaltCoverPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
                 Color foreColor = info.ForeColor(failureMechanismContext);
@@ -171,7 +171,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new WaveImpactAsphaltCoverPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
                 Image icon = info.Image(failureMechanismContext);
@@ -197,7 +197,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new WaveImpactAsphaltCoverPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
                 object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
@@ -257,7 +257,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new WaveImpactAsphaltCoverPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
                 object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
@@ -305,7 +305,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 {
                     plugin.Gui = gui;
 
-                    var info = GetInfo(plugin);
+                    TreeNodeInfo info = GetInfo(plugin);
 
                     // Call
                     info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
@@ -347,7 +347,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 {
                     plugin.Gui = gui;
 
-                    var info = GetInfo(plugin);
+                    TreeNodeInfo info = GetInfo(plugin);
 
                     // Call
                     info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
@@ -391,7 +391,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 {
                     plugin.Gui = gui;
 
-                    var info = GetInfo(plugin);
+                    TreeNodeInfo info = GetInfo(plugin);
 
                     using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
                     {
@@ -438,7 +438,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 {
                     plugin.Gui = gui;
 
-                    var info = GetInfo(plugin);
+                    TreeNodeInfo info = GetInfo(plugin);
 
                     using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
                     {

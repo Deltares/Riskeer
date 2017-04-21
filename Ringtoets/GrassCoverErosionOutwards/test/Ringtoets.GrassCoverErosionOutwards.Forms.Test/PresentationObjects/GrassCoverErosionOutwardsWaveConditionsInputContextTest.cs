@@ -20,14 +20,10 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
-using Core.Common.Base.Geometry;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
-using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.Revetment.Data;
@@ -80,8 +76,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
 
             // Call
             TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsInputContext(
-                null, 
-                new TestCalculation(), 
+                null,
+                new TestCalculation(),
                 failureMechanism);
 
             // Assert
@@ -116,7 +112,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             // Call
             TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsInputContext(
                 input,
-                new TestCalculation(), 
+                new TestCalculation(),
                 null);
 
             // Assert

@@ -117,8 +117,8 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ImportInfos
             mocks.ReplayAll();
 
             var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(new CalculationGroup(),
-                                                                                             failureMechanism,
-                                                                                             assessmentSection);
+                                                                                       failureMechanism,
+                                                                                       assessmentSection);
 
             // Call
             IFileImporter importer = importInfo.CreateFileImporter(context, "");

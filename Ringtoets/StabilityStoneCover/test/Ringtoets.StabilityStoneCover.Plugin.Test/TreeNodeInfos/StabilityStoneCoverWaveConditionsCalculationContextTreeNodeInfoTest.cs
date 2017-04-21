@@ -26,7 +26,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
@@ -482,7 +481,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 var viewCommands = mocks.Stub<IViewCommands>();
                 var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
                                                              importHandler,
-                                                             exportHandler, 
+                                                             exportHandler,
                                                              updateHandler,
                                                              viewCommands,
                                                              context,
@@ -736,8 +735,8 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     // Then
                     TestHelper.AssertLogMessages(call, logMessages =>
                     {
-                        var messages = logMessages.ToArray();
-                        var expectedMessageCount = validCalculation ? 2 : 3;
+                        string[] messages = logMessages.ToArray();
+                        int expectedMessageCount = validCalculation ? 2 : 3;
                         Assert.AreEqual(expectedMessageCount, messages.Length);
                         StringAssert.StartsWith("Validatie van 'A' gestart om: ", messages[0]);
 
@@ -920,7 +919,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(
                 failureMechanism, mocks, validHydroDatabasePath);
 
-            var calculation = GetValidCalculation();
+            StabilityStoneCoverWaveConditionsCalculation calculation = GetValidCalculation();
             calculation.Name = "A";
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
                                                                                   failureMechanism,
@@ -975,7 +974,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     // Then
                     TestHelper.AssertLogMessages(call, logMessages =>
                     {
-                        var messages = logMessages.ToArray();
+                        string[] messages = logMessages.ToArray();
                         Assert.AreEqual(27, messages.Length);
                         StringAssert.StartsWith("Berekening van 'A' gestart om: ", messages[2]);
                         StringAssert.StartsWith("Berekening van 'A' beëindigd om: ", messages[25]);
@@ -1119,7 +1118,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 var viewCommands = mocks.Stub<IViewCommands>();
                 var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
                                                              importHandler,
-                                                             exportHandler, 
+                                                             exportHandler,
                                                              updateHandler,
                                                              viewCommands,
                                                              context,

@@ -139,9 +139,9 @@ namespace Ringtoets.Revetment.IO.Importers
                 catch (ArgumentOutOfRangeException e)
                 {
                     Log.LogOutOfRangeException(string.Format(
-                              RingtoetsCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
-                              readValue.Value, parameterName),
-                          calculationName, e);
+                                                   RingtoetsCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
+                                                   readValue.Value, parameterName),
+                                               calculationName, e);
                     return false;
                 }
             }
@@ -201,10 +201,10 @@ namespace Ringtoets.Revetment.IO.Importers
                 catch (ArgumentOutOfRangeException e)
                 {
                     Log.LogOutOfRangeException(string.Format(
-                              RingtoetsCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
-                              orientation,
-                              RingtoetsCommonIOResources.CalculationConfigurationImporter_Orientation_DisplayName),
-                          calculation.Name, e);
+                                                   RingtoetsCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
+                                                   orientation,
+                                                   RingtoetsCommonIOResources.CalculationConfigurationImporter_Orientation_DisplayName),
+                                               calculation.Name, e);
                     return false;
                 }
             }
@@ -264,7 +264,7 @@ namespace Ringtoets.Revetment.IO.Importers
                     || readCalculation.BreakWaterType != null)
                 {
                     Log.LogCalculationConversionError(RingtoetsCommonIOResources.CalculationConfigurationImporter_ValidateWaveReduction_No_foreshore_profile_provided,
-                          calculation.Name);
+                                                      calculation.Name);
                     return false;
                 }
             }
@@ -273,9 +273,9 @@ namespace Ringtoets.Revetment.IO.Importers
                 if (readCalculation.UseForeshore.HasValue && readCalculation.UseForeshore.Value)
                 {
                     Log.LogCalculationConversionError(string.Format(
-                              RingtoetsCommonIOResources.ReadForeshoreProfile_ForeshoreProfile_0_has_no_geometry_and_cannot_be_used,
-                              readCalculation.ForeshoreProfile),
-                          calculation.Name);
+                                                          RingtoetsCommonIOResources.ReadForeshoreProfile_ForeshoreProfile_0_has_no_geometry_and_cannot_be_used,
+                                                          readCalculation.ForeshoreProfile),
+                                                      calculation.Name);
                     return false;
                 }
             }

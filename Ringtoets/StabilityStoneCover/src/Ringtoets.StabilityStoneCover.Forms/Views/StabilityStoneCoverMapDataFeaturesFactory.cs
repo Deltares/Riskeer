@@ -41,16 +41,17 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         /// <returns>An array of features or an empty array when <paramref name="calculationInputs"/> is <c>null</c> or empty.</returns>
         public static MapFeature[] CreateCalculationFeatures(IEnumerable<StabilityStoneCoverWaveConditionsCalculation> calculationInputs)
         {
-            var hasCalculations = calculationInputs != null && calculationInputs.Any();
+            bool hasCalculations = calculationInputs != null && calculationInputs.Any();
 
             if (!hasCalculations)
             {
                 return new MapFeature[0];
             }
 
-            var calculationsWithLocationAndHydraulicBoundaryLocation = calculationInputs.Where(calculation =>
-                                                                                                   calculation.InputParameters.ForeshoreProfile != null &&
-                                                                                                   calculation.InputParameters.HydraulicBoundaryLocation != null);
+            IEnumerable<StabilityStoneCoverWaveConditionsCalculation> calculationsWithLocationAndHydraulicBoundaryLocation =
+                calculationInputs.Where(calculation =>
+                                            calculation.InputParameters.ForeshoreProfile != null &&
+                                            calculation.InputParameters.HydraulicBoundaryLocation != null);
 
             MapCalculationData[] calculationData =
                 calculationsWithLocationAndHydraulicBoundaryLocation.Select(

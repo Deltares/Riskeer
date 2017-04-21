@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.ComponentModel;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
@@ -71,8 +70,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             CollectionAssert.AllItemsAreInstancesOfType(properties.Items, typeof(WaveConditionsOutputProperties));
             Assert.AreEqual(items.Length, properties.Items.Length);
 
-            var firstOutput = items[0];
-            var firstOutputProperties = properties.Items[0];
+            TestWaveConditionsOutput firstOutput = items[0];
+            WaveConditionsOutputProperties firstOutputProperties = properties.Items[0];
             Assert.AreEqual(firstOutput.WaterLevel, firstOutputProperties.WaterLevel);
             Assert.AreEqual(firstOutput.WaveHeight, firstOutputProperties.WaveHeight);
             Assert.AreEqual(firstOutput.WavePeakPeriod, firstOutputProperties.WavePeakPeriod);

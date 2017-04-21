@@ -77,7 +77,7 @@ namespace Ringtoets.Revetment.Service.Test
         public void TargetReliability_DifferentReturnPeriods_ReturnsExpectedValues(double returnPeriod, double expectedReliability)
         {
             // Setup
-            double norm = 1.0/returnPeriod;
+            double norm = 1.0 / returnPeriod;
 
             // Call 
             WaveConditionsOutput output = WaveConditionsService.Calculate(double.NaN, double.NaN, double.NaN, double.NaN,
@@ -98,7 +98,7 @@ namespace Ringtoets.Revetment.Service.Test
         public void TargetProbability_DifferentReturnPeriods_ReturnsExpectedValues(double returnPeriod, double expectedProbability)
         {
             // Setup
-            double norm = 1.0/returnPeriod;
+            double norm = 1.0 / returnPeriod;
 
             // Call 
             WaveConditionsOutput output = WaveConditionsService.Calculate(double.NaN, double.NaN, double.NaN, double.NaN,

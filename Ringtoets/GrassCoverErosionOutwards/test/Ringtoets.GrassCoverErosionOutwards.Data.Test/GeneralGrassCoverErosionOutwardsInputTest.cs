@@ -22,7 +22,6 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Properties;
 using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Data.Test

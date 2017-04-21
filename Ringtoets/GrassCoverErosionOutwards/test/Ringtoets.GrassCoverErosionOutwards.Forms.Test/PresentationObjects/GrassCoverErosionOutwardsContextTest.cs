@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
@@ -128,7 +128,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             var context = new SimpleGrassCoverErosionOutwardsContext(target, failureMechanism, assessmentSection);
 
             // Call
-            var availableHydraulicBoundaryLocations = context.HydraulicBoundaryLocations;
+            IEnumerable<HydraulicBoundaryLocation> availableHydraulicBoundaryLocations = context.HydraulicBoundaryLocations;
 
             // Assert
             Assert.AreSame(failureMechanism.HydraulicBoundaryLocations, availableHydraulicBoundaryLocations);

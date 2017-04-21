@@ -24,7 +24,9 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
+using Core.Components.Gis.Geometries;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -266,7 +268,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
                 MapDataCollection mapData = map.Data;
                 Assert.IsInstanceOf<MapDataCollection>(mapData);
 
-                var mapDataList = mapData.Collection.ToList();
+                List<MapData> mapDataList = mapData.Collection.ToList();
                 Assert.AreEqual(7, mapDataList.Count);
                 MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, mapDataList[referenceLineIndex]);
                 MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, mapDataList[sectionsIndex]);
@@ -623,7 +625,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
                 mapData.Remove(dataToMove);
                 mapData.Add(dataToMove);
 
-                var mapDataList = mapData.Collection.ToList();
+                List<MapData> mapDataList = mapData.Collection.ToList();
 
                 // Precondition
                 var referenceLineData = (MapLineData) mapDataList[updatedRefenceLineLayerIndex];
@@ -721,13 +723,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
         {
             Assert.IsInstanceOf<MapLineData>(mapData);
             var calculationsMapData = (MapLineData) mapData;
-            var calculationsArray = calculations.ToArray();
-            var calculationsFeatures = calculationsMapData.Features.ToArray();
+            WaveImpactAsphaltCoverWaveConditionsCalculation[] calculationsArray = calculations.ToArray();
+            MapFeature[] calculationsFeatures = calculationsMapData.Features.ToArray();
             Assert.AreEqual(calculationsArray.Length, calculationsFeatures.Length);
 
             for (var index = 0; index < calculationsArray.Length; index++)
             {
-                var geometries = calculationsFeatures[index].MapGeometries.ToArray();
+                MapGeometry[] geometries = calculationsFeatures[index].MapGeometries.ToArray();
                 Assert.AreEqual(1, geometries.Length);
 
                 WaveImpactAsphaltCoverWaveConditionsCalculation calculation = calculationsArray[index];
@@ -744,7 +746,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
         {
             Assert.AreEqual("Dijken en dammen - Golfklappen op asfaltbekleding", mapDataCollection.Name);
 
-            var mapDataList = mapDataCollection.Collection.ToList();
+            List<MapData> mapDataList = mapDataCollection.Collection.ToList();
 
             Assert.AreEqual(7, mapDataList.Count);
 

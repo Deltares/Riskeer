@@ -40,13 +40,13 @@ namespace Ringtoets.StabilityStoneCover.Data
             InputParameters = new WaveConditionsInput();
             Comments = new Comment();
         }
-        
-        public WaveConditionsInput InputParameters { get; }
 
         /// <summary>
         /// Gets or sets the output which contains the results of a wave conditions calculation.
         /// </summary>
         public StabilityStoneCoverWaveConditionsOutput Output { get; set; }
+
+        public WaveConditionsInput InputParameters { get; }
 
         public string Name { get; set; }
 

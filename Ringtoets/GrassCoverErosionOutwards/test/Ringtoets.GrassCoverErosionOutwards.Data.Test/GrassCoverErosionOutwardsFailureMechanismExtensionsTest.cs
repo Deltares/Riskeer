@@ -85,7 +85,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
                 new HydraulicBoundaryLocation(1, "location 1", 1, 2),
                 new HydraulicBoundaryLocation(2, "location 2", 3, 4)
             };
-            
+
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Precondition

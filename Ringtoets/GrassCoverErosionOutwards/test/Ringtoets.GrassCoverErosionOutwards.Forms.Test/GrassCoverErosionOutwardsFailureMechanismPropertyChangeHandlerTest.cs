@@ -40,7 +40,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
 
             // Call
             TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation<int?>(
-                new GrassCoverErosionOutwardsFailureMechanism(), 
+                new GrassCoverErosionOutwardsFailureMechanism(),
                 null,
                 (f, v) => { });
 
@@ -57,7 +57,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
 
             // Call
             TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation(
-                new GrassCoverErosionOutwardsFailureMechanism(), 
+                new GrassCoverErosionOutwardsFailureMechanism(),
                 3,
                 null);
 
@@ -71,10 +71,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
         public void SetPropertyValueAfterConfirmation_IfConfirmationRequiredThenGiven_MessageDialogShownSetValueCalledAffectedObjectsReturned(ChangePropertyTestCase testCase)
         {
             // Setup
-            var dialogBoxWillBeShown = testCase.ExpectedAffectedCalculations.Any() || testCase.ExpectedAffectedLocations.Any();
+            bool dialogBoxWillBeShown = testCase.ExpectedAffectedCalculations.Any() || testCase.ExpectedAffectedLocations.Any();
 
-            string title = "";
-            string message = "";
+            var title = "";
+            var message = "";
             if (dialogBoxWillBeShown)
             {
                 DialogBoxHandler = (name, wnd) =>
@@ -88,7 +88,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
             }
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            foreach (var calculation in testCase.Calculations)
+            foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in testCase.Calculations)
             {
                 failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
             }
@@ -99,7 +99,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
             var changeHandler = new GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler();
 
             // Call
-            var affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(
+            IEnumerable<IObservable> affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(
                 failureMechanism,
                 3,
                 (f, v) => propertySet++);
@@ -133,8 +133,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
                 tester.ClickCancel();
             };
 
-            var calculationWithOutput = CreateCalculationWithOutput();
-            var calculationWithoutOutput = CreateCalculationWithoutOutput();
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculationWithOutput = CreateCalculationWithOutput();
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculationWithoutOutput = CreateCalculationWithoutOutput();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutput);
@@ -145,7 +145,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
             var changeHandler = new GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler();
 
             // Call
-            var affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(
+            IEnumerable<IObservable> affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(
                 failureMechanism,
                 3,
                 (f, v) => propertySet++);
@@ -182,9 +182,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
 
             yield return new TestCaseData(
                 new ChangePropertyTestCase(new[]
-                                           {
-                                               CreateHydraulicBoundaryLocationWithoutOutput()
-                                           }, new GrassCoverErosionOutwardsWaveConditionsCalculation[0])
+                {
+                    CreateHydraulicBoundaryLocationWithoutOutput()
+                }, new GrassCoverErosionOutwardsWaveConditionsCalculation[0])
             ).SetName("SetPropertyValueAfterConfirmation Single location without output, no calculations");
 
             yield return new TestCaseData(
@@ -197,12 +197,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
 
             yield return new TestCaseData(
                 new ChangePropertyTestCase(new[]
-                                           {
-                                               CreateHydraulicBoundaryLocationWithoutOutput()
-                                           }, new[]
-                                           {
-                                               CreateCalculationWithOutput()
-                                           })
+                {
+                    CreateHydraulicBoundaryLocationWithoutOutput()
+                }, new[]
+                {
+                    CreateCalculationWithOutput()
+                })
             ).SetName("SetPropertyValueAfterConfirmation Single location without output, calculation with output");
 
             yield return new TestCaseData(

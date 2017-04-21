@@ -75,7 +75,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                 }
             };
 
-            var testFilePath = Path.Combine(testDataPath, "NonExisting.sqlite");
+            string testFilePath = Path.Combine(testDataPath, "NonExisting.sqlite");
             var activity = new GrassCoverErosionOutwardsWaveConditionsCalculationActivity(calculation,
                                                                                           testFilePath,
                                                                                           assessmentSection.GrassCoverErosionOutwards,
@@ -89,7 +89,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {
-                    var msgs = messages.ToArray();
+                    string[] msgs = messages.ToArray();
                     Assert.AreEqual(3, msgs.Length);
                     StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
                     Assert.AreEqual(string.Format("Validatie mislukt: Fout bij het lezen van bestand '{0}': het bestand bestaat niet.", testFilePath), msgs[1]);
@@ -121,14 +121,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {
-                    var msgs = messages.ToArray();
+                    string[] msgs = messages.ToArray();
                     Assert.AreEqual(13, msgs.Length);
                     StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
                     StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
 
-                    int i = 2;
-                    foreach (var waterLevel in calculation.InputParameters.WaterLevels)
+                    var i = 2;
+                    foreach (RoundedDouble waterLevel in calculation.InputParameters.WaterLevels)
                     {
                         Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' gestart.", calculation.Name, waterLevel), msgs[i + 1]);
                         StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[i + 2]);
@@ -158,17 +158,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                List<string> progessTexts = new List<string>();
+                var progessTexts = new List<string>();
                 activity.ProgressChanged += (sender, args) => { progessTexts.Add(activity.ProgressText); };
 
                 // Call
                 activity.Run();
 
                 // Assert
-                var waterLevels = calculation.InputParameters.WaterLevels.ToArray();
+                RoundedDouble[] waterLevels = calculation.InputParameters.WaterLevels.ToArray();
                 for (var i = 0; i < waterLevels.Length; i++)
                 {
-                    var text = string.Format("Stap {0} van {1} | Waterstand '{2}' berekenen.", i + 1, waterLevels.Length, waterLevels[i]);
+                    string text = string.Format("Stap {0} van {1} | Waterstand '{2}' berekenen.", i + 1, waterLevels.Length, waterLevels[i]);
                     Assert.AreEqual(text, progessTexts[i]);
                 }
             }
@@ -194,11 +194,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                 activity.Run();
 
                 // Assert
-                var testWaveConditionsCosineCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
+                TestWaveConditionsCosineCalculator testWaveConditionsCosineCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
                 WaveConditionsCosineCalculationInput[] testWaveConditionsInputs = testWaveConditionsCosineCalculator.ReceivedInputs.ToArray();
                 Assert.AreEqual(3, testWaveConditionsInputs.Length);
 
-                int waterLevelIndex = 0;
+                var waterLevelIndex = 0;
                 foreach (WaveConditionsCosineCalculationInput actualInput in testWaveConditionsInputs)
                 {
                     GeneralGrassCoverErosionOutwardsInput generalInput = assessmentSection.GrassCoverErosionOutwards.GeneralInput;
@@ -318,7 +318,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
             var activity = new GrassCoverErosionOutwardsWaveConditionsCalculationActivity(calculation, testDataPath, failureMechanism, assessmentSection);
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
+                TestWaveConditionsCosineCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
                 calculator.EndInFailure = endInFailure;
                 calculator.LastErrorFileContent = lastErrorFileContent;
 
@@ -346,7 +346,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
+                TestWaveConditionsCosineCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
                 calculator.EndInFailure = true;
 
                 // Call

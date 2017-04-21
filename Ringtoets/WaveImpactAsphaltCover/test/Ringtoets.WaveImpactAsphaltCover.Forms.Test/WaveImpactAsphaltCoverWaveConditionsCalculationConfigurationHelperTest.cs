@@ -50,7 +50,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test
         public void AddCalculationsFromLocations_CalculationsIsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var locations = Enumerable.Empty<HydraulicBoundaryLocation>();
+            IEnumerable<HydraulicBoundaryLocation> locations = Enumerable.Empty<HydraulicBoundaryLocation>();
 
             // Call
             TestDelegate test = () => WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationHelper.AddCalculationsFromLocations(locations, null);
@@ -64,7 +64,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test
         public void AddCalculationsFromLocations_EmptyCollections_ReturnsEmptyList()
         {
             // Setup
-            var locations = Enumerable.Empty<HydraulicBoundaryLocation>();
+            IEnumerable<HydraulicBoundaryLocation> locations = Enumerable.Empty<HydraulicBoundaryLocation>();
             var calculationBases = new List<ICalculationBase>();
 
             // Call

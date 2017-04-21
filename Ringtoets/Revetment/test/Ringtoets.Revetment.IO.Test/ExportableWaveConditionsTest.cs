@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data;
@@ -92,7 +90,7 @@ namespace Ringtoets.Revetment.IO.Test
             waveConditionsInput.UseForeshore = useForeshore;
 
             // Call
-            ExportableWaveConditions exportableWaveConditions =
+            var exportableWaveConditions =
                 new ExportableWaveConditions("ewcName",
                                              waveConditionsInput,
                                              waveConditionsOutput,
@@ -131,7 +129,7 @@ namespace Ringtoets.Revetment.IO.Test
             waveConditionsInput.UseForeshore = useForeshore;
 
             // Call
-            ExportableWaveConditions exportableWaveConditions =
+            var exportableWaveConditions =
                 new ExportableWaveConditions("ewcName",
                                              waveConditionsInput,
                                              waveConditionsOutput,

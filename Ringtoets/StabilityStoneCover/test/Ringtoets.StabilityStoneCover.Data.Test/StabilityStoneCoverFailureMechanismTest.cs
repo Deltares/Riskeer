@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
@@ -109,7 +110,7 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
             mocks.ReplayAll();
 
             // Call
-            var calculations = failureMechanism.Calculations.ToList();
+            List<ICalculation> calculations = failureMechanism.Calculations.ToList();
 
             // Assert
             Assert.AreEqual(2, calculations.Count);

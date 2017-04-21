@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
-using Ringtoets.Common.Forms;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -16,18 +14,18 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms
     /// </summary>
     public class GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler : FailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism>
     {
-        protected override bool RequiresConfirmation(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
-        {
-            return base.RequiresConfirmation(failureMechanism) || 
-                failureMechanism.HydraulicBoundaryLocations.Any(c => c.WaveHeightOutput != null || c.DesignWaterLevelOutput != null);
-        }
-
         protected override string ConfirmationMessage
         {
             get
             {
                 return Resources.GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler_Confirm_change_composition_and_clear_dependent_data;
             }
+        }
+
+        protected override bool RequiresConfirmation(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+        {
+            return base.RequiresConfirmation(failureMechanism) ||
+                   failureMechanism.HydraulicBoundaryLocations.Any(c => c.WaveHeightOutput != null || c.DesignWaterLevelOutput != null);
         }
 
         protected override IEnumerable<IObservable> PropertyChanged(GrassCoverErosionOutwardsFailureMechanism failureMechanism)

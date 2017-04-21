@@ -84,7 +84,7 @@ namespace Ringtoets.Revetment.IO.Test.Exporters
             var waveConditionsExporter = new TestWaveConditionsExporter(new ExportableWaveConditions[0], invalidFilePath);
 
             // Call
-            bool isExported = true;
+            var isExported = true;
             Action call = () => isExported = waveConditionsExporter.Export();
 
             // Assert

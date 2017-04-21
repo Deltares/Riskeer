@@ -111,14 +111,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 new Point2D(1.2, 2.3),
                 new Point2D(2.7, 2.0)
             };
-            var hydraulicBoundaryLocations = points.Select(p => new HydraulicBoundaryLocation(0, "", p.X, p.Y)).ToArray();
+            HydraulicBoundaryLocation[] hydraulicBoundaryLocations = points.Select(p => new HydraulicBoundaryLocation(0, "", p.X, p.Y)).ToArray();
 
             // Call
             MapFeature[] features = GrassCoverErosionOutwardsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(hydraulicBoundaryLocations);
 
             // Assert
             Assert.AreEqual(hydraulicBoundaryLocations.Length, features.Length);
-            for (int i = 0; i < hydraulicBoundaryLocations.Length; i++)
+            for (var i = 0; i < hydraulicBoundaryLocations.Length; i++)
             {
                 Assert.AreEqual(4, features[i].MetaData.Keys.Count);
                 Assert.AreEqual(hydraulicBoundaryLocations[i].Id, features[i].MetaData["ID"]);
@@ -138,7 +138,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         private static void AssertEqualFeatureCollections(Point2D[] points, MapFeature[] features)
         {
             Assert.AreEqual(points.Length, features.Length);
-            for (int i = 0; i < points.Length; i++)
+            for (var i = 0; i < points.Length; i++)
             {
                 CollectionAssert.AreEqual(new[]
                 {

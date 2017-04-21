@@ -54,7 +54,7 @@ namespace Ringtoets.StabilityStoneCover.Forms
             {
                 throw new ArgumentNullException(nameof(calculations));
             }
-            foreach (var calculation in locations.Select(location => CreateStabilityStoneCoverWaveConditionsCalculation(location, calculations)))
+            foreach (ICalculationBase calculation in locations.Select(location => CreateStabilityStoneCoverWaveConditionsCalculation(location, calculations)))
             {
                 calculations.Add(calculation);
             }
@@ -64,8 +64,8 @@ namespace Ringtoets.StabilityStoneCover.Forms
             HydraulicBoundaryLocation hydraulicBoundaryLocation,
             IEnumerable<ICalculationBase> calculations)
         {
-            var nameBase = hydraulicBoundaryLocation.Name;
-            var name = NamingHelper.GetUniqueName(calculations, nameBase, c => c.Name);
+            string nameBase = hydraulicBoundaryLocation.Name;
+            string name = NamingHelper.GetUniqueName(calculations, nameBase, c => c.Name);
 
             return new StabilityStoneCoverWaveConditionsCalculation
             {

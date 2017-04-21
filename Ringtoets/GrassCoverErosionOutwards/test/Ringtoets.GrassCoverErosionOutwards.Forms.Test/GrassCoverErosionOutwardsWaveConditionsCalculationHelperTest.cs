@@ -50,7 +50,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
         public void AddCalculationsFromLocations_CalculationsIsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var locations = Enumerable.Empty<HydraulicBoundaryLocation>();
+            IEnumerable<HydraulicBoundaryLocation> locations = Enumerable.Empty<HydraulicBoundaryLocation>();
 
             // Call
             TestDelegate test = () => GrassCoverErosionOutwardsWaveConditionsCalculationHelper.AddCalculationsFromLocations(locations, null);
@@ -64,7 +64,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
         public void AddCalculationsFromLocations_EmptyCollections_ReturnsEmptyList()
         {
             // Setup
-            var locations = Enumerable.Empty<HydraulicBoundaryLocation>();
+            IEnumerable<HydraulicBoundaryLocation> locations = Enumerable.Empty<HydraulicBoundaryLocation>();
             var calculationBases = new List<ICalculationBase>();
 
             // Call

@@ -41,6 +41,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -269,7 +270,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
                     var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
                                                              importCommandHandler,
-                                                             exportCommandHandler, 
+                                                             exportCommandHandler,
                                                              updateCommandHandler,
                                                              viewCommandsHandler,
                                                              context,
@@ -372,7 +373,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
                 failureMechanism, mockRepository, Path.Combine(testDataPath, "HRD ijsselmeer.sqlite"));
 
-            var grassCoverErosionOutwardsHydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
+            HydraulicBoundaryLocation grassCoverErosionOutwardsHydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
             var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocation>
             {
                 grassCoverErosionOutwardsHydraulicBoundaryLocation
@@ -419,7 +420,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
                 failureMechanism, mockRepository, Path.Combine(testDataPath, "HRD ijsselmeer.sqlite"));
 
-            var grassCoverErosionOutwardsHydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
+            HydraulicBoundaryLocation grassCoverErosionOutwardsHydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
             var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocation>
             {
                 grassCoverErosionOutwardsHydraulicBoundaryLocation
@@ -451,15 +452,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         contextMenuAdapter.Items[contextMenuRunWaveHeightCalculationsIndex].PerformClick();
 
                         // Assert
-                        var testWaveHeightCalculator = testFactory.WaveHeightCalculator;
-                        var waveHeightCalculationInput = testWaveHeightCalculator.ReceivedInputs.First();
+                        TestWaveHeightCalculator testWaveHeightCalculator = testFactory.WaveHeightCalculator;
+                        WaveHeightCalculationInput waveHeightCalculationInput = testWaveHeightCalculator.ReceivedInputs.First();
 
                         Assert.AreEqual(testDataPath, testWaveHeightCalculator.HydraulicBoundaryDatabaseDirectory);
 
                         Assert.AreEqual(grassCoverErosionOutwardsHydraulicBoundaryLocation.Id, waveHeightCalculationInput.HydraulicBoundaryLocationId);
-                        var expectedProbability = assessmentSection.FailureMechanismContribution.Norm
-                                                  * (failureMechanism.Contribution / 100)
-                                                  / failureMechanism.GeneralInput.N;
+                        double expectedProbability = assessmentSection.FailureMechanismContribution.Norm
+                                                     * (failureMechanism.Contribution / 100)
+                                                     / failureMechanism.GeneralInput.N;
                         Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), waveHeightCalculationInput.Beta);
                     }
                 }

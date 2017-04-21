@@ -26,7 +26,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
@@ -767,8 +766,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     // Then
                     TestHelper.AssertLogMessages(call, logMessages =>
                     {
-                        var messages = logMessages.ToArray();
-                        var expectedMessageCount = validCalculation ? 2 : 3;
+                        string[] messages = logMessages.ToArray();
+                        int expectedMessageCount = validCalculation ? 2 : 3;
                         Assert.AreEqual(expectedMessageCount, messages.Length);
                         StringAssert.StartsWith("Validatie van 'A' gestart om: ", messages[0]);
 
@@ -1023,7 +1022,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
                 failureMechanism, mocks, validHydroDatabasePath);
 
-            var calculation = GetValidCalculation();
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation();
             calculation.Name = "A";
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
                                                                                         failureMechanism,
@@ -1078,7 +1077,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     // Then
                     TestHelper.AssertLogMessages(call, logMessages =>
                     {
-                        var messages = logMessages.ToArray();
+                        string[] messages = logMessages.ToArray();
                         Assert.AreEqual(14, messages.Length);
                     });
 
@@ -1217,7 +1216,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 var viewCommands = mocks.Stub<IViewCommands>();
                 var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
                                                              importHandler,
-                                                             exportHandler, 
+                                                             exportHandler,
                                                              updateHandler,
                                                              viewCommands,
                                                              context,

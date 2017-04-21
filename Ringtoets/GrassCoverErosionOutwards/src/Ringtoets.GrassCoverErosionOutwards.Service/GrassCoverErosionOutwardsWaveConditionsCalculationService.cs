@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;
@@ -28,6 +29,7 @@ using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Service.Properties;
 using Ringtoets.HydraRing.Calculation.Exceptions;
+using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Service;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Service
@@ -125,7 +127,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
 
             try
             {
-                var outputs = CalculateWaveConditions(calculationName, calculation.InputParameters, a, b, c, mechanismSpecificNorm, hlcdFilePath);
+                IEnumerable<WaveConditionsOutput> outputs = CalculateWaveConditions(calculationName, calculation.InputParameters, a, b, c, mechanismSpecificNorm, hlcdFilePath);
 
                 if (!Canceled)
                 {

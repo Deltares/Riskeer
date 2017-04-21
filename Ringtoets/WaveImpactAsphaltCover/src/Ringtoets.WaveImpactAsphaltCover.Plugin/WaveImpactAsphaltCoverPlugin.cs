@@ -172,7 +172,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                 Name = RingtoetsCommonFormsResources.WaveConditionsExporter_DisplayName,
                 CreateFileExporter = (context, filePath) =>
                 {
-                    var calculations = context.WrappedData.GetCalculations().Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>();
+                    IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> calculations = context.WrappedData.GetCalculations().Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>();
                     return new WaveImpactAsphaltCoverWaveConditionsExporter(calculations, filePath);
                 },
                 IsEnabled = context => context.WrappedData.GetCalculations().Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>().Any(c => c.HasOutput),
@@ -213,7 +213,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             var failureMechanism = o as WaveImpactAsphaltCoverFailureMechanism;
 
             var viewFailureMechanismContext = (WaveImpactAsphaltCoverFailureMechanismContext) view.Data;
-            var viewFailureMechanism = viewFailureMechanismContext.WrappedData;
+            WaveImpactAsphaltCoverFailureMechanism viewFailureMechanism = viewFailureMechanismContext.WrappedData;
 
             return assessmentSection != null
                        ? ReferenceEquals(viewFailureMechanismContext.Parent, assessmentSection)
@@ -226,7 +226,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
 
         private static bool CloseFailureMechanismResultViewForData(WaveImpactAsphaltCoverFailureMechanismResultView view, object dataToCloseFor)
         {
-            var viewData = view.Data;
+            object viewData = view.Data;
             var assessmentSection = dataToCloseFor as IAssessmentSection;
             var failureMechanism = dataToCloseFor as WaveImpactAsphaltCoverFailureMechanism;
             var failureMechanismContext = dataToCloseFor as IFailureMechanismContext<WaveImpactAsphaltCoverFailureMechanism>;
@@ -366,9 +366,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
         private ContextMenuStrip WaveConditionsCalculationGroupContextContextMenuStrip(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext nodeData,
                                                                                        object parentData, TreeViewControl treeViewControl)
         {
-            var group = nodeData.WrappedData;
+            CalculationGroup group = nodeData.WrappedData;
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-            var isNestedGroup = parentData is WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext;
+            bool isNestedGroup = parentData is WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext;
 
             StrictContextMenuItem generateCalculationsItem = CreateGenerateWaveConditionsCalculationsItem(nodeData);
 
@@ -498,7 +498,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
 
         private void CalculateAll(CalculationGroup group, WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext context)
         {
-            var calculations = group.GetCalculations().OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>().ToArray();
+            WaveImpactAsphaltCoverWaveConditionsCalculation[] calculations = group.GetCalculations().OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>().ToArray();
 
             CalculateAll(calculations, context.FailureMechanism, context.AssessmentSection);
         }
@@ -516,7 +516,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                                                                                                        assessmentSection))
                     .ToList());
 
-            foreach (var calculation in calculations)
+            foreach (WaveImpactAsphaltCoverWaveConditionsCalculation calculation in calculations)
             {
                 calculation.NotifyObservers();
             }

@@ -34,7 +34,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void AsValue_Half_ReturnHalfValue(WaveConditionsInputStepSize stepSize, double expectedValue)
         {
             // Call
-            var result = stepSize.AsValue();
+            double result = stepSize.AsValue();
 
             // Assert
             Assert.AreEqual(expectedValue, result);

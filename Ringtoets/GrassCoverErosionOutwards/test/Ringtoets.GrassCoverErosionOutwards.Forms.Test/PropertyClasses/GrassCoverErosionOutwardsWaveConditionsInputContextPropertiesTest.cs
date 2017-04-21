@@ -86,8 +86,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         {
             // Setup
             var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(
-                new WaveConditionsInput(), 
-                new TestCalculation(), 
+                new WaveConditionsInput(),
+                new TestCalculation(),
                 new GrassCoverErosionOutwardsFailureMechanism());
 
             // Call

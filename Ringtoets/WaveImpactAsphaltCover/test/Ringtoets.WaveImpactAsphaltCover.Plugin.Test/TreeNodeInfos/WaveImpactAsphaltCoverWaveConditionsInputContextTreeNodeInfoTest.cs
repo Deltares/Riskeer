@@ -29,7 +29,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.Properties;
-using Ringtoets.Revetment.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
 
@@ -58,7 +57,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             // Setup
             using (var plugin = new WaveImpactAsphaltCoverPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Assert
                 Assert.IsNotNull(info.Text);
@@ -95,12 +94,12 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var context = new WaveImpactAsphaltCoverWaveConditionsInputContext(
                 calculation.InputParameters,
                 calculation,
-                failureMechanism.ForeshoreProfiles, 
+                failureMechanism.ForeshoreProfiles,
                 assessmentSection);
 
             using (var plugin = new WaveImpactAsphaltCoverPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
                 string nodeText = info.Text(context);
@@ -118,17 +117,17 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            
+
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
             var context = new WaveImpactAsphaltCoverWaveConditionsInputContext(
                 calculation.InputParameters,
                 calculation,
-                failureMechanism.ForeshoreProfiles, 
+                failureMechanism.ForeshoreProfiles,
                 assessmentSection);
 
             using (var plugin = new WaveImpactAsphaltCoverPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
                 // Call
                 Image icon = info.Image(context);
 
@@ -151,7 +150,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
                 var context = new WaveImpactAsphaltCoverWaveConditionsInputContext(
                     calculation.InputParameters,
-                    calculation, 
+                    calculation,
                     failureMechanism.ForeshoreProfiles,
                     assessmentSection);
 
@@ -170,7 +169,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
                 using (var plugin = new WaveImpactAsphaltCoverPlugin())
                 {
-                    var info = GetInfo(plugin);
+                    TreeNodeInfo info = GetInfo(plugin);
                     plugin.Gui = gui;
 
                     // Call

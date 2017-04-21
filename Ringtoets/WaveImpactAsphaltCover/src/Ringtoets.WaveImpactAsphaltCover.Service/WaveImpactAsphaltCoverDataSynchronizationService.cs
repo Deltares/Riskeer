@@ -80,7 +80,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
             }
 
             var affectedItems = new List<IObservable>();
-            foreach (var calculation in failureMechanism.Calculations.Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>())
+            foreach (WaveImpactAsphaltCoverWaveConditionsCalculation calculation in failureMechanism.Calculations.Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>())
             {
                 affectedItems.AddRange(ClearWaveConditionsCalculationOutput(calculation)
                                            .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters)));
@@ -125,11 +125,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
             }
 
             var changedObjects = new List<IObservable>();
-            var removedObjects = failureMechanism.Sections.OfType<object>()
-                                                 .Concat(failureMechanism.SectionResults)
-                                                 .Concat(failureMechanism.WaveConditionsCalculationGroup.GetAllChildrenRecursive())
-                                                 .Concat(failureMechanism.ForeshoreProfiles)
-                                                 .ToArray();
+            object[] removedObjects = failureMechanism.Sections.OfType<object>()
+                                                      .Concat(failureMechanism.SectionResults)
+                                                      .Concat(failureMechanism.WaveConditionsCalculationGroup.GetAllChildrenRecursive())
+                                                      .Concat(failureMechanism.ForeshoreProfiles)
+                                                      .ToArray();
 
             failureMechanism.ClearAllSections();
             changedObjects.Add(failureMechanism);

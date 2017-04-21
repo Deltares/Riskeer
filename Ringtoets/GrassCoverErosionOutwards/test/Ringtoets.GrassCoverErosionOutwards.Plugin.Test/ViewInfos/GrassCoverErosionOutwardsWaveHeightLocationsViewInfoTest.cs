@@ -49,7 +49,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 // Call
-                var info = GetInfo(plugin);
+                ViewInfo info = GetInfo(plugin);
 
                 // Assert
                 Assert.NotNull(info, "Expected a viewInfo definition for views with type {0}.", typeof(GrassCoverErosionOutwardsWaveHeightLocationsView));
@@ -66,20 +66,20 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         {
             // Setup
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             var expectedLocations = new ObservableList<HydraulicBoundaryLocation>();
 
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
-                var info = GetInfo(plugin);
+                ViewInfo info = GetInfo(plugin);
 
                 // Call
-                var locations = info.GetViewData(new GrassCoverErosionOutwardsWaveHeightLocationsContext(
-                                                     expectedLocations,
-                                                     assessmentSectionStub,
-                                                     new GrassCoverErosionOutwardsFailureMechanism()));
+                object locations = info.GetViewData(new GrassCoverErosionOutwardsWaveHeightLocationsContext(
+                                                        expectedLocations,
+                                                        assessmentSectionStub,
+                                                        new GrassCoverErosionOutwardsFailureMechanism()));
 
                 // Assert
                 Assert.AreSame(locations, expectedLocations);
@@ -92,14 +92,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         public void AfterCreate_Always_SetsExpectedProperties()
         {
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            IGui guiStub = mockRepository.Stub<IGui>();
-            IMainWindow windowsStub = mockRepository.Stub<IMainWindow>();
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var guiStub = mockRepository.Stub<IGui>();
+            var windowsStub = mockRepository.Stub<IMainWindow>();
             guiStub.Stub(gs => gs.MainWindow).Return(windowsStub);
             mockRepository.ReplayAll();
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
-                var info = GetInfo(plugin);
+                ViewInfo info = GetInfo(plugin);
 
                 var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
                 var data = new GrassCoverErosionOutwardsWaveHeightLocationsContext(
@@ -139,11 +139,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             using (var view = new GrassCoverErosionOutwardsWaveHeightLocationsView())
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
-                var info = GetInfo(plugin);
+                ViewInfo info = GetInfo(plugin);
                 view.AssessmentSection = assessmentSection;
 
                 // Call
-                var closeForData = info.CloseForData(view, assessmentSection);
+                bool closeForData = info.CloseForData(view, assessmentSection);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -173,11 +173,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             using (var view = new GrassCoverErosionOutwardsWaveHeightLocationsView())
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
-                var info = GetInfo(plugin);
+                ViewInfo info = GetInfo(plugin);
                 view.AssessmentSection = assessmentSectionA;
 
                 // Call
-                var closeForData = info.CloseForData(view, assessmentSectionB);
+                bool closeForData = info.CloseForData(view, assessmentSectionB);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -206,11 +206,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             using (var view = new GrassCoverErosionOutwardsWaveHeightLocationsView())
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
-                var info = GetInfo(plugin);
+                ViewInfo info = GetInfo(plugin);
                 view.AssessmentSection = assessmentSection;
 
                 // Call
-                var closeForData = info.CloseForData(view, grassCoverErosionOutwardsFailureMechanismContext);
+                bool closeForData = info.CloseForData(view, grassCoverErosionOutwardsFailureMechanismContext);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -244,11 +244,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             using (var view = new GrassCoverErosionOutwardsWaveHeightLocationsView())
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
-                var info = GetInfo(plugin);
+                ViewInfo info = GetInfo(plugin);
                 view.AssessmentSection = assessmentSectionA;
 
                 // Call
-                var closeForData = info.CloseForData(view, grassCoverErosionOutwardsFailureMechanismContext);
+                bool closeForData = info.CloseForData(view, grassCoverErosionOutwardsFailureMechanismContext);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -273,11 +273,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             using (var view = new GrassCoverErosionOutwardsWaveHeightLocationsView())
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
-                var info = GetInfo(plugin);
+                ViewInfo info = GetInfo(plugin);
                 view.AssessmentSection = assessmentSection;
 
                 // Call
-                var closeForData = info.CloseForData(view, new object());
+                bool closeForData = info.CloseForData(view, new object());
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -292,10 +292,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             using (var view = new GrassCoverErosionOutwardsWaveHeightLocationsView())
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
-                var info = GetInfo(plugin);
+                ViewInfo info = GetInfo(plugin);
 
                 // Call
-                var closeForData = info.CloseForData(view, new object());
+                bool closeForData = info.CloseForData(view, new object());
 
                 // Assert
                 Assert.IsFalse(closeForData);

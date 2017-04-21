@@ -37,7 +37,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.PresentationObjects
     /// </summary>
     public class StabilityStoneCoverWaveConditionsInputContext : WaveConditionsInputContext
     {
-        private readonly IEnumerable<ForeshoreProfile> foreshoreProfiles;
         private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
@@ -61,7 +60,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.PresentationObjects
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
-            this.foreshoreProfiles = foreshoreProfiles;
+            ForeshoreProfiles = foreshoreProfiles;
             this.assessmentSection = assessmentSection;
         }
 
@@ -75,12 +74,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.PresentationObjects
             }
         }
 
-        public override IEnumerable<ForeshoreProfile> ForeshoreProfiles
-        {
-            get
-            {
-                return foreshoreProfiles;
-            }
-        }
+        public override IEnumerable<ForeshoreProfile> ForeshoreProfiles { get; }
     }
 }

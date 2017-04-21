@@ -90,7 +90,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
         {
             // Setup
             var random = new Random(21);
-            var newValue = random.NextDouble();
+            double newValue = random.NextDouble();
             FailureMechanismSection section = CreateSection();
             var result = new StabilityStoneCoverFailureMechanismSectionResult(section);
             var row = new StabilityStoneCoverSectionResultRow(result);

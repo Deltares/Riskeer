@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -111,15 +112,15 @@ namespace Ringtoets.StabilityStoneCover.Service
 
             CalculationServiceHelper.LogCalculationBeginTime(calculationName);
 
-            var aBlocks = generalWaveConditionsInput.GeneralBlocksWaveConditionsInput.A;
-            var bBlocks = generalWaveConditionsInput.GeneralBlocksWaveConditionsInput.B;
-            var cBlocks = generalWaveConditionsInput.GeneralBlocksWaveConditionsInput.C;
+            RoundedDouble aBlocks = generalWaveConditionsInput.GeneralBlocksWaveConditionsInput.A;
+            RoundedDouble bBlocks = generalWaveConditionsInput.GeneralBlocksWaveConditionsInput.B;
+            RoundedDouble cBlocks = generalWaveConditionsInput.GeneralBlocksWaveConditionsInput.C;
 
-            var aColumns = generalWaveConditionsInput.GeneralColumnsWaveConditionsInput.A;
-            var bColumns = generalWaveConditionsInput.GeneralColumnsWaveConditionsInput.B;
-            var cColumns = generalWaveConditionsInput.GeneralColumnsWaveConditionsInput.C;
+            RoundedDouble aColumns = generalWaveConditionsInput.GeneralColumnsWaveConditionsInput.A;
+            RoundedDouble bColumns = generalWaveConditionsInput.GeneralColumnsWaveConditionsInput.B;
+            RoundedDouble cColumns = generalWaveConditionsInput.GeneralColumnsWaveConditionsInput.C;
 
-            var norm = assessmentSection.FailureMechanismContribution.Norm;
+            double norm = assessmentSection.FailureMechanismContribution.Norm;
             TotalWaterLevelCalculations = calculation.InputParameters.WaterLevels.Count() * 2;
 
             try

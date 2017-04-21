@@ -20,9 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Service;
 using Ringtoets.HydraRing.Calculation.Exceptions;
@@ -107,16 +108,16 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
 
             CalculationServiceHelper.LogCalculationBeginTime(calculationName);
 
-            var a = generalWaveConditionsInput.A;
-            var b = generalWaveConditionsInput.B;
-            var c = generalWaveConditionsInput.C;
+            RoundedDouble a = generalWaveConditionsInput.A;
+            RoundedDouble b = generalWaveConditionsInput.B;
+            RoundedDouble c = generalWaveConditionsInput.C;
 
-            var norm = assessmentSection.FailureMechanismContribution.Norm;
+            double norm = assessmentSection.FailureMechanismContribution.Norm;
             TotalWaterLevelCalculations = calculation.InputParameters.WaterLevels.Count();
 
             try
             {
-                var outputs = CalculateWaveConditions(calculationName, calculation.InputParameters, a, b, c, norm, hlcdFilePath);
+                IEnumerable<WaveConditionsOutput> outputs = CalculateWaveConditions(calculationName, calculation.InputParameters, a, b, c, norm, hlcdFilePath);
 
                 if (!Canceled)
                 {

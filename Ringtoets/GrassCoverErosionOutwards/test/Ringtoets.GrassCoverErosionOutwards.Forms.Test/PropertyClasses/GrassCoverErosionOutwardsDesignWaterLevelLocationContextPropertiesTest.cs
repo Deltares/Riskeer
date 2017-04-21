@@ -23,7 +23,6 @@ using System;
 using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
 using Core.Common.Utils.Reflection;
@@ -85,14 +84,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual(double.NaN, properties.TargetProbability);
             Assert.IsTrue(TypeUtils.HasTypeConverter<GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties,
                               NoProbabilityValueDoubleConverter>(
-                                  p => p.TargetProbability));
+                              p => p.TargetProbability));
             Assert.IsNaN(properties.TargetReliability);
             Assert.IsTrue(TypeUtils.HasTypeConverter<GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties,
                               NoValueRoundedDoubleConverter>(p => p.TargetReliability));
             Assert.AreEqual(double.NaN, properties.CalculatedProbability);
             Assert.IsTrue(TypeUtils.HasTypeConverter<GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties,
                               NoProbabilityValueDoubleConverter>(
-                                  p => p.CalculatedProbability));
+                              p => p.CalculatedProbability));
             Assert.IsNaN(properties.CalculatedReliability);
             Assert.IsTrue(TypeUtils.HasTypeConverter<GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties,
                               NoValueRoundedDoubleConverter>(p => p.CalculatedReliability));
@@ -114,7 +113,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             double calculatedProbability = random.NextDouble();
             double calculatedReliability = random.NextDouble();
             double designWaterLevel = random.NextDouble();
-            CalculationConvergence convergence = random.NextEnumValue<CalculationConvergence>();
+            var convergence = random.NextEnumValue<CalculationConvergence>();
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y)
             {
@@ -139,7 +138,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(id, properties.Id);
             Assert.AreEqual(name, properties.Name);
-            Point2D coordinates = new Point2D(x, y);
+            var coordinates = new Point2D(x, y);
             Assert.AreEqual(coordinates, properties.Location);
             Assert.AreEqual(designWaterLevel, properties.DesignWaterLevel, properties.DesignWaterLevel.GetAccuracy());
 

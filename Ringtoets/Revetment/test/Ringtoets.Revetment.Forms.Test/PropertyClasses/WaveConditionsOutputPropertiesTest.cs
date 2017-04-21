@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
 using NUnit.Framework;
@@ -60,7 +59,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             const double targetReliability = 3000;
             const double calculatedProbability = 0.4;
             const double calculatedReliability = 6000;
-            CalculationConvergence convergence = new Random().NextEnumValue<CalculationConvergence>();
+            var convergence = new Random().NextEnumValue<CalculationConvergence>();
 
             // Call
             var properties = new WaveConditionsOutputProperties

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
@@ -131,7 +132,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
             var context = new SimpleStabilityStoneCoverContext(target, failureMechanism, assessmentSection);
 
             // Call
-            var availableHydraulicBoundaryLocations = context.HydraulicBoundaryLocations;
+            IEnumerable<HydraulicBoundaryLocation> availableHydraulicBoundaryLocations = context.HydraulicBoundaryLocations;
 
             // Assert
             Assert.AreSame(hydraulicBoundaryDatabase.Locations, availableHydraulicBoundaryLocations);

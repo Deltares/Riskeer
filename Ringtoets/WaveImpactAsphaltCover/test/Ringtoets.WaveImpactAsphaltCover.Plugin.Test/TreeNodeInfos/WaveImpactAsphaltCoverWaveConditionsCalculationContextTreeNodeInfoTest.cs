@@ -704,8 +704,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     // Then
                     TestHelper.AssertLogMessages(call, logMessages =>
                     {
-                        var messages = logMessages.ToArray();
-                        var expectedMessageCount = validCalculation ? 2 : 3;
+                        string[] messages = logMessages.ToArray();
+                        int expectedMessageCount = validCalculation ? 2 : 3;
                         Assert.AreEqual(expectedMessageCount, messages.Length);
                         StringAssert.StartsWith("Validatie van 'A' gestart om: ", messages[0]);
 
@@ -903,7 +903,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(
                 failureMechanism, mocks, validHydroDatabasePath);
 
-            var calculation = GetValidCalculation();
+            WaveImpactAsphaltCoverWaveConditionsCalculation calculation = GetValidCalculation();
             calculation.Name = "A";
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation,
                                                                                      failureMechanism,
@@ -958,7 +958,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     // Then
                     TestHelper.AssertLogMessages(call, logMessages =>
                     {
-                        var messages = logMessages.ToArray();
+                        string[] messages = logMessages.ToArray();
                         Assert.AreEqual(14, messages.Length);
                         StringAssert.StartsWith("Berekening van 'A' gestart om: ", messages[2]);
                         StringAssert.StartsWith("Berekening van 'A' beëindigd om: ", messages[12]);

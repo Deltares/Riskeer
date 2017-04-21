@@ -21,15 +21,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.WaveImpactAsphaltCover.Data;
@@ -162,7 +158,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
             // Call
             TestDelegate test = () => new WaveImpactAsphaltCoverWaveConditionsInputContext(
                 input,
-                new TestCalculation(), 
+                new TestCalculation(),
                 failureMechanism.ForeshoreProfiles,
                 null);
 

@@ -118,7 +118,7 @@ namespace Ringtoets.Revetment.Data
                 if (!double.IsNaN(newOrientation) && !orientationValidityRange.InRange(newOrientation))
                 {
                     throw new ArgumentOutOfRangeException(null, string.Format(RingtoetsCommonDataResources.Orientation_Value_needs_to_be_in_Range_0_,
-                                                                                       orientationValidityRange));
+                                                                              orientationValidityRange));
                 }
                 orientation = newOrientation;
             }
@@ -335,7 +335,7 @@ namespace Ringtoets.Revetment.Data
             waterLevels.Add(upperBoundary);
 
             double stepSizeValue = StepSize.AsValue();
-            RoundedDouble currentWaterLevel = new RoundedDouble(2, Math.Ceiling(upperBoundary / stepSizeValue) * stepSizeValue - stepSizeValue);
+            var currentWaterLevel = new RoundedDouble(2, Math.Ceiling(upperBoundary / stepSizeValue) * stepSizeValue - stepSizeValue);
 
             while (currentWaterLevel > lowerBoundary)
             {
