@@ -203,9 +203,9 @@ namespace Ringtoets.DuneErosion.Forms.Views
             {
                 return true;
             }
-            for (int i = 0; i < rowCount; i++)
+            for (var i = 0; i < rowCount; i++)
             {
-                var locationFromGrid = ((DuneLocationRow) rows[i].DataBoundItem).CalculatableObject;
+                DuneLocation locationFromGrid = ((DuneLocationRow) rows[i].DataBoundItem).CalculatableObject;
                 if (!ReferenceEquals(locationFromGrid, locations[i]))
                 {
                     return true;

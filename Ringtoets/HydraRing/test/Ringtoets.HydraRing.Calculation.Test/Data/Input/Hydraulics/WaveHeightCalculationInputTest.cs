@@ -36,7 +36,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
         public void Constructor_ExpectedValues()
         {
             // Setup
-            const double norm = 1.0/10000;
+            const double norm = 1.0 / 10000;
             const int sectionId = 1;
             const long hydraulicBoundaryLocationId = 1234;
 
@@ -63,7 +63,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
 
             HydraRingVariable[] variables = waveHeightCalculationInput.Variables.ToArray();
             Assert.AreEqual(1, variables.Length);
-            var waveHeightVariable = variables.First();
+            HydraRingVariable waveHeightVariable = variables.First();
             Assert.IsInstanceOf<DeterministicHydraRingVariable>(waveHeightVariable);
             Assert.AreEqual(28, waveHeightVariable.VariableId);
             Assert.AreEqual(0.0, waveHeightVariable.Value);

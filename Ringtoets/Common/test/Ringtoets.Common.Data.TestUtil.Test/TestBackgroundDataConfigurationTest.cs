@@ -32,7 +32,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         {
             // Call
             var configuration = new TestBackgroundDataConfiguration();
-            
+
             // Assert
             Assert.IsInstanceOf<IBackgroundDataConfiguration>(configuration);
         }

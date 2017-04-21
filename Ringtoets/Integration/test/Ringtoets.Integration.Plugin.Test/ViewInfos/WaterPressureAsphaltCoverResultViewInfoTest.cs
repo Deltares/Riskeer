@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
@@ -73,7 +75,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var context = new FailureMechanismSectionResultContext<WaterPressureAsphaltCoverFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
 
             // Call
-            var viewData = info.GetViewData(context);
+            object viewData = info.GetViewData(context);
 
             // Assert
             Assert.AreSame(failureMechanism.SectionResults, viewData);
@@ -87,7 +89,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             using (var view = new WaterPressureAsphaltCoverResultView())
             {
                 // Call
-                var viewName = info.GetViewName(view, failureMechanism.SectionResults);
+                string viewName = info.GetViewName(view, failureMechanism.SectionResults);
 
                 // Assert
                 Assert.AreEqual("Resultaat", viewName);
@@ -98,7 +100,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void ViewType_Always_ReturnsViewType()
         {
             // Call
-            var viewType = info.ViewType;
+            Type viewType = info.ViewType;
 
             // Assert
             Assert.AreEqual(typeof(WaterPressureAsphaltCoverResultView), viewType);
@@ -108,7 +110,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void DataType_Always_ReturnsDataType()
         {
             // Call
-            var dataType = info.DataType;
+            Type dataType = info.DataType;
 
             // Assert
             Assert.AreEqual(typeof(FailureMechanismSectionResultContext<WaterPressureAsphaltCoverFailureMechanismSectionResult>), dataType);
@@ -118,7 +120,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void ViewDataType_Always_ReturnsViewDataType()
         {
             // Call
-            var viewDataType = info.ViewDataType;
+            Type viewDataType = info.ViewDataType;
 
             // Assert
             Assert.AreEqual(typeof(IEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResult>), viewDataType);
@@ -128,7 +130,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void Image_Always_ReturnsGenericInputOutputIcon()
         {
             // Call
-            var image = info.Image;
+            Image image = info.Image;
 
             // Assert
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon, image);
@@ -149,7 +151,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 view.Data = failureMechanism.SectionResults;
 
                 // Call
-                var closeForData = info.CloseForData(view, assessmentSection);
+                bool closeForData = info.CloseForData(view, assessmentSection);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -177,7 +179,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 view.Data = failureMechanism.SectionResults;
 
                 // Call
-                var closeForData = info.CloseForData(view, assessmentSection);
+                bool closeForData = info.CloseForData(view, assessmentSection);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -205,7 +207,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 view.Data = failureMechanism.SectionResults;
 
                 // Call
-                var closeForData = info.CloseForData(view, assessmentSection);
+                bool closeForData = info.CloseForData(view, assessmentSection);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -223,7 +225,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 view.Data = failureMechanism.SectionResults;
 
                 // Call
-                var closeForData = info.CloseForData(view, failureMechanism);
+                bool closeForData = info.CloseForData(view, failureMechanism);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -240,7 +242,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 view.Data = failureMechanism.SectionResults;
 
                 // Call
-                var closeForData = info.CloseForData(view, new WaterPressureAsphaltCoverFailureMechanism());
+                bool closeForData = info.CloseForData(view, new WaterPressureAsphaltCoverFailureMechanism());
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -262,7 +264,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 view.Data = failureMechanism.SectionResults;
 
                 // Call
-                var closeForData = info.CloseForData(view, failureMechanismContext);
+                bool closeForData = info.CloseForData(view, failureMechanismContext);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -285,7 +287,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 view.Data = failureMechanism.SectionResults;
 
                 // Call
-                var closeForData = info.CloseForData(view, failureMechanismContext);
+                bool closeForData = info.CloseForData(view, failureMechanismContext);
 
                 // Assert
                 Assert.IsFalse(closeForData);

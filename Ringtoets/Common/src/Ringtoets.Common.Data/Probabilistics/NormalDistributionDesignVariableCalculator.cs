@@ -26,6 +26,9 @@ namespace Ringtoets.Common.Data.Probabilistics
     /// </summary>
     internal class NormalDistributionDesignVariableCalculator : PercentileBasedDesignVariableCalculator
     {
+        private NormalDistributionDesignVariableCalculator(double mean, double standardDeviation, double coefficientOfVariation)
+            : base(mean, standardDeviation, coefficientOfVariation) {}
+
         /// <summary>
         /// Creates a <see cref="PercentileBasedDesignVariableCalculator"/> for normal distributions based
         /// on mean and standard deviation.
@@ -49,9 +52,6 @@ namespace Ringtoets.Common.Data.Probabilistics
         {
             return new NormalDistributionDesignVariableCalculator(mean, mean * coefficientOfVariation, coefficientOfVariation);
         }
-
-        private NormalDistributionDesignVariableCalculator(double mean, double standardDeviation, double coefficientOfVariation)
-            : base(mean, standardDeviation, coefficientOfVariation) {}
 
         internal override double GetDesignValue(double percentile)
         {

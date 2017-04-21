@@ -28,6 +28,15 @@ namespace Ringtoets.Common.Data.Probabilistics
     /// </summary>
     internal class LogNormalDistributionDesignVariableCalculator : PercentileBasedDesignVariableCalculator
     {
+        private LogNormalDistributionDesignVariableCalculator(
+            double mean,
+            double standardDeviation,
+            double coefficientOfVariation,
+            double shift) : base(mean, standardDeviation, coefficientOfVariation)
+        {
+            Shift = shift;
+        }
+
         /// <summary>
         /// Creates a <see cref="PercentileBasedDesignVariableCalculator"/> for normal distributions based
         /// on mean and standard deviation.
@@ -52,15 +61,6 @@ namespace Ringtoets.Common.Data.Probabilistics
         internal static PercentileBasedDesignVariableCalculator CreateWithCoefficientOfVariation(double mean, double coefficientOfVariation, double shift)
         {
             return new LogNormalDistributionDesignVariableCalculator(mean, (mean - shift) * coefficientOfVariation, coefficientOfVariation, shift);
-        }
-
-        private LogNormalDistributionDesignVariableCalculator(
-            double mean,
-            double standardDeviation, 
-            double coefficientOfVariation,
-            double shift) : base(mean, standardDeviation, coefficientOfVariation)
-        {
-            Shift = shift;
         }
 
         internal override double GetDesignValue(double percentile)

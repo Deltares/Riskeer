@@ -86,10 +86,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             lastErrorFileParser.Parse(lastErrorTestDataDirectory, 1);
 
             // Assert
-            var expectedContent = " File not found: D:\\Repos\\Ringtoets\\Ringtoets\\Integration\\test\\Ringtoets.Integra"
-                                  + Environment.NewLine +
-                                  " tion.Service.Test\\test-data\\HLCD.sqlite"
-                                  + Environment.NewLine;
+            string expectedContent = " File not found: D:\\Repos\\Ringtoets\\Ringtoets\\Integration\\test\\Ringtoets.Integra"
+                                     + Environment.NewLine +
+                                     " tion.Service.Test\\test-data\\HLCD.sqlite"
+                                     + Environment.NewLine;
             Assert.AreEqual(expectedContent, lastErrorFileParser.ErrorFileContent);
         }
 
@@ -106,9 +106,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
 
                 // Assert
                 var exception = Assert.Throws<HydraRingFileParserException>(call);
-                var expectedMessage = string.Format("Kan het Hydra-Ring last_error bestand {0} niet lezen uit de map {1}.",
-                                                    HydraRingFileConstants.LastErrorFileName,
-                                                    lastErrorTestDataDirectory);
+                string expectedMessage = string.Format("Kan het Hydra-Ring last_error bestand {0} niet lezen uit de map {1}.",
+                                                       HydraRingFileConstants.LastErrorFileName,
+                                                       lastErrorTestDataDirectory);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }

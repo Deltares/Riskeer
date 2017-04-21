@@ -213,7 +213,7 @@ namespace Ringtoets.Common.Data.Structures
                 if (!double.IsNaN(newStructureNormalOrientation) && !structureNormalOrientationValidityRange.InRange(newStructureNormalOrientation))
                 {
                     throw new ArgumentOutOfRangeException(null, string.Format(Resources.Orientation_Value_needs_to_be_in_Range_0_,
-                                                                                       structureNormalOrientationValidityRange));
+                                                                              structureNormalOrientationValidityRange));
                 }
                 structureNormalOrientation = newStructureNormalOrientation;
             }

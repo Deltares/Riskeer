@@ -126,7 +126,7 @@ namespace Ringtoets.Common.Service
             {
                 if (!canceled)
                 {
-                    var lastErrorContent = calculator.LastErrorFileContent;
+                    string lastErrorContent = calculator.LastErrorFileContent;
                     log.Error(string.IsNullOrEmpty(lastErrorContent)
                                   ? messageProvider.GetCalculationFailedUnexplainedMessage(hydraulicBoundaryLocation.Name)
                                   : messageProvider.GetCalculationFailedMessage(hydraulicBoundaryLocation.Name, lastErrorContent));
@@ -137,7 +137,7 @@ namespace Ringtoets.Common.Service
             }
             finally
             {
-                var lastErrorFileContent = calculator.LastErrorFileContent;
+                string lastErrorFileContent = calculator.LastErrorFileContent;
                 bool errorOccurred = CalculationServiceHelper.HasErrorOccurred(canceled, exceptionThrown, lastErrorFileContent);
                 if (errorOccurred)
                 {
@@ -175,10 +175,10 @@ namespace Ringtoets.Common.Service
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="targetProbability"/> 
         /// or the calculated probability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
         private HydraulicBoundaryLocationOutput CreateHydraulicBoundaryLocationOutput(
-            ICalculationMessageProvider messageProvider, 
-            string hydraulicBoundaryLocationName, 
-            double targetReliability, 
-            double targetProbability, 
+            ICalculationMessageProvider messageProvider,
+            string hydraulicBoundaryLocationName,
+            double targetReliability,
+            double targetProbability,
             bool? calculatorConverged)
         {
             double waveHeight = calculator.WaveHeight;
@@ -231,7 +231,7 @@ namespace Ringtoets.Common.Service
         {
             var validationResult = new List<string>();
 
-            var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(hydraulicBoundaryDatabaseFilePath);
+            string validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(hydraulicBoundaryDatabaseFilePath);
 
             if (!string.IsNullOrEmpty(validationProblem))
             {

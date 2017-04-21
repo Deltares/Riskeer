@@ -135,7 +135,7 @@ namespace Ringtoets.Common.Utils.Test
                 });
 
             // Assert
-            ArgumentException exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
                 test, "SectionResults contains an entry without value.");
             Assert.AreEqual("sectionResults", exception.ParamName);
         }

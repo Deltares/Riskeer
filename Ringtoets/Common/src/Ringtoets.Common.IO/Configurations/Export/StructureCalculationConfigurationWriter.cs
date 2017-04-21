@@ -42,7 +42,7 @@ namespace Ringtoets.Common.IO.Configurations.Export
         /// <item>does not contain an invalid character,</item>
         /// <item>does not end with a directory or path separator (empty file name).</item>
         /// </list></remarks>
-        protected StructureCalculationConfigurationWriter(string filePath) : base(filePath) { }
+        protected StructureCalculationConfigurationWriter(string filePath) : base(filePath) {}
 
         protected override void WriteCalculation(T configuration, XmlWriter writer)
         {
@@ -64,7 +64,7 @@ namespace Ringtoets.Common.IO.Configurations.Export
         /// <param name="configuration">The instance of type <typeparamref name="T"/> for which
         /// to write the input.</param>
         /// <param name="writer">The writer that should be used to write the parameters.</param>
-        protected virtual void WriteSpecificStructureParameters(T configuration, XmlWriter writer) { }
+        protected virtual void WriteSpecificStructureParameters(T configuration, XmlWriter writer) {}
 
         /// <summary>        
         /// Writes stochasts definitions specific for a structure of type <typeparamref name="T"/>.

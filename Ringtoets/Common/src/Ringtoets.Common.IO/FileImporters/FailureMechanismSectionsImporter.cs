@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -142,7 +141,7 @@ namespace Ringtoets.Common.IO.FileImporters
         {
             try
             {
-                var count = reader.GetFailureMechanismSectionCount();
+                int count = reader.GetFailureMechanismSectionCount();
                 if (count == 0)
                 {
                     LogCriticalFileReadError(Resources.FailureMechanismSectionsImporter_ReadFile_File_is_empty);
@@ -150,7 +149,7 @@ namespace Ringtoets.Common.IO.FileImporters
                 }
 
                 var importedSections = new FailureMechanismSection[count];
-                for (int i = 0; i < count; i++)
+                for (var i = 0; i < count; i++)
                 {
                     importedSections[i] = reader.ReadFailureMechanismSection();
                 }
@@ -174,14 +173,14 @@ namespace Ringtoets.Common.IO.FileImporters
 
         private void LogCriticalFileReadError(string message)
         {
-            var errorMessage = string.Format(Resources.FailureMechanismSectionsImporter_CriticalErrorMessage_0_No_sections_imported,
-                                             message);
+            string errorMessage = string.Format(Resources.FailureMechanismSectionsImporter_CriticalErrorMessage_0_No_sections_imported,
+                                                message);
             log.Error(errorMessage);
         }
 
         private static bool HasStartOrEndPointsTooFarFromReferenceLine(ReferenceLine referenceLine, ICollection<FailureMechanismSection> mechanismSections)
         {
-            foreach (var failureMechanismSection in mechanismSections)
+            foreach (FailureMechanismSection failureMechanismSection in mechanismSections)
             {
                 if (GetDistanceToReferenceLine(failureMechanismSection.GetStart(), referenceLine) > snappingTolerance)
                 {
@@ -203,8 +202,8 @@ namespace Ringtoets.Common.IO.FileImporters
 
         private static bool IsTotalLengthOfSectionsTooDifferentFromReferenceLineLength(ReferenceLine referenceLine, ICollection<FailureMechanismSection> mechanismSections)
         {
-            var totalSectionsLength = mechanismSections.Sum(s => GetSectionLength(s));
-            var referenceLineLength = GetLengthOfLine(referenceLine.Points);
+            double totalSectionsLength = mechanismSections.Sum(s => GetSectionLength(s));
+            double referenceLineLength = GetLengthOfLine(referenceLine.Points);
             return Math.Abs(totalSectionsLength - referenceLineLength) > lengthDifferenceTolerance;
         }
 
@@ -234,7 +233,7 @@ namespace Ringtoets.Common.IO.FileImporters
         {
             List<FailureMechanismSection> sourceList = unorderedSections.ToList();
 
-            var startSection = GetStart(sourceList, referenceLine);
+            FailureMechanismSection startSection = GetStart(sourceList, referenceLine);
 
             var resultList = new List<FailureMechanismSection>(sourceList.Count)
             {
@@ -249,11 +248,11 @@ namespace Ringtoets.Common.IO.FileImporters
 
         private static FailureMechanismSection GetStart(List<FailureMechanismSection> sourceList, ReferenceLine referenceLine)
         {
-            var shortestDistance = double.MaxValue;
+            double shortestDistance = double.MaxValue;
             FailureMechanismSection closestSectionToReferenceLineStart = null;
             Dictionary<double, FailureMechanismSection> sectionReferenceLineDistances = sourceList.ToDictionary(s => referenceLine.Points.First().GetEuclideanDistanceTo(s.GetStart()), s => s);
 
-            foreach (var sectionReferenceLineDistance in sectionReferenceLineDistances)
+            foreach (KeyValuePair<double, FailureMechanismSection> sectionReferenceLineDistance in sectionReferenceLineDistances)
             {
                 double distance = sectionReferenceLineDistance.Key;
                 if (distance < shortestDistance && distance <= snappingTolerance)
@@ -268,15 +267,15 @@ namespace Ringtoets.Common.IO.FileImporters
 
         private static void GrowTowardsEnd(List<FailureMechanismSection> resultList, List<FailureMechanismSection> sourceList)
         {
-            bool doneGrowingToEnd = false;
+            var doneGrowingToEnd = false;
             while (!doneGrowingToEnd)
             {
                 Point2D endPointToConnect = resultList[resultList.Count - 1].GetLast();
 
-                var shortestDistance = double.MaxValue;
+                double shortestDistance = double.MaxValue;
                 FailureMechanismSection closestSectionToConnectWith = null;
                 Dictionary<double, FailureMechanismSection> sectionConnectionDistances = sourceList.ToDictionary(s => endPointToConnect.GetEuclideanDistanceTo(s.GetStart()), s => s);
-                foreach (var sectionConnectionDistance in sectionConnectionDistances)
+                foreach (KeyValuePair<double, FailureMechanismSection> sectionConnectionDistance in sectionConnectionDistances)
                 {
                     double distance = sectionConnectionDistance.Key;
                     if (distance < shortestDistance && distance <= snappingTolerance)

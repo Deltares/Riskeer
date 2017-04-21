@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -109,7 +110,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             var context = new DuneLocationsContext(mechanism.DuneLocations, mechanism, assessmentSection);
 
             // Call
-            var text = info.Text(context);
+            string text = info.Text(context);
 
             // Assert
             Assert.AreEqual("Hydraulische randvoorwaarden", text);
@@ -122,7 +123,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             // Call
-            var image = info.Image(null);
+            Image image = info.Image(null);
 
             // Assert
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, image);
@@ -438,7 +439,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                     // Call
                     TestHelper.AssertLogMessages(() => contextMenu.Items[contextMenuCalculateAllIndex].PerformClick(), messages =>
                     {
-                        var messageList = messages.ToList();
+                        List<string> messageList = messages.ToList();
 
                         // Assert
                         Assert.AreEqual(10, messageList.Count);

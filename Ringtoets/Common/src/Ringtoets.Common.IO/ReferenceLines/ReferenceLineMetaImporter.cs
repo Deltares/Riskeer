@@ -25,7 +25,6 @@ using System.IO;
 using System.Linq;
 using System.Security;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.Utils.Builders;
 using Core.Common.Utils.Properties;
 using log4net;
@@ -83,10 +82,10 @@ namespace Ringtoets.Common.IO.ReferenceLines
 
         private void ValidateAndConnectTo(string folderpath)
         {
-            var files = GetShapeFilesInFolder(folderpath);
+            string[] files = GetShapeFilesInFolder(folderpath);
             if (files.Length == 0)
             {
-                var message = string.Format(RingtoetsCommonIOResources.ReferenceLineMetaImporter_ValidateAndConnectTo_No_shape_file_found_in_folder_0, folderpath);
+                string message = string.Format(RingtoetsCommonIOResources.ReferenceLineMetaImporter_ValidateAndConnectTo_No_shape_file_found_in_folder_0, folderpath);
                 throw new CriticalFileReadException(message);
             }
 
@@ -102,7 +101,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
         {
             if (string.IsNullOrWhiteSpace(path))
             {
-                var message = new FileReaderErrorMessageBuilder(path).Build(Resources.Error_Path_must_be_specified);
+                string message = new FileReaderErrorMessageBuilder(path).Build(Resources.Error_Path_must_be_specified);
                 throw new ArgumentException(message);
             }
 
@@ -112,7 +111,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
             }
             catch (ArgumentException e)
             {
-                var message = new FileReaderErrorMessageBuilder(path)
+                string message = new FileReaderErrorMessageBuilder(path)
                     .Build(Resources.Error_Path_cannot_contain_invalid_characters);
                 throw new ArgumentException(message, e);
             }
@@ -120,8 +119,8 @@ namespace Ringtoets.Common.IO.ReferenceLines
             {
                 if (e is IOException || e is SecurityException)
                 {
-                    var message = string.Format(RingtoetsCommonIOResources.ReferenceLineMetaImporter_ValidateDirectory_Directory_Invalid,
-                                                path);
+                    string message = string.Format(RingtoetsCommonIOResources.ReferenceLineMetaImporter_ValidateDirectory_Directory_Invalid,
+                                                   path);
                     throw new CriticalFileReadException(message, e);
                 }
                 throw;
@@ -132,16 +131,16 @@ namespace Ringtoets.Common.IO.ReferenceLines
         {
             if (referenceLineMetas.Any(rlm => string.IsNullOrEmpty(rlm.AssessmentSectionId)))
             {
-                var message = new FileReaderErrorMessageBuilder(shapeFilePath)
+                string message = new FileReaderErrorMessageBuilder(shapeFilePath)
                     .Build(RingtoetsCommonIOResources.ReferenceLineMetaImporter_ValidateReferenceLineMetas_Missing_AssessmentSection_Ids);
                 throw new CriticalFileValidationException(message);
             }
 
-            var referenceLineMetasCount = referenceLineMetas.Count;
-            var referenceLineMetasDistinctCount = referenceLineMetas.Select(rlm => rlm.AssessmentSectionId).Distinct().Count();
+            int referenceLineMetasCount = referenceLineMetas.Count;
+            int referenceLineMetasDistinctCount = referenceLineMetas.Select(rlm => rlm.AssessmentSectionId).Distinct().Count();
             if (referenceLineMetasCount != referenceLineMetasDistinctCount)
             {
-                var message = new FileReaderErrorMessageBuilder(shapeFilePath)
+                string message = new FileReaderErrorMessageBuilder(shapeFilePath)
                     .Build(RingtoetsCommonIOResources.ReferenceLineMetaImporter_ValidateReferenceLineMetas_AssessmentSection_Ids_Not_Unique);
                 throw new CriticalFileValidationException(message);
             }

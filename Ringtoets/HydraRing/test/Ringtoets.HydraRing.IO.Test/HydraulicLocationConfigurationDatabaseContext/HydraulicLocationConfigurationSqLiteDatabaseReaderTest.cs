@@ -44,8 +44,8 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabaseCont
         public void Constructor_ValidFile_ThrowsCriticalFileReadException()
         {
             // Setup
-            var testFile = Path.Combine(testDataPath, "none.sqlite");
-            var expectedMessage = new FileReaderErrorMessageBuilder(testFile).Build(UtilsResources.Error_File_does_not_exist);
+            string testFile = Path.Combine(testDataPath, "none.sqlite");
+            string expectedMessage = new FileReaderErrorMessageBuilder(testFile).Build(UtilsResources.Error_File_does_not_exist);
 
             // Call
             TestDelegate test = () => new HydraulicLocationConfigurationSqLiteDatabaseReader(testFile).Dispose();
@@ -59,10 +59,10 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabaseCont
         public void Constructor_ValidFile_ExpectedValues()
         {
             // Setup
-            var dbFile = Path.Combine(testDataPath, "complete.sqlite");
+            string dbFile = Path.Combine(testDataPath, "complete.sqlite");
 
             // Call
-            using (HydraulicLocationConfigurationSqLiteDatabaseReader hydraulicBoundarySqLiteDatabaseReader = new HydraulicLocationConfigurationSqLiteDatabaseReader(dbFile))
+            using (var hydraulicBoundarySqLiteDatabaseReader = new HydraulicLocationConfigurationSqLiteDatabaseReader(dbFile))
             {
                 // Assert
                 Assert.IsInstanceOf<SqLiteDatabaseReaderBase>(hydraulicBoundarySqLiteDatabaseReader);
@@ -77,9 +77,9 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabaseCont
         public void GetLocationsIdByTrackId_ValidFile_ExpectedValues(int trackId, int hrdLocationId, int expectedLocationId)
         {
             // Setup
-            var dbFile = Path.Combine(testDataPath, "complete.sqlite");
+            string dbFile = Path.Combine(testDataPath, "complete.sqlite");
 
-            using (HydraulicLocationConfigurationSqLiteDatabaseReader hydraulicBoundarySqLiteDatabaseReader = new HydraulicLocationConfigurationSqLiteDatabaseReader(dbFile))
+            using (var hydraulicBoundarySqLiteDatabaseReader = new HydraulicLocationConfigurationSqLiteDatabaseReader(dbFile))
             {
                 // Call
                 Dictionary<long, long> locationIdDictionary = hydraulicBoundarySqLiteDatabaseReader.GetLocationsIdByTrackId(trackId);
@@ -96,14 +96,14 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabaseCont
         public void GetLocationsIdByTrackId_AmbigousLocations_ReturnsFirstAndLogsWarning()
         {
             // Setup
-            var dbFile = Path.Combine(testDataPath, "ambigousLocation.sqlite");
-            int trackId = 18;
-            int hrdLocationId = 1;
-            int expectedLocationId = 1800001;
-            string expectedMessage = "Er zijn meerdere resultaten gevonden, wat niet voor zou mogen komen. Neem contact op met de leverancier. Het eerste resultaat zal worden gebruikt.";
-            Dictionary<long, long> locationIdDictionary = new Dictionary<long, long>();
+            string dbFile = Path.Combine(testDataPath, "ambigousLocation.sqlite");
+            var trackId = 18;
+            var hrdLocationId = 1;
+            var expectedLocationId = 1800001;
+            var expectedMessage = "Er zijn meerdere resultaten gevonden, wat niet voor zou mogen komen. Neem contact op met de leverancier. Het eerste resultaat zal worden gebruikt.";
+            var locationIdDictionary = new Dictionary<long, long>();
 
-            using (HydraulicLocationConfigurationSqLiteDatabaseReader hydraulicBoundarySqLiteDatabaseReader = new HydraulicLocationConfigurationSqLiteDatabaseReader(dbFile))
+            using (var hydraulicBoundarySqLiteDatabaseReader = new HydraulicLocationConfigurationSqLiteDatabaseReader(dbFile))
             {
                 // Call
                 Action call = () => locationIdDictionary = hydraulicBoundarySqLiteDatabaseReader.GetLocationsIdByTrackId(trackId);
@@ -121,14 +121,14 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabaseCont
         public void GetLocationsIdByTrackId_InvalidColumns_ThrowsLineParseException()
         {
             // Setup
-            var dbFile = Path.Combine(testDataPath, "corruptschema.sqlite");
-            var expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
-            int trackId = 1;
+            string dbFile = Path.Combine(testDataPath, "corruptschema.sqlite");
+            string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
+            var trackId = 1;
 
             // Precondition
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
 
-            using (HydraulicLocationConfigurationSqLiteDatabaseReader hydraulicBoundarySqLiteDatabaseReader = new HydraulicLocationConfigurationSqLiteDatabaseReader(dbFile))
+            using (var hydraulicBoundarySqLiteDatabaseReader = new HydraulicLocationConfigurationSqLiteDatabaseReader(dbFile))
             {
                 // Call
                 TestDelegate test = () => hydraulicBoundarySqLiteDatabaseReader.GetLocationsIdByTrackId(trackId);
@@ -145,14 +145,14 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabaseCont
         public void GetLocationsIdByTrackId_EmptyFile_ThrowsCriticalFileReadException()
         {
             // Setup
-            var dbFile = Path.Combine(testDataPath, "empty.sqlite");
-            var expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(Resources.HydraulicLocationConfigurationSqLiteDatabaseReader_Critical_Unexpected_Exception);
-            int trackId = 1;
+            string dbFile = Path.Combine(testDataPath, "empty.sqlite");
+            string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(Resources.HydraulicLocationConfigurationSqLiteDatabaseReader_Critical_Unexpected_Exception);
+            var trackId = 1;
 
             // Precondition
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
 
-            using (HydraulicLocationConfigurationSqLiteDatabaseReader hydraulicBoundarySqLiteDatabaseReader = new HydraulicLocationConfigurationSqLiteDatabaseReader(dbFile))
+            using (var hydraulicBoundarySqLiteDatabaseReader = new HydraulicLocationConfigurationSqLiteDatabaseReader(dbFile))
             {
                 // Call
                 TestDelegate test = () => hydraulicBoundarySqLiteDatabaseReader.GetLocationsIdByTrackId(trackId);

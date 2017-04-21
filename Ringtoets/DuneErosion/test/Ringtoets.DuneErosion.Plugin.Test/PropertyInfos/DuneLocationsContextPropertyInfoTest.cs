@@ -21,6 +21,7 @@
 
 using System.Linq;
 using Core.Common.Gui.Plugin;
+using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -60,12 +61,12 @@ namespace Ringtoets.DuneErosion.Plugin.Test.PropertyInfos
             var context = new DuneLocationsContext(failureMechanism.DuneLocations,
                                                    failureMechanism, assessmentSection);
 
-            using (DuneErosionPlugin plugin = new DuneErosionPlugin())
+            using (var plugin = new DuneErosionPlugin())
             {
                 PropertyInfo info = GetInfo(plugin);
 
                 // Call
-                var objectProperties = info.CreateInstance(context);
+                IObjectProperties objectProperties = info.CreateInstance(context);
 
                 // Assert
                 Assert.IsInstanceOf<DuneLocationsContextProperties>(objectProperties);

@@ -109,7 +109,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             TestDelegate test = () => row.AssessmentLayerTwoA = value;
 
             // Assert
-            var message = Assert.Throws<ArgumentException>(test).Message;
+            string message = Assert.Throws<ArgumentException>(test).Message;
             const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
             Assert.AreEqual(expectedMessage, message);
         }
@@ -119,7 +119,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         {
             // Setup
             var random = new Random(21);
-            var newValue = random.NextDouble();
+            double newValue = random.NextDouble();
             FailureMechanismSection section = CreateSection();
             var result = new MacrostabilityOutwardsFailureMechanismSectionResult(section);
             var row = new MacrostabilityOutwardsSectionResultRow(result);

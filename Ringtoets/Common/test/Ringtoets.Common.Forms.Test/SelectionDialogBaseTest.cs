@@ -84,7 +84,7 @@ namespace Ringtoets.Common.Forms.Test
                 Assert.IsEmpty(dialog.SelectedItems);
 
                 var dataGridViewControl = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
-                var dataGridView = dataGridViewControl.Controls.OfType<DataGridView>().First();
+                DataGridView dataGridView = dataGridViewControl.Controls.OfType<DataGridView>().First();
                 Assert.AreEqual(2, dataGridView.ColumnCount);
 
                 var locationCalculateColumn = (DataGridViewCheckBoxColumn) dataGridView.Columns[selectItemColumnIndex];
@@ -198,7 +198,7 @@ namespace Ringtoets.Common.Forms.Test
                 generateButton.Click();
 
                 // Then
-                var result = dialog.SelectedItems;
+                IEnumerable<object> result = dialog.SelectedItems;
 
                 CollectionAssert.AreEqual(new[]
                 {
@@ -223,7 +223,7 @@ namespace Ringtoets.Common.Forms.Test
                 dialog.Show();
 
                 var dataGridView = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
-                var rows = dataGridView.Rows;
+                DataGridViewRowCollection rows = dataGridView.Rows;
                 var button = new ButtonTester("SelectAllButton", dialog);
 
                 // Precondition
@@ -255,7 +255,7 @@ namespace Ringtoets.Common.Forms.Test
                 dialog.Show();
 
                 var dataGridView = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
-                var rows = dataGridView.Rows;
+                DataGridViewRowCollection rows = dataGridView.Rows;
                 var button = new ButtonTester("DeselectAllButton", dialog);
 
                 foreach (DataGridViewRow row in rows)

@@ -24,7 +24,6 @@ using System.IO;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -39,8 +38,8 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         public void ReadReferenceLine_FileHasOneValidLineInShape_ReturnReferenceLine()
         {
             // Setup
-            var validReferenceLineShapeFile = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                                         Path.Combine("ReferenceLine", "traject_10-2.shp"));
+            string validReferenceLineShapeFile = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                            Path.Combine("ReferenceLine", "traject_10-2.shp"));
             var reader = new ReferenceLineReader();
 
             // Call
@@ -68,8 +67,8 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             TestDelegate call = () => reader.ReadReferenceLine(invalidFilePath);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet leeg of ongedefinieerd zijn.",
-                                                invalidFilePath);
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet leeg of ongedefinieerd zijn.",
+                                                   invalidFilePath);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -89,8 +88,8 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             TestDelegate call = () => reader.ReadReferenceLine(invalidFilePath);
 
             // Assert
-            var expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': "
-                                  + "er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.";
+            string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': "
+                                     + "er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -107,8 +106,8 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             TestDelegate call = () => reader.ReadReferenceLine(invalidFilePath);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet verwijzen naar een lege bestandsnaam.",
-                                                invalidFilePath);
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet verwijzen naar een lege bestandsnaam.",
+                                                   invalidFilePath);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -125,9 +124,9 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             TestDelegate call = () => reader.ReadReferenceLine(invalidFilePath);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestand bestaat niet.",
-                                                invalidFilePath);
-            var message = Assert.Throws<CriticalFileReadException>(call).Message;
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestand bestaat niet.",
+                                                   invalidFilePath);
+            string message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -149,9 +148,9 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             TestDelegate call = () => reader.ReadReferenceLine(invalidFilePath);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': kon geen lijnen vinden in dit bestand.",
-                                                invalidFilePath);
-            var message = Assert.Throws<CriticalFileReadException>(call).Message;
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': kon geen lijnen vinden in dit bestand.",
+                                                   invalidFilePath);
+            string message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -170,9 +169,9 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             TestDelegate call = () => reader.ReadReferenceLine(invalidFilePath);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestand moet exact één gehele polylijn bevatten.",
-                                                invalidFilePath);
-            var message = Assert.Throws<CriticalFileReadException>(call).Message;
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestand moet exact één gehele polylijn bevatten.",
+                                                   invalidFilePath);
+            string message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -189,9 +188,9 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             TestDelegate call = () => reader.ReadReferenceLine(invalidFilePath);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestand bevat een multi-polylijn. Multi-polylijnen worden niet ondersteund.",
-                                                invalidFilePath);
-            var message = Assert.Throws<CriticalFileReadException>(call).Message;
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestand bevat een multi-polylijn. Multi-polylijnen worden niet ondersteund.",
+                                                   invalidFilePath);
+            string message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
         }
 

@@ -46,9 +46,10 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void TestHydraulicBoundaryLocationOutput_WithConvergence_ReturnsExpectedValues(
-            [Values(CalculationConvergence.CalculatedConverged, CalculationConvergence.NotCalculated,
-                CalculationConvergence.CalculatedNotConverged)] CalculationConvergence convergence)
+        [TestCase(CalculationConvergence.CalculatedConverged)]
+        [TestCase(CalculationConvergence.NotCalculated)]
+        [TestCase(CalculationConvergence.CalculatedNotConverged)]
+        public void TestHydraulicBoundaryLocationOutput_WithConvergence_ReturnsExpectedValues(CalculationConvergence convergence)
         {
             // Setup
             const double result = 9.5;

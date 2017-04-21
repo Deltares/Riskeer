@@ -75,12 +75,12 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext
             }
             catch (InvalidCastException exception)
             {
-                var message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
                 throw new LineParseException(message, exception);
             }
             catch (SQLiteException exception)
             {
-                var message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicLocationConfigurationSqLiteDatabaseReader_Critical_Unexpected_Exception);
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicLocationConfigurationSqLiteDatabaseReader_Critical_Unexpected_Exception);
                 throw new CriticalFileReadException(message, exception);
             }
         }
@@ -88,13 +88,13 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext
         private Dictionary<long, long> GetLocationIdsFromDatabase(SQLiteParameter trackParameter)
         {
             var dictionary = new Dictionary<long, long>();
-            var locationIdQuery = HydraulicLocationConfigurationDatabaseQueryBuilder.GetLocationsIdByTrackIdQuery();
+            string locationIdQuery = HydraulicLocationConfigurationDatabaseQueryBuilder.GetLocationsIdByTrackIdQuery();
             using (IDataReader dataReader = CreateDataReader(locationIdQuery, trackParameter))
             {
                 while (MoveNext(dataReader))
                 {
-                    var key = Convert.ToInt64(dataReader[LocationsTableDefinitions.HrdLocationId]);
-                    var value = Convert.ToInt64(dataReader[LocationsTableDefinitions.LocationId]);
+                    long key = Convert.ToInt64(dataReader[LocationsTableDefinitions.HrdLocationId]);
+                    long value = Convert.ToInt64(dataReader[LocationsTableDefinitions.LocationId]);
 
                     // Must be unique
                     if (dictionary.ContainsKey(key))

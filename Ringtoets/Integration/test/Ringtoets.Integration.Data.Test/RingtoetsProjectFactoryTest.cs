@@ -31,7 +31,7 @@ namespace Ringtoets.Integration.Data.Test
         public void CreateNewProject_ReturnsNewRingtoetsProject()
         {
             // Setup
-            RingtoetsProjectFactory projectFactory = new RingtoetsProjectFactory();
+            var projectFactory = new RingtoetsProjectFactory();
 
             // Call
             IProject result = projectFactory.CreateNewProject();

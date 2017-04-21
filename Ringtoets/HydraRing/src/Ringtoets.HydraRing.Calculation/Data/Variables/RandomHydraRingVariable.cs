@@ -26,8 +26,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Variables
     /// </summary>
     public abstract class RandomHydraRingVariable : HydraRingVariable
     {
-        private readonly HydraRingDeviationType deviationType;
-        private readonly double mean;
         private readonly double variance;
 
         /// <summary>
@@ -40,18 +38,12 @@ namespace Ringtoets.HydraRing.Calculation.Data.Variables
         protected RandomHydraRingVariable(int variableId, HydraRingDeviationType deviationType, double mean, double variance)
             : base(variableId)
         {
-            this.deviationType = deviationType;
-            this.mean = mean;
+            DeviationType = deviationType;
+            Parameter1 = mean;
             this.variance = variance;
         }
 
-        public override double Parameter1
-        {
-            get
-            {
-                return mean;
-            }
-        }
+        public override double Parameter1 { get; }
 
         public override double Parameter2
         {
@@ -73,12 +65,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Variables
             }
         }
 
-        public override HydraRingDeviationType DeviationType
-        {
-            get
-            {
-                return deviationType;
-            }
-        }
+        public override HydraRingDeviationType DeviationType { get; }
     }
 }

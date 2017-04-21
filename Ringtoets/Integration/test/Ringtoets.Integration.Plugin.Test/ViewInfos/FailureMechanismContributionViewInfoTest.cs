@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Drawing;
 using System.Linq;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
@@ -67,7 +69,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var view = new FailureMechanismContributionView(viewCommands);
 
             // Call
-            var viewName = info.GetViewName(view, assessmentSectionStub.FailureMechanismContribution);
+            string viewName = info.GetViewName(view, assessmentSectionStub.FailureMechanismContribution);
 
             // Assert
             Assert.AreEqual("Faalkansbegroting", viewName);
@@ -78,7 +80,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void ViewDataType_Always_ReturnsViewDataType()
         {
             // Call
-            var viewDataType = info.ViewDataType;
+            Type viewDataType = info.ViewDataType;
 
             // Assert
             Assert.AreEqual(typeof(FailureMechanismContribution), viewDataType);
@@ -88,7 +90,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void ViewType_Always_ReturnsViewType()
         {
             // Call
-            var viewType = info.ViewType;
+            Type viewType = info.ViewType;
 
             // Assert
             Assert.AreEqual(typeof(FailureMechanismContributionView), viewType);
@@ -98,7 +100,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void DataType_Always_ReturnsDataType()
         {
             // Call
-            var dataType = info.DataType;
+            Type dataType = info.DataType;
 
             // Assert
             Assert.AreEqual(typeof(FailureMechanismContributionContext), dataType);
@@ -108,7 +110,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void Image_Always_ReturnsGenericInputOutputIcon()
         {
             // Call
-            var image = info.Image;
+            Image image = info.Image;
 
             // Assert
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.FailureMechanismContributionIcon, image);
@@ -124,7 +126,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var context = new FailureMechanismContributionContext(assessmentSectionStub.FailureMechanismContribution, assessmentSectionStub);
 
             // Call
-            var viewData = info.GetViewData(context);
+            object viewData = info.GetViewData(context);
 
             // Assert
             Assert.AreSame(viewData, assessmentSectionStub.FailureMechanismContribution);
@@ -149,7 +151,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             })
             {
                 // Call
-                var closeForData = info.CloseForData(view, assessmentSectionStub);
+                bool closeForData = info.CloseForData(view, assessmentSectionStub);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -179,7 +181,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             })
             {
                 // Call
-                var closeForData = info.CloseForData(view, assessmentSection2);
+                bool closeForData = info.CloseForData(view, assessmentSection2);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -200,7 +202,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             using (var view = new FailureMechanismContributionView(viewCommands))
             {
                 // Call
-                var closeForData = info.CloseForData(view, assessmentSectionStub);
+                bool closeForData = info.CloseForData(view, assessmentSectionStub);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -217,7 +219,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabaseOrFailureMechanisms(mocks);
             assessmentSectionStub.Stub(section => section.Composition).Return(AssessmentSectionComposition.Dike);
 
-            IGui guiStub = mocks.Stub<IGui>();
+            var guiStub = mocks.Stub<IGui>();
             guiStub.Stub(g => g.ProjectOpened += null).IgnoreArguments();
             guiStub.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
 

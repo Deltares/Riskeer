@@ -37,7 +37,7 @@ namespace Ringtoets.Common.IO.TestUtil
         /// </summary>
         /// <param name="filePath">The path of the file to write to.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        public TestSchemaCalculationConfigurationWriter(string filePath) : base(filePath) { }
+        public TestSchemaCalculationConfigurationWriter(string filePath) : base(filePath) {}
 
         protected override void WriteCalculation(TestConfigurationItem calculation, XmlWriter writer)
         {

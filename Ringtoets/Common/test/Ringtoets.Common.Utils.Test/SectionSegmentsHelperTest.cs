@@ -80,7 +80,7 @@ namespace Ringtoets.Common.Utils.Test
             };
 
             // Call
-            var segmentSections = SectionSegmentsHelper.MakeSectionSegments(failureMechanismSections);
+            SectionSegments[] segmentSections = SectionSegmentsHelper.MakeSectionSegments(failureMechanismSections);
 
             // Assert
             Assert.AreEqual(failureMechanismSections.Length, segmentSections.Length);

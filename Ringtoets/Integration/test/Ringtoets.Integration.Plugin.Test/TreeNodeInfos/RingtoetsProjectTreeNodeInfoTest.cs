@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
@@ -52,7 +53,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Assert
                 Assert.IsNotNull(info.Text);
@@ -85,10 +86,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                var text = info.Text(project);
+                string text = info.Text(project);
 
                 // Assert
                 Assert.AreEqual(testName, text);
@@ -103,10 +104,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                var image = info.Image(project);
+                Image image = info.Image(project);
 
                 // Assert
                 TestHelper.AssertImagesAreEqual(GuiResources.ProjectIcon, image);
@@ -123,10 +124,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
                 // Call
 
-                var objects = info.ChildNodeObjects(project);
+                object[] objects = info.ChildNodeObjects(project);
 
                 // Assert
                 Assert.AreEqual(1, objects.Length);
@@ -161,7 +162,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                 using (var plugin = new RingtoetsPlugin())
                 {
-                    var info = GetInfo(plugin);
+                    TreeNodeInfo info = GetInfo(plugin);
                     plugin.Gui = gui;
 
                     // Call
@@ -188,7 +189,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                 using (var plugin = new RingtoetsPlugin())
                 {
-                    var info = GetInfo(plugin);
+                    TreeNodeInfo info = GetInfo(plugin);
 
                     plugin.Gui = gui;
 

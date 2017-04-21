@@ -64,7 +64,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             TestDelegate call = () => new StructuresCharacteristicsCsvReader(corruptPath);
 
             // Assert
-            string innerExpectedMessage = "Er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.";
+            var innerExpectedMessage = "Er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.";
             string expectedMessage = new FileReaderErrorMessageBuilder(corruptPath).Build(innerExpectedMessage);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
@@ -76,7 +76,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             TestDelegate call = () => new StructuresCharacteristicsCsvReader(testDataPath);
 
             // Assert
-            ArgumentException exception = Assert.Throws<ArgumentException>(call);
+            var exception = Assert.Throws<ArgumentException>(call);
             string expectedMessage = new FileReaderErrorMessageBuilder(testDataPath).Build(UtilsResources.Error_Path_must_not_point_to_empty_file_name);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
@@ -746,7 +746,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             {
                 // Call
                 StructuresParameterRow parameter = null;
-                for (int i = 0; i < elementIndex; i++)
+                for (var i = 0; i < elementIndex; i++)
                 {
                     parameter = reader.ReadLine();
                 }

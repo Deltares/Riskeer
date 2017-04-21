@@ -75,12 +75,12 @@ namespace Ringtoets.Common.Data.TestUtil
                                                                       bool addBoundaryDatabase,
                                                                       string filePath)
         {
-            var failureMechanisms = failureMechanism == null
-                                        ? Enumerable.Empty<IFailureMechanism>().ToArray()
-                                        : new[]
-                                        {
-                                            failureMechanism
-                                        };
+            IFailureMechanism[] failureMechanisms = failureMechanism == null
+                                                        ? Enumerable.Empty<IFailureMechanism>().ToArray()
+                                                        : new[]
+                                                        {
+                                                            failureMechanism
+                                                        };
 
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
             assessmentSectionStub.Stub(a => a.Id).Return("21");

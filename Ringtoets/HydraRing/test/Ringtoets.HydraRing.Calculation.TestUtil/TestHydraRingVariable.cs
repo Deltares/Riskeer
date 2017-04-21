@@ -29,15 +29,6 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil
     /// </summary>
     public class TestHydraRingVariable : HydraRingVariable
     {
-        private readonly HydraRingDistributionType distributionType;
-        private readonly HydraRingDeviationType deviationType;
-        private readonly double value;
-        private readonly double parameter1;
-        private readonly double parameter2;
-        private readonly double parameter3;
-        private readonly double parameter4;
-        private readonly double coefficientOfVariation;
-
         /// <summary>
         /// Creates a new instance of <see cref="TestHydraRingVariable"/>.
         /// </summary>
@@ -61,78 +52,30 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil
                                      double coefficientOfVariation)
             : base(variableId)
         {
-            this.distributionType = distributionType;
-            this.deviationType = deviationType;
-            this.value = value;
-            this.parameter1 = parameter1;
-            this.parameter2 = parameter2;
-            this.parameter3 = parameter3;
-            this.parameter4 = parameter4;
-            this.coefficientOfVariation = coefficientOfVariation;
+            DistributionType = distributionType;
+            DeviationType = deviationType;
+            Value = value;
+            Parameter1 = parameter1;
+            Parameter2 = parameter2;
+            Parameter3 = parameter3;
+            Parameter4 = parameter4;
+            CoefficientOfVariation = coefficientOfVariation;
         }
 
-        public override HydraRingDistributionType DistributionType
-        {
-            get
-            {
-                return distributionType;
-            }
-        }
+        public override HydraRingDistributionType DistributionType { get; }
 
-        public override HydraRingDeviationType DeviationType
-        {
-            get
-            {
-                return deviationType;
-            }
-        }
+        public override HydraRingDeviationType DeviationType { get; }
 
-        public override double Value
-        {
-            get
-            {
-                return value;
-            }
-        }
+        public override double Value { get; }
 
-        public override double Parameter1
-        {
-            get
-            {
-                return parameter1;
-            }
-        }
+        public override double Parameter1 { get; }
 
-        public override double Parameter2
-        {
-            get
-            {
-                return parameter2;
-            }
-        }
+        public override double Parameter2 { get; }
 
-        public override double Parameter3
-        {
-            get
-            {
-                return parameter3;
-            }
-        }
+        public override double Parameter3 { get; }
 
-        public override double Parameter4
-        {
-            get
-            {
-                return parameter4;
-            }
-        }
+        public override double Parameter4 { get; }
 
-        public override double CoefficientOfVariation
-        {
-            get
-            {
-                return coefficientOfVariation;
-            }
-        }
+        public override double CoefficientOfVariation { get; }
     }
 }

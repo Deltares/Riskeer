@@ -33,7 +33,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
         public void Constructor_DefaultConstructor_ExpectedValues()
         {
             // Call
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             // Assert
             Assert.That(string.IsNullOrEmpty(hydraulicBoundaryDatabase.FilePath));

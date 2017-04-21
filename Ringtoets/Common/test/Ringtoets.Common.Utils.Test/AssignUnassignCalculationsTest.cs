@@ -94,7 +94,7 @@ namespace Ringtoets.Common.Utils.Test
                 Enumerable.Empty<CalculationWithLocation>());
 
             // Assert
-            ArgumentException exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "SectionResults contains an entry without value.");
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "SectionResults contains an entry without value.");
             Assert.AreEqual("sectionResults", exception.ParamName);
 
             mockRepository.VerifyAll();
@@ -135,7 +135,7 @@ namespace Ringtoets.Common.Utils.Test
                 });
 
             // Assert
-            ArgumentException exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Calculations contains an entry without value.");
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Calculations contains an entry without value.");
             Assert.AreEqual("calculations", exception.ParamName);
 
             mockRepository.VerifyAll();
@@ -228,7 +228,7 @@ namespace Ringtoets.Common.Utils.Test
             }, Enumerable.Empty<CalculationWithLocation>());
 
             // Assert
-            ArgumentException exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Sections contains an entry without value.");
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Sections contains an entry without value.");
             Assert.AreEqual("sections", exception.ParamName);
         }
 
@@ -253,7 +253,7 @@ namespace Ringtoets.Common.Utils.Test
             });
 
             // Assert
-            ArgumentException exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Calculations contains an entry without value.");
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Calculations contains an entry without value.");
             Assert.AreEqual("calculations", exception.ParamName);
         }
 
@@ -347,7 +347,7 @@ namespace Ringtoets.Common.Utils.Test
                 null);
 
             // Assert
-            ArgumentException exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
                 call,
                 "Sections contains an entry without value.");
             Assert.AreEqual("sections", exception.ParamName);

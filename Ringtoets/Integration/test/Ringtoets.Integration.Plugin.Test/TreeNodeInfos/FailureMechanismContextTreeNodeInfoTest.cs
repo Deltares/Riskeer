@@ -69,7 +69,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Assert
                 Assert.IsNotNull(info.Text);
@@ -106,10 +106,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                var text = info.Text(failureMechanismContext);
+                string text = info.Text(failureMechanismContext);
 
                 // Assert
                 Assert.AreEqual(failureMechanism.Name, text);
@@ -125,10 +125,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                var image = info.Image(null);
+                Image image = info.Image(null);
 
                 // Assert
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.FailureMechanismIcon, image);
@@ -142,7 +142,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 mocks.ReplayAll();
 
@@ -150,7 +150,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 var context = new FailureMechanismContext<IFailureMechanism>(failureMechanism, assessmentSection);
 
                 // Call
-                var textColor = info.ForeColor(context);
+                Color textColor = info.ForeColor(context);
 
                 // Assert
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), textColor);
@@ -167,7 +167,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 var failureMechanism = new TestFailureMechanism("test", "C");
                 var failureMechanismContext = mocks.Stub<FailureMechanismContext<IFailureMechanism>>(failureMechanism, assessmentSection);
@@ -243,7 +243,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 var failureMechanism = new TestFailureMechanism("test", "C")
                 {
@@ -299,7 +299,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                 using (var plugin = new RingtoetsPlugin())
                 {
-                    var info = GetInfo(plugin);
+                    TreeNodeInfo info = GetInfo(plugin);
 
                     plugin.Gui = gui;
 
@@ -342,7 +342,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                 using (var plugin = new RingtoetsPlugin())
                 {
-                    var info = GetInfo(plugin);
+                    TreeNodeInfo info = GetInfo(plugin);
 
                     plugin.Gui = gui;
 
@@ -376,7 +376,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 {
                     plugin.Gui = gui;
 
-                    var info = GetInfo(plugin);
+                    TreeNodeInfo info = GetInfo(plugin);
 
                     // Call
                     using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeView))
@@ -427,7 +427,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 {
                     plugin.Gui = gui;
 
-                    var info = GetInfo(plugin);
+                    TreeNodeInfo info = GetInfo(plugin);
 
                     using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
                     {
@@ -476,9 +476,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 {
                     plugin.Gui = gui;
 
-                    var info = GetInfo(plugin);
+                    TreeNodeInfo info = GetInfo(plugin);
 
-                    using (var contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
                     {
                         // Call
                         contextMenu.Items[contextMenuRelevancyIndexWhenNotRelevant].PerformClick();
@@ -501,7 +501,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 var failureMechanism = mocks.StrictMultiMock<IHasSectionResults<T>>(typeof(IFailureMechanism));
                 failureMechanism.Expect(fm => ((IFailureMechanism) fm).IsRelevant).Return(true);

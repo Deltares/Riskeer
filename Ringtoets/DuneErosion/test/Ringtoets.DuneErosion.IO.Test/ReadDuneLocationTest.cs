@@ -45,7 +45,7 @@ namespace Ringtoets.DuneErosion.IO.Test
         {
             // Setup
             const string name = "Dune location";
-            Point2D location = new Point2D(10.0, 12.0);
+            var location = new Point2D(10.0, 12.0);
             const int coastalAreaId = 3;
             const double offset = 4.29;
             const double orientation = 4.2;

@@ -32,6 +32,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.HydraRing.Calculation.Activities;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 
 namespace Ringtoets.Common.Service.Test
@@ -145,7 +146,7 @@ namespace Ringtoets.Common.Service.Test
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith($"Validatie van '{calculationName}' gestart om: ", msgs[0]);
                 StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand", msgs[1]);
@@ -163,7 +164,7 @@ namespace Ringtoets.Common.Service.Test
             const string locationName = "punt_flw_";
             const string activityName = "GetActivityName";
             const string calculationName = "locationName";
-            const double norm = 1.0/30;
+            const double norm = 1.0 / 30;
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, locationName, 0, 0);
 
@@ -179,7 +180,7 @@ namespace Ringtoets.Common.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var testDesignWaterLevelCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DesignWaterLevelCalculator;
+                TestDesignWaterLevelCalculator testDesignWaterLevelCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DesignWaterLevelCalculator;
                 testDesignWaterLevelCalculator.Converged = true;
 
                 // Call
@@ -188,7 +189,7 @@ namespace Ringtoets.Common.Service.Test
                 // Assert
                 TestHelper.AssertLogMessages(call, m =>
                 {
-                    var messages = m.ToArray();
+                    string[] messages = m.ToArray();
                     Assert.AreEqual(5, messages.Length);
                     StringAssert.StartsWith($"Validatie van '{calculationName}' gestart om: ", messages[0]);
                     StringAssert.StartsWith($"Validatie van '{calculationName}' beëindigd om: ", messages[1]);
@@ -197,7 +198,7 @@ namespace Ringtoets.Common.Service.Test
                     StringAssert.StartsWith($"Berekening van '{calculationName}' beëindigd om: ", messages[4]);
                 });
 
-                var designWaterLevelCalculationInput = testDesignWaterLevelCalculator.ReceivedInputs.First();
+                AssessmentLevelCalculationInput designWaterLevelCalculationInput = testDesignWaterLevelCalculator.ReceivedInputs.First();
 
                 Assert.AreEqual(hydraulicBoundaryLocation.Id, designWaterLevelCalculationInput.HydraulicBoundaryLocationId);
                 Assert.AreEqual(testDataPath, testDesignWaterLevelCalculator.HydraulicBoundaryDatabaseDirectory);
@@ -214,7 +215,7 @@ namespace Ringtoets.Common.Service.Test
             string validFilePath = Path.Combine(testDataPath, validFile);
             const string locationName = "locationName";
             const string activityName = "GetActivityName";
-            const double norm = 1.0/30;
+            const double norm = 1.0 / 30;
 
             var calculationMessageProviderMock = mockRepository.Stub<ICalculationMessageProvider>();
             calculationMessageProviderMock.Stub(calc => calc.GetActivityName(locationName)).Return(activityName);
@@ -256,8 +257,8 @@ namespace Ringtoets.Common.Service.Test
 
             string validFilePath = Path.Combine(testDataPath, validFile);
 
-            const double norm = 1.0/30;
-            double expectedDesignWaterLevel = 3.5;
+            const double norm = 1.0 / 30;
+            var expectedDesignWaterLevel = 3.5;
 
             var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocation,
                                                                    validFilePath,
@@ -266,7 +267,7 @@ namespace Ringtoets.Common.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var testDesignWaterLevelCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DesignWaterLevelCalculator;
+                TestDesignWaterLevelCalculator testDesignWaterLevelCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DesignWaterLevelCalculator;
                 testDesignWaterLevelCalculator.DesignWaterLevel = expectedDesignWaterLevel;
                 testDesignWaterLevelCalculator.Converged = true;
 
@@ -285,7 +286,7 @@ namespace Ringtoets.Common.Service.Test
         {
             // Setup
             const string locationName = "locationName";
-            string calculationFailedMessage = "Something went wrong";
+            var calculationFailedMessage = "Something went wrong";
 
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProviderMock.Stub(calc => calc.GetActivityName(locationName)).Return(string.Empty);
@@ -308,7 +309,7 @@ namespace Ringtoets.Common.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DesignWaterLevelCalculator;
+                TestDesignWaterLevelCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DesignWaterLevelCalculator;
                 calculator.EndInFailure = true;
                 calculator.LastErrorFileContent = calculationFailedMessage;
 
@@ -345,7 +346,7 @@ namespace Ringtoets.Common.Service.Test
             };
 
             string validFilePath = Path.Combine(testDataPath, validFile);
-            const double norm = 1.0/300;
+            const double norm = 1.0 / 300;
             var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocation,
                                                                    validFilePath,
                                                                    norm,
@@ -353,7 +354,7 @@ namespace Ringtoets.Common.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DesignWaterLevelCalculator;
+                TestDesignWaterLevelCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DesignWaterLevelCalculator;
                 calculator.Converged = false;
 
                 Action call = () => activity.Run();
@@ -361,7 +362,7 @@ namespace Ringtoets.Common.Service.Test
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {
-                    var msgs = messages.ToArray();
+                    string[] msgs = messages.ToArray();
                     Assert.AreEqual(6, msgs.Length);
                     StringAssert.StartsWith(calculationNotConvergedMessage, msgs[3]);
                 });
@@ -396,7 +397,7 @@ namespace Ringtoets.Common.Service.Test
 
             string validFilePath = Path.Combine(testDataPath, validFile);
 
-            const double norm = 1.0/30;
+            const double norm = 1.0 / 30;
             var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocation,
                                                                    validFilePath,
                                                                    norm,
@@ -404,7 +405,7 @@ namespace Ringtoets.Common.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DesignWaterLevelCalculator;
+                TestDesignWaterLevelCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DesignWaterLevelCalculator;
                 calculator.EndInFailure = endInFailure;
                 calculator.LastErrorFileContent = lastErrorFileContent;
 

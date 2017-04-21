@@ -61,7 +61,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var sectionResult = CreateFailureMechanismSectionResult();
+            FailureMechanismSectionResult sectionResult = CreateFailureMechanismSectionResult();
 
             // Call
             TestDelegate call = () => new FailureMechanismSectionResultContext<FailureMechanismSectionResult>(new[]

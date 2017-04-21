@@ -95,10 +95,10 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_ValidFileCorrespondingToReferenceLineAndNoSectionImportedYet_ImportSections(string referenceLineFileName, string sectionsFileName, int sectionCount)
         {
             // Setup
-            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                                   Path.Combine("ReferenceLine", referenceLineFileName));
-            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              Path.Combine("FailureMechanismSections", sectionsFileName));
+            string referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                      Path.Combine("ReferenceLine", referenceLineFileName));
+            string sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                 Path.Combine("FailureMechanismSections", sectionsFileName));
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
@@ -107,7 +107,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath);
 
             // Call
-            var importSuccessful = importer.Import();
+            bool importSuccessful = importer.Import();
 
             // Assert
             Assert.IsTrue(importSuccessful);
@@ -121,10 +121,10 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_ValidFileCorrespondingToReferenceLineAndHasSectionImported_ReplaceSections()
         {
             // Setup
-            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                                   Path.Combine("ReferenceLine", "traject_1-1.shp"));
-            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              Path.Combine("FailureMechanismSections", "traject_1-1_vakken.shp"));
+            string referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                      Path.Combine("ReferenceLine", "traject_1-1.shp"));
+            string sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                 Path.Combine("FailureMechanismSections", "traject_1-1_vakken.shp"));
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
@@ -133,7 +133,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath);
 
             // Call
-            var importSuccessful = importer.Import();
+            bool importSuccessful = importer.Import();
 
             // Assert
             Assert.IsTrue(importSuccessful);
@@ -147,10 +147,10 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_ValidArtificialFileImperfectlyCorrespondingToReferenceLineAndNoSectionImportedYet_ImportSections()
         {
             // Setup
-            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                                   Path.Combine("ReferenceLine", "Artificial_referencelijn_testA.shp"));
-            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              Path.Combine("FailureMechanismSections", "Artificial_referencelijn_testA_ValidVakken.shp"));
+            string referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                      Path.Combine("ReferenceLine", "Artificial_referencelijn_testA.shp"));
+            string sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                 Path.Combine("FailureMechanismSections", "Artificial_referencelijn_testA_ValidVakken.shp"));
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
@@ -159,7 +159,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath);
 
             // Call
-            var importSuccessful = importer.Import();
+            bool importSuccessful = importer.Import();
 
             // Assert
             Assert.IsTrue(importSuccessful);
@@ -173,10 +173,10 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_ValidImport_GenerateExpectedProgressMessages()
         {
             // Setup
-            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                                   Path.Combine("ReferenceLine", "Artificial_referencelijn_testA.shp"));
-            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              Path.Combine("FailureMechanismSections", "Artificial_referencelijn_testA_ValidVakken.shp"));
+            string referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                      Path.Combine("ReferenceLine", "Artificial_referencelijn_testA.shp"));
+            string sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                 Path.Combine("FailureMechanismSections", "Artificial_referencelijn_testA_ValidVakken.shp"));
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
@@ -188,7 +188,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             importer.SetProgressChanged((description, step, steps) => progressChangeNotifications.Add(new ProgressNotification(description, step, steps)));
 
             // Call
-            var importSuccessful = importer.Import();
+            bool importSuccessful = importer.Import();
 
             // Assert
             Assert.IsTrue(importSuccessful);
@@ -199,10 +199,10 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 new ProgressNotification("Geïmporteerde data toevoegen aan het toetsspoor.", 3, 3)
             };
             Assert.AreEqual(expectedProgressMessages.Length, progressChangeNotifications.Count);
-            for (int i = 0; i < expectedProgressMessages.Length; i++)
+            for (var i = 0; i < expectedProgressMessages.Length; i++)
             {
-                var notification = expectedProgressMessages[i];
-                var actualNotification = progressChangeNotifications[i];
+                ProgressNotification notification = expectedProgressMessages[i];
+                ProgressNotification actualNotification = progressChangeNotifications[i];
                 Assert.AreEqual(notification.Text, actualNotification.Text);
                 Assert.AreEqual(notification.CurrentStep, actualNotification.CurrentStep);
                 Assert.AreEqual(notification.TotalSteps, actualNotification.TotalSteps);
@@ -213,9 +213,9 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_FilePathIsDirectory_CancelImportWithErrorMessage()
         {
             // Setup
-            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                                   Path.Combine("ReferenceLine", "traject_1-1.shp"));
-            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, Path.DirectorySeparatorChar.ToString());
+            string referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                      Path.Combine("ReferenceLine", "traject_1-1.shp"));
+            string sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, Path.DirectorySeparatorChar.ToString());
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
@@ -224,12 +224,12 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath);
 
             // Call
-            bool importSuccessful = true;
+            var importSuccessful = true;
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            var expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': bestandspad mag niet verwijzen naar een lege bestandsnaam. ", sectionsFilePath) + Environment.NewLine +
-                                  "Er is geen vakindeling geïmporteerd.";
+            string expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': bestandspad mag niet verwijzen naar een lege bestandsnaam. ", sectionsFilePath) + Environment.NewLine +
+                                     "Er is geen vakindeling geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
@@ -239,9 +239,9 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_FileDoesNotExist_CancelImportWithErrorMessage()
         {
             // Setup
-            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                                   Path.Combine("ReferenceLine", "traject_1-1.shp"));
-            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "I_dont_exist.shp");
+            string referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                      Path.Combine("ReferenceLine", "traject_1-1.shp"));
+            string sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "I_dont_exist.shp");
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
@@ -250,11 +250,11 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath);
 
             // Call
-            bool importSuccessful = true;
+            var importSuccessful = true;
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            var expectedMessage =
+            string expectedMessage =
                 string.Format(@"Fout bij het lezen van bestand '{0}': het bestand bestaat niet. ", sectionsFilePath) + Environment.NewLine +
                 "Er is geen vakindeling geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
@@ -266,10 +266,10 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_EmptyArtificialFile_CancelImportWithErrorMessage()
         {
             // Setup
-            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                                   Path.Combine("ReferenceLine", "Artificial_referencelijn_testA.shp"));
-            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              Path.Combine("FailureMechanismSections", "Artificial_referencelijn_testA_EmptyVakken.shp"));
+            string referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                      Path.Combine("ReferenceLine", "Artificial_referencelijn_testA.shp"));
+            string sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                 Path.Combine("FailureMechanismSections", "Artificial_referencelijn_testA_EmptyVakken.shp"));
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
@@ -278,12 +278,12 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath);
 
             // Call
-            bool importSuccessful = true;
+            var importSuccessful = true;
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            var expectedMessage = "Het bestand heeft geen vakindeling. " + Environment.NewLine +
-                                  "Er is geen vakindeling geïmporteerd.";
+            string expectedMessage = "Het bestand heeft geen vakindeling. " + Environment.NewLine +
+                                     "Er is geen vakindeling geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
@@ -295,11 +295,11 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_InvalidArtificialFileBecauseOfStartEndPointsTooFarFromReferenceLine_CancelImportWithErrorMessage(string shapeCondition)
         {
             // Setup
-            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                                   Path.Combine("ReferenceLine", "Artificial_referencelijn_testA.shp"));
-            var shapeFileName = string.Format("Artificial_referencelijn_testA_InvalidVakken_Section{0}.shp", shapeCondition);
-            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              Path.Combine("FailureMechanismSections", shapeFileName));
+            string referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                      Path.Combine("ReferenceLine", "Artificial_referencelijn_testA.shp"));
+            string shapeFileName = string.Format("Artificial_referencelijn_testA_InvalidVakken_Section{0}.shp", shapeCondition);
+            string sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                 Path.Combine("FailureMechanismSections", shapeFileName));
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
@@ -308,12 +308,12 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath);
 
             // Call
-            bool importSuccessful = true;
+            var importSuccessful = true;
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            var expectedMessage = "De geografische ligging van ieder vak moet overeenkomen met de ligging van (een deel van) de referentielijn. " + Environment.NewLine +
-                                  "Er is geen vakindeling geïmporteerd.";
+            string expectedMessage = "De geografische ligging van ieder vak moet overeenkomen met de ligging van (een deel van) de referentielijn. " + Environment.NewLine +
+                                     "Er is geen vakindeling geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
@@ -325,11 +325,11 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_InvalidArtificialFileBecauseOfStartEndPointsTooFarFromStartEndOfReferenceLine_CancelImportWithErrorMessage(string shapeCondition)
         {
             // Setup
-            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                                   Path.Combine("ReferenceLine", "Artificial_referencelijn_testA.shp"));
-            var shapeFileName = string.Format("Artificial_referencelijn_testA_InvalidVakken_{0}.shp", shapeCondition);
-            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              Path.Combine("FailureMechanismSections", shapeFileName));
+            string referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                      Path.Combine("ReferenceLine", "Artificial_referencelijn_testA.shp"));
+            string shapeFileName = string.Format("Artificial_referencelijn_testA_InvalidVakken_{0}.shp", shapeCondition);
+            string sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                 Path.Combine("FailureMechanismSections", shapeFileName));
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
@@ -338,12 +338,12 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath);
 
             // Call
-            bool importSuccessful = true;
+            var importSuccessful = true;
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            var expectedMessage = "De geografische ligging van ieder vak moet overeenkomen met de ligging van (een deel van) de referentielijn. " + Environment.NewLine +
-                                  "Er is geen vakindeling geïmporteerd.";
+            string expectedMessage = "De geografische ligging van ieder vak moet overeenkomen met de ligging van (een deel van) de referentielijn. " + Environment.NewLine +
+                                     "Er is geen vakindeling geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
@@ -353,10 +353,10 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_InvalidArtificialFileBecauseSectionsDoNotFullyCoverReferenceLine_CancelImportWithErrorMessage()
         {
             // Setup
-            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                                   Path.Combine("ReferenceLine", "Artificial_referencelijn_testA.shp"));
-            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              Path.Combine("FailureMechanismSections", "Artificial_referencelijn_testA_InvalidVakken_NotCoveringWholeReferenceLine.shp"));
+            string referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                      Path.Combine("ReferenceLine", "Artificial_referencelijn_testA.shp"));
+            string sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                 Path.Combine("FailureMechanismSections", "Artificial_referencelijn_testA_InvalidVakken_NotCoveringWholeReferenceLine.shp"));
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
@@ -365,12 +365,12 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath);
 
             // Call
-            bool importSuccessful = true;
+            var importSuccessful = true;
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            var expectedMessage = "De opgetelde lengte van de vakken moet overeenkomen met de trajectlengte. " + Environment.NewLine +
-                                  "Er is geen vakindeling geïmporteerd.";
+            string expectedMessage = "De opgetelde lengte van de vakken moet overeenkomen met de trajectlengte. " + Environment.NewLine +
+                                     "Er is geen vakindeling geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
@@ -380,10 +380,10 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_InvalidArtificialFileBecauseSomePointsNotOnReferenceLine_CancelImportWithErrorMessage()
         {
             // Setup
-            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                                   Path.Combine("ReferenceLine", "Artificial_referencelijn_testA.shp"));
-            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              Path.Combine("FailureMechanismSections", "Artificial_referencelijn_testA_InvalidVakken_PointsTooFarFromReferenceLine.shp"));
+            string referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                      Path.Combine("ReferenceLine", "Artificial_referencelijn_testA.shp"));
+            string sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                 Path.Combine("FailureMechanismSections", "Artificial_referencelijn_testA_InvalidVakken_PointsTooFarFromReferenceLine.shp"));
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
@@ -392,12 +392,12 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath);
 
             // Call
-            bool importSuccessful = true;
+            var importSuccessful = true;
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            var expectedMessage = "De opgetelde lengte van de vakken moet overeenkomen met de trajectlengte. " + Environment.NewLine +
-                                  "Er is geen vakindeling geïmporteerd.";
+            string expectedMessage = "De opgetelde lengte van de vakken moet overeenkomen met de trajectlengte. " + Environment.NewLine +
+                                     "Er is geen vakindeling geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
@@ -407,19 +407,19 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_MissingNameValue_CancelImportWithErrorMessage()
         {
             // Setup
-            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              Path.Combine("FailureMechanismSections", "vakindeling_Empty_Name_Value.shp"));
+            string sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                 Path.Combine("FailureMechanismSections", "vakindeling_Empty_Name_Value.shp"));
 
             var failureMechanism = new Simple();
 
             var importer = new FailureMechanismSectionsImporter(failureMechanism, new ReferenceLine(), sectionsFilePath);
 
             // Call
-            bool importSuccessful = true;
+            var importSuccessful = true;
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            var expectedMessage = string.Format(
+            string expectedMessage = string.Format(
                 "Fout bij het lezen van bestand '{0}': voor één of meerdere vakken is geen naam opgegeven. {1}Er is geen vakindeling geïmporteerd.",
                 sectionsFilePath,
                 Environment.NewLine);
@@ -432,10 +432,10 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_CancelOfImportWhenReadingFailureMechanismSections_CancelsImportAndLogs()
         {
             // Setup
-            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                                   Path.Combine("ReferenceLine", "traject_1-1.shp"));
-            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              Path.Combine("FailureMechanismSections", "traject_1-1_vakken.shp"));
+            string referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                      Path.Combine("ReferenceLine", "traject_1-1.shp"));
+            string sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                 Path.Combine("FailureMechanismSections", "traject_1-1_vakken.shp"));
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
@@ -450,7 +450,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 }
             });
 
-            bool importSuccessful = true;
+            var importSuccessful = true;
 
             // Call
             Action call = () => importSuccessful = importer.Import();
@@ -459,17 +459,16 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             TestHelper.AssertLogMessageIsGenerated(call, "Vakindeling importeren afgebroken. Geen gegevens ingelezen.", 1);
             Assert.IsFalse(importSuccessful);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
-            
         }
 
         [Test]
         public void Import_CancelOfImportWhenValidatingImportedections_CancelsImportAndLogs()
         {
             // Setup
-            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                                   Path.Combine("ReferenceLine", "traject_1-1.shp"));
-            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              Path.Combine("FailureMechanismSections", "traject_1-1_vakken.shp"));
+            string referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                      Path.Combine("ReferenceLine", "traject_1-1.shp"));
+            string sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                 Path.Combine("FailureMechanismSections", "traject_1-1_vakken.shp"));
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
@@ -484,7 +483,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 }
             });
 
-            bool importSuccessful = true;
+            var importSuccessful = true;
 
             // Call
             Action call = () => importSuccessful = importer.Import();
@@ -499,10 +498,10 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_CancelOfImportWhenAddingDataToModel_ContinuesImportAndLogs()
         {
             // Setup
-            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                                   Path.Combine("ReferenceLine", "traject_1-1.shp"));
-            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              Path.Combine("FailureMechanismSections", "traject_1-1_vakken.shp"));
+            string referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                      Path.Combine("ReferenceLine", "traject_1-1.shp"));
+            string sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                 Path.Combine("FailureMechanismSections", "traject_1-1_vakken.shp"));
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
@@ -517,7 +516,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 }
             });
 
-            bool importSuccessful = true;
+            var importSuccessful = true;
 
             // Call
             Action call = () => importSuccessful = importer.Import();
@@ -532,10 +531,10 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_ReuseOfCanceledImportToValidTargetWithValidFile_TrueAndLogMessagesAndExpectedImportedData()
         {
             // Setup
-            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                                   Path.Combine("ReferenceLine", "traject_1-1.shp"));
-            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              Path.Combine("FailureMechanismSections", "traject_1-1_vakken.shp"));
+            string referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                      Path.Combine("ReferenceLine", "traject_1-1.shp"));
+            string sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                 Path.Combine("FailureMechanismSections", "traject_1-1_vakken.shp"));
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
@@ -548,7 +547,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             importer.SetProgressChanged(null);
 
             // Call
-            var importSuccessful = importer.Import();
+            bool importSuccessful = importer.Import();
 
             // Assert
             Assert.IsTrue(importSuccessful);
@@ -591,8 +590,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                             "End of the sections should correspond to the End of the reference line.");
 
             // 2. Total length coherence:
-            var totalLengthOfSections = sections.Sum(s => GetLengthOfLine(s.Points));
-            var totalLengthOfReferenceLine = GetLengthOfLine(referenceLineGeometry);
+            double totalLengthOfSections = sections.Sum(s => GetLengthOfLine(s.Points));
+            double totalLengthOfReferenceLine = GetLengthOfLine(referenceLineGeometry);
             Assert.AreEqual(totalLengthOfReferenceLine, totalLengthOfSections, 1e-6,
                             "The length of all sections should sum up to the length of the reference line.");
 

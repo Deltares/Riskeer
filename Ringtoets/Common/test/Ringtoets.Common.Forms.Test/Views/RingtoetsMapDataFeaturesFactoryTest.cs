@@ -108,7 +108,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual(id, mapFeature.MetaData["ID"]);
             Assert.AreEqual(name, mapFeature.MetaData["Naam"]);
 
-            RoundedDouble expectedLength = new RoundedDouble(2, Math2D.Length(points));
+            var expectedLength = new RoundedDouble(2, Math2D.Length(points));
             Assert.AreEqual(expectedLength, (RoundedDouble) mapFeature.MetaData["Lengte"], expectedLength.GetAccuracy());
             AssertEqualPointCollections(points, mapFeature.MapGeometries.ElementAt(0));
         }
@@ -141,7 +141,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Assert
             List<HydraulicBoundaryLocation> hydraulicBoundaryLocations = hydraulicBoundaryDatabase.Locations;
             Assert.AreEqual(hydraulicBoundaryLocations.Count, features.Length);
-            for (int i = 0; i < hydraulicBoundaryLocations.Count; i++)
+            for (var i = 0; i < hydraulicBoundaryLocations.Count; i++)
             {
                 Assert.AreEqual(4, features[i].MetaData.Keys.Count);
                 Assert.AreEqual(hydraulicBoundaryLocations[i].Id, features[i].MetaData["ID"]);
@@ -223,7 +223,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Assert
             List<HydraulicBoundaryLocation> hydraulicBoundaryLocations = hydraulicBoundaryDatabase.Locations;
             Assert.AreEqual(hydraulicBoundaryLocations.Count, features.Length);
-            for (int i = 0; i < hydraulicBoundaryLocations.Count; i++)
+            for (var i = 0; i < hydraulicBoundaryLocations.Count; i++)
             {
                 Assert.AreEqual(4, features[i].MetaData.Keys.Count);
                 Assert.AreEqual(hydraulicBoundaryLocations[i].Id, features[i].MetaData["ID"]);
@@ -285,13 +285,13 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(2, features.Length);
-            for (int i = 0; i < features.Length; i++)
+            for (var i = 0; i < features.Length; i++)
             {
                 Assert.AreEqual(1, features[i].MapGeometries.Count());
                 Assert.AreEqual(2, features[i].MetaData.Keys.Count);
 
                 Assert.AreEqual(sections[i].Name, features[i].MetaData["Naam"]);
-                RoundedDouble expectedLength = new RoundedDouble(2, Math2D.Length(sections[i].Points));
+                var expectedLength = new RoundedDouble(2, Math2D.Length(sections[i].Points));
                 Assert.AreEqual(expectedLength, (RoundedDouble) features[i].MetaData["Lengte"], expectedLength.GetAccuracy());
 
                 AssertEqualPointCollections(sections[i].Points, features[i].MapGeometries.First());
@@ -418,7 +418,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void CreateStructuresFeatures_EmptyStructures_ReturnsEmptyCollection()
         {
             // Setup
-            var structures = Enumerable.Empty<StructureBase>();
+            IEnumerable<StructureBase> structures = Enumerable.Empty<StructureBase>();
 
             // Call
             MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateStructuresFeatures(structures);
@@ -447,8 +447,8 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual(2, features.Length);
             Assert.AreEqual(1, features[0].MapGeometries.Count());
             Assert.AreEqual(1, features[1].MapGeometries.Count());
-            var mapDataGeometryOne = features[0].MapGeometries.ElementAt(0).PointCollections.First().ToArray();
-            var mapDataGeometryTwo = features[1].MapGeometries.ElementAt(0).PointCollections.First().ToArray();
+            Point2D[] mapDataGeometryOne = features[0].MapGeometries.ElementAt(0).PointCollections.First().ToArray();
+            Point2D[] mapDataGeometryTwo = features[1].MapGeometries.ElementAt(0).PointCollections.First().ToArray();
             Assert.AreEqual(1, mapDataGeometryOne.Length);
             Assert.AreEqual(1, mapDataGeometryTwo.Length);
             Assert.AreEqual(structure1.Location, mapDataGeometryOne[0]);
@@ -523,8 +523,8 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual(2, features.Length);
             Assert.AreEqual(1, features[0].MapGeometries.Count());
             Assert.AreEqual(1, features[1].MapGeometries.Count());
-            var mapDataGeometryOne = features[0].MapGeometries.ElementAt(0).PointCollections.First().ToArray();
-            var mapDataGeometryTwo = features[1].MapGeometries.ElementAt(0).PointCollections.First().ToArray();
+            Point2D[] mapDataGeometryOne = features[0].MapGeometries.ElementAt(0).PointCollections.First().ToArray();
+            Point2D[] mapDataGeometryTwo = features[1].MapGeometries.ElementAt(0).PointCollections.First().ToArray();
 
             CollectionElementsAlmostEquals(new[]
             {
@@ -801,7 +801,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             var point = new Point2D(0, 0);
 
             // Call
-            var pointMapFeature = RingtoetsMapDataFeaturesFactory.CreateSinglePointMapFeature(point);
+            MapFeature pointMapFeature = RingtoetsMapDataFeaturesFactory.CreateSinglePointMapFeature(point);
 
             // Assert
             MapGeometry[] mapGeometries = pointMapFeature.MapGeometries.ToArray();
@@ -815,7 +815,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         private static void AssertEqualFeatureCollections(Point2D[] points, MapFeature[] features)
         {
             Assert.AreEqual(points.Length, features.Length);
-            for (int i = 0; i < points.Length; i++)
+            for (var i = 0; i < points.Length; i++)
             {
                 CollectionAssert.AreEqual(new[]
                 {
@@ -828,7 +828,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             Assert.AreEqual(expected.Count(), actual.Length);
 
-            for (int index = 0; index < actual.Length; index++)
+            for (var index = 0; index < actual.Length; index++)
             {
                 Point2D actualPoint = actual[index];
                 Point2D expectedPoint = expected.ElementAt(index);

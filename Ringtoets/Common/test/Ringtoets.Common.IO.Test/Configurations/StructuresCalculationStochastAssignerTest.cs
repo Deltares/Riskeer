@@ -71,31 +71,6 @@ namespace Ringtoets.Common.IO.Test.Configurations
             }
         }
 
-        private static IEnumerable<TestCaseData> GetSetStochastParameterActions(string testNameFormat)
-        {
-            yield return new TestCaseData(
-                    new Action<StochastConfiguration>(c => c.Mean = 3.2),
-                    new Action<StochastConfiguration>(c => { }),
-                    "stochastA")
-                .SetName(string.Format(testNameFormat, "WithStructureAndStandardDeviationStochastMeanSet"));
-            yield return new TestCaseData(
-                    new Action<StochastConfiguration>(c => c.StandardDeviation = 3.2),
-                    new Action<StochastConfiguration>(c => { }),
-                    "stochastB")
-                .SetName(string.Format(testNameFormat, "WithStructureAndStandardDeviationStochastStandardDeviationSet"));
-
-            yield return new TestCaseData(
-                    new Action<StochastConfiguration>(c => { }),
-                    new Action<StochastConfiguration>(c => c.Mean = 3.2),
-                    "stochastD")
-                .SetName(string.Format(testNameFormat, "WithStructureAndVariationCoefficientStochastMeanSet"));
-            yield return new TestCaseData(
-                    new Action<StochastConfiguration>(c => { }),
-                    new Action<StochastConfiguration>(c => c.VariationCoefficient = 3.2),
-                    "stochastF")
-                .SetName(string.Format(testNameFormat, "WithStructureAndVariationCoefficientStochastVariationCoefficientSet"));
-        }
-
         [Test]
         public void Constructor_WithoutConfiguration_ThrowsArgumentNullException()
         {
@@ -261,9 +236,9 @@ namespace Ringtoets.Common.IO.Test.Configurations
                         StructuresCalculationConfiguration,
                         SimpleStructuresInput,
                         StructureBase>.StandardDeviationDefinition(stochastName,
-                                                                          standardDeviationStochastConfiguration,
-                                                                          input => null,
-                                                                          (input, distribution) => { })
+                                                                   standardDeviationStochastConfiguration,
+                                                                   input => null,
+                                                                   (input, distribution) => { })
                 },
                 VariationCoefficientStochasts = new[]
                 {
@@ -271,9 +246,9 @@ namespace Ringtoets.Common.IO.Test.Configurations
                         StructuresCalculationConfiguration,
                         SimpleStructuresInput,
                         StructureBase>.VariationCoefficientDefinition(stochastName,
-                                                                             variationCoefficientStochastConfiguration,
-                                                                             input => null,
-                                                                             (input, distribution) => { })
+                                                                      variationCoefficientStochastConfiguration,
+                                                                      input => null,
+                                                                      (input, distribution) => { })
                 }
             };
 
@@ -324,9 +299,9 @@ namespace Ringtoets.Common.IO.Test.Configurations
                         StructuresCalculationConfiguration,
                         SimpleStructuresInput,
                         StructureBase>.StandardDeviationDefinition(stochastName,
-                                                                          standardDeviationStochastConfiguration,
-                                                                          input => new LogNormalDistribution(), 
-                                                                          (input, distribution) => { })
+                                                                   standardDeviationStochastConfiguration,
+                                                                   input => new LogNormalDistribution(),
+                                                                   (input, distribution) => { })
                 },
                 VariationCoefficientStochasts = new[]
                 {
@@ -334,9 +309,9 @@ namespace Ringtoets.Common.IO.Test.Configurations
                         StructuresCalculationConfiguration,
                         SimpleStructuresInput,
                         StructureBase>.VariationCoefficientDefinition(stochastName,
-                                                                             variationCoefficientStochastConfiguration,
-                                                                             input => new VariationCoefficientLogNormalDistribution(), 
-                                                                             (input, distribution) => { })
+                                                                      variationCoefficientStochastConfiguration,
+                                                                      input => new VariationCoefficientLogNormalDistribution(),
+                                                                      (input, distribution) => { })
                 }
             };
 
@@ -392,12 +367,9 @@ namespace Ringtoets.Common.IO.Test.Configurations
                     StructuresCalculationConfiguration,
                     SimpleStructuresInput,
                     StructureBase>.StandardDeviationDefinition("stochastA",
-                                                                      standardDeviationStochastConfiguration,
-                                                                      input => input.AllowedLevelIncreaseStorage,
-                                                                      (input, distribution) =>
-                                                                      {
-                                                                          input.AllowedLevelIncreaseStorage = (LogNormalDistribution) distribution;
-                                                                      });
+                                                               standardDeviationStochastConfiguration,
+                                                               input => input.AllowedLevelIncreaseStorage,
+                                                               (input, distribution) => { input.AllowedLevelIncreaseStorage = (LogNormalDistribution) distribution; });
 
             StructuresCalculationStochastAssigner<
                 StructuresCalculationConfiguration,
@@ -407,12 +379,9 @@ namespace Ringtoets.Common.IO.Test.Configurations
                     StructuresCalculationConfiguration,
                     SimpleStructuresInput,
                     StructureBase>.VariationCoefficientDefinition("stochastB",
-                                                                         variationCoefficientStochastConfiguration,
-                                                                         input => input.CriticalOvertoppingDischarge,
-                                                                         (input, distribution) =>
-                                                                         {
-                                                                             input.CriticalOvertoppingDischarge = (VariationCoefficientLogNormalDistribution) distribution;
-                                                                         });
+                                                                  variationCoefficientStochastConfiguration,
+                                                                  input => input.CriticalOvertoppingDischarge,
+                                                                  (input, distribution) => { input.CriticalOvertoppingDischarge = (VariationCoefficientLogNormalDistribution) distribution; });
 
             var assigner = new SimpleStructuresCalculationStochastAssigner(
                 configuration,
@@ -451,6 +420,31 @@ namespace Ringtoets.Common.IO.Test.Configurations
             mocks.VerifyAll();
         }
 
+        private static IEnumerable<TestCaseData> GetSetStochastParameterActions(string testNameFormat)
+        {
+            yield return new TestCaseData(
+                    new Action<StochastConfiguration>(c => c.Mean = 3.2),
+                    new Action<StochastConfiguration>(c => { }),
+                    "stochastA")
+                .SetName(string.Format(testNameFormat, "WithStructureAndStandardDeviationStochastMeanSet"));
+            yield return new TestCaseData(
+                    new Action<StochastConfiguration>(c => c.StandardDeviation = 3.2),
+                    new Action<StochastConfiguration>(c => { }),
+                    "stochastB")
+                .SetName(string.Format(testNameFormat, "WithStructureAndStandardDeviationStochastStandardDeviationSet"));
+
+            yield return new TestCaseData(
+                    new Action<StochastConfiguration>(c => { }),
+                    new Action<StochastConfiguration>(c => c.Mean = 3.2),
+                    "stochastD")
+                .SetName(string.Format(testNameFormat, "WithStructureAndVariationCoefficientStochastMeanSet"));
+            yield return new TestCaseData(
+                    new Action<StochastConfiguration>(c => { }),
+                    new Action<StochastConfiguration>(c => c.VariationCoefficient = 3.2),
+                    "stochastF")
+                .SetName(string.Format(testNameFormat, "WithStructureAndVariationCoefficientStochastVariationCoefficientSet"));
+        }
+
         #region StandardDeviationDefinition
 
         [Test]
@@ -463,8 +457,9 @@ namespace Ringtoets.Common.IO.Test.Configurations
             // Call
             TestDelegate test = () => new StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>
                 .StandardDeviationDefinition(null,
-                                                    null,
-                                                    getter, setter);
+                                             null,
+                                             getter,
+                                             setter);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -482,8 +477,9 @@ namespace Ringtoets.Common.IO.Test.Configurations
             // Call
             TestDelegate test = () => new StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>
                 .StandardDeviationDefinition(stochastName,
-                                                    configuration,
-                                                    null, setter);
+                                             configuration,
+                                             null,
+                                             setter);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -500,8 +496,9 @@ namespace Ringtoets.Common.IO.Test.Configurations
             // Call
             TestDelegate test = () => new StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>
                 .StandardDeviationDefinition(stochastName,
-                                                    null,
-                                                    getter, null);
+                                             null,
+                                             getter,
+                                             null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -527,8 +524,9 @@ namespace Ringtoets.Common.IO.Test.Configurations
             StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>.StandardDeviationDefinition definition =
                 new StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>
                     .StandardDeviationDefinition(stochastName,
-                                                        configuration,
-                                                        getter, setter);
+                                                 configuration,
+                                                 getter,
+                                                 setter);
 
             // Assert
             Assert.NotNull(definition);
@@ -552,8 +550,9 @@ namespace Ringtoets.Common.IO.Test.Configurations
             // Call
             TestDelegate test = () => new StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>
                 .VariationCoefficientDefinition(null,
-                                                       null,
-                                                       getter, setter);
+                                                null,
+                                                getter,
+                                                setter);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -571,8 +570,9 @@ namespace Ringtoets.Common.IO.Test.Configurations
             TestDelegate test = () =>
                 new StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>
                     .VariationCoefficientDefinition(stochastName,
-                                                           null,
-                                                           null, setter);
+                                                    null,
+                                                    null,
+                                                    setter);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -590,8 +590,9 @@ namespace Ringtoets.Common.IO.Test.Configurations
             TestDelegate test = () =>
                 new StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>
                     .VariationCoefficientDefinition(stochastName,
-                                                           null,
-                                                           getter, null);
+                                                    null,
+                                                    getter,
+                                                    null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -617,8 +618,9 @@ namespace Ringtoets.Common.IO.Test.Configurations
             StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>.VariationCoefficientDefinition definition =
                 new StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>
                     .VariationCoefficientDefinition(stochastName,
-                                                           configuration,
-                                                           getter, setter);
+                                                    configuration,
+                                                    getter,
+                                                    setter);
 
             // Assert
             Assert.NotNull(definition);
@@ -644,6 +646,11 @@ namespace Ringtoets.Common.IO.Test.Configurations
             public IEnumerable<StandardDeviationDefinition> StandardDeviationStochasts { get; set; } = Enumerable.Empty<StandardDeviationDefinition>();
             public IEnumerable<VariationCoefficientDefinition> VariationCoefficientStochasts { get; set; } = Enumerable.Empty<VariationCoefficientDefinition>();
 
+            public bool PublicValidateSpecificStochasts()
+            {
+                return ValidateSpecificStochasts();
+            }
+
             protected override bool ValidateSpecificStochasts()
             {
                 return SpecificIsValid;
@@ -657,11 +664,6 @@ namespace Ringtoets.Common.IO.Test.Configurations
             protected override IEnumerable<VariationCoefficientDefinition> GetVariationCoefficientStochasts(bool structureDependent = false)
             {
                 return VariationCoefficientStochasts;
-            }
-
-            public bool PublicValidateSpecificStochasts()
-            {
-                return ValidateSpecificStochasts();
             }
         }
 

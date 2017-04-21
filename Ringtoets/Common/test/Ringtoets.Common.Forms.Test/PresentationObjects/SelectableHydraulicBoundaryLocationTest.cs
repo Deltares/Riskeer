@@ -51,7 +51,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         public void Constructor_HydraulicBoundaryLocationNull_ThrowsArgumentException()
         {
             // Setup 
-            Point2D referencePoint = new Point2D(0, 0);
+            var referencePoint = new Point2D(0, 0);
 
             // Call
             TestDelegate call = () => new SelectableHydraulicBoundaryLocation(null, referencePoint);
@@ -239,8 +239,8 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         {
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(5, "Name", 0, 0);
 
-            Point2D meters = new Point2D(0, 10);
-            Point2D kilometers = new Point2D(10000, 10000);
+            var meters = new Point2D(0, 10);
+            var kilometers = new Point2D(10000, 10000);
 
             yield return new TestCaseData(hydraulicBoundaryLocation, null, hydraulicBoundaryLocation.Name);
             yield return new TestCaseData(hydraulicBoundaryLocation, meters, GetStringRepresentation(hydraulicBoundaryLocation, meters));
@@ -249,8 +249,8 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
 
         private static IEnumerable<TestCaseData> EqualityReferencePoints()
         {
-            Point2D referencePoint1 = new Point2D(0, 0);
-            Point2D referencePoint2 = new Point2D(1, 1);
+            var referencePoint1 = new Point2D(0, 0);
+            var referencePoint2 = new Point2D(1, 1);
 
             yield return new TestCaseData(null, null);
             yield return new TestCaseData(null, referencePoint1);
@@ -265,7 +265,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
                 return location.Name;
             }
 
-            var distance = location.Location.GetEuclideanDistanceTo(referencePoint);
+            double distance = location.Location.GetEuclideanDistanceTo(referencePoint);
 
             return distance / 1000 < 1
                        ? string.Format("{0} ({1:f0} m)", location.Name, distance)

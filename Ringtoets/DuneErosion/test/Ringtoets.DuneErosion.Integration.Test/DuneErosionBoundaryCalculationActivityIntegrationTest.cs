@@ -48,7 +48,8 @@ namespace Ringtoets.DuneErosion.Integration.Test
             {
                 Contribution = 10
             };
-            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0), new DuneLocation.ConstructionProperties
+            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0),
+                                                new DuneLocation.ConstructionProperties
                                                 {
                                                     CoastalAreaId = 3,
                                                     Offset = 0,
@@ -66,9 +67,10 @@ namespace Ringtoets.DuneErosion.Integration.Test
                 Action call = () => activity.Run();
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessages(call,
+                                             messages =>
                                              {
-                                                 var msgs = messages.ToArray();
+                                                 string[] msgs = messages.ToArray();
                                                  Assert.AreEqual(4, msgs.Length);
                                                  StringAssert.StartsWith($"Berekening van '{duneLocation.Name}' gestart om: ", msgs[0]);
                                                  Assert.AreEqual($"Duinafslag berekening voor locatie '{duneLocation.Name}' is niet geconvergeerd.", msgs[1]);
@@ -87,7 +89,8 @@ namespace Ringtoets.DuneErosion.Integration.Test
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
-            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0), new DuneLocation.ConstructionProperties
+            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0),
+                                                new DuneLocation.ConstructionProperties
                                                 {
                                                     CoastalAreaId = 3,
                                                     Offset = 0,

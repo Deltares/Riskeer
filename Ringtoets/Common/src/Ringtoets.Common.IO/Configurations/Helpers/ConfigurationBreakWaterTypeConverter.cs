@@ -60,7 +60,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             }
             if (destinationType == typeof(BreakWaterType))
             {
-                var type = (ConfigurationBreakWaterType)value;
+                var type = (ConfigurationBreakWaterType) value;
                 switch (type)
                 {
                     case ConfigurationBreakWaterType.Caisson:

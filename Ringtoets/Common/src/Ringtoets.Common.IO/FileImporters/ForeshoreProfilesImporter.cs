@@ -84,7 +84,7 @@ namespace Ringtoets.Common.IO.FileImporters
             {
                 string id = dikeProfileLocation.Id;
 
-                var dikeProfileData = GetMatchingDikeProfileData(dikeProfileDataCollection, id);
+                DikeProfileData dikeProfileData = GetMatchingDikeProfileData(dikeProfileDataCollection, id);
                 if (dikeProfileData == null)
                 {
                     Log.ErrorFormat(Resources.ForeshoreProfilesImporter_GetMatchingForeshoreProfileData_no_foreshoreprofiledata_for_location_0_, id);

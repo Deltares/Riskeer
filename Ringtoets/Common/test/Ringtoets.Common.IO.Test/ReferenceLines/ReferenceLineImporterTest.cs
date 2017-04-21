@@ -90,8 +90,8 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
                    .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
-            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                  Path.Combine("ReferenceLine", "traject_10-2.shp"));
+            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                     Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
             var importer = new ReferenceLineImporter(assessmentSection, handler, path);
 
@@ -115,8 +115,8 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
                    .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
-            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                  Path.Combine("ReferenceLine", "traject_10-2.shp"));
+            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                     Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
             var expectedProgressMessages = new[]
             {
@@ -161,17 +161,17 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
                    .Repeat.Never();
             mocks.ReplayAll();
 
-            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, Path.DirectorySeparatorChar.ToString());
+            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, Path.DirectorySeparatorChar.ToString());
 
             var importer = new ReferenceLineImporter(assessmentSection, handler, path);
 
             // Call
-            bool importSuccessful = true;
+            var importSuccessful = true;
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            var expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': bestandspad mag niet verwijzen naar een lege bestandsnaam. ", path) + Environment.NewLine +
-                                  "Er is geen referentielijn geïmporteerd.";
+            string expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': bestandspad mag niet verwijzen naar een lege bestandsnaam. ", path) + Environment.NewLine +
+                                     "Er is geen referentielijn geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
             mocks.VerifyAll();
@@ -191,17 +191,17 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
                    .Repeat.Never();
             mocks.ReplayAll();
 
-            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "I_dont_exist");
+            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "I_dont_exist");
 
             var importer = new ReferenceLineImporter(assessmentSection, handler, path);
 
             // Call
-            bool importSuccessful = true;
+            var importSuccessful = true;
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            var expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': het bestand bestaat niet. ", path) + Environment.NewLine +
-                                  "Er is geen referentielijn geïmporteerd.";
+            string expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': het bestand bestaat niet. ", path) + Environment.NewLine +
+                                     "Er is geen referentielijn geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
             mocks.VerifyAll();
@@ -223,7 +223,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
                    .Repeat.Never();
             mocks.ReplayAll();
 
-            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
+            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
 
             var importer = new ReferenceLineImporter(assessmentSection, handler, path);
 
@@ -241,7 +241,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         public void Import_CancelImportDuringDialogInteraction_GenerateCanceledLogMessageAndReturnsFalse(bool acceptRemovalOfReferenceLineDependentData)
         {
             // Setup
-            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
+            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
             var originalReferenceLine = new ReferenceLine();
 
             var mocks = new MockRepository();
@@ -257,7 +257,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
                    .Repeat.Never();
             mocks.ReplayAll();
 
-            bool importResult = true;
+            var importResult = true;
 
             // Call
             Action call = () => importResult = importer.Import();
@@ -272,7 +272,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         public void Import_CancelImportDuringReadReferenceLine_CancelsImportAndLogs()
         {
             // Setup
-            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, Path.Combine("ReferenceLine", "traject_10-2.shp"));
+            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, Path.Combine("ReferenceLine", "traject_10-2.shp"));
             var originalReferenceLine = new ReferenceLine();
 
             var mocks = new MockRepository();
@@ -292,7 +292,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
                 }
             });
 
-            bool importResult = true;
+            var importResult = true;
 
             // Call
             Action call = () => importResult = importer.Import();
@@ -307,7 +307,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         public void Import_CancelImportDuringAddReferenceLineToData_ContinuesImportAndLogs()
         {
             // Setup
-            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, Path.Combine("ReferenceLine", "traject_10-2.shp"));
+            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, Path.Combine("ReferenceLine", "traject_10-2.shp"));
             var originalReferenceLine = new ReferenceLine();
 
             var mocks = new MockRepository();
@@ -317,7 +317,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             handler.Stub(h => h.ConfirmReplace())
                    .Return(true);
             handler.Stub(h => h.Replace(Arg<IAssessmentSection>.Is.Same(assessmentSection),
-                                          Arg<ReferenceLine>.Is.NotNull))
+                                        Arg<ReferenceLine>.Is.NotNull))
                    .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
@@ -330,7 +330,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
                 }
             });
 
-            bool importResult = true;
+            var importResult = true;
 
             // Call
             importer.Import();
@@ -364,8 +364,8 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
                    .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
-            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                  Path.Combine("ReferenceLine", "traject_10-2.shp"));
+            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                     Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
             var importer = new ReferenceLineImporter(assessmentSection, handler, path);
             importer.SetProgressChanged((description, step, steps) => importer.Cancel());
@@ -417,8 +417,8 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             handler.Expect(h => h.DoPostReplacementUpdates());
             mocks.ReplayAll();
 
-            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                  Path.Combine("ReferenceLine", "traject_10-2.shp"));
+            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                     Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
             referenceLineContext.Attach(contextObserver);
@@ -439,7 +439,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         public void DoPostImportUpdates_CancelingImport_DoNotNotifyObserversAndNotDoPostReplacementUpdates()
         {
             // Setup
-            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
+            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
             var originalReferenceLine = new ReferenceLine();
 
             var mocks = new MockRepository();
@@ -507,8 +507,8 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
 
             mocks.ReplayAll();
 
-            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                  Path.Combine("ReferenceLine", "traject_10-2.shp"));
+            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                     Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
             referenceLineContext.Attach(contextObserver);

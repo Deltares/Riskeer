@@ -157,7 +157,7 @@ namespace Ringtoets.Common.Forms.Views
                     .Select(CreateFailureMechanismSectionResultRow)
                     .Where(sr => sr != null)
                     .ToList()
-                );
+            );
         }
 
         /// <summary>
@@ -215,7 +215,7 @@ namespace Ringtoets.Common.Forms.Views
 
         private void AddSectionResultObservers()
         {
-            foreach (var sectionResult in failureMechanismSectionResult)
+            foreach (T sectionResult in failureMechanismSectionResult)
             {
                 failureMechanismSectionResultObservers.Add(new Observer(DataGridViewControl.RefreshDataGridView)
                 {
@@ -226,7 +226,7 @@ namespace Ringtoets.Common.Forms.Views
 
         private void ClearSectionResultObservers()
         {
-            foreach (var observer in failureMechanismSectionResultObservers)
+            foreach (Observer observer in failureMechanismSectionResultObservers)
             {
                 observer.Dispose();
             }

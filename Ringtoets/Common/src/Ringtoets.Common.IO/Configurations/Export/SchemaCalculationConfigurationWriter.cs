@@ -25,7 +25,6 @@ using System.Xml;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using Core.Common.Utils.Properties;
-using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Helpers;
 
 namespace Ringtoets.Common.IO.Configurations.Export

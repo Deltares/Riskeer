@@ -103,7 +103,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Setup
             using (var view = new TestHydraulicBoundaryLocationsView())
             {
-                var hydraulicBoundaryLocations = Enumerable.Empty<HydraulicBoundaryLocation>();
+                IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = Enumerable.Empty<HydraulicBoundaryLocation>();
 
                 // Call
                 view.Data = hydraulicBoundaryLocations;
@@ -137,10 +137,10 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             // Assert
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            var rows = dataGridView.Rows;
+            DataGridViewRowCollection rows = dataGridView.Rows;
             Assert.AreEqual(3, rows.Count);
 
-            var cells = rows[0].Cells;
+            DataGridViewCellCollection cells = rows[0].Cells;
             Assert.AreEqual(4, cells.Count);
             Assert.AreEqual(false, cells[locationCalculateColumnIndex].FormattedValue);
             Assert.AreEqual("1", cells[locationNameColumnIndex].FormattedValue);
@@ -169,7 +169,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             ShowFullyConfiguredTestHydraulicBoundaryLocationsView();
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            var rows = dataGridView.Rows;
+            DataGridViewRowCollection rows = dataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
 
             var button = new ButtonTester("CalculateForSelectedButton", testForm);
@@ -193,7 +193,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
         private void ShowFullyConfiguredTestHydraulicBoundaryLocationsView()
         {
-            var view = ShowTestHydraulicBoundaryLocationsView();
+            TestHydraulicBoundaryLocationsView view = ShowTestHydraulicBoundaryLocationsView();
 
             var assessmentSection = new ObservableTestAssessmentSectionStub
             {

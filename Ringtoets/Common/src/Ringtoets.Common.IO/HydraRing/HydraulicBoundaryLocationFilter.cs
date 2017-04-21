@@ -22,7 +22,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Ringtoets.Common.Data.Hydraulics;
 
 namespace Ringtoets.Common.IO.HydraRing
@@ -53,7 +52,7 @@ namespace Ringtoets.Common.IO.HydraRing
         {
             using (var reader = new HydraRingSettingsDatabaseReader(databaseFilePath))
             {
-                var filterList = reader.ReadExcludedLocations().ToList();
+                List<long> filterList = reader.ReadExcludedLocations().ToList();
                 filterList.Sort();
                 locationsToFilterOut = filterList;
             }

@@ -223,7 +223,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 MapDataCollection mapData = map.Data;
                 Assert.IsInstanceOf<MapDataCollection>(mapData);
 
-                var mapDataList = mapData.Collection.ToList();
+                List<MapData> mapDataList = mapData.Collection.ToList();
                 Assert.AreEqual(5, mapDataList.Count);
                 MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, mapDataList[referenceLineIndex]);
                 MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, mapDataList[sectionsIndex]);
@@ -466,7 +466,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 mapData.Remove(dataToMove);
                 mapData.Add(dataToMove);
 
-                var mapDataList = mapData.Collection.ToList();
+                List<MapData> mapDataList = mapData.Collection.ToList();
 
                 // Precondition
                 var referenceLineData = (MapLineData) mapDataList[updatedRefenceLineLayerIndex];
@@ -552,7 +552,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             Assert.AreEqual("Test failure mechanism", mapDataCollection.Name);
 
-            var mapDataList = mapDataCollection.Collection.ToList();
+            List<MapData> mapDataList = mapDataCollection.Collection.ToList();
 
             Assert.AreEqual(5, mapDataList.Count);
 

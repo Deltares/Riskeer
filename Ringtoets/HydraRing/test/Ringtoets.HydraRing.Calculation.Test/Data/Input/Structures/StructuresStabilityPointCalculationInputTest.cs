@@ -39,7 +39,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
         {
             // Setup
             const int hydraulicBoundaryLocationId = 1000;
-            var forelandPoints = Enumerable.Empty<HydraRingForelandPoint>();
+            IEnumerable<HydraRingForelandPoint> forelandPoints = Enumerable.Empty<HydraRingForelandPoint>();
             var breakWater = new HydraRingBreakWater(1, 1.1);
 
             const double sectionNormal = 52.2;
@@ -221,7 +221,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                                                                 double modificationFactorWavesSlowlyVaryingPressureComponent,
                                                                 double modificationFactorDynamicOrImpulsivePressureComponent)
                 : base(hydraulicBoundaryLocationId,
-                      sectionNormal,
+                       sectionNormal,
                        forelandPoints, breakWater,
                        volumicWeightWater,
                        gravitationalAcceleration,

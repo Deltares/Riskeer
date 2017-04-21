@@ -92,7 +92,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         {
             // Setup
             double testValue = new Random(21).NextDouble();
-            int numberOfDecimalPlaces = 2;
+            var numberOfDecimalPlaces = 2;
 
             var mocks = new MockRepository();
             var distributionMock = mocks.Stub<IDistribution>();
@@ -102,7 +102,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             var designVariable = new DeterministicDesignVariable<IDistribution>(distributionMock, testValue);
 
             // Call
-            var designValue = designVariable.GetDesignValue();
+            RoundedDouble designValue = designVariable.GetDesignValue();
 
             // Assert
             Assert.AreEqual(testValue, designValue.Value, designValue.GetAccuracy());

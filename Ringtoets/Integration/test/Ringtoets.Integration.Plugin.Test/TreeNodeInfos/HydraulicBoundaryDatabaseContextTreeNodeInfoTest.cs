@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -72,7 +73,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Assert
                 Assert.IsNotNull(info.Text);
@@ -107,10 +108,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                var text = info.Text(context);
+                string text = info.Text(context);
 
                 // Assert
                 Assert.AreEqual(name, text);
@@ -123,10 +124,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                var image = info.Image(null);
+                Image image = info.Image(null);
 
                 // Assert
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, image);
@@ -163,7 +164,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                 using (var plugin = new RingtoetsPlugin())
                 {
-                    var info = GetInfo(plugin);
+                    TreeNodeInfo info = GetInfo(plugin);
 
                     plugin.Gui = gui;
 
@@ -184,7 +185,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
                 // Call
                 Color color = info.ForeColor(hydraulicBoundaryDatabaseContext);
 
@@ -206,7 +207,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
                 Color color = info.ForeColor(hydraulicBoundaryDatabaseContext);
@@ -225,10 +226,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                var objects = info.ChildNodeObjects(hydraulicBoundaryDatabaseContext).ToArray();
+                object[] objects = info.ChildNodeObjects(hydraulicBoundaryDatabaseContext).ToArray();
 
                 // Assert
                 Assert.AreEqual(0, objects.Length);
@@ -248,10 +249,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                var objects = info.ChildNodeObjects(hydraulicBoundaryDatabaseContext).ToArray();
+                object[] objects = info.ChildNodeObjects(hydraulicBoundaryDatabaseContext).ToArray();
 
                 // Assert
                 Assert.AreEqual(2, objects.Length);
@@ -276,13 +277,13 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             string testFile = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
-            int contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
+            var contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
 
-            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            HydraulicBoundaryDatabaseContext hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
 
-            using (TreeViewControl treeViewControl = new TreeViewControl())
-            using (RingtoetsPlugin plugin = new RingtoetsPlugin())
+            using (var treeViewControl = new TreeViewControl())
+            using (var plugin = new RingtoetsPlugin())
             {
                 var viewCommands = mocks.Stub<IViewCommands>();
                 var mainWindow = mocks.Stub<IMainWindow>();
@@ -300,7 +301,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                 DialogBoxHandler = (name, wnd) =>
                 {
-                    OpenFileDialogTester tester = new OpenFileDialogTester(wnd);
+                    var tester = new OpenFileDialogTester(wnd);
                     tester.OpenFile(testFile);
                 };
 
@@ -335,13 +336,13 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             // Given
             string testFile = Path.Combine(testDataPath, "empty.sqlite");
 
-            int contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
+            var contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
 
-            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            HydraulicBoundaryDatabaseContext hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
 
-            using (TreeViewControl treeViewControl = new TreeViewControl())
-            using (RingtoetsPlugin plugin = new RingtoetsPlugin())
+            using (var treeViewControl = new TreeViewControl())
+            using (var plugin = new RingtoetsPlugin())
             {
                 var mainWindow = mocks.Stub<IMainWindow>();
 
@@ -354,7 +355,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                 DialogBoxHandler = (name, wnd) =>
                 {
-                    OpenFileDialogTester tester = new OpenFileDialogTester(wnd);
+                    var tester = new OpenFileDialogTester(wnd);
                     tester.OpenFile(testFile);
                 };
 
@@ -383,13 +384,13 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             // Given
             string testFile = Path.Combine(testDataPathNoHlcd, "HRD dutch coast south.sqlite");
 
-            int contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
+            var contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
 
-            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            HydraulicBoundaryDatabaseContext hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
 
-            using (TreeViewControl treeViewControl = new TreeViewControl())
-            using (RingtoetsPlugin plugin = new RingtoetsPlugin())
+            using (var treeViewControl = new TreeViewControl())
+            using (var plugin = new RingtoetsPlugin())
             {
                 var mainWindow = mocks.Stub<IMainWindow>();
 
@@ -402,7 +403,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                 DialogBoxHandler = (name, wnd) =>
                 {
-                    OpenFileDialogTester tester = new OpenFileDialogTester(wnd);
+                    var tester = new OpenFileDialogTester(wnd);
                     tester.OpenFile(testFile);
                 };
 
@@ -432,13 +433,13 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             // Given
             string testFile = Path.Combine(testDataPathNoSettings, "HRD dutch coast south.sqlite");
 
-            int contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
+            var contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
 
-            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            HydraulicBoundaryDatabaseContext hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
 
-            using (TreeViewControl treeViewControl = new TreeViewControl())
-            using (RingtoetsPlugin plugin = new RingtoetsPlugin())
+            using (var treeViewControl = new TreeViewControl())
+            using (var plugin = new RingtoetsPlugin())
             {
                 var mainWindow = mocks.Stub<IMainWindow>();
 
@@ -451,7 +452,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                 DialogBoxHandler = (name, wnd) =>
                 {
-                    OpenFileDialogTester tester = new OpenFileDialogTester(wnd);
+                    var tester = new OpenFileDialogTester(wnd);
                     tester.OpenFile(testFile);
                 };
 
@@ -481,13 +482,13 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             // Given
             string testFile = Path.Combine(testDataPathInvalidSettings, "HRD dutch coast south.sqlite");
 
-            int contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
+            var contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
 
-            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            HydraulicBoundaryDatabaseContext hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
 
-            using (TreeViewControl treeViewControl = new TreeViewControl())
-            using (RingtoetsPlugin plugin = new RingtoetsPlugin())
+            using (var treeViewControl = new TreeViewControl())
+            using (var plugin = new RingtoetsPlugin())
             {
                 var mainWindow = mocks.Stub<IMainWindow>();
 
@@ -500,7 +501,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                 DialogBoxHandler = (name, wnd) =>
                 {
-                    OpenFileDialogTester tester = new OpenFileDialogTester(wnd);
+                    var tester = new OpenFileDialogTester(wnd);
                     tester.OpenFile(testFile);
                 };
 
@@ -529,19 +530,19 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         {
             // Given
             string validFile = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-            IObserver assessmentObserver = mocks.StrictMock<IObserver>();
-            IObserver grassCoverErosionOutwardsLocationsObserver = mocks.StrictMock<IObserver>();
-            int contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
+            var assessmentObserver = mocks.StrictMock<IObserver>();
+            var grassCoverErosionOutwardsLocationsObserver = mocks.StrictMock<IObserver>();
+            var contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
 
-            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            using (HydraulicBoundaryDatabaseImporter importer = new HydraulicBoundaryDatabaseImporter())
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            using (var importer = new HydraulicBoundaryDatabaseImporter())
             {
                 importer.Import(assessmentSection, validFile);
             }
 
             assessmentSection.Attach(assessmentObserver);
 
-            HydraulicBoundaryDatabaseContext hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
+            var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
 
             var pipingOutput = new TestPipingOutput();
             var pipingSemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput();
@@ -564,12 +565,12 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             string currentFilePath = assessmentSection.HydraulicBoundaryDatabase.FilePath;
             string currentVersion = assessmentSection.HydraulicBoundaryDatabase.Version;
-            var currentLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
-            var currentFirstGrassCoverErosionOutwardsLocation = assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.First();
+            List<HydraulicBoundaryLocation> currentLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
+            HydraulicBoundaryLocation currentFirstGrassCoverErosionOutwardsLocation = assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.First();
             assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsLocationsObserver);
 
-            using (TreeViewControl treeViewControl = new TreeViewControl())
-            using (RingtoetsPlugin plugin = new RingtoetsPlugin())
+            using (var treeViewControl = new TreeViewControl())
+            using (var plugin = new RingtoetsPlugin())
             {
                 var mainWindow = mocks.Stub<IMainWindow>();
 
@@ -582,7 +583,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                 DialogBoxHandler = (name, wnd) =>
                 {
-                    OpenFileDialogTester tester = new OpenFileDialogTester(wnd);
+                    var tester = new OpenFileDialogTester(wnd);
                     tester.OpenFile(validFile);
                 };
 

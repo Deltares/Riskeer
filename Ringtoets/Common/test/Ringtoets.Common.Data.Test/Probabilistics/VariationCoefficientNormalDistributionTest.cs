@@ -120,7 +120,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             TestDelegate call = () => distribution.CoefficientOfVariation = (RoundedDouble) invalidCoefficient;
 
             // Assert
-            string expectedMessage = "Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0.";
+            var expectedMessage = "Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
@@ -140,7 +140,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
 
             // Assert
             Assert.IsInstanceOf<VariationCoefficientNormalDistribution>(clone);
-            var clonedDistribution = (VariationCoefficientNormalDistribution)clone;
+            var clonedDistribution = (VariationCoefficientNormalDistribution) clone;
             Assert.AreNotSame(distribution, clonedDistribution);
             Assert.AreNotSame(distribution.Mean, clonedDistribution.Mean);
             Assert.AreNotSame(distribution.CoefficientOfVariation, clonedDistribution.CoefficientOfVariation);

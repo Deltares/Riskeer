@@ -54,7 +54,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                     WavePeriod = 5.0
                 })
             };
-            
+
             // Call
             var row = new DuneLocationRow(location);
 
@@ -84,7 +84,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         {
             // Setup
             var location = new DuneLocation(1, "test location", new Point2D(3.3, 4.4), new DuneLocation.ConstructionProperties());
-            
+
             // Call
             var row = new DuneLocationRow(location);
 

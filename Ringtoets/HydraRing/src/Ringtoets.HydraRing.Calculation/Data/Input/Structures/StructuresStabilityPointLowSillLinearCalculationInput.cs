@@ -106,7 +106,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="widthFlowAperturesMean">The mean of the width flow apertures.</param>
         /// <param name="widthFlowAperturesStandardDeviation">The standard deviation of the width flow apertures.</param>
         public StructuresStabilityPointLowSillLinearCalculationInput(long hydraulicBoundaryLocationId,
-            double sectionNormal,
+                                                                     double sectionNormal,
                                                                      IEnumerable<HydraRingForelandPoint> forelandPoints,
                                                                      HydraRingBreakWater breakWater,
                                                                      double volumicWeightWater,
@@ -195,7 +195,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         {
             get
             {
-                var variables = base.Variables.ToList();
+                List<HydraRingVariable> variables = base.Variables.ToList();
                 variables.AddRange(GetVariables());
 
                 return variables.OrderBy(v => v.VariableId);

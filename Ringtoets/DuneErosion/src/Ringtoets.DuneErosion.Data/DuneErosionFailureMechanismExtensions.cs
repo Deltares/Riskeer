@@ -42,8 +42,8 @@ namespace Ringtoets.DuneErosion.Data
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            return 2.15*(failureMechanism.Contribution/100)
-                   *norm /failureMechanism.GeneralInput.N;
+            return 2.15 * (failureMechanism.Contribution / 100)
+                   * norm / failureMechanism.GeneralInput.N;
         }
     }
 }

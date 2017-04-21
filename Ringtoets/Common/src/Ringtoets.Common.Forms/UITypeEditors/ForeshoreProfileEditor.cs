@@ -24,7 +24,6 @@ using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.UITypeEditors;
-using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.DikeProfiles;
 using CoreCommonControlsResources = Core.Common.Controls.Properties.Resources;
 

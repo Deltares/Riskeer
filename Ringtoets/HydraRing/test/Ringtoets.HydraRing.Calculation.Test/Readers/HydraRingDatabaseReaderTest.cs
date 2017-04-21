@@ -36,6 +36,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Readers
         private const string invalidDatabase = "InvalidDatabase";
         private const string emptyWorkingDirectory = "EmptyWorkingDirectory";
         private const string emptyDatabase = "EmptyDatabase";
+
         private const string query = "SELECT * FROM IterateToGivenBetaConvergence " +
                                      "WHERE OuterIterationId = (SELECT MAX(OuterIterationId) FROM IterateToGivenBetaConvergence);";
 

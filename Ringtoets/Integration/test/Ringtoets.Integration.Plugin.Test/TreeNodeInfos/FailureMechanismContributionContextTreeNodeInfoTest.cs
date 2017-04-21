@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Drawing;
 using System.Linq;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
@@ -53,7 +54,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Assert
                 Assert.IsNotNull(info.Text);
@@ -86,10 +87,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                var text = info.Text(null);
+                string text = info.Text(null);
 
                 // Assert
                 Assert.AreEqual("Faalkansbegroting", text);
@@ -105,10 +106,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                var image = info.Image(null);
+                Image image = info.Image(null);
 
                 // Assert
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.FailureMechanismContributionIcon, image);
@@ -120,7 +121,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var contribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 100.0, 1.0/150000);
+            var contribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 100.0, 1.0 / 150000);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var context = new FailureMechanismContributionContext(contribution, assessmentSection);
@@ -144,7 +145,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                 using (var plugin = new RingtoetsPlugin())
                 {
-                    var info = GetInfo(plugin);
+                    TreeNodeInfo info = GetInfo(plugin);
 
                     plugin.Gui = gui;
 

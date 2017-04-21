@@ -26,9 +26,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Settings
     /// </summary>
     public class DesignTablesSetting
     {
-        private readonly double valueMin;
-        private readonly double valueMax;
-
         /// <summary>
         /// Creates a new instance of the <see cref="DesignTablesSetting"/> class.
         /// </summary>
@@ -36,32 +33,20 @@ namespace Ringtoets.HydraRing.Calculation.Data.Settings
         /// <param name="valueMax">The maximum value to use while iterating towards a reliability index.</param>
         public DesignTablesSetting(double valueMin, double valueMax)
         {
-            this.valueMin = valueMin;
-            this.valueMax = valueMax;
+            ValueMin = valueMin;
+            ValueMax = valueMax;
         }
 
         /// <summary>
         /// Gets the minimum value to use while iterating towards a reliability index.
         /// </summary>
         /// <remarks>Only relevant for calculations that iterate towards a reliability index.</remarks>
-        public double ValueMin
-        {
-            get
-            {
-                return valueMin;
-            }
-        }
+        public double ValueMin { get; }
 
         /// <summary>
         /// Gets the maximum value to use while iterating towards a reliability index.
         /// </summary>
         /// <remarks>Only relevant for calculations that iterate towards a reliability index.</remarks>
-        public double ValueMax
-        {
-            get
-            {
-                return valueMax;
-            }
-        }
+        public double ValueMax { get; }
     }
 }

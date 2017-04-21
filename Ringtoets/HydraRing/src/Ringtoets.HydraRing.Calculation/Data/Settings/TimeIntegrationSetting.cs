@@ -26,26 +26,18 @@ namespace Ringtoets.HydraRing.Calculation.Data.Settings
     /// </summary>
     public class TimeIntegrationSetting
     {
-        private readonly int timeIntegrationSchemeId;
-
         /// <summary>
         /// Creates a new instance of <see cref="TimeIntegrationSetting"/>.
         /// </summary>
         /// <param name="timeIntegrationSchemeId">The time integration scheme id to use in a calculation.</param>
         public TimeIntegrationSetting(int timeIntegrationSchemeId)
         {
-            this.timeIntegrationSchemeId = timeIntegrationSchemeId;
+            TimeIntegrationSchemeId = timeIntegrationSchemeId;
         }
 
         /// <summary>
         /// Gets the time integration scheme id to use in a calculation.
         /// </summary>
-        public int TimeIntegrationSchemeId
-        {
-            get
-            {
-                return timeIntegrationSchemeId;
-            }
-        }
+        public int TimeIntegrationSchemeId { get; }
     }
 }

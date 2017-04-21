@@ -97,7 +97,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void GetProperties_BackgroundDataWithConfiguredWmtsConfiguration_ReturnExpectedValues()
         {
             // Setup
-            var mapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
+            WmtsMapData mapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
             var backgroundData = new BackgroundData(new WmtsBackgroundDataConfiguration(mapData.IsConfigured,
                                                                                         mapData.SourceCapabilitiesUrl,

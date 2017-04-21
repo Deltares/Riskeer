@@ -30,7 +30,7 @@ namespace Ringtoets.Common.IO.Test
         public void CreateDikeAssessmentSectionSettings_ValidValues_ReturnSettings()
         {
             // Setup
-            string id = "test";
+            var id = "test";
             const int n = 1;
 
             // Call
@@ -46,7 +46,7 @@ namespace Ringtoets.Common.IO.Test
         public void CreateDuneAssessmentSectionSettings_ValidValues_ReturnSettings()
         {
             // Setup
-            string id = "test";
+            var id = "test";
 
             // Call
             AssessmentSectionSettings result = AssessmentSectionSettings.CreateDuneAssessmentSectionSettings(id);

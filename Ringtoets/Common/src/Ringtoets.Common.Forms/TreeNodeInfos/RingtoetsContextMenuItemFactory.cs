@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Gui.ContextMenu;
@@ -349,8 +350,8 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             Action<TFailureMechanismContext> onChangeAction)
             where TFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
         {
-            var isRelevant = failureMechanismContext.WrappedData.IsRelevant;
-            var checkboxImage = isRelevant ? Resources.Checkbox_ticked : Resources.Checkbox_empty;
+            bool isRelevant = failureMechanismContext.WrappedData.IsRelevant;
+            Bitmap checkboxImage = isRelevant ? Resources.Checkbox_ticked : Resources.Checkbox_empty;
             return new StrictContextMenuItem(
                 Resources.FailureMechanismContextMenuStrip_Is_relevant,
                 Resources.FailureMechanism_IsRelevant_Description,
@@ -384,7 +385,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                 return;
             }
 
-            foreach (var calc in failureMechanism.Calculations.Where(c => c.HasOutput))
+            foreach (ICalculation calc in failureMechanism.Calculations.Where(c => c.HasOutput))
             {
                 calc.ClearOutput();
                 calc.NotifyObservers();

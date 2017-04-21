@@ -35,7 +35,7 @@ namespace Ringtoets.Common.Service.Test
         {
             // Setup
             var format = "Message: {0}";
-            string[] errorMessages = new[]
+            var errorMessages = new[]
             {
                 "Test 1",
                 "Test 2"
@@ -47,7 +47,7 @@ namespace Ringtoets.Common.Service.Test
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(2, msgs.Length);
                 StringAssert.StartsWith(string.Format(format, errorMessages[0]), msgs[0]);
                 StringAssert.StartsWith(string.Format(format, errorMessages[1]), msgs[1]);
@@ -67,7 +67,7 @@ namespace Ringtoets.Common.Service.Test
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(1, msgs.Length);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om:", name), msgs[0]);
 
@@ -88,7 +88,7 @@ namespace Ringtoets.Common.Service.Test
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(1, msgs.Length);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om:", name), msgs[0]);
 
@@ -109,7 +109,7 @@ namespace Ringtoets.Common.Service.Test
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(1, msgs.Length);
                 StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om:", name), msgs[0]);
 
@@ -130,7 +130,7 @@ namespace Ringtoets.Common.Service.Test
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(1, msgs.Length);
                 StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om:", name), msgs[0]);
 

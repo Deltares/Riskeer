@@ -170,8 +170,8 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
 
         private static void AssertBinaryFileContent(string refPathName, string pathName, string extension, int headerLength, int bodyLength)
         {
-            var refContent = File.ReadAllBytes(refPathName + extension);
-            var content = File.ReadAllBytes(pathName + extension);
+            byte[] refContent = File.ReadAllBytes(refPathName + extension);
+            byte[] content = File.ReadAllBytes(pathName + extension);
             Assert.AreEqual(headerLength + bodyLength, content.Length);
             Assert.AreEqual(refContent.Skip(headerLength).Take(bodyLength),
                             content.Skip(headerLength).Take(bodyLength));

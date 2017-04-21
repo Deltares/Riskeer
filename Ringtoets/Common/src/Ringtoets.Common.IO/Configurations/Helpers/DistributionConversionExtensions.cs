@@ -230,7 +230,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             {
                 try
                 {
-                    distribution.Mean = (RoundedDouble)mean.Value;
+                    distribution.Mean = (RoundedDouble) mean.Value;
                 }
                 catch (ArgumentOutOfRangeException e)
                 {
@@ -272,7 +272,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             {
                 try
                 {
-                    distribution.StandardDeviation = (RoundedDouble)standardDeviation.Value;
+                    distribution.StandardDeviation = (RoundedDouble) standardDeviation.Value;
                 }
                 catch (ArgumentOutOfRangeException e)
                 {
@@ -354,7 +354,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             {
                 try
                 {
-                    distribution.Mean = (RoundedDouble)mean.Value;
+                    distribution.Mean = (RoundedDouble) mean.Value;
                 }
                 catch (ArgumentOutOfRangeException e)
                 {
@@ -385,7 +385,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="distribution"/>
         /// is <c>null</c>.</exception>
         public static bool TrySetVariationCoefficient(this IVariationCoefficientDistribution distribution, double? variationCoefficient,
-                                                   string stochastName, string calculationName)
+                                                      string stochastName, string calculationName)
         {
             if (distribution == null)
             {
@@ -396,7 +396,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             {
                 try
                 {
-                    distribution.CoefficientOfVariation = (RoundedDouble)variationCoefficient.Value;
+                    distribution.CoefficientOfVariation = (RoundedDouble) variationCoefficient.Value;
                 }
                 catch (ArgumentOutOfRangeException e)
                 {

@@ -42,7 +42,6 @@ namespace Ringtoets.Common.Data.Test.Probability
             Assert.IsTrue(isValid);
         }
 
-
         [Test]
         public void IsValidProbability_NanIsValid_ReturnTrue()
         {
@@ -72,7 +71,7 @@ namespace Ringtoets.Common.Data.Test.Probability
         [SetCulture("nl-NL")]
         [TestCase(-123.456, "A")]
         [TestCase(-1e-6, "b")]
-        [TestCase(1+1e-6, "C")]
+        [TestCase(1 + 1e-6, "C")]
         [TestCase(456.789, "d")]
         [TestCase(double.NaN, "e")]
         public void ValidateProbability_InvalidProbability_ThrowsArgumentOutOfRangeException(double invalidProbabilityValue, string expectedParamName)

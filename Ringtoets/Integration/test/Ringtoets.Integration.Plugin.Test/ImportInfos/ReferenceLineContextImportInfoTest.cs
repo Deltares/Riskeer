@@ -122,7 +122,7 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-            
+
             var importTarget = new ReferenceLineContext(assessmentSection);
 
             // Call

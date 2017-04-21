@@ -29,9 +29,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
     /// </summary>
     public class StructuresOvertoppingCalculationInput : ExceedanceProbabilityCalculationInput
     {
-        private readonly HydraRingSection section;
-        private readonly IEnumerable<HydraRingForelandPoint> forelandPoints;
-        private readonly HydraRingBreakWater breakWater;
         private readonly double gravitationalAcceleration;
         private readonly double modelFactorOvertoppingFlowMean;
         private readonly double modelFactorOvertoppingFlowStandardDeviation;
@@ -111,9 +108,9 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                      double stormDurationMean, double stormDurationVariation)
             : base(hydraulicBoundaryLocationId)
         {
-            section = new HydraRingSection(1, double.NaN, sectionNormal);
-            this.forelandPoints = forelandPoints;
-            this.breakWater = breakWater;
+            Section = new HydraRingSection(1, double.NaN, sectionNormal);
+            ForelandsPoints = forelandPoints;
+            BreakWater = breakWater;
             this.gravitationalAcceleration = gravitationalAcceleration;
             this.modelFactorOvertoppingFlowMean = modelFactorOvertoppingFlowMean;
             this.modelFactorOvertoppingFlowStandardDeviation = modelFactorOvertoppingFlowStandardDeviation;
@@ -145,13 +142,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
 
         public override int VariableId { get; } = 60;
 
-        public override HydraRingSection Section
-        {
-            get
-            {
-                return section;
-            }
-        }
+        public override HydraRingSection Section { get; }
 
         public override IEnumerable<HydraRingVariable> Variables
         {
@@ -175,20 +166,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             }
         }
 
-        public override IEnumerable<HydraRingForelandPoint> ForelandsPoints
-        {
-            get
-            {
-                return forelandPoints;
-            }
-        }
+        public override IEnumerable<HydraRingForelandPoint> ForelandsPoints { get; }
 
-        public override HydraRingBreakWater BreakWater
-        {
-            get
-            {
-                return breakWater;
-            }
-        }
+        public override HydraRingBreakWater BreakWater { get; }
     }
 }

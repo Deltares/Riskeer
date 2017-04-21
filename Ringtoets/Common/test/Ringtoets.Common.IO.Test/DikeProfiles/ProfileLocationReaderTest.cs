@@ -59,8 +59,8 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             TestDelegate call = () => new ProfileLocationReader(invalidFilePath);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet leeg of ongedefinieerd zijn.",
-                                                invalidFilePath);
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet leeg of ongedefinieerd zijn.",
+                                                   invalidFilePath);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -78,8 +78,8 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             TestDelegate call = () => new ProfileLocationReader(invalidFilePath);
 
             // Assert
-            var expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': "
-                                  + "er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.";
+            string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': "
+                                     + "er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -94,8 +94,8 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             TestDelegate call = () => new ProfileLocationReader(invalidFilePath);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet verwijzen naar een lege bestandsnaam.",
-                                                invalidFilePath);
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet verwijzen naar een lege bestandsnaam.",
+                                                   invalidFilePath);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -110,9 +110,9 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             TestDelegate call = () => new ProfileLocationReader(invalidFilePath);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestand bestaat niet.",
-                                                invalidFilePath);
-            var message = Assert.Throws<CriticalFileReadException>(call).Message;
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestand bestaat niet.",
+                                                   invalidFilePath);
+            string message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -133,9 +133,9 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             TestDelegate call = () => new ProfileLocationReader(invalidFilePath);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': kon geen punten vinden in dit bestand.",
-                                                invalidFilePath);
-            var message = Assert.Throws<CriticalFileReadException>(call).Message;
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': kon geen punten vinden in dit bestand.",
+                                                   invalidFilePath);
+            string message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -154,8 +154,8 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             TestDelegate call = () => new ProfileLocationReader(invalidFilePath);
 
             // Assert
-            var expectedMessage = string.Format("Het bestand heeft geen attribuut '{0}'. Dit attribuut is vereist.",
-                                                missingColumnName);
+            string expectedMessage = string.Format("Het bestand heeft geen attribuut '{0}'. Dit attribuut is vereist.",
+                                                   missingColumnName);
             string message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
         }
@@ -213,7 +213,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             {
                 // Call
                 int count = reader.GetLocationCount;
-                for (int i = 0; i < count; i++)
+                for (var i = 0; i < count; i++)
                 {
                     dikeProfileLocations.Add(reader.GetNextProfileLocation());
                 }
@@ -293,7 +293,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             using (var reader = new ProfileLocationReader(invalidFilePath))
             {
                 int count = reader.GetLocationCount;
-                for (int i = 0; i < count; i++)
+                for (var i = 0; i < count; i++)
                 {
                     // Call
                     dikeProfileLocations.Add(reader.GetNextProfileLocation());
@@ -315,7 +315,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             using (var reader = new ProfileLocationReader(validFilePath))
             {
                 int count = reader.GetLocationCount;
-                for (int i = 0; i < count; i++)
+                for (var i = 0; i < count; i++)
                 {
                     // Call
                     dikeProfileLocations.Add(reader.GetNextProfileLocation());
@@ -353,7 +353,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             using (var reader = new ProfileLocationReader(validFilePath))
             {
                 int count = reader.GetLocationCount;
-                for (int i = 0; i < count; i++)
+                for (var i = 0; i < count; i++)
                 {
                     // Call
                     dikeProfileLocations.Add(reader.GetNextProfileLocation());
@@ -379,7 +379,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             using (var reader = new ProfileLocationReader(validFilePath))
             {
                 int count = reader.GetLocationCount;
-                for (int i = 0; i < count; i++)
+                for (var i = 0; i < count; i++)
                 {
                     // Call
                     dikeProfileLocations.Add(reader.GetNextProfileLocation());
@@ -411,7 +411,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             using (var reader = new ProfileLocationReader(validFilePath))
             {
                 int count = reader.GetLocationCount;
-                for (int i = 0; i < count; i++)
+                for (var i = 0; i < count; i++)
                 {
                     // Call
                     dikeProfileLocations.Add(reader.GetNextProfileLocation());

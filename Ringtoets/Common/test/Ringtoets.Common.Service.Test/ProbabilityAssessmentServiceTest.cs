@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Common.Service.Test
@@ -42,13 +43,14 @@ namespace Ringtoets.Common.Service.Test
                                                                              double expectedResult)
         {
             // Setup
-            double norm = 1.0/returnPeriod;
+            double norm = 1.0 / returnPeriod;
 
             // Call
-            var probabilityAssessmentOutput = ProbabilityAssessmentService.Calculate(norm,
-                                                                                     contribution,
-                                                                                     lengthEffectN,
-                                                                                     double.NaN);
+            ProbabilityAssessmentOutput probabilityAssessmentOutput = ProbabilityAssessmentService.Calculate(
+                norm,
+                contribution,
+                lengthEffectN,
+                double.NaN);
 
             // Assert
             Assert.AreEqual(expectedResult, probabilityAssessmentOutput.RequiredProbability, 1e-6);
@@ -69,13 +71,14 @@ namespace Ringtoets.Common.Service.Test
                                                                              double expectedResult)
         {
             // Setup
-            double norm = 1.0/returnPeriod;
+            double norm = 1.0 / returnPeriod;
 
             // Call
-            var probabilityAssessmentOutput = ProbabilityAssessmentService.Calculate(norm,
-                                                                                     contribution,
-                                                                                     lengthEffectN,
-                                                                                     double.NaN);
+            ProbabilityAssessmentOutput probabilityAssessmentOutput = ProbabilityAssessmentService.Calculate(
+                norm,
+                contribution,
+                lengthEffectN,
+                double.NaN);
 
             // Assert
             Assert.AreEqual(expectedResult, probabilityAssessmentOutput.RequiredReliability,
@@ -88,10 +91,11 @@ namespace Ringtoets.Common.Service.Test
         public void Reliability_DifferentInputs_ReturnsExpectedValue(double reliability, double expectedResult)
         {
             // Call
-            var probabilityAssessmentOutput = ProbabilityAssessmentService.Calculate(int.MinValue,
-                                                                                     double.NaN,
-                                                                                     double.NaN,
-                                                                                     reliability);
+            ProbabilityAssessmentOutput probabilityAssessmentOutput = ProbabilityAssessmentService.Calculate(
+                int.MinValue,
+                double.NaN,
+                double.NaN,
+                reliability);
 
             // Assert
             Assert.AreEqual(expectedResult, probabilityAssessmentOutput.Reliability, probabilityAssessmentOutput.Reliability.GetAccuracy());
@@ -103,9 +107,11 @@ namespace Ringtoets.Common.Service.Test
         public void Probability_DifferentInputs_ReturnsExpectedValue(double reliability, double expectedResult)
         {
             // Call
-            var probabilityAssessmentOutput = ProbabilityAssessmentService.Calculate(int.MinValue, double.NaN,
-                                                                                     double.NaN,
-                                                                                     reliability);
+            ProbabilityAssessmentOutput probabilityAssessmentOutput = ProbabilityAssessmentService.Calculate(
+                int.MinValue,
+                double.NaN,
+                double.NaN,
+                reliability);
 
             // Assert
             Assert.AreEqual(expectedResult, probabilityAssessmentOutput.Probability, 1e-6);
@@ -125,12 +131,14 @@ namespace Ringtoets.Common.Service.Test
                                                                         double expectedResult)
         {
             // Setup
-            double norm = 1.0/returnPeriod;
+            double norm = 1.0 / returnPeriod;
 
             // Call
-            var probabilityAssessmentOutput = ProbabilityAssessmentService.Calculate(norm, contribution,
-                                                                                     lengthEffectN,
-                                                                                     reliability);
+            ProbabilityAssessmentOutput probabilityAssessmentOutput = ProbabilityAssessmentService.Calculate(
+                norm,
+                contribution,
+                lengthEffectN,
+                reliability);
 
             // Assert
             Assert.AreEqual(expectedResult, probabilityAssessmentOutput.FactorOfSafety, probabilityAssessmentOutput.FactorOfSafety.GetAccuracy());

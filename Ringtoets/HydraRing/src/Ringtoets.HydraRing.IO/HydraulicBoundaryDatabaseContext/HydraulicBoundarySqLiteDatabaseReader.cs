@@ -87,7 +87,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
             }
             catch (ConversionException e)
             {
-                var message = new FileReaderErrorMessageBuilder(Path).
+                string message = new FileReaderErrorMessageBuilder(Path).
                     Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
                 throw new LineParseException(message, e);
             }
@@ -111,7 +111,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
             }
             catch (SQLiteException exception)
             {
-                var message = new FileReaderErrorMessageBuilder(Path).Build(Resources.Error_HydraulicBoundaryLocation_read_from_database);
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.Error_HydraulicBoundaryLocation_read_from_database);
                 throw new CriticalFileReadException(message, exception);
             }
         }
@@ -140,13 +140,13 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
             }
             catch (InvalidCastException exception)
             {
-                var message = new FileReaderErrorMessageBuilder(Path).
+                string message = new FileReaderErrorMessageBuilder(Path).
                     Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
                 throw new LineParseException(message, exception);
             }
             catch (SQLiteException exception)
             {
-                var message = new FileReaderErrorMessageBuilder(Path).Build(Resources.Error_HydraulicBoundaryLocation_read_from_database);
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.Error_HydraulicBoundaryLocation_read_from_database);
                 throw new CriticalFileReadException(message, exception);
             }
         }
@@ -177,7 +177,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
             }
             catch (SQLiteException exception)
             {
-                var message = new FileReaderErrorMessageBuilder(Path).Build(Resources.Error_HydraulicBoundaryLocation_read_from_database);
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.Error_HydraulicBoundaryLocation_read_from_database);
                 throw new CriticalFileReadException(message, exception);
             }
         }

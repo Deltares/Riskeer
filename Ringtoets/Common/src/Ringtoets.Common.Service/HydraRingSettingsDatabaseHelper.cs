@@ -53,8 +53,8 @@ namespace Ringtoets.Common.Service
         {
             IOUtils.ValidateFilePath(hydraulicBoundaryDatabaseFilePath);
 
-            var locationId = calculationInput.HydraulicBoundaryLocationId;
-            var settingsDatabaseFileName = HydraulicDatabaseHelper.GetHydraulicBoundarySettingsDatabase(hydraulicBoundaryDatabaseFilePath);
+            long locationId = calculationInput.HydraulicBoundaryLocationId;
+            string settingsDatabaseFileName = HydraulicDatabaseHelper.GetHydraulicBoundarySettingsDatabase(hydraulicBoundaryDatabaseFilePath);
 
             using (var designTablesSettingsProviders = new DesignTablesSettingsProvider(settingsDatabaseFileName))
             {

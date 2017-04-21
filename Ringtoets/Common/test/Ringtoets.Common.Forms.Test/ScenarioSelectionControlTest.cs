@@ -53,7 +53,7 @@ namespace Ringtoets.Common.Forms.Test
         public void DefaultConstructor_DataGridViewCorrectlyInitialized()
         {
             // Call
-            using (var control = ShowScenariosControl())
+            using (ScenarioSelectionControl control = ShowScenariosControl())
             {
                 // Assert
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -136,8 +136,8 @@ namespace Ringtoets.Common.Forms.Test
         public void UpdateDataGridViewDataSource_WithCalculationsRowsAndCalculationsPerSection_DataGridViewCorrectlyInitialized()
         {
             // Setup
-            string sectionNameA = "sectionNameA";
-            string sectionNameB = "sectionNameB";
+            var sectionNameA = "sectionNameA";
+            var sectionNameB = "sectionNameB";
 
             var mockRepository = new MockRepository();
             var calculationA = mockRepository.Stub<ICalculation>();
@@ -146,7 +146,7 @@ namespace Ringtoets.Common.Forms.Test
             var rowB = new EditableScenarioRow(calculationB, sectionNameB);
             mockRepository.ReplayAll();
 
-            using (var control = ShowScenariosControl())
+            using (ScenarioSelectionControl control = ShowScenariosControl())
             {
                 // Call
                 control.UpdateDataGridViewDataSource(new[]
@@ -205,14 +205,14 @@ namespace Ringtoets.Common.Forms.Test
         public void ClearDataSource_WithPreviousData_DataGridViewEmpty()
         {
             // Setup
-            string sectionName = "sectionName";
+            var sectionName = "sectionName";
 
             var mockRepository = new MockRepository();
             var calculation = mockRepository.Stub<ICalculation>();
             var row = new EditableScenarioRow(calculation, sectionName);
             mockRepository.ReplayAll();
 
-            using (var control = ShowScenariosControl())
+            using (ScenarioSelectionControl control = ShowScenariosControl())
             {
                 control.UpdateDataGridViewDataSource(new[]
                 {
@@ -252,7 +252,7 @@ namespace Ringtoets.Common.Forms.Test
             var row = new EditableScenarioRow(calculation, sectionName);
             mockRepository.ReplayAll();
 
-            using (var control = ShowScenariosControl())
+            using (ScenarioSelectionControl control = ShowScenariosControl())
             {
                 control.UpdateDataGridViewDataSource(new[]
                 {

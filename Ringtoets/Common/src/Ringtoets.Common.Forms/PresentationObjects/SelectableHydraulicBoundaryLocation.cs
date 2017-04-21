@@ -31,9 +31,6 @@ namespace Ringtoets.Common.Forms.PresentationObjects
     /// </summary>
     public class SelectableHydraulicBoundaryLocation
     {
-        private readonly RoundedDouble distance;
-        private readonly HydraulicBoundaryLocation hydraulicBoundaryLocation;
-
         /// <summary>
         /// Instantiates a <see cref="SelectableHydraulicBoundaryLocation"/>.
         /// </summary>
@@ -51,9 +48,9 @@ namespace Ringtoets.Common.Forms.PresentationObjects
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocation));
             }
 
-            this.hydraulicBoundaryLocation = hydraulicBoundaryLocation;
+            HydraulicBoundaryLocation = hydraulicBoundaryLocation;
 
-            distance = new RoundedDouble(0, referencePoint != null
+            Distance = new RoundedDouble(0, referencePoint != null
                                                 ? referencePoint.GetEuclideanDistanceTo(hydraulicBoundaryLocation.Location)
                                                 : double.NaN);
         }
@@ -61,26 +58,14 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// <summary>
         /// Gets the hydraulic boundary location.
         /// </summary>
-        public HydraulicBoundaryLocation HydraulicBoundaryLocation
-        {
-            get
-            {
-                return hydraulicBoundaryLocation;
-            }
-        }
+        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; }
 
         /// <summary>
         /// Gets the distance between the <see cref="HydraulicBoundaryLocation"/> and the given reference point.
         /// [m] 
         /// <remarks>The value will be <see cref="double.NaN"/> in case there's no reference point specified.</remarks>
         /// </summary>
-        public RoundedDouble Distance
-        {
-            get
-            {
-                return distance;
-            }
-        }
+        public RoundedDouble Distance { get; }
 
         public override bool Equals(object obj)
         {
@@ -101,24 +86,24 @@ namespace Ringtoets.Common.Forms.PresentationObjects
 
         public override int GetHashCode()
         {
-            return hydraulicBoundaryLocation.GetHashCode();
+            return HydraulicBoundaryLocation.GetHashCode();
         }
 
         public override string ToString()
         {
-            if (double.IsNaN(distance))
+            if (double.IsNaN(Distance))
             {
-                return hydraulicBoundaryLocation.Name;
+                return HydraulicBoundaryLocation.Name;
             }
 
-            return distance < 1000
-                       ? string.Format("{0} ({1:f0} m)", hydraulicBoundaryLocation.Name, distance)
-                       : string.Format("{0} ({1:f1} km)", hydraulicBoundaryLocation.Name, distance/1000);
+            return Distance < 1000
+                       ? string.Format("{0} ({1:f0} m)", HydraulicBoundaryLocation.Name, Distance)
+                       : string.Format("{0} ({1:f1} km)", HydraulicBoundaryLocation.Name, Distance / 1000);
         }
 
         private bool Equals(SelectableHydraulicBoundaryLocation other)
         {
-            return Equals(hydraulicBoundaryLocation, other.HydraulicBoundaryLocation);
+            return Equals(HydraulicBoundaryLocation, other.HydraulicBoundaryLocation);
         }
     }
 }

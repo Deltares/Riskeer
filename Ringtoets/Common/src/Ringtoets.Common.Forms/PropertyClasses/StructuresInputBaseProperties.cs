@@ -167,6 +167,17 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             return propertyIndex;
         }
 
+        [DynamicReadOnlyValidationMethod]
+        public bool IsReadOnly(string property)
+        {
+            if (!HasStructure() && ShouldPropertyBeReadOnlyInAbsenseOfStructure(property))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         public abstract IEnumerable<ForeshoreProfile> GetAvailableForeshoreProfiles();
 
         public IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocations()
@@ -217,6 +228,21 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// The action to perform after setting the <see cref="Structure"/> property.
         /// </summary>
         protected abstract void AfterSettingStructure();
+
+        protected bool HasStructure()
+        {
+            return data.WrappedData.Structure != null;
+        }
+
+        protected virtual bool ShouldPropertyBeReadOnlyInAbsenseOfStructure(string property)
+        {
+            if (nameof(StructureNormalOrientation).Equals(property))
+            {
+                return true;
+            }
+
+            return false;
+        }
 
         /// <summary>
         /// Class holding the various construction parameters for <see cref="StructuresInputBaseProperties{TStructure, TStructureInput, TCalculation, TFailureMechanism}"/>.
@@ -562,31 +588,5 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         }
 
         #endregion
-
-        protected bool HasStructure()
-        {
-            return data.WrappedData.Structure != null;
-        }
-
-        [DynamicReadOnlyValidationMethod]
-        public bool IsReadOnly(string property)
-        {
-            if (!HasStructure() && ShouldPropertyBeReadOnlyInAbsenseOfStructure(property))
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        protected virtual bool ShouldPropertyBeReadOnlyInAbsenseOfStructure(string property)
-        {
-            if (nameof(StructureNormalOrientation).Equals(property))
-            {
-                return true;
-            }
-
-            return false;
-        }
     }
 }

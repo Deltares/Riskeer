@@ -41,26 +41,6 @@ namespace Ringtoets.Common.IO.Configurations
         }
 
         /// <summary>
-        /// Gets or sets the name of the calculation.
-        /// </summary>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentNullException(nameof(value), @"Name is required for a structure calculation configuration.");
-                }
-                name = value;
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the name of the structure.
         /// </summary>
         public string StructureName { get; set; }
@@ -124,5 +104,25 @@ namespace Ringtoets.Common.IO.Configurations
         /// Gets or sets the name of the foreshore profile.
         /// </summary>
         public string ForeshoreProfileName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the calculation.
+        /// </summary>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException(nameof(value), @"Name is required for a structure calculation configuration.");
+                }
+                name = value;
+            }
+        }
     }
 }

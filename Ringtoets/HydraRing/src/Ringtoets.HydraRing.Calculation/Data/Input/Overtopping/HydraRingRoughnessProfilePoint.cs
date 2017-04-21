@@ -26,8 +26,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
     /// </summary>
     public class HydraRingRoughnessProfilePoint : HydraRingProfilePoint
     {
-        private readonly double roughness;
-
         /// <summary>
         ///  Creates a new instance of the <see cref="HydraRingRoughnessProfilePoint"/> class.
         /// </summary>
@@ -36,15 +34,9 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
         /// <param name="roughness">The reduction factor.</param>
         public HydraRingRoughnessProfilePoint(double x, double z, double roughness) : base(x, z)
         {
-            this.roughness = roughness;
+            Roughness = roughness;
         }
 
-        public override double Roughness
-        {
-            get
-            {
-                return roughness;
-            }
-        }
+        public override double Roughness { get; }
     }
 }

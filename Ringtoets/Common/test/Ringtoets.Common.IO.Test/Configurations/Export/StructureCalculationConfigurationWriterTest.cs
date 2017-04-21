@@ -167,7 +167,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
 
         private class SimpleStructuresCalculationConfiguration : StructuresCalculationConfiguration
         {
-            public SimpleStructuresCalculationConfiguration(string name) : base(name) { }
+            public SimpleStructuresCalculationConfiguration(string name) : base(name) {}
         }
 
         private class SimpleStructureCalculationConfigurationWriter : StructureCalculationConfigurationWriter<SimpleStructuresCalculationConfiguration>

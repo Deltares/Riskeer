@@ -55,7 +55,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             // Setup
             var dikeProfileData = new DikeProfileData();
 
-            string coolText = "haha";
+            var coolText = "haha";
 
             // Call
             dikeProfileData.Id = coolText;
@@ -68,7 +68,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void Orientation_SetNewValue_GetNewlySetValue()
         {
             // Setup
-            var newValue = new Random(21).NextDouble()*360;
+            double newValue = new Random(21).NextDouble() * 360;
             var dikeProfileData = new DikeProfileData();
 
             // Call
@@ -82,7 +82,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void DamType_SetNewValue_GetsNewlySetValue()
         {
             // Setup
-            var index = new Random(21).Next(0, 3);
+            int index = new Random(21).Next(0, 3);
             var dikeProfileData = new DikeProfileData();
 
             DamType newValue = Enum.GetValues(typeof(DamType)).OfType<DamType>().ElementAt(index);
@@ -98,7 +98,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void DamHeight_SetNewValue_GetNewlySetValue()
         {
             // Setup
-            var newValue = new Random(21).NextDouble();
+            double newValue = new Random(21).NextDouble();
             var dikeProfileData = new DikeProfileData();
 
             // Call
@@ -112,7 +112,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void DikeHeight_SetNewValue_GetNewlySetValue()
         {
             // Setup
-            var newValue = new Random(21).NextDouble();
+            double newValue = new Random(21).NextDouble();
             var dikeProfileData = new DikeProfileData();
 
             // Call
@@ -126,7 +126,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void SheetPilingType_SetNewValue_GetsNewlySetValue()
         {
             // Setup
-            var index = new Random(21).Next(0, 3);
+            int index = new Random(21).Next(0, 3);
             var dikeProfileData = new DikeProfileData();
 
             SheetPileType newValue = Enum.GetValues(typeof(SheetPileType)).OfType<SheetPileType>().ElementAt(index);
@@ -144,7 +144,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             // Setup
             var dikeProfileData = new DikeProfileData();
 
-            string coolText = "hihi";
+            var coolText = "hihi";
 
             // Call
             dikeProfileData.Memo = coolText;

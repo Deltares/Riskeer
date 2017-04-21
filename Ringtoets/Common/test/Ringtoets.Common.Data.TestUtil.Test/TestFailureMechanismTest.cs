@@ -66,7 +66,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         public void Constructor_WithCalculations_InitializeCalculationsProperties()
         {
             // Setup
-            List<ICalculation> testCalculations = new List<ICalculation>();
+            var testCalculations = new List<ICalculation>();
 
             // Call
             var failureMechanism = new TestFailureMechanism(testCalculations);

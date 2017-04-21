@@ -43,7 +43,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreEqual(1, view.Controls.Count);
-                var control = view.Controls[0];
+                Control control = view.Controls[0];
                 Assert.IsInstanceOf<RichTextBoxControl>(control);
             }
         }
@@ -85,7 +85,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Setup
             const string expectedText = "<Some_text>";
-            var validRtfString = GetValidRtfString(expectedText);
+            string validRtfString = GetValidRtfString(expectedText);
 
             var data = new Comment
             {
@@ -123,7 +123,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Assert.AreEqual(GetValidRtfString(""), data.Body);
 
                 var expectedText = "<Some_text>";
-                var validRtfString = GetValidRtfString(expectedText);
+                string validRtfString = GetValidRtfString(expectedText);
 
                 var richTextBoxControl = (RichTextBoxControl) new ControlTester("richTextBoxControl").TheObject;
 
@@ -148,7 +148,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 view.Data = null;
 
                 var expectedText = "<Some_text>";
-                var validRtfString = GetValidRtfString(expectedText);
+                string validRtfString = GetValidRtfString(expectedText);
 
                 var richTextBoxControl = (RichTextBoxControl) new ControlTester("richTextBoxControl").TheObject;
 

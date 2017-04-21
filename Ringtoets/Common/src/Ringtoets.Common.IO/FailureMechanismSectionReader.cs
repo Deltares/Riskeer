@@ -24,11 +24,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
+using Core.Components.Gis.Geometries;
 using Core.Components.Gis.IO.Readers;
 using Ringtoets.Common.Data.FailureMechanism;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
@@ -90,7 +90,7 @@ namespace Ringtoets.Common.IO
         {
             ValidateExistenceOfRequiredAttributes();
 
-            var lineData = ReadMapLineData();
+            MapLineData lineData = ReadMapLineData();
             return lineData == null ? null : CreateFailureMechanismSection(lineData);
         }
 
@@ -125,13 +125,13 @@ namespace Ringtoets.Common.IO
 
         private FailureMechanismSection CreateFailureMechanismSection(MapLineData lineData)
         {
-            var features = lineData.Features.ToArray();
+            MapFeature[] features = lineData.Features.ToArray();
             if (features.Length > 1)
             {
                 throw CreateCriticalFileReadException(RingtoetsCommonIOResources.FailureMechanismSectionReader_File_has_unsupported_multiPolyline);
             }
 
-            var feature = features[0];
+            MapFeature feature = features[0];
 
             string name = GetSectionName(feature);
             IEnumerable<Point2D> geometryPoints = GetSectionGeometry(feature);
@@ -152,7 +152,7 @@ namespace Ringtoets.Common.IO
 
         private IEnumerable<Point2D> GetSectionGeometry(MapFeature lineFeature)
         {
-            var mapGeometries = lineFeature.MapGeometries.ToArray();
+            MapGeometry[] mapGeometries = lineFeature.MapGeometries.ToArray();
             if (mapGeometries.Length > 1)
             {
                 throw CreateCriticalFileReadException(RingtoetsCommonIOResources.FailureMechanismSectionReader_File_has_unsupported_multiPolyline);
@@ -163,7 +163,7 @@ namespace Ringtoets.Common.IO
 
         private CriticalFileReadException CreateCriticalFileReadException(string message)
         {
-            var wrappedMessage = new FileReaderErrorMessageBuilder(filePath).Build(message);
+            string wrappedMessage = new FileReaderErrorMessageBuilder(filePath).Build(message);
             return new CriticalFileReadException(wrappedMessage);
         }
     }

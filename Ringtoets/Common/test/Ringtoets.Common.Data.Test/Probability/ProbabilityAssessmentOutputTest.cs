@@ -37,9 +37,9 @@ namespace Ringtoets.Common.Data.Test.Probability
         {
             // Setup
             var random = new Random(5);
-            var requiredProbability = random.NextDouble();
+            double requiredProbability = random.NextDouble();
             var requiredReliability = new RoundedDouble(3, random.NextDouble());
-            var probability = random.NextDouble();
+            double probability = random.NextDouble();
             var reliability = new RoundedDouble(3, random.NextDouble());
             var factorOfSafety = new RoundedDouble(3, random.NextDouble());
 
@@ -70,10 +70,10 @@ namespace Ringtoets.Common.Data.Test.Probability
         {
             // Setup
             var random = new Random(5);
-            var requiredReliability = random.NextDouble();
-            var probability = random.NextDouble();
-            var reliability = random.NextDouble();
-            var factorOfSafety = random.NextDouble();
+            double requiredReliability = random.NextDouble();
+            double probability = random.NextDouble();
+            double reliability = random.NextDouble();
+            double factorOfSafety = random.NextDouble();
 
             // Call
             var output = new ProbabilityAssessmentOutput(requiredProbability,
@@ -98,10 +98,10 @@ namespace Ringtoets.Common.Data.Test.Probability
         {
             // Setup
             var random = new Random(5);
-            var requiredReliability = random.NextDouble();
-            var probability = random.NextDouble();
-            var reliability = random.NextDouble();
-            var factorOfSafety = random.NextDouble();
+            double requiredReliability = random.NextDouble();
+            double probability = random.NextDouble();
+            double reliability = random.NextDouble();
+            double factorOfSafety = random.NextDouble();
 
             // Call
             TestDelegate call = () => new ProbabilityAssessmentOutput(requiredProbability,
@@ -124,10 +124,10 @@ namespace Ringtoets.Common.Data.Test.Probability
         {
             // Setup
             var random = new Random(5);
-            var requiredProbability = random.NextDouble();
-            var requiredReliability = random.NextDouble();
-            var reliability = random.NextDouble();
-            var factorOfSafety = random.NextDouble();
+            double requiredProbability = random.NextDouble();
+            double requiredReliability = random.NextDouble();
+            double reliability = random.NextDouble();
+            double factorOfSafety = random.NextDouble();
 
             // Call
             var output = new ProbabilityAssessmentOutput(requiredProbability,
@@ -152,10 +152,10 @@ namespace Ringtoets.Common.Data.Test.Probability
         {
             // Setup
             var random = new Random(5);
-            var requiredProbability = random.NextDouble();
-            var requiredReliability = random.NextDouble();
-            var reliability = random.NextDouble();
-            var factorOfSafety = random.NextDouble();
+            double requiredProbability = random.NextDouble();
+            double requiredReliability = random.NextDouble();
+            double reliability = random.NextDouble();
+            double factorOfSafety = random.NextDouble();
 
             // Call
             TestDelegate call = () => new ProbabilityAssessmentOutput(requiredProbability,

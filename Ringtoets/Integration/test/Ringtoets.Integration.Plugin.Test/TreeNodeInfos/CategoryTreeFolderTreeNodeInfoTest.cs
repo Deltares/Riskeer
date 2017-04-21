@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Drawing;
 using System.Linq;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
@@ -50,7 +51,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Assert
                 Assert.IsNotNull(info.Text);
@@ -86,10 +87,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                var text = info.Text(categoryTreeFolder);
+                string text = info.Text(categoryTreeFolder);
 
                 // Assert
                 Assert.AreEqual(testname, text);
@@ -107,10 +108,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                var image = info.Image(categoryTreeFolder);
+                Image image = info.Image(categoryTreeFolder);
 
                 // Assert
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralFolderIcon, image);
@@ -128,10 +129,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                var image = info.Image(categoryTreeFolder);
+                Image image = info.Image(categoryTreeFolder);
 
                 // Assert
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.InputFolderIcon, image);
@@ -149,10 +150,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                var image = info.Image(categoryTreeFolder);
+                Image image = info.Image(categoryTreeFolder);
 
                 // Assert
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.OutputFolderIcon, image);
@@ -176,10 +177,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                var objects = info.ChildNodeObjects(categoryTreeFolder);
+                object[] objects = info.ChildNodeObjects(categoryTreeFolder);
 
                 // Assert
                 CollectionAssert.AreEqual(new[]
@@ -213,7 +214,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                 using (var plugin = new RingtoetsPlugin())
                 {
-                    var info = GetInfo(plugin);
+                    TreeNodeInfo info = GetInfo(plugin);
 
                     plugin.Gui = gui;
 

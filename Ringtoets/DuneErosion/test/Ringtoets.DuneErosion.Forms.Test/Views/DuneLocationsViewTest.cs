@@ -253,7 +253,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         {
             // Given
             DuneLocationsView view = ShowFullyConfiguredDuneLocationsView();
-            ObservableList<DuneLocation> locations = (ObservableList<DuneLocation>) view.Data;
+            var locations = (ObservableList<DuneLocation>) view.Data;
 
             // Precondition
             var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
@@ -440,7 +440,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             if (rowSelected)
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                var rows = dataGridView.Rows;
+                DataGridViewRowCollection rows = dataGridView.Rows;
                 rows[0].Cells[locationCalculateColumnIndex].Value = true;
             }
 

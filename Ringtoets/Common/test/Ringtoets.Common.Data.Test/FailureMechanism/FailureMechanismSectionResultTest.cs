@@ -79,7 +79,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
         public void AssessmentLayerThree_SetNewValue_ReturnsNewValue()
         {
             // Setup
-            Random random = new Random(21);
+            var random = new Random(21);
             double newValue = random.NextDouble();
             FailureMechanismSection section = CreateSection();
             var failureMechanismSectionResult = new TestFailureMechanismSectionResult(section);

@@ -29,8 +29,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
     /// </summary>
     public class AssessmentLevelCalculationInput : ReliabilityIndexCalculationInput
     {
-        private readonly HydraRingSection section;
-
         /// <summary>
         /// Creates a new instance of the <see cref="AssessmentLevelCalculationInput"/> class.
         /// </summary>
@@ -40,7 +38,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
         public AssessmentLevelCalculationInput(int sectionId, long hydraulicBoundaryLocationId, double norm)
             : base(hydraulicBoundaryLocationId, norm)
         {
-            section = new HydraRingSection(sectionId, double.NaN, double.NaN);
+            Section = new HydraRingSection(sectionId, double.NaN, double.NaN);
         }
 
         public override HydraRingFailureMechanismType FailureMechanismType
@@ -59,13 +57,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
             }
         }
 
-        public override HydraRingSection Section
-        {
-            get
-            {
-                return section;
-            }
-        }
+        public override HydraRingSection Section { get; }
 
         public override IEnumerable<HydraRingVariable> Variables
         {

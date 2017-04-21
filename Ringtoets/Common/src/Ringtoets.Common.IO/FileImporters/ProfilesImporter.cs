@@ -46,8 +46,8 @@ namespace Ringtoets.Common.IO.FileImporters
     public abstract class ProfilesImporter<T> : FileImporterBase<T>
     {
         protected readonly ILog Log = LogManager.GetLogger(typeof(ProfilesImporter<T>));
-        private readonly ReferenceLine referenceLine;
         protected readonly IImporterMessageProvider MessageProvider;
+        private readonly ReferenceLine referenceLine;
 
         /// <summary>
         /// Initializes a new instance of <see cref="ProfilesImporter{T}"/>.
@@ -58,8 +58,8 @@ namespace Ringtoets.Common.IO.FileImporters
         /// <param name="messageProvider">The message provider to provide messages during the import.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="referenceLine"/>, 
         /// <paramref name="filePath"/> or <paramref name="importTarget"/> is <c>null</c>.</exception>
-        protected ProfilesImporter(ReferenceLine referenceLine, string filePath, T importTarget, 
-            IImporterMessageProvider messageProvider) : base(filePath, importTarget)
+        protected ProfilesImporter(ReferenceLine referenceLine, string filePath, T importTarget,
+                                   IImporterMessageProvider messageProvider) : base(filePath, importTarget)
         {
             if (referenceLine == null)
             {
@@ -168,7 +168,7 @@ namespace Ringtoets.Common.IO.FileImporters
             var profileLocations = new Collection<ProfileLocation>();
 
             int totalNumberOfSteps = profileLocationReader.GetLocationCount;
-            for (int i = 0; i < totalNumberOfSteps; i++)
+            for (var i = 0; i < totalNumberOfSteps; i++)
             {
                 if (Canceled)
                 {
@@ -182,7 +182,7 @@ namespace Ringtoets.Common.IO.FileImporters
                 }
                 catch (LineParseException exception)
                 {
-                    var message = string.Format(
+                    string message = string.Format(
                         Resources.ProfilesImporter_GetProfileLocationReadResult_Error_reading_Profile_LineNumber_0_Error_1_The_Profile_is_skipped,
                         i + 1,
                         exception.Message);
@@ -240,7 +240,7 @@ namespace Ringtoets.Common.IO.FileImporters
             var dikeProfileDataReader = new DikeProfileDataReader(acceptedIds);
             var errorOccured = false;
 
-            for (int i = 0; i < totalNumberOfSteps; i++)
+            for (var i = 0; i < totalNumberOfSteps; i++)
             {
                 if (Canceled)
                 {

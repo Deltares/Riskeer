@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Threading;
 using Core.Common.Gui;
@@ -65,7 +67,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             using (var view = new WaveHeightLocationsView())
             {
                 // Call
-                var viewName = info.GetViewName(view, Enumerable.Empty<HydraulicBoundaryLocation>());
+                string viewName = info.GetViewName(view, Enumerable.Empty<HydraulicBoundaryLocation>());
 
                 // Assert
                 Assert.AreEqual("Golfhoogtes", viewName);
@@ -76,7 +78,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void ViewDataType_Always_ReturnsViewDataType()
         {
             // Call
-            var viewDataType = info.ViewDataType;
+            Type viewDataType = info.ViewDataType;
 
             // Assert
             Assert.AreEqual(typeof(IEnumerable<HydraulicBoundaryLocation>), viewDataType);
@@ -86,7 +88,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void DataType_Always_ReturnsDataType()
         {
             // Call
-            var dataType = info.DataType;
+            Type dataType = info.DataType;
 
             // Assert
             Assert.AreEqual(typeof(WaveHeightLocationsContext), dataType);
@@ -96,7 +98,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void Image_Always_ReturnsGenericInputOutputIcon()
         {
             // Call
-            var image = info.Image;
+            Image image = info.Image;
 
             // Assert
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, image);
@@ -114,7 +116,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var context = new WaveHeightLocationsContext(assessmentSection);
 
             // Call
-            var viewData = info.GetViewData(context);
+            object viewData = info.GetViewData(context);
 
             // Assert
             Assert.AreSame(hydraulicBoundaryDatabase.Locations, viewData);
@@ -129,7 +131,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
 
-            IGui guiStub = mocks.Stub<IGui>();
+            var guiStub = mocks.Stub<IGui>();
             guiStub.Stub(g => g.ProjectOpened += null).IgnoreArguments();
             guiStub.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
             guiStub.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
@@ -171,7 +173,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 view.AssessmentSection = assessmentSection;
 
                 // Call
-                var closeForData = info.CloseForData(view, assessmentSection);
+                bool closeForData = info.CloseForData(view, assessmentSection);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -193,7 +195,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 view.AssessmentSection = assessmentSectionA;
 
                 // Call
-                var closeForData = info.CloseForData(view, assessmentSectionB);
+                bool closeForData = info.CloseForData(view, assessmentSectionB);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -214,7 +216,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 view.Data = assessmentSectionA;
 
                 // Call
-                var closeForData = info.CloseForData(view, new object());
+                bool closeForData = info.CloseForData(view, new object());
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -229,7 +231,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             using (var view = new WaveHeightLocationsView())
             {
                 // Call
-                var closeForData = info.CloseForData(view, new object());
+                bool closeForData = info.CloseForData(view, new object());
 
                 // Assert
                 Assert.IsFalse(closeForData);

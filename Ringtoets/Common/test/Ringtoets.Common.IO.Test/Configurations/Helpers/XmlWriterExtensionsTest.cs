@@ -431,6 +431,6 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
 
     public class SimpleStructuresCalculationConfiguration : StructuresCalculationConfiguration
     {
-        public SimpleStructuresCalculationConfiguration(string name) : base(name) { }
+        public SimpleStructuresCalculationConfiguration(string name) : base(name) {}
     }
 }

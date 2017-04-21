@@ -116,7 +116,6 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             mocks.VerifyAll();
         }
 
-
         [Test]
         public void Replace_AssessmentSectionNull_ThrowArgumentNullException()
         {

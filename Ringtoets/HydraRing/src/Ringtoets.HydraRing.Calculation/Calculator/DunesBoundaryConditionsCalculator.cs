@@ -93,6 +93,5 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
 
             Converged = convergenceParser.Output;
         }
-
     }
 }

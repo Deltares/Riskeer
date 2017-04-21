@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
@@ -42,8 +43,8 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanisms = Enumerable.Empty<IFailureMechanism>();
-            var contribution = new FailureMechanismContribution(failureMechanisms, 1.1, 1.0/30000);
+            IEnumerable<IFailureMechanism> failureMechanisms = Enumerable.Empty<IFailureMechanism>();
+            var contribution = new FailureMechanismContribution(failureMechanisms, 1.1, 1.0 / 30000);
 
             // Call
             var context = new FailureMechanismContributionContext(contribution, assessmentSection);
@@ -59,8 +60,8 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         public void Constructor_AssessmentSectionIsNull_ThrowArgumentNullException()
         {
             // Setup
-            var failureMechanisms = Enumerable.Empty<IFailureMechanism>();
-            var contribution = new FailureMechanismContribution(failureMechanisms, 1.1, 1.0/30000);
+            IEnumerable<IFailureMechanism> failureMechanisms = Enumerable.Empty<IFailureMechanism>();
+            var contribution = new FailureMechanismContribution(failureMechanisms, 1.1, 1.0 / 30000);
 
             // Call
             TestDelegate call = () => new FailureMechanismContributionContext(contribution, null);

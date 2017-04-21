@@ -51,7 +51,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             const string filePath = @"C:\file.sqlite";
-            HydraulicBoundaryDatabaseContext hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection)
+            var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection)
             {
                 WrappedData =
                 {
@@ -63,7 +63,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             };
 
             // Call
-            HydraulicBoundaryDatabaseProperties properties = new HydraulicBoundaryDatabaseProperties
+            var properties = new HydraulicBoundaryDatabaseProperties
             {
                 Data = hydraulicBoundaryDatabaseContext
             };

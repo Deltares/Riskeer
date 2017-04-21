@@ -31,8 +31,6 @@ namespace Ringtoets.Common.Data.Contribution
     /// </summary>
     public class FailureMechanismContributionItem
     {
-        private readonly IFailureMechanism failureMechanism;
-
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismContributionItem"/>. With
         /// <see cref="Assessment"/>, <see cref="Contribution"/> and <see cref="Norm"/> set.
@@ -49,7 +47,7 @@ namespace Ringtoets.Common.Data.Contribution
             {
                 throw new ArgumentNullException(nameof(failureMechanism), Resources.FailureMechanismContributionItem_Can_not_create_contribution_item_without_failure_mechanism);
             }
-            this.failureMechanism = failureMechanism;
+            FailureMechanism = failureMechanism;
 
             Norm = norm;
             IsAlwaysRelevant = isFailureMechanismAlwaysRelevant;
@@ -62,7 +60,7 @@ namespace Ringtoets.Common.Data.Contribution
         {
             get
             {
-                return failureMechanism.Name;
+                return FailureMechanism.Name;
             }
         }
 
@@ -73,7 +71,7 @@ namespace Ringtoets.Common.Data.Contribution
         {
             get
             {
-                return failureMechanism.Code;
+                return FailureMechanism.Code;
             }
         }
 
@@ -84,7 +82,7 @@ namespace Ringtoets.Common.Data.Contribution
         {
             get
             {
-                return failureMechanism.Contribution;
+                return FailureMechanism.Contribution;
             }
         }
 
@@ -100,7 +98,7 @@ namespace Ringtoets.Common.Data.Contribution
         {
             get
             {
-                return 100.0/(Norm*Contribution);
+                return 100.0 / (Norm * Contribution);
             }
         }
 
@@ -112,13 +110,13 @@ namespace Ringtoets.Common.Data.Contribution
         {
             get
             {
-                return IsAlwaysRelevant || failureMechanism.IsRelevant;
+                return IsAlwaysRelevant || FailureMechanism.IsRelevant;
             }
             set
             {
                 if (!IsAlwaysRelevant)
                 {
-                    failureMechanism.IsRelevant = value;
+                    FailureMechanism.IsRelevant = value;
                 }
             }
         }
@@ -132,20 +130,14 @@ namespace Ringtoets.Common.Data.Contribution
         /// <summary>
         /// Gets the failure mechanism.
         /// </summary>
-        public IFailureMechanism FailureMechanism
-        {
-            get
-            {
-                return failureMechanism;
-            }
-        }
+        public IFailureMechanism FailureMechanism { get; }
 
         /// <summary>
         /// Notifies the observers for the wrapped <see cref="IFailureMechanism"/>.
         /// </summary>
         public void NotifyFailureMechanismObservers()
         {
-            failureMechanism.NotifyObservers();
+            FailureMechanism.NotifyObservers();
         }
     }
 }

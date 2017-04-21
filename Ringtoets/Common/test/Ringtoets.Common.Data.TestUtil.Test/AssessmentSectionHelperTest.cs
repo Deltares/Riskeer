@@ -24,6 +24,7 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Hydraulics;
 
 namespace Ringtoets.Common.Data.TestUtil.Test
 {
@@ -44,11 +45,11 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             // Assert
             Assert.IsNotNull(assessmentSectionStub);
             Assert.AreEqual("21", assessmentSectionStub.Id);
-            var hydraulicBoundaryDatabase = assessmentSectionStub.HydraulicBoundaryDatabase;
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSectionStub.HydraulicBoundaryDatabase;
             Assert.IsNotNull(hydraulicBoundaryDatabase);
             Assert.IsNull(hydraulicBoundaryDatabase.FilePath);
             Assert.AreEqual(1, hydraulicBoundaryDatabase.Locations.Count);
-            var hydraulicBoundaryLocation = hydraulicBoundaryDatabase.Locations.First();
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryDatabase.Locations.First();
             Assert.AreEqual(1300001, hydraulicBoundaryLocation.Id);
             Assert.AreEqual(string.Empty, hydraulicBoundaryLocation.Name);
             Assert.AreEqual(new Point2D(0, 0), hydraulicBoundaryLocation.Location);
@@ -75,11 +76,11 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             // Assert
             Assert.IsNotNull(assessmentSectionStub);
             Assert.AreEqual("21", assessmentSectionStub.Id);
-            var hydraulicBoundaryDatabase = assessmentSectionStub.HydraulicBoundaryDatabase;
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSectionStub.HydraulicBoundaryDatabase;
             Assert.IsNotNull(hydraulicBoundaryDatabase);
             Assert.AreEqual(path, hydraulicBoundaryDatabase.FilePath);
             Assert.AreEqual(1, hydraulicBoundaryDatabase.Locations.Count);
-            var hydraulicBoundaryLocation = hydraulicBoundaryDatabase.Locations.First();
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryDatabase.Locations.First();
             Assert.AreEqual(1300001, hydraulicBoundaryLocation.Id);
             Assert.AreEqual(string.Empty, hydraulicBoundaryLocation.Name);
             Assert.AreEqual(new Point2D(0, 0), hydraulicBoundaryLocation.Location);

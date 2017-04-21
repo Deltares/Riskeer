@@ -99,10 +99,7 @@ namespace Ringtoets.Common.IO.TestUtil
             TWriter writerInstance = CreateWriterInstance(filePath);
 
             // Call
-            TestDelegate call = () =>
-            {
-                writerInstance.Write(Enumerable.Empty<IConfigurationItem>());
-            };
+            TestDelegate call = () => writerInstance.Write(Enumerable.Empty<IConfigurationItem>());
 
             // Assert
             var exception = Assert.Throws<CriticalFileWriteException>(call);

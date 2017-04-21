@@ -60,7 +60,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
             {
                 throw new ArgumentNullException(nameof(geometryPoints));
             }
-            var point2Ds = geometryPoints.ToArray();
+            Point2D[] point2Ds = geometryPoints.ToArray();
             if (point2Ds.Any(p => p == null))
             {
                 throw new ArgumentException(@"One or multiple elements are null.", nameof(geometryPoints));

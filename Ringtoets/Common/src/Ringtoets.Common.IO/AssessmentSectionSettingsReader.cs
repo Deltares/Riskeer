@@ -46,7 +46,7 @@ namespace Ringtoets.Common.IO
                 Environment.NewLine
             }, StringSplitOptions.None);
             var resultArray = new AssessmentSectionSettings[ihwFileLines.Length - 1];
-            for (int i = 1; i < ihwFileLines.Length; i++)
+            for (var i = 1; i < ihwFileLines.Length; i++)
             {
                 resultArray[i - 1] = ReadAssessmentSectionSettings(ihwFileLines[i]);
             }

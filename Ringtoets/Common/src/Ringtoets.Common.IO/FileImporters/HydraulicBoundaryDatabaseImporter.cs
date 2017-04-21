@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
@@ -67,10 +68,10 @@ namespace Ringtoets.Common.IO.FileImporters
             }
             ValidateAndConnectTo(filePath);
 
-            var hydraulicBoundaryDatabase = targetItem.HydraulicBoundaryDatabase;
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = targetItem.HydraulicBoundaryDatabase;
             if (!IsImportRequired(hydraulicBoundaryDatabase))
             {
-                var isNotificationRequired = hydraulicBoundaryDatabase.FilePath != filePath;
+                bool isNotificationRequired = hydraulicBoundaryDatabase.FilePath != filePath;
                 hydraulicBoundaryDatabase.FilePath = filePath;
                 if (isNotificationRequired)
                 {
@@ -79,7 +80,7 @@ namespace Ringtoets.Common.IO.FileImporters
             }
             else
             {
-                var importResult = GetHydraulicBoundaryDatabase();
+                HydraulicBoundaryDatabase importResult = GetHydraulicBoundaryDatabase();
 
                 if (importResult == null)
                 {
@@ -128,7 +129,7 @@ namespace Ringtoets.Common.IO.FileImporters
             }
             catch (CriticalFileReadException)
             {
-                var message = new FileReaderErrorMessageBuilder(filePath).Build(Resources.HydraulicBoundaryDatabaseImporter_HLCD_sqlite_Not_Found);
+                string message = new FileReaderErrorMessageBuilder(filePath).Build(Resources.HydraulicBoundaryDatabaseImporter_HLCD_sqlite_Not_Found);
                 throw new CriticalFileReadException(message);
             }
             try
@@ -140,8 +141,8 @@ namespace Ringtoets.Common.IO.FileImporters
             }
             catch (CriticalFileReadException e)
             {
-                var errorMessage = string.Format(Resources.HydraulicBoundaryDatabaseImporter_Cannot_open_hydaulic_calculation_settings_file_0_,
-                                                 e.Message);
+                string errorMessage = string.Format(Resources.HydraulicBoundaryDatabaseImporter_Cannot_open_hydaulic_calculation_settings_file_0_,
+                                                    e.Message);
                 string message = new FileReaderErrorMessageBuilder(filePath).Build(errorMessage);
                 throw new CriticalFileReadException(message);
             }
@@ -154,13 +155,13 @@ namespace Ringtoets.Common.IO.FileImporters
 
         private void HandleException(Exception e)
         {
-            var message = string.Format(Resources.HydraulicBoundaryDatabaseImporter_ErrorMessage_0_file_skipped, e.Message);
+            string message = string.Format(Resources.HydraulicBoundaryDatabaseImporter_ErrorMessage_0_file_skipped, e.Message);
             log.Error(message);
         }
 
         private HydraulicBoundaryDatabase GetHydraulicBoundaryDatabase()
         {
-            var trackId = GetTrackId();
+            long trackId = GetTrackId();
             if (trackId == 0)
             {
                 return null;
@@ -175,7 +176,7 @@ namespace Ringtoets.Common.IO.FileImporters
                 };
 
                 // Locations directory of HLCD location ids and HRD location ids
-                var locationidsDictionary = hydraulicLocationConfigurationDatabaseReader.GetLocationsIdByTrackId(trackId);
+                Dictionary<long, long> locationidsDictionary = hydraulicLocationConfigurationDatabaseReader.GetLocationsIdByTrackId(trackId);
 
                 var filter = new HydraulicBoundaryLocationFilter(
                     HydraulicDatabaseHelper.GetHydraulicBoundarySettingsDatabase(hydraulicBoundaryDatabase.FilePath));

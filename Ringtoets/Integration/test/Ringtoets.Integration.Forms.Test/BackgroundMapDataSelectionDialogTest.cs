@@ -25,7 +25,6 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using BruTile;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Dialogs;
 using Core.Common.Gui.TestUtil.Settings;
@@ -182,11 +181,11 @@ namespace Ringtoets.Integration.Forms.Test
                 var groupBoxProperties = new ControlTester("propertiesGroupBox", dialog);
                 Assert.AreEqual("Eigenschappen", groupBoxProperties.Text);
 
-                Button buttonSelect = (Button) new ButtonTester("selectButton", dialog).TheObject;
+                var buttonSelect = (Button) new ButtonTester("selectButton", dialog).TheObject;
                 Assert.AreEqual("Selecteren", buttonSelect.Text);
                 Assert.IsTrue(buttonSelect.Enabled);
 
-                Button buttonCancel = (Button) new ButtonTester("cancelButton", dialog).TheObject;
+                var buttonCancel = (Button) new ButtonTester("cancelButton", dialog).TheObject;
                 Assert.AreEqual("Annuleren", buttonCancel.Text);
 
                 Assert.AreEqual(500, dialog.MinimumSize.Width);
@@ -282,18 +281,18 @@ namespace Ringtoets.Integration.Forms.Test
 
                 var selectButton = (Button) new ButtonTester("selectButton", dialog).TheObject;
                 var comboBox = (ComboBox) new ComboBoxTester("mapLayerComboBox", dialog).TheObject;
-                WellKnownMapDataControl wellKnownMapDataControl = GetComboBoxItem<WellKnownMapDataControl>(comboBox);
-                WmtsLocationControl wmtsLocationControl = GetComboBoxItem<WmtsLocationControl>(comboBox);
+                var wellKnownMapDataControl = GetComboBoxItem<WellKnownMapDataControl>(comboBox);
+                var wmtsLocationControl = GetComboBoxItem<WmtsLocationControl>(comboBox);
 
                 // Precondition state
                 comboBox.SelectedItem = wmtsLocationControl;
-                var wmtsDataGridViewControl = dialog.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
+                DataGridViewControl wmtsDataGridViewControl = dialog.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
                 Assert.IsNull(wmtsDataGridViewControl.CurrentRow);
                 Assert.IsFalse(selectButton.Enabled);
 
                 // When
                 comboBox.SelectedItem = wellKnownMapDataControl;
-                var wellKnownDataGridViewControl = dialog.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
+                DataGridViewControl wellKnownDataGridViewControl = dialog.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
                 DataGridViewRow currentRow = wellKnownDataGridViewControl.CurrentRow;
                 Assert.AreEqual(0, currentRow.Index);
                 Assert.IsTrue(selectButton.Enabled);
@@ -334,20 +333,19 @@ namespace Ringtoets.Integration.Forms.Test
                 dialog.Show();
 
                 var comboBox = (ComboBox) new ComboBoxTester("mapLayerComboBox", dialog).TheObject;
-                WellKnownMapDataControl wellKnownMapDataControl = GetComboBoxItem<WellKnownMapDataControl>(comboBox);
-                WmtsLocationControl wmtsLocationControl = GetComboBoxItem<WmtsLocationControl>(comboBox);
+                var wellKnownMapDataControl = GetComboBoxItem<WellKnownMapDataControl>(comboBox);
+                var wmtsLocationControl = GetComboBoxItem<WmtsLocationControl>(comboBox);
 
                 comboBox.SelectedItem = wmtsLocationControl;
 
-                var connectButton = dialog.Controls.Find("connectToButton", true).OfType<Button>().First();
+                Button connectButton = dialog.Controls.Find("connectToButton", true).OfType<Button>().First();
                 connectButton.PerformClick();
 
-                var wmtsDataGridViewControl = dialog.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
+                DataGridViewControl wmtsDataGridViewControl = dialog.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
                 wmtsLocationControl.SelectedMapDataChanged += (sender, args) => { wmtsLocationControlSelectedMapDataChanged++; };
-                
 
                 comboBox.SelectedItem = wellKnownMapDataControl;
-                var wellKnownDataGridViewControl = dialog.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
+                DataGridViewControl wellKnownDataGridViewControl = dialog.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
                 wellKnownDataGridViewControl.ClearCurrentCell();
 
                 var button = (Button) new ButtonTester("selectButton", dialog).TheObject;
@@ -387,7 +385,7 @@ namespace Ringtoets.Integration.Forms.Test
 
                 comboBox.SelectedItem = wellKnownControl;
 
-                var wellKnownDataGridViewControl = dialog.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
+                DataGridViewControl wellKnownDataGridViewControl = dialog.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
                 wellKnownControl.SelectedMapDataChanged += (sender, args) => { wellKnownSelectedMapDataChanged++; };
 
                 // When

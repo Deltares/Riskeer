@@ -63,12 +63,12 @@ namespace Ringtoets.Common.Utils
                 throw new ArgumentNullException(nameof(sectionSegmentsCollection));
             }
 
-            var minimumDistance = double.PositiveInfinity;
+            double minimumDistance = double.PositiveInfinity;
             FailureMechanismSection section = null;
 
-            foreach (var sectionSegments in sectionSegmentsCollection)
+            foreach (SectionSegments sectionSegments in sectionSegmentsCollection)
             {
-                var distance = sectionSegments.Distance(point);
+                double distance = sectionSegments.Distance(point);
                 if (distance < minimumDistance)
                 {
                     minimumDistance = distance;

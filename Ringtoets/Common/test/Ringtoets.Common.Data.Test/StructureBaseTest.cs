@@ -47,7 +47,7 @@ namespace Ringtoets.Common.Data.Test
             });
 
             // Assert
-            ArgumentException exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Name is null, empty or consists of whitespace.");
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Name is null, empty or consists of whitespace.");
             Assert.AreEqual("constructionProperties", exception.ParamName);
         }
 
@@ -67,7 +67,7 @@ namespace Ringtoets.Common.Data.Test
             });
 
             // Assert
-            ArgumentException exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Id is null, empty or consists of whitespace.");
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Id is null, empty or consists of whitespace.");
             Assert.AreEqual("constructionProperties", exception.ParamName);
         }
 
@@ -84,7 +84,7 @@ namespace Ringtoets.Common.Data.Test
             });
 
             // Assert
-            ArgumentNullException exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Location is null.");
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Location is null.");
             Assert.AreEqual("constructionProperties", exception.ParamName);
         }
 
@@ -141,7 +141,7 @@ namespace Ringtoets.Common.Data.Test
 
         private class TestStructure : StructureBase
         {
-            public TestStructure(ConstructionProperties constructionProperties) : base(constructionProperties) { }
+            public TestStructure(ConstructionProperties constructionProperties) : base(constructionProperties) {}
         }
     }
 }

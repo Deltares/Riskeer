@@ -88,7 +88,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Setup
             var testData = new object();
-            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            using (TestFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView())
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -118,7 +118,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 new Point2D(10.0, 0.0)
             }));
 
-            var failureMechanismResultView = ShowFailureMechanismResultsView();
+            TestFailureMechanismResultView failureMechanismResultView = ShowFailureMechanismResultsView();
             failureMechanismResultView.Data = failureMechanism.SectionResults;
             failureMechanismResultView.FailureMechanism = failureMechanism;
 
@@ -127,7 +127,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
         private TestFailureMechanismResultView ShowFailureMechanismResultsView()
         {
-            TestFailureMechanismResultView failureMechanismResultView = new TestFailureMechanismResultView();
+            var failureMechanismResultView = new TestFailureMechanismResultView();
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 

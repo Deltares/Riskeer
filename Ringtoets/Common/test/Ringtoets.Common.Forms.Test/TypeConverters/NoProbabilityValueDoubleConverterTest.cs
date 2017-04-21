@@ -125,7 +125,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
             var context = mocks.Stub<ITypeDescriptorContext>();
             mocks.ReplayAll();
 
-            string text = "I'm not a number!";
+            var text = "I'm not a number!";
 
             var converter = new NoProbabilityValueDoubleConverter();
 
@@ -285,7 +285,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
             var converter = new NoProbabilityValueDoubleConverter();
 
             // Call
-            double conversionResult = (double) converter.ConvertFrom(context, CultureInfo.CurrentCulture, text);
+            var conversionResult = (double) converter.ConvertFrom(context, CultureInfo.CurrentCulture, text);
 
             // Assert
             Assert.AreEqual(input, conversionResult);

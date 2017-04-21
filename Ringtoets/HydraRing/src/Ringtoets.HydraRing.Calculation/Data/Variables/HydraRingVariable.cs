@@ -26,27 +26,19 @@ namespace Ringtoets.HydraRing.Calculation.Data.Variables
     /// </summary>
     public abstract class HydraRingVariable
     {
-        private readonly int variableId;
-
         /// <summary>
         /// Creates a new instance of the <see cref="HydraRingVariable"/> class.
         /// </summary>
         /// <param name="variableId">The Hydra-Ring id corresponding to the variable that is considered.</param>
         protected HydraRingVariable(int variableId)
         {
-            this.variableId = variableId;
+            VariableId = variableId;
         }
 
         /// <summary>
         /// Gets the Hydra-Ring id corresponding to the variable that is considered.
         /// </summary>
-        public int VariableId
-        {
-            get
-            {
-                return variableId;
-            }
-        }
+        public int VariableId { get; }
 
         /// <summary>
         /// Gets the value in case the variable is deterministic.

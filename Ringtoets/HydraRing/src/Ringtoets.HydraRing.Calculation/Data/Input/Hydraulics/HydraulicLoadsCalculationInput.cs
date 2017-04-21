@@ -30,10 +30,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
     /// </summary>
     public abstract class HydraulicLoadsCalculationInput : ReliabilityIndexCalculationInput
     {
-        private readonly HydraRingSection section;
-        private readonly IEnumerable<HydraRingProfilePoint> profilePoints;
-        private readonly IEnumerable<HydraRingForelandPoint> forelandPoints;
-        private readonly HydraRingBreakWater breakWater;
         private readonly double modelFactorCriticalOvertopping;
         private readonly double factorFbMean;
         private readonly double factorFbStandardDeviation;
@@ -97,7 +93,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
                                                  double exponentModelFactorShallowLowerBoundary, double exponentModelFactorShallowUpperBoundary)
             : base(hydraulicBoundaryLocationId, norm)
         {
-            section = new HydraRingSection(1, double.NaN, sectionNormal);
+            Section = new HydraRingSection(1, double.NaN, sectionNormal);
             this.modelFactorCriticalOvertopping = modelFactorCriticalOvertopping;
             this.factorFbMean = factorFbMean;
             this.factorFbStandardDeviation = factorFbStandardDeviation;
@@ -116,42 +112,18 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
             this.exponentModelFactorShallowStandardDeviation = exponentModelFactorShallowStandardDeviation;
             this.exponentModelFactorShallowLowerBoundary = exponentModelFactorShallowLowerBoundary;
             this.exponentModelFactorShallowUpperBoundary = exponentModelFactorShallowUpperBoundary;
-            this.profilePoints = profilePoints;
-            this.forelandPoints = forelandPoints;
-            this.breakWater = breakWater;
+            ProfilePoints = profilePoints;
+            ForelandsPoints = forelandPoints;
+            BreakWater = breakWater;
         }
 
-        public override HydraRingSection Section
-        {
-            get
-            {
-                return section;
-            }
-        }
+        public override HydraRingSection Section { get; }
 
-        public override IEnumerable<HydraRingProfilePoint> ProfilePoints
-        {
-            get
-            {
-                return profilePoints;
-            }
-        }
+        public override IEnumerable<HydraRingProfilePoint> ProfilePoints { get; }
 
-        public override IEnumerable<HydraRingForelandPoint> ForelandsPoints
-        {
-            get
-            {
-                return forelandPoints;
-            }
-        }
+        public override IEnumerable<HydraRingForelandPoint> ForelandsPoints { get; }
 
-        public override HydraRingBreakWater BreakWater
-        {
-            get
-            {
-                return breakWater;
-            }
-        }
+        public override HydraRingBreakWater BreakWater { get; }
 
         public override IEnumerable<HydraRingVariable> Variables
         {

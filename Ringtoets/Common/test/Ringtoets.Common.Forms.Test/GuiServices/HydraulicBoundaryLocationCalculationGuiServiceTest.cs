@@ -135,7 +135,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {
-                    var msgs = messages.ToArray();
+                    string[] msgs = messages.ToArray();
                     Assert.AreEqual(1, msgs.Length);
                     StringAssert.StartsWith("Berekeningen konden niet worden gestart. ", msgs.First());
                 });
@@ -244,7 +244,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             using (new HydraRingCalculatorFactoryConfig())
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
-                
+
                 // Call
                 Action call = () => guiService.CalculateDesignWaterLevels(validDatabasePath,
                                                                           new List<HydraulicBoundaryLocation>
@@ -256,7 +256,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {
-                    var msgs = messages.ToArray();
+                    string[] msgs = messages.ToArray();
                     Assert.AreEqual(7, msgs.Length);
                     StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculationName), msgs[0]);
                     StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculationName), msgs[1]);
@@ -370,7 +370,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {
-                    var msgs = messages.ToArray();
+                    string[] msgs = messages.ToArray();
                     Assert.AreEqual(1, msgs.Length);
                     StringAssert.StartsWith("Berekeningen konden niet worden gestart. ", msgs.First());
                 });
@@ -492,7 +492,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {
-                    var msgs = messages.ToArray();
+                    string[] msgs = messages.ToArray();
                     Assert.AreEqual(7, msgs.Length);
                     StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculationName), msgs[0]);
                     StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculationName), msgs[1]);

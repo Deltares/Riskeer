@@ -42,7 +42,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             double targetReliability = random.NextDouble();
             double calculatedProbability = random.NextDouble();
             double calculatedReliability = random.NextDouble();
-            CalculationConvergence convergence = random.NextEnumValue<CalculationConvergence>();
+            var convergence = random.NextEnumValue<CalculationConvergence>();
 
             // Call
             TestDelegate call = () => new HydraulicBoundaryLocationOutput(result, targetProbability,
@@ -52,7 +52,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
                                                                           convergence);
 
             // Assert
-            ArgumentOutOfRangeException exception = Assert.Throws<ArgumentOutOfRangeException>(call);
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(call);
             Assert.AreEqual("targetProbability", exception.ParamName);
             StringAssert.Contains("Kans moet in het bereik [0,0, 1,0] liggen.", exception.Message);
         }
@@ -69,7 +69,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             double targetProbability = random.NextDouble();
             double targetReliability = random.NextDouble();
             double calculatedReliability = random.NextDouble();
-            CalculationConvergence convergence = random.NextEnumValue<CalculationConvergence>();
+            var convergence = random.NextEnumValue<CalculationConvergence>();
 
             // Call
             TestDelegate call = () => new HydraulicBoundaryLocationOutput(result, targetProbability,
@@ -79,7 +79,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
                                                                           convergence);
 
             // Assert
-            ArgumentOutOfRangeException exception = Assert.Throws<ArgumentOutOfRangeException>(call);
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(call);
             Assert.AreEqual("calculatedProbability", exception.ParamName);
             StringAssert.Contains("Kans moet in het bereik [0,0, 1,0] liggen.", exception.Message);
         }
@@ -94,7 +94,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             double targetReliability = random.NextDouble();
             double calculatedProbability = random.NextDouble();
             double calculatedReliability = random.NextDouble();
-            CalculationConvergence convergence = random.NextEnumValue<CalculationConvergence>();
+            var convergence = random.NextEnumValue<CalculationConvergence>();
 
             // Call
             var output = new HydraulicBoundaryLocationOutput(result, targetProbability,

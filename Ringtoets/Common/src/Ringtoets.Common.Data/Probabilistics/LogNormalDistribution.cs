@@ -61,7 +61,7 @@ namespace Ringtoets.Common.Data.Probabilistics
             // Initialize mean, standard deviation and shift of the normal distribution which is the log of the 
             // log-normal distribution with scale parameter mu=0, shape parameter sigma=1 and location parameter theta=0.
             mean = new RoundedDouble(numberOfDecimalPlaces, Math.Exp(-0.5));
-            standardDeviation = new RoundedDouble(numberOfDecimalPlaces, Math.Sqrt((Math.Exp(1) - 1)*Math.Exp(1)));
+            standardDeviation = new RoundedDouble(numberOfDecimalPlaces, Math.Sqrt((Math.Exp(1) - 1) * Math.Exp(1)));
             shift = new RoundedDouble(numberOfDecimalPlaces);
         }
 

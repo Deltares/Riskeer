@@ -24,7 +24,6 @@ using System.IO;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -59,8 +58,8 @@ namespace Ringtoets.Common.IO.Test
             TestDelegate call = () => new FailureMechanismSectionReader(invalidFilePath);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet leeg of ongedefinieerd zijn.",
-                                                invalidFilePath);
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet leeg of ongedefinieerd zijn.",
+                                                   invalidFilePath);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -78,8 +77,8 @@ namespace Ringtoets.Common.IO.Test
             TestDelegate call = () => new FailureMechanismSectionReader(invalidFilePath);
 
             // Assert
-            var expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': "
-                                  + "er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.";
+            string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': "
+                                     + "er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -94,8 +93,8 @@ namespace Ringtoets.Common.IO.Test
             TestDelegate call = () => new FailureMechanismSectionReader(invalidFilePath);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet verwijzen naar een lege bestandsnaam.",
-                                                invalidFilePath);
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet verwijzen naar een lege bestandsnaam.",
+                                                   invalidFilePath);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -110,9 +109,9 @@ namespace Ringtoets.Common.IO.Test
             TestDelegate call = () => new FailureMechanismSectionReader(invalidFilePath);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestand bestaat niet.",
-                                                invalidFilePath);
-            var message = Assert.Throws<CriticalFileReadException>(call).Message;
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestand bestaat niet.",
+                                                   invalidFilePath);
+            string message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -132,9 +131,9 @@ namespace Ringtoets.Common.IO.Test
             TestDelegate call = () => new FailureMechanismSectionReader(invalidFilePath);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': kon geen lijnen vinden in dit bestand.",
-                                                invalidFilePath);
-            var message = Assert.Throws<CriticalFileReadException>(call).Message;
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': kon geen lijnen vinden in dit bestand.",
+                                                   invalidFilePath);
+            string message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -170,8 +169,8 @@ namespace Ringtoets.Common.IO.Test
                 TestDelegate call = () => reader.GetFailureMechanismSectionCount();
 
                 // Assert
-                var message = Assert.Throws<CriticalFileReadException>(call).Message;
-                var expectedMessage = string.Format(
+                string message = Assert.Throws<CriticalFileReadException>(call).Message;
+                string expectedMessage = string.Format(
                     "Fout bij het lezen van bestand '{0}': het bestand heeft geen attribuut 'Vaknaam'. Dit attribuut is vereist.",
                     validFilePath);
                 Assert.AreEqual(expectedMessage, message);
@@ -231,14 +230,14 @@ namespace Ringtoets.Common.IO.Test
 
             using (var reader = new FailureMechanismSectionReader(validFilePath))
             {
-                var count = reader.GetFailureMechanismSectionCount();
-                for (int i = 0; i < count; i++)
+                int count = reader.GetFailureMechanismSectionCount();
+                for (var i = 0; i < count; i++)
                 {
                     // Call
                     FailureMechanismSection section = reader.ReadFailureMechanismSection();
 
                     // Assert
-                    var expectedSectionName = string.Format("1-1_{0}", i);
+                    string expectedSectionName = string.Format("1-1_{0}", i);
                     Assert.AreEqual(expectedSectionName, section.Name,
                                     string.Format("Section name is not as expected at index {0}", i));
                 }
@@ -257,7 +256,7 @@ namespace Ringtoets.Common.IO.Test
             using (var reader = new FailureMechanismSectionReader(validFilePath))
             {
                 int count = reader.GetFailureMechanismSectionCount();
-                for (int i = 0; i < count; i++)
+                for (var i = 0; i < count; i++)
                 {
                     reader.ReadFailureMechanismSection();
                 }
@@ -283,8 +282,8 @@ namespace Ringtoets.Common.IO.Test
                 TestDelegate call = () => reader.ReadFailureMechanismSection();
 
                 // Assert
-                var message = Assert.Throws<CriticalFileReadException>(call).Message;
-                var expectedMessage = string.Format(
+                string message = Assert.Throws<CriticalFileReadException>(call).Message;
+                string expectedMessage = string.Format(
                     "Fout bij het lezen van bestand '{0}': het bestand heeft geen attribuut 'Vaknaam'. Dit attribuut is vereist.",
                     validFilePath);
                 Assert.AreEqual(expectedMessage, message);
@@ -310,8 +309,8 @@ namespace Ringtoets.Common.IO.Test
                 };
 
                 // Assert
-                var message = Assert.Throws<CriticalFileReadException>(call).Message;
-                var expectedMessage = string.Format(
+                string message = Assert.Throws<CriticalFileReadException>(call).Message;
+                string expectedMessage = string.Format(
                     "Fout bij het lezen van bestand '{0}': het bestand bevat één of meerdere multi-polylijnen. Multi-polylijnen worden niet ondersteund.",
                     validFilePath);
                 Assert.AreEqual(expectedMessage, message);

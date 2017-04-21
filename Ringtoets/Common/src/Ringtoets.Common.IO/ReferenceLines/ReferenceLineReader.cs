@@ -24,10 +24,10 @@ using System.IO;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using Core.Components.Gis.IO.Readers;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -66,7 +66,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
                 throw new CriticalFileReadException(message);
             }
 
-            using (PolylineShapeFileReader lineShapeReader = new PolylineShapeFileReader(shapeFilePath))
+            using (var lineShapeReader = new PolylineShapeFileReader(shapeFilePath))
             {
                 MapLineData lineMapData = GetReferenceLineMapData(lineShapeReader, shapeFilePath);
                 return CreateReferenceLine(lineMapData, shapeFilePath);
@@ -100,7 +100,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
 
         private static ReferenceLine CreateReferenceLine(MapLineData lineMapData, string shapeFilePath)
         {
-            var lineFeatures = lineMapData.Features.ToArray();
+            MapFeature[] lineFeatures = lineMapData.Features.ToArray();
 
             if (lineFeatures.Length > 1)
             {
@@ -110,8 +110,8 @@ namespace Ringtoets.Common.IO.ReferenceLines
             }
 
             var referenceLine = new ReferenceLine();
-            var referenceLineFeature = lineMapData.Features.First();
-            var referenceGeometries = referenceLineFeature.MapGeometries.ToArray();
+            MapFeature referenceLineFeature = lineMapData.Features.First();
+            MapGeometry[] referenceGeometries = referenceLineFeature.MapGeometries.ToArray();
 
             if (referenceGeometries.Length > 1)
             {

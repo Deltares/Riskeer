@@ -38,7 +38,7 @@ namespace Ringtoets.Common.Service
         /// <param name="errorMessages">The messages to log.</param>
         public static void LogMessagesAsError(string format, params string[] errorMessages)
         {
-            foreach (var errorMessage in errorMessages)
+            foreach (string errorMessage in errorMessages)
             {
                 log.ErrorFormat(format, errorMessage);
             }
@@ -50,7 +50,7 @@ namespace Ringtoets.Common.Service
         /// <param name="warningMessages">The messages to log.</param>
         public static void LogMessagesAsWarning(params string[] warningMessages)
         {
-            foreach (var waningMessage in warningMessages)
+            foreach (string waningMessage in warningMessages)
             {
                 log.Warn(waningMessage);
             }

@@ -87,8 +87,8 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
             // Setup
             bool dialogBoxWillBeShown = testCase.Calculation.HasOutput;
 
-            string title = "";
-            string message = "";
+            var title = "";
+            var message = "";
             if (dialogBoxWillBeShown)
             {
                 DialogBoxHandler = (name, wnd) =>
@@ -110,7 +110,7 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
             Assert.AreEqual(dialogBoxWillBeShown, testCase.Calculation.HasOutput);
 
             // Call
-            var affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(() => propertySet++);
+            IEnumerable<IObservable> affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(() => propertySet++);
 
             // Assert
             var expectedAffectedObjects = new List<IObservable>();
@@ -151,7 +151,7 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
             Assert.IsTrue(calculation.HasOutput);
 
             // Call
-            var affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(() => propertySet++);
+            IEnumerable<IObservable> affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(() => propertySet++);
 
             // Assert
             Assert.AreEqual(0, propertySet);

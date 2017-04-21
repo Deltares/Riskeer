@@ -64,9 +64,9 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
 
-            Assert.IsTrue(TypeUtils.HasTypeConverter<GrassCoverSlipOffOutwardsSectionResultRow,
-                              NoValueRoundedDoubleConverter>(
-                                  r => r.AssessmentLayerThree));
+            Assert.IsTrue(
+                TypeUtils.HasTypeConverter<GrassCoverSlipOffOutwardsSectionResultRow, NoValueRoundedDoubleConverter>(
+                    r => r.AssessmentLayerThree));
         }
 
         [Test]
@@ -90,7 +90,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         {
             // Setup
             var random = new Random(21);
-            var newValue = random.NextDouble();
+            double newValue = random.NextDouble();
             FailureMechanismSection section = CreateSection();
             var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(section);
             var row = new GrassCoverSlipOffOutwardsSectionResultRow(result);

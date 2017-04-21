@@ -74,7 +74,7 @@ namespace Ringtoets.Integration.Forms
 
         private int? GetSelectedLimitReturnPeriod()
         {
-            var selectedRow = GetSelectedReferenceLineMetaSelectionRow();
+            ReferenceLineMetaSelectionRow selectedRow = GetSelectedReferenceLineMetaSelectionRow();
             if (selectedRow == null)
             {
                 return null;
@@ -89,7 +89,7 @@ namespace Ringtoets.Integration.Forms
             ReferenceLineMetaDataGridViewControl.AddTextBoxColumn("SignalingValue", Resources.ReferenceLineMetaSelectionDialog_ColumnHeader_SignalingValue);
             ReferenceLineMetaDataGridViewControl.AddTextBoxColumn("LowerLimitValue", Resources.ReferenceLineMetaSelectionDialog_ColumnHeader_LowerLimitValue);
 
-            var dataSource = referenceLineMetas.Select(rlm => new ReferenceLineMetaSelectionRow(rlm)).OrderBy(row => row.AssessmentSectionId, new AssessmentSectionIdComparer());
+            IOrderedEnumerable<ReferenceLineMetaSelectionRow> dataSource = referenceLineMetas.Select(rlm => new ReferenceLineMetaSelectionRow(rlm)).OrderBy(row => row.AssessmentSectionId, new AssessmentSectionIdComparer());
             ReferenceLineMetaDataGridViewControl.SetDataSource(dataSource.ToArray());
         }
 
@@ -108,14 +108,14 @@ namespace Ringtoets.Integration.Forms
 
                 int? returnPeriod = GetSelectedLimitReturnPeriod();
                 SelectedNorm = returnPeriod.HasValue && returnPeriod.Value != 0
-                                   ? 1.0/returnPeriod.Value
+                                   ? 1.0 / returnPeriod.Value
                                    : double.NaN;
             }
         }
 
         private ReferenceLineMetaSelectionRow GetSelectedReferenceLineMetaSelectionRow()
         {
-            var selectedRow = ReferenceLineMetaDataGridViewControl.CurrentRow;
+            DataGridViewRow selectedRow = ReferenceLineMetaDataGridViewControl.CurrentRow;
             return selectedRow == null ? null : (ReferenceLineMetaSelectionRow) selectedRow.DataBoundItem;
         }
 
@@ -164,8 +164,8 @@ namespace Ringtoets.Integration.Forms
                     suffix = string.Empty;
                     return;
                 }
-                var parts = str.Split('-');
-                var firstPart = Regex.Split(parts.First(), "([A-Za-z])");
+                string[] parts = str.Split('-');
+                string[] firstPart = Regex.Split(parts.First(), "([A-Za-z])");
                 if (firstPart.Length > 1)
                 {
                     int.TryParse(firstPart[0], out id);

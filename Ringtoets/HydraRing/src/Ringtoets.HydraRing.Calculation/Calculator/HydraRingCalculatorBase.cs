@@ -107,7 +107,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         {
             try
             {
-                var sectionId = hydraRingCalculationInput.Section.SectionId;
+                int sectionId = hydraRingCalculationInput.Section.SectionId;
                 OutputDirectory = CreateWorkingDirectory();
 
                 var hydraRingConfigurationService = new HydraRingConfigurationService(uncertaintiesType);
@@ -160,7 +160,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// encounters an error while parsing HydraRing output.</exception>
         private void ExecuteCustomParsers(string temporaryWorkingDirectory, int sectionId)
         {
-            foreach (var parser in GetParsers())
+            foreach (IHydraRingFileParser parser in GetParsers())
             {
                 parser.Parse(temporaryWorkingDirectory, sectionId);
             }
@@ -196,7 +196,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// the required permissions.</exception>
         private static string CreateWorkingDirectory()
         {
-            var workingDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            string workingDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
 
             if (Directory.Exists(workingDirectory))
             {

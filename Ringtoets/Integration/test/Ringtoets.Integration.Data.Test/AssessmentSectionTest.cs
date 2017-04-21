@@ -188,7 +188,7 @@ namespace Ringtoets.Integration.Data.Test
             var assessmentSection = new AssessmentSection(composition);
 
             // Call
-            var failureMechanisms = assessmentSection.GetFailureMechanisms().ToArray();
+            IFailureMechanism[] failureMechanisms = assessmentSection.GetFailureMechanisms().ToArray();
 
             // Assert
             Assert.AreEqual(18, failureMechanisms.Length);
@@ -228,20 +228,20 @@ namespace Ringtoets.Integration.Data.Test
             const double norm = 1.0 / 30000;
 
             // Call
-            var contribution = assessmentSection.FailureMechanismContribution.Distribution.ToArray();
+            FailureMechanismContributionItem[] contribution = assessmentSection.FailureMechanismContribution.Distribution.ToArray();
 
             // Assert
-            var failureMechanisms = GetExpectedContributingFailureMechanisms(assessmentSection);
+            IFailureMechanism[] failureMechanisms = GetExpectedContributingFailureMechanisms(assessmentSection);
 
             Assert.AreEqual(12, contribution.Length);
-            for (int i = 0; i < 11; i++)
+            for (var i = 0; i < 11; i++)
             {
                 Assert.AreEqual(failureMechanisms[i].Name, contribution[i].Assessment);
                 Assert.AreEqual(failureMechanisms[i].Contribution, contribution[i].Contribution);
                 Assert.AreEqual(norm, contribution[i].Norm);
                 Assert.AreEqual(100.0 / (norm * contribution[i].Contribution), contribution[i].ProbabilitySpace);
             }
-            var otherContributionItem = contribution[11];
+            FailureMechanismContributionItem otherContributionItem = contribution[11];
             Assert.AreEqual("Overig", otherContributionItem.Assessment);
             double expectedOtherContribution = composition == AssessmentSectionComposition.DikeAndDune ? 20.0 : 30.0;
             Assert.AreEqual(expectedOtherContribution, otherContributionItem.Contribution);
@@ -257,9 +257,9 @@ namespace Ringtoets.Integration.Data.Test
         public void ChangeComposition_ToTargetValue_UpdateContributions(AssessmentSectionComposition composition)
         {
             // Setup
-            var initialComposition = composition == AssessmentSectionComposition.Dike ?
-                                         AssessmentSectionComposition.Dune :
-                                         AssessmentSectionComposition.Dike;
+            AssessmentSectionComposition initialComposition = composition == AssessmentSectionComposition.Dike ?
+                                                                  AssessmentSectionComposition.Dune :
+                                                                  AssessmentSectionComposition.Dike;
             var assessmentSection = new AssessmentSection(initialComposition);
 
             // Precondition
@@ -293,7 +293,7 @@ namespace Ringtoets.Integration.Data.Test
             // Setup
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            ReferenceLine referenceLine = new ReferenceLine();
+            var referenceLine = new ReferenceLine();
 
             Point2D[] somePointsCollection =
             {

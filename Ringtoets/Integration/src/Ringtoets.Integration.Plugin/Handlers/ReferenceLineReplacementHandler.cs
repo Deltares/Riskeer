@@ -73,7 +73,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
             {
                 removedObjects.Enqueue(removedObject);
             }
-            
+
             section.ReferenceLine = newReferenceLine;
             return results.ChangedObjects;
         }

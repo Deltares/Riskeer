@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
@@ -38,10 +39,10 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             // Setup
             const double value = 3.0;
             var testFailureMechanism = new TestFailureMechanism();
-            var returnedAffectedObjects = Enumerable.Empty<IObservable>();
+            IEnumerable<IObservable> returnedAffectedObjects = Enumerable.Empty<IObservable>();
 
             // Call
-            var tester = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<IFailureMechanism,double?>(
+            var tester = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<IFailureMechanism, double?>(
                 testFailureMechanism, value, returnedAffectedObjects);
 
             // Assert
@@ -61,9 +62,9 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             var expectedFailureMechanism = new TestFailureMechanism();
             var passedFailureMechanism = new TestFailureMechanism();
 
-            var tester = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<IFailureMechanism,double?>(
+            var tester = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<IFailureMechanism, double?>(
                 expectedFailureMechanism, value, Enumerable.Empty<IObservable>());
-            
+
             // Call
             TestDelegate test = () => tester.SetPropertyValueAfterConfirmation(passedFailureMechanism, value, (m, v) => { });
 
@@ -81,9 +82,9 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
 
             var expectedFailureMechanism = new TestFailureMechanism();
 
-            var tester = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<IFailureMechanism,double?>(
+            var tester = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<IFailureMechanism, double?>(
                 expectedFailureMechanism, expectedValue, Enumerable.Empty<IObservable>());
-            
+
             // Call
             TestDelegate test = () => tester.SetPropertyValueAfterConfirmation(expectedFailureMechanism, passedValue, (m, v) => { });
 
@@ -98,15 +99,15 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             // Setup
             const double value = 3.0;
 
-            var returnedAffectedObjects = Enumerable.Empty<IObservable>();
+            IEnumerable<IObservable> returnedAffectedObjects = Enumerable.Empty<IObservable>();
             var testFailureMechanism = new TestFailureMechanism();
             var called = 0;
 
-            var tester = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<IFailureMechanism,double?>(
+            var tester = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<IFailureMechanism, double?>(
                 testFailureMechanism, value, returnedAffectedObjects);
-            
+
             // Call
-            var affectedObjects = tester.SetPropertyValueAfterConfirmation(testFailureMechanism, value, (m, v) => called++);
+            IEnumerable<IObservable> affectedObjects = tester.SetPropertyValueAfterConfirmation(testFailureMechanism, value, (m, v) => called++);
 
             // Assert
             Assert.AreEqual(1, called);
@@ -121,9 +122,9 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             const double value = 3.0;
             var testFailureMechanism = new TestFailureMechanism();
 
-            var tester = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<IFailureMechanism,double?>(
+            var tester = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<IFailureMechanism, double?>(
                 testFailureMechanism, value, Enumerable.Empty<IObservable>());
-            
+
             var expectedException = new Exception();
 
             // Call

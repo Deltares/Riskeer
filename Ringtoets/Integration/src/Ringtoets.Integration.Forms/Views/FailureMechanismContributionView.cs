@@ -222,7 +222,7 @@ namespace Ringtoets.Integration.Forms.Views
             if (data != null)
             {
                 returnPeriodLabel.Text = string.Format(RingtoetsIntegrationFormsResources.FailureMechanismContributionView_ReturnPeriodLabelText_Norm_is_one_over_ReturnPeriod_0_,
-                                                       Convert.ToInt32(1.0/data.Norm));
+                                                       Convert.ToInt32(1.0 / data.Norm));
             }
         }
 
@@ -272,7 +272,7 @@ namespace Ringtoets.Integration.Forms.Views
 
             if (e.ColumnIndex == probabilityPerYearColumnIndex)
             {
-                var contributionItem = data.Distribution.ElementAt(e.RowIndex);
+                FailureMechanismContributionItem contributionItem = data.Distribution.ElementAt(e.RowIndex);
                 if (Math.Abs(contributionItem.Contribution) < 1e-6)
                 {
                     e.Value = RingtoetsIntegrationFormsResources.FailureMechanismContributionView_ProbabilityPerYear_Not_applicable;

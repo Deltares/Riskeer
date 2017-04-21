@@ -102,7 +102,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
         {
             // Setup
             var activity = new TestHydraRingActivity();
-            string currentStepName = "Some step name.";
+            var currentStepName = "Some step name.";
             int totalStep = new Random(21).Next();
             int currentStep = new Random(21).Next();
 

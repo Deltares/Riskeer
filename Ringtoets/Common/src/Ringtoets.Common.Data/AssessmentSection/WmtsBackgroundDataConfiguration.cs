@@ -62,6 +62,26 @@ namespace Ringtoets.Common.Data.AssessmentSection
         }
 
         /// <summary>
+        /// Gets if the configuration is ready to use as a tile source.
+        /// </summary>
+        public bool IsConfigured { get; private set; }
+
+        /// <summary>
+        /// Gets the URL to the capabilities of the WMTS.
+        /// </summary>
+        public string SourceCapabilitiesUrl { get; private set; }
+
+        /// <summary>
+        /// Gets the name of the capability to use.
+        /// </summary>
+        public string SelectedCapabilityIdentifier { get; private set; }
+
+        /// <summary>
+        /// Gets the MIME-type specification of the preferred tile image format.
+        /// </summary>
+        public string PreferredFormat { get; private set; }
+
+        /// <summary>
         /// Initializes the properties of the <see cref="WmtsBackgroundDataConfiguration"/> corresponding
         /// to an unconfigured WMTS tile source.
         /// </summary>
@@ -120,25 +140,5 @@ namespace Ringtoets.Common.Data.AssessmentSection
             SelectedCapabilityIdentifier = selectedCapabilityIdentifier;
             PreferredFormat = preferredFormat;
         }
-
-        /// <summary>
-        /// Gets if the configuration is ready to use as a tile source.
-        /// </summary>
-        public bool IsConfigured { get; private set; }
-
-        /// <summary>
-        /// Gets the URL to the capabilities of the WMTS.
-        /// </summary>
-        public string SourceCapabilitiesUrl { get; private set; }
-
-        /// <summary>
-        /// Gets the name of the capability to use.
-        /// </summary>
-        public string SelectedCapabilityIdentifier { get; private set; }
-
-        /// <summary>
-        /// Gets the MIME-type specification of the preferred tile image format.
-        /// </summary>
-        public string PreferredFormat { get; private set; }
     }
 }

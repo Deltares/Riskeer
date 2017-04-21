@@ -100,7 +100,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
 
             // Assert
             Assert.IsInstanceOf<TruncatedNormalDistribution>(clone);
-            var clonedDistribution = (TruncatedNormalDistribution)clone;
+            var clonedDistribution = (TruncatedNormalDistribution) clone;
             Assert.AreNotSame(distribution, clonedDistribution);
             Assert.AreNotSame(distribution.Mean, clonedDistribution.Mean);
             Assert.AreNotSame(distribution.StandardDeviation, clonedDistribution.StandardDeviation);

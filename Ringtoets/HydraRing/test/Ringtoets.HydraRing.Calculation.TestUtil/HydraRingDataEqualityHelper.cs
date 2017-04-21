@@ -93,7 +93,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil
         {
             Assert.AreEqual(expectedProfilePoints.Length, actualProfilePoints.Length);
 
-            for (int i = 0; i < expectedProfilePoints.Length; i++)
+            for (var i = 0; i < expectedProfilePoints.Length; i++)
             {
                 Assert.AreEqual(expectedProfilePoints[i].X, actualProfilePoints[i].X, accuracy);
                 Assert.AreEqual(expectedProfilePoints[i].Z, actualProfilePoints[i].Z, accuracy);
@@ -105,7 +105,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil
         {
             Assert.AreEqual(expectedForelandPoints.Length, actualForelandPoints.Length);
 
-            for (int i = 0; i < expectedForelandPoints.Length; i++)
+            for (var i = 0; i < expectedForelandPoints.Length; i++)
             {
                 Assert.AreEqual(expectedForelandPoints[i].X, actualForelandPoints[i].X, accuracy);
                 Assert.AreEqual(expectedForelandPoints[i].Z, actualForelandPoints[i].Z, accuracy);

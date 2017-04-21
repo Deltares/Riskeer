@@ -58,7 +58,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
             {
                 DuneLocation location = duneLocations[i];
 
-                var feature = RingtoetsMapDataFeaturesFactory.CreateSinglePointMapFeature(location.Location);
+                MapFeature feature = RingtoetsMapDataFeaturesFactory.CreateSinglePointMapFeature(location.Location);
                 feature.MetaData[RingtoetsCommonFormsResources.MetaData_ID] = location.Id;
                 feature.MetaData[RingtoetsCommonFormsResources.MetaData_Name] = location.Name;
                 feature.MetaData[Resources.MetaData_CoastalAreaId] = location.CoastalAreaId;

@@ -92,7 +92,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// <returns>A <see cref="ProfileLocation"/> based on the next point feature in the shapefile.</returns>
         public ProfileLocation GetNextProfileLocation()
         {
-            MapPointData mapPointData = (MapPointData) pointsShapeFileReader.ReadFeature();
+            var mapPointData = (MapPointData) pointsShapeFileReader.ReadFeature();
 
             IDictionary<string, object> attributes = mapPointData.Features.First().MetaData;
 

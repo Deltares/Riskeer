@@ -84,7 +84,7 @@ namespace Ringtoets.Common.Data.Calculation
         /// <remarks>The calculation group is enumerated recursively, also taking into account nested calculations.</remarks>
         public static void ClearCalculationOutput(this CalculationGroup calculationGroup)
         {
-            foreach (var calc in calculationGroup.GetCalculations().Where(c => c.HasOutput))
+            foreach (ICalculation calc in calculationGroup.GetCalculations().Where(c => c.HasOutput))
             {
                 calc.ClearOutput();
                 calc.NotifyObservers();

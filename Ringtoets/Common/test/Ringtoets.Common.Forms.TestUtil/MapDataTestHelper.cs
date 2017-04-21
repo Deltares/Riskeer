@@ -96,7 +96,7 @@ namespace Ringtoets.Common.Forms.TestUtil
             }
             else
             {
-                var hydraulicBoundaryLocationsArray = hydraulicBoundaryLocations.ToArray();
+                HydraulicBoundaryLocation[] hydraulicBoundaryLocationsArray = hydraulicBoundaryLocations.ToArray();
 
                 Assert.AreEqual(hydraulicBoundaryLocationsArray.Length, hydraulicLocationsMapData.Features.Length);
                 CollectionAssert.AreEqual(hydraulicBoundaryLocationsArray.Select(hrp => hrp.Location),

@@ -92,8 +92,8 @@ namespace Ringtoets.DuneErosion.Forms.Test
             // Setup
             bool dialogBoxWillBeShown = testCase.ExpectedAffectedLocations.Any();
 
-            string title = "";
-            string message = "";
+            var title = "";
+            var message = "";
             if (dialogBoxWillBeShown)
             {
                 DialogBoxHandler = (name, wnd) =>
@@ -114,7 +114,7 @@ namespace Ringtoets.DuneErosion.Forms.Test
             var changeHandler = new DuneErosionFailureMechanismPropertyChangeHandler();
 
             // Call
-            var affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(
+            IEnumerable<IObservable> affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(
                 failureMechanism,
                 3,
                 (f, v) => propertySet++);
@@ -159,7 +159,7 @@ namespace Ringtoets.DuneErosion.Forms.Test
             var changeHandler = new DuneErosionFailureMechanismPropertyChangeHandler();
 
             // Call
-            var affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(
+            IEnumerable<IObservable> affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(
                 failureMechanism,
                 3,
                 (f, v) => propertySet++);
@@ -185,21 +185,21 @@ namespace Ringtoets.DuneErosion.Forms.Test
         {
             yield return new TestCaseData(
                 new ChangePropertyTestCase(new TestDuneLocation[0])
-                ).SetName("SetPropertyValueAfterConfirmation No locations");
+            ).SetName("SetPropertyValueAfterConfirmation No locations");
 
             yield return new TestCaseData(
                 new ChangePropertyTestCase(new[]
                 {
                     CreateDuneLocationWithoutOutput()
                 })
-                ).SetName("SetPropertyValueAfterConfirmation Single location without output");
+            ).SetName("SetPropertyValueAfterConfirmation Single location without output");
 
             yield return new TestCaseData(
                 new ChangePropertyTestCase(new[]
                 {
                     CreateDuneLocationWithOutput()
                 })
-                ).SetName("SetPropertyValueAfterConfirmation Single location with output");
+            ).SetName("SetPropertyValueAfterConfirmation Single location with output");
 
             yield return new TestCaseData(
                 new ChangePropertyTestCase(new[]
@@ -207,7 +207,7 @@ namespace Ringtoets.DuneErosion.Forms.Test
                     CreateDuneLocationWithoutOutput(),
                     CreateDuneLocationWithoutOutput()
                 })
-                ).SetName("SetPropertyValueAfterConfirmation Two locations without output");
+            ).SetName("SetPropertyValueAfterConfirmation Two locations without output");
 
             yield return new TestCaseData(
                 new ChangePropertyTestCase(new[]
@@ -215,7 +215,7 @@ namespace Ringtoets.DuneErosion.Forms.Test
                     CreateDuneLocationWithOutput(),
                     CreateDuneLocationWithoutOutput()
                 })
-                ).SetName("SetPropertyValueAfterConfirmation Location with and location without output");
+            ).SetName("SetPropertyValueAfterConfirmation Location with and location without output");
 
             yield return new TestCaseData(
                 new ChangePropertyTestCase(new[]
@@ -223,7 +223,7 @@ namespace Ringtoets.DuneErosion.Forms.Test
                     CreateDuneLocationWithOutput(),
                     CreateDuneLocationWithOutput()
                 })
-                ).SetName("SetPropertyValueAfterConfirmation Two locations with output");
+            ).SetName("SetPropertyValueAfterConfirmation Two locations with output");
 
             yield return new TestCaseData(
                 new ChangePropertyTestCase(new[]
@@ -232,7 +232,7 @@ namespace Ringtoets.DuneErosion.Forms.Test
                     CreateDuneLocationWithoutOutput(),
                     CreateDuneLocationWithOutput()
                 })
-                ).SetName("SetPropertyValueAfterConfirmation Two locations with and one location without output");
+            ).SetName("SetPropertyValueAfterConfirmation Two locations with and one location without output");
         }
 
         private static DuneLocation CreateDuneLocationWithoutOutput()

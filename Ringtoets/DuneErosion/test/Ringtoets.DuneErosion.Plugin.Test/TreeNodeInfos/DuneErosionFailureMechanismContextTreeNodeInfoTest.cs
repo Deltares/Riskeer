@@ -102,7 +102,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
-            var children = info.ChildNodeObjects(failureMechanismContext).ToArray();
+            object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
 
             // Assert
             Assert.AreEqual(3, children.Length);
@@ -152,7 +152,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
-            var children = info.ChildNodeObjects(failureMechanismContext).ToArray();
+            object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
 
             // Assert
             Assert.AreEqual(1, children.Length);

@@ -42,7 +42,7 @@ namespace Ringtoets.Common.Forms.Helpers
                                      CommonBaseResources.RoundedDouble_ToString_PositiveInfinity);
             }
             return string.Format(Resources.ProbabilityPerYearFormat,
-                                 1.0/probability);
+                                 1.0 / probability);
         }
 
         /// <summary>

@@ -66,7 +66,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
             Assert.IsTrue(TypeUtils.HasTypeConverter<DuneErosionSectionResultRow,
                               NoValueRoundedDoubleConverter>(
-                                  r => r.AssessmentLayerThree));
+                              r => r.AssessmentLayerThree));
         }
 
         [Test]
@@ -90,7 +90,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         {
             // Setup
             var random = new Random(21);
-            var newValue = random.NextDouble();
+            double newValue = random.NextDouble();
             FailureMechanismSection section = CreateSection();
             var result = new DuneErosionFailureMechanismSectionResult(section);
             var row = new DuneErosionSectionResultRow(result);

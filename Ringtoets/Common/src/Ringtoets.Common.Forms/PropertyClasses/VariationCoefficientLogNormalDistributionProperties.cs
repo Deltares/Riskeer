@@ -37,7 +37,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// in which the properties of <paramref name="distribution"/> are displayed read-only.
         /// </summary>
         /// <param name="distribution">The <see cref="VariationCoefficientLogNormalDistribution"/> to create the properties for.</param>
-        public VariationCoefficientLogNormalDistributionProperties(VariationCoefficientLogNormalDistribution distribution) : base(distribution) { }
+        public VariationCoefficientLogNormalDistributionProperties(VariationCoefficientLogNormalDistribution distribution) : base(distribution) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="VariationCoefficientLogNormalDistributionProperties"/>.

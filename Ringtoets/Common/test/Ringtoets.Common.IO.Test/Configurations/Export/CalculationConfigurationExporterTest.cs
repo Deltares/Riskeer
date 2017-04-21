@@ -84,7 +84,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
 
     public class SimpleCalculationConfigurationExporter : CalculationConfigurationExporter<SimpleCalculationConfigurationWriter, TestCalculation>
     {
-        public SimpleCalculationConfigurationExporter(IEnumerable<ICalculationBase> configuration, string targetFilePath) : base(configuration, targetFilePath) { }
+        public SimpleCalculationConfigurationExporter(IEnumerable<ICalculationBase> configuration, string targetFilePath) : base(configuration, targetFilePath) {}
     }
 
     public class SimpleCalculationConfigurationWriter : CalculationConfigurationWriter<TestCalculation>

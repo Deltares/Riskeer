@@ -56,7 +56,7 @@ namespace Ringtoets.Common.IO.TestUtil
             TestDelegate test = () => writer.Write(null, string.Empty);
 
             // Assert
-            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(test);
             AssertNullConfiguration(exception);
         }
 
@@ -70,7 +70,7 @@ namespace Ringtoets.Common.IO.TestUtil
             TestDelegate test = () => writer.Write(Enumerable.Empty<ICalculationBase>(), null);
 
             // Assert
-            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(test);
             AssertNullFilePath(exception);
         }
 
@@ -80,12 +80,12 @@ namespace Ringtoets.Common.IO.TestUtil
         {
             // Setup
             var writer = new TWriter();
-            
+
             // Call
             TestDelegate call = () => writer.Write(Enumerable.Empty<ICalculationBase>(), filePath);
 
             // Assert
-            CriticalFileWriteException exception = Assert.Throws<CriticalFileWriteException>(call);
+            var exception = Assert.Throws<CriticalFileWriteException>(call);
             AssertInvalidFilePath(exception, filePath);
         }
 
@@ -100,7 +100,7 @@ namespace Ringtoets.Common.IO.TestUtil
             TestDelegate call = () => writer.Write(Enumerable.Empty<ICalculationBase>(), filePath);
 
             // Assert
-            CriticalFileWriteException exception = Assert.Throws<CriticalFileWriteException>(call);
+            var exception = Assert.Throws<CriticalFileWriteException>(call);
             AssertTooLongPath(exception, filePath);
         }
 
@@ -119,7 +119,7 @@ namespace Ringtoets.Common.IO.TestUtil
                 TestDelegate call = () => writer.Write(Enumerable.Empty<ICalculationBase>(), filePath);
 
                 // Assert
-                CriticalFileWriteException exception = Assert.Throws<CriticalFileWriteException>(call);
+                var exception = Assert.Throws<CriticalFileWriteException>(call);
                 AssertInvalidDirectoryRights(exception, filePath);
             }
         }
@@ -139,7 +139,7 @@ namespace Ringtoets.Common.IO.TestUtil
                 TestDelegate call = () => writer.Write(Enumerable.Empty<ICalculationBase>(), path);
 
                 // Assert
-                CriticalFileWriteException exception = Assert.Throws<CriticalFileWriteException>(call);
+                var exception = Assert.Throws<CriticalFileWriteException>(call);
                 AssertFileInUse(exception, path);
             }
         }

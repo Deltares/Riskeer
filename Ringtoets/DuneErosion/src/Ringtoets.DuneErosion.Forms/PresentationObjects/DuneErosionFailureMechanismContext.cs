@@ -30,14 +30,14 @@ namespace Ringtoets.DuneErosion.Forms.PresentationObjects
     /// Presentation object for an instance of <see cref="DuneErosionFailureMechanism"/>.
     /// </summary>
     public class DuneErosionFailureMechanismContext : FailureMechanismContext<DuneErosionFailureMechanism>
-    {   
+    {
         /// <summary>
         /// Creates a new instance of <see cref="DuneErosionFailureMechanismContext"/>.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="DuneErosionFailureMechanism"/> instance wrapped by this context object.</param>
         /// <param name="assessmentSection">The assessment section which the failure mechanism belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public DuneErosionFailureMechanismContext(DuneErosionFailureMechanism failureMechanism, IAssessmentSection assessmentSection) 
+        public DuneErosionFailureMechanismContext(DuneErosionFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
             : base(failureMechanism, assessmentSection) {}
     }
 }

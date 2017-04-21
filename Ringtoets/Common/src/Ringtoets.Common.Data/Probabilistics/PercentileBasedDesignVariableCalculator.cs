@@ -42,13 +42,6 @@ namespace Ringtoets.Common.Data.Probabilistics
         }
 
         /// <summary>
-        /// Calculates and returns the design value.
-        /// </summary>
-        /// <param name="percentile">The percentile to obtain the value for.</param>
-        /// <returns>The design value at the given <paramref name="percentile"/>.</returns>
-        internal abstract double GetDesignValue(double percentile);
-
-        /// <summary>
         /// Gets the mean of the distribution.
         /// </summary>
         protected double Mean { get; }
@@ -78,5 +71,12 @@ namespace Ringtoets.Common.Data.Probabilistics
             double designFactor = Normal.InvCDF(0.0, 1.0, percentile);
             return expectedValue + designFactor * standardDeviation;
         }
+
+        /// <summary>
+        /// Calculates and returns the design value.
+        /// </summary>
+        /// <param name="percentile">The percentile to obtain the value for.</param>
+        /// <returns>The design value at the given <paramref name="percentile"/>.</returns>
+        internal abstract double GetDesignValue(double percentile);
     }
 }

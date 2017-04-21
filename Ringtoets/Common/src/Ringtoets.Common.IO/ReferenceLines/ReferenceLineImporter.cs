@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -93,7 +92,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
 
             base.DoPostImportUpdates();
 
-            foreach (var changedObservable in changedObservables)
+            foreach (IObservable changedObservable in changedObservables)
             {
                 changedObservable.NotifyObservers();
             }
@@ -101,7 +100,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
 
         private bool IsClearingOfReferenceLineDependentDataRequired()
         {
-            bool clearReferenceLineDependentData = false;
+            var clearReferenceLineDependentData = false;
 
             if (ImportTarget.ReferenceLine != null)
             {
@@ -141,8 +140,8 @@ namespace Ringtoets.Common.IO.ReferenceLines
 
         private static ReadResult<ReferenceLine> HandleCriticalFileReadError(Exception e)
         {
-            var errorMessage = string.Format(RingtoetsCommonIOResources.ReferenceLineImporter_HandleCriticalFileReadError_Error_0_no_referenceline_imported,
-                                             e.Message);
+            string errorMessage = string.Format(RingtoetsCommonIOResources.ReferenceLineImporter_HandleCriticalFileReadError_Error_0_no_referenceline_imported,
+                                                e.Message);
             log.Error(errorMessage);
             return new ReadResult<ReferenceLine>(true);
         }

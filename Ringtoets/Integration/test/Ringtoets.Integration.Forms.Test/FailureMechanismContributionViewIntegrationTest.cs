@@ -76,7 +76,7 @@ namespace Ringtoets.Integration.Forms.Test
                 // Precondition
                 Assert.AreNotEqual(assessmentSection.Composition, newComposition);
 
-                bool dataGridInvalidated = false;
+                var dataGridInvalidated = false;
                 var contributionGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
                 contributionGridView.Invalidated += (sender, args) => dataGridInvalidated = true;
 
@@ -102,7 +102,7 @@ namespace Ringtoets.Integration.Forms.Test
         {
             FailureMechanismContributionItem[] itemArray = expectedDistributionElements.ToArray();
             Assert.AreEqual(itemArray.Length, dataGridView.RowCount);
-            for (int i = 0; i < itemArray.Length; i++)
+            for (var i = 0; i < itemArray.Length; i++)
             {
                 FailureMechanismContributionItem expectedElement = itemArray[i];
                 DataGridViewRow row = dataGridView.Rows[i];

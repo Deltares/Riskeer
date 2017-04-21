@@ -43,8 +43,8 @@ namespace Ringtoets.Common.Service.Test
             var foreshoreStub = mockRepository.Stub<IUseForeshore>();
             foreshoreStub.UseForeshore = true;
 
-            Point2D pointOne = new Point2D(1, 1);
-            Point2D pointTwo = new Point2D(2, 2);
+            var pointOne = new Point2D(1, 1);
+            var pointTwo = new Point2D(2, 2);
             foreshoreStub.Stub(call => call.ForeshoreGeometry).Return(new RoundedPoint2DCollection(2, new[]
             {
                 pointOne,
@@ -90,7 +90,7 @@ namespace Ringtoets.Common.Service.Test
         {
             // Setup
             var random = new Random(22);
-            var breakWaterHeight = random.NextDouble();
+            double breakWaterHeight = random.NextDouble();
 
             var mockRepository = new MockRepository();
             var breakWaterStub = mockRepository.Stub<IUseBreakWater>();

@@ -29,10 +29,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
     /// </summary>
     public class OvertoppingCalculationInput : ExceedanceProbabilityCalculationInput
     {
-        private readonly HydraRingSection section;
-        private readonly IEnumerable<HydraRingProfilePoint> profilePoints;
-        private readonly IEnumerable<HydraRingForelandPoint> forelandPoints;
-        private readonly HydraRingBreakWater breakWater;
         private readonly double dikeHeight;
         private readonly double modelFactorCriticalOvertopping;
         private readonly double factorFbMean;
@@ -103,10 +99,10 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
                                            double exponentModelFactorShallowLowerBoundary, double exponentModelFactorShallowUpperBoundary)
             : base(hydraulicBoundaryLocationId)
         {
-            section = new HydraRingSection(1, double.NaN, sectionNormal);
-            this.profilePoints = profilePoints;
-            this.forelandPoints = forelandPoints;
-            this.breakWater = breakWater;
+            Section = new HydraRingSection(1, double.NaN, sectionNormal);
+            ProfilePoints = profilePoints;
+            ForelandsPoints = forelandPoints;
+            BreakWater = breakWater;
             this.dikeHeight = dikeHeight;
             this.modelFactorCriticalOvertopping = modelFactorCriticalOvertopping;
             this.factorFbMean = factorFbMean;
@@ -134,13 +130,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
 
         public override int VariableId { get; } = 1;
 
-        public override HydraRingSection Section
-        {
-            get
-            {
-                return section;
-            }
-        }
+        public override HydraRingSection Section { get; }
 
         public override IEnumerable<HydraRingVariable> Variables
         {
@@ -162,29 +152,11 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
             }
         }
 
-        public override IEnumerable<HydraRingProfilePoint> ProfilePoints
-        {
-            get
-            {
-                return profilePoints;
-            }
-        }
+        public override IEnumerable<HydraRingProfilePoint> ProfilePoints { get; }
 
-        public override IEnumerable<HydraRingForelandPoint> ForelandsPoints
-        {
-            get
-            {
-                return forelandPoints;
-            }
-        }
+        public override IEnumerable<HydraRingForelandPoint> ForelandsPoints { get; }
 
-        public override HydraRingBreakWater BreakWater
-        {
-            get
-            {
-                return breakWater;
-            }
-        }
+        public override HydraRingBreakWater BreakWater { get; }
 
         public override int? GetSubMechanismModelId(int subMechanismId)
         {

@@ -241,7 +241,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
         private TestCalculatableView ShowFullyConfiguredTestCalculatableView()
         {
-            var view = ShowTestCalculatableView();
+            TestCalculatableView view = ShowTestCalculatableView();
             view.Data = new[]
             {
                 new TestCalculatableObject(),

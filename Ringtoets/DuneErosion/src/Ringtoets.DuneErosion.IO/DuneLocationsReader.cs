@@ -26,6 +26,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Utils.IO;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
 using Core.Components.Gis.IO.Readers;
 
 namespace Ringtoets.DuneErosion.IO
@@ -60,7 +61,7 @@ namespace Ringtoets.DuneErosion.IO
 
                 using (var pointShapeReader = new PointShapeFileReader(filePath))
                 {
-                    var locationsData = pointShapeReader.ReadShapeFile();
+                    FeatureBasedMapData locationsData = pointShapeReader.ReadShapeFile();
                     return CreateDuneLocations(locationsData);
                 }
             }
@@ -68,11 +69,11 @@ namespace Ringtoets.DuneErosion.IO
 
         private IEnumerable<ReadDuneLocation> CreateDuneLocations(FeatureBasedMapData locationsData)
         {
-            foreach (var locationData in locationsData.Features)
+            foreach (MapFeature locationData in locationsData.Features)
             {
                 Point2D location = locationData.MapGeometries.First().PointCollections.First().First();
 
-                var nameValue = locationData.MetaData[nameKey];
+                object nameValue = locationData.MetaData[nameKey];
                 string name = nameValue != null ? nameValue.ToString() : string.Empty;
 
                 int coastalAreaId = Convert.ToInt32(locationData.MetaData[coastalAreaIdKey]);

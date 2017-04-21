@@ -22,7 +22,6 @@
 using System;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Probability;
-using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Common.Data.Hydraulics
 {

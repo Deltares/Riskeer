@@ -36,7 +36,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
         public void Constructor_ExpectedValues()
         {
             // Setup
-            const double norm = 1.0/10000;
+            const double norm = 1.0 / 10000;
             const int sectionId = 1;
             const long hydraulicBoundaryLocationId = 1234;
 
@@ -56,14 +56,14 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             Assert.IsNull(assessmentLevelCalculationInput.BreakWater);
             Assert.AreEqual(expectedBeta, assessmentLevelCalculationInput.Beta);
 
-            var section = assessmentLevelCalculationInput.Section;
+            HydraRingSection section = assessmentLevelCalculationInput.Section;
             Assert.AreEqual(sectionId, section.SectionId);
             Assert.IsNaN(section.SectionLength);
             Assert.IsNaN(section.CrossSectionNormal);
 
             HydraRingVariable[] variables = assessmentLevelCalculationInput.Variables.ToArray();
             Assert.AreEqual(1, variables.Length);
-            var waterLevelVariable = variables.First();
+            HydraRingVariable waterLevelVariable = variables.First();
             Assert.IsInstanceOf<DeterministicHydraRingVariable>(waterLevelVariable);
             Assert.AreEqual(26, waterLevelVariable.VariableId);
             Assert.AreEqual(0.0, waterLevelVariable.Value);

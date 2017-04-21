@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Controls.DataGrid;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
@@ -38,16 +37,6 @@ namespace Ringtoets.Common.Forms.Views
     {
         private IEnumerable<HydraulicBoundaryLocation> locations;
 
-        /// <summary>
-        /// Gets or sets the <see cref="IHydraulicBoundaryLocationCalculationGuiService"/>.
-        /// </summary>
-        public IHydraulicBoundaryLocationCalculationGuiService CalculationGuiService { get; set; }
-
-        /// <summary>
-        /// Gets or sets the <see cref="IAssessmentSection"/>.
-        /// </summary>
-        public abstract IAssessmentSection AssessmentSection { get; set; }
-
         public override object Data
         {
             get
@@ -60,6 +49,16 @@ namespace Ringtoets.Common.Forms.Views
                 UpdateDataGridViewDataSource();
             }
         }
+
+        /// <summary>
+        /// Gets or sets the <see cref="IHydraulicBoundaryLocationCalculationGuiService"/>.
+        /// </summary>
+        public IHydraulicBoundaryLocationCalculationGuiService CalculationGuiService { get; set; }
+
+        /// <summary>
+        /// Gets or sets the <see cref="IAssessmentSection"/>.
+        /// </summary>
+        public abstract IAssessmentSection AssessmentSection { get; set; }
 
         protected override void InitializeDataGridView()
         {
@@ -92,7 +91,7 @@ namespace Ringtoets.Common.Forms.Views
                 return;
             }
 
-            var selectedLocations = GetSelectedCalculatableObjects();
+            IEnumerable<HydraulicBoundaryLocation> selectedLocations = GetSelectedCalculatableObjects();
             HandleCalculateSelectedLocations(selectedLocations);
         }
 

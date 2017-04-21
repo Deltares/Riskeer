@@ -87,10 +87,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void Selection_WithLocations_ReturnsSelectedLocationWrappedInContext()
         {
             // Call
-            using (var view = ShowFullyConfiguredWaveHeightLocationsView())
+            using (WaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView())
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                var selectedLocationRow = dataGridView.Rows[0];
+                DataGridViewRow selectedLocationRow = dataGridView.Rows[0];
                 selectedLocationRow.Cells[0].Value = true;
 
                 // Assert
@@ -142,10 +142,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             // Assert
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            var rows = dataGridView.Rows;
+            DataGridViewRowCollection rows = dataGridView.Rows;
             Assert.AreEqual(3, rows.Count);
 
-            var cells = rows[0].Cells;
+            DataGridViewCellCollection cells = rows[0].Cells;
             Assert.AreEqual(5, cells.Count);
             Assert.AreEqual(false, cells[locationCalculateColumnIndex].FormattedValue);
             Assert.AreEqual("1", cells[locationNameColumnIndex].FormattedValue);
@@ -176,7 +176,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Setup
             WaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView();
             IAssessmentSection assessmentSection = view.AssessmentSection;
-            HydraulicBoundaryDatabase newHydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            var newHydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(10, "10", 10.0, 10.0)
             {
                 WaveHeightOutput = new TestHydraulicBoundaryLocationOutput(10.23)
@@ -185,7 +185,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             // Precondition
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            var rows = dataGridView.Rows;
+            DataGridViewRowCollection rows = dataGridView.Rows;
             Assert.AreEqual(3, rows.Count);
 
             // Call
@@ -194,7 +194,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(1, rows.Count);
-            var cells = rows[0].Cells;
+            DataGridViewCellCollection cells = rows[0].Cells;
             Assert.AreEqual(5, cells.Count);
             Assert.AreEqual(false, cells[locationCalculateColumnIndex].FormattedValue);
             Assert.AreEqual("10", cells[locationNameColumnIndex].FormattedValue);
@@ -212,7 +212,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             // Precondition
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            var rows = dataGridView.Rows;
+            DataGridViewRowCollection rows = dataGridView.Rows;
             Assert.AreEqual(3, rows.Count);
             Assert.AreEqual("-", rows[0].Cells[locationWaveHeightColumnIndex].FormattedValue);
             Assert.AreEqual(1.23.ToString(CultureInfo.CurrentCulture), rows[1].Cells[locationWaveHeightColumnIndex].FormattedValue);
@@ -238,7 +238,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             WaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView();
             IAssessmentSection assessmentSection = view.AssessmentSection;
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            var rows = dataGridView.Rows;
+            DataGridViewRowCollection rows = dataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
 
             var mockRepository = new MockRepository();
@@ -264,7 +264,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             button.Click();
 
             // Assert
-            var hydraulicBoundaryLocations = locations.ToArray();
+            HydraulicBoundaryLocation[] hydraulicBoundaryLocations = locations.ToArray();
             Assert.AreEqual(1, hydraulicBoundaryLocations.Length);
             HydraulicBoundaryLocation expectedLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First();
             Assert.AreEqual(expectedLocation, hydraulicBoundaryLocations.First());
@@ -278,7 +278,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             ShowFullyConfiguredWaveHeightLocationsView();
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            var rows = dataGridView.Rows;
+            DataGridViewRowCollection rows = dataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
 
             var button = new ButtonTester("CalculateForSelectedButton", testForm);

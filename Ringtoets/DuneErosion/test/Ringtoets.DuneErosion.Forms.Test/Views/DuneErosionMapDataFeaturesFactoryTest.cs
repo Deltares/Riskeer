@@ -137,7 +137,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         private static void AssertEqualFeatureCollections(Point2D[] points, MapFeature[] features)
         {
             Assert.AreEqual(points.Length, features.Length);
-            for (int i = 0; i < points.Length; i++)
+            for (var i = 0; i < points.Length; i++)
             {
                 CollectionAssert.AreEqual(new[]
                 {

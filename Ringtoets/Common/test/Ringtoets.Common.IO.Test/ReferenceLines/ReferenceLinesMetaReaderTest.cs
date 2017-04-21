@@ -25,7 +25,6 @@ using System.IO;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -48,8 +47,8 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             TestDelegate call = () => ReferenceLinesMetaReader.ReadReferenceLinesMetas(invalidFilePath);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet leeg of ongedefinieerd zijn.",
-                                                invalidFilePath);
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet leeg of ongedefinieerd zijn.",
+                                                   invalidFilePath);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -66,8 +65,8 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             TestDelegate call = () => ReferenceLinesMetaReader.ReadReferenceLinesMetas(invalidFilePath);
 
             // Assert
-            var expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': "
-                                  + "er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.";
+            string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': "
+                                     + "er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -81,8 +80,8 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             TestDelegate call = () => ReferenceLinesMetaReader.ReadReferenceLinesMetas(invalidFilePath);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet verwijzen naar een lege bestandsnaam.",
-                                                invalidFilePath);
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet verwijzen naar een lege bestandsnaam.",
+                                                   invalidFilePath);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -96,9 +95,9 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             TestDelegate call = () => ReferenceLinesMetaReader.ReadReferenceLinesMetas(invalidFilePath);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestand bestaat niet.",
-                                                invalidFilePath);
-            var message = Assert.Throws<CriticalFileReadException>(call).Message;
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestand bestaat niet.",
+                                                   invalidFilePath);
+            string message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -116,9 +115,9 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             TestDelegate call = () => ReferenceLinesMetaReader.ReadReferenceLinesMetas(invalidFilePath);
 
             // Assert .
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': kon geen lijnen vinden in dit bestand.",
-                                                invalidFilePath);
-            var message = Assert.Throws<CriticalFileReadException>(call).Message;
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': kon geen lijnen vinden in dit bestand.",
+                                                   invalidFilePath);
+            string message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -130,7 +129,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             string invalidFilePath = Path.Combine(testDataPath, shapeFileName);
 
             // Call
-            var referenceLineMetas = ReferenceLinesMetaReader.ReadReferenceLinesMetas(invalidFilePath);
+            List<ReferenceLineMeta> referenceLineMetas = ReferenceLinesMetaReader.ReadReferenceLinesMetas(invalidFilePath);
 
             // Assert
             Assert.AreEqual(2, referenceLineMetas.Count);
@@ -150,9 +149,9 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             TestDelegate call = () => ReferenceLinesMetaReader.ReadReferenceLinesMetas(validFilePath);
 
             // Assert
-            var message = Assert.Throws<CriticalFileReadException>(call).Message;
-            var expectedMessage = string.Format("Het shapebestand '{0}' om trajecten te specificeren moet de attributen 'TRAJECT_ID', 'NORM_SW', en 'NORM_OG' bevatten: '{1}' niet gevonden.", validFilePath,
-                                                missingAttribute);
+            string message = Assert.Throws<CriticalFileReadException>(call).Message;
+            string expectedMessage = string.Format("Het shapebestand '{0}' om trajecten te specificeren moet de attributen 'TRAJECT_ID', 'NORM_SW', en 'NORM_OG' bevatten: '{1}' niet gevonden.", validFilePath,
+                                                   missingAttribute);
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -169,9 +168,9 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             TestDelegate call = () => ReferenceLinesMetaReader.ReadReferenceLinesMetas(validFilePath);
 
             // Assert
-            var message = Assert.Throws<CriticalFileReadException>(call).Message;
-            var expectedMessage = string.Format("Het shapebestand '{0}' om trajecten te specificeren moet de attributen 'TRAJECT_ID', 'NORM_SW', en 'NORM_OG' bevatten: '{1}' niet gevonden.", validFilePath,
-                                                missingAttributes);
+            string message = Assert.Throws<CriticalFileReadException>(call).Message;
+            string expectedMessage = string.Format("Het shapebestand '{0}' om trajecten te specificeren moet de attributen 'TRAJECT_ID', 'NORM_SW', en 'NORM_OG' bevatten: '{1}' niet gevonden.", validFilePath,
+                                                   missingAttributes);
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -179,7 +178,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         public void ReadReferenceLinesMeta_ValidFilePath_ReturnsElement()
         {
             // Setup
-            var validFilePath = Path.Combine(testDataPath, "NBPW.shp");
+            string validFilePath = Path.Combine(testDataPath, "NBPW.shp");
 
             // Call
             List<ReferenceLineMeta> referenceLineMetas = ReferenceLinesMetaReader.ReadReferenceLinesMetas(validFilePath);
@@ -231,7 +230,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         public void ReadReferenceLinesMeta_EmptyNormOgAndNormSw_ReturnsElement()
         {
             // Setup
-            var validFilePath = Path.Combine(testDataPath, "NBPW_EmptyNormOGAndNormSW.shp");
+            string validFilePath = Path.Combine(testDataPath, "NBPW_EmptyNormOGAndNormSW.shp");
 
             // Call
             List<ReferenceLineMeta> referenceLineMetas = ReferenceLinesMetaReader.ReadReferenceLinesMetas(validFilePath);
@@ -239,7 +238,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             // Assert
             Assert.AreEqual(1, referenceLineMetas.Count);
 
-            var referenceLineMeta = referenceLineMetas.First();
+            ReferenceLineMeta referenceLineMeta = referenceLineMetas.First();
             Assert.AreEqual("46-1", referenceLineMeta.AssessmentSectionId);
             Assert.IsNull(referenceLineMeta.SignalingValue);
             Assert.IsNull(referenceLineMeta.LowerLimitValue);
@@ -256,7 +255,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
 
             // Assert
             Assert.AreEqual(1, referenceLineMetas.Count);
-            var referenceLineMeta = referenceLineMetas.First();
+            ReferenceLineMeta referenceLineMeta = referenceLineMetas.First();
             Assert.AreEqual(string.Empty, referenceLineMeta.AssessmentSectionId);
         }
 

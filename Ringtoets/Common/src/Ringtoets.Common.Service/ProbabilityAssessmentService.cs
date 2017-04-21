@@ -40,10 +40,10 @@ namespace Ringtoets.Common.Service
         /// <returns>The calculated <see cref="ProbabilityAssessmentOutput"/>.</returns>
         public static ProbabilityAssessmentOutput Calculate(double norm, double contribution, double lengthEffectN, double reliability)
         {
-            var requiredProbability = GetRequiredProbability(contribution/100.0, norm, lengthEffectN);
-            var probability = StatisticsConverter.ReliabilityToProbability(reliability);
-            var requiredReliability = StatisticsConverter.ProbabilityToReliability(requiredProbability);
-            var factorOfSafety = GetFactorOfSafety(reliability, requiredReliability);
+            double requiredProbability = GetRequiredProbability(contribution / 100.0, norm, lengthEffectN);
+            double probability = StatisticsConverter.ReliabilityToProbability(reliability);
+            double requiredReliability = StatisticsConverter.ProbabilityToReliability(requiredProbability);
+            double factorOfSafety = GetFactorOfSafety(reliability, requiredReliability);
 
             return new ProbabilityAssessmentOutput(requiredProbability,
                                                    requiredReliability,
@@ -54,12 +54,12 @@ namespace Ringtoets.Common.Service
 
         private static double GetRequiredProbability(double contribution, double norm, double lengthEffectN)
         {
-            return contribution*norm/lengthEffectN;
+            return contribution * norm / lengthEffectN;
         }
 
         private static double GetFactorOfSafety(double reliability, double requiredReliability)
         {
-            return reliability/requiredReliability;
+            return reliability / requiredReliability;
         }
     }
 }

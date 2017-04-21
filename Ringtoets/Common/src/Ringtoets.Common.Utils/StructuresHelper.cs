@@ -75,8 +75,8 @@ namespace Ringtoets.Common.Utils
             ValidateSectionResults(sectionResults);
 
             return AssignUnassignCalculations.Update(
-                sectionResults.Select(AsCalculationAssignment),
-                AsCalculationsWithLocations(calculations))
+                                                 sectionResults.Select(AsCalculationAssignment),
+                                                 AsCalculationsWithLocations(calculations))
                                              .Cast<StructuresFailureMechanismSectionResult<T>>()
                                              .ToArray();
         }

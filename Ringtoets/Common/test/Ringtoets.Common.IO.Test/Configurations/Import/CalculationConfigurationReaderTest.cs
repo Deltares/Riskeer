@@ -348,7 +348,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
             public CalculationConfigurationReader(string xmlFilePath,
                                                   string mainSchemaDefinition,
                                                   IDictionary<string, string> nestedSchemaDefinitions)
-                : base(xmlFilePath, mainSchemaDefinition, nestedSchemaDefinitions) { }
+                : base(xmlFilePath, mainSchemaDefinition, nestedSchemaDefinitions) {}
 
             protected override ReadCalculation ParseCalculationElement(XElement calculationElement)
             {

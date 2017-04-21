@@ -26,7 +26,5 @@ namespace Ringtoets.Common.Data.TestUtil
     /// <summary>
     /// A background data configuration which can be used in tests.
     /// </summary>
-    public class TestBackgroundDataConfiguration : IBackgroundDataConfiguration
-    {
-    }
+    public class TestBackgroundDataConfiguration : IBackgroundDataConfiguration {}
 }

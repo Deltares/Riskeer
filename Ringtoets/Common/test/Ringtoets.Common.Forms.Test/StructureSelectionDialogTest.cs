@@ -92,7 +92,7 @@ namespace Ringtoets.Common.Forms.Test
                 Assert.IsEmpty(dialog.SelectedItems);
 
                 var dataGridViewControl = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
-                var dataGridView = dataGridViewControl.Controls.OfType<DataGridView>().First();
+                DataGridView dataGridView = dataGridViewControl.Controls.OfType<DataGridView>().First();
                 Assert.AreEqual(2, dataGridView.ColumnCount);
 
                 var locationCalculateColumn = (DataGridViewCheckBoxColumn) dataGridView.Columns[selectItemColumnIndex];

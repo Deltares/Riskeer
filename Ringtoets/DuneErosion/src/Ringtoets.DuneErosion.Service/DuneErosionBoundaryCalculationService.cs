@@ -22,7 +22,6 @@
 using System;
 using System.IO;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using log4net;
 using Ringtoets.Common.Data.Hydraulics;
@@ -183,7 +182,8 @@ namespace Ringtoets.DuneErosion.Service
                 log.WarnFormat(Resources.DuneErosionBoundaryCalculationService_CreateDuneLocationOutput_Calculation_for_location_0_not_converged, duneLocationName);
             }
 
-            return new DuneLocationOutput(converged, new DuneLocationOutput.ConstructionProperties
+            return new DuneLocationOutput(converged,
+                                          new DuneLocationOutput.ConstructionProperties
                                           {
                                               WaterLevel = calculator.WaterLevel,
                                               WaveHeight = calculator.WaveHeight,

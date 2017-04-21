@@ -30,7 +30,6 @@ namespace Ringtoets.Common.Data.TestUtil
         private static readonly string defaultName = "Test failure mechanism";
         private static readonly string defaultCode = "TFM";
         private readonly IList<FailureMechanismSectionResult> sectionResults;
-        private readonly IEnumerable<ICalculation> calculations;
 
         public TestFailureMechanism()
             : this(defaultName, defaultCode) {}
@@ -45,16 +44,10 @@ namespace Ringtoets.Common.Data.TestUtil
             : base(name, code)
         {
             sectionResults = new List<FailureMechanismSectionResult>();
-            this.calculations = calculations;
+            Calculations = calculations;
         }
 
-        public override IEnumerable<ICalculation> Calculations
-        {
-            get
-            {
-                return calculations;
-            }
-        }
+        public override IEnumerable<ICalculation> Calculations { get; }
 
         public IEnumerable<FailureMechanismSectionResult> SectionResults
         {

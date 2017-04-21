@@ -50,7 +50,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             const double y = 890.0;
 
             // Call
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y);
 
             // Assert
             Assert.IsInstanceOf<Observable>(hydraulicBoundaryLocation);
@@ -77,7 +77,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, testName, 0, 0);
 
             // Call
-            var result = hydraulicBoundaryLocation.ToString();
+            string result = hydraulicBoundaryLocation.ToString();
 
             // Assert
             Assert.AreEqual(testName, result);

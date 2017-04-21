@@ -312,11 +312,11 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                 DialogBoxHandler = (name, wnd) =>
                 {
-                    var dialog = (BackgroundMapDataSelectionDialog)new FormTester(name).TheObject;
+                    var dialog = (BackgroundMapDataSelectionDialog) new FormTester(name).TheObject;
                     var connectButton = new ButtonTester("connectToButton", dialog);
                     connectButton.Click();
 
-                    var layersControl = (DataGridViewControl)new ControlTester("dataGridViewControl", dialog).TheObject;
+                    var layersControl = (DataGridViewControl) new ControlTester("dataGridViewControl", dialog).TheObject;
                     layersControl.SetCurrentCell(layersControl.GetCell(0, 0));
 
                     var button = new ButtonTester("selectButton", dialog);
@@ -439,7 +439,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     var connectButton = new ButtonTester("connectToButton", dialog);
                     connectButton.Click();
 
-                    var layersControl = (DataGridViewControl )new ControlTester("dataGridViewControl", dialog).TheObject;
+                    var layersControl = (DataGridViewControl) new ControlTester("dataGridViewControl", dialog).TheObject;
                     layersControl.SetCurrentCell(layersControl.GetCell(0, 0));
 
                     var button = new ButtonTester("selectButton", dialog);

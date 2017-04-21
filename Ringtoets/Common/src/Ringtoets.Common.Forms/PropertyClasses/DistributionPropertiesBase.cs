@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
@@ -62,8 +60,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// <exception cref="ArgumentException">Any number of properties in this class is editable and the 
         /// <paramref name="handler"/> is <c>null</c>.</exception>
         protected DistributionPropertiesBase(DistributionPropertiesReadOnly propertiesReadOnly,
-                                                       TDistribution distribution,
-                                                       IObservablePropertyChangeHandler handler)
+                                             TDistribution distribution,
+                                             IObservablePropertyChangeHandler handler)
         {
             if (distribution == null)
             {

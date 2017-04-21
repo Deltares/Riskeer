@@ -98,7 +98,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             "Variatiecoëfficiënt",
                                                                             "De variatiecoëfficiënt van de lognormale verdeling.",
                                                                             variationCoefficientReadOnly);
-
         }
     }
 }

@@ -56,8 +56,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         private IEnumerable<Point2D> GetFormattedCoordinates()
         {
             return data.Geometry.Select(geometry => new Point2D(
-                                                        new RoundedDouble(0, geometry.X),
-                                                        new RoundedDouble(0, geometry.Y)));
+                                            new RoundedDouble(0, geometry.X),
+                                            new RoundedDouble(0, geometry.Y)));
         }
     }
 }

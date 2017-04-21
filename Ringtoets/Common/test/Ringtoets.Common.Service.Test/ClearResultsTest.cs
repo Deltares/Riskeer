@@ -43,7 +43,6 @@ namespace Ringtoets.Common.Service.Test
             Assert.AreSame(removedObjectsArray, results.RemovedObjects);
         }
 
-
         [Test]
         public void Constructor_ChangedObjectsNull_ThrowArgumentNullException()
         {
@@ -57,7 +56,6 @@ namespace Ringtoets.Common.Service.Test
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("changedObjects", paramName);
         }
-
 
         [Test]
         public void Constructor_RemovedObjectsNull_ThrowArgumentNullException()

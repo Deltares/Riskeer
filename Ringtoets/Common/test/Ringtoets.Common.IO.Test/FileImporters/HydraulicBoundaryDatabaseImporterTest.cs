@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;
@@ -109,13 +108,13 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             mocks.ReplayAll();
 
             string filePath = Path.Combine(testDataPath, "nonexisting.sqlite");
-            var expectedExceptionMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestand bestaat niet.", filePath);
+            string expectedExceptionMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestand bestaat niet.", filePath);
 
             // Call
             TestDelegate test = () => importer.Import(assessmentSection, filePath);
 
             // Assert
-            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+            var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(expectedExceptionMessage, exception.Message);
 
             mocks.VerifyAll();
@@ -130,16 +129,16 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             assessmentSection.Expect(section => section.NotifyObservers()).Repeat.Never();
             mocks.ReplayAll();
 
-            var invalidPath = Path.Combine(testDataPath, "complete.sqlite");
+            string invalidPath = Path.Combine(testDataPath, "complete.sqlite");
             invalidPath = invalidPath.Replace('c', Path.GetInvalidPathChars()[0]);
 
             // Call
             TestDelegate test = () => importer.Import(assessmentSection, invalidPath);
 
             // Assert
-            var expectedMessage = new FileReaderErrorMessageBuilder(invalidPath)
+            string expectedMessage = new FileReaderErrorMessageBuilder(invalidPath)
                 .Build("Er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.");
-            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+            var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
             Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
 
@@ -156,13 +155,13 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             mocks.ReplayAll();
 
             string filePath = Path.Combine(testDataPath, "/");
-            var expectedExceptionMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet verwijzen naar een lege bestandsnaam.", filePath);
+            string expectedExceptionMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet verwijzen naar een lege bestandsnaam.", filePath);
 
             // Call
             TestDelegate test = () => importer.Import(assessmentSection, filePath);
 
             // Assert
-            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+            var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(expectedExceptionMessage, exception.Message);
             Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
 
@@ -185,7 +184,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             // Assert
             string expectedMessage = new FileReaderErrorMessageBuilder(validFilePath).Build("Het bijbehorende HLCD bestand is niet gevonden in dezelfde map als het HRD bestand.");
-            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+            var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
 
             mocks.VerifyAll();
@@ -209,7 +208,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             string expectedMessage = new FileReaderErrorMessageBuilder(validFilePath).Build(string.Format(
                                                                                                 "Kon het rekeninstellingen bestand niet openen. Fout bij het lezen van bestand '{0}': het bestand bestaat niet.",
                                                                                                 HydraulicDatabaseHelper.GetHydraulicBoundarySettingsDatabase(validFilePath)));
-            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+            var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
 
             mocks.VerifyAll();
@@ -232,7 +231,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Assert
             string expectedMessage = new FileReaderErrorMessageBuilder(validFilePath).Build(
                 "Kon het rekeninstellingen bestand niet openen. De rekeninstellingen database heeft niet het juiste schema.");
-            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+            var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
 
             mocks.VerifyAll();
@@ -291,7 +290,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             importer.Import(assessmentSection, validFilePath);
 
             // Call
-            var importResult = importer.Import(assessmentSection, copyValidFilePath);
+            bool importResult = importer.Import(assessmentSection, copyValidFilePath);
 
             // Assert
             Assert.IsTrue(importResult);
@@ -321,7 +320,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             importer.Import(assessmentSection, validFilePath);
 
             // Call
-            var importResult = importer.Import(assessmentSection, validFilePath);
+            bool importResult = importer.Import(assessmentSection, validFilePath);
 
             // Assert
             Assert.IsTrue(importResult);
@@ -343,7 +342,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             mocks.ReplayAll();
 
             string corruptPath = Path.Combine(testDataPath, "corruptschema.sqlite");
-            var expectedLogMessage = string.Format("Fout bij het lezen van bestand '{0}': kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database. Het bestand wordt overgeslagen.", corruptPath);
+            string expectedLogMessage = string.Format("Fout bij het lezen van bestand '{0}': kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database. Het bestand wordt overgeslagen.", corruptPath);
 
             var importResult = true;
 

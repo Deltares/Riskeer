@@ -222,7 +222,7 @@ namespace Ringtoets.Common.Data.Test.Structures
             var random = new Random(22);
             var input = new SimpleStructuresInput();
             var mean = (RoundedDouble) (0.01 + random.NextDouble());
-            NormalDistribution expectedDistribution = new NormalDistribution(2)
+            var expectedDistribution = new NormalDistribution(2)
             {
                 Mean = mean,
                 StandardDeviation = input.ModelFactorSuperCriticalFlow.StandardDeviation

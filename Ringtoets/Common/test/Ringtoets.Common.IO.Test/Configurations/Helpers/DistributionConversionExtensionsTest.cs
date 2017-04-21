@@ -38,7 +38,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
         {
             // Setup
             IDistribution distribution = null;
-            
+
             // Call
             TestDelegate test = () => distribution.ToStochastConfiguration();
 
@@ -75,7 +75,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
         {
             // Setup
             IDistribution distribution = null;
-            
+
             // Call
             TestDelegate test = () => distribution.ToStochastConfigurationWithMean();
 
@@ -110,7 +110,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
         {
             // Setup
             IDistribution distribution = null;
-            
+
             // Call
             TestDelegate test = () => distribution.ToStochastConfigurationWithStandardDeviation();
 
@@ -317,14 +317,15 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             const string calculationName = "C";
 
             // Call
-            bool result = true;
+            var result = true;
             Action call = () => result = distribution.TrySetMean(mean, "B", "C");
 
             // Assert
-            var expectedMessage = Tuple.Create($"Een gemiddelde van '{mean}' is ongeldig voor stochast '{stochastName}'. " +
-                                               exceptionMessage +
-                                               $" Berekening '{calculationName}' is overgeslagen.",
-                                               LogLevelConstant.Error);
+            Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create(
+                $"Een gemiddelde van '{mean}' is ongeldig voor stochast '{stochastName}'. " +
+                exceptionMessage +
+                $" Berekening '{calculationName}' is overgeslagen.",
+                LogLevelConstant.Error);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(result);
 
@@ -401,14 +402,15 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             const string calculationName = "C";
 
             // Call
-            bool result = true;
+            var result = true;
             Action call = () => result = distribution.TrySetStandardDeviation(standardDeviation, "B", "C");
 
             // Assert
-            var expectedMessage = Tuple.Create($"Een standaardafwijking van '{standardDeviation}' is ongeldig voor stochast '{stochastName}'. " +
-                                               exceptionMessage +
-                                               $" Berekening '{calculationName}' is overgeslagen.",
-                                               LogLevelConstant.Error);
+            Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create(
+                $"Een standaardafwijking van '{standardDeviation}' is ongeldig voor stochast '{stochastName}'. " +
+                exceptionMessage +
+                $" Berekening '{calculationName}' is overgeslagen.",
+                LogLevelConstant.Error);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(result);
 
@@ -482,14 +484,15 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             const string calculationName = "C";
 
             // Call
-            bool result = true;
+            var result = true;
             Action call = () => result = distribution.TrySetDistributionProperties(mean, 2.2, "B", "C");
 
             // Assert
-            var expectedMessage = Tuple.Create($"Een gemiddelde van '{mean}' is ongeldig voor stochast '{stochastName}'. " +
-                                               exceptionMessage +
-                                               $" Berekening '{calculationName}' is overgeslagen.",
-                                               LogLevelConstant.Error);
+            Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create(
+                $"Een gemiddelde van '{mean}' is ongeldig voor stochast '{stochastName}'. " +
+                exceptionMessage +
+                $" Berekening '{calculationName}' is overgeslagen.",
+                LogLevelConstant.Error);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(result);
 
@@ -516,19 +519,21 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             const string calculationName = "C";
 
             // Call
-            bool result = true;
+            var result = true;
             Action call = () => result = distribution.TrySetDistributionProperties(1.1, standardDeviation, "B", "C");
 
             // Assert
-            var expectedMessage = Tuple.Create($"Een standaardafwijking van '{standardDeviation}' is ongeldig voor stochast '{stochastName}'. " +
-                                               exceptionMessage +
-                                               $" Berekening '{calculationName}' is overgeslagen.",
-                                               LogLevelConstant.Error);
+            Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create(
+                $"Een standaardafwijking van '{standardDeviation}' is ongeldig voor stochast '{stochastName}'. " +
+                exceptionMessage +
+                $" Berekening '{calculationName}' is overgeslagen.",
+                LogLevelConstant.Error);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(result);
 
             mocks.VerifyAll();
         }
+
         [Test]
         public void TrySetMean_VariationCoefficientDistributionNull_ThrownArgumentNullException()
         {
@@ -599,14 +604,15 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             const string calculationName = "C";
 
             // Call
-            bool result = true;
+            var result = true;
             Action call = () => result = distribution.TrySetMean(mean, "B", "C");
 
             // Assert
-            var expectedMessage = Tuple.Create($"Een gemiddelde van '{mean}' is ongeldig voor stochast '{stochastName}'. " +
-                                               exceptionMessage +
-                                               $" Berekening '{calculationName}' is overgeslagen.",
-                                               LogLevelConstant.Error);
+            Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create(
+                $"Een gemiddelde van '{mean}' is ongeldig voor stochast '{stochastName}'. " +
+                exceptionMessage +
+                $" Berekening '{calculationName}' is overgeslagen.",
+                LogLevelConstant.Error);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(result);
 
@@ -683,14 +689,15 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             const string calculationName = "C";
 
             // Call
-            bool result = true;
+            var result = true;
             Action call = () => result = distribution.TrySetVariationCoefficient(variationCoefficient, "B", "C");
 
             // Assert
-            var expectedMessage = Tuple.Create($"Een variatiecoëfficiënt van '{variationCoefficient}' is ongeldig voor stochast '{stochastName}'. " +
-                                               exceptionMessage +
-                                               $" Berekening '{calculationName}' is overgeslagen.",
-                                               LogLevelConstant.Error);
+            Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create(
+                $"Een variatiecoëfficiënt van '{variationCoefficient}' is ongeldig voor stochast '{stochastName}'. " +
+                exceptionMessage +
+                $" Berekening '{calculationName}' is overgeslagen.",
+                LogLevelConstant.Error);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(result);
 
@@ -764,14 +771,15 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             const string calculationName = "C";
 
             // Call
-            bool result = true;
+            var result = true;
             Action call = () => result = distribution.TrySetDistributionProperties(mean, 2.2, "B", "C");
 
             // Assert
-            var expectedMessage = Tuple.Create($"Een gemiddelde van '{mean}' is ongeldig voor stochast '{stochastName}'. " +
-                                               exceptionMessage +
-                                               $" Berekening '{calculationName}' is overgeslagen.",
-                                               LogLevelConstant.Error);
+            Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create(
+                $"Een gemiddelde van '{mean}' is ongeldig voor stochast '{stochastName}'. " +
+                exceptionMessage +
+                $" Berekening '{calculationName}' is overgeslagen.",
+                LogLevelConstant.Error);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(result);
 
@@ -798,14 +806,15 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             const string calculationName = "C";
 
             // Call
-            bool result = true;
+            var result = true;
             Action call = () => result = distribution.TrySetDistributionProperties(1.1, variationCoefficient, "B", "C");
 
             // Assert
-            var expectedMessage = Tuple.Create($"Een variatiecoëfficiënt van '{variationCoefficient}' is ongeldig voor stochast '{stochastName}'. " +
-                                               exceptionMessage +
-                                               $" Berekening '{calculationName}' is overgeslagen.",
-                                               LogLevelConstant.Error);
+            Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create(
+                $"Een variatiecoëfficiënt van '{variationCoefficient}' is ongeldig voor stochast '{stochastName}'. " +
+                exceptionMessage +
+                $" Berekening '{calculationName}' is overgeslagen.",
+                LogLevelConstant.Error);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(result);
 

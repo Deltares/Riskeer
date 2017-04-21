@@ -77,8 +77,8 @@ namespace Ringtoets.Common.Forms
             {
                 dataGridViewControl.SetDataSource(scenarioRows.ToArray());
 
-                var columnItems = ((DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(calculationsColumnIndex)).Items;
-                var items = calculations.Select(c => new DataGridViewComboBoxItemWrapper<ICalculation>(c));
+                DataGridViewComboBoxCell.ObjectCollection columnItems = ((DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(calculationsColumnIndex)).Items;
+                IEnumerable<DataGridViewComboBoxItemWrapper<ICalculation>> items = calculations.Select(c => new DataGridViewComboBoxItemWrapper<ICalculation>(c));
                 SetItemsOnObjectCollection(columnItems, items.Cast<object>().ToArray());
 
                 UpdateDataGridViewDataComboBoxesContent(calculationsPerSection);

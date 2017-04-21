@@ -37,28 +37,6 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
     {
         private RingtoetsPlugin plugin;
         private PropertyInfo info;
-        
-        private static IEnumerable<TestCaseData> ValidBackgroundDatas()
-        {
-            var wellKnownMapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingRoads);
-            WmtsMapData wmtsMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
-
-            yield return new TestCaseData(
-                new BackgroundData(new TestBackgroundDataConfiguration()))
-                .SetName("Arbitrary BackgroundData Configuration");
-            yield return new TestCaseData(
-                new BackgroundData(new WellKnownBackgroundDataConfiguration((RingtoetsWellKnownTileSource) wellKnownMapData.TileSource))
-            {
-                Name = wellKnownMapData.Name
-            }).SetName("WellKnown BingRoads BackgroundData");
-            yield return new TestCaseData(new BackgroundData(new WmtsBackgroundDataConfiguration(wmtsMapData.IsConfigured,
-                                                                    wmtsMapData.SourceCapabilitiesUrl,
-                                                                    wmtsMapData.SelectedCapabilityIdentifier,
-                                                                    wmtsMapData.PreferredFormat))
-            {
-                Name = wmtsMapData.Name
-            }).SetName("Wmts DefaultPdok BackgroundData");
-        }
 
         [SetUp]
         public void SetUp()
@@ -91,6 +69,28 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
             // Assert
             Assert.IsInstanceOf<BackgroundDataProperties>(objectProperties);
             Assert.AreSame(backgroundData, objectProperties.Data);
+        }
+
+        private static IEnumerable<TestCaseData> ValidBackgroundDatas()
+        {
+            var wellKnownMapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingRoads);
+            WmtsMapData wmtsMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
+
+            yield return new TestCaseData(
+                    new BackgroundData(new TestBackgroundDataConfiguration()))
+                .SetName("Arbitrary BackgroundData Configuration");
+            yield return new TestCaseData(
+                new BackgroundData(new WellKnownBackgroundDataConfiguration((RingtoetsWellKnownTileSource) wellKnownMapData.TileSource))
+                {
+                    Name = wellKnownMapData.Name
+                }).SetName("WellKnown BingRoads BackgroundData");
+            yield return new TestCaseData(new BackgroundData(new WmtsBackgroundDataConfiguration(wmtsMapData.IsConfigured,
+                                                                                                 wmtsMapData.SourceCapabilitiesUrl,
+                                                                                                 wmtsMapData.SelectedCapabilityIdentifier,
+                                                                                                 wmtsMapData.PreferredFormat))
+            {
+                Name = wmtsMapData.Name
+            }).SetName("Wmts DefaultPdok BackgroundData");
         }
     }
 }

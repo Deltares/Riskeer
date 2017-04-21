@@ -186,10 +186,10 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
 
             if (calculationItem != null && originalOwnerContext != null && targetContext != null)
             {
-                var sourceCalculationGroup = originalOwnerContext.WrappedData;
-                var targetCalculationGroup = targetContext.WrappedData;
+                CalculationGroup sourceCalculationGroup = originalOwnerContext.WrappedData;
+                CalculationGroup targetCalculationGroup = targetContext.WrappedData;
 
-                var isMoveWithinSameContainer = ReferenceEquals(sourceCalculationGroup, targetCalculationGroup);
+                bool isMoveWithinSameContainer = ReferenceEquals(sourceCalculationGroup, targetCalculationGroup);
 
                 DroppingCalculationInContainerStrategy dropHandler = GetDragDropStrategy(isMoveWithinSameContainer, sourceCalculationGroup, targetCalculationGroup);
                 dropHandler.Execute(droppedData, calculationItem, position, treeViewControl);

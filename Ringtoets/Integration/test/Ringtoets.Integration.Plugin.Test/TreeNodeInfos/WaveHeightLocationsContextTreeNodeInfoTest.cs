@@ -300,7 +300,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
                     using (new HydraRingCalculatorFactoryConfig())
                     {
-                        var testWaveHeightCalculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
+                        TestWaveHeightCalculator testWaveHeightCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
                         testWaveHeightCalculator.Converged = false;
 
                         // When
@@ -309,7 +309,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                         // Then
                         TestHelper.AssertLogMessages(action, messages =>
                         {
-                            var msgs = messages.ToArray();
+                            string[] msgs = messages.ToArray();
                             Assert.AreEqual(7, msgs.Length);
                             StringAssert.StartsWith($"Validatie van 'Golfhoogte berekenen voor locatie '{locationName}'' gestart om:", msgs[0]);
                             StringAssert.StartsWith($"Validatie van 'Golfhoogte berekenen voor locatie '{locationName}'' beëindigd om:", msgs[1]);

@@ -77,10 +77,10 @@ namespace Ringtoets.Integration.Forms.Test
             var settingsHelper = new RingtoetsSettingsHelper();
 
             // Call
-            var pathFromSettings = settingsHelper.GetCommonDocumentsDirectory();
+            string pathFromSettings = settingsHelper.GetCommonDocumentsDirectory();
 
             // Assert
-            var expectedPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "WTI", "Ringtoets");
+            string expectedPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "WTI", "Ringtoets");
             Assert.AreEqual(expectedPath, pathFromSettings);
         }
 
@@ -91,10 +91,10 @@ namespace Ringtoets.Integration.Forms.Test
             var settingsHelper = new RingtoetsSettingsHelper();
 
             // Call
-            var pathFromSettings = settingsHelper.GetCommonDocumentsDirectory("some folder");
+            string pathFromSettings = settingsHelper.GetCommonDocumentsDirectory("some folder");
 
             // Assert
-            var expectedPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "WTI", "Ringtoets", "some folder");
+            string expectedPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "WTI", "Ringtoets", "some folder");
             Assert.AreEqual(expectedPath, pathFromSettings);
         }
 
@@ -102,10 +102,10 @@ namespace Ringtoets.Integration.Forms.Test
         public void GetCommonDocumentsRingtoetsShapeFileDirectory_ReturnsExpectedDirectory()
         {
             // Setup
-            var expectedPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "WTI", "Ringtoets", "NBPW");
+            string expectedPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "WTI", "Ringtoets", "NBPW");
 
             // Call
-            var pathFromSettings = RingtoetsSettingsHelper.GetCommonDocumentsRingtoetsShapeFileDirectory();
+            string pathFromSettings = RingtoetsSettingsHelper.GetCommonDocumentsRingtoetsShapeFileDirectory();
 
             // Assert
             Assert.AreEqual(expectedPath, pathFromSettings);

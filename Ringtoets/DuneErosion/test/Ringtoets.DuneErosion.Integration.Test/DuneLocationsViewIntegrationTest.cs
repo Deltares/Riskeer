@@ -72,7 +72,7 @@ namespace Ringtoets.DuneErosion.Integration.Test
             if (rowSelected)
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                var rows = dataGridView.Rows;
+                DataGridViewRowCollection rows = dataGridView.Rows;
                 rows[0].Cells[locationCalculateColumnIndex].Value = true;
             }
 

@@ -52,8 +52,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         public void ConfirmCompositionChange_Always_ShowMessageBox()
         {
             // Setup
-            string title = "";
-            string message = "";
+            var title = "";
+            var message = "";
             DialogBoxHandler = (name, wnd) =>
             {
                 var tester = new MessageBoxTester(wnd);
@@ -291,7 +291,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         {
             // Setup
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsWithoutCalculationOutput(oldComposition);
-            
+
             GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GetFailureMechanisms()
                                                                                                                    .OfType<GrassCoverErosionOutwardsFailureMechanism>()
                                                                                                                    .Single();
@@ -430,10 +430,10 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             // Setup
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsWithoutHydraulicBoundaryLocationAndDuneOutput(oldComposition);
 
-            var expectedUnaffectedObjects = assessmentSection.GetFailureMechanisms()
-                                                             .SelectMany(fm => fm.Calculations)
-                                                             .Where(calc => calc.HasOutput)
-                                                             .ToList();
+            List<ICalculation> expectedUnaffectedObjects = assessmentSection.GetFailureMechanisms()
+                                                                            .SelectMany(fm => fm.Calculations)
+                                                                            .Where(calc => calc.HasOutput)
+                                                                            .ToList();
 
             IObservable[] expectedAffectedObjects =
             {

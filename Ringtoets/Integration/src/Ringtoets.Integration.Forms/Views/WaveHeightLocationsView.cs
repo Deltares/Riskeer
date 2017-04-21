@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -71,7 +72,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         protected override object CreateSelectedItemFromCurrentRow()
         {
-            var currentRow = dataGridViewControl.CurrentRow;
+            DataGridViewRow currentRow = dataGridViewControl.CurrentRow;
 
             return currentRow != null
                        ? new WaveHeightLocationContext(AssessmentSection.HydraulicBoundaryDatabase,
@@ -126,7 +127,7 @@ namespace Ringtoets.Integration.Forms.Views
             }
             else
             {
-                var hydraulicBoundaryDatabase = AssessmentSection.HydraulicBoundaryDatabase;
+                HydraulicBoundaryDatabase hydraulicBoundaryDatabase = AssessmentSection.HydraulicBoundaryDatabase;
                 hydraulicBoundaryDatabaseObserver.Observable = hydraulicBoundaryDatabase;
                 Data = hydraulicBoundaryDatabase.Locations;
             }

@@ -402,7 +402,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             Assert.AreEqual("Trajectkaart", mapDataCollection.Name);
 
-            var mapDataList = mapDataCollection.Collection.ToList();
+            List<MapData> mapDataList = mapDataCollection.Collection.ToList();
 
             Assert.AreEqual(2, mapDataList.Count);
 

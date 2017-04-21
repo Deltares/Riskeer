@@ -28,10 +28,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Defaults
     /// </summary>
     public class FailureMechanismDefaults
     {
-        private readonly int mechanismId;
-        private readonly IEnumerable<int> subMechanismIds;
-        private readonly int faultTreeModelId;
-
         /// <summary>
         /// Creates a new instance of the <see cref="FailureMechanismDefaults"/> class.
         /// </summary>
@@ -40,42 +36,24 @@ namespace Ringtoets.HydraRing.Calculation.Data.Defaults
         /// <param name="faultTreeModelId">The fault tree model id.</param>
         public FailureMechanismDefaults(int mechanismId, IEnumerable<int> subMechanismIds, int faultTreeModelId)
         {
-            this.mechanismId = mechanismId;
-            this.subMechanismIds = subMechanismIds;
-            this.faultTreeModelId = faultTreeModelId;
+            MechanismId = mechanismId;
+            SubMechanismIds = subMechanismIds;
+            FaultTreeModelId = faultTreeModelId;
         }
 
         /// <summary>
         /// Gets the mechanism id.
         /// </summary>
-        public int MechanismId
-        {
-            get
-            {
-                return mechanismId;
-            }
-        }
+        public int MechanismId { get; }
 
         /// <summary>
         /// Gets the sub mechanism ids that are applicable.
         /// </summary>
-        public IEnumerable<int> SubMechanismIds
-        {
-            get
-            {
-                return subMechanismIds;
-            }
-        }
+        public IEnumerable<int> SubMechanismIds { get; }
 
         /// <summary>
         /// Gets the fault tree model id.
         /// </summary>
-        public int FaultTreeModelId
-        {
-            get
-            {
-                return faultTreeModelId;
-            }
-        }
+        public int FaultTreeModelId { get; }
     }
 }

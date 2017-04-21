@@ -75,7 +75,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
         {
             // Setup
             var roughnessPointOne = new RoughnessPoint(new Point2D(0, 0), 0);
-            var roughnessPointTwo = roughnessPointOne;
+            RoughnessPoint roughnessPointTwo = roughnessPointOne;
 
             // Call
             bool isRoughnessPointOneEqualToTwo = roughnessPointOne.Equals(roughnessPointTwo);
@@ -162,7 +162,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
             Assert.IsFalse(isRoughnessPointOneEqualToTwo);
             Assert.IsFalse(isRoughnessPointTwoEqualToOne);
         }
-        
+
         [Test]
         public void Equals_ToNull_ReturnsTrue()
         {

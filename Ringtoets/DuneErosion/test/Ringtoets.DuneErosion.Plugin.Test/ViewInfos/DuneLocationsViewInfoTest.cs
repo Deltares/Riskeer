@@ -137,7 +137,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
 
             // Call
             bool additionalDataCheck = info.AdditionalDataCheck(context);
-            
+
             // Assert
             Assert.IsFalse(additionalDataCheck);
         }
@@ -157,7 +157,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
 
             // Call
             bool additionalDataCheck = info.AdditionalDataCheck(context);
-            
+
             // Assert
             Assert.IsTrue(additionalDataCheck);
         }
@@ -167,9 +167,9 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
         {
             // Setup
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSectionStub = mocks.Stub<IAssessmentSection>();
-            IMainWindow windowsStub = mocks.Stub<IMainWindow>();
-            IGui guiStub = mocks.Stub<IGui>();
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var windowsStub = mocks.Stub<IMainWindow>();
+            var guiStub = mocks.Stub<IGui>();
             guiStub.Stub(gs => gs.MainWindow).Return(windowsStub);
             mocks.ReplayAll();
 

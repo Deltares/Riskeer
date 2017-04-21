@@ -35,7 +35,7 @@ namespace Ringtoets.Common.Data.TestUtil
         /// </summary>
         public static double GetAccuracy(this RoundedDouble roundedDouble)
         {
-            return 0.5*Math.Pow(10.0, -roundedDouble.NumberOfDecimalPlaces);
+            return 0.5 * Math.Pow(10.0, -roundedDouble.NumberOfDecimalPlaces);
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace Ringtoets.Common.Data.TestUtil
         /// </summary>
         public static double GetAccuracy(this RoundedPoint2DCollection collection)
         {
-            return 0.5*Math.Pow(10.0, -collection.NumberOfDecimalPlaces);
+            return 0.5 * Math.Pow(10.0, -collection.NumberOfDecimalPlaces);
         }
     }
 }

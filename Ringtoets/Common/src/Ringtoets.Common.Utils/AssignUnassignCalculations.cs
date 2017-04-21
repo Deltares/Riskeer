@@ -52,13 +52,13 @@ namespace Ringtoets.Common.Utils
             ValidateSectionResults(sectionResults);
             ValidateCalculations(calculations);
 
-            var sectionResultsArray = sectionResults.ToArray();
+            SectionResultWithCalculationAssignment[] sectionResultsArray = sectionResults.ToArray();
 
             Dictionary<string, IList<ICalculation>> calculationsPerSegmentName =
                 CollectCalculationsPerSection(sectionResultsArray.Select(sr => sr.Result.Section), calculations);
 
             return UnassignCalculationInAllSectionResultsAndAssignSingleRemainingCalculation(
-                sectionResultsArray, 
+                sectionResultsArray,
                 calculationsPerSegmentName);
         }
 
@@ -85,7 +85,7 @@ namespace Ringtoets.Common.Utils
 
             var calculationsPerSegment = new Dictionary<string, IList<ICalculation>>();
 
-            foreach (var calculationWithLocation in calculations)
+            foreach (CalculationWithLocation calculationWithLocation in calculations)
             {
                 FailureMechanismSection section = FindSectionAtLocation(sectionSegments, calculationWithLocation.Location);
                 if (section == null)

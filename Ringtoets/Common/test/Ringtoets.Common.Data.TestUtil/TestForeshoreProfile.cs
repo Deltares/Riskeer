@@ -36,7 +36,7 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <see cref="Point2D"/>.
         /// </summary>
         /// <param name="worldReferencePoint">Location of the profile.</param>
-        public TestForeshoreProfile(Point2D worldReferencePoint) : this("id", null, worldReferencePoint, null, Enumerable.Empty<Point2D>()) { }
+        public TestForeshoreProfile(Point2D worldReferencePoint) : this("id", null, worldReferencePoint, null, Enumerable.Empty<Point2D>()) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TestForeshoreProfile"/>.

@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Drawing;
 using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
@@ -72,7 +74,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             // Call
-            var viewName = info.GetViewName(viewMock, comment);
+            string viewName = info.GetViewName(viewMock, comment);
 
             // Assert
             Assert.AreEqual("Opmerkingen", viewName);
@@ -86,7 +88,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var comment = new Comment();
 
             // Call
-            var viewData = info.GetViewData(comment);
+            object viewData = info.GetViewData(comment);
 
             // Assert
             Assert.AreSame(comment, viewData);
@@ -96,7 +98,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void ViewType_Always_ReturnsViewType()
         {
             // Call
-            var viewType = info.ViewType;
+            Type viewType = info.ViewType;
 
             // Assert
             Assert.AreEqual(typeof(CommentView), viewType);
@@ -106,7 +108,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void DataType_Always_ReturnsDataType()
         {
             // Call
-            var dataType = info.DataType;
+            Type dataType = info.DataType;
 
             // Assert
             Assert.AreEqual(typeof(Comment), dataType);
@@ -116,7 +118,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void ViewDataType_Always_ReturnViewDataType()
         {
             // Call
-            var viewDataType = info.ViewDataType;
+            Type viewDataType = info.ViewDataType;
 
             // Assert
             Assert.AreEqual(typeof(Comment), viewDataType);
@@ -126,7 +128,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void Image_Always_ReturnsEditDocumentIcon()
         {
             // Call
-            var image = info.Image;
+            Image image = info.Image;
 
             // Assert
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.EditDocumentIcon, image);
@@ -145,7 +147,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             })
             {
                 // Call
-                var closeForData = info.CloseForData(view, new object());
+                bool closeForData = info.CloseForData(view, new object());
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -168,7 +170,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             })
             {
                 // Call
-                var closeForData = info.CloseForData(view, assessmentSection);
+                bool closeForData = info.CloseForData(view, assessmentSection);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -195,7 +197,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             })
             {
                 // Call
-                var closeForData = info.CloseForData(view, deletedAssessmentSection);
+                bool closeForData = info.CloseForData(view, deletedAssessmentSection);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -233,7 +235,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             })
             {
                 // Call
-                var closeForData = info.CloseForData(view, assessmentSection);
+                bool closeForData = info.CloseForData(view, assessmentSection);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -273,7 +275,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             })
             {
                 // Call
-                var closeForData = info.CloseForData(view, deletedAssessmentSection);
+                bool closeForData = info.CloseForData(view, deletedAssessmentSection);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -307,7 +309,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             })
             {
                 // Call
-                var closeForData = info.CloseForData(view, assessmentSection);
+                bool closeForData = info.CloseForData(view, assessmentSection);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -341,7 +343,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             })
             {
                 // Call
-                var closeForData = info.CloseForData(view, assessmentSection);
+                bool closeForData = info.CloseForData(view, assessmentSection);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -375,7 +377,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             })
             {
                 // Call
-                var closeForData = info.CloseForData(view, assessmentSection);
+                bool closeForData = info.CloseForData(view, assessmentSection);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -409,7 +411,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             })
             {
                 // Call
-                var closeForData = info.CloseForData(view, assessmentSection);
+                bool closeForData = info.CloseForData(view, assessmentSection);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -443,7 +445,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             })
             {
                 // Call
-                var closeForData = info.CloseForData(view, failureMechanismContext);
+                bool closeForData = info.CloseForData(view, failureMechanismContext);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -480,7 +482,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             })
             {
                 // Call
-                var closeForData = info.CloseForData(view, failureMechanismContext);
+                bool closeForData = info.CloseForData(view, failureMechanismContext);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -512,7 +514,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             })
             {
                 // Call
-                var closeForData = info.CloseForData(view, failureMechanism);
+                bool closeForData = info.CloseForData(view, failureMechanism);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -546,7 +548,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             })
             {
                 // Call
-                var closeForData = info.CloseForData(view, failureMechanism);
+                bool closeForData = info.CloseForData(view, failureMechanism);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -574,7 +576,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             })
             {
                 // Call
-                var closeForData = info.CloseForData(view, failureMechanism);
+                bool closeForData = info.CloseForData(view, failureMechanism);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -599,7 +601,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             })
             {
                 // Call
-                var closeForData = info.CloseForData(view, deletedCalculationContext);
+                bool closeForData = info.CloseForData(view, deletedCalculationContext);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -628,7 +630,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             })
             {
                 // Call
-                var closeForData = info.CloseForData(view, deletedCalculationContext);
+                bool closeForData = info.CloseForData(view, deletedCalculationContext);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -662,7 +664,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             })
             {
                 // Call
-                var closeForData = info.CloseForData(view, deletedGroupContext);
+                bool closeForData = info.CloseForData(view, deletedGroupContext);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -697,7 +699,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             })
             {
                 // Call
-                var closeForData = info.CloseForData(view, deletedGroupContext);
+                bool closeForData = info.CloseForData(view, deletedGroupContext);
 
                 // Assert
                 Assert.IsFalse(closeForData);

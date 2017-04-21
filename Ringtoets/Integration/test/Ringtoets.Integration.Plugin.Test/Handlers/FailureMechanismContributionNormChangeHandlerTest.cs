@@ -54,8 +54,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         public void ConfirmNormChange_Always_ShownMessageBoxForConfirmation()
         {
             // Setup
-            string title = "";
-            string message = "";
+            var title = "";
+            var message = "";
             DialogBoxHandler = (name, wnd) =>
             {
                 var tester = new MessageBoxTester(wnd);
@@ -154,9 +154,9 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             // Setup
             AssessmentSection section = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
             ICalculation[] expectedAffectedCalculations = section.GetFailureMechanisms()
-                                                      .SelectMany(fm => fm.Calculations)
-                                                      .Where(c => c.HasOutput)
-                                                      .ToArray();
+                                                                 .SelectMany(fm => fm.Calculations)
+                                                                 .Where(c => c.HasOutput)
+                                                                 .ToArray();
 
             IEnumerable<IObservable> expectedAffectedObjects =
                 expectedAffectedCalculations.Cast<IObservable>()
@@ -211,7 +211,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         {
             // Setup
             AssessmentSection section = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsWithoutCalculationOutput();
-           
+
             IEnumerable<IObservable> expectedAffectedObjects =
                 section.GetFailureMechanisms().Cast<IObservable>()
                        .Concat(section.GrassCoverErosionOutwards.HydraulicBoundaryLocations)
@@ -257,11 +257,11 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         {
             // Setup
             AssessmentSection section = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsWithoutHydraulicBoundaryLocationAndDuneOutput();
-            
-            var expectedAffectedCalculations = section.GetFailureMechanisms()
-                                                      .SelectMany(fm => fm.Calculations)
-                                                      .Where(c => c.HasOutput)
-                                                      .ToArray();
+
+            ICalculation[] expectedAffectedCalculations = section.GetFailureMechanisms()
+                                                                 .SelectMany(fm => fm.Calculations)
+                                                                 .Where(c => c.HasOutput)
+                                                                 .ToArray();
             var handler = new FailureMechanismContributionNormChangeHandler();
 
             IEnumerable<IObservable> affectedObjects = null;
@@ -278,12 +278,12 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             CollectionAssert.IsEmpty(section.GetFailureMechanisms().SelectMany(fm => fm.Calculations).Where(c => c.HasOutput),
                                      "There should be no calculations with output.");
 
-            var expectedAffectedObjects = expectedAffectedCalculations.Cast<IObservable>()
-                                                                      .Concat(section.GetFailureMechanisms())
-                                                                      .Concat(new IObservable[]
-                                                                      {
-                                                                          section.FailureMechanismContribution
-                                                                      });
+            IEnumerable<IObservable> expectedAffectedObjects = expectedAffectedCalculations.Cast<IObservable>()
+                                                                                           .Concat(section.GetFailureMechanisms())
+                                                                                           .Concat(new IObservable[]
+                                                                                           {
+                                                                                               section.FailureMechanismContribution
+                                                                                           });
             CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
         }
     }

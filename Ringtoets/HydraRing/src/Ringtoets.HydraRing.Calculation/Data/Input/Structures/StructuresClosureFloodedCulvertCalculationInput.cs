@@ -121,7 +121,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         {
             get
             {
-                var variables = base.Variables.ToList();
+                List<HydraRingVariable> variables = base.Variables.ToList();
                 variables.AddRange(GetVariables());
 
                 return variables.OrderBy(v => v.VariableId);

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Diagnostics;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Services;
 
@@ -35,7 +36,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
             var workingDirectory = "D:\\workingDirectory";
             var mechanismComputationExeFilePath = "D:\\mechanismComputation.exe";
 
-            var process = HydraRingProcessFactory.Create(mechanismComputationExeFilePath, iniFilePath, workingDirectory);
+            Process process = HydraRingProcessFactory.Create(mechanismComputationExeFilePath, iniFilePath, workingDirectory);
 
             // Assert
             Assert.AreEqual(mechanismComputationExeFilePath, process.StartInfo.FileName);

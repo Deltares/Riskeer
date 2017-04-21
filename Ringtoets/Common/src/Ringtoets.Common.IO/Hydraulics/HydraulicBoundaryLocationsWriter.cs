@@ -103,7 +103,7 @@ namespace Ringtoets.Common.IO.Hydraulics
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocation));
             }
 
-            MapGeometry hydraulicBoundaryLocationGeometry = new MapGeometry(
+            var hydraulicBoundaryLocationGeometry = new MapGeometry(
                 new List<IEnumerable<Point2D>>
                 {
                     new[]
@@ -112,7 +112,7 @@ namespace Ringtoets.Common.IO.Hydraulics
                     }
                 });
 
-            MapFeature mapFeature = new MapFeature(new[]
+            var mapFeature = new MapFeature(new[]
             {
                 hydraulicBoundaryLocationGeometry
             });

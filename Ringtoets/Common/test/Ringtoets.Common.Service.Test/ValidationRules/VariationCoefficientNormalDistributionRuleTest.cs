@@ -68,7 +68,7 @@ namespace Ringtoets.Common.Service.Test.ValidationRules
 
             // Assert
             Assert.AreEqual(1, validationMessages.Length);
-            var expectedMessage = string.Format("De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", paramName);
+            string expectedMessage = string.Format("De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", paramName);
             StringAssert.StartsWith(expectedMessage, validationMessages[0]);
         }
 
@@ -92,7 +92,7 @@ namespace Ringtoets.Common.Service.Test.ValidationRules
 
             // Assert
             Assert.AreEqual(1, validationMessages.Length);
-            var expectedMessage = string.Format("De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", paramName);
+            string expectedMessage = string.Format("De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", paramName);
             StringAssert.StartsWith(expectedMessage, validationMessages[0]);
         }
     }

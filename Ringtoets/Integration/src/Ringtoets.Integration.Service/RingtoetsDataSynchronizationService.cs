@@ -74,7 +74,7 @@ namespace Ringtoets.Integration.Service
 
             var changedObservables = new List<IObservable>();
 
-            foreach (var failureMechanism in assessmentSection.GetFailureMechanisms())
+            foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
             {
                 var pipingFailureMechanism = failureMechanism as PipingFailureMechanism;
                 var grassCoverErosionInwardsFailureMechanism = failureMechanism as GrassCoverErosionInwardsFailureMechanism;
@@ -153,7 +153,7 @@ namespace Ringtoets.Integration.Service
 
             var changedObservables = new List<IObservable>();
 
-            foreach (var failureMechanism in failureMechanisms)
+            foreach (IFailureMechanism failureMechanism in failureMechanisms)
             {
                 var pipingFailureMechanism = failureMechanism as PipingFailureMechanism;
                 var grassCoverErosionInwardsFailureMechanism = failureMechanism as GrassCoverErosionInwardsFailureMechanism;
@@ -560,7 +560,7 @@ namespace Ringtoets.Integration.Service
                 .ToArray();
             foreach (GrassCoverErosionInwardsCalculation calculation in calculationWithRemovedDikeProfile)
             {
-                foreach (var calculationWithRemovedOutput in RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation))
+                foreach (IObservable calculationWithRemovedOutput in RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation))
                 {
                     changedObservables.Add(calculationWithRemovedOutput);
                 }

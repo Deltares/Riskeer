@@ -26,8 +26,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Variables
     /// </summary>
     public class LogNormalHydraRingVariable : RandomHydraRingVariable
     {
-        private readonly double shift;
-
         /// <summary>
         /// Creates a new instance of <see cref="LogNormalHydraRingVariable"/>.
         /// </summary>
@@ -40,16 +38,10 @@ namespace Ringtoets.HydraRing.Calculation.Data.Variables
                                           double mean, double variance, double shift = double.NaN)
             : base(variableId, deviationType, mean, variance)
         {
-            this.shift = shift;
+            Parameter3 = shift;
         }
 
-        public override double Parameter3
-        {
-            get
-            {
-                return shift;
-            }
-        }
+        public override double Parameter3 { get; }
 
         public override HydraRingDistributionType DistributionType
         {

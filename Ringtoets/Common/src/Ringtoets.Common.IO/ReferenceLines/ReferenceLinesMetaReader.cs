@@ -25,12 +25,12 @@ using System.IO;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
 using Core.Common.Utils.Properties;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
+using Core.Components.Gis.Geometries;
 using Core.Components.Gis.IO.Readers;
 using Ringtoets.Common.Data.AssessmentSection;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
@@ -63,7 +63,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
         {
             ValidateFilePath(shapeFilePath);
 
-            using (var reader = OpenPolyLineShapeFile(shapeFilePath))
+            using (PolylineShapeFileReader reader = OpenPolyLineShapeFile(shapeFilePath))
             {
                 ValidateExistenceOfRequiredAttributes(reader, shapeFilePath);
 
@@ -89,7 +89,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
 
         private static ReferenceLineMeta ReadReferenceLinesMeta(PolylineShapeFileReader reader)
         {
-            var lineData = ReadMapLineData(reader);
+            MapLineData lineData = ReadMapLineData(reader);
             return lineData == null ? null : CreateReferenceLineMeta(lineData);
         }
 
@@ -118,11 +118,11 @@ namespace Ringtoets.Common.IO.ReferenceLines
         /// <exception cref="CriticalFileReadException">Thrown when the shape file lacks one of the mandatory attributes.</exception>
         private static void ValidateExistenceOfRequiredAttributes(PolylineShapeFileReader polylineShapeFileReader, string shapeFilePath)
         {
-            var missingAttributes = GetMissingAttributes(polylineShapeFileReader);
+            IList<string> missingAttributes = GetMissingAttributes(polylineShapeFileReader);
             if (missingAttributes.Any())
             {
-                var message = string.Format(RingtoetsCommonIOResources.ReferenceLinesMetaReader_File_0_lacks_required_Attribute_1_,
-                                            shapeFilePath, string.Join("', '", missingAttributes));
+                string message = string.Format(RingtoetsCommonIOResources.ReferenceLinesMetaReader_File_0_lacks_required_Attribute_1_,
+                                               shapeFilePath, string.Join("', '", missingAttributes));
                 throw new CriticalFileReadException(message);
             }
         }
@@ -174,7 +174,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
         /// <returns>The newly created <see cref="ReferenceLineMeta"/>.</returns>
         private static ReferenceLineMeta CreateReferenceLineMeta(MapLineData lineData)
         {
-            var feature = lineData.Features.First();
+            MapFeature feature = lineData.Features.First();
 
             string assessmentSectionId = GetAssessmentSectionId(feature);
             int? signalingValue = ParseNormValue(feature.MetaData[signalingValueAttributeKey]);
@@ -205,7 +205,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
         /// <returns>A <see cref="Point2D"/> collection that represents the <paramref name="lineFeature"/>'s geometry.</returns>
         private static IEnumerable<Point2D> GetSectionGeometry(MapFeature lineFeature)
         {
-            var mapGeometries = lineFeature.MapGeometries.ToArray();
+            MapGeometry[] mapGeometries = lineFeature.MapGeometries.ToArray();
             if (mapGeometries.Length != 1)
             {
                 return Enumerable.Empty<Point2D>();

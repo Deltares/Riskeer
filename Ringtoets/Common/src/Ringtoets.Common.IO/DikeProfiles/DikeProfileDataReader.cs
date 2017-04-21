@@ -28,7 +28,6 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -117,7 +116,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
             {
                 fileBeingRead = filePath;
                 string text;
-                int lineNumber = 0;
+                var lineNumber = 0;
                 while ((text = ReadLineAndHandleIOExceptions(reader, ++lineNumber)) != null)
                 {
                     if (string.IsNullOrWhiteSpace(text))
@@ -229,17 +228,17 @@ namespace Ringtoets.Common.IO.DikeProfiles
             }
             catch (FormatException e)
             {
-                var message = Resources.DikeProfileDataReader_ValidateVersion_Only_version_four_zero_supported;
+                string message = Resources.DikeProfileDataReader_ValidateVersion_Only_version_four_zero_supported;
                 throw CreateCriticalFileReadException(lineNumber, message, e);
             }
             catch (OverflowException e)
             {
-                var message = Resources.DikeProfileDataReader_ValidateVersion_Only_version_four_zero_supported;
+                string message = Resources.DikeProfileDataReader_ValidateVersion_Only_version_four_zero_supported;
                 throw CreateCriticalFileReadException(lineNumber, message, e);
             }
             catch (ArgumentException e)
             {
-                var message = Resources.DikeProfileDataReader_ValidateVersion_Only_version_four_zero_supported;
+                string message = Resources.DikeProfileDataReader_ValidateVersion_Only_version_four_zero_supported;
                 throw CreateCriticalFileReadException(lineNumber, message, e);
             }
         }
@@ -367,14 +366,14 @@ namespace Ringtoets.Common.IO.DikeProfiles
             }
             catch (FormatException e)
             {
-                var message = string.Format(Resources.DikeProfileDataReader_ParseOrientation_Orientation_0_not_double,
-                                            readOrientationText);
+                string message = string.Format(Resources.DikeProfileDataReader_ParseOrientation_Orientation_0_not_double,
+                                               readOrientationText);
                 throw CreateCriticalFileReadException(lineNumber, message, e);
             }
             catch (OverflowException e)
             {
-                var message = string.Format(Resources.DikeProfileDataReader_ParseOrientation_Orientation_0_overflows,
-                                            readOrientationText);
+                string message = string.Format(Resources.DikeProfileDataReader_ParseOrientation_Orientation_0_overflows,
+                                               readOrientationText);
                 throw CreateCriticalFileReadException(lineNumber, message, e);
             }
         }
@@ -442,14 +441,14 @@ namespace Ringtoets.Common.IO.DikeProfiles
             }
             catch (FormatException e)
             {
-                var message = string.Format(Resources.DikeProfileDataReader_ParseDamType_DamType_0_must_be_in_range,
-                                            readDamTypeText);
+                string message = string.Format(Resources.DikeProfileDataReader_ParseDamType_DamType_0_must_be_in_range,
+                                               readDamTypeText);
                 throw CreateCriticalFileReadException(lineNumber, message, e);
             }
             catch (OverflowException e)
             {
-                var message = string.Format(Resources.DikeProfileDataReader_ParseDamType_DamType_0_must_be_in_range,
-                                            readDamTypeText);
+                string message = string.Format(Resources.DikeProfileDataReader_ParseDamType_DamType_0_must_be_in_range,
+                                               readDamTypeText);
                 throw CreateCriticalFileReadException(lineNumber, message, e);
             }
 
@@ -546,7 +545,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
                 ValidateNoPriorParameterDefinition(Keywords.DAMHOOGTE, lineNumber);
 
                 string readDamHeightText = damHeightMatch.Groups["damheight"].Value;
-                var damHeight = ParseDamHeight(readDamHeightText, lineNumber);
+                double damHeight = ParseDamHeight(readDamHeightText, lineNumber);
 
                 data.DamHeight = damHeight;
                 readKeywords |= Keywords.DAMHOOGTE;
@@ -675,7 +674,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
                 }
 
                 data.DikeGeometry = new RoughnessPoint[numberOfPoints];
-                for (int i = 0; i < numberOfPoints; i++)
+                for (var i = 0; i < numberOfPoints; i++)
                 {
                     lineNumber++;
                     text = ReadLineAndHandleIOExceptions(reader, lineNumber);
@@ -876,7 +875,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
                 ValidateNoPriorParameterDefinition(Keywords.VOORLAND, lineNumber);
 
                 string readForeshoreCountText = foreshoreGeometryMatch.Groups["foreshoregeometry"].Value;
-                var numberOfElements = ParseNumberOfForeshoreElements(readForeshoreCountText, lineNumber);
+                int numberOfElements = ParseNumberOfForeshoreElements(readForeshoreCountText, lineNumber);
 
                 ValidateForeshorePointCount(numberOfElements, lineNumber);
 
@@ -887,7 +886,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
                 }
 
                 data.ForeshoreGeometry = new RoughnessPoint[numberOfElements];
-                for (int i = 0; i < numberOfElements; i++)
+                for (var i = 0; i < numberOfElements; i++)
                 {
                     lineNumber++;
                     text = ReadLineAndHandleIOExceptions(reader, lineNumber);
@@ -1031,7 +1030,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
             }
             catch (IOException e)
             {
-                var message = new FileReaderErrorMessageBuilder(fileBeingRead).Build(string.Format(UtilsResources.Error_General_IO_ErrorMessage_0_, e.Message));
+                string message = new FileReaderErrorMessageBuilder(fileBeingRead).Build(string.Format(UtilsResources.Error_General_IO_ErrorMessage_0_, e.Message));
                 throw new CriticalFileReadException(message, e);
             }
         }
@@ -1046,8 +1045,8 @@ namespace Ringtoets.Common.IO.DikeProfiles
         private CriticalFileReadException CreateCriticalFileReadException(int currentLine, string criticalErrorMessage, Exception innerException = null)
         {
             string locationDescription = string.Format(UtilsResources.TextFile_On_LineNumber_0_, currentLine);
-            var message = new FileReaderErrorMessageBuilder(fileBeingRead).WithLocation(locationDescription)
-                                                                          .Build(criticalErrorMessage);
+            string message = new FileReaderErrorMessageBuilder(fileBeingRead).WithLocation(locationDescription)
+                                                                             .Build(criticalErrorMessage);
             return new CriticalFileReadException(message, innerException);
         }
 
@@ -1072,7 +1071,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
             {
                 string criticalErrorMessage = string.Format(Resources.DikeProfileDataReader_ValidateNoMissingKeywords_List_mising_keywords_0_,
                                                             string.Join(", ", missingKeywords));
-                var message = new FileReaderErrorMessageBuilder(fileBeingRead)
+                string message = new FileReaderErrorMessageBuilder(fileBeingRead)
                     .Build(criticalErrorMessage);
                 throw new CriticalFileReadException(message);
             }

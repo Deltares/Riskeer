@@ -39,7 +39,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
                 GeneralTableDefinitions.TrackId,
                 GeneralTableDefinitions.GeneratedVersion,
                 GeneralTableDefinitions.TableName
-                );
+            );
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
                 "SELECT {0} FROM {1} LIMIT 0,1;",
                 GeneralTableDefinitions.TrackId,
                 GeneralTableDefinitions.TableName
-                );
+            );
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
                 HrdLocationsTableDefinitions.Count,
                 HrdLocationsTableDefinitions.TableName,
                 HrdLocationsTableDefinitions.LocationTypeId // Value > 1 makes it relevant
-                );
+            );
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
                 HrdLocationsTableDefinitions.YCoordinate,
                 HrdLocationsTableDefinitions.TableName,
                 HrdLocationsTableDefinitions.LocationTypeId // Value > 1 makes it relevant
-                );
+            );
         }
     }
 }

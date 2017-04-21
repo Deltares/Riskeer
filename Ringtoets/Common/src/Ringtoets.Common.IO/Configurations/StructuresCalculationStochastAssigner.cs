@@ -199,29 +199,6 @@ namespace Ringtoets.Common.IO.Configurations
         public class StandardDeviationDefinition
         {
             /// <summary>
-            /// Gets the name of the stochast.
-            /// </summary>
-            public string StochastName { get; }
-
-            /// <summary>
-            /// Gets the configuration of the stochast. Can return <c>null</c>
-            /// if no configuration was defined.
-            /// </summary>
-            public StochastConfiguration Configuration { get; }
-
-            /// <summary>
-            /// The method for obtaining the distribution matching the stochast
-            /// to be configured, from the input.
-            /// </summary>
-            public Func<TInput, IDistribution> Getter { get; }
-
-            /// <summary>
-            /// The method for assigning the distribution matching the stochast
-            /// to be configured, to the input.
-            /// </summary>
-            public Action<TInput, IDistribution> Setter { get; }
-
-            /// <summary>
             /// Creates a new instance of <see cref="StandardDeviationDefinition"/>.
             /// </summary>
             /// <param name="stochastName">The name of the stochast.</param>
@@ -255,13 +232,7 @@ namespace Ringtoets.Common.IO.Configurations
                 Getter = getter;
                 Setter = setter;
             }
-        }
 
-        /// <summary>
-        /// A definition for a stochast with operations defining how to get and set the stochast.
-        /// </summary>
-        public class VariationCoefficientDefinition
-        {
             /// <summary>
             /// Gets the name of the stochast.
             /// </summary>
@@ -277,14 +248,20 @@ namespace Ringtoets.Common.IO.Configurations
             /// The method for obtaining the distribution matching the stochast
             /// to be configured, from the input.
             /// </summary>
-            public Func<TInput, IVariationCoefficientDistribution> Getter { get; }
+            public Func<TInput, IDistribution> Getter { get; }
 
             /// <summary>
             /// The method for assigning the distribution matching the stochast
             /// to be configured, to the input.
             /// </summary>
-            public Action<TInput, IVariationCoefficientDistribution> Setter { get; }
+            public Action<TInput, IDistribution> Setter { get; }
+        }
 
+        /// <summary>
+        /// A definition for a stochast with operations defining how to get and set the stochast.
+        /// </summary>
+        public class VariationCoefficientDefinition
+        {
             /// <summary>
             /// Creates a new instance of <see cref="VariationCoefficientDefinition"/>.
             /// </summary>
@@ -319,6 +296,29 @@ namespace Ringtoets.Common.IO.Configurations
                 Getter = getter;
                 Setter = setter;
             }
+
+            /// <summary>
+            /// Gets the name of the stochast.
+            /// </summary>
+            public string StochastName { get; }
+
+            /// <summary>
+            /// Gets the configuration of the stochast. Can return <c>null</c>
+            /// if no configuration was defined.
+            /// </summary>
+            public StochastConfiguration Configuration { get; }
+
+            /// <summary>
+            /// The method for obtaining the distribution matching the stochast
+            /// to be configured, from the input.
+            /// </summary>
+            public Func<TInput, IVariationCoefficientDistribution> Getter { get; }
+
+            /// <summary>
+            /// The method for assigning the distribution matching the stochast
+            /// to be configured, to the input.
+            /// </summary>
+            public Action<TInput, IVariationCoefficientDistribution> Setter { get; }
         }
     }
 }

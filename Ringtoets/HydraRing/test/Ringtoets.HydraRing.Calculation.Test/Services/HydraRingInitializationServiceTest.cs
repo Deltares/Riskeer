@@ -59,20 +59,20 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
             string filePath = Path.Combine(path, "HLCD.sqlite");
 
             var hydraRingInitializationService = new HydraRingInitializationService(HydraRingFailureMechanismType.StructuresStructuralFailure, 700001, path, "");
-            var configurationDatabaseFilePath = Path.Combine(hydraRingDirectory, "config.sqlite");
+            string configurationDatabaseFilePath = Path.Combine(hydraRingDirectory, "config.sqlite");
 
-            var expectedInitializationScript = "section             = 700001" + Environment.NewLine +
-                                               "mechanism           = 112" + Environment.NewLine +
-                                               "alternative         = 1" + Environment.NewLine +
-                                               "layer               = 1" + Environment.NewLine +
-                                               "logfile             = 700001.log" + Environment.NewLine +
-                                               "outputverbosity     = basic" + Environment.NewLine +
-                                               "outputtofile        = file" + Environment.NewLine +
-                                               "projectdbfilename   = 700001.sql" + Environment.NewLine +
-                                               "outputfilename      = designTable.txt" + Environment.NewLine +
-                                               "configdbfilename    = " + configurationDatabaseFilePath + Environment.NewLine +
-                                               "hydraulicdbfilename = " + filePath + Environment.NewLine + 
-                                               "designpointOutput   = sqlite";
+            string expectedInitializationScript = "section             = 700001" + Environment.NewLine +
+                                                  "mechanism           = 112" + Environment.NewLine +
+                                                  "alternative         = 1" + Environment.NewLine +
+                                                  "layer               = 1" + Environment.NewLine +
+                                                  "logfile             = 700001.log" + Environment.NewLine +
+                                                  "outputverbosity     = basic" + Environment.NewLine +
+                                                  "outputtofile        = file" + Environment.NewLine +
+                                                  "projectdbfilename   = 700001.sql" + Environment.NewLine +
+                                                  "outputfilename      = designTable.txt" + Environment.NewLine +
+                                                  "configdbfilename    = " + configurationDatabaseFilePath + Environment.NewLine +
+                                                  "hydraulicdbfilename = " + filePath + Environment.NewLine +
+                                                  "designpointOutput   = sqlite";
 
             try
             {
@@ -80,7 +80,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
                 hydraRingInitializationService.WriteInitializationScript();
 
                 // Assert
-                var initializationScript = File.ReadAllText(hydraRingInitializationService.IniFilePath);
+                string initializationScript = File.ReadAllText(hydraRingInitializationService.IniFilePath);
                 Assert.AreEqual(expectedInitializationScript, initializationScript);
             }
             finally

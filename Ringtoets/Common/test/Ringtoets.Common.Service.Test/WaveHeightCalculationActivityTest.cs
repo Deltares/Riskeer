@@ -31,6 +31,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 
 namespace Ringtoets.Common.Service.Test
@@ -132,7 +133,7 @@ namespace Ringtoets.Common.Service.Test
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith($"Validatie van '{calculationName}' gestart om: ", msgs[0]);
                 StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand", msgs[1]);
@@ -149,7 +150,7 @@ namespace Ringtoets.Common.Service.Test
             const string locationName = "locationName";
             const string activityName = "GetActivityName";
             const string calculationName = "locationName";
-            const double norm = 1.0/30;
+            const double norm = 1.0 / 30;
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, locationName, 0, 0);
 
@@ -164,7 +165,7 @@ namespace Ringtoets.Common.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var testWaveHeightCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
+                TestWaveHeightCalculator testWaveHeightCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
                 testWaveHeightCalculator.Converged = true;
 
                 // Call
@@ -173,7 +174,7 @@ namespace Ringtoets.Common.Service.Test
                 // Assert
                 TestHelper.AssertLogMessages(call, m =>
                 {
-                    var messages = m.ToArray();
+                    string[] messages = m.ToArray();
                     Assert.AreEqual(5, messages.Length);
                     StringAssert.StartsWith($"Validatie van '{calculationName}' gestart om: ", messages[0]);
                     StringAssert.StartsWith($"Validatie van '{calculationName}' beëindigd om: ", messages[1]);
@@ -181,7 +182,7 @@ namespace Ringtoets.Common.Service.Test
                     StringAssert.StartsWith("Golfhoogte berekening is uitgevoerd op de tijdelijke locatie", messages[3]);
                     StringAssert.StartsWith($"Berekening van '{calculationName}' beëindigd om: ", messages[4]);
                 });
-                var waveHeightCalculationInput = testWaveHeightCalculator.ReceivedInputs.First();
+                WaveHeightCalculationInput waveHeightCalculationInput = testWaveHeightCalculator.ReceivedInputs.First();
 
                 Assert.AreEqual(hydraulicBoundaryLocation.Id, waveHeightCalculationInput.HydraulicBoundaryLocationId);
                 Assert.AreEqual(testDataPath, testWaveHeightCalculator.HydraulicBoundaryDatabaseDirectory);
@@ -198,7 +199,7 @@ namespace Ringtoets.Common.Service.Test
             string validFilePath = Path.Combine(testDataPath, validFile);
             const string locationName = "locationName";
             const string activityName = "GetActivityName";
-            const double norm = 1.0/30;
+            const double norm = 1.0 / 30;
 
             var calculationMessageProviderMock = mockRepository.Stub<ICalculationMessageProvider>();
             calculationMessageProviderMock.Stub(calc => calc.GetActivityName(locationName)).Return(activityName);
@@ -241,8 +242,8 @@ namespace Ringtoets.Common.Service.Test
 
             string validFilePath = Path.Combine(testDataPath, validFile);
 
-            const double norm = 1.0/30;
-            double expectedWaveHeight = 3.5;
+            const double norm = 1.0 / 30;
+            var expectedWaveHeight = 3.5;
 
             var activity = new WaveHeightCalculationActivity(hydraulicBoundaryLocation,
                                                              validFilePath,
@@ -251,7 +252,7 @@ namespace Ringtoets.Common.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var testWaveHeightCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
+                TestWaveHeightCalculator testWaveHeightCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
                 testWaveHeightCalculator.WaveHeight = expectedWaveHeight;
                 testWaveHeightCalculator.Converged = true;
 
@@ -270,7 +271,7 @@ namespace Ringtoets.Common.Service.Test
         {
             // Setup
             const string locationName = "locationName";
-            string calculationFailedMessage = "Something went wrong";
+            var calculationFailedMessage = "Something went wrong";
 
             var calculationMessageProviderMock = mockRepository.Stub<ICalculationMessageProvider>();
             calculationMessageProviderMock.Stub(calc => calc.GetActivityName(locationName)).Return(string.Empty);
@@ -294,7 +295,7 @@ namespace Ringtoets.Common.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
+                TestWaveHeightCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
                 calculator.EndInFailure = true;
                 calculator.LastErrorFileContent = calculationFailedMessage;
 
@@ -331,14 +332,14 @@ namespace Ringtoets.Common.Service.Test
             };
 
             string validFilePath = Path.Combine(testDataPath, validFile);
-            const double norm = 1.0/300;
+            const double norm = 1.0 / 300;
             var activity = new WaveHeightCalculationActivity(hydraulicBoundaryLocation,
                                                              validFilePath,
                                                              norm, calculationMessageProviderMock);
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
+                TestWaveHeightCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
                 calculator.Converged = false;
 
                 // Call
@@ -347,7 +348,7 @@ namespace Ringtoets.Common.Service.Test
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {
-                    var msgs = messages.ToArray();
+                    string[] msgs = messages.ToArray();
                     Assert.AreEqual(6, msgs.Length);
                     StringAssert.StartsWith(calculationNotConvergedMessage, msgs[3]);
                 });
@@ -364,7 +365,7 @@ namespace Ringtoets.Common.Service.Test
         {
             // Setup
             const string locationName = "locationName 1";
-            string calculationFailedMessage = "Something went wrong";
+            var calculationFailedMessage = "Something went wrong";
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, locationName, 0, 0)
             {
                 WaveHeightOutput = new HydraulicBoundaryLocationOutput(double.NaN, double.NaN,
@@ -382,7 +383,7 @@ namespace Ringtoets.Common.Service.Test
 
             string validFilePath = Path.Combine(testDataPath, validFile);
 
-            const double norm = 1.0/30;
+            const double norm = 1.0 / 30;
             var activity = new WaveHeightCalculationActivity(hydraulicBoundaryLocation,
                                                              validFilePath,
                                                              norm,
@@ -390,7 +391,7 @@ namespace Ringtoets.Common.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
+                TestWaveHeightCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
                 calculator.EndInFailure = endInFailure;
                 calculator.LastErrorFileContent = lastErrorFileContent;
 

@@ -26,7 +26,6 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.IO.DikeProfiles;
@@ -71,8 +70,8 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             TestDelegate call = () => reader.ReadDikeProfileData(invalidFilePath);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet leeg of ongedefinieerd zijn.",
-                                                invalidFilePath);
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet leeg of ongedefinieerd zijn.",
+                                                   invalidFilePath);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -92,8 +91,8 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             TestDelegate call = () => reader.ReadDikeProfileData(invalidFilePath);
 
             // Assert
-            var expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': "
-                                  + "er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.";
+            string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': "
+                                     + "er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -110,15 +109,15 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             TestDelegate call = () => reader.ReadDikeProfileData(invalidFilePath);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet verwijzen naar een lege bestandsnaam.",
-                                                invalidFilePath);
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet verwijzen naar een lege bestandsnaam.",
+                                                   invalidFilePath);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
         [Test]
         public void ReadReferenceLine_ShapefileDoesntExist_ThrowCriticalFileReadException()
         {
-            string expectedMessage = "het bestand bestaat niet.";
+            var expectedMessage = "het bestand bestaat niet.";
             ReadFileAndExpectCriticalFileReadException(string.Empty, "I_do_not_exist.shp", expectedMessage);
         }
 
@@ -154,7 +153,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             Assert.AreEqual(1.0, result.DikeGeometry[0].Roughness.Value);
             Assert.AreEqual(new Point2D(18.0, 6.0), result.DikeGeometry[1].Point);
             Assert.AreEqual(1.0, result.DikeGeometry[1].Roughness.Value);
-            var expectedMemo =
+            string expectedMemo =
                 "Verkenning prfl format:" + Environment.NewLine +
                 "Basis:" + Environment.NewLine +
                 "geen dam" + Environment.NewLine +
@@ -203,7 +202,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             Assert.AreEqual(1.0, result.DikeGeometry[2].Roughness.Value);
             Assert.AreEqual(new Point2D(18.0, 6.0), result.DikeGeometry[3].Point);
             Assert.AreEqual(1.0, result.DikeGeometry[3].Roughness.Value);
-            var expectedMemo =
+            string expectedMemo =
                 "Verkenning prfl format:" + Environment.NewLine +
                 "geen dam" + Environment.NewLine +
                 "voorland" + Environment.NewLine +
@@ -240,7 +239,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             Assert.AreEqual(1.0, result.DikeGeometry[0].Roughness.Value);
             Assert.AreEqual(new Point2D(18.0, 6.0), result.DikeGeometry[1].Point);
             Assert.AreEqual(1.0, result.DikeGeometry[1].Roughness.Value);
-            var expectedMemo =
+            string expectedMemo =
                 "Verkenning prfl format:" + Environment.NewLine +
                 "Basis:" + Environment.NewLine +
                 "geen dam" + Environment.NewLine +
@@ -274,7 +273,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             CollectionAssert.IsEmpty(result.ForeshoreGeometry);
             Assert.AreEqual(6.0, result.DikeHeight);
             CollectionAssert.IsEmpty(result.DikeGeometry);
-            var expectedMemo =
+            string expectedMemo =
                 "Verkenning prfl format:" + Environment.NewLine +
                 "Basis:" + Environment.NewLine +
                 "geen dam" + Environment.NewLine +
@@ -310,7 +309,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithUnsupportedVersion_ThrowCriticalFileReadException(
             string faultyFileName)
         {
-            string expectedMessage = @"enkel bestanden van versie '4.0' worden ondersteund.";
+            var expectedMessage = @"enkel bestanden van versie '4.0' worden ondersteund.";
             ReadFileAndExpectCriticalFileReadException(string.Empty, faultyFileName, 1, expectedMessage);
         }
 
@@ -371,7 +370,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         [Test]
         public void ReadDikeProfileData_FileWithNegativeForeshorePointCount_ThrowCriticalFileReadException()
         {
-            string expectedMessage = "het aantal punten van de voorlandgeometrie ('-1') mag niet negatief zijn.";
+            var expectedMessage = "het aantal punten van de voorlandgeometrie ('-1') mag niet negatief zijn.";
             ReadFileAndExpectCriticalFileReadException("profiel001", "faulty_voorlandCountNegative.prfl", 9, expectedMessage);
         }
 
@@ -406,7 +405,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithUnparsableVersion_ThrowCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            string expectedMessage = @"enkel bestanden van versie '4.0' worden ondersteund.";
+            var expectedMessage = @"enkel bestanden van versie '4.0' worden ondersteund.";
             ReadFileAndExpectCriticalFileReadException(string.Empty, faultyFileName, 1, expectedMessage);
         }
 
@@ -424,7 +423,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         [Test]
         public void ReadDikeProfileData_FileWithInvalidId_ThrowCriticalFileReadException()
         {
-            string expectedMessage = @"de ingelezen ID ('Id's are not allowed to have any white spaces!') bevat spaties. Spaties zijn niet toegestaan.";
+            var expectedMessage = @"de ingelezen ID ('Id's are not allowed to have any white spaces!') bevat spaties. Spaties zijn niet toegestaan.";
             ReadFileAndExpectCriticalFileReadException("profiel001", "faulty_invalidId.prfl", 2, expectedMessage);
         }
 
@@ -433,7 +432,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithOverflowVersion_ThrowCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            string expectedMessage = @"enkel bestanden van versie '4.0' worden ondersteund.";
+            var expectedMessage = @"enkel bestanden van versie '4.0' worden ondersteund.";
             ReadFileAndExpectCriticalFileReadException(string.Empty, faultyFileName, 1, expectedMessage);
         }
 
@@ -578,7 +577,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         [Test]
         public void ReadDikeFileName_FileWithNegativeDikeCount_ThrowsCriticalFileReadException()
         {
-            string expectedMessage = "het aantal punten van de dijkgeometrie ('-1') mag niet negatief zijn.";
+            var expectedMessage = "het aantal punten van de dijkgeometrie ('-1') mag niet negatief zijn.";
             ReadFileAndExpectCriticalFileReadException("profiel001", "faulty_dijkCountNegative.prfl", 13, expectedMessage);
         }
 
@@ -690,7 +689,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         [Test]
         public void ReadDikeProfileData_FileWithNegativeForeshoreCount_ThrowsCriticalFileReadException()
         {
-            string expectedMessage = "het aantal punten van de voorlandgeometrie ('-1') mag niet negatief zijn.";
+            var expectedMessage = "het aantal punten van de voorlandgeometrie ('-1') mag niet negatief zijn.";
             ReadFileAndExpectCriticalFileReadException("profiel001", "faulty_voorlandCountNegative.prfl",
                                                        9, expectedMessage);
         }
@@ -698,7 +697,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         [Test]
         public void ReadDikeProfileData_FileWithMissingForeshorePoints_ThrowsCriticalFileReadException()
         {
-            string expectedMessage = "het aantal punten van de voorlandgeometrie gevonden in het bestand '1' komt niet overeen met de daarin aangegeven hoeveelheid ('3').";
+            var expectedMessage = "het aantal punten van de voorlandgeometrie gevonden in het bestand '1' komt niet overeen met de daarin aangegeven hoeveelheid ('3').";
             ReadFileAndExpectCriticalFileReadException("profiel004", "faulty_unparsableVoorland_missingElements.prfl",
                                                        11, expectedMessage);
         }

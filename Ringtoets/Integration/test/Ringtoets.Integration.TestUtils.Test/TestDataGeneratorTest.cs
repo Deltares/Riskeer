@@ -151,7 +151,7 @@ namespace Ringtoets.Integration.TestUtils.Test
             // Assert
             Assert.AreEqual(composition, assessmentSection.Composition);
             AssertFailureMechanismsHaveAllCalculationConfigurationsWithoutCalculationOutputs(assessmentSection);
-            Assert.False(assessmentSection.GetFailureMechanisms().SelectMany(fm=>fm.Calculations).All(calc => calc.HasOutput));
+            Assert.False(assessmentSection.GetFailureMechanisms().SelectMany(fm => fm.Calculations).All(calc => calc.HasOutput));
             Assert.True(assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.All(loc => loc.DesignWaterLevelOutput != null
                                                                                                           && loc.WaveHeightOutput != null));
 
@@ -164,15 +164,15 @@ namespace Ringtoets.Integration.TestUtils.Test
 
         private static void AssertFailureMechanismsHaveAllPossibleCalculationConfigurations(IAssessmentSection assessmentSection)
         {
-            bool containsClosingStructuresFailureMechanism = false;
-            bool containsGrassCoverErosionInwardsFailureMechanism = false;
-            bool containsGrassCoverErosionOutwardsFailureMechanism = false;
-            bool containsHeightStructuresFailureMechanism = false;
-            bool containsPipingFailureMechanism = false;
-            bool containsStabilityPointStructuresFailureMechanism = false;
-            bool containsStabilityStoneCoverFailureMechanism = false;
-            bool containsWaveImpactAsphaltCoverFailureMechanism = false;
-            bool containsDuneErosionFailureMechanism = false;
+            var containsClosingStructuresFailureMechanism = false;
+            var containsGrassCoverErosionInwardsFailureMechanism = false;
+            var containsGrassCoverErosionOutwardsFailureMechanism = false;
+            var containsHeightStructuresFailureMechanism = false;
+            var containsPipingFailureMechanism = false;
+            var containsStabilityPointStructuresFailureMechanism = false;
+            var containsStabilityStoneCoverFailureMechanism = false;
+            var containsWaveImpactAsphaltCoverFailureMechanism = false;
+            var containsDuneErosionFailureMechanism = false;
 
             foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
             {
@@ -270,15 +270,15 @@ namespace Ringtoets.Integration.TestUtils.Test
 
         private static void AssertFailureMechanismsHaveAllCalculationConfigurationsWithoutCalculationOutputs(IAssessmentSection assessmentSection)
         {
-            bool containsClosingStructuresFailureMechanism = false;
-            bool containsGrassCoverErosionInwardsFailureMechanism = false;
-            bool containsGrassCoverErosionOutwardsFailureMechanism = false;
-            bool containsHeightStructuresFailureMechanism = false;
-            bool containsPipingFailureMechanism = false;
-            bool containsStabilityPointStructuresFailureMechanism = false;
-            bool containsStabilityStoneCoverFailureMechanism = false;
-            bool containsWaveImpactAsphaltCoverFailureMechanism = false;
-            bool containsDuneErosionFailureMechanism = false;
+            var containsClosingStructuresFailureMechanism = false;
+            var containsGrassCoverErosionInwardsFailureMechanism = false;
+            var containsGrassCoverErosionOutwardsFailureMechanism = false;
+            var containsHeightStructuresFailureMechanism = false;
+            var containsPipingFailureMechanism = false;
+            var containsStabilityPointStructuresFailureMechanism = false;
+            var containsStabilityStoneCoverFailureMechanism = false;
+            var containsWaveImpactAsphaltCoverFailureMechanism = false;
+            var containsDuneErosionFailureMechanism = false;
 
             foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
             {

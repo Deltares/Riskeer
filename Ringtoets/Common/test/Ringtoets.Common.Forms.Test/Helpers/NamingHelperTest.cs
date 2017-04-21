@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Ringtoets.Common.Forms.Helpers;
@@ -34,10 +35,10 @@ namespace Ringtoets.Common.Forms.Test.Helpers
             // Setup
             const string nameBase = "The basic name";
 
-            var existingObjects = Enumerable.Empty<ObjectWithName>();
+            IEnumerable<ObjectWithName> existingObjects = Enumerable.Empty<ObjectWithName>();
 
             // Call
-            var name = NamingHelper.GetUniqueName(existingObjects, nameBase, namedObject => namedObject.Name);
+            string name = NamingHelper.GetUniqueName(existingObjects, nameBase, namedObject => namedObject.Name);
 
             // Assert
             Assert.AreEqual(nameBase, name);
@@ -55,7 +56,7 @@ namespace Ringtoets.Common.Forms.Test.Helpers
             };
 
             // Call
-            var name = NamingHelper.GetUniqueName(existingObjects, nameBase, namedObject => namedObject.Name);
+            string name = NamingHelper.GetUniqueName(existingObjects, nameBase, namedObject => namedObject.Name);
 
             // Assert
             Assert.AreEqual(nameBase + " (1)", name);
@@ -76,7 +77,7 @@ namespace Ringtoets.Common.Forms.Test.Helpers
             };
 
             // Call
-            var name = NamingHelper.GetUniqueName(existingObjects, nameBase, namedObject => namedObject.Name);
+            string name = NamingHelper.GetUniqueName(existingObjects, nameBase, namedObject => namedObject.Name);
 
             // Assert
             Assert.AreEqual(nameBase + " (4)", name);
@@ -94,7 +95,7 @@ namespace Ringtoets.Common.Forms.Test.Helpers
             };
 
             // Call
-            var name = NamingHelper.GetUniqueName(existingObjects, nameBase, namedObject => namedObject.Name);
+            string name = NamingHelper.GetUniqueName(existingObjects, nameBase, namedObject => namedObject.Name);
 
             // Assert
             Assert.AreEqual(nameBase, name);

@@ -19,14 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Gui.Plugin;
+using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 
@@ -67,12 +68,12 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanisms = Enumerable.Empty<IFailureMechanism>();
-            var failureMechanismContribution = new FailureMechanismContribution(failureMechanisms, 1.1, 1.0/200);
+            IEnumerable<IFailureMechanism> failureMechanisms = Enumerable.Empty<IFailureMechanism>();
+            var failureMechanismContribution = new FailureMechanismContribution(failureMechanisms, 1.1, 1.0 / 200);
             var context = new FailureMechanismContributionContext(failureMechanismContribution, assessmentSection);
 
             // Call
-            var objectProperties = info.CreateInstance(context);
+            IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismContributionProperties>(objectProperties);

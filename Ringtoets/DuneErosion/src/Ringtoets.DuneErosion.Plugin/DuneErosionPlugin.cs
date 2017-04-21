@@ -330,7 +330,7 @@ namespace Ringtoets.DuneErosion.Plugin
             var failureMechanism = data as DuneErosionFailureMechanism;
 
             var viewFailureMechanismContext = (DuneErosionFailureMechanismContext) view.Data;
-            var viewFailureMechanism = viewFailureMechanismContext.WrappedData;
+            DuneErosionFailureMechanism viewFailureMechanism = viewFailureMechanismContext.WrappedData;
 
             return assessmentSection != null
                        ? ReferenceEquals(viewFailureMechanismContext.Parent, assessmentSection)

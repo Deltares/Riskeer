@@ -137,7 +137,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             Action action = () => assessmentSectionFromFileCommandHandler.AddAssessmentSectionFromFile();
 
             // Assert
-            var expectedMessage = string.Format("De map met specificaties voor trajecten '{0}' is niet gevonden.", pathToNonExistingFolder);
+            string expectedMessage = string.Format("De map met specificaties voor trajecten '{0}' is niet gevonden.", pathToNonExistingFolder);
             TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
             mockRepository.VerifyAll();
         }
@@ -225,7 +225,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             string pathValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
             SetShapeFileDirectory(assessmentSectionFromFileCommandHandler, pathValidFolder);
 
-            int rowCount = 0;
+            var rowCount = 0;
             DialogBoxHandler = (name, wnd) =>
             {
                 var selectionDialog = (ReferenceLineMetaSelectionDialog) new FormTester(name).TheObject;
@@ -264,9 +264,9 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             SetShapeFileDirectory(assessmentSectionFromFile, pathValidFolder);
 
             project.AssessmentSections.Add(TestAssessmentSection1_2(true));
-            var expectedAssessmentSectionName = NamingHelper.GetUniqueName(project.AssessmentSections, "Traject 1-2", a => a.Name);
+            string expectedAssessmentSectionName = NamingHelper.GetUniqueName(project.AssessmentSections, "Traject 1-2", a => a.Name);
 
-            bool signallingValueRadioButtonSelected = false;
+            var signallingValueRadioButtonSelected = false;
             DialogBoxHandler = (name, wnd) =>
             {
                 var selectionDialog = (ReferenceLineMetaSelectionDialog) new FormTester(name).TheObject;
@@ -303,7 +303,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             viewControllerMock.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
             mockRepository.ReplayAll();
 
-            AssessmentSectionFromFileCommandHandler assessmentSectionFromFile = new AssessmentSectionFromFileCommandHandler(parentDialogStub, projectOwnerStub, viewControllerMock);
+            var assessmentSectionFromFile = new AssessmentSectionFromFileCommandHandler(parentDialogStub, projectOwnerStub, viewControllerMock);
             string pathValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
             SetShapeFileDirectory(assessmentSectionFromFile, pathValidFolder);
 
@@ -338,17 +338,17 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             viewControllerMock.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
             mockRepository.ReplayAll();
 
-            AssessmentSectionFromFileCommandHandler assessmentSectionFromFile = new AssessmentSectionFromFileCommandHandler(parentDialogStub, projectOwnerStub, viewControllerMock);
+            var assessmentSectionFromFile = new AssessmentSectionFromFileCommandHandler(parentDialogStub, projectOwnerStub, viewControllerMock);
             string pathValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
             SetShapeFileDirectory(assessmentSectionFromFile, pathValidFolder);
 
-            int rowCount = 0;
+            var rowCount = 0;
             DialogBoxHandler = (name, wnd) =>
             {
                 var selectionDialog = (ReferenceLineMetaSelectionDialog) new FormTester(name).TheObject;
                 var grid = (DataGridViewControl) new ControlTester("ReferenceLineMetaDataGridViewControl", selectionDialog).TheObject;
                 rowCount = grid.Rows.Count;
-                var dataGridView = grid.Controls.OfType<DataGridView>().First();
+                DataGridView dataGridView = grid.Controls.OfType<DataGridView>().First();
                 dataGridView[0, 1].Selected = true;
 
                 new ButtonTester("Ok", selectionDialog).Click();
@@ -387,7 +387,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             {
                 var selectionDialog = (ReferenceLineMetaSelectionDialog) new FormTester(name).TheObject;
                 var grid = (DataGridViewControl) new ControlTester("ReferenceLineMetaDataGridViewControl", selectionDialog).TheObject;
-                var dataGridView = grid.Controls.OfType<DataGridView>().First();
+                DataGridView dataGridView = grid.Controls.OfType<DataGridView>().First();
                 dataGridView[0, 2].Selected = true;
 
                 new ButtonTester("Ok", selectionDialog).Click();
@@ -427,7 +427,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             {
                 var selectionDialog = (ReferenceLineMetaSelectionDialog) new FormTester(name).TheObject;
                 var grid = (DataGridViewControl) new ControlTester("ReferenceLineMetaDataGridViewControl", selectionDialog).TheObject;
-                var dataGridView = grid.Controls.OfType<DataGridView>().First();
+                DataGridView dataGridView = grid.Controls.OfType<DataGridView>().First();
                 dataGridView.Rows[1].Selected = true;
 
                 new ButtonTester("Ok", selectionDialog).Click();
@@ -451,7 +451,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
 
         private static void SetShapeFileDirectory(AssessmentSectionFromFileCommandHandler commandHandler, string nonExistingFolder)
         {
-            string privateShapeFileDirectoryName = "shapeFileDirectory";
+            var privateShapeFileDirectoryName = "shapeFileDirectory";
             Type commandHandlerType = commandHandler.GetType();
             FieldInfo fieldInfo = commandHandlerType.GetField(privateShapeFileDirectoryName, BindingFlags.NonPublic | BindingFlags.Instance);
             if (fieldInfo == null)
@@ -474,7 +474,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
                 Name = "Traject 1-2",
                 FailureMechanismContribution =
                 {
-                    Norm = (useSignalingValue) ? 1.0/3000 : 1.0/1000
+                    Norm = (useSignalingValue) ? 1.0 / 3000 : 1.0 / 1000
                 }
             };
             assessmentSection.GrassCoverErosionInwards.GeneralInput.N = 2;
@@ -505,7 +505,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
                 Name = "Traject 2-1",
                 FailureMechanismContribution =
                 {
-                    Norm = 1.0/300
+                    Norm = 1.0 / 300
                 },
                 ReferenceLine = referenceLine,
                 GrassCoverErosionInwards =
@@ -542,7 +542,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
                 Name = "Traject 3-3",
                 FailureMechanismContribution =
                 {
-                    Norm = 1.0/300
+                    Norm = 1.0 / 300
                 },
                 ReferenceLine = new ReferenceLine()
             };

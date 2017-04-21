@@ -123,9 +123,8 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             var structureInput = new SimpleStructuresInput
             {
                 ForeshoreProfile = new TestForeshoreProfile(new BreakWater(
-                                                            (BreakWaterType) 999,
-                                                            random.NextDouble())),
-                                                        
+                                                                (BreakWaterType) 999,
+                                                                random.NextDouble())),
                 UseBreakWater = random.NextBoolean(),
                 UseForeshore = random.NextBoolean()
             };
@@ -144,12 +143,12 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
 
         private class SimpleStructuresInput : StructuresInputBase<StructureBase>
         {
-            protected override void UpdateStructureParameters() { }
+            protected override void UpdateStructureParameters() {}
         }
 
         private class SimpleStructuresCalculationConfiguration : StructuresCalculationConfiguration
         {
-            public SimpleStructuresCalculationConfiguration() : base(string.Empty) { }
+            public SimpleStructuresCalculationConfiguration() : base(string.Empty) {}
         }
     }
 }

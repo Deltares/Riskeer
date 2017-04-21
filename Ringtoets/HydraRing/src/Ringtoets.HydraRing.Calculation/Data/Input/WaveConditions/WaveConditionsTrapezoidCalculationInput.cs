@@ -76,7 +76,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
         {
             get
             {
-                var variables = base.Variables.ToList();
+                List<HydraRingVariable> variables = base.Variables.ToList();
 
                 variables.Add(new DeterministicHydraRingVariable(117, beta1));
                 variables.Add(new DeterministicHydraRingVariable(118, beta2));

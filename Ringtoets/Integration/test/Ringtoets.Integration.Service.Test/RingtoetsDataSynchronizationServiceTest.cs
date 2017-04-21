@@ -105,7 +105,7 @@ namespace Ringtoets.Integration.Service.Test
             var pipingFailureMechanism = new PipingFailureMechanism();
             pipingFailureMechanism.CalculationsGroup.Children.Add(new PipingCalculationScenario(new GeneralPipingInput()));
 
-            List<IFailureMechanism> failureMechanisms = new List<IFailureMechanism>
+            var failureMechanisms = new List<IFailureMechanism>
             {
                 TestDataGenerator.GetClosingStructuresFailureMechanismWithAllCalculationConfigurations(),
                 TestDataGenerator.GetGrassCoverErosionInwardsFailureMechanismWithAllCalculationConfigurations(),
@@ -145,7 +145,7 @@ namespace Ringtoets.Integration.Service.Test
         public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_VariousCalculations_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedObjects()
         {
             // Setup
-            var assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
             var expectedAffectedItems = new List<IObservable>();
             expectedAffectedItems.AddRange(assessmentSection.ClosingStructures.Calculations
                                                             .Cast<StructuresCalculation<ClosingStructuresInput>>()
@@ -235,7 +235,7 @@ namespace Ringtoets.Integration.Service.Test
         {
             // Setup
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             // Call
@@ -277,7 +277,7 @@ namespace Ringtoets.Integration.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
                 new GrassCoverErosionOutwardsFailureMechanism(),
@@ -307,7 +307,7 @@ namespace Ringtoets.Integration.Service.Test
             duneErosionFailureMechanism.DuneLocations.Add(duneLocation);
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
                 grassCoverErosionOutwardsFailureMechanism,
@@ -427,7 +427,7 @@ namespace Ringtoets.Integration.Service.Test
             grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations.Add(grassCoverErosionLocation);
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
@@ -799,7 +799,7 @@ namespace Ringtoets.Integration.Service.Test
         public void RemoveForeshoreProfile_StabilityStoneCoverFailureMechanismProfileNull_ThrowsArgumentNullException()
         {
             // Setup
-            StabilityStoneCoverFailureMechanism failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
             ForeshoreProfile profile = null;
 
             // Call
@@ -840,7 +840,7 @@ namespace Ringtoets.Integration.Service.Test
             }
 
             IObservable[] array = observables.ToArray();
-            var expectedAffectedObjectCount = 1 + calculationsWithOutput.Length + calculationsWithForeshoreProfile.Length;
+            int expectedAffectedObjectCount = 1 + calculationsWithOutput.Length + calculationsWithForeshoreProfile.Length;
             Assert.AreEqual(expectedAffectedObjectCount, array.Length);
             CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
             foreach (StabilityStoneCoverWaveConditionsCalculation calculation in calculationsWithForeshoreProfile)
@@ -874,7 +874,7 @@ namespace Ringtoets.Integration.Service.Test
         public void RemoveForeshoreProfile_WaveImpactAsphaltCoverFailureMechanismProfileNull_ThrowsArgumentNullException()
         {
             // Setup
-            WaveImpactAsphaltCoverFailureMechanism failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             ForeshoreProfile profile = null;
 
             // Call
@@ -915,7 +915,7 @@ namespace Ringtoets.Integration.Service.Test
             }
 
             IObservable[] array = observables.ToArray();
-            var expectedAffectedObjectCount = 1 + calculationsWithOutput.Length + calculationsWithForeshoreProfile.Length;
+            int expectedAffectedObjectCount = 1 + calculationsWithOutput.Length + calculationsWithForeshoreProfile.Length;
             Assert.AreEqual(expectedAffectedObjectCount, array.Length);
             CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
             foreach (WaveImpactAsphaltCoverWaveConditionsCalculation calculation in calculationsWithForeshoreProfile)
@@ -949,7 +949,7 @@ namespace Ringtoets.Integration.Service.Test
         public void RemoveForeshoreProfile_GrassCoverErosionOutwardsFailureMechanismProfileNull_ThrowsArgumentNullException()
         {
             // Setup
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             ForeshoreProfile profile = null;
 
             // Call
@@ -989,7 +989,7 @@ namespace Ringtoets.Integration.Service.Test
             }
 
             IObservable[] array = observables.ToArray();
-            var expectedAffectedObjectCount = 1 + calculationsWithOutput.Length + calculationsWithForeshoreProfile.Length;
+            int expectedAffectedObjectCount = 1 + calculationsWithOutput.Length + calculationsWithForeshoreProfile.Length;
             Assert.AreEqual(expectedAffectedObjectCount, array.Length);
             CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
             foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in calculationsWithForeshoreProfile)
@@ -1023,7 +1023,7 @@ namespace Ringtoets.Integration.Service.Test
         public void RemoveForeshoreProfile_HeightStructuresFailureMechanismProfileNull_ThrowsArgumentNullException()
         {
             // Setup
-            HeightStructuresFailureMechanism failureMechanism = new HeightStructuresFailureMechanism();
+            var failureMechanism = new HeightStructuresFailureMechanism();
             ForeshoreProfile profile = null;
 
             // Call
@@ -1064,7 +1064,7 @@ namespace Ringtoets.Integration.Service.Test
             }
 
             IObservable[] array = observables.ToArray();
-            var expectedAffectedObjectCount = 1 + calculationsWithOutput.Length + calculationsWithForeshoreProfile.Length;
+            int expectedAffectedObjectCount = 1 + calculationsWithOutput.Length + calculationsWithForeshoreProfile.Length;
             Assert.AreEqual(expectedAffectedObjectCount, array.Length);
             CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
             foreach (StructuresCalculation<HeightStructuresInput> calculation in calculationsWithForeshoreProfile)
@@ -1098,7 +1098,7 @@ namespace Ringtoets.Integration.Service.Test
         public void RemoveForeshoreProfile_ClosingStructuresFailureMechanismProfileNull_ThrowsArgumentNullException()
         {
             // Setup
-            ClosingStructuresFailureMechanism failureMechanism = new ClosingStructuresFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
             ForeshoreProfile profile = null;
 
             // Call
@@ -1139,7 +1139,7 @@ namespace Ringtoets.Integration.Service.Test
             }
 
             IObservable[] array = observables.ToArray();
-            var expectedAffectedObjectCount = 1 + calculationsWithOutput.Length + calculationsWithForeshoreProfile.Length;
+            int expectedAffectedObjectCount = 1 + calculationsWithOutput.Length + calculationsWithForeshoreProfile.Length;
             Assert.AreEqual(expectedAffectedObjectCount, array.Length);
             CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
             foreach (StructuresCalculation<ClosingStructuresInput> calculation in calculationsWithForeshoreProfile)
@@ -1173,7 +1173,7 @@ namespace Ringtoets.Integration.Service.Test
         public void RemoveForeshoreProfile_StabilityPointStructuresFailureMechanismProfileNull_ThrowsArgumentNullException()
         {
             // Setup
-            StabilityPointStructuresFailureMechanism failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
             ForeshoreProfile profile = null;
 
             // Call
@@ -1214,7 +1214,7 @@ namespace Ringtoets.Integration.Service.Test
             }
 
             IObservable[] array = observables.ToArray();
-            var expectedAffectedObjectCount = 1 + calculationsWithOutput.Length + calculationsWithForeshoreProfile.Length;
+            int expectedAffectedObjectCount = 1 + calculationsWithOutput.Length + calculationsWithForeshoreProfile.Length;
             Assert.AreEqual(expectedAffectedObjectCount, array.Length);
             CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
             foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in calculationsWithForeshoreProfile)
@@ -1248,7 +1248,7 @@ namespace Ringtoets.Integration.Service.Test
         public void RemoveDikeProfile_GrassCoverErosionInwardsFailureMechanismProfileNull_ThrowsArgumentNullException()
         {
             // Setup
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             DikeProfile profile = null;
 
             // Call

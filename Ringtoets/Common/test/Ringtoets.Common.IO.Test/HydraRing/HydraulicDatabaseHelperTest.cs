@@ -22,7 +22,6 @@
 using System;
 using System.IO;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
@@ -42,7 +41,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
             // Call
-            var result = HydraulicDatabaseHelper.ValidatePathForCalculation(validFilePath);
+            string result = HydraulicDatabaseHelper.ValidatePathForCalculation(validFilePath);
 
             // Assert
             Assert.IsNull(result);
@@ -56,7 +55,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
             string filePath = Path.Combine(testDataPath, nonexistingSqlite);
 
             // Call
-            var result = HydraulicDatabaseHelper.ValidatePathForCalculation(filePath);
+            string result = HydraulicDatabaseHelper.ValidatePathForCalculation(filePath);
 
             // Assert
             StringAssert.StartsWith(string.Format("Fout bij het lezen van bestand '{0}':", filePath), result);
@@ -66,11 +65,11 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         public void ValidatePathForCalculation_InvalidFile_ReturnsMessageWithError()
         {
             // Setup
-            var invalidPath = Path.Combine(testDataPath, "complete.sqlite");
+            string invalidPath = Path.Combine(testDataPath, "complete.sqlite");
             invalidPath = invalidPath.Replace('c', Path.GetInvalidPathChars()[0]);
 
             // Call
-            var result = HydraulicDatabaseHelper.ValidatePathForCalculation(invalidPath);
+            string result = HydraulicDatabaseHelper.ValidatePathForCalculation(invalidPath);
 
             // Assert
             StringAssert.StartsWith(string.Format("Fout bij het lezen van bestand '{0}':", invalidPath), result);
@@ -83,7 +82,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
             string filePath = Path.Combine(testDataPath, "/");
 
             // Call
-            var result = HydraulicDatabaseHelper.ValidatePathForCalculation(filePath);
+            string result = HydraulicDatabaseHelper.ValidatePathForCalculation(filePath);
 
             // Assert
             StringAssert.StartsWith(string.Format("Fout bij het lezen van bestand '{0}':", filePath), result);
@@ -96,7 +95,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
             string validFilePath = Path.Combine(testDataPath, "withoutHLCD", "empty.sqlite");
 
             // Call
-            var result = HydraulicDatabaseHelper.ValidatePathForCalculation(validFilePath);
+            string result = HydraulicDatabaseHelper.ValidatePathForCalculation(validFilePath);
 
             // Assert
             StringAssert.StartsWith(string.Format("Fout bij het lezen van bestand '{0}':", validFilePath), result);
@@ -109,7 +108,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
             string validFilePath = Path.Combine(testDataPath, "withoutSettings", "empty.sqlite");
 
             // Call
-            var result = HydraulicDatabaseHelper.ValidatePathForCalculation(validFilePath);
+            string result = HydraulicDatabaseHelper.ValidatePathForCalculation(validFilePath);
 
             // Assert
             StringAssert.StartsWith(string.Format("Fout bij het lezen van bestand '{0}':", validFilePath), result);
@@ -122,7 +121,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
             string validFilePath = Path.Combine(testDataPath, "invalidSettingsSchema", "complete.sqlite");
 
             // Call
-            var result = HydraulicDatabaseHelper.ValidatePathForCalculation(validFilePath);
+            string result = HydraulicDatabaseHelper.ValidatePathForCalculation(validFilePath);
 
             // Assert
             StringAssert.StartsWith("De rekeninstellingen database heeft niet het juiste schema.", result);
@@ -132,13 +131,13 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         public void ValidatePathForCalculation_InvalidFilePath_ReturnsMessageWithError()
         {
             // Setup
-            var invalidFilePath = "C:\\Thisissomeverylongpath\\toadirectorywhich\\doesntevenexist\\Nowlets\\finishwithsomelongname\\" +
-                                  "loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong" +
-                                  "naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaame" +
-                                  "\\followedbythefile";
+            string invalidFilePath = "C:\\Thisissomeverylongpath\\toadirectorywhich\\doesntevenexist\\Nowlets\\finishwithsomelongname\\" +
+                                     "loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong" +
+                                     "naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaame" +
+                                     "\\followedbythefile";
 
             // Call
-            var result = HydraulicDatabaseHelper.ValidatePathForCalculation(invalidFilePath);
+            string result = HydraulicDatabaseHelper.ValidatePathForCalculation(invalidFilePath);
 
             // Assert
             StringAssert.StartsWith(string.Format("Het opgegeven bestandspad ({0}) is niet geldig.", invalidFilePath), result);
@@ -148,7 +147,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         public void HaveEqualVersion_InvalidFile_ThrowsCriticalFileReadException()
         {
             // Setup
-            var invalidPath = Path.Combine(testDataPath, "complete.sqlite");
+            string invalidPath = Path.Combine(testDataPath, "complete.sqlite");
             invalidPath = invalidPath.Replace('c', Path.GetInvalidPathChars()[0]);
 
             // Call

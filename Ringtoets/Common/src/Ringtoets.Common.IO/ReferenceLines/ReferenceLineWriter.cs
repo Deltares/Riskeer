@@ -94,13 +94,13 @@ namespace Ringtoets.Common.IO.ReferenceLines
                 throw new ArgumentException(Resources.ReferenceLineWriter_CreateMapLineData_Traject_cannot_be_empty, nameof(id));
             }
 
-            MapGeometry referenceLineGeometry = new MapGeometry(
+            var referenceLineGeometry = new MapGeometry(
                 new List<IEnumerable<Point2D>>
                 {
                     referenceLine.Points
                 });
 
-            MapFeature mapFeature = new MapFeature(new[]
+            var mapFeature = new MapFeature(new[]
             {
                 referenceLineGeometry
             });

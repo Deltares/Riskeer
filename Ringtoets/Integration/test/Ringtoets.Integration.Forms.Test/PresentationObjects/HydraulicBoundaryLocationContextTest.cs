@@ -84,7 +84,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             var context = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation);
 
             // Call
-            var isEqual = context.Equals(null);
+            bool isEqual = context.Equals(null);
 
             // Assert
             Assert.IsFalse(isEqual);
@@ -100,7 +100,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             var context = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation);
 
             // Call
-            var isEqual = context.Equals(context);
+            bool isEqual = context.Equals(context);
 
             // Assert
             Assert.IsTrue(isEqual);
@@ -117,8 +117,8 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             var context2 = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryDatabase2, hydraulicBoundaryLocation);
 
             // Call
-            var isEqual1 = context1.Equals(context2);
-            var isEqual2 = context2.Equals(context1);
+            bool isEqual1 = context1.Equals(context2);
+            bool isEqual2 = context2.Equals(context1);
 
             // Assert
             Assert.IsFalse(isEqual1);
@@ -136,8 +136,8 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             var context2 = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation2);
 
             // Call
-            var isEqual1 = context1.Equals(context2);
-            var isEqual2 = context2.Equals(context1);
+            bool isEqual1 = context1.Equals(context2);
+            bool isEqual2 = context2.Equals(context1);
 
             // Assert
             Assert.IsFalse(isEqual1);
@@ -154,8 +154,8 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             var context2 = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation);
 
             // Call
-            var isEqual1 = context1.Equals(context2);
-            var isEqual2 = context2.Equals(context1);
+            bool isEqual1 = context1.Equals(context2);
+            bool isEqual2 = context2.Equals(context1);
 
             // Assert
             Assert.IsTrue(isEqual1);
@@ -175,8 +175,8 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             Assert.AreEqual(context1, context2);
 
             // Call
-            var hashCode1 = context1.GetHashCode();
-            var hashCode2 = context2.GetHashCode();
+            int hashCode1 = context1.GetHashCode();
+            int hashCode2 = context2.GetHashCode();
 
             // Assert
             Assert.AreEqual(hashCode1, hashCode2);

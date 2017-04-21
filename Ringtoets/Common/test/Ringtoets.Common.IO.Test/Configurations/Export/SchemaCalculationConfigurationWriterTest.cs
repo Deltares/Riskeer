@@ -470,7 +470,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
 
     public class ExposedSchemaCalculationConfigurationWriter : SchemaCalculationConfigurationWriter<TestConfigurationItem>
     {
-        public ExposedSchemaCalculationConfigurationWriter(string filePath) : base(filePath) { }
+        public ExposedSchemaCalculationConfigurationWriter(string filePath) : base(filePath) {}
 
         public static void PublicWriteDistributionWhenAvailable(XmlWriter writer, string distributionName, StochastConfiguration configuration)
         {

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -69,7 +70,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                var result = ringtoetsContextMenuBuilder.AddCreateCalculationGroupItem(calculationGroup).Build();
+                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddCreateCalculationGroupItem(calculationGroup).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -111,7 +112,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                var result = ringtoetsContextMenuBuilder.AddCreateCalculationItem(calculationGroupContext, context => { }).Build();
+                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddCreateCalculationItem(calculationGroupContext, context => { }).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -159,7 +160,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                var result = ringtoetsContextMenuBuilder.AddClearAllCalculationOutputInGroupItem(calculationGroup).Build();
+                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddClearAllCalculationOutputInGroupItem(calculationGroup).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -200,7 +201,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                var result = ringtoetsContextMenuBuilder.AddClearAllCalculationOutputInGroupItem(calculationGroup).Build();
+                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddClearAllCalculationOutputInGroupItem(calculationGroup).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -246,7 +247,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                var result = ringtoetsContextMenuBuilder.AddClearAllCalculationOutputInFailureMechanismItem(failureMechanismMock).Build();
+                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddClearAllCalculationOutputInFailureMechanismItem(failureMechanismMock).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -287,7 +288,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                var result = ringtoetsContextMenuBuilder.AddClearAllCalculationOutputInFailureMechanismItem(failureMechanism).Build();
+                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddClearAllCalculationOutputInFailureMechanismItem(failureMechanism).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -332,12 +333,12 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                var result = ringtoetsContextMenuBuilder.AddToggleRelevancyOfFailureMechanismItem(failureMechanismContextMock, null).Build();
+                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddToggleRelevancyOfFailureMechanismItem(failureMechanismContextMock, null).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
                 Assert.AreEqual(1, result.Items.Count);
-                var checkboxIcon = isRelevant ? RingtoetsFormsResources.Checkbox_ticked : RingtoetsFormsResources.Checkbox_empty;
+                Bitmap checkboxIcon = isRelevant ? RingtoetsFormsResources.Checkbox_ticked : RingtoetsFormsResources.Checkbox_empty;
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "I&s relevant",
                                                               "Geeft aan of dit toetsspoor relevant is of niet.",
@@ -374,7 +375,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                var result = ringtoetsContextMenuBuilder.AddClearCalculationOutputItem(calculationWithOutputMock).Build();
+                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddClearCalculationOutputItem(calculationWithOutputMock).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -416,7 +417,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                var result = ringtoetsContextMenuBuilder.AddClearCalculationOutputItem(calculationWithoutOutputMock).Build();
+                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddClearCalculationOutputItem(calculationWithoutOutputMock).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);

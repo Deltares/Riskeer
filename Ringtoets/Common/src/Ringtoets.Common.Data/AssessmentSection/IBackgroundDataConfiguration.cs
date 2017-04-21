@@ -24,7 +24,5 @@ namespace Ringtoets.Common.Data.AssessmentSection
     /// <summary>
     /// Interface for a background data configuration.
     /// </summary>
-    public interface IBackgroundDataConfiguration
-    {
-    }
+    public interface IBackgroundDataConfiguration {}
 }

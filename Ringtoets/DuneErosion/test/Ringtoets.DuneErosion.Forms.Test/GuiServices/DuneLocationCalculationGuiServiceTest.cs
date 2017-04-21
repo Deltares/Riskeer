@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -100,23 +101,24 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
             {
                 Contribution = 10
             };
-            failureMechanism.DuneLocations.AddRange(new[]
-                                                    {
-                                                        new DuneLocation(1300001, "A", new Point2D(0, 0), new DuneLocation.ConstructionProperties
-                                                                         {
-                                                                             CoastalAreaId = 0,
-                                                                             Offset = 0,
-                                                                             Orientation = 0,
-                                                                             D50 = 0.000007
-                                                                         }),
-                                                        new DuneLocation(1300002, "B", new Point2D(0, 0), new DuneLocation.ConstructionProperties
-                                                                         {
-                                                                             CoastalAreaId = 0,
-                                                                             Offset = 0,
-                                                                             Orientation = 0,
-                                                                             D50 = 0.000007
-                                                                         })
-                                                    });
+            failureMechanism.DuneLocations.AddRange(
+                new[]
+                {
+                    new DuneLocation(1300001, "A", new Point2D(0, 0), new DuneLocation.ConstructionProperties
+                    {
+                        CoastalAreaId = 0,
+                        Offset = 0,
+                        Orientation = 0,
+                        D50 = 0.000007
+                    }),
+                    new DuneLocation(1300002, "B", new Point2D(0, 0), new DuneLocation.ConstructionProperties
+                    {
+                        CoastalAreaId = 0,
+                        Offset = 0,
+                        Orientation = 0,
+                        D50 = 0.000007
+                    })
+                });
 
             using (var viewParent = new Form())
             using (new HydraRingCalculatorFactoryConfig())
@@ -130,7 +132,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                                                                         1.0 / 200),
                                              messages =>
                                              {
-                                                 var messageList = messages.ToList();
+                                                 List<string> messageList = messages.ToList();
 
                                                  // Assert
                                                  Assert.AreEqual(10, messageList.Count);

@@ -54,14 +54,6 @@ namespace Ringtoets.DuneErosion.Data
             }
         }
 
-        public IEnumerable<DuneErosionFailureMechanismSectionResult> SectionResults
-        {
-            get
-            {
-                return sectionResults;
-            }
-        }
-
         /// <summary>
         /// Gets the general dune erosion calculation input parameters that apply to each calculation.
         /// </summary>
@@ -71,6 +63,14 @@ namespace Ringtoets.DuneErosion.Data
         /// Gets the dune locations.
         /// </summary>
         public ObservableList<DuneLocation> DuneLocations { get; private set; }
+
+        public IEnumerable<DuneErosionFailureMechanismSectionResult> SectionResults
+        {
+            get
+            {
+                return sectionResults;
+            }
+        }
 
         public override void AddSection(FailureMechanismSection section)
         {

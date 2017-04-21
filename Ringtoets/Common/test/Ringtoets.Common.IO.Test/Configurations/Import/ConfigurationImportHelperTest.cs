@@ -20,10 +20,7 @@
 // All rights reserved.
 
 using System;
-using System.IO;
 using Core.Common.Base;
-using Core.Common.Base.Data;
-using Core.Common.TestUtil;
 using log4net;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -112,7 +109,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
             var input = new TestInputWithStochasts();
 
             // Call
-            var valid = ConfigurationImportHelper.TrySetStandardDeviationStochast(
+            bool valid = ConfigurationImportHelper.TrySetStandardDeviationStochast(
                 stochastName,
                 calculationName,
                 input, configuration,
@@ -185,8 +182,8 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
             const string calculationName = "some calculation name";
 
             const string expectedFormat = "{0} Berekening '{1}' is overgeslagen.";
-            var expectedError = $"Indien voor parameter '{stochastName}' de spreiding wordt opgegeven, moet dit door middel van een variatiecoëfficiënt. " +
-                                $"Voor berekening '{calculationName}' is een standaardafwijking gevonden.";
+            string expectedError = $"Indien voor parameter '{stochastName}' de spreiding wordt opgegeven, moet dit door middel van een variatiecoëfficiënt. " +
+                                   $"Voor berekening '{calculationName}' is een standaardafwijking gevonden.";
 
             var mocks = new MockRepository();
             var log = mocks.StrictMock<ILog>();
@@ -201,7 +198,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
             var input = new TestInputWithStochasts();
 
             // Call
-            var valid = ConfigurationImportHelper.TrySetVariationCoefficientStochast(
+            bool valid = ConfigurationImportHelper.TrySetVariationCoefficientStochast(
                 stochastName,
                 calculationName,
                 input, configuration,

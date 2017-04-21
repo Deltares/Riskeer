@@ -23,7 +23,6 @@ using System;
 using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Base.Data;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
 using NUnit.Framework;
@@ -97,7 +96,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            TestUseBreakWater testUseBreakWater = new TestUseBreakWater
+            var testUseBreakWater = new TestUseBreakWater
             {
                 UseBreakWater = useBreakWater
             };
@@ -154,7 +153,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Constructor_HandlerNull_ThrowsArgumentNullException()
         {
             // Setup
-            TestUseBreakWater testUseBreakWater = new TestUseBreakWater();
+            var testUseBreakWater = new TestUseBreakWater();
 
             // Call
             TestDelegate test = () => new UseBreakWaterProperties(testUseBreakWater, null);
@@ -192,7 +191,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         [Test]
         public void DikeHeight_Always_InputNotifiedAndPropertyChangedCalled()
         {
-            var breakWaterHeight = new Random(21).NextRoundedDouble();
+            RoundedDouble breakWaterHeight = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.BreakWaterHeight = breakWaterHeight,
                                                                     new TestUseBreakWater());
         }
@@ -208,7 +207,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         [Test]
         public void UseBreakWater_Always_InputNotifiedAndPropertyChangedCalled()
         {
-            var useBreakWater = new Random(21).NextBoolean();
+            bool useBreakWater = new Random(21).NextBoolean();
             SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.UseBreakWater = useBreakWater,
                                                                     new TestUseBreakWater());
         }

@@ -91,7 +91,7 @@ namespace Ringtoets.Common.IO.Structures
         /// <returns>A <see cref="StructureLocation"/> based on the next point feature in the shapefile.</returns>
         public StructureLocation GetNextStructureLocation()
         {
-            MapPointData mapPointData = (MapPointData) pointsShapeFileReader.ReadFeature();
+            var mapPointData = (MapPointData) pointsShapeFileReader.ReadFeature();
 
             IDictionary<string, object> attributes = mapPointData.Features.First().MetaData;
 

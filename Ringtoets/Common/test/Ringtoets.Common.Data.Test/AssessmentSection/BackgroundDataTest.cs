@@ -23,7 +23,6 @@ using System;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
 
@@ -71,7 +70,7 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
             int originalNumberOfDecimals = backgroundData.Transparency.NumberOfDecimalPlaces;
 
             // Call
-            backgroundData.Transparency = (RoundedDouble)newValue;
+            backgroundData.Transparency = (RoundedDouble) newValue;
 
             // Assert
             Assert.AreEqual(newValue, backgroundData.Transparency.Value);
@@ -91,7 +90,7 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
             var backgroundData = new BackgroundData(new TestBackgroundDataConfiguration());
 
             // Call
-            TestDelegate call = () => backgroundData.Transparency = (RoundedDouble)invalidTransparency;
+            TestDelegate call = () => backgroundData.Transparency = (RoundedDouble) invalidTransparency;
 
             // Assert
             var message = "De transparantie moet in het bereik [0,00, 1,00] liggen.";

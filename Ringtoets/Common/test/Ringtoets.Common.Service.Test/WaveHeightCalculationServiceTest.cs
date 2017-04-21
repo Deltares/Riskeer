@@ -47,10 +47,10 @@ namespace Ringtoets.Common.Service.Test
             // Setup
             const string calculationName = "calculationName";
             string validFilePath = Path.Combine(testDataPath, validFile);
-            bool valid = false;
+            var valid = false;
 
             var mockRepository = new MockRepository();
-            ICalculationMessageProvider messageProviderStub = mockRepository.Stub<ICalculationMessageProvider>();
+            var messageProviderStub = mockRepository.Stub<ICalculationMessageProvider>();
             messageProviderStub.Stub(mp => mp.GetCalculationName(calculationName)).Return(calculationName);
             mockRepository.ReplayAll();
 
@@ -60,7 +60,7 @@ namespace Ringtoets.Common.Service.Test
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(2, msgs.Length);
                 StringAssert.StartsWith($"Validatie van '{calculationName}' gestart om: ", msgs[0]);
                 StringAssert.StartsWith($"Validatie van '{calculationName}' beëindigd om: ", msgs[1]);
@@ -75,10 +75,10 @@ namespace Ringtoets.Common.Service.Test
             // Setup
             const string calculationName = "calculationName";
             string notValidFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
-            bool valid = false;
+            var valid = false;
 
             var mockRepository = new MockRepository();
-            ICalculationMessageProvider messageProviderStub = mockRepository.Stub<ICalculationMessageProvider>();
+            var messageProviderStub = mockRepository.Stub<ICalculationMessageProvider>();
             messageProviderStub.Stub(mp => mp.GetCalculationName(calculationName)).Return(calculationName);
             mockRepository.ReplayAll();
 
@@ -88,7 +88,7 @@ namespace Ringtoets.Common.Service.Test
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith($"Validatie van '{calculationName}' gestart om: ", msgs[0]);
                 StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand", msgs[1]);
@@ -104,10 +104,10 @@ namespace Ringtoets.Common.Service.Test
             // Setup
             const string calculationName = "calculationName";
             string validFilePath = Path.Combine(testDataPath, "HRD nosettings.sqlite");
-            bool valid = false;
+            var valid = false;
 
             var mockRepository = new MockRepository();
-            ICalculationMessageProvider messageProviderStub = mockRepository.Stub<ICalculationMessageProvider>();
+            var messageProviderStub = mockRepository.Stub<ICalculationMessageProvider>();
             messageProviderStub.Stub(mp => mp.GetCalculationName(calculationName)).Return(calculationName);
             mockRepository.ReplayAll();
 
@@ -117,7 +117,7 @@ namespace Ringtoets.Common.Service.Test
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
+                string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith($"Validatie van '{calculationName}' gestart om: ", msgs[0]);
                 StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand", msgs[1]);
@@ -152,7 +152,7 @@ namespace Ringtoets.Common.Service.Test
             const string locationName = "punt_flw_ 1";
             const string calculationName = "locationName";
             const string calculationNotConvergedMessage = "calculationNotConvergedMessage";
-            const double norm = 1.0/30;
+            const double norm = 1.0 / 30;
 
             var mockRepository = new MockRepository();
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
@@ -164,7 +164,7 @@ namespace Ringtoets.Common.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var testCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
+                TestWaveHeightCalculator testCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
 
                 new WaveHeightCalculationService().Calculate(hydraulicBoundaryLocation,
                                                              validFilePath,
@@ -174,7 +174,7 @@ namespace Ringtoets.Common.Service.Test
                 // Assert
                 Assert.AreEqual(testDataPath, testCalculator.HydraulicBoundaryDatabaseDirectory);
 
-                var expectedInput = CreateInput(hydraulicBoundaryLocation, norm);
+                AssessmentLevelCalculationInput expectedInput = CreateInput(hydraulicBoundaryLocation, norm);
                 AssertInput(expectedInput, testCalculator.ReceivedInputs.First());
                 Assert.IsFalse(testCalculator.IsCanceled);
             }
@@ -192,11 +192,11 @@ namespace Ringtoets.Common.Service.Test
             mockRepository.ReplayAll();
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, "punt_flw_ 1", 0, 0);
-            const double norm = 1.0/30;
+            const double norm = 1.0 / 30;
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var testCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
+                TestWaveHeightCalculator testCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
 
                 var service = new WaveHeightCalculationService();
                 testCalculator.CalculationFinishedHandler += (s, e) => service.Cancel();
@@ -222,7 +222,7 @@ namespace Ringtoets.Common.Service.Test
             const string locationName = "punt_flw_ 1";
             const string calculationName = "locationName";
             const string calculationFailedMessage = "calculationFailedMessage";
-            const double norm = 1.0/30;
+            const double norm = 1.0 / 30;
 
             var mockRepository = new MockRepository();
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
@@ -234,7 +234,7 @@ namespace Ringtoets.Common.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
+                TestWaveHeightCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
                 calculator.LastErrorFileContent = "An error occurred";
                 calculator.EndInFailure = true;
 
@@ -259,7 +259,7 @@ namespace Ringtoets.Common.Service.Test
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {
-                    var msgs = messages.ToArray();
+                    string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
                     StringAssert.StartsWith($"Berekening van '{calculationName}' gestart om: ", msgs[0]);
                     StringAssert.StartsWith(calculationFailedMessage, msgs[1]);
@@ -281,7 +281,7 @@ namespace Ringtoets.Common.Service.Test
             const string locationName = "punt_flw_ 1";
             const string calculationName = "locationName";
             const string calculationFailedMessage = "calculationFailedUnexplainedMessage";
-            const double norm = 1.0/30;
+            const double norm = 1.0 / 30;
 
             var mockRepository = new MockRepository();
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
@@ -293,7 +293,7 @@ namespace Ringtoets.Common.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
+                TestWaveHeightCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
                 calculator.EndInFailure = true;
 
                 var exceptionThrown = false;
@@ -317,7 +317,7 @@ namespace Ringtoets.Common.Service.Test
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {
-                    var msgs = messages.ToArray();
+                    string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
                     StringAssert.StartsWith($"Berekening van '{calculationName}' gestart om: ", msgs[0]);
                     StringAssert.StartsWith(calculationFailedMessage, msgs[1]);
@@ -339,7 +339,7 @@ namespace Ringtoets.Common.Service.Test
             const string locationName = "punt_flw_ 1";
             const string calculationName = "locationName";
             const string calculationFailedMessage = "calculationFailedMessage";
-            const double norm = 1.0/30;
+            const double norm = 1.0 / 30;
 
             var mockRepository = new MockRepository();
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
@@ -351,12 +351,12 @@ namespace Ringtoets.Common.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
+                TestWaveHeightCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
                 calculator.EndInFailure = false;
                 calculator.LastErrorFileContent = "An error occurred";
 
                 var exceptionThrown = false;
-                var exceptionMessage = string.Empty;
+                string exceptionMessage = string.Empty;
 
                 // Call
                 Action call = () =>
@@ -378,7 +378,7 @@ namespace Ringtoets.Common.Service.Test
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {
-                    var msgs = messages.ToArray();
+                    string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
                     StringAssert.StartsWith($"Berekening van '{calculationName}' gestart om: ", msgs[0]);
                     StringAssert.StartsWith(calculationFailedMessage, msgs[1]);

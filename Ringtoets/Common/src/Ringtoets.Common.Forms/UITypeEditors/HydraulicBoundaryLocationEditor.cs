@@ -30,8 +30,8 @@ namespace Ringtoets.Common.Forms.UITypeEditors
     /// This class defines a drop down list edit-control from which the user can select a
     /// hydraulic boundary location from a collection.
     /// </summary>
-    public class HydraulicBoundaryLocationEditor : SelectionEditor<IHasHydraulicBoundaryLocationProperty,
-                                                       SelectableHydraulicBoundaryLocation>
+    public class HydraulicBoundaryLocationEditor
+        : SelectionEditor<IHasHydraulicBoundaryLocationProperty, SelectableHydraulicBoundaryLocation>
     {
         protected override IEnumerable<SelectableHydraulicBoundaryLocation> GetAvailableOptions(ITypeDescriptorContext context)
         {

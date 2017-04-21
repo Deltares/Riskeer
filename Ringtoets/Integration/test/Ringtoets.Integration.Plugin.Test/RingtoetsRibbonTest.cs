@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls.Primitives;
@@ -41,7 +40,7 @@ namespace Ringtoets.Integration.Plugin.Test
             var ribbon = new RingtoetsRibbon();
 
             // Call
-            var control = ribbon.GetRibbonControl();
+            Ribbon control = ribbon.GetRibbonControl();
 
             // Assert
             Assert.IsInstanceOf<Ribbon>(control);

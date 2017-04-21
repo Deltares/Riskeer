@@ -29,7 +29,6 @@ using System.Xml.Schema;
 using Core.Common.Base.IO;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
-using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Properties;
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 
@@ -230,7 +229,7 @@ namespace Ringtoets.Common.IO.Configurations.Import
         private CalculationGroupConfiguration ParseFolderElement(XElement folderElement)
         {
             return new CalculationGroupConfiguration(folderElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute)?.Value,
-                                            ParseElements(folderElement.Elements()));
+                                                     ParseElements(folderElement.Elements()));
         }
     }
 }

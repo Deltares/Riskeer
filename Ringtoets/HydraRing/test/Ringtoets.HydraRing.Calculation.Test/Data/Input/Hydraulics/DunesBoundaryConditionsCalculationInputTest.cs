@@ -35,7 +35,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
         public void Constructor_ExpectedValues()
         {
             // Setup
-            const double norm = 1.0/10000;
+            const double norm = 1.0 / 10000;
             const int sectionId = 1;
             const long hydraulicBoundaryLocationId = 1234;
 
@@ -62,7 +62,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
 
             HydraRingVariable[] hydraRingVariables = dunesBoundaryConditionsCalculationInput.Variables.ToArray();
             Assert.AreEqual(1, hydraRingVariables.Length);
-            var waterLevelVariable = hydraRingVariables.First();
+            HydraRingVariable waterLevelVariable = hydraRingVariables.First();
             Assert.IsInstanceOf<DeterministicHydraRingVariable>(waterLevelVariable);
             Assert.AreEqual(26, waterLevelVariable.VariableId);
             Assert.AreEqual(0.0, waterLevelVariable.Value);

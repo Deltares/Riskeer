@@ -88,8 +88,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
 
     internal class TestHydraRingCalculationInput : HydraRingCalculationInput
     {
-        private readonly HydraRingSection section = new HydraRingSection(12, 12, 12);
-
         public TestHydraRingCalculationInput() : base(12)
         {
             DesignTablesSetting = new DesignTablesSetting(0, 0);
@@ -126,13 +124,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
             }
         }
 
-        public override HydraRingSection Section
-        {
-            get
-            {
-                return section;
-            }
-        }
+        public override HydraRingSection Section { get; } = new HydraRingSection(12, 12, 12);
     }
 
     internal class TestParser : IHydraRingFileParser

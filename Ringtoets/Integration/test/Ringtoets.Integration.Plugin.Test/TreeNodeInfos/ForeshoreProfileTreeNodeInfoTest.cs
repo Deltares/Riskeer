@@ -779,7 +779,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 using (var p = new RingtoetsPlugin())
                 {
                     p.Gui = gui;
-                    var i = p.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ForeshoreProfile));
+                    TreeNodeInfo i = p.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ForeshoreProfile));
 
                     // Call
                     i.ContextMenuStrip(null, null, treeViewControl);

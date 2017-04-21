@@ -50,7 +50,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
     public class SimpleSchemaCalculationConfigurationExporter
         : SchemaCalculationConfigurationExporter<TestSchemaCalculationConfigurationWriter, TestCalculation, TestConfigurationItem>
     {
-        public SimpleSchemaCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath) : base(calculations, filePath) { }
+        public SimpleSchemaCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath) : base(calculations, filePath) {}
 
         protected override TestSchemaCalculationConfigurationWriter CreateWriter(string filePath)
         {

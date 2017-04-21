@@ -82,7 +82,7 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
             mockRepository.ReplayAll();
 
             // Call
-            var result = editor.EditValue(descriptorContextStub, serviceProviderStub, someValue);
+            object result = editor.EditValue(descriptorContextStub, serviceProviderStub, someValue);
 
             // Assert
             Assert.AreSame(someValue, result);
@@ -109,7 +109,7 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
             mockRepository.ReplayAll();
 
             // Call
-            var result = editor.EditValue(descriptorContextStub, serviceProviderStub, someValue);
+            object result = editor.EditValue(descriptorContextStub, serviceProviderStub, someValue);
 
             // Assert
             Assert.AreSame(foreshoreProfile, result);
@@ -129,24 +129,17 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
 
         private class ObjectPropertiesWithForeshoreProfile : IHasForeshoreProfileProperty
         {
-            private readonly ForeshoreProfile foreshoreProfile;
             private readonly IEnumerable<ForeshoreProfile> availableForeshoreProfiles;
 
             public ObjectPropertiesWithForeshoreProfile(ForeshoreProfile foreshoreProfile, IEnumerable<ForeshoreProfile> availableForeshoreProfiles)
             {
-                this.foreshoreProfile = foreshoreProfile;
+                ForeshoreProfile = foreshoreProfile;
                 this.availableForeshoreProfiles = availableForeshoreProfiles;
             }
 
             public object Data { get; set; }
 
-            public ForeshoreProfile ForeshoreProfile
-            {
-                get
-                {
-                    return foreshoreProfile;
-                }
-            }
+            public ForeshoreProfile ForeshoreProfile { get; }
 
             public IEnumerable<ForeshoreProfile> GetAvailableForeshoreProfiles()
             {

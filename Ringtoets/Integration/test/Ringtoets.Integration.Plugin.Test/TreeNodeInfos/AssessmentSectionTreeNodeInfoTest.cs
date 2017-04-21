@@ -19,14 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Drawing;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
-using Core.Components.Gis;
-using Core.Components.Gis.Data;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Forms.PresentationObjects;
@@ -65,7 +64,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Assert
                 Assert.IsNotNull(info.Text);
@@ -102,10 +101,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                var text = info.Text(assessmentSection);
+                string text = info.Text(assessmentSection);
 
                 // Assert
                 Assert.AreEqual(testName, text);
@@ -120,10 +119,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                var image = info.Image(assessmentSection);
+                Image image = info.Image(assessmentSection);
 
                 // Assert
                 TestHelper.AssertImagesAreEqual(RingtoetsIntegrationFormsResources.AssessmentSectionFolderIcon, image);
@@ -138,10 +137,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                var result = info.EnsureVisibleOnCreate(null, null);
+                bool result = info.EnsureVisibleOnCreate(null, null);
 
                 // Assert
                 Assert.IsTrue(result);
@@ -157,10 +156,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                var result = info.ExpandOnCreate(null);
+                bool result = info.ExpandOnCreate(null);
 
                 // Assert
                 Assert.IsTrue(result);
@@ -176,9 +175,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
                 // Call
-                var objects = info.ChildNodeObjects(assessmentSection).ToArray();
+                object[] objects = info.ChildNodeObjects(assessmentSection).ToArray();
 
                 // Assert
                 Assert.AreEqual(23, objects.Length);
@@ -295,7 +294,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                 using (var plugin = new RingtoetsPlugin())
                 {
-                    var info = GetInfo(plugin);
+                    TreeNodeInfo info = GetInfo(plugin);
                     plugin.Gui = gui;
 
                     // Call
@@ -314,10 +313,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                var canRename = info.CanRename(null, null);
+                bool canRename = info.CanRename(null, null);
 
                 // Assert
                 Assert.IsTrue(canRename);
@@ -338,7 +337,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
                 // Call
                 const string newName = "New Name";
                 info.OnNodeRenamed(assessmentSection, newName);
@@ -357,9 +356,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
                 // Call
-                var canRemove = info.CanRemove(null, null);
+                bool canRemove = info.CanRemove(null, null);
 
                 // Assert
                 Assert.IsTrue(canRemove);
@@ -384,7 +383,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
                 info.OnNodeRemoved(assessmentSection, project);

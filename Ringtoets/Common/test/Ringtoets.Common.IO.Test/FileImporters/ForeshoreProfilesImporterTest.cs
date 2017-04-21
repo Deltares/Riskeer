@@ -119,7 +119,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] messageArray = messages.ToArray();
-                string expectedMessage = "Kan geen geldige gegevens vinden voor voorlandprofiellocatie met ID 'unmatchable'.";
+                var expectedMessage = "Kan geen geldige gegevens vinden voor voorlandprofiellocatie met ID 'unmatchable'.";
                 Assert.AreEqual(expectedMessage, messageArray[0]);
             });
             Assert.IsTrue(importResult);
@@ -139,7 +139,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath);
 
             // Call
-            bool importResult = false;
+            var importResult = false;
             Action call = () => importResult = foreshoreProfilesImporter.Import();
 
             // Assert
@@ -214,7 +214,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             // Assert
             Assert.IsTrue(importResult);
-            List<ProgressNotification> expectedProgressMessages = new List<ProgressNotification>
+            var expectedProgressMessages = new List<ProgressNotification>
             {
                 new ProgressNotification("Inlezen van profiellocaties uit een shapebestand.", 1, 1),
                 new ProgressNotification("Inlezen van profiellocatie.", 1, 5),
@@ -290,8 +290,6 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             mockRepository.VerifyAll(); // 'observer' should not be notified
         }
 
-
-
         [Test]
         public void Import_AllDamTypes_TrueAndLogMessagesAndFiveForeshoreProfiles()
         {
@@ -319,7 +317,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             // Assert
             Assert.IsTrue(importResult);
-            List<ProgressNotification> expectedProgressMessages = new List<ProgressNotification>
+            var expectedProgressMessages = new List<ProgressNotification>
             {
                 new ProgressNotification("Inlezen van profiellocaties uit een shapebestand.", 1, 1),
                 new ProgressNotification("Inlezen van profiellocatie.", 1, 5),
@@ -362,7 +360,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 }
             });
 
-            bool importResult = true;
+            var importResult = true;
 
             // Call
             Action call = () => importResult = foreshoreProfilesImporter.Import();
@@ -370,7 +368,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, "Voorlandprofielen importeren is afgebroken. Geen gegevens ingelezen.", 1);
             Assert.IsFalse(importResult);
-            mockRepository.VerifyAll(); 
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -395,7 +393,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 }
             });
 
-            bool importResult = true;
+            var importResult = true;
 
             // Call
             Action call = () => importResult = foreshoreProfilesImporter.Import();
@@ -425,7 +423,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Precondition
             bool importResult = foreshoreProfilesImporter.Import();
             Assert.IsFalse(importResult);
-			CollectionAssert.IsEmpty(foreshoreProfiles);
+            CollectionAssert.IsEmpty(foreshoreProfiles);
 
             foreshoreProfilesImporter.SetProgressChanged(null);
 
@@ -457,8 +455,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Assert.AreEqual(expectedProgressMessages.Count, progressChangeNotifications.Count);
             for (var i = 0; i < expectedProgressMessages.Count; i++)
             {
-                var notification = expectedProgressMessages[i];
-                var actualNotification = progressChangeNotifications[i];
+                ProgressNotification notification = expectedProgressMessages[i];
+                ProgressNotification actualNotification = progressChangeNotifications[i];
                 Assert.AreEqual(notification.Text, actualNotification.Text);
                 Assert.AreEqual(notification.CurrentStep, actualNotification.CurrentStep);
                 Assert.AreEqual(notification.TotalSteps, actualNotification.TotalSteps);

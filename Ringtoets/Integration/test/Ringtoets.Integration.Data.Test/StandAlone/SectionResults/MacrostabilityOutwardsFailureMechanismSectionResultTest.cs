@@ -61,7 +61,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
             TestDelegate test = () => result.AssessmentLayerTwoA = newValue;
 
             // Assert
-            var message = Assert.Throws<ArgumentException>(test).Message;
+            string message = Assert.Throws<ArgumentException>(test).Message;
             const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
             Assert.AreEqual(expectedMessage, message);
         }

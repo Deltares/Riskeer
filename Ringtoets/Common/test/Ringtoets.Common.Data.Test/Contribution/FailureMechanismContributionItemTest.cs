@@ -43,7 +43,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
         public void Constructor_WithoutFailureMechanism_ThrowsArgumentNullException()
         {
             // Setup
-            var norm = new Random(21).Next(1, int.MaxValue);
+            int norm = new Random(21).Next(1, int.MaxValue);
 
             // Call
             TestDelegate test = () => new FailureMechanismContributionItem(null, norm);
@@ -57,11 +57,11 @@ namespace Ringtoets.Common.Data.Test.Contribution
         public void Constructor_WithFailureMechanism_SetProperties()
         {
             // Setup
-            string name = "SomeName";
-            string code = "SN";
+            var name = "SomeName";
+            var code = "SN";
             var random = new Random(21);
             double contribution = random.Next(1, 100);
-            var norm = random.Next(1, int.MaxValue);
+            int norm = random.Next(1, int.MaxValue);
             const bool isRelevant = false;
 
             var failureMechanism = mockRepository.StrictMock<IFailureMechanism>();
@@ -92,11 +92,11 @@ namespace Ringtoets.Common.Data.Test.Contribution
         public void Constructor_WithFailureMechanismThatIsAlwaysRelevant_SetProperties()
         {
             // Setup
-            string name = "SomeName";
-            string code = "SN";
+            var name = "SomeName";
+            var code = "SN";
             var random = new Random(21);
             double contribution = random.Next(1, 100);
-            var norm = random.Next(1, int.MaxValue);
+            int norm = random.Next(1, int.MaxValue);
             const bool isRelevant = false;
 
             var failureMechanism = mockRepository.StrictMock<IFailureMechanism>();
@@ -123,7 +123,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
 
         [Test]
         [TestCase(20, 2000, 10000)]
-        [TestCase(3, 100, 10000/3.0)]
+        [TestCase(3, 100, 10000 / 3.0)]
         [TestCase(25.5, 2550, 10000)]
         public void ProbabilitySpace_DifferentContributionAndNorm_ReturnsExpectedValue(double contribution, int returnPeriod, double expectedResult)
         {
@@ -131,12 +131,12 @@ namespace Ringtoets.Common.Data.Test.Contribution
             var failureMechanism = mockRepository.StrictMock<IFailureMechanism>();
             failureMechanism.Expect(fm => fm.Contribution).Return(contribution);
             mockRepository.ReplayAll();
-            double norm = 1.0/returnPeriod;
+            double norm = 1.0 / returnPeriod;
 
             var contributionItem = new FailureMechanismContributionItem(failureMechanism, norm);
 
             // Call
-            var result = contributionItem.ProbabilitySpace;
+            double result = contributionItem.ProbabilitySpace;
 
             // Assert
             Assert.AreEqual(expectedResult, result, 1e-6);

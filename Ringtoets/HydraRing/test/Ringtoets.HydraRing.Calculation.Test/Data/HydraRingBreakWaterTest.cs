@@ -31,11 +31,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data
         public void Constructor_Always_ExpectedValues()
         {
             // Setup
-            int type = 1;
-            double height = 100.1;
+            var type = 1;
+            var height = 100.1;
 
             // Call
-            HydraRingBreakWater breakWater = new HydraRingBreakWater(type, height);
+            var breakWater = new HydraRingBreakWater(type, height);
 
             // Assert
             Assert.AreEqual(type, breakWater.Type);

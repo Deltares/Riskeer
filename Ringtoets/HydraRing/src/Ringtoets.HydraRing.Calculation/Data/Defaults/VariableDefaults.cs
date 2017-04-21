@@ -26,26 +26,18 @@ namespace Ringtoets.HydraRing.Calculation.Data.Defaults
     /// </summary>
     internal class VariableDefaults
     {
-        private readonly double correlationLength;
-
         /// <summary>
         /// Creates a new instance of the <see cref="VariableDefaults"/> class.
         /// </summary>
         /// <param name="correlationLength">The correlation length.</param>
         public VariableDefaults(double correlationLength)
         {
-            this.correlationLength = correlationLength;
+            CorrelationLength = correlationLength;
         }
 
         /// <summary>
         /// Gets the correlation length.
         /// </summary>
-        public double CorrelationLength
-        {
-            get
-            {
-                return correlationLength;
-            }
-        }
+        public double CorrelationLength { get; }
     }
 }

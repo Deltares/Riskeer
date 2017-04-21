@@ -19,9 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.ComponentModel;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Integration.Data;
@@ -46,7 +44,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             project.Name = testName;
 
             // Call
-            var result = properties.Name;
+            string result = properties.Name;
 
             // Assert
             Assert.AreEqual(testName, result);
@@ -68,7 +66,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             project.Description = testDescription;
 
             // Call
-            var result = properties.Description;
+            string result = properties.Description;
 
             // Assert
             Assert.AreEqual(testDescription, result);

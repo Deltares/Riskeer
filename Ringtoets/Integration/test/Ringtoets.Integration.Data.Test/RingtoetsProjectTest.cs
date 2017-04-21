@@ -82,8 +82,8 @@ namespace Ringtoets.Integration.Data.Test
         public void Equals_NewProject_ReturnsTrue()
         {
             // Setup
-            RingtoetsProject newProjectA = new RingtoetsProject();
-            RingtoetsProject newProjectB = new RingtoetsProject();
+            var newProjectA = new RingtoetsProject();
+            var newProjectB = new RingtoetsProject();
 
             // Call
             bool result = newProjectA.Equals(newProjectB);
@@ -98,8 +98,8 @@ namespace Ringtoets.Integration.Data.Test
         public void Equals_ProjectNameChanged_ReturnsFalse()
         {
             // Setup
-            RingtoetsProject newProject = new RingtoetsProject();
-            RingtoetsProject changedProject = new RingtoetsProject
+            var newProject = new RingtoetsProject();
+            var changedProject = new RingtoetsProject
             {
                 Name = "<some name>"
             };
@@ -117,8 +117,8 @@ namespace Ringtoets.Integration.Data.Test
         public void Equals_ProjectDescriptionChanged_ReturnsFalse()
         {
             // Setup
-            RingtoetsProject newProject = new RingtoetsProject();
-            RingtoetsProject changedProject = new RingtoetsProject
+            var newProject = new RingtoetsProject();
+            var changedProject = new RingtoetsProject
             {
                 Description = "<some description>"
             };
@@ -136,8 +136,8 @@ namespace Ringtoets.Integration.Data.Test
         public void Equals_ProjectAssessmentSectionsChanged_ReturnsFalse()
         {
             // Setup
-            RingtoetsProject newProject = new RingtoetsProject();
-            RingtoetsProject changedProject = new RingtoetsProject();
+            var newProject = new RingtoetsProject();
+            var changedProject = new RingtoetsProject();
             newProject.AssessmentSections.Add(new AssessmentSection(AssessmentSectionComposition.Dike));
 
             // Call
@@ -165,8 +165,8 @@ namespace Ringtoets.Integration.Data.Test
             };
 
             // Call
-            var result = project.GetHashCode();
-            var otherResult = otherProject.GetHashCode();
+            int result = project.GetHashCode();
+            int otherResult = otherProject.GetHashCode();
 
             // Assert
             Assert.AreEqual(result, otherResult);

@@ -144,7 +144,7 @@ namespace Ringtoets.Common.IO.HydraRing
                 throw new InvalidEnumArgumentException("calculationType", (int) calculationType, calculationType.GetType());
             }
 
-            using (var reader = CreateDesignTablesDataReader(locationId, calculationType))
+            using (IDataReader reader = CreateDesignTablesDataReader(locationId, calculationType))
             {
                 if (MoveNext(reader))
                 {
@@ -174,7 +174,7 @@ namespace Ringtoets.Common.IO.HydraRing
         /// contain expected type.</exception>
         public NumericsSetting ReadNumericsSetting(long locationId, int mechanismId, int subMechanismId)
         {
-            using (var reader = CreateNumericsSettingsDataReader(locationId, mechanismId, subMechanismId))
+            using (IDataReader reader = CreateNumericsSettingsDataReader(locationId, mechanismId, subMechanismId))
             {
                 if (MoveNext(reader))
                 {
@@ -222,7 +222,7 @@ namespace Ringtoets.Common.IO.HydraRing
                 throw new InvalidEnumArgumentException("calculationType", (int) calculationType, calculationType.GetType());
             }
 
-            using (var reader = CreateTimeIntegrationDataReader(locationId, calculationType))
+            using (IDataReader reader = CreateTimeIntegrationDataReader(locationId, calculationType))
             {
                 if (MoveNext(reader))
                 {
@@ -248,7 +248,7 @@ namespace Ringtoets.Common.IO.HydraRing
         /// contain expected type.</exception>
         public IEnumerable<long> ReadExcludedLocations()
         {
-            using (var reader = CreateExcludedLocationsDataReader())
+            using (IDataReader reader = CreateExcludedLocationsDataReader())
             {
                 while (MoveNext(reader))
                 {
@@ -377,7 +377,7 @@ namespace Ringtoets.Common.IO.HydraRing
         private List<Tuple<string, string>> GetValidSchema()
         {
             using (var validSchemaConnection = new SQLiteConnection("Data Source=:memory:"))
-            using (var command = validSchemaConnection.CreateCommand())
+            using (SQLiteCommand command = validSchemaConnection.CreateCommand())
             {
                 validSchemaConnection.Open();
                 command.CommandText = Resources.settings_schema;
@@ -388,17 +388,17 @@ namespace Ringtoets.Common.IO.HydraRing
 
         private static List<Tuple<string, string>> GetColumnDefinitions(SQLiteConnection connection)
         {
-            var columns = connection.GetSchema("COLUMNS");
+            DataTable columns = connection.GetSchema("COLUMNS");
 
             var definitions = new List<Tuple<string, string>>();
-            for (int i = 0; i < columns.Rows.Count; i++)
+            for (var i = 0; i < columns.Rows.Count; i++)
             {
-                var dataRow = columns.Rows[i];
+                DataRow dataRow = columns.Rows[i];
                 definitions.Add(
                     Tuple.Create(
                         ((string) dataRow["TABLE_NAME"]).ToLower(),
                         ((string) dataRow["COLUMN_NAME"]).ToLower()
-                        ));
+                    ));
             }
             return definitions;
         }

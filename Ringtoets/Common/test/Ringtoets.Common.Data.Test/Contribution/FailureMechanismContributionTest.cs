@@ -48,8 +48,8 @@ namespace Ringtoets.Common.Data.Test.Contribution
         {
             // Setup
             var random = new Random(21);
-            var contribution = random.Next(1, 100);
-            var norm = random.NextDouble();
+            int contribution = random.Next(1, 100);
+            double norm = random.NextDouble();
 
             // Call
             TestDelegate test = () => new FailureMechanismContribution(null, contribution, norm);
@@ -64,8 +64,8 @@ namespace Ringtoets.Common.Data.Test.Contribution
         {
             // Setup
             var random = new Random(21);
-            var contribution = random.Next(1, 100);
-            var norm = random.NextDouble();
+            int contribution = random.Next(1, 100);
+            double norm = random.NextDouble();
 
             // Call
             TestDelegate test = () => new FailureMechanismContribution(new IFailureMechanism[]
@@ -85,7 +85,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
         {
             // Setup
             var random = new Random(21);
-            var contribution = random.Next(1, 100);
+            int contribution = random.Next(1, 100);
 
             // Call
             TestDelegate test = () => new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), contribution, norm);
@@ -106,7 +106,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
         {
             // Setup
             var random = new Random(21);
-            var norm = random.NextDouble();
+            double norm = random.NextDouble();
 
             // Call
             TestDelegate test = () => new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), contribution, norm);
@@ -124,7 +124,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
         {
             // Setup
             var random = new Random(21);
-            var norm = random.NextDouble();
+            double norm = random.NextDouble();
 
             // Call
             var result = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), contribution, norm);
@@ -149,8 +149,8 @@ namespace Ringtoets.Common.Data.Test.Contribution
         {
             // Setup
             var random = new Random(21);
-            var otherContribution = random.Next(1, 100);
-            var norm = random.NextDouble();
+            int otherContribution = random.Next(1, 100);
+            double norm = random.NextDouble();
 
             var failureMechanismNames = new Collection<string>();
             var failureMechanismContributions = new Collection<double>();
@@ -160,8 +160,8 @@ namespace Ringtoets.Common.Data.Test.Contribution
 
             for (var i = 0; i < failureMechanismCount; i++)
             {
-                var name = string.Format(namePrefixFormat, i);
-                var contribution = random.Next(1, 100);
+                string name = string.Format(namePrefixFormat, i);
+                int contribution = random.Next(1, 100);
                 var failureMechanism = mockRepository.StrictMock<IFailureMechanism>();
                 failureMechanism.Expect(fm => fm.Name).Return(name);
                 failureMechanism.Expect(fm => fm.Contribution).Return(contribution).Repeat.Twice();
@@ -185,8 +185,8 @@ namespace Ringtoets.Common.Data.Test.Contribution
             CollectionAssert.AreEqual(failureMechanismNames, result.Distribution.Select(d => d.Assessment));
             CollectionAssert.AreEqual(failureMechanismContributions, result.Distribution.Select(d => d.Contribution));
             CollectionAssert.AreEqual(failureMechanismContributions.Select(c => 100.0 / (norm * c)), result.Distribution.Select(d => d.ProbabilitySpace));
-            var expectedIsAlwaysRelevant = Enumerable.Repeat(false, failureMechanismCount)
-                                                     .Concat(Enumerable.Repeat(true, 1));
+            IEnumerable<bool> expectedIsAlwaysRelevant = Enumerable.Repeat(false, failureMechanismCount)
+                                                                   .Concat(Enumerable.Repeat(true, 1));
             CollectionAssert.AreEqual(expectedIsAlwaysRelevant, result.Distribution.Select(d => d.IsAlwaysRelevant));
             mockRepository.VerifyAll();
         }
@@ -241,9 +241,9 @@ namespace Ringtoets.Common.Data.Test.Contribution
 
             // When
             failureMechanismContribution.UpdateContributions(failureMechanisms, 1);
-            var item1 = failureMechanismContribution.Distribution.Single();
+            FailureMechanismContributionItem item1 = failureMechanismContribution.Distribution.Single();
             failureMechanismContribution.UpdateContributions(failureMechanisms, latestContribution);
-            var item2 = failureMechanismContribution.Distribution.Single();
+            FailureMechanismContributionItem item2 = failureMechanismContribution.Distribution.Single();
 
             // Then
             Assert.AreEqual(latestContribution, item1.Contribution);
@@ -258,14 +258,14 @@ namespace Ringtoets.Common.Data.Test.Contribution
         public void UpdateContributions_FailureMechanismsChangesAfterConstruction_UpdateDistribution(double newOtherContribution)
         {
             // Setup
-            string name1 = "A";
-            string name2 = "B";
-            string name3 = "C";
-            string name4 = "D";
-            double contribution1 = 1.1;
-            double contribution2 = 5.5;
-            double contribution3 = 23.45;
-            double contribution4 = 67.89;
+            var name1 = "A";
+            var name2 = "B";
+            var name3 = "C";
+            var name4 = "D";
+            var contribution1 = 1.1;
+            var contribution2 = 5.5;
+            var contribution3 = 23.45;
+            var contribution4 = 67.89;
 
             var mocks = new MockRepository();
             var failureMechanism1 = mocks.Stub<IFailureMechanism>();
@@ -282,7 +282,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
             failureMechanism4.Stub(fm => fm.Name).Return(name4);
             mocks.ReplayAll();
 
-            List<IFailureMechanism> failureMechanisms = new List<IFailureMechanism>
+            var failureMechanisms = new List<IFailureMechanism>
             {
                 failureMechanism1,
                 failureMechanism2
@@ -347,8 +347,8 @@ namespace Ringtoets.Common.Data.Test.Contribution
         {
             // Setup
             var random = new Random(21);
-            var contribution = random.Next(1, 100);
-            var norm = random.NextDouble();
+            int contribution = random.Next(1, 100);
+            double norm = random.NextDouble();
             var failureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), contribution, norm);
 
             // Call
@@ -364,7 +364,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
         {
             // Setup
             var random = new Random(21);
-            var otherContribution = random.Next(1, 100);
+            int otherContribution = random.Next(1, 100);
             const double norm = 1.0 / 20000;
             const double newNorm = 1.0 / 30000;
 

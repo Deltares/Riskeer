@@ -59,7 +59,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Constructor_HandlerNull_ThrowsArgumentNullException()
         {
             // Setup
-            TestUseForeshore testUseForeshore = new TestUseForeshore();
+            var testUseForeshore = new TestUseForeshore();
 
             var mocks = new MockRepository();
             mocks.ReplayAll();
@@ -72,43 +72,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.AreEqual("handler", paramName);
         }
 
-        [TestCase(0, false)]
-        [TestCase(1, false)]
-        [TestCase(2, true)]
-        public void Constructor_WithDataWithForeshoreGeometryVariousNumberOfElements_ReturnExpectedValues(int numberOfPoint2D, bool isEnabled)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
-            var useForeshoreData = new TestUseForeshore
-            {
-                ForeshoreGeometry = new RoundedPoint2DCollection(
-                    0, Enumerable.Repeat(new Point2D(0, 0), numberOfPoint2D).ToArray())
-            };
-
-            // Call
-            var properties = new UseForeshoreProperties(useForeshoreData, handler);
-
-            // Assert
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(2, dynamicProperties.Count);
-
-            PropertyDescriptor useForeshoreProperty = dynamicProperties[0];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(useForeshoreProperty,
-                                                                            "Misc",
-                                                                            "Gebruik",
-                                                                            "Moet de voorlandgeometrie worden gebruikt tijdens de berekening?",
-                                                                            !isEnabled);
-
-            PropertyDescriptor coordinatesProperty = dynamicProperties[1];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(coordinatesProperty,
-                                                                            "Misc",
-                                                                            "Coördinaten [m]",
-                                                                            "Lijst met punten in lokale coördinaten.",
-                                                                            true);
-        }
         [Test]
         public void Constructor_WithDataWithoutForeshoreGeometry_CoordinatesNull()
         {
@@ -178,9 +141,47 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         [Test]
         public void UseForeshore_Always_InputNotifiedAndPropertyChangedCalled()
         {
-            var useForeshore = new Random(21).NextBoolean();
+            bool useForeshore = new Random(21).NextBoolean();
             SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.UseForeshore = useForeshore,
                                                                     new TestUseForeshore());
+        }
+
+        [TestCase(0, false)]
+        [TestCase(1, false)]
+        [TestCase(2, true)]
+        public void Constructor_WithDataWithForeshoreGeometryVariousNumberOfElements_ReturnExpectedValues(int numberOfPoint2D, bool isEnabled)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
+            mocks.ReplayAll();
+
+            var useForeshoreData = new TestUseForeshore
+            {
+                ForeshoreGeometry = new RoundedPoint2DCollection(
+                    0, Enumerable.Repeat(new Point2D(0, 0), numberOfPoint2D).ToArray())
+            };
+
+            // Call
+            var properties = new UseForeshoreProperties(useForeshoreData, handler);
+
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(2, dynamicProperties.Count);
+
+            PropertyDescriptor useForeshoreProperty = dynamicProperties[0];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(useForeshoreProperty,
+                                                                            "Misc",
+                                                                            "Gebruik",
+                                                                            "Moet de voorlandgeometrie worden gebruikt tijdens de berekening?",
+                                                                            !isEnabled);
+
+            PropertyDescriptor coordinatesProperty = dynamicProperties[1];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(coordinatesProperty,
+                                                                            "Misc",
+                                                                            "Coördinaten [m]",
+                                                                            "Lijst met punten in lokale coördinaten.",
+                                                                            true);
         }
 
         private void SetPropertyAndVerifyNotifcationsAndOutputForCalculation(
@@ -194,9 +195,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
-                {
-                    observable
-                });
+            {
+                observable
+            });
 
             var properties = new UseForeshoreProperties(input, handler);
 

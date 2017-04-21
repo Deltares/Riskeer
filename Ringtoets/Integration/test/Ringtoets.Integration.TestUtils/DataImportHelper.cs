@@ -121,7 +121,7 @@ namespace Ringtoets.Integration.TestUtils
                                                                                    "traject_6-3_vakken.shx"))
             {
                 IFailureMechanism[] failureMechanisms = targetFailureMechanisms.ToArray();
-                for (int i = 0; i < failureMechanisms.Length; i++)
+                for (var i = 0; i < failureMechanisms.Length; i++)
                 {
                     if (i == 0)
                     {
@@ -159,7 +159,7 @@ namespace Ringtoets.Integration.TestUtils
                                                                                    "HRD dutch coast south.config.sqlite"))
             using (var hydraulicBoundaryDatabaseImporter = new HydraulicBoundaryDatabaseImporter())
             {
-                var filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "HRD dutch coast south.sqlite");
+                string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "HRD dutch coast south.sqlite");
                 hydraulicBoundaryDatabaseImporter.Import(assessmentSection, filePath);
             }
         }
@@ -185,7 +185,7 @@ namespace Ringtoets.Integration.TestUtils
                                                                                    "DR6_surfacelines.csv",
                                                                                    "DR6_surfacelines.krp.csv"))
             {
-                var filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6_surfacelines.csv");
+                string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6_surfacelines.csv");
                 var activity = new FileImportActivity(new PipingSurfaceLinesCsvImporter(assessmentSection.PipingFailureMechanism.SurfaceLines,
                                                                                         assessmentSection.ReferenceLine,
                                                                                         filePath,

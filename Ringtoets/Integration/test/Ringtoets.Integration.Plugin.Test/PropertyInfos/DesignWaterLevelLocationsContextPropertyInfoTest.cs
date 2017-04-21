@@ -19,9 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Linq;
 using Core.Common.Gui.Plugin;
+using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -38,7 +38,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            using (RingtoetsPlugin plugin = new RingtoetsPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 // Call
                 PropertyInfo info = GetInfo(plugin);
@@ -53,20 +53,20 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         public void CreateInstance_Always_SetsHydraulicBoundaryDatabaseAsData()
         {
             // Setup
-            MockRepository mockRepository = new MockRepository();
+            var mockRepository = new MockRepository();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             mockRepository.ReplayAll();
 
-            DesignWaterLevelLocationsContext context = new DesignWaterLevelLocationsContext(assessmentSection);
+            var context = new DesignWaterLevelLocationsContext(assessmentSection);
 
-            using (RingtoetsPlugin plugin = new RingtoetsPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 PropertyInfo info = GetInfo(plugin);
 
                 // Call
-                var objectProperties = info.CreateInstance(context);
+                IObjectProperties objectProperties = info.CreateInstance(context);
 
                 // Assert
                 Assert.IsInstanceOf<DesignWaterLevelLocationsContextProperties>(objectProperties);

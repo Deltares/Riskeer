@@ -227,7 +227,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 MapDataCollection mapData = map.Data;
                 Assert.IsInstanceOf<MapDataCollection>(mapData);
 
-                var mapDataList = mapData.Collection.ToList();
+                List<MapData> mapDataList = mapData.Collection.ToList();
                 Assert.AreEqual(5, mapDataList.Count);
                 MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, mapDataList[referenceLineIndex]);
                 MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, mapDataList[sectionsIndex]);
@@ -444,7 +444,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 mapData.Remove(dataToMove);
                 mapData.Add(dataToMove);
 
-                var mapDataList = mapData.Collection.ToList();
+                List<MapData> mapDataList = mapData.Collection.ToList();
 
                 // Precondition
                 var referenceLineData = (MapLineData) mapDataList[updatedRefenceLineLayerIndex];
@@ -530,7 +530,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         {
             Assert.AreEqual("Duinwaterkering - Duinafslag", mapDataCollection.Name);
 
-            var mapDataList = mapDataCollection.Collection.ToList();
+            List<MapData> mapDataList = mapDataCollection.Collection.ToList();
 
             Assert.AreEqual(5, mapDataList.Count);
 
@@ -563,7 +563,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             }
             else
             {
-                var duneLocationsArray = duneLocations.ToArray();
+                DuneLocation[] duneLocationsArray = duneLocations.ToArray();
 
                 Assert.AreEqual(duneLocationsArray.Length, duneLocationsMapData.Features.Length);
                 CollectionAssert.AreEqual(duneLocationsArray.Select(hrp => hrp.Location),

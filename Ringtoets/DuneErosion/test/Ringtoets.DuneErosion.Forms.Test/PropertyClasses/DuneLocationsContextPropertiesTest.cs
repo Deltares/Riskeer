@@ -70,7 +70,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             Assert.AreEqual(location.CoastalAreaId, duneLocationContextProperties.CoastalAreaId);
             Assert.AreEqual(location.Offset.ToString("0.#", CultureInfo.InvariantCulture), duneLocationContextProperties.Offset);
             Assert.AreEqual(location.Location, duneLocationContextProperties.Location);
-            
+
             Assert.IsNaN(duneLocationContextProperties.WaterLevel);
             Assert.IsNaN(duneLocationContextProperties.WaveHeight);
             Assert.IsNaN(duneLocationContextProperties.WavePeriod);

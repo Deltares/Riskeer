@@ -104,7 +104,7 @@ namespace Ringtoets.Common.Data.Test.Structures
             };
 
             // Call
-            var result = calculation.ToString();
+            string result = calculation.ToString();
 
             // Assert
             Assert.AreEqual(expectedName, result);

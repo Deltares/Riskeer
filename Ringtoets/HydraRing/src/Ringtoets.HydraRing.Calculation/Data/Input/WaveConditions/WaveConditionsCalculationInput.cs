@@ -30,13 +30,9 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
     /// </summary>
     public abstract class WaveConditionsCalculationInput : HydraRingCalculationInput
     {
-        private readonly double beta;
-        private readonly IEnumerable<HydraRingForelandPoint> forelandPoints;
-        private readonly HydraRingBreakWater breakWater;
         private readonly double waterLevel;
         private readonly double a;
         private readonly double b;
-        private readonly HydraRingSection section;
 
         /// <summary>
         /// Creates a new instance of the <see cref="WaveConditionsCalculationInput"/> class.
@@ -62,13 +58,13 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
                                                  double b)
             : base(hydraulicBoundaryLocationId)
         {
-            beta = StatisticsConverter.ProbabilityToReliability(norm);
-            this.forelandPoints = forelandPoints;
-            this.breakWater = breakWater;
+            Beta = StatisticsConverter.ProbabilityToReliability(norm);
+            ForelandsPoints = forelandPoints;
+            BreakWater = breakWater;
             this.waterLevel = waterLevel;
             this.a = a;
             this.b = b;
-            section = new HydraRingSection(sectionId, double.NaN, sectionNormal);
+            Section = new HydraRingSection(sectionId, double.NaN, sectionNormal);
         }
 
         public override HydraRingFailureMechanismType FailureMechanismType
@@ -95,13 +91,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
             }
         }
 
-        public override HydraRingSection Section
-        {
-            get
-            {
-                return section;
-            }
-        }
+        public override HydraRingSection Section { get; }
 
         public override IEnumerable<HydraRingVariable> Variables
         {
@@ -114,28 +104,10 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
             }
         }
 
-        public override IEnumerable<HydraRingForelandPoint> ForelandsPoints
-        {
-            get
-            {
-                return forelandPoints;
-            }
-        }
+        public override IEnumerable<HydraRingForelandPoint> ForelandsPoints { get; }
 
-        public override HydraRingBreakWater BreakWater
-        {
-            get
-            {
-                return breakWater;
-            }
-        }
+        public override HydraRingBreakWater BreakWater { get; }
 
-        public override double Beta
-        {
-            get
-            {
-                return beta;
-            }
-        }
+        public override double Beta { get; }
     }
 }

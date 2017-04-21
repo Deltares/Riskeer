@@ -29,8 +29,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input
     /// </summary>
     public abstract class ReliabilityIndexCalculationInput : HydraRingCalculationInput
     {
-        private readonly double beta;
-
         /// <summary>
         /// Creates a new instance of the <see cref="ReliabilityIndexCalculationInput"/> class.
         /// </summary>
@@ -39,7 +37,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input
         /// <remarks>As a part of the constructor, the <paramref name="norm"/> is automatically converted into a reliability index.</remarks>
         protected ReliabilityIndexCalculationInput(long hydraulicBoundaryLocationId, double norm) : base(hydraulicBoundaryLocationId)
         {
-            beta = StatisticsConverter.ProbabilityToReliability(norm);
+            Beta = StatisticsConverter.ProbabilityToReliability(norm);
         }
 
         public override int CalculationTypeId
@@ -50,12 +48,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input
             }
         }
 
-        public override double Beta
-        {
-            get
-            {
-                return beta;
-            }
-        }
+        public override double Beta { get; }
     }
 }

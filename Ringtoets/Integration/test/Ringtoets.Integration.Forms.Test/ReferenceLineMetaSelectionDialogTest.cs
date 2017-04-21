@@ -127,7 +127,7 @@ namespace Ringtoets.Integration.Forms.Test
                 using (var dialog = new ReferenceLineMetaSelectionDialog(viewParent, referenceLineMetas))
                 {
                     // Assert
-                    DataGridViewControl grid = (DataGridViewControl) new ControlTester("ReferenceLineMetaDataGridViewControl", dialog).TheObject;
+                    var grid = (DataGridViewControl) new ControlTester("ReferenceLineMetaDataGridViewControl", dialog).TheObject;
                     DataGridView dataGridView = grid.Controls.OfType<DataGridView>().First();
 
                     var assessmentIdValuesInGrid = new List<string>();
@@ -179,7 +179,7 @@ namespace Ringtoets.Integration.Forms.Test
                 using (var dialog = new ReferenceLineMetaSelectionDialog(viewParent, referenceLineMetas))
                 {
                     // Assert
-                    DataGridViewControl grid = (DataGridViewControl) new ControlTester("ReferenceLineMetaDataGridViewControl", dialog).TheObject;
+                    var grid = (DataGridViewControl) new ControlTester("ReferenceLineMetaDataGridViewControl", dialog).TheObject;
                     DataGridView dataGridView = grid.Controls.OfType<DataGridView>().First();
 
                     Assert.AreEqual(1, dataGridView.Rows.Count);

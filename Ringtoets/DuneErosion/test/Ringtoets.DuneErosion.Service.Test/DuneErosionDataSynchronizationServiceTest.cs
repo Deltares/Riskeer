@@ -36,6 +36,20 @@ namespace Ringtoets.DuneErosion.Service.Test
     [TestFixture]
     public class DuneErosionDataSynchronizationServiceTest
     {
+        private static IEnumerable<TestCaseData> Locations
+        {
+            get
+            {
+                yield return new TestCaseData(
+                    new ReadDuneLocation("dune location 1", new Point2D(1.0, 2.0), 0, 0, 0, 0),
+                    new HydraulicBoundaryLocation(1, "hydraulic location 1", 2.0, 1.0)).SetName("DifferentCoordinates");
+
+                yield return new TestCaseData(
+                    new ReadDuneLocation("dune location 1", new Point2D(1.0, 2.0), 0, 2.2, 0, 0),
+                    new HydraulicBoundaryLocation(1, "hydraulic_location_1.1", 1.0, 2.0)).SetName("DifferentOffset");
+            }
+        }
+
         [Test]
         public void SetDuneLocations_FailureMechanismNull_ThrowArgumentNullException()
         {
@@ -70,7 +84,7 @@ namespace Ringtoets.DuneErosion.Service.Test
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
-            
+
             // Call
             TestDelegate test = () => DuneErosionDataSynchronizationService.SetDuneLocations(failureMechanism,
                                                                                              new HydraulicBoundaryLocation[0],
@@ -91,10 +105,11 @@ namespace Ringtoets.DuneErosion.Service.Test
             failureMechanism.DuneLocations.Add(duneLocation);
 
             // Precondition
-            CollectionAssert.AreEqual(new[]
-                                      {
-                                          duneLocation
-                                      }, failureMechanism.DuneLocations);
+            CollectionAssert.AreEqual(
+                new[]
+                {
+                    duneLocation
+                }, failureMechanism.DuneLocations);
 
             // call
             DuneErosionDataSynchronizationService.SetDuneLocations(failureMechanism,
@@ -117,7 +132,15 @@ namespace Ringtoets.DuneErosion.Service.Test
             CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
 
             // Call
-            DuneErosionDataSynchronizationService.SetDuneLocations(failureMechanism, new [] { hydraulicBoundaryLocation }, new[] { readDuneLocation });
+            DuneErosionDataSynchronizationService.SetDuneLocations(
+                failureMechanism,
+                new[]
+                {
+                    hydraulicBoundaryLocation
+                }, new[]
+                {
+                    readDuneLocation
+                });
 
             // Assert
             Assert.AreEqual(1, failureMechanism.DuneLocations.Count);
@@ -136,7 +159,7 @@ namespace Ringtoets.DuneErosion.Service.Test
         [TestCase(-1)]
         [TestCase(-0.123)]
         [TestCase(1)]
-        [TestCase(123.456789)]       
+        [TestCase(123.456789)]
         public void SetDuneLocations_DuneLocationsMatchNameNotAccordingFormat_DeuneLocationNotAddedLogMessage(double offset)
         {
             // Setup
@@ -150,7 +173,15 @@ namespace Ringtoets.DuneErosion.Service.Test
             CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
 
             // Call
-            Action test = () => DuneErosionDataSynchronizationService.SetDuneLocations(failureMechanism, new[] { hydraulicBoundaryLocation }, new[] { readDuneLocation });
+            Action test = () => DuneErosionDataSynchronizationService.SetDuneLocations(
+                failureMechanism,
+                new[]
+                {
+                    hydraulicBoundaryLocation
+                }, new[]
+                {
+                    readDuneLocation
+                });
 
             // Assert
             string expectedMessage = $"Locatie '{locationName}' moet voldoen aan het formaat 'Naam_Vaknummer_Metrering'. " +
@@ -183,20 +214,6 @@ namespace Ringtoets.DuneErosion.Service.Test
             CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
         }
 
-        private static IEnumerable<TestCaseData> Locations
-        {
-            get
-            {
-                yield return new TestCaseData(
-                    new ReadDuneLocation("dune location 1", new Point2D(1.0, 2.0), 0, 0, 0, 0),
-                    new HydraulicBoundaryLocation(1, "hydraulic location 1", 2.0, 1.0)).SetName("DifferentCoordinates");
-
-                yield return new TestCaseData(
-                    new ReadDuneLocation("dune location 1", new Point2D(1.0, 2.0), 0, 2.2, 0, 0),
-                    new HydraulicBoundaryLocation(1, "hydraulic_location_1.1", 1.0, 2.0)).SetName("DifferentOffset");
-            }
-        }
-
         [Test]
         public void ClearDuneLocationOutput_locationsNull_ThrowArgumentNullException()
         {
@@ -226,7 +243,11 @@ namespace Ringtoets.DuneErosion.Service.Test
 
             // Assert
             Assert.IsNull(location.Output);
-            CollectionAssert.AreEqual(new[] { location }, affected);
+            CollectionAssert.AreEqual(
+                new[]
+                {
+                    location
+                }, affected);
         }
     }
 }

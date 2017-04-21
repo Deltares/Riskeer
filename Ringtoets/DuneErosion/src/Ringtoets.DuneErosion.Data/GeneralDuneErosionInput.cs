@@ -30,10 +30,12 @@ namespace Ringtoets.DuneErosion.Data
     /// </summary>
     public class GeneralDuneErosionInput
     {
+        private const int numberOfDecimalPlacesN = 2;
+
         private static readonly Range<RoundedDouble> validityRangeN = new Range<RoundedDouble>(new RoundedDouble(numberOfDecimalPlacesN, 1),
                                                                                                new RoundedDouble(numberOfDecimalPlacesN, 20));
+
         private RoundedDouble n;
-        private const int numberOfDecimalPlacesN = 2;
 
         /// <summary>
         /// Creates a new instance of <see cref="GeneralDuneErosionInput"/>.
@@ -58,7 +60,7 @@ namespace Ringtoets.DuneErosion.Data
             }
             set
             {
-                var newValue = value.ToPrecision(n.NumberOfDecimalPlaces);
+                RoundedDouble newValue = value.ToPrecision(n.NumberOfDecimalPlaces);
                 if (!validityRangeN.InRange(newValue))
                 {
                     throw new ArgumentOutOfRangeException(nameof(value), string.Format(Resources.N_Value_should_be_in_Range_0_,

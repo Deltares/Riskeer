@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Drawing;
 using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
@@ -68,7 +70,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             // Call
-            var viewName = info.GetViewName(view, assessmentSection);
+            string viewName = info.GetViewName(view, assessmentSection);
 
             // Assert
             Assert.AreEqual("Trajectkaart", viewName);
@@ -80,7 +82,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void ViewType_Always_ReturnsViewType()
         {
             // Call
-            var viewType = info.ViewType;
+            Type viewType = info.ViewType;
 
             // Assert
             Assert.AreEqual(typeof(AssessmentSectionView), viewType);
@@ -90,7 +92,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void DataType_Always_ReturnsDataType()
         {
             // Call
-            var dataType = info.DataType;
+            Type dataType = info.DataType;
 
             // Assert
             Assert.AreEqual(typeof(IAssessmentSection), dataType);
@@ -100,7 +102,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void Image_Always_ReturnsGenericInputOutputIcon()
         {
             // Call
-            var image = info.Image;
+            Image image = info.Image;
 
             // Assert
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.Map, image);

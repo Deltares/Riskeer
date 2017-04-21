@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -65,7 +66,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Assert
                 Assert.IsNotNull(info.Text);
@@ -98,7 +99,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                var text = info.Text(null);
+                string text = info.Text(null);
 
                 // Assert
                 Assert.AreEqual("Toetspeilen", text);
@@ -114,7 +115,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                var image = info.Image(null);
+                Image image = info.Image(null);
 
                 // Assert
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, image);
@@ -298,7 +299,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
                     using (new HydraRingCalculatorFactoryConfig())
                     {
-                        var testDesignWaterLevelCalculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).DesignWaterLevelCalculator;
+                        TestDesignWaterLevelCalculator testDesignWaterLevelCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DesignWaterLevelCalculator;
                         testDesignWaterLevelCalculator.Converged = false;
 
                         // When
@@ -307,7 +308,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                         // Then
                         TestHelper.AssertLogMessages(call, messages =>
                         {
-                            var msgs = messages.ToArray();
+                            string[] msgs = messages.ToArray();
                             Assert.AreEqual(7, msgs.Length);
                             StringAssert.StartsWith($"Validatie van 'Toetspeil berekenen voor locatie '{location.Name}'' gestart om:", msgs[0]);
                             StringAssert.StartsWith($"Validatie van 'Toetspeil berekenen voor locatie '{location.Name}'' beëindigd om:", msgs[1]);

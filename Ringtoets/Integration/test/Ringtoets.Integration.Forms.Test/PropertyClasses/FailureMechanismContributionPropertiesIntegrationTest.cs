@@ -59,7 +59,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             const int newReturnPeriod = 200;
             const int numberOfCalculations = 3;
 
-            var hydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateFullyCalculated();
+            TestHydraulicBoundaryLocation hydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateFullyCalculated();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 Locations =
@@ -92,7 +92,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
 
-            var grassCoverErosionOutwardsHydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateFullyCalculated();
+            TestHydraulicBoundaryLocation grassCoverErosionOutwardsHydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateFullyCalculated();
 
             assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Add(grassCoverErosionOutwardsHydraulicBoundaryLocation);
 
@@ -105,23 +105,23 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
 
-            MockRepository mockRepository = new MockRepository();
-            IObserver observerMock = mockRepository.StrictMock<IObserver>();
+            var mockRepository = new MockRepository();
+            var observerMock = mockRepository.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver());
 
-            IObserver pipingCalculationObserver = mockRepository.StrictMock<IObserver>();
+            var pipingCalculationObserver = mockRepository.StrictMock<IObserver>();
             pipingCalculationObserver.Expect(o => o.UpdateObserver());
-            IObserver grassCoverErosionInwardsCalculationObserver = mockRepository.StrictMock<IObserver>();
+            var grassCoverErosionInwardsCalculationObserver = mockRepository.StrictMock<IObserver>();
             grassCoverErosionInwardsCalculationObserver.Expect(o => o.UpdateObserver());
-            IObserver heightStructuresCalculationObserver = mockRepository.StrictMock<IObserver>();
+            var heightStructuresCalculationObserver = mockRepository.StrictMock<IObserver>();
             heightStructuresCalculationObserver.Expect(o => o.UpdateObserver());
-            IObserver emptyPipingCalculationObserver = mockRepository.StrictMock<IObserver>();
-            IObserver emptyGrassCoverErosionInwardsCalculationObserver = mockRepository.StrictMock<IObserver>();
-            IObserver emptyHeightStructuresCalculationObserver = mockRepository.StrictMock<IObserver>();
+            var emptyPipingCalculationObserver = mockRepository.StrictMock<IObserver>();
+            var emptyGrassCoverErosionInwardsCalculationObserver = mockRepository.StrictMock<IObserver>();
+            var emptyHeightStructuresCalculationObserver = mockRepository.StrictMock<IObserver>();
 
-            IObserver hydraulicBoundaryDatabaseObserver = mockRepository.StrictMock<IObserver>();
+            var hydraulicBoundaryDatabaseObserver = mockRepository.StrictMock<IObserver>();
             hydraulicBoundaryDatabaseObserver.Expect(hbdo => hbdo.UpdateObserver());
-            IObserver grassCoverErosionOutwardsObserver = mockRepository.StrictMock<IObserver>();
+            var grassCoverErosionOutwardsObserver = mockRepository.StrictMock<IObserver>();
             grassCoverErosionOutwardsObserver.Expect(o => o.UpdateObserver());
             mockRepository.ReplayAll();
 
@@ -145,7 +145,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 new AssessmentSectionCompositionChangeHandler());
 
             // Precondition
-            int originalReturnPeriodValue = Convert.ToInt32(1.0/failureMechanismContribution.Norm);
+            int originalReturnPeriodValue = Convert.ToInt32(1.0 / failureMechanismContribution.Norm);
             Assert.AreEqual(originalReturnPeriodValue, properties.ReturnPeriod);
             Assert.IsNotNull(hydraulicBoundaryLocation.WaveHeightOutput);
             Assert.IsNotNull(hydraulicBoundaryLocation.DesignWaterLevelOutput);
@@ -172,7 +172,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 Assert.AreEqual(string.Format(messageCalculationsremoved, numberOfCalculations), messages[0]);
                 Assert.AreEqual(messageAllHydraulicBoundaryLocationOutputCleared, messages[1]);
             });
-            Assert.AreEqual(1.0/newReturnPeriod, failureMechanismContribution.Norm);
+            Assert.AreEqual(1.0 / newReturnPeriod, failureMechanismContribution.Norm);
             Assert.IsNull(hydraulicBoundaryLocation.WaveHeightOutput);
             Assert.IsNull(hydraulicBoundaryLocation.DesignWaterLevelOutput);
             Assert.IsNull(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeightOutput);
@@ -214,10 +214,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
 
             var mockRepository = new MockRepository();
-            IObserver observerMock = mockRepository.StrictMock<IObserver>();
+            var observerMock = mockRepository.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver());
-            IObserver calculationObserver = mockRepository.StrictMock<IObserver>(); // No update observers expected.
-            IObserver hydraulicBoundaryDatabaseObserver = mockRepository.StrictMock<IObserver>();
+            var calculationObserver = mockRepository.StrictMock<IObserver>(); // No update observers expected.
+            var hydraulicBoundaryDatabaseObserver = mockRepository.StrictMock<IObserver>();
             hydraulicBoundaryDatabaseObserver.Expect(hbdo => hbdo.UpdateObserver());
             mockRepository.ReplayAll();
 
@@ -237,7 +237,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
 
             // Precondition
-            int originalReturnPeriodValue = Convert.ToInt32(1.0/failureMechanismContribution.Norm);
+            int originalReturnPeriodValue = Convert.ToInt32(1.0 / failureMechanismContribution.Norm);
             Assert.AreEqual(originalReturnPeriodValue, properties.ReturnPeriod);
             Assert.IsFalse(double.IsNaN(hydraulicBoundaryLocation.WaveHeight));
             Assert.IsFalse(double.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel));
@@ -254,7 +254,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, messageAllHydraulicBoundaryLocationOutputCleared, 1);
 
-            Assert.AreEqual(1.0/newReturnPeriod, failureMechanismContribution.Norm);
+            Assert.AreEqual(1.0 / newReturnPeriod, failureMechanismContribution.Norm);
             Assert.IsNaN(hydraulicBoundaryLocation.WaveHeight);
             Assert.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel);
 
@@ -268,22 +268,22 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             const int newReturnPeriod = 200;
             const int numberOfCalculations = 3;
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(new TestHydraulicBoundaryLocation());
 
-            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
             };
 
-            PipingCalculation emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
-            PipingCalculation pipingCalculation = new PipingCalculation(new GeneralPipingInput())
+            var emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
+            var pipingCalculation = new PipingCalculation(new GeneralPipingInput())
             {
                 Output = new TestPipingOutput(),
                 SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
             };
-            GrassCoverErosionInwardsCalculation emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
-            GrassCoverErosionInwardsCalculation grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
+            var emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
+            var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
             {
                 Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0),
                                                             new TestHydraulicLoadsOutput(0),
@@ -304,21 +304,21 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
 
-            MockRepository mockRepository = new MockRepository();
-            IObserver observerMock = mockRepository.StrictMock<IObserver>();
+            var mockRepository = new MockRepository();
+            var observerMock = mockRepository.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver());
 
-            IObserver pipingCalculationObserver = mockRepository.StrictMock<IObserver>();
+            var pipingCalculationObserver = mockRepository.StrictMock<IObserver>();
             pipingCalculationObserver.Expect(o => o.UpdateObserver());
-            IObserver grassCoverErosionInwardsCalculationObserver = mockRepository.StrictMock<IObserver>();
+            var grassCoverErosionInwardsCalculationObserver = mockRepository.StrictMock<IObserver>();
             grassCoverErosionInwardsCalculationObserver.Expect(o => o.UpdateObserver());
-            IObserver heightStructuresCalculationObserver = mockRepository.StrictMock<IObserver>();
+            var heightStructuresCalculationObserver = mockRepository.StrictMock<IObserver>();
             heightStructuresCalculationObserver.Expect(o => o.UpdateObserver());
-            IObserver emptyPipingCalculationObserver = mockRepository.StrictMock<IObserver>();
-            IObserver emptyGrassCoverErosionInwardsCalculationObserver = mockRepository.StrictMock<IObserver>();
-            IObserver emptyHeightStructuresCalculationObserver = mockRepository.StrictMock<IObserver>();
+            var emptyPipingCalculationObserver = mockRepository.StrictMock<IObserver>();
+            var emptyGrassCoverErosionInwardsCalculationObserver = mockRepository.StrictMock<IObserver>();
+            var emptyHeightStructuresCalculationObserver = mockRepository.StrictMock<IObserver>();
 
-            IObserver hydraulicBoundaryDatabaseObserver = mockRepository.StrictMock<IObserver>(); // No update observer expected.
+            var hydraulicBoundaryDatabaseObserver = mockRepository.StrictMock<IObserver>(); // No update observer expected.
             mockRepository.ReplayAll();
 
             failureMechanismContribution.Attach(observerMock);
@@ -339,7 +339,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 new AssessmentSectionCompositionChangeHandler());
 
             // Precondition
-            int originalReturnPeriodValue = Convert.ToInt32(1.0/failureMechanismContribution.Norm);
+            int originalReturnPeriodValue = Convert.ToInt32(1.0 / failureMechanismContribution.Norm);
             Assert.AreEqual(originalReturnPeriodValue, properties.ReturnPeriod);
             Assert.IsNotNull(pipingCalculation.Output);
             Assert.IsNotNull(pipingCalculation.SemiProbabilisticOutput);
@@ -360,7 +360,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                                    numberOfCalculations);
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
 
-            Assert.AreEqual(1.0/newReturnPeriod, failureMechanismContribution.Norm);
+            Assert.AreEqual(1.0 / newReturnPeriod, failureMechanismContribution.Norm);
             Assert.IsNull(pipingCalculation.Output);
             Assert.IsNull(pipingCalculation.SemiProbabilisticOutput);
             Assert.IsNull(grassCoverErosionInwardsCalculation.Output);
@@ -376,16 +376,16 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             const int newReturnPeriod = 200;
             const int numberOfCalculations = 3;
 
-            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            PipingCalculation emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
-            PipingCalculation pipingCalculation = new PipingCalculation(new GeneralPipingInput())
+            var emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
+            var pipingCalculation = new PipingCalculation(new GeneralPipingInput())
             {
                 Output = new TestPipingOutput(),
                 SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
             };
-            GrassCoverErosionInwardsCalculation emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
-            GrassCoverErosionInwardsCalculation grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
+            var emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
+            var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
             {
                 Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0),
                                                             new TestHydraulicLoadsOutput(0),
@@ -406,19 +406,19 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
 
-            MockRepository mockRepository = new MockRepository();
-            IObserver observerMock = mockRepository.StrictMock<IObserver>();
+            var mockRepository = new MockRepository();
+            var observerMock = mockRepository.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver());
 
-            IObserver pipingCalculationObserver = mockRepository.StrictMock<IObserver>();
+            var pipingCalculationObserver = mockRepository.StrictMock<IObserver>();
             pipingCalculationObserver.Expect(o => o.UpdateObserver());
-            IObserver grassCoverErosionInwardsCalculationObserver = mockRepository.StrictMock<IObserver>();
+            var grassCoverErosionInwardsCalculationObserver = mockRepository.StrictMock<IObserver>();
             grassCoverErosionInwardsCalculationObserver.Expect(o => o.UpdateObserver());
-            IObserver heightStructuresCalculationObserver = mockRepository.StrictMock<IObserver>();
+            var heightStructuresCalculationObserver = mockRepository.StrictMock<IObserver>();
             heightStructuresCalculationObserver.Expect(o => o.UpdateObserver());
-            IObserver emptyPipingCalculationObserver = mockRepository.StrictMock<IObserver>();
-            IObserver emptyGrassCoverErosionInwardsCalculationObserver = mockRepository.StrictMock<IObserver>();
-            IObserver emptyHeightStructuresCalculationObserver = mockRepository.StrictMock<IObserver>();
+            var emptyPipingCalculationObserver = mockRepository.StrictMock<IObserver>();
+            var emptyGrassCoverErosionInwardsCalculationObserver = mockRepository.StrictMock<IObserver>();
+            var emptyHeightStructuresCalculationObserver = mockRepository.StrictMock<IObserver>();
 
             mockRepository.ReplayAll();
 
@@ -439,7 +439,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 new AssessmentSectionCompositionChangeHandler());
 
             // Precondition
-            int originalReturnPeriodValue = Convert.ToInt32(1.0/failureMechanismContribution.Norm);
+            int originalReturnPeriodValue = Convert.ToInt32(1.0 / failureMechanismContribution.Norm);
             Assert.AreEqual(originalReturnPeriodValue, properties.ReturnPeriod);
             Assert.IsNotNull(pipingCalculation.Output);
             Assert.IsNotNull(pipingCalculation.SemiProbabilisticOutput);
@@ -460,7 +460,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                                    numberOfCalculations);
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
 
-            Assert.AreEqual(1.0/newReturnPeriod, failureMechanismContribution.Norm);
+            Assert.AreEqual(1.0 / newReturnPeriod, failureMechanismContribution.Norm);
             Assert.IsNull(pipingCalculation.Output);
             Assert.IsNull(pipingCalculation.SemiProbabilisticOutput);
             Assert.IsNull(grassCoverErosionInwardsCalculation.Output);
@@ -475,16 +475,16 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Setup
             const int newReturnPeriod = 200;
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(new TestHydraulicBoundaryLocation());
 
-            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
             };
 
-            PipingCalculation emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
-            GrassCoverErosionInwardsCalculation emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
+            var emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
+            var emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
             var emptyHeightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>();
 
             assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(emptyPipingCalculation);
@@ -493,11 +493,11 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
 
-            MockRepository mockRepository = new MockRepository();
-            IObserver observerMock = mockRepository.StrictMock<IObserver>();
+            var mockRepository = new MockRepository();
+            var observerMock = mockRepository.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver());
-            IObserver calculationObserver = mockRepository.StrictMock<IObserver>();
-            IObserver hydraulicBoundaryDatabaseObserver = mockRepository.StrictMock<IObserver>();
+            var calculationObserver = mockRepository.StrictMock<IObserver>();
+            var hydraulicBoundaryDatabaseObserver = mockRepository.StrictMock<IObserver>();
             mockRepository.ReplayAll();
 
             failureMechanismContribution.Attach(observerMock);
@@ -513,7 +513,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 new AssessmentSectionCompositionChangeHandler());
 
             // Precondition
-            int originalReturnPeriodValue = Convert.ToInt32(1.0/failureMechanismContribution.Norm);
+            int originalReturnPeriodValue = Convert.ToInt32(1.0 / failureMechanismContribution.Norm);
             Assert.AreEqual(originalReturnPeriodValue, properties.ReturnPeriod);
 
             DialogBoxHandler = (name, wnd) =>
@@ -527,7 +527,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             // Assert
             TestHelper.AssertLogMessagesCount(call, 0);
-            Assert.AreEqual(1.0/newReturnPeriod, failureMechanismContribution.Norm);
+            Assert.AreEqual(1.0 / newReturnPeriod, failureMechanismContribution.Norm);
 
             mockRepository.VerifyAll(); // No update observer expected.
         }
@@ -538,10 +538,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Setup
             const int newReturnPeriod = 200;
 
-            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            PipingCalculation emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
-            GrassCoverErosionInwardsCalculation emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
+            var emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
+            var emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
             var emptyHeightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>();
 
             assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(emptyPipingCalculation);
@@ -557,16 +557,16 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 new AssessmentSectionCompositionChangeHandler());
 
             // Precondition
-            int originalReturnPeriodValue = Convert.ToInt32(1.0/failureMechanismContribution.Norm);
+            int originalReturnPeriodValue = Convert.ToInt32(1.0 / failureMechanismContribution.Norm);
             Assert.AreEqual(originalReturnPeriodValue, properties.ReturnPeriod);
 
             // Call
-            failureMechanismContribution.Norm = 1.0/newReturnPeriod;
+            failureMechanismContribution.Norm = 1.0 / newReturnPeriod;
             Action call = () => failureMechanismContribution.NotifyObservers();
 
             // Assert
             TestHelper.AssertLogMessagesCount(call, 0);
-            Assert.AreEqual(1.0/newReturnPeriod, failureMechanismContribution.Norm);
+            Assert.AreEqual(1.0 / newReturnPeriod, failureMechanismContribution.Norm);
         }
     }
 }

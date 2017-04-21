@@ -165,8 +165,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             const string filePath = "c:\\Invalid_Characters.shp";
 
-            var invalidPathChars = Path.GetInvalidPathChars();
-            var invalidPath = filePath.Replace('_', invalidPathChars[0]);
+            char[] invalidPathChars = Path.GetInvalidPathChars();
+            string invalidPath = filePath.Replace('_', invalidPathChars[0]);
 
             var testProfilesImporter = new TestProfilesImporter(testImportTarget, testReferenceLine, invalidPath, messageProvider);
 
@@ -298,7 +298,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] messageArray = messages.ToArray();
-                string expectedMessage = "Fout bij het lezen van profiellocatie 1. De locatie parameter 'ID' mag uitsluitend uit letters en cijfers bestaan. Dit profiel wordt overgeslagen.";
+                var expectedMessage = "Fout bij het lezen van profiellocatie 1. De locatie parameter 'ID' mag uitsluitend uit letters en cijfers bestaan. Dit profiel wordt overgeslagen.";
                 Assert.AreEqual(expectedMessage, messageArray[0]);
             });
             Assert.IsTrue(importResult);
@@ -325,9 +325,9 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] messageArray = messages.ToArray();
-                string message1 = "Fout bij het lezen van profiellocatie 1. De locatie parameter 'ID' heeft geen waarde. Dit profiel wordt overgeslagen.";
-                string message2 = "Fout bij het lezen van profiellocatie 2. De locatie parameter 'ID' heeft geen waarde. Dit profiel wordt overgeslagen.";
-                string message3 = "Fout bij het lezen van profiellocatie 4. De locatie parameter 'ID' heeft geen waarde. Dit profiel wordt overgeslagen.";
+                var message1 = "Fout bij het lezen van profiellocatie 1. De locatie parameter 'ID' heeft geen waarde. Dit profiel wordt overgeslagen.";
+                var message2 = "Fout bij het lezen van profiellocatie 2. De locatie parameter 'ID' heeft geen waarde. Dit profiel wordt overgeslagen.";
+                var message3 = "Fout bij het lezen van profiellocatie 4. De locatie parameter 'ID' heeft geen waarde. Dit profiel wordt overgeslagen.";
                 Assert.AreEqual(message1, messageArray[0]);
                 Assert.AreEqual(message2, messageArray[1]);
                 Assert.AreEqual(message3, messageArray[2]);
@@ -377,7 +377,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] messageArray = messages.ToArray();
-                string expectedMessage = "Fout bij het lezen van profiellocatie 1. Het profiel heeft geen geldige waarde voor attribuut 'X0'. Dit profiel wordt overgeslagen.";
+                var expectedMessage = "Fout bij het lezen van profiellocatie 1. Het profiel heeft geen geldige waarde voor attribuut 'X0'. Dit profiel wordt overgeslagen.";
                 Assert.AreEqual(expectedMessage, messageArray[0]);
             });
             Assert.IsTrue(importResult);
@@ -401,7 +401,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 new Point2D(146432.1, 538235.2),
                 new Point2D(146039.4, 533920.2)
             };
-            ReferenceLine referenceLine = new ReferenceLine();
+            var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(referencePoints);
             var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath, messageProvider);
 
@@ -410,9 +410,9 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importResult = testProfilesImporter.Import();
 
             // Assert
-            var expectedMessages = Enumerable.Repeat("Fout bij het lezen van profiellocatie 1. " +
-                                                     "De profiellocatie met ID 'profiel001' ligt niet op de referentielijn. " +
-                                                     "Dit profiel wordt overgeslagen.", 5).ToArray();
+            string[] expectedMessages = Enumerable.Repeat("Fout bij het lezen van profiellocatie 1. " +
+                                                          "De profiellocatie met ID 'profiel001' ligt niet op de referentielijn. " +
+                                                          "Dit profiel wordt overgeslagen.", 5).ToArray();
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages, expectedMessages.Length);
             Assert.IsTrue(importResult);
         }
@@ -459,7 +459,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 new Point2D(130074.3, 543717.4),
                 new Point2D(130084.3, 543727.4)
             };
-            ReferenceLine referenceLine = new ReferenceLine();
+            var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(referencePoints);
             var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath, messageProvider);
 
@@ -500,7 +500,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] messageArray = messages.ToArray();
-                string expectedMessage = "Profiellocatie met ID 'profiel001' is opnieuw ingelezen.";
+                var expectedMessage = "Profiellocatie met ID 'profiel001' is opnieuw ingelezen.";
                 Assert.AreEqual(expectedMessage, messageArray[0]);
                 Assert.AreEqual(expectedMessage, messageArray[1]);
             });
@@ -549,7 +549,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 new Point2D(130074.3, 543717.4),
                 new Point2D(130084.3, 543727.4)
             };
-            ReferenceLine referenceLine = new ReferenceLine();
+            var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(referencePoints);
             var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath, messageProvider);
 
@@ -603,7 +603,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
-            ReferenceLine referenceLine = new ReferenceLine();
+            var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(new List<Point2D>
             {
                 new Point2D(130074.3, 543717.4),
@@ -648,7 +648,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 }
             });
 
-            bool importResult = false;
+            var importResult = false;
 
             // Call
             Action call = () => importResult = testProfilesImporter.Import();
@@ -673,7 +673,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 new Point2D(130074.3, 543717.4),
                 new Point2D(130084.3, 543727.4)
             };
-            ReferenceLine referenceLine = new ReferenceLine();
+            var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(referencePoints);
             var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath, messageProvider);
             testProfilesImporter.SetProgressChanged((description, step, steps) => testProfilesImporter.Cancel());
@@ -708,11 +708,11 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 new Point2D(130074.3, 543717.4),
                 new Point2D(130084.3, 543727.4)
             };
-            ReferenceLine referenceLine = new ReferenceLine();
+            var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(referencePoints);
             var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath, messageProvider);
 
-            int callcount = 0;
+            var callcount = 0;
             testProfilesImporter.SetProgressChanged((description, step, steps) =>
             {
                 if (callcount == 12)
@@ -731,7 +731,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
         private ReferenceLine CreateMatchingReferenceLine()
         {
-            ReferenceLine referenceLine = new ReferenceLine();
+            var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(new[]
             {
                 new Point2D(131223.2, 548393.4),

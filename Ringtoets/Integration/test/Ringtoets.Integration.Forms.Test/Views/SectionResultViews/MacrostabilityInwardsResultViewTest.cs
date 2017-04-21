@@ -87,7 +87,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 new Point2D(0, 0)
             });
 
-            Random random = new Random(21);
+            var random = new Random(21);
             var result1 = new MacrostabilityInwardsFailureMechanismSectionResult(section1)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
@@ -123,14 +123,14 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
 
                 // Then
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                var rows = dataGridView.Rows;
+                DataGridViewRowCollection rows = dataGridView.Rows;
                 Assert.AreEqual(3, rows.Count);
 
-                var cells = rows[0].Cells;
+                DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual(result1.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
-                var expectedAssessmentLayer2AString1 = ProbabilityFormattingHelper.Format(result1.AssessmentLayerTwoA);
+                string expectedAssessmentLayer2AString1 = ProbabilityFormattingHelper.Format(result1.AssessmentLayerTwoA);
                 Assert.AreEqual(expectedAssessmentLayer2AString1, cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual(result1.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
@@ -141,7 +141,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual(result2.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
-                var expectedAssessmentLayer2AString2 = ProbabilityFormattingHelper.Format(result2.AssessmentLayerTwoA);
+                string expectedAssessmentLayer2AString2 = ProbabilityFormattingHelper.Format(result2.AssessmentLayerTwoA);
                 Assert.AreEqual(expectedAssessmentLayer2AString2, cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual(result2.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
@@ -149,7 +149,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 3", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual(result3.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
-                var expectedAssessmentLayer2AString3 = ProbabilityFormattingHelper.Format(result3.AssessmentLayerTwoA);
+                string expectedAssessmentLayer2AString3 = ProbabilityFormattingHelper.Format(result3.AssessmentLayerTwoA);
                 Assert.AreEqual(expectedAssessmentLayer2AString3, cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual(result3.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
@@ -169,7 +169,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             {
                 new Point2D(0, 0)
             });
-            Random random = new Random(21);
+            var random = new Random(21);
             var result = new MacrostabilityInwardsFailureMechanismSectionResult(section)
             {
                 AssessmentLayerOne = assessmentLayerOneState,
@@ -193,10 +193,10 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
 
                 // Then
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                var rows = dataGridView.Rows;
+                DataGridViewRowCollection rows = dataGridView.Rows;
                 Assert.AreEqual(1, rows.Count);
 
-                var cells = rows[0].Cells;
+                DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
 
                 DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
@@ -234,7 +234,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
 
                 // Then
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                var rows = dataGridView.Rows;
+                DataGridViewRowCollection rows = dataGridView.Rows;
                 Assert.AreEqual(0, rows.Count);
             }
         }

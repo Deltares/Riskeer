@@ -33,7 +33,7 @@ namespace Ringtoets.Common.Data.Test.Calculation
         public void GetCalculations_FromCalculationGroupWithoutChildren_ReturnEmpty()
         {
             // Setup
-            CalculationGroup groupWithoutChildren = new CalculationGroup();
+            var groupWithoutChildren = new CalculationGroup();
 
             // Call
             IEnumerable<ICalculation> result = groupWithoutChildren.GetCalculations();
@@ -175,7 +175,7 @@ namespace Ringtoets.Common.Data.Test.Calculation
             rootGroup.Children.Add(subgroup2);
 
             // Call
-            var hasOutput = rootGroup.HasOutput();
+            bool hasOutput = rootGroup.HasOutput();
 
             // Assert
             Assert.IsFalse(hasOutput);
@@ -215,7 +215,7 @@ namespace Ringtoets.Common.Data.Test.Calculation
             rootGroup.Children.Add(subgroup2);
 
             // Call
-            var hasOutput = rootGroup.HasOutput();
+            bool hasOutput = rootGroup.HasOutput();
 
             // Assert
             Assert.IsTrue(hasOutput);
@@ -234,7 +234,6 @@ namespace Ringtoets.Common.Data.Test.Calculation
             // Assert
             CollectionAssert.IsEmpty(children);
         }
-
 
         [Test]
         public void GetAllChildrenRecursive_GroupWithNestedGroupsWithCalculations_ReturnAllNestedGroupsAndCalculations()

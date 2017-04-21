@@ -63,13 +63,13 @@ namespace Ringtoets.Common.Service.Test
         {
             // Setup
             const double failureMechanismContribution = 50;
-            int n = 10;
+            var n = 10;
 
             // Call
             TestDelegate action = () => RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(norm, failureMechanismContribution, n);
 
             // Assert
-            ArgumentOutOfRangeException exception = Assert.Throws<ArgumentOutOfRangeException>(action);
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(action);
             Assert.AreEqual(norm, exception.ActualValue);
             Assert.AreEqual("norm", exception.ParamName);
             StringAssert.StartsWith("De norm moet in het bereik [0,0, 1,0] liggen." +
@@ -83,13 +83,13 @@ namespace Ringtoets.Common.Service.Test
         {
             // Setup
             const double norm = 0.5;
-            int n = 10;
+            var n = 10;
 
             // Call
             TestDelegate action = () => RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(norm, failureMechanismContribution, n);
 
             // Assert
-            ArgumentOutOfRangeException exception = Assert.Throws<ArgumentOutOfRangeException>(action);
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(action);
             Assert.AreEqual(failureMechanismContribution, exception.ActualValue);
             Assert.AreEqual("failureMechanismContribution", exception.ParamName);
             StringAssert.StartsWith("De bijdrage van dit toetsspoor moet in het bereik [0,0, 100,0] liggen." +
@@ -107,7 +107,7 @@ namespace Ringtoets.Common.Service.Test
             TestDelegate action = () => RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(norm, failureMechanismContribution, n);
 
             // Assert
-            ArgumentOutOfRangeException exception = Assert.Throws<ArgumentOutOfRangeException>(action);
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(action);
             Assert.AreEqual(n, exception.ActualValue);
             Assert.AreEqual("n", exception.ParamName);
             StringAssert.StartsWith("De N-waarde van dit toetsspoor moet groter zijn dan 0." +

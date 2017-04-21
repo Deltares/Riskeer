@@ -104,10 +104,10 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
         public void SetPropertyValueAfterConfirmation_IfConfirmationRequiredThenGiven_SetValueCalledAffectedObjectsReturned(ChangePropertyTestCase testCase)
         {
             // Setup
-            var dialogBoxWillBeShown = testCase.ExpectedAffectedCalculations.Any();
+            bool dialogBoxWillBeShown = testCase.ExpectedAffectedCalculations.Any();
 
-            string title = "";
-            string message = "";
+            var title = "";
+            var message = "";
             if (dialogBoxWillBeShown)
             {
                 DialogBoxHandler = (name, wnd) =>
@@ -129,7 +129,7 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
             Assert.IsTrue(testCase.ExpectedAffectedCalculations.All(c => c.HasOutput));
 
             // Call
-            var affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(
+            IEnumerable<IObservable> affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(
                 testFailureMechanism,
                 3,
                 (f, v) => propertySet++);
@@ -174,7 +174,7 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
             var changeHandler = new FailureMechanismPropertyChangeHandler<IFailureMechanism>();
 
             // Call
-            var affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(
+            IEnumerable<IObservable> affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(
                 testFailureMechanism,
                 3,
                 (f, v) => propertySet++);

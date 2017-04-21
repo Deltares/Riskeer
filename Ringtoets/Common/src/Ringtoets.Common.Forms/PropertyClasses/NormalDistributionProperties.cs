@@ -37,7 +37,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// in which the properties of <paramref name="distribution"/> are displayed read-only.
         /// </summary>
         /// <param name="distribution">The <see cref="NormalDistribution"/> to create the properties for.</param>
-        public NormalDistributionProperties(NormalDistribution distribution) : base(distribution) { }
+        public NormalDistributionProperties(NormalDistribution distribution) : base(distribution) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="NormalDistributionProperties"/>.
@@ -50,7 +50,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// <exception cref="ArgumentException">Any number of properties in this class is editable and the 
         /// <paramref name="handler"/> is <c>null</c>.</exception>
         public NormalDistributionProperties(
-            DistributionPropertiesReadOnly propertiesReadOnly, 
+            DistributionPropertiesReadOnly propertiesReadOnly,
             NormalDistribution distribution,
             IObservablePropertyChangeHandler handler) :
             base(propertiesReadOnly, distribution, handler) {}

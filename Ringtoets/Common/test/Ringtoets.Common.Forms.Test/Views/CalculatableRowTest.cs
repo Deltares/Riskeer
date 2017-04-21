@@ -49,14 +49,15 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             // Call
             var row = new SimpleCalculatableRow(calculatableObject);
-            
+
             // Assert
             Assert.IsFalse(row.ShouldCalculate);
             Assert.AreSame(calculatableObject, row.CalculatableObject);
         }
 
-        private class SimpleCalculatableRow : CalculatableRow<HydraulicBoundaryLocation> {
-            public SimpleCalculatableRow(HydraulicBoundaryLocation calculatableObject) 
+        private class SimpleCalculatableRow : CalculatableRow<HydraulicBoundaryLocation>
+        {
+            public SimpleCalculatableRow(HydraulicBoundaryLocation calculatableObject)
                 : base(calculatableObject) {}
         }
     }

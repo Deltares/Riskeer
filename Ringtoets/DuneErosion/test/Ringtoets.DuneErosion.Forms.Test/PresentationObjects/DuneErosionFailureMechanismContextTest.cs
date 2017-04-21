@@ -43,7 +43,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PresentationObjects
 
             // Call
             var context = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
-            
+
             // Assert
             Assert.IsInstanceOf<FailureMechanismContext<DuneErosionFailureMechanism>>(context);
             Assert.AreSame(failureMechanism, context.WrappedData);

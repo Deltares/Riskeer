@@ -710,7 +710,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
         private class CalculationConfigurationImporter : CalculationConfigurationImporter<CalculationConfigurationReader, ReadCalculation>
         {
             public CalculationConfigurationImporter(string filePath, CalculationGroup importTarget)
-                : base(filePath, importTarget) { }
+                : base(filePath, importTarget) {}
 
             public void PublicReadWaveReductionParameters<T>(WaveReductionConfiguration waveReduction, T input)
                 where T : IUseBreakWater, IUseForeshore
@@ -732,7 +732,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
             {
                 return TryReadStructure(locationName, calculationName, structures, out location);
             }
-            
+
             protected override CalculationConfigurationReader CreateCalculationConfigurationReader(string xmlFilePath)
             {
                 return new CalculationConfigurationReader(xmlFilePath);
@@ -756,7 +756,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
                                               "validConfigurationSchema.xsd"));
 
             public CalculationConfigurationReader(string xmlFilePath)
-                : base(xmlFilePath, mainSchemaDefinition, new Dictionary<string, string>()) { }
+                : base(xmlFilePath, mainSchemaDefinition, new Dictionary<string, string>()) {}
 
             protected override ReadCalculation ParseCalculationElement(XElement calculationElement)
             {
@@ -873,7 +873,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
                 Id = "Id",
                 Location = new Point2D(0, 0),
                 StructureNormalOrientation = (RoundedDouble) 2
-            }) { }
+            }) {}
         }
 
         private class TestInputWithForeshoreProfileAndBreakWater : Observable, IUseBreakWater, IUseForeshore

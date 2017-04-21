@@ -123,7 +123,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
-            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
 
             // Call
@@ -138,9 +138,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 // Assert
                 var returnPeriodLabel = new ControlTester(returnPeriodLabelName);
 
-                int returnPeriod = Convert.ToInt32(1.0/failureMechanismContribution.Norm);
-                var expectedReturnPeriodLabel = string.Format("Norm: 1 / {0}",
-                                                              returnPeriod.ToString(CultureInfo.CurrentCulture));
+                int returnPeriod = Convert.ToInt32(1.0 / failureMechanismContribution.Norm);
+                string expectedReturnPeriodLabel = string.Format("Norm: 1 / {0}",
+                                                                 returnPeriod.ToString(CultureInfo.CurrentCulture));
                 Assert.AreEqual(expectedReturnPeriodLabel, returnPeriodLabel.Properties.Text);
             }
             mocks.VerifyAll();
@@ -185,7 +185,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             var random = new Random(21);
-            var otherContribution = random.Next(0, 100);
+            int otherContribution = random.Next(0, 100);
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
@@ -252,11 +252,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var initialContribution = new FailureMechanismContribution(new[]
             {
                 someMechanism
-            }, random.Next(0, 100), 1.0/initialReturnPeriod);
+            }, random.Next(0, 100), 1.0 / initialReturnPeriod);
             var newContribution = new FailureMechanismContribution(new[]
             {
                 someMechanism
-            }, random.Next(0, 100), 1.0/newReturnPeriod);
+            }, random.Next(0, 100), 1.0 / newReturnPeriod);
 
             using (var distributionView = new FailureMechanismContributionView(viewCommands)
             {
@@ -268,8 +268,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var returnPeriodLabel = new ControlTester(returnPeriodLabelName);
 
                 // Precondition
-                var initialReturnPeriodLabelText = string.Format("Norm: 1 / {0}",
-                                                                 initialReturnPeriod.ToString(CultureInfo.CurrentCulture));
+                string initialReturnPeriodLabelText = string.Format("Norm: 1 / {0}",
+                                                                    initialReturnPeriod.ToString(CultureInfo.CurrentCulture));
                 Assert.AreEqual(initialReturnPeriodLabelText, returnPeriodLabel.Properties.Text);
 
                 // Call
@@ -277,8 +277,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 distributionView.AssessmentSection = assessmentSection2;
 
                 // Assert
-                var newReturnPeriodLabelText = string.Format("Norm: 1 / {0}",
-                                                             newReturnPeriod.ToString(CultureInfo.CurrentCulture));
+                string newReturnPeriodLabelText = string.Format("Norm: 1 / {0}",
+                                                                newReturnPeriod.ToString(CultureInfo.CurrentCulture));
                 Assert.AreEqual(newReturnPeriodLabelText, returnPeriodLabel.Properties.Text);
             }
 
@@ -303,7 +303,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var contribution = new FailureMechanismContribution(new[]
             {
                 someMechanism
-            }, random.Next(0, 100), 1.0/initialReturnPeriod);
+            }, random.Next(0, 100), 1.0 / initialReturnPeriod);
 
             using (var distributionView = new FailureMechanismContributionView(viewCommands)
             {
@@ -315,17 +315,17 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var returnPeriodLabel = new ControlTester(returnPeriodLabelName);
 
                 // Precondition
-                var initialReturnPeriodLabelText = string.Format("Norm: 1 / {0}",
-                                                                 initialReturnPeriod.ToString(CultureInfo.CurrentCulture));
+                string initialReturnPeriodLabelText = string.Format("Norm: 1 / {0}",
+                                                                    initialReturnPeriod.ToString(CultureInfo.CurrentCulture));
                 Assert.AreEqual(initialReturnPeriodLabelText, returnPeriodLabel.Properties.Text);
 
                 // Call
-                contribution.Norm = 1.0/newReturnPeriod;
+                contribution.Norm = 1.0 / newReturnPeriod;
                 contribution.NotifyObservers();
 
                 // Assert
-                var newReturnPeriodLabelText = string.Format("Norm: 1 / {0}",
-                                                             newReturnPeriod.ToString(CultureInfo.CurrentCulture));
+                string newReturnPeriodLabelText = string.Format("Norm: 1 / {0}",
+                                                                newReturnPeriod.ToString(CultureInfo.CurrentCulture));
                 Assert.AreEqual(newReturnPeriodLabelText, returnPeriodLabel.Properties.Text);
             }
 
@@ -355,7 +355,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var contributionData = new FailureMechanismContribution(new[]
                 {
                     failureMechanismStub
-                }, 100, 1.0/500);
+                }, 100, 1.0 / 500);
 
                 view.Data = contributionData;
                 view.AssessmentSection = assessmentSection;
@@ -391,7 +391,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var contributionData = new FailureMechanismContribution(new[]
                 {
                     failureMechanismStub
-                }, 100, 1.0/500);
+                }, 100, 1.0 / 500);
 
                 view.Data = contributionData;
                 view.AssessmentSection = assessmentSection;
@@ -412,7 +412,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Given
             const double contribution = 25.0;
-            const double norm = 1.0/500;
+            const double norm = 1.0 / 500;
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
@@ -542,7 +542,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     failureMechanism
                 };
 
-                var contribution = new FailureMechanismContribution(failureMechanisms, 50.0, 1.0/30000);
+                var contribution = new FailureMechanismContribution(failureMechanisms, 50.0, 1.0 / 30000);
 
                 // When
                 view.Data = contribution;
@@ -551,7 +551,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var dataGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
                 DataGridViewRow row = dataGridView.Rows[0];
 
-                for (int i = 0; i < row.Cells.Count; i++)
+                for (var i = 0; i < row.Cells.Count; i++)
                 {
                     if (i == isRelevantColumnIndex)
                     {
@@ -584,7 +584,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     failureMechanism
                 };
 
-                var contribution = new FailureMechanismContribution(failureMechanisms, 50.0, 1.0/30000);
+                var contribution = new FailureMechanismContribution(failureMechanisms, 50.0, 1.0 / 30000);
 
                 // When
                 view.Data = contribution;
@@ -593,7 +593,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var dataGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
                 DataGridViewRow row = dataGridView.Rows[0];
 
-                for (int i = 0; i < row.Cells.Count; i++)
+                for (var i = 0; i < row.Cells.Count; i++)
                 {
                     if (i == isRelevantColumnIndex)
                     {
@@ -613,7 +613,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void GivenView_IsRelevantPropertyChangeNotified_RowStylesUpdates(bool initialIsRelevant)
         {
             // Given
-            List<IObserver> failureMechanismObservers = new List<IObserver>();
+            var failureMechanismObservers = new List<IObserver>();
             var mocks = new MockRepository();
             var viewCommands = mocks.Stub<IViewCommands>();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
@@ -643,7 +643,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 ShowFormWithView(view);
 
-                var contribution = new FailureMechanismContribution(failureMechanisms, 50.0, 1.0/30000);
+                var contribution = new FailureMechanismContribution(failureMechanisms, 50.0, 1.0 / 30000);
 
                 view.Data = contribution;
                 view.AssessmentSection = assessmentSection;
@@ -651,7 +651,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var dataGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
                 DataGridViewRow row = dataGridView.Rows[0];
 
-                for (int i = 0; i < row.Cells.Count; i++)
+                for (var i = 0; i < row.Cells.Count; i++)
                 {
                     if (i != isRelevantColumnIndex)
                     {
@@ -672,7 +672,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 failureMechanism.NotifyObservers();
 
                 // Then
-                for (int i = 0; i < row.Cells.Count; i++)
+                for (var i = 0; i < row.Cells.Count; i++)
                 {
                     if (i != isRelevantColumnIndex)
                     {
@@ -709,7 +709,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 failureMechanism
             };
-            var contribution = new FailureMechanismContribution(failureMechanisms, 50.0, 1.0/30000);
+            var contribution = new FailureMechanismContribution(failureMechanisms, 50.0, 1.0 / 30000);
 
             using (var view = new FailureMechanismContributionView(viewCommands))
             {
@@ -741,8 +741,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 ShowFormWithView(view);
 
-                var failureMechanisms = Enumerable.Empty<IFailureMechanism>();
-                var contribution = new FailureMechanismContribution(failureMechanisms, 50.0, 1.0/30000);
+                IEnumerable<IFailureMechanism> failureMechanisms = Enumerable.Empty<IFailureMechanism>();
+                var contribution = new FailureMechanismContribution(failureMechanisms, 50.0, 1.0 / 30000);
 
                 // Precondition:
                 FailureMechanismContributionItem[] contributionItems = contribution.Distribution.ToArray();
@@ -771,8 +771,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
         private static void AssertIsCellStyledAsEnabled(DataGridViewCell cell)
         {
-            var enabledBackColor = Color.FromKnownColor(KnownColor.White);
-            var enabledForeColor = Color.FromKnownColor(KnownColor.ControlText);
+            Color enabledBackColor = Color.FromKnownColor(KnownColor.White);
+            Color enabledForeColor = Color.FromKnownColor(KnownColor.ControlText);
 
             Assert.IsTrue(cell.ReadOnly);
             Assert.AreEqual(enabledBackColor, cell.Style.BackColor,
@@ -783,8 +783,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
         private static void AssertIsCellStyleGreyedOut(DataGridViewCell cell)
         {
-            var irrelevantMechanismBackColor = Color.FromKnownColor(KnownColor.DarkGray);
-            var irrelevantMechanismForeColor = Color.FromKnownColor(KnownColor.GrayText);
+            Color irrelevantMechanismBackColor = Color.FromKnownColor(KnownColor.DarkGray);
+            Color irrelevantMechanismForeColor = Color.FromKnownColor(KnownColor.GrayText);
 
             Assert.IsTrue(cell.ReadOnly);
             Assert.AreEqual(irrelevantMechanismBackColor, cell.Style.BackColor,

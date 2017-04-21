@@ -30,14 +30,14 @@ namespace Ringtoets.HydraRing.Calculation.Exceptions
         /// <summary>
         /// Initializes a new instance of the <see cref="HydraRingDatabaseReaderException"/> class.
         /// </summary>
-        public HydraRingDatabaseReaderException() { }
+        public HydraRingDatabaseReaderException() {}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HydraRingDatabaseReaderException"/> class
         /// with a specified error message.
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
-        public HydraRingDatabaseReaderException(string message) : base(message) { }
+        public HydraRingDatabaseReaderException(string message) : base(message) {}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HydraRingDatabaseReaderException"/> class
@@ -47,7 +47,7 @@ namespace Ringtoets.HydraRing.Calculation.Exceptions
         /// <param name="message">The error message that explains the reason for the exception.</param>
         /// <param name="inner">The exception that is the cause of the current exception,
         /// or <c>null</c> if no inner exception is specified.</param>
-        public HydraRingDatabaseReaderException(string message, Exception inner) : base(message, inner) { }
+        public HydraRingDatabaseReaderException(string message, Exception inner) : base(message, inner) {}
 
         /// <summary>
         /// Initializes a new instance of <see cref="HydraRingDatabaseReaderException"/> with
@@ -60,6 +60,6 @@ namespace Ringtoets.HydraRing.Calculation.Exceptions
         /// <c>null</c>.</exception>
         /// <exception cref="SerializationException">The class name is <c>null</c> or
         /// <see cref="Exception.HResult" /> is zero (0).</exception>
-        protected HydraRingDatabaseReaderException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        protected HydraRingDatabaseReaderException(SerializationInfo info, StreamingContext context) : base(info, context) {}
     }
 }

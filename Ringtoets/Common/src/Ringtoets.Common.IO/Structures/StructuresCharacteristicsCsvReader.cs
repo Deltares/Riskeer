@@ -80,7 +80,7 @@ namespace Ringtoets.Common.IO.Structures
         /// some I/O related problem occurred or the header is not in the required format.</exception>
         public int GetLineCount()
         {
-            using (var reader = StreamReaderHelper.InitializeStreamReader(filePath))
+            using (StreamReader reader = StreamReaderHelper.InitializeStreamReader(filePath))
             {
                 lineNumber = 1;
                 ValidateHeader(reader);
@@ -169,7 +169,7 @@ namespace Ringtoets.Common.IO.Structures
         /// <exception cref="CriticalFileReadException">Thrown when an I/O exception occurred.</exception>
         private int CountNonEmptyLines(TextReader reader, int currentLine)
         {
-            int count = 0;
+            var count = 0;
             int lineNumberForMessage = currentLine;
             string line;
             while ((line = ReadLineAndHandleIOExceptions(reader, lineNumberForMessage)) != null)
@@ -204,7 +204,7 @@ namespace Ringtoets.Common.IO.Structures
             {
                 string errorMessage = string.Format(CoreCommonUtilsResources.Error_General_IO_ErrorMessage_0_,
                                                     e.Message);
-                var fullErrorMessage = new FileReaderErrorMessageBuilder(filePath).Build(errorMessage);
+                string fullErrorMessage = new FileReaderErrorMessageBuilder(filePath).Build(errorMessage);
                 throw new CriticalFileReadException(fullErrorMessage, e);
             }
         }
@@ -237,7 +237,7 @@ namespace Ringtoets.Common.IO.Structures
         /// occurred.</exception>
         private string[] GetTokenizedHeader(TextReader reader)
         {
-            var header = ReadLineAndHandleIOExceptions(reader, lineNumber);
+            string header = ReadLineAndHandleIOExceptions(reader, lineNumber);
             if (header == null)
             {
                 throw CreateCriticalFileReadException(lineNumber, CoreCommonUtilsResources.Error_File_empty);
@@ -252,7 +252,7 @@ namespace Ringtoets.Common.IO.Structures
         {
             int[] requiredHeaderColumnIndices = Enumerable.Repeat(initialColumnIndexValue, requiredHeaderColumns.Length)
                                                           .ToArray();
-            for (int columnIndex = 0; columnIndex < tokenizedHeader.Length; columnIndex++)
+            for (var columnIndex = 0; columnIndex < tokenizedHeader.Length; columnIndex++)
             {
                 string columnName = tokenizedHeader[columnIndex];
                 int index = Array.IndexOf(requiredHeaderColumns, columnName);
@@ -539,8 +539,8 @@ namespace Ringtoets.Common.IO.Structures
         {
             string locationDescription = string.Format(CoreCommonUtilsResources.TextFile_On_LineNumber_0_,
                                                        currentLine);
-            var message = new FileReaderErrorMessageBuilder(filePath).WithLocation(locationDescription)
-                                                                     .Build(lineParseErrorMessage);
+            string message = new FileReaderErrorMessageBuilder(filePath).WithLocation(locationDescription)
+                                                                        .Build(lineParseErrorMessage);
             return new LineParseException(message, innerException);
         }
 
@@ -555,8 +555,8 @@ namespace Ringtoets.Common.IO.Structures
         {
             string locationDescription = string.Format(CoreCommonUtilsResources.TextFile_On_LineNumber_0_,
                                                        currentLine);
-            var message = new FileReaderErrorMessageBuilder(filePath).WithLocation(locationDescription)
-                                                                     .Build(criticalErrorMessage);
+            string message = new FileReaderErrorMessageBuilder(filePath).WithLocation(locationDescription)
+                                                                        .Build(criticalErrorMessage);
             return new CriticalFileReadException(message, innerException);
         }
     }

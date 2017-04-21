@@ -58,14 +58,15 @@ namespace Ringtoets.DuneErosion.Data.Test
             // Setup
             const long id = 0;
             const string name = "Dune location";
-            Point2D location = new Point2D(10.0, 12.0);
+            var location = new Point2D(10.0, 12.0);
             const int coastalAreaId = 3;
             const double offset = 4.2;
             const double orientation = 4.2;
             const double d50 = 0.123456;
 
             // Call
-            var duneLocation = new DuneLocation(id, name, location, new DuneLocation.ConstructionProperties
+            var duneLocation = new DuneLocation(id, name, location,
+                                                new DuneLocation.ConstructionProperties
                                                 {
                                                     CoastalAreaId = coastalAreaId,
                                                     Offset = offset,
@@ -89,7 +90,8 @@ namespace Ringtoets.DuneErosion.Data.Test
         public void Constructor_WithOffset_OffsetRounded()
         {
             // Call
-            var duneLocation = new DuneLocation(0, "dune", new Point2D(0.0, 0.0), new DuneLocation.ConstructionProperties
+            var duneLocation = new DuneLocation(0, "dune", new Point2D(0.0, 0.0),
+                                                new DuneLocation.ConstructionProperties
                                                 {
                                                     Offset = 4.298
                                                 });
@@ -103,12 +105,13 @@ namespace Ringtoets.DuneErosion.Data.Test
         public void Constructor_WithOrientation_OrientationRounded()
         {
             // Call
-            var duneLocation = new DuneLocation(0, "dune", new Point2D(0.0, 0.0), new DuneLocation.ConstructionProperties
+            var duneLocation = new DuneLocation(0, "dune", new Point2D(0.0, 0.0),
+                                                new DuneLocation.ConstructionProperties
                                                 {
                                                     Orientation = 8.214
                                                 });
 
-        // Assert
+            // Assert
             Assert.AreEqual(1, duneLocation.Orientation.NumberOfDecimalPlaces);
             Assert.AreEqual(8.2, duneLocation.Orientation, duneLocation.Orientation.GetAccuracy());
         }
@@ -117,7 +120,8 @@ namespace Ringtoets.DuneErosion.Data.Test
         public void Constructor_WithD50_D50Rounded()
         {
             // Call
-            var duneLocation = new DuneLocation(0, "dune", new Point2D(0.0, 0.0), new DuneLocation.ConstructionProperties
+            var duneLocation = new DuneLocation(0, "dune", new Point2D(0.0, 0.0),
+                                                new DuneLocation.ConstructionProperties
                                                 {
                                                     D50 = 0.1234567
                                                 });

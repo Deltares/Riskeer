@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
@@ -38,7 +37,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
         public void Constructor_Always_ExpectedValues()
         {
             // Setup
-            int hydraulicBoundaryLocationId = 1000;
+            var hydraulicBoundaryLocationId = 1000;
 
             const double sectionNormal = 22.2;
             const double dikeHeight = 1.1;
@@ -75,20 +74,21 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
 
             // Call
 
-            OvertoppingCalculationInput overtoppingCalculationInput = new OvertoppingCalculationInput(hydraulicBoundaryLocationId, sectionNormal,
-                                                                                                      expectedRingProfilePoints, expectedRingForelandPoints, expectedRingBreakWater,
-                                                                                                      dikeHeight,
-                                                                                                      modelFactorCriticalOvertopping,
-                                                                                                      factorFbMean, factorFbStandardDeviation,
-                                                                                                      factorFbLowerBoundary, factorFbUpperBoundary,
-                                                                                                      factorFnMean, factorFnStandardDeviation,
-                                                                                                      factorFnLowerBoundary, factorFnUpperBoundary,
-                                                                                                      modelFactorOvertopping,
-                                                                                                      criticalOvertoppingMean, criticalOvertoppingStandardDeviation,
-                                                                                                      modelFactorFrunupMean, modelFactorFrunupStandardDeviation,
-                                                                                                      modelFactorFrunupLowerBoundary, modelFactorFrunupUpperBoundary,
-                                                                                                      exponentModelFactorShallowMean, exponentModelFactorShallowStandardDeviation,
-                                                                                                      exponentModelFactorShallowLowerBoundary, exponentModelFactorShallowUpperBoundary);
+            var overtoppingCalculationInput = new OvertoppingCalculationInput(
+                hydraulicBoundaryLocationId, sectionNormal,
+                expectedRingProfilePoints, expectedRingForelandPoints, expectedRingBreakWater,
+                dikeHeight,
+                modelFactorCriticalOvertopping,
+                factorFbMean, factorFbStandardDeviation,
+                factorFbLowerBoundary, factorFbUpperBoundary,
+                factorFnMean, factorFnStandardDeviation,
+                factorFnLowerBoundary, factorFnUpperBoundary,
+                modelFactorOvertopping,
+                criticalOvertoppingMean, criticalOvertoppingStandardDeviation,
+                modelFactorFrunupMean, modelFactorFrunupStandardDeviation,
+                modelFactorFrunupLowerBoundary, modelFactorFrunupUpperBoundary,
+                exponentModelFactorShallowMean, exponentModelFactorShallowStandardDeviation,
+                exponentModelFactorShallowLowerBoundary, exponentModelFactorShallowUpperBoundary);
 
             // Assert
             const int expectedCalculationTypeId = 1;
@@ -97,7 +97,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
             Assert.AreEqual(expectedCalculationTypeId, overtoppingCalculationInput.CalculationTypeId);
             Assert.AreEqual(hydraulicBoundaryLocationId, overtoppingCalculationInput.HydraulicBoundaryLocationId);
             Assert.AreEqual(HydraRingFailureMechanismType.DikesOvertopping, overtoppingCalculationInput.FailureMechanismType);
-            Assert.AreEqual(expectedVariableId, overtoppingCalculationInput.VariableId);            
+            Assert.AreEqual(expectedVariableId, overtoppingCalculationInput.VariableId);
             HydraRingDataEqualityHelper.AreEqual(GetDefaultOvertoppingVariables().ToArray(), overtoppingCalculationInput.Variables.ToArray());
             CollectionAssert.AreEqual(expectedRingProfilePoints, overtoppingCalculationInput.ProfilePoints);
             CollectionAssert.AreEqual(expectedRingForelandPoints, overtoppingCalculationInput.ForelandsPoints);
@@ -118,12 +118,13 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
         public void GetSubMechanismModelId_Always_ReturnsExpectedValues(int subMechanismModelId, int? expectedSubMechanismModelId)
         {
             // Call
-            OvertoppingCalculationInput overtoppingCalculationInput = new OvertoppingCalculationInput(1, double.NaN,
-                                                                                                      new List<HydraRingRoughnessProfilePoint>(),
-                                                                                                      new List<HydraRingForelandPoint>(),
-                                                                                                      new HydraRingBreakWater(0, 1.1),
-                                                                                                      2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
-                                                                                                      15, 16, 17, 18, 19, 20, 21, 22);
+            var overtoppingCalculationInput = new OvertoppingCalculationInput(
+                1, double.NaN,
+                new List<HydraRingRoughnessProfilePoint>(),
+                new List<HydraRingForelandPoint>(),
+                new HydraRingBreakWater(0, 1.1),
+                2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
+                15, 16, 17, 18, 19, 20, 21, 22);
 
             // Assert
             Assert.AreEqual(expectedSubMechanismModelId, overtoppingCalculationInput.GetSubMechanismModelId(subMechanismModelId));

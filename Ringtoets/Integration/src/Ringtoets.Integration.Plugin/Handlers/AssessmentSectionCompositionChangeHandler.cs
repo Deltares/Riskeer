@@ -61,7 +61,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            var oldFailureMechanismContributions = assessmentSection.GetFailureMechanisms().ToDictionary(f => f, f => f.Contribution);
+            Dictionary<IFailureMechanism, double> oldFailureMechanismContributions = assessmentSection.GetFailureMechanisms().ToDictionary(f => f, f => f.Contribution);
 
             var affectedObjects = new List<IObservable>();
             if (assessmentSection.Composition != newComposition)

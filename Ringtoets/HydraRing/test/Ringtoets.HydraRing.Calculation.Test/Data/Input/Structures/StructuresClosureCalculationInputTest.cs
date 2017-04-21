@@ -39,7 +39,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
         {
             // Setup
             const int hydraulicBoundaryLocationId = 1000;
-            var forelandPoints = Enumerable.Empty<HydraRingForelandPoint>();
+            IEnumerable<HydraRingForelandPoint> forelandPoints = Enumerable.Empty<HydraRingForelandPoint>();
             var breakWater = new HydraRingBreakWater(1, 1.1);
 
             const double sectionNormal = 21.1;
@@ -66,7 +66,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
 
             // Call
             var input = new TestStructuresClosureCalculationInput(hydraulicBoundaryLocationId,
-                sectionNormal,
+                                                                  sectionNormal,
                                                                   forelandPoints, breakWater,
                                                                   gravitationalAcceleration,
                                                                   factorStormDurationOpenStructure,

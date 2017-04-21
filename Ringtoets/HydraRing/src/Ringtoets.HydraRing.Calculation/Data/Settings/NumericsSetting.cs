@@ -26,21 +26,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Settings
     /// </summary>
     public class NumericsSetting
     {
-        private readonly int calculationTechniqueId;
-        private readonly int formStartMethod;
-        private readonly int formNumberOfIterations;
-        private readonly double formRelaxationFactor;
-        private readonly double formEpsBeta;
-        private readonly double formEpsHoh;
-        private readonly double formEpsZFunc;
-        private readonly int dsStartMethod;
-        private readonly int dsMinNumberOfIterations;
-        private readonly int dsMaxNumberOfIterations;
-        private readonly double dsVarCoefficient;
-        private readonly double niUMin;
-        private readonly double niUMax;
-        private readonly int niNumberSteps;
-
         /// <summary>
         /// Creates a new instance of the <see cref="NumericsSetting"/> class.
         /// </summary>
@@ -60,180 +45,96 @@ namespace Ringtoets.HydraRing.Calculation.Data.Settings
         /// <param name="niNumberSteps">The number of steps between <paramref name="niUMin"/> and <paramref name="niUMax"/> for NINT</param>
         public NumericsSetting(int calculationTechniqueId, int formStartMethod, int formNumberOfIterations, double formRelaxationFactor, double formEpsBeta, double formEpsHoh, double formEpsZFunc, int dsStartMethod, int dsMinNumberOfIterations, int dsMaxNumberOfIterations, double dsVarCoefficient, double niUMin, double niUMax, int niNumberSteps)
         {
-            this.calculationTechniqueId = calculationTechniqueId;
-            this.formStartMethod = formStartMethod;
-            this.formNumberOfIterations = formNumberOfIterations;
-            this.formRelaxationFactor = formRelaxationFactor;
-            this.formEpsBeta = formEpsBeta;
-            this.formEpsHoh = formEpsHoh;
-            this.formEpsZFunc = formEpsZFunc;
-            this.dsStartMethod = dsStartMethod;
-            this.dsMinNumberOfIterations = dsMinNumberOfIterations;
-            this.dsMaxNumberOfIterations = dsMaxNumberOfIterations;
-            this.dsVarCoefficient = dsVarCoefficient;
-            this.niUMin = niUMin;
-            this.niUMax = niUMax;
-            this.niNumberSteps = niNumberSteps;
+            CalculationTechniqueId = calculationTechniqueId;
+            FormStartMethod = formStartMethod;
+            FormNumberOfIterations = formNumberOfIterations;
+            FormRelaxationFactor = formRelaxationFactor;
+            FormEpsBeta = formEpsBeta;
+            FormEpsHoh = formEpsHoh;
+            FormEpsZFunc = formEpsZFunc;
+            DsStartMethod = dsStartMethod;
+            DsMinNumberOfIterations = dsMinNumberOfIterations;
+            DsMaxNumberOfIterations = dsMaxNumberOfIterations;
+            DsVarCoefficient = dsVarCoefficient;
+            NiUMin = niUMin;
+            NiUMax = niUMax;
+            NiNumberSteps = niNumberSteps;
         }
 
         /// <summary>
         /// Gets the id of the calculation technique that should be used.
         /// </summary>
-        public int CalculationTechniqueId
-        {
-            get
-            {
-                return calculationTechniqueId;
-            }
-        }
+        public int CalculationTechniqueId { get; }
 
         /// <summary>
         /// Gets the FORM start method.
         /// </summary>
-        public int FormStartMethod
-        {
-            get
-            {
-                return formStartMethod;
-            }
-        }
+        public int FormStartMethod { get; }
 
         /// <summary>
         /// Gets the maximum number of FORM iterations to perform.
         /// </summary>
-        public int FormNumberOfIterations
-        {
-            get
-            {
-                return formNumberOfIterations;
-            }
-        }
+        public int FormNumberOfIterations { get; }
 
         /// <summary>
         /// Gets a relaxation towards the design point for FORM.
         /// </summary>
-        public double FormRelaxationFactor
-        {
-            get
-            {
-                return formRelaxationFactor;
-            }
-        }
+        public double FormRelaxationFactor { get; }
 
         /// <summary>
         /// Gets one of the three convergence criteria for FORM.
         /// </summary>
         /// <seealso cref="FormEpsHoh"/>
         /// <seealso cref="FormEpsZFunc"/>
-        public double FormEpsBeta
-        {
-            get
-            {
-                return formEpsBeta;
-            }
-        }
+        public double FormEpsBeta { get; }
 
         /// <summary>
         /// Gets one of the three convergence criteria for FORM.
         /// </summary>
         /// <seealso cref="FormEpsBeta"/>
         /// <seealso cref="FormEpsZFunc"/>
-        public double FormEpsHoh
-        {
-            get
-            {
-                return formEpsHoh;
-            }
-        }
+        public double FormEpsHoh { get; }
 
         /// <summary>
         /// Gets one of the three convergence criteria for FORM.
         /// </summary>
         /// <seealso cref="FormEpsBeta"/>
         /// <seealso cref="FormEpsHoh"/>
-        public double FormEpsZFunc
-        {
-            get
-            {
-                return formEpsZFunc;
-            }
-        }
+        public double FormEpsZFunc { get; }
 
         /// <summary>
         /// Gets the DIRS start method.
         /// </summary>
-        public int DsStartMethod
-        {
-            get
-            {
-                return dsStartMethod;
-            }
-        }
+        public int DsStartMethod { get; }
 
         /// <summary>
         /// Gets the minimum number of DIRS iterations to perform.
         /// </summary>
-        public int DsMinNumberOfIterations
-        {
-            get
-            {
-                return dsMinNumberOfIterations;
-            }
-        }
+        public int DsMinNumberOfIterations { get; }
 
         /// <summary>
         /// Gets the maximum number of DIRS iterations to perform.
         /// </summary>
-        public int DsMaxNumberOfIterations
-        {
-            get
-            {
-                return dsMaxNumberOfIterations;
-            }
-        }
+        public int DsMaxNumberOfIterations { get; }
 
         /// <summary>
         /// Gets the variation coefficient to use within the DIRS iterations.
         /// </summary>
-        public double DsVarCoefficient
-        {
-            get
-            {
-                return dsVarCoefficient;
-            }
-        }
+        public double DsVarCoefficient { get; }
 
         /// <summary>
         /// Gets the lower size limit of a uniform grid deployed by NINT.
         /// </summary>
-        public double NiUMin
-        {
-            get
-            {
-                return niUMin;
-            }
-        }
+        public double NiUMin { get; }
 
         /// <summary>
         /// Gets the upper size limit of a uniform grid deployed by NINT.
         /// </summary>
-        public double NiUMax
-        {
-            get
-            {
-                return niUMax;
-            }
-        }
+        public double NiUMax { get; }
 
         /// <summary>
         /// Gets the number of steps between <seealso cref="NiUMin"/> and <seealso cref="NiUMax"/> for NINT.
         /// </summary>
-        public int NiNumberSteps
-        {
-            get
-            {
-                return niNumberSteps;
-            }
-        }
+        public int NiNumberSteps { get; }
     }
 }

@@ -63,9 +63,9 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             // Assert
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
 
-            Assert.IsTrue(TypeUtils.HasTypeConverter<WaterPressureAsphaltCoverSectionResultRow,
-                              NoValueRoundedDoubleConverter>(
-                                  r => r.AssessmentLayerThree));
+            Assert.IsTrue(
+                TypeUtils.HasTypeConverter<WaterPressureAsphaltCoverSectionResultRow, NoValueRoundedDoubleConverter>(
+                    r => r.AssessmentLayerThree));
         }
 
         [Test]
@@ -73,7 +73,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         {
             // Setup
             var random = new Random(21);
-            var newValue = random.NextDouble();
+            double newValue = random.NextDouble();
             FailureMechanismSection section = CreateSection();
             var result = new WaterPressureAsphaltCoverFailureMechanismSectionResult(section);
             var row = new WaterPressureAsphaltCoverSectionResultRow(result);

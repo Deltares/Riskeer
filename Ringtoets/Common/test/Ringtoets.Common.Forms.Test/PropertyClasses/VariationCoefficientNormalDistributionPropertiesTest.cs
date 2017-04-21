@@ -94,7 +94,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             "Variatiecoëfficiënt",
                                                                             "De variatiecoëfficiënt van de normale verdeling.",
                                                                             variationCoefficientReadOnly);
-
         }
     }
 }

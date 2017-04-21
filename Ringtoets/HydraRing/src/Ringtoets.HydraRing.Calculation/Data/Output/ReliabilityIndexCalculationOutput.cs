@@ -27,9 +27,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output
     /// </summary>
     public class ReliabilityIndexCalculationOutput
     {
-        private readonly double result;
-        private readonly double calculatedReliabilityIndex;
-
         /// <summary>
         /// Creates a new instance of the <see cref="ReliabilityIndexCalculationOutput"/> class.
         /// </summary>
@@ -37,30 +34,18 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output
         /// <param name="calculatedReliabilityIndex">The actual reliability index that was reached.</param>
         public ReliabilityIndexCalculationOutput(double result, double calculatedReliabilityIndex)
         {
-            this.result = result;
-            this.calculatedReliabilityIndex = calculatedReliabilityIndex;
+            Result = result;
+            CalculatedReliabilityIndex = calculatedReliabilityIndex;
         }
 
         /// <summary>
         /// Gets the result corresponding to <see cref="CalculatedReliabilityIndex"/>.
         /// </summary>
-        public double Result
-        {
-            get
-            {
-                return result;
-            }
-        }
+        public double Result { get; }
 
         /// <summary>
         /// Gets the actual reliability index that was reached.
         /// </summary>
-        public double CalculatedReliabilityIndex
-        {
-            get
-            {
-                return calculatedReliabilityIndex;
-            }
-        }
+        public double CalculatedReliabilityIndex { get; }
     }
 }

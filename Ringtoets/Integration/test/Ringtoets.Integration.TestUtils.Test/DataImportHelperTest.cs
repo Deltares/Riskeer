@@ -117,7 +117,7 @@ namespace Ringtoets.Integration.TestUtils.Test
             DataImportHelper.ImportReferenceLine(dikeSection);
             const int failureMechanismCount = 18;
             var random = new Random(21);
-            var chosenNumbers = new[]
+            IEnumerable<int> chosenNumbers = new[]
             {
                 random.Next(failureMechanismCount),
                 random.Next(failureMechanismCount),

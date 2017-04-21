@@ -57,7 +57,7 @@ namespace Ringtoets.DuneErosion.Forms.PresentationObjects
 
         public override bool Equals(WrappedObjectContextBase<ObservableList<DuneLocation>> other)
         {
-            return base.Equals(other) && ReferenceEquals(((DuneLocationContext)other).DuneLocation, DuneLocation);
+            return base.Equals(other) && ReferenceEquals(((DuneLocationContext) other).DuneLocation, DuneLocation);
         }
 
         public override int GetHashCode()

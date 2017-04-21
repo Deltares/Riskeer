@@ -33,8 +33,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output
         {
             // Setup
             var random = new Random(21);
-            var value = random.NextDouble();
-            var isDominant = Convert.ToBoolean(random.Next(0, 2));
+            double value = random.NextDouble();
+            bool isDominant = Convert.ToBoolean(random.Next(0, 2));
 
             // Call
             var waveHeightOutput = new OvertoppingCalculationWaveHeightOutput(value, isDominant);

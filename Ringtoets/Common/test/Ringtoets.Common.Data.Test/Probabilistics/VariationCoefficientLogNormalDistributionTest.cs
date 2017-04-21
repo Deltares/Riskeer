@@ -31,7 +31,6 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
     [TestFixture]
     public class VariationCoefficientLogNormalDistributionTest
     {
-
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
@@ -106,7 +105,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             TestDelegate call = () => distribution.Mean = (RoundedDouble) invalidCoefficient;
 
             // Assert
-            string expectedMessage = "Gemiddelde moet groter zijn dan 0.";
+            var expectedMessage = "Gemiddelde moet groter zijn dan 0.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
@@ -139,7 +138,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             TestDelegate call = () => distribution.CoefficientOfVariation = (RoundedDouble) invalidCoefficient;
 
             // Assert
-            string expectedMessage = "Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0.";
+            var expectedMessage = "Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 

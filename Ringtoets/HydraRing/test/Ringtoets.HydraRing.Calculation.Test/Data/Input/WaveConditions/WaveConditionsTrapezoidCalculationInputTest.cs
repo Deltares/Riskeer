@@ -40,8 +40,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
             const int sectionId = 111;
             const double sectionNormal = 90;
             const int hydraulicBoundaryLocationId = 222;
-            const double norm = 1.0/333;
-            var forelandPoints = Enumerable.Empty<HydraRingForelandPoint>();
+            const double norm = 1.0 / 333;
+            IEnumerable<HydraRingForelandPoint> forelandPoints = Enumerable.Empty<HydraRingForelandPoint>();
             var breakWater = new HydraRingBreakWater(1, 4.4);
             const double waterLevel = 5.5;
             const double a = 6.6;

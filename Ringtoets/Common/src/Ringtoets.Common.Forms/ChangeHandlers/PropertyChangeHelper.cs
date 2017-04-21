@@ -59,6 +59,5 @@ namespace Ringtoets.Common.Forms.ChangeHandlers
                 affectedObject.NotifyObservers();
             }
         }
-
     }
 }

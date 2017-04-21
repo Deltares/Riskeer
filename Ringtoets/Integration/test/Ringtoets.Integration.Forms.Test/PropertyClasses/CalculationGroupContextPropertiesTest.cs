@@ -116,9 +116,9 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             PropertyInfo nameProperty = properties.GetType().GetProperty(propertyName);
 
             // Call
-            var dynamicReadOnlyAttribute = Attribute.GetCustomAttribute(nameProperty,
-                                                                        typeof(DynamicReadOnlyAttribute),
-                                                                        true);
+            Attribute dynamicReadOnlyAttribute = Attribute.GetCustomAttribute(nameProperty,
+                                                                              typeof(DynamicReadOnlyAttribute),
+                                                                              true);
 
             // Assert
             Assert.IsNotNull(dynamicReadOnlyAttribute);

@@ -57,7 +57,7 @@ namespace Ringtoets.Integration.Test
             };
 
             var handler = new ReferenceLineReplacementHandler(viewCommands);
-            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
+            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
 
             var importer = new ReferenceLineImporter(assessmentSection, handler, path);
             string messageBoxTitle = null, messageBoxText = null;
@@ -79,8 +79,8 @@ namespace Ringtoets.Integration.Test
             Assert.AreSame(originalReferenceLine, assessmentSection.ReferenceLine);
 
             Assert.AreEqual("Bevestigen", messageBoxTitle);
-            var expectedText = "Na het importeren van een aangepaste ligging van de referentielijn zullen alle geïmporteerde en berekende gegevens van alle toetssporen worden gewist." + Environment.NewLine +
-                               Environment.NewLine + "Wilt u doorgaan?";
+            string expectedText = "Na het importeren van een aangepaste ligging van de referentielijn zullen alle geïmporteerde en berekende gegevens van alle toetssporen worden gewist." + Environment.NewLine +
+                                  Environment.NewLine + "Wilt u doorgaan?";
             Assert.AreEqual(expectedText, messageBoxText);
             mocks.VerifyAll();
         }
@@ -112,8 +112,8 @@ namespace Ringtoets.Integration.Test
             ReferenceLine originalReferenceLine = assessmentSection.ReferenceLine;
 
             var handler = new ReferenceLineReplacementHandler(viewCommands);
-            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                  Path.Combine("ReferenceLine", "traject_10-2.shp"));
+            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                     Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
             var importer = new ReferenceLineImporter(assessmentSection, handler, path);
 
@@ -129,7 +129,7 @@ namespace Ringtoets.Integration.Test
             };
 
             assessmentSection.Attach(assessmentSectionObserver);
-            foreach (var failureMechanism in assessmentSection.GetFailureMechanisms())
+            foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
             {
                 failureMechanism.Attach(failureMechanismObserver);
             }
@@ -157,8 +157,8 @@ namespace Ringtoets.Integration.Test
             CollectionAssert.IsEmpty(assessmentSection.PipingFailureMechanism.CalculationsGroup.Children);
 
             Assert.AreEqual("Bevestigen", messageBoxTitle);
-            var expectedText = "Na het importeren van een aangepaste ligging van de referentielijn zullen alle geïmporteerde en berekende gegevens van alle toetssporen worden gewist." + Environment.NewLine +
-                               Environment.NewLine + "Wilt u doorgaan?";
+            string expectedText = "Na het importeren van een aangepaste ligging van de referentielijn zullen alle geïmporteerde en berekende gegevens van alle toetssporen worden gewist." + Environment.NewLine +
+                                  Environment.NewLine + "Wilt u doorgaan?";
             Assert.AreEqual(expectedText, messageBoxText);
 
             mocks.VerifyAll();

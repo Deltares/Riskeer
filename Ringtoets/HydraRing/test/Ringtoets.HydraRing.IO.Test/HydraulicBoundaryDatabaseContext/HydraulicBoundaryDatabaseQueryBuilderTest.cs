@@ -31,7 +31,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
         public void GetVersionQuery_Always_ReturnsExpectedValues()
         {
             // Setup
-            string expectedQuery = "SELECT (NameRegion || CreationDate || TrackId) as GeneratedVersion FROM General LIMIT 0,1;";
+            var expectedQuery = "SELECT (NameRegion || CreationDate || TrackId) as GeneratedVersion FROM General LIMIT 0,1;";
 
             // Call
             string query = HydraulicBoundaryDatabaseQueryBuilder.GetVersionQuery();
@@ -44,7 +44,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
         public void GetTrackIdQuery_Always_ReturnsExpectedValues()
         {
             // Setup
-            string expectedQuery = "SELECT TrackId FROM General LIMIT 0,1;";
+            var expectedQuery = "SELECT TrackId FROM General LIMIT 0,1;";
 
             // Call
             string query = HydraulicBoundaryDatabaseQueryBuilder.GetTrackIdQuery();
@@ -57,7 +57,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
         public void GetRelevantLocationsCountQuery_Always_ReturnsExpectedValues()
         {
             // Setup
-            string expectedQuery = "SELECT count(HRDLocationId) as nrOfRows FROM HRDLocations WHERE LocationTypeId > 1 ;";
+            var expectedQuery = "SELECT count(HRDLocationId) as nrOfRows FROM HRDLocations WHERE LocationTypeId > 1 ;";
 
             // Call
             string query = HydraulicBoundaryDatabaseQueryBuilder.GetRelevantLocationsCountQuery();
@@ -70,7 +70,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
         public void GetRelevantLocationsQuery_Always_ReturnsExpectedValues()
         {
             // Setup
-            string expectedQuery = "SELECT HRDLocationId, Name, XCoordinate, YCoordinate FROM HRDLocations WHERE LocationTypeId > 1;";
+            var expectedQuery = "SELECT HRDLocationId, Name, XCoordinate, YCoordinate FROM HRDLocations WHERE LocationTypeId > 1;";
 
             // Call
             string query = HydraulicBoundaryDatabaseQueryBuilder.GetRelevantLocationsQuery();

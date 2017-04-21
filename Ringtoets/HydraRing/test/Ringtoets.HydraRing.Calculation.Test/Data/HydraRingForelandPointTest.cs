@@ -31,8 +31,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data
         public void Constructor_Always_ExpectedValues()
         {
             // Setup
-            double xCoordinate = 1.1;
-            double zCoordinate = 2.2;
+            var xCoordinate = 1.1;
+            var zCoordinate = 2.2;
 
             // Call
             var hydraRingForelandPoint = new HydraRingForelandPoint(xCoordinate, zCoordinate);

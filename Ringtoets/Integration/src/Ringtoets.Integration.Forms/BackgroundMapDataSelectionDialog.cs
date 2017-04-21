@@ -106,25 +106,6 @@ namespace Ringtoets.Integration.Forms
             UpdateSelectButton();
         }
 
-        #region Buttons
-
-        private void InitializeButtons()
-        {
-            UpdateSelectButton();
-        }
-
-        private void UpdateSelectButton()
-        {
-            selectButton.Enabled = currentBackgroundMapDataSelectionControl?.SelectedMapData != null;
-        }
-
-        protected override Button GetCancelButton()
-        {
-            return cancelButton;
-        }
-
-        #endregion
-
         #region ComboBox
 
         private void PreSelectComboBox(BackgroundMapDataSelectionControl controlToSelect)
@@ -141,6 +122,25 @@ namespace Ringtoets.Integration.Forms
 
             mapLayerComboBox.SelectedItem = controlToSelect;
             currentBackgroundMapDataSelectionControl = controlToSelect;
+        }
+
+        #endregion
+
+        #region Buttons
+
+        private void InitializeButtons()
+        {
+            UpdateSelectButton();
+        }
+
+        private void UpdateSelectButton()
+        {
+            selectButton.Enabled = currentBackgroundMapDataSelectionControl?.SelectedMapData != null;
+        }
+
+        protected override Button GetCancelButton()
+        {
+            return cancelButton;
         }
 
         #endregion

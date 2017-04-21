@@ -75,7 +75,7 @@ namespace Ringtoets.Common.Data.AssessmentSection
             }
             set
             {
-                var newValue = value.ToPrecision(transparency.NumberOfDecimalPlaces);
+                RoundedDouble newValue = value.ToPrecision(transparency.NumberOfDecimalPlaces);
                 if (!transparencyValidityRange.InRange(newValue))
                 {
                     throw new ArgumentOutOfRangeException(nameof(value),

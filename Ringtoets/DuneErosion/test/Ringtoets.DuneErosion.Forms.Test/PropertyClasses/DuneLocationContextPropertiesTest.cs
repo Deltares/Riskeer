@@ -66,10 +66,12 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             // Call
             var properties = new DuneLocationContextProperties
             {
-                Data = new DuneLocationContext(new ObservableList<DuneLocation>
-                                               {
-                                                   duneLocation
-                                               }, duneLocation)
+                Data = new DuneLocationContext(
+                    new ObservableList<DuneLocation>
+                    {
+                        duneLocation
+                    },
+                    duneLocation)
             };
 
             // Assert
@@ -112,7 +114,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
 
             var random = new Random();
             int coastalAreaId = random.Next();
-            CalculationConvergence convergence = random.NextEnumValue<CalculationConvergence>();
+            var convergence = random.NextEnumValue<CalculationConvergence>();
             double offset = random.NextDouble();
             double orientation = random.NextDouble();
             double d50 = random.NextDouble();
@@ -124,17 +126,20 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             double calculatedProbability = random.NextDouble();
             double calculatedReliability = random.NextDouble();
 
-            var output = new DuneLocationOutput(convergence, new DuneLocationOutput.ConstructionProperties
-                                                {
-                                                    WaterLevel = waterLevel,
-                                                    WaveHeight = waveHeight,
-                                                    WavePeriod = wavePeriod,
-                                                    TargetProbability = targetProbability,
-                                                    TargetReliability = targetReliability,
-                                                    CalculatedProbability = calculatedProbability,
-                                                    CalculatedReliability = calculatedReliability,
-                                                });
-            var location = new DuneLocation(id, name, new Point2D(x, y), new DuneLocation.ConstructionProperties
+            var output = new DuneLocationOutput(
+                convergence,
+                new DuneLocationOutput.ConstructionProperties
+                {
+                    WaterLevel = waterLevel,
+                    WaveHeight = waveHeight,
+                    WavePeriod = wavePeriod,
+                    TargetProbability = targetProbability,
+                    TargetReliability = targetReliability,
+                    CalculatedProbability = calculatedProbability,
+                    CalculatedReliability = calculatedReliability,
+                });
+            var location = new DuneLocation(id, name, new Point2D(x, y),
+                                            new DuneLocation.ConstructionProperties
                                             {
                                                 CoastalAreaId = coastalAreaId,
                                                 Offset = offset,
@@ -148,10 +153,12 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             // Call
             var properties = new DuneLocationContextProperties
             {
-                Data = new DuneLocationContext(new ObservableList<DuneLocation>
-                                               {
-                                                   location
-                                               }, location)
+                Data = new DuneLocationContext(
+                    new ObservableList<DuneLocation>
+                    {
+                        location
+                    },
+                    location)
             };
 
             // Assert
@@ -185,10 +192,12 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             // Call
             var properties = new DuneLocationContextProperties
             {
-                Data = new DuneLocationContext(new ObservableList<DuneLocation>
-                                               {
-                                                   duneLocation
-                                               }, duneLocation)
+                Data = new DuneLocationContext(
+                    new ObservableList<DuneLocation>
+                    {
+                        duneLocation
+                    },
+                    duneLocation)
             };
 
             // Assert
@@ -302,7 +311,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
         [TestCase(3.1, "3.1")]
         public void Offset_Always_FormatToString(double offset, string expectedPropertyValue)
         {
-            var location = new DuneLocation(1, "test", new Point2D(0, 0), new DuneLocation.ConstructionProperties
+            var location = new DuneLocation(1, "test", new Point2D(0, 0),
+                                            new DuneLocation.ConstructionProperties
                                             {
                                                 Offset = offset
                                             });
@@ -310,10 +320,12 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             // Call
             var properties = new DuneLocationContextProperties
             {
-                Data = new DuneLocationContext(new ObservableList<DuneLocation>
-                                               {
-                                                   location
-                                               }, location)
+                Data = new DuneLocationContext(
+                    new ObservableList<DuneLocation>
+                    {
+                        location
+                    },
+                    location)
             };
 
             // Assert

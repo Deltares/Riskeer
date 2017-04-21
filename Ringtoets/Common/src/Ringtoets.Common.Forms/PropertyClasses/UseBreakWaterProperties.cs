@@ -48,7 +48,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// Creates a new instance of <see cref="UseBreakWaterProperties"/>, in which
         /// all the properties are read-only and empty.
         /// </summary>
-        public UseBreakWaterProperties() { }
+        public UseBreakWaterProperties() {}
 
         /// <summary>
         /// Creates a new instance of <see cref="UseBreakWaterProperties"/>in which the 

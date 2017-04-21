@@ -48,7 +48,8 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             }
         }
 
-        protected override IDictionary<CalculationConvergence, byte> ExpectedValueForEnumValues {
+        protected override IDictionary<CalculationConvergence, byte> ExpectedValueForEnumValues
+        {
             get
             {
                 return new Dictionary<CalculationConvergence, byte>

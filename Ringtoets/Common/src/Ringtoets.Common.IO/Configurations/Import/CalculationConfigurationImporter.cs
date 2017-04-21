@@ -30,7 +30,6 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.Properties;
 
@@ -55,7 +54,7 @@ namespace Ringtoets.Common.IO.Configurations.Import
         /// <param name="importTarget">The calculation group to update.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         protected CalculationConfigurationImporter(string xmlFilePath, CalculationGroup importTarget)
-            : base(xmlFilePath, importTarget) { }
+            : base(xmlFilePath, importTarget) {}
 
         protected override void LogImportCanceledMessage()
         {

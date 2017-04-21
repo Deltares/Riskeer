@@ -45,7 +45,7 @@ namespace Ringtoets.Common.Utils
             {
                 return string.Compare(x, y, StringComparison.InvariantCulture);
             }
-            var separatorArray = versionSeparator.ToCharArray();
+            char[] separatorArray = versionSeparator.ToCharArray();
             string[] firstVersionArray = x.Split(separatorArray, StringSplitOptions.RemoveEmptyEntries);
             string[] secondVersionArray = y.Split(separatorArray, StringSplitOptions.RemoveEmptyEntries);
 
@@ -69,15 +69,15 @@ namespace Ringtoets.Common.Utils
             int second;
             int.TryParse(secondVersionArray[0], out second);
 
-            var compareTo = first.CompareTo(second);
+            int compareTo = first.CompareTo(second);
             if (compareTo > 0)
             {
                 return compareTo;
             }
             if (compareTo == 0 && (firstVersionArray.Length > 1 || secondVersionArray.Length > 1))
             {
-                var newVersionString = string.Join(versionSeparator, firstVersionArray.Skip(1).ToArray());
-                var newCurrentVersionString = string.Join(versionSeparator, secondVersionArray.Skip(1).ToArray());
+                string newVersionString = string.Join(versionSeparator, firstVersionArray.Skip(1).ToArray());
+                string newCurrentVersionString = string.Join(versionSeparator, secondVersionArray.Skip(1).ToArray());
                 return Compare(newVersionString, newCurrentVersionString);
             }
             return compareTo;

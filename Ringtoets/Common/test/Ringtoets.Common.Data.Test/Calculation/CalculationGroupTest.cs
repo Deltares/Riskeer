@@ -216,10 +216,10 @@ namespace Ringtoets.Common.Data.Test.Calculation
             Assert.AreEqual(2, group.Children.Count);
             Assert.AreSame(groupToInsert, group.Children[index]);
             CollectionAssert.AreEquivalent(new[]
-            {
-                groupToInsert,
-                existingGroup
-            }, group.Children,
+                                           {
+                                               groupToInsert,
+                                               existingGroup
+                                           }, group.Children,
                                            "Already existing items should have remained in collection and new item should be added.");
         }
     }

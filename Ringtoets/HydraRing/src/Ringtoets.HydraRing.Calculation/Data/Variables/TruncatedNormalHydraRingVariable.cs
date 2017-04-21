@@ -26,9 +26,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Variables
     /// </summary>
     public class TruncatedNormalHydraRingVariable : RandomHydraRingVariable
     {
-        private readonly double lowerBoundary;
-        private readonly double upperBoundary;
-
         /// <summary>
         /// Creates a new instance of <see cref="TruncatedNormalHydraRingVariable"/>.
         /// </summary>
@@ -42,25 +39,13 @@ namespace Ringtoets.HydraRing.Calculation.Data.Variables
                                                 double mean, double variance, double lowerBoundary, double upperBoundary)
             : base(variableId, deviationType, mean, variance)
         {
-            this.lowerBoundary = lowerBoundary;
-            this.upperBoundary = upperBoundary;
+            Parameter3 = lowerBoundary;
+            Parameter4 = upperBoundary;
         }
 
-        public override double Parameter3
-        {
-            get
-            {
-                return lowerBoundary;
-            }
-        }
+        public override double Parameter3 { get; }
 
-        public override double Parameter4
-        {
-            get
-            {
-                return upperBoundary;
-            }
-        }
+        public override double Parameter4 { get; }
 
         public override HydraRingDistributionType DistributionType
         {

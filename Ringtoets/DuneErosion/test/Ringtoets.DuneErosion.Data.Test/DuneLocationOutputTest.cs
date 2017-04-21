@@ -55,7 +55,7 @@ namespace Ringtoets.DuneErosion.Data.Test
             double targetReliability = random.NextDouble();
             double calculatedProbability = random.NextDouble();
             double calculatedReliability = random.NextDouble();
-            CalculationConvergence convergence = random.NextEnumValue<CalculationConvergence>();
+            var convergence = random.NextEnumValue<CalculationConvergence>();
 
             // Call
             TestDelegate call = () => new DuneLocationOutput(convergence,
@@ -71,7 +71,7 @@ namespace Ringtoets.DuneErosion.Data.Test
                                                              });
 
             // Assert
-            ArgumentOutOfRangeException exception = Assert.Throws<ArgumentOutOfRangeException>(call);
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(call);
             Assert.AreEqual("TargetProbability", exception.ParamName);
             StringAssert.Contains("Kans moet in het bereik [0,0, 1,0] liggen.", exception.Message);
         }
@@ -90,7 +90,7 @@ namespace Ringtoets.DuneErosion.Data.Test
             double targetProbability = random.NextDouble();
             double targetReliability = random.NextDouble();
             double calculatedReliability = random.NextDouble();
-            CalculationConvergence convergence = random.NextEnumValue<CalculationConvergence>();
+            var convergence = random.NextEnumValue<CalculationConvergence>();
 
             // Call
             TestDelegate call = () => new DuneLocationOutput(convergence,
@@ -106,7 +106,7 @@ namespace Ringtoets.DuneErosion.Data.Test
                                                              });
 
             // Assert
-            ArgumentOutOfRangeException exception = Assert.Throws<ArgumentOutOfRangeException>(call);
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(call);
             Assert.AreEqual("CalculatedProbability", exception.ParamName);
             StringAssert.Contains("Kans moet in het bereik [0,0, 1,0] liggen.", exception.Message);
         }
@@ -123,7 +123,7 @@ namespace Ringtoets.DuneErosion.Data.Test
             double wavePeriod = random.NextDouble();
             double targetReliability = random.NextDouble();
             double calculatedReliability = random.NextDouble();
-            CalculationConvergence convergence = random.NextEnumValue<CalculationConvergence>();
+            var convergence = random.NextEnumValue<CalculationConvergence>();
 
             // Call
             var output = new DuneLocationOutput(convergence,

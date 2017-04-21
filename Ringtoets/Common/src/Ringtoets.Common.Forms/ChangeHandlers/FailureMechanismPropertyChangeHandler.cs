@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.PropertyClasses;
@@ -118,7 +119,7 @@ namespace Ringtoets.Common.Forms.ChangeHandlers
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
             var affected = new List<IObservable>();
-            foreach (var calculation in failureMechanism.Calculations.Where(c => c.HasOutput))
+            foreach (ICalculation calculation in failureMechanism.Calculations.Where(c => c.HasOutput))
             {
                 affected.Add(calculation);
                 calculation.ClearOutput();

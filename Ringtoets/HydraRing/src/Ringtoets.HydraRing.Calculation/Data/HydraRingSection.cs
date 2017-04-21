@@ -26,10 +26,6 @@ namespace Ringtoets.HydraRing.Calculation.Data
     /// </summary>
     public class HydraRingSection
     {
-        private readonly int sectionId;
-        private readonly double sectionLength;
-        private readonly double crossSectionNormal;
-
         /// <summary>
         /// Creates a new instance of the <see cref="HydraRingSection"/> class.
         /// </summary>
@@ -38,32 +34,20 @@ namespace Ringtoets.HydraRing.Calculation.Data
         /// <param name="crossSectionNormal">The normal of the cross section.</param>
         public HydraRingSection(int sectionId, double sectionLength, double crossSectionNormal)
         {
-            this.sectionId = sectionId;
-            this.sectionLength = sectionLength;
-            this.crossSectionNormal = crossSectionNormal;
+            SectionId = sectionId;
+            SectionLength = sectionLength;
+            CrossSectionNormal = crossSectionNormal;
         }
 
         /// <summary>
         /// Gets the id of the section.
         /// </summary>
-        public int SectionId
-        {
-            get
-            {
-                return sectionId;
-            }
-        }
+        public int SectionId { get; }
 
         /// <summary>
         /// Gets the length of the section.
         /// </summary>
-        public double SectionLength
-        {
-            get
-            {
-                return sectionLength;
-            }
-        }
+        public double SectionLength { get; }
 
         /// <summary>
         /// Gets the normal of the cross section.
@@ -71,12 +55,6 @@ namespace Ringtoets.HydraRing.Calculation.Data
         /// <remarks>
         /// The normal corresponds to the angle of the straight line perpendicular to the stretch at the location of the cross section (with respect to the north).
         /// </remarks>
-        public double CrossSectionNormal
-        {
-            get
-            {
-                return crossSectionNormal;
-            }
-        }
+        public double CrossSectionNormal { get; }
     }
 }

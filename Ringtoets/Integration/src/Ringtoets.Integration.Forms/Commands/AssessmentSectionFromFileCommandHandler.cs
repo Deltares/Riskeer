@@ -86,7 +86,7 @@ namespace Ringtoets.Integration.Forms.Commands
             }
 
             AssessmentSection assessmentSection = GetAssessmentSectionFromDialog();
-            RingtoetsProject ringtoetsProject = projectOwner.Project as RingtoetsProject;
+            var ringtoetsProject = projectOwner.Project as RingtoetsProject;
             if (assessmentSection == null || ringtoetsProject == null)
             {
                 return;
@@ -99,7 +99,7 @@ namespace Ringtoets.Integration.Forms.Commands
 
         private AssessmentSection GetAssessmentSectionFromDialog()
         {
-            using (var dialog = CreateReferenceLineMetaSelectionDialogWithItems())
+            using (ReferenceLineMetaSelectionDialog dialog = CreateReferenceLineMetaSelectionDialogWithItems())
             {
                 if (dialog.ShowDialog() != DialogResult.OK)
                 {
@@ -152,7 +152,7 @@ namespace Ringtoets.Integration.Forms.Commands
 
         private static AssessmentSection CreateDikeAssessmentSection(int n)
         {
-            var assessmentSection = CreateDikeAssessmentSection();
+            AssessmentSection assessmentSection = CreateDikeAssessmentSection();
             SetFailureMechanismsValueN(assessmentSection, n);
             return assessmentSection;
         }
@@ -167,7 +167,7 @@ namespace Ringtoets.Integration.Forms.Commands
         private AssessmentSection CreateAssessmentSection(ReferenceLineMeta selectedItem, double norm)
         {
             AssessmentSection assessmentSection;
-            var settingOfSelectedAssessmentSection = settings.FirstOrDefault(s => s.AssessmentSectionId == selectedItem.AssessmentSectionId);
+            AssessmentSectionSettings settingOfSelectedAssessmentSection = settings.FirstOrDefault(s => s.AssessmentSectionId == selectedItem.AssessmentSectionId);
             if (settingOfSelectedAssessmentSection == null)
             {
                 log.Warn(Resources.AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_No_settings_found_for_AssessmentSection);

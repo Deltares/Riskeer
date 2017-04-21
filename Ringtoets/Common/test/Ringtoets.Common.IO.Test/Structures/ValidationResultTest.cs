@@ -62,7 +62,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         public void Constructor_ErrorMessagesEmpty_ExpectedValues()
         {
             // Setup
-            List<string> errorMessages = new List<string>();
+            var errorMessages = new List<string>();
 
             // Call
             var validationResult = new ValidationResult(errorMessages);

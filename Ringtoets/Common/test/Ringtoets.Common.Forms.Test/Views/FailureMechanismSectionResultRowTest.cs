@@ -63,7 +63,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
             Assert.IsTrue(TypeUtils.HasTypeConverter<TestFailureMechanismSectionResultRow,
                               NoValueRoundedDoubleConverter>(
-                                  r => r.AssessmentLayerThree));
+                              r => r.AssessmentLayerThree));
         }
 
         [Test]
@@ -97,7 +97,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void AssessmentLayerThree_AlwaysOnChange_ResultPropertyChanged()
         {
             // Setup
-            Random random = new Random(21);
+            var random = new Random(21);
             double newValue = random.NextDouble();
             FailureMechanismSection section = CreateSection();
             var result = new TestFailureMechanismSectionResult(section);

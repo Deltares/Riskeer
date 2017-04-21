@@ -22,7 +22,6 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Settings;
 

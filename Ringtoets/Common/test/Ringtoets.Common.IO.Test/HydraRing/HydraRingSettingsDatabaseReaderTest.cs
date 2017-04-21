@@ -24,7 +24,6 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -73,7 +72,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
             TestDelegate test = () => new HydraRingSettingsDatabaseReader(invalidSchemaDatabasePath);
 
             // Assert
-            var message = Assert.Throws<CriticalFileReadException>(test).Message;
+            string message = Assert.Throws<CriticalFileReadException>(test).Message;
             Assert.AreEqual("De rekeninstellingen database heeft niet het juiste schema.", message);
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(invalidSchemaDatabasePath));
         }

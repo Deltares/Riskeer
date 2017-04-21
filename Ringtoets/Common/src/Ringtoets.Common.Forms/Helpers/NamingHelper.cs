@@ -41,9 +41,9 @@ namespace Ringtoets.Common.Forms.Helpers
         /// in <paramref name="existingObjects"/>.</returns>
         public static string GetUniqueName<T>(IEnumerable<T> existingObjects, string nameBase, Func<T, string> nameGetter)
         {
-            int i = 1;
+            var i = 1;
             string result = nameBase;
-            var existingNames = existingObjects.Select(nameGetter).ToArray();
+            string[] existingNames = existingObjects.Select(nameGetter).ToArray();
             while (existingNames.Any(name => name.Equals(result)))
             {
                 result = string.Format("{0} ({1})", nameBase, i++);

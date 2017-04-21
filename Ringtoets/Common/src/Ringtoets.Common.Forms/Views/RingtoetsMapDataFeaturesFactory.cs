@@ -137,11 +137,11 @@ namespace Ringtoets.Common.Forms.Views
 
             var features = new MapFeature[hydraulicBoundaryLocations.Length];
 
-            for (int i = 0; i < hydraulicBoundaryLocations.Length; i++)
+            for (var i = 0; i < hydraulicBoundaryLocations.Length; i++)
             {
                 HydraulicBoundaryLocation location = hydraulicBoundaryLocations[i];
 
-                var feature = CreateSinglePointMapFeature(location.Location);
+                MapFeature feature = CreateSinglePointMapFeature(location.Location);
                 feature.MetaData[Resources.MetaData_ID] = location.Id;
                 feature.MetaData[Resources.MetaData_Name] = location.Name;
                 feature.MetaData[designWaterLevelAttributeName] = location.DesignWaterLevel;
@@ -212,7 +212,7 @@ namespace Ringtoets.Common.Forms.Views
                 int nrOfElements = dikeProfiles.Count();
                 var mapFeatures = new MapFeature[nrOfElements];
 
-                int i = 0;
+                var i = 0;
                 foreach (DikeProfile dikeProfile in dikeProfiles)
                 {
                     MapFeature feature = CreateSingleLineMapFeature(GetWorldPoints(dikeProfile));
@@ -240,8 +240,8 @@ namespace Ringtoets.Common.Forms.Views
 
                 int nrOfElements = foreShoreProfilesWithGeometry.Length;
                 var mapFeatures = new MapFeature[nrOfElements];
-                
-                for (int i = 0; i < nrOfElements; i++)
+
+                for (var i = 0; i < nrOfElements; i++)
                 {
                     ForeshoreProfile foreshoreProfile = foreShoreProfilesWithGeometry[i];
                     MapFeature feature = CreateSingleLineMapFeature(GetWorldPoints(foreshoreProfile));
@@ -267,7 +267,7 @@ namespace Ringtoets.Common.Forms.Views
                 int nrOfElements = structures.Count();
                 var mapFeatures = new MapFeature[nrOfElements];
 
-                int i = 0;
+                var i = 0;
                 foreach (StructureBase structure in structures)
                 {
                     MapFeature feature = CreateSinglePointMapFeature(structure.Location);
@@ -316,7 +316,7 @@ namespace Ringtoets.Common.Forms.Views
             {
                 var features = new MapFeature[calculationData.Length];
 
-                for (int i = 0; i < calculationData.Length; i++)
+                for (var i = 0; i < calculationData.Length; i++)
                 {
                     MapCalculationData calculationItem = calculationData[i];
                     MapFeature feature = CreateSingleLineMapFeature(new[]
@@ -328,7 +328,7 @@ namespace Ringtoets.Common.Forms.Views
                     feature.MetaData[Resources.MetaData_Name] = calculationItem.Name;
                     feature.MetaData[Resources.MetaData_Couple_distance] =
                         calculationItem.CalculationLocation.GetEuclideanDistanceTo(
-                                           calculationItem.HydraulicBoundaryLocation.Location);
+                            calculationItem.HydraulicBoundaryLocation.Location);
 
                     features[i] = feature;
                 }

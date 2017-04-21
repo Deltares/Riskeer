@@ -62,7 +62,6 @@ namespace Ringtoets.Common.Data.DikeProfiles
 
         public override bool Equals(object obj)
         {
-
             if (ReferenceEquals(null, obj))
             {
                 return false;
@@ -75,12 +74,7 @@ namespace Ringtoets.Common.Data.DikeProfiles
             {
                 return false;
             }
-            return Equals((RoughnessPoint)obj);
-        }
-
-        private bool Equals(RoughnessPoint other)
-        {
-            return Equals(Point, other.Point) && Roughness.Equals(other.Roughness);
+            return Equals((RoughnessPoint) obj);
         }
 
         public override int GetHashCode()
@@ -91,6 +85,11 @@ namespace Ringtoets.Common.Data.DikeProfiles
                 hashCode = (hashCode * 397) ^ (Point?.GetHashCode() ?? 0);
                 return hashCode;
             }
+        }
+
+        private bool Equals(RoughnessPoint other)
+        {
+            return Equals(Point, other.Point) && Roughness.Equals(other.Roughness);
         }
     }
 }

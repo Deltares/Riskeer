@@ -26,9 +26,6 @@ namespace Ringtoets.HydraRing.Calculation.Data
     /// </summary>
     public class HydraRingProfilePoint
     {
-        private readonly double x;
-        private readonly double z;
-
         /// <summary>
         /// Creates a new instance of the <see cref="HydraRingProfilePoint"/> class.
         /// </summary>
@@ -36,31 +33,19 @@ namespace Ringtoets.HydraRing.Calculation.Data
         /// <param name="z">The Z-coordinate.</param>
         public HydraRingProfilePoint(double x, double z)
         {
-            this.x = x;
-            this.z = z;
+            X = x;
+            Z = z;
         }
 
         /// <summary>
         /// Gets the X-coordinate.
         /// </summary>
-        public double X
-        {
-            get
-            {
-                return x;
-            }
-        }
+        public double X { get; }
 
         /// <summary>
         /// Gets the Z-coordinate.
         /// </summary>
-        public double Z
-        {
-            get
-            {
-                return z;
-            }
-        }
+        public double Z { get; }
 
         /// <summary>
         /// Gets the reduction factor.

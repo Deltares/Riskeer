@@ -40,8 +40,8 @@ namespace Ringtoets.DuneErosion.Forms.PresentationObjects
         /// <param name="assessmentSection">The assessment section the locations belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public DuneLocationsContext(ObservableList<DuneLocation> duneLocations,
-                                                 DuneErosionFailureMechanism failureMechanism,
-                                                 IAssessmentSection assessmentSection)
+                                    DuneErosionFailureMechanism failureMechanism,
+                                    IAssessmentSection assessmentSection)
             : base(duneLocations)
         {
             if (failureMechanism == null)

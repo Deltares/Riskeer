@@ -128,16 +128,16 @@ namespace Ringtoets.Common.IO.FileImporters
         private static DikeProfile CreateDikeProfile(ProfileLocation dikeProfileLocation, DikeProfileData dikeProfileData)
         {
             return new DikeProfile(dikeProfileLocation.Point, dikeProfileData.DikeGeometry,
-                                              dikeProfileData.ForeshoreGeometry.Select(fg => fg.Point).ToArray(),
-                                              CreateBreakWater(dikeProfileData),
-                                              new DikeProfile.ConstructionProperties
-                                              {
-                                                  Id = dikeProfileData.Id,
-                                                  Name = dikeProfileLocation.Name,
-                                                  X0 = dikeProfileLocation.Offset,
-                                                  Orientation = dikeProfileData.Orientation,
-                                                  DikeHeight = dikeProfileData.DikeHeight
-                                              });
+                                   dikeProfileData.ForeshoreGeometry.Select(fg => fg.Point).ToArray(),
+                                   CreateBreakWater(dikeProfileData),
+                                   new DikeProfile.ConstructionProperties
+                                   {
+                                       Id = dikeProfileData.Id,
+                                       Name = dikeProfileLocation.Name,
+                                       X0 = dikeProfileLocation.Offset,
+                                       Orientation = dikeProfileData.Orientation,
+                                       DikeHeight = dikeProfileData.DikeHeight
+                                   });
         }
     }
 }
