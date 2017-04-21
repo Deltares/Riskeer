@@ -289,19 +289,33 @@ SELECT BackgroundDataEntityId,
 		"2"
 		FROM BackgroundDataEntity;
 
-DETACH SOURCEPROJECT;
-
 /* 
 Write migration logging 
 */
 ATTACH DATABASE [{1}] AS LOGDATABASE;
 
+CREATE TEMP TABLE log_output_deleted (
+	'NrDeleted' INTEGER NOT NULL
+);
+
+INSERT INTO log_output_deleted SELECT COUNT('x') FROM [SOURCEPROJECT].ClosingStructuresOutputEntity;
+INSERT INTO log_output_deleted SELECT COUNT('x') FROM [SOURCEPROJECT].GrassCoverErosionInwardsDikeHeightOutputEntity;
+INSERT INTO log_output_deleted SELECT COUNT('x') FROM [SOURCEPROJECT].GrassCoverErosionInwardsOutputEntity;
+INSERT INTO log_output_deleted SELECT COUNT('x') FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationOutputEntity;
+INSERT INTO log_output_deleted SELECT COUNT('x') FROM [SOURCEPROJECT].HeightStructuresOutputEntity;
+INSERT INTO log_output_deleted SELECT COUNT('x') FROM [SOURCEPROJECT].HydraulicLocationOutputEntity;
+INSERT INTO log_output_deleted SELECT COUNT('x') FROM [SOURCEPROJECT].PipingCalculationOutputEntity;
+INSERT INTO log_output_deleted SELECT COUNT('x') FROM [SOURCEPROJECT].PipingSemiProbabilisticOutputEntity;
+INSERT INTO log_output_deleted SELECT COUNT('x') FROM [SOURCEPROJECT].StabilityPointStructuresOutputEntity;
+INSERT INTO log_output_deleted SELECT COUNT('x') FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsOutputEntity;
+INSERT INTO log_output_deleted SELECT COUNT('x') FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsOutputEntity;
+
 CREATE TABLE  IF NOT EXISTS [LOGDATABASE].'MigrationLogEntity' 
 (
-'MigrationLogEntityId' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 
-'FromVersion' VARCHAR(20), 
-'ToVersion' VARCHAR(20), 
-'LogMessage' TEXT 
+	'MigrationLogEntityId' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 
+	'FromVersion' VARCHAR(20), 
+	'ToVersion' VARCHAR(20), 
+	'LogMessage' TEXT 
 );
 
 INSERT INTO [LOGDATABASE].MigrationLogEntity(
@@ -310,8 +324,15 @@ INSERT INTO [LOGDATABASE].MigrationLogEntity(
 		[LogMessage])
 SELECT	"5", 
 		"17.1", 
-		"Alle berekende resultaten zijn verwijderd.";
+		"Alle berekende resultaten zijn verwijderd."
+		FROM log_output_deleted 
+		WHERE [NrDeleted] > 0 
+		LIMIT 1;
+
+DROP TABLE log_output_deleted;
 
 DETACH LOGDATABASE;
+
+DETACH SOURCEPROJECT;
 
 PRAGMA foreign_keys = ON;
