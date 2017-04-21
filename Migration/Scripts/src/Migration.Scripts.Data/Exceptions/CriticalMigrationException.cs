@@ -63,7 +63,7 @@ namespace Migration.Scripts.Data.Exceptions
         /// <c>null</c>.</exception>
         /// <exception cref="SerializationException">The class name is <c>null</c> or
         /// <see cref="Exception.HResult" /> is zero (0).</exception>
-        protected CriticalMigrationException(SerializationInfo info, StreamingContext context) 
+        protected CriticalMigrationException(SerializationInfo info, StreamingContext context)
             : base(info, context) {}
     }
 }

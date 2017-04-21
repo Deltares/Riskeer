@@ -75,7 +75,7 @@ namespace Migration.Core.Storage.Test
             var comparer = mockRepository.Stub<IComparer>();
             mockRepository.ReplayAll();
 
-            string toVersion = "1";
+            var toVersion = "1";
             var migrator = new SimpleVersionedFileMigrator(comparer)
             {
                 CreateScripts =
@@ -250,7 +250,7 @@ namespace Migration.Core.Storage.Test
             TestDelegate call = () => migrator.Migrate(versionedFile, toVersion, toLocation);
 
             // Assert
-            CriticalMigrationException exception = Assert.Throws<CriticalMigrationException>(call);
+            var exception = Assert.Throws<CriticalMigrationException>(call);
             Assert.AreEqual("Het doelprojectpad moet anders zijn dan het bronprojectpad.", exception.Message);
             mockRepository.VerifyAll();
         }
@@ -277,7 +277,7 @@ namespace Migration.Core.Storage.Test
             TestDelegate call = () => migrator.Migrate(versionedFile, toVersion, toLocation);
 
             // Assert
-            CriticalMigrationException exception = Assert.Throws<CriticalMigrationException>(call);
+            var exception = Assert.Throws<CriticalMigrationException>(call);
             Assert.AreEqual($"Het migreren van een projectbestand met versie '{incorrectVersion}' naar versie '{toVersion}' is niet ondersteund.", exception.Message);
             mockRepository.VerifyAll();
         }
@@ -315,7 +315,7 @@ namespace Migration.Core.Storage.Test
             TestDelegate call = () => migrator.Migrate(versionedFile, incorrectVersion, toLocation);
 
             // Assert
-            CriticalMigrationException exception = Assert.Throws<CriticalMigrationException>(call);
+            var exception = Assert.Throws<CriticalMigrationException>(call);
             Assert.AreEqual($"Het migreren van een projectbestand met versie '{fromVersion}' naar versie '{incorrectVersion}' is niet ondersteund.", exception.Message);
             mockRepository.VerifyAll();
         }
@@ -434,7 +434,7 @@ namespace Migration.Core.Storage.Test
                 TestDelegate call = () => migrator.Migrate(versionedFile, toVersion, toLocation);
 
                 // Assert
-                CriticalMigrationException exception = Assert.Throws<CriticalMigrationException>(call);
+                var exception = Assert.Throws<CriticalMigrationException>(call);
                 StringAssert.StartsWith("Het gemigreerde projectbestand is aangemaakt op '", exception.Message);
                 StringAssert.EndsWith($"', maar er is een onverwachte fout opgetreden tijdens het verplaatsen naar '{toLocation}'.",
                                       exception.Message);

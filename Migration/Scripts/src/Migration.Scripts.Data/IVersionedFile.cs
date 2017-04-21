@@ -21,7 +21,6 @@
 
 using Core.Common.Base.IO;
 using Core.Common.Base.Storage;
-using Core.Common.IO.Exceptions;
 
 namespace Migration.Scripts.Data
 {

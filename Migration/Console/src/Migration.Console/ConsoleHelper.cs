@@ -85,7 +85,7 @@ namespace Migration.Console
 
             int bufferSize = GetLineWidth() - paddingRight - paddingLeft;
             var paddingString = new string(' ', paddingLeft);
-            foreach (var line in format.SplitByLength(bufferSize))
+            foreach (string line in format.SplitByLength(bufferSize))
             {
                 SystemConsole.WriteLine($@"{paddingString}{line.TrimStart()}", args);
             }
@@ -105,7 +105,7 @@ namespace Migration.Console
 
         private static IEnumerable<string> SplitByLength(this string str, int maxLength)
         {
-            for (int index = 0; index < str.Length; index += maxLength)
+            for (var index = 0; index < str.Length; index += maxLength)
             {
                 yield return str.Substring(index, Math.Min(maxLength, str.Length - index));
             }

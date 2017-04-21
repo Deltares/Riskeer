@@ -50,12 +50,12 @@ namespace Migration.Scripts.Data.TestUtil
         /// </summary>
         private class TestVersionedFile : IVersionedFile
         {
-            public string Location { get; set; }
-
             /// <summary>
             /// Sets the version for <seealso cref="GetVersion"/>.
             /// </summary>
             public string Version { private get; set; }
+
+            public string Location { get; set; }
 
             public string GetVersion()
             {

@@ -43,7 +43,7 @@ namespace Migration.Console.TestUtil.Test
         {
             // Setup
             var testEnvironmentControl = new TestEnvironmentControl();
-            ErrorCode errorCodeEnum = new Random(74).NextEnumValue<ErrorCode>();
+            var errorCodeEnum = new Random(74).NextEnumValue<ErrorCode>();
             testEnvironmentControl.Exit(errorCodeEnum);
 
             // Call

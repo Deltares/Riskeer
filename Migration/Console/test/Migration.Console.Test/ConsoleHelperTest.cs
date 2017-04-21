@@ -112,7 +112,7 @@ namespace Migration.Console.Test
         public void WriteErrorLine_InvalidString_ThrowsFormatException()
         {
             // Setup
-            string invalidFormat = "{d}";
+            var invalidFormat = "{d}";
 
             // Call
             TestDelegate call = () => ConsoleHelper.WriteErrorLine(invalidFormat, "ABC");
@@ -185,7 +185,7 @@ namespace Migration.Console.Test
             }
 
             // Assert
-            var expectedText = string.Concat("          ", writeLine, Environment.NewLine, Environment.NewLine);
+            string expectedText = string.Concat("          ", writeLine, Environment.NewLine, Environment.NewLine);
             Assert.AreEqual(expectedText, consoleText);
         }
 
@@ -193,7 +193,7 @@ namespace Migration.Console.Test
         public void WriteCommandDescriptionLine_InvalidString_ThrowsFormatException()
         {
             // Setup
-            string invalidFormat = "{d}";
+            var invalidFormat = "{d}";
 
             // Call
             TestDelegate call = () => ConsoleHelper.WriteCommandDescriptionLine(invalidFormat, "ABC");

@@ -108,7 +108,7 @@ namespace Migration.Scripts.Data.Test
                 TestDelegate call = () => createScript.CreateEmptyVersionedFile(filePath);
 
                 // Assert
-                ArgumentException exception = Assert.Throws<ArgumentException>(call);
+                var exception = Assert.Throws<ArgumentException>(call);
                 Assert.AreEqual("path", exception.ParamName);
             }
         }
