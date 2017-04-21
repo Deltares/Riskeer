@@ -162,10 +162,6 @@
       <Project>{4843d6e5-066f-4795-94f5-1d53932dd03c}</Project>
       <Name>Ringtoets.Common.Data.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Common.Forms.TestUtil\Ringtoets.Common.Forms.TestUtil.csproj">
-      <Project>{D24FA2F7-28A7-413B-AFD3-EE10E985630B}</Project>
-      <Name>Ringtoets.Common.Forms.TestUtil</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Common.IO.TestUtil\Ringtoets.Common.IO.TestUtil.csproj">
       <Project>{33508D7C-1602-4C0D-8503-73AAE98C19E5}</Project>
       <Name>Ringtoets.Common.IO.TestUtil</Name>

@@ -86,10 +86,6 @@
       <Project>{EFD7E662-5B69-4B71-A448-565B64E9C033}</Project>
       <Name>Migration.Core.Storage</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Migration.Core.Storage.TestUtil\Migration.Core.Storage.TestUtil.csproj">
-      <Project>{92CFD164-3E35-440A-85A7-A7F5A43B1B12}</Project>
-      <Name>Migration.Core.Storage.TestUtil</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\..\..\packages\System.Data.SQLite.Core.1.0.104.0\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.104.0\build\net40\System.Data.SQLite.Core.targets')" />

@@ -40,7 +40,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\..\Common\src\Core.Common.Version\GlobalAssembly.cs">
@@ -53,10 +52,6 @@
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj">
       <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
       <Name>Core.Common.Base</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Core.Components.DotSpatial\Core.Components.DotSpatial.csproj">
-      <Project>{aa47e858-a2a7-470e-8b2d-c76ae8ed9ccd}</Project>
-      <Name>Core.Components.DotSpatial</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Core.Components.Gis\Core.Components.Gis.csproj">
       <Project>{318BA582-88C9-4816-A54A-A7E431461DE3}</Project>

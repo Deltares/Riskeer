@@ -23,7 +23,6 @@ using System;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionOutwards.Data;

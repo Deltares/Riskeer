@@ -23,7 +23,6 @@ using System;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
-using Core.Components.Gis.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
