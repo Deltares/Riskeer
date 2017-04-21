@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using Application.Ringtoets.Migration.Core;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Storage;
@@ -425,22 +426,34 @@ namespace Application.Ringtoets.Migration.Test
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
-            var migrator = new RingtoetsProjectMigrator(inquiryHelper);
-
-            var migrationSuccessful = false;
-
+            string logDirectory = $"{nameof(GivenMigratorAndSupportedFile_WhenValidTargetLocationGiven_ThenFileSuccessFullyMigrates)}_log";
+            using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), logDirectory))
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                TempPath = TestHelper.GetScratchPadPath(testDirectory)
+                TempPath = TestHelper.GetScratchPadPath(logDirectory)
             }))
             {
+                var migrator = new RingtoetsProjectMigrator(inquiryHelper);
+
+                var migrationSuccessful = false;
+
                 // When 
                 Action call = () => migrationSuccessful = migrator.Migrate(sourceFilePath, targetFilePath);
 
                 // Then
-                string expectedMessage = $"Het projectbestand '{sourceFilePath}' is succesvol gemigreerd naar '{targetFilePath}' (versie {currentDatabaseVersion}).";
-                Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedMessage, LogLevelConstant.Info);
-                TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel, 1);
+                string expectedMessage = $"Het projectbestand '{sourceFilePath}' is succesvol gemigreerd naar '{targetFilePath}' " +
+                                         $"(versie {currentDatabaseVersion}).";
+                var migrationLog = new StringBuilder();
+                migrationLog.AppendLine(@"Door de migratie is het project aangepast. Bekijk het migratierapport door op details te klikken.");
+                migrationLog.AppendLine(@"Gevolgen van de migratie:");
+                migrationLog.AppendLine(@"- Alle berekende resultaten zijn verwijderd.");
+
+                var expectedLogMessagesAndLevel = new[]
+                {
+                    Tuple.Create(expectedMessage, LogLevelConstant.Info),
+                    Tuple.Create(migrationLog.ToString(), LogLevelConstant.Info)
+                };
+                TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 2);
 
                 Assert.IsTrue(migrationSuccessful);
 
@@ -448,10 +461,55 @@ namespace Application.Ringtoets.Migration.Test
                 Assert.AreEqual(currentDatabaseVersion, toVersionedFile.GetVersion());
             }
 
-            string logPath = Path.Combine(TestHelper.GetScratchPadPath(), testDirectory, "RingtoetsMigrationLog.sqlite");
+            string logPath = Path.Combine(TestHelper.GetScratchPadPath(), logDirectory, "RingtoetsMigrationLog.sqlite");
+            Assert.IsFalse(File.Exists(logPath));
 
-            Assert.IsTrue(File.Exists(logPath));
-            File.Delete(logPath);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Migrate_MigrationLogDatabaseInUse_MigrationFailsAndLogsError()
+        {
+            // Setup
+            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
+            string targetFile = $"{nameof(RingtoetsProjectMigratorTest)}." +
+                                $"{nameof(Migrate_MigrationLogDatabaseInUse_MigrationFailsAndLogsError)}.rtd";
+            string targetFilePath = Path.Combine(TestHelper.GetScratchPadPath(), testDirectory, targetFile);
+
+            var mocks = new MockRepository();
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            mocks.ReplayAll();
+
+            string logDirectory = $"{nameof(Migrate_MigrationLogDatabaseInUse_MigrationFailsAndLogsError)}_log";
+
+            string logPath = Path.Combine(TestHelper.GetScratchPadPath(), logDirectory, "RingtoetsMigrationLog.sqlite");
+
+            using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), logDirectory))
+            using (new UseCustomSettingsHelper(new TestSettingsHelper
+            {
+                TempPath = TestHelper.GetScratchPadPath(logDirectory)
+            }))
+            using (var fileDisposeHelper = new FileDisposeHelper(logPath))
+            {
+                var migrator = new RingtoetsProjectMigrator(inquiryHelper);
+                fileDisposeHelper.LockFiles();
+
+                var migrationSuccessful = true;
+
+                // Call 
+                Action call = () => migrationSuccessful = migrator.Migrate(sourceFilePath, targetFilePath);
+
+                // Assert
+                var expectedLogMessagesAndLevel = new[]
+                {
+                    Tuple.Create($"Het is niet mogelijk om het Ringtoets logbestand '{logPath}' aan te maken.", LogLevelConstant.Error),
+                    Tuple.Create($"Het opruimen van het Ringtoets logbestand '{logPath}' is mislukt.", LogLevelConstant.Error)
+                };
+                TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 2);
+                Assert.IsFalse(migrationSuccessful);
+
+                Assert.IsTrue(File.Exists(logPath));
+            }
 
             mocks.VerifyAll();
         }
@@ -469,11 +527,16 @@ namespace Application.Ringtoets.Migration.Test
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
-            var migrator = new RingtoetsProjectMigrator(inquiryHelper);
-
-            // Assert
+            string logDirectory = $"{nameof(Migrate_UnableToSaveAtTargetFilePath_MigrationFailsAndLogsError)}_log";
+            using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), logDirectory))
+            using (new UseCustomSettingsHelper(new TestSettingsHelper
+            {
+                TempPath = TestHelper.GetScratchPadPath(logDirectory)
+            }))
             using (var fileDisposeHelper = new FileDisposeHelper(targetFilePath))
             {
+                var migrator = new RingtoetsProjectMigrator(inquiryHelper);
+
                 fileDisposeHelper.LockFiles();
 
                 var migrationSuccessful = true;
@@ -489,6 +552,9 @@ namespace Application.Ringtoets.Migration.Test
                     StringAssert.StartsWith($"Het migreren van het projectbestand '{sourceFilePath}' is mislukt: ", msgs[0]);
                 });
                 Assert.IsFalse(migrationSuccessful);
+
+                string logPath = Path.Combine(TestHelper.GetScratchPadPath(), logDirectory, "RingtoetsMigrationLog.sqlite");
+                Assert.IsFalse(File.Exists(logPath));
             }
 
             mocks.VerifyAll();
@@ -507,22 +573,32 @@ namespace Application.Ringtoets.Migration.Test
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
-            var migrator = new RingtoetsProjectMigrator(inquiryHelper);
-
-            var migrationSuccessful = true;
-
-            // Call 
-            Action call = () => migrationSuccessful = migrator.Migrate(sourceFilePath, targetFilePath);
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            string logDirectory = $"{nameof(Migrate_UnsupportedSourceFileVersion_MigrationFailsAndLogsError)}_log";
+            using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), logDirectory))
+            using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(1, msgs.Length);
-                StringAssert.StartsWith($"Het migreren van het projectbestand '{sourceFilePath}' is mislukt: ", msgs[0]);
-            });
-            Assert.IsFalse(migrationSuccessful);
+                TempPath = TestHelper.GetScratchPadPath(logDirectory)
+            }))
+            {
+                var migrator = new RingtoetsProjectMigrator(inquiryHelper);
 
+                var migrationSuccessful = true;
+
+                // Call 
+                Action call = () => migrationSuccessful = migrator.Migrate(sourceFilePath, targetFilePath);
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(1, msgs.Length);
+                    StringAssert.StartsWith($"Het migreren van het projectbestand '{sourceFilePath}' is mislukt: ", msgs[0]);
+                });
+                Assert.IsFalse(migrationSuccessful);
+
+                string logPath = Path.Combine(TestHelper.GetScratchPadPath(logDirectory), "RingtoetsMigrationLog.sqlite");
+                Assert.IsFalse(File.Exists(logPath));
+            }
             mocks.VerifyAll();
         }
 
@@ -536,22 +612,32 @@ namespace Application.Ringtoets.Migration.Test
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
-            var migrator = new RingtoetsProjectMigrator(inquiryHelper);
-
-            var migrationSuccessful = true;
-
-            // Call 
-            Action call = () => migrationSuccessful = migrator.Migrate(sourceFilePath, sourceFilePath);
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            string logDirectory = $"{nameof(Migrate_TargetFileSameAsSourceFile_MigrationFailsAndLogsError)}_log";
+            using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), logDirectory))
+            using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(1, msgs.Length);
-                StringAssert.StartsWith($"Het migreren van het projectbestand '{sourceFilePath}' is mislukt: ", msgs[0]);
-            });
-            Assert.IsFalse(migrationSuccessful);
+                TempPath = TestHelper.GetScratchPadPath(logDirectory)
+            }))
+            {
+                var migrator = new RingtoetsProjectMigrator(inquiryHelper);
 
+                var migrationSuccessful = true;
+
+                // Call 
+                Action call = () => migrationSuccessful = migrator.Migrate(sourceFilePath, sourceFilePath);
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(1, msgs.Length);
+                    StringAssert.StartsWith($"Het migreren van het projectbestand '{sourceFilePath}' is mislukt: ", msgs[0]);
+                });
+                Assert.IsFalse(migrationSuccessful);
+
+                string logPath = Path.Combine(TestHelper.GetScratchPadPath(), logDirectory, "RingtoetsMigrationLog.sqlite");
+                Assert.IsFalse(File.Exists(logPath));
+            }
             mocks.VerifyAll();
         }
     }

@@ -146,4 +146,15 @@ Weet u zeker dat u het bestand wilt migreren naar het formaat van uw huidige Rin
   <data name="RingtoetsProjectMigrator_Target_Descriptor" xml:space="preserve">
     <value>Doel</value>
   </data>
+  <data name="RingtoetsProjectMigrator_Deleting_migration_log_file_0_failed" xml:space="preserve">
+    <value>Het opruimen van het Ringtoets logbestand '{0}' is mislukt.</value>
+  </data>
+  <data name="RingtoetsProjectMigrator_Project_file_modified_click_details_for_migration_report" xml:space="preserve">
+    <value>Door de migratie is het project aangepast. Bekijk het migratierapport door op details te klikken.
+Gevolgen van de migratie:
+</value>
+  </data>
+  <data name="RingtoetsProjectMigrator_CreateInitializedDatabaseLogFile_Unable_to_create_migration_log_file_0" xml:space="preserve">
+    <value>Het is niet mogelijk om het Ringtoets logbestand '{0}' aan te maken.</value>
+  </data>
 </root>

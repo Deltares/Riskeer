@@ -100,6 +100,25 @@ namespace Application.Ringtoets.Migration.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het is niet mogelijk om het Ringtoets logbestand &apos;{0}&apos; aan te maken..
+        /// </summary>
+        internal static string RingtoetsProjectMigrator_CreateInitializedDatabaseLogFile_Unable_to_create_migration_log_file_0 {
+            get {
+                return ResourceManager.GetString("RingtoetsProjectMigrator_CreateInitializedDatabaseLogFile_Unable_to_create_migrat" +
+                        "ion_log_file_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het opruimen van het Ringtoets logbestand &apos;{0}&apos; is mislukt..
+        /// </summary>
+        internal static string RingtoetsProjectMigrator_Deleting_migration_log_file_0_failed {
+            get {
+                return ResourceManager.GetString("RingtoetsProjectMigrator_Deleting_migration_log_file_0_failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het migreren van het projectbestand &apos;{0}&apos; is geannuleerd..
         /// </summary>
         internal static string RingtoetsProjectMigrator_GenerateMigrationCancelledLogMessage_Updating_projectfile_0_was_cancelled {
@@ -138,6 +157,18 @@ namespace Application.Ringtoets.Migration.Properties {
             get {
                 return ResourceManager.GetString("RingtoetsProjectMigrator_MigrateToTargetLocation_Updating_outdated_projectfile_0_" +
                         "failed_with_exception_1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Door de migratie is het project aangepast. Bekijk het migratierapport door op details te klikken.
+        ///Gevolgen van de migratie:
+        ///.
+        /// </summary>
+        internal static string RingtoetsProjectMigrator_Project_file_modified_click_details_for_migration_report {
+            get {
+                return ResourceManager.GetString("RingtoetsProjectMigrator_Project_file_modified_click_details_for_migration_report" +
+                        "", resourceCulture);
             }
         }
         

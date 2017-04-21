@@ -20,7 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
+using System.Text;
 using Application.Ringtoets.Migration.Core;
 using Application.Ringtoets.Migration.Properties;
 using Core.Common.Base.Storage;
@@ -46,6 +49,8 @@ namespace Application.Ringtoets.Migration
         private readonly IInquiryHelper inquiryHelper;
         private readonly FileFilterGenerator fileFilter;
 
+        private readonly string migrationLogPath;
+
         /// <summary>
         /// Instantiates a <see cref="RingtoetsProjectMigrator"/>.
         /// </summary>
@@ -57,8 +62,14 @@ namespace Application.Ringtoets.Migration
                 throw new ArgumentNullException(nameof(inquiryHelper));
             }
 
+            migrationLogPath = Path.Combine(SettingsHelper.Instance.GetLocalUserTemporaryDirectory(),
+                                            "RingtoetsMigrationLog.sqlite");
+
             this.inquiryHelper = inquiryHelper;
-            fileMigrator = new RingtoetsSqLiteDatabaseFileMigrator();
+            fileMigrator = new RingtoetsSqLiteDatabaseFileMigrator
+            {
+                LogPath = migrationLogPath
+            };
             fileFilter = new FileFilterGenerator(Resources.RingtoetsProject_FileExtension,
                                                  Resources.RingtoetsProject_TypeDescription);
         }
@@ -138,12 +149,18 @@ namespace Application.Ringtoets.Migration
         {
             try
             {
+                if (!CreateInitializedDatabaseLogFile())
+                {
+                    return false;
+                }
+
                 var versionedFile = new RingtoetsVersionedFile(sourceFilePath);
-                fileMigrator.LogPath = CreateInitializedDatabaseLogFile();
                 fileMigrator.Migrate(versionedFile, currentDatabaseVersion, targetLocation);
                 string message = string.Format(Resources.RingtoetsProjectMigrator_MigrateToTargetLocation_Outdated_projectfile_0_succesfully_updated_to_target_filepath_1_version_2_,
                                                sourceFilePath, targetLocation, currentDatabaseVersion);
                 log.Info(message);
+
+                LogMigrationMessages();
 
                 return true;
             }
@@ -154,13 +171,58 @@ namespace Application.Ringtoets.Migration
                 log.Error(errorMessage, e);
                 return false;
             }
+            finally
+            {
+                TryCleanupDatabaseLogFile();
+            }
         }
 
-        private static string CreateInitializedDatabaseLogFile()
+        private void LogMigrationMessages()
         {
-            string path = Path.Combine(SettingsHelper.Instance.GetLocalUserTemporaryDirectory(), "RingtoetsMigrationLog.sqlite");
-            IOUtils.CreateFileIfNotExists(path);
-            return path;
+            using (var migrationLogDatabase = new MigrationLogDatabaseReader(migrationLogPath))
+            {
+                ReadOnlyCollection<MigrationLogMessage> migrationLogMessages = migrationLogDatabase.GetMigrationLogMessages();
+                if (!migrationLogMessages.Any())
+                {
+                    return;
+                }
+
+                var migrationLog = new StringBuilder(Resources.RingtoetsProjectMigrator_Project_file_modified_click_details_for_migration_report);
+                foreach (MigrationLogMessage logMessage in migrationLogMessages)
+                {
+                    migrationLog.AppendLine(string.Concat("- ", logMessage.Message));
+                }
+
+                log.Info(migrationLog);
+            }
+        }
+
+        private bool CreateInitializedDatabaseLogFile()
+        {
+            try
+            {
+                IOUtils.CreateFileIfNotExists(migrationLogPath);
+            }
+            catch (ArgumentException exception)
+            {
+                log.Error(string.Format(Resources.RingtoetsProjectMigrator_CreateInitializedDatabaseLogFile_Unable_to_create_migration_log_file_0, migrationLogPath),
+                          exception);
+                return false;
+            }
+            return true;
+        }
+
+        private void TryCleanupDatabaseLogFile()
+        {
+            try
+            {
+                File.Delete(migrationLogPath);
+            }
+            catch (SystemException exception) when (exception is IOException || exception is UnauthorizedAccessException)
+            {
+                string errorMessage = string.Format(Resources.RingtoetsProjectMigrator_Deleting_migration_log_file_0_failed, migrationLogPath);
+                log.Error(errorMessage, exception);
+            }
         }
 
         private static string GetSuggestedFileName(string sourceFilePath)
