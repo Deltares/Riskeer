@@ -148,7 +148,7 @@ namespace Ringtoets.Integration.TestUtils
         /// Gets a fully configured <see cref="AssessmentSection"/> with a desired <see cref="AssessmentSectionComposition"/> and 
         /// possible configurations of the parent and nested calculations, but without any calculation output of the failure mechanisms.
         /// </summary>
-        /// <param name="composition">The desired <see cref="AssessmentSectionComposition"/> to initiailize the <see cref="AssessmentSection"/> with.</param>
+        /// <param name="composition">The desired <see cref="AssessmentSectionComposition"/> to initialize the <see cref="AssessmentSection"/> with.</param>
         /// <returns>A fully configured <see cref="AssessmentSection"/> with all possible configurations of the parent and nested calculations 
         /// of the failure mechanisms, but without any calculation output.</returns>
         public static AssessmentSection GetAssessmentSectionWithAllCalculationConfigurationsWithoutCalculationOutput(AssessmentSectionComposition composition)
@@ -317,8 +317,8 @@ namespace Ringtoets.Integration.TestUtils
                     DikeProfile = dikeprofile1
                 },
                 Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0),
-                                                            new HydraulicLoadsOutput(0, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged),
-                                                            new HydraulicLoadsOutput(0, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged))
+                                                            new DikeHeightOutput(0, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged),
+                                                            new OvertoppingRateOutput(0, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged))
             };
             var calculationWithOutputAndHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation
             {
@@ -327,8 +327,8 @@ namespace Ringtoets.Integration.TestUtils
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 },
                 Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0),
-                                                            new HydraulicLoadsOutput(0, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged),
-                                                            new HydraulicLoadsOutput(0, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged))
+                                                            new DikeHeightOutput(0, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged),
+                                                            new OvertoppingRateOutput(0, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged))
             };
             var calculationWithHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation
             {
@@ -355,8 +355,8 @@ namespace Ringtoets.Integration.TestUtils
                     DikeProfile = dikeprofile2
                 },
                 Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0),
-                                                            new HydraulicLoadsOutput(0, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged),
-                                                            new HydraulicLoadsOutput(0, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged))
+                                                            new DikeHeightOutput(0, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged),
+                                                            new OvertoppingRateOutput(0, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged))
             };
             var subCalculationWithOutputAndHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation
             {
@@ -365,8 +365,8 @@ namespace Ringtoets.Integration.TestUtils
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 },
                 Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0),
-                                                            new HydraulicLoadsOutput(0, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged),
-                                                            new HydraulicLoadsOutput(0, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged))
+                                                            new DikeHeightOutput(0, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged),
+                                                            new OvertoppingRateOutput(0, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged))
             };
             var subCalculationWithHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation
             {

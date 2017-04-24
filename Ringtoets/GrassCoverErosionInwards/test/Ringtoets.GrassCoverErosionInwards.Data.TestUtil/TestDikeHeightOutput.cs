@@ -24,17 +24,17 @@ using Ringtoets.Common.Data.Hydraulics;
 namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil
 {
     /// <summary>
-    /// Class which creates simple instances of <see cref="HydraulicLoadsOutput"/>, 
+    /// Class which creates simple instances of <see cref="DikeHeightOutput"/>, 
     /// which can be used during testing.
     /// </summary>
-    public class TestHydraulicLoadsOutput : HydraulicLoadsOutput
+    public class TestDikeHeightOutput : DikeHeightOutput
     {
         /// <summary>
-        /// Creates a new instance of <see cref="TestHydraulicLoadsOutput"/>.
+        /// Creates a new instance of <see cref="TestDikeHeightOutput"/>.
         /// </summary>
-        /// <param name="result">The result to set to the output.</param>
+        /// <param name="dikeHeight">The dike height to set to the output.</param>
         /// <param name="calculationConvergence">The <see cref="CalculationConvergence"/> to set to the output.</param>
-        public TestHydraulicLoadsOutput(double result, CalculationConvergence calculationConvergence = CalculationConvergence.NotCalculated) :
-            base(result, double.NaN, double.NaN, double.NaN, double.NaN, calculationConvergence) {}
+        public TestDikeHeightOutput(double dikeHeight, CalculationConvergence calculationConvergence = CalculationConvergence.NotCalculated) :
+            base(dikeHeight, double.NaN, double.NaN, double.NaN, double.NaN, calculationConvergence) {}
     }
 }

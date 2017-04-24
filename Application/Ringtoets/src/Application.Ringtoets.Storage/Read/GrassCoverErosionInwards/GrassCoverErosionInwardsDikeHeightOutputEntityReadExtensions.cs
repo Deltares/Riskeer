@@ -28,32 +28,32 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
 {
     /// <summary>
     /// Extension methods for <see cref="GrassCoverErosionInwardsDikeHeightOutputEntity"/>
-    /// related to creating a <see cref="HydraulicLoadsOutput"/>.
+    /// related to creating a <see cref="DikeHeightOutput"/>.
     /// </summary>
     internal static class GrassCoverErosionInwardsDikeHeightOutputEntityReadExtensions
     {
         /// <summary>
         /// Reads the <see cref="GrassCoverErosionInwardsDikeHeightOutputEntity"/> and use
-        /// the information to construct a <see cref="HydraulicLoadsOutput"/>.
+        /// the information to construct a <see cref="DikeHeightOutput"/>.
         /// </summary>
         /// <param name="entity">The <see cref="GrassCoverErosionInwardsDikeHeightOutputEntity"/>
-        /// to create <see cref="HydraulicLoadsOutput"/> for.</param>
-        /// <returns>A new <see cref="HydraulicLoadsOutput"/>.</returns>
+        /// to create <see cref="DikeHeightOutput"/> for.</param>
+        /// <returns>A new <see cref="DikeHeightOutput"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/>
         /// is <c>null</c>.</exception>
-        internal static HydraulicLoadsOutput Read(this GrassCoverErosionInwardsDikeHeightOutputEntity entity)
+        internal static DikeHeightOutput Read(this GrassCoverErosionInwardsDikeHeightOutputEntity entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            return new HydraulicLoadsOutput(entity.DikeHeight.ToNullAsNaN(),
-                                            entity.TargetProbability.ToNullAsNaN(),
-                                            entity.TargetReliability.ToNullAsNaN(),
-                                            entity.CalculatedProbability.ToNullAsNaN(),
-                                            entity.CalculatedReliability.ToNullAsNaN(),
-                                            (CalculationConvergence) entity.CalculationConvergence);
+            return new DikeHeightOutput(entity.DikeHeight.ToNullAsNaN(),
+                                        entity.TargetProbability.ToNullAsNaN(),
+                                        entity.TargetReliability.ToNullAsNaN(),
+                                        entity.CalculatedProbability.ToNullAsNaN(),
+                                        entity.CalculatedReliability.ToNullAsNaN(),
+                                        (CalculationConvergence) entity.CalculationConvergence);
         }
     }
 }

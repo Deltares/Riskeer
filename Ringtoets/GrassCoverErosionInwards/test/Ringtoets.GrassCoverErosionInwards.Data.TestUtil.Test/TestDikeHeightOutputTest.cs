@@ -28,20 +28,20 @@ using Ringtoets.Common.Data.TestUtil;
 namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil.Test
 {
     [TestFixture]
-    public class TestHydraulicLoadsOutputTest
+    public class TestDikeHeightOutputTest
     {
         [Test]
-        public void TestHydraulicLoadsOutput_WithoutConvergence_ReturnsExpectedValues()
+        public void TestDikeHeightOutput_WithoutConvergence_ReturnsExpectedValues()
         {
             // Setup
             var random = new Random(12);
             double result = random.NextDouble();
 
             // Call
-            var output = new TestHydraulicLoadsOutput(result);
+            var output = new TestDikeHeightOutput(result);
 
             // Assert
-            Assert.IsInstanceOf<HydraulicLoadsOutput>(output);
+            Assert.IsInstanceOf<DikeHeightOutput>(output);
             Assert.AreEqual(result, output.Result, output.Result.GetAccuracy());
             Assert.IsNaN(output.TargetProbability);
             Assert.IsNaN(output.TargetReliability);
@@ -51,7 +51,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil.Test
         }
 
         [Test]
-        public void TestHydraulicLoadsOutput_WithConvergence_ReturnsExpectedValues()
+        public void TestDikeHeightOutput_WithConvergence_ReturnsExpectedValues()
         {
             // Setup
             var random = new Random(12);
@@ -59,10 +59,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil.Test
             var convergence = random.NextEnumValue<CalculationConvergence>();
 
             // Call
-            var output = new TestHydraulicLoadsOutput(result, convergence);
+            var output = new TestDikeHeightOutput(result, convergence);
 
             // Assert
-            Assert.IsInstanceOf<HydraulicLoadsOutput>(output);
+            Assert.IsInstanceOf<DikeHeightOutput>(output);
             Assert.AreEqual(result, output.Result, output.Result.GetAccuracy());
             Assert.IsNaN(output.TargetProbability);
             Assert.IsNaN(output.TargetReliability);

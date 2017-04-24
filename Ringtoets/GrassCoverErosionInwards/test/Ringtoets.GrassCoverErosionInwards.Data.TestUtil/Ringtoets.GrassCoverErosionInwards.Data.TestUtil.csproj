@@ -47,7 +47,8 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestHydraulicLoadsOutput.cs" />
+    <Compile Include="TestOvertoppingRateOutput.cs" />
+    <Compile Include="TestDikeHeightOutput.cs" />
     <Compile Include="TestGrassCoverErosionInwardsFailureMechanism.cs" />
     <Compile Include="TestGrassCoverErosionInwardsOutput.cs" />
   </ItemGroup>

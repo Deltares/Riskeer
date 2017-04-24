@@ -19,22 +19,22 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Data.Hydraulics;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil
 {
     /// <summary>
-    /// Simple implementation of a <see cref="GrassCoverErosionInwardsOutput"/>, which can be
-    /// used in tests where actual output values are not important.
+    /// Class which creates simple instances of <see cref="OvertoppingRateOutput"/>, 
+    /// which can be used during testing.
     /// </summary>
-    public class TestGrassCoverErosionInwardsOutput : GrassCoverErosionInwardsOutput
+    public class TestOvertoppingRateOutput : OvertoppingRateOutput
     {
         /// <summary>
-        /// Creates a new instance of <see cref="TestGrassCoverErosionInwardsOutput"/>.
+        /// Creates a new instance of <see cref="TestOvertoppingRateOutput"/>.
         /// </summary>
-        public TestGrassCoverErosionInwardsOutput() : base(0.0, true,
-                                                           new ProbabilityAssessmentOutput(0, 0, 0, 0, 0),
-                                                           new TestDikeHeightOutput(0),
-                                                           new TestOvertoppingRateOutput(0)) {}
+        /// <param name="overtoppingRate">The overtopping rate to set to the output.</param>
+        /// <param name="calculationConvergence">The <see cref="CalculationConvergence"/> to set to the output.</param>
+        public TestOvertoppingRateOutput(double overtoppingRate, CalculationConvergence calculationConvergence = CalculationConvergence.NotCalculated) :
+            base(overtoppingRate, double.NaN, double.NaN, double.NaN, double.NaN, calculationConvergence) {}
     }
 }

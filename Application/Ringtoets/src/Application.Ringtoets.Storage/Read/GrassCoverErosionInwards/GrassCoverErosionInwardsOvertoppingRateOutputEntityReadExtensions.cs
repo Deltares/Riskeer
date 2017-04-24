@@ -28,32 +28,32 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
 {
     /// <summary>
     /// Extension methods for <see cref="GrassCoverErosionInwardsOvertoppingRateOutputEntity"/>
-    /// related to creating a <see cref="HydraulicLoadsOutput"/>.
+    /// related to creating a <see cref="OvertoppingRateOutput"/>.
     /// </summary>
     internal static class GrassCoverErosionInwardsOvertoppingRateOutputEntityReadExtensions
     {
         /// <summary>
         /// Reads the <see cref="GrassCoverErosionInwardsOvertoppingRateOutputEntity"/> and use
-        /// the information to construct a <see cref="HydraulicLoadsOutput"/>.
+        /// the information to construct a <see cref="OvertoppingRateOutput"/>.
         /// </summary>
         /// <param name="entity">The <see cref="GrassCoverErosionInwardsOvertoppingRateOutputEntity"/>
-        /// to create <see cref="HydraulicLoadsOutput"/> for.</param>
-        /// <returns>A new <see cref="HydraulicLoadsOutput"/>.</returns>
+        /// to create <see cref="OvertoppingRateOutput"/> for.</param>
+        /// <returns>A new <see cref="OvertoppingRateOutput"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/>
         /// is <c>null</c>.</exception>
-        internal static HydraulicLoadsOutput Read(this GrassCoverErosionInwardsOvertoppingRateOutputEntity entity)
+        internal static OvertoppingRateOutput Read(this GrassCoverErosionInwardsOvertoppingRateOutputEntity entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            return new HydraulicLoadsOutput(entity.OvertoppingRate.ToNullAsNaN(),
-                                            entity.TargetProbability.ToNullAsNaN(),
-                                            entity.TargetReliability.ToNullAsNaN(),
-                                            entity.CalculatedProbability.ToNullAsNaN(),
-                                            entity.CalculatedReliability.ToNullAsNaN(),
-                                            (CalculationConvergence) entity.CalculationConvergence);
+            return new OvertoppingRateOutput(entity.OvertoppingRate.ToNullAsNaN(),
+                                             entity.TargetProbability.ToNullAsNaN(),
+                                             entity.TargetReliability.ToNullAsNaN(),
+                                             entity.CalculatedProbability.ToNullAsNaN(),
+                                             entity.CalculatedReliability.ToNullAsNaN(),
+                                             (CalculationConvergence) entity.CalculationConvergence);
         }
     }
 }

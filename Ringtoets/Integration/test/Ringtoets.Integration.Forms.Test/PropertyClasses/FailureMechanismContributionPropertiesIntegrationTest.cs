@@ -83,8 +83,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
             {
                 Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0),
-                                                            new TestHydraulicLoadsOutput(0),
-                                                            new TestHydraulicLoadsOutput(0))
+                                                            new TestDikeHeightOutput(0),
+                                                            new TestOvertoppingRateOutput(0))
             };
             var emptyHeightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>();
             var heightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>
@@ -286,8 +286,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
             {
                 Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0),
-                                                            new TestHydraulicLoadsOutput(0),
-                                                            new TestHydraulicLoadsOutput(0))
+                                                            new TestDikeHeightOutput(0),
+                                                            new TestOvertoppingRateOutput(0))
             };
             var emptyHeightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>();
             var heightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>
@@ -388,8 +388,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
             {
                 Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0),
-                                                            new TestHydraulicLoadsOutput(0),
-                                                            new TestHydraulicLoadsOutput(0))
+                                                            new TestDikeHeightOutput(0),
+                                                            new TestOvertoppingRateOutput(0))
             };
             var emptyHeightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>();
             var heightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>
