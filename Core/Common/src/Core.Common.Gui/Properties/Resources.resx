@@ -631,4 +631,19 @@
   <data name="GuiUpdateHandler_UpdateItemsUsingDialog_Updating_cancelled" xml:space="preserve">
     <value>Bijwerken van gegevens is door de gebruiker geannuleerd.</value>
   </data>
+  <data name="bug_exclamation" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bug-exclamation.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ExceptionDialog_ButtonSaveProjectClick_Saving_project_failed" xml:space="preserve">
+    <value>Het Ringtoetsproject is niet opgeslagen.</value>
+  </data>
+  <data name="ExceptionDialog_ButtonSaveProjectClick_Saving_project_failed_caption" xml:space="preserve">
+    <value>Project niet opgeslagen</value>
+  </data>
+  <data name="ExceptionDialog_ButtonSaveProjectClick_Successfully_saved_project" xml:space="preserve">
+    <value>Het Ringtoetsproject is succesvol opgeslagen.</value>
+  </data>
+  <data name="ExceptionDialog_ButtonSaveProjectClick_Successfully_saved_project_caption" xml:space="preserve">
+    <value>Project opgeslagen</value>
+  </data>
 </root>

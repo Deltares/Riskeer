@@ -123,6 +123,12 @@
     <Compile Include="Converters\ExpandableReadOnlyArrayConverter.cs" />
     <Compile Include="Converters\PngToIconConverter.cs" />
     <Compile Include="DialogBasedInquiryHelper.cs" />
+    <Compile Include="ExceptionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExceptionDialog.Designer.cs">
+      <DependentUpon>ExceptionDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="FileFilterGenerator.cs" />
     <Compile Include="Forms\NativeMethods.cs" />
     <Compile Include="Forms\MainWindow\MainWindowCommands.cs" />
@@ -281,6 +287,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ExceptionDialog.resx">
+      <DependentUpon>ExceptionDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\MessageWindow\MessageWindow.resx">
       <DependentUpon>MessageWindow.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -372,6 +382,7 @@
     <None Include="Resources\project-16.png" />
     <Content Include="Resources\broom.png" />
     <None Include="Resources\table_refresh.png" />
+    <None Include="Resources\bug-exclamation.ico" />
     <Content Include="Resources\textfield_rename.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
