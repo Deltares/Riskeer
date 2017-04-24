@@ -310,7 +310,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
             return CreateDikeHeightOutput(dikeHeightCalculator,
                                           calculation.Name,
-                                          Resources.GrassCoverErosionInwardsCalculationService_DikeHeight,
                                           dikeHeightCalculationInput.Beta,
                                           norm);
         }
@@ -364,7 +363,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
             return CreateOvertoppingRateOutput(overtoppingRateCalculator,
                                                calculation.Name,
-                                               Resources.GrassCoverErosionInwardsCalculationService_OvertoppingRate,
                                                overtoppingRateCalculationInput.Beta,
                                                norm);
         }
@@ -607,7 +605,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// </summary>
         /// <param name="calculator">The calculator used for performing the calculation.</param>
         /// <param name="calculationName">The name of the calculation.</param>
-        /// <param name="stepName">The name of the step that is performed.</param>
         /// <param name="targetReliability">The target reliability for the calculation.</param>
         /// <param name="targetProbability">The target probability for the calculation.</param>
         /// <returns>A <see cref="DikeHeightOutput"/>.</returns>
@@ -615,7 +612,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// or the calculated probability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
         private static DikeHeightOutput CreateDikeHeightOutput(IHydraulicLoadsCalculator calculator,
                                                                string calculationName,
-                                                               string stepName,
                                                                double targetReliability,
                                                                double targetProbability)
         {
@@ -629,7 +625,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             {
                 log.Warn(
                     string.Format(Resources.GrassCoverErosionInwardsCalculationService_Calculation_of_type_0_for_calculation_with_name_1_not_converged,
-                                  stepName,
+                                  Resources.GrassCoverErosionInwardsCalculationService_DikeHeight,
                                   calculationName));
             }
 
@@ -643,7 +639,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// </summary>
         /// <param name="calculator">The calculator used for performing the calculation.</param>
         /// <param name="calculationName">The name of the calculation.</param>
-        /// <param name="stepName">The name of the step that is performed.</param>
         /// <param name="targetReliability">The target reliability for the calculation.</param>
         /// <param name="targetProbability">The target probability for the calculation.</param>
         /// <returns>A <see cref="OvertoppingRateOutput"/>.</returns>
@@ -651,7 +646,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// or the calculated probability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
         private static OvertoppingRateOutput CreateOvertoppingRateOutput(IHydraulicLoadsCalculator calculator,
                                                                          string calculationName,
-                                                                         string stepName,
                                                                          double targetReliability,
                                                                          double targetProbability)
         {
@@ -665,7 +659,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             {
                 log.Warn(
                     string.Format(Resources.GrassCoverErosionInwardsCalculationService_Calculation_of_type_0_for_calculation_with_name_1_not_converged,
-                                  stepName,
+                                  Resources.GrassCoverErosionInwardsCalculationService_OvertoppingRate,
                                   calculationName));
             }
 
