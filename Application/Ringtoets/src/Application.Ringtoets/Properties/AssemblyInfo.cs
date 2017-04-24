@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using log4net.Config;
 
@@ -28,4 +27,3 @@ using log4net.Config;
 [assembly: AssemblyTitle("Ringtoets")]
 [assembly: AssemblyProduct("Ringtoets")]
 [assembly: Guid("a4036982-77b5-4a89-84be-0c05301f28a6")]
-[assembly: InternalsVisibleTo("Application.Ringtoets.Test")]
