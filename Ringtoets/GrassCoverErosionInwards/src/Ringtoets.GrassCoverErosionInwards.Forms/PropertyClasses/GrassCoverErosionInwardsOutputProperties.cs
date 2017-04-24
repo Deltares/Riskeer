@@ -237,8 +237,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.OvertoppingRateOutput?.OvertoppingRate
-                       ?? RoundedDouble.NaN;
+                return data.OvertoppingRateOutput != null
+                           ? new RoundedDouble(2, data.OvertoppingRateOutput.OvertoppingRate * 1000)
+                           : RoundedDouble.NaN;
             }
         }
 

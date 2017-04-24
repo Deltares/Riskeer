@@ -232,7 +232,7 @@
     <value>Het berekende overslagdebiet.</value>
   </data>
   <data name="GrassCoverErosionInwardsOutput_OvertoppingRate_DisplayName" xml:space="preserve">
-    <value>Overslagdebiet [m3/s]</value>
+    <value>Overslagdebiet [l/m/s]</value>
   </data>
   <data name="OvertoppingRateOutput_Convergence_Description" xml:space="preserve">
     <value>Is convergentie bereikt in de overslagdebiet berekening?</value>

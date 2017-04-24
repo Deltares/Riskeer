@@ -51,6 +51,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
 
         /// <summary>
         /// Gets the calculated overtopping rate.
+        /// [m3/m/s]
         /// </summary>
         public RoundedDouble OvertoppingRate { get; private set; }
     }

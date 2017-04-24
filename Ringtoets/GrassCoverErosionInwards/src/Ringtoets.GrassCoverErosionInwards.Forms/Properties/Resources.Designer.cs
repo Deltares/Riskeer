@@ -380,7 +380,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Overslagdebiet [m3/s].
+        ///   Looks up a localized string similar to Overslagdebiet [l/m/s].
         /// </summary>
         public static string GrassCoverErosionInwardsOutput_OvertoppingRate_DisplayName {
             get {

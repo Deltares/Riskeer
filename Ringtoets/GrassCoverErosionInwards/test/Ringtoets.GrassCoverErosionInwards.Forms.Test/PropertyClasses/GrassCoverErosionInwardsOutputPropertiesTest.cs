@@ -142,8 +142,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             string dikeHeightConvergenceValue = new EnumDisplayWrapper<CalculationConvergence>(dikeHeightConvergence).DisplayName;
             Assert.AreEqual(dikeHeightConvergenceValue, properties.DikeHeightConvergence);
 
-            Assert.AreEqual(5, properties.OvertoppingRate.NumberOfDecimalPlaces);
-            Assert.AreEqual(overtoppingRate, properties.OvertoppingRate, properties.OvertoppingRate.GetAccuracy());
+            Assert.AreEqual(2, properties.OvertoppingRate.NumberOfDecimalPlaces);
+            Assert.AreEqual(overtoppingRate * 1000, properties.OvertoppingRate, properties.OvertoppingRate.GetAccuracy());
             Assert.AreEqual(overtoppingRateTargetProbability, properties.OvertoppingRateTargetProbability);
             Assert.IsTrue(TypeUtils.HasTypeConverter<GrassCoverErosionInwardsOutputProperties,
                               NoProbabilityValueDoubleConverter>(p => p.OvertoppingRateTargetProbability));
@@ -360,7 +360,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             PropertyDescriptor overtoppingRateProperty = dynamicProperties[overtoppingRateIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(overtoppingRateProperty,
                                                                             overtoppingRateCategory,
-                                                                            "Overslagdebiet [m3/s]",
+                                                                            "Overslagdebiet [l/m/s]",
                                                                             "Het berekende overslagdebiet.",
                                                                             true);
 
