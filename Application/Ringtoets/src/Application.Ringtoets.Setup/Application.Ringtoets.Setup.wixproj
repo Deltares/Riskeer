@@ -100,7 +100,7 @@
     <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Piping\vakindeling STPH traject 12-2.shx" />
     <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Piping\WBI2017_IJsselmeer_12-2_v01.config.sqlite" />
     <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Piping\WBI2017_IJsselmeer_12-2_v01.sqlite" />
-    <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Betrouwbaarheid sluiting kunstwerk\Berekeningenconfiguraties betrouwbaarheid sluiting kunstwerk sas sluis.xml" />
+    <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Betrouwbaarheid sluiting kunstwerk\Configuraties voor kunstwerk sas sluis.xml" />
     <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Betrouwbaarheid sluiting kunstwerk\kunstwerken 13  6.csv" />
     <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Betrouwbaarheid sluiting kunstwerk\kunstwerken 13  6.dbf" />
     <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Betrouwbaarheid sluiting kunstwerk\kunstwerken 13  6.prj" />
@@ -108,7 +108,7 @@
     <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Betrouwbaarheid sluiting kunstwerk\kunstwerken 13  6.shp" />
     <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Betrouwbaarheid sluiting kunstwerk\kunstwerken 13  6.shx" />
     <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\hlcd.sqlite" />
-    <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Hoogte\Berekeningenconfiguraties kunstwerken hoogte sas sluis.xml" />
+    <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Hoogte\Configuraties voor kunstwerk sas sluis.xml" />
     <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Hoogte\kunstwerken 13  6.csv" />
     <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Hoogte\kunstwerken 13  6.dbf" />
     <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Hoogte\kunstwerken 13  6.prj" />
@@ -116,7 +116,7 @@
     <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Hoogte\kunstwerken 13  6.shp" />
     <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Hoogte\kunstwerken 13  6.shx" />
     <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Readme.rtf" />
-    <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Sterkte en stabiliteit puntconstructies\Berekeningenconfiguraties sterkte en stabiliteit puntconstructies sas sluis.xml" />
+    <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Sterkte en stabiliteit puntconstructies\Configuraties voor kunstwerk sas sluis.xml" />
     <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Sterkte en stabiliteit puntconstructies\kunstwerken 13  6.csv" />
     <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Sterkte en stabiliteit puntconstructies\kunstwerken 13  6.dbf" />
     <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Sterkte en stabiliteit puntconstructies\kunstwerken 13  6.prj" />
@@ -130,7 +130,7 @@
     <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\vakindeling traject 13 6.shx" />
     <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\WBI2017_IJsselmeer_13-6_v01.config.sqlite" />
     <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\WBI2017_IJsselmeer_13-6_v01.sqlite" />
-    <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Betrouwbaarheid sluiting kunstwerk\Berekeningenconfiguraties betrouwbaarheid sluiten coupure worp.xml" />
+    <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Betrouwbaarheid sluiting kunstwerk\Configuraties voor kunstwerk coupure worp.xml" />
     <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Betrouwbaarheid sluiting kunstwerk\Worp.csv" />
     <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Betrouwbaarheid sluiting kunstwerk\Worp.dbf" />
     <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Betrouwbaarheid sluiting kunstwerk\Worp.prj" />
@@ -138,7 +138,7 @@
     <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Betrouwbaarheid sluiting kunstwerk\Worp.shp" />
     <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Betrouwbaarheid sluiting kunstwerk\Worp.shx" />
     <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\hlcd.sqlite" />
-    <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Hoogte\Berekeningenconfiguraties kunstwerken hoogte coupure worp.xml" />
+    <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Hoogte\Configuraties voor kunstwerk coupure worp.xml" />
     <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Hoogte\Worp.csv" />
     <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Hoogte\Worp.dbf" />
     <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Hoogte\Worp.prj" />
@@ -146,7 +146,7 @@
     <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Hoogte\Worp.shp" />
     <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Hoogte\Worp.shx" />
     <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Readme.rtf" />
-    <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Sterkte en stabiliteit puntconstructies\Berekeningenconfiguraties sterkte en stabiliteit puntconstructies coupure worp.xml" />
+    <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Sterkte en stabiliteit puntconstructies\Configuraties voor kunstwerk coupure worp.xml" />
     <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Sterkte en stabiliteit puntconstructies\Worp.csv" />
     <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Sterkte en stabiliteit puntconstructies\Worp.dbf" />
     <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Sterkte en stabiliteit puntconstructies\Worp.prj" />
