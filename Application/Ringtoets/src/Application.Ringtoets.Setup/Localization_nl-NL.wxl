@@ -11,6 +11,9 @@
   <String Id="UserManualName">Gebruikershandleiding</String>
   <String Id="UserManualDescription">Open de gebruikershandleiding van Ringtoets.</String>
 
+  <String Id="Examples">Voorbeelden</String>
+  <String Id="InstallationVerification">Installatie verificatie</String>
+
   <String Id="Dlg_Title">[ProductName] Installatiehulpprogramma</String>
   
   <String Id="RtdDescription">!(loc.ApplicationShortName)-databasebestand</String>

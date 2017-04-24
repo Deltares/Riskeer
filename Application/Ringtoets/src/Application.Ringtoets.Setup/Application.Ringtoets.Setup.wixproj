@@ -21,6 +21,7 @@
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' ">$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
     <Name>RingtoetsSetup</Name>
+    <RunWixToolsOutOfProc>true</RunWixToolsOutOfProc>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
@@ -181,6 +182,9 @@
     <Content Include="IHW\voorbeeldbestand_nationaalBestandPrimaireWaterkeringen.qpj" />
     <Content Include="IHW\voorbeeldbestand_nationaalBestandPrimaireWaterkeringen.shp" />
     <Content Include="IHW\voorbeeldbestand_nationaalBestandPrimaireWaterkeringen.shx" />
+    <Content Include="InstallationVerification\hlcd.sqlite" />
+    <Content Include="InstallationVerification\WBI2017_IJsselmeer_12-2_v01.config.sqlite" />
+    <Content Include="InstallationVerification\WBI2017_IJsselmeer_12-2_v01.sqlite" />
     <Content Include="Licentie.rtf" />
     <Content Include="Manual.ico" />
     <Content Include="Ringtoets.ico" />
@@ -218,6 +222,7 @@
     <Folder Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Hoogte\" />
     <Folder Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Sterkte en stabiliteit puntconstructies\" />
     <Folder Include="Examples\Voorbeeld Traject 6-3 - Hydraulische belastingen voor bekledingen\" />
+    <Folder Include="InstallationVerification\" />
     <Folder Include="Installer UI" />
     <Folder Include="licenses\" />
     <Folder Include="IHW" />
@@ -239,7 +244,7 @@
   <PropertyGroup>
     <PreBuildEvent>"$(WIX)bin\heat.exe" dir $(ProjectDir)..\..\..\..\bin\$(Configuration) -cg RingtoetsApplicationComponents -gg -dr BINDIR -var var.ApplicationBinFolder -sfrag -sreg -srd -o "$(ProjectDir)RingtoetsPayload.wxs"
 "$(WIX)bin\heat.exe" dir $(ProjectDir)licenses -cg ThirdPartyLicenseComponents -gg -dr BINDIR -var var.InstallerLicensesFolder -sfrag -sreg -srd -o "$(ProjectDir)ThirdPartyLicensesPayload.wxs"
-"$(WIX)bin\heat.exe" dir $(ProjectDir)Examples -cg Examples -gg -dr CommonDocumentExamples -var var.ExamplesFolder -sfrag -sreg -srd -o "$(ProjectDir)Examples.wxs"
+"$(WIX)bin\heat.exe" dir $(ProjectDir)Examples -cg Examples -gg -dr CommonDocumentsExamples -var var.ExamplesFolder -sfrag -sreg -srd -o "$(ProjectDir)Examples.wxs"
 $(ProjectDir)..\..\..\..\build\svn_insert_version.cmd $(ProjectDir) GenerateVariables.wxi.svn GenerateVariables.wxi%3b</PreBuildEvent>
   </PropertyGroup>
   <!--
