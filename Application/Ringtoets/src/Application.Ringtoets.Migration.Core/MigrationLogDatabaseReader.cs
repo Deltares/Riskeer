@@ -47,7 +47,7 @@ namespace Application.Ringtoets.Migration.Core
         /// <item>Unable to open the database file.</item>
         /// </list>
         /// </exception>
-        public MigrationLogDatabaseReader(string databaseFilePath) : base(databaseFilePath) { }
+        public MigrationLogDatabaseReader(string databaseFilePath) : base(databaseFilePath) {}
 
         /// <summary>
         /// Gets the migration log messages from the database.

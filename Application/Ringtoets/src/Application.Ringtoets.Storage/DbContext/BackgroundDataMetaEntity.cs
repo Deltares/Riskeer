@@ -30,7 +30,7 @@
 
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public partial class BackgroundDataMetaEntity
+    public class BackgroundDataMetaEntity
     {
         public long BackgroundDataMetaEntityId { get; set; }
         public long BackgroundDataEntityId { get; set; }

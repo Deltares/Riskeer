@@ -28,25 +28,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public partial class StabilityStoneCoverWaveConditionsOutputEntity
+    public class StabilityStoneCoverWaveConditionsOutputEntity
     {
         public long StabilityStoneCoverWaveConditionsOutputEntityId { get; set; }
         public long StabilityStoneCoverWaveConditionsCalculationEntityId { get; set; }
         public int Order { get; set; }
         public byte OutputType { get; set; }
-        public Nullable<double> WaterLevel { get; set; }
-        public Nullable<double> WaveHeight { get; set; }
-        public Nullable<double> WavePeakPeriod { get; set; }
-        public Nullable<double> WaveAngle { get; set; }
-        public Nullable<double> WaveDirection { get; set; }
-        public Nullable<double> TargetProbability { get; set; }
-        public Nullable<double> TargetReliability { get; set; }
-        public Nullable<double> CalculatedProbability { get; set; }
-        public Nullable<double> CalculatedReliability { get; set; }
+        public double? WaterLevel { get; set; }
+        public double? WaveHeight { get; set; }
+        public double? WavePeakPeriod { get; set; }
+        public double? WaveAngle { get; set; }
+        public double? WaveDirection { get; set; }
+        public double? TargetProbability { get; set; }
+        public double? TargetReliability { get; set; }
+        public double? CalculatedProbability { get; set; }
+        public double? CalculatedReliability { get; set; }
         public byte CalculationConvergence { get; set; }
 
         public virtual StabilityStoneCoverWaveConditionsCalculationEntity StabilityStoneCoverWaveConditionsCalculationEntity { get; set; }

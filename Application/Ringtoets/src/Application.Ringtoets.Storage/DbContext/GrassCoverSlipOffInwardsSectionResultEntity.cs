@@ -28,17 +28,15 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public partial class GrassCoverSlipOffInwardsSectionResultEntity
+    public class GrassCoverSlipOffInwardsSectionResultEntity
     {
         public long GrassCoverSlipOffInwardsSectionResultEntityId { get; set; }
         public long FailureMechanismSectionEntityId { get; set; }
         public byte LayerOne { get; set; }
         public byte LayerTwoA { get; set; }
-        public Nullable<double> LayerThree { get; set; }
+        public double? LayerThree { get; set; }
 
         public virtual FailureMechanismSectionEntity FailureMechanismSectionEntity { get; set; }
     }

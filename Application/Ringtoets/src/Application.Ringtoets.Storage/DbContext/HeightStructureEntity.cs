@@ -28,13 +28,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public partial class HeightStructureEntity
+    public class HeightStructureEntity
     {
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public HeightStructureEntity()
@@ -47,22 +46,22 @@ namespace Application.Ringtoets.Storage.DbContext
         public int Order { get; set; }
         public string Name { get; set; }
         public string Id { get; set; }
-        public Nullable<double> X { get; set; }
-        public Nullable<double> Y { get; set; }
-        public Nullable<double> StructureNormalOrientation { get; set; }
-        public Nullable<double> LevelCrestStructureMean { get; set; }
-        public Nullable<double> LevelCrestStructureStandardDeviation { get; set; }
-        public Nullable<double> FlowWidthAtBottomProtectionMean { get; set; }
-        public Nullable<double> FlowWidthAtBottomProtectionStandardDeviation { get; set; }
-        public Nullable<double> CriticalOvertoppingDischargeMean { get; set; }
-        public Nullable<double> CriticalOvertoppingDischargeCoefficientOfVariation { get; set; }
-        public Nullable<double> WidthFlowAperturesMean { get; set; }
-        public Nullable<double> WidthFlowAperturesStandardDeviation { get; set; }
-        public Nullable<double> FailureProbabilityStructureWithErosion { get; set; }
-        public Nullable<double> StorageStructureAreaMean { get; set; }
-        public Nullable<double> StorageStructureAreaCoefficientOfVariation { get; set; }
-        public Nullable<double> AllowedLevelIncreaseStorageMean { get; set; }
-        public Nullable<double> AllowedLevelIncreaseStorageStandardDeviation { get; set; }
+        public double? X { get; set; }
+        public double? Y { get; set; }
+        public double? StructureNormalOrientation { get; set; }
+        public double? LevelCrestStructureMean { get; set; }
+        public double? LevelCrestStructureStandardDeviation { get; set; }
+        public double? FlowWidthAtBottomProtectionMean { get; set; }
+        public double? FlowWidthAtBottomProtectionStandardDeviation { get; set; }
+        public double? CriticalOvertoppingDischargeMean { get; set; }
+        public double? CriticalOvertoppingDischargeCoefficientOfVariation { get; set; }
+        public double? WidthFlowAperturesMean { get; set; }
+        public double? WidthFlowAperturesStandardDeviation { get; set; }
+        public double? FailureProbabilityStructureWithErosion { get; set; }
+        public double? StorageStructureAreaMean { get; set; }
+        public double? StorageStructureAreaCoefficientOfVariation { get; set; }
+        public double? AllowedLevelIncreaseStorageMean { get; set; }
+        public double? AllowedLevelIncreaseStorageStandardDeviation { get; set; }
 
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
 

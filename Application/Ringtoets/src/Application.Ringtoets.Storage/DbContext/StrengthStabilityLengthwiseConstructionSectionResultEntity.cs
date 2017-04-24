@@ -28,16 +28,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public partial class StrengthStabilityLengthwiseConstructionSectionResultEntity
+    public class StrengthStabilityLengthwiseConstructionSectionResultEntity
     {
         public long StrengthStabilityLengthwiseConstructionSectionResultEntityId { get; set; }
         public long FailureMechanismSectionEntityId { get; set; }
         public byte LayerOne { get; set; }
-        public Nullable<double> LayerThree { get; set; }
+        public double? LayerThree { get; set; }
 
         public virtual FailureMechanismSectionEntity FailureMechanismSectionEntity { get; set; }
     }

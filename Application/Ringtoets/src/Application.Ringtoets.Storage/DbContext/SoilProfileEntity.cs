@@ -28,13 +28,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public partial class SoilProfileEntity
+    public class SoilProfileEntity
     {
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SoilProfileEntity()
@@ -44,7 +43,7 @@ namespace Application.Ringtoets.Storage.DbContext
         }
 
         public long SoilProfileEntityId { get; set; }
-        public Nullable<double> Bottom { get; set; }
+        public double? Bottom { get; set; }
         public string Name { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

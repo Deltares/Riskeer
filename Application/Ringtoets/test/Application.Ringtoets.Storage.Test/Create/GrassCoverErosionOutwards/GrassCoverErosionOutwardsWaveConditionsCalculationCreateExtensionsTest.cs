@@ -137,7 +137,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             // Setup
             const string name = "A";
             const string comments = "B";
-            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation()
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
                 Name = name,
                 Comments =

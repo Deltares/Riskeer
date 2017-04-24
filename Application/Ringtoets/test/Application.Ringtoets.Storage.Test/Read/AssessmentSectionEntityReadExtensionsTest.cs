@@ -236,7 +236,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new PipingFailureMechanismMetaEntity
                     {
-                        A = parameterA,
+                        A = parameterA
                     }
                 }
             };

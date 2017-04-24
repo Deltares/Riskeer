@@ -138,7 +138,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
             // Setup
             const string name = "A";
             const string comments = "B";
-            var calculation = new StabilityStoneCoverWaveConditionsCalculation()
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
                 Name = name,
                 Comments =

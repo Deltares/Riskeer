@@ -64,7 +64,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             {
                 Id = "id",
                 ForeshoreXml = new Point2DXmlSerializer().ToXml(new Point2D[0]),
-                DikeGeometryXml = new RoughnessPointXmlSerializer().ToXml(new RoughnessPoint[0]),
+                DikeGeometryXml = new RoughnessPointXmlSerializer().ToXml(new RoughnessPoint[0])
             };
 
             // Precondition

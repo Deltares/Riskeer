@@ -28,19 +28,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public partial class GrassCoverErosionInwardsDikeHeightOutputEntity
+    public class GrassCoverErosionInwardsDikeHeightOutputEntity
     {
         public long GrassCoverErosionInwardsDikeHeightOutputEntityId { get; set; }
         public long GrassCoverErosionInwardsOutputEntityId { get; set; }
-        public Nullable<double> DikeHeight { get; set; }
-        public Nullable<double> TargetProbability { get; set; }
-        public Nullable<double> TargetReliability { get; set; }
-        public Nullable<double> CalculatedProbability { get; set; }
-        public Nullable<double> CalculatedReliability { get; set; }
+        public double? DikeHeight { get; set; }
+        public double? TargetProbability { get; set; }
+        public double? TargetReliability { get; set; }
+        public double? CalculatedProbability { get; set; }
+        public double? CalculatedReliability { get; set; }
         public byte CalculationConvergence { get; set; }
 
         public virtual GrassCoverErosionInwardsOutputEntity GrassCoverErosionInwardsOutputEntity { get; set; }

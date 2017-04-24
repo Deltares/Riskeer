@@ -409,7 +409,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                 {
                     StormDuration =
                     {
-                        Mean = (RoundedDouble) random.NextDouble(),
+                        Mean = (RoundedDouble) random.NextDouble()
                     },
                     StructureNormalOrientation = (RoundedDouble) random.NextDouble(),
                     FailureProbabilityStructureWithErosion = (RoundedDouble) random.NextDouble(),
@@ -547,7 +547,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                 {
                     StormDuration =
                     {
-                        Mean = RoundedDouble.NaN,
+                        Mean = RoundedDouble.NaN
                     },
                     StructureNormalOrientation = RoundedDouble.NaN,
                     BreakWater =
@@ -771,7 +771,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                 {
                     StormDuration =
                     {
-                        Mean = (RoundedDouble) random.NextDouble(),
+                        Mean = (RoundedDouble) random.NextDouble()
                     },
                     StructureNormalOrientation = (RoundedDouble) random.NextDouble(),
                     FailureProbabilityStructureWithErosion = random.NextDouble(),

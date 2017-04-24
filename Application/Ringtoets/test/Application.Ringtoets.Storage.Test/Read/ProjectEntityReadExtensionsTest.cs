@@ -94,7 +94,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                                     {
                                         Key = BackgroundDataIdentifiers.IsConfigured,
                                         Value = "0"
-                                    },
+                                    }
                                 }
                             }
                         }
@@ -119,7 +119,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                                     {
                                         Key = BackgroundDataIdentifiers.WellKnownTileSource,
                                         Value = "1"
-                                    },
+                                    }
                                 }
                             }
                         }

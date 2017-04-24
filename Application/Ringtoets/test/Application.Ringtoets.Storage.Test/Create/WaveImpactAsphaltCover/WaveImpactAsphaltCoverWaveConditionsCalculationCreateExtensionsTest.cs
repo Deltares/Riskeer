@@ -137,7 +137,7 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
             // Setup
             const string name = "A";
             const string comments = "B";
-            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation()
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
                 Name = name,
                 Comments =

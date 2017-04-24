@@ -28,13 +28,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public partial class CalculationGroupEntity
+    public class CalculationGroupEntity
     {
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CalculationGroupEntity()
@@ -52,7 +51,7 @@ namespace Application.Ringtoets.Storage.DbContext
         }
 
         public long CalculationGroupEntityId { get; set; }
-        public Nullable<long> ParentCalculationGroupEntityId { get; set; }
+        public long? ParentCalculationGroupEntityId { get; set; }
         public string Name { get; set; }
         public int Order { get; set; }
 

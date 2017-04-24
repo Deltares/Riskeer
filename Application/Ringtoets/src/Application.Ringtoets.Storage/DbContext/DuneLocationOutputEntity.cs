@@ -28,21 +28,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public partial class DuneLocationOutputEntity
+    public class DuneLocationOutputEntity
     {
         public long DuneLocationOutputEntityId { get; set; }
         public long DuneLocationEntityId { get; set; }
-        public Nullable<double> WaterLevel { get; set; }
-        public Nullable<double> WaveHeight { get; set; }
-        public Nullable<double> WavePeriod { get; set; }
-        public Nullable<double> TargetProbability { get; set; }
-        public Nullable<double> TargetReliability { get; set; }
-        public Nullable<double> CalculatedProbability { get; set; }
-        public Nullable<double> CalculatedReliability { get; set; }
+        public double? WaterLevel { get; set; }
+        public double? WaveHeight { get; set; }
+        public double? WavePeriod { get; set; }
+        public double? TargetProbability { get; set; }
+        public double? TargetReliability { get; set; }
+        public double? CalculatedProbability { get; set; }
+        public double? CalculatedReliability { get; set; }
         public byte CalculationConvergence { get; set; }
 
         public virtual DuneLocationEntity DuneLocationEntity { get; set; }

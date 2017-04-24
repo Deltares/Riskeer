@@ -168,13 +168,13 @@ namespace Application.Ringtoets.Storage.Test.Read
                     {
                         Order = 1,
                         Name = "2",
-                        DampingFactorExitMean = 2,
+                        DampingFactorExitMean = 2
                     },
                     new PipingCalculationEntity
                     {
                         Order = 0,
                         Name = "1",
-                        DampingFactorExitMean = 1,
+                        DampingFactorExitMean = 1
                     }
                 }
             };
@@ -209,13 +209,13 @@ namespace Application.Ringtoets.Storage.Test.Read
                     {
                         Order = 0,
                         Name = "calculation1",
-                        DampingFactorExitMean = 1,
+                        DampingFactorExitMean = 1
                     },
                     new PipingCalculationEntity
                     {
                         Order = 2,
                         Name = "calculation2",
-                        DampingFactorExitMean = 2,
+                        DampingFactorExitMean = 2
                     }
                 },
                 CalculationGroupEntity1 =
@@ -671,7 +671,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Setup
             var entity = new CalculationGroupEntity
             {
-                Name = name,
+                Name = name
             };
 
             var collector = new ReadConversionCollector();
@@ -865,7 +865,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Setup
             var entity = new CalculationGroupEntity
             {
-                Name = name,
+                Name = name
             };
 
             var collector = new ReadConversionCollector();
@@ -1058,7 +1058,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Setup
             var entity = new CalculationGroupEntity
             {
-                Name = name,
+                Name = name
             };
 
             var collector = new ReadConversionCollector();
@@ -1252,7 +1252,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Setup
             var entity = new CalculationGroupEntity
             {
-                Name = name,
+                Name = name
             };
 
             var collector = new ReadConversionCollector();
@@ -1446,7 +1446,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Setup
             var entity = new CalculationGroupEntity
             {
-                Name = name,
+                Name = name
             };
 
             var collector = new ReadConversionCollector();

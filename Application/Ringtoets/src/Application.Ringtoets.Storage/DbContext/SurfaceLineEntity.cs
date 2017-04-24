@@ -28,13 +28,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public partial class SurfaceLineEntity
+    public class SurfaceLineEntity
     {
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SurfaceLineEntity()
@@ -46,8 +45,8 @@ namespace Application.Ringtoets.Storage.DbContext
         public long SurfaceLineEntityId { get; set; }
         public long FailureMechanismEntityId { get; set; }
         public string Name { get; set; }
-        public Nullable<double> ReferenceLineIntersectionX { get; set; }
-        public Nullable<double> ReferenceLineIntersectionY { get; set; }
+        public double? ReferenceLineIntersectionX { get; set; }
+        public double? ReferenceLineIntersectionY { get; set; }
         public string PointsXml { get; set; }
         public int Order { get; set; }
 

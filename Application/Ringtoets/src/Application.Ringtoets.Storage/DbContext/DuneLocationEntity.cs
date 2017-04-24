@@ -28,13 +28,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public partial class DuneLocationEntity
+    public class DuneLocationEntity
     {
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DuneLocationEntity()
@@ -46,12 +45,12 @@ namespace Application.Ringtoets.Storage.DbContext
         public long FailureMechanismEntityId { get; set; }
         public long LocationId { get; set; }
         public string Name { get; set; }
-        public Nullable<double> LocationX { get; set; }
-        public Nullable<double> LocationY { get; set; }
+        public double? LocationX { get; set; }
+        public double? LocationY { get; set; }
         public int CoastalAreaId { get; set; }
-        public Nullable<double> Offset { get; set; }
-        public Nullable<double> Orientation { get; set; }
-        public Nullable<double> D50 { get; set; }
+        public double? Offset { get; set; }
+        public double? Orientation { get; set; }
+        public double? D50 { get; set; }
         public int Order { get; set; }
 
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }

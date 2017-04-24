@@ -28,25 +28,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public partial class SoilLayerEntity
+    public class SoilLayerEntity
     {
         public long SoilLayerEntityId { get; set; }
         public long SoilProfileEntityId { get; set; }
-        public Nullable<double> Top { get; set; }
+        public double? Top { get; set; }
         public byte IsAquifer { get; set; }
         public long Color { get; set; }
         public string MaterialName { get; set; }
-        public Nullable<double> BelowPhreaticLevelMean { get; set; }
-        public Nullable<double> BelowPhreaticLevelDeviation { get; set; }
-        public Nullable<double> DiameterD70Mean { get; set; }
-        public Nullable<double> DiameterD70CoefficientOfVariation { get; set; }
-        public Nullable<double> BelowPhreaticLevelShift { get; set; }
-        public Nullable<double> PermeabilityMean { get; set; }
-        public Nullable<double> PermeabilityCoefficientOfVariation { get; set; }
+        public double? BelowPhreaticLevelMean { get; set; }
+        public double? BelowPhreaticLevelDeviation { get; set; }
+        public double? DiameterD70Mean { get; set; }
+        public double? DiameterD70CoefficientOfVariation { get; set; }
+        public double? BelowPhreaticLevelShift { get; set; }
+        public double? PermeabilityMean { get; set; }
+        public double? PermeabilityCoefficientOfVariation { get; set; }
         public int Order { get; set; }
 
         public virtual SoilProfileEntity SoilProfileEntity { get; set; }

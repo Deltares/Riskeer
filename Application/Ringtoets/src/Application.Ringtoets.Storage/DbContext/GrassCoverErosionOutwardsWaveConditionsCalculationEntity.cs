@@ -28,13 +28,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public partial class GrassCoverErosionOutwardsWaveConditionsCalculationEntity
+    public class GrassCoverErosionOutwardsWaveConditionsCalculationEntity
     {
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public GrassCoverErosionOutwardsWaveConditionsCalculationEntity()
@@ -44,20 +43,20 @@ namespace Application.Ringtoets.Storage.DbContext
 
         public long GrassCoverErosionOutwardsWaveConditionsCalculationEntityId { get; set; }
         public long CalculationGroupEntityId { get; set; }
-        public Nullable<long> ForeshoreProfileEntityId { get; set; }
-        public Nullable<long> GrassCoverErosionOutwardsHydraulicLocationEntityId { get; set; }
+        public long? ForeshoreProfileEntityId { get; set; }
+        public long? GrassCoverErosionOutwardsHydraulicLocationEntityId { get; set; }
         public int Order { get; set; }
         public string Name { get; set; }
         public string Comments { get; set; }
         public byte UseBreakWater { get; set; }
         public byte BreakWaterType { get; set; }
-        public Nullable<double> BreakWaterHeight { get; set; }
+        public double? BreakWaterHeight { get; set; }
         public byte UseForeshore { get; set; }
-        public Nullable<double> Orientation { get; set; }
-        public Nullable<double> UpperBoundaryRevetment { get; set; }
-        public Nullable<double> LowerBoundaryRevetment { get; set; }
-        public Nullable<double> UpperBoundaryWaterLevels { get; set; }
-        public Nullable<double> LowerBoundaryWaterLevels { get; set; }
+        public double? Orientation { get; set; }
+        public double? UpperBoundaryRevetment { get; set; }
+        public double? LowerBoundaryRevetment { get; set; }
+        public double? UpperBoundaryWaterLevels { get; set; }
+        public double? LowerBoundaryWaterLevels { get; set; }
         public byte StepSize { get; set; }
 
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }

@@ -28,13 +28,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public partial class StabilityPointStructureEntity
+    public class StabilityPointStructureEntity
     {
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public StabilityPointStructureEntity()
@@ -47,51 +46,51 @@ namespace Application.Ringtoets.Storage.DbContext
         public int Order { get; set; }
         public string Name { get; set; }
         public string Id { get; set; }
-        public Nullable<double> X { get; set; }
-        public Nullable<double> Y { get; set; }
-        public Nullable<double> StructureNormalOrientation { get; set; }
-        public Nullable<double> StorageStructureAreaMean { get; set; }
-        public Nullable<double> StorageStructureAreaCoefficientOfVariation { get; set; }
-        public Nullable<double> AllowedLevelIncreaseStorageMean { get; set; }
-        public Nullable<double> AllowedLevelIncreaseStorageStandardDeviation { get; set; }
-        public Nullable<double> WidthFlowAperturesMean { get; set; }
-        public Nullable<double> WidthFlowAperturesStandardDeviation { get; set; }
-        public Nullable<double> InsideWaterLevelMean { get; set; }
-        public Nullable<double> InsideWaterLevelStandardDeviation { get; set; }
-        public Nullable<double> ThresholdHeightOpenWeirMean { get; set; }
-        public Nullable<double> ThresholdHeightOpenWeirStandardDeviation { get; set; }
-        public Nullable<double> CriticalOvertoppingDischargeMean { get; set; }
-        public Nullable<double> CriticalOvertoppingDischargeCoefficientOfVariation { get; set; }
-        public Nullable<double> FlowWidthAtBottomProtectionMean { get; set; }
-        public Nullable<double> FlowWidthAtBottomProtectionStandardDeviation { get; set; }
-        public Nullable<double> ConstructiveStrengthLinearLoadModelMean { get; set; }
-        public Nullable<double> ConstructiveStrengthLinearLoadModelCoefficientOfVariation { get; set; }
-        public Nullable<double> ConstructiveStrengthQuadraticLoadModelMean { get; set; }
-        public Nullable<double> ConstructiveStrengthQuadraticLoadModelCoefficientOfVariation { get; set; }
-        public Nullable<double> BankWidthMean { get; set; }
-        public Nullable<double> BankWidthStandardDeviation { get; set; }
-        public Nullable<double> InsideWaterLevelFailureConstructionMean { get; set; }
-        public Nullable<double> InsideWaterLevelFailureConstructionStandardDeviation { get; set; }
-        public Nullable<double> EvaluationLevel { get; set; }
-        public Nullable<double> LevelCrestStructureMean { get; set; }
-        public Nullable<double> LevelCrestStructureStandardDeviation { get; set; }
-        public Nullable<double> VerticalDistance { get; set; }
-        public Nullable<double> FailureProbabilityRepairClosure { get; set; }
-        public Nullable<double> FailureCollisionEnergyMean { get; set; }
-        public Nullable<double> FailureCollisionEnergyCoefficientOfVariation { get; set; }
-        public Nullable<double> ShipMassMean { get; set; }
-        public Nullable<double> ShipMassCoefficientOfVariation { get; set; }
-        public Nullable<double> ShipVelocityMean { get; set; }
-        public Nullable<double> ShipVelocityCoefficientOfVariation { get; set; }
+        public double? X { get; set; }
+        public double? Y { get; set; }
+        public double? StructureNormalOrientation { get; set; }
+        public double? StorageStructureAreaMean { get; set; }
+        public double? StorageStructureAreaCoefficientOfVariation { get; set; }
+        public double? AllowedLevelIncreaseStorageMean { get; set; }
+        public double? AllowedLevelIncreaseStorageStandardDeviation { get; set; }
+        public double? WidthFlowAperturesMean { get; set; }
+        public double? WidthFlowAperturesStandardDeviation { get; set; }
+        public double? InsideWaterLevelMean { get; set; }
+        public double? InsideWaterLevelStandardDeviation { get; set; }
+        public double? ThresholdHeightOpenWeirMean { get; set; }
+        public double? ThresholdHeightOpenWeirStandardDeviation { get; set; }
+        public double? CriticalOvertoppingDischargeMean { get; set; }
+        public double? CriticalOvertoppingDischargeCoefficientOfVariation { get; set; }
+        public double? FlowWidthAtBottomProtectionMean { get; set; }
+        public double? FlowWidthAtBottomProtectionStandardDeviation { get; set; }
+        public double? ConstructiveStrengthLinearLoadModelMean { get; set; }
+        public double? ConstructiveStrengthLinearLoadModelCoefficientOfVariation { get; set; }
+        public double? ConstructiveStrengthQuadraticLoadModelMean { get; set; }
+        public double? ConstructiveStrengthQuadraticLoadModelCoefficientOfVariation { get; set; }
+        public double? BankWidthMean { get; set; }
+        public double? BankWidthStandardDeviation { get; set; }
+        public double? InsideWaterLevelFailureConstructionMean { get; set; }
+        public double? InsideWaterLevelFailureConstructionStandardDeviation { get; set; }
+        public double? EvaluationLevel { get; set; }
+        public double? LevelCrestStructureMean { get; set; }
+        public double? LevelCrestStructureStandardDeviation { get; set; }
+        public double? VerticalDistance { get; set; }
+        public double? FailureProbabilityRepairClosure { get; set; }
+        public double? FailureCollisionEnergyMean { get; set; }
+        public double? FailureCollisionEnergyCoefficientOfVariation { get; set; }
+        public double? ShipMassMean { get; set; }
+        public double? ShipMassCoefficientOfVariation { get; set; }
+        public double? ShipVelocityMean { get; set; }
+        public double? ShipVelocityCoefficientOfVariation { get; set; }
         public int LevellingCount { get; set; }
-        public Nullable<double> ProbabilityCollisionSecondaryStructure { get; set; }
-        public Nullable<double> FlowVelocityStructureClosableMean { get; set; }
-        public Nullable<double> StabilityLinearLoadModelMean { get; set; }
-        public Nullable<double> StabilityLinearLoadModelCoefficientOfVariation { get; set; }
-        public Nullable<double> StabilityQuadraticLoadModelMean { get; set; }
-        public Nullable<double> StabilityQuadraticLoadModelCoefficientOfVariation { get; set; }
-        public Nullable<double> AreaFlowAperturesMean { get; set; }
-        public Nullable<double> AreaFlowAperturesStandardDeviation { get; set; }
+        public double? ProbabilityCollisionSecondaryStructure { get; set; }
+        public double? FlowVelocityStructureClosableMean { get; set; }
+        public double? StabilityLinearLoadModelMean { get; set; }
+        public double? StabilityLinearLoadModelCoefficientOfVariation { get; set; }
+        public double? StabilityQuadraticLoadModelMean { get; set; }
+        public double? StabilityQuadraticLoadModelCoefficientOfVariation { get; set; }
+        public double? AreaFlowAperturesMean { get; set; }
+        public double? AreaFlowAperturesStandardDeviation { get; set; }
         public byte InflowModelType { get; set; }
 
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }

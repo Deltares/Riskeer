@@ -135,7 +135,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
                 CriticalFlowRateMean = null,
                 CriticalFlowRateStandardDeviation = null,
                 DikeHeight = null,
-                BreakWaterHeight = null,
+                BreakWaterHeight = null
             };
 
             var collector = new ReadConversionCollector();

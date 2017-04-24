@@ -28,13 +28,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public partial class GrassCoverErosionInwardsCalculationEntity
+    public class GrassCoverErosionInwardsCalculationEntity
     {
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public GrassCoverErosionInwardsCalculationEntity()
@@ -45,20 +44,20 @@ namespace Application.Ringtoets.Storage.DbContext
 
         public long GrassCoverErosionInwardsCalculationEntityId { get; set; }
         public long CalculationGroupEntityId { get; set; }
-        public Nullable<long> HydraulicLocationEntityId { get; set; }
-        public Nullable<long> DikeProfileEntityId { get; set; }
+        public long? HydraulicLocationEntityId { get; set; }
+        public long? DikeProfileEntityId { get; set; }
         public int Order { get; set; }
         public string Name { get; set; }
         public string Comments { get; set; }
-        public Nullable<double> Orientation { get; set; }
-        public Nullable<double> CriticalFlowRateMean { get; set; }
-        public Nullable<double> CriticalFlowRateStandardDeviation { get; set; }
+        public double? Orientation { get; set; }
+        public double? CriticalFlowRateMean { get; set; }
+        public double? CriticalFlowRateStandardDeviation { get; set; }
         public byte UseForeshore { get; set; }
         public byte DikeHeightCalculationType { get; set; }
-        public Nullable<double> DikeHeight { get; set; }
+        public double? DikeHeight { get; set; }
         public byte UseBreakWater { get; set; }
         public byte BreakWaterType { get; set; }
-        public Nullable<double> BreakWaterHeight { get; set; }
+        public double? BreakWaterHeight { get; set; }
         public byte OvertoppingRateCalculationType { get; set; }
 
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }

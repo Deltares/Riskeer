@@ -37,7 +37,7 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
             var random = new Random(45);
             var generalinput = new GeneralClosingStructuresInput
             {
-                N2A = random.Next(1, 20),
+                N2A = random.Next(1, 20)
             };
 
             // Call

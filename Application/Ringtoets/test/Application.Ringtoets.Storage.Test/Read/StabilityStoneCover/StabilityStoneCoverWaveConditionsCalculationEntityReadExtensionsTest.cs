@@ -216,7 +216,7 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityStoneCover
             var hydraulicLocationEntity = new HydraulicLocationEntity();
             var entity = new StabilityStoneCoverWaveConditionsCalculationEntity
             {
-                HydraulicLocationEntity = hydraulicLocationEntity,
+                HydraulicLocationEntity = hydraulicLocationEntity
             };
 
             var collector = new ReadConversionCollector();

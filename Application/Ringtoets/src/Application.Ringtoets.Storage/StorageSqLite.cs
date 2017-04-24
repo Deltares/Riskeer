@@ -352,8 +352,8 @@ namespace Application.Ringtoets.Storage
                 Entity = projectEntity;
             }
 
-            public RingtoetsProject Model { get; private set; }
-            public ProjectEntity Entity { get; private set; }
+            public RingtoetsProject Model { get; }
+            public ProjectEntity Entity { get; }
         }
     }
 }

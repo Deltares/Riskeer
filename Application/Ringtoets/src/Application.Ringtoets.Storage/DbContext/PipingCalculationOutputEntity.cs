@@ -28,26 +28,24 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public partial class PipingCalculationOutputEntity
+    public class PipingCalculationOutputEntity
     {
         public long PipingCalculationOutputEntityId { get; set; }
         public long PipingCalculationEntityId { get; set; }
         public int Order { get; set; }
-        public Nullable<double> HeaveFactorOfSafety { get; set; }
-        public Nullable<double> HeaveZValue { get; set; }
-        public Nullable<double> UpliftFactorOfSafety { get; set; }
-        public Nullable<double> UpliftZValue { get; set; }
-        public Nullable<double> SellmeijerFactorOfSafety { get; set; }
-        public Nullable<double> SellmeijerZValue { get; set; }
-        public Nullable<double> UpliftEffectiveStress { get; set; }
-        public Nullable<double> HeaveGradient { get; set; }
-        public Nullable<double> SellmeijerCreepCoefficient { get; set; }
-        public Nullable<double> SellmeijerCriticalFall { get; set; }
-        public Nullable<double> SellmeijerReducedFall { get; set; }
+        public double? HeaveFactorOfSafety { get; set; }
+        public double? HeaveZValue { get; set; }
+        public double? UpliftFactorOfSafety { get; set; }
+        public double? UpliftZValue { get; set; }
+        public double? SellmeijerFactorOfSafety { get; set; }
+        public double? SellmeijerZValue { get; set; }
+        public double? UpliftEffectiveStress { get; set; }
+        public double? HeaveGradient { get; set; }
+        public double? SellmeijerCreepCoefficient { get; set; }
+        public double? SellmeijerCriticalFall { get; set; }
+        public double? SellmeijerReducedFall { get; set; }
 
         public virtual PipingCalculationEntity PipingCalculationEntity { get; set; }
     }

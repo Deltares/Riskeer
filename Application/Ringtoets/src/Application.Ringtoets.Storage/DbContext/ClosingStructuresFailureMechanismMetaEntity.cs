@@ -30,7 +30,7 @@
 
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public partial class ClosingStructuresFailureMechanismMetaEntity
+    public class ClosingStructuresFailureMechanismMetaEntity
     {
         public long ClosingStructuresFailureMechanismMetaEntityId { get; set; }
         public long FailureMechanismEntityId { get; set; }

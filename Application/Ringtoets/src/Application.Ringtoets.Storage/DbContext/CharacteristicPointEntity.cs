@@ -28,18 +28,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public partial class CharacteristicPointEntity
+    public class CharacteristicPointEntity
     {
         public long CharacteristicPointEntityId { get; set; }
         public long SurfaceLineEntityId { get; set; }
         public byte Type { get; set; }
-        public Nullable<double> X { get; set; }
-        public Nullable<double> Y { get; set; }
-        public Nullable<double> Z { get; set; }
+        public double? X { get; set; }
+        public double? Y { get; set; }
+        public double? Z { get; set; }
 
         public virtual SurfaceLineEntity SurfaceLineEntity { get; set; }
     }

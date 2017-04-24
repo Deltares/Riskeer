@@ -177,7 +177,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             /// <item>Unable to open database file.</item>
             /// </list>
             /// </exception>
-            public MigratedDatabaseReader(string databaseFilePath) : base(databaseFilePath) { }
+            public MigratedDatabaseReader(string databaseFilePath) : base(databaseFilePath) {}
 
             /// <summary>
             /// Asserts that the <paramref name="queryString"/> result is empty.

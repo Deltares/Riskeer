@@ -52,7 +52,7 @@ namespace Application.Ringtoets.Storage
 
         private static string GetDataSourceLocation(string filePath)
         {
-            return (new Uri(filePath).IsUnc) ? "\\\\" + filePath : filePath;
+            return new Uri(filePath).IsUnc ? "\\\\" + filePath : filePath;
         }
     }
 }

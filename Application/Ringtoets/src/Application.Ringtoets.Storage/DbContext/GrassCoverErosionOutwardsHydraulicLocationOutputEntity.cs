@@ -28,8 +28,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-
 namespace Application.Ringtoets.Storage.DbContext
 {
     public partial class GrassCoverErosionOutwardsHydraulicLocationOutputEntity
@@ -39,11 +37,11 @@ namespace Application.Ringtoets.Storage.DbContext
 
         public virtual GrassCoverErosionOutwardsHydraulicLocationEntity GrassCoverErosionOutwardsHydraulicLocationEntity { get; set; }
         public byte HydraulicLocationOutputType { get; set; }
-        public Nullable<double> Result { get; set; }
-        public Nullable<double> TargetProbability { get; set; }
-        public Nullable<double> TargetReliability { get; set; }
-        public Nullable<double> CalculatedProbability { get; set; }
-        public Nullable<double> CalculatedReliability { get; set; }
+        public double? Result { get; set; }
+        public double? TargetProbability { get; set; }
+        public double? TargetReliability { get; set; }
+        public double? CalculatedProbability { get; set; }
+        public double? CalculatedReliability { get; set; }
         public byte CalculationConvergence { get; set; }
     }
 }

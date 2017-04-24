@@ -28,13 +28,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public partial class PipingCalculationEntity
+    public class PipingCalculationEntity
     {
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PipingCalculationEntity()
@@ -45,21 +44,21 @@ namespace Application.Ringtoets.Storage.DbContext
 
         public long PipingCalculationEntityId { get; set; }
         public long CalculationGroupEntityId { get; set; }
-        public Nullable<long> SurfaceLineEntityId { get; set; }
-        public Nullable<long> StochasticSoilProfileEntityId { get; set; }
-        public Nullable<long> HydraulicLocationEntityId { get; set; }
+        public long? SurfaceLineEntityId { get; set; }
+        public long? StochasticSoilProfileEntityId { get; set; }
+        public long? HydraulicLocationEntityId { get; set; }
         public int Order { get; set; }
         public string Name { get; set; }
         public string Comments { get; set; }
-        public Nullable<double> EntryPointL { get; set; }
-        public Nullable<double> ExitPointL { get; set; }
-        public Nullable<double> PhreaticLevelExitMean { get; set; }
-        public Nullable<double> PhreaticLevelExitStandardDeviation { get; set; }
-        public Nullable<double> DampingFactorExitMean { get; set; }
-        public Nullable<double> DampingFactorExitStandardDeviation { get; set; }
+        public double? EntryPointL { get; set; }
+        public double? ExitPointL { get; set; }
+        public double? PhreaticLevelExitMean { get; set; }
+        public double? PhreaticLevelExitStandardDeviation { get; set; }
+        public double? DampingFactorExitMean { get; set; }
+        public double? DampingFactorExitStandardDeviation { get; set; }
         public byte RelevantForScenario { get; set; }
-        public Nullable<double> ScenarioContribution { get; set; }
-        public Nullable<double> AssessmentLevel { get; set; }
+        public double? ScenarioContribution { get; set; }
+        public double? AssessmentLevel { get; set; }
         public byte UseAssessmentLevelManualInput { get; set; }
 
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }

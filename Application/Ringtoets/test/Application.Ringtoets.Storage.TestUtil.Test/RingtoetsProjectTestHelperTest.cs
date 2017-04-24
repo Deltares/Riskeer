@@ -193,7 +193,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.NotNull(failureMechanism.WaveConditionsCalculationGroup);
             Assert.AreEqual(3, failureMechanism.WaveConditionsCalculationGroup.Children.Count);
 
-            var calculationGroup = ((CalculationGroup) failureMechanism.WaveConditionsCalculationGroup.Children[0]);
+            var calculationGroup = (CalculationGroup) failureMechanism.WaveConditionsCalculationGroup.Children[0];
             Assert.AreEqual(1, calculationGroup.Children.Count);
 
             var stabilityStoneCoverCalculationWithoutOutput = (StabilityStoneCoverWaveConditionsCalculation) calculationGroup.Children[0];
@@ -214,7 +214,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.NotNull(failureMechanism.WaveConditionsCalculationGroup);
             Assert.AreEqual(3, failureMechanism.WaveConditionsCalculationGroup.Children.Count);
 
-            var calculationGroup = ((CalculationGroup) failureMechanism.WaveConditionsCalculationGroup.Children[0]);
+            var calculationGroup = (CalculationGroup) failureMechanism.WaveConditionsCalculationGroup.Children[0];
             Assert.AreEqual(1, calculationGroup.Children.Count);
 
             var waveImpactAsphaltCoverCalculationWithoutOutput = (WaveImpactAsphaltCoverWaveConditionsCalculation) calculationGroup.Children[0];

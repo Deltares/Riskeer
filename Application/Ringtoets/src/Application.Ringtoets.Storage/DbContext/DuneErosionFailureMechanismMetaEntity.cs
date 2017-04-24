@@ -30,7 +30,7 @@
 
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public partial class DuneErosionFailureMechanismMetaEntity
+    public class DuneErosionFailureMechanismMetaEntity
     {
         public long DuneErosionFailureMechanismMetaEntityId { get; set; }
         public long FailureMechanismEntityId { get; set; }

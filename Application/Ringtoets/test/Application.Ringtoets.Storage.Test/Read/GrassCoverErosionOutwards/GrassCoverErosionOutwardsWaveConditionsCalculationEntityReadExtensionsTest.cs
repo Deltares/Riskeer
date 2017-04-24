@@ -169,7 +169,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
             };
             var entity = new GrassCoverErosionOutwardsWaveConditionsCalculationEntity
             {
-                ForeshoreProfileEntity = foreshoreProfileEntity,
+                ForeshoreProfileEntity = foreshoreProfileEntity
             };
 
             var collector = new ReadConversionCollector();
@@ -195,7 +195,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
 
             var entity = new GrassCoverErosionOutwardsWaveConditionsCalculationEntity
             {
-                ForeshoreProfileEntity = foreshoreProfileEntity,
+                ForeshoreProfileEntity = foreshoreProfileEntity
             };
 
             var collector = new ReadConversionCollector();

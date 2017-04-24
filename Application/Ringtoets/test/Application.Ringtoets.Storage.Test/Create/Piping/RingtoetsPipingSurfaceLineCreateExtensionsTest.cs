@@ -148,7 +148,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
                 new Point3D(13.13, 14.14, 15.15),
                 new Point3D(16.16, 17.17, 18.18),
                 new Point3D(19.19, 20.20, 21.21),
-                new Point3D(22.22, 23.23, 24.24),
+                new Point3D(22.22, 23.23, 24.24)
             };
             var surfaceLine = new RingtoetsPipingSurfaceLine
             {

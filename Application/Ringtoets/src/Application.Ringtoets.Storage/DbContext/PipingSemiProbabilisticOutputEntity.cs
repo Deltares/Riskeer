@@ -28,29 +28,27 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public partial class PipingSemiProbabilisticOutputEntity
+    public class PipingSemiProbabilisticOutputEntity
     {
         public long PipingSemiProbabilisticOutputEntityId { get; set; }
         public long PipingCalculationEntityId { get; set; }
         public int Order { get; set; }
-        public Nullable<double> UpliftFactorOfSafety { get; set; }
-        public Nullable<double> UpliftReliability { get; set; }
-        public Nullable<double> UpliftProbability { get; set; }
-        public Nullable<double> HeaveFactorOfSafety { get; set; }
-        public Nullable<double> HeaveReliability { get; set; }
-        public Nullable<double> HeaveProbability { get; set; }
-        public Nullable<double> SellmeijerFactorOfSafety { get; set; }
-        public Nullable<double> SellmeijerReliability { get; set; }
-        public Nullable<double> SellmeijerProbability { get; set; }
-        public Nullable<double> RequiredProbability { get; set; }
-        public Nullable<double> RequiredReliability { get; set; }
-        public Nullable<double> PipingProbability { get; set; }
-        public Nullable<double> PipingReliability { get; set; }
-        public Nullable<double> PipingFactorOfSafety { get; set; }
+        public double? UpliftFactorOfSafety { get; set; }
+        public double? UpliftReliability { get; set; }
+        public double? UpliftProbability { get; set; }
+        public double? HeaveFactorOfSafety { get; set; }
+        public double? HeaveReliability { get; set; }
+        public double? HeaveProbability { get; set; }
+        public double? SellmeijerFactorOfSafety { get; set; }
+        public double? SellmeijerReliability { get; set; }
+        public double? SellmeijerProbability { get; set; }
+        public double? RequiredProbability { get; set; }
+        public double? RequiredReliability { get; set; }
+        public double? PipingProbability { get; set; }
+        public double? PipingReliability { get; set; }
+        public double? PipingFactorOfSafety { get; set; }
 
         public virtual PipingCalculationEntity PipingCalculationEntity { get; set; }
     }

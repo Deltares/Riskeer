@@ -28,13 +28,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public partial class GrassCoverErosionInwardsOutputEntity
+    public class GrassCoverErosionInwardsOutputEntity
     {
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public GrassCoverErosionInwardsOutputEntity()
@@ -47,12 +46,12 @@ namespace Application.Ringtoets.Storage.DbContext
         public long GrassCoverErosionInwardsCalculationEntityId { get; set; }
         public int Order { get; set; }
         public byte IsOvertoppingDominant { get; set; }
-        public Nullable<double> WaveHeight { get; set; }
-        public Nullable<double> RequiredProbability { get; set; }
-        public Nullable<double> RequiredReliability { get; set; }
-        public Nullable<double> Probability { get; set; }
-        public Nullable<double> Reliability { get; set; }
-        public Nullable<double> FactorOfSafety { get; set; }
+        public double? WaveHeight { get; set; }
+        public double? RequiredProbability { get; set; }
+        public double? RequiredReliability { get; set; }
+        public double? Probability { get; set; }
+        public double? Reliability { get; set; }
+        public double? FactorOfSafety { get; set; }
 
         public virtual GrassCoverErosionInwardsCalculationEntity GrassCoverErosionInwardsCalculationEntity { get; set; }
 

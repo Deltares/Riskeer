@@ -28,13 +28,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public partial class ClosingStructureEntity
+    public class ClosingStructureEntity
     {
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ClosingStructureEntity()
@@ -47,31 +46,31 @@ namespace Application.Ringtoets.Storage.DbContext
         public int Order { get; set; }
         public string Name { get; set; }
         public string Id { get; set; }
-        public Nullable<double> X { get; set; }
-        public Nullable<double> Y { get; set; }
-        public Nullable<double> StructureNormalOrientation { get; set; }
-        public Nullable<double> StorageStructureAreaMean { get; set; }
-        public Nullable<double> StorageStructureAreaCoefficientOfVariation { get; set; }
-        public Nullable<double> AllowedLevelIncreaseStorageMean { get; set; }
-        public Nullable<double> AllowedLevelIncreaseStorageStandardDeviation { get; set; }
-        public Nullable<double> WidthFlowAperturesMean { get; set; }
-        public Nullable<double> WidthFlowAperturesStandardDeviation { get; set; }
-        public Nullable<double> LevelCrestStructureNotClosingMean { get; set; }
-        public Nullable<double> LevelCrestStructureNotClosingStandardDeviation { get; set; }
-        public Nullable<double> InsideWaterLevelMean { get; set; }
-        public Nullable<double> InsideWaterLevelStandardDeviation { get; set; }
-        public Nullable<double> ThresholdHeightOpenWeirMean { get; set; }
-        public Nullable<double> ThresholdHeightOpenWeirStandardDeviation { get; set; }
-        public Nullable<double> AreaFlowAperturesMean { get; set; }
-        public Nullable<double> AreaFlowAperturesStandardDeviation { get; set; }
-        public Nullable<double> CriticalOvertoppingDischargeMean { get; set; }
-        public Nullable<double> CriticalOvertoppingDischargeCoefficientOfVariation { get; set; }
-        public Nullable<double> FlowWidthAtBottomProtectionMean { get; set; }
-        public Nullable<double> FlowWidthAtBottomProtectionStandardDeviation { get; set; }
-        public Nullable<double> ProbabilityOrFrequencyOpenStructureBeforeFlooding { get; set; }
-        public Nullable<double> FailureProbabilityOpenStructure { get; set; }
+        public double? X { get; set; }
+        public double? Y { get; set; }
+        public double? StructureNormalOrientation { get; set; }
+        public double? StorageStructureAreaMean { get; set; }
+        public double? StorageStructureAreaCoefficientOfVariation { get; set; }
+        public double? AllowedLevelIncreaseStorageMean { get; set; }
+        public double? AllowedLevelIncreaseStorageStandardDeviation { get; set; }
+        public double? WidthFlowAperturesMean { get; set; }
+        public double? WidthFlowAperturesStandardDeviation { get; set; }
+        public double? LevelCrestStructureNotClosingMean { get; set; }
+        public double? LevelCrestStructureNotClosingStandardDeviation { get; set; }
+        public double? InsideWaterLevelMean { get; set; }
+        public double? InsideWaterLevelStandardDeviation { get; set; }
+        public double? ThresholdHeightOpenWeirMean { get; set; }
+        public double? ThresholdHeightOpenWeirStandardDeviation { get; set; }
+        public double? AreaFlowAperturesMean { get; set; }
+        public double? AreaFlowAperturesStandardDeviation { get; set; }
+        public double? CriticalOvertoppingDischargeMean { get; set; }
+        public double? CriticalOvertoppingDischargeCoefficientOfVariation { get; set; }
+        public double? FlowWidthAtBottomProtectionMean { get; set; }
+        public double? FlowWidthAtBottomProtectionStandardDeviation { get; set; }
+        public double? ProbabilityOrFrequencyOpenStructureBeforeFlooding { get; set; }
+        public double? FailureProbabilityOpenStructure { get; set; }
         public int IdenticalApertures { get; set; }
-        public Nullable<double> FailureProbabilityReparation { get; set; }
+        public double? FailureProbabilityReparation { get; set; }
         public byte InflowModelType { get; set; }
 
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }

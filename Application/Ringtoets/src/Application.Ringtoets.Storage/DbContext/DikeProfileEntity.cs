@@ -28,13 +28,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public partial class DikeProfileEntity
+    public class DikeProfileEntity
     {
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DikeProfileEntity()
@@ -46,15 +45,15 @@ namespace Application.Ringtoets.Storage.DbContext
         public long FailureMechanismEntityId { get; set; }
         public string Id { get; set; }
         public string Name { get; set; }
-        public Nullable<double> Orientation { get; set; }
-        public Nullable<byte> BreakWaterType { get; set; }
-        public Nullable<double> BreakWaterHeight { get; set; }
+        public double? Orientation { get; set; }
+        public byte? BreakWaterType { get; set; }
+        public double? BreakWaterHeight { get; set; }
         public string ForeshoreXml { get; set; }
         public string DikeGeometryXml { get; set; }
-        public Nullable<double> DikeHeight { get; set; }
-        public Nullable<double> X { get; set; }
-        public Nullable<double> Y { get; set; }
-        public Nullable<double> X0 { get; set; }
+        public double? DikeHeight { get; set; }
+        public double? X { get; set; }
+        public double? Y { get; set; }
+        public double? X0 { get; set; }
         public int Order { get; set; }
 
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }

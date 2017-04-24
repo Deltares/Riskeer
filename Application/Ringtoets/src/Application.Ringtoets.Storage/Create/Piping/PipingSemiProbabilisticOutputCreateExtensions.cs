@@ -54,7 +54,7 @@ namespace Application.Ringtoets.Storage.Create.Piping
                 RequiredReliability = semiProbabilisticOutput.RequiredReliability.ToNaNAsNull(),
                 PipingProbability = semiProbabilisticOutput.PipingProbability.ToNaNAsNull(),
                 PipingReliability = semiProbabilisticOutput.PipingReliability.ToNaNAsNull(),
-                PipingFactorOfSafety = semiProbabilisticOutput.PipingFactorOfSafety.ToNaNAsNull(),
+                PipingFactorOfSafety = semiProbabilisticOutput.PipingFactorOfSafety.ToNaNAsNull()
             };
             return entity;
         }

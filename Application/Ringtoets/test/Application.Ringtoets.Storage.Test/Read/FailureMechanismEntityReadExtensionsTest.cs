@@ -446,7 +446,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                         {
                             Name = "Child2",
                             Order = 1
-                        },
+                        }
                     }
                 },
                 PipingFailureMechanismMetaEntities =
@@ -614,7 +614,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                         {
                             Name = "Child2",
                             Order = 1
-                        },
+                        }
                     }
                 },
                 GrassCoverErosionInwardsFailureMechanismMetaEntities =
@@ -739,7 +739,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                         {
                             Name = "Child2",
                             Order = 1
-                        },
+                        }
                     }
                 },
                 GrassCoverErosionOutwardsFailureMechanismMetaEntities =
@@ -835,7 +835,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                         {
                             Name = "Child2",
                             Order = 0
-                        },
+                        }
                     }
                 }
             };
@@ -875,7 +875,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                         Id = "Child2",
                         GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
                         Order = 0
-                    },
+                    }
                 }
             };
             var collector = new ReadConversionCollector();
@@ -919,7 +919,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                         {
                             Name = "Child2",
                             Order = 0
-                        },
+                        }
                     }
                 }
             };
@@ -959,7 +959,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                         Id = "Child2",
                         GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
                         Order = 0
-                    },
+                    }
                 }
             };
             var collector = new ReadConversionCollector();
@@ -1003,7 +1003,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                         Id = "Child2",
                         GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
                         Order = 0
-                    },
+                    }
                 },
                 HeightStructuresFailureMechanismMetaEntities =
                 {

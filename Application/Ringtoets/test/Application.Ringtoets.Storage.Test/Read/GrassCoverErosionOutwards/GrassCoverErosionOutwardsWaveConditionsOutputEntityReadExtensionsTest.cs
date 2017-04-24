@@ -101,7 +101,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
                 TargetProbability = null,
                 TargetReliability = null,
                 CalculatedProbability = null,
-                CalculatedReliability = null,
+                CalculatedReliability = null
             };
 
             // Call

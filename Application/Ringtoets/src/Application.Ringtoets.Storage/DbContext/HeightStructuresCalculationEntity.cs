@@ -28,7 +28,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
@@ -45,15 +44,15 @@ namespace Application.Ringtoets.Storage.DbContext
 
         public long HeightStructuresCalculationEntityId { get; set; }
         public long CalculationGroupEntityId { get; set; }
-        public Nullable<long> HydraulicLocationEntityId { get; set; }
-        public Nullable<long> HeightStructureEntityId { get; set; }
-        public Nullable<long> ForeshoreProfileEntityId { get; set; }
+        public long? HydraulicLocationEntityId { get; set; }
+        public long? HeightStructureEntityId { get; set; }
+        public long? ForeshoreProfileEntityId { get; set; }
         public int Order { get; set; }
         public string Name { get; set; }
         public string Comments { get; set; }
-        public Nullable<double> LevelCrestStructureMean { get; set; }
-        public Nullable<double> LevelCrestStructureStandardDeviation { get; set; }
-        public Nullable<double> DeviationWaveDirection { get; set; }
+        public double? LevelCrestStructureMean { get; set; }
+        public double? LevelCrestStructureStandardDeviation { get; set; }
+        public double? DeviationWaveDirection { get; set; }
 
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
         public virtual HeightStructureEntity HeightStructureEntity { get; set; }
@@ -64,24 +63,24 @@ namespace Application.Ringtoets.Storage.DbContext
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HeightStructuresSectionResultEntity> HeightStructuresSectionResultEntities { get; set; }
 
-        public Nullable<double> ModelFactorSuperCriticalFlowMean { get; set; }
-        public Nullable<double> StructureNormalOrientation { get; set; }
-        public Nullable<double> AllowedLevelIncreaseStorageMean { get; set; }
-        public Nullable<double> AllowedLevelIncreaseStorageStandardDeviation { get; set; }
-        public Nullable<double> StorageStructureAreaMean { get; set; }
-        public Nullable<double> StorageStructureAreaCoefficientOfVariation { get; set; }
-        public Nullable<double> FlowWidthAtBottomProtectionMean { get; set; }
-        public Nullable<double> FlowWidthAtBottomProtectionStandardDeviation { get; set; }
-        public Nullable<double> CriticalOvertoppingDischargeMean { get; set; }
-        public Nullable<double> CriticalOvertoppingDischargeCoefficientOfVariation { get; set; }
+        public double? ModelFactorSuperCriticalFlowMean { get; set; }
+        public double? StructureNormalOrientation { get; set; }
+        public double? AllowedLevelIncreaseStorageMean { get; set; }
+        public double? AllowedLevelIncreaseStorageStandardDeviation { get; set; }
+        public double? StorageStructureAreaMean { get; set; }
+        public double? StorageStructureAreaCoefficientOfVariation { get; set; }
+        public double? FlowWidthAtBottomProtectionMean { get; set; }
+        public double? FlowWidthAtBottomProtectionStandardDeviation { get; set; }
+        public double? CriticalOvertoppingDischargeMean { get; set; }
+        public double? CriticalOvertoppingDischargeCoefficientOfVariation { get; set; }
         public double FailureProbabilityStructureWithErosion { get; set; }
-        public Nullable<double> WidthFlowAperturesMean { get; set; }
-        public Nullable<double> WidthFlowAperturesStandardDeviation { get; set; }
-        public Nullable<double> StormDurationMean { get; set; }
+        public double? WidthFlowAperturesMean { get; set; }
+        public double? WidthFlowAperturesStandardDeviation { get; set; }
+        public double? StormDurationMean { get; set; }
         public byte UseBreakWater { get; set; }
         public byte UseForeshore { get; set; }
         public byte BreakWaterType { get; set; }
-        public Nullable<double> BreakWaterHeight { get; set; }
+        public double? BreakWaterHeight { get; set; }
         public virtual ForeshoreProfileEntity ForeshoreProfileEntity { get; set; }
         public virtual HydraulicLocationEntity HydraulicLocationEntity { get; set; }
     }

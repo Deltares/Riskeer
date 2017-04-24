@@ -28,13 +28,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public partial class FailureMechanismEntity
+    public class FailureMechanismEntity
     {
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public FailureMechanismEntity()
@@ -60,7 +59,7 @@ namespace Application.Ringtoets.Storage.DbContext
 
         public long FailureMechanismEntityId { get; set; }
         public long AssessmentSectionEntityId { get; set; }
-        public Nullable<long> CalculationGroupEntityId { get; set; }
+        public long? CalculationGroupEntityId { get; set; }
         public short FailureMechanismType { get; set; }
         public byte IsRelevant { get; set; }
         public string InputComments { get; set; }

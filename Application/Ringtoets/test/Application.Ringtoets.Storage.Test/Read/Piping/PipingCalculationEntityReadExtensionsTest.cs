@@ -139,7 +139,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 SurfaceLineEntity = surfaceLineEntity,
                 EntryPointL = 1,
                 ExitPointL = 2,
-                DampingFactorExitMean = 1,
+                DampingFactorExitMean = 1
             };
 
             var collector = new ReadConversionCollector();
@@ -174,7 +174,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 SurfaceLineEntity = surfaceLineEntity,
                 EntryPointL = 1,
                 ExitPointL = 2,
-                DampingFactorExitMean = 1,
+                DampingFactorExitMean = 1
             };
 
             var collector = new ReadConversionCollector();
@@ -259,7 +259,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 StochasticSoilProfileEntity = stochasticSoilProfileEntity,
                 EntryPointL = 1,
                 ExitPointL = 2,
-                DampingFactorExitMean = 1,
+                DampingFactorExitMean = 1
             };
 
             var collector = new ReadConversionCollector();
@@ -304,7 +304,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 StochasticSoilProfileEntity = stochasticSoilProfileEntity,
                 EntryPointL = 1,
                 ExitPointL = 2,
-                DampingFactorExitMean = 1,
+                DampingFactorExitMean = 1
             };
 
             var collector = new ReadConversionCollector();
@@ -352,7 +352,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 DampingFactorExitMean = 1,
                 PipingSemiProbabilisticOutputEntities =
                 {
-                    new PipingSemiProbabilisticOutputEntity()
+                    new PipingSemiProbabilisticOutputEntity
                     {
                         HeaveFactorOfSafety = 1.0
                     }

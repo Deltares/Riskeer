@@ -40,7 +40,7 @@ namespace Application.Ringtoets.Storage.Create.ClosingStructures
         {
             return new ClosingStructuresFailureMechanismMetaEntity
             {
-                N2A = input.N2A,
+                N2A = input.N2A
             };
         }
     }
