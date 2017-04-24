@@ -45,11 +45,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             var convergence = random.NextEnumValue<CalculationConvergence>();
 
             // Call
-            TestDelegate call = () => new HydraulicLoadsOutput(result, targetProbability,
-                                                               targetReliability,
-                                                               calculatedProbability,
-                                                               calculatedReliability,
-                                                               convergence);
+            TestDelegate call = () => new TestHydraulicLoadsOutput(result, targetProbability,
+                                                                   targetReliability,
+                                                                   calculatedProbability,
+                                                                   calculatedReliability,
+                                                                   convergence);
 
             // Assert
             var exception = Assert.Throws<ArgumentOutOfRangeException>(call);
@@ -72,11 +72,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             var convergence = random.NextEnumValue<CalculationConvergence>();
 
             // Call
-            TestDelegate call = () => new HydraulicLoadsOutput(result, targetProbability,
-                                                               targetReliability,
-                                                               calculatedProbability,
-                                                               calculatedReliability,
-                                                               convergence);
+            TestDelegate call = () => new TestHydraulicLoadsOutput(result, targetProbability,
+                                                                   targetReliability,
+                                                                   calculatedProbability,
+                                                                   calculatedReliability,
+                                                                   convergence);
 
             // Assert
             var exception = Assert.Throws<ArgumentOutOfRangeException>(call);
@@ -97,11 +97,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             var convergence = random.NextEnumValue<CalculationConvergence>();
 
             // Call
-            var output = new HydraulicLoadsOutput(result, targetProbability,
-                                                  targetReliability,
-                                                  calculatedProbability,
-                                                  calculatedReliability,
-                                                  convergence);
+            var output = new TestHydraulicLoadsOutput(result, targetProbability,
+                                                      targetReliability,
+                                                      calculatedProbability,
+                                                      calculatedReliability,
+                                                      convergence);
 
             // Assert
             Assert.AreEqual(result, output.Result, output.Result.GetAccuracy());
@@ -110,6 +110,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.AreEqual(calculatedProbability, output.CalculatedProbability);
             Assert.AreEqual(calculatedReliability, output.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual(convergence, output.CalculationConvergence);
+        }
+
+        private class TestHydraulicLoadsOutput : HydraulicLoadsOutput
+        {
+            public TestHydraulicLoadsOutput(double result, double targetProbability, double targetReliability,
+                                            double calculatedProbability, double calculatedReliability, CalculationConvergence calculationConvergence)
+                : base(result, targetProbability, targetReliability, calculatedProbability,
+                       calculatedReliability, calculationConvergence) {}
         }
     }
 }

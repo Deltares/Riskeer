@@ -52,7 +52,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         {
             // Setup
             var random = new Random(21);
-            var output = new HydraulicLoadsOutput(
+            var output = new DikeHeightOutput(
                 random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
                 random.NextDouble(), random.NextEnumValue<CalculationConvergence>());
 
@@ -74,8 +74,8 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         {
             // Setup
             var random = new Random(21);
-            var output = new HydraulicLoadsOutput(double.NaN, double.NaN, double.NaN,
-                                                  double.NaN, double.NaN, random.NextEnumValue<CalculationConvergence>());
+            var output = new DikeHeightOutput(double.NaN, double.NaN, double.NaN,
+                                              double.NaN, double.NaN, random.NextEnumValue<CalculationConvergence>());
 
             // Call
             GrassCoverErosionInwardsDikeHeightOutputEntity entity = output.CreateDikeHeight();
@@ -109,7 +109,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         {
             // Setup
             var random = new Random(21);
-            var output = new HydraulicLoadsOutput(
+            var output = new OvertoppingRateOutput(
                 random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
                 random.NextDouble(), random.NextEnumValue<CalculationConvergence>());
 
@@ -131,8 +131,8 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         {
             // Setup
             var random = new Random(21);
-            var output = new HydraulicLoadsOutput(double.NaN, double.NaN, double.NaN,
-                                                  double.NaN, double.NaN, random.NextEnumValue<CalculationConvergence>());
+            var output = new OvertoppingRateOutput(double.NaN, double.NaN, double.NaN,
+                                                   double.NaN, double.NaN, random.NextEnumValue<CalculationConvergence>());
 
             // Call
             GrassCoverErosionInwardsOvertoppingRateOutputEntity entity = output.CreateOvertoppingRate();
