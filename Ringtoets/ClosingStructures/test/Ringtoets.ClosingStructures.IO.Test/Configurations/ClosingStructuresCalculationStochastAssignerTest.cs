@@ -59,7 +59,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             {
                 "Assign_WithoutStructureValueSetFor{0}_ReturnsFalse"
             })]
-        public void Assign_WithoutStructureParametersDefinedForStructureDependentStochats_ReturnsFalse(
+        public void Assign_WithoutStructureParametersDefinedForStructureDependentStochast_ReturnsFalse(
             Action<ClosingStructuresCalculationConfiguration> modify)
         {
             // Setup
@@ -87,7 +87,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             {
                 "Assign_WithStructureValueSetFor{0}_ReturnsTrue"
             })]
-        public void Assign_WithStructureParametersDefinedForStructureDependentStochats_ReturnsTrue(
+        public void Assign_WithStructureParametersDefinedForStructureDependentStochast_ReturnsTrue(
             Action<ClosingStructuresCalculationConfiguration> modify)
         {
             // Setup

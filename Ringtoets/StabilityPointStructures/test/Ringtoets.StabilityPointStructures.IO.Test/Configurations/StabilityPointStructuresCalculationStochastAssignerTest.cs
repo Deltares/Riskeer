@@ -262,7 +262,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             {
                 "Assign_{0}WithStructure_ReturnsTrue"
             })]
-        public void Assign_WithStructureParametersDefinedForStructureDependentStochats_ReturnsTrue(
+        public void Assign_WithStructureParametersDefinedForStructureDependentStochast_ReturnsTrue(
             Action<StabilityPointStructuresCalculationConfiguration> updateConfiguration)
         {
             // Setup
@@ -291,7 +291,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             {
                 "Assign_{0}SetWithoutStructure_ReturnsFalse"
             })]
-        public void Assign_WithoutStructureParametersDefinedForStructureDependentStochats_ReturnsFalse(
+        public void Assign_WithoutStructureParametersDefinedForStructureDependentStochast_ReturnsFalse(
             Action<StabilityPointStructuresCalculationConfiguration> updateConfiguration)
         {
             // Setup
