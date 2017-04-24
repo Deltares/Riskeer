@@ -26,11 +26,10 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
 {
     /// <summary>
-    /// Extension methods for <see cref="HydraulicLoadsOutput"/> related to creating a
-    /// <see cref="GrassCoverErosionInwardsDikeHeightOutputEntity"/> or a 
-    /// <see cref="GrassCoverErosionInwardsOvertoppingRateOutputEntity"/>.
+    /// Extension methods for <see cref="DikeHeightOutput"/> related to creating a
+    /// <see cref="GrassCoverErosionInwardsDikeHeightOutputEntity"/>.
     /// </summary>
-    internal static class HydraulicLoadsOutputCreateExtensions
+    internal static class DikeHeightOutputCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="GrassCoverErosionInwardsDikeHeightOutputEntity"/>
@@ -52,42 +51,6 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
                 DikeHeight = double.IsNaN(output.DikeHeight)
                                  ? (double?) null
                                  : output.DikeHeight,
-                TargetProbability = double.IsNaN(output.TargetProbability)
-                                        ? (double?) null
-                                        : output.TargetProbability,
-                TargetReliability = double.IsNaN(output.TargetReliability)
-                                        ? (double?) null
-                                        : output.TargetReliability,
-                CalculatedProbability = double.IsNaN(output.CalculatedProbability)
-                                            ? (double?) null
-                                            : output.CalculatedProbability,
-                CalculatedReliability = double.IsNaN(output.CalculatedReliability)
-                                            ? (double?) null
-                                            : output.CalculatedReliability,
-                CalculationConvergence = (byte) output.CalculationConvergence
-            };
-        }
-
-        /// <summary>
-        /// Creates a <see cref="GrassCoverErosionInwardsOvertoppingRateOutputEntity"/>
-        /// based on the information of the <see cref="OvertoppingRateOutput"/>.
-        /// </summary>
-        /// <param name="output">The output to create a database entity for.</param>
-        /// <returns>A new <see cref="GrassCoverErosionInwardsOvertoppingRateOutputEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/>
-        /// is <c>null</c>.</exception>
-        internal static GrassCoverErosionInwardsOvertoppingRateOutputEntity CreateOvertoppingRate(this OvertoppingRateOutput output)
-        {
-            if (output == null)
-            {
-                throw new ArgumentNullException(nameof(output));
-            }
-
-            return new GrassCoverErosionInwardsOvertoppingRateOutputEntity
-            {
-                OvertoppingRate = double.IsNaN(output.OvertoppingRate)
-                                      ? (double?) null
-                                      : output.OvertoppingRate,
                 TargetProbability = double.IsNaN(output.TargetProbability)
                                         ? (double?) null
                                         : output.TargetProbability,
