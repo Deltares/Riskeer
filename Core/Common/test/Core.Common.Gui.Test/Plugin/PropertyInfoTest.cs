@@ -76,7 +76,7 @@ namespace Core.Common.Gui.Test.Plugin
             var info = new PropertyInfo
             {
                 DataType = typeof(int),
-                PropertyObjectType = typeof(TestObjectProperties),
+                PropertyObjectType = typeof(TestObjectProperties)
             };
             int data = new Random(21).Next();
 

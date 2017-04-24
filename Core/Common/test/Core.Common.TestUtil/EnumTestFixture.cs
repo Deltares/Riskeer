@@ -72,10 +72,7 @@ namespace Core.Common.TestUtil
             {
                 return ((ResourcesDisplayNameAttribute) attributes[0]).DisplayName;
             }
-            else
-            {
-                return null;
-            }
+            return null;
         }
     }
 }

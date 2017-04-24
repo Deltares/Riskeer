@@ -144,7 +144,7 @@ namespace Core.Common.Controls.Dialogs
 
         private static Icon BitmapToIcon(Bitmap icon)
         {
-            return (icon == null) ? null : Icon.FromHandle(icon.GetHicon());
+            return icon == null ? null : Icon.FromHandle(icon.GetHicon());
         }
     }
 }

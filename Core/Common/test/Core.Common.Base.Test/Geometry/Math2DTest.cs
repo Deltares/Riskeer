@@ -187,7 +187,7 @@ namespace Core.Common.Base.Test.Geometry
             var linePoints = new[]
             {
                 new Point2D(1.1, 2.2),
-                new Point2D(3.3, 4.4),
+                new Point2D(3.3, 4.4)
             };
 
             // Call
@@ -307,7 +307,7 @@ namespace Core.Common.Base.Test.Geometry
             var originalLine = new[]
             {
                 new Point2D(0.0, 0.0),
-                new Point2D(20.0, 60.0),
+                new Point2D(20.0, 60.0)
             };
 
             double[] lengths = GetLengthsBasedOnRelative(new[]
@@ -996,7 +996,7 @@ namespace Core.Common.Base.Test.Geometry
             var points = new[]
             {
                 new Point2D(0, 0),
-                new Point2D(1, 0),
+                new Point2D(1, 0)
             };
 
             points[nullIndex] = null;
@@ -1060,7 +1060,7 @@ namespace Core.Common.Base.Test.Geometry
             var random = new Random(21);
             var points = new[]
             {
-                new Point2D(random.NextDouble(), random.NextDouble()),
+                new Point2D(random.NextDouble(), random.NextDouble())
             };
 
             // Call

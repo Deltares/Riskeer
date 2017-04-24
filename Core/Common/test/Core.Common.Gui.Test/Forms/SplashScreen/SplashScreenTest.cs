@@ -129,7 +129,7 @@ namespace Core.Common.Gui.Test.Forms.SplashScreen
         private static string GetLabelText(FrameworkElement parent, string labelName)
         {
             var label = FindControlRecursively(parent, labelName) as Label;
-            return (label != null) ? label.Content.ToString() : "";
+            return label != null ? label.Content.ToString() : "";
         }
 
         private static bool GetIsControlVisible(FrameworkElement parent, string ctrlName)

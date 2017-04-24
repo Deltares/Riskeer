@@ -117,12 +117,12 @@ namespace Core.Common.Gui.Forms
                 var boundsIndicator = new RectangleF(e.Bounds.Left + itemSize.Width,
                                                      e.Bounds.Top, indicatorSize.Width, e.Bounds.Height);
 
-                e.Graphics.DrawString(itemAsString, defaultItemFont, (selected) ? new SolidBrush(SystemColors.HighlightText) : Brushes.Black, e.Bounds);
+                e.Graphics.DrawString(itemAsString, defaultItemFont, selected ? new SolidBrush(SystemColors.HighlightText) : Brushes.Black, e.Bounds);
                 e.Graphics.DrawString(defaultIndicatorText, defaultItemFont, Brushes.LightGray, boundsIndicator);
             }
             else
             {
-                e.Graphics.DrawString(itemAsString, lbFont, (selected) ? new SolidBrush(SystemColors.HighlightText) : Brushes.Black, e.Bounds);
+                e.Graphics.DrawString(itemAsString, lbFont, selected ? new SolidBrush(SystemColors.HighlightText) : Brushes.Black, e.Bounds);
             }
 
             e.DrawFocusRectangle();
@@ -130,8 +130,8 @@ namespace Core.Common.Gui.Forms
 
         private void ListBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            checkBoxDefault.Checked = (listBox.SelectedItem != null &&
-                                       listBox.SelectedItem.ToString() == DefaultViewName);
+            checkBoxDefault.Checked = listBox.SelectedItem != null &&
+                                      listBox.SelectedItem.ToString() == DefaultViewName;
         }
 
         private void CheckBoxDefaultCheckedChanged(object sender, EventArgs e)
@@ -139,7 +139,7 @@ namespace Core.Common.Gui.Forms
             string previousName = DefaultViewName;
             if (listBox.SelectedItem.ToString() == DefaultViewName)
             {
-                DefaultViewName = (checkBoxDefault.Checked)
+                DefaultViewName = checkBoxDefault.Checked
                                       ? listBox.SelectedItem.ToString()
                                       : null;
             }

@@ -287,9 +287,9 @@ namespace Core.Common.Gui.Test.PropertyBag
             }
 
             [TypeConverter(typeof(ExpandableObjectConverter))]
-            public AnotherClassWithProperties ComplexSubPropertyWithExandableObjectConverter { get; set; }
+            public AnotherClassWithProperties ComplexSubPropertyWithExandableObjectConverter { get; }
 
-            public AnotherClassWithProperties ComplexSubProperty { get; set; }
+            public AnotherClassWithProperties ComplexSubProperty { get; }
 
             #region IsReadOnly state influencing testing members
 

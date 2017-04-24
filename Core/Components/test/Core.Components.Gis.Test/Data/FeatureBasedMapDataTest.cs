@@ -140,7 +140,7 @@ namespace Core.Components.Gis.Test.Data
             {
                 "Attribute1",
                 "Attribute2",
-                "Attribute3",
+                "Attribute3"
             }, metaData);
         }
     }

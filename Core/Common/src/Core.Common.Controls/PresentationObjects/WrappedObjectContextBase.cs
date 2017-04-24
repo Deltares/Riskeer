@@ -48,7 +48,7 @@ namespace Core.Common.Controls.PresentationObjects
         /// <summary>
         /// Gets the data wrapped in this presentation object.
         /// </summary>
-        public T WrappedData { get; private set; }
+        public T WrappedData { get; }
 
         #region IEquatable members
 

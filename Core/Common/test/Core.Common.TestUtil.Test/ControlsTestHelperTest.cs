@@ -47,7 +47,7 @@ namespace Core.Common.TestUtil.Test
                 DataSource = new[]
                 {
                     Tuple.Create(value1, "A"),
-                    Tuple.Create(value2, "B"),
+                    Tuple.Create(value2, "B")
                 },
                 ValueMember = "Item1",
                 DisplayMember = "Item2"

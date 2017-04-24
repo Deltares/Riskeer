@@ -97,7 +97,7 @@ namespace Core.Common.IO.Readers
         /// <returns><c>True</c> if the command was successful and a new resultset is available, <c>false</c> otherwise.</returns>
         protected static bool MoveNext(IDataReader sqliteDataReader)
         {
-            return sqliteDataReader.Read() || (sqliteDataReader.NextResult() && sqliteDataReader.Read());
+            return sqliteDataReader.Read() || sqliteDataReader.NextResult() && sqliteDataReader.Read();
         }
 
         /// <summary>

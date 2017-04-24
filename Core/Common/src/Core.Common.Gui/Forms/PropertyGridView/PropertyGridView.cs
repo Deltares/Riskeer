@@ -160,7 +160,7 @@ namespace Core.Common.Gui.Forms.PropertyGridView
         [SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.UnmanagedCode)]
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if ((keyData == Keys.Tab) || (keyData == (Keys.Tab | Keys.Shift)))
+            if (keyData == Keys.Tab || keyData == (Keys.Tab | Keys.Shift))
             {
                 GridItem selectedItem = SelectedGridItem;
                 GridItem root = selectedItem;

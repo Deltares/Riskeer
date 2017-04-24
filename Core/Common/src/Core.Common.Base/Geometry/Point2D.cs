@@ -47,12 +47,12 @@ namespace Core.Common.Base.Geometry
         /// <summary>
         /// Gets or sets the x coordinate.
         /// </summary>
-        public double X { get; private set; }
+        public double X { get; }
 
         /// <summary>
         /// Gets or sets the y coordinate.
         /// </summary>
-        public double Y { get; private set; }
+        public double Y { get; }
 
         /// <summary>
         /// Determines the 2D vector defined by the difference of two <see cref="Point2D"/>.

@@ -44,7 +44,7 @@ namespace Core.Components.OxyPlot.CustomSeries
             Color = OxyColors.Automatic;
         }
 
-        public List<DataPoint[]> Areas { get; private set; }
+        public List<DataPoint[]> Areas { get; }
 
         /// <summary>
         /// Gets or sets the color of the curve.

@@ -185,7 +185,7 @@ namespace Core.Common.Gui.Forms.ViewHost
         private ViewInfo GetViewInfoUsingDialog(object data, IList<ViewInfo> viewInfoList)
         {
             Type defaultViewTypeForData = GetDefaultViewTypeForData(data);
-            string defaultViewName = (defaultViewTypeForData != null)
+            string defaultViewName = defaultViewTypeForData != null
                                          ? viewInfoList.First(vi => vi.ViewType == defaultViewTypeForData).Description
                                          : null;
 
@@ -224,7 +224,7 @@ namespace Core.Common.Gui.Forms.ViewHost
         private bool IsViewData(IView view, object data)
         {
             ViewInfo viewInfo = GetViewInfoForView(view);
-            return data.Equals(view.Data) || (IsDataForView(data, viewInfo) && Equals(viewInfo.GetViewData(data), view.Data));
+            return data.Equals(view.Data) || IsDataForView(data, viewInfo) && Equals(viewInfo.GetViewData(data), view.Data);
         }
 
         private static bool IsDataForView(object data, ViewInfo info)

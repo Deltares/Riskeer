@@ -132,7 +132,7 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
             var propertyInfos = new PropertyInfo[]
             {
                 new PropertyInfo<A, PropertiesForA>(),
-                new PropertyInfo<InheritsFromA, AlternativePropertiesForA>(),
+                new PropertyInfo<InheritsFromA, AlternativePropertiesForA>()
             };
 
             var resolver = new PropertyResolver(propertyInfos);
@@ -155,7 +155,7 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
             var propertyInfos = new PropertyInfo[]
             {
                 new PropertyInfo<A, PropertiesForA>(),
-                new PropertyInfo<A, InheritsFromPropertiesForA>(),
+                new PropertyInfo<A, InheritsFromPropertiesForA>()
             };
 
             var resolver = new PropertyResolver(propertyInfos);
@@ -180,7 +180,7 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
                 new PropertyInfo<A, PropertiesForA>(),
                 new PropertyInfo<A, InheritsFromPropertiesForA>(),
                 new PropertyInfo<InheritsFromA, PropertiesForA>(),
-                new PropertyInfo<InheritsFromA, InheritsFromPropertiesForA>(),
+                new PropertyInfo<InheritsFromA, InheritsFromPropertiesForA>()
             };
 
             var resolver = new PropertyResolver(propertyInfos);
@@ -202,7 +202,7 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
             // Setup
             var propertyInfos = new PropertyInfo[]
             {
-                new PropertyInfo<A, PropertiesForA>(),
+                new PropertyInfo<A, PropertiesForA>()
             };
 
             var resolver = new PropertyResolver(propertyInfos);
@@ -225,7 +225,7 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
             var propertyInfos = new PropertyInfo[]
             {
                 new PropertyInfo<A, PropertiesForA>(),
-                new PropertyInfo<A, AlternativePropertiesForA>(),
+                new PropertyInfo<A, AlternativePropertiesForA>()
             };
 
             var resolver = new PropertyResolver(propertyInfos);

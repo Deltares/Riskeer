@@ -175,7 +175,7 @@ namespace Core.Common.Gui.Forms.MessageWindow
         {
             foreach (ToolStripItem item in contextMenu.Items)
             {
-                item.Enabled = (messagesDataGridView.Rows.Count > 0);
+                item.Enabled = messagesDataGridView.Rows.Count > 0;
             }
         }
 

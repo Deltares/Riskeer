@@ -280,24 +280,21 @@ namespace Core.Common.Base.Geometry
                 // ... but not collinear, so no intersection possible:
                 return Segment2DIntersectSegment2DResult.CreateNoIntersectResult();
             }
-            else
+            // Segments are at an angle and may intersect:
+            double sI = PerpDotProduct(v, w) / d;
+            if (sI < 0.0 || sI > 1.0)
             {
-                // Segments are at an angle and may intersect:
-                double sI = PerpDotProduct(v, w) / d;
-                if (sI < 0.0 || sI > 1.0)
-                {
-                    return Segment2DIntersectSegment2DResult.CreateNoIntersectResult();
-                }
-
-                double tI = PerpDotProduct(u, w) / d;
-                if (tI < 0.0 || tI > 1.0)
-                {
-                    return Segment2DIntersectSegment2DResult.CreateNoIntersectResult();
-                }
-
-                Point2D intersectionPoint = segment1.FirstPoint + u.Multiply(sI);
-                return Segment2DIntersectSegment2DResult.CreateIntersectionResult(intersectionPoint);
+                return Segment2DIntersectSegment2DResult.CreateNoIntersectResult();
             }
+
+            double tI = PerpDotProduct(u, w) / d;
+            if (tI < 0.0 || tI > 1.0)
+            {
+                return Segment2DIntersectSegment2DResult.CreateNoIntersectResult();
+            }
+
+            Point2D intersectionPoint = segment1.FirstPoint + u.Multiply(sI);
+            return Segment2DIntersectSegment2DResult.CreateIntersectionResult(intersectionPoint);
         }
 
         /// <summary>
@@ -372,12 +369,9 @@ namespace Core.Common.Base.Geometry
                 // Segments intersect at a point:
                 return Segment2DIntersectSegment2DResult.CreateIntersectionResult(intersectionPoint1);
             }
-            else
-            {
-                // Segments overlap:
-                Point2D intersectionPoint2 = segment2.FirstPoint + v.Multiply(t1);
-                return Segment2DIntersectSegment2DResult.CreateOverlapResult(intersectionPoint1, intersectionPoint2);
-            }
+            // Segments overlap:
+            Point2D intersectionPoint2 = segment2.FirstPoint + v.Multiply(t1);
+            return Segment2DIntersectSegment2DResult.CreateOverlapResult(intersectionPoint1, intersectionPoint2);
         }
 
         private static bool IsSegmentAsPointIntersectionDegenerateScenario(Segment2D segment1, Segment2D segment2)
@@ -424,12 +418,9 @@ namespace Core.Common.Base.Geometry
                 double maxY = Math.Max(colinearSegment.FirstPoint.Y, colinearSegment.SecondPoint.Y);
                 return minY <= point.Y && point.Y <= maxY;
             }
-            else
-            {
-                double minX = Math.Min(colinearSegment.FirstPoint.X, colinearSegment.SecondPoint.X);
-                double maxX = Math.Max(colinearSegment.FirstPoint.X, colinearSegment.SecondPoint.X);
-                return minX <= point.X && point.X <= maxX;
-            }
+            double minX = Math.Min(colinearSegment.FirstPoint.X, colinearSegment.SecondPoint.X);
+            double maxX = Math.Max(colinearSegment.FirstPoint.X, colinearSegment.SecondPoint.X);
+            return minX <= point.X && point.X <= maxX;
         }
 
         /// <summary>

@@ -124,7 +124,7 @@ namespace Core.Common.Gui.Test
 
                 // Assert
                 var button = new ButtonTester("buttonOpenLog");
-                var buttonOpenLog = (Button)button.TheObject;
+                var buttonOpenLog = (Button) button.TheObject;
                 Assert.IsFalse(buttonOpenLog.Enabled);
             }
 
@@ -149,7 +149,7 @@ namespace Core.Common.Gui.Test
 
                 // Assert
                 var button = new ButtonTester("buttonOpenLog");
-                var buttonOpenLog = (Button)button.TheObject;
+                var buttonOpenLog = (Button) button.TheObject;
                 Assert.IsTrue(buttonOpenLog.Enabled);
             }
 

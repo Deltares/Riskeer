@@ -189,7 +189,7 @@ namespace Core.Common.Geometry.Test
                 new Point2D(2, 3),
                 new Point2D(2, 4),
                 new Point2D(6, 4),
-                new Point2D(6, 0),
+                new Point2D(6, 0)
             };
 
             // Call

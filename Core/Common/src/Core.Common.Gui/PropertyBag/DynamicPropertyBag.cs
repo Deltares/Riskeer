@@ -73,12 +73,12 @@ namespace Core.Common.Gui.PropertyBag
         /// <summary>
         /// Gets the collection of properties contained within this <see cref="DynamicPropertyBag"/>.
         /// </summary>
-        public ICollection<PropertySpec> Properties { get; private set; }
+        public ICollection<PropertySpec> Properties { get; }
 
         /// <summary>
         /// Gets the object wrapped inside this <see cref="DynamicPropertyBag"/>.
         /// </summary>
-        public object WrappedObject { get; private set; }
+        public object WrappedObject { get; }
 
         public override string ToString()
         {

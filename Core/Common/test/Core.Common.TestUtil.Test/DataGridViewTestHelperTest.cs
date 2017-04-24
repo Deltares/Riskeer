@@ -212,12 +212,12 @@ namespace Core.Common.TestUtil.Test
         public void AssertCellIsDisabled_DisabledCell_DoesNotThrowAssertionException()
         {
             // Setup
-            var row = new DataGridViewRow()
+            var row = new DataGridViewRow
             {
                 ReadOnly = true,
                 Cells =
                 {
-                    new DataCell(new DataGridViewCellStyle()
+                    new DataCell(new DataGridViewCellStyle
                     {
                         ForeColor = Color.FromKnownColor(KnownColor.GrayText),
                         BackColor = Color.FromKnownColor(KnownColor.DarkGray)
@@ -238,12 +238,12 @@ namespace Core.Common.TestUtil.Test
         public void AssertCellIsEnabled_EnabledCell_DoesNotThrowAssertionException(bool readOnlyProperty)
         {
             // Setup
-            var row = new DataGridViewRow()
+            var row = new DataGridViewRow
             {
                 ReadOnly = readOnlyProperty,
                 Cells =
                 {
-                    new DataCell(new DataGridViewCellStyle()
+                    new DataCell(new DataGridViewCellStyle
                     {
                         ForeColor = Color.FromKnownColor(KnownColor.ControlText),
                         BackColor = Color.FromKnownColor(KnownColor.White)
@@ -331,36 +331,36 @@ namespace Core.Common.TestUtil.Test
         {
             get
             {
-                yield return new TestCaseData(new DataGridViewRow()
+                yield return new TestCaseData(new DataGridViewRow
                 {
                     ReadOnly = false,
                     Cells =
                     {
-                        new DataCell(new DataGridViewCellStyle()
+                        new DataCell(new DataGridViewCellStyle
                         {
                             ForeColor = Color.FromKnownColor(KnownColor.GrayText),
                             BackColor = Color.FromKnownColor(KnownColor.DarkGray)
                         })
                     }
                 }).SetName("ReadOnlyPropertyFalse");
-                yield return new TestCaseData(new DataGridViewRow()
+                yield return new TestCaseData(new DataGridViewRow
                 {
                     ReadOnly = true,
                     Cells =
                     {
-                        new DataCell(new DataGridViewCellStyle()
+                        new DataCell(new DataGridViewCellStyle
                         {
                             ForeColor = Color.FromKnownColor(KnownColor.ControlText),
                             BackColor = Color.FromKnownColor(KnownColor.DarkGray)
                         })
                     }
                 }).SetName("ForeColorPropertyEnabledColor");
-                yield return new TestCaseData(new DataGridViewRow()
+                yield return new TestCaseData(new DataGridViewRow
                 {
                     ReadOnly = true,
                     Cells =
                     {
-                        new DataCell(new DataGridViewCellStyle()
+                        new DataCell(new DataGridViewCellStyle
                         {
                             ForeColor = Color.FromKnownColor(KnownColor.GrayText),
                             BackColor = Color.FromKnownColor(KnownColor.White)
@@ -374,36 +374,36 @@ namespace Core.Common.TestUtil.Test
         {
             get
             {
-                yield return new TestCaseData(new DataGridViewRow()
+                yield return new TestCaseData(new DataGridViewRow
                 {
                     ReadOnly = true,
                     Cells =
                     {
-                        new DataCell(new DataGridViewCellStyle()
+                        new DataCell(new DataGridViewCellStyle
                         {
                             ForeColor = Color.FromKnownColor(KnownColor.ControlText),
                             BackColor = Color.FromKnownColor(KnownColor.White)
                         })
                     }
                 }).SetName("ReadOnlyPropertyTrue");
-                yield return new TestCaseData(new DataGridViewRow()
+                yield return new TestCaseData(new DataGridViewRow
                 {
                     ReadOnly = false,
                     Cells =
                     {
-                        new DataCell(new DataGridViewCellStyle()
+                        new DataCell(new DataGridViewCellStyle
                         {
                             ForeColor = Color.FromKnownColor(KnownColor.GrayText),
                             BackColor = Color.FromKnownColor(KnownColor.White)
                         })
                     }
                 }).SetName("ForeColorPropertyDisabledColor");
-                yield return new TestCaseData(new DataGridViewRow()
+                yield return new TestCaseData(new DataGridViewRow
                 {
                     ReadOnly = false,
                     Cells =
                     {
-                        new DataCell(new DataGridViewCellStyle()
+                        new DataCell(new DataGridViewCellStyle
                         {
                             ForeColor = Color.FromKnownColor(KnownColor.ControlText),
                             BackColor = Color.FromKnownColor(KnownColor.DarkGray)

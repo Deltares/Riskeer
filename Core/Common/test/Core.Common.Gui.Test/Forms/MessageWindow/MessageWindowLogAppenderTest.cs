@@ -123,7 +123,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
             var mocks = new MockRepository();
             var messageWindow = mocks.Stub<IMessageWindow>();
             messageWindow.Expect(w => w.AddMessage(Arg<Level>.Is.Equal(level),
-                                                   Arg<DateTime>.Matches(time => (time - dataTime) <= new TimeSpan(0, 0, 0, 0, 5)),
+                                                   Arg<DateTime>.Matches(time => time - dataTime <= new TimeSpan(0, 0, 0, 0, 5)),
                                                    Arg<string>.Is.Equal(expectedText)));
             mocks.ReplayAll();
 
@@ -157,7 +157,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
             var mocks = new MockRepository();
             var messageWindow = mocks.Stub<IMessageWindow>();
             messageWindow.Expect(w => w.AddMessage(Arg<Level>.Is.Equal(level),
-                                                   Arg<DateTime>.Matches(time => (time - dataTime) <= new TimeSpan(0, 0, 0, 0, 2)),
+                                                   Arg<DateTime>.Matches(time => time - dataTime <= new TimeSpan(0, 0, 0, 0, 2)),
                                                    Arg<string>.Is.Equal(messageText)));
             mocks.ReplayAll();
 
@@ -190,7 +190,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
             var mocks = new MockRepository();
             var messageWindow = mocks.Stub<IMessageWindow>();
             messageWindow.Expect(w => w.AddMessage(Arg<Level>.Is.Equal(level),
-                                                   Arg<DateTime>.Matches(time => (time - dataTime) <= new TimeSpan(0, 0, 0, 0, 2)),
+                                                   Arg<DateTime>.Matches(time => time - dataTime <= new TimeSpan(0, 0, 0, 0, 2)),
                                                    Arg<string>.Is.Equal(messageText)));
             mocks.ReplayAll();
 
@@ -224,7 +224,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
             var mocks = new MockRepository();
             var messageWindow = mocks.Stub<IMessageWindow>();
             messageWindow.Expect(w => w.AddMessage(Arg<Level>.Is.Equal(level),
-                                                   Arg<DateTime>.Matches(time => (time - dataTime) <= new TimeSpan(0, 0, 0, 0, 2)),
+                                                   Arg<DateTime>.Matches(time => time - dataTime <= new TimeSpan(0, 0, 0, 0, 2)),
                                                    Arg<string>.Is.Equal(expectedText)));
             mocks.ReplayAll();
 

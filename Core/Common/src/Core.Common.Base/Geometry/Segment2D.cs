@@ -56,12 +56,12 @@ namespace Core.Common.Base.Geometry
         /// <summary>
         /// The first <see cref="Point2D"/> of the <see cref="Segment2D"/>.
         /// </summary>
-        public Point2D FirstPoint { get; private set; }
+        public Point2D FirstPoint { get; }
 
         /// <summary>
         /// The second <see cref="Point2D"/> of the <see cref="Segment2D"/>.
         /// </summary>
-        public Point2D SecondPoint { get; private set; }
+        public Point2D SecondPoint { get; }
 
         /// <summary>
         /// Gets the (euclidean) length of the segment.

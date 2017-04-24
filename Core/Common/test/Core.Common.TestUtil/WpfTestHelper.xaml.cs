@@ -83,29 +83,26 @@ namespace Core.Common.TestUtil
             {
                 throw new NotImplementedException();
             }
-            else
+            WindowsFormsTestHelper.CloseAll(); // just in case, since we have mixed WPF / WF app
+
+            Close();
+
+            if (window != null)
             {
-                WindowsFormsTestHelper.CloseAll(); // just in case, since we have mixed WPF / WF app
+                window.Closed += WindowOnClosed;
 
-                Close();
+                window.Close();
+                window.Close();
 
-                if (window != null)
+                while (window.IsVisible)
                 {
-                    window.Closed += WindowOnClosed;
-
+                    Application.DoEvents();
+                    Application.DoEvents();
                     window.Close();
-                    window.Close();
-
-                    while (window.IsVisible)
-                    {
-                        Application.DoEvents();
-                        Application.DoEvents();
-                        window.Close();
-                    }
-
-                    window.Closed -= WindowOnClosed;
-                    window = null;
                 }
+
+                window.Closed -= WindowOnClosed;
+                window = null;
             }
         }
 

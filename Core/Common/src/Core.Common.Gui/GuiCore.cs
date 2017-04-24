@@ -144,7 +144,7 @@ namespace Core.Common.Gui
 
         #region Implementation: ISettingsOwner
 
-        public GuiCoreSettings FixedSettings { get; private set; }
+        public GuiCoreSettings FixedSettings { get; }
 
         #endregion
 

@@ -48,7 +48,7 @@ namespace Core.Common.Base.Test.Data
             {
                 new Point2D(2.35, 3.85),
                 new Point2D(4.63, 2.10),
-                new Point2D(6.74, 1.59),
+                new Point2D(6.74, 1.59)
             };
             CollectionAssert.AreEqual(expectedPoints, collection);
         }
@@ -94,7 +94,7 @@ namespace Core.Common.Base.Test.Data
             {
                 new Point2D(2.35, 3.85),
                 new Point2D(4.63, 2.10),
-                new Point2D(6.74, 1.59),
+                new Point2D(6.74, 1.59)
             };
             var index = 0;
             foreach (Point2D roundedPoint in collection)
@@ -110,7 +110,7 @@ namespace Core.Common.Base.Test.Data
             {
                 new Point2D(2.353, 3.846),
                 new Point2D(4.625, 2.104),
-                new Point2D(6.738, 1.593),
+                new Point2D(6.738, 1.593)
             };
         }
     }

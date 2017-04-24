@@ -40,5 +40,5 @@ namespace Core.Common.Gui.Forms.ViewHost
         /// Below the location reserved for document views.
         /// </summary>
         Bottom
-    };
+    }
 }
