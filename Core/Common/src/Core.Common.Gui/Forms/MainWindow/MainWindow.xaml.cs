@@ -476,7 +476,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         private void FillContextualGroupsFromRibbonComponent(Ribbon ribbonControl)
         {
             foreach (RibbonContextualTabGroup group in ribbonControl.ContextualGroups.Where(
-                group => Ribbon.ContextualGroups.All(g => g.Name != @group.Name)))
+                group => Ribbon.ContextualGroups.All(g => g.Name != group.Name)))
             {
                 Ribbon.ContextualGroups.Add(group);
             }

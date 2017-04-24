@@ -25,7 +25,6 @@ using System.Reflection;
 using System.Security;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Providers;
-using Ringtoets.HydraRing.IO;
 
 namespace Ringtoets.HydraRing.Calculation.Services
 {

@@ -125,11 +125,11 @@ namespace Core.Components.BruTile.IO
 
             // Notes: http://dotspatial.codeplex.com/discussions/473428
             threadPool.Cancel(false);
-            int dummy;
             foreach (KeyValuePair<TileIndex, int> request in activeTileRequests.ToArray())
             {
                 if (!openTileRequests.ContainsKey(request.Key))
                 {
+                    int dummy;
                     if (!activeTileRequests.TryRemove(request.Key, out dummy))
                     {
                         activeTileRequests.TryRemove(request.Key, out dummy);

@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
 using Core.Common.Gui.Commands;

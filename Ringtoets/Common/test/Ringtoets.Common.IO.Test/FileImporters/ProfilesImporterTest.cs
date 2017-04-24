@@ -760,19 +760,5 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         private class TestProfile {}
-
-        private class ProgressNotification
-        {
-            public ProgressNotification(string description, int currentStep, int totalSteps)
-            {
-                Text = description;
-                CurrentStep = currentStep;
-                TotalSteps = totalSteps;
-            }
-
-            public string Text { get; private set; }
-            public int CurrentStep { get; private set; }
-            public int TotalSteps { get; private set; }
-        }
     }
 }

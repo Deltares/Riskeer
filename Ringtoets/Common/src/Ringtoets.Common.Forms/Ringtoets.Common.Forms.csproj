@@ -79,7 +79,6 @@
     <Compile Include="PropertyClasses\VariationCoefficientDistributionPropertiesBase.cs" />
     <Compile Include="PropertyClasses\VariationCoefficientNormalDistributionProperties.cs" />
     <Compile Include="PropertyClasses\IObservablePropertyChangeHandler.cs" />
-    <Compile Include="PropertyClasses\IPropertyChangeHandler.cs" />
     <Compile Include="PropertyClasses\IFailureMechanismPropertyChangeHandler.cs" />
     <Compile Include="PropertyClasses\LogNormalDistributionProperties.cs" />
     <Compile Include="PropertyClasses\DistributionPropertiesBase.cs" />

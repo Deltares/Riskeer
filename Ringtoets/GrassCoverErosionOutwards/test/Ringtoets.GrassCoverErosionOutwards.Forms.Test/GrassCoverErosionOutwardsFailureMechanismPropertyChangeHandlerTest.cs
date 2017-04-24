@@ -43,7 +43,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
             var changeHandler = new GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler();
 
             // Call
-            TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation<int>(
+            TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation(
                 null,
                 3,
                 (f, v) => { });

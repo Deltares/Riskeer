@@ -77,7 +77,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
             TestDelegate test = () => ExposedSchemaCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
                 null,
                 "some name",
-                (StochastConfiguration) null);
+                null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -96,7 +96,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
             TestDelegate test = () => ExposedSchemaCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
                 xmlWriter,
                 null,
-                (StochastConfiguration) null);
+                null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -115,7 +115,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
             ExposedSchemaCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
                 xmlWriter,
                 "some name",
-                (StochastConfiguration) null);
+                null);
 
             // Assert
             mocks.VerifyAll();
@@ -150,7 +150,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
             TestDelegate test = () => ExposedSchemaCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
                 null,
                 "some name",
-                (StochastConfiguration) null);
+                null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -169,7 +169,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
             TestDelegate test = () => ExposedSchemaCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
                 xmlWriter,
                 null,
-                (StochastConfiguration) null);
+                null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -188,7 +188,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
             ExposedSchemaCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
                 xmlWriter,
                 "some name",
-                (StochastConfiguration) null);
+                null);
 
             // Assert
             mocks.VerifyAll();
@@ -466,35 +466,35 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
         {
             return new TestSchemaCalculationConfigurationWriter(filePath);
         }
-    }
 
-    public class ExposedSchemaCalculationConfigurationWriter : SchemaCalculationConfigurationWriter<TestConfigurationItem>
-    {
-        public ExposedSchemaCalculationConfigurationWriter(string filePath) : base(filePath) {}
-
-        public static void PublicWriteDistributionWhenAvailable(XmlWriter writer, string distributionName, StochastConfiguration configuration)
+        private class ExposedSchemaCalculationConfigurationWriter : SchemaCalculationConfigurationWriter<TestConfigurationItem>
         {
-            WriteDistributionWhenAvailable(writer, distributionName, configuration);
-        }
+            public ExposedSchemaCalculationConfigurationWriter(string filePath) : base(filePath) { }
 
-        public static void PublicWriteElementWhenContentAvailable(XmlWriter writer, string elementName, string elementContent)
-        {
-            WriteElementWhenContentAvailable(writer, elementName, elementContent);
-        }
+            public static void PublicWriteDistributionWhenAvailable(XmlWriter writer, string distributionName, StochastConfiguration configuration)
+            {
+                WriteDistributionWhenAvailable(writer, distributionName, configuration);
+            }
 
-        public static void PublicWriteElementWhenContentAvailable(XmlWriter writer, string elementName, double? elementContent)
-        {
-            WriteElementWhenContentAvailable(writer, elementName, elementContent);
-        }
+            public static void PublicWriteElementWhenContentAvailable(XmlWriter writer, string elementName, string elementContent)
+            {
+                WriteElementWhenContentAvailable(writer, elementName, elementContent);
+            }
 
-        public static void PublicWriteWaveReductionWhenAvailable(XmlWriter writer, WaveReductionConfiguration configuration)
-        {
-            WriteWaveReductionWhenAvailable(writer, configuration);
-        }
+            public static void PublicWriteElementWhenContentAvailable(XmlWriter writer, string elementName, double? elementContent)
+            {
+                WriteElementWhenContentAvailable(writer, elementName, elementContent);
+            }
 
-        protected override void WriteCalculation(TestConfigurationItem calculation, XmlWriter writer)
-        {
-            throw new NotImplementedException();
+            public static void PublicWriteWaveReductionWhenAvailable(XmlWriter writer, WaveReductionConfiguration configuration)
+            {
+                WriteWaveReductionWhenAvailable(writer, configuration);
+            }
+
+            protected override void WriteCalculation(TestConfigurationItem calculation, XmlWriter writer)
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

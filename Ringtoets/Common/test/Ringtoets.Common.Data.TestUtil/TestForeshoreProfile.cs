@@ -56,6 +56,7 @@ namespace Ringtoets.Common.Data.TestUtil
         /// name and geometry.
         /// </summary>
         /// <param name="profileName">Name of the profile.</param>
+        /// <param name="geometry">The geometry of the profile.</param>
         public TestForeshoreProfile(string profileName, IEnumerable<Point2D> geometry) : this("id", profileName, new Point2D(0, 0), null, geometry) {}
 
         /// <summary>

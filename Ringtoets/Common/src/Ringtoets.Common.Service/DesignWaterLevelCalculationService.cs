@@ -169,6 +169,7 @@ namespace Ringtoets.Common.Service
         /// <param name="hydraulicBoundaryLocationName">The name of the hydraulic boundary location.</param>
         /// <param name="targetReliability">The target reliability for the calculation.</param>
         /// <param name="targetProbability">The target probability for the calculation.</param>
+        /// <param name="calculatorConverged">The value indicating whether the calculation converged.</param>
         /// <returns>A <see cref="HydraulicBoundaryLocationOutput"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="targetProbability"/> 
         /// or the calculated probability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>

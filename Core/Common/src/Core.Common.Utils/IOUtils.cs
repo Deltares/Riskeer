@@ -74,7 +74,7 @@ namespace Core.Common.Utils
         {
             try
             {
-                string fullPath = GetFullPath(path);
+                GetFullPath(path);
             }
             catch (ArgumentException exception)
             {

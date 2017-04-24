@@ -105,8 +105,10 @@ namespace Ringtoets.Piping.Data.Test
             var scenario = new PipingCalculationScenario(new GeneralPipingInput());
 
             // Call
-            double probability;
-            TestDelegate call = () => probability = scenario.Probability;
+            TestDelegate call = () =>
+            {
+                double probability = scenario.Probability;
+            };
 
             // Assert
             Assert.Throws<InvalidOperationException>(call);

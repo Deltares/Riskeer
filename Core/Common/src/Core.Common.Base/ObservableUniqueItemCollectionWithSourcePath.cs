@@ -47,9 +47,9 @@ namespace Core.Common.Base
         /// <param name="getUniqueFeature">A function to retrieve the unique feature of the items it stores.</param>
         /// <param name="typeDescriptor">The description of the item that is validated.</param>
         /// <param name="featureDescription">The description of the feature of the item to be validated on.</param>
-        public ObservableUniqueItemCollectionWithSourcePath(Func<TElement, object> getUniqueFeature,
-                                                            string typeDescriptor,
-                                                            string featureDescription)
+        protected ObservableUniqueItemCollectionWithSourcePath(Func<TElement, object> getUniqueFeature,
+                                                               string typeDescriptor,
+                                                               string featureDescription)
         {
             if (getUniqueFeature == null)
             {

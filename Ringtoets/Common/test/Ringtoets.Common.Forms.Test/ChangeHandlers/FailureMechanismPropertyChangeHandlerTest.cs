@@ -55,7 +55,7 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
             var changeHandler = new FailureMechanismPropertyChangeHandler<IFailureMechanism>();
 
             // Call
-            TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation<int>(
+            TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation(
                 null,
                 3,
                 (f, v) => { });

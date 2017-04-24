@@ -93,8 +93,10 @@ namespace Core.Common.Utils.Test.Drawing
             ColorAccess colorAccess = ColorAccess.Create(Resources.Black2x2);
 
             // Call
-            Color c;
-            TestDelegate call = () => c = colorAccess[x, y];
+            TestDelegate call = () =>
+            {
+                Color c = colorAccess[x, y];
+            };
 
             // Assert
             var message = "Index must be in range x:[0,1], y:[0,1].";

@@ -36,7 +36,7 @@ using Core.Plugins.Map.PropertyClasses;
 namespace Core.Plugins.Map
 {
     /// <summary>
-    /// The plug-in for the <see cref="DotSpatial"/> map component.
+    /// The plug-in that ties together all the components to enable map interactions.
     /// </summary>
     public class MapPlugin : PluginBase
     {

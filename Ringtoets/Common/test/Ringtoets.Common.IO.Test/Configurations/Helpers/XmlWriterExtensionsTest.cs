@@ -144,7 +144,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
                 using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
                 {
                     // Call
-                    TestDelegate testDelegate = () => xmlWriter.WriteDistribution("name", (StochastConfiguration) null);
+                    TestDelegate testDelegate = () => xmlWriter.WriteDistribution("name", null);
 
                     // Assert
                     var exception = Assert.Throws<ArgumentNullException>(testDelegate);
@@ -230,7 +230,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
                 using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
                 {
                     // Call
-                    TestDelegate testDelegate = () => xmlWriter.WriteDistribution("name", (StochastConfiguration) null);
+                    TestDelegate testDelegate = () => xmlWriter.WriteDistribution("name", null);
 
                     // Assert
                     var exception = Assert.Throws<ArgumentNullException>(testDelegate);
@@ -427,10 +427,5 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
                 ConformanceLevel = ConformanceLevel.Fragment
             });
         }
-    }
-
-    public class SimpleStructuresCalculationConfiguration : StructuresCalculationConfiguration
-    {
-        public SimpleStructuresCalculationConfiguration(string name) : base(name) {}
     }
 }

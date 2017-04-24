@@ -25,8 +25,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PropertyClasses;
 
 namespace Ringtoets.Piping.Forms.Test.PropertyClasses
@@ -41,8 +39,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var mocks = new MockRepository();
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
-
-            PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
 
             // Call
             TestDelegate test = () => new SimpleDesignVariableProperties(DistributionPropertiesReadOnly.None,
@@ -65,8 +61,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             var distribution = new LogNormalDistribution();
             var designVariable = new LogNormalDistributionDesignVariable(distribution);
-
-            PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
 
             // Call
             var properties = new SimpleDesignVariableProperties(DistributionPropertiesReadOnly.All,
@@ -94,8 +88,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 StandardDeviation = (RoundedDouble) 2
             };
             var designVariable = new LogNormalDistributionDesignVariable(distribution);
-
-            PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
 
             // Call
             var properties = new SimpleDesignVariableProperties(DistributionPropertiesReadOnly.None,

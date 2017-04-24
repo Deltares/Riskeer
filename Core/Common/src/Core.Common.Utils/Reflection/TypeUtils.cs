@@ -45,7 +45,7 @@ namespace Core.Common.Utils.Reflection
         /// is an invalid value for <typeparamref name="TEnumType"/>.</exception>
         public static string GetDisplayName<TEnumType>(TEnumType enumValue) where TEnumType : IConvertible
         {
-            string valueString = enumValue.ToString();
+            string valueString = enumValue.ToString(CultureInfo.InvariantCulture);
             FieldInfo fieldInfo = typeof(TEnumType).GetField(valueString);
             if (fieldInfo == null)
             {

@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -143,7 +142,6 @@ namespace Ringtoets.Piping.Forms.Views
             /// <summary>
             /// Gets the name of the material that was assigned to the <see cref="PipingSoilLayer"/>.
             /// </summary>
-            /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>
             public string MaterialName { get; }
 
             /// <summary>

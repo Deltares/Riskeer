@@ -27,7 +27,6 @@ using System.IO;
 using Core.Common.Utils;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.HydraRing.Calculation.Properties;
-using Ringtoets.HydraRing.IO;
 
 namespace Ringtoets.HydraRing.Calculation.Readers
 {

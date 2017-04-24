@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
-using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.Structures;
@@ -38,8 +37,6 @@ namespace Ringtoets.HeightStructures.IO
     /// </summary>
     public class HeightStructuresImporter : StructuresImporter<ObservableList<HeightStructure>>
     {
-        private readonly ILog log = LogManager.GetLogger(typeof(HeightStructuresImporter));
-
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresImporter"/>.
         /// </summary>

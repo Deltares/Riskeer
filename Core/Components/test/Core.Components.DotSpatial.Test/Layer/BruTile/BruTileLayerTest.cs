@@ -189,10 +189,9 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             // Setup
             const string authorityCode = "EPSG:28992";
             var extent = new Extent(10000, 123456, 987654321, 321654);
-            const string legendText = "A";
 
             var mocks = new MockRepository();
-            IConfiguration configuration = CreateStubConfiguration(mocks, authorityCode, extent, legendText);
+            IConfiguration configuration = CreateStubConfiguration(mocks, authorityCode, extent);
             mocks.ReplayAll();
 
             // Call
@@ -902,7 +901,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             IConfiguration configuration = CreateStubConfiguration(mocks);
             mocks.ReplayAll();
 
-            using (var layer = new BruTileLayer(configuration)
+            using (new BruTileLayer(configuration)
             {
                 MapFrame = mapFrame
             })
@@ -1081,8 +1080,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
 
         private static IConfiguration CreateStubConfiguration(MockRepository mocks,
                                                               string tileSchemaSrsString = "EPSG:28992",
-                                                              Extent tileSourceExtent = new Extent(),
-                                                              string legendText = "<Legend Text>")
+                                                              Extent tileSourceExtent = new Extent())
         {
             var schema = mocks.Stub<ITileSchema>();
             schema.Stub(s => s.Srs).Return(tileSchemaSrsString);
