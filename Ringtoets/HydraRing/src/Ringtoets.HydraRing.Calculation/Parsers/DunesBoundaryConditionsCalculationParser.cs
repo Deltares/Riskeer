@@ -32,7 +32,6 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
     /// </summary>
     public class DunesBoundaryConditionsCalculationParser : IHydraRingFileParser
     {
-        private const string sectionIdParameterName = "@sectionId";
         private const string waveHeightColumnName = "WaveHeight";
         private const string wavePeriodColumnName = "WavePeriod";
         private const string waterLevelColumnName = "WaterLevel";
@@ -42,7 +41,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
                                         $"max(case when OutputVariableId is 5 then d.Value end) {wavePeriodColumnName}, " +
                                         $"max(case when OutputVariableId is 23 then d.Value end) {waterLevelColumnName} " +
                                         "FROM DesignPointResults as d " +
-                                        $"WHERE SectionId = {sectionIdParameterName} " +
+                                        $"WHERE SectionId = {HydraRingDatabaseConstants.SectionIdParameterName} " +
                                         "GROUP BY OuterIterationId " +
                                         "ORDER BY OuterIterationId DESC " +
                                         "LIMIT 1;";

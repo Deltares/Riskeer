@@ -32,7 +32,6 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
     /// </summary>
     public class OvertoppingCalculationWaveHeightParser : IHydraRingFileParser
     {
-        private const string sectionIdParameterName = "@sectionId";
         private const string waveHeightColumn = "WaveHeight";
         private const string isOvertoppingDominantColumn = "IsOvertoppingDominant";
 
@@ -42,7 +41,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
             "(SELECT d.OuterIterationId, d.PeriodId, BetaValue, ClosingSituationId, d.WindDirectionId, LevelTypeId, SubMechanismId " +
             "FROM GoverningWind g " +
             "JOIN DesignBeta d ON d.WindDirectionId = g.WindDirectionId AND d.OuterIterationId = g.OuterIterationId AND d.PeriodId = g.PeriodId " +
-            $"WHERE LevelTypeId = 7 AND d.SubMechanismId = 102 AND SectionId = {sectionIdParameterName} " +
+            $"WHERE LevelTypeId = 7 AND d.SubMechanismId = 102 AND SectionId = {HydraRingDatabaseConstants.SectionIdParameterName} " +
             "ORDER BY d.OuterIterationId DESC, d.PeriodId, BetaValue " +
             "LIMIT 1) as g " +
             "JOIN " +
@@ -50,7 +49,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
             "JOIN DesignPointResults d ON d.WindDirectionId = g.WindDirectionId AND d.OuterIterationId = g.OuterIterationId AND d.PeriodId = g.PeriodId " +
             "JOIN DesignBeta db ON db.WindDirectionId = d.WindDirectionId AND db.ClosingSituationId = d.ClosingSituationId AND db.OuterIterationId = d.OuterIterationId " +
             "AND db.PeriodId = d.PeriodId " +
-            $"WHERE OutputVariableId = 3 AND db.LevelTypeId = 7 AND db.SectionId = {sectionIdParameterName} " +
+            $"WHERE OutputVariableId = 3 AND db.LevelTypeId = 7 AND db.SectionId = {HydraRingDatabaseConstants.SectionIdParameterName} " +
             "ORDER BY d.OuterIterationId DESC, d.PeriodId, db.BetaValue " +
             "LIMIT 1) " +
             "Order By g.BetaValue " +

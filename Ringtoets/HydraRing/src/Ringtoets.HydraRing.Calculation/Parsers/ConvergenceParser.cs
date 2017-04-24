@@ -31,13 +31,12 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
     /// </summary>
     public class ConvergenceParser : IHydraRingFileParser
     {
-        private const string sectionIdParameterName = "@sectionId";
         private const string convergedColumnName = "Converged";
 
         private readonly string getLastResultQuery =
             $"SELECT ConvOnBeta OR ConvOnValue OR ConvOnValueZeroQVariant AS {convergedColumnName} " +
             "FROM IterateToGivenBetaConvergence " +
-            $"WHERE SectionId = {sectionIdParameterName} " +
+            $"WHERE SectionId = {HydraRingDatabaseConstants.SectionIdParameterName} " +
             "ORDER BY OuterIterationId DESC " +
             "LIMIT 1";
 

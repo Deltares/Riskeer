@@ -36,7 +36,6 @@ namespace Ringtoets.HydraRing.Calculation.Readers
     /// </summary>
     internal class HydraRingDatabaseReader : IDisposable
     {
-        private const string sectionIdParameterName = "@sectionId";
         private readonly string workingDirectory;
 
         private SQLiteConnection connection;
@@ -143,7 +142,7 @@ namespace Ringtoets.HydraRing.Calculation.Readers
             command.Parameters.Add(new SQLiteParameter
             {
                 DbType = DbType.Int64,
-                ParameterName = sectionIdParameterName,
+                ParameterName = HydraRingDatabaseConstants.SectionIdParameterName,
                 Value = sectionId
             });
         }

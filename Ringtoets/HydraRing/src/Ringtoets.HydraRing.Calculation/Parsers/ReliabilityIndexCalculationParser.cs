@@ -32,13 +32,12 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
     /// </summary>
     public class ReliabilityIndexCalculationParser : IHydraRingFileParser
     {
-        private const string sectionIdParameterName = "@sectionId";
         private const string betaColumnName = "BetaValue";
         private const string valueColumnName = "Value";
 
         private readonly string query = $"SELECT {betaColumnName}, {valueColumnName} " +
                                         "FROM IterateToGivenBetaConvergence " +
-                                        $"WHERE SectionId = {sectionIdParameterName} " +
+                                        $"WHERE SectionId = {HydraRingDatabaseConstants.SectionIdParameterName} " +
                                         "ORDER BY OuterIterationId DESC " +
                                         "LIMIT 1;";
 

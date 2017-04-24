@@ -31,12 +31,11 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
     /// </summary>
     public class ExceedanceProbabilityCalculationParser : IHydraRingFileParser
     {
-        private const string sectionIdParameterName = "@sectionId";
         private const string betaColumnName = "BetaValue";
 
         private readonly string query = $"SELECT {betaColumnName} " +
                                         "FROM DesignBeta " +
-                                        $"WHERE SectionId = {sectionIdParameterName} AND LevelTypeId = 4 " +
+                                        $"WHERE SectionId = {HydraRingDatabaseConstants.SectionIdParameterName} AND LevelTypeId = 4 " +
                                         "ORDER BY OuterIterationId DESC " +
                                         "LIMIT 1;";
 
