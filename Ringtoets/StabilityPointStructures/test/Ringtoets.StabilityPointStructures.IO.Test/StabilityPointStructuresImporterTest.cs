@@ -237,13 +237,13 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
                 string[] messages = msgs.ToArray();
                 Assert.AreEqual(11, messages.Length);
 
-                const string structure = "Kunstwerk 'Coupure Den Oever (90k1)' (KUNST1)";
+                const string structure = "'Coupure Den Oever (90k1)' (KUNST1)";
 
-                Assert.AreEqual($"Geen definitie gevonden voor parameter 'KW_STERSTAB2' van kunstwerk '{structure}'. Er wordt een standaard waarde gebruikt.", messages[0]);
-                Assert.AreEqual($"Geen definitie gevonden voor parameter 'KW_STERSTAB6' van kunstwerk '{structure}'. Er wordt een standaard waarde gebruikt.", messages[4]);
-                Assert.AreEqual($"Geen definitie gevonden voor parameter 'KW_STERSTAB12' van kunstwerk '{structure}'. Er wordt een standaard waarde gebruikt.", messages[7]);
-                Assert.AreEqual($"Geen definitie gevonden voor parameter 'KW_STERSTAB20' van kunstwerk '{structure}'. Er wordt een standaard waarde gebruikt.", messages[9]);
-                Assert.AreEqual($"Geen definitie gevonden voor parameter 'KW_STERSTAB25' van kunstwerk '{structure}'. Er wordt een standaard waarde gebruikt.", messages[10]);
+                Assert.AreEqual($"Geen definitie gevonden voor parameter 'KW_STERSTAB2' van kunstwerk {structure}. Er wordt een standaard waarde gebruikt.", messages[0]);
+                Assert.AreEqual($"Geen definitie gevonden voor parameter 'KW_STERSTAB6' van kunstwerk {structure}. Er wordt een standaard waarde gebruikt.", messages[4]);
+                Assert.AreEqual($"Geen definitie gevonden voor parameter 'KW_STERSTAB12' van kunstwerk {structure}. Er wordt een standaard waarde gebruikt.", messages[7]);
+                Assert.AreEqual($"Geen definitie gevonden voor parameter 'KW_STERSTAB20' van kunstwerk {structure}. Er wordt een standaard waarde gebruikt.", messages[9]);
+                Assert.AreEqual($"Geen definitie gevonden voor parameter 'KW_STERSTAB25' van kunstwerk {structure}. Er wordt een standaard waarde gebruikt.", messages[10]);
                 // Don't care about the other messages.
             });
             Assert.IsTrue(importResult);

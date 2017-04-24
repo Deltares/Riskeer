@@ -141,9 +141,8 @@ namespace Ringtoets.Common.IO.FileImporters
             }
             else
             {
-                string structure = string.Format(Resources.StructuresImporter_StructureName_0_StructureId_1_, structureName, structureId);
-                log.Info(string.Format(Resources.StructuresImporter_TrySetConstructionProperty_Parameter_0_of_Structure_1_missing_or_invalid_default_values_used,
-                                       key, structure));
+                log.Info(string.Format(Resources.StructuresImporter_TrySetConstructionProperty_Parameter_0_of_StructureName_1_StructureId_2_missing_or_invalid_default_values_used,
+                                       key, structureName, structureId));
             }
         }
 

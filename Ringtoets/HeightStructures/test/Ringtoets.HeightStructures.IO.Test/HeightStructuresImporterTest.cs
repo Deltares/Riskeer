@@ -188,11 +188,11 @@ namespace Ringtoets.HeightStructures.IO.Test
                 string[] messages = msgs.ToArray();
                 Assert.AreEqual(4, messages.Length);
 
-                const string structure = "Kunstwerk 'Coupure Den Oever (90k1)' (KUNST1)";
+                const string structure = "'Coupure Den Oever (90k1)' (KUNST1)";
 
-                Assert.AreEqual($"Geen definitie gevonden voor parameter 'KW_HOOGTE1' van kunstwerk '{structure}'. Er wordt een standaard waarde gebruikt.", messages[0]);
-                Assert.AreEqual($"Geen definitie gevonden voor parameter 'KW_HOOGTE3' van kunstwerk '{structure}'. Er wordt een standaard waarde gebruikt.", messages[1]);
-                Assert.AreEqual($"Geen definitie gevonden voor parameter 'KW_HOOGTE6' van kunstwerk '{structure}'. Er wordt een standaard waarde gebruikt.", messages[2]);
+                Assert.AreEqual($"Geen definitie gevonden voor parameter 'KW_HOOGTE1' van kunstwerk {structure}. Er wordt een standaard waarde gebruikt.", messages[0]);
+                Assert.AreEqual($"Geen definitie gevonden voor parameter 'KW_HOOGTE3' van kunstwerk {structure}. Er wordt een standaard waarde gebruikt.", messages[1]);
+                Assert.AreEqual($"Geen definitie gevonden voor parameter 'KW_HOOGTE6' van kunstwerk {structure}. Er wordt een standaard waarde gebruikt.", messages[2]);
                 // Don't care about the other message.
             });
             Assert.IsTrue(importResult);

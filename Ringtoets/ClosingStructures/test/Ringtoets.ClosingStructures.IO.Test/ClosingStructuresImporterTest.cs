@@ -220,12 +220,12 @@ namespace Ringtoets.ClosingStructures.IO.Test
                 string[] messages = msgs.ToArray();
                 Assert.AreEqual(9, messages.Length);
 
-                const string structure = "Kunstwerk 'Coupure Den Oever (90k1)' (KUNST1)";
+                const string structure = "'Coupure Den Oever (90k1)' (KUNST1)";
 
-                Assert.AreEqual($"Geen definitie gevonden voor parameter 'KW_BETSLUIT1' van kunstwerk '{structure}'. Er wordt een standaard waarde gebruikt.", messages[0]);
-                Assert.AreEqual($"Geen definitie gevonden voor parameter 'KW_BETSLUIT5' van kunstwerk '{structure}'. Er wordt een standaard waarde gebruikt.", messages[3]);
-                Assert.AreEqual($"Geen definitie gevonden voor parameter 'KW_BETSLUIT8' van kunstwerk '{structure}'. Er wordt een standaard waarde gebruikt.", messages[6]);
-                Assert.AreEqual($"Geen definitie gevonden voor parameter 'KW_BETSLUIT14' van kunstwerk '{structure}'. Er wordt een standaard waarde gebruikt.", messages[8]);
+                Assert.AreEqual($"Geen definitie gevonden voor parameter 'KW_BETSLUIT1' van kunstwerk {structure}. Er wordt een standaard waarde gebruikt.", messages[0]);
+                Assert.AreEqual($"Geen definitie gevonden voor parameter 'KW_BETSLUIT5' van kunstwerk {structure}. Er wordt een standaard waarde gebruikt.", messages[3]);
+                Assert.AreEqual($"Geen definitie gevonden voor parameter 'KW_BETSLUIT8' van kunstwerk {structure}. Er wordt een standaard waarde gebruikt.", messages[6]);
+                Assert.AreEqual($"Geen definitie gevonden voor parameter 'KW_BETSLUIT14' van kunstwerk {structure}. Er wordt een standaard waarde gebruikt.", messages[8]);
                 // Don't care about the other messages.
             });
             Assert.IsTrue(importResult);
