@@ -292,10 +292,10 @@ namespace Ringtoets.Common.Forms.Views
             where T : StructuresInputBase<U>, new()
             where U : StructureBase
         {
-            if ((calculations != null && calculations.Any()))
+            if (calculations != null && calculations.Any())
             {
-                MapCalculationData[] calculationData = Enumerable.ToArray(calculations.Where(CalculationHasStructureAndHydraulicBoundaryLocation<T, U>)
-                                                                                      .Select(CreatemapCalculationData<T, U>));
+                MapCalculationData[] calculationData = calculations.Where(CalculationHasStructureAndHydraulicBoundaryLocation<T, U>)
+                                                                   .Select(CreatemapCalculationData<T, U>).ToArray();
 
                 return CreateCalculationFeatures(calculationData);
             }

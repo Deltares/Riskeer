@@ -149,7 +149,7 @@ namespace Ringtoets.Piping.Data
             }
         }
 
-        protected bool Equals(StochasticSoilProfile other)
+        private bool Equals(StochasticSoilProfile other)
         {
             return Probability.Equals(other.Probability)
                    && SoilProfileType == other.SoilProfileType

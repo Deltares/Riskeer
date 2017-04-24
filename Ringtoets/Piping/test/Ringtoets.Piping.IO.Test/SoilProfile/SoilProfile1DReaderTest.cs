@@ -67,7 +67,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(test);
             string expectedMessage = new FileReaderErrorMessageBuilder(path)
-                .WithSubject(string.Format("ondergrondschematisatie '{0}'", profileName))
+                .WithSubject($"ondergrondschematisatie '{profileName}'")
                 .Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
             Assert.AreEqual(expectedMessage, exception.Message);
 
@@ -94,7 +94,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             // Assert
             var exception = Assert.Throws<PipingSoilProfileReadException>(test);
             string expectedMessage = new FileReaderErrorMessageBuilder(path)
-                .WithSubject(string.Format("ondergrondschematisatie '{0}'", profileName))
+                .WithSubject($"ondergrondschematisatie '{profileName}'")
                 .Build("Ondergrondschematisatie bevat geen geldige waarde in kolom 'Bottom'.");
             Assert.AreEqual(expectedMessage, exception.Message);
 
@@ -119,7 +119,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             // Assert
             var exception = Assert.Throws<PipingSoilProfileReadException>(test);
             string expectedMessage = new FileReaderErrorMessageBuilder(path)
-                .WithSubject(string.Format("ondergrondschematisatie '{0}'", profileName))
+                .WithSubject($"ondergrondschematisatie '{profileName}'")
                 .Build("Geen lagen gevonden voor de ondergrondschematisatie.");
             Assert.AreEqual(expectedMessage, exception.Message);
 
@@ -145,7 +145,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             // Assert
             var exception = Assert.Throws<PipingSoilProfileReadException>(test);
             string expectedMessage = new FileReaderErrorMessageBuilder(path)
-                .WithSubject(string.Format("ondergrondschematisatie '{0}'", profileName))
+                .WithSubject($"ondergrondschematisatie '{profileName}'")
                 .Build("Ondergrondschematisatie bevat geen geldige waarde in kolom 'IsAquifer'.");
             Assert.AreEqual(expectedMessage, exception.Message);
 
@@ -354,7 +354,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             mocks.VerifyAll();
         }
 
-        private void SetExpectations(int layerCount, string profileName, double bottom, double top, double? isAquifer, string materialName, double? color, double? belowPhreaticLevelMean, double? belowPhreaticLevelDeviation, double? diameterD70Mean, double? DiameterD70CoefficientOfVariation, double? permeabilityMean, double? permeabilityCoefficientOfVariation)
+        private void SetExpectations(int layerCount, string profileName, double bottom, double top, double? isAquifer, string materialName, double? color, double? belowPhreaticLevelMean, double? belowPhreaticLevelDeviation, double? diameterD70Mean, double? diameterD70CoefficientOfVariation, double? permeabilityMean, double? permeabilityCoefficientOfVariation)
         {
             reader.Expect(r => r.Read<long>(SoilProfileTableColumns.LayerCount)).Return(layerCount).Repeat.Any();
             reader.Expect(r => r.Read<string>(SoilProfileTableColumns.ProfileName)).Return(profileName).Repeat.Any();
@@ -373,7 +373,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableColumns.DiameterD70Distribution)).Return(logNormalDistribution).Repeat.Any();
             reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableColumns.DiameterD70Shift)).Return(logNormalShift).Repeat.Any();
             reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableColumns.DiameterD70Mean)).Return(diameterD70Mean).Repeat.Any();
-            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableColumns.DiameterD70CoefficientOfVariation)).Return(DiameterD70CoefficientOfVariation).Repeat.Any();
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableColumns.DiameterD70CoefficientOfVariation)).Return(diameterD70CoefficientOfVariation).Repeat.Any();
             reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableColumns.PermeabilityDistribution)).Return(logNormalDistribution).Repeat.Any();
             reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableColumns.PermeabilityShift)).Return(logNormalShift).Repeat.Any();
             reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableColumns.PermeabilityMean)).Return(permeabilityMean).Repeat.Any();

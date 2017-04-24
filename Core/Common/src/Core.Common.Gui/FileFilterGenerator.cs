@@ -98,7 +98,7 @@ namespace Core.Common.Gui
             }
         }
 
-        protected bool Equals(FileFilterGenerator other)
+        private bool Equals(FileFilterGenerator other)
         {
             return string.Equals(extension, other.extension) && string.Equals(description, other.description);
         }

@@ -128,16 +128,16 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             mocks.ReplayAll();
 
             var random = new Random(21);
-            RoundedDouble StandardDeviation = random.NextRoundedDouble();
+            RoundedDouble standardDeviation = random.NextRoundedDouble();
 
-            distribution.StandardDeviation = StandardDeviation;
+            distribution.StandardDeviation = standardDeviation;
 
             // Call
             StochastConfiguration configuration = distribution.ToStochastConfigurationWithStandardDeviation();
 
             // Assert
             Assert.IsNull(configuration.Mean);
-            Assert.AreEqual(StandardDeviation, configuration.StandardDeviation);
+            Assert.AreEqual(standardDeviation, configuration.StandardDeviation);
         }
 
         [Test]
