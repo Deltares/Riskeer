@@ -145,7 +145,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.DikeHeightOutput?.Result
+                return data.DikeHeightOutput?.DikeHeight
                        ?? RoundedDouble.NaN;
             }
         }
@@ -237,7 +237,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.OvertoppingRateOutput?.Result
+                return data.OvertoppingRateOutput?.OvertoppingRate
                        ?? RoundedDouble.NaN;
             }
         }

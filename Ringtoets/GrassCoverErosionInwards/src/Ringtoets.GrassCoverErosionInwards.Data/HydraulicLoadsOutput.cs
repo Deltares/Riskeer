@@ -34,7 +34,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicLoadsOutput"/>.
         /// </summary>
-        /// <param name="result">The calculated result.</param>
         /// <param name="targetProbability">The norm used during the calculation.</param>
         /// <param name="targetReliability">The reliability index used during the calculation.</param>
         /// <param name="calculatedProbability">The calculated probability.</param>
@@ -42,14 +41,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <param name="calculationConvergence">The convergence status of the calculation.</param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="targetProbability"/> 
         /// or <paramref name="calculatedProbability"/> falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
-        protected HydraulicLoadsOutput(double result, double targetProbability, double targetReliability,
+        protected HydraulicLoadsOutput(double targetProbability, double targetReliability,
                                        double calculatedProbability, double calculatedReliability,
                                        CalculationConvergence calculationConvergence)
         {
             ProbabilityHelper.ValidateProbability(targetProbability, nameof(targetProbability), true);
             ProbabilityHelper.ValidateProbability(calculatedProbability, nameof(calculatedProbability), true);
-
-            Result = new RoundedDouble(2, result);
 
             TargetProbability = targetProbability;
             TargetReliability = new RoundedDouble(5, targetReliability);
@@ -57,11 +54,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             CalculatedReliability = new RoundedDouble(5, calculatedReliability);
             CalculationConvergence = calculationConvergence;
         }
-
-        /// <summary>
-        /// Gets the calculated result.
-        /// </summary>
-        public RoundedDouble Result { get; private set; }
 
         /// <summary>
         /// Gets the norm used during the calculation.

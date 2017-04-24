@@ -37,7 +37,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         public void CreateDikeHeight_OutputNull_ThrowArgumentNullException()
         {
             // Setup
-            HydraulicLoadsOutput output = null;
+            DikeHeightOutput output = null;
 
             // Call
             TestDelegate test = () => output.CreateDikeHeight();
@@ -61,7 +61,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual(output.Result, entity.DikeHeight, output.Result.GetAccuracy());
+            Assert.AreEqual(output.DikeHeight, entity.DikeHeight, output.DikeHeight.GetAccuracy());
             Assert.AreEqual(output.TargetProbability, entity.TargetProbability);
             Assert.AreEqual(output.TargetReliability, entity.TargetReliability, output.TargetReliability.GetAccuracy());
             Assert.AreEqual(output.CalculatedProbability, entity.CalculatedProbability);
@@ -94,7 +94,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         public void CreateOvertoppingRate_OutputNull_ThrowArgumentNullException()
         {
             // Setup
-            HydraulicLoadsOutput output = null;
+            OvertoppingRateOutput output = null;
 
             // Call
             TestDelegate test = () => output.CreateOvertoppingRate();
@@ -118,7 +118,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual(output.Result, entity.OvertoppingRate, output.Result.GetAccuracy());
+            Assert.AreEqual(output.OvertoppingRate, entity.OvertoppingRate, output.OvertoppingRate.GetAccuracy());
             Assert.AreEqual(output.TargetProbability, entity.TargetProbability);
             Assert.AreEqual(output.TargetReliability, entity.TargetReliability, output.TargetReliability.GetAccuracy());
             Assert.AreEqual(output.CalculatedProbability, entity.CalculatedProbability);

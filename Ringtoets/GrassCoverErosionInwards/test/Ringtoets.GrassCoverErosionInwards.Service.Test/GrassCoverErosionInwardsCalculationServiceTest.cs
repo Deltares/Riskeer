@@ -553,10 +553,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             if (dikeHeightCalculationType != DikeHeightCalculationType.NoCalculation)
             {
-                HydraulicLoadsOutput dikeHeightOutput = calculation.Output.DikeHeightOutput;
+                DikeHeightOutput dikeHeightOutput = calculation.Output.DikeHeightOutput;
                 Assert.IsNotNull(dikeHeightOutput);
 
-                Assert.IsFalse(double.IsNaN(dikeHeightOutput.Result));
+                Assert.IsFalse(double.IsNaN(dikeHeightOutput.DikeHeight));
                 Assert.IsFalse(double.IsNaN(dikeHeightOutput.TargetProbability));
                 Assert.IsFalse(double.IsNaN(dikeHeightOutput.TargetReliability));
                 Assert.IsFalse(double.IsNaN(dikeHeightOutput.CalculatedProbability));
@@ -569,10 +569,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             if (overtoppingRateCalculationType != OvertoppingRateCalculationType.NoCalculation)
             {
-                HydraulicLoadsOutput overtoppingRateOutput = calculation.Output.OvertoppingRateOutput;
+                OvertoppingRateOutput overtoppingRateOutput = calculation.Output.OvertoppingRateOutput;
                 Assert.IsNotNull(overtoppingRateOutput);
 
-                Assert.IsFalse(double.IsNaN(overtoppingRateOutput.Result));
+                Assert.IsFalse(double.IsNaN(overtoppingRateOutput.OvertoppingRate));
                 Assert.IsFalse(double.IsNaN(overtoppingRateOutput.TargetProbability));
                 Assert.IsFalse(double.IsNaN(overtoppingRateOutput.TargetReliability));
                 Assert.IsFalse(double.IsNaN(overtoppingRateOutput.CalculatedProbability));

@@ -69,7 +69,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             Assert.AreEqual(probabilityAssessmentOutput.RequiredReliability.Value, entity.RequiredReliability);
 
             GrassCoverErosionInwardsDikeHeightOutputEntity dikeHeightEntity = entity.GrassCoverErosionInwardsDikeHeightOutputEntities.First();
-            Assert.AreEqual(dikeHeightOutput.Result, dikeHeightEntity.DikeHeight, dikeHeightOutput.Result.GetAccuracy());
+            Assert.AreEqual(dikeHeightOutput.DikeHeight, dikeHeightEntity.DikeHeight, dikeHeightOutput.DikeHeight.GetAccuracy());
             Assert.AreEqual(dikeHeightOutput.TargetProbability, dikeHeightEntity.TargetProbability);
             Assert.AreEqual(dikeHeightOutput.TargetReliability, dikeHeightEntity.TargetReliability, dikeHeightOutput.TargetReliability.GetAccuracy());
             Assert.AreEqual(dikeHeightOutput.CalculatedProbability, dikeHeightEntity.CalculatedProbability);
@@ -77,7 +77,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             Assert.AreEqual((byte) dikeHeightOutput.CalculationConvergence, dikeHeightEntity.CalculationConvergence);
 
             GrassCoverErosionInwardsOvertoppingRateOutputEntity overtoppingRateEntity = entity.GrassCoverErosionInwardsOvertoppingRateOutputEntities.First();
-            Assert.AreEqual(overtoppingRateOutput.Result, overtoppingRateEntity.OvertoppingRate, overtoppingRateOutput.Result.GetAccuracy());
+            Assert.AreEqual(overtoppingRateOutput.OvertoppingRate, overtoppingRateEntity.OvertoppingRate, overtoppingRateOutput.OvertoppingRate.GetAccuracy());
             Assert.AreEqual(overtoppingRateOutput.TargetProbability, overtoppingRateEntity.TargetProbability);
             Assert.AreEqual(overtoppingRateOutput.TargetReliability, overtoppingRateEntity.TargetReliability, overtoppingRateOutput.TargetReliability.GetAccuracy());
             Assert.AreEqual(overtoppingRateOutput.CalculatedProbability, overtoppingRateEntity.CalculatedProbability);

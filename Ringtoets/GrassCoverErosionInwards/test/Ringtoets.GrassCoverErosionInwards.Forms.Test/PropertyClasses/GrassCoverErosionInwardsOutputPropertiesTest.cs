@@ -142,7 +142,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             string dikeHeightConvergenceValue = new EnumDisplayWrapper<CalculationConvergence>(dikeHeightConvergence).DisplayName;
             Assert.AreEqual(dikeHeightConvergenceValue, properties.DikeHeightConvergence);
 
-            Assert.AreEqual(2, properties.OvertoppingRate.NumberOfDecimalPlaces);
+            Assert.AreEqual(5, properties.OvertoppingRate.NumberOfDecimalPlaces);
             Assert.AreEqual(overtoppingRate, properties.OvertoppingRate, properties.OvertoppingRate.GetAccuracy());
             Assert.AreEqual(overtoppingRateTargetProbability, properties.OvertoppingRateTargetProbability);
             Assert.IsTrue(TypeUtils.HasTypeConverter<GrassCoverErosionInwardsOutputProperties,

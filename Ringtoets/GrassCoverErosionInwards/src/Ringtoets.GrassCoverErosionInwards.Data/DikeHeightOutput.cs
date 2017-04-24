@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Hydraulics;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data
@@ -42,7 +43,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// or <paramref name="calculatedProbability"/> falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
         public DikeHeightOutput(double dikeHeight, double targetProbability, double targetReliability,
                                 double calculatedProbability, double calculatedReliability, CalculationConvergence calculationConvergence)
-            : base(dikeHeight, targetProbability, targetReliability, calculatedProbability,
-                   calculatedReliability, calculationConvergence) {}
+            : base(targetProbability, targetReliability, calculatedProbability,
+                   calculatedReliability, calculationConvergence)
+        {
+            DikeHeight = new RoundedDouble(2, dikeHeight);
+        }
+
+        /// <summary>
+        /// Gets the calculated dike height.
+        /// </summary>
+        public RoundedDouble DikeHeight { get; private set; }
     }
 }

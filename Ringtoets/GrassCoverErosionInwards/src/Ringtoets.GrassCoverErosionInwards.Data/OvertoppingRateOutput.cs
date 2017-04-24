@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Hydraulics;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data
@@ -41,8 +42,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="targetProbability"/> 
         /// or <paramref name="calculatedProbability"/> falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
         public OvertoppingRateOutput(double overtoppingRate, double targetProbability, double targetReliability,
-                                double calculatedProbability, double calculatedReliability, CalculationConvergence calculationConvergence)
-            : base(overtoppingRate, targetProbability, targetReliability, calculatedProbability,
-                   calculatedReliability, calculationConvergence) {}
+                                     double calculatedProbability, double calculatedReliability, CalculationConvergence calculationConvergence)
+            : base(targetProbability, targetReliability, calculatedProbability,
+                   calculatedReliability, calculationConvergence)
+        {
+            OvertoppingRate = new RoundedDouble(5, overtoppingRate);
+        }
+
+        /// <summary>
+        /// Gets the calculated overtopping rate.
+        /// </summary>
+        public RoundedDouble OvertoppingRate { get; private set; }
     }
 }

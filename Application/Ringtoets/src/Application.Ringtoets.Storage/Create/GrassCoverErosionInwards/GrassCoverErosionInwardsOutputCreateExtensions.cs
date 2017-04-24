@@ -58,7 +58,7 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
         }
 
         private static void AddEntityForDikeHeightOutput(GrassCoverErosionInwardsOutputEntity entity,
-                                                         HydraulicLoadsOutput output)
+                                                         DikeHeightOutput output)
         {
             if (output != null)
             {
@@ -67,7 +67,7 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
         }
 
         private static void AddEntityForOvertoppingRateOutput(GrassCoverErosionInwardsOutputEntity entity,
-                                                              HydraulicLoadsOutput output)
+                                                              OvertoppingRateOutput output)
         {
             if (output != null)
             {

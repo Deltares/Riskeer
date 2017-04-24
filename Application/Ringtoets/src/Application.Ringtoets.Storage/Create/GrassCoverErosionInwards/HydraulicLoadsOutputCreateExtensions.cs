@@ -34,13 +34,13 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
     {
         /// <summary>
         /// Creates a <see cref="GrassCoverErosionInwardsDikeHeightOutputEntity"/>
-        /// based on the information of the <see cref="HydraulicLoadsOutput"/>.
+        /// based on the information of the <see cref="DikeHeightOutput"/>.
         /// </summary>
         /// <param name="output">The output to create a database entity for.</param>
         /// <returns>A new <see cref="GrassCoverErosionInwardsDikeHeightOutputEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/>
         /// is <c>null</c>.</exception>
-        internal static GrassCoverErosionInwardsDikeHeightOutputEntity CreateDikeHeight(this HydraulicLoadsOutput output)
+        internal static GrassCoverErosionInwardsDikeHeightOutputEntity CreateDikeHeight(this DikeHeightOutput output)
         {
             if (output == null)
             {
@@ -49,9 +49,9 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
 
             return new GrassCoverErosionInwardsDikeHeightOutputEntity
             {
-                DikeHeight = double.IsNaN(output.Result)
+                DikeHeight = double.IsNaN(output.DikeHeight)
                                  ? (double?) null
-                                 : output.Result,
+                                 : output.DikeHeight,
                 TargetProbability = double.IsNaN(output.TargetProbability)
                                         ? (double?) null
                                         : output.TargetProbability,
@@ -70,13 +70,13 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
 
         /// <summary>
         /// Creates a <see cref="GrassCoverErosionInwardsOvertoppingRateOutputEntity"/>
-        /// based on the information of the <see cref="HydraulicLoadsOutput"/>.
+        /// based on the information of the <see cref="OvertoppingRateOutput"/>.
         /// </summary>
         /// <param name="output">The output to create a database entity for.</param>
         /// <returns>A new <see cref="GrassCoverErosionInwardsOvertoppingRateOutputEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/>
         /// is <c>null</c>.</exception>
-        internal static GrassCoverErosionInwardsOvertoppingRateOutputEntity CreateOvertoppingRate(this HydraulicLoadsOutput output)
+        internal static GrassCoverErosionInwardsOvertoppingRateOutputEntity CreateOvertoppingRate(this OvertoppingRateOutput output)
         {
             if (output == null)
             {
@@ -85,9 +85,9 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
 
             return new GrassCoverErosionInwardsOvertoppingRateOutputEntity
             {
-                OvertoppingRate = double.IsNaN(output.Result)
+                OvertoppingRate = double.IsNaN(output.OvertoppingRate)
                                       ? (double?) null
-                                      : output.Result,
+                                      : output.OvertoppingRate,
                 TargetProbability = double.IsNaN(output.TargetProbability)
                                         ? (double?) null
                                         : output.TargetProbability,

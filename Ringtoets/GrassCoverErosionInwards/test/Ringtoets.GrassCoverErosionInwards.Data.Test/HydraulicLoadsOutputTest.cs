@@ -38,14 +38,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             var random = new Random(32);
-            double result = random.NextDouble();
             double targetReliability = random.NextDouble();
             double calculatedProbability = random.NextDouble();
             double calculatedReliability = random.NextDouble();
             var convergence = random.NextEnumValue<CalculationConvergence>();
 
             // Call
-            TestDelegate call = () => new TestHydraulicLoadsOutput(result, targetProbability,
+            TestDelegate call = () => new TestHydraulicLoadsOutput(targetProbability,
                                                                    targetReliability,
                                                                    calculatedProbability,
                                                                    calculatedReliability,
@@ -65,14 +64,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             var random = new Random(32);
-            double result = random.NextDouble();
             double targetProbability = random.NextDouble();
             double targetReliability = random.NextDouble();
             double calculatedReliability = random.NextDouble();
             var convergence = random.NextEnumValue<CalculationConvergence>();
 
             // Call
-            TestDelegate call = () => new TestHydraulicLoadsOutput(result, targetProbability,
+            TestDelegate call = () => new TestHydraulicLoadsOutput(targetProbability,
                                                                    targetReliability,
                                                                    calculatedProbability,
                                                                    calculatedReliability,
@@ -91,20 +89,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             var random = new Random(32);
-            double result = random.NextDouble();
             double targetReliability = random.NextDouble();
             double calculatedReliability = random.NextDouble();
             var convergence = random.NextEnumValue<CalculationConvergence>();
 
             // Call
-            var output = new TestHydraulicLoadsOutput(result, targetProbability,
+            var output = new TestHydraulicLoadsOutput(targetProbability,
                                                       targetReliability,
                                                       calculatedProbability,
                                                       calculatedReliability,
                                                       convergence);
 
             // Assert
-            Assert.AreEqual(result, output.Result, output.Result.GetAccuracy());
             Assert.AreEqual(targetProbability, output.TargetProbability);
             Assert.AreEqual(targetReliability, output.TargetReliability, output.TargetReliability.GetAccuracy());
             Assert.AreEqual(calculatedProbability, output.CalculatedProbability);
@@ -114,9 +110,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
         private class TestHydraulicLoadsOutput : HydraulicLoadsOutput
         {
-            public TestHydraulicLoadsOutput(double result, double targetProbability, double targetReliability,
+            public TestHydraulicLoadsOutput(double targetProbability, double targetReliability,
                                             double calculatedProbability, double calculatedReliability, CalculationConvergence calculationConvergence)
-                : base(result, targetProbability, targetReliability, calculatedProbability,
+                : base(targetProbability, targetReliability, calculatedProbability,
                        calculatedReliability, calculationConvergence) {}
         }
     }

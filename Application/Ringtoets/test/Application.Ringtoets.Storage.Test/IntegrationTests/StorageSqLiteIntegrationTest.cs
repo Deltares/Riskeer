@@ -1565,8 +1565,24 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedOutput.WaveHeight, actualOutput.WaveHeight);
             Assert.AreEqual(expectedOutput.IsOvertoppingDominant, actualOutput.IsOvertoppingDominant);
             AssertProbabilityAssessmentOutput(expectedOutput.ProbabilityAssessmentOutput, actualOutput.ProbabilityAssessmentOutput);
-            AssertHydraulicLoadsOutput(expectedOutput.DikeHeightOutput, actualOutput.DikeHeightOutput);
-            AssertHydraulicLoadsOutput(expectedOutput.OvertoppingRateOutput, actualOutput.OvertoppingRateOutput);
+            AssertDikeHeightOutput(expectedOutput.DikeHeightOutput, actualOutput.DikeHeightOutput);
+            AssertOvertoppingRateOutput(expectedOutput.OvertoppingRateOutput, actualOutput.OvertoppingRateOutput);
+        }
+
+        private static void AssertDikeHeightOutput(DikeHeightOutput expectedOutput,
+                                                   DikeHeightOutput actualOutput)
+        {
+            AssertHydraulicLoadsOutput(expectedOutput, actualOutput);
+
+            Assert.AreEqual(expectedOutput.DikeHeight, actualOutput.DikeHeight);
+        }
+
+        private static void AssertOvertoppingRateOutput(OvertoppingRateOutput expectedOutput,
+                                                        OvertoppingRateOutput actualOutput)
+        {
+            AssertHydraulicLoadsOutput(expectedOutput, actualOutput);
+
+            Assert.AreEqual(expectedOutput.OvertoppingRate, actualOutput.OvertoppingRate);
         }
 
         private static void AssertHydraulicLoadsOutput(HydraulicLoadsOutput expectedOutput,
@@ -1577,7 +1593,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 Assert.IsNull(actualOutput);
                 return;
             }
-            Assert.AreEqual(expectedOutput.Result, actualOutput.Result);
+
             Assert.AreEqual(expectedOutput.TargetProbability, actualOutput.TargetProbability);
             Assert.AreEqual(expectedOutput.TargetReliability, actualOutput.TargetReliability);
             Assert.AreEqual(expectedOutput.CalculatedProbability, actualOutput.CalculatedProbability);

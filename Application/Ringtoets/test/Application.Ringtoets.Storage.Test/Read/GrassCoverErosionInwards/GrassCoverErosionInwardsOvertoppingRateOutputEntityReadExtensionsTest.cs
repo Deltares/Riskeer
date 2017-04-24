@@ -69,10 +69,10 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             };
 
             // Call
-            HydraulicLoadsOutput output = entity.Read();
+            OvertoppingRateOutput output = entity.Read();
 
             // Assert
-            Assert.AreEqual(overtoppingRate, output.Result, output.Result.GetAccuracy());
+            Assert.AreEqual(overtoppingRate, output.OvertoppingRate, output.OvertoppingRate.GetAccuracy());
             Assert.AreEqual(targetProbability, output.TargetProbability);
             Assert.AreEqual(targetReliability, output.TargetReliability, output.TargetReliability.GetAccuracy());
             Assert.AreEqual(calculatedProbability, output.CalculatedProbability);
@@ -92,10 +92,10 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             };
 
             // Call
-            HydraulicLoadsOutput output = entity.Read();
+            OvertoppingRateOutput output = entity.Read();
 
             // Assert
-            Assert.IsNaN(output.Result);
+            Assert.IsNaN(output.OvertoppingRate);
             Assert.IsNaN(output.TargetProbability);
             Assert.IsNaN(output.TargetReliability);
             Assert.IsNaN(output.CalculatedProbability);

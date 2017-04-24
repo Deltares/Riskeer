@@ -52,7 +52,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             // Assert
             Assert.IsInstanceOf<HydraulicLoadsOutput>(output);
-            Assert.AreEqual(dikeHeight, output.Result, output.Result.GetAccuracy());
+            Assert.AreEqual(dikeHeight, output.DikeHeight, output.DikeHeight.GetAccuracy());
             Assert.AreEqual(targetProbability, output.TargetProbability);
             Assert.AreEqual(targetReliability, output.TargetReliability, output.TargetReliability.GetAccuracy());
             Assert.AreEqual(calculatedProbability, output.CalculatedProbability);
