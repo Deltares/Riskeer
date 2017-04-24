@@ -1382,8 +1382,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.IO.TestUti
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Integration.TestUtils.Test", "Ringtoets\Integration\test\Ringtoets.Integration.TestUtils.Test\Ringtoets.Integration.TestUtils.Test.csproj", "{EA3E979C-FB00-443B-B6A0-273254F24802}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Integration.TestUtils.Test", "Ringtoets\Piping\test\Ringtoets.Piping.Integration.TestUtils.Test\Ringtoets.Piping.Integration.TestUtils.Test.csproj", "{070DC87D-520B-4A84-8965-ED5012875FCC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.IO.TestUtil.Test", "Ringtoets\Piping\test\Ringtoets.Piping.IO.TestUtil.Test\Ringtoets.Piping.IO.TestUtil.Test.csproj", "{000F1F5A-B5BC-4169-8393-15AD87A9E0CE}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -1456,6 +1462,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Gis.Forms.T
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Ringtoets.Migration", "Application\Ringtoets\src\Application.Ringtoets.Migration\Application.Ringtoets.Migration.csproj", "{AC4F7F48-F674-4E32-AB35-9C726605F684}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Ringtoets.Migration.Test", "Application\Ringtoets\test\Application.Ringtoets.Migration.Test\Application.Ringtoets.Migration.Test.csproj", "{408F6A6B-7BF7-4F59-A5D4-893A777921D3}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -1478,6 +1487,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Common.IO.TestUti
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Common.IO.TestUtil.Test", "Ringtoets\Common\test\Ringtoets.Common.IO.TestUtil.Test\Ringtoets.Common.IO.TestUtil.Test.csproj", "{516E7E2A-83F6-43EB-895A-A1F4F90FA531}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
