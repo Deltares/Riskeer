@@ -31,9 +31,9 @@ namespace Application.Ringtoets.Migration.Core
         /// <summary>
         /// Creates a new instance of <see cref="MigrationLogMessage"/>.
         /// </summary>
-        /// <param name="fromVersion">The version upgraded from.</param>
-        /// <param name="toVersion">The version upgraded to.</param>
-        /// <param name="message">The message during the upgrade.</param>
+        /// <param name="fromVersion">The version migrated from.</param>
+        /// <param name="toVersion">The version migrated to.</param>
+        /// <param name="message">The message during the migration.</param>
         /// <exception cref="ArgumentException">Throws when any of the input parameters is 
         /// <c>null</c> or empty.</exception>
         public MigrationLogMessage(string fromVersion, string toVersion, string message)
@@ -60,12 +60,12 @@ namespace Application.Ringtoets.Migration.Core
         }
 
         /// <summary>
-        /// Gets the version that was upgraded from.
+        /// Gets the version that was migrated from.
         /// </summary>
         public string FromVersion { get; }
 
         /// <summary>
-        /// Gets the version that was upgraded to.
+        /// Gets the version that was migrated to.
         /// </summary>
         public string ToVersion { get; }
 

@@ -28,22 +28,22 @@ namespace Application.Ringtoets.Migration.Core
     internal static class MigrationLogEntityTableDefinitions
     {
         /// <summary>
-        /// Gets the name of the table.
+        /// The name of the table.
         /// </summary>
         internal const string TableName = "MigrationLogEntity";
 
         /// <summary>
-        /// Gets the name of the 'migrated from version' column.
+        /// The name of the 'migrated from version' column.
         /// </summary>
         internal const string FromVersion = "FromVersion";
 
         /// <summary>
-        /// Gets the name of the 'migrated to version' column.
+        /// The name of the 'migrated to version' column.
         /// </summary>
         internal const string ToVersion = "ToVersion";
 
         /// <summary>
-        /// Gets the name of the 'message during migration' column.
+        /// The name of the 'message during migration' column.
         /// </summary>
         internal const string LogMessage = "LogMessage";
     }

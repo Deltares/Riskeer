@@ -36,7 +36,7 @@ namespace Application.Ringtoets.Migration.Core
     public class MigrationLogDatabaseReader : SqLiteDatabaseReaderBase
     {
         /// <summary>
-        /// Creates a new instance of <see cref="MigrationLogDatabaseReader"/> which will use the 
+        /// Creates a new instance of <see cref="MigrationLogDatabaseReader"/> that will use the 
         /// <paramref name="databaseFilePath"/> as its source.
         /// </summary>
         /// <param name="databaseFilePath">The path of the database file to open.</param>
@@ -77,25 +77,15 @@ namespace Application.Ringtoets.Migration.Core
             }
         }
 
-        private bool HasNext { get; set; }
-
-        private void ReadNext(IDataReader dataReader)
-        {
-            HasNext = MoveNext(dataReader);
-        }
-
-        private List<MigrationLogMessage> ReadMigrationLogMessages(IDataReader dataReader)
+        private static List<MigrationLogMessage> ReadMigrationLogMessages(IDataReader dataReader)
         {
             var messages = new List<MigrationLogMessage>();
 
-            ReadNext(dataReader);
-            while (HasNext)
+            while (dataReader.Read())
             {
                 string fromVersion = ReadStringOrNull(dataReader, MigrationLogEntityTableDefinitions.FromVersion);
                 string toVersion = ReadStringOrNull(dataReader, MigrationLogEntityTableDefinitions.ToVersion);
                 string message = ReadStringOrNull(dataReader, MigrationLogEntityTableDefinitions.LogMessage);
-
-                ReadNext(dataReader);
 
                 if (string.IsNullOrEmpty(fromVersion) || string.IsNullOrEmpty(toVersion) || string.IsNullOrEmpty(message))
                 {

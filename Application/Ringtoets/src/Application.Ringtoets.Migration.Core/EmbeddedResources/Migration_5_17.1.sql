@@ -298,17 +298,17 @@ CREATE TEMP TABLE log_output_deleted (
 	'NrDeleted' INTEGER NOT NULL
 );
 
-INSERT INTO log_output_deleted SELECT COUNT('x') FROM [SOURCEPROJECT].ClosingStructuresOutputEntity;
-INSERT INTO log_output_deleted SELECT COUNT('x') FROM [SOURCEPROJECT].GrassCoverErosionInwardsDikeHeightOutputEntity;
-INSERT INTO log_output_deleted SELECT COUNT('x') FROM [SOURCEPROJECT].GrassCoverErosionInwardsOutputEntity;
-INSERT INTO log_output_deleted SELECT COUNT('x') FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationOutputEntity;
-INSERT INTO log_output_deleted SELECT COUNT('x') FROM [SOURCEPROJECT].HeightStructuresOutputEntity;
-INSERT INTO log_output_deleted SELECT COUNT('x') FROM [SOURCEPROJECT].HydraulicLocationOutputEntity;
-INSERT INTO log_output_deleted SELECT COUNT('x') FROM [SOURCEPROJECT].PipingCalculationOutputEntity;
-INSERT INTO log_output_deleted SELECT COUNT('x') FROM [SOURCEPROJECT].PipingSemiProbabilisticOutputEntity;
-INSERT INTO log_output_deleted SELECT COUNT('x') FROM [SOURCEPROJECT].StabilityPointStructuresOutputEntity;
-INSERT INTO log_output_deleted SELECT COUNT('x') FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsOutputEntity;
-INSERT INTO log_output_deleted SELECT COUNT('x') FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsOutputEntity;
+INSERT INTO log_output_deleted SELECT COUNT() FROM [SOURCEPROJECT].ClosingStructuresOutputEntity;
+INSERT INTO log_output_deleted SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionInwardsDikeHeightOutputEntity;
+INSERT INTO log_output_deleted SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionInwardsOutputEntity;
+INSERT INTO log_output_deleted SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationOutputEntity;
+INSERT INTO log_output_deleted SELECT COUNT() FROM [SOURCEPROJECT].HeightStructuresOutputEntity;
+INSERT INTO log_output_deleted SELECT COUNT() FROM [SOURCEPROJECT].HydraulicLocationOutputEntity;
+INSERT INTO log_output_deleted SELECT COUNT() FROM [SOURCEPROJECT].PipingCalculationOutputEntity;
+INSERT INTO log_output_deleted SELECT COUNT() FROM [SOURCEPROJECT].PipingSemiProbabilisticOutputEntity;
+INSERT INTO log_output_deleted SELECT COUNT() FROM [SOURCEPROJECT].StabilityPointStructuresOutputEntity;
+INSERT INTO log_output_deleted SELECT COUNT() FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsOutputEntity;
+INSERT INTO log_output_deleted SELECT COUNT() FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsOutputEntity;
 
 CREATE TABLE  IF NOT EXISTS [LOGDATABASE].'MigrationLogEntity' 
 (

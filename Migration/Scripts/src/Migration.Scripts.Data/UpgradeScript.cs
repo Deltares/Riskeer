@@ -30,8 +30,8 @@ namespace Migration.Scripts.Data
     /// </summary>
     public abstract class UpgradeScript
     {
-        protected readonly string fromVersion;
-        protected readonly string toVersion;
+        private readonly string fromVersion;
+        private readonly string toVersion;
 
         /// <summary>
         /// Creates a new instance of the <see cref="UpgradeScript"/> class.
