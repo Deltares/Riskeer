@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!--
 Copyright (C) Stichting Deltares 2016. All rights reserved.
 
@@ -22,7 +21,6 @@ All names, logos, and references to "Deltares" are registered trademarks of
 Stichting Deltares and remain full property of Stichting Deltares at all times.
 All rights reserved.
 -->
-
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
   <!--Algemene structuur met configuratie, mappen en berekeningen.-->
