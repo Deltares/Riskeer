@@ -22,8 +22,8 @@
 using System;
 using System.DirectoryServices.AccountManagement;
 using System.Linq;
-using Core.Common.Gui.Settings;
 using Core.Common.TestUtil;
+using Core.Common.Utils.Settings;
 using NUnit.Framework;
 using Ringtoets.Integration.Forms;
 

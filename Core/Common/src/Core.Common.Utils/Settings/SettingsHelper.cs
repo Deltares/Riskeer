@@ -25,7 +25,7 @@ using System.IO;
 using System.Linq;
 using Core.Common.Utils.Reflection;
 
-namespace Core.Common.Gui.Settings
+namespace Core.Common.Utils.Settings
 {
     /// <summary>
     /// Class that defines helper methods related to user settings.

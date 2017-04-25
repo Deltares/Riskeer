@@ -44,6 +44,7 @@ using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Properties;
 using Core.Common.Gui.Settings;
 using Core.Common.Utils.Extensions;
+using Core.Common.Utils.Settings;
 using log4net;
 using log4net.Appender;
 using log4net.Repository.Hierarchy;

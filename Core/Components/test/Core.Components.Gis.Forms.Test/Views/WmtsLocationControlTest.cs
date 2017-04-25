@@ -28,9 +28,9 @@ using System.Windows.Forms;
 using BruTile;
 using BruTile.Wmts;
 using Core.Common.Controls.DataGrid;
-using Core.Common.Gui.Settings;
-using Core.Common.Gui.TestUtil.Settings;
 using Core.Common.TestUtil;
+using Core.Common.Utils.Settings;
+using Core.Common.Utils.TestUtil.Settings;
 using Core.Components.BruTile.Configurations;
 using Core.Components.BruTile.TestUtil;
 using Core.Components.Gis.Data;
@@ -453,7 +453,7 @@ namespace Core.Components.Gis.Forms.Test.Views
 
             DialogBoxHandler = (formName, wnd) =>
             {
-                using (new FormTester(formName)) {}
+                using (new FormTester(formName)) { }
             };
 
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
@@ -653,7 +653,7 @@ namespace Core.Components.Gis.Forms.Test.Views
 
             DialogBoxHandler = (formName, wnd) =>
             {
-                using (new FormTester(formName)) {}
+                using (new FormTester(formName)) { }
             };
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
@@ -830,7 +830,8 @@ namespace Core.Components.Gis.Forms.Test.Views
             WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
             WmtsMapData selectedBackgroundMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
 
-            wmtsCapabilityFactory.Expect(wcf => wcf.GetWmtsCapabilities(null)).IgnoreArguments()
+            wmtsCapabilityFactory.Expect(wcf => wcf.GetWmtsCapabilities(null))
+                                 .IgnoreArguments()
                                  .Return(new[]
                                  {
                                      CreateWmtsCapability(new TestWmtsTileSource(backgroundMapData)),

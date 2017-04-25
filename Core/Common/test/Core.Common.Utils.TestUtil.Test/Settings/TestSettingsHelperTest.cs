@@ -20,12 +20,12 @@
 // All rights reserved.
 
 using System.IO;
-using Core.Common.Gui.Settings;
-using Core.Common.Gui.TestUtil.Settings;
 using Core.Common.TestUtil;
+using Core.Common.Utils.Settings;
+using Core.Common.Utils.TestUtil.Settings;
 using NUnit.Framework;
 
-namespace Core.Common.Gui.TestUtil.Test.Settings
+namespace Core.Common.Utils.TestUtil.Test.Settings
 {
     [TestFixture]
     public class TestSettingsHelperTest

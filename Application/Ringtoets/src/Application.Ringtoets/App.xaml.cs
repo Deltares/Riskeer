@@ -40,6 +40,7 @@ using Core.Common.Gui.Appenders;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Settings;
 using Core.Common.Utils;
+using Core.Common.Utils.Settings;
 using Core.Plugins.Chart;
 using Core.Plugins.CommonTools;
 using Core.Plugins.Map;
@@ -74,6 +75,7 @@ namespace Application.Ringtoets
     {
         // Start application after this process will exit (used during restart)
         private const string argumentWaitForProcess = "--wait-for-process=";
+
         private const int numberOfDaysToKeepLogFiles = 30;
 
         private static readonly ILog log = LogManager.GetLogger(typeof(App));
@@ -174,7 +176,8 @@ namespace Application.Ringtoets
                     new ChartPlugin(),
                     new MapPlugin()
 #if INCLUDE_DEMOPROJECT
-                    , new DemoProjectPlugin()
+                    ,
+                    new DemoProjectPlugin()
 #endif
                 }
             };
@@ -194,7 +197,7 @@ namespace Application.Ringtoets
                     fileToOpen = potentialPath;
                     return true;
                 }
-                catch (ArgumentException) {}
+                catch (ArgumentException) { }
             }
             return false;
         }
@@ -288,7 +291,7 @@ namespace Application.Ringtoets
                                                  applicationName);
                 singleInstanceMutex = new Mutex(true, mutexName, out createdNew);
             }
-            catch (AbandonedMutexException) {} //might throw an abandoned mutex exception if the previous DS instance forcefully exited.
+            catch (AbandonedMutexException) { } //might throw an abandoned mutex exception if the previous DS instance forcefully exited.
             return createdNew;
         }
 

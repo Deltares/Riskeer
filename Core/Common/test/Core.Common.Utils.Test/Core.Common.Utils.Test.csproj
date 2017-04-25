@@ -110,6 +110,7 @@
     <Compile Include="ReferenceEqualityComparerTest.cs" />
     <Compile Include="Reflection\AssemblyUtilsTest.cs" />
     <Compile Include="Reflection\TypeUtilsTest.cs" />
+    <Compile Include="Settings\SettingsHelperTest.cs" />
     <Compile Include="StatisticsConverterTest.cs" />
   </ItemGroup>
   <ItemGroup>

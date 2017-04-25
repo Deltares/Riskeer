@@ -21,11 +21,11 @@
 
 using System;
 using System.IO;
-using Core.Common.Gui.Settings;
 using Core.Common.Utils.Reflection;
+using Core.Common.Utils.Settings;
 using NUnit.Framework;
 
-namespace Core.Common.Gui.Test.Settings
+namespace Core.Common.Utils.Test.Settings
 {
     [TestFixture]
     public class SettingsHelperTest

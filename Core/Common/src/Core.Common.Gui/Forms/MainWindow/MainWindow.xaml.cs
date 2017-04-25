@@ -35,8 +35,8 @@ using Core.Common.Gui.Forms.MessageWindow;
 using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Selection;
 using Core.Common.Gui.Settings;
+using Core.Common.Utils.Settings;
 using Fluent;
-using WindowsFormApplication = System.Windows.Forms.Application;
 
 namespace Core.Common.Gui.Forms.MainWindow
 {

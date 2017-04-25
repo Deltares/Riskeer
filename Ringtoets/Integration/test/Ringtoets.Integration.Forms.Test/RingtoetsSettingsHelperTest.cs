@@ -21,7 +21,7 @@
 
 using System;
 using System.IO;
-using Core.Common.Gui.Settings;
+using Core.Common.Utils.Settings;
 using NUnit.Framework;
 
 namespace Ringtoets.Integration.Forms.Test

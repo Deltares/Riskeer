@@ -31,8 +31,8 @@ using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.TestUtil.ContextMenu;
-using Core.Common.Gui.TestUtil.Settings;
 using Core.Common.TestUtil;
+using Core.Common.Utils.TestUtil.Settings;
 using Core.Components.BruTile.Configurations;
 using Core.Components.BruTile.TestUtil;
 using Core.Components.Gis.Data;
@@ -277,10 +277,12 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var newMapData = new WmtsMapData("Actueel Hoogtebestand Nederland (AHN1)",
                                              "https://geodata.nationaalgeoregister.nl/tiles/service/wmts/ahn1?request=GetCapabilities",
                                              "()", "image/png");
-            tileFactory.Expect(tf => tf.GetWmtsTileSources(null)).IgnoreArguments().Return(new[]
-            {
-                new TestWmtsTileSource(newMapData)
-            });
+            tileFactory.Expect(tf => tf.GetWmtsTileSources(null))
+                       .IgnoreArguments()
+                       .Return(new[]
+                       {
+                           new TestWmtsTileSource(newMapData)
+                       });
 
             var backgroundDataObserver = mockRepository.StrictMock<IObserver>();
             backgroundDataObserver.Expect(o => o.UpdateObserver());

@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Gui.Settings;
+using Core.Common.Utils.Settings;
 
-namespace Core.Common.Gui.TestUtil.Settings
+namespace Core.Common.Utils.TestUtil.Settings
 {
     /// <summary>
     /// Configures <see cref="SettingsHelper.Instance"/> to temporarily use a different

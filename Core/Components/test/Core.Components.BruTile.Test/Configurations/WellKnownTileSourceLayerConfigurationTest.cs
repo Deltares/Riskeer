@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Gui.TestUtil.Settings;
 using Core.Common.TestUtil;
+using Core.Common.Utils.TestUtil.Settings;
 using Core.Components.BruTile.Configurations;
 using Core.Components.BruTile.IO;
 using Core.Components.BruTile.TestUtil;

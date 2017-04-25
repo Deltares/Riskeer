@@ -22,10 +22,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Core.Common.Gui.Settings;
 using Core.Common.TestUtil;
+using Core.Common.Utils.Settings;
 
-namespace Core.Common.Gui.TestUtil.Settings
+namespace Core.Common.Utils.TestUtil.Settings
 {
     /// <summary>
     /// A <see cref="TestSettingsHelper"/> implementation suitable for unit testing purposes.

@@ -24,8 +24,8 @@ using System.Linq;
 using System.Security.AccessControl;
 using BruTile;
 using BruTile.Web;
-using Core.Common.Gui.TestUtil.Settings;
 using Core.Common.TestUtil;
+using Core.Common.Utils.TestUtil.Settings;
 using Core.Components.BruTile.Configurations;
 using Core.Components.BruTile.TestUtil;
 using Core.Components.Gis.Data;
@@ -125,10 +125,11 @@ namespace Core.Components.BruTile.Test.Configurations
 
             var mocks = new MockRepository();
             var factory = mocks.Stub<ITileSourceFactory>();
-            factory.Stub(f => f.GetWmtsTileSources(targetMapData.SourceCapabilitiesUrl)).Return(new[]
-            {
-                tileSource
-            });
+            factory.Stub(f => f.GetWmtsTileSources(targetMapData.SourceCapabilitiesUrl))
+                   .Return(new[]
+                   {
+                       tileSource
+                   });
             mocks.ReplayAll();
 
             using (new UseCustomSettingsHelper(testSettingsHelper))

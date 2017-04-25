@@ -172,9 +172,7 @@
     <Compile Include="SaveProjectActivity.cs" />
     <Compile Include="Selection\IApplicationSelection.cs" />
     <Compile Include="Settings\GuiCoreSettings.cs" />
-    <Compile Include="Settings\ISettingsHelper.cs" />
     <Compile Include="Settings\ISettingsOwner.cs" />
-    <Compile Include="Settings\SettingsHelper.cs" />
     <Compile Include="ContextMenu\ContextMenuBuilderException.cs" />
     <Compile Include="ContextMenu\IContextMenuBuilder.cs" />
     <Compile Include="Forms\ProgressDialog\ActivityProgressDialogRunner.cs" />

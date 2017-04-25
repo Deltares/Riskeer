@@ -140,7 +140,6 @@
     <Compile Include="GuiCoreTest.cs" />
     <Compile Include="PropertyBag\ReadOnlyPropertyDescriptorDecoratorTest.cs" />
     <Compile Include="SaveProjectActivityTest.cs" />
-    <Compile Include="Settings\SettingsHelperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UITypeEditors\SelectionEditorTest.cs" />
     <Compile Include="ViewPropertyEditorTest.cs" />
@@ -188,6 +187,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\abacus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Settings\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

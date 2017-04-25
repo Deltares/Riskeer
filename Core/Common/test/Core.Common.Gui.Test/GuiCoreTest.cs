@@ -40,6 +40,7 @@ using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Settings;
 using Core.Common.TestUtil;
+using Core.Common.Utils.Settings;
 using log4net;
 using log4net.Appender;
 using log4net.Repository.Hierarchy;
@@ -182,7 +183,7 @@ namespace Core.Common.Gui.Test
                 // Call
                 TestDelegate call = () =>
                 {
-                    using (new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, guiCoreSettings)) {}
+                    using (new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, guiCoreSettings)) { }
                 };
 
                 // Assert
@@ -953,17 +954,19 @@ namespace Core.Common.Gui.Test
             var projectMigrator = mocks.Stub<IMigrateProject>();
 
             var plugin1 = mocks.StrictMock<PluginBase>();
-            plugin1.Expect(p => p.GetChildDataWithViewDefinitions(rootData)).Return(new[]
-            {
-                rootData
-            });
+            plugin1.Expect(p => p.GetChildDataWithViewDefinitions(rootData))
+                   .Return(new[]
+                   {
+                       rootData
+                   });
             plugin1.Stub(p => p.Dispose());
             plugin1.Stub(p => p.Deactivate());
             var plugin2 = mocks.StrictMock<PluginBase>();
-            plugin2.Expect(p => p.GetChildDataWithViewDefinitions(rootData)).Return(new[]
-            {
-                rootData
-            });
+            plugin2.Expect(p => p.GetChildDataWithViewDefinitions(rootData))
+                   .Return(new[]
+                   {
+                       rootData
+                   });
             plugin2.Stub(p => p.Dispose());
             plugin2.Stub(p => p.Deactivate());
             IProjectFactory projectFactory = CreateProjectFactory(mocks);
@@ -999,27 +1002,31 @@ namespace Core.Common.Gui.Test
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var plugin1 = mocks.StrictMock<PluginBase>();
-            plugin1.Expect(p => p.GetChildDataWithViewDefinitions(rootData)).Return(new[]
-            {
-                rootData,
-                rootChild
-            });
-            plugin1.Expect(p => p.GetChildDataWithViewDefinitions(rootChild)).Return(new[]
-            {
-                rootChild
-            });
+            plugin1.Expect(p => p.GetChildDataWithViewDefinitions(rootData))
+                   .Return(new[]
+                   {
+                       rootData,
+                       rootChild
+                   });
+            plugin1.Expect(p => p.GetChildDataWithViewDefinitions(rootChild))
+                   .Return(new[]
+                   {
+                       rootChild
+                   });
             plugin1.Stub(p => p.Dispose());
             plugin1.Stub(p => p.Deactivate());
             var plugin2 = mocks.StrictMock<PluginBase>();
-            plugin2.Expect(p => p.GetChildDataWithViewDefinitions(rootData)).Return(new[]
-            {
-                rootChild,
-                rootData
-            });
-            plugin2.Expect(p => p.GetChildDataWithViewDefinitions(rootChild)).Return(new[]
-            {
-                rootChild
-            });
+            plugin2.Expect(p => p.GetChildDataWithViewDefinitions(rootData))
+                   .Return(new[]
+                   {
+                       rootChild,
+                       rootData
+                   });
+            plugin2.Expect(p => p.GetChildDataWithViewDefinitions(rootChild))
+                   .Return(new[]
+                   {
+                       rootChild
+                   });
             plugin2.Stub(p => p.Dispose());
             plugin2.Stub(p => p.Deactivate());
             IProjectFactory projectFactory = CreateProjectFactory(mocks);

@@ -99,6 +99,10 @@
       <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
       <Name>Core.Common.TestUtil</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\test\Core.Common.Utils.TestUtil\Core.Common.Utils.TestUtil.csproj">
+      <Project>{45193749-ECE8-40C4-8C4B-0C783AFFACB5}</Project>
+      <Name>Core.Common.Utils.TestUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Core.Components.BruTile\Core.Components.BruTile.csproj">
       <Project>{E02482C7-F12B-42F0-BB2B-C7EC17503A72}</Project>
       <Name>Core.Components.BruTile</Name>

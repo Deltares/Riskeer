@@ -21,7 +21,7 @@
 
 using System.IO;
 using Core.Common.Gui.Appenders;
-using Core.Common.Gui.Settings;
+using Core.Common.Utils.Settings;
 using log4net.Util;
 using NUnit.Framework;
 using Rhino.Mocks;

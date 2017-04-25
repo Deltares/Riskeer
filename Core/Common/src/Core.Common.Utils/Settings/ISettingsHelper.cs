@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Core.Common.Gui.Settings
+namespace Core.Common.Utils.Settings
 {
     /// <summary>
     /// Interface declaring the members of the object that holds settings.

@@ -19,12 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Gui.Settings;
-using Core.Common.Gui.TestUtil.Settings;
+using Core.Common.Utils.Settings;
+using Core.Common.Utils.TestUtil.Settings;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Common.Gui.TestUtil.Test.Settings
+namespace Core.Common.Utils.TestUtil.Test.Settings
 {
     [TestFixture]
     public class UseCustomSettingsHelperTest

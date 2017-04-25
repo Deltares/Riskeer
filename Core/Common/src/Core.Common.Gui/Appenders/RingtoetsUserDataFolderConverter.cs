@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System.IO;
-using Core.Common.Gui.Settings;
+using Core.Common.Utils.Settings;
 using log4net.Util;
 
 namespace Core.Common.Gui.Appenders

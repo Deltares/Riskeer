@@ -21,7 +21,7 @@
 
 using System.Collections.Generic;
 using System.IO;
-using Core.Common.Gui.Settings;
+using Core.Common.Utils.Settings;
 
 namespace Ringtoets.Integration.Forms
 {
@@ -44,7 +44,8 @@ namespace Ringtoets.Integration.Forms
         {
             var ringtoetsCommonDocumentsPath = new List<string>
             {
-                "WTI", "Ringtoets"
+                "WTI",
+                "Ringtoets"
             };
             ringtoetsCommonDocumentsPath.AddRange(subPath);
             return base.GetCommonDocumentsDirectory(ringtoetsCommonDocumentsPath.ToArray());
@@ -54,7 +55,8 @@ namespace Ringtoets.Integration.Forms
         {
             var ringtoetsApplicationPath = new List<string>
             {
-                "WTI", "Ringtoets"
+                "WTI",
+                "Ringtoets"
             };
             ringtoetsApplicationPath.AddRange(subPath);
             return base.GetApplicationLocalUserSettingsDirectory(ringtoetsApplicationPath.ToArray());
